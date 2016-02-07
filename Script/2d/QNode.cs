@@ -11,20 +11,28 @@ public class QNode : MonoBehaviour {
 	/// </summary>
 	/// <value>The trans.</value>
 
+	private Transform mCachedTrans;
+	private GameObject mCachedGameObj;
+
 	public Transform trans {
 		get {
-			return transform;
+			if (mCachedTrans == null) {
+				mCachedTrans = transform;
+			}
+			return mCachedTrans;
 		}
 	}
 
 	public GameObject gameObj {
 		get {
-			return gameObject;
+			if (mCachedGameObj == null) {
+				mCachedGameObj = gameObject;
+			}
+			return mCachedGameObj;
 		}
 	}
 
 	public QNode parent;	 				// 父节点 
-
 
 	public void setPosition(Vector3 vec3)
 	{
@@ -35,8 +43,7 @@ public class QNode : MonoBehaviour {
 	{
 		transform.localPosition = new Vector3 (x, y, transform.localPosition.z);
 	}
-
-
+		
 	public void addChild(QNode child)
 	{
 		child.parent = this;

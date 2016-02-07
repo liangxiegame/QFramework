@@ -204,7 +204,7 @@ public class ResMgr : QSingleton<ResMgr>
     }
 
     /// <summary>
-    /// 施法资源内部实现，只卸载不用资源
+    /// 释放法资源内部实现，只卸载不用资源
     /// </summary>
     public void Unload()
     {
