@@ -31,6 +31,7 @@ public class App : QMonoSingleton<App>
     {
 		yield return StartCoroutine (GameManager.Instance ().OnStart ());
 
+	
 //        Debug.LogWarning("Game Start : " + System.DateTime.Now);
 //        // 加载配置
 //        Setting.Load();

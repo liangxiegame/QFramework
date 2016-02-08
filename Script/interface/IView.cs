@@ -1,10 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-
+﻿using System;
 /// <summary>
 /// MVC View 视图接口
 /// </summary>
 public interface IView  {
+
+	/// <summary>
+	/// 设置View
+	/// </summary>
+//	void SetupView();
 
 	/// <summary>
 	/// 更新视图显示
@@ -15,5 +18,10 @@ public interface IView  {
 	/// 重置视图
 	/// </summary>
 //	void ResetView();
+
+	/// <summary>
+	/// 处理消息
+	/// </summary>
+//	void OnMessage(IMessage message);
 
 }
