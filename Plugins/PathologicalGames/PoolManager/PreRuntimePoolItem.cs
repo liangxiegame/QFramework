@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace PathologicalGames
+namespace QFramework
 {
     /// <description>
     /// Adds an instance which is already a part of a scene to a pool on game start

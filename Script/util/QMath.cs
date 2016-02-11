@@ -19,7 +19,7 @@ public class QMath {
 	/// Randoms 输入几个变量返回其中一个
 	/// </summary>
 	/// <returns>The with parameters.</returns>
-	public static int RandomWithParams(params int[] inputParams)
+	public static object RandomWithParams(params object[] inputParams)
 	{
 		return inputParams [Random.Range (0, inputParams.Length)];
 	}

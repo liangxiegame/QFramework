@@ -21,6 +21,9 @@ namespace QFramework {
 		public CSVItem[] itemsArray;
 		public Dictionary<string,CSVItem> itemsDict = new Dictionary<string,CSVItem>();
 
+
+
+
 		int rowCount;			// 行数
 		int colCount;			// 列数
 
@@ -90,7 +93,7 @@ namespace QFramework {
 	public class CSVItem {
 		public string Name { get; set;}
 		public int Index { get; set; }
-		public Dictionary<string,object> attribs = new Dictionary<string,object> ();
+
 		public string[] Values;
 
 		public CSVItem(string[] colsText)
@@ -123,21 +126,11 @@ namespace QFramework {
 	
 		// 表数据
 		Dictionary<string,CSVTable> mCachedTables = new Dictionary<string,CSVTable>();
-
-		/// <summary>
-		/// 读取数据
-		/// </summary>
-		public IEnumerator LoadData()
-		{
-			App.Instance ().StartCoroutine (LoadTable ("prop"));
-
-			yield return 0;
-		}
 			
 		/// <summary>
 		/// 读一张表
 		/// </summary>
-		IEnumerator LoadTable(string name)
+		public IEnumerator LoadTable(string name)
 		{
 			
 			TextAsset binAsset = Resources.Load(PATH + name, typeof(TextAsset)) as TextAsset;
@@ -147,12 +140,37 @@ namespace QFramework {
 		}
 
 		// 获取数据
-		public string GetData(string tableName,string propName,string AttribName)
+		public string GetData(string tableName,string itemName,string attribName)
 		{
 			var table = mCachedTables [tableName];
-			var item = table.itemsDict [propName];
+			var item = table.itemsDict [itemName];
 
-			return item.Values[table.attribs[AttribName]];
+			return item.Values[table.attribs[attribName]];
 		}
+
+		public string GetIntData(string tableName,string itemName,string attribName)
+		{
+			var table = mCachedTables [tableName];
+			var item = table.itemsDict [itemName];
+			return item.Values[table.attribs[attribName]];
+		}
+
+
+		public string GetIntData(string tableName,int id,string attribName)
+		{
+			return null;
+		}
+
+		public CSVTable GetTable(string tableName)
+		{
+			return null;
+		}
+
+		public CSVItem GetItem(string itemName)
+		{
+			return null;
+		}
+
+
 	}
 }

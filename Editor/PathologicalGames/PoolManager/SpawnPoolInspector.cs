@@ -11,7 +11,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
-using PathologicalGames;
+using QFramework;
 
 
 // Only compile if not using Unity iPhone
