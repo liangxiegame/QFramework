@@ -3,6 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 //using SLua;
 
+/// <summary>
+/// Application.dataPath：该路径指向我们Unity编辑器的Asset文件夹
+///Application.persistentDataPath：该路径指向iOS和Android的沙盒路径
+///Application.streamingAssetsPath：streamingAsset文件夹路径，在任何平台都可以通过这个路径读取到文件夹里的内容
+///Application.temporaryCachePath：临时数据文件路径
+/// </summary>
+/// 
 // 资源管理器，封装开发模式和发布模式
 //[CustomLuaClass]
 public class ResMgr : QSingleton<ResMgr>
