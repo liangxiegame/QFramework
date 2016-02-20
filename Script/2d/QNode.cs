@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace QFramework {
 /// <summary>
 /// 可以根据Futile的QNode来写
 /// </summary>
@@ -99,4 +100,5 @@ public class QNode : MonoBehaviour {
 	}
 
 
+}
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 //using SLua;
-
+using QFramework;
 /// <summary>
 /// Application.dataPath：该路径指向我们Unity编辑器的Asset文件夹
 ///Application.persistentDataPath：该路径指向iOS和Android的沙盒路径

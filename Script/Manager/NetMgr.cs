@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Collections.Generic;
 using System.IO;
+
+using QFramework;
 /// <summary>
 /// 网络消息库
 /// </summary>

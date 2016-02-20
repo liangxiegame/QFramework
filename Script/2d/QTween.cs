@@ -91,6 +91,23 @@ namespace QFramework {
 			scaleTween.PlayForward ();
 		}
 
+		/// <summary>
+		/// 旋转了
+		/// </summary>
+		public static void RotateBy(Transform trans,float duration,Vector3 dtRotation,bool ignoreTimeScale = false)
+		{
+			var rotateTween = trans.GetComponent<TweenRotation> ();
+			if (rotateTween == null) {
+				rotateTween = trans.gameObject.AddComponent<TweenRotation> ();
+			}
+				
+			rotateTween.from =   trans.localRotation.eulerAngles;
+			rotateTween.to = trans.localRotation.eulerAngles + dtRotation;
+			rotateTween.duration = duration;
+			rotateTween.ignoreTimeScale = ignoreTimeScale;
+			rotateTween.style = UITweener.Style.Once;
+			rotateTween.PlayForward ();
+		}
 
 		public static UITweener Blink(Transform trans,float duration,bool ignoreTimeScale = false)
 		{
@@ -161,6 +178,8 @@ namespace QFramework {
 				yield return 0;
 			}
 		}
+
+
 	}
 
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using QFramework;
 /// <summary>
 /// 控制台GUI输出类
 /// 包括FPS，内存使用情况，日志GUI输出

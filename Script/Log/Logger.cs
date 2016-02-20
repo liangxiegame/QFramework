@@ -4,7 +4,7 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 using System.Threading;
-
+using QFramework;
 /// <summary>
 /// 封装日志模块
 /// </summary>

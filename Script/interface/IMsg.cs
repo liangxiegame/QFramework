@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface IMessage {
+public interface IMsg {
 	string name { get; }
 	object Body { get; set; }
 

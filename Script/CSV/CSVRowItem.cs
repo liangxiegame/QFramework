@@ -10,6 +10,7 @@ public class CSVRowItem {
 
 	public string[] Values;
 
+
 	public CSVRowItem(string[] colsText)
 	{
 		Values = new string[colsText.Length];

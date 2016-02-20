@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 //using SLua;
-
+using QFramework;
 /// <summary>
 /// 场景管理器
 /// </summary>

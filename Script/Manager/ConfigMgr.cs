@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 //using SLua;
-
+using QFramework;
 //[CustomLuaClass]
 public class ConfigMgr : QSingleton<ConfigMgr>
 {

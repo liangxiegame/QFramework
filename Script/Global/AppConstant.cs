@@ -55,6 +55,7 @@ public class STAGE {
 	/// </summary>
 	public const int COM1_BEGIN = 100;
 	public const int COM2_BEGIN = 100;
+
 	public const int C1 = 100;	// Component1 
 	public const int C2 = 101;  // Component2
 	public const int C3 = 102;  // Component3
@@ -64,7 +65,8 @@ public class STAGE {
 	public const int C7 = 106;  // Component3
 	public const int C8 = 107;  // Component3
 	public const int C9 = 108;  // Component3
-	public const int COM1_End = 109;
+
+	public const int COM1_END = 109;
 	public const int C10 = 109;
 	public const int C11 = 110;
 	public const int C12 = 111;
@@ -90,17 +92,34 @@ public class SOUND {
 	public const int ON = 1;	// 声音开启
 	public const int OFF = 0;	// 声音关闭
 
-	public const int COUNT = 6;	// 音效的个数
 
 	public const int COIN = 0;	// 金币
 	public const int JUMP = 1;  // 跳
 	public const int DEATH = 2; // 死亡音效
 	public const int SHAKE =  3; // 震屏
 
-	public const int HOME_BG1 = 4; // 背景音乐1
-	public const int HOME_BG2 = 5; // 背景音乐2
+	public const int HOME_BG = 4; // 背景音乐
+	public const int GAME_BG = 5; // 游戏音乐
+
+	public const int BTN = 6; //按钮点击
+	public const int FRUIT = 7; // 吃到水果的音效
+
+	public const int PROP_BIG = 8; // 变大道具的音效
+
+
+	public const int ENEMY_DEATH1 = 9; 	// 怪物被踩死或者踢飞
+	public const int ENEMY_DEATH2 = 10; // 怪物被踩死或者踢飞
+
+	public const int HERO_HURT = 11;	// 英雄被攻击
+
+	public const int FOREST = 12;      // 森林
+	public const int FIRE   = 13;      // 火焰燃烧
+
+
+	public const int COUNT = 14;	// 音效的个数,要开辟的数量
+
 }
-	
+		
 /// <summary>
 /// 游戏的基本数据
 /// </summary>
