@@ -124,7 +124,7 @@ public class SOUND {
 /// 游戏的基本数据
 /// </summary>
 public class GAME_DATA {
-	public const int THEME = 1;
+	public const int THEME = 3;
 	public const bool DEBUG = true;
 }
 

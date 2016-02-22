@@ -101,8 +101,30 @@ namespace QFramework {
 				rotateTween = trans.gameObject.AddComponent<TweenRotation> ();
 			}
 				
+
+			rotateTween.enabled = false;
 			rotateTween.from =   trans.localRotation.eulerAngles;
 			rotateTween.to = trans.localRotation.eulerAngles + dtRotation;
+			rotateTween.duration = duration;
+			rotateTween.ignoreTimeScale = ignoreTimeScale;
+			rotateTween.style = UITweener.Style.Once;
+			rotateTween.PlayForward ();
+		}
+
+
+		/// <summary>
+		/// 旋转到
+		/// </summary>
+		public static void RotateTo(Transform trans,float duration,Vector3 dstRotation,bool ignoreTimeScale = false)
+		{
+			var rotateTween = trans.GetComponent<TweenRotation> ();
+			if (rotateTween == null) {
+				rotateTween = trans.gameObject.AddComponent<TweenRotation> ();
+			}
+
+			rotateTween.enabled = false;
+			rotateTween.from = trans.localRotation.eulerAngles;
+			rotateTween.to = dstRotation;
 			rotateTween.duration = duration;
 			rotateTween.ignoreTimeScale = ignoreTimeScale;
 			rotateTween.style = UITweener.Style.Once;
