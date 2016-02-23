@@ -131,6 +131,26 @@ namespace QFramework {
 			rotateTween.PlayForward ();
 		}
 
+		/// <summary>
+		/// 变化颜色到
+		/// </summary>
+		public static void TintTo(Transform trans,float duration,Color srcColor,Color dstColor,bool ignoreTimeScale = false)
+		{
+			var colorTween = trans.GetComponent<TweenColor> ();
+			if (colorTween == null) {
+				colorTween = trans.gameObject.AddComponent<TweenColor> ();
+			}
+
+			colorTween.enabled = false;
+			colorTween.from = srcColor;
+			colorTween.to = dstColor;
+			colorTween.duration = duration;
+			colorTween.ignoreTimeScale = ignoreTimeScale;
+			colorTween.style = UITweener.Style.Once;
+			colorTween.ResetToBeginning ();
+			colorTween.PlayForward ();
+		}
+
 		public static UITweener Blink(Transform trans,float duration,bool ignoreTimeScale = false)
 		{
 			var alphaTween = trans.GetComponent<TweenAlpha> ();

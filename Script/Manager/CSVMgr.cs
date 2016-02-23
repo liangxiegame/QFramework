@@ -25,10 +25,10 @@ namespace QFramework {
 		/// </summary>
 		public IEnumerator LoadTable(string name)
 		{
-			
-			TextAsset binAsset = Resources.Load(PATH + name, typeof(TextAsset)) as TextAsset;
-			QPrint.Warn (binAsset.name);
-			mCachedTables.Add (binAsset.name, new CSVTable (binAsset.text));
+			TextAsset textAsset = Resources.Load(PATH + name, typeof(TextAsset)) as TextAsset;
+
+			QPrint.Warn (textAsset.name);
+			mCachedTables.Add (textAsset.name, new CSVTable (textAsset.text));
 			yield return new WaitForEndOfFrame ();
 		}
 

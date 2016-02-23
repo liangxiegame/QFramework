@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 /// <summary>
@@ -10,8 +11,7 @@ public class CSVRowItem {
 
 	public string[] Values;
 
-
-	public CSVRowItem(string[] colsText)
+	public CSVRowItem(string[] colsText,Type[] attribTypes)
 	{
 		Values = new string[colsText.Length];
 

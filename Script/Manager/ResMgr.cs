@@ -33,6 +33,9 @@ public class ResMgr : QSingleton<ResMgr>
     // AssetBundleManifest
     private AssetBundleManifest manifest = null;
 
+	/// <summary>
+	/// /AssetBundles这个要理解一下
+	/// </summary>
     private ResMgr()
     {
 #if UNITY_ANDROID
@@ -239,7 +242,7 @@ public class ResMgr : QSingleton<ResMgr>
     /// <returns></returns>
     IEnumerator InternalUnloadAsync()
     {
-        Debug.LogWarning("Unload in ResMgr");
+		QPrint.FrameworkWarn ("Unload in ResMgr");
         AsyncOperation opt = Resources.UnloadUnusedAssets();
         yield return opt;
     }

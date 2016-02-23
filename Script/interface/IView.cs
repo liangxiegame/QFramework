@@ -24,4 +24,7 @@ public interface IView  {
 	/// </summary>
 //	void OnMessage(IMessage message);
 
+//	void Show();
+//	void Hide();
+
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using QFramework;
-//using SLua;
 
 /// <summary>
 /// 全局唯一继承于MonoBehaviour的单例类，保证其他公共模块都以App的生命周期为准
@@ -19,45 +18,42 @@ public class App : QMonoSingleton<App>
 
     void Awake()
     {
-		//
+		// 确保不被销毁
         DontDestroyOnLoad(gameObject);
+
         instance = this;
 
-        // 进入欢迎界面
+		// 进入欢迎界面
 		Application.targetFrameRate = 60;
     }
 
     IEnumerator Start()
     {
+		// 这个GameManager需要自己实现
 		yield return StartCoroutine (GameManager.Instance ().OnStart ());
+		//        // 加载配置
+		//        Setting.Load();
+		//        // 构造公共模块
+		//        Console.Instance();
+		//        Logger.Instance();
+//		        ResMgr.Instance();
+		//        ConfigMgr.Instance();
+		//        LuaMgr.Instance();
+		//        Debug.LogWarning("Res Start : " + System.DateTime.Now);
+		//        // 初始化公共模块
+		//        // 初始化资源管理器
+		//        yield return StartCoroutine(ResMgr.Instance().Init());
+		//        Debug.LogWarning("Config Start : " + System.DateTime.Now);
+		//        // 初始化配置数据管理器
+		//        yield return StartCoroutine(ConfigMgr.Instance().Init());
+		//        Debug.LogWarning("Lua Start : " + System.DateTime.Now);
+		//        // 初始化脚本管理器，启动脚本，开始逻辑
+		//        yield return StartCoroutine(LuaMgr.Instance().Init());
+		//        Debug.LogWarning("Game Start Done : " + System.DateTime.Now);
+		//
 
-	
-//        Debug.LogWarning("Game Start : " + System.DateTime.Now);
-//        // 加载配置
-//        Setting.Load();
-//        // 构造公共模块
-//        Console.Instance();
-//        Logger.Instance();
-//        ResMgr.Instance();
-//        ConfigMgr.Instance();
-//        LuaMgr.Instance();
-//        Debug.LogWarning("Res Start : " + System.DateTime.Now);
-//        // 初始化公共模块
-//        // 初始化资源管理器
-//        yield return StartCoroutine(ResMgr.Instance().Init());
-//        Debug.LogWarning("Config Start : " + System.DateTime.Now);
-//        // 初始化配置数据管理器
-//        yield return StartCoroutine(ConfigMgr.Instance().Init());
-//        Debug.LogWarning("Lua Start : " + System.DateTime.Now);
-//        // 初始化脚本管理器，启动脚本，开始逻辑
-//        yield return StartCoroutine(LuaMgr.Instance().Init());
-//        Debug.LogWarning("Game Start Done : " + System.DateTime.Now);
-//
-//#if UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
-////        Screen.SetResolution(Setting.GetInt("WindowWidth", 1024), 
-////            Setting.GetInt("WindowHeight", 768), false);
-//#endif
-		yield return 0;
+
+
     }
 
     void Update()
@@ -84,7 +80,7 @@ public class App : QMonoSingleton<App>
             this.onGUI();
     }
 
-    void OnDestroy()
+     void OnDestroy()
     {
         if (this.onDestroy != null)
             this.onDestroy();

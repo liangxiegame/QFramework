@@ -137,8 +137,7 @@ public class EMPTY {
 	public const int FIVE = 5;
 	public const int SIX = 6;
 }
-
-
+	
 /// <summary>
 /// 游戏的配置
 /// </summary>

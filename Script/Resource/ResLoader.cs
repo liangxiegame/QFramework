@@ -34,6 +34,7 @@ public class ResourceLoader : IResLoader
     {
         return this.req.isDone;
     }
+
     public LoadResDoneCallback LoadDoneCallback { get; set; }
 
     public bool MoveNext()

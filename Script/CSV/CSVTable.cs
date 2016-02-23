@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace QFramework {
 	/// <summary>
@@ -8,10 +11,10 @@ namespace QFramework {
 	/// </summary>
 	public class CSVTable {
 
-		public BASIC_TYPE[] attribTypes;
+		public Type[] attribTypes;
 		public Dictionary<string,int> attribs = new Dictionary<string,int>();
 
-		public CSVRowItem[] itemsArray;
+		public CSVRowItem[] rowItems;
 
 		public Dictionary<string,CSVRowItem> itemsDict = new Dictionary<string,CSVRowItem>();
 		public Dictionary<string,CSVColItem> attribColDict = new Dictionary<string, CSVColItem>();
@@ -42,7 +45,7 @@ namespace QFramework {
 			colCount = items [0].Length;
 			attribCount = items [0].Length;
 
-			attribTypes = new BASIC_TYPE[colCount]; // head
+			attribTypes = new Type[colCount]; // head
 
 			// 处理第一行
 			for (int i = 0; i < items [0].Length; i++) {
@@ -54,30 +57,27 @@ namespace QFramework {
 			}
 
 			// 开始读取数据
-			itemsArray = new CSVRowItem[itemCount];
+			rowItems = new CSVRowItem[itemCount];
 
 			// 
 			for (int rowIndex = 1; rowIndex < rowCount; rowIndex++) {
-				itemsArray [rowIndex - 1] =  new CSVRowItem(items [rowIndex]);
+				rowItems [rowIndex - 1] =  new CSVRowItem(items [rowIndex],attribTypes);
 
-				itemsDict [itemsArray [rowIndex - 1].Name] = itemsArray [rowIndex - 1];
+				itemsDict [rowItems [rowIndex - 1].Name] = rowItems [rowIndex - 1];
 			}
-				
 		}
 
-
-
-		BASIC_TYPE TypeForString(string typeName)
+		Type TypeForString(string typeName)
 		{
 			switch (typeName) {
 			case "string":
-				return BASIC_TYPE.STRING;
+				return "".GetType();
 			case "int":
-				return BASIC_TYPE.INT;
+				return 1.GetType();
 			case "flaot":
-				return BASIC_TYPE.FLOAT;
+				return 1.0f.GetType();
 			default:
-				return BASIC_TYPE.STRING;
+				return "".GetType();
 			}
 		}
 	}

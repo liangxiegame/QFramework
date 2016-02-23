@@ -37,6 +37,7 @@ namespace QFramework {
 					clips[id] = resObj as AudioClip;
 				}
 			}); 
+
 		}
 
 		public void PlayClip(int id,bool loop = false)
