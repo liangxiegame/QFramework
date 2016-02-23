@@ -62,7 +62,5 @@ namespace QFramework {
 		{
 			return null;
 		}
-
-
 	}
 }

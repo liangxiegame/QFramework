@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using System.Collections;
-using QFramework;
 
 /// <summary>
 /// 需要使用Unity生命周期的单例模式
-/// 差好多
 /// </summary>
 namespace QFramework {
 	public abstract class QMonoSingleton<T> : MonoBehaviour where T : QMonoSingleton<T>
@@ -19,29 +16,31 @@ namespace QFramework {
 
 				if (FindObjectsOfType<T>().Length > 1)
 				{
-					Debug.LogError("More than 1!");
+					QPrint.FrameworkError ("More than 1!");
 					return instance;
 				}
 
 				if (instance == null)
 				{
 					string instanceName = typeof(T).Name;
-					Debug.Log("Instance Name: " + instanceName);
+					QPrint.FrameworkLog ("Instance Name: " + instanceName); 
 					GameObject instanceGO = GameObject.Find(instanceName);
+
 					if (instanceGO == null)
 						instanceGO = new GameObject(instanceName);
 					instance = instanceGO.AddComponent<T>();
-					DontDestroyOnLoad(instanceGO);
-					Debug.Log("Add New Singleton " + instance.name + " in Game!");
+					DontDestroyOnLoad(instanceGO);	// 不会被释放
+					QPrint.FrameworkLog ("Add New Singleton " + instance.name + " in Game!");
 				}
 				else
 				{
-					Debug.Log("Already exist: " + instance.name);
+					QPrint.FrameworkLog ("Already exist: " + instance.name);
 				}
 			}
 
 			return instance;
 		}
+
 
 		protected virtual void OnDestroy()
 		{

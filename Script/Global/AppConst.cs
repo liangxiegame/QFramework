@@ -124,7 +124,7 @@ public class SOUND {
 /// 游戏的基本数据
 /// </summary>
 public class GAME_DATA {
-	public const int THEME = 3;
+	public const int THEME = 1;
 	public const bool DEBUG = true;
 }
 
@@ -136,4 +136,12 @@ public class EMPTY {
 	public const int FOUR = 4;
 	public const int FIVE = 5;
 	public const int SIX = 6;
+}
+
+
+/// <summary>
+/// 游戏的配置
+/// </summary>
+public class APP_CONFIG {
+	public const bool DEBUG = true;
 }
