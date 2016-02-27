@@ -425,7 +425,8 @@ namespace QFramework
             Transform inst;
 
             #region Use from Pool
-            for (int i = 0; i < this._prefabPools.Count; i++)
+			int count = this._prefabPools.Count;
+			for (int i = 0; i < count; i++)
             {
                 // Determine if the prefab was ever used as explained in the docs
                 //   I believe a comparison of two references is processor-cheap.
@@ -508,12 +509,7 @@ namespace QFramework
         /// </summary>
         public Transform Spawn(Transform prefab, Vector3 pos, Quaternion rot)
         {
-            Transform inst = this.Spawn(prefab, pos, rot, null);
-
-            // Can happen if limit was used
-            if (inst == null) return null;
-
-            return inst;
+			return this.Spawn(prefab, pos, rot, null);
         }
 
 
@@ -572,8 +568,7 @@ namespace QFramework
         /// </summary>
         public Transform Spawn(string prefabName)
         {
-            Transform prefab = this.prefabs[prefabName];
-            return this.Spawn(prefab);
+			return this.Spawn(this.prefabs[prefabName]);
         }
 
 

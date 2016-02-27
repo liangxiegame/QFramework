@@ -25,42 +25,38 @@ namespace QFramework {
 		/// </summary>
 		public IEnumerator LoadTable(string name)
 		{
+			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch ();
+			watch.Start ();
 			TextAsset textAsset = Resources.Load(PATH + name, typeof(TextAsset)) as TextAsset;
 
 			QPrint.Warn (textAsset.name);
 			mCachedTables.Add (textAsset.name, new CSVTable (textAsset.text));
-			yield return new WaitForEndOfFrame ();
+			watch.Stop ();
+
+			QPrint.Warn ("time:" + watch.ElapsedMilliseconds);
+			yield return 0;
 		}
 
-		// 获取数据
-		public string GetData(string tableName,string itemName,string attribName)
+
+		public CSVValue GetValue(string tableName,string attribName,string headValue,string attrib)
 		{
 			var table = mCachedTables [tableName];
-			var item = table.itemsDict [itemName];
+			int attribIndex = table.indexForAttribName [attribName];
+			int rowIndex = table.colItems [attribIndex].indexForValue [headValue];
+			var rowItem = table.rowItems [rowIndex];
+			var retValue = rowItem.Values [rowItem.IndexForAttribName [attrib]];
 
-			return item.Values[table.attribs[attribName]];
+
+			return retValue;
 		}
 
-		public string GetIntData(string tableName,string itemName,string attribName)
+		public CSVValue GetValue(string tableName,int index,string attrib)
 		{
 			var table = mCachedTables [tableName];
-			var item = table.itemsDict [itemName];
-			return item.Values[table.attribs[attribName]];
-		}
+			var rowItem = table.rowItems [index];
+			var retValue = rowItem.Values[rowItem.IndexForAttribName[attrib]];
 
-		public string GetIntData(string tableName,int id,string attribName)
-		{
-			return null;
-		}
-
-		public CSVTable GetTable(string tableName)
-		{
-			return null;
-		}
-
-		public CSVRowItem GetItem(string itemName)
-		{
-			return null;
+			return retValue;
 		}
 	}
 }

@@ -31,29 +31,6 @@ public class App : QMonoSingleton<App>
     {
 		// 这个GameManager需要自己实现
 		yield return StartCoroutine (GameManager.Instance ().OnStart ());
-		//        // 加载配置
-		//        Setting.Load();
-		//        // 构造公共模块
-		//        Console.Instance();
-		//        Logger.Instance();
-//		        ResMgr.Instance();
-		//        ConfigMgr.Instance();
-		//        LuaMgr.Instance();
-		//        Debug.LogWarning("Res Start : " + System.DateTime.Now);
-		//        // 初始化公共模块
-		//        // 初始化资源管理器
-		//        yield return StartCoroutine(ResMgr.Instance().Init());
-		//        Debug.LogWarning("Config Start : " + System.DateTime.Now);
-		//        // 初始化配置数据管理器
-		//        yield return StartCoroutine(ConfigMgr.Instance().Init());
-		//        Debug.LogWarning("Lua Start : " + System.DateTime.Now);
-		//        // 初始化脚本管理器，启动脚本，开始逻辑
-		//        yield return StartCoroutine(LuaMgr.Instance().Init());
-		//        Debug.LogWarning("Game Start Done : " + System.DateTime.Now);
-		//
-
-
-
     }
 
     void Update()

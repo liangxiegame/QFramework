@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 //using SLua;
 using QFramework;
 /// <summary>
@@ -31,7 +32,7 @@ public class SceneMgr : QSingleton<SceneMgr>
     /// 进入场景
     /// </summary>
     /// <param name="loadingSceneName">Loading场景名字，忽略路径，name.scene格式</param>
-    /// <param name="loadingSceneDoneCallback">Loading场景加载完成回调，给予自定义Loading场景显示逻辑入口</param>
+	/// <param name="loadingSceneDoneCallback">Loading场景加载完成回调，给予自定义Loading场景显示逻辑入口</param>
     /// <param name="sceneName">真正要加载的场景名，格式同loadingSceneName</param>
     /// <param name="logicResNames">逻辑资源名，这里只必要资源，即场景进入后所需的必要资源</param>
     /// <param name="loadSceneDoneCallback">场景加载完成回调，一般用于场景逻辑初始化</param>

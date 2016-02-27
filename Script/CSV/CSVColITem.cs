@@ -1,32 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace QFramework {
 	public class CSVColItem {
-		public string AttribName {get; set;}
-		public BASIC_TYPE AttribType;
-		public int[] IntValue;
-		public float[] FloatValue;
-		public string[] StringValue;
 
-		public CSVColItem(string name, int colLength, BASIC_TYPE attribType)
+		public BASIC_TYPE type;
+		public string Head;
+		public CSVValue[] values;
+		public Dictionary<string,int> indexForValue = new Dictionary<string, int>();
+
+		public CSVColItem(string head,BASIC_TYPE type,int itemCount)
 		{
-			AttribName = name;
-			AttribType = attribType;
+			Head = head;
+			this.type = type;
+			values = new CSVValue[itemCount];
+		}
 
-			switch (AttribType) {
-			case BASIC_TYPE.INT:
-				IntValue = new int[colLength];
-				break;
-			case BASIC_TYPE.FLOAT:
-				FloatValue = new float[colLength];
-				break;
-			case BASIC_TYPE.STRING:
-				StringValue = new string[colLength];
-				break;
-			default:
-				break;
-			}
+		public void SetValue(int index,CSVValue value)
+		{
+			values [index] = value;
+			indexForValue [value.StrValue] = index;
 		}
 	}
 }

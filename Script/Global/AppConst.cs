@@ -81,9 +81,11 @@ public class STAGE {
 	public const int COM2_END = 120;
 }
 
+
 /// <summary>
-/// 音效
+/// 音效:1.同时可播放多个的,2.一次只播放一个的 3.背景音乐
 /// </summary>
+
 public class SOUND {
 
 	/// <summary>
@@ -92,40 +94,44 @@ public class SOUND {
 	public const int ON = 1;	// 声音开启
 	public const int OFF = 0;	// 声音关闭
 
-
 	public const int COIN = 0;	// 金币
 	public const int JUMP = 1;  // 跳
 	public const int DEATH = 2; // 死亡音效
 	public const int SHAKE =  3; // 震屏
 
-	public const int HOME_BG = 4; // 背景音乐
-	public const int GAME_BG = 5; // 游戏音乐
+	public const int BTN = 4; //按钮点击
+	public const int FRUIT = 5; // 吃到水果的音效
 
-	public const int BTN = 6; //按钮点击
-	public const int FRUIT = 7; // 吃到水果的音效
+	public const int PROP_BIG = 6; // 变大道具的音效
 
-	public const int PROP_BIG = 8; // 变大道具的音效
+	public const int ENEMY_DEATH1 = 7; 	// 怪物被踩死或者踢飞
+	public const int ENEMY_DEATH2 = 8; // 怪物被踩死或者踢飞
 
+	public const int HERO_HURT = 9;	// 英雄被攻击
 
-	public const int ENEMY_DEATH1 = 9; 	// 怪物被踩死或者踢飞
-	public const int ENEMY_DEATH2 = 10; // 怪物被踩死或者踢飞
+	public const int FOREST = 10;      // 森林
+	public const int FIRE   = 11;      // 火焰燃烧
+	public const int BOSS_SHAKE = 12;  // 敌人出来的时候震动
 
-	public const int HERO_HURT = 11;	// 英雄被攻击
+	public const int COUNT = 13;	// 音效的个数,要开辟的数量
 
-	public const int FOREST = 12;      // 森林
-	public const int FIRE   = 13;      // 火焰燃烧
+}
+/// <summary>
+/// 音乐
+/// </summary>
+public class MUSIC {
+	public const int HOME_BG = 0;		// 主界面背景音乐
+	public const int GAME_BG = 1;  		// 游戏背景音乐
 
-
-	public const int COUNT = 14;	// 音效的个数,要开辟的数量
-
+	public const int COUNT = 2;			// 音乐的个数
 }
 		
 /// <summary>
 /// 游戏的基本数据
 /// </summary>
 public class GAME_DATA {
-	public const int THEME = 1;
-	public const bool DEBUG = true;
+	public static int THEME;
+	public const bool DEBUG = false;
 }
 
 public class EMPTY {
@@ -142,5 +148,5 @@ public class EMPTY {
 /// 游戏的配置
 /// </summary>
 public class APP_CONFIG {
-	public const bool DEBUG = true;
+	public const bool DEBUG = false;
 }
