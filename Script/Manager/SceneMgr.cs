@@ -133,7 +133,6 @@ public class SceneMgr : QSingleton<SceneMgr>
         int progress = this.curSceneProgress + this.curLogicResProgress;
         if (progress == this.curTotalProgress)
         {
-            // 加载完成
             this.curLoadSceneDoneCallback(this.curSceneName);
             this.curSceneProgress = 0;
             this.curLogicResProgress = 0;

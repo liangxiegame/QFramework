@@ -96,14 +96,16 @@ public class FSM {
 			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch ();
 			watch.Start ();
 
-			QPrint.Warn ("fromState:" + mCurState);
 			FSMTranslation tempTranslation = StateDict [mCurState].TranslationDict [name];
 			tempTranslation.callfunc ();
 			mCurState =  tempTranslation.toState;
-			QPrint.Warn ("toState:" + mCurState);
 
 			watch.Stop ();
-			QPrint.Warn("state change:" + watch.ElapsedMilliseconds);
 		}
+	}
+
+	public void Clear()
+	{
+		StateDict.Clear ();
 	}
 }

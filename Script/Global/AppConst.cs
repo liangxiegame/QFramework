@@ -148,5 +148,5 @@ public class EMPTY {
 /// 游戏的配置
 /// </summary>
 public class APP_CONFIG {
-	public const bool DEBUG = false;
+	public const bool DEBUG = true;
 }

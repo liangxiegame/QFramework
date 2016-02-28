@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 /// <summary>
@@ -26,9 +27,9 @@ public class SceneLoader : ISceneLoader
         int end = sceneName.LastIndexOf('.');
         string scenePath = sceneName.Substring(0, (end == -1 ? sceneName.Length : end));
         if (additive)
-            this.op = Application.LoadLevelAdditiveAsync(scenePath);
+			this.op = SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Additive);
         else
-            this.op = Application.LoadLevelAsync(scenePath);
+			this.op = SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Single);
     }
 
     public virtual bool IsDone()

@@ -23,7 +23,7 @@ namespace QFramework {
 		public AudioClip[] clips = new AudioClip[SOUND.COUNT];					// 多少种Clips
 
 		public AudioClip[] musicClips = new AudioClip[MUSIC.COUNT];				// 背景音乐分离出来
-
+		public int soundState = SOUND.ON;
 		public List<AudioSource>[] playersForClipId = new List<AudioSource>[SOUND.COUNT];	// 音效播放器
 
 		/// <summary>
@@ -62,6 +62,10 @@ namespace QFramework {
 
 		public void PlayClipAsync(int id,bool loop = false)
 		{
+			if (soundState == SOUND.OFF) {
+				return;
+			}
+
 			var players = playersForClipId [id];
 
 			int count = players.Count;
@@ -112,8 +116,13 @@ namespace QFramework {
 			QPrint.Warn (id + "" + loop);
 			musicPlayer.loop = loop;
 			musicPlayer.clip = musicClips [id];
-			musicPlayer.volume = 1.0f;
+			if (soundState == SOUND.ON) {
+				musicPlayer.volume = 1.0f;
+			} else {
+				musicPlayer.volume = 0.0f;
+			}
 			musicPlayer.Play ();
+
 		}
 
 		public void PreloadMusic(string path,int id )
@@ -156,6 +165,13 @@ namespace QFramework {
 			QPrint.Warn ("Sound On");
 			listener.enabled = true;
 			DataManager.Instance ().soundState = SOUND.ON;
+			soundState = SOUND.ON;
+			musicPlayer.volume = 1.0f;
+
+			var audios = GetComponents<AudioSource> ();
+			for (int i = 0; i < audios.Length; i++) {
+				audios [i].volume = 1.0f;
+			}
 		}
 
 		public void Off()
@@ -163,6 +179,12 @@ namespace QFramework {
 			QPrint.Warn ("Sound Off");
 			listener.enabled = false;
 			DataManager.Instance ().soundState = SOUND.OFF;
+			soundState = SOUND.OFF;
+
+			var audios = GetComponents<AudioSource> ();
+			for (int i = 0; i < audios.Length; i++) {
+				audios [i].volume = 0.0f;
+			}
 		}
 	}
 
