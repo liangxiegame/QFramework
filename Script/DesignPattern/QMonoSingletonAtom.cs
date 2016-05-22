@@ -11,7 +11,7 @@ namespace QFramework
 	/// 
 	/// 加线程锁的单例
 	/// </summary>
-	public class QMonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+	public class QMonoSingletonAtom<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		private static T _instance;
 
