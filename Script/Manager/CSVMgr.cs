@@ -28,15 +28,17 @@ namespace QFramework {
 			System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch ();
 			watch.Start ();
 			TextAsset textAsset = Resources.Load(PATH + name, typeof(TextAsset)) as TextAsset;
-
-			QPrint.Warn (textAsset.name);
+			if (APP_CONFIG.DEBUG) {
+				QPrint.Warn (textAsset.name);
+			}
 			mCachedTables.Add (textAsset.name, new CSVTable (textAsset.text));
 			watch.Stop ();
 
-			QPrint.Warn ("time:" + watch.ElapsedMilliseconds);
+			if (APP_CONFIG.DEBUG) {
+				QPrint.Warn ("time:" + watch.ElapsedMilliseconds);
+			}
 			yield return 0;
 		}
-
 
 		public CSVValue GetValue(string tableName,string attribName,string headValue,string attrib)
 		{
@@ -45,7 +47,6 @@ namespace QFramework {
 			int rowIndex = table.colItems [attribIndex].indexForValue [headValue];
 			var rowItem = table.rowItems [rowIndex];
 			var retValue = rowItem.Values [rowItem.IndexForAttribName [attrib]];
-
 
 			return retValue;
 		}

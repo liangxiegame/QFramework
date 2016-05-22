@@ -235,7 +235,9 @@ public class ResMgr : QSingleton<ResMgr>
     /// <returns></returns>
     IEnumerator InternalUnloadAsync()
     {
-		QPrint.FrameworkWarn ("Unload in ResMgr");
+		if (APP_CONFIG.DEBUG) {
+			QPrint.FrameworkWarn ("Unload in ResMgr");
+		}
         AsyncOperation opt = Resources.UnloadUnusedAssets();
         yield return opt;
     }
@@ -246,8 +248,11 @@ public class ResMgr : QSingleton<ResMgr>
     /// <param name="loader">加载器</param>
     void AddLoadingLoader(IResLoader loader)
     {
-        Logger.Assert((loader != null), "AddLoadingLoader loader is NULL");
-        Logger.Assert(!this.loadingResDict.ContainsKey(loader.ResName), string.Format("Already Loading {0}", loader.ResName));
+		if (APP_CONFIG.DEBUG) {
+			
+			Logger.Assert ((loader != null), "AddLoadingLoader loader is NULL");
+			Logger.Assert (!this.loadingResDict.ContainsKey (loader.ResName), string.Format ("Already Loading {0}", loader.ResName));
+		}
         //Debug.Log(string.Format("{0} start loading at {1}", loader.ResName, Time.frameCount));
         this.loadingResDict[loader.ResName] = loader;
     }

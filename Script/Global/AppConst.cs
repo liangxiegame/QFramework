@@ -148,5 +148,12 @@ public class EMPTY {
 /// 游戏的配置
 /// </summary>
 public class APP_CONFIG {
-	public const bool DEBUG = true;
+	public const bool DEBUG = false;
 }
+//#define FRAMEWORK_DEBUG = true;
+//
+//#if QFRAMEWORK_DEBUG 
+//	
+//#else
+//#define QPrint /##/##/
+//#endif

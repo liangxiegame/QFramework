@@ -16,25 +16,33 @@ namespace QFramework {
 
 				if (FindObjectsOfType<T>().Length > 1)
 				{
-					QPrint.FrameworkError ("More than 1!");
+					if (APP_CONFIG.DEBUG) {
+						QPrint.FrameworkError ("More than 1!");
+					}
 					return instance;
 				}
 
 				if (instance == null)
 				{
 					string instanceName = typeof(T).Name;
-					QPrint.FrameworkLog ("Instance Name: " + instanceName); 
+					if (APP_CONFIG.DEBUG) {
+						QPrint.FrameworkLog ("Instance Name: " + instanceName); 
+					}
 					GameObject instanceGO = GameObject.Find(instanceName);
 
 					if (instanceGO == null)
 						instanceGO = new GameObject(instanceName);
 					instance = instanceGO.AddComponent<T>();
 					DontDestroyOnLoad(instanceGO);	// 不会被释放
-					QPrint.FrameworkLog ("Add New Singleton " + instance.name + " in Game!");
+					if (APP_CONFIG.DEBUG) {
+						QPrint.FrameworkLog ("Add New Singleton " + instance.name + " in Game!");
+					}
 				}
 				else
 				{
-					QPrint.FrameworkLog ("Already exist: " + instance.name);
+					if (APP_CONFIG.DEBUG) {
+						QPrint.FrameworkLog ("Already exist: " + instance.name);
+					}
 				}
 			}
 

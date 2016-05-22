@@ -34,8 +34,10 @@ public class QPrint {
 			Debug.LogError ("@@@@Framework@@@@ " + message);
 		}
 	}
-
-
+		
+	/// <summary>
+	/// 框架内部:日志
+	/// </summary>
 	public static void FrameworkLog(object message)
 	{
 		if (APP_CONFIG.DEBUG) {

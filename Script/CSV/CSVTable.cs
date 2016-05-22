@@ -119,14 +119,14 @@ namespace QFramework {
 		// 内部使用
 		private BASIC_TYPE TypeForString(string name)
 		{
-			switch (name) {
-			case "int":
+			if (name.CompareTo ("int") == 0) {
 				return BASIC_TYPE.INT;
-			case "float":
+			} else if (name.CompareTo ("float") == 0) {
 				return BASIC_TYPE.FLOAT;
-			case "string":
+			} else if (name.CompareTo ("string") == 0) {
 				return BASIC_TYPE.STRING;
 			}
+				
 			return BASIC_TYPE.STRING;
 		}
 	}

@@ -43,6 +43,8 @@ public class App : QMonoSingleton<App>
 	{
 		if (this.onFixedUpdate != null)
 			this.onFixedUpdate ();
+
+		if(Time.frameCount % 10 == 0) { System.GC.Collect(); }
 	}
 
 	void LatedUpdate()

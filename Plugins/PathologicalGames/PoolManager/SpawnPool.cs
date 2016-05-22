@@ -9,8 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace QFramework
-{
-    
+{   
     /// <description>
     /// Online Docs: 
     ///     http://docs.poolmanager2.path-o-logical.com/code-reference/spawnpool
@@ -836,8 +835,7 @@ namespace QFramework
             //	 as a user-friendly feature which has been needed before.
             this._spawned.Remove(instance);
         }
-
-
+			
         /// <summary>
         ///	See docs for Despawn(Transform instance) for basic functionalty information.
         ///		
@@ -849,8 +847,7 @@ namespace QFramework
             instance.parent = parent;
             this.Despawn(instance);
         }
-
-
+			
         /// <description>
         /// See docs for Despawn(Transform instance). This expands that functionality.
         ///   If the passed object is managed by this SpawnPool, it will be 
@@ -862,7 +859,6 @@ namespace QFramework
         {
             this.StartCoroutine(this.DoDespawnAfterSeconds(instance, seconds, false, null));
         }
-
 
         /// <summary>
         ///	See docs for Despawn(Transform instance) for basic functionalty information.

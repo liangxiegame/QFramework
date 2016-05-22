@@ -53,7 +53,9 @@ namespace QFramework {
 			ResMgr.Instance ().LoadRes (path, delegate(string resName, Object resObj) {
 				if (resObj)
 				{
-					QPrint.Warn ("loaded: " + path + " " + id.ToString() + "time:" + QTest.TimeStop(path));
+					if (APP_CONFIG.DEBUG) {
+						QPrint.Warn ("loaded: " + path + " " + id.ToString() + "time:" + QTest.TimeStop(path));
+					}
 					clips[id] = resObj as AudioClip;
 					playersForClipId[id][0].clip = clips[id];
 				}
@@ -113,7 +115,9 @@ namespace QFramework {
 
 		public void PlayMusic(int id,bool loop = true)
 		{
-			QPrint.Warn (id + "" + loop);
+			if (APP_CONFIG.DEBUG) {
+				QPrint.Warn (id + "" + loop);
+			}
 			musicPlayer.loop = loop;
 			musicPlayer.clip = musicClips [id];
 			if (soundState == SOUND.ON) {
@@ -132,7 +136,9 @@ namespace QFramework {
 			ResMgr.Instance ().LoadRes (path, delegate(string resName, Object resObj) {
 				if (resObj)
 				{
-					QPrint.Warn ("loaded: " + path + " " + id.ToString() + "time:" + QTest.TimeStop(path));
+					if (APP_CONFIG.DEBUG) {
+						QPrint.Warn ("loaded: " + path + " " + id.ToString() + "time:" + QTest.TimeStop(path));
+					}
 					musicClips[id] = resObj as AudioClip;
 				}
 			}); 
@@ -162,7 +168,9 @@ namespace QFramework {
 			
 		public void On()
 		{
-			QPrint.Warn ("Sound On");
+			if (APP_CONFIG.DEBUG) {
+				QPrint.Warn ("Sound On");
+			}
 			listener.enabled = true;
 			DataManager.Instance ().soundState = SOUND.ON;
 			soundState = SOUND.ON;
@@ -176,7 +184,9 @@ namespace QFramework {
 
 		public void Off()
 		{
-			QPrint.Warn ("Sound Off");
+			if (APP_CONFIG.DEBUG) {
+				QPrint.Warn ("Sound Off");
+			}
 			listener.enabled = false;
 			DataManager.Instance ().soundState = SOUND.OFF;
 			soundState = SOUND.OFF;
