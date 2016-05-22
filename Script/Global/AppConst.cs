@@ -150,10 +150,3 @@ public class EMPTY {
 public class APP_CONFIG {
 	public const bool DEBUG = false;
 }
-//#define FRAMEWORK_DEBUG = true;
-//
-//#if QFRAMEWORK_DEBUG 
-//	
-//#else
-//#define QPrint /##/##/
-//#endif

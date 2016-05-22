@@ -44,6 +44,7 @@ public class App : QMonoSingleton<App>
 		if (this.onFixedUpdate != null)
 			this.onFixedUpdate ();
 
+		// 每10帧调用一次
 		if(Time.frameCount % 10 == 0) { System.GC.Collect(); }
 	}
 
@@ -59,8 +60,10 @@ public class App : QMonoSingleton<App>
             this.onGUI();
     }
 
-     void OnDestroy()
+	protected override void OnDestroy() 
     {
+		base.OnDestroy ();
+
         if (this.onDestroy != null)
             this.onDestroy();
     }
