@@ -172,7 +172,7 @@ namespace QFramework {
 				QPrint.Warn ("Sound On");
 			}
 			listener.enabled = true;
-			DataManager.Instance ().soundState = SOUND.ON;
+//			DataManager.Instance ().soundState = SOUND.ON;
 			soundState = SOUND.ON;
 			musicPlayer.volume = 1.0f;
 
@@ -188,7 +188,7 @@ namespace QFramework {
 				QPrint.Warn ("Sound Off");
 			}
 			listener.enabled = false;
-			DataManager.Instance ().soundState = SOUND.OFF;
+//			DataManager.Instance ().soundState = SOUND.OFF;
 			soundState = SOUND.OFF;
 
 			var audios = GetComponents<AudioSource> ();
