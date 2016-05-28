@@ -5,7 +5,7 @@ using System.IO;
 //using SLua;
 using QFramework;
 //[CustomLuaClass]
-public class ConfigMgr : QSingleton<ConfigMgr>
+public class ConfigMgr : QSingleton<ConfigMgr>,IMgr
 {
     private Dictionary<string, byte[]> configDict = null;
 

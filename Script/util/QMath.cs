@@ -18,15 +18,6 @@ public class QMath {
 	/// <summary>
 	/// Randoms 输入几个变量返回其中一个
 	/// </summary>
-	/// <returns>The with parameters.</returns>
-//	public static object RandomWithParams(params object[] inputParams)
-//	{
-//		return inputParams [Random.Range (0, inputParams.Length)];
-//	}
-
-	/// <summary>
-	/// Randoms 输入几个变量返回其中一个
-	/// </summary>
 	public static T RandomWithParams<T>(params T[] inputParams)
 	{
 		return inputParams[Random.Range(0,inputParams.Length)];

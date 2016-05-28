@@ -16,7 +16,7 @@ using QFramework;
 //using Thrift.Transport;
 //
 //[CustomLuaClass]
-public class NetMgr : QSingleton<NetMgr>
+public class NetMgr : QSingleton<NetMgr>,IMgr
 {
     private Socket mSocket = null;
     private Thread mSendThread = null;

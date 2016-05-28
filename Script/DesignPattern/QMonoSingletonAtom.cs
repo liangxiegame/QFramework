@@ -13,56 +13,56 @@ namespace QFramework
 	/// </summary>
 	public class QMonoSingletonAtom<T> : MonoBehaviour where T : MonoBehaviour
 	{
-		private static T _instance;
+		private static T mInstance;
 
-		private static object _lock = new object();
+		private static object mLock = new object();
 
 		public static T Instance
 		{
 			get
 			{
 				if (applicationIsQuitting)
-				{
-					Debug.LogWarning("[Singleton] Instance '" + typeof(T) +
-						"' already destroyed on application quit." +
-						" Won't create again - returning null.");
+				{ 
+					QPrint.FrameworkError ("[Singleton] Instance '" + typeof(T) +
+					"' already destroyed on application quit." +
+					" Won't create again - returning null.");
 					return null;
 				}
 
-				lock (_lock)
+				lock (mLock)
 				{
-					if (_instance == null)
+					if (mInstance == null)
 					{
-						_instance = (T)FindObjectOfType(typeof(T));
+						mInstance = (T)FindObjectOfType(typeof(T));
 
 						if (FindObjectsOfType(typeof(T)).Length > 1)
 						{
-							Debug.LogError("[Singleton] Something went really wrong " +
+							QPrint.FrameworkError ("[Singleton] Something went really wrong " +
 								" - there should never be more than 1 singleton!" +
 								" Reopening the scene might fix it.");
-							return _instance;
+							return mInstance;
 						}
 
-						if (_instance == null)
+						if (mInstance == null)
 						{
 							GameObject singleton = new GameObject();
-							_instance = singleton.AddComponent<T>();
+							mInstance = singleton.AddComponent<T>();
 							singleton.name = "(singleton) " + typeof(T).ToString();
 
 							DontDestroyOnLoad(singleton);
 
-							Debug.Log("[Singleton] An instance of " + typeof(T) +
+							QPrint.FrameworkError ("[Singleton] An instance of " + typeof(T) +
 								" is needed in the scene, so '" + singleton +
 								"' was created with DontDestroyOnLoad.");
 						}
 						else
 						{
-							Debug.Log("[Singleton] Using instance already created: " +
-								_instance.gameObject.name);
+							QPrint.FrameworkError ("[Singleton] Using instance already created: " +
+								mInstance.gameObject.name);
 						}
 					}
 
-					return _instance;
+					return mInstance;
 				}
 			}
 		}

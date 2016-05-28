@@ -78,7 +78,7 @@ public class AssetBundleSceneLoader : SceneLoader, IAssetBundleLoader
 
         this.additive = additive;
         CheckDependences();
-        string wwwPath = ResMgr.AssetBundlePath + sceneName.ToLower();
+		string wwwPath = LocalPath.AssetBundlePath + sceneName.ToLower();
         this.www = new WWW(wwwPath);
     }
 

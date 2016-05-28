@@ -21,7 +21,7 @@ public class App : QMonoSingleton<App>
 		// 确保不被销毁
         DontDestroyOnLoad(gameObject);
 
-        instance = this;
+        mInstance = this;
 
 		// 进入欢迎界面
 		Application.targetFrameRate = 60;

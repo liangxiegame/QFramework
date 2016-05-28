@@ -5,12 +5,9 @@ using QFramework;
 
 // 资源管理器，封装开发模式和发布模式
 //[CustomLuaClass]
-public class ResMgr : QSingleton<ResMgr>
+public class ResMgr : QSingleton<ResMgr>,IMgr
 {
-    // AssetBundle中资源路径格式
-    public static string AssetBundleFormation = "assets/resources/{0}";
-    // AssetBundle目录
-    public static string AssetBundlePath = null;
+
 
     // 正在加载的资源映射
     private Dictionary<string, IResLoader> loadingResDict = null;
@@ -32,9 +29,9 @@ public class ResMgr : QSingleton<ResMgr>
     private ResMgr()
     {
 #if UNITY_ANDROID
-        AssetBundlePath = Application.streamingAssetsPath + "/AssetBundles/";
+		LocalPath.AssetBundlePath = Application.streamingAssetsPath + "/AssetBundles/";
 #else
-        AssetBundlePath = "file://" + Application.streamingAssetsPath + "/AssetBundles/";
+		LocalPath.AssetBundlePath = "file://" + Application.streamingAssetsPath + "/AssetBundles/";
 #endif
         this.loadedAssetBundleLoaderDict = new Dictionary<string, AssetBundleLoader>();
         this.loadedAssetBundleSceneLoaderDict = new Dictionary<string, AssetBundleSceneLoader>();

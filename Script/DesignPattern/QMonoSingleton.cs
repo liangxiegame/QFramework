@@ -6,53 +6,51 @@
 namespace QFramework {
 	public abstract class QMonoSingleton<T> : MonoBehaviour where T : QMonoSingleton<T>
 	{
-		protected static T instance = null;
+		protected static T mInstance = null;
 
 		public static T Instance()
 		{
-			if (instance == null)
+			if (mInstance == null)
 			{
-				instance = FindObjectOfType<T>();
+				mInstance = FindObjectOfType<T>();
 
 				if (FindObjectsOfType<T>().Length > 1)
 				{
-					if (APP_CONFIG.DEBUG) {
-						QPrint.FrameworkError ("More than 1!");
-					}
-					return instance;
+					QPrint.FrameworkError ("More than 1!");
+
+					return mInstance;
 				}
 
-				if (instance == null)
+				if (mInstance == null)
 				{
 					string instanceName = typeof(T).Name;
-					if (APP_CONFIG.DEBUG) {
-						QPrint.FrameworkLog ("Instance Name: " + instanceName); 
-					}
+
+					QPrint.FrameworkLog ("Instance Name: " + instanceName); 
+
 					GameObject instanceGO = GameObject.Find(instanceName);
 
 					if (instanceGO == null)
 						instanceGO = new GameObject(instanceName);
-					instance = instanceGO.AddComponent<T>();
-					DontDestroyOnLoad(instanceGO);	// 不会被释放
-					if (APP_CONFIG.DEBUG) {
-						QPrint.FrameworkLog ("Add New Singleton " + instance.name + " in Game!");
-					}
+					mInstance = instanceGO.AddComponent<T>();
+
+					DontDestroyOnLoad(instanceGO);	
+
+					QPrint.FrameworkLog ("Add New Singleton " + mInstance.name + " in Game!");
+
 				}
 				else
 				{
-					if (APP_CONFIG.DEBUG) {
-						QPrint.FrameworkLog ("Already exist: " + instance.name);
-					}
+					QPrint.FrameworkLog ("Already exist: " + mInstance.name);
 				}
 			}
 
-			return instance;
+			return mInstance;
 		}
 
 
 		protected virtual void OnDestroy()
 		{
-			instance = null;
+			mInstance = null;
 		}
 	}
 

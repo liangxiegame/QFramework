@@ -8,7 +8,7 @@ using QFramework;
 /// 场景管理器
 /// </summary>
 //[CustomLuaClass]
-public class SceneMgr : QSingleton<SceneMgr>
+public class SceneMgr : QSingleton<SceneMgr>,IMgr
 {
     public delegate void LoadSceneDoneCallback(string sceneName);
     public delegate void LoadSceneUpdateProgressCallback(string sceneName, float progress);

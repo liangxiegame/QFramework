@@ -75,7 +75,7 @@ public class AssetBundleLoader : ResourceLoader, IResLoader, IAssetBundleLoader
         CheckDependences();
         // 再加载自己
         resName = resName.Substring(resName.LastIndexOf("/") + 1).ToLower();
-        string wwwPath = ResMgr.AssetBundlePath + resName;
+		string wwwPath = LocalPath.AssetBundlePath + resName;
         this.www = new WWW(wwwPath);
     }
 
@@ -128,7 +128,7 @@ public class AssetBundleLoader : ResourceLoader, IResLoader, IAssetBundleLoader
                 {
                     this.assetbundle = this.www.assetBundle;
                     // 从assetbundle中提取资源对象
-                    string resPath = string.Format(ResMgr.AssetBundleFormation, base.ResName);
+					string resPath = string.Format(LocalPath.AssetBundleFormation, base.ResName);
                     this.assetbundleReq = this.assetbundle.LoadAssetAsync(resPath);
                     this.www.Dispose();
                     this.www = null;
