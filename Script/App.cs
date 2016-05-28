@@ -16,21 +16,23 @@ public class App : QMonoSingleton<App>
     public LifeCircleCallback onDestroy = null;
     public LifeCircleCallback onApplicationQuit = null;
 
-    void Awake()
-    {
+	void Awake()
+	{
 		// 确保不被销毁
-        DontDestroyOnLoad(gameObject);
+		DontDestroyOnLoad(gameObject);
 
-        mInstance = this;
+		mInstance = this;
 
 		// 进入欢迎界面
 		Application.targetFrameRate = 60;
-    }
-
+	}
+		
     IEnumerator Start()
     {
+		// 进入欢迎界面
+		Application.targetFrameRate = 60;
 		// 这个GameManager需要自己实现
-//		yield return StartCoroutine (GameManager.Instance ().OnStart ());
+		yield return StartCoroutine (GameManager.Instance ().OnStart ());
 		yield return null;
     }
 
