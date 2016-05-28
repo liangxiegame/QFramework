@@ -5,6 +5,10 @@ using System.IO;
 //using SLua;
 using QFramework;
 //[CustomLuaClass]
+
+/// <summary>
+/// 固定不变的配置,比如策划表,剧情表之类的。
+/// </summary>
 public class ConfigMgr : QSingleton<ConfigMgr>,IMgr
 {
     private Dictionary<string, byte[]> configDict = null;

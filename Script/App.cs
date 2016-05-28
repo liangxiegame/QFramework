@@ -29,10 +29,10 @@ public class App : QMonoSingleton<App>
 		
     IEnumerator Start()
     {
-		// 进入欢迎界面
-		Application.targetFrameRate = 60;
 		// 这个GameManager需要自己实现
 		yield return StartCoroutine (GameManager.Instance ().OnStart ());
+
+
 		yield return null;
     }
 
