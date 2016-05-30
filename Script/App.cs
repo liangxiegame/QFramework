@@ -30,7 +30,7 @@ public class App : QMonoSingleton<App>
     IEnumerator Start()
     {
 		// 这个GameManager需要自己实现
-		yield return StartCoroutine (GameManager.Instance ().OnStart ());
+//		yield return StartCoroutine (GameManager.Instance ().OnStart ());
 
 
 		yield return null;
