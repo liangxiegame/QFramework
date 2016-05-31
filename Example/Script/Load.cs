@@ -29,7 +29,15 @@ public class Load : MonoBehaviour {
 		yield return download;
 
 //		GameObject.Instantiate(download.assetBundle.LoadAsset<GameObject>("cube"));
-		GameObject.Instantiate(download.assetBundle.mainAsset);
+		var go = GameObject.Instantiate(download.assetBundle.mainAsset) as GameObject;
+		go.SetActive (false);
+
+		WWW material = new WWW ("file://" + Application.streamingAssetsPath + "/ma.assetbundle");
+
+		yield return material;
+		go.GetComponent<MeshRenderer> ().material = material.assetBundle.LoadAsset<Material> ("ma");
+		go.SetActive (true);
+
 
 		yield return LoadMusic ();
 	}
@@ -48,6 +56,7 @@ public class Load : MonoBehaviour {
 	{
 		WWW download = new WWW ("file://" + Application.streamingAssetsPath + "/scene.assetbundle");
 		yield return download;
+
 
 		// 一定要Log一次 否则会报错 Bug
 		Debug.LogWarning (download.assetBundle.name);

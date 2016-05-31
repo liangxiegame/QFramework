@@ -35,4 +35,30 @@ public class BuildAssetBundle : MonoBehaviour {
 
 		BuildPipeline.BuildStreamedSceneAssetBundle (scenes, savePath, BuildTarget.StandaloneOSXIntel);
 	}
+
+
+	[MenuItem("QFramework/Dependence")]
+	static void ExportDe()
+	{
+		Object[] selections = Selection.GetFiltered (typeof(Object), SelectionMode.Assets);
+		string savepath = Application.dataPath + "/StreamingAssets/";
+
+		Object music = AssetDatabase.LoadMainAssetAtPath ("Assets/QFramework/ma.mat");
+
+		BuildPipeline.PushAssetDependencies ();
+
+		BuildPipeline.BuildAssetBundle (music, null, savepath + "ma.assetbundle", BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.CompleteAssets,
+			BuildTarget.StandaloneOSXIntel);
+
+		for (int i = 0; i < selections.Length; i++) {
+			BuildPipeline.PushAssetDependencies ();
+
+			BuildPipeline.BuildAssetBundle (selections [i],null, savepath + selections[i].name.ToLower() + ".assetbundle", BuildAssetBundleOptions.CollectDependencies | BuildAssetBundleOptions.ChunkBasedCompression,
+				BuildTarget.StandaloneOSXIntel);
+
+			BuildPipeline.PopAssetDependencies ();
+		}
+
+		BuildPipeline.PopAssetDependencies ();
+	}
 }
