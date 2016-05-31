@@ -3,28 +3,27 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 
-public class Load : MonoBehaviour {
+public class AssetBundleLoad : MonoBehaviour {
 
 	[SerializeField]
 	AudioSource mAudioSource;
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine (LoadPrefab ());
+//		StartCoroutine (LoadPrefab ());
 	}
 
 
-	void OnGUI()
-	{
-		if (GUILayout.Button ("LoadScene")) {
-			StartCoroutine (LoadScene ());
-		}
-	}
+//	void OnGUI()
+//	{
+//		if (GUILayout.Button ("LoadScene")) {
+//			StartCoroutine (LoadScene ());
+//		}
+//	}
 
 
 	IEnumerator LoadPrefab()
 	{
-
 		WWW download = new WWW ("file://" + Application.streamingAssetsPath + "/cube.assetbundle");
 		yield return download;
 
