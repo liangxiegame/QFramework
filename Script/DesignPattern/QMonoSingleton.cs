@@ -8,9 +8,6 @@ namespace QFramework {
 	{
 		protected static T mInstance = null;
 
-
-
-
 		public static T Instance()
 		{
 			if (mInstance == null)

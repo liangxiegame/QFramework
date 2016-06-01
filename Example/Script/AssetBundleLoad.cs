@@ -59,7 +59,7 @@ public class AssetBundleLoad : MonoBehaviour {
 
 		// 一定要Log一次 否则会报错 Bug
 		Debug.LogWarning (download.assetBundle.name);
-		SceneManager.LoadScene ("Scene");
+		UnityEngine.SceneManagement.SceneManager.LoadScene ("Scene");
 	}
 
 }

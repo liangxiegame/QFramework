@@ -7,5 +7,7 @@ namespace QFramework {
 	/// </summary>
 	public interface IMgr  {
 //		void InitMgr();
+
+//		void Init();
 	}
 }

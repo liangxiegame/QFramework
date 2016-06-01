@@ -10,16 +10,16 @@ namespace QFramework {
 		/// <summary>
 		/// 剧情
 		/// </summary>
-		public const string Plot = "Plot";
+		public const string Plot = "01_Plot";
 
 		/// <summary>
 		/// UI场景
 		/// </summary>
-		public const string Home = "Home";
+		public const string Home = "02_Home";
 
 		/// <summary>
 		/// 游戏场景
 		/// </summary>
-		public const string Game = "Game";
+		public const string Game = "03_Game";
 	}	
 }

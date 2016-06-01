@@ -11,7 +11,10 @@ namespace QFramework {
 
 		// 
 		private CSVMgr() {}
+		public void Init()
+		{
 
+		}
 		// 
 		public const string PATH = "CSV/";
 		public const string LINE_SPLIT_SYMBOL = "\r";

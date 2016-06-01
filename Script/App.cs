@@ -27,14 +27,18 @@ public class App : QMonoSingleton<App>
 		Application.targetFrameRate = 60;
 	}
 		
-    IEnumerator Start()
+    void Start()
     {
-		// 这个GameManager需要自己实现
-//		yield return StartCoroutine (GameManager.Instance ().OnStart ());
-
-
-		yield return null;
+		CoroutineMgr.Instance ().StartCoroutine (ApplicationDidFinishLaunching ());
     }
+
+	IEnumerator ApplicationDidFinishLaunching()
+	{
+		// 这个GameManager需要自己实现
+		yield return GameManager.Instance ().Init ();
+		yield return GameManager.Instance ().Launch ();
+	}
+
 
     void Update()
     {

@@ -28,9 +28,9 @@ namespace QFramework {
 			int end = sceneName.LastIndexOf('.');
 			string scenePath = sceneName.Substring(0, (end == -1 ? sceneName.Length : end));
 			if (additive)
-				this.op = SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Additive);
+				this.op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Additive);
 			else
-				this.op = SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Single);
+				this.op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(scenePath,LoadSceneMode.Single);
 		}
 
 		public virtual bool IsDone()
