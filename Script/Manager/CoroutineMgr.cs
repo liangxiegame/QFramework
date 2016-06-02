@@ -14,11 +14,9 @@ namespace QFramework {
 		protected CoroutineMgr() {}
 
 
-		/// <summary>
-		/// 封装
-		/// </summary>
-		public IEnumerator StartCoroutine(IEnumerator coroutine) {
-			yield return App.Instance ().StartCoroutine (coroutine);
+
+		public Coroutine StartCoroutine(IEnumerator routine) {
+			return App.Instance ().StartCoroutine (routine);
 		}
 	}
 }
