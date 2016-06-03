@@ -29,7 +29,7 @@ public class App : QMonoSingleton<App>
 		
     void Start()
     {
-		CoroutineMgr.Instance ().StartCoroutine (ApplicationDidFinishLaunching ());
+//		CoroutineMgr.Instance ().StartCoroutine (ApplicationDidFinishLaunching ());
     }
 
 	IEnumerator ApplicationDidFinishLaunching()
