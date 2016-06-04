@@ -8,6 +8,8 @@ namespace QFramework {
 	public class VoidDelegate{
 
 		public delegate void WithVoid();
+
+		public delegate void WithParams(params object[] paramList);
 	}
 
 }

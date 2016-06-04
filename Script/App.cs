@@ -35,8 +35,9 @@ public class App : QMonoSingleton<App>
 	IEnumerator ApplicationDidFinishLaunching()
 	{
 		// 这个GameManager需要自己实现
-		yield return GameManager.Instance ().Init ();
-		yield return GameManager.Instance ().Launch ();
+//		yield return GameManager.Instance ().Init ();
+//		yield return GameManager.Instance ().Launch ();
+		yield return null;
 	}
 
 
