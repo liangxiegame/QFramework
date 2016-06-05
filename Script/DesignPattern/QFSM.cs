@@ -5,18 +5,18 @@ using System.Collections.Generic;
 /// <summary>
 /// 状态机实现
 /// </summary>
-public class FSM {
+public class QFSM {
 	// 定义函数指针类型
 	public delegate void FSMCallfunc();
 
 	/// <summary>
 	/// 状态类
 	/// </summary>
-	public class FSMState 
+	class QState 
 	{		
 		public string name;
 		
-		public FSMState(string name)
+		public QState(string name)
 		{
 			this.name = name;
 		}
@@ -56,7 +56,7 @@ public class FSM {
 	}
 
 	// 状态
-	Dictionary <string,FSMState> StateDict = new Dictionary<string,FSMState>();
+	Dictionary <string,QState> StateDict = new Dictionary<string,QState>();
 
 	/// <summary>
 	/// 添加状态
@@ -64,7 +64,7 @@ public class FSM {
 	/// <param name="state">State.</param>
 	public void AddState(string name)
 	{
-		StateDict [name] = new FSMState(name);
+		StateDict [name] = new QState(name);
 	}
 		
 	/// <summary>
