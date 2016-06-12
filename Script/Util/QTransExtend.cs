@@ -23,7 +23,7 @@ namespace QFramework {
 		/// 重置操作
 		/// </summary>
 		/// <param name="trans">Trans.</param>
-		public static void Identity(Transform trans)
+		public static void Identity(this Transform trans)
 		{
 			trans.localPosition = Vector3.zero;
 			trans.localScale = Vector3.one;
