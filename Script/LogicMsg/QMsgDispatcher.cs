@@ -104,8 +104,31 @@ namespace QFramework {
 					break;
 				}
 			}
+		}
 
 
+		/// <summary>
+		/// 其实注销消息只需要Object和Go就足够了 不需要callback
+		/// </summary>
+		public static void UnRegisterLogicMsg(this IMsgReceiver self,string msgName)
+		{
+			if (string.IsNullOrEmpty(msgName)) {
+				QPrint.FrameworkError("UnRegisterMsg is Null or Empty");
+				return;
+			} 
+
+			var handlers = mMsgHandlerDict [msgName];
+
+			int handlerCount = handlers.Count;
+
+			// 删除List需要从后向前遍历
+			for (int index = handlerCount - 1; index >= 0; index--) {
+				var handler = handlers [index];
+				if (handler.receiver == self) {
+					handlers.Remove (handler);
+					break;
+				}
+			}
 		}
 
 
