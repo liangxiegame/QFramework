@@ -1,7 +1,7 @@
 language: csharp
 solution: QFramework.sln
 script: 
-    - ./build.sh 
-    - ./test.sh 
+    - sh ./build.sh 
+    - sh ./test.sh 
 sudo: true 
 
