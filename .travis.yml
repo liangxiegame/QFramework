@@ -38,7 +38,3 @@ after_success:
   - cd $TRAVIS_BUILD_DIR
   - chmod +x generateDocumentationAndDeploy.sh
   - ./generateDocumentationAndDeploy.sh
-  - apt-get install python2.7
-  - sudo pip install mkdocs
-  - sudo mkdocs gh-deploy --clean
-
