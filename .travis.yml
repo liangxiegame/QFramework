@@ -1,4 +1,6 @@
 language: csharp
+language: python
+
 solution: QFramework.sln
 
 sudo: true 
@@ -30,7 +32,7 @@ addons:
 script: 
     - sh ./build.sh 
     - sh ./test.sh 
-    
+
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
