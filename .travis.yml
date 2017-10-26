@@ -3,4 +3,5 @@ solution: QFramework.sln
 script: 
     - ./build.sh 
     - ./test.sh 
+sudo: true 
 
