@@ -1,0 +1,34 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Utils/Singleton/SingletonCreator.cs">
+    <Files>
+      <File FileName="Properties/AssemblyInfo.cs" Line="10" Column="32" />
+      <File FileName="Class1.cs" Line="8" Column="2" />
+      <File FileName="Utils/Singleton/QSingleton.cs" Line="1" Column="1" />
+      <File FileName="Utils/Singleton/ISingleton.cs" Line="1" Column="1" />
+      <File FileName="Utils/Singleton/QSingletonProperty.cs" Line="1" Column="1" />
+      <File FileName="Utils/Singleton/SingletonCreator.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="QFramework" expanded="True">
+            <Node name="QFramework" expanded="True">
+              <Node name="Utils" expanded="True">
+                <Node name="Singleton" expanded="True">
+                  <Node name="SingletonCreator.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="liangxie" Email="liangxiegame@163.com" Copyright="liangxiegame" Company="" Trademark="" />
+  <MultiItemStartupConfigurations />
+</Properties>
