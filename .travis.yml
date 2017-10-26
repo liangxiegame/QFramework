@@ -1,8 +1,6 @@
 language: csharp
 solution: QFramework.sln
-script: 
-    - sh ./build.sh 
-    - sh ./test.sh 
+
 sudo: true 
 
 # Blacklist
@@ -29,9 +27,10 @@ addons:
       - graphviz
 
 # Build your code e.g. by calling make
-script:
-  - make
-
+script: 
+    - sh ./build.sh 
+    - sh ./test.sh 
+    
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
