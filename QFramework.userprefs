@@ -1,0 +1,49 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="GameFramework/Entity/IEntityManager.cs">
+    <Files>
+      <File FileName="GameFramework/UI/UIManager.cs" Line="1" Column="1" />
+      <File FileName="GameFramework/Fsm/Fsm.cs" Line="1" Column="1" />
+      <File FileName="GameFramework/Event/IEventManager.cs" Line="1" Column="1" />
+      <File FileName="GameFramework/Event/EventManager.cs" Line="1" Column="1" />
+      <File FileName="GameFramework/Entity/IEntityManager.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="QFramework" expanded="True">
+            <Node name="GameFramework" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Base" expanded="True" />
+              <Node name="DataNode" expanded="True" />
+              <Node name="DataTable" expanded="True" />
+              <Node name="Debugger" expanded="True" />
+              <Node name="Download" expanded="True" />
+              <Node name="Entity" expanded="True">
+                <Node name="IEntityManager.cs" selected="True" />
+              </Node>
+              <Node name="Event" expanded="True" />
+              <Node name="Fsm" expanded="True" />
+              <Node name="Localization" expanded="True" />
+              <Node name="Network" expanded="True" />
+              <Node name="ObjectPool" expanded="True" />
+              <Node name="Procedure" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Resource" expanded="True" />
+              <Node name="Scene" expanded="True" />
+              <Node name="Sound" expanded="True" />
+              <Node name="UI" expanded="True" />
+              <Node name="Utility" expanded="True" />
+              <Node name="WebRequest" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
