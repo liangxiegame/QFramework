@@ -39,6 +39,6 @@ after_success:
   - chmod +x generateDocumentationAndDeploy.sh
   - ./generateDocumentationAndDeploy.sh
   - apt-get install python2.7
-  - pip install mkdocs
-  - mkdocs gh-deploy --clean
+  - sudo pip install mkdocs
+  - sudo mkdocs gh-deploy --clean
 
