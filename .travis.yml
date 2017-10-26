@@ -7,31 +7,34 @@ sudo: true
 
 # Blacklist
 branches:
-    except:
-    - master
+  except:
+    - gh-pages
 
-
-# Enviroment variables
+# Environment variables
 env:
-    global:
-        - GH_REPO_NAME: QFramework
-        - DOXYFILE: $TRAVIS_BUILD_DIR/docs/Doxyfile
-        - GH_REPO_REF: github.com/liangxiegame/QFramework.git
+  global:
+    - GH_REPO_NAME: QFramework
+    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/Doxyfile
+    - GH_REPO_REF: github.com/liangxiegame/QFramework.git
 
 
+# Install dependencies
 addons:
-    apt:
-        packages:
-            - doxygen
-            - doxygen-doc
-            - doxygen-latex
-            - doxygen-gui
-            - graphviz
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-latex
+      - doxygen-gui
+      - graphviz
 
 # Build your code e.g. by calling make
-    - make
+script:
+  - make
+
 # Generate and deploy documentation
-    - cd $TRAVIS_BUILD_DIR
-    - chmod +x generateDocumentationAndDeploy.sh
-    - ./generateDocumentationAndDeploy.sh
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - chmod +x generateDocumentationAndDeploy.sh
+  - ./generateDocumentationAndDeploy.sh
 
