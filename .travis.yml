@@ -1,7 +1,6 @@
 language: csharp
 solution: QFramework.sln
 script: 
-    ./build.sh
-    ./test.sh
-    grep "Test Results" build.log
+    - ./build.sh 
+    - ./test.sh 
 
