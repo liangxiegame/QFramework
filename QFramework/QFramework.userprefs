@@ -1,0 +1,53 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Utils/Extensions/DotNet/String.cs">
+    <Files>
+      <File FileName="Utils/Extensions/DotNet/String.cs" Line="22" Column="25" />
+      <File FileName="Utils/Extensions/DotNet/Log.cs" Line="54" Column="1" />
+      <File FileName="Utils/Extensions/DotNet/Generic.cs" Line="2" Column="1" />
+      <File FileName="Utils/Extensions/DotNet/OOP.cs" Line="1" Column="1" />
+      <File FileName="Utils/Extensions/DotNet/CSharpInDeep.cs" Line="35" Column="10" />
+      <File FileName="Utils/Extensions/DotNet/IEnumerable.cs" Line="7" Column="42" />
+      <File FileName="Utils/Extensions/DotNet/IO.cs" Line="178" Column="36" />
+      <File FileName="Utils/ConceptInterface/ICommand.cs" Line="28" Column="26" />
+      <File FileName="Utils/ConceptInterface/ICondition.cs" Line="49" Column="51" />
+      <File FileName="Utils/ConceptInterface/IExecutable.cs" Line="28" Column="26" />
+      <File FileName="Utils/ConceptInterface/IObservable.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/INode.cs" Line="28" Column="26" />
+      <File FileName="Utils/ConceptInterface/IObserver.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/IOptimizedObservable.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/IProgress.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/IResetable.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/Unit.cs" Line="1" Column="1" />
+      <File FileName="Utils/ConceptInterface/Tuple.cs" Line="1" Column="1" />
+      <File FileName="Utils/Extensions/DotNet/FuncOrActionOrEvent.cs" Line="2" Column="26" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="QFramework" expanded="True">
+            <Node name="QFramework" expanded="True">
+              <Node name="References" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Utils" expanded="True">
+                <Node name="ConceptInterface" expanded="True" />
+                <Node name="Extensions" expanded="True">
+                  <Node name="DotNet" expanded="True">
+                    <Node name="String.cs" selected="True" />
+                  </Node>
+                </Node>
+                <Node name="Singleton" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="liangxie" Email="liangxiegame@163.com" Copyright="liangxiegame" Company="" Trademark="" />
+  <MultiItemStartupConfigurations />
+</Properties>

@@ -62,9 +62,22 @@
     <Compile Include="Utils\Extensions\DotNet\IO.cs" />
     <Compile Include="Utils\Extensions\DotNet\OOP.cs" />
     <Compile Include="Utils\Extensions\DotNet\CSharpInDeep.cs" />
+    <Compile Include="Utils\ConceptInterface\ICommand.cs" />
+    <Compile Include="Utils\ConceptInterface\ICondition.cs" />
+    <Compile Include="Utils\ConceptInterface\IExecutable.cs" />
+    <Compile Include="Utils\ConceptInterface\INode.cs" />
+    <Compile Include="Utils\ConceptInterface\IObservable.cs" />
+    <Compile Include="Utils\ConceptInterface\IObserver.cs" />
+    <Compile Include="Utils\ConceptInterface\IOptimizedObservable.cs" />
+    <Compile Include="Utils\ConceptInterface\IProgress.cs" />
+    <Compile Include="Utils\ConceptInterface\IResetable.cs" />
+    <Compile Include="Utils\ConceptInterface\Tuple.cs" />
+    <Compile Include="Utils\ConceptInterface\Unit.cs" />
+    <Compile Include="Utils\Extensions\DotNet\FuncOrActionOrEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
+    <Folder Include="Utils\ConceptInterface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
