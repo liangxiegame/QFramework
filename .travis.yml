@@ -31,8 +31,8 @@ addons:
 script: 
     - sh ./ci/build.sh 
     - sh ./ci/test.sh 
-
-
+notifications:
+  webhooks: https://hook.bearychat.com/=bwBLe/travis/d12e4ab6659650c0e20f6f99bd07ffea
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR

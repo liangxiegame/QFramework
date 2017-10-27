@@ -37,45 +37,31 @@ namespace QFramework.Core.Utils.Scheduler
         public static class DefaultSchedulers
         {
             static IScheduler constantTime;
+
             public static IScheduler ConstantTimeOperations
             {
-                get
-                {
-                    return constantTime ?? (constantTime = Scheduler.Immediate);
-                }
-                set
-                {
-                    constantTime = value;
-                }
+                get { return constantTime ?? (constantTime = Scheduler.Immediate); }
+                set { constantTime = value; }
             }
 
             static IScheduler tailRecursion;
+
             public static IScheduler TailRecursion
             {
-                get
-                {
-                    return tailRecursion ?? (tailRecursion = Scheduler.Immediate);
-                }
-                set
-                {
-                    tailRecursion = value;
-                }
+                get { return tailRecursion ?? (tailRecursion = Scheduler.Immediate); }
+                set { tailRecursion = value; }
             }
 
             static IScheduler iteration;
+
             public static IScheduler Iteration
             {
-                get
-                {
-                    return iteration ?? (iteration = Scheduler.CurrentThread);
-                }
-                set
-                {
-                    iteration = value;
-                }
+                get { return iteration ?? (iteration = Scheduler.CurrentThread); }
+                set { iteration = value; }
             }
 
             static IScheduler timeBasedOperations;
+
             public static IScheduler TimeBasedOperations
             {
                 get
@@ -83,31 +69,26 @@ namespace QFramework.Core.Utils.Scheduler
 #if UniRxLibrary
                     return timeBasedOperations ?? (timeBasedOperations = Rx.Scheduler.ThreadPool);
 #else
-                    return timeBasedOperations ?? (timeBasedOperations = Scheduler.MainThread); // MainThread as default for TimeBased Operation
+                    return timeBasedOperations ?? (timeBasedOperations =
+Scheduler.MainThread); // MainThread as default for TimeBased Operation
 #endif
                 }
-                set
-                {
-                    timeBasedOperations = value;
-                }
+                set { timeBasedOperations = value; }
             }
 
             static IScheduler asyncConversions;
+
             public static IScheduler AsyncConversions
             {
                 get
                 {
-#if WEB_GL
-                    // WebGL does not support threadpool
+#if WEB_GL // WebGL does not support threadpool
                     return asyncConversions ?? (asyncConversions = Scheduler.MainThread);
 #else
                     return asyncConversions ?? (asyncConversions = Rx.Scheduler.ThreadPool);
 #endif
                 }
-                set
-                {
-                    asyncConversions = value;
-                }
+                set { asyncConversions = value; }
             }
 
             public static void SetDotNetCompatible()
@@ -179,7 +160,6 @@ namespace QFramework.Core.Utils.Scheduler
         public static IDisposable Schedule(this IScheduler scheduler, TimeSpan dueTime, Action<Action<TimeSpan>> action)
         {
             // InvokeRec2
-
             var group = new CompositeDisposable(1);
             var gate = new object();
 
@@ -216,10 +196,10 @@ namespace QFramework.Core.Utils.Scheduler
             return group;
         }
 
-        public static IDisposable Schedule(this IScheduler scheduler, DateTimeOffset dueTime, Action<Action<DateTimeOffset>> action)
+        public static IDisposable Schedule(this IScheduler scheduler, DateTimeOffset dueTime,
+            Action<Action<DateTimeOffset>> action)
         {
             // InvokeRec3
-
             var group = new CompositeDisposable(1);
             var gate = new object();
 
