@@ -29,12 +29,12 @@ addons:
 
 # Build your code e.g. by calling make
 script: 
-    - sh ./build.sh 
-    - sh ./test.sh 
+    - sh ./ci/build.sh 
+    - sh ./ci/test.sh 
 
 
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x generateDocumentationAndDeploy.sh
-  - ./generateDocumentationAndDeploy.sh
+  - chmod +x ci/generateDocumentationAndDeploy.sh
+  - ./ci/generateDocumentationAndDeploy.sh
