@@ -1,6 +1,6 @@
 # QFramework
 
-[![Documentation Status](https://readthedocs.org/projects/qframework/badge/?version=latest)](http://qframework.readthedocs.io/en/latest/?badge=latest)  [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
+[![Documentation Status](./docs/res/passing.svg)](http://liangxiegame.github.io/QFramework/)  [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
 
 #### [Documentation] (http://liangxiegame.github.io/QFramework/))
