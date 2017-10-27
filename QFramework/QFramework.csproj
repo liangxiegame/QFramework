@@ -50,12 +50,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Singleton\ISingleton.cs" />
     <Compile Include="Utils\Singleton\QSingleton.cs" />
     <Compile Include="Utils\Singleton\QSingletonProperty.cs" />
     <Compile Include="Utils\Singleton\SingletonCreator.cs" />
+    <Compile Include="Utils\Extensions\DotNet\String.cs" />
+    <Compile Include="Utils\Extensions\DotNet\IEnumerable.cs" />
+    <Compile Include="Utils\Extensions\DotNet\Generic.cs" />
+    <Compile Include="Utils\Extensions\DotNet\Log.cs" />
+    <Compile Include="Utils\Extensions\DotNet\IO.cs" />
+    <Compile Include="Utils\Extensions\DotNet\OOP.cs" />
+    <Compile Include="Utils\Extensions\DotNet\CSharpInDeep.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\IO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

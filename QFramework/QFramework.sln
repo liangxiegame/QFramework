@@ -20,5 +20,14 @@ Global
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$0.StandardHeader = $2
+		$0.TextStylePolicy = $3
+		$3.inheritsSet = null
+		$3.scope = text/x-csharp
+		$0.CSharpFormattingPolicy = $4
+		$4.scope = text/x-csharp
+		$0.TextStylePolicy = $5
+		$5.FileWidth = 80
+		$5.TabsToSpaces = True
+		$5.scope = text/plain
 	EndGlobalSection
 EndGlobal
