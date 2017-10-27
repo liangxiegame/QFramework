@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework.Core.Utils.Extensions.DotNet
 {
     public static class GenericExtension
     {

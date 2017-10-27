@@ -27,7 +27,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core 
+namespace QFramework.Core.Utils.Extensions.DotNet
 {
 	using System.IO;
 	using System.Collections.Generic;
