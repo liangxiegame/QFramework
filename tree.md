@@ -73,17 +73,17 @@
         - [Select.cs](QFramework/QFramework/Rx/Operator/Select.cs)
         - [SelectMany.cs](QFramework/QFramework/Rx/Operator/SelectMany.cs)
         - [SelectWhere.cs](QFramework/QFramework/Rx/Operator/SelectWhere.cs)
-        - [Single.cs](QFramework/QFramework/Rx/Operator/Single.cs)
         - [Skip.cs](QFramework/QFramework/Rx/Operator/Skip.cs)
         - [SkipUntil.cs](QFramework/QFramework/Rx/Operator/SkipUntil.cs)
+        - [Single.cs](QFramework/QFramework/Rx/Operator/Single.cs)
         - [SkipWhile.cs](QFramework/QFramework/Rx/Operator/SkipWhile.cs)
         - [Start.cs](QFramework/QFramework/Rx/Operator/Start.cs)
         - [StartWith.cs](QFramework/QFramework/Rx/Operator/StartWith.cs)
         - [SubscribeOn.cs](QFramework/QFramework/Rx/Operator/SubscribeOn.cs)
         - [Switch.cs](QFramework/QFramework/Rx/Operator/Switch.cs)
         - [Synchronize.cs](QFramework/QFramework/Rx/Operator/Synchronize.cs)
-        - [Take.cs](QFramework/QFramework/Rx/Operator/Take.cs)
         - [SynchronizedObserver.cs](QFramework/QFramework/Rx/Operator/SynchronizedObserver.cs)
+        - [Take.cs](QFramework/QFramework/Rx/Operator/Take.cs)
         - [TakeLast.cs](QFramework/QFramework/Rx/Operator/TakeLast.cs)
         - [TakeUntil.cs](QFramework/QFramework/Rx/Operator/TakeUntil.cs)
         - [TakeWhile.cs](QFramework/QFramework/Rx/Operator/TakeWhile.cs)
@@ -118,18 +118,8 @@
     - __Utils__
       - __DataStructure__
         - [ImmutableList.cs](QFramework/QFramework/Utils/DataStructure/ImmutableList.cs)
-        - [PriorityQueue.cs](QFramework/QFramework/Utils/DataStructure/PriorityQueue.cs)
         - [Pair.cs](QFramework/QFramework/Utils/DataStructure/Pair.cs)
-      - __Extensions__
-        - __DotNet__
-          - [CSharpInDeep.cs](QFramework/QFramework/Utils/Extensions/DotNet/CSharpInDeep.cs)
-          - [Generic.cs](QFramework/QFramework/Utils/Extensions/DotNet/Generic.cs)
-          - [FuncOrActionOrEvent.cs](QFramework/QFramework/Utils/Extensions/DotNet/FuncOrActionOrEvent.cs)
-          - [IEnumerable.cs](QFramework/QFramework/Utils/Extensions/DotNet/IEnumerable.cs)
-          - [IO.cs](QFramework/QFramework/Utils/Extensions/DotNet/IO.cs)
-          - [Log.cs](QFramework/QFramework/Utils/Extensions/DotNet/Log.cs)
-          - [OOP.cs](QFramework/QFramework/Utils/Extensions/DotNet/OOP.cs)
-          - [String.cs](QFramework/QFramework/Utils/Extensions/DotNet/String.cs)
+        - [PriorityQueue.cs](QFramework/QFramework/Utils/DataStructure/PriorityQueue.cs)
       - __Design__
         - __Command__
           - [ICommand.cs](QFramework/QFramework/Utils/Design/Command/ICommand.cs)
@@ -156,11 +146,21 @@
         - __Singleton__
           - [ISingleton.cs](QFramework/QFramework/Utils/Design/Singleton/ISingleton.cs)
           - [QSingleton.cs](QFramework/QFramework/Utils/Design/Singleton/QSingleton.cs)
-          - [SingletonCreator.cs](QFramework/QFramework/Utils/Design/Singleton/SingletonCreator.cs)
           - [QSingletonProperty.cs](QFramework/QFramework/Utils/Design/Singleton/QSingletonProperty.cs)
+          - [SingletonCreator.cs](QFramework/QFramework/Utils/Design/Singleton/SingletonCreator.cs)
         - __Subject__
         - [Tuple.cs](QFramework/QFramework/Utils/Design/Tuple.cs)
         - [Unit.cs](QFramework/QFramework/Utils/Design/Unit.cs)
+      - __Extensions__
+        - __DotNet__
+          - [CSharpInDeep.cs](QFramework/QFramework/Utils/Extensions/DotNet/CSharpInDeep.cs)
+          - [FuncOrActionOrEvent.cs](QFramework/QFramework/Utils/Extensions/DotNet/FuncOrActionOrEvent.cs)
+          - [Generic.cs](QFramework/QFramework/Utils/Extensions/DotNet/Generic.cs)
+          - [IEnumerable.cs](QFramework/QFramework/Utils/Extensions/DotNet/IEnumerable.cs)
+          - [IO.cs](QFramework/QFramework/Utils/Extensions/DotNet/IO.cs)
+          - [Log.cs](QFramework/QFramework/Utils/Extensions/DotNet/Log.cs)
+          - [OOP.cs](QFramework/QFramework/Utils/Extensions/DotNet/OOP.cs)
+          - [String.cs](QFramework/QFramework/Utils/Extensions/DotNet/String.cs)
       - __Scheduler__
         - [CurrentThreadScheduler.cs](QFramework/QFramework/Utils/Scheduler/CurrentThreadScheduler.cs)
         - [IScheduler.cs](QFramework/QFramework/Utils/Scheduler/IScheduler.cs)
