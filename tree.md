@@ -1,185 +1,171 @@
-.
-|-- QFramework
-|   |-- Networking
-|   |-- Rx
-|   |   |-- Disposable
-|   |   |   |-- DisposableExtension.cs
-|   |   |   |-- MultiDesinableDisposable.cs
-|   |   |   `-- RefCountDisposable.cs
-|   |   |-- EventPattern.cs
-|   |   |-- Notification.cs
-|   |   |-- Observable
-|   |   |   |-- IOptimizedObservable.cs
-|   |   |   |-- Observable.Aggregate.cs
-|   |   |   |-- Observable.Awaiter.cs
-|   |   |   |-- Observable.Binding.cs
-|   |   |   |-- Observable.Blocking.cs
-|   |   |   |-- Observable.Concatenate.cs
-|   |   |   |-- Observable.Concurrency.cs
-|   |   |   |-- Observable.Conversions.cs
-|   |   |   |-- Observable.Creation.cs
-|   |   |   |-- Observable.ErrorHandling.cs
-|   |   |   |-- Observable.Events.cs
-|   |   |   |-- Observable.FromAsync.cs
-|   |   |   |-- Observable.Joins.cs
-|   |   |   |-- Observable.Paging.cs
-|   |   |   |-- Observable.Time.cs
-|   |   |   `-- Observable.cs
-|   |   |-- Observer.cs
-|   |   |-- Operator
-|   |   |   |-- Aggregate.cs
-|   |   |   |-- Amb.cs
-|   |   |   |-- AsObservable.cs
-|   |   |   |-- AsSingleUnitObservable.cs
-|   |   |   |-- AsUnitObservable.cs
-|   |   |   |-- Buffer.cs
-|   |   |   |-- Cast.cs
-|   |   |   |-- Catch.cs
-|   |   |   |-- CombineLatest.cs
-|   |   |   |-- Concat.cs
-|   |   |   |-- ContinueWith.cs
-|   |   |   |-- Create.cs
-|   |   |   |-- DefaultIfEmpty.cs
-|   |   |   |-- Defer.cs
-|   |   |   |-- Delay.cs
-|   |   |   |-- DelaySubscription.cs
-|   |   |   |-- Dematerialize.cs
-|   |   |   |-- Distinct.cs
-|   |   |   |-- DistinctUntilChanged.cs
-|   |   |   |-- Do.cs
-|   |   |   |-- Empty.cs
-|   |   |   |-- Finally.cs
-|   |   |   |-- First.cs
-|   |   |   |-- ForEachAsync.cs
-|   |   |   |-- FromEvent.cs
-|   |   |   |-- GroupBy.cs
-|   |   |   |-- IgnoreElements.cs
-|   |   |   |-- Last.cs
-|   |   |   |-- Materialize.cs
-|   |   |   |-- Merge.cs
-|   |   |   |-- Never.cs
-|   |   |   |-- ObserveOn.cs
-|   |   |   |-- OfType.cs
-|   |   |   |-- OperatorObservableBase.cs
-|   |   |   |-- OperatorObserverBase.cs
-|   |   |   |-- PairWise.cs
-|   |   |   |-- Range.cs
-|   |   |   |-- RefCount.cs
-|   |   |   |-- Repeat.cs
-|   |   |   |-- RepeatSafe.cs
-|   |   |   |-- Return.cs
-|   |   |   |-- Sample.cs
-|   |   |   |-- Scan.cs
-|   |   |   |-- Select.cs
-|   |   |   |-- SelectMany.cs
-|   |   |   |-- SelectWhere.cs
-|   |   |   |-- Single.cs
-|   |   |   |-- Skip.cs
-|   |   |   |-- SkipUntil.cs
-|   |   |   |-- SkipWhile.cs
-|   |   |   |-- Start.cs
-|   |   |   |-- StartWith.cs
-|   |   |   |-- SubscribeOn.cs
-|   |   |   |-- Switch.cs
-|   |   |   |-- Synchronize.cs
-|   |   |   |-- SynchronizedObserver.cs
-|   |   |   |-- Take.cs
-|   |   |   |-- TakeLast.cs
-|   |   |   |-- TakeUntil.cs
-|   |   |   |-- TakeWhile.cs
-|   |   |   |-- Throttle.cs
-|   |   |   |-- ThrottleFirst.cs
-|   |   |   |-- Throw.cs
-|   |   |   |-- TimeInterval.cs
-|   |   |   |-- Timeout.cs
-|   |   |   |-- Timer.cs
-|   |   |   |-- Timestamp.cs
-|   |   |   |-- ToArray.cs
-|   |   |   |-- ToList.cs
-|   |   |   |-- ToObservable.cs
-|   |   |   |-- Wait.cs
-|   |   |   |-- WhenAll.cs
-|   |   |   |-- Where.cs
-|   |   |   |-- WhereSelect.cs
-|   |   |   |-- WithLatestFrom.cs
-|   |   |   |-- Zip.cs
-|   |   |   `-- ZipLatest.cs
-|   |   |-- Subjects
-|   |   |   |-- AsyncSubject.cs
-|   |   |   |-- BehaviorSubject.cs
-|   |   |   |-- ConnectableObservable.cs
-|   |   |   |-- ISubject.cs
-|   |   |   |-- ReplaySubject.cs
-|   |   |   |-- Subject.cs
-|   |   |   `-- SubjectExtensions.cs
-|   |   |-- ThreadPoolScheduler.cs
-|   |   |-- TimeInterval.cs
-|   |   `-- TimeStamped.cs
-|   `-- Utils
-|       |-- DataStructure
-|       |   |-- ImmutableList.cs
-|       |   |-- Pair.cs
-|       |   `-- PriorityQueue.cs
-|       |-- Design
-|       |   |-- Command
-|       |   |   |-- ICommand.cs
-|       |   |   `-- IExecutable.cs
-|       |   |-- Condition
-|       |   |   `-- ICondition.cs
-|       |   |-- Desposable
-|       |   |   |-- AsyncLock.cs
-|       |   |   |-- BooleanDisposable.cs
-|       |   |   |-- CompositeDisposable.cs
-|       |   |   |-- Disposable.cs
-|       |   |   |-- ICancelable.cs
-|       |   |   |-- SerialDisposable.cs
-|       |   |   |-- SingleAssignmentDisposable.cs
-|       |   |   `-- StableCompositeDisposable.cs
-|       |   |-- IProgress.cs
-|       |   |-- IResetable.cs
-|       |   |-- Node
-|       |   |   `-- INode.cs
-|       |   |-- Observer
-|       |   |   |-- IObservable.cs
-|       |   |   |-- IObserver.cs
-|       |   |   `-- ListObserver.cs
-|       |   |-- Singleton
-|       |   |   |-- ISingleton.cs
-|       |   |   |-- QSingleton.cs
-|       |   |   |-- QSingletonProperty.cs
-|       |   |   `-- SingletonCreator.cs
-|       |   |-- Subject
-|       |   |-- Tuple.cs
-|       |   `-- Unit.cs
-|       |-- Extensions
-|       |   `-- DotNet
-|       |       |-- CSharpInDeep.cs
-|       |       |-- FuncOrActionOrEvent.cs
-|       |       |-- Generic.cs
-|       |       |-- IEnumerable.cs
-|       |       |-- IO.cs
-|       |       |-- Log.cs
-|       |       |-- OOP.cs
-|       |       `-- String.cs
-|       `-- Scheduler
-|           |-- CurrentThreadScheduler.cs
-|           |-- IScheduler.cs
-|           |-- ImmediateScheduler.cs
-|           |-- ScheduledItem.cs
-|           |-- Scheduler.cs
-|           `-- SchedulerDisposable.cs
-|-- site
-|   |-- TestForWriteDocuments
-|   |-- assets
-|   |   |-- images
-|   |   |   `-- icons
-|   |   |-- javascripts
-|   |   |   `-- lunr
-|   |   `-- stylesheets
-|   |-- mkdocs
-|   |   `-- js
-|   |-- res
-|   `-- test_gh_page
-`-- tree.md
+- __QFramework__
+  - __QFramework__
+    - __Networking__
+    - __Rx__
+      - __Disposable__
+        - [DisposableExtension.cs](QFramework/QFramework/Rx/Disposable/DisposableExtension.cs)
+        - [MultiDesinableDisposable.cs](QFramework/QFramework/Rx/Disposable/MultiDesinableDisposable.cs)
+        - [RefCountDisposable.cs](QFramework/QFramework/Rx/Disposable/RefCountDisposable.cs)
+      - [EventPattern.cs](QFramework/QFramework/Rx/EventPattern.cs)
+      - [Notification.cs](QFramework/QFramework/Rx/Notification.cs)
+      - __Observable__
+        - [IOptimizedObservable.cs](QFramework/QFramework/Rx/Observable/IOptimizedObservable.cs)
+        - [Observable.Aggregate.cs](QFramework/QFramework/Rx/Observable/Observable.Aggregate.cs)
+        - [Observable.Awaiter.cs](QFramework/QFramework/Rx/Observable/Observable.Awaiter.cs)
+        - [Observable.Binding.cs](QFramework/QFramework/Rx/Observable/Observable.Binding.cs)
+        - [Observable.Blocking.cs](QFramework/QFramework/Rx/Observable/Observable.Blocking.cs)
+        - [Observable.Concatenate.cs](QFramework/QFramework/Rx/Observable/Observable.Concatenate.cs)
+        - [Observable.Concurrency.cs](QFramework/QFramework/Rx/Observable/Observable.Concurrency.cs)
+        - [Observable.Conversions.cs](QFramework/QFramework/Rx/Observable/Observable.Conversions.cs)
+        - [Observable.Creation.cs](QFramework/QFramework/Rx/Observable/Observable.Creation.cs)
+        - [Observable.ErrorHandling.cs](QFramework/QFramework/Rx/Observable/Observable.ErrorHandling.cs)
+        - [Observable.Events.cs](QFramework/QFramework/Rx/Observable/Observable.Events.cs)
+        - [Observable.FromAsync.cs](QFramework/QFramework/Rx/Observable/Observable.FromAsync.cs)
+        - [Observable.Joins.cs](QFramework/QFramework/Rx/Observable/Observable.Joins.cs)
+        - [Observable.Paging.cs](QFramework/QFramework/Rx/Observable/Observable.Paging.cs)
+        - [Observable.Time.cs](QFramework/QFramework/Rx/Observable/Observable.Time.cs)
+        - [Observable.cs](QFramework/QFramework/Rx/Observable/Observable.cs)
+      - [Observer.cs](QFramework/QFramework/Rx/Observer.cs)
+      - __Operator__
+        - [Aggregate.cs](QFramework/QFramework/Rx/Operator/Aggregate.cs)
+        - [Amb.cs](QFramework/QFramework/Rx/Operator/Amb.cs)
+        - [AsObservable.cs](QFramework/QFramework/Rx/Operator/AsObservable.cs)
+        - [AsSingleUnitObservable.cs](QFramework/QFramework/Rx/Operator/AsSingleUnitObservable.cs)
+        - [AsUnitObservable.cs](QFramework/QFramework/Rx/Operator/AsUnitObservable.cs)
+        - [Buffer.cs](QFramework/QFramework/Rx/Operator/Buffer.cs)
+        - [Cast.cs](QFramework/QFramework/Rx/Operator/Cast.cs)
+        - [Catch.cs](QFramework/QFramework/Rx/Operator/Catch.cs)
+        - [CombineLatest.cs](QFramework/QFramework/Rx/Operator/CombineLatest.cs)
+        - [Concat.cs](QFramework/QFramework/Rx/Operator/Concat.cs)
+        - [ContinueWith.cs](QFramework/QFramework/Rx/Operator/ContinueWith.cs)
+        - [Create.cs](QFramework/QFramework/Rx/Operator/Create.cs)
+        - [DefaultIfEmpty.cs](QFramework/QFramework/Rx/Operator/DefaultIfEmpty.cs)
+        - [Defer.cs](QFramework/QFramework/Rx/Operator/Defer.cs)
+        - [Delay.cs](QFramework/QFramework/Rx/Operator/Delay.cs)
+        - [DelaySubscription.cs](QFramework/QFramework/Rx/Operator/DelaySubscription.cs)
+        - [Dematerialize.cs](QFramework/QFramework/Rx/Operator/Dematerialize.cs)
+        - [Distinct.cs](QFramework/QFramework/Rx/Operator/Distinct.cs)
+        - [DistinctUntilChanged.cs](QFramework/QFramework/Rx/Operator/DistinctUntilChanged.cs)
+        - [Do.cs](QFramework/QFramework/Rx/Operator/Do.cs)
+        - [Empty.cs](QFramework/QFramework/Rx/Operator/Empty.cs)
+        - [Finally.cs](QFramework/QFramework/Rx/Operator/Finally.cs)
+        - [First.cs](QFramework/QFramework/Rx/Operator/First.cs)
+        - [ForEachAsync.cs](QFramework/QFramework/Rx/Operator/ForEachAsync.cs)
+        - [FromEvent.cs](QFramework/QFramework/Rx/Operator/FromEvent.cs)
+        - [GroupBy.cs](QFramework/QFramework/Rx/Operator/GroupBy.cs)
+        - [IgnoreElements.cs](QFramework/QFramework/Rx/Operator/IgnoreElements.cs)
+        - [Last.cs](QFramework/QFramework/Rx/Operator/Last.cs)
+        - [Merge.cs](QFramework/QFramework/Rx/Operator/Merge.cs)
+        - [Materialize.cs](QFramework/QFramework/Rx/Operator/Materialize.cs)
+        - [Never.cs](QFramework/QFramework/Rx/Operator/Never.cs)
+        - [ObserveOn.cs](QFramework/QFramework/Rx/Operator/ObserveOn.cs)
+        - [OfType.cs](QFramework/QFramework/Rx/Operator/OfType.cs)
+        - [OperatorObservableBase.cs](QFramework/QFramework/Rx/Operator/OperatorObservableBase.cs)
+        - [OperatorObserverBase.cs](QFramework/QFramework/Rx/Operator/OperatorObserverBase.cs)
+        - [PairWise.cs](QFramework/QFramework/Rx/Operator/PairWise.cs)
+        - [Range.cs](QFramework/QFramework/Rx/Operator/Range.cs)
+        - [RefCount.cs](QFramework/QFramework/Rx/Operator/RefCount.cs)
+        - [Repeat.cs](QFramework/QFramework/Rx/Operator/Repeat.cs)
+        - [RepeatSafe.cs](QFramework/QFramework/Rx/Operator/RepeatSafe.cs)
+        - [Return.cs](QFramework/QFramework/Rx/Operator/Return.cs)
+        - [Sample.cs](QFramework/QFramework/Rx/Operator/Sample.cs)
+        - [Scan.cs](QFramework/QFramework/Rx/Operator/Scan.cs)
+        - [Select.cs](QFramework/QFramework/Rx/Operator/Select.cs)
+        - [SelectMany.cs](QFramework/QFramework/Rx/Operator/SelectMany.cs)
+        - [SelectWhere.cs](QFramework/QFramework/Rx/Operator/SelectWhere.cs)
+        - [Single.cs](QFramework/QFramework/Rx/Operator/Single.cs)
+        - [Skip.cs](QFramework/QFramework/Rx/Operator/Skip.cs)
+        - [SkipUntil.cs](QFramework/QFramework/Rx/Operator/SkipUntil.cs)
+        - [SkipWhile.cs](QFramework/QFramework/Rx/Operator/SkipWhile.cs)
+        - [Start.cs](QFramework/QFramework/Rx/Operator/Start.cs)
+        - [StartWith.cs](QFramework/QFramework/Rx/Operator/StartWith.cs)
+        - [SubscribeOn.cs](QFramework/QFramework/Rx/Operator/SubscribeOn.cs)
+        - [Switch.cs](QFramework/QFramework/Rx/Operator/Switch.cs)
+        - [Synchronize.cs](QFramework/QFramework/Rx/Operator/Synchronize.cs)
+        - [SynchronizedObserver.cs](QFramework/QFramework/Rx/Operator/SynchronizedObserver.cs)
+        - [Take.cs](QFramework/QFramework/Rx/Operator/Take.cs)
+        - [TakeLast.cs](QFramework/QFramework/Rx/Operator/TakeLast.cs)
+        - [TakeUntil.cs](QFramework/QFramework/Rx/Operator/TakeUntil.cs)
+        - [TakeWhile.cs](QFramework/QFramework/Rx/Operator/TakeWhile.cs)
+        - [Throttle.cs](QFramework/QFramework/Rx/Operator/Throttle.cs)
+        - [ThrottleFirst.cs](QFramework/QFramework/Rx/Operator/ThrottleFirst.cs)
+        - [Throw.cs](QFramework/QFramework/Rx/Operator/Throw.cs)
+        - [TimeInterval.cs](QFramework/QFramework/Rx/Operator/TimeInterval.cs)
+        - [Timeout.cs](QFramework/QFramework/Rx/Operator/Timeout.cs)
+        - [Timer.cs](QFramework/QFramework/Rx/Operator/Timer.cs)
+        - [Timestamp.cs](QFramework/QFramework/Rx/Operator/Timestamp.cs)
+        - [ToArray.cs](QFramework/QFramework/Rx/Operator/ToArray.cs)
+        - [ToList.cs](QFramework/QFramework/Rx/Operator/ToList.cs)
+        - [ToObservable.cs](QFramework/QFramework/Rx/Operator/ToObservable.cs)
+        - [Wait.cs](QFramework/QFramework/Rx/Operator/Wait.cs)
+        - [WhenAll.cs](QFramework/QFramework/Rx/Operator/WhenAll.cs)
+        - [Where.cs](QFramework/QFramework/Rx/Operator/Where.cs)
+        - [WhereSelect.cs](QFramework/QFramework/Rx/Operator/WhereSelect.cs)
+        - [WithLatestFrom.cs](QFramework/QFramework/Rx/Operator/WithLatestFrom.cs)
+        - [Zip.cs](QFramework/QFramework/Rx/Operator/Zip.cs)
+        - [ZipLatest.cs](QFramework/QFramework/Rx/Operator/ZipLatest.cs)
+      - __Subjects__
+        - [AsyncSubject.cs](QFramework/QFramework/Rx/Subjects/AsyncSubject.cs)
+        - [BehaviorSubject.cs](QFramework/QFramework/Rx/Subjects/BehaviorSubject.cs)
+        - [ConnectableObservable.cs](QFramework/QFramework/Rx/Subjects/ConnectableObservable.cs)
+        - [ISubject.cs](QFramework/QFramework/Rx/Subjects/ISubject.cs)
+        - [ReplaySubject.cs](QFramework/QFramework/Rx/Subjects/ReplaySubject.cs)
+        - [Subject.cs](QFramework/QFramework/Rx/Subjects/Subject.cs)
+        - [SubjectExtensions.cs](QFramework/QFramework/Rx/Subjects/SubjectExtensions.cs)
+      - [ThreadPoolScheduler.cs](QFramework/QFramework/Rx/ThreadPoolScheduler.cs)
+      - [TimeInterval.cs](QFramework/QFramework/Rx/TimeInterval.cs)
+      - [TimeStamped.cs](QFramework/QFramework/Rx/TimeStamped.cs)
+    - __Utils__
+      - __DataStructure__
+        - [ImmutableList.cs](QFramework/QFramework/Utils/DataStructure/ImmutableList.cs)
+        - [Pair.cs](QFramework/QFramework/Utils/DataStructure/Pair.cs)
+        - [PriorityQueue.cs](QFramework/QFramework/Utils/DataStructure/PriorityQueue.cs)
+      - __Design__
+        - __Command__
+          - [IExecutable.cs](QFramework/QFramework/Utils/Design/Command/IExecutable.cs)
+          - [ICommand.cs](QFramework/QFramework/Utils/Design/Command/ICommand.cs)
+        - __Condition__
+          - [ICondition.cs](QFramework/QFramework/Utils/Design/Condition/ICondition.cs)
+        - __Desposable__
+          - [AsyncLock.cs](QFramework/QFramework/Utils/Design/Desposable/AsyncLock.cs)
+          - [BooleanDisposable.cs](QFramework/QFramework/Utils/Design/Desposable/BooleanDisposable.cs)
+          - [CompositeDisposable.cs](QFramework/QFramework/Utils/Design/Desposable/CompositeDisposable.cs)
+          - [Disposable.cs](QFramework/QFramework/Utils/Design/Desposable/Disposable.cs)
+          - [ICancelable.cs](QFramework/QFramework/Utils/Design/Desposable/ICancelable.cs)
+          - [SerialDisposable.cs](QFramework/QFramework/Utils/Design/Desposable/SerialDisposable.cs)
+          - [SingleAssignmentDisposable.cs](QFramework/QFramework/Utils/Design/Desposable/SingleAssignmentDisposable.cs)
+          - [StableCompositeDisposable.cs](QFramework/QFramework/Utils/Design/Desposable/StableCompositeDisposable.cs)
+        - [IProgress.cs](QFramework/QFramework/Utils/Design/IProgress.cs)
+        - [IResetable.cs](QFramework/QFramework/Utils/Design/IResetable.cs)
+        - __Node__
+          - [INode.cs](QFramework/QFramework/Utils/Design/Node/INode.cs)
+        - __Observer__
+          - [IObservable.cs](QFramework/QFramework/Utils/Design/Observer/IObservable.cs)
+          - [IObserver.cs](QFramework/QFramework/Utils/Design/Observer/IObserver.cs)
+          - [ListObserver.cs](QFramework/QFramework/Utils/Design/Observer/ListObserver.cs)
+        - __Singleton__
+          - [ISingleton.cs](QFramework/QFramework/Utils/Design/Singleton/ISingleton.cs)
+          - [QSingleton.cs](QFramework/QFramework/Utils/Design/Singleton/QSingleton.cs)
+          - [QSingletonProperty.cs](QFramework/QFramework/Utils/Design/Singleton/QSingletonProperty.cs)
+          - [SingletonCreator.cs](QFramework/QFramework/Utils/Design/Singleton/SingletonCreator.cs)
+        - __Subject__
+        - [Tuple.cs](QFramework/QFramework/Utils/Design/Tuple.cs)
+        - [Unit.cs](QFramework/QFramework/Utils/Design/Unit.cs)
+      - __Extensions__
+        - __DotNet__
+          - [CSharpInDeep.cs](QFramework/QFramework/Utils/Extensions/DotNet/CSharpInDeep.cs)
+          - [Generic.cs](QFramework/QFramework/Utils/Extensions/DotNet/Generic.cs)
+          - [FuncOrActionOrEvent.cs](QFramework/QFramework/Utils/Extensions/DotNet/FuncOrActionOrEvent.cs)
+          - [IEnumerable.cs](QFramework/QFramework/Utils/Extensions/DotNet/IEnumerable.cs)
+          - [IO.cs](QFramework/QFramework/Utils/Extensions/DotNet/IO.cs)
+          - [Log.cs](QFramework/QFramework/Utils/Extensions/DotNet/Log.cs)
+          - [OOP.cs](QFramework/QFramework/Utils/Extensions/DotNet/OOP.cs)
+          - [String.cs](QFramework/QFramework/Utils/Extensions/DotNet/String.cs)
+      - __Scheduler__
+        - [CurrentThreadScheduler.cs](QFramework/QFramework/Utils/Scheduler/CurrentThreadScheduler.cs)
+        - [IScheduler.cs](QFramework/QFramework/Utils/Scheduler/IScheduler.cs)
+        - [ImmediateScheduler.cs](QFramework/QFramework/Utils/Scheduler/ImmediateScheduler.cs)
+        - [ScheduledItem.cs](QFramework/QFramework/Utils/Scheduler/ScheduledItem.cs)
+        - [Scheduler.cs](QFramework/QFramework/Utils/Scheduler/Scheduler.cs)
+        - [SchedulerDisposable.cs](QFramework/QFramework/Utils/Scheduler/SchedulerDisposable.cs)
 
-32 directories, 150 files
