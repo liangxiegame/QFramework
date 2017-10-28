@@ -200,6 +200,10 @@
     <Compile Include="Rx\Observable\Observable.Joins.cs" />
     <Compile Include="Rx\Observable\Observable.Paging.cs" />
     <Compile Include="Rx\Observable\Observable.Time.cs" />
+    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingleton.cs" />
+    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonPath.cs" />
+    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonProperty.cs" />
+    <Compile Include="Utils\Design\Singleton\UnityImplement\QSingletonCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
@@ -219,6 +223,7 @@
     <Folder Include="Rx\Disposable\" />
     <Folder Include="Rx\Subjects\" />
     <Folder Include="Utils\Design\Subject\" />
+    <Folder Include="Utils\Design\Singleton\UnityImplement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
