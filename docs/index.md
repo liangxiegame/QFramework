@@ -1,14 +1,14 @@
-# Welcome to QFramework
+# index
 
--[ ] this is task
+Quick Start
+
+
+-[ ] this is task but not support for mkdocs…
 
 
 ## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+need add one project layout
 
 
 ## [API Reference](https://liangxiegame.github.io/QFramework/html/index.html)
+
