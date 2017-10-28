@@ -1,5 +1,3 @@
 site_name: QFramework
-pages:
-  - Home: index.md
 theme: material
 
