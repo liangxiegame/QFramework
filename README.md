@@ -7,18 +7,7 @@
 
 #### [API Rerence](http://liangxiegame.github.io/QFramework/html/index.html)
 
-#### Folder Tree:
+#### [Folder Tree](./docs/folder_tree.md)
 
-* QFramework	
-  * Rx	folk from UniRx
-    * Disposable
-    * Observable
-    * Operator
-    * Subjects
-  * Utils   Unitilty support for Game
-    * DataStructure
-    * Design
-    * Extensions
-    * Scheduler
 
 
