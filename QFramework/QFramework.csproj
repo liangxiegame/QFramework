@@ -229,6 +229,28 @@
     <Compile Include="Utils\FSM\QFSM.cs" />
     <Compile Include="Utils\FSM\QFSMLite.cs" />
     <Compile Include="Utils\FSM\QFSMLiteTest.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncConnect.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncDisconnect.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncIOOperation.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncReceive.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncSend.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\AsyncSocketOperation.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiSerializationLayout.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiSerializationOptions.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiSerializer.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\FlexiSocket.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\IActionListener.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\IFlexiSerializer.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\IProtocol.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\ISocketClient.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\ISocketClientToken.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\ISocketServer.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\MessageStructure.cs" />
+    <Compile Include="Utils\Network\FlexiSocket\SocketDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
