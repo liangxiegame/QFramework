@@ -30,6 +30,10 @@
           <command>rm -rf ${SolutionDir}/obj</command>
           <externalConsole>True</externalConsole>
         </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>mv ${TargetFile} ${SolutionDir}/../Assets/</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
