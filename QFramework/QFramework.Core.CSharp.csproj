@@ -27,12 +27,15 @@
       <CustomCommands>
         <Command>
           <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/obj</command>
-          <externalConsole>True</externalConsole>
+          <command>rm -rf ${SolutionDir}/obj </command>
         </Command>
         <Command>
           <type>AfterBuild</type>
-          <command>mv ${TargetFile} ${SolutionDir}/../Assets/</command>
+          <command>rm ${SolutionDir}/../Assets/${TargetName}  </command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp ${TargetFile} ${SolutionDir}/../Assets/</command>
         </Command>
       </CustomCommands>
     </CustomCommands>
@@ -40,7 +43,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
-     <Optimize>true</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\..\QFramework\Release</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -73,6 +76,7 @@
     <Compile Include="Utils\Design\Tuple.cs" />
     <Compile Include="Utils\Design\Unit.cs" />
     <Compile Include="Utils\Extensions\DotNet\FuncOrActionOrEvent.cs" />
+    <Compile Include="Utils\Extensions\Json\JsonExtension.cs" />
     <Compile Include="Utils\Scheduler\IScheduler.cs" />
     <Compile Include="Utils\Scheduler\Scheduler.cs" />
     <Compile Include="Utils\Scheduler\ImmediateScheduler.cs" />
@@ -210,10 +214,6 @@
     <Compile Include="Rx\Observable\Observable.Joins.cs" />
     <Compile Include="Rx\Observable\Observable.Paging.cs" />
     <Compile Include="Rx\Observable\Observable.Time.cs" />
-    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingleton.cs" />
-    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonPath.cs" />
-    <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonProperty.cs" />
-    <Compile Include="Utils\Design\Singleton\UnityImplement\QSingletonCreator.cs" />
     <Compile Include="Utils\Extensions\DotNet\Reflection.cs" />
     <Compile Include="Utils\Caching\Cache\SimpleObjectCache.cs" />
     <Compile Include="Utils\Caching\ObjectFactory\CustomObjectFactory.cs" />
@@ -264,7 +264,6 @@
     <Folder Include="Utils\IO\" />
     <Folder Include="Utils\Design\" />
     <Folder Include="Utils\Scheduler\" />
-    <Folder Include="Utils\Disposable\" />
     <Folder Include="Utils\Design\Desposable\" />
     <Folder Include="Utils\Design\Singleton\" />
     <Folder Include="Utils\Design\Observer\" />
@@ -278,7 +277,6 @@
     <Folder Include="Rx\Disposable\" />
     <Folder Include="Rx\Subjects\" />
     <Folder Include="Utils\Design\Subject\" />
-    <Folder Include="Utils\Design\Singleton\UnityImplement\" />
     <Folder Include="Utils\Design\Exception\" />
     <Folder Include="Utils\Event\" />
   </ItemGroup>
@@ -290,5 +288,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

@@ -25,47 +25,23 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY
-namespace QFramework 
+namespace QFramework.Core
 {
-	using Core;
-	using UnityEngine;
+    using System;
 
-	public abstract class QMonoSingleton<T> : MonoBehaviour,ISingleton where T : QMonoSingleton<T>
-	{
-		protected static T mInstance = null;
+    [AttributeUsage(AttributeTargets.Class)]
+    public class QMonoSingletonPath : Attribute
+    {
+        private string mPathInHierarchy;
 
-		public static T Instance
-		{
-			get 
-			{
-				if (null == mInstance) 
-				{
-					mInstance = QSingletonCreator.CreateMonoSingleton<T> ();
-				}
+        public QMonoSingletonPath(string pathInHierarchy)
+        {
+            mPathInHierarchy = pathInHierarchy;
+        }
 
-				return mInstance;
-			}
-		}
-
-		public virtual void OnSingletonInit() {}
-
-		public virtual void Dispose()
-		{
-			if (QSingletonCreator.IsUnitTestMode)
-			{
-				DestroyImmediate(gameObject);
-			}
-			else
-			{
-				Destroy(gameObject);
-			}
-		}
-		
-		protected virtual void OnDestroy()
-		{
-			mInstance = null;
-		}
-	}
+        public string PathInHierarchy
+        {
+            get { return mPathInHierarchy; }
+        }
+    }
 }
-#endif

@@ -24,34 +24,46 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-#if UNITY
-namespace QFramework
+
+namespace QFramework.Core
 {
-    using System;
+	using Core;
+	using UnityEngine;
 
-    [AttributeUsage(AttributeTargets.Class)]
-    public class QMonoSingletonPath : Attribute
-    {
-		private string mPathInHierarchy;
+	public abstract class QMonoSingleton<T> : MonoBehaviour,ISingleton where T : QMonoSingleton<T>
+	{
+		protected static T mInstance = null;
 
-        public QMonoSingletonPath(string pathInHierarchy)
-        {
-            mPathInHierarchy = pathInHierarchy;
-        }
+		public static T Instance
+		{
+			get 
+			{
+				if (null == mInstance) 
+				{
+					mInstance = QMonoSingletonCreator.CreateMonoSingleton<T> ();
+				}
 
-        public string PathInHierarchy
-        {
-            get { return mPathInHierarchy; }
-        }
-    }
-    
-    [Obsolete("QMonoSingletonAttribute is deprecated.prease use QMonoSingletonPath instead")]
-    [AttributeUsage(AttributeTargets.Class)]
-    public class QMonoSingletonAttribute : QMonoSingletonPath
-    {
-        public QMonoSingletonAttribute(string pathInHierarchy) : base(pathInHierarchy)
-        {
-        }
-    }
+				return mInstance;
+			}
+		}
+
+		public virtual void OnSingletonInit() {}
+
+		public virtual void Dispose()
+		{
+			if (QMonoSingletonCreator.IsUnitTestMode)
+			{
+				DestroyImmediate(gameObject);
+			}
+			else
+			{
+				Destroy(gameObject);
+			}
+		}
+		
+		protected virtual void OnDestroy()
+		{
+			mInstance = null;
+		}
+	}
 }
-#endif

@@ -24,42 +24,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-#if UNITY
-namespace QFramework 
+
+namespace QFramework.Core.Utils.Extensions.Json
 {
-	using UnityEngine;
-	using Core;
+	using Newtonsoft.Json.Linq;
 
-	public abstract class QMonoSingletonProperty<T> where T : MonoBehaviour,ISingleton
+	/// <summary>
+	/// Support Newtown.json,Adjust LitJons's api
+	/// </summary>
+	public static class JsonExtension
 	{
-		protected static T mInstance = null;
-
-		public static T Instance
+		/// <summary>
+		/// Check if json data contains key specified
+		/// </summary>
+		public static bool JsonDataContainsKey(this JToken self, string key)
 		{
-			get 
-			{
-				if (mInstance == null) 
-				{
-					mInstance = QSingletonCreator.CreateMonoSingleton<T> ();
-				}
-
-				return mInstance;
-			}
+			if (self == null) return false;
+			if (!self.IsObject()) return false;
+			return self[key] != null;
 		}
 
-		public static void Dispose()
+		public static bool IsNullOrUndefined(this JToken self)
 		{
-			if (QSingletonCreator.IsUnitTestMode)
-			{
-				Object.DestroyImmediate(mInstance.gameObject);
-			}
-			else
-			{
-				Object.Destroy(mInstance.gameObject);
-			}
-
-			mInstance = null;
+			return self == null || self.Type == JTokenType.Null || self.Type == JTokenType.Undefined || self.Type == JTokenType.None;
 		}
+
+		public static bool IsString(this JToken self)
+		{
+			return self != null && self.Type == JTokenType.String;
+		}
+
+		public static bool IsObject(this JToken self)
+		{
+			return self != null && self.Type == JTokenType.Object;
+		}
+
+		public static bool IsArray(this JToken self)
+		{
+			return self != null && self.Type == JTokenType.Array;
+		}
+
+//		public static string ToJsonValue(this UnityEngine.Vector2 vector2)
+//		{
+//			return vector2.x + "," + vector2.y;
+//		}
 	}
 }
-#endif
