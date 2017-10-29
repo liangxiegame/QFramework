@@ -226,6 +226,9 @@
     <Compile Include="Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs" />
     <Compile Include="Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs" />
     <Compile Include="Utils\Design\Exception\ExceptionWithHint.cs" />
+    <Compile Include="Utils\FSM\QFSM.cs" />
+    <Compile Include="Utils\FSM\QFSMLite.cs" />
+    <Compile Include="Utils\FSM\QFSMLiteTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
