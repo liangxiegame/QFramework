@@ -136,7 +136,7 @@ namespace QFramework.Core.Utils.Caching
         /// <summary>
         /// Allocate T instance.
         /// </summary>
-        public T Allocate()
+        public override T Allocate()
         {
             T result = base.Allocate();
             result.IsRecycled = false;

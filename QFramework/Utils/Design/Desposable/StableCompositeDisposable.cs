@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace QFramework.Core.Utils
+namespace QFramework.Core
 {
     /// <summary>
     /// Represents a group of disposable resources that are disposed together.

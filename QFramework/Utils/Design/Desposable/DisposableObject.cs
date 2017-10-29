@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,62 +29,46 @@ namespace QFramework.Core
 {
     using System;
 
-    public sealed class SerialDisposable : IDisposable, ICancelable
+    public class DisposableObject : IDisposable
     {
-        readonly object gate = new object();
-        IDisposable current;
-        bool disposed;
+        private Boolean mDisposed = false;
 
-        public bool IsDisposed { get { lock (gate) { return disposed; } } }
-
-        public IDisposable Disposable
+        ~DisposableObject()
         {
-            get
-            {
-                return current;
-            }
-            set
-            {
-                var shouldDispose = false;
-                var old = default(IDisposable);
-                lock (gate)
-                {
-                    shouldDispose = disposed;
-                    if (!shouldDispose)
-                    {
-                        old = current;
-                        current = value;
-                    }
-                }
-                if (old != null)
-                {
-                    old.Dispose();
-                }
-                if (shouldDispose && value != null)
-                {
-                    value.Dispose();
-                }
-            }
+            Dispose(false);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
-            var old = default(IDisposable);
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            lock (gate)
+        // Overrides it, to dispose managed resources.
+        protected virtual void DisposeGC()
+        {
+        }
+
+        // Overrides it, to dispose unmanaged resources
+        protected virtual void DisposeNGC()
+        {
+        }
+
+        private void Dispose(Boolean disposing)
+        {
+            if (mDisposed)
             {
-                if (!disposed)
-                {
-                    disposed = true;
-                    old = current;
-                    current = null;
-                }
+                return;
             }
 
-            if (old != null)
+            if (disposing)
             {
-                old.Dispose();
+                DisposeGC();
             }
+
+            DisposeNGC();
+
+            mDisposed = true;
         }
     }
 }

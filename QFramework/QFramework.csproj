@@ -219,6 +219,7 @@
     <Compile Include="Utils\Caching\Pool\Pool.cs" />
     <Compile Include="Utils\Caching\Pool\SafeObjectPool.cs" />
     <Compile Include="Utils\Caching\Pool\SimpleObjectPool.cs" />
+    <Compile Include="Utils\Design\Desposable\DisposableObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
