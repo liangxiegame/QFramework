@@ -220,6 +220,12 @@
     <Compile Include="Utils\Caching\Pool\SafeObjectPool.cs" />
     <Compile Include="Utils\Caching\Pool\SimpleObjectPool.cs" />
     <Compile Include="Utils\Design\Desposable\DisposableObject.cs" />
+    <Compile Include="Utils\RefCounter\RefCounter.cs" />
+    <Compile Include="Utils\RefCounter\SafeARC.cs" />
+    <Compile Include="Utils\RefCounter\UnsafeARC.cs" />
+    <Compile Include="Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs" />
+    <Compile Include="Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs" />
+    <Compile Include="Utils\Design\Exception\ExceptionWithHint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
@@ -240,6 +246,7 @@
     <Folder Include="Rx\Subjects\" />
     <Folder Include="Utils\Design\Subject\" />
     <Folder Include="Utils\Design\Singleton\UnityImplement\" />
+    <Folder Include="Utils\Design\Exception\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
