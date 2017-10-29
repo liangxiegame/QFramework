@@ -52,6 +52,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="ProtobufNet">
+      <HintPath>Utils\Network\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Utils\Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +257,8 @@
     <Compile Include="Utils\Network\FlexiSocket\ISocketServer.cs" />
     <Compile Include="Utils\Network\FlexiSocket\MessageStructure.cs" />
     <Compile Include="Utils\Network\FlexiSocket\SocketDelegate.cs" />
+    <Compile Include="Utils\IO\SerializeHelper.cs" />
+    <Compile Include="Utils\Event\QEventSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
@@ -272,6 +280,7 @@
     <Folder Include="Utils\Design\Subject\" />
     <Folder Include="Utils\Design\Singleton\UnityImplement\" />
     <Folder Include="Utils\Design\Exception\" />
+    <Folder Include="Utils\Event\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
