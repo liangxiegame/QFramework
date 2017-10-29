@@ -208,6 +208,17 @@
     <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonPath.cs" />
     <Compile Include="Utils\Design\Singleton\UnityImplement\QMonoSingletonProperty.cs" />
     <Compile Include="Utils\Design\Singleton\UnityImplement\QSingletonCreator.cs" />
+    <Compile Include="Utils\Extensions\DotNet\Reflection.cs" />
+    <Compile Include="Utils\Caching\Cache\SimpleObjectCache.cs" />
+    <Compile Include="Utils\Caching\ObjectFactory\CustomObjectFactory.cs" />
+    <Compile Include="Utils\Caching\ObjectFactory\DefaultObjectFactory.cs" />
+    <Compile Include="Utils\Caching\ObjectFactory\IObjectFactory.cs" />
+    <Compile Include="Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs" />
+    <Compile Include="Utils\Caching\Pool\IPool.cs" />
+    <Compile Include="Utils\Caching\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Utils\Caching\Pool\Pool.cs" />
+    <Compile Include="Utils\Caching\Pool\SafeObjectPool.cs" />
+    <Compile Include="Utils\Caching\Pool\SimpleObjectPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\IO\" />
