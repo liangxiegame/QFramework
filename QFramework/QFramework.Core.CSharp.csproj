@@ -64,6 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\CodeGeneration\CodeGeneratorData.cs" />
+    <Compile Include="Utils\CodeGeneration\CodeGenFile.cs" />
+    <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGenerator.cs" />
+    <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs" />
+    <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs" />
+    <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs" />
     <Compile Include="Utils\Extensions\DotNet\String.cs" />
     <Compile Include="Utils\Extensions\DotNet\IEnumerable.cs" />
     <Compile Include="Utils\Extensions\DotNet\Generic.cs" />
