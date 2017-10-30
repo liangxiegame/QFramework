@@ -51,6 +51,9 @@
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>Utils\IO\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -63,6 +66,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NodeSystem\ExecuteNodeContainer.cs" />
+    <Compile Include="NodeSystem\Node\DelayNode.cs" />
+    <Compile Include="NodeSystem\Node\EventNode.cs" />
+    <Compile Include="NodeSystem\Node\ExecuteNode.cs" />
+    <Compile Include="NodeSystem\Node\IExecuteNode.cs" />
+    <Compile Include="NodeSystem\Node\KeyEventNode.cs" />
+    <Compile Include="NodeSystem\Node\RepeatNode.cs" />
+    <Compile Include="NodeSystem\Node\SequenceNode.cs" />
+    <Compile Include="NodeSystem\Node\SpawnNode.cs" />
+    <Compile Include="NodeSystem\Node\TimelineNode.cs" />
+    <Compile Include="NodeSystem\Node\UntilNode.cs" />
+    <Compile Include="NodeSystem\ProcessNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\CodeGeneration\CodeGeneratorData.cs" />
     <Compile Include="Utils\CodeGeneration\CodeGenFile.cs" />
@@ -70,6 +85,20 @@
     <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs" />
     <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs" />
     <Compile Include="Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs" />
+    <Compile Include="Utils\DataStructure\Array\ResizableArray.cs" />
+    <Compile Include="Utils\DataStructure\BinaryHeap\BinaryHeap.cs" />
+    <Compile Include="Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs" />
+    <Compile Include="Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs" />
+    <Compile Include="Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs" />
+    <Compile Include="Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs" />
+    <Compile Include="Utils\DataStructure\IData.cs" />
+    <Compile Include="Utils\DataStructure\ITestUnit.cs" />
+    <Compile Include="Utils\DataStructure\List\IList.cs" />
+    <Compile Include="Utils\DataStructure\List\LinkedList.cs" />
+    <Compile Include="Utils\DataStructure\List\Stack.cs" />
+    <Compile Include="Utils\DataStructure\List\Test\LinkedListTest.cs" />
+    <Compile Include="Utils\DataStructure\Main.cs" />
     <Compile Include="Utils\Extensions\DotNet\String.cs" />
     <Compile Include="Utils\Extensions\DotNet\IEnumerable.cs" />
     <Compile Include="Utils\Extensions\DotNet\Generic.cs" />
@@ -83,6 +112,7 @@
     <Compile Include="Utils\Design\Unit.cs" />
     <Compile Include="Utils\Extensions\DotNet\FuncOrActionOrEvent.cs" />
     <Compile Include="Utils\Extensions\Json\JsonExtension.cs" />
+    <Compile Include="Utils\IO\ZipUtil.cs" />
     <Compile Include="Utils\Scheduler\IScheduler.cs" />
     <Compile Include="Utils\Scheduler\Scheduler.cs" />
     <Compile Include="Utils\Scheduler\ImmediateScheduler.cs" />

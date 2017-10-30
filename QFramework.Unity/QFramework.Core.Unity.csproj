@@ -56,6 +56,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AStar\AStar.cs" />
+    <Compile Include="AStar\AStarNode.cs" />
+    <Compile Include="AStar\GridManager.cs" />
+    <Compile Include="AStar\PriorityQueue.cs" />
+    <Compile Include="AStar\TestAStar.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Singleton\QMonoSingleton.cs" />
     <Compile Include="Singleton\QMonoSingletonPath.cs" />

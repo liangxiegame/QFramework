@@ -40,7 +40,6 @@ namespace QFramework.Core.Utils.Event
 
     public class QEventSystem : QSingleton<QEventSystem>, IPoolAble
     {
-        private bool mCacheFlag = false;
         private Dictionary<int, ListenerWrap> mAllListenerMap = new Dictionary<int, ListenerWrap>(50);
 
         public bool IsRecycled { get; set; }
