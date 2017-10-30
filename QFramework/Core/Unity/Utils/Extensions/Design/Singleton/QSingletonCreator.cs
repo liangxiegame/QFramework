@@ -28,10 +28,8 @@
 
 namespace QFramework
 {
-	using System;
 	using UnityEngine;
 	using System.Reflection;
-	using Core;
 	
     public partial class QSingletonCreator
     {

@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace QFramework.Examples
 {
+    using QFramework;
+
     public class Sample08_DetectDoubleClick : MonoBehaviour
     {
         void Start()

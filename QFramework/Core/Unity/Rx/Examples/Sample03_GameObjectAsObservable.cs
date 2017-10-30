@@ -1,7 +1,7 @@
 ﻿#if !(UNITY_IPHONE || UNITY_ANDROID || UNITY_METRO)
 
 using UnityEngine;
-using QFramework.Triggers; // for enable gameObject.EventAsObservbale()
+using QFramework; // for enable gameObject.EventAsObservbale()
 
 namespace QFramework.Examples
 {
@@ -9,7 +9,7 @@ namespace QFramework.Examples
     {
         void Start()
         {
-            // All events can subscribe by ***AsObservable if enables QFramework.Triggers
+            // All events can subscribe by ***AsObservable if enables QFramework
             this.OnMouseDownAsObservable()
                 .SelectMany(_ => this.gameObject.UpdateAsObservable())
                 .TakeUntil(this.gameObject.OnMouseUpAsObservable())

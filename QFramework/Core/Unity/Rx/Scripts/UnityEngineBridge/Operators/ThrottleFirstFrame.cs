@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-#if QFrameworkLibrary
+#if UniRxLibrary
 using UnityObservable = QFramework.ObservableUnity;
 #else
     using UnityObservable = QFramework.Observable;

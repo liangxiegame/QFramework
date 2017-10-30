@@ -119,7 +119,7 @@ namespace QFramework
         [NonSerialized]
         bool isDisposed = false;
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
         [UnityEngine.SerializeField]
 #endif
         readonly Dictionary<TKey, TValue> inner;

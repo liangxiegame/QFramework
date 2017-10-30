@@ -31,15 +31,11 @@ namespace QFramework
 {
     using Newtonsoft.Json;
     using System.IO;
-
-#if UNITY
-	using UnityEngine;
 	using System.Xml.Serialization;
-#endif
+
 
 	public static class SerializeHelper
 	{
-#if UNITY
 		public static bool SerializeBinary(string path, object obj)
 		{
 			if (string.IsNullOrEmpty(path))
@@ -167,25 +163,15 @@ namespace QFramework
 			Log.W("DeserializeBinary Failed:" + path);
 			return null;
 		}
-#endif
-		public static string ToJson<T>(this T obj) where T : class
+
+        public static string ToJson<T>(this T obj) where T : class
 		{
-#if UNITY_EDITOR
-			return JsonUtility.ToJson(obj, true);
-#elif UNITY
-			return JsonUtility.ToJson(obj);
-#else
 			return JsonConvert.SerializeObject(obj,Formatting.Indented);
-#endif
 		}
 
 		public static T FromJson<T>(this string json) where T : class
 		{
-#if UNITY
-			return (T) JsonUtility.FromJson(json, typeof(T));
-#else
 			return JsonConvert.DeserializeObject<T>(json);
-#endif
 		}
 
 		public static void SaveJson<T>(this T obj, string path) where T : class
@@ -198,7 +184,6 @@ namespace QFramework
 			return File.ReadAllText(path).FromJson<T>();
 		}
 
-#if UNITY
 		public static byte[] ToProtoBuff<T>(this T obj) where T : class
 		{
 			using (MemoryStream ms = new MemoryStream())
@@ -227,6 +212,5 @@ namespace QFramework
 		{
 			return File.ReadAllBytes(path).FromProtoBuff<T>();
 		}
-#endif
 	}
 }

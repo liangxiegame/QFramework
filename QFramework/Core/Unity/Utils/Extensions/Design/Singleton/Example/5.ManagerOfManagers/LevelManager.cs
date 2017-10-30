@@ -27,7 +27,6 @@
 
 namespace QFramework.Example
 {
-	using Core;
 	[QMonoSingletonPath("[Level]/LevelManager")]
 	public class LevelManager : ManagerBase,ISingleton
 	{

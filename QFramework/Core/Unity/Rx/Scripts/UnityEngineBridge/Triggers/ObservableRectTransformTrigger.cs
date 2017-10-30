@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace QFramework.Triggers
+namespace QFramework
 {
     [DisallowMultipleComponent]
     public class ObservableRectTransformTrigger : ObservableTriggerBase

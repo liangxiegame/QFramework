@@ -27,7 +27,6 @@
 
 namespace QFramework.Example
 {
-	using Core;
 	using System.Collections;
 	using UnityEngine;
 	

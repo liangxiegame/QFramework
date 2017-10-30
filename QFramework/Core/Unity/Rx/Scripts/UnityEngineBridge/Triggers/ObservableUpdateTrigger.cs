@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace QFramework.Triggers
+namespace QFramework
 {
     [DisallowMultipleComponent]
     public class ObservableUpdateTrigger : ObservableTriggerBase

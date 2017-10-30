@@ -28,7 +28,6 @@
 namespace QFramework.Example
 {
 	using UnityEngine;
-	using Core;
 	
 	class Class2Singleton : QSingleton<Class2Singleton>
 	{

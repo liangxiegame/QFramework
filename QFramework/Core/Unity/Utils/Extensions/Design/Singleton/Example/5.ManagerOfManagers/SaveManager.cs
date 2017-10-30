@@ -26,9 +26,7 @@
  ****************************************************************************/
 
 namespace QFramework.Example
-{
-	using Core;
-	
+{	
 	[QMonoSingletonPath("[Data]/SaveManager")]
 	public class SaveManager : ManagerBase,ISingleton
 	{

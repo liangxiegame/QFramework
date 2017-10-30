@@ -26,11 +26,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
-    using Core;
     using System;
     using System.Collections.Generic;
     using System.Threading;

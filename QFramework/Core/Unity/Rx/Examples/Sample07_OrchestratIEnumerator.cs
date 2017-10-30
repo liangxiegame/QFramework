@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace QFramework.Examples
 {
+    using QFramework;
+
     public class Sample07_OrchestratIEnumerator : MonoBehaviour
     {
         // two coroutines

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using QFramework.Triggers; // Triggers Namepsace
+using QFramework; // Triggers Namepsace
 
 namespace QFramework.Examples
 {

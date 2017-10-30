@@ -7,6 +7,7 @@
     <RootNamespace>Core.Unity</RootNamespace>
     <AssemblyName>Core.Unity</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <UseMSBuildEngine>false</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -17,6 +18,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -24,6 +27,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,6 +44,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="QFramework.Core.CSharp">
       <HintPath>..\..\Output\QFramework.Core.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>CSharp\Libs\ProtobufNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -166,7 +174,6 @@
     <Compile Include="Unity\Timer\TimerHelper.cs" />
     <Compile Include="Unity\Timer\Test\TimerTest.cs" />
     <Compile Include="Unity\Utils\Extensions\BehaviourUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\CameraUtil.cs" />
     <Compile Include="Unity\Utils\Extensions\ColorUtil.cs" />
     <Compile Include="Unity\Utils\Extensions\GameObjectExtension.cs" />
     <Compile Include="Unity\Utils\Extensions\LightmapUtil.cs" />
@@ -195,28 +202,149 @@
     <Compile Include="Unity\Utils\Extensions\Design\Singleton\Example\5.ManagerOfManagers\ResourceManager.cs" />
     <Compile Include="Unity\Utils\Extensions\Design\Singleton\Example\5.ManagerOfManagers\SaveManager.cs" />
     <Compile Include="Unity\Utils\Extensions\Math\VectorUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\ButtonUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\GraphicUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\ImageUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\RectTransformUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\SelectableUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\ToggleUtil.cs" />
-    <Compile Include="Unity\Utils\Extensions\UGUI\UIBehaviourUtil.cs" />
     <Compile Include="Unity\Utils\IO\NetworkUtil.cs" />
-    <Compile Include="Unity\Utils\IO\SerializeHelper.cs" />
     <Compile Include="Unity\Utils\IO\ZipMgr.cs" />
     <Compile Include="Unity\Utils\LINQtoGameObject\Examples\SampleSceneScript.cs" />
     <Compile Include="Unity\Utils\LINQtoGameObject\Scripts\GameObjectExtensions.Enumerable.cs" />
     <Compile Include="Unity\Utils\LINQtoGameObject\Scripts\GameObjectExtensions.Operate.cs" />
     <Compile Include="Unity\Utils\LINQtoGameObject\Scripts\GameObjectExtensions.Traverse.cs" />
     <Compile Include="Unity\Utils\Math\Matrix.cs" />
-    <Compile Include="Unity\Utils\Singleton\QMonoSingleton.cs" />
-    <Compile Include="Unity\Utils\Singleton\QMonoSingletonPath.cs" />
-    <Compile Include="Unity\Utils\Singleton\QMonoSingletonProperty.cs" />
-    <Compile Include="Unity\Utils\Singleton\QSingletonCreator.cs" />
+    <Compile Include="Unity\Rx\Scripts\Asynchronous\WebRequestExtensions.cs" />
+    <Compile Include="Unity\Rx\Scripts\Disposable\CancellationDisposable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Disposable\DictionaryDisposable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Disposable\DisposableExtension.cs" />
+    <Compile Include="Unity\Rx\Scripts\Disposable\MultiDesinableDisposable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Disposable\RefCountDisposable.cs" />
+    <Compile Include="Unity\Rx\Scripts\InternalUtil\MicroCoroutine.cs" />
+    <Compile Include="Unity\Rx\Scripts\InternalUtil\ThreadSafeQueueWorker.cs" />
+    <Compile Include="Unity\Rx\Scripts\Notifiers\BooleanNotifier.cs" />
+    <Compile Include="Unity\Rx\Scripts\Notifiers\CountNotifier.cs" />
+    <Compile Include="Unity\Rx\Scripts\Notifiers\MessageBroker.cs" />
+    <Compile Include="Unity\Rx\Scripts\Notifiers\ScheduledNotifier.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\IOptimizedObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Aggregate.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Awaiter.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Binding.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Blocking.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Concatenate.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Concurrency.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Conversions.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Creation.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.ErrorHandling.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Events.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.FromAsync.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Joins.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Paging.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observable\Observable.Time.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Aggregate.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Amb.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\AsObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\AsSingleUnitObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\AsUnitObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Buffer.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Cast.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Catch.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\CombineLatest.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Concat.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ContinueWith.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Create.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\DefaultIfEmpty.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Defer.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Delay.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\DelaySubscription.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Dematerialize.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Distinct.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\DistinctUntilChanged.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Do.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Empty.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Finally.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\First.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ForEachAsync.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\FromEvent.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\GroupBy.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\IgnoreElements.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Last.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Materialize.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Merge.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Never.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ObserveOn.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\OfType.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\OperatorObservableBase.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\OperatorObserverBase.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\PairWise.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Range.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\RefCount.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Repeat.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\RepeatSafe.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Return.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Sample.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Scan.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Select.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SelectMany.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SelectWhere.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Single.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Skip.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SkipUntil.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SkipWhile.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Start.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\StartWith.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SubscribeOn.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Switch.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Synchronize.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\SynchronizedObserver.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Take.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\TakeLast.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\TakeUntil.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\TakeWhile.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Throttle.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ThrottleFirst.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Throw.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\TimeInterval.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Timeout.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Timer.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Timestamp.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ToArray.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ToList.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ToObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Wait.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\WhenAll.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Where.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\WhereSelect.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\WithLatestFrom.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\Zip.cs" />
+    <Compile Include="Unity\Rx\Scripts\Operator\ZipLatest.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\AsyncSubject.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\BehaviorSubject.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\ConnectableObservable.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\ISubject.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\ReplaySubject.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\Subject.cs" />
+    <Compile Include="Unity\Rx\Scripts\Subjects\SubjectExtensions.cs" />
+    <Compile Include="Unity\Rx\Scripts\Tasks\TaskObservableExtensions.cs" />
+    <Compile Include="Unity\Rx\Scripts\EventPattern.cs" />
+    <Compile Include="Unity\Rx\Scripts\Notification.cs" />
+    <Compile Include="Unity\Rx\Scripts\Observer.cs" />
+    <Compile Include="Unity\Rx\Scripts\ThreadPoolScheduler.cs" />
+    <Compile Include="Unity\Rx\Scripts\TimeInterval.cs" />
+    <Compile Include="Unity\Rx\Scripts\TimeStamped.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\CurrentThreadScheduler.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\ImmediateScheduler.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\IScheduler.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\ScheduledItem.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\Scheduler.cs" />
+    <Compile Include="Unity\Rx\Scripts\Scheduler\SchedulerDisposable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Unity\Timer\QWait.cs.meta" />
+    <Folder Include="Unity\Rx\Scripts\Asynchronous\" />
+    <Folder Include="Unity\Rx\Scripts\Disposable\" />
+    <Folder Include="Unity\Rx\Scripts\InternalUtil\" />
+    <Folder Include="Unity\Rx\Scripts\Notifiers\" />
+    <Folder Include="Unity\Rx\Scripts\Observable\" />
+    <Folder Include="Unity\Rx\Scripts\Operator\" />
+    <Folder Include="Unity\Rx\Scripts\Subjects\" />
+    <Folder Include="Unity\Rx\Scripts\Tasks\" />
+    <Folder Include="Unity\Rx\Scripts\Scheduler\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

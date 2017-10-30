@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 #endif
 
-namespace QFramework.Triggers
+namespace QFramework
 {
     // for Component
     public static partial class ObservableTriggerExtensions

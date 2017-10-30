@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
 using ObservableUnity = QFramework.Observable;
 #endif
 

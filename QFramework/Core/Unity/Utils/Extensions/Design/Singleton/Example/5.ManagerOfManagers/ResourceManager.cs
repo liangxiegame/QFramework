@@ -28,7 +28,6 @@
 namespace QFramework.Example
 {
 	using UnityEngine;
-	using Core;
 	
 	[QMonoSingletonPath("[Res]/ResourceManager")]
 	public class ResourceManager : ManagerBase,ISingleton

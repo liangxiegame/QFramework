@@ -12,7 +12,6 @@
     <AssemblyName>QFramework.Core.CSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <UseMSBuildEngine>false</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>anycpu</PlatformTarget>
@@ -40,7 +39,7 @@
         </Command>
       </CustomCommands>
     </CustomCommands>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -51,7 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
@@ -100,115 +99,6 @@
     <Compile Include="CSharp\NodeSystem\Node\UntilNode.cs" />
     <Compile Include="CSharp\NodeSystem\ProcessNode.cs" />
     <Compile Include="CSharp\Properties\AssemblyInfo.cs" />
-    <Compile Include="CSharp\Rx\Disposable\DisposableExtension.cs" />
-    <Compile Include="CSharp\Rx\Disposable\MultiDesinableDisposable.cs" />
-    <Compile Include="CSharp\Rx\Disposable\RefCountDisposable.cs" />
-    <Compile Include="CSharp\Rx\EventPattern.cs" />
-    <Compile Include="CSharp\Rx\Notification.cs" />
-    <Compile Include="CSharp\Rx\Observable\IOptimizedObservable.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Aggregate.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Awaiter.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Binding.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Blocking.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Concatenate.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Concurrency.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Conversions.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Creation.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.ErrorHandling.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Events.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.FromAsync.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Joins.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Paging.cs" />
-    <Compile Include="CSharp\Rx\Observable\Observable.Time.cs" />
-    <Compile Include="CSharp\Rx\Observer.cs" />
-    <Compile Include="CSharp\Rx\Operator\Aggregate.cs" />
-    <Compile Include="CSharp\Rx\Operator\Amb.cs" />
-    <Compile Include="CSharp\Rx\Operator\AsObservable.cs" />
-    <Compile Include="CSharp\Rx\Operator\AsSingleUnitObservable.cs" />
-    <Compile Include="CSharp\Rx\Operator\AsUnitObservable.cs" />
-    <Compile Include="CSharp\Rx\Operator\Buffer.cs" />
-    <Compile Include="CSharp\Rx\Operator\Cast.cs" />
-    <Compile Include="CSharp\Rx\Operator\Catch.cs" />
-    <Compile Include="CSharp\Rx\Operator\CombineLatest.cs" />
-    <Compile Include="CSharp\Rx\Operator\Concat.cs" />
-    <Compile Include="CSharp\Rx\Operator\ContinueWith.cs" />
-    <Compile Include="CSharp\Rx\Operator\Create.cs" />
-    <Compile Include="CSharp\Rx\Operator\DefaultIfEmpty.cs" />
-    <Compile Include="CSharp\Rx\Operator\Defer.cs" />
-    <Compile Include="CSharp\Rx\Operator\Delay.cs" />
-    <Compile Include="CSharp\Rx\Operator\DelaySubscription.cs" />
-    <Compile Include="CSharp\Rx\Operator\Dematerialize.cs" />
-    <Compile Include="CSharp\Rx\Operator\Distinct.cs" />
-    <Compile Include="CSharp\Rx\Operator\DistinctUntilChanged.cs" />
-    <Compile Include="CSharp\Rx\Operator\Do.cs" />
-    <Compile Include="CSharp\Rx\Operator\Empty.cs" />
-    <Compile Include="CSharp\Rx\Operator\Finally.cs" />
-    <Compile Include="CSharp\Rx\Operator\First.cs" />
-    <Compile Include="CSharp\Rx\Operator\ForEachAsync.cs" />
-    <Compile Include="CSharp\Rx\Operator\FromEvent.cs" />
-    <Compile Include="CSharp\Rx\Operator\GroupBy.cs" />
-    <Compile Include="CSharp\Rx\Operator\IgnoreElements.cs" />
-    <Compile Include="CSharp\Rx\Operator\Last.cs" />
-    <Compile Include="CSharp\Rx\Operator\Materialize.cs" />
-    <Compile Include="CSharp\Rx\Operator\Merge.cs" />
-    <Compile Include="CSharp\Rx\Operator\Never.cs" />
-    <Compile Include="CSharp\Rx\Operator\ObserveOn.cs" />
-    <Compile Include="CSharp\Rx\Operator\OfType.cs" />
-    <Compile Include="CSharp\Rx\Operator\OperatorObservableBase.cs" />
-    <Compile Include="CSharp\Rx\Operator\OperatorObserverBase.cs" />
-    <Compile Include="CSharp\Rx\Operator\PairWise.cs" />
-    <Compile Include="CSharp\Rx\Operator\Range.cs" />
-    <Compile Include="CSharp\Rx\Operator\RefCount.cs" />
-    <Compile Include="CSharp\Rx\Operator\Repeat.cs" />
-    <Compile Include="CSharp\Rx\Operator\RepeatSafe.cs" />
-    <Compile Include="CSharp\Rx\Operator\Return.cs" />
-    <Compile Include="CSharp\Rx\Operator\Sample.cs" />
-    <Compile Include="CSharp\Rx\Operator\Scan.cs" />
-    <Compile Include="CSharp\Rx\Operator\Select.cs" />
-    <Compile Include="CSharp\Rx\Operator\SelectMany.cs" />
-    <Compile Include="CSharp\Rx\Operator\SelectWhere.cs" />
-    <Compile Include="CSharp\Rx\Operator\Single.cs" />
-    <Compile Include="CSharp\Rx\Operator\Skip.cs" />
-    <Compile Include="CSharp\Rx\Operator\SkipUntil.cs" />
-    <Compile Include="CSharp\Rx\Operator\SkipWhile.cs" />
-    <Compile Include="CSharp\Rx\Operator\Start.cs" />
-    <Compile Include="CSharp\Rx\Operator\StartWith.cs" />
-    <Compile Include="CSharp\Rx\Operator\SubscribeOn.cs" />
-    <Compile Include="CSharp\Rx\Operator\Switch.cs" />
-    <Compile Include="CSharp\Rx\Operator\Synchronize.cs" />
-    <Compile Include="CSharp\Rx\Operator\SynchronizedObserver.cs" />
-    <Compile Include="CSharp\Rx\Operator\Take.cs" />
-    <Compile Include="CSharp\Rx\Operator\TakeLast.cs" />
-    <Compile Include="CSharp\Rx\Operator\TakeUntil.cs" />
-    <Compile Include="CSharp\Rx\Operator\TakeWhile.cs" />
-    <Compile Include="CSharp\Rx\Operator\Throttle.cs" />
-    <Compile Include="CSharp\Rx\Operator\ThrottleFirst.cs" />
-    <Compile Include="CSharp\Rx\Operator\Throw.cs" />
-    <Compile Include="CSharp\Rx\Operator\TimeInterval.cs" />
-    <Compile Include="CSharp\Rx\Operator\Timeout.cs" />
-    <Compile Include="CSharp\Rx\Operator\Timer.cs" />
-    <Compile Include="CSharp\Rx\Operator\Timestamp.cs" />
-    <Compile Include="CSharp\Rx\Operator\ToArray.cs" />
-    <Compile Include="CSharp\Rx\Operator\ToList.cs" />
-    <Compile Include="CSharp\Rx\Operator\ToObservable.cs" />
-    <Compile Include="CSharp\Rx\Operator\Wait.cs" />
-    <Compile Include="CSharp\Rx\Operator\WhenAll.cs" />
-    <Compile Include="CSharp\Rx\Operator\Where.cs" />
-    <Compile Include="CSharp\Rx\Operator\WhereSelect.cs" />
-    <Compile Include="CSharp\Rx\Operator\WithLatestFrom.cs" />
-    <Compile Include="CSharp\Rx\Operator\Zip.cs" />
-    <Compile Include="CSharp\Rx\Operator\ZipLatest.cs" />
-    <Compile Include="CSharp\Rx\Subjects\AsyncSubject.cs" />
-    <Compile Include="CSharp\Rx\Subjects\BehaviorSubject.cs" />
-    <Compile Include="CSharp\Rx\Subjects\ConnectableObservable.cs" />
-    <Compile Include="CSharp\Rx\Subjects\ISubject.cs" />
-    <Compile Include="CSharp\Rx\Subjects\ReplaySubject.cs" />
-    <Compile Include="CSharp\Rx\Subjects\Subject.cs" />
-    <Compile Include="CSharp\Rx\Subjects\SubjectExtensions.cs" />
-    <Compile Include="CSharp\Rx\ThreadPoolScheduler.cs" />
-    <Compile Include="CSharp\Rx\TimeInterval.cs" />
-    <Compile Include="CSharp\Rx\TimeStamped.cs" />
     <Compile Include="CSharp\Utils\Caching\Cache\SimpleObjectCache.cs" />
     <Compile Include="CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs" />
     <Compile Include="CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs" />
@@ -310,29 +200,10 @@
     <Compile Include="CSharp\Utils\RefCounter\RefCounter.cs" />
     <Compile Include="CSharp\Utils\RefCounter\SafeARC.cs" />
     <Compile Include="CSharp\Utils\RefCounter\UnsafeARC.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\CurrentThreadScheduler.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\ImmediateScheduler.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\IScheduler.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\ScheduledItem.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\Scheduler.cs" />
-    <Compile Include="CSharp\Utils\Scheduler\SchedulerDisposable.cs" />
-    <Compile Include="CSharp\Rx\Disposable\DictionaryDisposable.cs" />
-    <Compile Include="CSharp\Rx\Disposable\CancellationDisposable.cs" />
-    <Compile Include="CSharp\Rx\Asynchronous\WebRequestExtensions.cs" />
-    <Compile Include="CSharp\Rx\Notifiers\BooleanNotifier.cs" />
-    <Compile Include="CSharp\Rx\Notifiers\CountNotifier.cs" />
-    <Compile Include="CSharp\Rx\Notifiers\MessageBroker.cs" />
-    <Compile Include="CSharp\Rx\Notifiers\ScheduledNotifier.cs" />
-    <Compile Include="CSharp\Rx\Tasks\TaskObservableExtensions.cs" />
-    <Compile Include="CSharp\Rx\InternalUtil\MicroCoroutine.cs" />
-    <Compile Include="CSharp\Rx\InternalUtil\ThreadSafeQueueWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CSharp\Utils\Design\Subject" />
-    <Folder Include="CSharp\Rx\Asynchronous\" />
-    <Folder Include="CSharp\Rx\Notifiers\" />
-    <Folder Include="CSharp\Rx\Tasks\" />
-    <Folder Include="CSharp\Rx\InternalUtil\" />
+    <Folder Include="CSharp\Rx\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

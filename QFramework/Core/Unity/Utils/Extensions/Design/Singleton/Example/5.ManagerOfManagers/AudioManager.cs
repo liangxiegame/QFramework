@@ -26,9 +26,7 @@
  ****************************************************************************/
 
 namespace QFramework.Example
-{
-	using Core;
-	
+{	
 	[QMonoSingletonPath("[Audio]/AudioManager")]
 	public class AudioManager : ManagerBase,ISingleton
 	{

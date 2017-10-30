@@ -27,7 +27,6 @@
 
 namespace QFramework.Example
 {
-	using Core;
 	using UnityEngine;
 
 	[QMonoSingletonPath("[Pool]/PoolManager")]

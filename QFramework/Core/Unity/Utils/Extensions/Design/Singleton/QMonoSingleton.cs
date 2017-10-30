@@ -28,7 +28,6 @@
 
 namespace QFramework 
 {
-	using Core;
 	using UnityEngine;
 
 	public abstract class QMonoSingleton<T> : MonoBehaviour,ISingleton where T : QMonoSingleton<T>

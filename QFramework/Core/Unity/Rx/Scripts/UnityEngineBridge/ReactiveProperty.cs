@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-#if !QFrameworkLibrary
+#if !UniRxLibrary
     using UnityEngine;
 #endif
     using QFramework;
@@ -51,7 +51,7 @@ namespace QFramework
     [Serializable]
     public class ReactiveProperty<T> : IReactiveProperty<T>, IDisposable, IOptimizedObservable<T>
     {
-#if !QFrameworkLibrary
+#if !UniRxLibrary
         static readonly IEqualityComparer<T> defaultEqualityComparer = UnityEqualityComparer.GetDefault<T>();
 #else
         static readonly IEqualityComparer<T> defaultEqualityComparer = EqualityComparer<T>.Default;
@@ -63,7 +63,7 @@ namespace QFramework
         [NonSerialized]
         bool isDisposed = false;
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
         [SerializeField]
 #endif
         T value = default(T);
@@ -308,7 +308,7 @@ namespace QFramework
     /// </summary>
     public class ReadOnlyReactiveProperty<T> : IReadOnlyReactiveProperty<T>, IDisposable, IOptimizedObservable<T>
     {
-#if !QFrameworkLibrary
+#if !UniRxLibrary
         static readonly IEqualityComparer<T> defaultEqualityComparer = UnityEqualityComparer.GetDefault<T>();
 #else
         static readonly IEqualityComparer<T> defaultEqualityComparer = EqualityComparer<T>.Default;

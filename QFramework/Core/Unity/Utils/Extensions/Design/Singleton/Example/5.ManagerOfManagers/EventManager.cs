@@ -28,7 +28,6 @@
 namespace QFramework.Example
 {
 	using System;
-	using Core;
 	
 	[QMonoSingletonPath("[Event]/EventManager")]
 	public class EventManager : ManagerBase,ISingleton

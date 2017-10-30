@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using QFramework.Triggers;
+using QFramework;
 using UnityEngine;
 
 namespace QFramework

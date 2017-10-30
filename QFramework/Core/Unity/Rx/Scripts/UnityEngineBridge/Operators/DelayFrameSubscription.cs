@@ -1,7 +1,8 @@
-﻿using System;
+﻿#define UniRxLibrary
+using System;
 
-#if QFrameworkLibrary
-using UnityObservable = QFramework.ObservableUnity;
+#if UniRxLibrary
+using UnityObservable = QFramework.Observable;
 #else
 using UnityObservable = QFramework.Observable;
 #endif

@@ -1,7 +1,7 @@
 ﻿using System; // require keep for Windows Universal App
 using UnityEngine;
 
-namespace QFramework.Triggers
+namespace QFramework
 {
     [DisallowMultipleComponent]
     public class ObservableFixedUpdateTrigger : ObservableTriggerBase

@@ -26,9 +26,7 @@
  ****************************************************************************/
 
 namespace QFramework.Example
-{
-	using Core;
-	
+{	
 	[QMonoSingletonPath("[Main]/MainManager")]
 	public class MainManager : ManagerBase,ISingleton
 	{

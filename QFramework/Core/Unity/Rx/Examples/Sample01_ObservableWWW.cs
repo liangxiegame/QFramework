@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace QFramework.Examples
 {
+    using QFramework;
     // sample script, attach your object.
     public class Sample01_ObservableWWW : MonoBehaviour
     {

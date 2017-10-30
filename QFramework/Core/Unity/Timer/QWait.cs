@@ -29,7 +29,6 @@ namespace QFramework
 {
     using System;
     using System.Collections;
-    using QFramework;
 
     /// <summary>
     /// TODO:找个时间测试下性能 对比QWaitForSeconds

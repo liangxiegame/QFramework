@@ -334,7 +334,7 @@ namespace QFramework
             return new ReactiveCommand<T>(canExecuteSource, initialValue);
         }
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
 
         // for uGUI(from 4.6)
 #if !(UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5)
@@ -386,7 +386,7 @@ namespace QFramework
             return new AsyncReactiveCommand<T>(sharedCanExecuteSource);
         }
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
 
         // for uGUI(from 4.6)
 #if !(UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5)

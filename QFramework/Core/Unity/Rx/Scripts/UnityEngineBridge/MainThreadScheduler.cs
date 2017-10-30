@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define UniRxLibrary
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +9,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-#if QFrameworkLibrary
+#if UniRxLibrary
     public static partial class SchedulerUnity
     {
 #else

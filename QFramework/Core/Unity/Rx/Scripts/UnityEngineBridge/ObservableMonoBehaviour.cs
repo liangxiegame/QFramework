@@ -8,7 +8,7 @@ namespace QFramework
     /// <summary>
     /// <para>Note: TypedMonoBehaviour and ObservableMonoBehaviour cause some performance issues.</para>
     /// <para>This is legacy interface.</para>
-    /// <para>I recommend use ObservableTriggers(QFramework.Triggers) instead.</para>
+    /// <para>I recommend use ObservableTriggers(QFramework) instead.</para>
     /// <para>More information, see github page.</para>
     /// </summary>
     [Obsolete("ObservableMonoBehaviour is legacy component. use triggers instead")]

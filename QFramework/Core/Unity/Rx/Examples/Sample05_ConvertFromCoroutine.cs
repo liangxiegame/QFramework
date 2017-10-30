@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
-using QFramework;
 
 namespace QFramework.Examples
 {
+    using QFramework;
+
     public class Sample05_ConvertFromCoroutine
     {
         // public method

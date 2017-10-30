@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using QFramework.Triggers;
+using QFramework;
 
-#if !QFrameworkLibrary
+#if !UniRxLibrary
 using ObservableUnity = QFramework.Observable;
 #endif
 

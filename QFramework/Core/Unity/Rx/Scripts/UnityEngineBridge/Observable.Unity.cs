@@ -26,9 +26,9 @@
  ****************************************************************************/
 #define UniRxLibrary
 
-#if !(UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4)
+//#if !(UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5)
 #define SupportCustomYieldInstruction
-#endif
+//#endif
 
 namespace QFramework
 {
@@ -251,8 +251,8 @@ namespace QFramework
         }
     }
 
-#if QFrameworkLibrary
-    public static partial class ObservableUnity
+#if UniRxLibrary
+    public static partial class Observable
 #else
     public static partial class Observable
 #endif
@@ -1160,7 +1160,7 @@ namespace QFramework
             return new BatchFrameObservable(source, frameCount, frameCountType);
         }
 
-#if QFrameworkLibrary
+#if UniRxLibrary
 
         static IEnumerable<IObservable<T>> RepeatInfinite<T>(IObservable<T> source)
         {

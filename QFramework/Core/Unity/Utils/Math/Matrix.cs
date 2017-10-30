@@ -29,8 +29,6 @@
 //My own matrix thing based on stuff I learned here:
 //http://www.senocular.com/flash/tutorials/transformmatrix/
 
-using System;
-
 namespace QFramework
 {
 	using UnityEngine;

@@ -27,8 +27,6 @@
 
 namespace QFramework.Example
 {
-    using System;
-    using Core;
     [QMonoSingletonPath("[Game]/GameManager")]
     public class GameManager : ManagerBase,ISingleton
     {

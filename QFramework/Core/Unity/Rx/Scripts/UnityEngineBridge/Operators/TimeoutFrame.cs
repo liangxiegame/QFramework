@@ -25,17 +25,19 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+#define UniRxLibrary
+
 namespace QFramework
 {
+    
     using System;
 
-#if QFrameworkLibrary
-using UnityObservable = QFramework.ObservableUnity;
+#if UniRxLibrary
+using UnityObservable = QFramework.Observable;
 #else
     using UnityObservable = QFramework.Observable;
 #endif
-    using QFramework;
-    
+
     public class TimeoutFrameObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
