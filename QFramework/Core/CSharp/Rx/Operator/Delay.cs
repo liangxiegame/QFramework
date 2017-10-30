@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class DelayObservable<T> : OperatorObservableBase<T>
+    public class DelayObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly TimeSpan dueTime;

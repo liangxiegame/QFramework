@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class MaterializeObservable<T> : OperatorObservableBase<Notification<T>>
+    public class MaterializeObservable<T> : OperatorObservableBase<Notification<T>>
     {
         readonly IObservable<T> source;
 

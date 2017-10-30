@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class WhenAllObservable<T> : OperatorObservableBase<T[]>
+    public class WhenAllObservable<T> : OperatorObservableBase<T[]>
     {
         readonly IObservable<T>[] sources;
         readonly IEnumerable<IObservable<T>> sourcesEnumerable;
@@ -281,7 +281,7 @@ namespace QFramework
         }
     }
 
-    internal class WhenAllObservable : OperatorObservableBase<Unit>
+    public class WhenAllObservable : OperatorObservableBase<Unit>
     {
         readonly IObservable<Unit>[] sources;
         readonly IEnumerable<IObservable<Unit>> sourcesEnumerable;

@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class TimeIntervalObservable<T> : OperatorObservableBase<TimeInterval<T>>
+    public class TimeIntervalObservable<T> : OperatorObservableBase<TimeInterval<T>>
     {
         readonly IObservable<T> source;
         readonly IScheduler scheduler;

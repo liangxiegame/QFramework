@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class Wait<T> : IObserver<T>
+    public class Wait<T> : IObserver<T>
     {
         static readonly TimeSpan InfiniteTimeSpan = new TimeSpan(0, 0, 0, 0, -1); // from .NET 4.5
 

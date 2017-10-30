@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#define UniRxLibrary
+#define QFrameworkLibrary
 
 namespace QFramework
 {
@@ -310,7 +310,7 @@ namespace QFramework
 
         public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector)
         {
-#if !UniRxLibrary
+#if !QFrameworkLibrary
             var comparer = UnityEqualityComparer.GetDefault<TKey>();
 #else
             var comparer = EqualityComparer<TKey>.Default;
@@ -336,7 +336,7 @@ namespace QFramework
 
         public static IObservable<IGroupedObservable<TKey, TElement>> GroupBy<TSource, TKey, TElement>(this IObservable<TSource> source, Func<TSource, TKey> keySelector, Func<TSource, TElement> elementSelector, int capacity)
         {
-#if !UniRxLibrary
+#if !QFrameworkLibrary
             var comparer = UnityEqualityComparer.GetDefault<TKey>();
 #else
             var comparer = EqualityComparer<TKey>.Default;

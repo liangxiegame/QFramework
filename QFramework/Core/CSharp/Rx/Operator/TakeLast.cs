@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class TakeLastObservable<T> : OperatorObservableBase<T>
+    public class TakeLastObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
 

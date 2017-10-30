@@ -37,7 +37,7 @@ namespace QFramework
     /// <summary>
     /// Abstract base class for scheduled work items.
     /// </summary>
-    internal class ScheduledItem : IComparable<ScheduledItem>
+    public class ScheduledItem : IComparable<ScheduledItem>
     {
         private readonly BooleanDisposable mDisposable = new BooleanDisposable();
         private readonly TimeSpan mDueTime;
@@ -206,7 +206,7 @@ namespace QFramework
     /// <remarks>This type is not thread safe; users should ensure proper synchronization.</remarks>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
         "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "But it *is* a queue!")]
-    internal class SchedulerQueue
+    public class SchedulerQueue
     {
         private readonly PriorityQueue<ScheduledItem> mQueue;
 

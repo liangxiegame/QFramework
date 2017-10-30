@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class DelaySubscriptionObservable<T> : OperatorObservableBase<T>
+    public class DelaySubscriptionObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IScheduler scheduler;

@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class TimeoutObservable<T> : OperatorObservableBase<T>
+    public class TimeoutObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly TimeSpan? dueTime;

@@ -107,7 +107,7 @@ namespace QFramework
         /// <summary>
         /// Default constructor used by derived types.
         /// </summary>
-        protected internal Notification()
+        protected Notification()
         {
         }
 
@@ -148,7 +148,7 @@ namespace QFramework
         /// </summary>
         [DebuggerDisplay("OnNext({Value})")]
         [Serializable]
-        internal sealed class OnNextNotification : Notification<T>
+        public sealed class OnNextNotification : Notification<T>
         {
             T value;
 
@@ -282,7 +282,7 @@ namespace QFramework
 #if !NO_SERIALIZABLE
         [Serializable]
 #endif
-        internal sealed class OnErrorNotification : Notification<T>
+        public sealed class OnErrorNotification : Notification<T>
         {
             Exception exception;
 
@@ -412,7 +412,7 @@ namespace QFramework
         /// </summary>
         [DebuggerDisplay("OnCompleted()")]
         [Serializable]
-        internal sealed class OnCompletedNotification : Notification<T>
+        public sealed class OnCompletedNotification : Notification<T>
         {
             /// <summary>
             /// Constructs a notification of the end of a sequence.

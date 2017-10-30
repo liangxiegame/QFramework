@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
@@ -16,7 +16,7 @@ namespace QFramework
 
         private void Start()
         {
-            Log.i(DateTime.Now);
+            Log.I(DateTime.Now);
             //m_RepeatTimeItem = Timer.S.Post2Really(OnTimeTick, 1, -1);
             //DateTime time = DateTime.Now;
             //time = time.AddSeconds(5);
@@ -28,17 +28,17 @@ namespace QFramework
 
         private void OnTimeTick(int tick)
         {
-            Log.i("TickTick:" + DateTime.Now);
+            Log.I("TickTick:" + DateTime.Now);
         }
 
         private void OnDateTimeTick(int tick)
         {
-            Log.i("DateTimeTick:" + tick);
+            Log.I("DateTimeTick:" + tick);
         }
 
         private void OnScaleTimeTick(int tick)
         {
-            Log.i("ScaleTickTick:" + tick);
+            Log.I("ScaleTickTick:" + tick);
         }
     }
 }

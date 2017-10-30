@@ -31,7 +31,7 @@ namespace QFramework
 
     public abstract class OperatorObserverBase<TSource, TResult> : IDisposable, IObserver<TSource>
     {
-        protected internal volatile IObserver<TResult> observer;
+        protected volatile IObserver<TResult> observer;
         IDisposable cancel;
 
         public OperatorObserverBase(IObserver<TResult> observer, IDisposable cancel)

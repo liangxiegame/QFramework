@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
 {
     using System;
 
-    internal class PairwiseObservable<T, TR> : OperatorObservableBase<TR>
+    public class PairwiseObservable<T, TR> : OperatorObservableBase<TR>
     {
         readonly IObservable<T> source;
         readonly Func<T, T, TR> selector;
@@ -95,7 +95,7 @@ namespace QFramework
         }
     }
 
-    internal class PairwiseObservable<T> : OperatorObservableBase<Pair<T>>
+    public class PairwiseObservable<T> : OperatorObservableBase<Pair<T>>
     {
         readonly IObservable<T> source;
 

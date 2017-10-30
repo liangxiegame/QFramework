@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 maoling@putao.com 
  * Copyright (c) 2017 ouyanggongming@putao.com
  * Copyright (c) 2017 liangxie
@@ -17,13 +17,13 @@ namespace QFramework
 		{
 			if (string.IsNullOrEmpty(path))
 			{
-				Log.w("SerializeBinary Without Valid Path.");
+				Log.W("SerializeBinary Without Valid Path.");
 				return false;
 			}
 
 			if (obj == null)
 			{
-				Log.w("SerializeBinary obj is Null.");
+				Log.W("SerializeBinary obj is Null.");
 				return false;
 			}
 
@@ -40,7 +40,7 @@ namespace QFramework
 		{
 			if (stream == null)
 			{
-				Log.w("DeserializeBinary Failed!");
+				Log.W("DeserializeBinary Failed!");
 				return null;
 			}
 
@@ -58,7 +58,7 @@ namespace QFramework
 				stream.Close();
 			}
 
-			Log.w("DeserializeBinary Failed!");
+			Log.W("DeserializeBinary Failed!");
 			return null;
 		}
 
@@ -66,7 +66,7 @@ namespace QFramework
 		{
 			if (string.IsNullOrEmpty(path))
 			{
-				Log.w("DeserializeBinary Without Valid Path.");
+				Log.W("DeserializeBinary Without Valid Path.");
 				return null;
 			}
 
@@ -74,7 +74,7 @@ namespace QFramework
 
 			if (!fileInfo.Exists)
 			{
-				Log.w("DeserializeBinary File Not Exit.");
+				Log.W("DeserializeBinary File Not Exit.");
 				return null;
 			}
 
@@ -90,7 +90,7 @@ namespace QFramework
 				}
 			}
 
-			Log.w("DeserializeBinary Failed:" + path);
+			Log.W("DeserializeBinary Failed:" + path);
 			return null;
 		}
 
@@ -98,13 +98,13 @@ namespace QFramework
 		{
 			if (string.IsNullOrEmpty(path))
 			{
-				Log.w("SerializeBinary Without Valid Path.");
+				Log.W("SerializeBinary Without Valid Path.");
 				return false;
 			}
 
 			if (obj == null)
 			{
-				Log.w("SerializeBinary obj is Null.");
+				Log.W("SerializeBinary obj is Null.");
 				return false;
 			}
 
@@ -120,7 +120,7 @@ namespace QFramework
 		{
 			if (string.IsNullOrEmpty(path))
 			{
-				Log.w("DeserializeBinary Without Valid Path.");
+				Log.W("DeserializeBinary Without Valid Path.");
 				return null;
 			}
 
@@ -137,7 +137,7 @@ namespace QFramework
 				}
 			}
 
-			Log.w("DeserializeBinary Failed:" + path);
+			Log.W("DeserializeBinary Failed:" + path);
 			return null;
 		}
 

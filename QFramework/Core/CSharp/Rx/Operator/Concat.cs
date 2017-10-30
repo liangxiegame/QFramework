@@ -31,7 +31,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class ConcatObservable<T> : OperatorObservableBase<T>
+    public class ConcatObservable<T> : OperatorObservableBase<T>
     {
         readonly IEnumerable<IObservable<T>> sources;
 

@@ -32,7 +32,7 @@ namespace QFramework
 
     public static class Observer
     {
-        internal static IObserver<T> CreateSubscribeObserver<T>(Action<T> onNext, Action<Exception> onError, Action onCompleted)
+        public static IObserver<T> CreateSubscribeObserver<T>(Action<T> onNext, Action<Exception> onError, Action onCompleted)
         {
             // need compare for avoid iOS AOT
             if (onNext == Stubs<T>.Ignore)
@@ -45,17 +45,17 @@ namespace QFramework
             }
         }
 
-        internal static IObserver<T> CreateSubscribeWithStateObserver<T, TState>(TState state, Action<T, TState> onNext, Action<Exception, TState> onError, Action<TState> onCompleted)
+        public static IObserver<T> CreateSubscribeWithStateObserver<T, TState>(TState state, Action<T, TState> onNext, Action<Exception, TState> onError, Action<TState> onCompleted)
         {
             return new Subscribe<T, TState>(state, onNext, onError, onCompleted);
         }
 
-        internal static IObserver<T> CreateSubscribeWithState2Observer<T, TState1, TState2>(TState1 state1, TState2 state2, Action<T, TState1, TState2> onNext, Action<Exception, TState1, TState2> onError, Action<TState1, TState2> onCompleted)
+        public static IObserver<T> CreateSubscribeWithState2Observer<T, TState1, TState2>(TState1 state1, TState2 state2, Action<T, TState1, TState2> onNext, Action<Exception, TState1, TState2> onError, Action<TState1, TState2> onCompleted)
         {
             return new Subscribe<T, TState1, TState2>(state1, state2, onNext, onError, onCompleted);
         }
 
-        internal static IObserver<T> CreateSubscribeWithState3Observer<T, TState1, TState2, TState3>(TState1 state1, TState2 state2, TState3 state3, Action<T, TState1, TState2, TState3> onNext, Action<Exception, TState1, TState2, TState3> onError, Action<TState1, TState2, TState3> onCompleted)
+        public static IObserver<T> CreateSubscribeWithState3Observer<T, TState1, TState2, TState3>(TState1 state1, TState2 state2, TState3 state3, Action<T, TState1, TState2, TState3> onNext, Action<Exception, TState1, TState2, TState3> onError, Action<TState1, TState2, TState3> onCompleted)
         {
             return new Subscribe<T, TState1, TState2, TState3>(state1, state2, state3, onNext, onError, onCompleted);
         }
@@ -516,7 +516,7 @@ namespace QFramework
         }
     }
 
-    internal static class Stubs
+    public static class Stubs
     {
         public static readonly Action Nop = () => { };
         public static readonly Action<Exception> Throw = ex => { throw ex; };
@@ -528,21 +528,21 @@ namespace QFramework
         }
     }
 
-    internal static class Stubs<T>
+    public static class Stubs<T>
     {
         public static readonly Action<T> Ignore = (T t) => { };
         public static readonly Func<T, T> Identity = (T t) => t;
         public static readonly Action<Exception, T> Throw = (ex, _) => { throw ex; };
     }
 
-    internal static class Stubs<T1, T2>
+    public static class Stubs<T1, T2>
     {
         public static readonly Action<T1, T2> Ignore = (x, y) => { };
         public static readonly Action<Exception, T1, T2> Throw = (ex, _, __) => { throw ex; };
     }
 
 
-    internal static class Stubs<T1, T2, T3>
+    public static class Stubs<T1, T2, T3>
     {
         public static readonly Action<T1, T2, T3> Ignore = (x, y, z) => { };
         public static readonly Action<Exception, T1, T2, T3> Throw = (ex, _, __, ___) => { throw ex; };

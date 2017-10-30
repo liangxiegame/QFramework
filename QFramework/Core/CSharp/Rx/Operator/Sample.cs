@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class SampleObservable<T> : OperatorObservableBase<T>
+    public class SampleObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly TimeSpan interval;
@@ -145,7 +145,7 @@ namespace QFramework
         }
     }
 
-    internal class SampleObservable<T, T2> : OperatorObservableBase<T>
+    public class SampleObservable<T, T2> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IObservable<T2> intervalSource;

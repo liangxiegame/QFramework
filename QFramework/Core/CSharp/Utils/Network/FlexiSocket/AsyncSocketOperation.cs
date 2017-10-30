@@ -1,4 +1,4 @@
-// *************************************************************************************************
+﻿// *************************************************************************************************
 // The MIT License (MIT)
 // 
 // Copyright (c) 2016 Sean
@@ -39,12 +39,12 @@ namespace FlexiFramework.Networking
         /// <summary>
         /// Target socket
         /// </summary>
-        protected internal readonly Socket socket;
+        protected readonly Socket socket;
 
         /// <summary>
         /// Async result
         /// </summary>
-        protected internal IAsyncResult ar;
+        protected IAsyncResult ar;
 
         /// <summary>
         /// Is this operation has completed(either successful or failed)
@@ -64,7 +64,7 @@ namespace FlexiFramework.Networking
         /// </summary>
         public abstract bool IsSuccessful { get; }
 
-        protected internal AsyncSocketOperation(Socket socket)
+        protected AsyncSocketOperation(Socket socket)
         {
             this.socket = socket;
         }

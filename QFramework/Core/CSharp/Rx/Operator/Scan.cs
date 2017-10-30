@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class ScanObservable<TSource> : OperatorObservableBase<TSource>
+    public class ScanObservable<TSource> : OperatorObservableBase<TSource>
     {
         readonly IObservable<TSource> source;
         readonly Func<TSource, TSource, TSource> accumulator;
@@ -96,7 +96,7 @@ namespace QFramework
         }
     }
 
-    internal class ScanObservable<TSource, TAccumulate> : OperatorObservableBase<TAccumulate>
+    public class ScanObservable<TSource, TAccumulate> : OperatorObservableBase<TAccumulate>
     {
         readonly IObservable<TSource> source;
         readonly TAccumulate seed;

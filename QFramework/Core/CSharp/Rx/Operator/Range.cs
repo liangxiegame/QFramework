@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class RangeObservable : OperatorObservableBase<int>
+    public class RangeObservable : OperatorObservableBase<int>
     {
         readonly int start;
         readonly int count;

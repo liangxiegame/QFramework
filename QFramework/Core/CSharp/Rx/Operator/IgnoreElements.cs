@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class IgnoreElementsObservable<T> : OperatorObservableBase<T>
+    public class IgnoreElementsObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
 

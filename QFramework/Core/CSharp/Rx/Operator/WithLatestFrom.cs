@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class WithLatestFromObservable<TLeft, TRight, TResult> : OperatorObservableBase<TResult>
+    public class WithLatestFromObservable<TLeft, TRight, TResult> : OperatorObservableBase<TResult>
     {
         readonly IObservable<TLeft> left;
         readonly IObservable<TRight> right;

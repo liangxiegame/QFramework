@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;    
         
-    internal class GroupedObservable<TKey, TElement> : IGroupedObservable<TKey, TElement>
+    public class GroupedObservable<TKey, TElement> : IGroupedObservable<TKey, TElement>
     {
         readonly TKey key;
         readonly IObservable<TElement> subject;
@@ -56,7 +56,7 @@ namespace QFramework
         }
     }
 
-    internal class GroupByObservable<TSource, TKey, TElement> : OperatorObservableBase<IGroupedObservable<TKey, TElement>>
+    public class GroupByObservable<TSource, TKey, TElement> : OperatorObservableBase<IGroupedObservable<TKey, TElement>>
     {
         readonly IObservable<TSource> source;
         readonly Func<TSource, TKey> keySelector;

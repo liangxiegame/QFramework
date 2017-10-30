@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class SubscribeOnObservable<T> : OperatorObservableBase<T>
+    public class SubscribeOnObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IScheduler scheduler;

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class MergeObservable<T> : OperatorObservableBase<T>
+    public class MergeObservable<T> : OperatorObservableBase<T>
     {
         private readonly IObservable<IObservable<T>> sources;
         private readonly int maxConcurrent;

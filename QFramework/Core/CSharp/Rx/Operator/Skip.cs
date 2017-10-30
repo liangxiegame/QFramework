@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,12 +29,12 @@ namespace QFramework
 {
     using System;
 
-    internal class SkipObservable<T> : OperatorObservableBase<T>
+    public class SkipObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly int count;
         readonly TimeSpan duration;
-        internal readonly IScheduler scheduler; // public for optimization check
+        public readonly IScheduler scheduler; // public for optimization check
 
         public SkipObservable(IObservable<T> source, int count)
             : base(source.IsRequiredSubscribeOnCurrentThread())

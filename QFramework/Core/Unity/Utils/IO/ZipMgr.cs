@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 ouyanggongming@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UniRx;
+using QFramework;
 
 namespace QFramework
 {
@@ -164,7 +164,7 @@ namespace QFramework
                 }
                 catch (Exception exception)
                 {
-                    Log.e(exception.Message);
+                    Log.E(exception.Message);
                     mErrorMsg = exception.Message;
                     mIsError = true;
                     mFinish = true;
@@ -223,7 +223,7 @@ namespace QFramework
             }
             catch (System.Exception ex)
             {
-                Log.e("Unzip Data error: " + ex.Message + ex.StackTrace);
+                Log.E("Unzip Data error: " + ex.Message + ex.StackTrace);
                 return false;
             }
 

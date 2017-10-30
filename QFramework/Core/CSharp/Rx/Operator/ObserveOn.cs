@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class ObserveOnObservable<T> : OperatorObservableBase<T>
+    public class ObserveOnObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IScheduler scheduler;

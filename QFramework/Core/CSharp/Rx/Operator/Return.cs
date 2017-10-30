@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class ReturnObservable<T> : OperatorObservableBase<T>
+    public class ReturnObservable<T> : OperatorObservableBase<T>
     {
         readonly T value;
         readonly IScheduler scheduler;
@@ -95,7 +95,7 @@ namespace QFramework
         }
     }
 
-    internal class ImmediateReturnObservable<T> : IObservable<T>, IOptimizedObservable<T>
+    public class ImmediateReturnObservable<T> : IObservable<T>, IOptimizedObservable<T>
     {
         readonly T value;
 
@@ -117,9 +117,9 @@ namespace QFramework
         }
     }
 
-    internal class ImmutableReturnUnitObservable : IObservable<Unit>, IOptimizedObservable<Unit>
+    public class ImmutableReturnUnitObservable : IObservable<Unit>, IOptimizedObservable<Unit>
     {
-        internal static ImmutableReturnUnitObservable Instance = new ImmutableReturnUnitObservable();
+        public static ImmutableReturnUnitObservable Instance = new ImmutableReturnUnitObservable();
 
         ImmutableReturnUnitObservable()
         {
@@ -139,9 +139,9 @@ namespace QFramework
         }
     }
 
-    internal class ImmutableReturnTrueObservable : IObservable<bool>, IOptimizedObservable<bool>
+    public class ImmutableReturnTrueObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static ImmutableReturnTrueObservable Instance = new ImmutableReturnTrueObservable();
+        public static ImmutableReturnTrueObservable Instance = new ImmutableReturnTrueObservable();
 
         ImmutableReturnTrueObservable()
         {
@@ -161,9 +161,9 @@ namespace QFramework
         }
     }
 
-    internal class ImmutableReturnFalseObservable : IObservable<bool>, IOptimizedObservable<bool>
+    public class ImmutableReturnFalseObservable : IObservable<bool>, IOptimizedObservable<bool>
     {
-        internal static ImmutableReturnFalseObservable Instance = new ImmutableReturnFalseObservable();
+        public static ImmutableReturnFalseObservable Instance = new ImmutableReturnFalseObservable();
 
         ImmutableReturnFalseObservable()
         {

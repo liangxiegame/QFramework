@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class DistinctObservable<T> : OperatorObservableBase<T>
+    public class DistinctObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IEqualityComparer<T> comparer;
@@ -92,7 +92,7 @@ namespace QFramework
         }
     }
 
-    internal class DistinctObservable<T, TKey> : OperatorObservableBase<T>
+    public class DistinctObservable<T, TKey> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IEqualityComparer<TKey> comparer;

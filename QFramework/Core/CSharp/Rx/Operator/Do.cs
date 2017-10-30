@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     // Do, DoOnError, DoOnCompleted, DoOnTerminate, DoOnSubscribe, DoOnCancel
     using System;
 
-    internal class DoObservable<T> : OperatorObservableBase<T>
+    public class DoObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action<T> onNext;
@@ -110,7 +110,7 @@ namespace QFramework
         }
     }
 
-    internal class DoObserverObservable<T> : OperatorObservableBase<T>
+    public class DoObserverObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IObserver<T> observer;
@@ -192,7 +192,7 @@ namespace QFramework
         }
     }
 
-    internal class DoOnErrorObservable<T> : OperatorObservableBase<T>
+    public class DoOnErrorObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action<Exception> onError;
@@ -254,7 +254,7 @@ namespace QFramework
         }
     }
 
-    internal class DoOnCompletedObservable<T> : OperatorObservableBase<T>
+    public class DoOnCompletedObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action onCompleted;
@@ -313,7 +313,7 @@ namespace QFramework
         }
     }
 
-    internal class DoOnTerminateObservable<T> : OperatorObservableBase<T>
+    public class DoOnTerminateObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action onTerminate;
@@ -381,7 +381,7 @@ namespace QFramework
         }
     }
 
-    internal class DoOnSubscribeObservable<T> : OperatorObservableBase<T>
+    public class DoOnSubscribeObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action onSubscribe;
@@ -440,7 +440,7 @@ namespace QFramework
         }
     }
 
-    internal class DoOnCancelObservable<T> : OperatorObservableBase<T>
+    public class DoOnCancelObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action onCancel;

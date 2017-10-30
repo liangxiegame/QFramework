@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -31,9 +31,9 @@ namespace QFramework
     using System;
     using System.Reflection;
 
-    internal class SingletonCreator
+    public class SingletonCreator
     {
-        internal static T CreateSingleton<T>() where T : class, ISingleton
+        public static T CreateSingleton<T>() where T : class, ISingleton
         {
             T retInstance = default(T);
 

@@ -1,4 +1,4 @@
-// *************************************************************************************************
+﻿// *************************************************************************************************
 // The MIT License (MIT)
 // 
 // Copyright (c) 2016 Sean
@@ -33,7 +33,7 @@ using System.Net.Sockets;
 
 namespace FlexiFramework.Networking
 {
-    internal sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
+    public sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
     {
         private readonly Socket _socket;
         private readonly IProtocol _protocol;

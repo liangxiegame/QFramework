@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class NeverObservable<T> : OperatorObservableBase<T>
+    public class NeverObservable<T> : OperatorObservableBase<T>
     {
         public NeverObservable()
             : base(false)
@@ -42,9 +42,9 @@ namespace QFramework
         }
     }
 
-    internal class ImmutableNeverObservable<T> : IObservable<T>, IOptimizedObservable<T>
+    public class ImmutableNeverObservable<T> : IObservable<T>, IOptimizedObservable<T>
     {
-        internal static ImmutableNeverObservable<T> Instance = new ImmutableNeverObservable<T>();
+        public static ImmutableNeverObservable<T> Instance = new ImmutableNeverObservable<T>();
 
         public bool IsRequiredSubscribeOnCurrentThread()
         {

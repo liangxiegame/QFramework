@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,13 +29,13 @@ namespace QFramework
 {
     using System;
 
-    internal interface ISelect<TR>
+    public interface ISelect<TR>
     {
         // IObservable<TR2> CombineSelector<TR2>(Func<TR, TR2> selector);
         IObservable<TR> CombinePredicate(Func<TR, bool> predicate);
     }
 
-    internal class SelectObservable<T, TR> : OperatorObservableBase<TR>, ISelect<TR>
+    public class SelectObservable<T, TR> : OperatorObservableBase<TR>, ISelect<TR>
     {
         readonly IObservable<T> source;
         readonly Func<T, TR> selector;

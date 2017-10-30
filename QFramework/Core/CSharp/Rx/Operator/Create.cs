@@ -33,7 +33,7 @@ namespace QFramework
 {
     using System;
 
-    internal class CreateObservable<T> : OperatorObservableBase<T>
+    public class CreateObservable<T> : OperatorObservableBase<T>
     {
         readonly Func<IObserver<T>, IDisposable> subscribe;
 
@@ -80,7 +80,7 @@ namespace QFramework
         }
     }
 
-    internal class CreateObservable<T, TState> : OperatorObservableBase<T>
+    public class CreateObservable<T, TState> : OperatorObservableBase<T>
     {
         readonly TState state;
         readonly Func<TState, IObserver<T>, IDisposable> subscribe;
@@ -130,7 +130,7 @@ namespace QFramework
         }
     }
 
-    internal class CreateSafeObservable<T> : OperatorObservableBase<T>
+    public class CreateSafeObservable<T> : OperatorObservableBase<T>
     {
         readonly Func<IObserver<T>, IDisposable> subscribe;
 

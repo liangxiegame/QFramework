@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class ContinueWithObservable<TSource, TResult> : OperatorObservableBase<TResult>
+    public class ContinueWithObservable<TSource, TResult> : OperatorObservableBase<TResult>
     {
         readonly IObservable<TSource> source;
         readonly Func<TSource, IObservable<TResult>> selector;

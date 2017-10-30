@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class CatchObservable<T, TException> : OperatorObservableBase<T>
+    public class CatchObservable<T, TException> : OperatorObservableBase<T>
         where TException : Exception
     {
         readonly IObservable<T> source;
@@ -114,7 +114,7 @@ namespace QFramework
     }
 
 
-    internal class CatchObservable<T> : OperatorObservableBase<T>
+    public class CatchObservable<T> : OperatorObservableBase<T>
     {
         readonly IEnumerable<IObservable<T>> sources;
 

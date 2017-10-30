@@ -2,12 +2,11 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-namespace QFramework.Editor
+namespace QFramework
 {
 	#if UNITY_EDITOR
 	using UnityEditor;
 	#endif
-	using System;
 	using System.IO;
 	using System.Collections.Generic;
 

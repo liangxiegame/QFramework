@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class FinallyObservable<T> : OperatorObservableBase<T>
+    public class FinallyObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly Action finallyAction;

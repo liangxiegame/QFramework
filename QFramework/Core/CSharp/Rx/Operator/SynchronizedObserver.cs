@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class SynchronizedObserver<T> : IObserver<T>
+    public class SynchronizedObserver<T> : IObserver<T>
     {
         readonly IObserver<T> observer;
         readonly object gate;

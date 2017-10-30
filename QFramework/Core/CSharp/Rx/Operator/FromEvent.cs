@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     // FromEvent, FromEventPattern
 
-    internal class FromEventPatternObservable<TDelegate, TEventArgs> : OperatorObservableBase<EventPattern<TEventArgs>>
+    public class FromEventPatternObservable<TDelegate, TEventArgs> : OperatorObservableBase<EventPattern<TEventArgs>>
         where TEventArgs : EventArgs
     {
         readonly Func<EventHandler<TEventArgs>, TDelegate> conversion;
@@ -94,7 +94,7 @@ namespace QFramework
         }
     }
 
-    internal class FromEventObservable<TDelegate> : OperatorObservableBase<Unit>
+    public class FromEventObservable<TDelegate> : OperatorObservableBase<Unit>
     {
         readonly Func<Action, TDelegate> conversion;
         readonly Action<TDelegate> addHandler;
@@ -158,7 +158,7 @@ namespace QFramework
         }
     }
 
-    internal class FromEventObservable<TDelegate, TEventArgs> : OperatorObservableBase<TEventArgs>
+    public class FromEventObservable<TDelegate, TEventArgs> : OperatorObservableBase<TEventArgs>
     {
         readonly Func<Action<TEventArgs>, TDelegate> conversion;
         readonly Action<TDelegate> addHandler;
@@ -222,7 +222,7 @@ namespace QFramework
         }
     }
 
-    internal class FromEventObservable : OperatorObservableBase<Unit>
+    public class FromEventObservable : OperatorObservableBase<Unit>
     {
         readonly Action<Action> addHandler;
         readonly Action<Action> removeHandler;
@@ -283,7 +283,7 @@ namespace QFramework
         }
     }
 
-    internal class FromEventObservable_<T> : OperatorObservableBase<T>
+    public class FromEventObservable_<T> : OperatorObservableBase<T>
     {
         readonly Action<Action<T>> addHandler;
         readonly Action<Action<T>> removeHandler;

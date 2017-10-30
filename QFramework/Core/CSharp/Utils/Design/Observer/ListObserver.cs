@@ -53,12 +53,12 @@ namespace QFramework
             mObservers.Data.ForEach(observer => observer.OnNext(value));
         }
 
-        internal IObserver<T> Add(IObserver<T> observer)
+        public IObserver<T> Add(IObserver<T> observer)
         {
             return new ListObserver<T>(mObservers.Add(observer));
         }
 
-        internal IObserver<T> Remove(IObserver<T> observer)
+        public IObserver<T> Remove(IObserver<T> observer)
         {
             var i = Array.IndexOf(mObservers.Data, observer);
             if (i < 0)

@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class RepeatSafeObservable<T> : OperatorObservableBase<T>
+    public class RepeatSafeObservable<T> : OperatorObservableBase<T>
     {
         readonly IEnumerable<IObservable<T>> sources;
 

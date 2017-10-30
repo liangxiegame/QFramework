@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@
 // 1. class to struct
 // 2. implements IEquatable<T1, T2,...>
 
-// note, we need to create ValueTuple or UniRxTuple...
+// note, we need to create ValueTuple or QFrameworkTuple...
 #if !(NETFX_CORE || ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
 namespace QFramework
 {

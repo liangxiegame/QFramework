@@ -33,7 +33,7 @@ namespace QFramework
     
     public static class IExecuteNodeExtension
     {
-        public static T ExecuteNode<T>(this T selBehaviour, IExecutable commandNode) where T : MonoBehaviour
+        public static T ExecuteNode<T>(this T selBehaviour, IExecuteNode commandNode) where T : MonoBehaviour
         {
             selBehaviour.StartCoroutine(commandNode.Execute());
             return selBehaviour;

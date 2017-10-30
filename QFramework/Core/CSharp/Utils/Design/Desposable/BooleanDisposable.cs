@@ -36,7 +36,7 @@ namespace QFramework
 
         }
 
-        internal BooleanDisposable(bool isDisposed)
+        public BooleanDisposable(bool isDisposed)
         {
             IsDisposed = isDisposed;
         }

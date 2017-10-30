@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class RefCountObservable<T> : OperatorObservableBase<T>
+    public class RefCountObservable<T> : OperatorObservableBase<T>
     {
         readonly IConnectableObservable<T> source;
         readonly object gate = new object();

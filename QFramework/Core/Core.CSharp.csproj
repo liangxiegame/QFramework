@@ -9,9 +9,10 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QFramework</RootNamespace>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.Core.CSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <UseMSBuildEngine>false</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>anycpu</PlatformTarget>
@@ -39,6 +40,7 @@
         </Command>
       </CustomCommands>
     </CustomCommands>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
@@ -72,7 +75,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CSharp\.DS_Store" />
     <Content Include="CSharp\Utils\Caching\Pool\.DS_Store" />
     <Content Include="CSharp\Utils\CodeGeneration\.DS_Store" />
     <Content Include="CSharp\Utils\DataStructure\.DS_Store" />
@@ -314,9 +316,23 @@
     <Compile Include="CSharp\Utils\Scheduler\ScheduledItem.cs" />
     <Compile Include="CSharp\Utils\Scheduler\Scheduler.cs" />
     <Compile Include="CSharp\Utils\Scheduler\SchedulerDisposable.cs" />
+    <Compile Include="CSharp\Rx\Disposable\DictionaryDisposable.cs" />
+    <Compile Include="CSharp\Rx\Disposable\CancellationDisposable.cs" />
+    <Compile Include="CSharp\Rx\Asynchronous\WebRequestExtensions.cs" />
+    <Compile Include="CSharp\Rx\Notifiers\BooleanNotifier.cs" />
+    <Compile Include="CSharp\Rx\Notifiers\CountNotifier.cs" />
+    <Compile Include="CSharp\Rx\Notifiers\MessageBroker.cs" />
+    <Compile Include="CSharp\Rx\Notifiers\ScheduledNotifier.cs" />
+    <Compile Include="CSharp\Rx\Tasks\TaskObservableExtensions.cs" />
+    <Compile Include="CSharp\Rx\InternalUtil\MicroCoroutine.cs" />
+    <Compile Include="CSharp\Rx\InternalUtil\ThreadSafeQueueWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CSharp\Utils\Design\Subject" />
+    <Folder Include="CSharp\Rx\Asynchronous\" />
+    <Folder Include="CSharp\Rx\Notifiers\" />
+    <Folder Include="CSharp\Rx\Tasks\" />
+    <Folder Include="CSharp\Rx\InternalUtil\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

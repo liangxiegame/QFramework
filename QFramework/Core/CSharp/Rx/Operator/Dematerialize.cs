@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
     
-    internal class DematerializeObservable<T> : OperatorObservableBase<T>
+    public class DematerializeObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<Notification<T>> source;
 

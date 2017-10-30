@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -28,7 +28,7 @@
 namespace QFramework
 {
     using UnityEngine;
-    using UniRx;
+    using QFramework;
     using System;
 
     public abstract class ExecuteNodeChain : ExecuteNode, IExecuteNodeChain, IDisposeWhen

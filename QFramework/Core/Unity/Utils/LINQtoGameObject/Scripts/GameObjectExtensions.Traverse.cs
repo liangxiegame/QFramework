@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -378,7 +378,7 @@ namespace Unity.Linq
                 int currentIndex;
                 GameObject current;
 
-                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -817,7 +817,7 @@ namespace Unity.Linq
                 Transform currentTransform;
                 bool withSelf;
 
-                internal Enumerator(GameObject origin, Transform originTransform, bool withSelf, bool canRun)
+                public Enumerator(GameObject origin, Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.current = origin;
                     this.currentTransform = originTransform;
@@ -1177,7 +1177,7 @@ namespace Unity.Linq
                 }
             }
 
-            /// <summary>Use internal iterator for performance optimization.</summary>
+            /// <summary>Use publiciterator for performance optimization.</summary>
             /// <param name="action"></param>
             public void ForEach(Action<GameObject> action)
             {
@@ -1362,7 +1362,7 @@ namespace Unity.Linq
 
             #endregion
 
-            internal class InternalUnsafeRefStack
+            public class InternalUnsafeRefStack
             {
                 public static Queue<InternalUnsafeRefStack> RefStackPool = new Queue<InternalUnsafeRefStack>();
 
@@ -1402,7 +1402,7 @@ namespace Unity.Linq
                 InternalUnsafeRefStack sharedStack;
                 Func<Transform, bool> descendIntoChildren;
 
-                internal Enumerator(Transform originTransform, bool withSelf, bool canRun, InternalUnsafeRefStack sharedStack, Func<Transform, bool> descendIntoChildren)
+                public Enumerator(Transform originTransform, bool withSelf, bool canRun, InternalUnsafeRefStack sharedStack, Func<Transform, bool> descendIntoChildren)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -1559,7 +1559,7 @@ namespace Unity.Linq
                     }
                 }
 
-                /// <summary>Use internal iterator for performance optimization.</summary>
+                /// <summary>Use publiciterator for performance optimization.</summary>
                 public void ForEach(Action<T> action)
                 {
                     if (parent.withSelf)
@@ -2024,7 +2024,7 @@ namespace Unity.Linq
                 GameObject current;
                 Transform parent;
 
-                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -2477,7 +2477,7 @@ namespace Unity.Linq
                 GameObject current;
                 Transform parent;
 
-                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;

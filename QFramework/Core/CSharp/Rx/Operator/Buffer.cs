@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
 
-    internal class BufferObservable<T> : OperatorObservableBase<IList<T>>
+    public class BufferObservable<T> : OperatorObservableBase<IList<T>>
     {
         readonly IObservable<T> source;
         readonly int count;
@@ -533,7 +533,7 @@ namespace QFramework
         }
     }
 
-    internal class BufferObservable<TSource, TWindowBoundary> : OperatorObservableBase<IList<TSource>>
+    public class BufferObservable<TSource, TWindowBoundary> : OperatorObservableBase<IList<TSource>>
     {
         readonly IObservable<TSource> source;
         readonly IObservable<TWindowBoundary> windowBoundaries;

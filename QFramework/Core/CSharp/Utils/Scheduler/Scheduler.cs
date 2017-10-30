@@ -24,7 +24,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-#define UniRxLibrary
+#define QFrameworkLibrary
 
 namespace QFramework
 {
@@ -66,7 +66,7 @@ namespace QFramework
             {
                 get
                 {
-#if UniRxLibrary
+#if QFrameworkLibrary
                     return timeBasedOperations ?? (timeBasedOperations = Scheduler.ThreadPool);
 #else
                     return timeBasedOperations ?? (timeBasedOperations =

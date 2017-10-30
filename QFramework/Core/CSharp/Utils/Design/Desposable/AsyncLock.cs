@@ -35,7 +35,7 @@ namespace QFramework
     /// <summary>
     /// Asynchronous lock. TODO: refactor variable name
     /// </summary>
-    internal sealed class AsyncLock : IDisposable
+    public sealed class AsyncLock : IDisposable
     {
         private readonly Queue<Action> queue = new Queue<Action>();
         private bool isAcquired = false;

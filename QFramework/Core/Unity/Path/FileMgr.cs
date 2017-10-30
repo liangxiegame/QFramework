@@ -1,15 +1,36 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
-****************************************************************************/
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 namespace QFramework
 {
 	using System.IO;
 	using System.Collections.Generic;
-	using UnityEngine;
 	using ICSharpCode.SharpZipLib.Zip;
-	using Core;
 
 	public class FileMgr: QSingleton<FileMgr>
 	{
@@ -264,7 +285,7 @@ namespace QFramework
 			}
 			else
 			{
-				Log.e(string.Format("Can't Find File {0}", absPath));
+				Log.E(string.Format("Can't Find File {0}", absPath));
 			}
 
 			return null;
@@ -295,28 +316,28 @@ namespace QFramework
 		private byte[] ReadDataInAndriodApk(string fileRelativePath)
 		{
 			byte[] byteData = null;
-			//Log.i("Read From In App...");
+			//Log.I("Read From In App...");
 			if (mZipFile == null)
 			{
-				Log.e("can't open apk");
+				Log.E("can't open apk");
 				return null;
 			}
 
-			//Log.i("Begin Open Zip...");
+			//Log.I("Begin Open Zip...");
 			ZipEntry zipEntry = mZipFile.GetEntry(string.Format("assets/{0}", fileRelativePath));
-			//Log.i("End Open Zip...");
+			//Log.I("End Open Zip...");
 			if (zipEntry != null)
 			{
-				//Log.i("Begin Read Zip...");
+				//Log.I("Begin Read Zip...");
 				var stream = mZipFile.GetInputStream(zipEntry);
 				byteData = new byte[zipEntry.Size];
-				//Log.i("Read Zip Length:" + byteData.Length);
+				//Log.I("Read Zip Length:" + byteData.Length);
 				stream.Read(byteData, 0, byteData.Length);
 				stream.Close();
 			}
 			else
 			{
-				Log.e(string.Format("Can't Find File {0}", fileRelativePath));
+				Log.E(string.Format("Can't Find File {0}", fileRelativePath));
 			}
 
 			return byteData;

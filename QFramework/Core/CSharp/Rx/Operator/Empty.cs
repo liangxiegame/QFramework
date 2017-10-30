@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class EmptyObservable<T> : OperatorObservableBase<T>
+    public class EmptyObservable<T> : OperatorObservableBase<T>
     {
         readonly IScheduler scheduler;
 
@@ -87,9 +87,9 @@ namespace QFramework
         }
     }
 
-    internal class ImmutableEmptyObservable<T> : IObservable<T>, IOptimizedObservable<T>
+    public class ImmutableEmptyObservable<T> : IObservable<T>, IOptimizedObservable<T>
     {
-        internal static ImmutableEmptyObservable<T> Instance = new ImmutableEmptyObservable<T>();
+        public static ImmutableEmptyObservable<T> Instance = new ImmutableEmptyObservable<T>();
 
         ImmutableEmptyObservable()
         {

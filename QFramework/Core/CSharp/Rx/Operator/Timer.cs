@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class TimerObservable : OperatorObservableBase<long>
+    public class TimerObservable : OperatorObservableBase<long>
     {
         readonly DateTimeOffset? dueTimeA;
         readonly TimeSpan? dueTimeB;

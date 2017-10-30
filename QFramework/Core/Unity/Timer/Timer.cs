@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * https://github.com/akbiggs/UnityTimer
@@ -52,14 +52,14 @@ namespace QFramework
 
         #region 投递受缩放影响定时器
 
-        public TimeItem Post2Scale(QVoidDelegate.WithGeneric<int> callback, float delay, int repeat)
+        public TimeItem Post2Scale(Action<int> callback, float delay, int repeat)
         {
             TimeItem item = TimeItem.Allocate(callback, delay, repeat);
             Post2Scale(item);
             return item;
         }
 
-        public TimeItem Post2Scale(QVoidDelegate.WithGeneric<int> callback, float delay)
+        public TimeItem Post2Scale(Action<int> callback, float delay)
         {
             TimeItem item = TimeItem.Allocate(callback, delay);
             Post2Scale(item);
@@ -77,25 +77,25 @@ namespace QFramework
         #region 投递真实时间定时器
 
         //投递指定时间计时器：只支持标准时间
-        public TimeItem Post2Really(QVoidDelegate.WithGeneric<int> callback, DateTime toTime)
+        public TimeItem Post2Really(Action<int> callback, DateTime toTime)
         {
             float passTick = (toTime.Ticks - DateTime.Now.Ticks) / 10000000;
             if (passTick < 0)
             {
-                Log.w("Timer Set Pass Time...");
+                Log.W("Timer Set Pass Time...");
                 passTick = 0;
             }
             return Post2Really(callback, passTick);
         }
 
-        public TimeItem Post2Really(QVoidDelegate.WithGeneric<int> callback, float delay, int repeat)
+        public TimeItem Post2Really(Action<int> callback, float delay, int repeat)
         {
             TimeItem item = TimeItem.Allocate(callback, delay, repeat);
             Post2Really(item);
             return item;
         }
 
-        public TimeItem Post2Really(QVoidDelegate.WithGeneric<int> callback, float delay)
+        public TimeItem Post2Really(Action<int> callback, float delay)
         {
             TimeItem item = TimeItem.Allocate(callback, delay);
             Post2Really(item);

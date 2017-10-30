@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class ToArrayObservable<TSource> : OperatorObservableBase<TSource[]>
+    public class ToArrayObservable<TSource> : OperatorObservableBase<TSource[]>
     {
         readonly IObservable<TSource> source;
 

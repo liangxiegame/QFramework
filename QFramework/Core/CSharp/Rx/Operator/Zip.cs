@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -37,7 +37,7 @@ namespace QFramework
     public delegate TR ZipFunc<T1, T2, T3, T4, T5, T6, T7, TR>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
 
     // binary
-    internal class ZipObservable<TLeft, TRight, TResult> : OperatorObservableBase<TResult>
+    public class ZipObservable<TLeft, TRight, TResult> : OperatorObservableBase<TResult>
     {
         readonly IObservable<TLeft> left;
         readonly IObservable<TRight> right;
@@ -216,7 +216,7 @@ namespace QFramework
     }
 
     // array
-    internal class ZipObservable<T> : OperatorObservableBase<IList<T>>
+    public class ZipObservable<T> : OperatorObservableBase<IList<T>>
     {
         readonly IObservable<T>[] sources;
 
@@ -395,10 +395,10 @@ namespace QFramework
         }
     }
 
-    // Generated from UniRx.Console.ZipGenerator.tt
+    // Generated from QFramework.Console.ZipGenerator.tt
     #region NTH
 
-    internal class ZipObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
+    public class ZipObservable<T1, T2, T3, TR> : OperatorObservableBase<TR>
     {
         IObservable<T1> source1;
         IObservable<T2> source2;
@@ -482,7 +482,7 @@ namespace QFramework
     }
 
 
-    internal class ZipObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
+    public class ZipObservable<T1, T2, T3, T4, TR> : OperatorObservableBase<TR>
     {
         IObservable<T1> source1;
         IObservable<T2> source2;
@@ -572,7 +572,7 @@ namespace QFramework
     }
 
 
-    internal class ZipObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
+    public class ZipObservable<T1, T2, T3, T4, T5, TR> : OperatorObservableBase<TR>
     {
         IObservable<T1> source1;
         IObservable<T2> source2;
@@ -668,7 +668,7 @@ namespace QFramework
     }
 
 
-    internal class ZipObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
+    public class ZipObservable<T1, T2, T3, T4, T5, T6, TR> : OperatorObservableBase<TR>
     {
         IObservable<T1> source1;
         IObservable<T2> source2;
@@ -770,7 +770,7 @@ namespace QFramework
     }
 
 
-    internal class ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
+    public class ZipObservable<T1, T2, T3, T4, T5, T6, T7, TR> : OperatorObservableBase<TR>
     {
         IObservable<T1> source1;
         IObservable<T2> source2;
@@ -881,14 +881,14 @@ namespace QFramework
 
     // Nth infrastructure
 
-    internal interface IZipObservable
+    public interface IZipObservable
     {
         void Dequeue(int index);
         void Fail(Exception error);
         void Done(int index);
     }
 
-    internal abstract class NthZipObserverBase<T> : OperatorObserverBase<T, T>, IZipObservable
+    public abstract class NthZipObserverBase<T> : OperatorObserverBase<T, T>, IZipObservable
     {
         System.Collections.ICollection[] queues;
         bool[] isDone;
@@ -988,7 +988,7 @@ namespace QFramework
 
 
     // nth
-    internal class ZipObserver<T> : IObserver<T>
+    public class ZipObserver<T> : IObserver<T>
     {
         readonly object gate;
         readonly IZipObservable parent;

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class DistinctUntilChangedObservable<T> : OperatorObservableBase<T>
+    public class DistinctUntilChangedObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IEqualityComparer<T> comparer;
@@ -109,7 +109,7 @@ namespace QFramework
         }
     }
 
-    internal class DistinctUntilChangedObservable<T, TKey> : OperatorObservableBase<T>
+    public class DistinctUntilChangedObservable<T, TKey> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly IEqualityComparer<TKey> comparer;

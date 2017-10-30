@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,7 +30,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     
-    internal class SelectManyObservable<TSource, TResult> : OperatorObservableBase<TResult>
+    public class SelectManyObservable<TSource, TResult> : OperatorObservableBase<TResult>
     {
         readonly IObservable<TSource> source;
         readonly Func<TSource, IObservable<TResult>> selector;
@@ -464,7 +464,7 @@ namespace QFramework
     }
 
     // with resultSelector
-    internal class SelectManyObservable<TSource, TCollection, TResult> : OperatorObservableBase<TResult>
+    public class SelectManyObservable<TSource, TCollection, TResult> : OperatorObservableBase<TResult>
     {
         readonly IObservable<TSource> source;
         readonly Func<TSource, IObservable<TCollection>> collectionSelector;

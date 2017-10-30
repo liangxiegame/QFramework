@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class DefaultIfEmptyObservable<T> : OperatorObservableBase<T>
+    public class DefaultIfEmptyObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly T defaultValue;

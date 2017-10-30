@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -29,7 +29,7 @@ namespace QFramework
 {
     using System;
 
-    internal class TimestampObservable<T> : OperatorObservableBase<Timestamped<T>>
+    public class TimestampObservable<T> : OperatorObservableBase<Timestamped<T>>
     {
         readonly IObservable<T> source;
         readonly IScheduler scheduler;

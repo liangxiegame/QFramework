@@ -5,6 +5,8 @@
 
 namespace QFramework
 {
+    using System;
+
     public class TimeItem : IBinaryHeapElement, IPoolAble, IPoolType
     {
         /*
@@ -16,19 +18,19 @@ namespace QFramework
         private bool                    mIsEnable = true;
         private int                     mRepeatCount;
         private float                   mSortScore;
-		private QVoidDelegate.WithGeneric<int>                mCallback;
+		private Action<int>                mCallback;
         private int                     mCallbackTick;
         private int                     mHeapIndex;
         private bool                    mIsCache;
 
-		public static TimeItem Allocate(QVoidDelegate.WithGeneric<int> callback, float delayTime, int repeatCount = 1)
+        public static TimeItem Allocate(Action<int> callback, float delayTime, int repeatCount = 1)
         {
             TimeItem item = SafeObjectPool<TimeItem>.Instance.Allocate();
             item.Set(callback, delayTime, repeatCount);
             return item;
         }
 
-		public void Set(QVoidDelegate.WithGeneric<int> callback, float delayTime, int repeatCount)
+        public void Set(Action<int> callback, float delayTime, int repeatCount)
         {
             mCallbackTick = 0;
             mCallback = callback;
@@ -49,7 +51,7 @@ namespace QFramework
             }
         }
 
-		public QVoidDelegate.WithGeneric<int> callback
+        public Action<int> callback
         {
             get { return mCallback; }
         }

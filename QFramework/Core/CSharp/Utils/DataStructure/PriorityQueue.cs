@@ -32,7 +32,7 @@ namespace QFramework
     using System.Collections.Generic;
     using System.Threading;
 
-    internal class PriorityQueue<T> where T : IComparable<T>
+    public class PriorityQueue<T> where T : IComparable<T>
     {
         private static long mCount = long.MinValue;
 
