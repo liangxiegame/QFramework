@@ -25,11 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils;
-
     
     internal class WithLatestFromObservable<TLeft, TRight, TResult> : OperatorObservableBase<TResult>
     {

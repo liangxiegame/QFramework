@@ -51,7 +51,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Scheduler
+namespace QFramework
 {
     using System;
     using System.Threading;

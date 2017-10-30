@@ -25,10 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
-    using QFramework.Core;
-    using QFramework.Core.Utils.Scheduler;
     using System;
 
     // implements note : all field must be readonly.
@@ -54,9 +52,9 @@ namespace QFramework.Core.Rx
             // does not make the safe observer, it breaks exception durability.
             // var safeObserver = Observer.CreateAutoDetachObserver<T>(observer, subscription);
 
-            if (isRequiredSubscribeOnCurrentThread && Utils.Scheduler.Scheduler.IsCurrentThreadSchedulerScheduleRequired)
+            if (isRequiredSubscribeOnCurrentThread && Scheduler.IsCurrentThreadSchedulerScheduleRequired)
             {
-                Utils.Scheduler.Scheduler.CurrentThread.Schedule(() => subscription.Disposable = SubscribeCore(observer, subscription));
+                Scheduler.CurrentThread.Schedule(() => subscription.Disposable = SubscribeCore(observer, subscription));
             }
             else
             {

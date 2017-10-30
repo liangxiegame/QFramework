@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils;
     // FromEvent, FromEventPattern
 
     internal class FromEventPatternObservable<TDelegate, TEventArgs> : OperatorObservableBase<EventPattern<TEventArgs>>

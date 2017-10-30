@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Internal
+namespace QFramework
 {
     using System;
     using System.Reflection;

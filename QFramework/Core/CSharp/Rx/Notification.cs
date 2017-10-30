@@ -1,20 +1,47 @@
-﻿// original code from rx.codeplex.com
+﻿/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
+// original code from rx.codeplex.com
 // some modified.
 
 /* ------------------ */
 
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
-using System.Diagnostics;
-using System.Globalization;
-using System.Collections.Generic;
-using System;
-
 #pragma warning disable 0659
 #pragma warning disable 0661
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Collections.Generic;
+    using System;
+    
     /// <summary>
     /// Provides a mechanism for receiving push-based notifications and returning a response.
     /// </summary>
@@ -608,7 +635,7 @@ namespace QFramework.Core.Rx
         /// <returns>The observable sequence that surfaces the behavior of the notification upon subscription.</returns>
         public IObservable<T> ToObservable()
         {
-            return this.ToObservable(Utils.Scheduler.Scheduler.Immediate);
+            return this.ToObservable(Scheduler.Immediate);
         }
 
         /// <summary>
@@ -616,7 +643,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         /// <param name="scheduler">Scheduler to send out the notification calls on.</param>
         /// <returns>The observable sequence that surfaces the behavior of the notification upon subscription.</returns>
-        public IObservable<T> ToObservable(Utils.Scheduler.IScheduler scheduler)
+        public IObservable<T> ToObservable(IScheduler scheduler)
         {
             if (scheduler == null)
                 throw new ArgumentNullException("scheduler");

@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.RC
+namespace QFramework
 {
     public class ObjectIsNotRetainedByOwnerExceptionWithHint : ExceptionWithHint
     {

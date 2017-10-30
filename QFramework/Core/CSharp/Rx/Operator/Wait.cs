@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework;
     
     internal class Wait<T> : IObserver<T>
     {

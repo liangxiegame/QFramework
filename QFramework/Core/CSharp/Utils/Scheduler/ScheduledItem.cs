@@ -30,10 +30,9 @@
 // Copyright (c) Microsoft Open Technologies, Inc. All rights reserved. See License.txt in the project root for license information.
 
 
-namespace QFramework.Core.Utils.Scheduler.Internal
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils.DataStructure;
 
     /// <summary>
     /// Abstract base class for scheduled work items.

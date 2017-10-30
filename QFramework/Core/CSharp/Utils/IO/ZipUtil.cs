@@ -27,13 +27,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.IO
+namespace QFramework
 {
     using System;
     using System.IO;
     using ICSharpCode.SharpZipLib.Zip;
     using ICSharpCode.SharpZipLib.Checksums;
-    using Extensions.DotNet;
 
     public class ZipUtil
     {

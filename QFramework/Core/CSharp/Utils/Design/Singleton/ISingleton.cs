@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {    
     public interface ISingleton
     {        

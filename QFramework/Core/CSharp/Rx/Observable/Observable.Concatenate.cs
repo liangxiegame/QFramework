@@ -25,12 +25,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Linq;
     using System.Collections.Generic;
-    using QFramework.Core.Utils;
+    
     // concatenate multiple observable
     // merge, concat, zip...
     public static partial class Observable
@@ -79,32 +79,32 @@ namespace QFramework.Core.Rx
 
         public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources)
         {
-            return Merge(sources, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Merge(sources, Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
-        public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources,Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources,IScheduler scheduler)
         {
-            return new MergeObservable<TSource>(sources.ToObservable(scheduler), scheduler == Utils.Scheduler.Scheduler.CurrentThread);
+            return new MergeObservable<TSource>(sources.ToObservable(scheduler), scheduler == Scheduler.CurrentThread);
         }
 
         public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources, int maxConcurrent)
         {
-            return Merge(sources, maxConcurrent, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Merge(sources, maxConcurrent, Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
-        public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources, int maxConcurrent, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<TSource> Merge<TSource>(this IEnumerable<IObservable<TSource>> sources, int maxConcurrent, IScheduler scheduler)
         {
-            return new MergeObservable<TSource>(sources.ToObservable(scheduler), maxConcurrent, scheduler == Utils.Scheduler.Scheduler.CurrentThread);
+            return new MergeObservable<TSource>(sources.ToObservable(scheduler), maxConcurrent, scheduler == Scheduler.CurrentThread);
         }
 
         public static IObservable<TSource> Merge<TSource>(params IObservable<TSource>[] sources)
         {
-            return Merge(Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations, sources);
+            return Merge(Scheduler.DefaultSchedulers.ConstantTimeOperations, sources);
         }
 
-        public static IObservable<TSource> Merge<TSource>(Utils.Scheduler.IScheduler scheduler, params IObservable<TSource>[] sources)
+        public static IObservable<TSource> Merge<TSource>(IScheduler scheduler, params IObservable<TSource>[] sources)
         {
-            return new MergeObservable<TSource>(sources.ToObservable(scheduler), scheduler == Utils.Scheduler.Scheduler.CurrentThread);
+            return new MergeObservable<TSource>(sources.ToObservable(scheduler), scheduler == Scheduler.CurrentThread);
         }
 
         public static IObservable<T> Merge<T>(this IObservable<T> first, params IObservable<T>[] seconds)
@@ -112,7 +112,7 @@ namespace QFramework.Core.Rx
             return Merge(CombineSources(first, seconds));
         }
 
-        public static IObservable<T> Merge<T>(this IObservable<T> first, IObservable<T> second, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<T> Merge<T>(this IObservable<T> first, IObservable<T> second, IScheduler scheduler)
         {
             return Merge(scheduler, new[] { first, second });
         }
@@ -313,20 +313,20 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> StartWith<T>(this IObservable<T> source, params T[] values)
         {
-            return StartWith(source, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations, values);
+            return StartWith(source, Scheduler.DefaultSchedulers.ConstantTimeOperations, values);
         }
 
         public static IObservable<T> StartWith<T>(this IObservable<T> source, IEnumerable<T> values)
         {
-            return StartWith(source, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations, values);
+            return StartWith(source, Scheduler.DefaultSchedulers.ConstantTimeOperations, values);
         }
 
-        public static IObservable<T> StartWith<T>(this IObservable<T> source, Utils.Scheduler.IScheduler scheduler, T value)
+        public static IObservable<T> StartWith<T>(this IObservable<T> source, IScheduler scheduler, T value)
         {
             return Observable.Return(value, scheduler).Concat(source);
         }
 
-        public static IObservable<T> StartWith<T>(this IObservable<T> source, Utils.Scheduler.IScheduler scheduler, IEnumerable<T> values)
+        public static IObservable<T> StartWith<T>(this IObservable<T> source,IScheduler scheduler, IEnumerable<T> values)
         {
             var array = values as T[];
             if (array == null)
@@ -337,7 +337,7 @@ namespace QFramework.Core.Rx
             return StartWith(source, scheduler, array);
         }
 
-        public static IObservable<T> StartWith<T>(this IObservable<T> source, Utils.Scheduler.IScheduler scheduler, params T[] values)
+        public static IObservable<T> StartWith<T>(this IObservable<T> source,IScheduler scheduler, params T[] values)
         {
             return values.ToObservable(scheduler).Concat(source);
         }

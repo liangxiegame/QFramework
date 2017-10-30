@@ -26,9 +26,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Caching
+namespace QFramework
 {
-    using Core;
     using System;
 
     /// <summary>

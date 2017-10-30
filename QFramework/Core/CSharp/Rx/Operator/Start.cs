@@ -1,24 +1,51 @@
-using System;
+/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
+    using System;
+
     internal class StartObservable<T> : OperatorObservableBase<T>
     {
         readonly Action action;
         readonly Func<T> function;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
         readonly TimeSpan? startAfter;
 
-        public StartObservable(Func<T> function, TimeSpan? startAfter, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public StartObservable(Func<T> function, TimeSpan? startAfter, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.function = function;
             this.startAfter = startAfter;
             this.scheduler = scheduler;
         }
 
-        public StartObservable(Action action, TimeSpan? startAfter, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public StartObservable(Action action, TimeSpan? startAfter, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.action = action;
             this.startAfter = startAfter;

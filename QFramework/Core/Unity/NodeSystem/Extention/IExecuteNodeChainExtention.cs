@@ -25,8 +25,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UniRx;
-
 namespace QFramework
 {
     using System;

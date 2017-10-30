@@ -1,9 +1,36 @@
+﻿/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
 #define UniRxLibrary
-using System;
-using System.Collections.Generic;
-namespace QFramework.Core.Rx
+
+namespace QFramework
 {
-    using QFramework.Core.Utils.DataStructure;
+    using System;
+    using System.Collections.Generic;
 
     // Take, Skip, etc..
     public static partial class Observable
@@ -27,10 +54,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> Take<T>(this IObservable<T> source, TimeSpan duration)
         {
-            return Take(source, duration, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return Take(source, duration, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<T> Take<T>(this IObservable<T> source, TimeSpan duration, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<T> Take<T>(this IObservable<T> source, TimeSpan duration, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
             if (scheduler == null) throw new ArgumentNullException("scheduler");
@@ -76,10 +103,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> TakeLast<T>(this IObservable<T> source, TimeSpan duration)
         {
-            return TakeLast<T>(source, duration, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return TakeLast<T>(source, duration, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<T> TakeLast<T>(this IObservable<T> source, TimeSpan duration, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<T> TakeLast<T>(this IObservable<T> source, TimeSpan duration, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
 
@@ -103,10 +130,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> Skip<T>(this IObservable<T> source, TimeSpan duration)
         {
-            return Skip(source, duration, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return Skip(source, duration, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<T> Skip<T>(this IObservable<T> source, TimeSpan duration, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<T> Skip<T>(this IObservable<T> source, TimeSpan duration, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
             if (scheduler == null) throw new ArgumentNullException("scheduler");
@@ -158,10 +185,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan)
         {
-            return Buffer(source, timeSpan, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return Buffer(source, timeSpan, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
 
@@ -170,10 +197,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, int count)
         {
-            return Buffer(source, timeSpan, count, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return Buffer(source, timeSpan, count, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, int count, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, int count, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
             if (count <= 0) throw new ArgumentOutOfRangeException("count <= 0");
@@ -183,10 +210,10 @@ namespace QFramework.Core.Rx
 
         public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, TimeSpan timeShift)
         {
-            return new BufferObservable<T>(source, timeSpan, timeShift, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return new BufferObservable<T>(source, timeSpan, timeShift, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
-        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, TimeSpan timeShift, Utils.Scheduler.IScheduler scheduler)
+        public static IObservable<IList<T>> Buffer<T>(this IObservable<T> source, TimeSpan timeSpan, TimeSpan timeShift, IScheduler scheduler)
         {
             if (source == null) throw new ArgumentNullException("source");
 

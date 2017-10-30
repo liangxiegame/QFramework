@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Extensions.Json
+namespace QFramework
 {
 	using Newtonsoft.Json.Linq;
 

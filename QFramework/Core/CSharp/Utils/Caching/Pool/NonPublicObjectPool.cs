@@ -26,10 +26,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Caching
+namespace QFramework
 {
 	using System;
-    using Core;
 
 	/// <summary>
 	/// Object pool 4 class who no public constructor

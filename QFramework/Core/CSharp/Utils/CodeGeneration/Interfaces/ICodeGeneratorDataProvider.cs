@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.CodeGen
+namespace QFramework
 {
     /// Implement this interface if you want to provide custom data
     /// for your custom code generators.

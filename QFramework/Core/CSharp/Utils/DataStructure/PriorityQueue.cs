@@ -26,11 +26,10 @@
  ****************************************************************************/
 // this code is borrowed from RxOfficial(rx.codeplex.com) and modified
 
-namespace QFramework.Core.Utils.DataStructure
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
 
     internal class PriorityQueue<T> where T : IComparable<T>

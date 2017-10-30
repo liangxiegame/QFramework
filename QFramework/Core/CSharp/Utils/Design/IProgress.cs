@@ -27,7 +27,7 @@
 
 // defined from .NET Framework 4.5 and NETFX_CORE
 #if !(NETFX_CORE || ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
     

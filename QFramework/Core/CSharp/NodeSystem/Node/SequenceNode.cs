@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
 	using System.Collections.Generic;
 	using System.Linq;
-	using Utils.Extensions.DotNet;
 
 	/// <summary>
 	/// 序列执行节点

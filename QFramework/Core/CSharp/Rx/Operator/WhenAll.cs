@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using QFramework.Core.Utils;
     
     internal class WhenAllObservable<T> : OperatorObservableBase<T[]>
     {

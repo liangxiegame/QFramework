@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.CodeGen
+namespace QFramework
 {
     /// Implement this interface if you want to create a custom code generator.
     public interface ICodeGenerator : ICodeGeneratorInterface

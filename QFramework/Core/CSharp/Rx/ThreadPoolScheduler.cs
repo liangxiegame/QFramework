@@ -26,11 +26,10 @@
  ****************************************************************************/
 
 #if !UNITY_METRO
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using Utils.Scheduler;
 
     public static partial class Scheduler
     {
@@ -44,7 +43,7 @@ namespace QFramework.Core.Rx
 
             public DateTimeOffset Now
             {
-                get { return Utils.Scheduler.Scheduler.Now; }
+                get { return Scheduler.Now; }
             }
 
             public IDisposable Schedule(Action action)

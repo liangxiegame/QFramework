@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
     /// <summary>
     /// 启动执行节点

@@ -1,8 +1,35 @@
-using System;
-using System.Collections.Generic;
+﻿/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
+    using System;
+    using System.Collections.Generic;
+    
     public static partial class Observable
     {
         public static IObservable<T> Finally<T>(this IObservable<T> source, Action finallyAction)
@@ -97,14 +124,14 @@ namespace QFramework.Core.Rx
             this IObservable<TSource> source, Action<TException> onError, int retryCount, TimeSpan delay)
             where TException : Exception
         {
-            return source.OnErrorRetry(onError, retryCount, delay, Utils.Scheduler.Scheduler.DefaultSchedulers.TimeBasedOperations);
+            return source.OnErrorRetry(onError, retryCount, delay, Scheduler.DefaultSchedulers.TimeBasedOperations);
         }
 
         /// <summary>
         /// When catched exception, do onError action and repeat observable sequence after delay time(work on delayScheduler) during within retryCount.
         /// </summary>
         public static IObservable<TSource> OnErrorRetry<TSource, TException>(
-            this IObservable<TSource> source, Action<TException> onError, int retryCount, TimeSpan delay, Utils.Scheduler.IScheduler delayScheduler)
+            this IObservable<TSource> source, Action<TException> onError, int retryCount, TimeSpan delay, IScheduler delayScheduler)
             where TException : Exception
         {
             var result = Observable.Defer(() =>
@@ -119,8 +146,8 @@ namespace QFramework.Core.Rx
 
                     return (++count < retryCount)
                         ? (dueTime == TimeSpan.Zero)
-                        ? self.SubscribeOn(Utils.Scheduler.Scheduler.CurrentThread)
-                                  : self.DelaySubscription(dueTime, delayScheduler).SubscribeOn(Utils.Scheduler.Scheduler.CurrentThread)
+                        ? self.SubscribeOn(Scheduler.CurrentThread)
+                                  : self.DelaySubscription(dueTime, delayScheduler).SubscribeOn(Scheduler.CurrentThread)
                         : Observable.Throw<TSource>(ex);
                 });
                 return self;

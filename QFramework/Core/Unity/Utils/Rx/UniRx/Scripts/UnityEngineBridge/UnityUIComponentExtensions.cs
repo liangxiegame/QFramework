@@ -5,7 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UniRx
+namespace QFramework
 {
     public static partial class UnityUIComponentExtensions
     {

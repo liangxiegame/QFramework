@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
     using System;
-    using Utils.Extensions.DotNet;
 
     public abstract class ExecuteNode : IExecuteNode
     {

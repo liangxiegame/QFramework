@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     public sealed class BooleanDisposable : ICancelable
     {

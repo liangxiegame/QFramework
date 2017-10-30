@@ -27,7 +27,7 @@
 
 // this code is borrowed from RxOfficial(rx.codeplex.com) and modified
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;

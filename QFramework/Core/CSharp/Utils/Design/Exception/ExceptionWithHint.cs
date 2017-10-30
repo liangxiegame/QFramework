@@ -1,5 +1,4 @@
 /****************************************************************************
- * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -26,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
 

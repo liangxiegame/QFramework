@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Threading;
-    using QFramework.Core;
 
     public static class Observer
     {

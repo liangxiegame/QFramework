@@ -25,19 +25,18 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils.Scheduler;
 
     internal class RepeatObservable<T> : OperatorObservableBase<T>
     {
         readonly T value;
         readonly int? repeatCount;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public RepeatObservable(T value, int? repeatCount, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public RepeatObservable(T value, int? repeatCount, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.value = value;
             this.repeatCount = repeatCount;
@@ -58,7 +57,7 @@ namespace QFramework.Core.Rx
             }
             else
             {
-                if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+                if (scheduler == Scheduler.Immediate)
                 {
                     var count = this.repeatCount.Value;
                     for (int i = 0; i < count; i++)

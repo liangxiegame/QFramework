@@ -27,7 +27,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.IO
+namespace QFramework
 {
     using Newtonsoft.Json;
     using System.IO;

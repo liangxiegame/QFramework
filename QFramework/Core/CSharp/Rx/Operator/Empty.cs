@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils.Scheduler;
 
     internal class EmptyObservable<T> : OperatorObservableBase<T>
     {
@@ -44,7 +43,7 @@ namespace QFramework.Core.Rx
         {
             observer = new Empty(observer, cancel);
 
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 observer.OnCompleted();
                 return Disposable.Empty;

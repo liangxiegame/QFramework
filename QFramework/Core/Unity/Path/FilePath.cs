@@ -31,7 +31,6 @@ namespace QFramework
 	using UnityEngine;
 	using System.IO;
 	using System.Collections.Generic;
-	using Libs;
 	
 	public class FilePath
 	{

@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.RC
+namespace QFramework
 {
     public interface IRefCounter
     {

@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using System.Collections.Generic;
-    using QFramework.Core.Utils;
+    using System.Collections.Generic;    
         
     internal class GroupedObservable<TKey, TElement> : IGroupedObservable<TKey, TElement>
     {

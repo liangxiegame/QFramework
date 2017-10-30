@@ -25,14 +25,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+// TODO:kill this
 #define UniRxLibrary
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using QFramework.Core.Utils;
-    using QFramework.Core;
 
     // Standard Query Operators
 

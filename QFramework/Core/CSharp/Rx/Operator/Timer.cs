@@ -1,27 +1,51 @@
-using System;
+﻿/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
-    using QFramework.Core.Utils;
-    using QFramework.Core.Utils.Scheduler;
+    using System;
 
     internal class TimerObservable : OperatorObservableBase<long>
     {
         readonly DateTimeOffset? dueTimeA;
         readonly TimeSpan? dueTimeB;
         readonly TimeSpan? period;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public TimerObservable(DateTimeOffset dueTime, TimeSpan? period, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public TimerObservable(DateTimeOffset dueTime, TimeSpan? period, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.dueTimeA = dueTime;
             this.period = period;
             this.scheduler = scheduler;
         }
 
-        public TimerObservable(TimeSpan dueTime, TimeSpan? period, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public TimerObservable(TimeSpan dueTime, TimeSpan? period, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.dueTimeB = dueTime;
             this.period = period;
@@ -39,7 +63,7 @@ namespace QFramework.Core.Rx
             // one-shot
             if (period == null)
             {
-                return scheduler.Schedule(Utils.Scheduler.Scheduler.Normalize(dueTime), () =>
+                return scheduler.Schedule(Scheduler.Normalize(dueTime), () =>
                 {
                     timerObserver.OnNext();
                     timerObserver.OnCompleted();
@@ -47,24 +71,24 @@ namespace QFramework.Core.Rx
             }
             else
             {
-                var periodicScheduler = scheduler as Utils.Scheduler.ISchedulerPeriodic;
+                var periodicScheduler = scheduler as ISchedulerPeriodic;
                 if (periodicScheduler != null)
                 {
                     if (dueTime == period.Value)
                     {
                         // same(Observable.Interval), run periodic
-                        return periodicScheduler.SchedulePeriodic(Utils.Scheduler.Scheduler.Normalize(dueTime), timerObserver.OnNext);
+                        return periodicScheduler.SchedulePeriodic(Scheduler.Normalize(dueTime), timerObserver.OnNext);
                     }
                     else
                     {
                         // Schedule Once + Scheudle Periodic
                         var disposable = new SerialDisposable();
 
-                        disposable.Disposable = scheduler.Schedule(Utils.Scheduler.Scheduler.Normalize(dueTime), () =>
+                        disposable.Disposable = scheduler.Schedule(Scheduler.Normalize(dueTime), () =>
                         {
                             timerObserver.OnNext(); // run first
 
-                            var timeP = Utils.Scheduler.Scheduler.Normalize(period.Value);
+                            var timeP = Scheduler.Normalize(period.Value);
                             disposable.Disposable = periodicScheduler.SchedulePeriodic(timeP, timerObserver.OnNext); // run periodic
                         });
 
@@ -73,9 +97,9 @@ namespace QFramework.Core.Rx
                 }
                 else
                 {
-                    var timeP = Utils.Scheduler.Scheduler.Normalize(period.Value);
+                    var timeP = Scheduler.Normalize(period.Value);
 
-                    return scheduler.Schedule(Utils.Scheduler.Scheduler.Normalize(dueTime), self =>
+                    return scheduler.Schedule(Scheduler.Normalize(dueTime), self =>
                     {
                         timerObserver.OnNext();
                         self(timeP);

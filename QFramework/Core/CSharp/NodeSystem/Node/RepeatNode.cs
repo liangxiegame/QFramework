@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
     public class RepeatNode : ExecuteNode
     {

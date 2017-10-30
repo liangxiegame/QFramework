@@ -25,13 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
-    using QFramework.Core.Utils;
-    using QFramework.Core.Utils.Scheduler;
 
     public static partial class Observable
     {
@@ -100,7 +97,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Empty<T>()
         {
-            return Empty<T>(Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Empty<T>(Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
         /// <summary>
@@ -108,7 +105,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Empty<T>(IScheduler scheduler)
         {
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 return ImmutableEmptyObservable<T>.Instance;
             }
@@ -123,7 +120,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Empty<T>(T witness)
         {
-            return Empty<T>(Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Empty<T>(Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
         /// <summary>
@@ -155,7 +152,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Return<T>(T value)
         {
-            return Return<T>(value, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Return<T>(value, Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
         /// <summary>
@@ -163,7 +160,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Return<T>(T value, IScheduler scheduler)
         {
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 return new ImmediateReturnObservable<T>(value);
             }
@@ -204,7 +201,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Throw<T>(Exception error)
         {
-            return Throw<T>(error, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Throw<T>(error, Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
         /// <summary>
@@ -212,7 +209,7 @@ namespace QFramework.Core.Rx
         /// </summary>
         public static IObservable<T> Throw<T>(Exception error, T witness)
         {
-            return Throw<T>(error, Utils.Scheduler.Scheduler.DefaultSchedulers.ConstantTimeOperations);
+            return Throw<T>(error, Scheduler.DefaultSchedulers.ConstantTimeOperations);
         }
 
         /// <summary>
@@ -233,7 +230,7 @@ namespace QFramework.Core.Rx
 
         public static IObservable<int> Range(int start, int count)
         {
-            return Range(start, count, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration);
+            return Range(start, count, Scheduler.DefaultSchedulers.Iteration);
         }
 
         public static IObservable<int> Range(int start, int count, IScheduler scheduler)
@@ -243,7 +240,7 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> Repeat<T>(T value)
         {
-            return Repeat(value, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration);
+            return Repeat(value, Scheduler.DefaultSchedulers.Iteration);
         }
 
         public static IObservable<T> Repeat<T>(T value, IScheduler scheduler)
@@ -255,7 +252,7 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> Repeat<T>(T value, int repeatCount)
         {
-            return Repeat(value, repeatCount, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration);
+            return Repeat(value, repeatCount, Scheduler.DefaultSchedulers.Iteration);
         }
 
         public static IObservable<T> Repeat<T>(T value, int repeatCount, IScheduler scheduler)
@@ -294,12 +291,12 @@ namespace QFramework.Core.Rx
 
         public static IObservable<T> Start<T>(Func<T> function)
         {
-            return new StartObservable<T>(function, null,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return new StartObservable<T>(function, null,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static IObservable<T> Start<T>(Func<T> function, TimeSpan timeSpan)
         {
-            return new StartObservable<T>(function, timeSpan,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return new StartObservable<T>(function, timeSpan,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static IObservable<T> Start<T>(Func<T> function, IScheduler scheduler)
@@ -314,12 +311,12 @@ namespace QFramework.Core.Rx
 
         public static IObservable<Unit> Start(Action action)
         {
-            return new StartObservable<Unit>(action, null,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return new StartObservable<Unit>(action, null,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static IObservable<Unit> Start(Action action, TimeSpan timeSpan)
         {
-            return new StartObservable<Unit>(action, timeSpan,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return new StartObservable<Unit>(action, timeSpan,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static IObservable<Unit> Start(Action action, IScheduler scheduler)
@@ -334,7 +331,7 @@ namespace QFramework.Core.Rx
 
         public static Func<IObservable<T>> ToAsync<T>(Func<T> function)
         {
-            return ToAsync(function,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return ToAsync(function,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static Func<IObservable<T>> ToAsync<T>(Func<T> function, IScheduler scheduler)
@@ -365,7 +362,7 @@ namespace QFramework.Core.Rx
 
         public static Func<IObservable<Unit>> ToAsync(Action action)
         {
-            return ToAsync(action,Utils.Scheduler.Scheduler.DefaultSchedulers.AsyncConversions);
+            return ToAsync(action,Scheduler.DefaultSchedulers.AsyncConversions);
         }
 
         public static Func<IObservable<Unit>> ToAsync(Action action, IScheduler scheduler)

@@ -25,19 +25,18 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils.Scheduler;
 
     internal class RangeObservable : OperatorObservableBase<int>
     {
         readonly int start;
         readonly int count;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public RangeObservable(int start, int count, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public RangeObservable(int start, int count, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             if (count < 0) throw new ArgumentOutOfRangeException("count < 0");
 
@@ -50,7 +49,7 @@ namespace QFramework.Core.Rx
         {
             observer = new Range(observer, cancel);
 
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 for (int i = 0; i < count; i++)
                 {

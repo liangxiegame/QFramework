@@ -26,13 +26,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Event
+namespace QFramework
 {
-    using Core;
-    using Core.Utils.Caching;
     using System;
     using System.Collections.Generic;
-    using Core.Utils.Extensions.DotNet;
 
     #region 事件接口
     public delegate void OnEvent(int key, params object[] param);

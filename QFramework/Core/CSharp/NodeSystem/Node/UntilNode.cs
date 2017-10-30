@@ -25,11 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
     using System;
-    using Utils.Caching;
-    using Utils.Extensions.DotNet;
 
     /// <summary>
     /// like filter, add condition

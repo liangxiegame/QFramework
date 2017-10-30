@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
 
     public interface IOptimizedObservable<T> : IObservable<T>
@@ -43,9 +43,9 @@ namespace QFramework.Core.Rx
             return obs.IsRequiredSubscribeOnCurrentThread();
         }
 
-        public static bool IsRequiredSubscribeOnCurrentThread<T>(this IObservable<T> source, Utils.Scheduler.IScheduler scheduler)
+        public static bool IsRequiredSubscribeOnCurrentThread<T>(this IObservable<T> source, IScheduler scheduler)
         {
-            if (scheduler == Utils.Scheduler.Scheduler.CurrentThread) return true;
+            if (scheduler == Scheduler.CurrentThread) return true;
 
             return IsRequiredSubscribeOnCurrentThread(source);
         }

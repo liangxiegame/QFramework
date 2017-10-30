@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UniRx.InternalUtil;
 
-namespace UniRx
+namespace QFramework
 {
     public interface IMessagePublisher
     {

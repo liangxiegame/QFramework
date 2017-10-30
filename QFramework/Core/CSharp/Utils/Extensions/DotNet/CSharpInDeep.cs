@@ -25,10 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Extensions.DotNet
+namespace QFramework
 {
-    using System;
-
     public class CSharpInDeep
     {
         public CSharpInDeep()

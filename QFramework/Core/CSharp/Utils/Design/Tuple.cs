@@ -32,7 +32,7 @@
 
 // note, we need to create ValueTuple or UniRxTuple...
 #if !(NETFX_CORE || ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
-namespace QFramework.Core.Utils
+namespace QFramework
 {
     using System;
     using System.Collections;

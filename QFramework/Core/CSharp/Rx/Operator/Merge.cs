@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using QFramework;
     
     internal class MergeObservable<T> : OperatorObservableBase<T>
     {

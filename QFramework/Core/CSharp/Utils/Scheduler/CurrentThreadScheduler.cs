@@ -31,13 +31,12 @@
 
 /* https://github.com/quartznet/quartznet 作业调度器  https://www.cnblogs.com/aspnethot/articles/4143526.html*/
 
-namespace QFramework.Core.Utils.Scheduler
+namespace QFramework
 {
     using System.ComponentModel;
     using System.Threading;
     using System;
     using System.Diagnostics;
-    using QFramework.Core.Utils.Scheduler.Internal;
 
     public static partial class Scheduler
     {

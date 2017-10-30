@@ -26,10 +26,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
-{
-	using Internal;
-	
+namespace QFramework
+{	
 	public abstract class QSingleton<T> : ISingleton where T : QSingleton<T>
 	{
 		protected static T mInstance;

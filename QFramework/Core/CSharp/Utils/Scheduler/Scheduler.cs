@@ -26,7 +26,7 @@
  ****************************************************************************/
 #define UniRxLibrary
 
-namespace QFramework.Core.Utils.Scheduler
+namespace QFramework
 {
     using System;
 
@@ -67,7 +67,7 @@ namespace QFramework.Core.Utils.Scheduler
                 get
                 {
 #if UniRxLibrary
-                    return timeBasedOperations ?? (timeBasedOperations = Rx.Scheduler.ThreadPool);
+                    return timeBasedOperations ?? (timeBasedOperations = Scheduler.ThreadPool);
 #else
                     return timeBasedOperations ?? (timeBasedOperations =
 Scheduler.MainThread); // MainThread as default for TimeBased Operation
@@ -85,7 +85,7 @@ Scheduler.MainThread); // MainThread as default for TimeBased Operation
 #if WEB_GL // WebGL does not support threadpool
                     return asyncConversions ?? (asyncConversions = Scheduler.MainThread);
 #else
-                    return asyncConversions ?? (asyncConversions = Rx.Scheduler.ThreadPool);
+                    return asyncConversions ?? (asyncConversions = Scheduler.ThreadPool);
 #endif
                 }
                 set { asyncConversions = value; }
@@ -96,8 +96,8 @@ Scheduler.MainThread); // MainThread as default for TimeBased Operation
                 ConstantTimeOperations = Scheduler.Immediate;
                 TailRecursion = Scheduler.Immediate;
                 Iteration = Scheduler.CurrentThread;
-                TimeBasedOperations = Rx.Scheduler.ThreadPool;
-                AsyncConversions = Rx.Scheduler.ThreadPool;
+                TimeBasedOperations = Scheduler.ThreadPool;
+                AsyncConversions = Scheduler.ThreadPool;
             }
         }
 

@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node 
+namespace QFramework 
 {
 	using System.Linq;
 	using System.Collections.Generic;

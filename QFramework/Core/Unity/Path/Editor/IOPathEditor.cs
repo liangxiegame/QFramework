@@ -5,7 +5,6 @@
 using UnityEngine;
 using System.IO;
 using UnityEditor;
-using QFramework.Libs;
 
 namespace QFramework.Editor
 {

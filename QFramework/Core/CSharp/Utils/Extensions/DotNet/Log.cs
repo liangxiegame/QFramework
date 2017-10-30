@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.Extensions.DotNet
+namespace QFramework
 {
     using System;
 

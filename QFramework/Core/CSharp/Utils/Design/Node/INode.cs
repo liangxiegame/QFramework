@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     /// <summary>
     /// 作为数据结构是一个节点

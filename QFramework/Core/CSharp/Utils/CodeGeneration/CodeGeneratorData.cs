@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.CodeGen
+namespace QFramework
 {
     using System.Collections.Generic;
 

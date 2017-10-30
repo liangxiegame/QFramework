@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Node
+namespace QFramework
 {
 	using System;
-	using Utils.Caching;
 
 	/// <summary>
 	/// 延时执行节点

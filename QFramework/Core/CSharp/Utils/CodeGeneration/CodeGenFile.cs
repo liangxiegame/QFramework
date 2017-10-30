@@ -25,10 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Utils.CodeGen
+namespace QFramework
 {
-    using Extensions.DotNet;
-
     public class CodeGenFile
     {
         public string FileName { get; set; }

@@ -1,21 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
-    using QFramework.Core.Utils;
-    using QFramework.Core.Utils.Scheduler;
+    using System;
+    using System.Collections.Generic;
 
     internal class DelayObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly TimeSpan dueTime;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public DelayObservable(IObservable<T> source, TimeSpan dueTime, Utils.Scheduler.IScheduler scheduler) 
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
+        public DelayObservable(IObservable<T> source, TimeSpan dueTime, IScheduler scheduler) 
+            : base(scheduler == Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
         {
             this.source = source;
             this.dueTime = dueTime;
@@ -60,7 +82,7 @@ namespace QFramework.Core.Rx
                 hasFailed = false;
                 exception = default(Exception);
                 ready = true;
-                delay = Utils.Scheduler.Scheduler.Normalize(parent.dueTime);
+                delay = Scheduler.Normalize(parent.dueTime);
 
                 var _sourceSubscription = new SingleAssignmentDisposable();
                 sourceSubscription = _sourceSubscription; // assign to field
@@ -176,7 +198,7 @@ namespace QFramework.Core.Rx
                                 else
                                 {
                                     shouldRecurse = true;
-                                    recurseDueTime = Utils.Scheduler.Scheduler.Normalize(nextDue.Subtract(parent.scheduler.Now));
+                                    recurseDueTime = Scheduler.Normalize(nextDue.Subtract(parent.scheduler.Now));
                                     running = false;
                                 }
                             }
@@ -189,7 +211,7 @@ namespace QFramework.Core.Rx
                                 else
                                 {
                                     shouldRecurse = true;
-                                    recurseDueTime = Utils.Scheduler.Scheduler.Normalize(completeAt.Subtract(parent.scheduler.Now));
+                                    recurseDueTime = Scheduler.Normalize(completeAt.Subtract(parent.scheduler.Now));
                                     running = false;
                                 }
                             }

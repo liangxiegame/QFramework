@@ -25,18 +25,17 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils;
 
     internal class ReturnObservable<T> : OperatorObservableBase<T>
     {
         readonly T value;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public ReturnObservable(T value, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public ReturnObservable(T value, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.value = value;
             this.scheduler = scheduler;
@@ -46,7 +45,7 @@ namespace QFramework.Core.Rx
         {
             observer = new Return(observer, cancel);
 
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 observer.OnNext(value);
                 observer.OnCompleted();

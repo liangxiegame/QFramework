@@ -25,12 +25,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using QFramework.Core.Utils.Extensions.DotNet;
     // copy, modified from Rx Official
 
     /// <summary>

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -24,22 +24,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
+#define UniRxLibrary
 
 #if !(UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4)
 #define SupportCustomYieldInstruction
 #endif
 
-namespace UniRx
+namespace QFramework
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using UniRx.Triggers;
     using UnityEngine;
-    using System.Threading;
-    using QFramework;
+
 #if !UniRxLibrary
-    using SchedulerUnity = UniRx.Scheduler;
+    using SchedulerUnity = UniScheduler;
 #endif
     
     public enum FrameCountType

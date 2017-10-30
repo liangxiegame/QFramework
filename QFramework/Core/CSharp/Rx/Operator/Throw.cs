@@ -25,17 +25,17 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
 
     internal class ThrowObservable<T> : OperatorObservableBase<T>
     {
         readonly Exception error;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public ThrowObservable(Exception error, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public ThrowObservable(Exception error, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread)
         {
             this.error = error;
             this.scheduler = scheduler;
@@ -45,7 +45,7 @@ namespace QFramework.Core.Rx
         {
             observer = new Throw(observer, cancel);
 
-            if (scheduler == Utils.Scheduler.Scheduler.Immediate)
+            if (scheduler == Scheduler.Immediate)
             {
                 observer.OnError(error);
                 return Disposable.Empty;

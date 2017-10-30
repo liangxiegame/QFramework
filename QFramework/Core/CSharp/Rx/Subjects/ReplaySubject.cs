@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using Utils.DataStructure;
 
     public sealed class ReplaySubject<T> : ISubject<T>, IOptimizedObservable<T>, IDisposable
     {
@@ -43,42 +42,42 @@ namespace QFramework.Core.Rx
         readonly int bufferSize;
         readonly TimeSpan window;
         readonly DateTimeOffset startTime;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
         Queue<TimeInterval<T>> queue = new Queue<TimeInterval<T>>();
 
 
         public ReplaySubject()
-            : this(int.MaxValue, TimeSpan.MaxValue, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration)
+            : this(int.MaxValue, TimeSpan.MaxValue, Scheduler.DefaultSchedulers.Iteration)
         {
         }
 
-        public ReplaySubject(Utils.Scheduler.IScheduler scheduler)
+        public ReplaySubject(IScheduler scheduler)
             : this(int.MaxValue, TimeSpan.MaxValue, scheduler)
         {
         }
 
         public ReplaySubject(int bufferSize)
-            : this(bufferSize, TimeSpan.MaxValue, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration)
+            : this(bufferSize, TimeSpan.MaxValue, Scheduler.DefaultSchedulers.Iteration)
         {
         }
 
-        public ReplaySubject(int bufferSize, Utils.Scheduler.IScheduler scheduler)
+        public ReplaySubject(int bufferSize, IScheduler scheduler)
             : this(bufferSize, TimeSpan.MaxValue, scheduler)
         {
         }
 
         public ReplaySubject(TimeSpan window)
-            : this(int.MaxValue, window, Utils.Scheduler.Scheduler.DefaultSchedulers.Iteration)
+            : this(int.MaxValue, window, Scheduler.DefaultSchedulers.Iteration)
         {
         }
 
-        public ReplaySubject(TimeSpan window, Utils.Scheduler.IScheduler scheduler)
+        public ReplaySubject(TimeSpan window, IScheduler scheduler)
             : this(int.MaxValue, window, scheduler)
         {
         }
 
         // full constructor
-        public ReplaySubject(int bufferSize, TimeSpan window, Utils.Scheduler.IScheduler scheduler)
+        public ReplaySubject(int bufferSize, TimeSpan window, IScheduler scheduler)
         {
             if (bufferSize < 0) throw new ArgumentOutOfRangeException("bufferSize");
             if (window < TimeSpan.Zero) throw new ArgumentOutOfRangeException("window");
@@ -92,7 +91,7 @@ namespace QFramework.Core.Rx
 
         void Trim()
         {
-            var elapsedTime = Utils.Scheduler.Scheduler.Normalize(scheduler.Now - startTime);
+            var elapsedTime = Scheduler.Normalize(scheduler.Now - startTime);
 
             while (queue.Count > bufferSize)
             {

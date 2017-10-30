@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -25,20 +25,18 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils;
-    using QFramework.Core.Utils.Scheduler;
 
     internal class SampleObservable<T> : OperatorObservableBase<T>
     {
         readonly IObservable<T> source;
         readonly TimeSpan interval;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
-        public SampleObservable(IObservable<T> source, TimeSpan interval, Utils.Scheduler.IScheduler scheduler)
-            : base(source.IsRequiredSubscribeOnCurrentThread() || scheduler == Utils.Scheduler.Scheduler.CurrentThread)
+        public SampleObservable(IObservable<T> source, TimeSpan interval, IScheduler scheduler)
+            : base(source.IsRequiredSubscribeOnCurrentThread() || scheduler == Scheduler.CurrentThread)
         {
             this.source = source;
             this.interval = interval;
@@ -71,7 +69,7 @@ namespace QFramework.Core.Rx
 
 
                 IDisposable scheduling;
-                var periodicScheduler = parent.scheduler as Utils.Scheduler.ISchedulerPeriodic;
+                var periodicScheduler = parent.scheduler as ISchedulerPeriodic;
                 if (periodicScheduler != null)
                 {
                     scheduling = periodicScheduler.SchedulePeriodic(parent.interval, OnNextTick);

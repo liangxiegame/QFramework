@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
     // should be use Interlocked.CompareExchange for Threadsafe?

@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
-    using Utils.Extensions.DotNet;
 
     /// <summary>
     /// 条件判断是否符合条件

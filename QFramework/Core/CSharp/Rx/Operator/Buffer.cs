@@ -25,12 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core.Rx
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using QFramework.Core.Utils;
-    using QFramework.Core.Utils.Scheduler;
 
     internal class BufferObservable<T> : OperatorObservableBase<IList<T>>
     {
@@ -40,7 +38,7 @@ namespace QFramework.Core.Rx
 
         readonly TimeSpan timeSpan;
         readonly TimeSpan timeShift;
-        readonly Utils.Scheduler.IScheduler scheduler;
+        readonly IScheduler scheduler;
 
         public BufferObservable(IObservable<T> source, int count, int skip)
             : base(source.IsRequiredSubscribeOnCurrentThread())
@@ -50,8 +48,8 @@ namespace QFramework.Core.Rx
             this.skip = skip;
         }
 
-        public BufferObservable(IObservable<T> source, TimeSpan timeSpan, TimeSpan timeShift, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
+        public BufferObservable(IObservable<T> source, TimeSpan timeSpan, TimeSpan timeShift, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
         {
             this.source = source;
             this.timeSpan = timeSpan;
@@ -59,8 +57,8 @@ namespace QFramework.Core.Rx
             this.scheduler = scheduler;
         }
 
-        public BufferObservable(IObservable<T> source, TimeSpan timeSpan, int count, Utils.Scheduler.IScheduler scheduler)
-            : base(scheduler == Utils.Scheduler.Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
+        public BufferObservable(IObservable<T> source, TimeSpan timeSpan, int count, IScheduler scheduler)
+            : base(scheduler == Scheduler.CurrentThread || source.IsRequiredSubscribeOnCurrentThread())
         {
             this.source = source;
             this.timeSpan = timeSpan;

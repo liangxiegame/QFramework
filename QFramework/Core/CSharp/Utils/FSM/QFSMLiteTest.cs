@@ -24,8 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
+
 #if UNITY
-namespace QFramework.Test.Core
+namespace QFramework
 {
     using NUnit.Framework;
 

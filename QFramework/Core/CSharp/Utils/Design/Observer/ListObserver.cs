@@ -25,11 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Core
+namespace QFramework
 {
     using System;
-    using QFramework.Core.Utils.DataStructure;
-    using QFramework.Core.Utils.Extensions.DotNet;
 
     public class ListObserver<T> : IObserver<T>
     {
