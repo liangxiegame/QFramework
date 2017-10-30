@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QFramework</RootNamespace>
+    <AssemblyName>QFramework</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\QFramework\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>4</LangVersion>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf ${SolutionDir}/obj </command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm ${SolutionDir}/../Assets/${TargetName}  </command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp ${TargetFile} ${SolutionDir}/../Assets/</command>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\QFramework\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>Utils\IO\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+      <HintPath>CSharp\Libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>CSharp\Libs\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>CSharp\Utils\Extensions\Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>CSharp\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>CSharp\Libs\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Utils\Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity, Version=0.14.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>CSharp\Libs\zxing.unity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CSharp\NodeSystem\ExecuteNodeContainer.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\DelayNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\EventNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\ExecuteNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\IExecuteNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\KeyEventNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\RepeatNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\SequenceNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\SpawnNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\TimelineNode.cs" />
+    <Compile Include="CSharp\NodeSystem\Node\UntilNode.cs" />
+    <Compile Include="CSharp\NodeSystem\ProcessNode.cs" />
+    <Compile Include="CSharp\Properties\AssemblyInfo.cs" />
+    <Compile Include="CSharp\Rx\Disposable\DisposableExtension.cs" />
+    <Compile Include="CSharp\Rx\Disposable\MultiDesinableDisposable.cs" />
+    <Compile Include="CSharp\Rx\Disposable\RefCountDisposable.cs" />
+    <Compile Include="CSharp\Rx\EventPattern.cs" />
+    <Compile Include="CSharp\Rx\Notification.cs" />
+    <Compile Include="CSharp\Rx\Observable\IOptimizedObservable.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Aggregate.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Awaiter.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Binding.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Blocking.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Concatenate.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Concurrency.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Conversions.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Creation.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.ErrorHandling.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Events.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.FromAsync.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Joins.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Paging.cs" />
+    <Compile Include="CSharp\Rx\Observable\Observable.Time.cs" />
+    <Compile Include="CSharp\Rx\Observer.cs" />
+    <Compile Include="CSharp\Rx\Operator\Aggregate.cs" />
+    <Compile Include="CSharp\Rx\Operator\Amb.cs" />
+    <Compile Include="CSharp\Rx\Operator\AsObservable.cs" />
+    <Compile Include="CSharp\Rx\Operator\AsSingleUnitObservable.cs" />
+    <Compile Include="CSharp\Rx\Operator\AsUnitObservable.cs" />
+    <Compile Include="CSharp\Rx\Operator\Buffer.cs" />
+    <Compile Include="CSharp\Rx\Operator\Cast.cs" />
+    <Compile Include="CSharp\Rx\Operator\Catch.cs" />
+    <Compile Include="CSharp\Rx\Operator\CombineLatest.cs" />
+    <Compile Include="CSharp\Rx\Operator\Concat.cs" />
+    <Compile Include="CSharp\Rx\Operator\ContinueWith.cs" />
+    <Compile Include="CSharp\Rx\Operator\Create.cs" />
+    <Compile Include="CSharp\Rx\Operator\DefaultIfEmpty.cs" />
+    <Compile Include="CSharp\Rx\Operator\Defer.cs" />
+    <Compile Include="CSharp\Rx\Operator\Delay.cs" />
+    <Compile Include="CSharp\Rx\Operator\DelaySubscription.cs" />
+    <Compile Include="CSharp\Rx\Operator\Dematerialize.cs" />
+    <Compile Include="CSharp\Rx\Operator\Distinct.cs" />
+    <Compile Include="CSharp\Rx\Operator\DistinctUntilChanged.cs" />
+    <Compile Include="CSharp\Rx\Operator\Do.cs" />
+    <Compile Include="CSharp\Rx\Operator\Empty.cs" />
+    <Compile Include="CSharp\Rx\Operator\Finally.cs" />
+    <Compile Include="CSharp\Rx\Operator\First.cs" />
+    <Compile Include="CSharp\Rx\Operator\ForEachAsync.cs" />
+    <Compile Include="CSharp\Rx\Operator\FromEvent.cs" />
+    <Compile Include="CSharp\Rx\Operator\GroupBy.cs" />
+    <Compile Include="CSharp\Rx\Operator\IgnoreElements.cs" />
+    <Compile Include="CSharp\Rx\Operator\Last.cs" />
+    <Compile Include="CSharp\Rx\Operator\Materialize.cs" />
+    <Compile Include="CSharp\Rx\Operator\Merge.cs" />
+    <Compile Include="CSharp\Rx\Operator\Never.cs" />
+    <Compile Include="CSharp\Rx\Operator\ObserveOn.cs" />
+    <Compile Include="CSharp\Rx\Operator\OfType.cs" />
+    <Compile Include="CSharp\Rx\Operator\OperatorObservableBase.cs" />
+    <Compile Include="CSharp\Rx\Operator\OperatorObserverBase.cs" />
+    <Compile Include="CSharp\Rx\Operator\PairWise.cs" />
+    <Compile Include="CSharp\Rx\Operator\Range.cs" />
+    <Compile Include="CSharp\Rx\Operator\RefCount.cs" />
+    <Compile Include="CSharp\Rx\Operator\Repeat.cs" />
+    <Compile Include="CSharp\Rx\Operator\RepeatSafe.cs" />
+    <Compile Include="CSharp\Rx\Operator\Return.cs" />
+    <Compile Include="CSharp\Rx\Operator\Sample.cs" />
+    <Compile Include="CSharp\Rx\Operator\Scan.cs" />
+    <Compile Include="CSharp\Rx\Operator\Select.cs" />
+    <Compile Include="CSharp\Rx\Operator\SelectMany.cs" />
+    <Compile Include="CSharp\Rx\Operator\SelectWhere.cs" />
+    <Compile Include="CSharp\Rx\Operator\Single.cs" />
+    <Compile Include="CSharp\Rx\Operator\Skip.cs" />
+    <Compile Include="CSharp\Rx\Operator\SkipUntil.cs" />
+    <Compile Include="CSharp\Rx\Operator\SkipWhile.cs" />
+    <Compile Include="CSharp\Rx\Operator\Start.cs" />
+    <Compile Include="CSharp\Rx\Operator\StartWith.cs" />
+    <Compile Include="CSharp\Rx\Operator\SubscribeOn.cs" />
+    <Compile Include="CSharp\Rx\Operator\Switch.cs" />
+    <Compile Include="CSharp\Rx\Operator\Synchronize.cs" />
+    <Compile Include="CSharp\Rx\Operator\SynchronizedObserver.cs" />
+    <Compile Include="CSharp\Rx\Operator\Take.cs" />
+    <Compile Include="CSharp\Rx\Operator\TakeLast.cs" />
+    <Compile Include="CSharp\Rx\Operator\TakeUntil.cs" />
+    <Compile Include="CSharp\Rx\Operator\TakeWhile.cs" />
+    <Compile Include="CSharp\Rx\Operator\Throttle.cs" />
+    <Compile Include="CSharp\Rx\Operator\ThrottleFirst.cs" />
+    <Compile Include="CSharp\Rx\Operator\Throw.cs" />
+    <Compile Include="CSharp\Rx\Operator\TimeInterval.cs" />
+    <Compile Include="CSharp\Rx\Operator\Timeout.cs" />
+    <Compile Include="CSharp\Rx\Operator\Timer.cs" />
+    <Compile Include="CSharp\Rx\Operator\Timestamp.cs" />
+    <Compile Include="CSharp\Rx\Operator\ToArray.cs" />
+    <Compile Include="CSharp\Rx\Operator\ToList.cs" />
+    <Compile Include="CSharp\Rx\Operator\ToObservable.cs" />
+    <Compile Include="CSharp\Rx\Operator\Wait.cs" />
+    <Compile Include="CSharp\Rx\Operator\WhenAll.cs" />
+    <Compile Include="CSharp\Rx\Operator\Where.cs" />
+    <Compile Include="CSharp\Rx\Operator\WhereSelect.cs" />
+    <Compile Include="CSharp\Rx\Operator\WithLatestFrom.cs" />
+    <Compile Include="CSharp\Rx\Operator\Zip.cs" />
+    <Compile Include="CSharp\Rx\Operator\ZipLatest.cs" />
+    <Compile Include="CSharp\Rx\Subjects\AsyncSubject.cs" />
+    <Compile Include="CSharp\Rx\Subjects\BehaviorSubject.cs" />
+    <Compile Include="CSharp\Rx\Subjects\ConnectableObservable.cs" />
+    <Compile Include="CSharp\Rx\Subjects\ISubject.cs" />
+    <Compile Include="CSharp\Rx\Subjects\ReplaySubject.cs" />
+    <Compile Include="CSharp\Rx\Subjects\Subject.cs" />
+    <Compile Include="CSharp\Rx\Subjects\SubjectExtensions.cs" />
+    <Compile Include="CSharp\Rx\ThreadPoolScheduler.cs" />
+    <Compile Include="CSharp\Rx\TimeInterval.cs" />
+    <Compile Include="CSharp\Rx\TimeStamped.cs" />
+    <Compile Include="CSharp\Utils\Caching\Cache\SimpleObjectCache.cs" />
+    <Compile Include="CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs" />
+    <Compile Include="CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs" />
+    <Compile Include="CSharp\Utils\Caching\ObjectFactory\IObjectFactory.cs" />
+    <Compile Include="CSharp\Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs" />
+    <Compile Include="CSharp\Utils\Caching\Pool\IPool.cs" />
+    <Compile Include="CSharp\Utils\Caching\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="CSharp\Utils\Caching\Pool\Pool.cs" />
+    <Compile Include="CSharp\Utils\Caching\Pool\SafeObjectPool.cs" />
+    <Compile Include="CSharp\Utils\Caching\Pool\SimpleObjectPool.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\CodeGeneratorData.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\CodeGenFile.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\Interfaces\ICodeGenerator.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs" />
+    <Compile Include="CSharp\Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\Array\ResizableArray.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinaryHeap\BinaryHeap.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\IData.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\ImmutableList.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\ITestUnit.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\List\IList.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\List\LinkedList.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\List\Stack.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\List\Test\LinkedListTest.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\Main.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\Pair.cs" />
+    <Compile Include="CSharp\Utils\DataStructure\PriorityQueue.cs" />
+    <Compile Include="CSharp\Utils\Design\Command\ICommand.cs" />
+    <Compile Include="CSharp\Utils\Design\Command\IExecutable.cs" />
+    <Compile Include="CSharp\Utils\Design\Condition\ICondition.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\AsyncLock.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\BooleanDisposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\CompositeDisposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\Disposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\DisposableObject.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\ICancelable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\SerialDisposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\SingleAssignmentDisposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Desposable\StableCompositeDisposable.cs" />
+    <Compile Include="CSharp\Utils\Design\Exception\ExceptionWithHint.cs" />
+    <Compile Include="CSharp\Utils\Design\IProgress.cs" />
+    <Compile Include="CSharp\Utils\Design\IResetable.cs" />
+    <Compile Include="CSharp\Utils\Design\Node\INode.cs" />
+    <Compile Include="CSharp\Utils\Design\Observer\IObservable.cs" />
+    <Compile Include="CSharp\Utils\Design\Observer\IObserver.cs" />
+    <Compile Include="CSharp\Utils\Design\Observer\ListObserver.cs" />
+    <Compile Include="CSharp\Utils\Design\Singleton\ISingleton.cs" />
+    <Compile Include="CSharp\Utils\Design\Singleton\QSingleton.cs" />
+    <Compile Include="CSharp\Utils\Design\Singleton\QSingletonProperty.cs" />
+    <Compile Include="CSharp\Utils\Design\Singleton\SingletonCreator.cs" />
+    <Compile Include="CSharp\Utils\Design\Tuple.cs" />
+    <Compile Include="CSharp\Utils\Design\Unit.cs" />
+    <Compile Include="CSharp\Utils\Event\QEventSystem.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\CSharpInDeep.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\FuncOrActionOrEvent.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\Generic.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\IEnumerable.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\IO.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\Log.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\OOP.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\Reflection.cs" />
+    <Compile Include="CSharp\Utils\Extensions\DotNet\String.cs" />
+    <Compile Include="CSharp\Utils\Extensions\Json\JsonExtension.cs" />
+    <Compile Include="CSharp\Utils\FSM\QFSM.cs" />
+    <Compile Include="CSharp\Utils\FSM\QFSMLite.cs" />
+    <Compile Include="CSharp\Utils\FSM\QFSMLiteTest.cs" />
+    <Compile Include="CSharp\Utils\IO\SerializeHelper.cs" />
+    <Compile Include="CSharp\Utils\IO\ZipUtil.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncConnect.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncDisconnect.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncIOOperation.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncReceive.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncSend.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\AsyncSocketOperation.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiSerializationLayout.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiSerializationOptions.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiSerializer.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\FlexiSocket.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\IActionListener.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\IFlexiSerializer.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\IProtocol.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\ISocketClient.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\ISocketClientToken.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\ISocketServer.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\MessageStructure.cs" />
+    <Compile Include="CSharp\Utils\Network\FlexiSocket\SocketDelegate.cs" />
+    <Compile Include="CSharp\Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs" />
+    <Compile Include="CSharp\Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs" />
+    <Compile Include="CSharp\Utils\RefCounter\RefCounter.cs" />
+    <Compile Include="CSharp\Utils\RefCounter\SafeARC.cs" />
+    <Compile Include="CSharp\Utils\RefCounter\UnsafeARC.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\CurrentThreadScheduler.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\ImmediateScheduler.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\IScheduler.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\ScheduledItem.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\Scheduler.cs" />
+    <Compile Include="CSharp\Utils\Scheduler\SchedulerDisposable.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CSharp\Utils\Caching\.DS_Store" />
+    <Content Include="CSharp\Utils\Caching\Cache\.DS_Store" />
+    <Content Include="CSharp\Utils\Caching\ObjectFactory\.DS_Store" />
+    <Content Include="CSharp\Utils\Caching\Pool\.DS_Store" />
+    <Content Include="CSharp\Utils\CodeGeneration\.DS_Store" />
+    <Content Include="CSharp\Utils\DataStructure\.DS_Store" />
+    <Content Include="CSharp\Utils\DataStructure\List\.DS_Store" />
+    <Content Include="CSharp\Utils\DataStructure\List\Test\.DS_Store" />
+    <Content Include="CSharp\Utils\Design\.DS_Store" />
+    <Content Include="CSharp\Utils\Design\Singleton\.DS_Store" />
+    <Content Include="CSharp\Utils\Extensions\Json\Newtonsoft.Json.dll" />
+    <Content Include="CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="CSharp\Utils\RefCounter\.DS_Store" />
+    <Content Include="CSharp\Utils\RefCounter\Exception\.DS_Store" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CSharp\Utils\Design\Subject" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

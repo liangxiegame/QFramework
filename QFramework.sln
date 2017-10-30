@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core.CSharp", "QFramework\QFramework.Core.CSharp.csproj", "{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core.Unity", "QFramework.Unity\QFramework.Core.Unity.csproj", "{87AA9E50-03AD-4888-A938-5342EB0E51DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "QFramework\Core\Core.csproj", "{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87AA9E50-03AD-4888-A938-5342EB0E51DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87AA9E50-03AD-4888-A938-5342EB0E51DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87AA9E50-03AD-4888-A938-5342EB0E51DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87AA9E50-03AD-4888-A938-5342EB0E51DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

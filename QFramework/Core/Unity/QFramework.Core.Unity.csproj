@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{87AA9E50-03AD-4888-A938-5342EB0E51DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>QFramework.Unity</RootNamespace>
+    <AssemblyName>QFramework.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm ${SolutionDir}/../Assets/${TargetName}</command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp ${TargetPath} ${SolutionDir}/../Assets/</command>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Entitas-CSharp\Addons\Libraries\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>..\QFramework\Utils\Network\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\QFramework\Utils\Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="QFramework">
+      <HintPath>..\..\Assets\QFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AStar\AStar.cs" />
+    <Compile Include="AStar\AStarNode.cs" />
+    <Compile Include="AStar\GridManager.cs" />
+    <Compile Include="AStar\PriorityQueue.cs" />
+    <Compile Include="AStar\TestAStar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton\QMonoSingleton.cs" />
+    <Compile Include="Singleton\QMonoSingletonPath.cs" />
+    <Compile Include="Singleton\QMonoSingletonProperty.cs" />
+    <Compile Include="Singleton\QSingletonCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Singleton\" />
+    <Folder Include="Utils\Extensions" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
