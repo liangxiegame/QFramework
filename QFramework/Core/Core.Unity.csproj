@@ -20,6 +20,23 @@
     <ConsolePause>false</ConsolePause>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>4</LangVersion>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity</command>
+          <workingdir></workingdir>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>cp -rf  ${SolutionDir}/QFramework/Core/Unity ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity</command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity/Properties</command>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -51,17 +68,17 @@
     <Reference Include="zxing.unity">
       <HintPath>..\..\Output\Core\CSharp\zxing.unity.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>Unity\Libs\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Unity\Libs\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>Unity\Libs\nunit.framework.dll</HintPath>
+      <HintPath>..\..\Addon\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>Unity\Libs\UnityEditor.dll</HintPath>
+      <HintPath>..\..\Addon\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Addon\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Addon\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -376,10 +393,6 @@
     <Folder Include="Unity\Rx\Scripts\Subjects\" />
     <Folder Include="Unity\Rx\Scripts\Tasks\" />
     <Folder Include="Unity\Rx\Scripts\Scheduler\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Unity\Editor\Libs\UnityEditor.dll" />
-    <None Include="Unity\Editor\Libs\nunit.framework.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

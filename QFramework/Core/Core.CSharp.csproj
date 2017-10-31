@@ -27,15 +27,15 @@
       <CustomCommands>
         <Command>
           <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/obj </command>
+          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/CSharp</command>
         </Command>
         <Command>
           <type>AfterBuild</type>
-          <command>rm ${SolutionDir}/../Assets/${TargetName}  </command>
+          <command>cp  -rf ${SolutionDir}/QFramework/Core/CSharp ${SolutionDir}/UnityExample/Assets/QFramework/Core/CSharp</command>
         </Command>
         <Command>
           <type>AfterBuild</type>
-          <command>cp ${TargetFile} ${SolutionDir}/../Assets/</command>
+          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/CSharp/Properties</command>
         </Command>
       </CustomCommands>
     </CustomCommands>
