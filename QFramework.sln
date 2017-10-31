@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CSharp", "QFramework\Core\Core.CSharp.csproj", "{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Unity", "QFramework\Core\Core.Unity.csproj", "{7421380E-B53D-4F87-BB9C-DB7BDFBF2FF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "QFramework\Framework\Framework.csproj", "{57613C1E-6903-4F96-AB79-C5DE9807A054}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CSharp", "QFramework\Core\Core.CSharp.csproj", "{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +23,10 @@ Global
 		{57613C1E-6903-4F96-AB79-C5DE9807A054}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57613C1E-6903-4F96-AB79-C5DE9807A054}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57613C1E-6903-4F96-AB79-C5DE9807A054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

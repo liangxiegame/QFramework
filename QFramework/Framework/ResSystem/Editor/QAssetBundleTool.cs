@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditorInternal;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	[InitializeOnLoad]
 	public class QResSystemMark

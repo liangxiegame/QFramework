@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     //资源加载&释放策略
     public interface IResLoaderStrategy

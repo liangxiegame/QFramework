@@ -6,11 +6,10 @@
 /// <summary>
 /// Project config editor window.
 /// </summary>
-namespace QFramework.Editor
+namespace QFramework
 {
 	using UnityEngine;
 	using UnityEditor;
-	using Libs.Editor;
 	
 	public class QFrameworkConfigEditorWindow : EditorWindow
 	{

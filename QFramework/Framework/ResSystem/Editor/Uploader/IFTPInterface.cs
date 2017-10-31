@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 wanzhenyu@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public interface IFTPInterface
 	{

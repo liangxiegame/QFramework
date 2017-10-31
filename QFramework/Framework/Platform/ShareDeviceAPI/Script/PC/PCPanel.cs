@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -54,13 +54,13 @@ namespace QFramework
 				{
 					if (success)
 					{
-						Log.i("connected");
+						Log.I("connected");
 						// 连接成功后进入指定场景
 						connected = true;
 					}
 					else
 					{
-						Log.i(exception.ToString());
+						Log.I(exception.ToString());
 					}
 				});
 			});

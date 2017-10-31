@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -28,12 +28,10 @@
 
 namespace QFramework
 {
-	using Core;
 	using UnityEngine.Events;
 	using System.Collections.Generic;
 	using UnityEngine;
-	using ResSystem;
-	
+		
 	#region 消息id定义
 
 	public enum AudioEvent
@@ -93,7 +91,7 @@ namespace QFramework
 	/// <summary>
 	/// TODO:目前,不支持本地化
 	/// </summary>
-	[QMonoSingletonAttribute("[Audio]/AudioManager")]
+	[QMonoSingletonPath("[Audio]/AudioManager")]
 	public class AudioManager : QMgrBehaviour, ISingleton
 	{
 		#region Audio设置数据
@@ -254,7 +252,7 @@ namespace QFramework
 
 		public override void Init()
 		{
-			Log.i("AudioManager.Init");
+			Log.I("AudioManager.Init");
 		}
 
 		public void CheckAudioListener()

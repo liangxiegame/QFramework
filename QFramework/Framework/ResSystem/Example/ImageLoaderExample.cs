@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -30,8 +30,7 @@ namespace QFramework.Example
 	using System.Collections;
 	using UnityEngine.UI;
 	using UnityEngine;
-	using ResSystem;
-
+	
 	public class ImageLoaderExample : MonoBehaviour
 	{
 
@@ -47,7 +46,7 @@ namespace QFramework.Example
 				"http://liangxiegame.com/content/images/2017/07/-----2017-07-01-12-14-56.png".ToNetImageResName(),
 				delegate(bool b, IRes res)
 				{
-					Log.e(b);
+					Log.E(b);
 					if (b)
 					{
 						var texture2D = res.Asset as Texture2D;
@@ -74,7 +73,7 @@ namespace QFramework.Example
 			mResLoader.Add2Load(localImageUrl.ToLocalImageResName(),
 				delegate(bool b, IRes res)
 				{
-					Log.e(b);
+					Log.E(b);
 					if (b)
 					{
 						var texture2D = res.Asset as Texture2D;

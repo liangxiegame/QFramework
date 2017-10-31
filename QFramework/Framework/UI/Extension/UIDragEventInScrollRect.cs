@@ -97,7 +97,7 @@ namespace QFramework
 			UIEventLockManager.Instance.SendMsg(new UILockObjEventMsg(gameObject));
 
 			mCurrentDragCalculated = false;
-			mDragBeganMousePos = (transform.parent as RectTransform).GetLocalPosInRect();
+            mDragBeganMousePos = (transform.parent as RectTransform).GetLocalPosInRect(QUIManager.Instance.RootCanvas.worldCamera);
 
 			mDragBegan = true;
 		}
@@ -108,7 +108,7 @@ namespace QFramework
 
 			if (!mCurrentDragCalculated && mCurState == State.Idle)
 			{
-				var offsetFromBegan = (transform.parent as RectTransform).GetLocalPosInRect() - mDragBeganMousePos;
+                var offsetFromBegan = (transform.parent as RectTransform).GetLocalPosInRect(QUIManager.Instance.RootCanvas.worldCamera) - mDragBeganMousePos;
 				if (offsetFromBegan.magnitude > 10)
 				{
 					mCurrentDragCalculated = true;

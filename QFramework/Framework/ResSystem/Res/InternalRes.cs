@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     using System;
     using UnityEngine;
@@ -93,7 +93,7 @@ namespace QFramework.ResSystem
 
             if (mAsset == null)
             {
-                Log.e("Failed to Load Asset From Resources:" + Name2Path(mAssetName));
+                Log.E("Failed to Load Asset From Resources:" + Name2Path(mAssetName));
                 OnResLoadFaild();
                 return false;
             }
@@ -136,7 +136,7 @@ namespace QFramework.ResSystem
 
             if (!rQ.isDone)
             {
-                Log.e("Failed to Load Resources:" + mAssetName);
+                Log.E("Failed to Load Resources:" + mAssetName);
                 OnResLoadFaild();
                 finishCallback();
                 yield break;

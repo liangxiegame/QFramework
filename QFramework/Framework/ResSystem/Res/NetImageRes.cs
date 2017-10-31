@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -31,8 +31,7 @@ namespace QFramework
     using System;
     using UnityEngine;
     using System.Collections;
-    using ResSystem;
-
+    
     public static class NetImageResUtil
     {
         public static string ToNetImageResName(this string selfHttpUrl)
@@ -208,7 +207,7 @@ namespace QFramework
 
             if (www.error != null)
             {
-                Log.e(string.Format("Res:{0}, WWW Errors:{1}", mUrl, www.error));
+                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mUrl, www.error));
                 OnResLoadFaild();
                 finishCallback();
                 yield break;
@@ -216,7 +215,7 @@ namespace QFramework
 
             if (!www.isDone)
             {
-                Log.e("NetImageRes WWW Not Done! Url:" + mUrl);
+                Log.E("NetImageRes WWW Not Done! Url:" + mUrl);
                 OnResLoadFaild();
                 finishCallback();
 

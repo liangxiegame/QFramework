@@ -8,12 +8,13 @@
     <RootNamespace>Framework</RootNamespace>
     <AssemblyName>Framework</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <BaseDirectory>.</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>..\..\Output\Framework</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -21,27 +22,1228 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\..\Output\Framework</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Core.CSharp">
+      <HintPath>..\..\Output\Core\Unity\Core.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Unity">
+      <HintPath>..\..\Output\Core\Unity\Core.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Output\Core\Unity\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>..\..\Output\Core\Unity\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Output\Core\Unity\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\Output\Core\Unity\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>..\..\Output\Core\Unity\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\Output\Core\Unity\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Output\Core\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Output\Core\Unity\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>..\..\Output\Core\Unity\zxing.unity.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MyClass.cs" />
     <Compile Include="CameraUtil.cs" />
-    <Compile Include="UGUI\ButtonUtil.cs" />
-    <Compile Include="UGUI\GraphicUtil.cs" />
-    <Compile Include="UGUI\ImageUtil.cs" />
-    <Compile Include="UGUI\RectTransformUtil.cs" />
-    <Compile Include="UGUI\SelectableUtil.cs" />
-    <Compile Include="UGUI\ToggleUtil.cs" />
-    <Compile Include="UGUI\UIBehaviourUtil.cs" />
+    <Compile Include="Framework\CameraUtil.cs" />
+    <Compile Include="QFramework.cs">
+      <Link>Framework\QFramework.cs</Link>
+    </Compile>
+    <Compile Include="QFrameworkConfigData.cs">
+      <Link>Framework\QFrameworkConfigData.cs</Link>
+    </Compile>
+    <Compile Include="ActorComponent\AbstractActor.cs">
+      <Link>Framework\ActorComponent\AbstractActor.cs</Link>
+    </Compile>
+    <Compile Include="ActorComponent\AbstractActorComponent.cs">
+      <Link>Framework\ActorComponent\AbstractActorComponent.cs</Link>
+    </Compile>
+    <Compile Include="ActorComponent\AbstractMonoActorComonent.cs">
+      <Link>Framework\ActorComponent\AbstractMonoActorComonent.cs</Link>
+    </Compile>
+    <Compile Include="ActorComponent\ComponentOrderDefine.cs">
+      <Link>Framework\ActorComponent\ComponentOrderDefine.cs</Link>
+    </Compile>
+    <Compile Include="ActorComponent\IActorComponent.cs">
+      <Link>Framework\ActorComponent\IActorComponent.cs</Link>
+    </Compile>
+    <Compile Include="Audio\AudioManager.cs">
+      <Link>Framework\Audio\AudioManager.cs</Link>
+    </Compile>
+    <Compile Include="Audio\AudioPlayer.cs">
+      <Link>Framework\Audio\AudioPlayer.cs</Link>
+    </Compile>
+    <Compile Include="Audio\AudioUnit.cs">
+      <Link>Framework\Audio\AudioUnit.cs</Link>
+    </Compile>
+    <Compile Include="Audio\CoroutineCommand\AudioSoundNode.cs">
+      <Link>Framework\Audio\CoroutineCommand\AudioSoundNode.cs</Link>
+    </Compile>
+    <Compile Include="Audio\CoroutineCommand\AudioVoiceNode.cs">
+      <Link>Framework\Audio\CoroutineCommand\AudioVoiceNode.cs</Link>
+    </Compile>
+    <Compile Include="Audio\Msg\AddRetainAudioMsg.cs">
+      <Link>Framework\Audio\Msg\AddRetainAudioMsg.cs</Link>
+    </Compile>
+    <Compile Include="Audio\Msg\AudioMusicMsg.cs">
+      <Link>Framework\Audio\Msg\AudioMusicMsg.cs</Link>
+    </Compile>
+    <Compile Include="Audio\Msg\AudioSoundMsg.cs">
+      <Link>Framework\Audio\Msg\AudioSoundMsg.cs</Link>
+    </Compile>
+    <Compile Include="Audio\Msg\AudioVoiceMsg.cs">
+      <Link>Framework\Audio\Msg\AudioVoiceMsg.cs</Link>
+    </Compile>
+    <Compile Include="Audio\Msg\RemoteRetainAudioMsg.cs">
+      <Link>Framework\Audio\Msg\RemoteRetainAudioMsg.cs</Link>
+    </Compile>
+    <Compile Include="ECS\IComponent.cs">
+      <Link>Framework\ECS\IComponent.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\AbstractCommand.cs">
+      <Link>Framework\ECS\Commands\AbstractCommand.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\Doctor.cs">
+      <Link>Framework\ECS\Commands\Doctor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\DryRun.cs">
+      <Link>Framework\ECS\Commands\DryRun.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\EditConfig.cs">
+      <Link>Framework\ECS\Commands\EditConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\FixConfig.cs">
+      <Link>Framework\ECS\Commands\FixConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\Generate.cs">
+      <Link>Framework\ECS\Commands\Generate.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\Helper.cs">
+      <Link>Framework\ECS\Commands\Helper.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\NewConfig.cs">
+      <Link>Framework\ECS\Commands\NewConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\ScanDlls.cs">
+      <Link>Framework\ECS\Commands\ScanDlls.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Commands\Status.cs">
+      <Link>Framework\ECS\Commands\Status.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\ContextInfo.cs">
+      <Link>Framework\ECS\Entitas\ContextInfo.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntitasCache.cs">
+      <Link>Framework\ECS\Entitas\EntitasCache.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntitasResources.cs">
+      <Link>Framework\ECS\Entitas\EntitasResources.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\Collector.cs">
+      <Link>Framework\ECS\Entitas\Collector\Collector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\CollectorContextExtension.cs">
+      <Link>Framework\ECS\Entitas\Collector\CollectorContextExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\CollectorException.cs">
+      <Link>Framework\ECS\Entitas\Collector\CollectorException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\ICollector.cs">
+      <Link>Framework\ECS\Entitas\Collector\ICollector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\TriggerOnEvent.cs">
+      <Link>Framework\ECS\Entitas\Collector\TriggerOnEvent.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Collector\TriggerOnEventMatcherExtension.cs">
+      <Link>Framework\ECS\Entitas\Collector\TriggerOnEventMatcherExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Context.cs">
+      <Link>Framework\ECS\Entitas\Context\Context.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\ContextExtension.cs">
+      <Link>Framework\ECS\Entitas\Context\ContextExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\IContext.cs">
+      <Link>Framework\ECS\Entitas\Context\IContext.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\IContexts.cs">
+      <Link>Framework\ECS\Entitas\Context\IContexts.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\ContextDoesNotContainEntityException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\ContextDoesNotContainEntityException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\ContextEntityIndexDoesAlreadyExistException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\ContextEntityIndexDoesAlreadyExistException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\ContextEntityIndexDoesNotExistException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\ContextEntityIndexDoesNotExistException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\ContextInfoException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\ContextInfoException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\ContextStillHasRetainedEntitiesException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\ContextStillHasRetainedEntitiesException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Context\Exceptions\EntityIsNotDestroyedException.cs">
+      <Link>Framework\ECS\Entitas\Context\Exceptions\EntityIsNotDestroyedException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntityIndex\AbstractEntityIndex.cs">
+      <Link>Framework\ECS\Entitas\EntityIndex\AbstractEntityIndex.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntityIndex\EntityIndex.cs">
+      <Link>Framework\ECS\Entitas\EntityIndex\EntityIndex.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntityIndex\EntityIndexException.cs">
+      <Link>Framework\ECS\Entitas\EntityIndex\EntityIndexException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntityIndex\IEntityIndex.cs">
+      <Link>Framework\ECS\Entitas\EntityIndex\IEntityIndex.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\EntityIndex\PrimaryEntityIndex.cs">
+      <Link>Framework\ECS\Entitas\EntityIndex\PrimaryEntityIndex.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Extensions\CollectionExtension.cs">
+      <Link>Framework\ECS\Entitas\Extensions\CollectionExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Extensions\ComponentStringExtension.cs">
+      <Link>Framework\ECS\Entitas\Extensions\ComponentStringExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Extensions\ContextStringExtension.cs">
+      <Link>Framework\ECS\Entitas\Extensions\ContextStringExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Extensions\PublicMemberInfoEntityExtension.cs">
+      <Link>Framework\ECS\Entitas\Extensions\PublicMemberInfoEntityExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Extensions\SystemStringExtension.cs">
+      <Link>Framework\ECS\Entitas\Extensions\SystemStringExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Group\Group.cs">
+      <Link>Framework\ECS\Entitas\Group\Group.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Group\GroupEvent.cs">
+      <Link>Framework\ECS\Entitas\Group\GroupEvent.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Group\GroupExtension.cs">
+      <Link>Framework\ECS\Entitas\Group\GroupExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Group\GroupSingleEntityException.cs">
+      <Link>Framework\ECS\Entitas\Group\GroupSingleEntityException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Group\IGroup.cs">
+      <Link>Framework\ECS\Entitas\Group\IGroup.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Matcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Matcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\MatcherEquals.cs">
+      <Link>Framework\ECS\Entitas\Matcher\MatcherEquals.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\MatcherException.cs">
+      <Link>Framework\ECS\Entitas\Matcher\MatcherException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\MatcherStatic.cs">
+      <Link>Framework\ECS\Entitas\Matcher\MatcherStatic.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\MatcherToString.cs">
+      <Link>Framework\ECS\Entitas\Matcher\MatcherToString.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Interfaces\IAllOfMatcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Interfaces\IAllOfMatcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Interfaces\IAnyOfMatcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Interfaces\IAnyOfMatcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Interfaces\ICompoundMatcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Interfaces\ICompoundMatcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Interfaces\IMatcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Interfaces\IMatcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas\Matcher\Interfaces\INoneOfMatcher.cs">
+      <Link>Framework\ECS\Entitas\Matcher\Interfaces\INoneOfMatcher.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints\Blueprints\Blueprint.cs">
+      <Link>Framework\ECS\Entitas.Blueprints\Blueprints\Blueprint.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints\Blueprints\BlueprintEntityExtension.cs">
+      <Link>Framework\ECS\Entitas.Blueprints\Blueprints\BlueprintEntityExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints\Blueprints\ComponentBlueprint.cs">
+      <Link>Framework\ECS\Entitas.Blueprints\Blueprints\ComponentBlueprint.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints\Blueprints\ComponentBlueprintException.cs">
+      <Link>Framework\ECS\Entitas.Blueprints\Blueprints\ComponentBlueprintException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints\Blueprints\SerializableMember.cs">
+      <Link>Framework\ECS\Entitas.Blueprints\Blueprints\SerializableMember.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintData.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintDataProvider.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintsGenerator.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\BlueprintsGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity\Unity\BinaryBlueprint.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity\Unity\BinaryBlueprint.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity\Unity\Blueprints.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity\Unity\Blueprints.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity\Unity\BlueprintsNotFoundException.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity\Unity\BlueprintsNotFoundException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity.Editor\Editor\BinaryBlueprintInspector.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity.Editor\Editor\BinaryBlueprintInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity.Editor\Editor\BinaryBlueprintPostprocessor.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity.Editor\Editor\BinaryBlueprintPostprocessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Blueprints.Unity.Editor\Editor\BlueprintsInspector.cs">
+      <Link>Framework\ECS\Entitas.Blueprints.Unity.Editor\Editor\BlueprintsInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\ContextAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\ContextAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomComponentNameAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomComponentNameAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomEntityIndexAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomEntityIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomPrefixAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\CustomPrefixAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\DontGenerateAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\DontGenerateAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\PostConstructorAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\PostConstructorAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\UniqueAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\UniqueAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\AbstractEntityIndexAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\AbstractEntityIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexGetMethodAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexGetMethodAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexType.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\EntityIndexType.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\PrimaryEntityIndexAttribute.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\PrimaryEntityIndexAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\AssemblyResolver.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\AssemblyResolver.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGeneratorConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGeneratorConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGeneratorUtil.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\CodeGeneratorUtil.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PluginUtil.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PluginUtil.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentContextGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentContextGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentEntityGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentEntityGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentEntityInterfaceGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentEntityInterfaceGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentMatcherGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentMatcherGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentsLookupGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ComponentsLookupGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextAttributeGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextAttributeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextMatcherGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextMatcherGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextsGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\ContextsGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\EntityGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\EntityGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\EntityIndexGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\EntityIndexGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\AssembliesConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\AssembliesConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\ContextNamesConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\ContextNamesConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\IgnoreNamespacesConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\IgnoreNamespacesConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\ProjectPathConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\ProjectPathConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\TargetDirectoryConfig.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\TargetDirectoryConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Data\MemberData.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Data\MemberData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Data\MethodData.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\Data\MethodData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\ComponentData.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\ComponentData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\ComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\ComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ComponentTypeComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ComponentTypeComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ContextsComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ContextsComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\CustomPrefixComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\CustomPrefixComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\IComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\IComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\IsUniqueComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\IsUniqueComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\MemberDataComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\MemberDataComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateComponentComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateComponentComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateComponentIndexComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateComponentIndexComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateMethodsComponentDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\ShouldGenerateMethodsComponentDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Contexts\ContextData.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Contexts\ContextData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Contexts\ContextDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Contexts\ContextDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\EntityIndex\EntityIndexData.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\EntityIndex\EntityIndexData.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\EntityIndex\EntityIndexDataProvider.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\EntityIndex\EntityIndexDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\AddFileHeaderPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\AddFileHeaderPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\CleanTargetDirectoryPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\CleanTargetDirectoryPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\ConsoleWriteLinePostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\ConsoleWriteLinePostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\MergeFilesPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\MergeFilesPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\NewLinePostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\NewLinePostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\TargetDirectoryStringExtension.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\TargetDirectoryStringExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\UpdateCSProjPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\UpdateCSProjPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\WriteToDiskPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\WriteToDiskPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Unity.Editor\Editor\CodeGeneratorPreferencesDrawer.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Unity.Editor\Editor\CodeGeneratorPreferencesDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Unity.Editor\Editor\DebugLogPostProcessor.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Unity.Editor\Editor\DebugLogPostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.CodeGeneration.Unity.Editor\Editor\UnityCodeGenerator.cs">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Unity.Editor\Editor\UnityCodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migration\IMigration.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migration\IMigration.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migration\MigrationFile.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migration\MigrationFile.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migration\MigrationUtils.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migration\MigrationUtils.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0180.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0180.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0190.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0190.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0220.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0220.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0260.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0260.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0300.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0300.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0320.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0320.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0360_1.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0360_1.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0360_2.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0360_2.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0410_1.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0410_1.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0410_2.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0410_2.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration\Migrations\M0410_3.cs">
+      <Link>Framework\ECS\Entitas.Migration\Migrations\M0410_3.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Migration.Unity.Editor\Editor\MigrationWindow.cs">
+      <Link>Framework\ECS\Entitas.Migration.Unity.Editor\Editor\MigrationWindow.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity\Unity\EntityLink.cs">
+      <Link>Framework\ECS\Entitas.Unity\Unity\EntityLink.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\EntitasPreferencesDrawer.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\EntitasPreferencesDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\ScriptingDefineSymbols.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\ScriptingDefineSymbols.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\AbstractPreferencesDrawer.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\AbstractPreferencesDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\EntitasStyles.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\EntitasStyles.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\IEntitasPreferencesDrawer.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\IEntitasPreferencesDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\PreferencesWindow.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\PreferencesWindow.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\Layout\EditorWindow.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\Layout\EditorWindow.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\Layout\GUI.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\Layout\GUI.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\GUI\Layout\Layout.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\GUI\Layout\Layout.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\Menu\CheckForUpdates.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\Menu\CheckForUpdates.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Unity.Editor\Editor\Menu\EntitasMenuItems.cs">
+      <Link>Framework\ECS\Entitas.Unity.Editor\Editor\Menu\EntitasMenuItems.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Configuration\AbstractConfigurableConfig.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Configuration\AbstractConfigurableConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Configuration\IConfigurable.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Configuration\IConfigurable.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Configuration\Preferences.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Configuration\Preferences.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Configuration\Properties.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Configuration\Properties.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Extensions\AppDomainExtension.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Extensions\AppDomainExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\Extensions\TypeSerializationExtension.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\Extensions\TypeSerializationExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\AttributeInfo.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\PublicMemberInfo\AttributeInfo.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfo.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfo.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfoExtension.cs">
+      <Link>Framework\ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfoExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\Editor\ContextObserverGenerator.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\Editor\ContextObserverGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\Editor\FeatureClassGenerator.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\Editor\FeatureClassGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\GameObjectDestroyExtension.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\GameObjectDestroyExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserver.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserver.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverBehaviour.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverExtension.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystems.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystems.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystemsBehaviour.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystemsBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\SystemInfo.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\SystemInfo.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\Entity\DontDrawComponentAttribute.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\Entity\DontDrawComponentAttribute.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity\Unity\Entity\EntityBehaviour.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity\Unity\Entity\EntityBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntitasHierarchyIcon.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntitasHierarchyIcon.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntitasStats.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntitasStats.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntityLinkInspector.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\EntityLinkInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingConfig.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingConfig.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingEntitasExtension.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingEntitasExtension.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingPreferencesDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\VisualDebuggingPreferencesDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\ContextObserver\ContextObserverInspector.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\ContextObserver\ContextObserverInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\DebugSystems\DebugSystemsInspector.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\DebugSystems\DebugSystemsInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\DebugSystems\SystemsMonitor.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\DebugSystems\SystemsMonitor.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\IComponentDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\IComponentDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\DefaultArrayCreator.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\DefaultArrayCreator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\DefaultStringCreator.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\DefaultStringCreator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\IDefaultInstanceCreator.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\IDefaultInstanceCreator.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityDrawerState.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityDrawerState.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityInspector.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\EntityInspector.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\AnimationCurveTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\AnimationCurveTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ArrayTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ArrayTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\BoolTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\BoolTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\BoundsTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\BoundsTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\CharTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\CharTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ColorTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ColorTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DateTimeTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DateTimeTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DictionaryTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DictionaryTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DoubleTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\DoubleTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\EnumTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\EnumTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\FloatTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\FloatTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\HashSetTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\HashSetTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ITypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ITypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\IntTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\IntTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ListTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\ListTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\RectTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\RectTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\StringTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\StringTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\UnityObjectTypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\UnityObjectTypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector2TypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector2TypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector3TypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector3TypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector4TypeDrawer.cs">
+      <Link>Framework\ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\Vector4TypeDrawer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\Entity.cs">
+      <Link>Framework\ECS\Entity\Entity.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\EntityEqualityComparer.cs">
+      <Link>Framework\ECS\Entity\EntityEqualityComparer.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\IEntity.cs">
+      <Link>Framework\ECS\Entity\IEntity.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\Exceptions\EntityAlreadyHasComponentException.cs">
+      <Link>Framework\ECS\Entity\Exceptions\EntityAlreadyHasComponentException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\Exceptions\EntityDoesNotHaveComponentException.cs">
+      <Link>Framework\ECS\Entity\Exceptions\EntityDoesNotHaveComponentException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Entity\Exceptions\EntityIsNotEnabledException.cs">
+      <Link>Framework\ECS\Entity\Exceptions\EntityIsNotEnabledException.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\MultiReactiveSystem.cs">
+      <Link>Framework\ECS\Systems\MultiReactiveSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\ReactiveSystem.cs">
+      <Link>Framework\ECS\Systems\ReactiveSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Systems.cs">
+      <Link>Framework\ECS\Systems\Systems.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\ICleanupSystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\ICleanupSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\IExecuteSystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\IExecuteSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\IInitializeSystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\IInitializeSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\IReactiveSystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\IReactiveSystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\ISystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\ISystem.cs</Link>
+    </Compile>
+    <Compile Include="ECS\Systems\Interfaces\ITearDownSystem.cs">
+      <Link>Framework\ECS\Systems\Interfaces\ITearDownSystem.cs</Link>
+    </Compile>
+    <Compile Include="Editor\ClearAllData.cs">
+      <Link>Framework\Editor\ClearAllData.cs</Link>
+    </Compile>
+    <Compile Include="Editor\QFrameworkConfigEditorWindow.cs">
+      <Link>Framework\Editor\QFrameworkConfigEditorWindow.cs</Link>
+    </Compile>
+    <Compile Include="MOM\IManager.cs">
+      <Link>Framework\MOM\IManager.cs</Link>
+    </Compile>
+    <Compile Include="MOM\QMgrBehaviour.cs">
+      <Link>Framework\MOM\QMgrBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="MOM\QMonoBehaviour.cs">
+      <Link>Framework\MOM\QMonoBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="MOM\QMsg.cs">
+      <Link>Framework\MOM\QMsg.cs</Link>
+    </Compile>
+    <Compile Include="MOM\QMsgCenter.cs">
+      <Link>Framework\MOM\QMsgCenter.cs</Link>
+    </Compile>
+    <Compile Include="MOM\QMsgSpan.cs">
+      <Link>Framework\MOM\QMsgSpan.cs</Link>
+    </Compile>
+    <Compile Include="MOM\Event\Test\Editor\QEventSystemTest.cs">
+      <Link>Framework\MOM\Event\Test\Editor\QEventSystemTest.cs</Link>
+    </Compile>
+    <Compile Include="Module\AbstractModule.cs">
+      <Link>Framework\Module\AbstractModule.cs</Link>
+    </Compile>
+    <Compile Include="Module\AbstractModuleMgr.cs">
+      <Link>Framework\Module\AbstractModuleMgr.cs</Link>
+    </Compile>
+    <Compile Include="Module\AbstractMonoModule.cs">
+      <Link>Framework\Module\AbstractMonoModule.cs</Link>
+    </Compile>
+    <Compile Include="Module\AbstractStartProcess.cs">
+      <Link>Framework\Module\AbstractStartProcess.cs</Link>
+    </Compile>
+    <Compile Include="Module\IModule.cs">
+      <Link>Framework\Module\IModule.cs</Link>
+    </Compile>
+    <Compile Include="Particle\ParticleScaler.cs">
+      <Link>Framework\Particle\ParticleScaler.cs</Link>
+    </Compile>
+    <Compile Include="Physics\CollisionTriggerListener.cs">
+      <Link>Framework\Physics\CollisionTriggerListener.cs</Link>
+    </Compile>
+    <Compile Include="Platform\ShareDeviceAPI\Script\PCConnectMobileManager.cs">
+      <Link>Framework\Platform\ShareDeviceAPI\Script\PCConnectMobileManager.cs</Link>
+    </Compile>
+    <Compile Include="Platform\ShareDeviceAPI\Script\Mobile\MobileServer.cs">
+      <Link>Framework\Platform\ShareDeviceAPI\Script\Mobile\MobileServer.cs</Link>
+    </Compile>
+    <Compile Include="Platform\ShareDeviceAPI\Script\PC\PCClient.cs">
+      <Link>Framework\Platform\ShareDeviceAPI\Script\PC\PCClient.cs</Link>
+    </Compile>
+    <Compile Include="Platform\ShareDeviceAPI\Script\PC\PCPanel.cs">
+      <Link>Framework\Platform\ShareDeviceAPI\Script\PC\PCPanel.cs</Link>
+    </Compile>
+    <Compile Include="ReplaySystem\ReplaySystem.cs">
+      <Link>Framework\ReplaySystem\ReplaySystem.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ABManifestHandler.cs">
+      <Link>Framework\ResSystem\ABManifestHandler.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\AssetBundleExporterForSimulateMode.cs">
+      <Link>Framework\ResSystem\AssetBundleExporterForSimulateMode.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\IEnumeratorTask.cs">
+      <Link>Framework\ResSystem\IEnumeratorTask.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResFactory.cs">
+      <Link>Framework\ResSystem\ResFactory.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResMgr.cs">
+      <Link>Framework\ResSystem\ResMgr.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\BuildScript.cs">
+      <Link>Framework\ResSystem\Editor\BuildScript.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\ExecuteInternalMono.cs">
+      <Link>Framework\ResSystem\Editor\ExecuteInternalMono.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\LoomEditorWindow.cs">
+      <Link>Framework\ResSystem\Editor\LoomEditorWindow.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\QAssetBundleTool.cs">
+      <Link>Framework\ResSystem\Editor\QAssetBundleTool.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\QBundleInfoGenerator.cs">
+      <Link>Framework\ResSystem\Editor\QBundleInfoGenerator.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\QConfigManager.cs">
+      <Link>Framework\ResSystem\Editor\QConfigManager.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\QResSystemBuilder.cs">
+      <Link>Framework\ResSystem\Editor\QResSystemBuilder.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\ResSystemMenuItems.cs">
+      <Link>Framework\ResSystem\Editor\ResSystemMenuItems.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\AssetBundle\AssetBundleExporter.cs">
+      <Link>Framework\ResSystem\Editor\AssetBundle\AssetBundleExporter.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\AssetBundle\AssetFileFilter.cs">
+      <Link>Framework\ResSystem\Editor\AssetBundle\AssetFileFilter.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\Uploader\FTPClient.cs">
+      <Link>Framework\ResSystem\Editor\Uploader\FTPClient.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\Uploader\IFTPInterface.cs">
+      <Link>Framework\ResSystem\Editor\Uploader\IFTPInterface.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\Uploader\LoomEditorWindow.cs">
+      <Link>Framework\ResSystem\Editor\Uploader\LoomEditorWindow.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Editor\Uploader\QResSystemUploader.cs">
+      <Link>Framework\ResSystem\Editor\Uploader\QResSystemUploader.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Example\ImageLoaderExample.cs">
+      <Link>Framework\ResSystem\Example\ImageLoaderExample.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\AbstractRes.cs">
+      <Link>Framework\ResSystem\Res\AbstractRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\AssetBundleRes.cs">
+      <Link>Framework\ResSystem\Res\AssetBundleRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\AssetRes.cs">
+      <Link>Framework\ResSystem\Res\AssetRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\BaseRes.cs">
+      <Link>Framework\ResSystem\Res\BaseRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\IRes.cs">
+      <Link>Framework\ResSystem\Res\IRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\InternalRes.cs">
+      <Link>Framework\ResSystem\Res\InternalRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\LocalImageRes.cs">
+      <Link>Framework\ResSystem\Res\LocalImageRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\NetImageRes.cs">
+      <Link>Framework\ResSystem\Res\NetImageRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\SceneRes.cs">
+      <Link>Framework\ResSystem\Res\SceneRes.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\DataTable\AssetData.cs">
+      <Link>Framework\ResSystem\Res\DataTable\AssetData.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\DataTable\AssetDataGroup.cs">
+      <Link>Framework\ResSystem\Res\DataTable\AssetDataGroup.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\Res\DataTable\AssetDataTable.cs">
+      <Link>Framework\ResSystem\Res\DataTable\AssetDataTable.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResDownloader\HttpDownloaderMgr.cs">
+      <Link>Framework\ResSystem\ResDownloader\HttpDownloaderMgr.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResDownloader\ResDownloader.cs">
+      <Link>Framework\ResSystem\ResDownloader\ResDownloader.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResHolder\ResHolder.cs">
+      <Link>Framework\ResSystem\ResHolder\ResHolder.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResLoader\DefaultLoaderStrategy.cs">
+      <Link>Framework\ResSystem\ResLoader\DefaultLoaderStrategy.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResLoader\IResLoader.cs">
+      <Link>Framework\ResSystem\ResLoader\IResLoader.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResLoader\IResLoaderStrategy.cs">
+      <Link>Framework\ResSystem\ResLoader\IResLoaderStrategy.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResLoader\ResLoader.cs">
+      <Link>Framework\ResSystem\ResLoader\ResLoader.cs</Link>
+    </Compile>
+    <Compile Include="ResSystem\ResLoader\UILoaderStrategy.cs">
+      <Link>Framework\ResSystem\ResLoader\UILoaderStrategy.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\ButtonUtil.cs">
+      <Link>Framework\UGUI\ButtonUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\GraphicUtil.cs">
+      <Link>Framework\UGUI\GraphicUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\ImageUtil.cs">
+      <Link>Framework\UGUI\ImageUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\RectTransformUtil.cs">
+      <Link>Framework\UGUI\RectTransformUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\SelectableUtil.cs">
+      <Link>Framework\UGUI\SelectableUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\ToggleUtil.cs">
+      <Link>Framework\UGUI\ToggleUtil.cs</Link>
+    </Compile>
+    <Compile Include="UGUI\UIBehaviourUtil.cs">
+      <Link>Framework\UGUI\UIBehaviourUtil.cs</Link>
+    </Compile>
+    <Compile Include="UI\Editor\QUICodeGenerator.cs">
+      <Link>Framework\UI\Editor\QUICodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="UI\Editor\UIElementCodeTemplate.cs">
+      <Link>Framework\UI\Editor\UIElementCodeTemplate.cs</Link>
+    </Compile>
+    <Compile Include="UI\Editor\UIPanelCodeTemplate.cs">
+      <Link>Framework\UI\Editor\UIPanelCodeTemplate.cs</Link>
+    </Compile>
+    <Compile Include="UI\Editor\UIPanelComponentsCodeTemplate.cs">
+      <Link>Framework\UI\Editor\UIPanelComponentsCodeTemplate.cs</Link>
+    </Compile>
+    <Compile Include="UI\Engine\UI\Helper\UIEffectHelper.cs">
+      <Link>Framework\UI\Engine\UI\Helper\UIEffectHelper.cs</Link>
+    </Compile>
+    <Compile Include="UI\Extension\UIDragEventInScrollRect.cs">
+      <Link>Framework\UI\Extension\UIDragEventInScrollRect.cs</Link>
+    </Compile>
+    <Compile Include="UI\Extension\UIPointerDownEventInScrollRect.cs">
+      <Link>Framework\UI\Extension\UIPointerDownEventInScrollRect.cs</Link>
+    </Compile>
+    <Compile Include="UI\Extension\UIPointerDownEventListener.cs">
+      <Link>Framework\UI\Extension\UIPointerDownEventListener.cs</Link>
+    </Compile>
+    <Compile Include="UI\Extension\UIPointerUpEventListener.cs">
+      <Link>Framework\UI\Extension\UIPointerUpEventListener.cs</Link>
+    </Compile>
+    <Compile Include="UI\Extension\UISpriteAnimation.cs">
+      <Link>Framework\UI\Extension\UISpriteAnimation.cs</Link>
+    </Compile>
+    <Compile Include="UI\Gesture\DragMe.cs">
+      <Link>Framework\UI\Gesture\DragMe.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\IUIBehaviour.cs">
+      <Link>Framework\UI\Script\IUIBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\IUIComponent.cs">
+      <Link>Framework\UI\Script\IUIComponent.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\IUIMark.cs">
+      <Link>Framework\UI\Script\IUIMark.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIBehaviour.cs">
+      <Link>Framework\UI\Script\QUIBehaviour.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIElement.cs">
+      <Link>Framework\UI\Script\QUIElement.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIElementList.cs">
+      <Link>Framework\UI\Script\QUIElementList.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIEventListener.cs">
+      <Link>Framework\UI\Script\QUIEventListener.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIManager.cs">
+      <Link>Framework\UI\Script\QUIManager.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\QUIMark.cs">
+      <Link>Framework\UI\Script\QUIMark.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\UIEventLockManager.cs">
+      <Link>Framework\UI\Script\UIEventLockManager.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\UIScrollPage.cs">
+      <Link>Framework\UI\Script\UIScrollPage.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\UIScrollPageMark.cs">
+      <Link>Framework\UI\Script\UIScrollPageMark.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\Res\DefaultUIPanelLoader.cs">
+      <Link>Framework\UI\Script\Res\DefaultUIPanelLoader.cs</Link>
+    </Compile>
+    <Compile Include="UI\Script\Res\IUIPanelLoader.cs">
+      <Link>Framework\UI\Script\Res\IUIPanelLoader.cs</Link>
+    </Compile>
+    <Compile Include="UI\Util\QUICameraUtil.cs">
+      <Link>Framework\UI\Util\QUICameraUtil.cs</Link>
+    </Compile>
+    <Compile Include="UI\Util\QUIEventUtil.cs">
+      <Link>Framework\UI\Util\QUIEventUtil.cs</Link>
+    </Compile>
+    <Compile Include="Update\IFixedUpdatable.cs">
+      <Link>Framework\Update\IFixedUpdatable.cs</Link>
+    </Compile>
+    <Compile Include="Update\ILateUpdatable.cs">
+      <Link>Framework\Update\ILateUpdatable.cs</Link>
+    </Compile>
+    <Compile Include="Update\IUpdatable.cs">
+      <Link>Framework\Update\IUpdatable.cs</Link>
+    </Compile>
+    <Compile Include="Update\Scheduler.cs">
+      <Link>Framework\Update\Scheduler.cs</Link>
+    </Compile>
+    <Compile Include="Update\UpdateManager.cs">
+      <Link>Framework\Update\UpdateManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UGUI\" />
+    <None Include="Framework\Framework.csproj" />
+    <None Include="ECS\Entitas.CodeGeneration.Attributes\Attributes.meta">
+      <Link>Framework\ECS\Entitas.CodeGeneration.Attributes\Attributes.meta</Link>
+    </None>
+    <None Include="Audio\.DS_Store" />
+    <None Include="Audio\CoroutineCommand\.DS_Store" />
+    <None Include="Audio\Msg\.DS_Store" />
+    <None Include="ECS\.DS_Store" />
+    <None Include="ECS\Commands\.DS_Store" />
+    <None Include="ECS\Entitas\.DS_Store" />
+    <None Include="ECS\Entitas\Collector\.DS_Store" />
+    <None Include="ECS\Entitas\Context\.DS_Store" />
+    <None Include="ECS\Entitas\Context\Exceptions\.DS_Store" />
+    <None Include="ECS\Entitas\EntityIndex\.DS_Store" />
+    <None Include="ECS\Entitas\Extensions\.DS_Store" />
+    <None Include="ECS\Entitas\Group\.DS_Store" />
+    <None Include="ECS\Entitas\Matcher\.DS_Store" />
+    <None Include="ECS\Entitas\Matcher\Interfaces\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints\Blueprints\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.CodeGeneration.Plugins\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.CodeGeneration.Plugins\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.Unity\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.Unity\Unity\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.Unity.Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Blueprints.Unity.Editor\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Attributes\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Attributes\Attributes\EntityIndex\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.CodeGenerator\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.CodeGenerator\CodeGenerator\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\CodeGenerators\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Configs\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\Data\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Components\Providers\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\Contexts\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\DataProviders\EntityIndex\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Plugins\Editor\PostProcessors\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Unity.Editor\.DS_Store" />
+    <None Include="ECS\Entitas.CodeGeneration.Unity.Editor\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Migration\.DS_Store" />
+    <None Include="ECS\Entitas.Migration\Migration\.DS_Store" />
+    <None Include="ECS\Entitas.Migration\Migrations\.DS_Store" />
+    <None Include="ECS\Entitas.Migration.Unity.Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Migration.Unity.Editor\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Unity\.DS_Store" />
+    <None Include="ECS\Entitas.Unity\Unity\.DS_Store" />
+    <None Include="ECS\Entitas.Unity.Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Unity.Editor\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.Unity.Editor\Editor\GUI\.DS_Store" />
+    <None Include="ECS\Entitas.Unity.Editor\Editor\GUI\Layout\.DS_Store" />
+    <None Include="ECS\Entitas.Unity.Editor\Editor\Menu\.DS_Store" />
+    <None Include="ECS\Entitas.Utils\.DS_Store" />
+    <None Include="ECS\Entitas.Utils\Utils\.DS_Store" />
+    <None Include="ECS\Entitas.Utils\Utils\Configuration\.DS_Store" />
+    <None Include="ECS\Entitas.Utils\Utils\Extensions\AppDomainExtension.cs.meta" />
+    <None Include="ECS\Entitas.Utils\Utils\Extensions\TypeSerializationExtension.cs.meta" />
+    <None Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\AttributeInfo.cs.meta" />
+    <None Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfo.cs.meta" />
+    <None Include="ECS\Entitas.Utils\Utils\PublicMemberInfo\PublicMemberInfoExtension.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.CodeGeneration.Plugins\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserver.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverBehaviour.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\ContextObserver\ContextObserverExtension.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystems.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\DebugSystemsBehaviour.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\DebugSystems\SystemInfo.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\Entity\DontDrawComponentAttribute.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity\Unity\Entity\EntityBehaviour.cs.meta" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\ContextObserver\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\DebugSystems\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\DefaultInstanceCreator\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\Entity\.DS_Store" />
+    <None Include="ECS\Entitas.VisualDebugging.Unity.Editor\Editor\Entity\TypeDrawer\.DS_Store" />
+    <None Include="ECS\Entity\.DS_Store" />
+    <None Include="ECS\Entity\Exceptions\.DS_Store" />
+    <None Include="ECS\Systems\.DS_Store" />
+    <None Include="ECS\Systems\Interfaces\.DS_Store" />
+    <None Include="Editor\.DS_Store" />
+    <None Include="MOM\.DS_Store" />
+    <None Include="MOM\Event\.DS_Store" />
+    <None Include="MOM\Event\Test\.DS_Store" />
+    <None Include="MOM\Event\Test\Editor\.DS_Store" />
+    <None Include="Module\.DS_Store" />
+    <None Include="Particle\.DS_Store" />
+    <None Include="Physics\.DS_Store" />
+    <None Include="Platform\.DS_Store" />
+    <None Include="Platform\ShareDeviceAPI\Scene.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\Mobile.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\PC.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\PCConnectMobileManager.cs.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\Mobile\MobileServer.cs.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\PC\PCClient.cs.meta" />
+    <None Include="Platform\ShareDeviceAPI\Script\PC\PCPanel.cs.meta" />
+    <None Include="ReplaySystem\.DS_Store" />
+    <None Include="ResSystem\.DS_Store" />
+    <None Include="ResSystem\Editor\.DS_Store" />
+    <None Include="ResSystem\Editor\AssetBundle\.DS_Store" />
+    <None Include="ResSystem\Editor\Uploader\.DS_Store" />
+    <None Include="ResSystem\Example\ImageLoaderExample.cs.meta" />
+    <None Include="ResSystem\Res\.DS_Store" />
+    <None Include="ResSystem\Res\DataTable\AssetData.cs.meta" />
+    <None Include="ResSystem\Res\DataTable\AssetDataGroup.cs.meta" />
+    <None Include="ResSystem\Res\DataTable\AssetDataTable.cs.meta" />
+    <None Include="ResSystem\ResDownloader\.DS_Store" />
+    <None Include="ResSystem\ResHolder\.DS_Store" />
+    <None Include="ResSystem\ResLoader\.DS_Store" />
+    <None Include="UI\.DS_Store" />
+    <None Include="UI\Editor\.DS_Store" />
+    <None Include="UI\Engine\.DS_Store" />
+    <None Include="UI\Engine\UI\.DS_Store" />
+    <None Include="UI\Engine\UI\Helper\.DS_Store" />
+    <None Include="UI\Extension\.DS_Store" />
+    <None Include="UI\Gesture\.DS_Store" />
+    <None Include="UI\Script\.DS_Store" />
+    <None Include="UI\Script\Res\.DS_Store" />
+    <None Include="UI\Util\.DS_Store" />
+    <None Include="Update\.DS_Store" />
+    <None Include="bin\.DS_Store" />
+    <None Include="obj\Debug\Framework.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\Framework.csproj.FileListAbsolute.txt" />
+    <None Include="obj\Debug\Framework.csprojResolveAssemblyReference.cache" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

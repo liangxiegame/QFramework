@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun@putao.com
  * Copyright (c) 2017 maoling@putao.com
  * Copyright (c) 2017 liangxie
@@ -13,14 +13,13 @@ liqingyun@putao.com
 auto add panel's monobehaivour
 ****************************************************************************/
 
-namespace QFramework.Editor
+namespace QFramework
 {
 	using System;
 	using UnityEngine;
 	using System.Collections.Generic;
 	using UnityEditor;
 	using System.IO;
-	using Libs;
 
 	public class PanelCodeData
 	{
@@ -277,7 +276,7 @@ namespace QFramework.Editor
 
 				if (sObj.FindProperty(propertyName) == null)
 				{
-					Log.i("sObj is Null:{0}", propertyName);
+					Log.I("sObj is Null:{0}", propertyName);
 					continue;
 				}
 
@@ -297,7 +296,7 @@ namespace QFramework.Editor
 
 				string uiType = elementMark.ComponentName;
 				string propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
-				Log.i(propertyName);
+				Log.I(propertyName);
 				sObj.FindProperty(propertyName).objectReferenceValue = elementMark.Transform.gameObject;
 			}
 

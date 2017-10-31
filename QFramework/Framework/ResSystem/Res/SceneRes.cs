@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -28,8 +28,7 @@
 
 namespace QFramework
 {
-    using ResSystem;
-    
+        
     public class SceneRes : AssetRes
     {
         public new static SceneRes Allocate(string name)
@@ -79,7 +78,7 @@ namespace QFramework
 
             if (abR == null || abR.assetBundle == null)
             {
-                Log.e("Failed to Load Asset, Not Find AssetBundleImage:" + abR);
+                Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + abR);
                 return false;
             }
 

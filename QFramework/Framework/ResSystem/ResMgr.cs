@@ -30,12 +30,8 @@ namespace QFramework
 {
     using UnityEngine;
     using System.Collections.Generic;
-#if UNITY_EDITOR
-    using ResSystem;
 
-#endif
-
-    [QMonoSingletonAttribute("[Framework]/ResMgr")]
+    [QMonoSingletonPath("[Framework]/ResMgr")]
     public class ResMgr : QMonoSingleton<ResMgr>, IEnumeratorTaskMgr
     {
         #region 字段
@@ -44,7 +40,7 @@ namespace QFramework
         private List<IRes> mResList = new List<IRes>();
         [SerializeField] private int mCurrentCoroutineCount = 0;
         private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
-        private TimeDebugger mTimeDebugger;
+        //private TimeDebugger mTimeDebugger;
         private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
 
         private bool mIsWorking = true;
@@ -76,22 +72,22 @@ namespace QFramework
             }
             
             AssetDataTable.Instance.SwitchLanguage("cn");
-            Log.i("Init[ResMgr]");
+            Log.I("Init[ResMgr]");
         }
 
         #region 属性
 
-        public TimeDebugger timeDebugger
-        {
-            get
-            {
-                if (mTimeDebugger == null)
-                {
-                    mTimeDebugger = new TimeDebugger("#Res");
-                }
-                return mTimeDebugger;
-            }
-        }
+        //public TimeDebugger timeDebugger
+        //{
+        //    get
+        //    {
+        //        if (mTimeDebugger == null)
+        //        {
+        //            mTimeDebugger = new TimeDebugger("#Res");
+        //        }
+        //        return mTimeDebugger;
+        //    }
+        //}
 
         public void SetResMapDirty()
         {
@@ -146,7 +142,7 @@ namespace QFramework
 
             if (!createNew)
             {
-                Log.i("createNew:{0}", createNew);
+                Log.I("createNew:{0}", createNew);
                 return null;
             }
 

@@ -13,7 +13,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
+    <OutputPath>..\..\Output\Core\Unity</OutputPath>
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +23,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\..\Output\Core\Unity</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -32,21 +32,36 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Core.CSharp">
+      <HintPath>..\..\Output\Core\CSharp\Core.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Output\Core\CSharp\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>..\..\Output\Core\CSharp\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Output\Core\CSharp\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>..\..\Output\Core\CSharp\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>..\..\Output\Core\CSharp\zxing.unity.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>Unity\Libs\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Unity\Libs\UnityEngine.UI.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\Output\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="nunit.framework">
+      <HintPath>Unity\Libs\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="QFramework.Core.CSharp">
-      <HintPath>..\..\Output\QFramework.Core.CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="ProtobufNet">
-      <HintPath>CSharp\Libs\ProtobufNet.dll</HintPath>
+    <Reference Include="UnityEditor">
+      <HintPath>Unity\Libs\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +349,22 @@
     <Compile Include="Unity\Rx\Scripts\Scheduler\ScheduledItem.cs" />
     <Compile Include="Unity\Rx\Scripts\Scheduler\Scheduler.cs" />
     <Compile Include="Unity\Rx\Scripts\Scheduler\SchedulerDisposable.cs" />
+    <Compile Include="Unity\Editor\CodeGenerator\Editor\QCodeGenerator.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\Button.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\EditorView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\FlexibaleSpaceView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\HorizontalView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\IEditorView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\LableView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\QEditorWindow.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\ScrollView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\SpaceView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\UI\VerticalView.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\Utils\AssetLabelHelper.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\Utils\EditorGUIUtils.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\Utils\EditorUtils.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\Utils\MouseSelector.cs" />
+    <Compile Include="Unity\Editor\EasyEditor\Utils\PlatformUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Unity\Rx\Scripts\Asynchronous\" />
@@ -345,6 +376,10 @@
     <Folder Include="Unity\Rx\Scripts\Subjects\" />
     <Folder Include="Unity\Rx\Scripts\Tasks\" />
     <Folder Include="Unity\Rx\Scripts\Scheduler\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Unity\Editor\Libs\UnityEditor.dll" />
+    <None Include="Unity\Editor\Libs\nunit.framework.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

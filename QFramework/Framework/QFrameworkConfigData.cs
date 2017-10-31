@@ -5,7 +5,6 @@
 
 namespace QFramework
 {
-	using Libs;
 	using UnityEngine;
 	using System.IO;
 #if UNITY_EDITOR

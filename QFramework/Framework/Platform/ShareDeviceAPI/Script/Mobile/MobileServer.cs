@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -24,8 +24,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-
-using UniRx;
 
 namespace QFramework
 {
@@ -73,7 +71,7 @@ namespace QFramework
 			mSocketServer = FlexiSocket.Create(1366, Protocols.BodyLengthPrefix, false);
 			mSocketServer.ClientConnected += delegate(ISocketClientToken client)
 			{
-				Log.i("OnClientConnected ID:{0} Count:{1}", client.ID, mSocketServer.Clients.Count);
+				Log.I("OnClientConnected ID:{0} Count:{1}", client.ID, mSocketServer.Clients.Count);
 			};
 			mSocketServer.SentToClient += delegate(bool success, ISocketClientToken client)
 			{
@@ -90,7 +88,7 @@ namespace QFramework
 				{
 					mMessage += ":" + msg.Msg;
 				}
-				Log.i("OnReceivedFromClient:{0}", mMessage);
+				Log.I("OnReceivedFromClient:{0}", mMessage);
 				mMsgQueue.Enqueue(msg);
 			};
 

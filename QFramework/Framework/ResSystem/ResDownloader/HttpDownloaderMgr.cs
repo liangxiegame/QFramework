@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -41,7 +41,7 @@ namespace QFramework
     public delegate void OnDownloadBegin(int totalLength);
 
     //http下载管理器
-    [QMonoSingletonAttribute("[Singleton]/HttpDownloader")]
+    [QMonoSingletonPath("[Singleton]/HttpDownloader")]
     public class HttpDownloaderMgr : QMonoSingleton<HttpDownloaderMgr>
     {
         public static string TimeOutError = "Time-Out";
@@ -100,25 +100,25 @@ namespace QFramework
         {
             if (mIsDownloading)
             {
-                Log.e("HttpDownloaderMgr is busy!");
+                Log.E("HttpDownloaderMgr is busy!");
                 return false;
             }
 
             if (string.IsNullOrEmpty(uri) == true)
             {
-                Log.e("uri is empty");
+                Log.E("uri is empty");
                 return false;
             }
 
             if (string.IsNullOrEmpty(localPath) == true)
             {
-                Log.e("LocalPath is empty");
+                Log.E("LocalPath is empty");
                 return false;
             }
 
             if (onError == null || onFinshed == null)
             {
-                Log.e("onError & onFinshed should not be null!");
+                Log.E("onError & onFinshed should not be null!");
                 return false;
             }
 
@@ -132,7 +132,7 @@ namespace QFramework
 
             mTaskCount++;
 
-            Log.i("[HttpDownload]about to download new data:" + m_Uri);
+            Log.I("[HttpDownload]about to download new data:" + m_Uri);
 
             return true;
         }
@@ -187,7 +187,7 @@ namespace QFramework
 
             if (downloadEvent == DownloadEvent.Error)
             {
-                Log.e(errorMsg);
+                Log.E(errorMsg);
 
                 mIsDownloading = false;
 
@@ -305,14 +305,14 @@ namespace QFramework
                     {
                         mStartPosition -= 1;
                     }
-                    Log.i("exist tmp file:" + mTmpFile + ", m_StartPosition:" + mStartPosition + ", IsAsync:" + mFileStream.IsAsync);
+                    Log.I("exist tmp file:" + mTmpFile + ", m_StartPosition:" + mStartPosition + ", IsAsync:" + mFileStream.IsAsync);
                     mFileStream.Seek(mStartPosition, System.IO.SeekOrigin.Current); //移动文件流中的当前指针 
                 }
                 else
                 {
                     mFileStream = new FileStream(mTmpFile, FileMode.Create);
                     mStartPosition = 0;
-                    Log.i("NOT exist tmp file:" + mTmpFile + ", IsAsync:" + mFileStream.IsAsync);
+                    Log.I("NOT exist tmp file:" + mTmpFile + ", IsAsync:" + mFileStream.IsAsync);
                 }
             }
             catch (Exception exception)
@@ -321,7 +321,7 @@ namespace QFramework
                 {
                     mFileStream.Close();
                 }
-                Log.e("CheckLocalFile error:" + exception.Message);
+                Log.E("CheckLocalFile error:" + exception.Message);
             }
         }
 
@@ -335,14 +335,14 @@ namespace QFramework
                 return;
             }
 
-            Log.i("[HttpDownload]connect responed.");
+            Log.I("[HttpDownload]connect responed.");
 
             try
             {
                 mWriteResponse = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
                 if ((int)mWriteResponse.StatusCode >= 300)
                 {
-                    Log.e("StatusCode=" + mWriteResponse.StatusCode + ", desc=" + mWriteResponse.StatusDescription);
+                    Log.E("StatusCode=" + mWriteResponse.StatusCode + ", desc=" + mWriteResponse.StatusDescription);
 
                     HandleError(mWriteResponse.StatusDescription);
 
@@ -445,7 +445,7 @@ namespace QFramework
                         File.Delete(m_SaveFile);
                     }
                     File.Move(mTmpFile, m_SaveFile);
-                    Log.i("Finished!! fileLength:" + mFileLength + ",Download byte:" + mCurrentDownloadByte);
+                    Log.I("Finished!! fileLength:" + mFileLength + ",Download byte:" + mCurrentDownloadByte);
 
                     // 进度回调
                     lock (mEvent)

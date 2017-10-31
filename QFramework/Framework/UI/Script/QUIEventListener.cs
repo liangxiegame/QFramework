@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
@@ -13,21 +13,21 @@ namespace QFramework
 	public class QUIEventListener : EventTrigger
 	{
 		// TODO: refactor proper name
-		public QVoidDelegate.WithVoid onClick;
+		public System.Action onClick;
 	
-		public QVoidDelegate.WithGo onSelect;
-		public QVoidDelegate.WithGo onUpdateSelect;
+		public System.Action<GameObject> onSelect;
+		public System.Action<GameObject> onUpdateSelect;
 
-		public QVoidDelegate.WithEvent onPointerDown;
-		public QVoidDelegate.WithEvent onPointerEnter;
-		public QVoidDelegate.WithEvent onPointerExit;
-		public QVoidDelegate.WithEvent onPointerUp;
+		public System.Action<BaseEventData> onPointerDown;
+		public System.Action<BaseEventData> onPointerEnter;
+		public System.Action<BaseEventData> onPointerExit;
+		public System.Action<BaseEventData> onPointerUp;
 
-		public QVoidDelegate.WithEvent onBeginDrag;
-		public QVoidDelegate.WithEvent onEndDrag;
-		public QVoidDelegate.WithEvent onDrag;
+		public System.Action<BaseEventData> onBeginDrag;
+		public System.Action<BaseEventData> onEndDrag;
+		public System.Action<BaseEventData> onDrag;
 
-		public QVoidDelegate.WithBool onValueChanged;
+		public System.Action<bool> onValueChanged;
 
 		public static QUIEventListener CheckAndAddListener(GameObject go)
 		{

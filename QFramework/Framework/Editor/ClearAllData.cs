@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Editor
+namespace QFramework
 {
     using UnityEngine;
     using UnityEditor;

@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     public class AssetDataGroup
     {
@@ -149,7 +149,7 @@ namespace QFramework.ResSystem
                     return i;
                 }
             }
-            Log.w("Failed Find AssetBundleIndex By Name:" + name);
+            Log.W("Failed Find AssetBundleIndex By Name:" + name);
             return -1;
         }
 
@@ -266,7 +266,7 @@ namespace QFramework.ResSystem
 
                 try
                 {
-                    Log.e("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.AssetName,
+                    Log.E("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.AssetName,
                         mABUnitArray[old.AssetBundleIndex].abName, mABUnitArray[data.AssetBundleIndex].abName);
                 }
                 catch (Exception e)
@@ -283,7 +283,7 @@ namespace QFramework.ResSystem
             {
                 AssetData old = GetAssetData(data.AssetName, data.OwnerBundleName);
 
-                Log.e("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
+                Log.E("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
                     mABUnitArray[old.AssetBundleIndex].abName, mABUnitArray[data.AssetBundleIndex].abName);
             }
             else
@@ -299,7 +299,7 @@ namespace QFramework.ResSystem
 
             if (data == null)
             {
-                Log.e("Failed Deserialize AssetDataTable:" + path);
+                Log.E("Failed Deserialize AssetDataTable:" + path);
                 return;
             }
 
@@ -307,7 +307,7 @@ namespace QFramework.ResSystem
 
             if (sd == null)
             {
-                Log.e("Failed Load AssetDataTable:" + path);
+                Log.E("Failed Load AssetDataTable:" + path);
                 return;
             }
 
@@ -356,11 +356,11 @@ namespace QFramework.ResSystem
 
             if (SerializeHelper.SerializeBinary(outPath, sd))
             {
-                Log.i("Success Save AssetDataTable:" + outPath);
+                Log.I("Success Save AssetDataTable:" + outPath);
             }
             else
             {
-                Log.e("Failed Save AssetDataTable:" + outPath);
+                Log.E("Failed Save AssetDataTable:" + outPath);
             }
         }
 
@@ -392,7 +392,7 @@ namespace QFramework.ResSystem
 
             builder.AppendLine("#DUMP AssetDataGroup END");
 
-//            Log.i(builder.ToString());
+//            Log.I(builder.ToString());
         }
 
         private void SetSerizlizeData(SerializeData data)

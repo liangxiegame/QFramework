@@ -28,7 +28,6 @@
 namespace QFramework
 {
 	using UnityEngine.Events;
-	using Core;
 	
 	/// <summary>
 	/// 全局唯一继承于MonoBehaviour的单例类，保证其他公共模块都以App的生命周期为准

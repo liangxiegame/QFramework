@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
@@ -6,8 +6,7 @@ namespace QFramework
 {
     using System;
     using UnityEngine;
-    using ResSystem;
-    
+        
     public class AudioUnit : IPoolAble, IPoolType
     {
         private ResLoader mLoader;
@@ -170,7 +169,7 @@ namespace QFramework
 
             if (mAudioClip == null)
             {
-                Log.e("Asset Is Invalid AudioClip:" + mName);
+                Log.E("Asset Is Invalid AudioClip:" + mName);
                 Release();
                 return;
             }

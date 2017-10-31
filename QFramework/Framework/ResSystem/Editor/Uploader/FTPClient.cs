@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 wanzhenyu@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -30,7 +30,7 @@ using System.Net;
 using System.IO;
 using System;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	class FTPClient : IFTPInterface
 	{

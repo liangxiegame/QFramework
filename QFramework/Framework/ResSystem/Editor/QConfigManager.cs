@@ -1,11 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using System.Xml;
 using System.IO;
 using System.Collections.Generic;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public class QConfigManager
 	{

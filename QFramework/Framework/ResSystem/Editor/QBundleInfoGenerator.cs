@@ -1,11 +1,11 @@
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.IO;
 using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public  class QBundleInfoGenerator
 	{

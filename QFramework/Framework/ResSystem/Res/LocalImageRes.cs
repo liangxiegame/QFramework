@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -31,8 +31,7 @@ namespace QFramework
     using UnityEngine;
     using System.Collections;
     using System.IO;
-    using ResSystem;
-
+    
     public static class LocalImageResUtil
     {
         public static string ToLocalImageResName(this string selfFilePath)
@@ -217,7 +216,7 @@ namespace QFramework
 
 //            if (www.error != null)
 //            {
-//                Log.e(string.Format("Res:{0}, WWW Errors:{1}", mFullPath, www.error));
+//                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mFullPath, www.error));
 //                OnResLoadFaild();
 //                finishCallback();
 //                yield break;
@@ -225,7 +224,7 @@ namespace QFramework
 
 //            if (!www.isDone)
 //            {
-//                Log.e("LocalImageRes WWW Not Done! Url:" + mFullPath);
+//                Log.E("LocalImageRes WWW Not Done! Url:" + mFullPath);
 //                OnResLoadFaild();
 //                finishCallback();
 
@@ -286,7 +285,7 @@ namespace QFramework
             yield return www;
             if (www.error != null)
             {
-                Log.e("WWW Error:" + www.error);
+                Log.E("WWW Error:" + www.error);
                 OnResLoadFaild();
                 finishCallback();
                 yield break;
@@ -294,7 +293,7 @@ namespace QFramework
 
             if (!www.isDone)
             {
-                Log.e("NetImageRes WWW Not Done! Url:" + m_Url);
+                Log.E("NetImageRes WWW Not Done! Url:" + m_Url);
                 OnResLoadFaild();
                 finishCallback();
 

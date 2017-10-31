@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -28,15 +28,14 @@
 
 namespace QFramework
 {
-    using ResSystem;
-    
+        
     public class ResFactory
     {
         private delegate IRes ResCreator(string name);
 
         static ResFactory()
         {
-            Log.i("Init[ResFactory]");
+            Log.I("Init[ResFactory]");
             SafeObjectPool<AssetBundleRes>.Instance.MaxCacheCount = 20;
             SafeObjectPool<AssetRes>.Instance.MaxCacheCount = 40;
             SafeObjectPool<InternalRes>.Instance.MaxCacheCount = 40;
@@ -59,7 +58,7 @@ namespace QFramework
                 AssetData data = AssetDataTable.Instance.GetAssetData(assetName,ownerBundleName);
                 if (data == null)
                 {
-                    Log.e("Failed to Create Res. Not Find AssetData:" + ownerBundleName + assetName );
+                    Log.E("Failed to Create Res. Not Find AssetData:" + ownerBundleName + assetName );
                     return null;
                 }
                 else
@@ -88,7 +87,7 @@ namespace QFramework
                 case ResType.LocalImageRes:
                     return LocalImageRes.Allocate(assetName);
                 default:
-                    Log.e("Invalid assetType :" + assetType);
+                    Log.E("Invalid assetType :" + assetType);
                     return null;
             }
         }
@@ -114,7 +113,7 @@ namespace QFramework
                 AssetData data = AssetDataTable.Instance.GetAssetData(assetName);
                 if (data == null)
                 {
-                    Log.e("Failed to Create Res. Not Find AssetData:" + assetName);
+                    Log.E("Failed to Create Res. Not Find AssetData:" + assetName);
                     return null;
                 }
                 else
@@ -143,7 +142,7 @@ namespace QFramework
                 case ResType.LocalImageRes:
                     return LocalImageRes.Allocate(assetName);
                 default:
-                    Log.e("Invalid assetType :" + assetType);
+                    Log.E("Invalid assetType :" + assetType);
                     return null;
             }
         }

@@ -1,19 +1,19 @@
-
+﻿
 
 using UnityEditor;
 
 using System.Collections.Generic;
 using System.IO;
-using QFramework.Libs;
-using QFramework.Libs.Editor;
+using QFramework;
+using QFramework;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     public class AssetBundleExporter
     {
 		public static void BuildDataTable()
 		{
-			Log.i("Start BuildAssetDataTable!");
+			Log.I("Start BuildAssetDataTable!");
 			AssetDataTable table = AssetDataTable.Create();
 
 			ProcessAssetBundleRes(table);
@@ -32,12 +32,12 @@ namespace QFramework.ResSystem
             string selectPath = EditorUtils.GetSelectedDirAssetsPath();
             if (selectPath == null)
             {
-                Log.w("Not Select Any Folder!");
+                Log.W("Not Select Any Folder!");
                 return;
             }
 
             AutoGenAssetNameInFolder(selectPath, true);
-            Log.i("Finish GenAssetNameAsFolderName.");
+            Log.I("Finish GenAssetNameAsFolderName.");
         }
 
         //自动设置选中目录下的AssetBundle Name
@@ -46,14 +46,14 @@ namespace QFramework.ResSystem
             string selectPath = EditorUtils.GetSelectedDirAssetsPath();
             if (selectPath == null)
             {
-                Log.w("Not Select Any Folder!");
+                Log.W("Not Select Any Folder!");
                 return;
             }
 
             AutoGenAssetNameInFolder(selectPath, false);
 
             AssetDatabase.SaveAssets();
-            Log.i("Finish GenAssetNameAsFileName.");
+            Log.I("Finish GenAssetNameAsFileName.");
         }
 
         /// <summary>
@@ -64,11 +64,11 @@ namespace QFramework.ResSystem
         {
             if (folderPath == null)
             {
-                Log.w("Folder Path Is Null!");
+                Log.W("Folder Path Is Null!");
                 return;
             }
 
-            Log.i("Start Set Asset Name. Folder:" + folderPath);
+            Log.I("Start Set Asset Name. Folder:" + folderPath);
             string workPath = EditorUtils.AssetsPath2ABSPath(folderPath); //EditUtils.GetFullPath4AssetsPath(folderPath);
             string assetBundleName = EditorUtils.AssetPath2ReltivePath(folderPath).ToLower(); //EditUtils.GetReltivePath4AssetPath(folderPath).ToLower();
             assetBundleName = assetBundleName.Replace("resources/", "");
@@ -88,7 +88,7 @@ namespace QFramework.ResSystem
                 AssetImporter ai = AssetImporter.GetAtPath(fullFileName);
                 if (ai == null)
                 {
-                    Log.e("Not Find Asset:" + fullFileName);
+                    Log.E("Not Find Asset:" + fullFileName);
                     return;
                 }
                 else
@@ -104,7 +104,7 @@ namespace QFramework.ResSystem
                 }
                 
                 //ai.SaveAndReimport();
-                //Log.i("Success Process Asset:" + fileName);
+                //Log.I("Success Process Asset:" + fileName);
             }
 
             //递归处理文件夹
@@ -125,7 +125,7 @@ namespace QFramework.ResSystem
             string selectPath = EditorUtils.GetSelectedDirAssetsPath();//.CurrentSelectFolder;
             if (selectPath == null)
             {
-                Log.w("Not Select Any Folder!");
+                Log.W("Not Select Any Folder!");
                 return;
             }
 
@@ -136,11 +136,11 @@ namespace QFramework.ResSystem
         {
             if (folderPath == null)
             {
-                Log.w("Folder Path Is Null.");
+                Log.W("Folder Path Is Null.");
                 return;
             }
 
-            Log.i("Start Build AssetBundle:" + folderPath);
+            Log.I("Start Build AssetBundle:" + folderPath);
             string fullFolderPath = EditorUtils.AssetsPath2ABSPath(folderPath);//EditUtils.GetFullPath4AssetsPath(folderPath);
             string assetBundleName = EditorUtils.AssetPath2ReltivePath(folderPath);// EditUtils.GetReltivePath4AssetPath(folderPath);
             var filePaths = Directory.GetFiles(fullFolderPath);
@@ -164,7 +164,7 @@ namespace QFramework.ResSystem
 
             if (fileNameList.Count <= 0)
             {
-                Log.w("Not Find Asset In Folder:" + folderPath);
+                Log.W("Not Find Asset In Folder:" + folderPath);
                 return;
             }
 

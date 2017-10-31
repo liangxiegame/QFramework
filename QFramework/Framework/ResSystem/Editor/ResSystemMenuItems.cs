@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 wanzhenyu@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -28,7 +28,7 @@
 
 using UnityEditor;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public class ResSystemMenuItems
 	{

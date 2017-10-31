@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
@@ -84,7 +84,7 @@ namespace QFramework
 
             if (GetActorComponent(actorComponent.GetType()) != null)
             {
-                Log.w("Already Add Component:" + name);
+                Log.W("Already Add Component:" + name);
                 return;
             }
 

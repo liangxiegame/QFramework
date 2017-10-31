@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxieq
  * 
  * https://github.com/UniPM/UniPM
@@ -48,10 +48,10 @@
 namespace UniPM
 {
     using UnityEngine;
-    using UniRx;
+    using QFramework;
     using System;
     using System.Collections.Generic;
-    using QFramework.Libs;
+    using QFramework;
     using QFramework;
 
     [System.Serializable]

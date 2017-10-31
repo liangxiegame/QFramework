@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QFramework</RootNamespace>
-    <AssemblyName>QFramework.Core.CSharp</AssemblyName>
+    <AssemblyName>Core.CSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Output</OutputPath>
+    <OutputPath>..\..\Output\Core\CSharp</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,7 +45,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Output</OutputPath>
+    <OutputPath>..\..\Output\Core\CSharp</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSharp\Utils\Caching\Pool\.DS_Store" />
-    <Content Include="CSharp\Utils\CodeGeneration\.DS_Store" />
     <Content Include="CSharp\Utils\DataStructure\.DS_Store" />
     <Content Include="CSharp\Utils\DataStructure\List\.DS_Store" />
     <Content Include="CSharp\Utils\DataStructure\List\Test\.DS_Store" />
@@ -203,7 +202,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CSharp\Utils\Design\Subject" />
-    <Folder Include="CSharp\Rx\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

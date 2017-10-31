@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using QFramework;
 using System.Text;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
-    using Core;
+    
     
     public class AssetDataTable : QSingleton<AssetDataTable>
     {
@@ -46,7 +46,7 @@ namespace QFramework.ResSystem
                 }
 
             }
-            Log.i("AssetDataTable Switch 2 Language:" + key);
+            Log.I("AssetDataTable Switch 2 Language:" + key);
         }
 
         public static AssetDataTable Create()
@@ -90,7 +90,7 @@ namespace QFramework.ResSystem
             if (group == null)
             {
                 group = new AssetDataGroup(key);
-                Log.i("#Create Config Group:" + key);
+                Log.I("#Create Config Group:" + key);
                 m_AllAssetDataGroup.Add(group);
             }
 
@@ -114,7 +114,7 @@ namespace QFramework.ResSystem
 
                 return result;
             }
-            Log.w(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
+            Log.W(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
             return null;
         }
 
@@ -147,7 +147,7 @@ namespace QFramework.ResSystem
                 }
                 return result;
             }
-            //Log.w(string.Format("Not Find Asset : {0}", assetName));
+            //Log.W(string.Format("Not Find Asset : {0}", assetName));
             return null;
         }
 
@@ -162,7 +162,7 @@ namespace QFramework.ResSystem
                 }
                 return result;
             }
-            //Log.w(string.Format("Not Find Asset : {0}", assetName));
+            //Log.W(string.Format("Not Find Asset : {0}", assetName));
             return null;
         }
 
@@ -171,7 +171,7 @@ namespace QFramework.ResSystem
             var group = GetAssetDataGroup(key);
             if (group == null)
             {
-                Log.e("Not Find Group:" + key);
+                Log.E("Not Find Group:" + key);
                 return false;
             }
             return group.AddAssetData(data);
@@ -183,7 +183,7 @@ namespace QFramework.ResSystem
 
             if (data == null)
             {
-                Log.e("Failed Deserialize AssetDataTable:" + path);
+                Log.E("Failed Deserialize AssetDataTable:" + path);
                 return;
             }
 
@@ -191,11 +191,11 @@ namespace QFramework.ResSystem
 
             if (sd == null)
             {
-                Log.e("Failed Load AssetDataTable:" + path);
+                Log.E("Failed Load AssetDataTable:" + path);
                 return;
             }
 
-            Log.i("Load AssetConfig From File:" + path);
+            Log.I("Load AssetConfig From File:" + path);
             SetSerizlizeData(sd);
         }
 
@@ -212,11 +212,11 @@ namespace QFramework.ResSystem
 
             if (SerializeHelper.SerializeBinary(outPath, sd))
             {
-                Log.i("Success Save AssetDataTable:" + outPath);
+                Log.I("Success Save AssetDataTable:" + outPath);
             }
             else
             {
-                Log.e("Failed Save AssetDataTable:" + outPath);
+                Log.E("Failed Save AssetDataTable:" + outPath);
             }
         }
 
@@ -224,14 +224,14 @@ namespace QFramework.ResSystem
         {
             //StringBuilder builder = new StringBuilder();
 
-            Log.i("#DUMP AssetDataTable BEGIN");
+            Log.I("#DUMP AssetDataTable BEGIN");
 
             for (int i = 0; i < m_AllAssetDataGroup.Count; ++i)
             {
                 m_AllAssetDataGroup[i].Dump();
             }
 
-            Log.i("#DUMP AssetDataTable END");
+            Log.I("#DUMP AssetDataTable END");
         }
 
         private void SetSerizlizeData(SerializeData data)
@@ -283,7 +283,7 @@ namespace QFramework.ResSystem
                 pIndex = name.IndexOf('/');
                 if (pIndex < 0)
                 {
-                    Log.w("Not Valid AB Path:" + name);
+                    Log.W("Not Valid AB Path:" + name);
                     return null;
                 }
 

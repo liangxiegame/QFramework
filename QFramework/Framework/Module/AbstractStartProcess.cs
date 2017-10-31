@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
@@ -62,7 +62,7 @@ namespace QFramework
 
         protected virtual void OnAllExecuteNodeEnd()
         {
-            Log.i("#BaseStartProcess: OnAllExecuteNodeEnd");
+            Log.I("#BaseStartProcess: OnAllExecuteNodeEnd");
             mSequenceNode.OnEndedCallback -= OnAllExecuteNodeEnd;
             mSequenceNode.Dispose();
             mSequenceNode = null;

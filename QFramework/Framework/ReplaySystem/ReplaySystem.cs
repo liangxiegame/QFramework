@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  *
  * 参考:https://github.com/IronWarrior/UnityReplaySystem
@@ -27,12 +27,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Runtime.CompilerServices;
-
 namespace QFramework
 {
     using System;
-    using UniRx;
     using UnityEngine;
 
 

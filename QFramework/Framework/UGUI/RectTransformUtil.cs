@@ -63,7 +63,7 @@ namespace QFramework
 		{
 			//if (null == camera)
 				//camera = QUIManager.Instance.RootCanvas.worldCamera;
-			return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(), camera);
+			return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera), camera);
 		}
 
 		public static UnityEngine.Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)

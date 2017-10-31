@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,13 +26,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	using System;
 	using UnityEngine;
 	using System.Collections;
-    using ResSystem;
-	
+    	
     public class AssetRes : BaseRes
     {
         protected string[]            mAssetBundleArray;
@@ -102,7 +101,7 @@ namespace QFramework.ResSystem
 
 	        if (abR == null || abR.assetBundle == null)
             {
-                Log.e("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
+                Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
                 return false;
             }
 
@@ -122,7 +121,7 @@ namespace QFramework.ResSystem
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName,"assetbundlemanifest")) {
 				string[] assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName (abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0) {
-					Log.e("Failed Load Asset:" + mAssetName);
+					Log.E("Failed Load Asset:" + mAssetName);
 					OnResLoadFaild();
 					return false;
 				}
@@ -141,7 +140,7 @@ namespace QFramework.ResSystem
 
             if (obj == null)
             {
-                Log.e("Failed Load Asset:" + mAssetName);
+                Log.E("Failed Load Asset:" + mAssetName);
                 OnResLoadFaild();
                 return false;
             }
@@ -149,7 +148,7 @@ namespace QFramework.ResSystem
             mAsset = obj;
 
             State = ResState.Ready;
-            //Log.i(string.Format("Load AssetBundle Success.ID:{0}, Name:{1}", mAsset.GetInstanceID(), mName));
+            //Log.I(string.Format("Load AssetBundle Success.ID:{0}, Name:{1}", mAsset.GetInstanceID(), mName));
 
             //timer.Dump(-1);
             return true;
@@ -185,7 +184,7 @@ namespace QFramework.ResSystem
 
             if (abR == null || abR.assetBundle == null)
             {
-                Log.e("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
+                Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
                 OnResLoadFaild();
                 finishCallback();
                 yield break;
@@ -199,7 +198,7 @@ namespace QFramework.ResSystem
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName,"assetbundlemanifest")) {
 				string[] assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName (abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0) {
-					Log.e("Failed Load Asset:" + mAssetName);
+					Log.E("Failed Load Asset:" + mAssetName);
 					OnResLoadFaild();
 					finishCallback();
 					yield break;
@@ -220,7 +219,7 @@ namespace QFramework.ResSystem
 
 				if (!abQ.isDone)
 				{
-					Log.e("Failed Load Asset:" + mAssetName);
+					Log.E("Failed Load Asset:" + mAssetName);
 					OnResLoadFaild();
 					finishCallback();
 					yield break;
@@ -269,7 +268,7 @@ namespace QFramework.ResSystem
 
 			if (config == null)
 			{
-				Log.e("Not Find AssetData For Asset:" + mAssetName);
+				Log.E("Not Find AssetData For Asset:" + mAssetName);
 				return;
 			}
 
@@ -277,7 +276,7 @@ namespace QFramework.ResSystem
 
 			if (string.IsNullOrEmpty(assetBundleName))
 			{
-				Log.e("Not Find AssetBundle In Config:" + config.AssetBundleIndex);
+				Log.E("Not Find AssetBundle In Config:" + config.AssetBundleIndex);
 				return;
 			}
 			mAssetBundleArray = new string[1];

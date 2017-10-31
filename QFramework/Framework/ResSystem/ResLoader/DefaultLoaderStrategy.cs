@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -28,8 +28,7 @@
 
 namespace QFramework
 {
-    using ResSystem;
-    
+        
     public class DefaultLoaderStrategy : IResLoaderStrategy
     {
         public void OnAllTaskFinish(IResLoader loader)

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -28,7 +28,6 @@
 
 namespace QFramework
 {
-    using Core;
     using System.Collections.Generic;
 
     public interface IDownloadTask
@@ -177,7 +176,7 @@ namespace QFramework
                 return;
             }
 
-            Log.i("ResDownloader: Downloading Error:" + errorMsg);
+            Log.I("ResDownloader: Downloading Error:" + errorMsg);
             RemoveTask(mDownloadingTask);
             mDownloadingTask.OnDownLoadResult(false);
             mDownloadingTask = null;
@@ -189,20 +188,20 @@ namespace QFramework
         {
             if (mDownloadingTask == null)
             {
-                Log.e("ResDownloader: Error, Current Res Begin Download Is Null...");
+                Log.E("ResDownloader: Error, Current Res Begin Download Is Null...");
                 TryStartNextTask();
                 return;
             }
 
             if (fileName != mDownloadingTask.LocalResPath)
             {
-                Log.e("ResDownloader: Error, Not Current Res Begin Download...");
+                Log.E("ResDownloader: Error, Not Current Res Begin Download...");
                 mDownloadingTask = null;
                 TryStartNextTask();
                 return;
             }
 
-            Log.i("ResDownloader: Downloading Success:" + fileName);
+            Log.I("ResDownloader: Downloading Success:" + fileName);
             RemoveTask(mDownloadingTask);
 
             mDownloadingTask.OnDownLoadResult(true);

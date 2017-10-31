@@ -6,7 +6,7 @@ using UnityEngine;
 using System.IO;
 using UnityEditor;
 
-namespace QFramework.Editor
+namespace QFramework
 {
     public class IOPathEditor
     {

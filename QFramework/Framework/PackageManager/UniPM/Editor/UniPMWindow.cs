@@ -45,15 +45,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework.Libs;
-
-namespace UniPM
+namespace QFramework
 {
 	using UnityEditor;
 	using UnityEngine;
 	using System.IO;
-	using UniRx;
-	using QFramework;
 
 	/// <summary>
 	///  TODO: 交互优化:
@@ -67,8 +63,6 @@ namespace UniPM
 		[MenuItem("UniPM/Open")]
 		static void Open()
 		{
-
-
 			PackageManagerConfig.GetRemote(config =>
 			{
 				UniPMWindow frameworkConfigEditorWindow = (UniPMWindow) GetWindow(typeof(UniPMWindow), true);

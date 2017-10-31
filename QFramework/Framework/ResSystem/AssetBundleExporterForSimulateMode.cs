@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -27,15 +27,15 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
-using QFramework.Libs;
+using QFramework;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     public class AssetBundleExporterForSimulateMode
     {
 		public static void BuildDataTable()
 		{
-			Log.i("Start BuildAssetDataTable!");
+			Log.I("Start BuildAssetDataTable!");
 			AssetDataTable table = AssetDataTable.Create();
 
 			ProcessAssetBundleRes(table);

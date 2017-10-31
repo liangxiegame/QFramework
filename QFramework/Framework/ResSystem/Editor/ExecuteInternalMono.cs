@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.Text.RegularExpressions;
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	class MonoInstallationFinder
 	{

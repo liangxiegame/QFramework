@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     using System;
     using System.Collections;
@@ -300,7 +300,7 @@ namespace QFramework.ResSystem
                 return true;
             }
 
-            //Log.i("Release Res:" + mName);
+            //Log.I("Release Res:" + mName);
 
             OnReleaseRes();
 

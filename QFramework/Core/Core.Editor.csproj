@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QFramework</RootNamespace>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>Core.Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -18,63 +18,49 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\QFramework\Debug</OutputPath>
+    <OutputPath>..\..\Output\Editor</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
-    <CustomCommands>
-      <CustomCommands>
-        <Command>
-          <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/obj </command>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>rm ${SolutionDir}/../Assets/${TargetName}  </command>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>cp ${TargetFile} ${SolutionDir}/../Assets/</command>
-        </Command>
-      </CustomCommands>
-    </CustomCommands>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\QFramework\Release</OutputPath>
+    <OutputPath>..\..\Output\Editor</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <HintPath>Libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="Core.Unity">
+      <HintPath>..\..\Output\Core\Unity\Core.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
-      <HintPath>CSharp\Libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\Output\Core\Unity\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson, Version=0.5.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>CSharp\Libs\LitJson.dll</HintPath>
+    <Reference Include="LitJson">
+      <HintPath>..\..\Output\Core\Unity\LitJson.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>CSharp\Libs\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Output\Core\Unity\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ProtobufNet, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>CSharp\Libs\ProtobufNet.dll</HintPath>
+    <Reference Include="ProtobufNet">
+      <HintPath>..\..\Output\Core\Unity\ProtobufNet.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>Unity\Libs\UnityEngine.dll</HintPath>
+    <Reference Include="QFramework.Core.CSharp">
+      <HintPath>..\..\Output\Core\Unity\QFramework.Core.CSharp.dll</HintPath>
     </Reference>
-    <Reference Include="zxing.unity, Version=0.14.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>CSharp\Libs\zxing.unity.dll</HintPath>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\Output\Core\Unity\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\Output\Core\Unity\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>..\..\Output\Core\Unity\zxing.unity.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Editor\Libs\nunit.framework.dll</HintPath>
@@ -82,6 +68,7 @@
     <Reference Include="UnityEditor">
       <HintPath>Editor\Libs\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test\Editor\EditorFileUtilsTest.cs" />
@@ -92,12 +79,54 @@
     <Compile Include="Test\Editor\IOPathEditor.cs" />
     <Compile Include="Test\Editor\PathConfig.cs" />
     <Compile Include="Test\Editor\SaveDataFormatEditor.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Test\Editor.meta" />
-    <Content Include="Test\Editor\EditorFileUtilsTest.cs.meta" />
-    <Content Include="Test\Editor\FilePathTest.cs.meta" />
-    <Content Include="Test\Editor\PathHelperTest.cs.meta" />
+    <Compile Include="Editor\CodeGenerator\Editor\QCodeGenerator.cs">
+      <Link>CodeGenerator\Editor\QCodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="Editor\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\Button.cs">
+      <Link>EasyEditor\UI\Button.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\EditorView.cs">
+      <Link>EasyEditor\UI\EditorView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\FlexibaleSpaceView.cs">
+      <Link>EasyEditor\UI\FlexibaleSpaceView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\HorizontalView.cs">
+      <Link>EasyEditor\UI\HorizontalView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\IEditorView.cs">
+      <Link>EasyEditor\UI\IEditorView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\LableView.cs">
+      <Link>EasyEditor\UI\LableView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\QEditorWindow.cs">
+      <Link>EasyEditor\UI\QEditorWindow.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\ScrollView.cs">
+      <Link>EasyEditor\UI\ScrollView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\SpaceView.cs">
+      <Link>EasyEditor\UI\SpaceView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\UI\VerticalView.cs">
+      <Link>EasyEditor\UI\VerticalView.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\Utils\AssetLabelHelper.cs">
+      <Link>EasyEditor\Utils\AssetLabelHelper.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\Utils\EditorGUIUtils.cs">
+      <Link>EasyEditor\Utils\EditorGUIUtils.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\Utils\EditorUtils.cs">
+      <Link>EasyEditor\Utils\EditorUtils.cs</Link>
+    </Compile>
+    <Compile Include="Editor\EasyEditor\Utils\MouseSelector.cs">
+      <Link>EasyEditor\Utils\MouseSelector.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

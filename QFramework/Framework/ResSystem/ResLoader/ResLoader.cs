@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     using System;
     using UnityEngine;
@@ -151,7 +151,7 @@ namespace QFramework.ResSystem
         {
             if (string.IsNullOrEmpty(ownerBundle) || string.IsNullOrEmpty(assetName))
             {
-                Log.e("Res Name Or Bundle Name Is Null.");
+                Log.E("Res Name Or Bundle Name Is Null.");
                 return;
             }
 
@@ -198,7 +198,7 @@ namespace QFramework.ResSystem
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                Log.e("Res Name Is Null.");
+                Log.E("Res Name Is Null.");
                 return;
             }
 
@@ -275,7 +275,7 @@ namespace QFramework.ResSystem
             IRes res = ResMgr.Instance.GetRes(ownerBundle.ToLower(),assetName.ToLower(), false);
             if (res == null)
             {
-                Log.e("Failed to Load Res:" + ownerBundle + assetName);
+                Log.E("Failed to Load Res:" + ownerBundle + assetName);
                 return null;
             }
             return res.Asset as T;
@@ -294,7 +294,7 @@ namespace QFramework.ResSystem
             IRes res = ResMgr.Instance.GetRes(name, false);
             if (res == null)
             {
-                Log.e("Failed to Load Res:" + name);
+                Log.E("Failed to Load Res:" + name);
                 return null;
             }
 
@@ -479,7 +479,7 @@ namespace QFramework.ResSystem
         {
             for (int i = 0; i < mResArray.Count; ++i)
             {
-                Log.i(mResArray[i].AssetName);
+                Log.I(mResArray[i].AssetName);
             }
         }
 

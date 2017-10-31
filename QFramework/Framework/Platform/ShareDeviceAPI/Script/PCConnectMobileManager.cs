@@ -27,7 +27,6 @@
 
 namespace QFramework
 {
-    using Core;
     using System;
 
     public enum PCConnectMobileEvent

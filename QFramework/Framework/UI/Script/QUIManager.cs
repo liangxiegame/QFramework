@@ -1,11 +1,10 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun@putao.com
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
 namespace QFramework
 {
-	using Core;
 	using UnityEngine;
 	using System.Collections.Generic;
 	using UnityEngine.UI;
@@ -52,7 +51,7 @@ namespace QFramework
 
 		public void OnSingletonInit()
 		{
-			Log.i("QUIManager Init");
+			Log.I("QUIManager Init");
 		}
 
 		private static QUIManager mInstance;
@@ -128,7 +127,7 @@ namespace QFramework
 			IUIBehaviour ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
-				Log.w("{0}: already exist", uiBehaviourName);
+				Log.W("{0}: already exist", uiBehaviourName);
 				// 直接返回,不要再调一次Init(),Init()应该只能调用一次
 				return ui.Transform.gameObject;
 			}
@@ -296,14 +295,14 @@ namespace QFramework
 			IUIBehaviour ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
-				Log.w("{0}: already exist", uiBehaviourName);
+				Log.W("{0}: already exist", uiBehaviourName);
 				return ui;
 			}
 			GameObject uiObj = CreateUIObj(uiBehaviourName, (int) level);
 
 			ui = uiObj.GetComponent<IUIBehaviour>();
 
-			Log.i("QUIManager {0} Load Success", ui.Transform.name);
+			Log.I("QUIManager {0} Load Success", ui.Transform.name);
 
 			mAllUI.Add(uiBehaviourName, ui);
 

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
     using System;
     using UnityEngine;
@@ -103,7 +103,7 @@ namespace QFramework.ResSystem
 
             if (bundle == null)
             {
-                Log.e("Failed Load AssetBundle:" + mAssetName);
+                Log.E("Failed Load AssetBundle:" + mAssetName);
                 OnResLoadFaild();
                 return false;
             }
@@ -111,7 +111,7 @@ namespace QFramework.ResSystem
             assetBundle = bundle;
             State = ResState.Ready;
 
-            //Log.i(string.Format("Load AssetBundle Success.ID:{0}, Name:{1}", bundle.GetInstanceID(), bundle.name));
+            //Log.I(string.Format("Load AssetBundle Success.ID:{0}, Name:{1}", bundle.GetInstanceID(), bundle.name));
 
             //timer.Dump(-1);
             return true;
@@ -148,7 +148,7 @@ namespace QFramework.ResSystem
 
             if (!abcR.isDone)
             {
-                Log.e("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
+                Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
                 OnResLoadFaild();
                 finishCallback();
                 yield break;

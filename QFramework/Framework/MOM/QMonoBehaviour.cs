@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
@@ -56,7 +56,7 @@ namespace QFramework
 		public virtual void Show()
 		{
 			gameObject.SetActive (true);
-			Log.i("On Show:{0}",name);
+			Log.I("On Show:{0}",name);
 
 			OnShow ();
 		}
@@ -68,7 +68,7 @@ namespace QFramework
 			OnHide ();
 
 			gameObject.SetActive (false);
-			Log.i("On Hide:{0}",name);
+			Log.I("On Hide:{0}",name);
 		}
 
 		protected virtual void OnHide() {}

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 wanzhenyu@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -32,7 +32,7 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public class QResSystemUploader : LoomEditorWindow
 	{

@@ -45,11 +45,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace UniPM
+namespace QFramework
 {
-    using UnityEngine;
-    using QFramework;
-    
     public class UIFactory
     {
         public static LabelView CreateTitleLabel(string text)

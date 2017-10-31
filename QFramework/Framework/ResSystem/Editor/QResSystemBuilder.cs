@@ -25,11 +25,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	using UnityEngine;
 	using UnityEditor;
-	using Libs;
 	
 	public class QResSystemBuilder : EditorWindow
 	{

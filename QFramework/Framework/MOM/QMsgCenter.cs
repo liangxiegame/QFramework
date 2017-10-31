@@ -6,9 +6,8 @@
 namespace QFramework
 {
 	using UnityEngine;
-    using Core;
 
-	[QMonoSingletonAttribute("[Event]/QMsgCenter")]
+	[QMonoSingletonPath("[Event]/QMsgCenter")]
 	public partial class QMsgCenter : MonoBehaviour, ISingleton
 	{
 		public static QMsgCenter Instance

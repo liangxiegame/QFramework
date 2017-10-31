@@ -1,22 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
-using UnityEditor.Callbacks;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using System.Net.Sockets;
 using System.Xml;
 
 using System;
-using System.Text;
 using System.Security.Cryptography;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Linq;
-using QFramework;
-using QFramework.Libs;
 
-namespace QFramework.ResSystem
+namespace QFramework
 {
 	public class AssetBundleInfo
 	{
@@ -276,12 +269,12 @@ namespace QFramework.ResSystem
 
 			if (QResSystemBuilder.isEnableGenerateClass)
 			{
-				if (!Directory.Exists("QGameData"))
+				if (!Directory.Exists("QFrameworkData"))
 				{
-					Directory.CreateDirectory("QGameData");
+                    Directory.CreateDirectory("QFrameworkData");
 				}
 
-				var path = Path.GetFullPath(Application.dataPath + Path.DirectorySeparatorChar + "QGameData/QAssets.cs");
+                var path = Path.GetFullPath(Application.dataPath + Path.DirectorySeparatorChar + "QFrameworkData/QAssets.cs");
 				StreamWriter writer = new StreamWriter(File.Open(path, FileMode.Create));
 				QBundleInfoGenerator.WriteClass(writer, "QAssetBundle", assetBundleInfos, projectTag);
 				writer.Close();
@@ -306,7 +299,7 @@ namespace QFramework.ResSystem
 
 		public static string GetPlatformName()
 		{
-			return PlatformUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			return EditorPlatformUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 		}
 
 		static void CopyAssetBundlesTo(string outputPath)

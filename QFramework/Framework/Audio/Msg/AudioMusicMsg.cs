@@ -4,6 +4,8 @@
 
 namespace QFramework
 {
+    using System;
+
 	public enum VolumeLevel
 	{
 		Max,
@@ -24,12 +26,12 @@ namespace QFramework
 		/// </summary>
 		public bool allowMusicOff = true;
 
-		public QVoidDelegate.WithVoid onMusicBeganCallback;
-		public QVoidDelegate.WithVoid onMusicEndedCallback;
+		public Action onMusicBeganCallback;
+        public Action onMusicEndedCallback;
 
 		public AudioMusicMsg(string musicName, bool loop = true, bool allowMusicOff = true,
-			QVoidDelegate.WithVoid onMusicBeganCallback = null,
-			QVoidDelegate.WithVoid onMusicEndedCallback = null) : base((ushort) AudioEvent.PlayMusic)
+                             Action onMusicBeganCallback = null,
+                             Action onMusicEndedCallback = null) : base((ushort) AudioEvent.PlayMusic)
 		{
 			this.MusicName = musicName;
 			this.Loop = loop;

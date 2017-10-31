@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
@@ -29,7 +29,7 @@ namespace QFramework
                 string name = module.GetType().Name;
                 if (mModuleMgrMap.ContainsKey(name))
                 {
-                    Log.e("ModuleMgr Already Add Module:" + name);
+                    Log.E("ModuleMgr Already Add Module:" + name);
                     return;
                 }
                 mModuleMgrMap.Add(name, module);

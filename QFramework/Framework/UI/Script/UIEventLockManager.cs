@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liuzhenhua@putao.com
  * Copyright (c) 2017 liangxie
  * 
@@ -30,7 +30,6 @@ namespace QFramework
 {
 	using UnityEngine;
 	using System;
-	using Core;
 
 	public enum UIFilterEvent
 	{
@@ -51,7 +50,7 @@ namespace QFramework
 		public ushort DstEventId;
 		public float LockTime = 0.2f;
 
-		public QBoolDelegate.WithVoid Validate = delegate
+		public System.Func<bool> Validate = delegate
 		{
 			return true;
 		};
@@ -96,7 +95,7 @@ namespace QFramework
 		}
 	}
 
-	[QMonoSingletonAttribute("[Event]/UIEventLockManager")]
+	[QMonoSingletonPath("[Event]/UIEventLockManager")]
 	public class UIEventLockManager : QMgrBehaviour, ISingleton
 	{
 		protected override void SetupMgrId()
@@ -135,11 +134,11 @@ namespace QFramework
 
 		protected override void ProcessMsg(int key, QMsg msg)
 		{
-			Log.i("{0}",msg.EventID);
+			Log.I("{0}",msg.EventID);
 			switch (key)
 			{
 				case (ushort) UIFilterEvent.DelayLock:
-					Log.i("receive");
+					Log.I("receive");
 					UILockOnClickEventMsg lockOnClickEventMsg = msg as UILockOnClickEventMsg;
 					LockBtnOnClick = true;
 					DelayNode delayNode = new DelayNode(lockOnClickEventMsg.LockTime)
@@ -152,11 +151,11 @@ namespace QFramework
 					StartCoroutine(delayNode.Execute());
 					break;
 				case (ushort) UIFilterEvent.Lock:
-					Log.i("Lock");
+					Log.I("Lock");
 					Lock = true;
 					break;
 				case (ushort) UIFilterEvent.UnLock:
-					Log.i("UnLock");
+					Log.I("UnLock");
 					Lock = false;
 					break;
 
@@ -170,7 +169,7 @@ namespace QFramework
 					else if (LockedObj == lockObjEventMsg.LockedObj)
 					{
 						// maybe two finger in one obj
-						Log.w("error: curLockedObj is already seted");
+						Log.W("error: curLockedObj is already seted");
 					}
 					else if (LockedObj != lockObjEventMsg.LockedObj)
 					{
@@ -188,7 +187,7 @@ namespace QFramework
 					}
 					else if (LockedObj == null)
 					{
-						Log.w ("error: curLockedObj is already unlocked");
+						Log.W ("error: curLockedObj is already unlocked");
 					}
 					else if (LockedObj != unlockObjEventMsg.UnlockedObj)
 					{

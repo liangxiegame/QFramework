@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -51,7 +51,7 @@ namespace QFramework
         /// <returns></returns>
         public void ConnectToMobile(string mobileIPAddress,ConnectedCallback onConnectionEvent)
         {
-            Log.i("mobileIPAddres:{0}", mobileIPAddress);
+            Log.I("mobileIPAddres:{0}", mobileIPAddress);
             mSocketClient = FlexiSocket.Create(mobileIPAddress, 1366, Protocols.BodyLengthPrefix);
             mSocketClient.Connected += onConnectionEvent;
             mSocketClient.Disconnected += OnDisconnected;
@@ -79,11 +79,11 @@ namespace QFramework
         {
             if (success)
             {
-                Log.i("OnSent");
+                Log.I("OnSent");
             }
             else
             {
-                Log.e(exception.ToString());
+                Log.E(exception.ToString());
             }
         }
 
@@ -99,7 +99,7 @@ namespace QFramework
             if (success)
             {
                 SocketMsg msg = SerializeHelper.FromProtoBuff<SocketMsg>(message);
-                Log.i("Received:{0}", msg.msgId);
+                Log.I("Received:{0}", msg.msgId);
                 mMsgQueue.Enqueue(msg);
             }
         }
@@ -129,11 +129,11 @@ namespace QFramework
         {
             if (success)
             {
-                Log.i("disconnected");
+                Log.I("disconnected");
             }
             else
             {
-                Log.i(exception.ToString());
+                Log.I(exception.ToString());
             }
         }
     }

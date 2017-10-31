@@ -4,14 +4,12 @@
  * https://github.com/akbiggs/UnityTimer
 ****************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-
-
 namespace QFramework
 {
-    [QMonoSingletonAttribute("[Tools]/Timer")]
+    using System;
+    using UnityEngine;
+
+    [QMonoSingletonPath("[Tools]/Timer")]
     public class Timer : QMonoSingleton<Timer>
     {
         BinaryHeap<TimeItem> m_UnScaleTimeHeap = new BinaryHeap<TimeItem>(128, BinaryHeapSortMode.kMin);
