@@ -20,7 +20,7 @@ namespace QFramework
 		public static string[] COCOS_SUPPORT_TEXTS = {"NoneCocos", "Cocos"};
 		public static string[] COCOS_SUPPORT_SYMBOLS = {"NONE_COCOS_SUPPORT", "COCOS_SUPPORT"};
 
-		static string mConfigSavedDir = Application.dataPath + "/QGameData/ProjectConfig/";
+		static string mConfigSavedDir = Application.dataPath + "/QFramework/ProjectConfig/";
 		static string mConfigSavedFileName = "ProjectConfig.json";
 
 		public string Namespace = null;
@@ -57,7 +57,7 @@ namespace QFramework
 			get { return Application.dataPath + UIPrefabDir; }
 		}
 
-		public string UIFactoryFileDir = "/QGameData/Framework/Script";
+		public string UIFactoryFileDir = "/QFramework/Framework/Script";
 
 		public string UIFactoryFileFullPath
 		{

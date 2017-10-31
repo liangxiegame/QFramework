@@ -37,6 +37,10 @@
           <type>AfterBuild</type>
           <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/CSharp/Properties</command>
         </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf  ${SolutionDir}/UnityExample/Assets/QFramework/Core/CSharp/obj</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>

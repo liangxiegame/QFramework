@@ -12,7 +12,7 @@ namespace QFramework
 //		//	private XmlDocument xmlDoc;
 //		private static QConfigManager mInstance;
 //		public List<MarkItem> markItems;
-//		private const string configFileUrl = "Assets/QGameData/config_assetbundle.xml";
+//		private const string configFileUrl = "Assets/QFramework/config_assetbundle.xml";
 //
 //		public static QConfigManager Instance {
 //			get {

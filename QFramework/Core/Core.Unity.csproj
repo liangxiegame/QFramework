@@ -35,6 +35,10 @@
           <type>AfterBuild</type>
           <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity/Properties</command>
         </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf  ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity/obj</command>
+        </Command>
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
