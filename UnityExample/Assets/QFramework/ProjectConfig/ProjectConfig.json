@@ -1,0 +1,15 @@
+{
+  "Namespace": "Putao.ProjectName",
+  "ResLoaderSupportIndex": 0,
+  "LuaSupportIndex": 0,
+  "CocosSupportIndex": 0,
+  "UIScriptDir": "/Scripts/UI",
+  "UIPrefabDir": "/ArtRes/AssetBundles/UIPrefab",
+  "UIFactoryFileDir": "/QFramework/Framework/Script",
+  "ResLoaderSupportSymbol": "QABMANAGER_SUPPORT",
+  "LuaSupportSymbol": "NONE_LUA_SUPPORT",
+  "CocosSupportSymbol": "NONE_COCOS_SUPPORT",
+  "UIScriptDirFullPath": "/Users/liangxie/Documents/Career/Product/SyncProject/QFramework/UnityExample/Assets/Scripts/UI",
+  "UIPrefabDirFullPath": "/Users/liangxie/Documents/Career/Product/SyncProject/QFramework/UnityExample/Assets/ArtRes/AssetBundles/UIPrefab",
+  "UIFactoryFileFullPath": "/Users/liangxie/Documents/Career/Product/SyncProject/QFramework/UnityExample/Assets/QFramework/Framework/Script/QUIFactory.cs"
+}

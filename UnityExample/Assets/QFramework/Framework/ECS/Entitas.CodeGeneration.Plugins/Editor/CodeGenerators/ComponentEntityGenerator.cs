@@ -4,7 +4,7 @@ using System.Linq;
 
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class ComponentEntityGenerator : ICodeGenerator, IConfigurable {
 

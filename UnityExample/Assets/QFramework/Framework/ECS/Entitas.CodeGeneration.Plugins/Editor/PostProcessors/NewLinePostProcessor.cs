@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class NewLinePostProcessor : ICodeGenFilePostProcessor {
 

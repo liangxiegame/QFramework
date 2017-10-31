@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -61,7 +61,7 @@ namespace QFramework
 #if QABMANAGER_SUPPORT
 
 #else
-		[MenuItem("PuTaoTool/Framework/ResSystem/Builder")]
+		[MenuItem("QFramework/ResSystem/Builder")]
 #endif
 		public static void ExecuteAssetBundle()
 		{

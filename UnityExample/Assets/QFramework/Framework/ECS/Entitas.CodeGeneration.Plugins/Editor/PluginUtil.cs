@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 
 
-namespace QFramework.CodeGeneration.Plugins
+namespace QFramework
 {
     public static class PluginUtil
     {

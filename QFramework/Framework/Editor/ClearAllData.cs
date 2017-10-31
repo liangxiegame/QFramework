@@ -33,7 +33,7 @@ namespace QFramework
 
     public class ClearAllData
     {   
-        [MenuItem("PuTaoTool/Framework/ClearAllData")]
+        [MenuItem("QFramework/ClearAllData")]
         static void Clear()
         {
             PlayerPrefs.DeleteAll();

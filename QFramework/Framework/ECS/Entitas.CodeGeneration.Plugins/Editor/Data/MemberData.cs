@@ -1,4 +1,4 @@
-﻿namespace QFramework.CodeGeneration.Plugins {
+﻿namespace QFramework {
 
     public class MemberData {
 

@@ -3,7 +3,7 @@ using System.IO;
 
 
 
-namespace QFramework.CodeGeneration.Plugins
+namespace QFramework
 {
 
     public class WriteToDiskPostProcessor : ICodeGenFilePostProcessor, IConfigurable

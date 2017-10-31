@@ -27,7 +27,7 @@ namespace QFramework
                     },
                     {
                         PLUGINS_PATHS_KEY,
-                        "QFramework.CodeGeneration.Plugins, QFramework.VisualDebugging.CodeGeneration.Plugins"
+                        "QFramework, QFramework.VisualDebugging.CodeGeneration.Plugins"
                     },
 
                     {DATA_PROVIDERS_KEY, string.Empty},

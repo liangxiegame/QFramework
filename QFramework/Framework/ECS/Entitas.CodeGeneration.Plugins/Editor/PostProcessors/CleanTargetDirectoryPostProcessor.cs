@@ -4,7 +4,7 @@ using System.IO;
 
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class CleanTargetDirectoryPostProcessor : ICodeGenFilePostProcessor, IConfigurable {
 

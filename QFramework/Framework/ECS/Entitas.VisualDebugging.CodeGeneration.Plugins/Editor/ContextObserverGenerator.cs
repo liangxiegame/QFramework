@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using QFramework.CodeGeneration;
-using QFramework.CodeGeneration.Plugins;
+using QFramework;
 
 
 

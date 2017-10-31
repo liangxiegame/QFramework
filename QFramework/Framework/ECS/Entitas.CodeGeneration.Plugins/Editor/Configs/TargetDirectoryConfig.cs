@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class TargetDirectoryConfig : AbstractConfigurableConfig {
 
-        const string TARGET_DIRECTORY_KEY = "QFramework.CodeGeneration.Plugins.TargetDirectory";
+        const string TARGET_DIRECTORY_KEY = "QFramework.TargetDirectory";
 
         public override Dictionary<string, string> DefaultProperties {
             get {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using QFramework.CodeGeneration.Plugins;
+using QFramework;
 
 using UnityEditor;
 using UnityEngine;

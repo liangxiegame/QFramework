@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class IgnoreNamespacesConfig : AbstractConfigurableConfig {
 
-        const string IGNORE_NAMESPACES_KEY = "QFramework.CodeGeneration.Plugins.IgnoreNamespaces";
+        const string IGNORE_NAMESPACES_KEY = "QFramework.IgnoreNamespaces";
 
         public override Dictionary<string, string> DefaultProperties {
             get {

@@ -2,11 +2,11 @@
 
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class AssembliesConfig : AbstractConfigurableConfig {
 
-        const string ASSEMBLIES_KEY = "QFramework.CodeGeneration.Plugins.Assemblies";
+        const string ASSEMBLIES_KEY = "QFramework.Assemblies";
 
         public override Dictionary<string, string> DefaultProperties {
             get {

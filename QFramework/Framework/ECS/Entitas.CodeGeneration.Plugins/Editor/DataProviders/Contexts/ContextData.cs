@@ -1,6 +1,6 @@
 ﻿
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class ContextData : CodeGeneratorData {
     }

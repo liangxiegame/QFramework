@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class ContextNamesConfig : AbstractConfigurableConfig {
 
-        const string CONTEXTS_KEY = "QFramework.CodeGeneration.Plugins.Contexts";
+        const string CONTEXTS_KEY = "QFramework.Contexts";
 
         public override Dictionary<string, string> DefaultProperties {
             get {

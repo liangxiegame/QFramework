@@ -38,7 +38,7 @@ namespace QFramework
 	{
 		static string mDataPath;
 
-		[MenuItem("PuTaoTool/Framework/ResSystem/Uploader")]
+		[MenuItem("QFramework/ResSystem/Uploader")]
 		public static void ExecuteAssetBundle()
 		{
 			QResSystemUploader window = (QResSystemUploader) GetWindow(typeof(QResSystemUploader), true);

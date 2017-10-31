@@ -2,7 +2,7 @@
 using System.Linq;
 using QFramework.CodeGeneration.Attributes;
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class CustomPrefixComponentDataProvider : IComponentDataProvider {
 

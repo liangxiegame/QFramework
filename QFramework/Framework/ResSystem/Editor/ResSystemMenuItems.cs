@@ -32,7 +32,7 @@ namespace QFramework
 {
 	public class ResSystemMenuItems
 	{
-		const string kSimulationMode = "PuTaoTool/Framework/ResSystem/Simulation Mode";
+		const string kSimulationMode = "QFramework/ResSystem/Simulation Mode";
 	
 		#if QRESSYSTEM_SUPPORT
 		[MenuItem(kSimulationMode)]

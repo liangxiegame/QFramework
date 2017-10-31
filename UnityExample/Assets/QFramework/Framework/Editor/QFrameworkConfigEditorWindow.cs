@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 maoling@putao.com
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
@@ -13,7 +13,7 @@ namespace QFramework
 	
 	public class QFrameworkConfigEditorWindow : EditorWindow
 	{
-		[MenuItem("PuTaoTool/Framework/FrameworkConfig")]
+		[MenuItem("QFramework/FrameworkConfig")]
 		static void Open() 
 		{
 			QFrameworkConfigEditorWindow frameworkConfigEditorWindow = (QFrameworkConfigEditorWindow)EditorWindow.GetWindow(typeof(QFrameworkConfigEditorWindow),true);

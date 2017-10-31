@@ -7,7 +7,7 @@ using QFramework.CodeGeneration.Attributes;
 
 
 
-namespace QFramework.CodeGeneration.Plugins {
+namespace QFramework {
 
     public class EntityIndexDataProvider : ICodeGeneratorDataProvider, IConfigurable {
 
