@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxieq
  * 
  * https://github.com/UniPM/UniPM
@@ -20,30 +20,10 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
- * http://liangxiegame.com
- * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  ****************************************************************************/
+
+using System.Diagnostics;
+using System.Security;
 
 namespace UniPM
 {
@@ -64,15 +44,28 @@ namespace UniPM
 		[MenuItem("UniPM/Open")]
 		static void Open()
 		{
-			PackageManagerConfig.GetRemote(config =>
-			{
-				UniPMWindow frameworkConfigEditorWindow = (UniPMWindow) GetWindow(typeof(UniPMWindow), true);
-				frameworkConfigEditorWindow.titleContent = new GUIContent("QFrameworkConfig");
-				frameworkConfigEditorWindow.position = new Rect(Screen.width / 2, Screen.height / 2, 800, 600f);
-				frameworkConfigEditorWindow.LocalConfig = config;
-				frameworkConfigEditorWindow.Init();
-				frameworkConfigEditorWindow.Show();
-			});
+			UniPMWindow frameworkConfigEditorWindow = (UniPMWindow) GetWindow(typeof(UniPMWindow), true);
+			frameworkConfigEditorWindow.titleContent = new GUIContent("UniPM");
+			frameworkConfigEditorWindow.position = new Rect(Screen.width / 2, Screen.height / 2, 800, 600f);
+			frameworkConfigEditorWindow.LocalConfig = PackageListConfig.GetInstalledPackageList();
+			frameworkConfigEditorWindow.Init();
+			frameworkConfigEditorWindow.Show();
+
+			// PackageManagerConfig.GetRemote(config =>
+			// {
+
+			// });
+		}
+
+				/// <summary>
+		/// 现在成功的PackageListPage
+		/// </summary>
+		private UIInstalledPackageListPage mInstalledPackageListPage;
+		
+		void Init()
+		{
+			mInstalledPackageListPage = new UIInstalledPackageListPage(LocalConfig);
+			AddChild(mInstalledPackageListPage);
 		}
 
 		[MenuItem("Assets/UniPM/MakePackage")]
@@ -97,13 +90,11 @@ namespace UniPM
 		[MenuItem("Assets/UniPM/UploadPackage")]
 		static void UploadPackage()
 		{
-			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
-			
-			var packageConfig = new PackageConfig(packagePath);
-			packageConfig.SaveLocal();
+			Debug.Log(" run");
+			RunCommand("cd ".Append(Application.dataPath + Path.DirectorySeparatorChar).Append(PackageListConfig.GitUrl.GetLastWord())
+				.Append(" && git add . && git commit -m \"test update\" && git push && open ./").ToString());
 		}
-		
+
 		[MenuItem("Assets/UniPM/Version/Update (x.0.0")]
 		static void UpdateMajorVersion()
 		{
@@ -147,6 +138,35 @@ namespace UniPM
 			}
 		}
 
+
+		public static void RunCommand(string command)
+		{
+			ProcessStartInfo startInfo = new ProcessStartInfo("/bin/bash");
+			startInfo.WorkingDirectory = Application.dataPath;
+			startInfo.UseShellExecute = false;
+			startInfo.RedirectStandardInput = true;
+			startInfo.RedirectStandardOutput = true;
+			startInfo.CreateNoWindow = true;
+
+			Process process = new Process();
+			process.StartInfo = startInfo;
+			process.Start();
+			string[] splitCmds = command.Split("&&".ToCharArray());
+			foreach (var cmd in splitCmds)
+			{
+				Debug.Log(cmd);
+				process.StandardInput.WriteLine(cmd);
+			}
+			process.StandardInput.WriteLine("exit"); // if no exit then WaitForExit will lockup your program
+			process.StandardInput.Flush();
+
+			string line = process.StandardOutput.ReadToEnd();
+
+			process.WaitForExit();
+			Debug.Log(line);
+
+		}
+
 		[MenuItem("Assets/UniPM/Server/CopyToServer")]
 		static void CopyToServer()
 		{
@@ -157,9 +177,13 @@ namespace UniPM
 				string err = string.Empty;
 
 				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
-				string serverUploaderPath = Application.dataPath.CombinePath("QUGame/QGamePluginServer");
+				string serverUploaderPath = Application.dataPath.CombinePath(PackageListConfig.GitUrl.GetLastWord());
 
-				IOUtils.DeleteDirIfExists(serverUploaderPath.CombinePath(config.Name));
+				if (!Directory.Exists(serverUploaderPath))
+				{
+					RunCommand("git clone ".Append(PackageListConfig.GitUrl).ToString());
+				}
+
 				ZipUtil.ZipDirectory(config.PackagePath,
 					IOUtils.CreateDirIfNotExists(serverUploaderPath.CombinePath(config.Name)).CombinePath(config.Name + ".zip"));
 
@@ -170,7 +194,7 @@ namespace UniPM
 				File.Copy(config.ConfigFilePath,toConfigFilePath);
 				
 				
-				PackageManagerConfig.GetLocal().SaveExport();
+				PackageListConfig.GetInstalledPackageList().SaveExport();
 				AssetDatabase.Refresh();
 			}
 			else
@@ -179,20 +203,11 @@ namespace UniPM
 			}
 		}
 		
-		/// <summary>
-		/// 现在成功的PackageListPage
-		/// </summary>
-		private InstalledPackageListPage mInstalledPackageListPage;
-		
-		void Init()
-		{
-			mInstalledPackageListPage = new InstalledPackageListPage(LocalConfig);
-			AddChild(mInstalledPackageListPage);
-		}
 
-		public PackageManagerConfig LocalConfig;
 
-		public static string ServerURL = "http://code.putao.io/liqingyun/QGamePluginServer/";
+		public PackageListConfig LocalConfig;
+
+		public static string ServerURL = "http://code.putao.io/liqingyun/PTGamePluginServer/";
 
 		public static void DownloadZip(PackageConfig config)
 		{
@@ -221,14 +236,13 @@ namespace UniPM
 //			ZipUtil.ZipFile(packageData.FolderFullPath, packageData.ZipFileFullPath, ".json", out err);
 //			packageData.SaveExport();
 			AssetDatabase.Refresh();
-
 			Log.E(err);
 		}
 
 		[MenuItem("UniPM/Test")]
 		public static void Test()
 		{
-			// "http://code.putao.io/liqingyun/QGamePluginServer/raw/master/PackageList.json"
+			// "http://code.putao.io/liqingyun/PTGamePluginServer/raw/master/PackageList.json"
 			ObservableWWW.Get("http://www.baidu.com")
 				.Subscribe(
 					jsonContent =>
@@ -239,7 +253,6 @@ namespace UniPM
 					{
 						Log.E(err);
 					});
-			
 //			var configFileList = IOUtils.GetDirSubFilePathList(new PackageConfig().FolderFullPath, true, "Config.json");
 //			configFileList.ForEach(fileName => fileName.Log());
 		}
@@ -247,7 +260,7 @@ namespace UniPM
 		[MenuItem("UniPM/ExtractServer")]
 		public static void ExtractGameServer()
 		{
-			PackageManagerConfig.GetLocal().SaveExport();
+			PackageListConfig.GetInstalledPackageList().SaveExport();
 		}
 
 		[MenuItem("UniPM/UpdateCompress")]

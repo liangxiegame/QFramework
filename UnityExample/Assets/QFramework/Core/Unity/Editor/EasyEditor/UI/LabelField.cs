@@ -1,8 +1,11 @@
-﻿/****************************************************************************
- * Copyright (c) 2017 liangxieq
+/****************************************************************************
+ * Copyright (c) 2017 liangxie
  * 
- * https://github.com/UniPM/UniPM
- * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -22,39 +25,38 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace UniPM
+namespace QFramework
 {
-    using UnityEngine;
-    using QFramework;
-    
-    public class UIFactory
+    using System;
+    using UnityEditor;
+
+    public class TextField : EditorView
     {
-        public static LabelView CreateTitleLabel(string text)
+        private string mText;
+
+        public string Text
         {
-            return new LabelView(text, 100, 25)
+            get { return mText; }
+            set
             {
-                FontStyle = FontStyle.Bold,
-                FontSize = 18,
-                FontColor = Color.white
-            };
+                if (value != mText)
+                {
+                    mText = value;
+                    OnTextChanged.InvokeGracefully(mText);
+                }
+            }
         }
 
-        public static LabelView CreateInstalledLabel(string text)
+        public Action<string> OnTextChanged;
+
+        public TextField(string text)
         {
-            return new LabelView(text, 100, 25)
-            {
-                FontSize = 15,
-                FontColor = Color.green
-            };
+            Text = text;
         }
 
-        public static LabelView CreateNewVersionLabel(string text)
+        public override void OnGUI()
         {
-            return new LabelView(text, 100, 25)
-            {
-                FontSize = 15,
-                FontColor = Color.red
-            };
+            if (Visible) Text = EditorGUILayout.TextField(Text);
         }
     }
 }

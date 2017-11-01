@@ -25,6 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Text;
+
 namespace QFramework
 {
     using System;
@@ -110,6 +112,21 @@ namespace QFramework
         public static string Format(this string selfStr, params object[] args)
         {
             return string.Format(selfStr, args);
+        }
+
+        public static StringBuilder Append(this string selfStr, string toAppend)
+        {
+            return new StringBuilder(selfStr).Append(toAppend);
+        }
+        
+        public static StringBuilder AppendFormat(this string selfStr, string toAppend,params object[] args)
+        {
+            return new StringBuilder(selfStr).AppendFormat(toAppend,args);
+        }
+
+        public static string GetLastWord(this string selfUrl)
+        {
+            return selfUrl.Split('/').Last();
         }
     }
 }

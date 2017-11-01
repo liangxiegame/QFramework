@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxieq
  * 
  * https://github.com/UniPM/UniPM
@@ -20,41 +20,19 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
- * http://liangxiegame.com
- * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  ****************************************************************************/
+
+using UnityEngine;
 
 namespace UniPM
 {
 	using QFramework;
-
     /// <summary>
     /// 本地页面
     /// </summary>
-    public class InstalledPackageListPage : EditorView
+    public class UIInstalledPackageListPage : EditorView
     {
-	    public InstalledPackageListPage(PackageManagerConfig localConfig)
+	    public UIInstalledPackageListPage(PackageListConfig localConfig)
 	    {
 		    ScrollView scrollView = new ScrollView();
 		    scrollView.Width = 800;
@@ -62,7 +40,22 @@ namespace UniPM
 
 		    VerticalView verticalView = new VerticalView();
 		    verticalView.AddChild(new SpaceView());
+			
+		    HorizontalView gitHorizontalView = new HorizontalView();
 
+		    LabelView labelView = new LabelView("Git Url:",50,30);
+		    labelView.FontColor = Color.white;
+		    gitHorizontalView.AddChild(labelView);
+			TextField gitUrl = new TextField(PackageListConfig.GitUrl);
+		    gitUrl.OnTextChanged += text =>
+		    {
+			    PackageListConfig.GitUrl = text;
+		    };
+		    
+		    gitHorizontalView.AddChild(gitUrl);
+
+		    verticalView.AddChild(gitHorizontalView);
+		    
 		    HorizontalView horizontalView = new HorizontalView();
 
 		    horizontalView.AddChild(UIFactory.CreateTitleLabel("package name"));
@@ -70,11 +63,10 @@ namespace UniPM
 		    horizontalView.AddChild(UIFactory.CreateTitleLabel("release notes"));
 		    horizontalView.AddChild(UIFactory.CreateTitleLabel("folder"));
 		    
-
 		    verticalView.AddChild(horizontalView);
 		    scrollView.AddChild(verticalView);
 
-		    foreach (var localConfigPluginInfo in localConfig.PackageList)
+		    foreach (var localConfigPluginInfo in localConfig.InstalledPackageList)
 		    {
 			    var scrollItem = new HorizontalView();
 			    
