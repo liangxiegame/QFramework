@@ -154,7 +154,6 @@ namespace UniPM
 			string[] splitCmds = command.Split("&&".ToCharArray());
 			foreach (var cmd in splitCmds)
 			{
-				Debug.Log(cmd);
 				process.StandardInput.WriteLine(cmd);
 			}
 			process.StandardInput.WriteLine("exit"); // if no exit then WaitForExit will lockup your program
