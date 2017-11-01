@@ -90,9 +90,8 @@ namespace UniPM
 		[MenuItem("Assets/UniPM/UploadPackage")]
 		static void UploadPackage()
 		{
-			Debug.Log(" run");
-			RunCommand("cd ".Append(Application.dataPath + Path.DirectorySeparatorChar).Append(PackageListConfig.GitUrl.GetLastWord())
-				.Append(" && git add . && git commit -m \"test update\" && git push && open ./").ToString());
+			RunCommand(PackageListConfig.GitUrl.GetLastWord(),
+				"git add . && git commit -m \"test update\" && git push");
 		}
 
 		[MenuItem("Assets/UniPM/Version/Update (x.0.0")]
@@ -139,10 +138,10 @@ namespace UniPM
 		}
 
 
-		public static void RunCommand(string command)
+		public static void RunCommand(string workingDirectory,string command)
 		{
 			ProcessStartInfo startInfo = new ProcessStartInfo("/bin/bash");
-			startInfo.WorkingDirectory = Application.dataPath;
+			startInfo.WorkingDirectory = Application.dataPath.CombinePath(workingDirectory);
 			startInfo.UseShellExecute = false;
 			startInfo.RedirectStandardInput = true;
 			startInfo.RedirectStandardOutput = true;
@@ -180,7 +179,7 @@ namespace UniPM
 
 				if (!Directory.Exists(serverUploaderPath))
 				{
-					RunCommand("git clone ".Append(PackageListConfig.GitUrl).ToString());
+					RunCommand("","git clone ".Append(PackageListConfig.GitUrl).ToString());
 				}
 
 				ZipUtil.ZipDirectory(config.PackagePath,
