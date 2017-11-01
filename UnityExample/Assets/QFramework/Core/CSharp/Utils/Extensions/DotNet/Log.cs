@@ -30,7 +30,7 @@ namespace QFramework
 {
     using System;
 
-#if UNITY
+#if UNITY_5
     using UnityEngine;
 #endif
 
@@ -83,7 +83,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.Log(msg);
 #else
             Console.WriteLine(msg);
@@ -96,7 +96,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.Log(string.Format(msg, args));
 #else
             Console.WriteLine(msg, args);
@@ -109,7 +109,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.LogError(msg);
 #else
             Console.WriteLine("[Error] {0}", msg);
@@ -122,7 +122,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.LogException(e);
 #else
             Console.WriteLine("[Exception] {0}", e);
@@ -135,7 +135,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.LogError(string.Format(msg, args));
 #else
             Console.WriteLine(string.Format("[Error] {0}", msg), args);
@@ -148,7 +148,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY
+#if UNITY_5
             Debug.LogWarning(msg);
 #else
             Console.WriteLine("[Warning] {0}", msg);
@@ -162,7 +162,7 @@ namespace QFramework
                 return;
             }
 
-#if UNITY
+#if UNITY_5
             Debug.LogWarning(string.Format(msg, args));
 #else
             Console.WriteLine(string.Format("[Warning] {0}", msg), args);

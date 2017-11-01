@@ -1,9 +1,0 @@
-{
-  "Name": "UniPM",
-  "CopyRight": "UniPM",
-  "Version": "0.0.0",
-  "PackagePath": "Assets/Example/UniPM",
-  "ReleaseNote": null,
-  "DownloadURL": "http://code.putao.io/liqingyun/PTGamePluginServer/raw/master/UniPM/UniPM.zip",
-  "ConfigFilePath": "Assets/Example/UniPM/Package.json"
-}

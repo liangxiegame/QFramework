@@ -1,5 +1,9 @@
 fileFormatVersion: 2
 guid: 2c5a35d4feb704ee1ad369f16908c9bd
+labels:
+- Framework
+- UniPM
+- v0.0.0
 folderAsset: yes
 timeCreated: 1509467167
 licenseType: Pro

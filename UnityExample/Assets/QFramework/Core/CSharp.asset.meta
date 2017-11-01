@@ -1,13 +1,12 @@
 fileFormatVersion: 2
-guid: 8997b3eb3a91f4ebe86f2d7a0704fcef
+guid: 85a3d120152f64db0bcd1b2e6ca5722d
 labels:
+- CSharp
 - UniPM
-- Unity
 - v0.0.0
-folderAsset: yes
-timeCreated: 1509466137
+timeCreated: 1509548294
 licenseType: Pro
-DefaultImporter:
+NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.IO;
 
 namespace UniPM
 {
@@ -32,12 +33,8 @@ namespace UniPM
     using UnityEditor;
     
     [System.Serializable]
-    public class PackageListConfig
+    public class PackageListConfig 
     {
-
-        public PackageListConfig()
-        {
-        }
 
         private const string GIT_URL_KEY = "UniRxGitUrlKey";
         public static string GitUrl
@@ -56,13 +53,13 @@ namespace UniPM
             PackageListConfig localConfig = new PackageListConfig();
             localConfig.InstalledPackageList = new List<PackageConfig>();
 
-            IOUtils.GetDirSubFilePathList(Application.dataPath, true, ".json").ForEach(fileName =>
+            IOUtils.GetDirSubFilePathList(Application.dataPath, true, ".asset").ForEach(fileName =>
             {
-                if (fileName.EndsWith("Package.json") && !fileName.Contains("PackageListServer"))
+                if (fileName.EndsWith("Package.asset") && !fileName.Contains("PackageListServer"))
                 {
-                    var localPluginInfo = SerializeHelper.LoadJson<PackageConfig>(fileName);
-
-                    localConfig.InstalledPackageList.Add(localPluginInfo);
+                    fileName = fileName.Replace(Application.dataPath, "Assets");
+                    var installedPackageInfo = AssetDatabase.LoadAssetAtPath<PackageConfig>(fileName);
+                    localConfig.InstalledPackageList.Add(installedPackageInfo);
                 }
             });
 

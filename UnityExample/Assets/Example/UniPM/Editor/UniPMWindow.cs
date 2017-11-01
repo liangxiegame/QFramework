@@ -23,7 +23,6 @@
  ****************************************************************************/
 
 using System.Diagnostics;
-using System.Security;
 
 namespace UniPM
 {
@@ -50,11 +49,6 @@ namespace UniPM
 			frameworkConfigEditorWindow.LocalConfig = PackageListConfig.GetInstalledPackageList();
 			frameworkConfigEditorWindow.Init();
 			frameworkConfigEditorWindow.Show();
-
-			// PackageManagerConfig.GetRemote(config =>
-			// {
-
-			// });
 		}
 
 				/// <summary>
@@ -72,7 +66,7 @@ namespace UniPM
 		static void MakePackage()
 		{
 			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
+			string packageConfigPath = Path.Combine(packagePath, "Package.assets");
 
 			PackageConfig packageConfig = null;
 			if (File.Exists(packageConfigPath))
@@ -90,15 +84,41 @@ namespace UniPM
 		[MenuItem("Assets/UniPM/UploadPackage")]
 		static void UploadPackage()
 		{
-			RunCommand(PackageListConfig.GitUrl.GetLastWord(),
-				"git add . && git commit -m \"test update\" && git push");
+			
+			string packagePath = MouseSelector.GetSelectedPathOrFallback();
+			string packageConfigPath = packagePath.EndsWith(".asset") ? packagePath : packagePath.Append(".asset").ToString();
+			if (File.Exists(packageConfigPath))
+			{
+				string err = string.Empty;
+
+				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
+				string serverUploaderPath = Application.dataPath.CombinePath(PackageListConfig.GitUrl.GetLastWord());
+
+				if (!Directory.Exists(serverUploaderPath))
+				{
+					RunCommand("","git clone ".Append(PackageListConfig.GitUrl).ToString());
+				}
+
+				ZipUtil.ZipDirectory(config.PackagePath,
+					IOUtils.CreateDirIfNotExists(serverUploaderPath.CombinePath(config.Name)).CombinePath(config.Name + ".zip"));
+				
+				PackageListConfig.GetInstalledPackageList().SaveExport();
+				AssetDatabase.Refresh();
+				
+				RunCommand(PackageListConfig.GitUrl.GetLastWord(),
+					"git add . && git commit -m \"test update\" && git push");
+			}
+			else
+			{
+				Log.W("no package.json file in folder:{0}",packagePath);
+			}
 		}
 
 		[MenuItem("Assets/UniPM/Version/Update (x.0.0")]
 		static void UpdateMajorVersion()
 		{
 			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
+			string packageConfigPath = Path.Combine(packagePath, "Package.asset");
 			if (File.Exists(packageConfigPath))
 			{
 				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
@@ -111,7 +131,7 @@ namespace UniPM
 		static void UpdateMiddleVersion()
 		{
 			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
+			string packageConfigPath = Path.Combine(packagePath, "Package.asset");
 			if (File.Exists(packageConfigPath))
 			{
 				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
@@ -124,7 +144,7 @@ namespace UniPM
 		static void UpdateSubVersion()
 		{
 			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
+			string packageConfigPath = Path.Combine(packagePath, "Package.asset");
 			if (File.Exists(packageConfigPath))
 			{
 				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
@@ -162,50 +182,10 @@ namespace UniPM
 
 			process.WaitForExit();
 			Debug.Log(line);
-
 		}
-
-		[MenuItem("Assets/UniPM/Server/CopyToServer")]
-		static void CopyToServer()
-		{
-			string packagePath = MouseSelector.GetSelectedPathOrFallback();
-			string packageConfigPath = Path.Combine(packagePath, "Package.json");
-			if (File.Exists(packageConfigPath))
-			{
-				string err = string.Empty;
-
-				PackageConfig config = PackageConfig.LoadFromPath(packageConfigPath);
-				string serverUploaderPath = Application.dataPath.CombinePath(PackageListConfig.GitUrl.GetLastWord());
-
-				if (!Directory.Exists(serverUploaderPath))
-				{
-					RunCommand("","git clone ".Append(PackageListConfig.GitUrl).ToString());
-				}
-
-				ZipUtil.ZipDirectory(config.PackagePath,
-					IOUtils.CreateDirIfNotExists(serverUploaderPath.CombinePath(config.Name)).CombinePath(config.Name + ".zip"));
-
-				string toConfigFilePath = serverUploaderPath.CombinePath(config.Name).CombinePath("Package.json");
-
-				IOUtils.DeleteFileIfExists(toConfigFilePath);
-				
-				File.Copy(config.ConfigFilePath,toConfigFilePath);
-				
-				
-				PackageListConfig.GetInstalledPackageList().SaveExport();
-				AssetDatabase.Refresh();
-			}
-			else
-			{
-				Log.W("no package.json file in folder:{0}",packagePath);
-			}
-		}
-		
 
 
 		public PackageListConfig LocalConfig;
-
-		public static string ServerURL = "http://code.putao.io/liqingyun/PTGamePluginServer/";
 
 		public static void DownloadZip(PackageConfig config)
 		{
@@ -225,60 +205,11 @@ namespace UniPM
 					});
 		}
 
-		[MenuItem("UniPM/ExportCompress")]
-		public static void Export()
-		{
-			string err = string.Empty;
-
-//			var packageData = new PackageConfig();
-//			ZipUtil.ZipFile(packageData.FolderFullPath, packageData.ZipFileFullPath, ".json", out err);
-//			packageData.SaveExport();
-			AssetDatabase.Refresh();
-			Log.E(err);
-		}
-
-		[MenuItem("UniPM/Test")]
-		public static void Test()
-		{
-			// "http://code.putao.io/liqingyun/PTGamePluginServer/raw/master/PackageList.json"
-			ObservableWWW.Get("http://www.baidu.com")
-				.Subscribe(
-					jsonContent =>
-					{
-						if (string.IsNullOrEmpty(jsonContent)) Log.E("is null or empty");
-						
-					}, err =>
-					{
-						Log.E(err);
-					});
-//			var configFileList = IOUtils.GetDirSubFilePathList(new PackageConfig().FolderFullPath, true, "Config.json");
-//			configFileList.ForEach(fileName => fileName.Log());
-		}
-
 		[MenuItem("UniPM/ExtractServer")]
 		public static void ExtractGameServer()
 		{
 			PackageListConfig.GetInstalledPackageList().SaveExport();
 		}
 
-		[MenuItem("UniPM/UpdateCompress")]
-		public static void UpdateCompress()
-		{
-			ObservableWWW
-				.GetAndGetBytes(ServerURL + "raw/master/TestCompress/TestCompress.zip").Subscribe(
-					bytes =>
-					{
-						string tempZipFile = Application.persistentDataPath + "/temp.zip";
-						File.WriteAllBytes(tempZipFile, bytes);
-						string err = string.Empty;
-//						IOUtils.DeleteDirIfExists(new PackageConfig().FolderFullPath);
-//						ZipUtil.UnZipFile(tempZipFile, new PackageConfig().FolderFullPath, out err);
-						File.Delete(tempZipFile);
-
-//						new PackageConfig().SaveLocal();
-
-						AssetDatabase.Refresh();
-					});
-		}
 	}
 }

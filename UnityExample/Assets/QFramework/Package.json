@@ -1,9 +1,0 @@
-{
-  "Name": "QFramework",
-  "CopyRight": "UniPM",
-  "Version": "0.0.0",
-  "PackagePath": "Assets/QFramework",
-  "ReleaseNote": null,
-  "DownloadURL": "https://github.com/UniPM/PackageListServer/raw/master/QFramework/QFramework.zip",
-  "ConfigFilePath": "Assets/QFramework/Package.json"
-}

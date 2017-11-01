@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 75e2b41b5f50f4d0584f0684c48f5e5f
+guid: 62112692b535a44c8b3d660c46cb8d76
 labels:
-- QFramework
+- Core
 - UniPM
 - v0.0.0
-timeCreated: 1509541083
+timeCreated: 1509548302
 licenseType: Pro
-TextScriptImporter:
+NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 

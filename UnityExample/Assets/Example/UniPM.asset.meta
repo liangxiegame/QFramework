@@ -1,13 +1,11 @@
 fileFormatVersion: 2
-guid: 8997b3eb3a91f4ebe86f2d7a0704fcef
+guid: d5a6a2662243347b6992139822e8a635
 labels:
 - UniPM
-- Unity
 - v0.0.0
-folderAsset: yes
-timeCreated: 1509466137
+timeCreated: 1509548265
 licenseType: Pro
-DefaultImporter:
+NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 

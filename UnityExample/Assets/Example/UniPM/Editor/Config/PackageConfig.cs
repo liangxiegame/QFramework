@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace UniPM
 {
     using QFramework;
@@ -30,7 +32,7 @@ namespace UniPM
     using Path = System.IO.Path;
     
     [System.Serializable]
-    public class PackageConfig
+    public class PackageConfig : ScriptableObject
     {
         public string Name = "TestCompress";
 
@@ -42,7 +44,7 @@ namespace UniPM
 
         public string ConfigFilePath
         {
-            get { return PackagePath.CombinePath("Package.json"); }
+            get { return PackagePath.Append(".asset").ToString(); }
         }
 
         public string ReleaseNote;
@@ -54,8 +56,7 @@ namespace UniPM
             Name = packagePath.Split(Path.DirectorySeparatorChar).Last();
             PackagePath = packagePath;
             Version = "0.0.0";
-            DownloadURL = EditorPrefs.GetString(PackageListConfig.GitUrl)
-                .AppendFormat("/raw/master/{0}/{0}.zip", Name).ToString();
+            DownloadURL = PackageListConfig.GitUrl.AppendFormat("/raw/master/{0}/{0}.zip", Name).ToString();
         }
 
         void UpdateView()
@@ -118,12 +119,12 @@ namespace UniPM
         
         public static PackageConfig LoadFromPath(string configFilePath)
         {
-            return SerializeHelper.LoadJson<PackageConfig>(configFilePath);
+            return AssetDatabase.LoadAssetAtPath<PackageConfig>(configFilePath.Replace(Application.dataPath, "Assets"));
         }
         
         public void SaveLocal()
         {
-            this.SaveJson(ConfigFilePath);
+            AssetDatabase.CreateAsset(this, ConfigFilePath);
             AssetDatabase.Refresh();
             UpdateView();
         }
