@@ -2,7 +2,7 @@
 
 
 
-#### QFramework入门教程
+#### [QFramework入门教程](./tutor/快速入门.md)
 
 ​		
 
