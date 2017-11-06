@@ -25,29 +25,29 @@
 
 using UnityEngine;
 
-namespace QFramework.Example 
+namespace QFramework.Example
 {
 	/// <summary>
 	/// Hello World
 	/// </summary>
-	public class HelloWorldExample : MonoBehaviour 
+	public class HelloWorldExample : MonoBehaviour
 	{
 		/* 
 		 * Hello World不知道写一些什么,但是Hello World很重要。所以介绍一个比较酷的特性。
 		 */
-		void Start () 
+		void Start()
 		{
 			this.Position(Vector2.zero)
 				.LocalScaleIdentity()
 				.Sequence()
-				.Event(()=>Log.I("感谢使用QFramework"))
+				.Event(() => Log.I("Hello World"))
 				.Delay(0.5f)
-				.Event(()=>Log.I("延时了0.5秒"))
-				.Event(()=>Log.I(transform.position))
-				.Event(()=>Log.I(transform.localScale))
+				.Event(() => Log.I("延时了0.5秒"))
+				.Event(() => Log.I(transform.position))
+				.Event(() => Log.I(transform.localScale))
 				.Begin()
-				.DisposeWhen(()=>false)
-				.OnDisposed(()=>Log.I("被销毁了"));
+				.DisposeWhen(() => Time.realtimeSinceStartup > 10.0f)
+				.OnDisposed(() => Log.I("被销毁了"));
 		}
 
 		/* 以上代码翻译成协程就是如下代码
@@ -56,7 +56,7 @@ namespace QFramework.Example
 			transform.position = Vector2.zero;
 			transform.localScale = Vector3.one;
 			yield return null;
-			Log.I("感谢使用QFramework");
+			Log.I("Hello World");
 			yield return new WaitForSeconds(0.5f);
 			Log.I("延时了0.5秒");
 			yield return null;
@@ -67,5 +67,17 @@ namespace QFramework.Example
 			Log.I("被销毁了");
 		}
 		*/
+
+		void Awake()
+		{
+			int countDown = 5;
+			this.Repeat()
+				.Delay(1.0f)
+				.Event(()=>Log.I("Count Down:{0}",--countDown))
+				.Begin()
+				.DisposeWhen(() => countDown == 0)
+				.OnDisposed(() => Log.I("On Disposed"));
+
+		}
 	}
 }
