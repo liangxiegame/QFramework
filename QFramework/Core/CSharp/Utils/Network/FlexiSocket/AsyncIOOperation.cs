@@ -25,7 +25,7 @@
 
 using System.Net.Sockets;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Async send/receive operation

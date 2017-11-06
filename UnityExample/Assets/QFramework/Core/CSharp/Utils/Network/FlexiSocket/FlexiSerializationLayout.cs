@@ -23,7 +23,7 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-namespace FlexiFramework.Serializing
+namespace QFramework
 {
     /// <summary>
     /// Member layout type

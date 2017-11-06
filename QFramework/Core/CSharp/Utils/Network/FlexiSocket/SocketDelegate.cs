@@ -26,7 +26,7 @@
 using System;
 using System.Net.Sockets;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Socket closed callback

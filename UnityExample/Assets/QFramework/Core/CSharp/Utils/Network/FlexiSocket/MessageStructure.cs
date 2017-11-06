@@ -23,10 +23,10 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-using System;
-
-namespace FlexiFramework.Networking
+namespace QFramework
 {
+    using System;
+
     /// <summary>
     /// Message structure type
     /// </summary>

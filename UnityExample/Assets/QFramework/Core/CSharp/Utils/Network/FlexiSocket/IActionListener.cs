@@ -1,6 +1,11 @@
 
 
-public interface IActionListener  {
+namespace QFramework
+{
+
+
+public interface IActionListener  
+{
 
 
 	void OnAction(QSimulateAction action);
@@ -11,4 +16,5 @@ public enum QSimulateAction{
 	UP,
 	DOWN
 
+}
 }

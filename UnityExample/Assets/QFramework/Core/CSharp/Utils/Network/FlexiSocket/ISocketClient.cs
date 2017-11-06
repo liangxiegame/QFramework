@@ -26,7 +26,7 @@
 using System.Collections;
 using System.Net;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Socket client

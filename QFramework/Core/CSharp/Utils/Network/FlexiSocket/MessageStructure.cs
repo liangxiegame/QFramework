@@ -25,7 +25,7 @@
 
 using System;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Message structure type

@@ -23,12 +23,12 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-using System;
-using System.Collections;
-using System.Net.Sockets;
-
-namespace FlexiFramework.Networking
+namespace QFramework
 {
+    using System;
+    using System.Collections;
+    using System.Net.Sockets;
+
     /// <summary>
     /// Async disconnect operation
     /// </summary>

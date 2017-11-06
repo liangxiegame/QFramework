@@ -109,7 +109,7 @@ namespace QFramework
 
         public IDisposeEventRegister DisposeWhen(Func<bool> condition)
         {
-            mDisposeWhenFinished = true;
+            mDisposeWhenFinished = false;
             mDisposeWhenCondition = true;
             mDisposeCondition = condition;
             return this;

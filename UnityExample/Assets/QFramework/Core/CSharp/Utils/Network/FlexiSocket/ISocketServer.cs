@@ -23,10 +23,10 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-using System.Collections.ObjectModel;
-
-namespace FlexiFramework.Networking
+namespace QFramework
 {
+    using System.Collections.ObjectModel;
+
     /// <summary>
     /// Socket server
     /// </summary>

@@ -27,7 +27,6 @@
 
 namespace QFramework
 {
-    using FlexiFramework.Networking;
     using System;
     using System.Net.Sockets;
     using System.Collections.Generic;

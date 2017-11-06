@@ -23,16 +23,16 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Net;
-using System.Net.Sockets;
-
-namespace FlexiFramework.Networking
+namespace QFramework
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.IO;
+    using System.Net;
+    using System.Net.Sockets;
+
     public sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
     {
         private readonly Socket _socket;

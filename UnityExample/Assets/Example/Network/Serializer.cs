@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using FlexiFramework.Serializing;
+using QFramework;
 using UnityEngine;
 
 public class Serializer : MonoBehaviour, IFlexiSerializer<Quaternion>

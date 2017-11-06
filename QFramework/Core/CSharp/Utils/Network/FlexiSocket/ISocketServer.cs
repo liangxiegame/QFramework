@@ -25,7 +25,7 @@
 
 using System.Collections.ObjectModel;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Socket server

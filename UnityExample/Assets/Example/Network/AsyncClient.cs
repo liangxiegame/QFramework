@@ -4,11 +4,10 @@
 // Modified: 2016/06/08/15:02
 // ************************
 
-using System;
+
 using System.Collections;
 using System.Net.Sockets;
 using System.Text;
-using FlexiFramework.Networking;
 using QFramework;
 using UnityEngine;
 

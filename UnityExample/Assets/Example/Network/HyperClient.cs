@@ -25,9 +25,9 @@
 
 using System;
 using System.Net.Sockets;
-using FlexiFramework.Networking;
 using UnityEngine;
 using UnityEngine.UI;
+using QFramework;
 
 public class HyperClient : MonoBehaviour
 {

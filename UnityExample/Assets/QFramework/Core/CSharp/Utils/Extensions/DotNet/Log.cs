@@ -75,8 +75,6 @@ namespace QFramework
             set { mLogLevel = value; }
         }
 
-
-
         public static void I(object msg)
         {
             if (mLogLevel < LogLevel.Normal)
@@ -148,6 +146,7 @@ namespace QFramework
             {
                 return;
             }
+            
 #if UNITY_5
             Debug.LogWarning(msg);
 #else

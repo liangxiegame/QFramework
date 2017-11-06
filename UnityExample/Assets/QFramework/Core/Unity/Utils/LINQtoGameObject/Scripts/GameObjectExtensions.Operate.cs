@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.Linq
+namespace QFramework
 {
     /// <summary>
     /// Set type of cloned child GameObject's localPosition/Scale/Rotation.

@@ -1,7 +1,8 @@
-using System.IO;
 
-namespace FlexiFramework.Serializing
+namespace QFramework
 {
+    using System.IO;
+
     /// <summary>
     /// Custom serialization callback
     /// </summary>

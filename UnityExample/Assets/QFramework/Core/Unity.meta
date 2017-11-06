@@ -1,11 +1,7 @@
 fileFormatVersion: 2
-guid: 8997b3eb3a91f4ebe86f2d7a0704fcef
-labels:
-- UniPM
-- Unity
-- v0.0.0
+guid: ee8b54e9b7dba4112adb96951318fed9
 folderAsset: yes
-timeCreated: 1509466137
+timeCreated: 1509969090
 licenseType: Pro
 DefaultImporter:
   userData: 

@@ -29,7 +29,6 @@ namespace QFramework
 {
 	using System;
 	using System.Collections;
-	using FlexiFramework.Networking;
 	using UnityEngine;
 	using System.Collections.Generic;
 

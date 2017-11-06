@@ -23,11 +23,11 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-using System;
-using System.Net.Sockets;
-
-namespace FlexiFramework.Networking
+namespace QFramework
 {
+    using System;
+    using System.Net.Sockets;
+
     /// <summary>
     /// Socket closed callback
     /// </summary>

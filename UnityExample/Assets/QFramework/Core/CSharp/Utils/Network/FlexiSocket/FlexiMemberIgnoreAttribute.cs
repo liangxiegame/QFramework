@@ -1,7 +1,9 @@
-using System;
 
-namespace FlexiFramework.Serializing
+
+namespace QFramework
 {
+    using System;
+    
     /// <summary>
     /// Attributed public members will not be serialized
     /// </summary>

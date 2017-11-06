@@ -28,7 +28,7 @@ using System.Collections;
 using System.IO;
 using System.Net.Sockets;
 
-namespace FlexiFramework.Networking
+namespace QFramework
 {
     /// <summary>
     /// Async receive operation
