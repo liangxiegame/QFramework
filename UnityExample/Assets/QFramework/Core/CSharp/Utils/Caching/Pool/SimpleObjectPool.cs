@@ -42,7 +42,6 @@ namespace QFramework
             mFactory = new CustomObjectFactory<T>(factoryMethod);
             mResetMethod = resetMethod;
 
-
             for (int i = 0; i < initCount; i++)
             {
                 mCacheStack.Push(mFactory.Create());
