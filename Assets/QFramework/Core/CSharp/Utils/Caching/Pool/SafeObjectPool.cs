@@ -58,7 +58,7 @@ namespace QFramework
     /// <summary>
     /// Object pool.
     /// </summary>
-    public class SafeObjectPool<T> : Pool<T>, ISingleton, IPool<T> where T : IPoolAble, new()
+    public class SafeObjectPool<T> : Pool<T>, ISingleton where T : IPoolAble, new()
     {
         #region Singleton
         public void OnSingletonInit()
