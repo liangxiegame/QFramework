@@ -1,6 +1,6 @@
 language: csharp
 
-solution: QFramework.sln
+solution: build.sln
 
 sudo: true 
 
@@ -29,12 +29,12 @@ addons:
 
 # Build your code e.g. by calling make
 script: 
-    - sh ./ci/build.sh 
-    - sh ./ci/test.sh 
+    - sh ./Tools/build.sh 
+    - sh ./Tools/test.sh 
 notifications:
   webhooks: https://hook.bearychat.com/=bwBLe/travis/d12e4ab6659650c0e20f6f99bd07ffea
 # Generate and deploy documentation
 after_success:
   - cd $TRAVIS_BUILD_DIR
-  - chmod +x ci/generateDocumentationAndDeploy.sh
-  - ./ci/generateDocumentationAndDeploy.sh
+  - chmod +x Tools/generateDocumentationAndDeploy.sh
+  - ./Tools/generateDocumentationAndDeploy.sh

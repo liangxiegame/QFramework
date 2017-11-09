@@ -1,5 +1,5 @@
 .travis.yml~
 .idea
-QFramework/bin/Debug
+Assets/Plugins/Editor/JetBrains
+JetBrains.meta
 QFramework.userprefs
-UnityExample/Library

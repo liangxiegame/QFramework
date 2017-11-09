@@ -1,0 +1,876 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C0A429B-EC12-4F8F-81BD-43B98486A7A3}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QFramework</RootNamespace>
+    <AssemblyName>Core.CSharp</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>anycpu</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Output\Core\CSharp</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>4</LangVersion>
+    <CustomCommands>
+      <CustomCommands>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf ${SolutionDir}/Assets/QFramework/Core/CSharp/Properties</command>
+        </Command>
+        <Command>
+          <type>AfterBuild</type>
+          <command>rm -rf  ${SolutionDir}/Assets/QFramework/Core/CSharp/obj</command>
+        </Command>
+      </CustomCommands>
+    </CustomCommands>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Output\Core\CSharp</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>4</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Core\CSharp\Libs\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="LitJson">
+      <HintPath>Core\CSharp\Libs\LitJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Core\CSharp\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>Core\CSharp\Libs\ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.unity">
+      <HintPath>Core\CSharp\Libs\zxing.unity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\CSharp\Libs.meta">
+      <Link>CSharp\Libs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem.meta">
+      <Link>CSharp\NodeSystem.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils.meta">
+      <Link>CSharp\Utils.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\ExecuteNodeContainer.cs.meta">
+      <Link>CSharp\NodeSystem\ExecuteNodeContainer.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node.meta">
+      <Link>CSharp\NodeSystem\Node.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\ProcessNode.cs.meta">
+      <Link>CSharp\NodeSystem\ProcessNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\DelayNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\DelayNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\EventNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\EventNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\ExecuteNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\ExecuteNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\IExecuteNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\IExecuteNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\KeyEventNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\KeyEventNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\RepeatNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\RepeatNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\SequenceNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\SequenceNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\SpawnNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\SpawnNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\TimelineNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\TimelineNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\NodeSystem\Node\UntilNode.cs.meta">
+      <Link>CSharp\NodeSystem\Node\UntilNode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching.meta">
+      <Link>CSharp\Utils\Caching.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration.meta">
+      <Link>CSharp\Utils\CodeGeneration.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure.meta">
+      <Link>CSharp\Utils\DataStructure.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design.meta">
+      <Link>CSharp\Utils\Design.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Event.meta">
+      <Link>CSharp\Utils\Event.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions.meta">
+      <Link>CSharp\Utils\Extensions.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\FSM.meta">
+      <Link>CSharp\Utils\FSM.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\IO.meta">
+      <Link>CSharp\Utils\IO.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network.meta">
+      <Link>CSharp\Utils\Network.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter.meta">
+      <Link>CSharp\Utils\RefCounter.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Cache.meta">
+      <Link>CSharp\Utils\Caching\Cache.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\ObjectFactory.meta">
+      <Link>CSharp\Utils\Caching\ObjectFactory.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool.meta">
+      <Link>CSharp\Utils\Caching\Pool.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Cache\SimpleObjectCache.cs.meta">
+      <Link>CSharp\Utils\Caching\Cache\SimpleObjectCache.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs.meta">
+      <Link>CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs.meta">
+      <Link>CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\ObjectFactory\IObjectFactory.cs.meta">
+      <Link>CSharp\Utils\Caching\ObjectFactory\IObjectFactory.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs.meta">
+      <Link>CSharp\Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool\IPool.cs.meta">
+      <Link>CSharp\Utils\Caching\Pool\IPool.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool\NonPublicObjectPool.cs.meta">
+      <Link>CSharp\Utils\Caching\Pool\NonPublicObjectPool.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool\Pool.cs.meta">
+      <Link>CSharp\Utils\Caching\Pool\Pool.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool\SafeObjectPool.cs.meta">
+      <Link>CSharp\Utils\Caching\Pool\SafeObjectPool.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Caching\Pool\SimpleObjectPool.cs.meta">
+      <Link>CSharp\Utils\Caching\Pool\SimpleObjectPool.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\CodeGenFile.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\CodeGenFile.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\CodeGeneratorData.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\CodeGeneratorData.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\Interfaces.meta">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGenerator.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGenerator.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs.meta">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\Array.meta">
+      <Link>CSharp\Utils\DataStructure\Array.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinaryHeap.meta">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinarySearchTree.meta">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\IData.cs.meta">
+      <Link>CSharp\Utils\DataStructure\IData.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\ITestUnit.cs.meta">
+      <Link>CSharp\Utils\DataStructure\ITestUnit.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\ImmutableList.cs.meta">
+      <Link>CSharp\Utils\DataStructure\ImmutableList.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List.meta">
+      <Link>CSharp\Utils\DataStructure\List.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\Main.cs.meta">
+      <Link>CSharp\Utils\DataStructure\Main.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\Pair.cs.meta">
+      <Link>CSharp\Utils\DataStructure\Pair.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\PriorityQueue.cs.meta">
+      <Link>CSharp\Utils\DataStructure\PriorityQueue.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\Array\ResizableArray.cs.meta">
+      <Link>CSharp\Utils\DataStructure\Array\ResizableArray.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinaryHeap\BinaryHeap.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\BinaryHeap.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinaryHeap\Test.meta">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\Test.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\Test.meta">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\Test.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs.meta">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List\IList.cs.meta">
+      <Link>CSharp\Utils\DataStructure\List\IList.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List\LinkedList.cs.meta">
+      <Link>CSharp\Utils\DataStructure\List\LinkedList.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List\Stack.cs.meta">
+      <Link>CSharp\Utils\DataStructure\List\Stack.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List\Test.meta">
+      <Link>CSharp\Utils\DataStructure\List\Test.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\DataStructure\List\Test\LinkedListTest.cs.meta">
+      <Link>CSharp\Utils\DataStructure\List\Test\LinkedListTest.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Command.meta">
+      <Link>CSharp\Utils\Design\Command.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Condition.meta">
+      <Link>CSharp\Utils\Design\Condition.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable.meta">
+      <Link>CSharp\Utils\Design\Desposable.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Exception.meta">
+      <Link>CSharp\Utils\Design\Exception.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\IProgress.cs.meta">
+      <Link>CSharp\Utils\Design\IProgress.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\IResetable.cs.meta">
+      <Link>CSharp\Utils\Design\IResetable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Node.meta">
+      <Link>CSharp\Utils\Design\Node.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Observer.meta">
+      <Link>CSharp\Utils\Design\Observer.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Singleton.meta">
+      <Link>CSharp\Utils\Design\Singleton.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Tuple.cs.meta">
+      <Link>CSharp\Utils\Design\Tuple.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Unit.cs.meta">
+      <Link>CSharp\Utils\Design\Unit.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Command\ICommand.cs.meta">
+      <Link>CSharp\Utils\Design\Command\ICommand.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Command\IExecutable.cs.meta">
+      <Link>CSharp\Utils\Design\Command\IExecutable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Condition\ICondition.cs.meta">
+      <Link>CSharp\Utils\Design\Condition\ICondition.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\AsyncLock.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\AsyncLock.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\BooleanDisposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\BooleanDisposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\CompositeDisposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\CompositeDisposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\Disposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\Disposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\DisposableObject.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\DisposableObject.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\ICancelable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\ICancelable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\SerialDisposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\SerialDisposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\SingleAssignmentDisposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\SingleAssignmentDisposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Desposable\StableCompositeDisposable.cs.meta">
+      <Link>CSharp\Utils\Design\Desposable\StableCompositeDisposable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Exception\ExceptionWithHint.cs.meta">
+      <Link>CSharp\Utils\Design\Exception\ExceptionWithHint.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Node\INode.cs.meta">
+      <Link>CSharp\Utils\Design\Node\INode.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Observer\IObservable.cs.meta">
+      <Link>CSharp\Utils\Design\Observer\IObservable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Observer\IObserver.cs.meta">
+      <Link>CSharp\Utils\Design\Observer\IObserver.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Observer\ListObserver.cs.meta">
+      <Link>CSharp\Utils\Design\Observer\ListObserver.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Singleton\ISingleton.cs.meta">
+      <Link>CSharp\Utils\Design\Singleton\ISingleton.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Singleton\QSingleton.cs.meta">
+      <Link>CSharp\Utils\Design\Singleton\QSingleton.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Singleton\QSingletonProperty.cs.meta">
+      <Link>CSharp\Utils\Design\Singleton\QSingletonProperty.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Design\Singleton\SingletonCreator.cs.meta">
+      <Link>CSharp\Utils\Design\Singleton\SingletonCreator.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Event\QEventSystem.cs.meta">
+      <Link>CSharp\Utils\Event\QEventSystem.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet.meta">
+      <Link>CSharp\Utils\Extensions\DotNet.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\Json.meta">
+      <Link>CSharp\Utils\Extensions\Json.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\CSharpInDeep.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\CSharpInDeep.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\FuncOrActionOrEvent.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\FuncOrActionOrEvent.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\Generic.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\Generic.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\IEnumerable.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\IEnumerable.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\IO.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\IO.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\Log.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\Log.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\OOP.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\OOP.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\Reflection.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\Reflection.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\DotNet\String.cs.meta">
+      <Link>CSharp\Utils\Extensions\DotNet\String.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Extensions\Json\JsonExtension.cs.meta">
+      <Link>CSharp\Utils\Extensions\Json\JsonExtension.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\FSM\QFSM.cs.meta">
+      <Link>CSharp\Utils\FSM\QFSM.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\FSM\QFSMLite.cs.meta">
+      <Link>CSharp\Utils\FSM\QFSMLite.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\FSM\QFSMLiteTest.cs.meta">
+      <Link>CSharp\Utils\FSM\QFSMLiteTest.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll">
+      <Link>CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll.meta">
+      <Link>CSharp\Utils\IO\ICSharpCode.SharpZipLib.dll.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\IO\SerializeHelper.cs.meta">
+      <Link>CSharp\Utils\IO\SerializeHelper.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\IO\ZipUtil.cs.meta">
+      <Link>CSharp\Utils\IO\ZipUtil.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncConnect.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncConnect.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncDisconnect.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncDisconnect.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncIOOperation.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncIOOperation.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncReceive.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncReceive.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncSend.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncSend.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncSocketOperation.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncSocketOperation.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializationLayout.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializationLayout.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializationOptions.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializationOptions.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializer.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializer.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSocket.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSocket.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\IActionListener.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\IActionListener.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\IFlexiSerializer.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\IFlexiSerializer.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\IProtocol.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\IProtocol.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketClient.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketClient.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketClientToken.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketClientToken.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketServer.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketServer.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\MessageStructure.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\MessageStructure.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\Network\FlexiSocket\SocketDelegate.cs.meta">
+      <Link>CSharp\Utils\Network\FlexiSocket\SocketDelegate.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\Exception.meta">
+      <Link>CSharp\Utils\RefCounter\Exception.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\RefCounter.cs.meta">
+      <Link>CSharp\Utils\RefCounter\RefCounter.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\SafeARC.cs.meta">
+      <Link>CSharp\Utils\RefCounter\SafeARC.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\UnsafeARC.cs.meta">
+      <Link>CSharp\Utils\RefCounter\UnsafeARC.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs.meta">
+      <Link>CSharp\Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs.meta</Link>
+    </None>
+    <None Include="Core\CSharp\Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs.meta">
+      <Link>CSharp\Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs.meta</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Core\CSharp\NodeSystem\ExecuteNodeContainer.cs">
+      <Link>CSharp\NodeSystem\ExecuteNodeContainer.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\ProcessNode.cs">
+      <Link>CSharp\NodeSystem\ProcessNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\DelayNode.cs">
+      <Link>CSharp\NodeSystem\Node\DelayNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\EventNode.cs">
+      <Link>CSharp\NodeSystem\Node\EventNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\ExecuteNode.cs">
+      <Link>CSharp\NodeSystem\Node\ExecuteNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\IExecuteNode.cs">
+      <Link>CSharp\NodeSystem\Node\IExecuteNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\KeyEventNode.cs">
+      <Link>CSharp\NodeSystem\Node\KeyEventNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\RepeatNode.cs">
+      <Link>CSharp\NodeSystem\Node\RepeatNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\SequenceNode.cs">
+      <Link>CSharp\NodeSystem\Node\SequenceNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\SpawnNode.cs">
+      <Link>CSharp\NodeSystem\Node\SpawnNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\TimelineNode.cs">
+      <Link>CSharp\NodeSystem\Node\TimelineNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\NodeSystem\Node\UntilNode.cs">
+      <Link>CSharp\NodeSystem\Node\UntilNode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Cache\SimpleObjectCache.cs">
+      <Link>CSharp\Utils\Caching\Cache\SimpleObjectCache.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs">
+      <Link>CSharp\Utils\Caching\ObjectFactory\CustomObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs">
+      <Link>CSharp\Utils\Caching\ObjectFactory\DefaultObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\ObjectFactory\IObjectFactory.cs">
+      <Link>CSharp\Utils\Caching\ObjectFactory\IObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs">
+      <Link>CSharp\Utils\Caching\ObjectFactory\NonPublicObjectFactory.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Pool\IPool.cs">
+      <Link>CSharp\Utils\Caching\Pool\IPool.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Pool\NonPublicObjectPool.cs">
+      <Link>CSharp\Utils\Caching\Pool\NonPublicObjectPool.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Pool\Pool.cs">
+      <Link>CSharp\Utils\Caching\Pool\Pool.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Pool\SafeObjectPool.cs">
+      <Link>CSharp\Utils\Caching\Pool\SafeObjectPool.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Caching\Pool\SimpleObjectPool.cs">
+      <Link>CSharp\Utils\Caching\Pool\SimpleObjectPool.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\CodeGenFile.cs">
+      <Link>CSharp\Utils\CodeGeneration\CodeGenFile.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\CodeGeneratorData.cs">
+      <Link>CSharp\Utils\CodeGeneration\CodeGeneratorData.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGenFilePostProcessor.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGenerator.cs">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGenerator.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorDataProvider.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs">
+      <Link>CSharp\Utils\CodeGeneration\Interfaces\ICodeGeneratorInterface.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\IData.cs">
+      <Link>CSharp\Utils\DataStructure\IData.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\ITestUnit.cs">
+      <Link>CSharp\Utils\DataStructure\ITestUnit.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\ImmutableList.cs">
+      <Link>CSharp\Utils\DataStructure\ImmutableList.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\Main.cs">
+      <Link>CSharp\Utils\DataStructure\Main.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\Pair.cs">
+      <Link>CSharp\Utils\DataStructure\Pair.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\PriorityQueue.cs">
+      <Link>CSharp\Utils\DataStructure\PriorityQueue.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\Array\ResizableArray.cs">
+      <Link>CSharp\Utils\DataStructure\Array\ResizableArray.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinaryHeap\BinaryHeap.cs">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\BinaryHeap.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\IBinaryHeapElement.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs">
+      <Link>CSharp\Utils\DataStructure\BinaryHeap\Test\BinaryHeapTest.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\BinarySearchTree.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\IBinarySearchTreeElement.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs">
+      <Link>CSharp\Utils\DataStructure\BinarySearchTree\Test\BinarySearchTreeTest.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\List\IList.cs">
+      <Link>CSharp\Utils\DataStructure\List\IList.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\List\LinkedList.cs">
+      <Link>CSharp\Utils\DataStructure\List\LinkedList.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\List\Stack.cs">
+      <Link>CSharp\Utils\DataStructure\List\Stack.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\DataStructure\List\Test\LinkedListTest.cs">
+      <Link>CSharp\Utils\DataStructure\List\Test\LinkedListTest.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\IProgress.cs">
+      <Link>CSharp\Utils\Design\IProgress.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\IResetable.cs">
+      <Link>CSharp\Utils\Design\IResetable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Tuple.cs">
+      <Link>CSharp\Utils\Design\Tuple.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Unit.cs">
+      <Link>CSharp\Utils\Design\Unit.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Command\ICommand.cs">
+      <Link>CSharp\Utils\Design\Command\ICommand.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Command\IExecutable.cs">
+      <Link>CSharp\Utils\Design\Command\IExecutable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Condition\ICondition.cs">
+      <Link>CSharp\Utils\Design\Condition\ICondition.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\AsyncLock.cs">
+      <Link>CSharp\Utils\Design\Desposable\AsyncLock.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\BooleanDisposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\BooleanDisposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\CompositeDisposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\CompositeDisposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\Disposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\Disposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\DisposableObject.cs">
+      <Link>CSharp\Utils\Design\Desposable\DisposableObject.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\ICancelable.cs">
+      <Link>CSharp\Utils\Design\Desposable\ICancelable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\SerialDisposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\SerialDisposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\SingleAssignmentDisposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\SingleAssignmentDisposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Desposable\StableCompositeDisposable.cs">
+      <Link>CSharp\Utils\Design\Desposable\StableCompositeDisposable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Exception\ExceptionWithHint.cs">
+      <Link>CSharp\Utils\Design\Exception\ExceptionWithHint.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Node\INode.cs">
+      <Link>CSharp\Utils\Design\Node\INode.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Observer\IObservable.cs">
+      <Link>CSharp\Utils\Design\Observer\IObservable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Observer\IObserver.cs">
+      <Link>CSharp\Utils\Design\Observer\IObserver.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Observer\ListObserver.cs">
+      <Link>CSharp\Utils\Design\Observer\ListObserver.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Singleton\ISingleton.cs">
+      <Link>CSharp\Utils\Design\Singleton\ISingleton.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Singleton\QSingleton.cs">
+      <Link>CSharp\Utils\Design\Singleton\QSingleton.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Singleton\QSingletonProperty.cs">
+      <Link>CSharp\Utils\Design\Singleton\QSingletonProperty.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Design\Singleton\SingletonCreator.cs">
+      <Link>CSharp\Utils\Design\Singleton\SingletonCreator.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Event\QEventSystem.cs">
+      <Link>CSharp\Utils\Event\QEventSystem.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\CSharpInDeep.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\CSharpInDeep.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\FuncOrActionOrEvent.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\FuncOrActionOrEvent.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\Generic.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\Generic.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\IEnumerable.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\IEnumerable.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\IO.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\IO.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\Log.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\Log.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\OOP.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\OOP.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\Reflection.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\Reflection.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\DotNet\String.cs">
+      <Link>CSharp\Utils\Extensions\DotNet\String.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Extensions\Json\JsonExtension.cs">
+      <Link>CSharp\Utils\Extensions\Json\JsonExtension.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\FSM\QFSM.cs">
+      <Link>CSharp\Utils\FSM\QFSM.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\FSM\QFSMLite.cs">
+      <Link>CSharp\Utils\FSM\QFSMLite.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\FSM\QFSMLiteTest.cs">
+      <Link>CSharp\Utils\FSM\QFSMLiteTest.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\IO\SerializeHelper.cs">
+      <Link>CSharp\Utils\IO\SerializeHelper.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\IO\ZipUtil.cs">
+      <Link>CSharp\Utils\IO\ZipUtil.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncConnect.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncConnect.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncDisconnect.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncDisconnect.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncIOOperation.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncIOOperation.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncReceive.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncReceive.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncSend.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncSend.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\AsyncSocketOperation.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\AsyncSocketOperation.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberIgnoreAttribute.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberIncludeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiMemberOrderAttribute.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializableAttribute.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializationLayout.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializationLayout.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializationOptions.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializationOptions.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSerializer.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSerializer.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\FlexiSocket.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\FlexiSocket.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\IActionListener.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\IActionListener.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\IFlexiSerializer.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\IFlexiSerializer.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\IProtocol.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\IProtocol.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketClient.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketClient.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketClientToken.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketClientToken.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\ISocketServer.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\ISocketServer.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\MessageStructure.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\MessageStructure.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\Network\FlexiSocket\SocketDelegate.cs">
+      <Link>CSharp\Utils\Network\FlexiSocket\SocketDelegate.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\RefCounter\RefCounter.cs">
+      <Link>CSharp\Utils\RefCounter\RefCounter.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\RefCounter\SafeARC.cs">
+      <Link>CSharp\Utils\RefCounter\SafeARC.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\RefCounter\UnsafeARC.cs">
+      <Link>CSharp\Utils\RefCounter\UnsafeARC.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs">
+      <Link>CSharp\Utils\RefCounter\Exception\ObjectIsAlreadyRetainedByOwnerException.cs</Link>
+    </Compile>
+    <Compile Include="Core\CSharp\Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs">
+      <Link>CSharp\Utils\RefCounter\Exception\ObjectIsNotRetainedByOwnerException.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
