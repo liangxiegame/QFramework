@@ -12,6 +12,7 @@
     <AssemblyName>Core.CSharp</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <UseMSBuildEngine>false</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>anycpu</PlatformTarget>
@@ -26,16 +27,12 @@
     <CustomCommands>
       <CustomCommands>
         <Command>
-          <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/Assets/QFramework/Core/CSharp/Properties</command>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>rm -rf  ${SolutionDir}/Assets/QFramework/Core/CSharp/obj</command>
+          <type>AfterClean</type>
+          <command>rm -rf ${SolutionDir}/Assets/QFramework/obj</command>
         </Command>
       </CustomCommands>
     </CustomCommands>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -46,7 +43,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>4</LangVersion>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -24,20 +24,7 @@
       <CustomCommands>
         <Command>
           <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity</command>
-          <workingdir></workingdir>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>cp -rf  ${SolutionDir}/QFramework/Core/Unity ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity</command>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>rm -rf ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity/Properties</command>
-        </Command>
-        <Command>
-          <type>AfterBuild</type>
-          <command>rm -rf  ${SolutionDir}/UnityExample/Assets/QFramework/Core/Unity/obj</command>
+          <command>rm -rf  ${SolutionDir}/Assets/QFramework/obj</command>
         </Command>
       </CustomCommands>
     </CustomCommands>
