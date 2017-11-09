@@ -3,6 +3,8 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -27,12 +29,50 @@ using UnityEngine;
 
 namespace QFramework.Example
 {
-	public class NodeSystemExample : MonoBehaviour
+	public class SafeObjectPoolExample : MonoBehaviour
 	{
+		class Fish : IPoolAble ,IPoolType
+		{
+			public static Fish Allocate()
+			{
+				return SafeObjectPool<Fish>.Instance.Allocate();
+			}
+			
+			public void Recycle2Cache()
+			{
+				
+			}
+
+			public void OnRecycled()
+			{
+				Log.I("OnRecycled");
+			}
+			
+			public bool IsRecycled { get; set; }
+		}
+		
 		private void Start()
 		{
-			new EventNode();
+
+			SafeObjectPool<Fish>.Instance.Init(100,50);
 			
+			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
+
+			var fishOne = Fish.Allocate();
+			
+			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
+
+			fishOne.Recycle2Cache();
+			
+			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
+
+			for (int i = 0; i < 10; i++)
+			{
+				Fish.Allocate();
+			}
+			
+			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
+								
 		}
 	}
 }

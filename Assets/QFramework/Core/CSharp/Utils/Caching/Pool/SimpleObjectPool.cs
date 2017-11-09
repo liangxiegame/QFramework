@@ -30,7 +30,7 @@ namespace QFramework
     using System;
 
     /// <summary>
-    /// unsafe but fast
+    /// Unity 游戏框架搭建 (十九) 简易对象池：http://liangxiegame.com/post/24/ 的例子
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class SimpleObjectPool<T> : Pool<T>
