@@ -1,7 +1,30 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 xiaojun@putao.com
+ * Copyright (c) 2017 magicbel
  * Copyright (c) 2017 liangxie
-****************************************************************************/
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 namespace QFramework
 {
@@ -70,6 +93,7 @@ namespace QFramework
 					Instantiate(Resources.Load<GameObject>("QUIManager"));
 					mInstance = QMonoSingletonProperty<QUIManager>.Instance;
 					mInstance.name = "QUIManager";
+					DontDestroyOnLoad(mInstance);
 				}
 
 				return mInstance;
@@ -162,24 +186,23 @@ namespace QFramework
 					break;
 			}
 
-			
-			
-			#if NONE_LUA_SUPPORT
+
+
+#if NONE_LUA_SUPPORT
 			var uiGoRectTrans = ui.Transform as RectTransform;
-	
+
 			uiGoRectTrans.offsetMin = UnityEngine.Vector2.zero;
 			uiGoRectTrans.offsetMax = UnityEngine.Vector2.zero;
 			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
 			uiGoRectTrans.anchorMin = UnityEngine.Vector2.zero;
 			uiGoRectTrans.anchorMax = UnityEngine.Vector2.one;
-			#endif
-			
+#endif
+
 			ui.Transform.LocalScaleIdentity();
 			ui.Transform.gameObject.name = uiBehaviourName;
 
 			return ui.Transform.gameObject;
 		}
-
 
 		/// <summary>
 		/// 显示UIBehaiviour
@@ -290,7 +313,7 @@ namespace QFramework
 			return retValue;
 		}
 
-		public IUIBehaviour CreateUI(string uiBehaviourName, int level,IUIData uiData = null)
+		public IUIBehaviour CreateUI(string uiBehaviourName, int level, IUIData uiData = null)
 		{
 			IUIBehaviour ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
@@ -312,34 +335,35 @@ namespace QFramework
 		}
 
 		#region UnityCSharp Generic Support
+
 		/// <summary>
 		/// Create&ShowUI
 		/// </summary>
-		public T OpenUI<T>(UILevel canvasLevel, IUIData uiData = null) where T : QUIBehaviour
+		public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null) where T : QUIBehaviour
 		{
 			string behaviourName = GetUIBehaviourName<T>();
 
 			if (!mAllUI.ContainsKey(behaviourName))
 			{
-				CreateUI(behaviourName,(int)canvasLevel, uiData);
+				CreateUI(behaviourName, (int) canvasLevel, uiData);
 			}
 
 			mAllUI[behaviourName].Show();
 			return mAllUI[behaviourName] as T;
 		}
-		
 
-		public void ShowUI<T>()
+
+		public void ShowUI<T>() where T : QUIBehaviour
 		{
 			ShowUI(GetUIBehaviourName<T>());
 		}
 
-		public void HideUI<T>()
+		public void HideUI<T>() where T : QUIBehaviour
 		{
 			HideUI(GetUIBehaviourName<T>());
 		}
 
-		public void CloseUI<T>()
+		public void CloseUI<T>() where T : QUIBehaviour
 		{
 			CloseUI(GetUIBehaviourName<T>());
 		}
@@ -352,6 +376,29 @@ namespace QFramework
 		#endregion
 
 		#region LuaSupport
+
+		#endregion
+	}
+
+	public static class UIMgr
+	{
+		#region 高频率用的api
+
+		public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null) where T : QUIBehaviour
+		{
+			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData);
+		}
+
+		public static void ClosePanel<T>() where T : QUIBehaviour
+		{
+			QUIManager.Instance.CloseUI<T>();
+		}
+
+		public static T GetPanel<T>() where T : QUIBehaviour
+		{
+			return QUIManager.Instance.GetUI<T>();
+		}
+
 		#endregion
 	}
 }
