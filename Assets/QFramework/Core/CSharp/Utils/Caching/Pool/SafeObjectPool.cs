@@ -44,6 +44,7 @@ namespace QFramework
     public interface IPoolAble
     {
         void OnRecycled();
+        
         bool IsRecycled { get; set; }
     }
 
@@ -92,13 +93,15 @@ namespace QFramework
             if (maxCount > 0)
             {
                 initCount = Math.Min(maxCount, initCount);
+
+                mMaxCount = maxCount;
             }
 
             if (CurCount < initCount)
             {
                 for (int i = CurCount; i < initCount; ++i)
                 {
-                    Recycle(new T());
+                    Recycle(mFactory.Create());
                 }
             }
         }

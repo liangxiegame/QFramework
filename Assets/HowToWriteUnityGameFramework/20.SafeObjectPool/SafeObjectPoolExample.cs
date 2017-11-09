@@ -31,17 +31,9 @@ namespace QFramework.Example
 {
 	public class SafeObjectPoolExample : MonoBehaviour
 	{
-		class Fish : IPoolAble ,IPoolType
+		class Msg : IPoolAble,IPoolType
 		{
-			public static Fish Allocate()
-			{
-				return SafeObjectPool<Fish>.Instance.Allocate();
-			}
-			
-			public void Recycle2Cache()
-			{
-				
-			}
+			#region IPoolAble 实现
 
 			public void OnRecycled()
 			{
@@ -49,30 +41,45 @@ namespace QFramework.Example
 			}
 			
 			public bool IsRecycled { get; set; }
+
+			#endregion
+		
+			
+			#region IPoolType 实现
+
+			public static Msg Allocate()
+			{
+				return SafeObjectPool<Msg>.Instance.Allocate();
+			}
+			
+			public void Recycle2Cache()
+			{
+				SafeObjectPool<Msg>.Instance.Recycle(this);
+			}
+			
+			#endregion
 		}
 		
 		private void Start()
 		{
-
-			SafeObjectPool<Fish>.Instance.Init(100,50);
+			SafeObjectPool<Msg>.Instance.Init(100, 50);			
 			
-			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
-
-			var fishOne = Fish.Allocate();
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
 			
-			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
-
+			var fishOne = Msg.Allocate();
+			
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+			
 			fishOne.Recycle2Cache();
-			
-			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
 
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+			
 			for (int i = 0; i < 10; i++)
 			{
-				Fish.Allocate();
+				Msg.Allocate();
 			}
 			
-			Log.I("fishPool.CurCount:{0}", SafeObjectPool<Fish>.Instance.CurCount);
-								
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
 		}
 	}
 }
