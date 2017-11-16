@@ -6,13 +6,13 @@
 
 
 
-#### Document
+#### 文档
 
-* [Quick Start](http://qframework.io/tutor/0.HelloWorld/)
-* [Home](qframework.io)
+* [快速开始](http://qframework.io/tutor/0.HelloWorld/)
+* [主页](qframework.io)
 * [Folder Tree](./tree.md)
 
-#### Dependency Projects:
+#### 包含项目:
 
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
 * [LShortcut4Unity:A Short Cut Tools For Unity Editor](https://github.com/LoveOfCodeGod/LShortcut4Unity)
@@ -21,18 +21,31 @@
 * [Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
-#### Reference Projects:
+#### 参考:
 
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
 * [Qarth: Framework For Game Develop With Unity3d](https://github.com/SnowCold/Qarth)
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
 
 
-#### Contributor:
+#### 贡献者:
 
 - [@imagicbell](https://github.com/imagicbell)
 - [@dtknowlove](https://github.com/dtknowlove)
 - [@huibinye](https://github.com/HUIBINYE)
 - [@liangxie](https://github.com/liangxieq)
+
+#### 教程
+
+* [如何打造自己的框架](http://liangxiegame.com/post/1/)
+
+
+* [~~如何使用QFramework~~]()
+* [~~如何用QFramework进行重构~~]()
+
+
+* [~~从零开始打造自己的框架~~]()
+
+
 
 QQ群:623597263
