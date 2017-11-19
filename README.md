@@ -38,13 +38,11 @@
 #### 教程
 
 * [如何打造自己的框架](http://liangxiegame.com/post/1/)
+* [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
 
 
 * [~~如何使用QFramework~~]()
 * [~~如何用QFramework进行重构~~]()
-
-
-* [~~从零开始打造自己的框架~~]()
 
 
 
