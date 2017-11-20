@@ -39,6 +39,7 @@
 
 * [如何打造自己的框架](http://liangxiegame.com/post/1/)
 * [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
+* [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
 
 
 * [~~如何使用QFramework~~]()
