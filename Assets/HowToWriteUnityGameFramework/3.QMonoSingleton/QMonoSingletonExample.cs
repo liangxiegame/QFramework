@@ -4,7 +4,7 @@
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
  * https://github.com/liangxiegame/QSingleton
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,33 +26,26 @@
 
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Example
 {
 	/// <summary>
-	/// 教程地址:http://liangxiegame.com/post/2/
+	/// 教程地址:http://liangxiegame.com/post/3/
 	/// </summary>
-	public class QSingletonExample : MonoBehaviour 
+	public class QMonoSingletonExample : MonoBehaviour
 	{
-		/// <summary>
-		/// 1.需要继承QSingleton。
-		/// 2.需要实现非public的构造方法。
-		/// </summary>
-		class XXXManager : QSingleton<XXXManager>
+		class MonoClass : QMonoSingleton<MonoClass>
 		{
-			private XXXManager()
+			public void Init()
 			{
-				// to do ...
-			}
-
-			public void XXXYYYZZZ()
-			{
-				Debug.Log("XXXYYYZZZ");
+				Log.I("MonoClass Init()");
 			}
 		}
-
-		void Start () 
+		
+		// Use this for initialization
+		void Start()
 		{
-			XXXManager.Instance.XXXYYYZZZ();
+			MonoClass.Instance.Init();
 		}
+
 	}
 }

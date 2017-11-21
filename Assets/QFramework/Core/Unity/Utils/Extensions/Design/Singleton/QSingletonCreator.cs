@@ -68,7 +68,7 @@ namespace QFramework
 
                     if (instance == null)
                     {
-                        GameObject obj = new GameObject("Singleton of " + typeof(T).Name);
+                        GameObject obj = new GameObject(typeof(T).Name);
 	                    if (!mIsUnitTestMode)
                         	UnityEngine.Object.DontDestroyOnLoad(obj);
                         instance = obj.AddComponent<T>();
