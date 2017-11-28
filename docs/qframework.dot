@@ -1,5 +1,17 @@
-digraph {
-    Singleton->Core->Framework
+digraph graphname {
+
+
+    "C#入门"->"游戏框架搭建"
+}
+
+strict graph {
+  // 设置节点属性
+  "C#入门" [shape=box];
+  "游戏框架搭建" [shape=triangle];
+
+  // 设置边属性
+  a -- b [color=blue];
+  a -- c [style=dotted];
 }
 
 // // 时序图

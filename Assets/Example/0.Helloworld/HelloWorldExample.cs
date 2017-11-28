@@ -69,6 +69,11 @@ namespace QFramework.Example
 		}
 		*/
 
+		/// <summary>
+		/// 测试图片
+		/// </summary>
+		[SerializeField] private Image mImage;
+		
 		void Awake()
 		{
 			int countDown = 5;
@@ -79,16 +84,11 @@ namespace QFramework.Example
 				.DisposeWhen(() => countDown == 0)
 				.OnDisposed(() => Log.I("On Disposed"));
 
-
-
 			this.Position(Vector3.one)			// this.transform.position = Vector3.one
 				.LocalScale(1.0f)				// this.transform.localScale = Vector3.one
 				.Rotation(Quaternion.identity); // this.transform.rotation = Quaternion.identity
 
-
-			Image image = null;
-
-			image.LocalPosition(Vector3.back)
+			mImage.LocalPosition(Vector3.back)
 				.ColorAlpha(0.0f)
 				.Hide();
 		}
