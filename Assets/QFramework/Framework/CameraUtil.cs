@@ -38,9 +38,7 @@ namespace Putao.Paibloks.BLECoding
 			RenderTexture rt = new RenderTexture(Screen.width,Screen.height,0);
 			camera.targetTexture = rt;
 			camera.Render();
-
 			RenderTexture.active = rt;
-
 			Texture2D screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
 			screenShot.ReadPixels(rect,0,0);
 			screenShot.Apply();
