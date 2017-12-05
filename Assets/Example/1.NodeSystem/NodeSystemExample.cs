@@ -31,7 +31,6 @@ namespace QFramework.Example
 	{
 		private void Start()
 		{
-			new EventNode();
 			
 		}
 	}

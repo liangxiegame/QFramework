@@ -73,8 +73,8 @@ namespace QFramework
 		/// 玩家从空中着陆(一般是碰撞器触发)
 		/// </summary>
 		private const string EVENT_LAND = "land";
-		
-		void Start()
+
+		private void Start()
 		{
 			mPlayerFsm = new QFSMLite();
 
@@ -95,8 +95,7 @@ namespace QFramework
 			mPlayerFsm.Start(STATE_RUN);
 		}
 
-		// Update is called once per frame
-		void OnGUI()
+		private void OnGUI()
 		{
 			if (GUI.Button(new Rect(0, 0, 200, 100), "用户:输入跳跃"))
 			{

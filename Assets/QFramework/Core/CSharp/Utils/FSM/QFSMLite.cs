@@ -7,7 +7,7 @@ namespace QFramework
 	using System.Collections.Generic;
 
 	/// <summary>
-	/// QFSM lite.
+	/// 教程地址:http://liangxiegame.com/post/4/
 	/// </summary>
 	public class QFSMLite
 	{
@@ -21,17 +21,17 @@ namespace QFramework
 		/// </summary>
 		class QFSMState
 		{
-			public string Name;
+			private string mName;
 
 			public QFSMState(string name)
 			{
-				Name = name;
+				mName = name;
 			}
 
 			/// <summary>
 			/// The translation dict.
 			/// </summary>
-			public Dictionary<string, QFSMTranslation> TranslationDict = new Dictionary<string, QFSMTranslation>();
+			public readonly Dictionary<string, QFSMTranslation> TranslationDict = new Dictionary<string, QFSMTranslation>();
 		}
 
 		/// <summary>
@@ -53,20 +53,12 @@ namespace QFramework
 			}
 		}
 
-		/// <summary>
-		/// The state of the m current.
-		/// </summary>
-		string mCurState;
-
-		public string State
-		{
-			get { return mCurState; }
-		}
+		public string State { get; private set; }
 
 		/// <summary>
 		/// The m state dict.
 		/// </summary>
-		Dictionary<string, QFSMState> mStateDict = new Dictionary<string, QFSMState>();
+		private readonly Dictionary<string, QFSMState> mStateDict = new Dictionary<string, QFSMState>();
 
 		/// <summary>
 		/// Adds the state.
@@ -95,7 +87,7 @@ namespace QFramework
 		/// <param name="name">Name.</param>
 		public void Start(string name)
 		{
-			mCurState = name;
+			State = name;
 		}
 
 		/// <summary>
@@ -105,11 +97,11 @@ namespace QFramework
 		/// <param name="param">Parameter.</param>
 		public void HandleEvent(string name, params object[] param)
 		{
-			if (mCurState != null && mStateDict[mCurState].TranslationDict.ContainsKey(name))
+			if (State != null && mStateDict[State].TranslationDict.ContainsKey(name))
 			{
-				QFSMTranslation tempTranslation = mStateDict[mCurState].TranslationDict[name];
+				QFSMTranslation tempTranslation = mStateDict[State].TranslationDict[name];
 				tempTranslation.OnTranslationCallback(param);
-				mCurState = tempTranslation.ToState;
+				State = tempTranslation.ToState;
 			}
 		}
 
