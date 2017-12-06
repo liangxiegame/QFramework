@@ -29,7 +29,7 @@ namespace QFramework
 {
 	using System;
 	using System.Collections.Generic;
-	
+
 	public interface IMsgReceiver
 	{
 	}
@@ -149,6 +149,32 @@ namespace QFramework
 				else
 				{
 					handlers.Remove(handler);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 注销消息
+		/// 注意第一个参数,使用了C# this的扩展,
+		/// 所以只有实现IMsgReceiver的对象才能调用此方法
+		/// </summary>
+		public static void UnRegisterLogicMsg(this IMsgReceiver self, string msgName, Action<object[]> callback)
+		{
+			if (msgName.IsNullOrEmpty() || null == callback)
+			{
+				return;
+			}
+
+			var handlers = mMsgHandlerDict[msgName];
+
+			// 删除List需要从后向前遍历
+			for (var index = handlers.Count - 1; index >= 0; index--)
+			{
+				var handler = handlers[index];
+				if (handler.Receiver == self && handler.Callback == callback)
+				{
+					handlers.Remove(handler);
+					break;
 				}
 			}
 		}
