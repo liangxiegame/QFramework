@@ -25,6 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using UnityEngine;
@@ -42,7 +43,7 @@ namespace QFramework
         /// <returns>IP string</returns>
         public static string GetAddressIP()
         {
-            string AddressIP = string.Empty;  
+            string AddressIP = string.Empty;
 #if UNITY_IPHONE
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
             foreach (NetworkInterface adapter in adapters)  
@@ -63,9 +64,8 @@ namespace QFramework
                     }  
                 }  
             }  
-#endif  
-#if UNITY_STANDALONE_WIN  
-///获取本地的IP地址  
+#endif
+#if UNITY_STANDALONE ///获取本地的IP地址  
 		foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)  
 		{  
 		if (_IPAddress.AddressFamily.ToString() == "InterNetwork")  
@@ -73,9 +73,9 @@ namespace QFramework
 		AddressIP = _IPAddress.ToString();  
 		}  
 		}  
-		#endif  
+#endif
 
-            return Network.player.ipAddress;  
+            return Network.player.ipAddress;
         }
     }
 }
