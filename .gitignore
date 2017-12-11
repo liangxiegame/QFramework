@@ -7,3 +7,7 @@ Library
 QFramework.sln
 .vscode
 QFramework.sln.DotSettings.user
+Temp
+Assembly-CSharp-Editor-firstpass.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
