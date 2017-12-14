@@ -1,4 +1,4 @@
-﻿// *************************************************************************************************
+// *************************************************************************************************
 // The MIT License (MIT)
 // 
 // Copyright (c) 2016 Sean
@@ -23,17 +23,17 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Net;
+using System.Net.Sockets;
+
 namespace QFramework
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Net;
-    using System.Net.Sockets;
-
-    public sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
+    internal sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
     {
         private readonly Socket _socket;
         private readonly IProtocol _protocol;

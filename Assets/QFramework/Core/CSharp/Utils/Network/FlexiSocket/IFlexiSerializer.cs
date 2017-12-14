@@ -1,8 +1,7 @@
+using System.IO;
 
 namespace QFramework
 {
-    using System.IO;
-
     /// <summary>
     /// Custom serialization callback
     /// </summary>

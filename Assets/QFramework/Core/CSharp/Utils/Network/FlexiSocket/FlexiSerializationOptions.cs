@@ -23,10 +23,10 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
+using System;
+
 namespace QFramework
 {
-    using System;
-
     /// <summary>
     /// Options applied to serialization
     /// </summary>

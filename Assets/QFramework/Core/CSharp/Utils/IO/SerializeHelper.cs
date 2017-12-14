@@ -1,13 +1,13 @@
-﻿/****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 imagicbell 
+/****************************************************************************
+ * Copyright (c) 2017 imagicbell
+ * Copyright (c) 2017 ouyanggongming@putao.com
  * Copyright (c) 2017 liangxie
+ *
+ * TODO: 这个应该写成扩展关键字方式的
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -29,10 +29,10 @@
 
 namespace QFramework
 {
-    using Newtonsoft.Json;
-    using System.IO;
-	using System.Xml.Serialization;
+	using UnityEngine;
 
+	using System.IO;
+	using System.Xml.Serialization;
 
 	public static class SerializeHelper
 	{
@@ -71,18 +71,11 @@ namespace QFramework
 			{
 				System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf =
 					new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				object data = bf.Deserialize(stream);
+				var data = bf.Deserialize(stream);
 
 				// TODO:这里没风险嘛?
-				if (data != null)
-				{
-					return data;
-				}
-				stream.Close();
+				return data;
 			}
-
-			Log.W("DeserializeBinary Failed!");
-			return null;
 		}
 
 		public static object DeserializeBinary(string path)
@@ -164,14 +157,18 @@ namespace QFramework
 			return null;
 		}
 
-        public static string ToJson<T>(this T obj) where T : class
+		public static string ToJson<T>(this T obj) where T : class
 		{
-			return JsonConvert.SerializeObject(obj,Formatting.Indented);
+#if UNITY_EDITOR
+			return JsonUtility.ToJson(obj, true);
+#else
+			return JsonUtility.ToJson(obj);
+			#endif
 		}
 
 		public static T FromJson<T>(this string json) where T : class
 		{
-			return JsonConvert.DeserializeObject<T>(json);
+			return (T) JsonUtility.FromJson(json, typeof(T));
 		}
 
 		public static void SaveJson<T>(this T obj, string path) where T : class

@@ -1,9 +1,7 @@
-
+using System;
 
 namespace QFramework
 {
-    using System;
-    
     /// <summary>
     /// Attributed public members will not be serialized
     /// </summary>

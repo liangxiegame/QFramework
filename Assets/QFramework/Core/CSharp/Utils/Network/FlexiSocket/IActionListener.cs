@@ -1,20 +1,14 @@
 
 
-namespace QFramework
-{
+public interface IActionListener  {
 
 
-public interface IActionListener  
-{
-
-
-	void OnAction(QSimulateAction action);
+	void OnAction(PTSimulateAction action);
 }
-public enum QSimulateAction{
+public enum PTSimulateAction{
 	LEFT,
 	RIGHT,
 	UP,
 	DOWN
 
-}
 }

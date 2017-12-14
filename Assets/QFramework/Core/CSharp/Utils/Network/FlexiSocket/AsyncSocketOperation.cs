@@ -1,4 +1,4 @@
-﻿// *************************************************************************************************
+// *************************************************************************************************
 // The MIT License (MIT)
 // 
 // Copyright (c) 2016 Sean
@@ -23,12 +23,12 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
+using System;
+using System.Collections;
+using System.Net.Sockets;
+
 namespace QFramework
 {
-    using System;
-    using System.Collections;
-    using System.Net.Sockets;
-
     /// <summary>
     /// Async socket operation
     /// </summary>
@@ -39,12 +39,12 @@ namespace QFramework
         /// <summary>
         /// Target socket
         /// </summary>
-        protected readonly Socket socket;
+        protected internal readonly Socket socket;
 
         /// <summary>
         /// Async result
         /// </summary>
-        protected IAsyncResult ar;
+        protected internal IAsyncResult ar;
 
         /// <summary>
         /// Is this operation has completed(either successful or failed)
@@ -64,7 +64,7 @@ namespace QFramework
         /// </summary>
         public abstract bool IsSuccessful { get; }
 
-        protected AsyncSocketOperation(Socket socket)
+        protected internal AsyncSocketOperation(Socket socket)
         {
             this.socket = socket;
         }
