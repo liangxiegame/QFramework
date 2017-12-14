@@ -23,49 +23,45 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Example
 {
-    using UnityEngine;
+	using System.Collections;
+	using UnityEngine;
 
-    public static class ObjectExtension
-    {
-        
-        public static T Name<T>(this T selfObj,string name) where T : Object
-        {
-            selfObj.name = name;
-            return selfObj;
-        }
-        
-        public static T Instantiate<T>(this T selfObj) where T : Object
-        {
-            return Object.Instantiate(selfObj);
-        }
-        
-        public static void DestroySelf<T>(this T selfObj) where T : Object
-        {
-            Object.Destroy(selfObj);
-        }
-        
-        public static void DestroyAfterDelay<T>(this T selfObj,float afterDelay) where T : Object
-        {
-            Object.Destroy(selfObj,afterDelay);
-        }
+	internal class Class2MonoSingleton : QMonoSingleton<Class2MonoSingleton>
+	{
+		public override void OnSingletonInit()
+		{
+			Debug.Log(name + ":" + "OnSingletonInit");
+		}
 
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : Object
-        {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
-        }
+		private void Awake()
+		{
+			Debug.Log(name + ":" + "Awake");
+		}
 
-        public static T As<T>(this Object selfObj) where T : Object
-        {
-            return selfObj as T;
-        }
+		private void Start()
+		{
+			Debug.Log(name + ":" + "Start");
+		}
 
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
-        {
-            Log.I(msgContent, args);
-            return selfObj;
-        }
-    }
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+			
+			Debug.Log(name + ":" + "OnDestroy");
+		}
+	}
+
+	public class MonoSingleton : MonoBehaviour
+	{
+		private IEnumerator Start()
+		{
+			var instance = Class2MonoSingleton.Instance;
+
+			yield return new WaitForSeconds(3.0f);
+			
+			instance.Dispose();
+		}
+	}
 }

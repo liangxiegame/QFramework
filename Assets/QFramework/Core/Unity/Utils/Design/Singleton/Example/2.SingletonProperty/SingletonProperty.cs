@@ -23,49 +23,49 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Example
 {
-    using UnityEngine;
+	using UnityEngine;
 
-    public static class ObjectExtension
-    {
-        
-        public static T Name<T>(this T selfObj,string name) where T : Object
-        {
-            selfObj.name = name;
-            return selfObj;
-        }
-        
-        public static T Instantiate<T>(this T selfObj) where T : Object
-        {
-            return Object.Instantiate(selfObj);
-        }
-        
-        public static void DestroySelf<T>(this T selfObj) where T : Object
-        {
-            Object.Destroy(selfObj);
-        }
-        
-        public static void DestroyAfterDelay<T>(this T selfObj,float afterDelay) where T : Object
-        {
-            Object.Destroy(selfObj,afterDelay);
-        }
+	internal class Class2SignetonProperty : ISingleton
+	{
+		public static Class2SignetonProperty Instance
+		{
+			get { return QSingletonProperty<Class2SignetonProperty>.Instance; }
+		}
 
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : Object
-        {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
-        }
+		private Class2SignetonProperty() {}
+		
+		private static int mIndex = 0;
 
-        public static T As<T>(this Object selfObj) where T : Object
-        {
-            return selfObj as T;
-        }
+		public void OnSingletonInit()
+		{
+			mIndex++;
+		}
 
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
-        {
-            Log.I(msgContent, args);
-            return selfObj;
-        }
-    }
+		public void Dispose()
+		{
+			QSingletonProperty<Class2SignetonProperty>.Dispose();
+		}
+		
+		public void Log(string content)
+		{
+			Debug.Log("Class2SingletonProperty" + mIndex + ":" + content);
+		}
+	}
+		
+	public class SingletonProperty : MonoBehaviour
+	{
+		// Use this for initialization
+		void Start () 
+		{
+			Class2SignetonProperty.Instance.Log("Hello World!");	
+			
+			// delete current instance
+			Class2SignetonProperty.Instance.Dispose();
+			
+			// new instance
+			Class2SignetonProperty.Instance.Log("Hello World!");
+		}
+	}
 }

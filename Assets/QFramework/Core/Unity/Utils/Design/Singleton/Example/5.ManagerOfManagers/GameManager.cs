@@ -23,49 +23,46 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Example
 {
-    using UnityEngine;
-
-    public static class ObjectExtension
+    [QMonoSingletonPath("[Game]/GameManager")]
+    public class GameManager : ManagerBase,ISingleton
     {
-        
-        public static T Name<T>(this T selfObj,string name) where T : Object
+        public static GameManager Instance
         {
-            selfObj.name = name;
-            return selfObj;
+            get { return QMonoSingletonProperty<GameManager>.Instance; }
         }
-        
-        public static T Instantiate<T>(this T selfObj) where T : Object
+		
+        public void OnSingletonInit()
         {
-            return Object.Instantiate(selfObj);
-        }
-        
-        public static void DestroySelf<T>(this T selfObj) where T : Object
-        {
-            Object.Destroy(selfObj);
-        }
-        
-        public static void DestroyAfterDelay<T>(this T selfObj,float afterDelay) where T : Object
-        {
-            Object.Destroy(selfObj,afterDelay);
+			
         }
 
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : Object
+        public void Dispose()
         {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
+            QMonoSingletonProperty<GameManager>.Dispose();
         }
 
-        public static T As<T>(this Object selfObj) where T : Object
+        public void GameStart()
         {
-            return selfObj as T;
+            
         }
 
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
+        public void Pause()
         {
-            Log.I(msgContent, args);
-            return selfObj;
+            
         }
+
+        public void Resume()
+        {
+            
+        }
+
+        public void GameOver()
+        {
+            
+        }
+       
     }
 }
+

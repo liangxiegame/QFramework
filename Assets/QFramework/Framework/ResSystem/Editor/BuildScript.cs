@@ -299,7 +299,7 @@ namespace QFramework
 
 		public static string GetPlatformName()
 		{
-			return EditorPlatformUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			return PlatformUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 		}
 
 		static void CopyAssetBundlesTo(string outputPath)

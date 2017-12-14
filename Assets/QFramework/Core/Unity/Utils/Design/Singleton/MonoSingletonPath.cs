@@ -25,47 +25,30 @@
 
 namespace QFramework
 {
-    using UnityEngine;
+    using System;
 
-    public static class ObjectExtension
+    [AttributeUsage(AttributeTargets.Class)]
+    public class QMonoSingletonPath : Attribute
     {
-        
-        public static T Name<T>(this T selfObj,string name) where T : Object
+		private string mPathInHierarchy;
+
+        public QMonoSingletonPath(string pathInHierarchy)
         {
-            selfObj.name = name;
-            return selfObj;
-        }
-        
-        public static T Instantiate<T>(this T selfObj) where T : Object
-        {
-            return Object.Instantiate(selfObj);
-        }
-        
-        public static void DestroySelf<T>(this T selfObj) where T : Object
-        {
-            Object.Destroy(selfObj);
-        }
-        
-        public static void DestroyAfterDelay<T>(this T selfObj,float afterDelay) where T : Object
-        {
-            Object.Destroy(selfObj,afterDelay);
+            mPathInHierarchy = pathInHierarchy;
         }
 
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : Object
+        public string PathInHierarchy
         {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
+            get { return mPathInHierarchy; }
         }
-
-        public static T As<T>(this Object selfObj) where T : Object
+    }
+    
+    [Obsolete("QMonoSingletonAttribute is deprecated.prease use QMonoSingletonPath instead")]
+    [AttributeUsage(AttributeTargets.Class)]
+    public class QMonoSingletonAttribute : QMonoSingletonPath
+    {
+        public QMonoSingletonAttribute(string pathInHierarchy) : base(pathInHierarchy)
         {
-            return selfObj as T;
-        }
-
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
-        {
-            Log.I(msgContent, args);
-            return selfObj;
         }
     }
 }

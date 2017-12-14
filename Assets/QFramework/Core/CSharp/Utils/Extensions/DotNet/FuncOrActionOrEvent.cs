@@ -1,11 +1,9 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -32,6 +30,7 @@ namespace QFramework
     public static class FuncOrActionOrEventExtension
     {
         #region Func Extension
+
         public static T InvokeGracefully<T>(this Func<T> selfFunc)
         {
             if (null != selfFunc)
@@ -108,9 +107,6 @@ namespace QFramework
 
         #region Action
 
-        
-
         #endregion
-
     }
 }

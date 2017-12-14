@@ -23,49 +23,31 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Example
 {
-    using UnityEngine;
+	[QMonoSingletonPath("[Level]/LevelManager")]
+	public class LevelManager : ManagerBase,ISingleton
+	{
+		public static LevelManager Instance
+		{
+			get { return QMonoSingletonProperty<LevelManager>.Instance; }
+		}
+		private LevelManager(){}
+		
+		public void OnSingletonInit()
+		{
+			
+		}
 
-    public static class ObjectExtension
-    {
-        
-        public static T Name<T>(this T selfObj,string name) where T : Object
-        {
-            selfObj.name = name;
-            return selfObj;
-        }
-        
-        public static T Instantiate<T>(this T selfObj) where T : Object
-        {
-            return Object.Instantiate(selfObj);
-        }
-        
-        public static void DestroySelf<T>(this T selfObj) where T : Object
-        {
-            Object.Destroy(selfObj);
-        }
-        
-        public static void DestroyAfterDelay<T>(this T selfObj,float afterDelay) where T : Object
-        {
-            Object.Destroy(selfObj,afterDelay);
-        }
+		public void Dispose()
+		{
+			QMonoSingletonProperty<LevelManager>.Dispose();
+		}
 
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : Object
-        {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
-        }
-
-        public static T As<T>(this Object selfObj) where T : Object
-        {
-            return selfObj as T;
-        }
-
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
-        {
-            Log.I(msgContent, args);
-            return selfObj;
-        }
-    }
+		public void StartLevel()
+		{
+			
+		}
+	}
 }
+
