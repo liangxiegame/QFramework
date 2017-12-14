@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -27,12 +25,26 @@
 
 namespace QFramework
 {
-
-    /// <summary>
-    /// UGUI UIBehaviour fast and graceful API
-    /// </summary>
-    public static class UIBehaviourUtil
+    using UnityEngine.UI;
+    
+    public static class SelectableExtension
     {
+        public static T EnableInteract<T>(this T selfSelectable) where T :Selectable
+        {
+            selfSelectable.interactable = true;
+            return selfSelectable;
+        }
 
+        public static T DisableInteract<T>(this T selfSelectable) where T : Selectable
+        {
+            selfSelectable.interactable = false;
+            return selfSelectable;
+        }
+        
+        public static T CancalAllTransitions<T>(this T selfSelectable) where T :Selectable
+        {
+            selfSelectable.transition = Selectable.Transition.None;
+            return selfSelectable;
+        } 
     }
 }

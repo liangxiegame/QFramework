@@ -1,11 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 liuzhenhua@putao.com
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,16 +23,31 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Test.Core
 {
-    using UnityEngine.Events;
-    using UnityEngine.UI;
-    
-    public static class ToggleUtil
-    {
-        public static void RegOnValueChangedEvent(this Toggle selfToggle, UnityAction<bool> onValueChangedEvent)
-        {
-            selfToggle.onValueChanged.AddListener(onValueChangedEvent);
-        }
-    }
+	using UnityEngine;
+	using UnityEditor;
+	using NUnit.Framework;
+
+	public class GameObjectUtilTest
+	{
+
+		[Test]
+		public void GameObjectUtilTest_Extend_Bool()
+		{
+			//Arrange
+			var gameObject = new GameObject();
+
+			//Act
+			//Try to rename the GameObject
+			gameObject.Show();
+			
+			//Assert
+			//The object has a new name
+			Assert.AreEqual(true, gameObject.activeSelf);
+			
+			gameObject.Hide();
+			Assert.AreEqual(false,gameObject.activeSelf);
+		}
+	}
 }

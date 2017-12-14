@@ -1,11 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 liuzhenhua@putao.com
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,16 +23,45 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+
+namespace QFramework.Test.Core
 {
-    using UnityEngine.UI;
-    
-    public static class ImageUtil
-    {
-        public static Image SetFillAmount(this Image selfImage, float fillamount)
-        {
-            selfImage.fillAmount = fillamount;
-            return selfImage;
-        }
-    }
+	using UnityEngine;
+	using UnityEditor;
+	using NUnit.Framework;
+
+	public class IOUtilsTest
+	{
+		public static string testPath = Application.dataPath + "/PTUGame/PTFramework/Core/Pool/";
+
+		[Test]
+		public void IOUtilsTest_GetDirSubFilePathList_Count()
+		{
+			//Arrange
+			int count = 0;
+
+			//Act
+			//Try to rename the GameObject
+			count = IOUtils.GetDirSubFilePathList(testPath,true,".cs").Count;
+
+			//Assert
+			//The object has a new name
+			Assert.AreEqual(4,count);
+		}
+		
+		[Test]
+		public void IOUtilsTest_GetDirSubDirNameList_Count()
+		{
+			//Arrange
+			int count = 0;
+
+			//Act
+			//Try to rename the GameObject
+			count = IOUtils.GetDirSubDirNameList(testPath).Count;
+
+			//Assert
+			//The object has a new name
+			Assert.AreEqual(1,count);
+		}
+	}
 }

@@ -1,10 +1,10 @@
-﻿namespace QFramework
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Unity.Linq
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-    
     // API Frontend
 
     public static partial class GameObjectExtensions
@@ -27,7 +27,7 @@
         {
             if (origin == null) return null;
 
-            var child = origin.transform.FindChild(name); // transform.find can get inactive object
+            var child = origin.transform.Find(name); // transform.find can get inactive object
             if (child == null) return null;
             return child.gameObject;
         }
@@ -378,7 +378,7 @@
                 int currentIndex;
                 GameObject current;
 
-                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -817,7 +817,7 @@
                 Transform currentTransform;
                 bool withSelf;
 
-                public Enumerator(GameObject origin, Transform originTransform, bool withSelf, bool canRun)
+                internal Enumerator(GameObject origin, Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.current = origin;
                     this.currentTransform = originTransform;
@@ -1177,7 +1177,7 @@
                 }
             }
 
-            /// <summary>Use publiciterator for performance optimization.</summary>
+            /// <summary>Use internal iterator for performance optimization.</summary>
             /// <param name="action"></param>
             public void ForEach(Action<GameObject> action)
             {
@@ -1362,7 +1362,7 @@
 
             #endregion
 
-            public class InternalUnsafeRefStack
+            internal class InternalUnsafeRefStack
             {
                 public static Queue<InternalUnsafeRefStack> RefStackPool = new Queue<InternalUnsafeRefStack>();
 
@@ -1402,7 +1402,7 @@
                 InternalUnsafeRefStack sharedStack;
                 Func<Transform, bool> descendIntoChildren;
 
-                public Enumerator(Transform originTransform, bool withSelf, bool canRun, InternalUnsafeRefStack sharedStack, Func<Transform, bool> descendIntoChildren)
+                internal Enumerator(Transform originTransform, bool withSelf, bool canRun, InternalUnsafeRefStack sharedStack, Func<Transform, bool> descendIntoChildren)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -1559,7 +1559,7 @@
                     }
                 }
 
-                /// <summary>Use publiciterator for performance optimization.</summary>
+                /// <summary>Use internal iterator for performance optimization.</summary>
                 public void ForEach(Action<T> action)
                 {
                     if (parent.withSelf)
@@ -2024,7 +2024,7 @@
                 GameObject current;
                 Transform parent;
 
-                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;
@@ -2477,7 +2477,7 @@
                 GameObject current;
                 Transform parent;
 
-                public Enumerator(Transform originTransform, bool withSelf, bool canRun)
+                internal Enumerator(Transform originTransform, bool withSelf, bool canRun)
                 {
                     this.originTransform = originTransform;
                     this.withSelf = withSelf;

@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -29,27 +27,30 @@ namespace QFramework
 {
 	using UnityEngine;
 
-	public static class RectTransformUtil
+	public static class RectTransformExtension
 	{
-        public static UnityEngine.Vector2 GetLocalPosInRect(this RectTransform selfRectTrans,Camera camera)
+		public static UnityEngine.Vector2 GetLocalPosInRect(this RectTransform selfRectTrans)
 		{
 			UnityEngine.Vector2 retLocalPos;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans,Input.mousePosition,
-                                                                    camera, out retLocalPos);
+			QUIManager.Instance.RootCanvas.worldCamera, out retLocalPos);
 			return retLocalPos;
 		}
 
-        public static UnityEngine.Vector2 ConvertWorldPosToLocalPosInSelf(this RectTransform selfRectTrans, UnityEngine.Vector2 worldPos,Camera camera)
+		public static UnityEngine.Vector2 ConvertWorldPosToLocalPosInSelf(this RectTransform selfRectTrans, UnityEngine.Vector2 worldPos)
 		{
-            var screenPos = RectTransformUtility.WorldToScreenPoint(camera, worldPos);
+			var screenPos = RectTransformUtility.WorldToScreenPoint(QUICameraUtil.UICamera, worldPos);
 			UnityEngine.Vector2 retLocalPos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans, screenPos, camera,
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans, screenPos, QUICameraUtil.UICamera,
 				out retLocalPos);
 			return retLocalPos;
 		}
 
-        public static bool InRect(this RectTransform selfRectTrans,Camera camera)
-		{			
+		public static bool InRect(this RectTransform selfRectTrans,Camera camera = null)
+		{
+			if (null == camera)
+				camera = QUIManager.Instance.RootCanvas.worldCamera;
+			
 			return RectTransformUtility.RectangleContainsScreenPoint(selfRectTrans, Input.mousePosition,camera);
 		}
 		
@@ -61,9 +62,9 @@ namespace QFramework
 
 		public static bool InRootTransRect(this RectTransform selfRectTrans, RectTransform rootTrans,Camera camera = null)
 		{
-			//if (null == camera)
-				//camera = QUIManager.Instance.RootCanvas.worldCamera;
-			return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera), camera);
+			if (null == camera)
+				camera = QUIManager.Instance.RootCanvas.worldCamera;
+			return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(), camera);
 		}
 
 		public static UnityEngine.Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)
@@ -71,14 +72,14 @@ namespace QFramework
 			return RectTransformUtility.CalculateRelativeRectTransformBounds(rootTrans, selfRectTransform).center;
 		}
 		
-        public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans,Camera camera)
+		public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans)
 		{
-            return RectTransformUtility.WorldToScreenPoint(camera, selfRectTrans.position);
+			return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, selfRectTrans.position);
 		}
 		
-        public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans,UnityEngine.Vector2 worldPos,Camera camera)
+		public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans,UnityEngine.Vector2 worldPos)
 		{
-            return RectTransformUtility.WorldToScreenPoint(camera, worldPos);
+			return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, worldPos);
 		}
 
 		public static void SetAnchorPosX(this RectTransform selfRectTrans, float anchorPosX)

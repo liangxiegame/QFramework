@@ -1,11 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 liuzhenhua@putao.com
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,22 +23,30 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Test.Core
 {
-    using UnityEngine.UI;
-    
-    public static class SelectableUtil
-    {
-        public static T EnableInteract<T>(this T selfSelectable) where T :Selectable
-        {
-            selfSelectable.interactable = true;
-            return selfSelectable;
-        }
+	using UnityEngine;
+	using UnityEditor;
+	using NUnit.Framework;
 
-        public static T DisableInteract<T>(this T selfSelectable) where T : Selectable
-        {
-            selfSelectable.interactable = false;
-            return selfSelectable;
-        }
-    }
+	public class ColorUtilTest {
+
+		[Test]
+		public void ColorUtilTest_HtmlStringToColor_Color() {
+			//Arrange red[FF0000FF]
+			string col="#FF0000FF";
+
+			//Act
+			//Try to rename the GameObject
+			Color c = ColorUtil.HtmlStringToColor(col);
+
+			//Assert
+			//The object has a new name
+			Assert.AreEqual(Color.red, c);
+
+			col = "FF0000FF";
+			c = ColorUtil.HtmlStringToColor (col);
+			Assert.AreEqual (Color.black, c);
+		}
+	}
 }

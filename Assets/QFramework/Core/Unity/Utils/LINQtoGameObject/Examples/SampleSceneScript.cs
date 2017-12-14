@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Linq;
 
+using Unity.Linq; // using LINQ to GameObject
+
 // This script is attached to Root.
 
-namespace QFramework
+namespace Unity.Linq.Sample
 {
     public class SampleSceneScript : MonoBehaviour
     {
