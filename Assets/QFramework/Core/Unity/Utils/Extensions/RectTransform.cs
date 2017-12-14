@@ -23,24 +23,24 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-	using UnityEngine;
-
 	public static class RectTransformExtension
 	{
-		public static UnityEngine.Vector2 GetLocalPosInRect(this RectTransform selfRectTrans)
+		public static Vector2 GetLocalPosInRect(this RectTransform selfRectTrans)
 		{
-			UnityEngine.Vector2 retLocalPos;
+			Vector2 retLocalPos;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans,Input.mousePosition,
 			QUIManager.Instance.RootCanvas.worldCamera, out retLocalPos);
 			return retLocalPos;
 		}
 
-		public static UnityEngine.Vector2 ConvertWorldPosToLocalPosInSelf(this RectTransform selfRectTrans, UnityEngine.Vector2 worldPos)
+		public static Vector2 ConvertWorldPosToLocalPosInSelf(this RectTransform selfRectTrans, Vector2 worldPos)
 		{
 			var screenPos = RectTransformUtility.WorldToScreenPoint(QUICameraUtil.UICamera, worldPos);
-			UnityEngine.Vector2 retLocalPos;
+			Vector2 retLocalPos;
 			RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans, screenPos, QUICameraUtil.UICamera,
 				out retLocalPos);
 			return retLocalPos;
@@ -54,9 +54,9 @@ namespace QFramework
 			return RectTransformUtility.RectangleContainsScreenPoint(selfRectTrans, Input.mousePosition,camera);
 		}
 		
-		public static UnityEngine.Vector2 GetWorldposInRect(this RectTransform selfRectTrans)
+		public static Vector2 GetWorldposInRect(this RectTransform selfRectTrans)
 		{
-			UnityEngine.Vector2 retWorldPos = UnityEngine.Vector2.down;
+			Vector2 retWorldPos = Vector2.down;
 			return retWorldPos;
 		}
 
@@ -67,17 +67,17 @@ namespace QFramework
 			return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(), camera);
 		}
 
-		public static UnityEngine.Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)
+		public static Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)
 		{
 			return RectTransformUtility.CalculateRelativeRectTransformBounds(rootTrans, selfRectTransform).center;
 		}
 		
-		public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans)
+		public static Vector2 ToScreenPoint(this RectTransform selfRectTrans)
 		{
 			return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, selfRectTrans.position);
 		}
 		
-		public static UnityEngine.Vector2 ToScreenPoint(this RectTransform selfRectTrans,UnityEngine.Vector2 worldPos)
+		public static Vector2 ToScreenPoint(this RectTransform selfRectTrans,Vector2 worldPos)
 		{
 			return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, worldPos);
 		}
