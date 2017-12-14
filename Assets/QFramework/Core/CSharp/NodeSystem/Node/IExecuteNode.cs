@@ -27,7 +27,6 @@
 namespace QFramework
 {
     using System;
-    using Internal;
 
     /// <summary>
     /// 执行节点的基类
