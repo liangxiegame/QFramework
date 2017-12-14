@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -51,7 +49,7 @@ namespace QFramework
 			{
 				if (node.Execute(dt))
 				{
-					Finished = mNodeList.Where(n => !n.Finished).Count() == 0;
+					Finished = mNodeList.All(n => n.Finished);
 				}
 			}
 		}
@@ -60,12 +58,6 @@ namespace QFramework
 		{
 			mNodeList.AddRange (nodes);
 		}
-
-//		[Obsolete("Deprecated since 0.0.5")]
-//		public SpawnNode(object deprecated,params IExecuteNode[] nodes)
-//		{
-//			mNodeList.AddRange (nodes);
-//		}
 		
 		protected override void OnDispose()
 		{

@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Internal
 {
     /// <summary>
     /// 可执行的 有三个周期

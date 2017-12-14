@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -36,7 +34,7 @@ namespace QFramework
 	/// </summary>
 	public class TimelineNode : ExecuteNode
 	{
-		float mCurTime = 0;
+		private float mCurTime = 0;
 
 		public Action OnTimelineBeganCallback
 		{

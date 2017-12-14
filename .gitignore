@@ -11,3 +11,7 @@ Temp
 Assembly-CSharp-Editor-firstpass.csproj
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
+Assets/Sync/Editor
+Assets/Sync/Editor.meta
+Assets/Sync.meta
+Editor.meta
