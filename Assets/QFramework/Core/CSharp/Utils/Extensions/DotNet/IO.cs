@@ -5,9 +5,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -27,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework 
 {
 	using System.IO;
 	using System.Collections.Generic;
@@ -128,7 +126,7 @@ namespace QFramework
 		public static string GetFileName(this string absOrAssetsPath)
 		{
 			string name = absOrAssetsPath.Replace("\\", "/");
-			int lastIndex = name.LastIndexOf('/');
+			int lastIndex = name.LastIndexOf("/");
 
 			if (lastIndex >= 0)
 			{
@@ -143,7 +141,7 @@ namespace QFramework
 		public static string GetFileNameWithoutExtend(this string absOrAssetsPath)
 		{
 			string fileName = GetFileName(absOrAssetsPath);
-			int lastIndex = fileName.LastIndexOf('.');
+			int lastIndex = fileName.LastIndexOf(".");
 
 			if (lastIndex >= 0)
 			{
@@ -157,7 +155,7 @@ namespace QFramework
 
 		public static string GetFileExtendName(this string absOrAssetsPath)
 		{
-			int lastIndex = absOrAssetsPath.LastIndexOf('.');
+			int lastIndex = absOrAssetsPath.LastIndexOf(".");
 
 			if (lastIndex >= 0)
 			{
@@ -170,7 +168,7 @@ namespace QFramework
 		public static string GetDirPath(this string absOrAssetsPath)
 		{
 			string name = absOrAssetsPath.Replace("\\", "/");
-            int lastIndex = name.LastIndexOf('/');
+			int lastIndex = name.LastIndexOf("/");
 			return name.Substring(0, lastIndex + 1);
 		}
 

@@ -1,11 +1,9 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,13 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-
+ 
 namespace QFramework
 {
-    public class CSharpInDeep
-    {
-        public CSharpInDeep()
-        {
-        }
-    }
+	/// <summary>
+	/// TODO: https://stackoverflow.com/questions/29482/cast-int-to-enum-in-c-sharp 
+	/// </summary>
+	public static class EnumExtension
+	{
+
+	}
 }

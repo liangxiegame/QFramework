@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -27,46 +25,16 @@
 
 namespace QFramework
 {
-	using Newtonsoft.Json.Linq;
-
-	/// <summary>
-	/// Support Newtown.json,Adjust LitJons's api
-	/// </summary>
-	public static class JsonExtension
+	public static class ClassExtention
 	{
-		/// <summary>
-		/// Check if json data contains key specified
-		/// </summary>
-		public static bool JsonDataContainsKey(this JToken self, string key)
+		public static bool IsNull<T>(this T selfObj) where T : class
 		{
-			if (self == null) return false;
-			if (!self.IsObject()) return false;
-			return self[key] != null;
+			return null == selfObj;
 		}
-
-		public static bool IsNullOrUndefined(this JToken self)
+		
+		public static bool IsNotNull<T>(this T selfObj) where T : class
 		{
-			return self == null || self.Type == JTokenType.Null || self.Type == JTokenType.Undefined || self.Type == JTokenType.None;
+			return null != selfObj;
 		}
-
-		public static bool IsString(this JToken self)
-		{
-			return self != null && self.Type == JTokenType.String;
-		}
-
-		public static bool IsObject(this JToken self)
-		{
-			return self != null && self.Type == JTokenType.Object;
-		}
-
-		public static bool IsArray(this JToken self)
-		{
-			return self != null && self.Type == JTokenType.Array;
-		}
-
-//		public static string ToJsonValue(this UnityEngine.Vector2 vector2)
-//		{
-//			return vector2.x + "," + vector2.y;
-//		}
 	}
 }

@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,13 +23,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Text;
-
 namespace QFramework
 {
     using System;
     using System.Linq;
-
+    using System.Text;
+    
     public static class StringExtention
     {
         /// <summary>
@@ -43,11 +40,21 @@ namespace QFramework
         {
             return string.IsNullOrEmpty(selfStr);
         }
+        
+        /// <summary>
+        /// Check Whether string is null or empty
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <returns></returns>
+        public static bool IsNotNullAndEmpty(this string selfStr)
+        {
+            return !string.IsNullOrEmpty(selfStr);
+        }
 
         /// <summary>
         /// 避免每次都用.
         /// </summary>
-        static char[] mCachedSplitCharArray = new char[] { '.' };
+        static char[] mCachedSplitCharArray = { '.' };
 
         public static string[] Split(this string selfStr, char splitSymbol)
         {
@@ -118,6 +125,11 @@ namespace QFramework
         {
             return new StringBuilder(selfStr).Append(toAppend);
         }
+
+        public static string AddPrefix(this string selfStr, string toPrefix)
+        {
+            return new StringBuilder(toPrefix).Append(selfStr).ToString();
+        }
         
         public static StringBuilder AppendFormat(this string selfStr, string toAppend,params object[] args)
         {
@@ -127,6 +139,11 @@ namespace QFramework
         public static string GetLastWord(this string selfUrl)
         {
             return selfUrl.Split('/').Last();
+        }
+
+        public static int ToInt(this string selfStr)
+        {
+            return int.Parse(selfStr);
         }
     }
 }
