@@ -1,12 +1,10 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -31,22 +29,19 @@ namespace QFramework
     using System;
     using System.Reflection;
 
-    public class SingletonCreator
+    public static class SingletonCreator
     {
         public static T CreateSingleton<T>() where T : class, ISingleton
         {
-            T retInstance = default(T);
-
-            ConstructorInfo[] ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-            ConstructorInfo ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
+            var ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+            var ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
 
             if (ctor == null)
             {
                 throw new Exception("Non-Public Constructor() not found! in " + typeof(T));
             }
 
-            retInstance = ctor.Invoke(null) as T;
-
+            var retInstance = ctor.Invoke(null) as T;
             retInstance.OnSingletonInit();
 
             return retInstance;

@@ -1,30 +1,7 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
- * 
- * http://liangxiegame.com
- * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- ****************************************************************************/
+****************************************************************************/
 
 namespace QFramework
 {
@@ -32,20 +9,22 @@ namespace QFramework
     using System.Collections.Generic;
 
     #region 事件接口
+
     public delegate void OnEvent(int key, params object[] param);
+
     #endregion
 
     public class QEventSystem : QSingleton<QEventSystem>, IPoolAble
     {
-        private Dictionary<int, ListenerWrap> mAllListenerMap = new Dictionary<int, ListenerWrap>(50);
+        private bool mCacheFlag = false;
+        private readonly Dictionary<int, ListenerWrap> mAllListenerMap = new Dictionary<int, ListenerWrap>(50);
 
         public bool IsRecycled { get; set; }
 
-        private QEventSystem()
-        {
-        }
+        private QEventSystem() {}
 
         #region 内部结构
+
         private class ListenerWrap
         {
             private LinkedList<OnEvent> mEventList;
@@ -57,7 +36,7 @@ namespace QFramework
                     return false;
                 }
 
-                LinkedListNode<OnEvent> next = mEventList.First;
+                var next = mEventList.First;
                 OnEvent call = null;
                 LinkedListNode<OnEvent> nextCache = null;
 
@@ -67,7 +46,7 @@ namespace QFramework
                     nextCache = next.Next;
                     call(key, param);
 
-                    next = (next.Next == null) ? nextCache : next.Next;
+                    next = next.Next ?? nextCache;
                 }
 
                 return true;
@@ -116,7 +95,7 @@ namespace QFramework
 
         public bool Register<T>(T key, OnEvent fun) where T : IConvertible
         {
-            int kv = key.ToInt32(null);
+            var kv = key.ToInt32(null);
             ListenerWrap wrap;
             if (!mAllListenerMap.TryGetValue(kv, out wrap))
             {
@@ -170,6 +149,24 @@ namespace QFramework
             mAllListenerMap.Clear();
         }
 
+        #endregion
+        
+        
+        #region 搞频率使用的API
+        public static bool SendEvent<T>(T key,params object[] param) where T : IConvertible
+        {
+            return Instance.Send(key, param);
+        }
+
+        public static bool RegisterEvent<T>(T key, OnEvent fun) where T : IConvertible
+        {
+            return Instance.Register(key, fun);
+        }
+
+        public static void UnRegisterEvent<T>(T key, OnEvent fun) where T : IConvertible
+        {
+            Instance.UnRegister(key, fun);
+        }
         #endregion
     }
 }
