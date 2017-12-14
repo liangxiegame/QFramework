@@ -1,11 +1,9 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -131,109 +129,109 @@ namespace QFramework
             get;
         }
 
-        class Binary : StableCompositeDisposable
+        private class Binary : StableCompositeDisposable
         {
-            int disposedCallCount = -1;
-            private volatile IDisposable _disposable1;
-            private volatile IDisposable _disposable2;
+            int mDisposedCallCount = -1;
+            private volatile IDisposable mDisposable1;
+            private volatile IDisposable mDisposable2;
 
             public Binary(IDisposable disposable1, IDisposable disposable2)
             {
-                _disposable1 = disposable1;
-                _disposable2 = disposable2;
+                mDisposable1 = disposable1;
+                mDisposable2 = disposable2;
             }
 
             public override bool IsDisposed
             {
                 get
                 {
-                    return disposedCallCount != -1;
+                    return mDisposedCallCount != -1;
                 }
             }
 
             public override void Dispose()
             {
-                if (Interlocked.Increment(ref disposedCallCount) == 0)
+                if (Interlocked.Increment(ref mDisposedCallCount) == 0)
                 {
-                    _disposable1.Dispose();
-                    _disposable2.Dispose();
+                    mDisposable1.Dispose();
+                    mDisposable2.Dispose();
                 }
             }
         }
 
-        class Trinary : StableCompositeDisposable
+        private class Trinary : StableCompositeDisposable
         {
-            int disposedCallCount = -1;
-            private volatile IDisposable _disposable1;
-            private volatile IDisposable _disposable2;
-            private volatile IDisposable _disposable3;
+            int mDisposedCallCount = -1;
+            private volatile IDisposable mDisposable1;
+            private volatile IDisposable mDisposable2;
+            private volatile IDisposable mDisposable3;
 
             public Trinary(IDisposable disposable1, IDisposable disposable2, IDisposable disposable3)
             {
-                _disposable1 = disposable1;
-                _disposable2 = disposable2;
-                _disposable3 = disposable3;
+                mDisposable1 = disposable1;
+                mDisposable2 = disposable2;
+                mDisposable3 = disposable3;
             }
 
             public override bool IsDisposed
             {
                 get
                 {
-                    return disposedCallCount != -1;
+                    return mDisposedCallCount != -1;
                 }
             }
 
             public override void Dispose()
             {
-                if (Interlocked.Increment(ref disposedCallCount) == 0)
+                if (Interlocked.Increment(ref mDisposedCallCount) == 0)
                 {
-                    _disposable1.Dispose();
-                    _disposable2.Dispose();
-                    _disposable3.Dispose();
+                    mDisposable1.Dispose();
+                    mDisposable2.Dispose();
+                    mDisposable3.Dispose();
                 }
             }
         }
 
-        class Quaternary : StableCompositeDisposable
+        private class Quaternary : StableCompositeDisposable
         {
-            int disposedCallCount = -1;
-            private volatile IDisposable _disposable1;
-            private volatile IDisposable _disposable2;
-            private volatile IDisposable _disposable3;
-            private volatile IDisposable _disposable4;
+            int mDisposedCallCount = -1;
+            private volatile IDisposable mDisposable1;
+            private volatile IDisposable mDisposable2;
+            private volatile IDisposable mDisposable3;
+            private volatile IDisposable mDisposable4;
 
             public Quaternary(IDisposable disposable1, IDisposable disposable2, IDisposable disposable3, IDisposable disposable4)
             {
-                _disposable1 = disposable1;
-                _disposable2 = disposable2;
-                _disposable3 = disposable3;
-                _disposable4 = disposable4;
+                mDisposable1 = disposable1;
+                mDisposable2 = disposable2;
+                mDisposable3 = disposable3;
+                mDisposable4 = disposable4;
             }
 
             public override bool IsDisposed
             {
                 get
                 {
-                    return disposedCallCount != -1;
+                    return mDisposedCallCount != -1;
                 }
             }
 
             public override void Dispose()
             {
-                if (Interlocked.Increment(ref disposedCallCount) == 0)
+                if (Interlocked.Increment(ref mDisposedCallCount) == 0)
                 {
-                    _disposable1.Dispose();
-                    _disposable2.Dispose();
-                    _disposable3.Dispose();
-                    _disposable4.Dispose();
+                    mDisposable1.Dispose();
+                    mDisposable2.Dispose();
+                    mDisposable3.Dispose();
+                    mDisposable4.Dispose();
                 }
             }
         }
 
-        class NAry : StableCompositeDisposable
+        private class NAry : StableCompositeDisposable
         {
-            int disposedCallCount = -1;
-            private volatile List<IDisposable> _disposables;
+            int mDisposedCallCount = -1;
+            private volatile List<IDisposable> mDisposables;
 
             public NAry(IDisposable[] disposables)
                 : this((IEnumerable<IDisposable>)disposables)
@@ -242,27 +240,27 @@ namespace QFramework
 
             public NAry(IEnumerable<IDisposable> disposables)
             {
-                _disposables = new List<IDisposable>(disposables);
+                mDisposables = new List<IDisposable>(disposables);
 
                 //
                 // Doing this on the list to avoid duplicate enumeration of disposables.
                 //
-                if (_disposables.Contains(null)) throw new ArgumentException("Disposables can't contains null", "disposables");
+                if (mDisposables.Contains(null)) throw new ArgumentException("Disposables can't contains null", "disposables");
             }
 
             public override bool IsDisposed
             {
                 get
                 {
-                    return disposedCallCount != -1;
+                    return mDisposedCallCount != -1;
                 }
             }
 
             public override void Dispose()
             {
-                if (Interlocked.Increment(ref disposedCallCount) == 0)
+                if (Interlocked.Increment(ref mDisposedCallCount) == 0)
                 {
-                    foreach (var d in _disposables)
+                    foreach (var d in mDisposables)
                     {
                         d.Dispose();
                     }
@@ -270,32 +268,32 @@ namespace QFramework
             }
         }
 
-        class NAryUnsafe : StableCompositeDisposable
+        private class NAryUnsafe : StableCompositeDisposable
         {
-            int disposedCallCount = -1;
-            private volatile IDisposable[] _disposables;
+            int mDisposedCallCount = -1;
+            private volatile IDisposable[] mDisposables;
 
             public NAryUnsafe(IDisposable[] disposables)
             {
-                _disposables = disposables;
+                mDisposables = disposables;
             }
 
             public override bool IsDisposed
             {
                 get
                 {
-                    return disposedCallCount != -1;
+                    return mDisposedCallCount != -1;
                 }
             }
 
             public override void Dispose()
             {
-                if (Interlocked.Increment(ref disposedCallCount) == 0)
+                if (Interlocked.Increment(ref mDisposedCallCount) == 0)
                 {
-                    var len = _disposables.Length;
-                    for (int i = 0; i < len; i++)
+                    var len = mDisposables.Length;
+                    for (var i = 0; i < len; i++)
                     {
-                        _disposables[i].Dispose();
+                        mDisposables[i].Dispose();
                     }
                 }
             }

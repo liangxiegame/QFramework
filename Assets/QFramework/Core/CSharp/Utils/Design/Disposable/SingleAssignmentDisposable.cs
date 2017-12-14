@@ -1,11 +1,9 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,12 +26,13 @@
 namespace QFramework
 {
     using System;
+    
     // should be use Interlocked.CompareExchange for Threadsafe?
     // but CompareExchange cause ExecutionEngineException on iOS.
     // AOT...
     // use lock instead
 
-    public sealed class SingleAssignmentDisposable : IDisposable, ICancelable
+    public sealed class SingleAssignmentDisposable : ICancelable
     {
         readonly object gate = new object();
         IDisposable current;
@@ -49,7 +48,7 @@ namespace QFramework
             }
             set
             {
-                var old = default(IDisposable);
+                IDisposable old;
                 bool alreadyDisposed;
                 lock (gate)
                 {

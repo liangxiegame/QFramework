@@ -1,11 +1,10 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
+ * copy, modified from Rx Official
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -30,11 +29,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    // copy, modified from Rx Official
 
-    /// <summary>
-    /// TODO: rename variable
-    /// </summary>
     public sealed class CompositeDisposable : ICollection<IDisposable>, IDisposable, ICancelable
     {
         private readonly object _gate = new object();
@@ -211,7 +206,7 @@ namespace QFramework
                 _disposables.Clear();
                 _count = 0;
             }
-
+            
             currentDisposables.Where(d => d != null).ForEach(d => d.Dispose());
         }
 

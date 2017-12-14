@@ -1,11 +1,10 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 liangxie
+ * this code is borrowed from RxOfficial(rx.codeplex.com) and modified
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,21 +24,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-// this code is borrowed from RxOfficial(rx.codeplex.com) and modified
-
 namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-
+    
     /// <summary>
-    /// Asynchronous lock. TODO: refactor variable name
+    /// Asynchronous lock.
     /// </summary>
-    public sealed class AsyncLock : IDisposable
+    internal sealed class AsyncLock : IDisposable
     {
         private readonly Queue<Action> queue = new Queue<Action>();
-        private bool isAcquired = false;
-        private bool hasFaulted = false;
+        
+        private bool mIsAcquired;
+        private bool mHasFaulted;
 
         /// <summary>
         /// Queues the action for execution. If the caller acquires the lock and becomes the owner,
@@ -56,11 +54,11 @@ namespace QFramework
             var isOwner = false;
             lock (queue)
             {
-                if (!hasFaulted)
+                if (!mHasFaulted)
                 {
                     queue.Enqueue(action);
-                    isOwner = !isAcquired;
-                    isAcquired = true;
+                    isOwner = !mIsAcquired;
+                    mIsAcquired = true;
                 }
             }
 
@@ -75,7 +73,7 @@ namespace QFramework
                             work = queue.Dequeue();
                         else
                         {
-                            isAcquired = false;
+                            mIsAcquired = false;
                             break;
                         }
                     }
@@ -89,7 +87,7 @@ namespace QFramework
                         lock (queue)
                         {
                             queue.Clear();
-                            hasFaulted = true;
+                            mHasFaulted = true;
                         }
                         throw;
                     }
@@ -105,7 +103,7 @@ namespace QFramework
             lock (queue)
             {
                 queue.Clear();
-                hasFaulted = true;
+                mHasFaulted = true;
             }
         }
     }
