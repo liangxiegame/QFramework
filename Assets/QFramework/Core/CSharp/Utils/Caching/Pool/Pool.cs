@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -29,7 +27,7 @@ namespace QFramework
 {
     using System.Collections.Generic;
 
-    public abstract class Pool<T> : IPool<T>
+    public abstract class Pool<T> : IPool<T>,ICountObserveAble
     {
         #region ICountObserverable
         /// <summary>
@@ -42,6 +40,7 @@ namespace QFramework
         }
         #endregion
         
+        
         protected IObjectFactory<T> mFactory;
 
         protected Stack<T> mCacheStack = new Stack<T>();
@@ -49,7 +48,7 @@ namespace QFramework
         /// <summary>
         /// default is 5
         /// </summary>
-        protected int mMaxCount = 5;
+        protected int mMaxCount = 12;
 
         public virtual T Allocate()
         {

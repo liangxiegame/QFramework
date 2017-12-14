@@ -3,9 +3,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -34,8 +32,8 @@ namespace QFramework
     {
         public T Create()
         {
-            ConstructorInfo[] ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-            ConstructorInfo ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
+            var ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+            var ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
             return ctor.Invoke(null) as T;
         }
     }

@@ -4,9 +4,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,7 +26,7 @@
 
 namespace QFramework
 {
-    using System;
+    using UnityEngine;
 
     /// <summary>
     /// I cache type.
@@ -44,7 +42,6 @@ namespace QFramework
     public interface IPoolAble
     {
         void OnRecycled();
-        
         bool IsRecycled { get; set; }
     }
 
@@ -59,7 +56,7 @@ namespace QFramework
     /// <summary>
     /// Object pool.
     /// </summary>
-    public class SafeObjectPool<T> : Pool<T>, ISingleton where T : IPoolAble, new()
+    public class SafeObjectPool<T> : Pool<T>, ISingleton, IPool<T> where T : IPoolAble, new()
     {
         #region Singleton
         public void OnSingletonInit()
@@ -92,16 +89,14 @@ namespace QFramework
         {
             if (maxCount > 0)
             {
-                initCount = Math.Min(maxCount, initCount);
-
-                mMaxCount = maxCount;
+                initCount = Mathf.Min(maxCount, initCount);
             }
 
             if (CurCount < initCount)
             {
                 for (int i = CurCount; i < initCount; ++i)
                 {
-                    Recycle(mFactory.Create());
+                    Recycle(new T());
                 }
             }
         }
@@ -138,9 +133,9 @@ namespace QFramework
         /// <summary>
         /// Allocate T instance.
         /// </summary>
-        public override T Allocate()
+        public T Allocate()
         {
-            T result = base.Allocate();
+            var result = base.Allocate();
             result.IsRecycled = false;
             return result;
         }

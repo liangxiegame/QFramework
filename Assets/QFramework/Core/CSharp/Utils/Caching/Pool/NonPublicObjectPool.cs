@@ -4,9 +4,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,7 +26,7 @@
 
 namespace QFramework
 {
-	using System;
+	using UnityEngine;
 
 	/// <summary>
 	/// Object pool 4 class who no public constructor
@@ -48,6 +46,7 @@ namespace QFramework
 		{
 			mFactory = new NonPublicObjectFactory<T>();
 		}
+		
 		public void Dispose()
 		{
 			QSingletonProperty<NonPublicObjectPool<T>>.Dispose();
@@ -63,15 +62,14 @@ namespace QFramework
 		{
 			if (maxCount > 0)
 			{
-				initCount = Math.Min(maxCount, initCount);
+				initCount = Mathf.Min(maxCount, initCount);
 			}
 
-			if (CurCount < initCount)
+			if (CurCount >= initCount) return;
+			
+			for (var i = CurCount; i < initCount; ++i)
 			{
-				for (int i = CurCount; i < initCount; ++i)
-				{
-					Recycle(mFactory.Create());
-				}
+				Recycle(mFactory.Create());
 			}
 		}
 
@@ -86,20 +84,14 @@ namespace QFramework
 			{
 				mMaxCount = value;
 
-				if (mCacheStack != null)
+				if (mCacheStack == null) return;
+				if (mMaxCount <= 0) return;
+				if (mMaxCount >= mCacheStack.Count) return;
+				var removeCount = mMaxCount - mCacheStack.Count;
+				while (removeCount > 0)
 				{
-					if (mMaxCount > 0)
-					{
-						if (mMaxCount < mCacheStack.Count)
-						{
-							int removeCount = mMaxCount - mCacheStack.Count;
-							while (removeCount > 0)
-							{
-								mCacheStack.Pop();
-								--removeCount;
-							}
-						}
-					}
+					mCacheStack.Pop();
+					--removeCount;
 				}
 			}
 		}
@@ -109,7 +101,7 @@ namespace QFramework
 		/// </summary>
 		public override T Allocate()
 		{
-			T result = base.Allocate();
+			var result = base.Allocate();
 			result.IsRecycled = false;
 			return result;
 		}
