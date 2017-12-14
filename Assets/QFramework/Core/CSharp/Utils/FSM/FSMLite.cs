@@ -1,13 +1,34 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
-****************************************************************************/
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 namespace QFramework
 {
 	using System.Collections.Generic;
 
 	/// <summary>
-	/// 教程地址:http://liangxiegame.com/post/4/
+	/// QFSM lite.
 	/// </summary>
 	public class QFSMLite
 	{
@@ -21,11 +42,11 @@ namespace QFramework
 		/// </summary>
 		class QFSMState
 		{
-			private string mName;
+			public string Name;
 
 			public QFSMState(string name)
 			{
-				mName = name;
+				Name = name;
 			}
 
 			/// <summary>
@@ -53,12 +74,20 @@ namespace QFramework
 			}
 		}
 
-		public string State { get; private set; }
+		/// <summary>
+		/// The state of the m current.
+		/// </summary>
+		string mCurState;
+
+		public string State
+		{
+			get { return mCurState; }
+		}
 
 		/// <summary>
 		/// The m state dict.
 		/// </summary>
-		private readonly Dictionary<string, QFSMState> mStateDict = new Dictionary<string, QFSMState>();
+		Dictionary<string, QFSMState> mStateDict = new Dictionary<string, QFSMState>();
 
 		/// <summary>
 		/// Adds the state.
@@ -87,7 +116,7 @@ namespace QFramework
 		/// <param name="name">Name.</param>
 		public void Start(string name)
 		{
-			State = name;
+			mCurState = name;
 		}
 
 		/// <summary>
@@ -97,11 +126,11 @@ namespace QFramework
 		/// <param name="param">Parameter.</param>
 		public void HandleEvent(string name, params object[] param)
 		{
-			if (State != null && mStateDict[State].TranslationDict.ContainsKey(name))
+			if (mCurState != null && mStateDict[mCurState].TranslationDict.ContainsKey(name))
 			{
-				QFSMTranslation tempTranslation = mStateDict[State].TranslationDict[name];
+				var tempTranslation = mStateDict[mCurState].TranslationDict[name];
 				tempTranslation.OnTranslationCallback(param);
-				State = tempTranslation.ToState;
+				mCurState = tempTranslation.ToState;
 			}
 		}
 
