@@ -4,9 +4,7 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -42,7 +40,7 @@ namespace QFramework
         private void TestString()
         {
             WriteBegin("LinkListTest(String)");
-            QLinkedList<string> list = new QLinkedList<string>();
+            PTLinkedList<string> list = new PTLinkedList<string>();
             BuildStringLinkedListRandom(list, 0, 10);
             BuildStringLinkedListRandom(list, 11, 20);
             RemoveListAtIndex(list, 19);
@@ -53,7 +51,7 @@ namespace QFramework
             WriteEnd("LinkListTest(String)");
         }
 
-        private void BuildStringLinkedListRandom(QLinkedList<string> list, int start, int end)
+        private void BuildStringLinkedListRandom(PTLinkedList<string> list, int start, int end)
         {
             for (int i = start; i <= end; ++i)
             {
@@ -67,7 +65,7 @@ namespace QFramework
         private void TestInt()
         {
             WriteBegin("LinkListTest(Int)");
-            QLinkedList<int> list = new QLinkedList<int>();
+            PTLinkedList<int> list = new PTLinkedList<int>();
             BuildIntLinkedListRandom(list, 0, 10);
             BuildIntLinkedListRandom(list, 11, 20);
             RemoveListAtIndex(list, 19);
@@ -78,7 +76,7 @@ namespace QFramework
             WriteEnd("LinkListTest(Int)");
         }
 
-        private void BuildIntLinkedListRandom(QLinkedList<int> list, int start, int end)
+        private void BuildIntLinkedListRandom(PTLinkedList<int> list, int start, int end)
         {
             for (int i = start; i <= end; ++i)
             {
@@ -88,24 +86,24 @@ namespace QFramework
         }
 #endregion
 
-        private void RemoveListAtIndex<T>(QLinkedList<T> list, int index)
+        private void RemoveListAtIndex<T>(PTLinkedList<T> list, int index)
         {
             WriteLine("Remove At:{0}-Result:{1}", index, list.RemoveAt(index));
         }
 
-        private void RemoveData<T>(QLinkedList<T> list, T data)
+        private void RemoveData<T>(PTLinkedList<T> list, T data)
         {
             WriteLine("Remove Data:{0}-Result:{1}", data, list.Remove(data));
         }
 
-        private void VisitList<T>(QLinkedList<T> list)
+        private void VisitList<T>(PTLinkedList<T> list)
         {
             WriteLine("Data Begin:");
             list.Accept(VisitData);
             WriteLine("");
         }
 
-        protected void FindData<T>(QLinkedList<T> list, T data)
+        protected void FindData<T>(PTLinkedList<T> list, T data)
         {
             WriteLine("FindData{0}: Result:{1}", data, list.Query(data));
         }
