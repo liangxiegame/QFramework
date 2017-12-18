@@ -1,0 +1,135 @@
+/****************************************************************************
+ * Copyright (c) 2017 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
+namespace QFramework
+{
+    using UnityEngine;
+
+    /// <summary>
+    /// GameObject's Util/Static This Extension
+    /// </summary>
+    public static class GameObjectExtension
+    {
+        #region CEGO001 Show
+
+        public static GameObject Show(this GameObject selfObj)
+        {
+            selfObj.SetActive(true);
+            return selfObj;
+        }
+
+        public static T Show<T>(this T selfComponent) where T : Component
+        {
+            selfComponent.gameObject.Show();
+            return selfComponent;
+        }
+
+        #endregion
+
+        #region CEGO002 Hide
+
+        public static GameObject Hide(this GameObject selfObj)
+        {
+            selfObj.SetActive(false);
+            return selfObj;
+        }
+
+        public static T Hide<T>(this T selfComponent) where T : Component
+        {
+            selfComponent.gameObject.Hide();
+            return selfComponent;
+        }
+
+        #endregion
+
+        #region CEGO003 DestroyGameObj
+
+        public static void DestroyGameObj<T>(this T selfBehaviour) where T : Component
+        {
+            selfBehaviour.gameObject.DestroySelf();
+        }
+
+        #endregion
+
+        #region CEGO004 DestroyGameObjGracefully
+
+        public static void DestroyGameObjGracefully<T>(this T selfBehaviour) where T : Component
+        {
+            if (selfBehaviour && selfBehaviour.gameObject)
+            {
+                selfBehaviour.gameObject.DestroySelfGracefully();
+            }
+        }
+
+        #endregion
+
+        #region CEGO005 DestroyGameObjGracefully
+
+        public static T DestroyGameObjAfterDelay<T>(this T selfBehaviour, float delay) where T : Component
+        {
+            selfBehaviour.gameObject.DestroySelfAfterDelay(delay);
+            return selfBehaviour;
+        }
+
+        public static T DestroyGameObjAfterDelayGracefully<T>(this T selfBehaviour, float delay) where T : Component
+        {
+            if (selfBehaviour && selfBehaviour.gameObject)
+            {
+                selfBehaviour.gameObject.DestroySelfAfterDelay(delay);
+            }
+            return selfBehaviour;
+        }
+
+        #endregion
+
+        #region CEGO006 Layer
+
+        public static GameObject Layer(this GameObject selfObj, int layer)
+        {
+            selfObj.layer = layer;
+            return selfObj;
+        }
+
+        public static T Layer<T>(this T selfComponent, int layer) where T : Component
+        {
+            selfComponent.gameObject.layer = layer;
+            return selfComponent;
+        }
+
+        public static GameObject Layer(this GameObject selfObj, string layerName)
+        {
+            selfObj.layer = LayerMask.NameToLayer(layerName);
+            return selfObj;
+        }
+
+        public static T Layer<T>(this T selfComponent, string layerName) where T : Component
+        {
+            selfComponent.gameObject.layer = LayerMask.NameToLayer(layerName);
+            return selfComponent;
+        }
+
+        #endregion
+    }
+}    
