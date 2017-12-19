@@ -1,9 +1,10 @@
-﻿/****************************************************************************
+/****************************************************************************
+ * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,7 +25,6 @@
  ****************************************************************************/
 
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace QFramework.Example
 {
@@ -56,14 +56,14 @@ namespace QFramework.Example
 
 
 			GameObject instantiatedObj = null;
-			
+
 			gameObject
 				// 8. Destroy(gameObject,1.5f)
 				.DestroySelfAfterDelay(1.5f)
 				// 9. if (gameObject) Destroy(gameObject,1.5f)
 				.DestroySelfAfterDelayGracefully(1.5f)
 				// 10. instantiatedObj = Instantiate(gameObject)
-				.ApplySelfTo(selfObj=> instantiatedObj = selfObj.Instantiate());
+				.ApplySelfTo(selfObj => instantiatedObj = selfObj.Instantiate());
 
 			#region 通过MonoBehaviour去调用GameObject相关的API
 
@@ -92,6 +92,38 @@ namespace QFramework.Example
 				.DestroyGameObjAfterDelayGracefully(1.5f)
 				// 10. instantiatedObj = Instantiate(this.gameObject)
 				.ApplySelfTo(selfScript => instantiatedObj = selfScript.gameObject.Instantiate());
+
+			#endregion
+
+
+			#region 也可以使用Transform,因为Transform继承了Component,而Core里的所有的链式扩展都默认支持了Component
+
+			transform
+				// 1. transform.gameObject.SetActive(true)
+				.Show()
+				// 2. transform.gameObject.SetActive(false)
+				.Hide()
+				// 3. transform.name = "Yeah" (这是UnityEngine.Object的API)
+				.Name("Yeah")
+				// 4. transform.gameObject.layer = 10
+				.Layer(0)
+				// 5. transform.gameObject.layer = LayerMask.NameToLayer("Default);
+				.Layer("Default")
+				// 6. Destroy(transform.gameObject) (这是UnityEngine.Object的API)
+				.DestroyGameObj();
+
+			// 这里到会断掉，因为GameObject销毁之后就不希望再有操作了
+			transform
+				// 7. if (transform && gameObject) Destroy(transform.gameObject)
+				.DestroyGameObjGracefully();
+
+			transform
+				// 8. Destroy(transform.gameObject,1.5f)
+				.DestroyGameObjAfterDelay(1.5f)
+				// 9. if (transform.gameObject) Destroy(gameObject,1.5f)
+				.DestroyGameObjAfterDelayGracefully(1.5f)
+				// 10. instantiatedTrans = Instantiate(transform.gameObject)
+				.ApplySelfTo(selfTrans => instantiatedObj = selfTrans.gameObject.Instantiate());
 
 			#endregion
 		}
