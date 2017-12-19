@@ -1,0 +1,3 @@
+[submodule "Assets/QFramework"]
+	path = Assets/QFramework
+	url = https://github.com/liangxiegame/QFramework.git
