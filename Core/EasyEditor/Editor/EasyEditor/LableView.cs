@@ -9,7 +9,6 @@ namespace QFramework
 
         public string Text = string.Empty;
         
-        
         public FontStyle FontStyle 
         {
             set { Style.fontStyle = value; }

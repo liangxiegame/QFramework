@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Unity.Linq
+namespace QFramework
 {
     public static partial class GameObjectExtensions
     {

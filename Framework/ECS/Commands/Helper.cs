@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Linq;
 
-
-
 namespace QFramework
 {
-
     public static class Helper
     {
-
         public static string[] GetUnusedKeys(string[] requiredKeys, Properties properties)
         {
             return properties.Keys

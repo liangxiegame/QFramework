@@ -41,9 +41,7 @@ namespace QFramework
 		private const string KEY_ProjectTag = "KEY_ProjectTag";
 		private const string KEY_ZipFramework = "KEY_ZipFramework";
 
-
 		public static string resVersion = "100";
-
 		private static string projectTag = "";
 
 		//public static bool isUseFramework = true;
@@ -52,8 +50,8 @@ namespace QFramework
 		public static void ForceClear()
 		{
 
-			IOUtils.DeleteDirIfExists(QResSystemMark.AssetBundlesOutputPath);
-			IOUtils.DeleteDirIfExists(Application.streamingAssetsPath + "/AssetBundles");
+			QResSystemMark.AssetBundlesOutputPath.DeleteDirIfExists();
+			(Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
 
 			AssetDatabase.Refresh();
 		}
@@ -65,7 +63,6 @@ namespace QFramework
 #endif
 		public static void ExecuteAssetBundle()
 		{
-
 			QResSystemBuilder window = (QResSystemBuilder) GetWindow(typeof(QResSystemBuilder), true);
 			Debug.Log(Screen.width + " screen width*****");
 			window.position = new Rect(100, 100, 500, 400);
@@ -101,10 +98,6 @@ namespace QFramework
 			GUILayout.Toolbar(buildTargetIndex, platformLabels);
 		}
 
-		void DrawAssetBundleList()
-		{
-		}
-
 
 		public void OnDisable()
 		{
@@ -127,11 +120,8 @@ namespace QFramework
 			}
 
 			DrawMenu();
-			DrawAssetBundleList();
 
 			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class");
-
-
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("ResVersion:");

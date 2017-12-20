@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RuntimeUnitTestToolkit
+namespace QFramework
 {
     public static partial class AssertExtensions
     {

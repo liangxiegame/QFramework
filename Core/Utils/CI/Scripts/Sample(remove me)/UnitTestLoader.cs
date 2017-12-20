@@ -1,8 +1,7 @@
 
 using UnityEngine;
-using RuntimeUnitTestToolkit;
 
-namespace SampleUnitTest
+namespace QFramework
 {
     public static class UnitTestLoader
     {

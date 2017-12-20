@@ -1,5 +1,4 @@
 
-
 using UnityEngine;
 
 namespace QFramework
@@ -8,8 +7,8 @@ namespace QFramework
     
     public sealed class Button : EditorView
     {
-        private Action mOnClickAction;
-        private string mText;
+        private readonly Action mOnClickAction;
+        private readonly string mText;
         public Button(string text, float width, float height, Action onClickAction)
         {
             mText = text;

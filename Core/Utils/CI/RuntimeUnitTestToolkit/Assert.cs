@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace RuntimeUnitTestToolkit
+namespace QFramework
 {
     public class AssertFailedException : Exception
     {

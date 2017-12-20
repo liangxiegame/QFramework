@@ -8,8 +8,8 @@ namespace QFramework
         {
             if (Visible) return;
             base.OnGUI();
-            EditorGUILayout.Space();
-            
+            EditorGUILayout.Space();   
         }
+
     }
 }

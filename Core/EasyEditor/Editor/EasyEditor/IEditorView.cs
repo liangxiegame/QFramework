@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 
 namespace QFramework
 {
@@ -10,7 +9,5 @@ namespace QFramework
         void RemoveChild(IEditorView childView);
         
         void OnGUI();
-        
-        
     }
 }

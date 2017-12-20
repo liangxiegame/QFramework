@@ -7,7 +7,12 @@ namespace QFramework
 
     public class QEditorWindow : EditorWindow ,IEditorView
     {
-        List<IEditorView> mChildren = new List<IEditorView>();
+        public static T Create<T>(bool utility,string title = null) where T : QEditorWindow
+        {
+            return title.IsNullOrEmpty() ? GetWindow<T>(utility) : GetWindow<T>(utility,title);
+        }
+        
+        private readonly List<IEditorView> mChildren = new List<IEditorView>();
 
         private bool mVisible = true;
 
@@ -16,7 +21,7 @@ namespace QFramework
             get { return mVisible; }
             set { mVisible = value; }
         }
-
+        
         public void AddChild(IEditorView childView)
         {
             mChildren.Add(childView);
@@ -27,7 +32,7 @@ namespace QFramework
             mChildren.Remove(childView);
         }
 
-        public void OnGUI()
+        public virtual void OnGUI()
         {
             if (Visible) mChildren.ForEach(childView => childView.OnGUI());
         }

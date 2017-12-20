@@ -6,7 +6,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace RuntimeUnitTestToolkit
+namespace QFramework
 {
     public static class UnitTest
     {

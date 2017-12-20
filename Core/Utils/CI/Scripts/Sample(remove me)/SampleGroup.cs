@@ -27,9 +27,7 @@ using UnityEngine;
 using System.Collections;
 using QFramework;
 
-using RuntimeUnitTestToolkit;
-
-namespace SampleUnitTest
+namespace QFramework
 {
     // make unit test on plain C# class
     public class SampleGroup
