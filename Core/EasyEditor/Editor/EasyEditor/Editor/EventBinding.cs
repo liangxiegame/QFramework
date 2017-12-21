@@ -19,7 +19,6 @@ namespace UnityEditorUI
         /// Configure the event to bind to later.
         /// </summary>
         WidgetT Bind(Expression<Action> methodExpression);
-
     }
 
     /// <summary>
@@ -35,7 +34,7 @@ namespace UnityEditorUI
         public void BindViewModel(object newViewModel)
         {
             viewModel = newViewModel;
-            if (!String.IsNullOrEmpty(mBoundMethodName))
+            if (!string.IsNullOrEmpty(mBoundMethodName))
             {
                 Type viewModelType = newViewModel.GetType();
                 mBoundMethod = viewModelType.GetMethod(mBoundMethodName);

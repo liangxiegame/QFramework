@@ -104,19 +104,6 @@ namespace UnityEditorUI
         {
             mRect.width = mTexture2D.width;
             mRect.height = mTexture2D.height;
-//            var layoutOptions = new List<GUILayoutOption>();
-//            if(width >= 0)
-//            {
-//                layoutOptions.Add(GUILayout.Width(width));
-//            }
-//            if(height >= 0)
-//            {
-//                layoutOptions.Add(GUILayout.Height(height));
-//            }
-//            if (GUILayout.Button(new GUIContent(text, tooltip), layoutOptions.ToArray()))
-//            {
-//                clickEvent.Invoke();
-//            }
 
             if (UnityEngine.GUI.Button(mRect, mTexture2D, GUIStyle.none))
             {

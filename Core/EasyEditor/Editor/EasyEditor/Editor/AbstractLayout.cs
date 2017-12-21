@@ -1,8 +1,9 @@
 
-using System.Collections.Generic;
 
 namespace UnityEditorUI
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Layouts are widgets that can contain other child widgets. All layouts should inherit from AbstractLayout.
     /// </summary>

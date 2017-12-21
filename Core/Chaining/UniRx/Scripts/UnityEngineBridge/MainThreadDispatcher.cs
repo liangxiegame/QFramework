@@ -5,7 +5,6 @@
 using System;
 using System.Collections;
 using System.Reflection;
-using QFramework;
 using UnityEngine;
 
 namespace QFramework

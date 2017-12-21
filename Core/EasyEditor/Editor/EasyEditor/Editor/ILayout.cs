@@ -16,6 +16,10 @@ namespace UnityEditorUI
         IButton Button();
 
 
+        /// <summary>
+        /// GUILayoutButton
+        /// </summary>
+        /// <returns></returns>
         ILayoutButton LayoutButton();
 
         /// <summary>
