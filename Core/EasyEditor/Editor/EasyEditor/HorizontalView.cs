@@ -2,7 +2,7 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public class HorizontalView : EditorView
+    public class HorizontalView : GUIView
     {
         public override void OnGUI()
         {

@@ -25,21 +25,8 @@
 
 namespace QFramework
 {
-    using UnityEngine;
-
-    public class GUIHorizontalView : GUIView
+    public interface INameable
     {
-        public override void OnGUI()
-        {
-            if (Visible) GUILayout.BeginHorizontal();
-            base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
-        }
-
-        #region 重构工具
-
-        
-
-        #endregion
+        string Name { get; }
     }
 }

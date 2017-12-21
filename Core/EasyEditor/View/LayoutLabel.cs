@@ -26,20 +26,18 @@
 namespace QFramework
 {
     using UnityEngine;
-
-    public class GUIHorizontalView : GUIView
+    
+    public sealed class LayoutLabels : GUIView
     {
-        public override void OnGUI()
+        private readonly string mText;
+        public LayoutLabels(string text)
         {
-            if (Visible) GUILayout.BeginHorizontal();
-            base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
+            mText = text;
         }
 
-        #region 重构工具
-
-        
-
-        #endregion
+        public override void OnGUI()
+        {
+            if (Visible) GUILayout.Label(mText);
+        }
     }
 }

@@ -5,14 +5,14 @@ namespace QFramework
 {
     using UnityEditor;
 
-    public class QEditorWindow : EditorWindow ,IEditorView
+    public class QEditorWindow : EditorWindow ,IOnGUIView
     {
         public static T Create<T>(bool utility,string title = null) where T : QEditorWindow
         {
             return title.IsNullOrEmpty() ? GetWindow<T>(utility) : GetWindow<T>(utility,title);
         }
         
-        private readonly List<IEditorView> mChildren = new List<IEditorView>();
+        private readonly List<IOnGUIView> mChildren = new List<IOnGUIView>();
 
         private bool mVisible = true;
 
@@ -22,12 +22,12 @@ namespace QFramework
             set { mVisible = value; }
         }
         
-        public void AddChild(IEditorView childView)
+        public void AddChild(IOnGUIView childView)
         {
             mChildren.Add(childView);
         }
 
-        public void RemoveChild(IEditorView childView)
+        public void RemoveChild(IOnGUIView childView)
         {
             mChildren.Remove(childView);
         }
@@ -35,6 +35,11 @@ namespace QFramework
         public virtual void OnGUI()
         {
             if (Visible) mChildren.ForEach(childView => childView.OnGUI());
+        }
+
+        public IOnGUIView End()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

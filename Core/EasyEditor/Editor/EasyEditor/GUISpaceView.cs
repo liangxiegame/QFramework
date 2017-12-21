@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class GUISpaceView :EditorView
+    public class GUISpaceView :GUIView
     {
         private int mSpacePixels;
 

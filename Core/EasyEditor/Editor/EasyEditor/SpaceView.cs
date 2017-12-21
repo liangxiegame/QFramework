@@ -2,7 +2,7 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public class SpaceView :EditorView
+    public class SpaceView :GUIView
     {
         public override void OnGUI()
         {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public sealed class LabelView : EditorView
+    public sealed class LabelView : GUIView
     {
         public GUIStyle Style  = new GUIStyle();
 
@@ -33,7 +33,7 @@ namespace QFramework
 
         public override void OnGUI()
         {            
-            if (Visible) EditorGUILayout.LabelField(Text,Style,mLayoutOptions);
+            if (Visible) EditorGUILayout.LabelField(Text,Style,mLayoutOptions.ToArray());
         }
     }
 }

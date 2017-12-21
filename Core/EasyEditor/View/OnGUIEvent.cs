@@ -23,23 +23,23 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
-    using UnityEngine;
-
-    public class GUIHorizontalView : GUIView
+    public sealed class OnGUIEvent : GUIView
     {
+        private Action mOnGUIEvent;
+
+        public OnGUIEvent Event(Action onGuiEvent)
+        {
+            mOnGUIEvent = onGuiEvent;
+            return this;
+        }
+        
         public override void OnGUI()
         {
-            if (Visible) GUILayout.BeginHorizontal();
-            base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
+            if (Visible) mOnGUIEvent.InvokeGracefully();
         }
-
-        #region 重构工具
-
-        
-
-        #endregion
     }
 }

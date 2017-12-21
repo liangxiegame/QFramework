@@ -27,19 +27,22 @@ namespace QFramework
 {
     using UnityEngine;
 
-    public class GUIHorizontalView : GUIView
+    public class LayoutVertical : GUIView
     {
+        private string mText = string.Empty;
+        
+        public LayoutVertical Text(string text)
+        {
+            mText = text;
+            return this;
+        }
+        
         public override void OnGUI()
         {
-            if (Visible) GUILayout.BeginHorizontal();
+            if (!Visible) return;
+            GUILayout.BeginVertical(mText);
             base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
         }
-
-        #region 重构工具
-
-        
-
-        #endregion
     }
 }

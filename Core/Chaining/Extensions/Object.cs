@@ -95,6 +95,16 @@ namespace QFramework
 
         #endregion
 
+        #region CEUO006 DontDestroyOnLoad
+
+        public static T DontDestroyOnLoad<T>(this T selfObj) where T : Object
+        {
+            Object.DontDestroyOnLoad(selfObj);
+            return selfObj;
+        }
+
+        #endregion
+
         public static T As<T>(this Object selfObj) where T : Object
         {
             return selfObj as T;

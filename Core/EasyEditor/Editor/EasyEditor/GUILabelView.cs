@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class GUILabelView :EditorView
+    public class GUILabelView :GUIView
     {
         public string Text = string.Empty;
 

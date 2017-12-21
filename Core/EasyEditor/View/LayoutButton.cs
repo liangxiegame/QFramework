@@ -25,21 +25,44 @@
 
 namespace QFramework
 {
+    using System;
     using UnityEngine;
 
-    public class GUIHorizontalView : GUIView
+    public sealed class LayoutButton : GUIView
     {
-        public override void OnGUI()
+        private Action mOnClickAction;
+        private string mText = string.Empty;
+
+        public LayoutButton Text(string text)
         {
-            if (Visible) GUILayout.BeginHorizontal();
-            base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
+            mText = text;
+            return this;
+        }
+        
+        public LayoutButton Width(float width)
+        {
+            base.Width = width;
+            return this;
+        }
+        
+        public LayoutButton Height(float height)
+        {
+            base.Height = height;
+            return this;
         }
 
-        #region 重构工具
+        public LayoutButton Click(Action onClickAction)
+        {
+            mOnClickAction = onClickAction;
+            return this;
+        }
 
-        
-
-        #endregion
+        public override void OnGUI()
+        {
+            if (Visible && GUILayout.Button(mText, mLayoutOptions.ToArray()))
+            {
+                mOnClickAction.InvokeGracefully();
+            }
+        }
     }
 }
