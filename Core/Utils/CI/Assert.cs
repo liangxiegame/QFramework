@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * https://github.com/neuecc/ChainingAssertion
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -23,23 +24,52 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Assertions;
+
 namespace QFramework
 {
-    using UnityEngine;
-
-    public class GUIHorizontalView : EditorView
+    /// <summary>
+    /// 断言用来单元测试的
+    /// </summary>
+    public class QAssert : MonoBehaviour
     {
-        public override void OnGUI()
+        public static void AreStringEqual(string a, string b, object msg = null)
         {
-            if (Visible) GUILayout.BeginHorizontal();
-            base.OnGUI();
-            if (Visible) GUILayout.EndHorizontal();
+            Assert.IsTrue(string.Equals(a, b), msg == null ? "" : msg.ToString());
         }
 
-        #region 重构工具
-
+        public static void AreArrayEqual(List<string> a, List<string> b)
+        {
+            a.Equals(b);
+            if (a != null && b != null && a.Count == b.Count)
+            {
+            }
+        }
         
-
-        #endregion
+        /// <summary>
+        /// Check that two list have the same content.
+        /// </summary>
+        public static void IsEqualList<T>(List<T> list1, List<T> list2)
+        {
+            Assert.AreEqual(list1.Count, list2.Count);
+            for (int i = 0; i < list1.Count; i++)
+            {
+                Assert.AreEqual(list1[i], list2[i]);
+            }
+        }
+        
+        /// <summary>
+        /// Check that two arrays have the same content.
+        /// </summary>
+        public static void IsEqualArrays<T>(T[] array1, T[] array2)
+        {
+            Assert.AreEqual(array1.Length, array2.Length);
+            for (int i = 0; i < array1.Length; i++)
+            {
+                Assert.AreEqual(array1[i], array2[i]);
+            }
+        }
     }
 }

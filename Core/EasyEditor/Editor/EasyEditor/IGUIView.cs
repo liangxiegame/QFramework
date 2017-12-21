@@ -1,4 +1,4 @@
-﻿namespace QFramework
+namespace QFramework
 {
     public class IGUIView
     {

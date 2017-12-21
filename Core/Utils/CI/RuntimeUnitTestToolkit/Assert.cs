@@ -15,7 +15,7 @@ namespace QFramework
     /// <summary>
     /// Primitive Assertion methods.
     /// </summary>
-    public static partial class Assert
+    public static partial class TestAssert
     {
         public static void AreEqual<T>(T expected, T actual, string message)
         {
@@ -104,13 +104,13 @@ namespace QFramework
             if (exception == null)
             {
                 var formatted = headerMsg + " No exception was thrown" + additionalMsg;
-                Assert.Fail(formatted);
+                TestAssert.Fail(formatted);
             }
 #if !UNITY_METRO
             else if (!typeof(T).IsInstanceOfType(exception))
             {
                 var formatted = string.Format("{0} Catched:{1}{2}", headerMsg, exception.GetType().Name, additionalMsg);
-                Assert.Fail(formatted);
+                TestAssert.Fail(formatted);
             }
 #endif
 
@@ -127,7 +127,7 @@ namespace QFramework
                 var headerMsg = "Failed Throws<" + typeof(T).Name + ">.";
                 var additionalMsg = string.IsNullOrEmpty(message) ? "" : ", " + message;
                 var formatted = string.Format("{0} Catched:{1}{2}", headerMsg, exception.GetType().Name, additionalMsg);
-                Assert.Fail(formatted);
+                TestAssert.Fail(formatted);
             }
 
             return (T)exception;
@@ -140,7 +140,7 @@ namespace QFramework
             if (exception != null)
             {
                 var formatted = string.Format("Failed DoesNotThrow. Catched:{0}{1}", exception.GetType().Name, string.IsNullOrEmpty(message) ? "" : ", " + message);
-                Assert.Fail(formatted);
+                TestAssert.Fail(formatted);
             }
         }
 

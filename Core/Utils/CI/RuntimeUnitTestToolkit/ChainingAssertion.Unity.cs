@@ -13,13 +13,13 @@ namespace QFramework
         /// <summary>Assert.AreEqual.</summary>
         public static void AssertIs<T>(this T actual, T expected, string message = "")
         {
-            Assert.AreEqual(expected, actual, message);
+            TestAssert.AreEqual(expected, actual, message);
         }
 
         /// <summary>Assert.IsTrue(predicate(value))</summary>
         public static void AssertIs<T>(this T value, Func<T, bool> predicate, string message = "")
         {
-            Assert.IsTrue(predicate(value), message);
+            TestAssert.IsTrue(predicate(value), message);
         }
 
         /// <summary>CollectionAssert.AreEqual</summary>
@@ -49,7 +49,7 @@ namespace QFramework
         /// <summary>Assert.AreNotEqual</summary>
         public static void AssertIsNot<T>(this T actual, T notExpected, string message = "")
         {
-            Assert.AreNotEqual(notExpected, actual, message);
+            TestAssert.AreNotEqual(notExpected, actual, message);
         }
 
         /// <summary>CollectionAssert.AreNotEqual</summary>
@@ -85,13 +85,13 @@ namespace QFramework
         /// <summary>Assert.IsNull</summary>
         public static void AssertIsNull<T>(this T value, string message = "")
         {
-            Assert.IsNull(value, message);
+            TestAssert.IsNull(value, message);
         }
 
         /// <summary>Assert.IsNotNull</summary>
         public static void AssertIsNotNull<T>(this T value, string message = "")
         {
-            Assert.IsNotNull(value, message);
+            TestAssert.IsNotNull(value, message);
         }
 
         /// <summary>Is(true)</summary>
@@ -109,26 +109,26 @@ namespace QFramework
         /// <summary>Assert.AreSame</summary>
         public static void AssertIsSameReferenceAs<T>(this T actual, T expected, string message = "")
         {
-            Assert.AreSame(expected, actual, message);
+            TestAssert.AreSame(expected, actual, message);
         }
 
         /// <summary>Assert.AreNotSame</summary>
         public static void AssertIsNotSameReferenceAs<T>(this T actual, T notExpected, string message = "")
         {
-            Assert.AreNotSame(notExpected, actual, message);
+            TestAssert.AreNotSame(notExpected, actual, message);
         }
 
         /// <summary>Assert.IsInstanceOf</summary>
         public static TExpected AssertIsInstanceOf<TExpected>(this object value, string message = "")
         {
-            Assert.IsInstanceOfType(value, typeof(TExpected), message);
+            TestAssert.IsInstanceOfType(value, typeof(TExpected), message);
             return (TExpected)value;
         }
 
         /// <summary>Assert.IsNotInstanceOf</summary>
         public static void AssertIsNotInstanceOf<TWrong>(this object value, string message = "")
         {
-            Assert.IsNotInstanceOfType(value, typeof(TWrong), message);
+            TestAssert.IsNotInstanceOfType(value, typeof(TWrong), message);
         }
 
         /// <summary>EqualityComparison to IComparer Converter for CollectionAssert</summary>
