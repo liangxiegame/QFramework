@@ -11,7 +11,6 @@ public class ExampleWindow : CustomWebViewEditorWindow
 //        CreateWebViewEditorWindow<ExampleWindow>(
 //            "Example",
 //            Application.dataPath + "/Web/HTML/index.html", 200, 530, 800, 600);
-
 //        var path = Application.dataPath.Replace("Assets", string.Empty).CombinePath("WebApp/LearnVue/index.html");
         var path = Application.dataPath.Replace("Assets","WebApp/LearnVue") + "/index.html";
 
