@@ -34,23 +34,24 @@ namespace QFramework
         void Release(object refOwner = null);
     }
 
-    public class RefCounter : IRefCounter
+    public class SimpleRC : IRefCounter
     {
-        private int mRefCount = 0;
-        public int RefCount
+        public SimpleRC()
         {
-            get { return mRefCount; }
+            RefCount = 0;
         }
+
+        public int RefCount { get; private set; }
 
         public void Retain(object refOwner = null)
         {
-            ++mRefCount;
+            ++RefCount;
         }
 
         public void Release(object refOwner = null)
         {
-            --mRefCount;
-            if (mRefCount == 0)
+            --RefCount;
+            if (RefCount == 0)
             {
                 OnZeroRef();
             }

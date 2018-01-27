@@ -32,7 +32,7 @@ namespace QFramework
     /// UnsafeARC doesn't check if the entity has already been
     /// retained or released. It's faster, but you lose the information
     /// about the owners.
-    public sealed class UnsafeARC : RefCounter
+    public sealed class UnsafeARC : SimpleRC
     {
     }
 }
