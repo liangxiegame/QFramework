@@ -1,0 +1,5 @@
+nohup.out
+node_modules
+_book
+book.json
+package.json
