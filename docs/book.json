@@ -1,0 +1,9 @@
+{
+	"plugins" : ["edit-link"],
+	"pluginsConfig": {
+		"edit-link" : {
+			"base": "https://github.com/liangxiegame/QFramework/edit/master/docs",
+			"label":"编辑"
+		}
+	}
+}
