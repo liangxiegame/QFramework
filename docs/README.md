@@ -15,6 +15,6 @@
 
 
 
-**如在使用中遇到问题请提交 [这里](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速恢复** 。
+**如在使用中遇到问题请提交 [这里](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
 
 本文档部分文字参考自:http://catlib.io
