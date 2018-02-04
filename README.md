@@ -4,12 +4,10 @@
 [![Documentation Status](./docs/res/passing.svg)](http://liangxiegame.github.io/QFramework/)  [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 [![Coverage Status](https://coveralls.io/repos/github/liangxiegame/QFramework/badge.svg?branch=master)](https://coveralls.io/github/liangxiegame/QFramework?branch=master)
 
-
-
 #### 文档
 
-* [快速开始](http://qframework.io/tutor/0.HelloWorld/)
-* [主页](qframework.io)
+* [快速开始](http://qframework.io)
+* [主页](http://qframework.io)
 * [Folder Tree](./tree.md)
 
 #### 包含项目:
