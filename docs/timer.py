@@ -10,7 +10,7 @@ def f():
 def work():
    while 1:
        f()
-       time.sleep(5)
+       time.sleep(10)
 
 if __name__ == '__main__':
     p = multiprocessing.Process(target=work,)
