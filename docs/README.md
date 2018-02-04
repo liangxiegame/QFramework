@@ -4,5 +4,3 @@
 * Action
 * ResKit
 * Core
-
-测试hubot
