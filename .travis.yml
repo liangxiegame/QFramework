@@ -1,6 +1,6 @@
 language: csharp
 
-solution: build.sln
+# solution: build.sln
 
 sudo: true 
 
@@ -34,7 +34,7 @@ script:
 notifications:
   webhooks: https://hook.bearychat.com/=bwBLe/travis/d12e4ab6659650c0e20f6f99bd07ffea
 # Generate and deploy documentation
-after_success:
-  - cd $TRAVIS_BUILD_DIR
-  - chmod +x Tools/generateDocumentationAndDeploy.sh
-  - ./Tools/generateDocumentationAndDeploy.sh
+# after_success:  doxyjen
+  # - cd $TRAVIS_BUILD_DIR
+  # - chmod +x Tools/generateDocumentationAndDeploy.sh
+  # - ./Tools/generateDocumentationAndDeploy.sh
