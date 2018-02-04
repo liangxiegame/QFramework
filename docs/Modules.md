@@ -8,6 +8,6 @@
 #### Systems
 * ResKit
 
-# Core
+#### Core
 * Utils
 * Design Pattern Support
