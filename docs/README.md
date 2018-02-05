@@ -9,9 +9,9 @@
 
 
 #### 快速开始
-Unity API 扩展:
+Unity API GameObject 扩展:
 ``` C#
-	gameObject
+gameObject
 	// 1. gameObject.SetActive(true)
 	.Show()
 	// 2. gameObject.SetActive(false)
@@ -24,6 +24,22 @@ Unity API 扩展:
 	.Layer("Default")
 	// 6. Destroy(gameObject) (这是UnityEngine.Object的API)
 	.DestroySelf();
+```
+Unity API MonoBehaviour 扩展:
+``` C#
+this
+	// 1. this.gameObject.Show()
+	.Show()
+	// 2. this.gameObject.Hide()
+	.Hide()
+	// 3. this.gameObject.Name("Yeah")
+	.Name("Yeah")
+	// 4. gameObject.layer = 10
+	.Layer(0)
+	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
+	.Layer("Default")
+	// 6. Destroy(this.gameObject)
+	.DestroyGameObj();
 ```
 
 
