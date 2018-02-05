@@ -1,8 +1,5 @@
-
-
-
 #### Framework
-* UI
+* UI 
 * Action
 
 #### Systems
@@ -10,4 +7,5 @@
 
 #### Core
 * Utils
-* Design Pattern Support
+* Design
+  * Singleton
