@@ -27,3 +27,4 @@
 * Dash Support
 * Japanese/Korean Doc Support
 * Team Service Support
+* CI Support
