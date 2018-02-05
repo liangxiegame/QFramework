@@ -11,18 +11,18 @@
 #### 快速开始
 ``` C#
         gameObject
-				// 1. gameObject.SetActive(true)
-				.Show()
-				// 2. gameObject.SetActive(false)
-				.Hide()
-				// 3. gameObject.name = "Yeah" (这是UnityEngine.Object的API)
-				.Name("Yeah")
-				// 4. gameObject.layer = 10
-				.Layer(0)
-				// 5. gameObject.layer = LayerMask.NameToLayer("Default);
-				.Layer("Default")
-				// 6. Destroy(gameObject) (这是UnityEngine.Object的API)
-				.DestroySelf();
+	// 1. gameObject.SetActive(true)
+	.Show()
+	// 2. gameObject.SetActive(false)
+	.Hide()
+	// 3. gameObject.name = "Yeah" (这是UnityEngine.Object的API)
+	.Name("Yeah")
+	// 4. gameObject.layer = 10
+	.Layer(0)
+	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
+	.Layer("Default")
+	// 6. Destroy(gameObject) (这是UnityEngine.Object的API)
+	.DestroySelf();
 ```
 
 
