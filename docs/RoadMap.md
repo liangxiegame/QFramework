@@ -28,3 +28,4 @@
 * Japanese/Korean Doc Support
 * Team Service Support
 * CI Support
+* Native UI View Ctrl
