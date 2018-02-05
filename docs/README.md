@@ -9,6 +9,7 @@
 
 
 #### 快速开始
+Unity API 扩展:
 ``` C#
 	gameObject
 	// 1. gameObject.SetActive(true)
