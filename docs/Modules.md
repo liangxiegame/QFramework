@@ -1,13 +1,13 @@
 
 
 
-#### Framework 框架层
+#### Framework
 * UI
 * Action
 
-#### Systems 系统层
+#### Systems
 * ResKit
 
-#### Core 核心层
+#### Core
 * Utils
 * Design Pattern Support
