@@ -10,7 +10,7 @@
 
 #### 快速开始
 ``` C#
-        gameObject
+	gameObject
 	// 1. gameObject.SetActive(true)
 	.Show()
 	// 2. gameObject.SetActive(false)
