@@ -11,7 +11,7 @@ namespace QFramework.Editor
 {
     public class IOPathEditor
     {
-        [MenuItem("PuTaoTool/Framework/IOPath/Gen Path Asset File")]
+        [MenuItem("QFramework/IOPath/Gen Path Asset File")]
         public static void GenPathAssetFile()
         {
 			AssetDatabase.SaveAssets ();
@@ -33,7 +33,7 @@ namespace QFramework.Editor
             AssetDatabase.SaveAssets();
 		}
 
-		[MenuItem("PuTaoTool/Framework/IOPath/Gen Path Script")]
+		[MenuItem("QFramework/Framework/IOPath/Gen Path Script")]
 		public static void GeneratePathScript() 
 		{
 			AssetDatabase.SaveAssets ();
@@ -51,7 +51,7 @@ namespace QFramework.Editor
 
 					PathConfig config = AssetDatabase.LoadAssetAtPath<PathConfig> (fullPathFileName);
 					PTNamespaceDefine nameSpace = new PTNamespaceDefine ();
-					nameSpace.Name = string.IsNullOrEmpty (config.NameSpace) ? "PTGame.Framework" : config.NameSpace;
+					nameSpace.Name = string.IsNullOrEmpty (config.NameSpace) ? "QFramework" : config.NameSpace;
 					nameSpace.FileName = config.name + ".cs";
 					nameSpace.GenerateDir = string.IsNullOrEmpty (config.ScriptGeneratePath) ? EditorPathManager.DefaultPathScriptGenerateForder : IOUtils.CreateDirIfNotExists ("Assets/" + config.ScriptGeneratePath);
 					var classDefine = new PTClassDefine ();
