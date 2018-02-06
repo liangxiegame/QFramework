@@ -540,8 +540,6 @@ namespace RSG.Utils
             }
         }
 
-        private static readonly Type[] noArgs = new Type[] { };
-
         /// <summary>
         /// Determine if the specified type has a particular function.
         /// </summary>
