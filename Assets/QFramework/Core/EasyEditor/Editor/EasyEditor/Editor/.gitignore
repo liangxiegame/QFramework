@@ -1,0 +1,39 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Visual studio user specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# MonoDevelop user specific files
+*.userprefs
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+.vs/
+
+*.log
+*.orig
+
+# Unity
+**/Library/
+**/Temp/
+**/Builds/
+Examples/*.sln
+Examples/*.csproj
