@@ -29,4 +29,3 @@
 * Team Service Support
 * CI Support
 * Native UI View Ctrl
-* Verion Checker Updator
