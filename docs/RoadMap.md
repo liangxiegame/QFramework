@@ -1,10 +1,8 @@
 
 这里是 QFramework 当前的 **路线图** 
 
-#### v0.0.1 (Currently In Development)
-* qframework.io 
-* manual release with tag using unitypackage
-* singleton 
+#### v0.0.1
+* [Currently In Development](https://github.com/liangxiegame/QFramework/projects/3)
 
 #### v0.0.2
 * ask.qframework.io 
