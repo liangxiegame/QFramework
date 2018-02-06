@@ -123,7 +123,7 @@ namespace QFramework
 		
 		public static T LocalPositionIdentity<T>(this T selfComponent) where T : Component
 		{
-			selfComponent.transform.localPosition = Vector3.one;
+			selfComponent.transform.localPosition = Vector3.zero;
 			return selfComponent;
 		}
 
@@ -399,5 +399,45 @@ namespace QFramework
 			selfTrans.localRotation = fromTrans.localRotation;
 			selfTrans.localScale = fromTrans.localScale;
 		}
+
+        public static Transform FindChildRecursion(this Transform tfParent, System.Func<Transform, bool> predicate)
+        {
+            if (predicate(tfParent))
+            {
+                Debug.Log("Hit " + tfParent.name);
+                return tfParent;
+            }
+
+            foreach (Transform tfChild in tfParent)
+            {
+                Transform tfFinal = null;
+                tfFinal = tfChild.FindChildRecursion(predicate);
+                if (tfFinal)
+                {
+                    return tfFinal;
+                }
+            }
+
+            return null;
+        }
+
+        public static string GetPath(this Transform transform)
+        {
+            var sb = new System.Text.StringBuilder();
+            var t = transform;
+            while (true)
+            {
+                sb.Insert(0, t.name);
+                t = t.parent;
+                if (t)
+                {
+                    sb.Insert(0, "/");
+                }
+                else
+                {
+                    return sb.ToString();
+                }
+            }
+        }
 	}
 }

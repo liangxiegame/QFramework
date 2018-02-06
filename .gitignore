@@ -15,3 +15,6 @@ Assets/Sync/Editor
 Assets/Sync/Editor.meta
 Assets/Sync.meta
 Editor.meta
+QFramework.CSharp.csproj
+QFramework.CSharp.Editor.csproj
+*.suo
