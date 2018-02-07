@@ -1,6 +1,7 @@
-
-
 ### Singleton 的调用方式:
+
+
+
 ``` C#
 xxx.Instance
 ```
@@ -8,7 +9,7 @@ xxx.Instance
 ### 如何实现一个单例?
 
 #### 1. C# 类 通过继承 QSingleton<T>
-	
+
 ``` C#
 namespace QFramework.Example
 {
@@ -48,7 +49,7 @@ namespace QFramework.Example
 ```
 
 #### 2. MonoBehaviour 类 通过继承 QMonoSingleton<T>
-	
+
 ``` C#
 namespace QFramework.Example
 {
@@ -187,3 +188,8 @@ namespace QFramework.Example
 
 ![](http://liangxiegame.com/content/images/2017/07/-----2017-07-27-22-32-28.png)
 
+
+
+
+
+#### FeatureId:CUDS001
