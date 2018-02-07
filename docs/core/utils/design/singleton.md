@@ -79,3 +79,38 @@ namespace QFramework.Example
 	}
 }
 ```
+
+3. C# 类 通过实现静态 Instance 属性器
+``` C#
+namespace QFramework.Example
+{
+	using UnityEngine;
+
+	class Class2SignetonProperty : ISingleton
+	{
+		public static Class2SignetonProperty Instance
+		{
+			get { return QSingletonProperty<Class2SignetonProperty>.Instance; }
+		}
+
+		private Class2SignetonProperty() {}
+		
+		private static int mIndex = 0;
+
+		public void OnSingletonInit()
+		{
+			mIndex++;
+		}
+
+		public void Dispose()
+		{
+			QSingletonProperty<Class2SignetonProperty>.Dispose();
+		}
+		
+		public void Log(string content)
+		{
+			Debug.Log("Class2SingletonProperty" + mIndex + ":" + content);
+		}
+	}
+}
+```
