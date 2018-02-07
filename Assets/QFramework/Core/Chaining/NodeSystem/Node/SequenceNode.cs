@@ -33,8 +33,8 @@ namespace QFramework
 	/// </summary>
 	public class SequenceNode : ExecuteNode
 	{
-		protected Queue<IExecuteNode> mNodeQueue = new Queue<IExecuteNode>();
-		protected Queue<IExecuteNode> mExcutingQueue = new Queue<IExecuteNode>();
+		protected List<IExecuteNode> mNodeQueue = new List<IExecuteNode>();
+		protected List<IExecuteNode> mExcutingQueue = new List<IExecuteNode>();
 		
 		public bool Completed = false;
 
@@ -49,7 +49,7 @@ namespace QFramework
 			foreach (var node in mNodeQueue)
 			{
 				node.Reset();
-				mExcutingQueue.Enqueue(node);
+				mExcutingQueue.Add(node);
 			}
 			Completed = false;
 		}
@@ -58,9 +58,9 @@ namespace QFramework
 		{
 			if (mExcutingQueue.Count > 0)
 			{
-				if (mExcutingQueue.First().Execute(dt))
+				if (mExcutingQueue[0].Execute(dt))
 				{
-					mExcutingQueue.Dequeue();
+					mExcutingQueue.RemoveAt(0);
 				}
 			} 
 			else
@@ -72,17 +72,17 @@ namespace QFramework
 
 		public SequenceNode(params IExecuteNode[] nodes)
 		{
-			for (int i = 0; i < nodes.Length; i++) 
+			foreach (var node in nodes)
 			{
-				mNodeQueue.Enqueue (nodes[i]);
-				mExcutingQueue.Enqueue(nodes[i]);
+				mNodeQueue.Add(node);
+				mExcutingQueue.Add(node);
 			}
 		}
 
 		public SequenceNode Append(IExecuteNode appendedNode)
 		{
-			mNodeQueue.Enqueue(appendedNode);
-			mExcutingQueue.Enqueue(appendedNode);
+			mNodeQueue.Add(appendedNode);
+			mExcutingQueue.Add(appendedNode);
 			return this;
 		}
 

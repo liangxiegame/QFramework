@@ -27,3 +27,4 @@
 * Team Service Support
 * CI Support
 * Native UI View Ctrl
+* Stable Lua Support: [issue#6](https://github.com/liangxiegame/QFramework/issues/6)
