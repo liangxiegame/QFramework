@@ -31,7 +31,10 @@ namespace QFramework.Example
 	{
 		private void Start()
 		{
-			
+			this.Repeat()
+				.Delay(0.1f)
+				.Event(()=>Log.I("a"))
+				.Begin();
 		}
 	}
 }
