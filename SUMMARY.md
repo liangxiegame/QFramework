@@ -4,6 +4,6 @@
 
 * [模块](Modules.md)
 
-  * [单例模式模板](core/utils/design/singleton.md)
+  * [单例模式模板](singleton.md)
 
 * [RoadMap](RoadMap.md)
