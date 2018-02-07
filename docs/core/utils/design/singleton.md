@@ -161,3 +161,29 @@ namespace QFramework.Example
 }
 ```
 
+5. 对 GameObject 进行命名
+
+``` C#
+namespace QFramework.Example
+{
+	using UnityEngine;
+
+	[QMonoSingletonPath("[Example]/QMonoSingeltonPath")]
+	class ClassUseMonoSingletonPath : QMonoSingleton<ClassUseMonoSingletonPath>
+	{
+		
+	}
+	
+	public class MonoSingletonPath : MonoBehaviour
+	{
+		private void Start()
+		{
+			var intance = ClassUseMonoSingletonPath.Instance;
+		}
+	}
+}
+```
+结果:
+
+![](http://liangxiegame.com/content/images/2017/07/-----2017-07-27-22-32-28.png)
+
