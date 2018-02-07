@@ -31,7 +31,21 @@ namespace QFramework.Example
 	{
 		private void Start()
 		{
+			this.Repeat()
+				.Delay(0.1f)
+				.Event(() => Log.I("Repeat:0.1s"))
+				.Begin()
+				.DisposeWhenGameObjDestroyed()
+				.OnDisposed(() => Log.I("Repeat: dispose when gameObj OnDestroyedd"));
+
+			this.Sequence()
+				.Delay(1.0f)
+				.Event(() => Log.I("Sequece:1.0s"))
+				.Begin()
+				.DisposeWhenFinished()
+				.OnDisposed(() => Log.I("Sequece: dispose when sequence ended"));
 			
+			// TODO:spawn/timeline support
 		}
 	}
 }

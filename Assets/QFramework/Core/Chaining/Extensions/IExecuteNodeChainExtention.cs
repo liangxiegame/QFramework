@@ -23,8 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
     using System;
@@ -34,21 +32,19 @@ namespace QFramework
     {
         public static IExecuteNodeChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
         {
-            var retNodeChain = new RepeatNodeChain(count);
-            retNodeChain.Executer = selfbehaviour;
+            var retNodeChain = new RepeatNodeChain(count) {Executer = selfbehaviour};
             // dispose when distroyed
             retNodeChain.DisposeWhenGameObjDestroyed();
             return retNodeChain;
         }
-        
+
         public static IExecuteNodeChain Sequence<T>(this T selfbehaviour) where T : MonoBehaviour
         {
-            var retNodeChain = new SequenceNodeChain();
-            retNodeChain.Executer = selfbehaviour;
+            var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
             retNodeChain.DisposeWhenGameObjDestroyed();
             return retNodeChain;
         }
-        
+
         public static IExecuteNodeChain Delay(this IExecuteNodeChain senfChain, float seconds)
         {
             return senfChain.Append(DelayNode.Allocate(seconds));
