@@ -8,6 +8,7 @@ xxx.Instance
 #### 如何实现一个单例?
 
 1.C# 类 通过继承 QSingleton<T>
+	
 ``` C#
 namespace QFramework.Example
 {
@@ -47,6 +48,7 @@ namespace QFramework.Example
 ```
 
 2. MonoBehaviour 类 通过继承 QMonoSingleton<T>
+	
 ``` C#
 namespace QFramework.Example
 {
@@ -81,6 +83,7 @@ namespace QFramework.Example
 ```
 
 3. C# 类 通过实现静态 Instance 属性器
+
 ``` C#
 namespace QFramework.Example
 {
@@ -114,3 +117,47 @@ namespace QFramework.Example
 	}
 }
 ```
+
+4. MonoBehaivour 类 通过实现静态 Instance 属性器
+
+``` C#
+namespace QFramework.Example
+{
+	using System.Collections;
+	using UnityEngine;
+	
+	class Class2MonoSingletonProperty : MonoBehaviour,ISingleton
+	{
+		public static Class2MonoSingletonProperty Instance
+		{
+			get { return QMonoSingletonProperty<Class2MonoSingletonProperty>.Instance; }
+		}
+		
+		public void Dispose()
+		{
+			QMonoSingletonProperty<Class2MonoSingletonProperty>.Dispose();
+		}
+		
+		public void OnSingletonInit()
+		{
+			Debug.Log(name + ":" + "OnSingletonInit");
+		}
+
+		private void Awake()
+		{
+			Debug.Log(name + ":" + "Awake");
+		}
+
+		private void Start()
+		{
+			Debug.Log(name + ":" + "Start");
+		}
+
+		protected void OnDestroy()
+		{
+			Debug.Log(name + ":" + "OnDestroy");
+		}
+	}
+}
+```
+
