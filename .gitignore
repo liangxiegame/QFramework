@@ -18,3 +18,5 @@ Editor.meta
 QFramework.CSharp.csproj
 QFramework.CSharp.Editor.csproj
 *.suo
+_book
+node_modules
