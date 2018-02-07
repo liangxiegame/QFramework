@@ -32,6 +32,7 @@
 
 - [@karsion](https://github.com/karsion)
 - [@huibinye](https://github.com/HUIBINYE)
+- [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 
 #### 教程
