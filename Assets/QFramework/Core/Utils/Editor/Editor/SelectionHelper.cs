@@ -17,6 +17,7 @@ public class SelectionHelper
     private static void Start()
     {
         //在Hierarchy面板按鼠标中键相当于开关GameObject
+        //In the Hierarchy panel, the middle mouse button is the equivalent of the toggle GameObject active.
         EditorApplication.hierarchyWindowItemOnGUI = (instanceID, selectionRect) =>
         {
             Event e = Event.current;
@@ -42,6 +43,7 @@ public class SelectionHelper
         };
 
         //在Project面板按鼠标中键相当于Show In Explorer
+        //In the Project panel, the middle mouse button is equivalent to "Show In Explorer".
         EditorApplication.projectWindowItemOnGUI = (guid, selectionRect) =>
         {
             if (Event.current.type == EventType.MouseDown
