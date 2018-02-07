@@ -7,7 +7,7 @@ xxx.Instance
 
 ### 如何实现一个单例?
 
-#### 1.C# 类 通过继承 QSingleton<T>
+#### 1. C# 类 通过继承 QSingleton<T>
 	
 ``` C#
 namespace QFramework.Example
@@ -47,7 +47,7 @@ namespace QFramework.Example
 }
 ```
 
-#### 2.MonoBehaviour 类 通过继承 QMonoSingleton<T>
+#### 2. MonoBehaviour 类 通过继承 QMonoSingleton<T>
 	
 ``` C#
 namespace QFramework.Example
@@ -82,7 +82,7 @@ namespace QFramework.Example
 }
 ```
 
-#### 3.C# 类 通过实现静态 Instance 属性器
+#### 3. C# 类 通过实现静态 Instance 属性器
 
 ``` C#
 namespace QFramework.Example
@@ -118,7 +118,7 @@ namespace QFramework.Example
 }
 ```
 
-#### 4.MonoBehaivour 类 通过实现静态 Instance 属性器
+#### 4. MonoBehaivour 类 通过实现静态 Instance 属性器
 
 ``` C#
 namespace QFramework.Example
@@ -161,7 +161,7 @@ namespace QFramework.Example
 }
 ```
 
-#### 5.对 GameObject 进行命名
+#### 5. 对 GameObject 进行命名
 
 ``` C#
 namespace QFramework.Example
