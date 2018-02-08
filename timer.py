@@ -5,7 +5,7 @@ import time
 import subprocess
 
 def f():
-    subprocess.call("git pull", shell=True)
+    subprocess.call("git pull origin master", shell=True)
 
 def work():
    while 1:
