@@ -11,7 +11,7 @@
 
 #### 文档
 
-* [主页](http://qframework.io)
+* [主页](http://doc.qframework.io)
 
 #### 特性
 * UI
