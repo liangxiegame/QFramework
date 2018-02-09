@@ -35,7 +35,7 @@ namespace QFramework
 		{
 			get 
 			{
-				if (mInstance.IsNull()) 
+				if (mInstance == null) 
 				{
 					mInstance = QSingletonCreator.CreateMonoSingleton<T> ();
 				}
@@ -59,7 +59,7 @@ namespace QFramework
 					var parent = curTrans.parent;
 					DestroyImmediate(curTrans.gameObject);
 					curTrans = parent;
-				} while (curTrans.IsNotNull());
+				} while (curTrans != null);
 
 				mInstance = null;
 			}

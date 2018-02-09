@@ -35,7 +35,7 @@ namespace QFramework
 		{
 			get 
 			{
-				if (mInstance.IsNull()) 
+				if (null == mInstance ) 
 				{
 					mInstance = QSingletonCreator.CreateMonoSingleton<T> ();
 				}

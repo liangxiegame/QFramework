@@ -1,0 +1,1 @@
+run Assets/QFramework/Core/Utils/Design/Singleton/Example’s scenes

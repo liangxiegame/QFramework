@@ -21,3 +21,5 @@ QFramework.CSharp.Editor.csproj
 _book
 node_modules
 nohup.out
+Assets/AssetStoreTools
+AssetStoreTools.meta
