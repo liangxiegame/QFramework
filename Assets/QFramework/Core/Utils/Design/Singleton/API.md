@@ -85,7 +85,7 @@ namespace QFramework.Example
 
 #### 3. C# 类 通过实现静态 Instance 属性器
 
-``` C#
+``` csharp
 namespace QFramework.Example
 {
 	using UnityEngine;
@@ -121,7 +121,7 @@ namespace QFramework.Example
 
 #### 4. MonoBehaivour 类 通过实现静态 Instance 属性器
 
-``` C#
+``` csharp
 namespace QFramework.Example
 {
 	using System.Collections;
@@ -164,7 +164,7 @@ namespace QFramework.Example
 
 #### 5. 对 GameObject 进行命名
 
-``` C#
+``` csharp
 namespace QFramework.Example
 {
 	using UnityEngine;
