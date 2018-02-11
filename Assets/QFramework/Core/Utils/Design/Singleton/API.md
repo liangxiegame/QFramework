@@ -10,7 +10,7 @@ xxx.Instance
 
 #### 1. C# 类 通过继承 QSingleton<T>
 
-``` C#
+``` csharp
 namespace QFramework.Example
 {
 	using UnityEngine;
@@ -50,7 +50,7 @@ namespace QFramework.Example
 
 #### 2. MonoBehaviour 类 通过继承 QMonoSingleton<T>
 
-``` C#
+``` csharp
 namespace QFramework.Example
 {
 	using System.Collections;
