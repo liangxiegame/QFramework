@@ -23,7 +23,7 @@
 
 #### 快速开始
 Unity API GameObject 扩展:
-``` C#
+``` csharp
 gameObject
 	// 1. gameObject.SetActive(true)
 	.Show()
@@ -39,7 +39,7 @@ gameObject
 	.DestroySelf();
 ```
 Unity API MonoBehaviour 扩展:
-``` C#
+``` csharp
 this
 	// 1. this.gameObject.Show()
 	.Show()

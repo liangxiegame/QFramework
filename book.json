@@ -1,12 +1,12 @@
 {
-	"plugins" : ["edit-link","code"],
+	"plugins" : ["edit-link","sunlight-highlighter","-highlight","code"],
 	"pluginsConfig": {
 		"edit-link" : {
 			"base": "https://github.com/liangxiegame/QFramework/edit/master",
 			"label":"编辑"
 		},
-		"code":{
-			"copyButtons":false
+		"sunlight-highlighter": {
+			"theme": "dark"
 		}
 	}
 }
