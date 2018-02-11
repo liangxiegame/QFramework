@@ -102,5 +102,6 @@ this
 
 
 
-QQ群:623597263
-不想进群的同学可以在 [这里](https://gitter.im/qframeworkio/qframework) 进行讨论
+QQ群:623597263 
+
+不想进群的同学也可以在 [这里](https://gitter.im/qframeworkio/qframework) 进行讨论
