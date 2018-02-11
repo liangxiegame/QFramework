@@ -31,16 +31,16 @@ namespace QFramework.Example
 {
 	public class SafetyUse : MonoBehaviour
 	{
-		class Msg : IPoolAble,IPoolType
+		class Msg : IPoolable,IPoolType
 		{
 			#region IPoolAble 实现
 
-			void IPoolAble.OnRecycled()
+			void IPoolable.OnRecycled()
 			{
 				Log.I("OnRecycled");
 			}
 			
-			bool IPoolAble.IsRecycled { get; set; }
+			bool IPoolable.IsRecycled { get; set; }
 
 			#endregion
 		

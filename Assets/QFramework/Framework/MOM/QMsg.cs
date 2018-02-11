@@ -10,7 +10,7 @@ namespace QFramework
 	/// <summary>
 	/// msgbody
 	/// </summary>
-	public class QMsg : IPoolAble, IPoolType
+	public class QMsg : IPoolable, IPoolType
 	{	
 		/// <summary>
 		/// EventID
@@ -48,12 +48,12 @@ namespace QFramework
 			SafeObjectPool<QMsg>.Instance.Recycle(this);
 		}
 
-		void IPoolAble.OnRecycled()
+		void IPoolable.OnRecycled()
 		{
 			Processed = false;
 		}
 		
-		bool IPoolAble.IsRecycled { get; set; }
+		bool IPoolable.IsRecycled { get; set; }
 		#endregion
 
 		#region deprecated since v0.0.5

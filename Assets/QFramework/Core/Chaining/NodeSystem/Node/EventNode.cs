@@ -30,7 +30,7 @@ namespace QFramework
     /// <summary>
     /// 延时执行节点
     /// </summary>
-    public class EventNode : ExecuteNode, IPoolAble
+    public class EventNode : ExecuteNode, IPoolable
     {
         protected Action mOnExecuteEvent = null;
 

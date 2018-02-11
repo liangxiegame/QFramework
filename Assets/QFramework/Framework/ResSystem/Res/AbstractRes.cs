@@ -31,7 +31,7 @@ namespace QFramework
     using System;
     using System.Collections;
 
-    public class AbstractRes : SimpleRC, IRes, IPoolAble
+    public class AbstractRes : SimpleRC, IRes, IPoolable
     {
 #if UNITY_EDITOR
         static int mSimulateAssetBundleInEditor = -1;

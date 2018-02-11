@@ -5,7 +5,7 @@
 
 namespace QFramework
 {
-    public class TimeItem : IBinaryHeapElement, IPoolAble, IPoolType
+    public class TimeItem : IBinaryHeapElement, IPoolable, IPoolType
     {
         /*
          * tick:当前第几次

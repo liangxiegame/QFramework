@@ -7,7 +7,7 @@ namespace QFramework
     using System;
     using UnityEngine;
         
-    public class AudioUnit : IPoolAble, IPoolType
+    public class AudioUnit : IPoolable, IPoolType
     {
         private ResLoader mLoader;
         private AudioSource mSource;

@@ -40,10 +40,9 @@ namespace QFramework
         }
         #endregion
         
-        
         protected IObjectFactory<T> mFactory;
 
-        protected Stack<T> mCacheStack = new Stack<T>();
+        protected readonly Stack<T> mCacheStack = new Stack<T>();
 
         /// <summary>
         /// default is 5

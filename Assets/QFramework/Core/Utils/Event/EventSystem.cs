@@ -14,7 +14,7 @@ namespace QFramework
 
     #endregion
 
-    public class QEventSystem : QSingleton<QEventSystem>, IPoolAble
+    public class QEventSystem : QSingleton<QEventSystem>, IPoolable
     {
         private bool mIsRecycled = false;
         private readonly Dictionary<int, ListenerWrap> mAllListenerMap = new Dictionary<int, ListenerWrap>(50);

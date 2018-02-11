@@ -33,7 +33,7 @@ namespace QFramework
 
     using System.Collections.Generic;
     
-    public class ResLoader : DisposableObject, IResLoader, IPoolAble, IPoolType
+    public class ResLoader : DisposableObject, IResLoader, IPoolable, IPoolType
     {
         class CallBackWrap
         {

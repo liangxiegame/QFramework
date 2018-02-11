@@ -30,7 +30,7 @@ namespace QFramework
     
     public class SimpleObjectCache
     {
-        readonly Dictionary<Type, object> mObjectPools;
+        private readonly Dictionary<Type, object> mObjectPools;
 
         public SimpleObjectCache()
         {

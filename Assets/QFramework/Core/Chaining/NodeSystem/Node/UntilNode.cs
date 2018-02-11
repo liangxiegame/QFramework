@@ -30,7 +30,7 @@ namespace QFramework
     /// <summary>
     /// like filter, add condition
     /// </summary>
-    public class UntilNode : ExecuteNode, IPoolAble
+    public class UntilNode : ExecuteNode, IPoolable
     {
         private Func<bool> mCondition;
 

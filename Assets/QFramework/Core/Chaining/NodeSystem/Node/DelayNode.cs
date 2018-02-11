@@ -30,7 +30,7 @@ namespace QFramework
 	/// <summary>
 	/// 延时执行节点
 	/// </summary>
-	public class DelayNode : ExecuteNode, IPoolAble
+	public class DelayNode : ExecuteNode, IPoolable
 	{
 		public float DelayTime;
 

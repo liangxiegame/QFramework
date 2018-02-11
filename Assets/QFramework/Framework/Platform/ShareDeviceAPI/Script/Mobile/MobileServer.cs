@@ -59,7 +59,7 @@ namespace QFramework
 			delayNode2.OnBeganCallback = () => Log.I("second began");
 			delayNode2.OnEndedCallback = () => Log.I("second ended");
 
-			yield return new SequenceNode(delayNode, delayNode2).Execute();
+			yield return SequenceNode.Allocate(delayNode, delayNode2).Execute();
 
 			yield return QWait.ForSeconds(1.0f);
 			

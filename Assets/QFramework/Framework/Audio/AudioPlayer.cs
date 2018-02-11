@@ -9,7 +9,7 @@ namespace QFramework
 	/// <summary>
 	/// 这个最后做成类似GAFPlayer或者ResLoader形式的
 	/// </summary>
-	public class AudioPlayer : IPoolType, IPoolAble
+	public class AudioPlayer : IPoolType, IPoolable
 	{
 		ResLoader mResLoader = ResLoader.Allocate();
 

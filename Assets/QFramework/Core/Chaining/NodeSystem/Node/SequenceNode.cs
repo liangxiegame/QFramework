@@ -26,41 +26,40 @@
 namespace QFramework
 {
 	using System.Collections.Generic;
-	using System.Linq;
 
 	/// <summary>
 	/// 序列执行节点
 	/// </summary>
-	public class SequenceNode : ExecuteNode
+	public class SequenceNode : ExecuteNode ,IPoolable
 	{
-		protected List<IExecuteNode> mNodeQueue = new List<IExecuteNode>();
-		protected List<IExecuteNode> mExcutingQueue = new List<IExecuteNode>();
+		protected readonly List<IExecuteNode> mNodes = new List<IExecuteNode>();
+		protected readonly List<IExecuteNode> mExcutingNodes = new List<IExecuteNode>();
 		
 		public bool Completed = false;
 
 		public int TotalCount
 		{
-			get { return mExcutingQueue.Count; }
+			get { return mExcutingNodes.Count; }
 		}
 
 		protected override void OnReset()
 		{
-			mExcutingQueue.Clear();
-			foreach (var node in mNodeQueue)
+			mExcutingNodes.Clear();
+			foreach (var node in mNodes)
 			{
 				node.Reset();
-				mExcutingQueue.Add(node);
+				mExcutingNodes.Add(node);
 			}
 			Completed = false;
 		}
 
 		protected override void OnExecute(float dt)
 		{
-			if (mExcutingQueue.Count > 0)
+			if (mExcutingNodes.Count > 0)
 			{
-				if (mExcutingQueue[0].Execute(dt))
+				if (mExcutingNodes[0].Execute(dt))
 				{
-					mExcutingQueue.RemoveAt(0);
+					mExcutingNodes.RemoveAt(0);
 				}
 			} 
 			else
@@ -70,19 +69,27 @@ namespace QFramework
 			}
 		}
 
-		public SequenceNode(params IExecuteNode[] nodes)
+		public static SequenceNode Allocate(params IExecuteNode[] nodes)
 		{
+			var retNode = SafeObjectPool<SequenceNode>.Instance.Allocate();
 			foreach (var node in nodes)
 			{
-				mNodeQueue.Add(node);
-				mExcutingQueue.Add(node);
+				retNode.mNodes.Add(node);
+				retNode.mExcutingNodes.Add(node);
 			}
+
+			return retNode;
 		}
+
+		/// <summary>
+		/// 不建议使用
+		/// </summary>
+		public SequenceNode(){}
 
 		public SequenceNode Append(IExecuteNode appendedNode)
 		{
-			mNodeQueue.Add(appendedNode);
-			mExcutingQueue.Add(appendedNode);
+			mNodes.Add(appendedNode);
+			mExcutingNodes.Add(appendedNode);
 			return this;
 		}
 
@@ -90,18 +97,17 @@ namespace QFramework
 		{
 			base.OnDispose();
 			
-			if (null != mNodeQueue)
-			{
-				mNodeQueue.ForEach(node => node.Dispose());
-				mNodeQueue.Clear();
-				mNodeQueue = null;
-			}
+			SafeObjectPool<SequenceNode>.Instance.Recycle(this);
+		}
 
-			if (null != mExcutingQueue)
-			{
-				mExcutingQueue.Clear();
-				mExcutingQueue = null;
-			}
-		}	
+		void IPoolable.OnRecycled()
+		{
+			mNodes.ForEach(node => node.Dispose());
+			mNodes.Clear();
+
+			mExcutingNodes.Clear();
+		}
+
+		bool IPoolable.IsRecycled { get; set; }
 	}
 }

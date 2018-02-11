@@ -32,7 +32,7 @@ namespace QFramework
 	/// Object pool 4 class who no public constructor
 	/// such as SingletonClass.QEventSystem
 	/// </summary>
-	public class NonPublicObjectPool<T> :Pool<T>,ISingleton where T : class,IPoolAble
+	public class NonPublicObjectPool<T> :Pool<T>,ISingleton where T : class,IPoolable
 	{
 		#region Singleton
 		public void OnSingletonInit(){}

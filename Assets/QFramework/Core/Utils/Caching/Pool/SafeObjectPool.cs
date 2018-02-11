@@ -39,7 +39,7 @@ namespace QFramework
     /// <summary>
     /// I pool able.
     /// </summary>
-    public interface IPoolAble
+    public interface IPoolable
     {
         void OnRecycled();
         bool IsRecycled { get; set; }
@@ -56,12 +56,10 @@ namespace QFramework
     /// <summary>
     /// Object pool.
     /// </summary>
-    public class SafeObjectPool<T> : Pool<T>, ISingleton, IPool<T> where T : IPoolAble, new()
+    public class SafeObjectPool<T> : Pool<T>, ISingleton where T : IPoolable, new()
     {
         #region Singleton
-        public void OnSingletonInit()
-        {
-        }
+        void ISingleton.OnSingletonInit() {}
 
         protected SafeObjectPool()
         {
@@ -78,7 +76,6 @@ namespace QFramework
             QSingletonProperty<SafeObjectPool<T>>.Dispose();
         }
         #endregion
-
 
         /// <summary>
         /// Init the specified maxCount and initCount.

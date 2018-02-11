@@ -31,7 +31,7 @@ namespace QFramework.Example
 {
 	public class SafeObjectPoolExample : MonoBehaviour
 	{
-		class Msg : IPoolAble,IPoolType
+		class Msg : IPoolable,IPoolType
 		{
 			#region IPoolAble 实现
 
