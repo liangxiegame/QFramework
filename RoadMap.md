@@ -1,11 +1,7 @@
 
-这里是 QFramework 当前的 **路线图** 
-
-#### v0.0.1
-* [Currently In Development](https://github.com/liangxiegame/QFramework/projects/3)
-
+这里是 QFramework 当前的 **路线图** ，如果想要查看已发布的版本，请点击 [这里](https://github.com/liangxiegame/QFramework/releases)
 #### v0.0.2
-* ask.qframework.io 
+* [Currently In Development](https://github.com/liangxiegame/QFramework/projects/4)
 
 #### v0.0: Workflow Explore
 
