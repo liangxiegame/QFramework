@@ -2,7 +2,7 @@
 
 
 
-``` C#
+``` csharp
 xxx.Instance
 ```
 
