@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
  * http://liangxiegame.com
@@ -25,48 +25,22 @@
 
 namespace QFramework
 {
-    using System;
-    
-    /// <inheritdoc />
-    /// <summary>
-    /// 延时执行节点
-    /// </summary>
-    public class EventNode : ExecuteNode, IPoolable
-    {
-        private Action mOnExecuteEvent;
+	using UnityEngine;
+	using QFramework;
 
-        /// <summary>
-        /// TODO:这里填可变参数会有问题
-        /// </summary>
-        /// <param name="onExecuteEvents"></param>
-        /// <returns></returns>
-        public static EventNode Allocate(params Action[] onExecuteEvents)
-        {
-            var retNode = SafeObjectPool<EventNode>.Instance.Allocate();
-            Array.ForEach(onExecuteEvents, onExecuteEvent => retNode.mOnExecuteEvent += onExecuteEvent);
-            return retNode;
-        }
-
-        /// <summary>
-        /// finished
-        /// </summary>
-        protected override void OnExecute(float dt)
-        {
-            mOnExecuteEvent.InvokeGracefully();
-            Finished = true;
-        }
-        
-        protected override void OnDispose()
-        {
-            SafeObjectPool<EventNode>.Instance.Recycle(this);
-        }
-
-        public void OnRecycled()
-        {
-            Reset();
-            mOnExecuteEvent = null;
-        }
-
-        public bool IsRecycled { get; set; }
-    }
+	public class TestNodeSystemGC : MonoBehaviour
+	{
+		// Update is called once per frame
+		void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.A))
+			{
+				this.Sequence()
+					.Delay(3.0f)
+					.Event(() => Debug.Log("A"))
+					.Begin()
+					.OnDisposed(() => Log.I("Sequece: dispose when sequence ended"));
+			}
+		}
+	}
 }

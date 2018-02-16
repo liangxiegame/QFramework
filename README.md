@@ -75,6 +75,7 @@ this
 * [Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
+* [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 
 #### 参考:
 
