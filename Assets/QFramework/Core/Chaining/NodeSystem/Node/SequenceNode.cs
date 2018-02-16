@@ -30,7 +30,7 @@ namespace QFramework
 	/// <summary>
 	/// 序列执行节点
 	/// </summary>
-	public class SequenceNode : ExecuteNode ,IPoolable
+	public sealed class SequenceNode : ExecuteNode ,IPoolable
 	{
 		protected readonly List<IExecuteNode> mNodes = new List<IExecuteNode>();
 		protected readonly List<IExecuteNode> mExcutingNodes = new List<IExecuteNode>();
