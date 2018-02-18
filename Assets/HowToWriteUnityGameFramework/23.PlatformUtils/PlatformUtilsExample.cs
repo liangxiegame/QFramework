@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -23,10 +23,32 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+using UnityEngine;
+
+namespace QFramework.Example
 {
-    public interface ILateUpdatable
-    {
-        void OnLateUpdate();
-    }
+	public class PlatformUtilsExample : MonoBehaviour
+	{
+		// Use this for initialization
+		private void Start()
+		{
+			var sTrAngeNamingVariable = "a variable";
+#if UNITY_IOS || UNITY_ANDROID || UNITY_EDITOR
+			sTrAngeNamingVariable = "a!value";
+#else
+			sTrAngeNamingVariable = "other value";
+#endif
+
+			if (Platform.IsiOS || Platform.IsAndroid || Platform.IsEditor)
+			{
+				sTrAngeNamingVariable = "a!value";
+			}
+			else
+			{
+				sTrAngeNamingVariable = "other value";
+			}
+
+			Log.I(sTrAngeNamingVariable);
+		}
+	}
 }

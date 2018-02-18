@@ -25,7 +25,7 @@
 
 namespace QFramework
 {
-	public partial class Platform
+	public class Platform
 	{
 		public static bool IsAndroid
 		{
@@ -39,7 +39,6 @@ namespace QFramework
 			}
 		}
         
-        
 		public static bool IsEditor
 		{
 			get
@@ -51,7 +50,6 @@ namespace QFramework
 				return retValue;
 			}
 		}
-        
         
 		public static bool IsiOS
 		{
