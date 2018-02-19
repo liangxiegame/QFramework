@@ -27,7 +27,7 @@ using UnityEngine;
 
 namespace QFramework.Example
 {
-	public class PlatformUtilsExample : MonoBehaviour
+	public class PlatformExample : MonoBehaviour
 	{
 		// Use this for initialization
 		private void Start()
