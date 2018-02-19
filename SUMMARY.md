@@ -4,8 +4,9 @@
 
 * [模块](Modules.md)
 
-  * [Singleton](/Assets/QFramework/Core/Utils/Design/Singleton/API.md)
+  * [Singleton](/Assets/QFramework/0.Singleton/doc.md)
   
   * [NodeSystem](/Assets/QFramework/Core/Chaining/NodeSystem/API.md)
 
 * [RoadMap](RoadMap.md)
+
