@@ -4,8 +4,6 @@
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,7 +28,7 @@ namespace QFramework
 {
     using System;
 
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
     using UnityEngine;
 #endif
 
@@ -81,7 +79,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.Log(msg);
 #else
             Console.WriteLine(msg);
@@ -94,7 +92,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.Log(string.Format(msg, args));
 #else
             Console.WriteLine(msg, args);
@@ -107,7 +105,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.LogError(msg);
 #else
             Console.WriteLine("[Error] {0}", msg);
@@ -120,7 +118,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.LogException(e);
 #else
             Console.WriteLine("[Exception] {0}", e);
@@ -133,7 +131,7 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.LogError(string.Format(msg, args));
 #else
             Console.WriteLine(string.Format("[Error] {0}", msg), args);
@@ -147,7 +145,7 @@ namespace QFramework
                 return;
             }
             
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.LogWarning(msg);
 #else
             Console.WriteLine("[Warning] {0}", msg);
@@ -161,7 +159,7 @@ namespace QFramework
                 return;
             }
 
-#if UNITY_5
+#if UNITY_5_5_OR_NEWER
             Debug.LogWarning(string.Format(msg, args));
 #else
             Console.WriteLine(string.Format("[Warning] {0}", msg), args);
