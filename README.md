@@ -19,7 +19,6 @@
 * UI
 * Action
 * ResKit
-* Core
 
 #### 快速开始
 Unity API GameObject 扩展:
