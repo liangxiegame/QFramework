@@ -13,13 +13,6 @@ namespace QFramework
 	[System.Serializable]
 	public class QFrameworkConfigData
 	{
-		public static string[] RES_LOADER_SUPPORT_TEXTS = {"QABManager", "QResSystem"};
-		public static string[] RES_LOADER_SUPPORT_SYMBOLS = {"QABMANAGER_SUPPORT", "QRESSYSTEM_SUPPORT"};
-		public static string[] LUA_SUPPORT_TEXTS = {"NoneLua", "uLua", "sLua", "xLua"};
-		public static string[] LUA_SUPPORT_SYMBOLS = {"NONE_LUA_SUPPORT", "ULUA_SUPPORT", "SLUA_SUPPORT", "XLUA_SUPPORT"};
-		public static string[] COCOS_SUPPORT_TEXTS = {"NoneCocos", "Cocos"};
-		public static string[] COCOS_SUPPORT_SYMBOLS = {"NONE_COCOS_SUPPORT", "COCOS_SUPPORT"};
-
 		static string mConfigSavedDir = Application.dataPath + "/QFramework/ProjectConfig/";
 		static string mConfigSavedFileName = "ProjectConfig.json";
 
@@ -27,21 +20,6 @@ namespace QFramework
 		public int ResLoaderSupportIndex = 0;
 		public int LuaSupportIndex = 0;
 		public int CocosSupportIndex = 0;
-
-		public string ResLoaderSupportSymbol
-		{
-			get { return RES_LOADER_SUPPORT_SYMBOLS[ResLoaderSupportIndex]; }
-		}
-
-		public string LuaSupportSymbol
-		{
-			get { return LUA_SUPPORT_SYMBOLS[LuaSupportIndex]; }
-		}
-
-		public string CocosSupportSymbol
-		{
-			get { return COCOS_SUPPORT_SYMBOLS[CocosSupportIndex]; }
-		}
 
 		public string UIScriptDir = "/Scripts/UI";
 

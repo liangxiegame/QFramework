@@ -1,5 +1,6 @@
-/****************************************************************************
- * Copyright (c) 2017 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2017 snowcold
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -22,14 +23,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
- 
-namespace QFramework
-{
-	/// <summary>
-	/// TODO: https://stackoverflow.com/questions/29482/cast-int-to-enum-in-c-sharp 
-	/// </summary>
-	public static class EnumExtension
-	{
 
+namespace QFramework.Example
+{
+	using UnityEngine;
+	using System;
+
+	public class ExtensionExample : MonoBehaviour 
+	{
+		// Use this for initialization
+		private void Start ()
+		{
+			// class extension
+			var simpleClass = new object ();
+
+			if (simpleClass.IsNull ())
+			{
+
+			} else if (simpleClass.IsNotNull ())
+			{
+
+			}
+
+			// action func event extension
+			Action action = () => Debug.Log ("action called");
+			action.InvokeGracefully ();
+
+			Func<int> func = () => 1;
+			func.InvokeGracefully ();
+
+			// generic
+			var typeName = GenericExtention.GetTypeName<string> ();
+			Debug.Log (typeName);
+		}
 	}
 }

@@ -25,7 +25,7 @@
 
 namespace QFramework
 {
-    public static class GenericUtil
+    public static class GenericExtention
     {
         public static string GetTypeName<T>()
         {
