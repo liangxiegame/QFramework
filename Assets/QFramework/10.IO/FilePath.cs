@@ -107,7 +107,7 @@ namespace QFramework
 				{
 					mPersistentDataPath4Photo = PersistentDataPath + "Photos\\";
 
-					IOUtils.CreateDirIfNotExists(mPersistentDataPath4Photo);
+					IOExtension.CreateDirIfNotExists(mPersistentDataPath4Photo);
 				}
 
 				return mPersistentDataPath4Photo;

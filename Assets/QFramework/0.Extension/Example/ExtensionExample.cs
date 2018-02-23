@@ -1,5 +1,4 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 snowcold
  * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
@@ -24,51 +23,68 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.IO;
+using UnityEditor;
+
 namespace QFramework.Example
 {
 	using UnityEngine;
 	using System;
 	using System.Collections.Generic;
-	using System.Linq;
 
-	public class ExtensionExample : MonoBehaviour 
+	public class ExtensionExample : MonoBehaviour
 	{
 		// Use this for initialization
-		private void Start ()
+		private void Start()
 		{
-			var simpleClass = new object ();
+			var simpleClass = new object();
 
-			if (simpleClass.IsNull ())
-			{
-
-			} else if (simpleClass.IsNotNull ())
+			if (simpleClass.IsNull())
 			{
 
 			}
-				
-			Action action = () => Debug.Log ("action called");
-			action.InvokeGracefully ();
+			else if (simpleClass.IsNotNull())
+			{
+
+			}
+
+			Action action = () => Debug.Log("action called");
+			action.InvokeGracefully();
 
 			Func<int> func = () => 1;
-			func.InvokeGracefully ();
+			func.InvokeGracefully();
 
-			var typeName = GenericExtention.GetTypeName<string> ();
-			Debug.Log (typeName);
+			var typeName = GenericExtention.GetTypeName<string>();
+			Debug.Log(typeName);
 
-			var testArray = new int[] { 1, 2, 3 };
-			testArray.ForEach (number => Debug.Log (number));
+			var testArray = new int[] {1, 2, 3};
+			testArray.ForEach(number => Debug.Log(number));
 
-			IEnumerable<int> testIenumerable = new List<int> { 1, 2, 3 };
-			testIenumerable.ForEach (number => Debug.Log (number));
+			IEnumerable<int> testIenumerable = new List<int> {1, 2, 3};
+			testIenumerable.ForEach(number => Debug.Log(number));
 
-			var testList = new List<int> { 1, 2, 3 };
-			testList.ForEach (number => Debug.Log (number));
-			testList.ForEachReverse (number => Debug.Log (number));
+			var testList = new List<int> {1, 2, 3};
+			testList.ForEach(number => Debug.Log(number));
+			testList.ForEachReverse(number => Debug.Log(number));
 
-			var dictionary1 = new Dictionary<string,string> (){ { "1","2" } };
-			var dictionary2 = new Dictionary<string,string> (){ { "3","4" } };
-			var dictionary3 = dictionary1.Merge (dictionary2);
-			dictionary1.ForEach (pair => Debug.LogFormat ("{0}:{1}", pair.Key, pair.Value));
+			var dictionary1 = new Dictionary<string, string> {{"1", "2"}};
+			var dictionary2 = new Dictionary<string, string> {{"3", "4"}};
+			var dictionary3 = dictionary1.Merge(dictionary2);
+			dictionary3.ForEach(pair => Debug.LogFormat("{0}:{1}", pair.Key, pair.Value));
+
+			var testDir = Application.persistentDataPath.CombinePath("TestFolder");
+			testDir.CreateDirIfNotExists();
+
+#if UNITY_EDITOR
+			EditorUtility.OpenFolderPanel("","",testDir);		
+#endif			
+			testDir.DeleteDirIfExists();
+
+
+			var testFile = testDir.CombinePath("test.txt");
+			testDir.CreateDirIfNotExists();
+			File.Create(testFile);
+			testFile.DeleteFileIfExists();
 		}
 	}
 }

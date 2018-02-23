@@ -42,7 +42,7 @@ namespace QFramework.Test.Core
 
 			//Act
 			//Try to rename the GameObject
-			count = IOUtils.GetDirSubFilePathList(testPath,true,".cs").Count;
+			count = IOExtension.GetDirSubFilePathList(testPath,true,".cs").Count;
 
 			//Assert
 			//The object has a new name
@@ -57,7 +57,7 @@ namespace QFramework.Test.Core
 
 			//Act
 			//Try to rename the GameObject
-			count = IOUtils.GetDirSubDirNameList(testPath).Count;
+			count = IOExtension.GetDirSubDirNameList(testPath).Count;
 
 			//Assert
 			//The object has a new name

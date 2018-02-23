@@ -183,7 +183,7 @@ namespace QFramework
         {
             string dirABSPath = ABSPath2AssetsPath(dirAssetsPath);
 			Debug.Log (dirABSPath);
-            List<string> assetsABSPathList = IOUtils.GetDirSubFilePathList(dirABSPath, isRecursive, suffix);
+            List<string> assetsABSPathList = IOExtension.GetDirSubFilePathList(dirABSPath, isRecursive, suffix);
             List<Object> resultObjectList = new List<Object>();
 
             for (int i = 0; i < assetsABSPathList.Count; ++i)

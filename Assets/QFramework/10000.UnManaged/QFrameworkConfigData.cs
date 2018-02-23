@@ -44,7 +44,7 @@ namespace QFramework
 
 		public static QFrameworkConfigData Load()
 		{
-			IOUtils.CreateDirIfNotExists(mConfigSavedDir);
+			IOExtension.CreateDirIfNotExists(mConfigSavedDir);
 
 			if (!File.Exists(mConfigSavedDir + mConfigSavedFileName))
 			{

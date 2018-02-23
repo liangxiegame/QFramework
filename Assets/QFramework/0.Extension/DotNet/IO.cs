@@ -25,36 +25,38 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework 
+namespace QFramework
 {
 	using System.IO;
 	using System.Collections.Generic;
+	using System.Linq;
 
 	/// <summary>
 	/// 各种文件的读写复制操作,主要是对System.IO的一些封装
 	/// </summary>
-	public static class IOUtils 
+	public static class IOExtension
 	{
 		/// <summary>
 		/// 创建新的文件夹,如果存在则不创建
 		/// </summary>
 		public static string CreateDirIfNotExists(this string dirFullPath)
 		{
-			if (!Directory.Exists (dirFullPath)) 
+			if (!Directory.Exists(dirFullPath))
 			{
-				Directory.CreateDirectory (dirFullPath);
+				Directory.CreateDirectory(dirFullPath);
 			}
+
 			return dirFullPath;
 		}
 
 		/// <summary>
 		/// 删除文件夹，如果存在
 		/// </summary>
-		public static void DeleteDirIfExists(this string dirFullPath) 
+		public static void DeleteDirIfExists(this string dirFullPath)
 		{
-			if (Directory.Exists (dirFullPath)) 
+			if (Directory.Exists(dirFullPath))
 			{
-				Directory.Delete (dirFullPath, true);
+				Directory.Delete(dirFullPath, true);
 			}
 		}
 
@@ -70,22 +72,29 @@ namespace QFramework
 				File.Delete(fileFullPath);
 				return true;
 			}
+
 			return false;
 		}
 		
-			
+		public static string CombinePath(this string selfPath, string toCombinePath)
+		{
+			return Path.Combine(selfPath, toCombinePath);
+		}
+		
+		#region 未经过测试
+
 		public static List<string> GetDirSubFilePathList(this string dirABSPath, bool isRecursive = true, string suffix = "")
 		{
-			List<string> pathList = new List<string>();
-			DirectoryInfo di = new DirectoryInfo(dirABSPath);
+			var pathList = new List<string>();
+			var di = new DirectoryInfo(dirABSPath);
 
 			if (!di.Exists)
 			{
 				return pathList;
 			}
 
-			FileInfo[] files = di.GetFiles();
-			foreach (FileInfo fi in files)
+			var files = di.GetFiles();
+			foreach (var fi in files)
 			{
 				if (!string.IsNullOrEmpty(suffix))
 				{
@@ -94,13 +103,14 @@ namespace QFramework
 						continue;
 					}
 				}
+
 				pathList.Add(fi.FullName);
 			}
 
 			if (isRecursive)
 			{
-				DirectoryInfo[] dirs = di.GetDirectories();
-				foreach (DirectoryInfo d in dirs)
+				var dirs = di.GetDirectories();
+				foreach (var d in dirs)
 				{
 					pathList.AddRange(GetDirSubFilePathList(d.FullName, isRecursive, suffix));
 				}
@@ -111,51 +121,32 @@ namespace QFramework
 
 		public static List<string> GetDirSubDirNameList(this string dirABSPath)
 		{
-			List<string> nameList = new List<string>();
-			DirectoryInfo di = new DirectoryInfo(dirABSPath);
+			var di = new DirectoryInfo(dirABSPath);
 
-			DirectoryInfo[] dirs = di.GetDirectories();
-			foreach (DirectoryInfo d in dirs)
-			{
-				nameList.Add(d.Name);
-			}
+			var dirs = di.GetDirectories();
 
-			return nameList;
+			return dirs.Select(d => d.Name).ToList();
 		}
 
 		public static string GetFileName(this string absOrAssetsPath)
 		{
-			string name = absOrAssetsPath.Replace("\\", "/");
-			int lastIndex = name.LastIndexOf("/");
+			var name = absOrAssetsPath.Replace("\\", "/");
+			var lastIndex = name.LastIndexOf("/");
 
-			if (lastIndex >= 0)
-			{
-				return name.Substring(lastIndex + 1);
-			}
-			else
-			{
-				return name;
-			}
+			return lastIndex >= 0 ? name.Substring(lastIndex + 1) : name;
 		}
 
 		public static string GetFileNameWithoutExtend(this string absOrAssetsPath)
 		{
-			string fileName = GetFileName(absOrAssetsPath);
-			int lastIndex = fileName.LastIndexOf(".");
+			var fileName = GetFileName(absOrAssetsPath);
+			var lastIndex = fileName.LastIndexOf(".");
 
-			if (lastIndex >= 0)
-			{
-				return fileName.Substring(0, lastIndex);
-			}
-			else
-			{
-				return fileName;
-			}
+			return lastIndex >= 0 ? fileName.Substring(0, lastIndex) : fileName;
 		}
 
 		public static string GetFileExtendName(this string absOrAssetsPath)
 		{
-			int lastIndex = absOrAssetsPath.LastIndexOf(".");
+			var lastIndex = absOrAssetsPath.LastIndexOf(".");
 
 			if (lastIndex >= 0)
 			{
@@ -167,15 +158,11 @@ namespace QFramework
 
 		public static string GetDirPath(this string absOrAssetsPath)
 		{
-			string name = absOrAssetsPath.Replace("\\", "/");
-			int lastIndex = name.LastIndexOf("/");
+			var name = absOrAssetsPath.Replace("\\", "/");
+			var lastIndex = name.LastIndexOf("/");
 			return name.Substring(0, lastIndex + 1);
 		}
-
-
-		public static string CombinePath(this string selfPath, string toCombinePath)
-		{
-			return Path.Combine(selfPath, toCombinePath);
-		}
+		
+		#endregion
 	}
 }

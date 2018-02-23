@@ -41,7 +41,7 @@ namespace QFramework
 			ProcessAssetBundleRes(table);
 
 		    string filePath =
-		        IOUtils.CreateDirIfNotExists(FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER) +
+		        IOExtension.CreateDirIfNotExists(FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER) +
 		        QFrameworkConfigData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
 			table.Save(filePath);
 			AssetDatabase.Refresh ();

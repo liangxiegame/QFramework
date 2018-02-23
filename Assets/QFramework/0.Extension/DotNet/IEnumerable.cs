@@ -64,9 +64,9 @@ namespace QFramework
             return selfArray;
         }
 
-		#endregion
+        #endregion
 
-		#region List Extension
+        #region List Extension
 
         /// <summary>
         /// Fors the each reverse.
@@ -86,7 +86,6 @@ namespace QFramework
         }
 
         #endregion
-
 
         #region Dictionary Extension
 
@@ -109,6 +108,7 @@ namespace QFramework
 
             return merged;
         }
+
         #endregion
     }
 }

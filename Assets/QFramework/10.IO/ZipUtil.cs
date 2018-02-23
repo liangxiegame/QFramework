@@ -330,7 +330,7 @@ namespace QFramework
         /// <returns>解压是否成功</returns>
         public static bool UnZipFile(string zipFilePath, string unZipDir)
         {
-            IOUtils.CreateDirIfNotExists(unZipDir);
+            IOExtension.CreateDirIfNotExists(unZipDir);
 
             //解压文件夹为空时默认与压缩文件同一级目录下，跟压缩文件同名的文件夹
             if (unZipDir == string.Empty)

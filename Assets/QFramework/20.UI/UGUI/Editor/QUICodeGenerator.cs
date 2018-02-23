@@ -151,7 +151,7 @@ namespace QFramework
 
 			string behaviourName = uiPrefab.name;
 			string strFilePath = uiPrefabPath.Replace(QFrameworkConfigData.Load().UIPrefabDir, GetScriptsPath());
-			IOUtils.CreateDirIfNotExists(strFilePath.Replace(uiPrefab.name + ".prefab", ""));
+			IOExtension.CreateDirIfNotExists(strFilePath.Replace(uiPrefab.name + ".prefab", ""));
 			strFilePath = strFilePath.Replace(".prefab", ".cs");
 
 			if (File.Exists(strFilePath) == false)
@@ -172,7 +172,7 @@ namespace QFramework
 
 			foreach (var elementCodeData in mPanelCodeData.ElementCodeDatas)
 			{
-				string elementDir = IOUtils.CreateDirIfNotExists(dir + behaviourName + "/");
+				string elementDir = IOExtension.CreateDirIfNotExists(dir + behaviourName + "/");
 				CreateUIElementCode(elementDir, elementCodeData);
 			}
 		}
@@ -185,7 +185,7 @@ namespace QFramework
 
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
 			{
-				string elementDir = IOUtils.CreateDirIfNotExists(generateDirPath + elementCodeData.BehaviourName + "/");
+				string elementDir = IOExtension.CreateDirIfNotExists(generateDirPath + elementCodeData.BehaviourName + "/");
 				CreateUIElementCode(elementDir, childElementCodeData);
 			}
 		}

@@ -18,7 +18,7 @@ namespace QFramework.Editor
 
 			PathConfig data = null;
 
-			IOUtils.CreateDirIfNotExists (EditorPathManager.DefaultPathConfigGenerateForder);
+			IOExtension.CreateDirIfNotExists (EditorPathManager.DefaultPathConfigGenerateForder);
 
 			string newConfigPath = IOEditorPathConfig.IOGeneratorPath + "/NewPathConfig.asset";
 
@@ -38,7 +38,7 @@ namespace QFramework.Editor
 		{
 			AssetDatabase.SaveAssets ();
 
-			IOUtils.CreateDirIfNotExists (EditorPathManager.DefaultPathScriptGenerateForder);
+			IOExtension.CreateDirIfNotExists (EditorPathManager.DefaultPathScriptGenerateForder);
 
 			string[] fullPathFileNames = Directory.GetFiles(EditorPathManager.DefaultPathConfigGenerateForder, "*PathDefine.asset", SearchOption.AllDirectories);
 
@@ -53,7 +53,7 @@ namespace QFramework.Editor
 					PTNamespaceDefine nameSpace = new PTNamespaceDefine ();
 					nameSpace.Name = string.IsNullOrEmpty (config.NameSpace) ? "QFramework" : config.NameSpace;
 					nameSpace.FileName = config.name + ".cs";
-					nameSpace.GenerateDir = string.IsNullOrEmpty (config.ScriptGeneratePath) ? EditorPathManager.DefaultPathScriptGenerateForder : IOUtils.CreateDirIfNotExists ("Assets/" + config.ScriptGeneratePath);
+					nameSpace.GenerateDir = string.IsNullOrEmpty (config.ScriptGeneratePath) ? EditorPathManager.DefaultPathScriptGenerateForder : IOExtension.CreateDirIfNotExists ("Assets/" + config.ScriptGeneratePath);
 					var classDefine = new PTClassDefine ();
 					classDefine.Comment = config.Description;
 					classDefine.Name = config.name;

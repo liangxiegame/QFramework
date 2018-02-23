@@ -268,7 +268,7 @@ namespace QFramework.Libs
 	{
 		public static void Generate(PTNamespaceDefine nameSpace) 
 		{
-			IOUtils.CreateDirIfNotExists (nameSpace.GenerateDir);
+			IOExtension.CreateDirIfNotExists (nameSpace.GenerateDir);
 
 			var compileUnit = new CodeCompileUnit ();
 			var codeNameSpace = new CodeNamespace (nameSpace.Name);

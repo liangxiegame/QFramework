@@ -84,7 +84,7 @@ namespace QFramework
 
 			outputPath = outputPath + "/" + projectTag;
 
-			IOUtils.CreateDirIfNotExists(outputPath);
+			IOExtension.CreateDirIfNotExists(outputPath);
 
 			BuildPipeline.BuildAssetBundles(outputPath, BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
 
@@ -95,9 +95,9 @@ namespace QFramework
 
 			string finalDir = Application.streamingAssetsPath + "/AssetBundles/" + GetPlatformName() + "/" + projectTag;
 
-			IOUtils.DeleteDirIfExists(finalDir);
+			IOExtension.DeleteDirIfExists(finalDir);
 
-			IOUtils.CreateDirIfNotExists(finalDir);
+			IOExtension.CreateDirIfNotExists(finalDir);
 
 			FileUtil.ReplaceDirectory(outputPath, finalDir);
 			
