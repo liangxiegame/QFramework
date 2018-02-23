@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
 namespace QFramework
 {
     using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace QFramework
 
     public static class IEnumerableExtension
     {
-          #region Array Extension
+        #region Array Extension
 
         /// <summary>
         /// Fors the each.
@@ -65,21 +64,9 @@ namespace QFramework
             return selfArray;
         }
 
-        /// <summary>
-        /// Has the specified selfList and match.
-        /// </summary>
-        /// <returns>The has.</returns>
-        /// <param name="selfList">Self list.</param>
-        /// <param name="match">Match.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static bool Has<T>(this List<T> selfList, Predicate<T> match)
-        {
-            return selfList.Find(match) != null;
-        }
+		#endregion
 
-        #endregion
-
-        #region List Extension
+		#region List Extension
 
         /// <summary>
         /// Fors the each reverse.

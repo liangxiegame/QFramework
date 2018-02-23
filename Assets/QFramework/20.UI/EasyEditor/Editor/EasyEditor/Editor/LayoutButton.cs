@@ -108,7 +108,7 @@ namespace UnityEditorUI
         {
             if (GUILayout.Button(mTexture2D,GUILayout.Width(mTexture2D.width),GUILayout.Height(mTexture2D.height)))
             {
-                Log.I("click");
+                QFramework.Log.I("click");
                 mClickEvent.Invoke();
             }
         }

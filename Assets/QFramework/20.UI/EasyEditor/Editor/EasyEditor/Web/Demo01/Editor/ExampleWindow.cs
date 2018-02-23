@@ -19,7 +19,7 @@ public class ExampleWindow : CustomWebViewEditorWindow
             path, 200, 530,
             800, 600);
 
-        Log.I("path:{0}", path);
+        QFramework.Log.I("path:{0}", path);
     }
 
     public void Play()

@@ -28,13 +28,14 @@ namespace QFramework.Example
 {
 	using UnityEngine;
 	using System;
+	using System.Collections.Generic;
+	using System.Linq;
 
 	public class ExtensionExample : MonoBehaviour 
 	{
 		// Use this for initialization
 		private void Start ()
 		{
-			// class extension
 			var simpleClass = new object ();
 
 			if (simpleClass.IsNull ())
@@ -44,17 +45,30 @@ namespace QFramework.Example
 			{
 
 			}
-
-			// action func event extension
+				
 			Action action = () => Debug.Log ("action called");
 			action.InvokeGracefully ();
 
 			Func<int> func = () => 1;
 			func.InvokeGracefully ();
 
-			// generic
 			var typeName = GenericExtention.GetTypeName<string> ();
 			Debug.Log (typeName);
+
+			var testArray = new int[] { 1, 2, 3 };
+			testArray.ForEach (number => Debug.Log (number));
+
+			IEnumerable<int> testIenumerable = new List<int> { 1, 2, 3 };
+			testIenumerable.ForEach (number => Debug.Log (number));
+
+			var testList = new List<int> { 1, 2, 3 };
+			testList.ForEach (number => Debug.Log (number));
+			testList.ForEachReverse (number => Debug.Log (number));
+
+			var dictionary1 = new Dictionary<string,string> (){ { "1","2" } };
+			var dictionary2 = new Dictionary<string,string> (){ { "3","4" } };
+			var dictionary3 = dictionary1.Merge (dictionary2);
+			dictionary1.ForEach (pair => Debug.LogFormat ("{0}:{1}", pair.Key, pair.Value));
 		}
 	}
 }

@@ -3,7 +3,7 @@ using System;
 using System.Linq.Expressions;
 using QFramework;
 using UnityEngine;
-
+using Log = QFramework.Log;
 namespace UnityEditorUI
 {
     /// <summary>
@@ -107,7 +107,7 @@ namespace UnityEditorUI
 
             if (UnityEngine.GUI.Button(mRect, mTexture2D, GUIStyle.none))
             {
-                Log.I("click");
+				QFramework.Log.I("click");
                 mClickEvent.Invoke();
             }
         }

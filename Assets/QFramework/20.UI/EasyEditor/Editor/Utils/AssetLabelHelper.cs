@@ -22,7 +22,7 @@ namespace QFramework
 
             foreach (var label in labels)
             {
-                if (!existsLabels.Has(existsLabel => existsLabel.Equals(label)))
+                if (!existsLabels.Any(existsLabel => existsLabel.Equals(label)))
                 {
                     existsLabels.Add(label);
                 }
@@ -41,7 +41,7 @@ namespace QFramework
         
         public static bool HasAssetLabel(this UnityEngine.Object obj, string label)
         {
-            return AssetDatabase.GetLabels(obj).ToList().Has(labelName=>labelName.Equals(label));
+			return AssetDatabase.GetLabels(obj).ToList().Any(labelName=>labelName.Equals(label));
         }
 
         public static void RemoveLabelsWhere(this string selfPath, Func<string, bool> matcher)
