@@ -6,7 +6,7 @@ namespace QFramework
 {
 	using UnityEngine;
 
-	public static class LightmapUtil 
+	public static class LightmapExtension 
 	{
 		public static void SetAmbientLightHTMLStringColor(string htmlStringColor)
 		{
