@@ -34,17 +34,13 @@ namespace QFramework
 	{
 		const string kSimulationMode = "QFramework/ResSystem/Simulation Mode";
 	
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem(kSimulationMode)]
-		#endif
 		public static void ToggleSimulationMode ()
 		{
 			QResSystemMark.SimulateAssetBundleInEditor = !QResSystemMark.SimulateAssetBundleInEditor;
 		}
 
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem(kSimulationMode, true)]
-		#endif
 		public static bool ToggleSimulationModeValidate ()
 		{
 			Menu.SetChecked(kSimulationMode, QResSystemMark.SimulateAssetBundleInEditor);

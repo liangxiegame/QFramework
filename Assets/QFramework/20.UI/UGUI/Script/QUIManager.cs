@@ -186,9 +186,6 @@ namespace QFramework
 					break;
 			}
 
-
-
-#if NONE_LUA_SUPPORT
 			var uiGoRectTrans = ui.Transform as RectTransform;
 
 			uiGoRectTrans.offsetMin = UnityEngine.Vector2.zero;
@@ -196,7 +193,6 @@ namespace QFramework
 			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
 			uiGoRectTrans.anchorMin = UnityEngine.Vector2.zero;
 			uiGoRectTrans.anchorMax = UnityEngine.Vector2.one;
-#endif
 
 			ui.Transform.LocalScaleIdentity();
 			ui.Transform.gameObject.name = uiBehaviourName;

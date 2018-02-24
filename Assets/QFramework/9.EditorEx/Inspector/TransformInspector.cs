@@ -5,6 +5,9 @@
 // Time: 15:16
 // Author: Karsion
 
+
+#if UNITY_5
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -507,3 +510,4 @@ public class TransformInspector : Editor
         public readonly string floatingPointWarning = LocalizationDatabase.GetLocalizedString("Due to floating-point precision limitations, it is recommended to bring the world coordinates of the GameObject within a smaller range.");
     }
 }
+#endif

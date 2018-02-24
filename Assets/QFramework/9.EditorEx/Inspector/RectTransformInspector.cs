@@ -3,6 +3,7 @@
 // Time: 22:20
 // Author: Karsion
 
+#if UNITY_5
 using QFramework;
 using UnityEditor;
 using UnityEditorInternal;
@@ -335,3 +336,4 @@ public class RectTransformInspector : CustomCustomEditor
         public readonly GUIContent readmeContent = new GUIContent("Readme", "Ctrl + ↑ move 1 pixel, and Shift 10 pixel");
     }
 }
+#endif

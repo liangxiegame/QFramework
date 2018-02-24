@@ -160,9 +160,7 @@ namespace QFramework
 			ResetQMark(path);
 		}
 
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem (Mark_HotUpdateFile)]
-		#endif
 		public static void MarkHotUpdateFile ()
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
@@ -271,9 +269,7 @@ namespace QFramework
 			MarkQAB(path);
 		}
 
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubFolder")]
-		#endif
 		public static void MarkQABForAllSubFolder()
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
@@ -285,9 +281,7 @@ namespace QFramework
 			}
 		}
 
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubFolder")]
-		#endif
 		public static void UnMarkQABForAllSubFolder()
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
@@ -317,9 +311,8 @@ namespace QFramework
 				ResetQMark(childpaths[i]);
 			}
 		}
-		#if QRESSYSTEM_SUPPORT
+
 		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubAssets")]
-		#endif
 		public static void MarkQABForAllSubAssets()
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
@@ -333,9 +326,7 @@ namespace QFramework
 				}
 			}
 		}
-		#if QRESSYSTEM_SUPPORT
 		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubAssets")]
-		#endif
 		public static void UnMarkQABForAllSubAssets()
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
