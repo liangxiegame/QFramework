@@ -219,7 +219,7 @@ namespace QFramework
 			EditorPrefs.DeleteKey("AutoGenUIPrefabPath");
 			Debug.Log(">>>>>>>SerializeUIPrefab: " + pathStr);
 			 
-			var assembly = ReflectionUtil.GetAssemblyCSharp();
+			var assembly = ReflectionExtension.GetAssemblyCSharp();
 
 			string[] paths = pathStr.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
 			bool displayProgress = paths.Length > 3;

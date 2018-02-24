@@ -27,11 +27,11 @@ namespace QFramework
 {
     using System.Reflection;
 
-    public class ReflectionUtil
+    public static class ReflectionExtension
     {
         public static Assembly GetAssemblyCSharp()
         {
-            Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             foreach (var a in assemblies)
             {
                 if (a.FullName.StartsWith("Assembly-CSharp,"))
@@ -46,7 +46,7 @@ namespace QFramework
         
         public static Assembly GetAssemblyCSharpEditor()
         {
-            Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
             foreach (var a in assemblies)
             {
                 if (a.FullName.StartsWith("Assembly-CSharp-Editor,"))

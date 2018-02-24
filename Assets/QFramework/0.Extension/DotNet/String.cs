@@ -28,7 +28,7 @@ namespace QFramework
     using System;
     using System.Linq;
     using System.Text;
-    
+
     public static class StringExtention
     {
         /// <summary>
@@ -40,7 +40,7 @@ namespace QFramework
         {
             return string.IsNullOrEmpty(selfStr);
         }
-        
+
         /// <summary>
         /// Check Whether string is null or empty
         /// </summary>
@@ -54,7 +54,7 @@ namespace QFramework
         /// <summary>
         /// 避免每次都用.
         /// </summary>
-        static char[] mCachedSplitCharArray = { '.' };
+        private static readonly char[] mCachedSplitCharArray = {'.'};
 
         public static string[] Split(this string selfStr, char splitSymbol)
         {
@@ -89,7 +89,7 @@ namespace QFramework
         public static string[] ArrayFromCSV(this string values)
         {
             return values
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries)
                 .Select(value => value.Trim())
                 .ToArray();
         }
@@ -104,6 +104,7 @@ namespace QFramework
                 {
                     sb.Append(' ');
                 }
+
                 sb.Append(text[i]);
             }
 
@@ -130,13 +131,13 @@ namespace QFramework
         {
             return new StringBuilder(toPrefix).Append(selfStr).ToString();
         }
-        
-        public static StringBuilder AppendFormat(this string selfStr, string toAppend,params object[] args)
+
+        public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
         {
-            return new StringBuilder(selfStr).AppendFormat(toAppend,args);
+            return new StringBuilder(selfStr).AppendFormat(toAppend, args);
         }
 
-        public static string GetLastWord(this string selfUrl)
+        public static string LastWord(this string selfUrl)
         {
             return selfUrl.Split('/').Last();
         }

@@ -75,16 +75,28 @@ namespace QFramework.Example
 			var testDir = Application.persistentDataPath.CombinePath("TestFolder");
 			testDir.CreateDirIfNotExists();
 
-#if UNITY_EDITOR
-			EditorUtility.OpenFolderPanel("","",testDir);		
-#endif			
+			Debug.Log(Directory.Exists(testDir));
 			testDir.DeleteDirIfExists();
-
+			Debug.Log(Directory.Exists(testDir));
 
 			var testFile = testDir.CombinePath("test.txt");
 			testDir.CreateDirIfNotExists();
 			File.Create(testFile);
 			testFile.DeleteFileIfExists();
+
+			this.ImplementsInterface<ISingleton>();
+
+			var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.Example.ExtensionExample");
+			Debug.Log(selfType);
+
+
+			var emptyStr = string.Empty;
+
+			Debug.Log(emptyStr.IsNotNullAndEmpty());
+			Debug.Log(emptyStr.IsNullOrEmpty());
+			emptyStr = emptyStr.Append("appended").Append("1").ToString();
+			Debug.Log(emptyStr);
+			Debug.Log(emptyStr.IsNullOrEmpty());
 		}
 	}
 }
