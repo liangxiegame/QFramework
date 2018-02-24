@@ -40,7 +40,7 @@ namespace QFramework
 			case BuildTarget.StandaloneOSXIntel:
 			case BuildTarget.StandaloneOSXIntel64:
 			#if UNITY_5 
-			case BuildTarget.StandaloneOSX:
+			case BuildTarget.StandaloneOSXUniversal:
 			#else
 			case BuildTarget.StandaloneOSX:
 			#endif
