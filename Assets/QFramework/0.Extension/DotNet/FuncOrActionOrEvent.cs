@@ -33,12 +33,7 @@ namespace QFramework
 
         public static T InvokeGracefully<T>(this Func<T> selfFunc)
         {
-            if (null != selfFunc)
-            {
-                return selfFunc();
-            }
-
-            return default(T);
+            return null != selfFunc ? selfFunc() : default(T);
         }
 
 

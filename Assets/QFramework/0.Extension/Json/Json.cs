@@ -9,7 +9,7 @@ namespace QFramework
 	/// <summary>
 	/// Support Newtown.json,Adjust LitJons's api
 	/// </summary>
-	public static class JsonUtil
+	public static class JsonExtension
 	{
 		/// <summary>
 		/// Check if json data contains key specified

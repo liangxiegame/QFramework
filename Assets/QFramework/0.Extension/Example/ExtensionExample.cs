@@ -23,50 +23,85 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
-using UnityEditor;
 
 namespace QFramework.Example
 {
 	using UnityEngine;
 	using System;
 	using System.Collections.Generic;
+	using System.IO;
 
 	public class ExtensionExample : MonoBehaviour
 	{
-		// Use this for initialization
 		private void Start()
 		{
+			CSharpExtensions();
+			UnityExtensions();
+		}
+
+		private delegate void TestDelegate();
+
+		private void CSharpExtensions()
+		{
+			#region IsNull,IsNotNull
+
 			var simpleClass = new object();
 
-			if (simpleClass.IsNull())
+			if (simpleClass.IsNull()) // simpleClass == null
 			{
 
 			}
-			else if (simpleClass.IsNotNull())
+			else if (simpleClass.IsNotNull()) // simpleClasss != null
 			{
 
 			}
 
+			#endregion
+
+
+			#region InvokeGracefully
+
+			// action
 			Action action = () => Debug.Log("action called");
-			action.InvokeGracefully();
+			action.InvokeGracefully(); // if (action != null) action();
 
+			// func
 			Func<int> func = () => 1;
 			func.InvokeGracefully();
+
+			/*
+			public static T InvokeGracefully<T>(this Func<T> selfFunc)
+			{
+				return null != selfFunc ? selfFunc() : default(T);
+			}
+			*/
+
+			// delegate
+			TestDelegate testDelegate = () => { };
+			testDelegate.InvokeGracefully();
+
+			#endregion
 
 			var typeName = GenericExtention.GetTypeName<string>();
 			Debug.Log(typeName);
 
+			#region ForEach
+
+			// Array
 			var testArray = new int[] {1, 2, 3};
 			testArray.ForEach(number => Debug.Log(number));
 
+			// IEnumerable<T>
 			IEnumerable<int> testIenumerable = new List<int> {1, 2, 3};
 			testIenumerable.ForEach(number => Debug.Log(number));
 
+			// testList
 			var testList = new List<int> {1, 2, 3};
 			testList.ForEach(number => Debug.Log(number));
 			testList.ForEachReverse(number => Debug.Log(number));
 
+			#endregion
+			
 			var dictionary1 = new Dictionary<string, string> {{"1", "2"}};
 			var dictionary2 = new Dictionary<string, string> {{"3", "4"}};
 			var dictionary3 = dictionary1.Merge(dictionary2);
@@ -89,7 +124,6 @@ namespace QFramework.Example
 			var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.Example.ExtensionExample");
 			Debug.Log(selfType);
 
-
 			var emptyStr = string.Empty;
 
 			Debug.Log(emptyStr.IsNotNullAndEmpty());
@@ -97,6 +131,11 @@ namespace QFramework.Example
 			emptyStr = emptyStr.Append("appended").Append("1").ToString();
 			Debug.Log(emptyStr);
 			Debug.Log(emptyStr.IsNullOrEmpty());
+		}
+
+		void UnityExtensions()
+		{
+
 		}
 	}
 }

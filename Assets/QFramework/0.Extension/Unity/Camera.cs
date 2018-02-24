@@ -27,23 +27,23 @@ namespace QFramework
 {
 	using UnityEngine;
 	
-	public static class CameraUtil 
+	public static class CameraExtension 
 	{
 		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
 		{
-			RenderTexture rt = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = rt;
+			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
+			camera.targetTexture = renderTexture;
 			camera.Render();
 
-			RenderTexture.active = rt;
+			RenderTexture.active = renderTexture;
 
-			Texture2D screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
+			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
 			screenShot.ReadPixels(rect,0,0);
 			screenShot.Apply();
 
 			camera.targetTexture = null;
 			RenderTexture.active = null;
-			Object.Destroy(rt);
+			Object.Destroy(renderTexture);
 
 			return screenShot;
 		}
