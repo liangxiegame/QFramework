@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -29,12 +30,6 @@ namespace QFramework
 {
 	public static class RectTransformExtension
     {
-		public static Vector2 GetWorldposInRect(this RectTransform selfRectTrans)
-		{
-			Vector2 retWorldPos = Vector2.down;
-			return retWorldPos;
-		}
-
 		public static Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)
 		{
 			return RectTransformUtility.CalculateRelativeRectTransformBounds(rootTrans, selfRectTransform).center;

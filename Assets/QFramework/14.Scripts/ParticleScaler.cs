@@ -1,4 +1,5 @@
 /****************************************************************************
+ * Copyright (c) 2017 liangxie
  * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
@@ -25,8 +26,6 @@
 
 namespace QFramework 
 {
-	using System.Collections.Generic;
-	using System.Collections;
 	using UnityEngine;
 
 	//[RuntimeInitializeOnLoadMethod]
@@ -37,11 +36,11 @@ namespace QFramework
 
 		ParticleSystem mParticleSystem;
 
-		float mSrcStartSize;
-		float mSrcStartSpeed;
-		float mSrcStartRotation;
+		private float mSrcStartSize;
+		private float mSrcStartSpeed;
+		private float mSrcStartRotation;
 
-		void Awake () 
+		private void Awake () 
 		{
 			mParticleSystem = GetComponent<ParticleSystem> ();
 
@@ -52,7 +51,7 @@ namespace QFramework
 			ScaleParticleSystem (mCurScale);
 		}
 
-		void Update () 
+		private void Update () 
 		{
 			if (mCurScale != mPreviousScale) 
 			{
@@ -73,7 +72,7 @@ namespace QFramework
 		/// <param name="scale">绽放系数</param>
 		public void ScaleParticleSystem (float scale) 
 		{
-			ParticleSystem.MainModule mainModule = mParticleSystem.main;
+			var mainModule = mParticleSystem.main;
 
 			mainModule.startSizeMultiplier = scale * mSrcStartSize;
 			mainModule.startSpeedMultiplier = scale * mSrcStartSpeed;
