@@ -1,132 +1,183 @@
-### Extensions 模块简介:
+### Unity Extensions :
 
-the Extensions Module is wrapper for Unity and .Net's API
-
-简单来说都是对 .Net 和  Unity 的 API 进行了一层封装
-
-#### 1.IsNull,IsNotNull:
+#### 1.Enable,Disable
 
 ``` csharp
-var simpleClass = new object();
+var component = gameObject.GetComponent<MonoBehaviour>();
 
-if (simpleClass.IsNull()) // simpleClass == null
-{
-
-}
-else if (simpleClass.IsNotNull()) // simpleClasss != null
-{
-
-}
+component.Enable(); // component.enabled = true
+component.Disable(); // component.enabled = false
 ```
 
-#### 2.InvokeGracefully:
-
-**Action:**
+#### 2.CaptrueCamera:
 
 ``` csharp
-Action action = () => Debug.Log("action called");
-action.InvokeGracefully(); // if (action != null) action();
+var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
 ```
 
-**Func:**
+#### 3.Color:
 
 ``` csharp
-Func<int> func = () => 1;
-func.InvokeGracefully();
-			
-/*
-public static T InvokeGracefully<T>(this Func<T> selfFunc)
-{
-	return null != selfFunc ? selfFunc() : default(T);
-}
-*/ 
+var color = "#C5563CFF".HtmlStringToColor();
 ```
 
-**Delegate:**
+#### 4.GameObject:
 
 ``` csharp
-public delegate void TestDelegate();
-...
-TestDelegate testDelegate = () => { };
-testDelegate.InvokeGracefully();
+var boxCollider = gameObject.AddComponent<BoxCollider>();
+
+gameObject.Show(); // gameObject.SetActive(true)
+this.Show(); // this.gameObject.SetActive(true)
+boxCollider.Show(); // boxCollider.gameObject.SetActive(true)
+transform.Show(); // transform.gameObject.SetActive(true)
+
+gameObject.Hide(); // gameObject.SetActive(false)
+this.Hide(); // this.gameObject.SetActive(false)
+boxCollider.Hide(); // boxCollider.gameObject.SetActive(false)
+transform.Hide(); // transform.gameObject.SetActive(false)
+
+this.DestroyGameObj();
+boxCollider.DestroyGameObj();
+transform.DestroyGameObj();
+
+this.DestroyGameObjGracefully();
+boxCollider.DestroyGameObjGracefully();
+transform.DestroyGameObjGracefully();
+
+this.DestroyGameObjAfterDelay(1.0f);
+boxCollider.DestroyGameObjAfterDelay(1.0f);
+transform.DestroyGameObjAfterDelay(1.0f);
+
+this.DestroyGameObjAfterDelayGracefully(1.0f);
+boxCollider.DestroyGameObjAfterDelayGracefully(1.0f);
+transform.DestroyGameObjAfterDelayGracefully(1.0f);
+
+gameObject.Layer(0);
+this.Layer(0);
+boxCollider.Layer(0);
+transform.Layer(0);
+
+gameObject.Layer("Default");
+this.Layer("Default");
+boxCollider.Layer("Default");
+transform.Layer("Default");
 ```
 
-
-
-#### 3.ForEach:
-
-**Array:**
+#### 5.Graphic
 
 ``` csharp
-var testArray = new int[] {1, 2, 3};
-testArray.ForEach(number => Debug.Log(number));
+var image = gameObject.AddComponent<Image>();
+var rawImage = gameObject.AddComponent<RawImage>();
+
+// image.color = new Color(image.color.r,image.color.g,image.color.b,1.0f);
+image.ColorAlpha(1.0f);
+rawImage.ColorAlpha(1.0f);
 ```
 
-**IEnumrable<T>:**
+#### 6.Image
 
 ``` csharp
-IEnumerable<int> testIenumerable = new List<int> {1, 2, 3};
-testIenumerable.ForEach(number => Debug.Log(number));
+var image1 = gameObject.AddComponent<Image>();
+
+image1.FillAmount(0.0f); // image1.fillAmount = 0.0f;
 ```
 
-**List<T>:**
+#### 7.Object
 
 ``` csharp
-var testList = new List<int> {1, 2, 3};
-testList.ForEach(number => Debug.Log(number));
-testList.ForEachReverse(number => Debug.Log(number));
+gameObject.Instantiate()
+    .Name("ExtensionExample")
+	.DestroySelf();
+
+gameObject.Instantiate()
+	.DestroySelfGracefully();
+
+gameObject.Instantiate()
+	.DestroySelfAfterDelay(1.0f);
+
+gameObject.Instantiate()
+	.DestroySelfAfterDelayGracefully(1.0f);
+
+gameObject
+	.ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+	.Name("TestObj")
+	.ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+	.Name("ExtensionExample")
+	.DontDestroyOnLoad();
 ```
 
-#### 4.Merge:
-
-**Dictionary<T,K>:**
+#### 8.Transform
 
 ``` csharp
-var dictionary1 = new Dictionary<string, string> {{"1", "2"}};
-var dictionary2 = new Dictionary<string, string> {{"3", "4"}};
-var dictionary3 = dictionary1.Merge(dictionary2);
-dictionary3.ForEach(pair => Debug.LogFormat("{0}:{1}", pair.Key, pair.Value));
+transform
+	.Parent(null)
+	.LocalIdentity()
+	.LocalPositionIdentity()
+	.LocalRotationIdentity()
+	.LocalScaleIdentity()
+	.LocalPosition(Vector3.zero)
+	.LocalPosition(0, 0, 0)
+	.LocalPosition(0, 0)
+	.LocalPositionX(0)
+	.LocalPositionY(0)
+	.LocalPositionZ(0)
+	.LocalRotation(Quaternion.identity)
+	.LocalScale(Vector3.one)
+	.LocalScaleX(1.0f)
+	.LocalScaleY(1.0f)
+	.Identity()
+	.PositionIdentity()
+	.RotationIdentity()
+	.Position(Vector3.zero)
+	.PositionX(0)
+	.PositionY(0)
+	.PositionZ(0)
+	.Rotation(Quaternion.identity)
+	.DestroyAllChild()
+	.AsLastSibling()
+	.AsFirstSibling()
+	.SiblingIndex(0);
+
+this
+	.Parent(null)
+	.LocalIdentity()
+	.LocalPositionIdentity()
+	.LocalRotationIdentity()
+	.LocalScaleIdentity()
+	.LocalPosition(Vector3.zero)
+	.LocalPosition(0, 0, 0)
+	.LocalPosition(0, 0)
+	.LocalPositionX(0)
+	.LocalPositionY(0)
+	.LocalPositionZ(0)
+	.LocalRotation(Quaternion.identity)
+	.LocalScale(Vector3.one)
+	.LocalScaleX(1.0f)
+	.LocalScaleY(1.0f)
+	.Identity()
+	.PositionIdentity()
+	.RotationIdentity()
+	.Position(Vector3.zero)
+	.PositionX(0)
+	.PositionY(0)
+	.PositionZ(0)
+	.Rotation(Quaternion.identity)
+	.DestroyAllChild()
+	.AsLastSibling()
+	.AsFirstSibling()
+	.SiblingIndex(0);
 ```
 
-#### 5.CreateDirIfNotExists,DeleteDirIfExists,DeleteFileIfExists
+#### 9.UnityAction
 
 ``` csharp
-var testDir = Application.persistentDataPath.CombinePath("TestFolder");
-testDir.CreateDirIfNotExists();
+UnityAction action = () => { };
+UnityAction<int> actionWithInt = num => { };
+UnityAction<int, string> actionWithIntString = (num, str) => { };
 
-Debug.Log(Directory.Exists(testDir));
-testDir.DeleteDirIfExists();
-Debug.Log(Directory.Exists(testDir));
-
-var testFile = testDir.CombinePath("test.txt");
-testDir.CreateDirIfNotExists();
-File.Create(testFile);
-testFile.DeleteFileIfExists();
+action.InvokeGracefully();
+actionWithInt.InvokeGracefully(1);
+actionWithIntString.InvokeGracefully(1, "str");
 ```
 
-#### 6.ImplementsInterface<T>
-
-``` csharp
-this.ImplementsInterface<ISingleton>();
-```
-
-#### 7.ReflectionExtension.GetAssemblyCSharp()
-
-``` csharp
-var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.Example.ExtensionExample");
-Debug.Log(selfType);
-```
-
-#### 8.string's extension
-
-``` csharp
-var emptyStr = string.Empty;
-
-Debug.Log(emptyStr.IsNotNullAndEmpty());
-Debug.Log(emptyStr.IsNullOrEmpty());
-emptyStr = emptyStr.Append("appended").Append("1").ToString();
-Debug.Log(emptyStr);
-Debug.Log(emptyStr.IsNullOrEmpty());
-```
-
-#### FeatureId:EXDN001
+#### FeatureId:EXUN001

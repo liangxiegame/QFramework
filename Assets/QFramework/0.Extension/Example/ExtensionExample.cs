@@ -210,7 +210,6 @@ namespace QFramework.Example
 
 			#endregion
 
-
 			#region GameObject
 
 			var boxCollider = gameObject.AddComponent<BoxCollider>();

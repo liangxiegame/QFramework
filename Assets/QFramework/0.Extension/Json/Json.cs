@@ -2,7 +2,6 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-
 namespace QFramework
 {
 	using Newtonsoft.Json.Linq;
