@@ -2,9 +2,11 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
+
 namespace QFramework
 {
 	using Newtonsoft.Json.Linq;
+	using UnityEngine;
 
 	/// <summary>
 	/// Support Newtown.json,Adjust LitJons's api
@@ -39,6 +41,16 @@ namespace QFramework
 		public static bool IsArray(this JToken self)
 		{
 			return self != null && self.Type == JTokenType.Array;
+		}
+		
+		/// <summary>
+		/// 临时的先放在这里
+		/// </summary>
+		/// <returns>The json value.</returns>
+		/// <param name="vector2">Vector2.</param>
+		public static string ToJsonValue(this Vector2 vector2)
+		{
+			return vector2.x + "," + vector2.y;
 		}
 	}
 }

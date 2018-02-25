@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 namespace QFramework.Example
 {
 	using System;
@@ -30,6 +31,7 @@ namespace QFramework.Example
 	using System.IO;
 	using UnityEngine;
 	using UnityEngine.UI;
+	using UnityEngine.Events;
 
 	public class ExtensionExample : MonoBehaviour
 	{
@@ -276,7 +278,7 @@ namespace QFramework.Example
 			gameObject.Instantiate()
 				.Name("ExtensionExample")
 				.DestroySelf();
-			
+
 			gameObject.Instantiate()
 				.DestroySelfGracefully();
 
@@ -298,19 +300,19 @@ namespace QFramework.Example
 
 			#region RectTransform
 
-			
+
 
 			#endregion
 
 			#region Selectable
 
-			
+
 
 			#endregion
 
 			#region Toggle
 
-		
+
 			#endregion
 
 			#region Transform
@@ -322,8 +324,8 @@ namespace QFramework.Example
 				.LocalRotationIdentity()
 				.LocalScaleIdentity()
 				.LocalPosition(Vector3.zero)
-				.LocalPosition(0,0,0)
-				.LocalPosition(0,0)
+				.LocalPosition(0, 0, 0)
+				.LocalPosition(0, 0)
 				.LocalPositionX(0)
 				.LocalPositionY(0)
 				.LocalPositionZ(0)
@@ -338,7 +340,11 @@ namespace QFramework.Example
 				.PositionX(0)
 				.PositionY(0)
 				.PositionZ(0)
-				.Rotation(Quaternion.identity);
+				.Rotation(Quaternion.identity)
+				.DestroyAllChild()
+				.AsLastSibling()
+				.AsFirstSibling()
+				.SiblingIndex(0);
 
 			this
 				.Parent(null)
@@ -347,8 +353,8 @@ namespace QFramework.Example
 				.LocalRotationIdentity()
 				.LocalScaleIdentity()
 				.LocalPosition(Vector3.zero)
-				.LocalPosition(0,0,0)
-				.LocalPosition(0,0)
+				.LocalPosition(0, 0, 0)
+				.LocalPosition(0, 0)
 				.LocalPositionX(0)
 				.LocalPositionY(0)
 				.LocalPositionZ(0)
@@ -363,16 +369,25 @@ namespace QFramework.Example
 				.PositionX(0)
 				.PositionY(0)
 				.PositionZ(0)
-				.Rotation(Quaternion.identity);
+				.Rotation(Quaternion.identity)
+				.DestroyAllChild()
+				.AsLastSibling()
+				.AsFirstSibling()
+				.SiblingIndex(0);
 
 			#endregion
 
 			#region UnityAction
 
+			UnityAction action = () => { };
+			UnityAction<int> actionWithInt = num => { };
+			UnityAction<int, string> actionWithIntString = (num, str) => { };
 
+			action.InvokeGracefully();
+			actionWithInt.InvokeGracefully(1);
+			actionWithIntString.InvokeGracefully(1, "str");
 
 			#endregion
-
 		}
 	}
 }

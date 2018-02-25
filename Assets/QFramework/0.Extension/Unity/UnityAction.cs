@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -29,7 +30,6 @@ namespace QFramework
 
 	public static class UnityActionUtil
 	{
-
 		/// <summary>
 		/// Call action
 		/// </summary>

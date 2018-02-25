@@ -55,15 +55,5 @@ namespace QFramework
 			sizeDelta.y = sizeHeight;
 			selfRectTrans.sizeDelta = sizeDelta;
 		}
-
-        /// <summary>
-        /// 临时的先放在这里
-        /// </summary>
-        /// <returns>The json value.</returns>
-        /// <param name="vector2">Vector2.</param>
-        public static string ToJsonValue(this Vector2 vector2)
-        {
-            return vector2.x + "," + vector2.y;
-        }
 	}
 }
