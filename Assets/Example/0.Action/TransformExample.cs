@@ -83,7 +83,8 @@ namespace QFramework.Example
 
 			var textTrans = transform.FindByPath("BtnOK.Text");
 			textTrans = transform.SeekTrans("Text");
-		
+			Debug.Log(textTrans);
+
 		}
 	}
 }

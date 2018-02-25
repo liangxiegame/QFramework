@@ -32,11 +32,11 @@ namespace QFramework
 			SetupMgrId ();
 		}
 
-		public void RegisterEvents<T>(List<T> eventIds,OnEvent process) where T: IConvertible
+		public void RegisterEvents<T>(IEnumerable<T> eventIds,OnEvent process) where T: IConvertible
 		{
-			for (int i = 0;i < eventIds.Count;i++)
+			foreach (var eventId in eventIds)
 			{
-				RegisterEvent(eventIds[i],process);
+				RegisterEvent(eventId,process);
 			}
 		}
 

@@ -49,15 +49,17 @@ namespace QFramework
 
 		private IEnumerator Start()
 		{
-//			this.Sequence().Delay();
-			
-			var delayNode = new DelayNode(1.0f);
-			delayNode.OnBeganCallback = () => Log.I("first began");
-			delayNode.OnEndedCallback = () => Log.I("first ended");
-			
-			var delayNode2 = new DelayNode(1.0f);
-			delayNode2.OnBeganCallback = () => Log.I("second began");
-			delayNode2.OnEndedCallback = () => Log.I("second ended");
+			var delayNode = new DelayNode(1.0f)
+			{
+				OnBeganCallback = () => Log.I("first began"),
+				OnEndedCallback = () => Log.I("first ended")
+			};
+
+			var delayNode2 = new DelayNode(1.0f)
+			{
+				OnBeganCallback = () => Log.I("second began"),
+				OnEndedCallback = () => Log.I("second ended")
+			};
 
 			yield return SequenceNode.Allocate(delayNode, delayNode2).Execute();
 
@@ -108,7 +110,7 @@ namespace QFramework
 
 		private void OnGUI()
 		{
-			GUIStyle guiStyle = new GUIStyle();
+			var guiStyle = new GUIStyle();
 			guiStyle.fontSize = 40;
 			guiStyle.normal.textColor = Color.red;
 			GUI.Label(new Rect(100, 20, 100, 50), mHostIp, guiStyle);
@@ -118,17 +120,18 @@ namespace QFramework
 		/// <summary>
 		/// 处理消息
 		/// </summary>
-		void Update()
+		private void Update()
 		{
 			if (mMsgQueue.Count > 0)
 			{
-				SocketMsg msg = mMsgQueue.Dequeue();
+				var msg = mMsgQueue.Dequeue();
 				PCConnectMobileManager.Instance.SendMsg(msg);
 			}
 		}
 
-		private void OnDestroy()
+		protected override void OnDestroy()
 		{
+			base.OnDestroy();
 			mSocketServer.Close();
 			mSocketServer = null;
 		}

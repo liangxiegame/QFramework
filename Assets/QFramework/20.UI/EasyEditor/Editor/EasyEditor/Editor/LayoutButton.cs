@@ -41,6 +41,7 @@ namespace UnityEditorUI
         IEventBinding<ILayoutButton> Click { get; }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Clickable push button widget.
     /// </summary>

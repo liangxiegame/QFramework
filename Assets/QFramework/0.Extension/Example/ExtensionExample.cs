@@ -201,13 +201,14 @@ namespace QFramework.Example
 			#region CaptureCamera
 
 			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-
+			Debug.Log(screenshotTexture2D.width);
 			#endregion
 
 			#region Color
 
 			var color = "#C5563CFF".HtmlStringToColor();
-
+			Debug.Log(color);
+			
 			#endregion
 
 			#region GameObject

@@ -24,71 +24,73 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Reflection;
+using UnityEngine;
+
 namespace QFramework
 {
-	using UnityEngine;
-	using System.Reflection;
-	
-    public sealed class QSingletonCreator
-    {
-	    /// <summary>
-	    /// for unit test
-	    /// </summary>
-	    private static bool mIsUnitTestMode = false;
-	    public static bool IsUnitTestMode
-	    {
-		    get { return mIsUnitTestMode; }
-		    set { mIsUnitTestMode = value; }
-	    }
-	    
-	    public static T CreateMonoSingleton<T>() where T : MonoBehaviour, ISingleton
-        {
-            T instance = null;
+	public sealed class QSingletonCreator
+	{
+		/// <summary>
+		/// for unit test
+		/// </summary>
+		private static bool mIsUnitTestMode;
 
-	        if (instance != null || (!mIsUnitTestMode && !Application.isPlaying)) return instance;
-	        instance = GameObject.FindObjectOfType(typeof(T)) as T;
+		public static bool IsUnitTestMode
+		{
+			get { return mIsUnitTestMode; }
+			set { mIsUnitTestMode = value; }
+		}
 
-	        if (instance != null) return instance;
-	        MemberInfo info = typeof(T);
-	        var attributes = info.GetCustomAttributes(true);
-	        foreach (var atribute in attributes)
-	        {
-		        var defineAttri = atribute as QMonoSingletonPath;
-		        if (defineAttri == null)
-		        {
-			        continue;
-		        }
-		        instance = CreateComponentOnGameObject<T>(defineAttri.PathInHierarchy, true);
-		        break;
-	        }
+		public static T CreateMonoSingleton<T>() where T : MonoBehaviour, ISingleton
+		{
+			T instance = null;
 
-	        if (instance == null)
-	        {
-		        var obj = new GameObject(typeof(T).Name);
-		        if (!mIsUnitTestMode)
-			        UnityEngine.Object.DontDestroyOnLoad(obj);
-		        instance = obj.AddComponent<T>();
-	        }
+			if (instance != null || (!mIsUnitTestMode && !Application.isPlaying)) return instance;
+			instance = GameObject.FindObjectOfType(typeof(T)) as T;
 
-	        instance.OnSingletonInit();
+			if (instance != null) return instance;
+			MemberInfo info = typeof(T);
+			var attributes = info.GetCustomAttributes(true);
+			foreach (var atribute in attributes)
+			{
+				var defineAttri = atribute as QMonoSingletonPath;
+				if (defineAttri == null)
+				{
+					continue;
+				}
 
-	        return instance;
-        }
+				instance = CreateComponentOnGameObject<T>(defineAttri.PathInHierarchy, true);
+				break;
+			}
 
-        protected static T CreateComponentOnGameObject<T>(string path, bool dontDestroy) where T : MonoBehaviour
-        {
-            GameObject obj = FindGameObject(null, path, true, dontDestroy);
-            if (obj == null)
-            {
-                obj = new GameObject("Singleton of " + typeof(T).Name);
-                if (dontDestroy && !mIsUnitTestMode)
-                {
-                    UnityEngine.Object.DontDestroyOnLoad(obj);
-                }
-            }
+			if (instance == null)
+			{
+				var obj = new GameObject(typeof(T).Name);
+				if (!mIsUnitTestMode)
+					Object.DontDestroyOnLoad(obj);
+				instance = obj.AddComponent<T>();
+			}
 
-            return obj.AddComponent<T>();
-        }
+			instance.OnSingletonInit();
+
+			return instance;
+		}
+
+		private static T CreateComponentOnGameObject<T>(string path, bool dontDestroy) where T : MonoBehaviour
+		{
+			var obj = FindGameObject(null, path, true, dontDestroy);
+			if (obj == null)
+			{
+				obj = new GameObject("Singleton of " + typeof(T).Name);
+				if (dontDestroy && !mIsUnitTestMode)
+				{
+					Object.DontDestroyOnLoad(obj);
+				}
+			}
+
+			return obj.AddComponent<T>();
+		}
 
 		static GameObject FindGameObject(GameObject root, string path, bool build, bool dontDestroy)
 		{
@@ -132,6 +134,7 @@ namespace QFramework
 					{
 						client.transform.SetParent(root.transform);
 					}
+
 					if (dontDestroy && index == 0 && !mIsUnitTestMode)
 					{
 						GameObject.DontDestroyOnLoad(client);
@@ -144,12 +147,7 @@ namespace QFramework
 				return null;
 			}
 
-			if (++index == subPath.Length)
-			{
-				return client;
-			}
-
-			return FindGameObject(client, subPath, index, build, dontDestroy);
+			return ++index == subPath.Length ? client : FindGameObject(client, subPath, index, build, dontDestroy);
 		}
-    }
+	}
 }
