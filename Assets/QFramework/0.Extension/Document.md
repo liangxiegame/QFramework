@@ -1,5 +1,7 @@
 ### Extensions 模块简介:
 
+the Extensions Module is wrapper for Unity and .Net's API
+
 简单来说都是对 .Net 和  Unity 的 API 进行了一层封装
 
 #### 1.IsNull,IsNotNull:
@@ -86,6 +88,45 @@ var dictionary3 = dictionary1.Merge(dictionary2);
 dictionary3.ForEach(pair => Debug.LogFormat("{0}:{1}", pair.Key, pair.Value));
 ```
 
+#### 5.CreateDirIfNotExists,DeleteDirIfExists,DeleteFileIfExists
 
+``` csharp
+var testDir = Application.persistentDataPath.CombinePath("TestFolder");
+testDir.CreateDirIfNotExists();
+
+Debug.Log(Directory.Exists(testDir));
+testDir.DeleteDirIfExists();
+Debug.Log(Directory.Exists(testDir));
+
+var testFile = testDir.CombinePath("test.txt");
+testDir.CreateDirIfNotExists();
+File.Create(testFile);
+testFile.DeleteFileIfExists();
+```
+
+#### 6.ImplementsInterface<T>
+
+``` csharp
+this.ImplementsInterface<ISingleton>();
+```
+
+#### 7.ReflectionExtension.GetAssemblyCSharp()
+
+``` csharp
+var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.Example.ExtensionExample");
+Debug.Log(selfType);
+```
+
+#### 8.string's extension
+
+``` csharp
+var emptyStr = string.Empty;
+
+Debug.Log(emptyStr.IsNotNullAndEmpty());
+Debug.Log(emptyStr.IsNullOrEmpty());
+emptyStr = emptyStr.Append("appended").Append("1").ToString();
+Debug.Log(emptyStr);
+Debug.Log(emptyStr.IsNullOrEmpty());
+```
 
 #### FeatureId:EXDN001

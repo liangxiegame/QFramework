@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
 namespace QFramework.Example
 {
 	using UnityEngine;
@@ -101,11 +100,17 @@ namespace QFramework.Example
 			testList.ForEachReverse(number => Debug.Log(number));
 
 			#endregion
-			
+
+			#region Merge
+
 			var dictionary1 = new Dictionary<string, string> {{"1", "2"}};
 			var dictionary2 = new Dictionary<string, string> {{"3", "4"}};
 			var dictionary3 = dictionary1.Merge(dictionary2);
 			dictionary3.ForEach(pair => Debug.LogFormat("{0}:{1}", pair.Key, pair.Value));
+
+			#endregion
+
+			#region CreateDirIfNotExists,DeleteDirIfExists,DeleteFileIfExists
 
 			var testDir = Application.persistentDataPath.CombinePath("TestFolder");
 			testDir.CreateDirIfNotExists();
@@ -119,10 +124,22 @@ namespace QFramework.Example
 			File.Create(testFile);
 			testFile.DeleteFileIfExists();
 
+			#endregion
+
+			#region ImplementsInterface<T>
+
 			this.ImplementsInterface<ISingleton>();
+
+			#endregion
+
+			#region ReflectionExtension.GetAssemblyCSharp()
 
 			var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.Example.ExtensionExample");
 			Debug.Log(selfType);
+
+			#endregion
+
+			#region string's extension
 
 			var emptyStr = string.Empty;
 
@@ -131,6 +148,8 @@ namespace QFramework.Example
 			emptyStr = emptyStr.Append("appended").Append("1").ToString();
 			Debug.Log(emptyStr);
 			Debug.Log(emptyStr.IsNullOrEmpty());
+
+			#endregion
 		}
 
 		void UnityExtensions()
