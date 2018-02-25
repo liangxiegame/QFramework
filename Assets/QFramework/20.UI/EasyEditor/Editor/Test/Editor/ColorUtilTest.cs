@@ -38,14 +38,14 @@ namespace QFramework.Test.Core
 
 			//Act
 			//Try to rename the GameObject
-			Color c = ColorUtil.HtmlStringToColor(col);
+			Color c = ColorExtension.HtmlStringToColor(col);
 
 			//Assert
 			//The object has a new name
 			Assert.AreEqual(Color.red, c);
 
 			col = "FF0000FF";
-			c = ColorUtil.HtmlStringToColor (col);
+			c = ColorExtension.HtmlStringToColor (col);
 			Assert.AreEqual (Color.black, c);
 		}
 	}

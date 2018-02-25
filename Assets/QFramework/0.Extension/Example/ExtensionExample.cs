@@ -25,17 +25,50 @@
 
 namespace QFramework.Example
 {
-	using UnityEngine;
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
+	using UnityEngine;
+	using UnityEngine.UI;
 
 	public class ExtensionExample : MonoBehaviour
 	{
 		private void Start()
 		{
+			QuickStart();
 			CSharpExtensions();
 			UnityExtensions();
+		}
+
+		private void QuickStart()
+		{
+			gameObject
+				// 1. gameObject.SetActive(true)
+				.Show()
+				// 2. gameObject.SetActive(false)
+				.Hide()
+				// 3. gameObject.name = "Yeah" (this is UnityEngine.Object's API)
+				.Name("Yeah")
+				// 4. gameObject.layer = 10
+				.Layer(0)
+				// 5. gameObject.layer = LayerMask.NameToLayer("Default);
+				.Layer("Default")
+				// 6. Destroy(gameObject) (this is UnityEngine.Object's API)
+				.DestroySelf();
+
+			this
+				// 1. this.gameObject.Show()
+				.Show()
+				// 2. this.gameObject.Hide()
+				.Hide()
+				// 3. this.gameObject.Name("Yeah")
+				.Name("Yeah")
+				// 4. gameObject.layer = 10
+				.Layer(0)
+				// 5. gameObject.layer = LayerMask.NameToLayer("Default);
+				.Layer("Default")
+				// 6. Destroy(this.gameObject)
+				.DestroyGameObj();
 		}
 
 		private delegate void TestDelegate();
@@ -152,9 +185,115 @@ namespace QFramework.Example
 			#endregion
 		}
 
-		void UnityExtensions()
+		private void UnityExtensions()
 		{
+			#region Enable,Disable
 
+			var component = gameObject.GetComponent<MonoBehaviour>();
+
+			component.Enable(); // component.enabled = true
+			component.Disable(); // component.enabled = false
+
+			#endregion
+
+			#region CaptureCamera
+
+			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
+
+			#endregion
+
+			#region Color
+
+			var color = "#C5563CFF".HtmlStringToColor();
+
+			#endregion
+
+
+			#region GameObject
+
+			var boxCollider = gameObject.AddComponent<BoxCollider>();
+
+			gameObject.Show(); // gameObject.SetActive(true)
+			this.Show(); // this.gameObject.SetActive(true)
+			boxCollider.Show(); // boxCollider.gameObject.SetActive(true)
+			transform.Show(); // transform.gameObject.SetActive(true)
+
+			gameObject.Hide(); // gameObject.SetActive(false)
+			this.Hide(); // this.gameObject.SetActive(false)
+			boxCollider.Hide(); // boxCollider.gameObject.SetActive(false)
+			transform.Hide(); // transform.gameObject.SetActive(false)
+
+			this.DestroyGameObj();
+			boxCollider.DestroyGameObj();
+			transform.DestroyGameObj();
+
+			this.DestroyGameObjGracefully();
+			boxCollider.DestroyGameObjGracefully();
+			transform.DestroyGameObjGracefully();
+
+			this.DestroyGameObjAfterDelay(1.0f);
+			boxCollider.DestroyGameObjAfterDelay(1.0f);
+			transform.DestroyGameObjAfterDelay(1.0f);
+
+			this.DestroyGameObjAfterDelayGracefully(1.0f);
+			boxCollider.DestroyGameObjAfterDelayGracefully(1.0f);
+			transform.DestroyGameObjAfterDelayGracefully(1.0f);
+
+			gameObject.Layer(0);
+			this.Layer(0);
+			boxCollider.Layer(0);
+			transform.Layer(0);
+
+			gameObject.Layer("Default");
+			this.Layer("Default");
+			boxCollider.Layer("Default");
+			transform.Layer("Default");
+
+			#endregion
+
+			#region Graphic
+
+			var image = gameObject.AddComponent<Image>();
+			var rawImage = gameObject.AddComponent<RawImage>();
+
+			// image.color = new Color(image.color.r,image.color.g,image.color.b,1.0f);
+			image.ColorAlpha(1.0f);
+			rawImage.ColorAlpha(1.0f);
+
+			#endregion
+
+			#region Image
+
+			var image1 = gameObject.AddComponent<Image>();
+
+			image1.FillAmount(0.0f); // image1.fillAmount = 0.0f;
+
+			#endregion
+
+
+			#region Object
+
+			gameObject.Instantiate()
+				.Name("ExtensionExample")
+				.DestroySelf();
+			
+			gameObject.Instantiate()
+				.DestroySelfGracefully();
+
+			gameObject.Instantiate()
+				.DestroySelfAfterDelay(1.0f);
+
+			gameObject.Instantiate()
+				.DestroySelfAfterDelayGracefully(1.0f);
+
+			gameObject
+				.ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+				.Name("TestObj")
+				.ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+				.Name("ExtensionExample")
+				.DontDestroyOnLoad();
+
+			#endregion
 		}
 	}
 }

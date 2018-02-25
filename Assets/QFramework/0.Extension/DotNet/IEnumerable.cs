@@ -79,7 +79,7 @@ namespace QFramework
         {
             if (action == null) throw new ArgumentException();
 
-            for (int i = selfList.Count - 1; i >= 0; --i)
+            for (var i = selfList.Count - 1; i >= 0; --i)
                 action(selfList[i]);
 
             return selfList;

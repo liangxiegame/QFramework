@@ -1,5 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2017 maoling@putao.com
+ * Copyright (c) 2017 imagicbell
+ * Copyright (c) 2018 liangxie
 ****************************************************************************/
 
 namespace QFramework
@@ -10,6 +11,7 @@ namespace QFramework
     
     public class CollisionEvent<T> : UnityEvent<T> {}
 
+    /// <inheritdoc />
     /// <summary>
     /// 监听碰撞事件
     /// </summary>
@@ -17,14 +19,14 @@ namespace QFramework
     {
         public static CollisionTriggerListener Get(GameObject go)
         {
-            CollisionTriggerListener listener = go.GetComponent<CollisionTriggerListener>();
+            var listener = go.GetComponent<CollisionTriggerListener>();
             if (listener == null) listener = go.AddComponent<CollisionTriggerListener>();
             return listener;
         }
 
         private Dictionary<EventName, UnityEventBase> mEvents = new Dictionary<EventName, UnityEventBase>();
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             RemoveAll();
         }
