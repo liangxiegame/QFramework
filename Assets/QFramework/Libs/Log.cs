@@ -27,10 +27,7 @@
 namespace QFramework
 {
     using System;
-
-#if UNITY_5_5_OR_NEWER
     using UnityEngine;
-#endif
 
     public enum LogLevel
     {
@@ -79,11 +76,8 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5_5_OR_NEWER
+
             Debug.Log(msg);
-#else
-            Console.WriteLine(msg);
-#endif
         }
 
         public static void I(string msg, params object[] args)
@@ -92,11 +86,8 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5_5_OR_NEWER
+
             Debug.Log(string.Format(msg, args));
-#else
-            Console.WriteLine(msg, args);
-#endif
         }
 
         public static void E(object msg)
@@ -105,11 +96,8 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5_5_OR_NEWER
+
             Debug.LogError(msg);
-#else
-            Console.WriteLine("[Error] {0}", msg);
-#endif
         }
 
         public static void E(Exception e)
@@ -118,11 +106,8 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5_5_OR_NEWER
+
             Debug.LogException(e);
-#else
-            Console.WriteLine("[Exception] {0}", e);
-#endif
         }
 
         public static void E(string msg, params object[] args)
@@ -131,11 +116,8 @@ namespace QFramework
             {
                 return;
             }
-#if UNITY_5_5_OR_NEWER
+
             Debug.LogError(string.Format(msg, args));
-#else
-            Console.WriteLine(string.Format("[Error] {0}", msg), args);
-#endif
         }
 
         public static void W(object msg)
@@ -144,12 +126,8 @@ namespace QFramework
             {
                 return;
             }
-            
-#if UNITY_5_5_OR_NEWER
+           
             Debug.LogWarning(msg);
-#else
-            Console.WriteLine("[Warning] {0}", msg);
-#endif
         }
 
         public static void W(string msg, params object[] args)
@@ -159,11 +137,7 @@ namespace QFramework
                 return;
             }
 
-#if UNITY_5_5_OR_NEWER
             Debug.LogWarning(string.Format(msg, args));
-#else
-            Console.WriteLine(string.Format("[Warning] {0}", msg), args);
-#endif
         }
     }
 }
