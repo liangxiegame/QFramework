@@ -12,7 +12,7 @@ This is QFrameworks's Roadmap.
 
 ### v0.1.x: Guide Framework
 
-### v0.2.x: 
+### v0.2.x: User Case Collection
 
 ### v0.x: Feature Complete
 
