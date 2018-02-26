@@ -1,6 +1,9 @@
 
 这里是 QFramework 当前的 **路线图** ，如果想要查看已发布的版本，请点击 [这里](https://github.com/liangxiegame/QFramework/releases)
 
+This is QFrameworks's Roadmap.
+[Click here](https://github.com/liangxiegame/QFramework/releases) to check release note.
+
 #### v0.0.3
 
 * [Currently In Development](https://github.com/liangxiegame/QFramework/projects/6)
