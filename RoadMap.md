@@ -16,7 +16,12 @@
 #### v1.X
 
 
+#### Idea
+
+* Blog Article 2 Frameworks Folder
+
 #### Research
+* Guidance Framework
 * Data Binding
 * Visual Scripting,NBP,FBP
 * Runtime Simulator 
