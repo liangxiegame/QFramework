@@ -42,7 +42,6 @@ namespace QFramework
             return !type.IsInterface && type.GetInterfaces().Contains(typeof(T));
         }
         
-        
         /// <summary>
         /// Determines whether the type implements the specified interface
         /// and is not an interface itself.

@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -36,6 +37,9 @@ namespace QFramework
             return null != selfFunc ? selfFunc() : default(T);
         }
 
+        #endregion
+
+        #region Action
 
         /// <summary>
         /// Call action
@@ -97,10 +101,6 @@ namespace QFramework
             }
             return false;
         }
-
-        #endregion
-
-        #region Action
 
         #endregion
     }

@@ -1,6 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * TODO: Copy To Persistant
  * 
  * http://liangxiegame.com
@@ -28,8 +29,10 @@
 namespace QFramework
 {
 	using System.IO;
-	using System.Collections.Generic;
 	using System.Linq;
+	using System.Collections.Generic;
+	using System.Text.RegularExpressions;	
+	using UnityEngine;
 
 	/// <summary>
 	/// 各种文件的读写复制操作,主要是对System.IO的一些封装
@@ -75,13 +78,293 @@ namespace QFramework
 
 			return false;
 		}
-		
+
 		public static string CombinePath(this string selfPath, string toCombinePath)
 		{
 			return Path.Combine(selfPath, toCombinePath);
 		}
-		
+
 		#region 未经过测试
+
+		/// <summary>
+		/// 保存文本
+		/// </summary>
+		/// <param name="text"></param>
+		/// <param name="path"></param>
+		public static void SaveText(this string text, string path)
+		{
+			path.DeleteFileIfExists();
+
+			using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
+			{
+				using (var sr = new StreamWriter(fs))
+				{
+					sr.Write(text); //开始写入值
+				}
+			}
+		}
+
+
+		/// <summary>
+		/// 读取文本
+		/// </summary>
+		/// <param name="file"></param>
+		/// <returns></returns>
+		public static string ReadText(this FileInfo file)
+		{
+			return ReadText(file.FullName);
+		}
+
+		/// <summary>
+		/// 读取文本
+		/// </summary>
+		/// <param name="file"></param>
+		/// <returns></returns>
+		public static string ReadText(this string fileFullPath)
+		{
+			var result = string.Empty;
+
+			using (var fs = new FileStream(fileFullPath, FileMode.Open, FileAccess.Read))
+			{
+				using (var sr = new StreamReader(fs))
+				{
+					result = sr.ReadToEnd();
+				}
+			}
+
+			return result;
+		}
+
+#if UNITY_EDITOR
+		/// <summary>
+		/// 打开文件夹
+		/// </summary>
+		/// <param name="path"></param>
+		public static void OpenFolder(string path)
+		{
+#if UNITY_STANDALONE_OSX
+			System.Diagnostics.Process.Start("open", path);
+#elif UNITY_STANDALONE_WIN
+			System.Diagnostics.Process.Start("explorer.exe", path);
+#endif
+		}
+#endif
+
+		/// <summary>
+		/// 获取文件夹名
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
+		public static string GetDirectoryName(string fileName)
+		{
+			fileName = IOExtension.MakePathStandard(fileName);
+			return fileName.Substring(0, fileName.LastIndexOf('/'));
+		}
+
+		/// <summary>
+		/// 获取文件名
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="separator"></param>
+		/// <returns></returns>
+		public static string GetFileName(string path, char separator = '/')
+		{
+			path = IOExtension.MakePathStandard(path);
+			return path.Substring(path.LastIndexOf(separator) + 1);
+		}
+
+		/// <summary>
+		/// 获取不带后缀的文件名
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <param name="separator"></param>
+		/// <returns></returns>
+		public static string GetFileNameWithoutExtention(string fileName, char separator = '/')
+		{
+			return GetFilePathWithoutExtention(GetFileName(fileName, separator));
+		}
+
+		/// <summary>
+		/// 获取不带后缀的文件路径
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
+		public static string GetFilePathWithoutExtention(string fileName)
+		{
+			if (fileName.Contains("."))
+				return fileName.Substring(0, fileName.LastIndexOf('.'));
+			return fileName;
+		}
+
+		/// <summary>
+		/// 获取streamingAssetsPath
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <returns></returns>
+		public static string GetStreamPath(string fileName)
+		{
+			string str = Application.streamingAssetsPath + "/" + fileName;
+			if (Application.platform != RuntimePlatform.Android)
+			{
+				str = "file://" + str;
+			}
+
+			return str;
+		}
+
+		/// <summary>
+		/// 工程根目录
+		/// </summary>
+		public static string projectPath
+		{
+			get
+			{
+				DirectoryInfo directory = new DirectoryInfo(Application.dataPath);
+				return MakePathStandard(directory.Parent.FullName);
+			}
+		}
+
+		/// <summary>
+		/// 使目录存在,Path可以是目录名必须是文件名
+		/// </summary>
+		/// <param name="path"></param>
+		public static void MakeFileDirectoryExist(string path)
+		{
+			string root = Path.GetDirectoryName(path);
+			if (!Directory.Exists(root))
+			{
+				Directory.CreateDirectory(root);
+			}
+		}
+
+		/// <summary>
+		/// 使目录存在
+		/// </summary>
+		/// <param name="path"></param>
+		public static void MakeDirectoryExist(string path)
+		{
+			if (!Directory.Exists(path))
+			{
+				Directory.CreateDirectory(path);
+			}
+		}
+
+		/// <summary>
+		/// 结合目录
+		/// </summary>
+		/// <param name="paths"></param>
+		/// <returns></returns>
+		public static string Combine(params string[] paths)
+		{
+			string result = "";
+			foreach (string path in paths)
+			{
+				result = Path.Combine(result, path);
+			}
+
+			result = MakePathStandard(result);
+			return result;
+		}
+
+		/// <summary>
+		/// 获取父文件夹
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string GetPathParentFolder(string path)
+		{
+			if (string.IsNullOrEmpty(path))
+			{
+				return string.Empty;
+			}
+
+			return Path.GetDirectoryName(path);
+		}
+
+		/// <summary>
+		/// 将绝对路径转换为相对于Asset的路径
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string ConvertAbstractToAssetPath(string path)
+		{
+			path = MakePathStandard(path);
+			return MakePathStandard(path.Replace(projectPath + "/", ""));
+		}
+
+		/// <summary>
+		/// 将绝对路径转换为相对于Asset的路径且去除后缀
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string ConvertAbstractToAssetPathWithoutExtention(string path)
+		{
+			return IOExtension.GetFilePathWithoutExtention(ConvertAbstractToAssetPath(path));
+		}
+
+		/// <summary>
+		/// 将相对于Asset的路径转换为绝对路径
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string ConvertAssetPathToAbstractPath(string path)
+		{
+			path = MakePathStandard(path);
+			return Combine(projectPath, path);
+		}
+
+		/// <summary>
+		/// 将相对于Asset的路径转换为绝对路径且去除后缀
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string ConvertAssetPathToAbstractPathWithoutExtention(string path)
+		{
+			return IOExtension.GetFilePathWithoutExtention(ConvertAssetPathToAbstractPath(path));
+		}
+
+		/// <summary>
+		/// 使路径标准化，去除空格并将所有'\'转换为'/'
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string MakePathStandard(string path)
+		{
+			return path.Trim().Replace("\\", "/");
+		}
+
+		/// <summary>
+		/// 去除‘..’用路径替换
+		/// </summary>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		public static string Normalize(string path)
+		{
+			var normalized = path;
+			normalized = Regex.Replace(normalized, @"/\./", "/");
+			if (normalized.Contains(".."))
+			{
+				var list = new List<string>();
+				var paths = normalized.Split('/');
+				foreach (var name in paths)
+				{
+					// 首位是".."无法处理的
+					if (name.Equals("..") && list.Count > 0)
+						list.RemoveAt(list.Count - 1);
+					else
+						list.Add(name);
+				}
+
+				normalized = list.Join("/");
+			}
+
+			if (path.Contains("\\"))
+			{
+				normalized = normalized.Replace("\\", "/");
+			}
+
+			return normalized;
+		}
 
 		public static List<string> GetDirSubFilePathList(this string dirABSPath, bool isRecursive = true, string suffix = "")
 		{
@@ -162,7 +445,7 @@ namespace QFramework
 			var lastIndex = name.LastIndexOf("/");
 			return name.Substring(0, lastIndex + 1);
 		}
-		
+
 		#endregion
 	}
 }
