@@ -10,7 +10,7 @@ This is QFrameworks's Roadmap.
 
 * [Currently In Development](https://github.com/liangxiegame/QFramework/projects/6)
 
-### v0.1.x: Core improvements
+### v0.1.x: Guide Framework
 
 ### v0.2.x: 
 
