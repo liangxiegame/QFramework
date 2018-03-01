@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
 namespace QFramework.Example
 {
 	using System;
