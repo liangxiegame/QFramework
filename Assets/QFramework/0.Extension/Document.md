@@ -9,32 +9,29 @@ the Extensions Module is wrapper for Unity and .Net's API
 #### QuickStart:
 
 ``` csharp
-gameObject
-	// 1. gameObject.SetActive(true)
-	.Show()
-	// 2. gameObject.SetActive(false)
-	.Hide()
-	// 3. gameObject.name = "Yeah" (this is UnityEngine.Object's API)
-	.Name("Yeah")
-	// 4. gameObject.layer = 10
-	.Layer(0)
-	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
+// traditional style
+var playerPrefab = Resources.Load<GameObject>("playerPrefab");
+var playerObj = Instantiate(playerPrefab);
+playerObj.transform.SetParent(null);
+playerObj.transform.localRotation = Quaternion.identity;
+playerObj.transform.localPosition = Vector3.left;
+playerObj.transform.localScale = Vector3.one;
+playerObj.layer = 1;
+playerObj.layer = LayerMask.GetMask("Default");
+
+Debug.Log("playerPrefab instantiated");
+
+
+// Extension's Style,same as above 
+Resources.Load<GameObject>("playerPrefab")
+	.Instantiate()
+	.transform
+	.Parent(null)
+	.LocalRotationIdentity()
+	.LocalPosition(Vector3.left)
+	.LocalScaleIdentity()
+	.Layer(1)
 	.Layer("Default")
-	// 6. Destroy(gameObject) (this is UnityEngine.Object's API)
-	.DestroySelf();
-			
-this
-	// 1. this.gameObject.Show()
-	.Show()
-	// 2. this.gameObject.Hide()
-	.Hide()
-	// 3. this.gameObject.Name("Yeah")
-	.Name("Yeah")
-	// 4. gameObject.layer = 10
-	.Layer(0)
-	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
-	.Layer("Default")
-	// 6. Destroy(this.gameObject)
-	.DestroyGameObj();
+	.ApplySelfTo(_ => { Debug.Log("playerPrefab instantiated"); });
 ```
 

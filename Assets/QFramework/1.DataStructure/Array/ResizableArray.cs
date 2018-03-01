@@ -94,11 +94,11 @@ namespace QFramework
 
             Array.Resize(ref mArray, mArray.Length - 1);
         }
-       
+
 
         public bool Contains(T item)
         {
-           return mArray.Contains(item);
+            return mArray.Contains(item);
         }
     }
 }

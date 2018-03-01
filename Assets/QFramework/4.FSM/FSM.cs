@@ -69,7 +69,7 @@ namespace QFramework
 
 	public class QFSM
 	{
-		QFSMState mCurState;
+		private QFSMState mCurState;
 
 		public QFSMState State
 		{
@@ -79,7 +79,7 @@ namespace QFramework
 		/// <summary>
 		/// The m state dict.
 		/// </summary>
-		Dictionary<ushort, QFSMState> mStateDict = new Dictionary<ushort, QFSMState>();
+		private readonly Dictionary<ushort, QFSMState> mStateDict = new Dictionary<ushort, QFSMState>();
 
 		/// <summary>
 		/// Adds the state.
@@ -130,7 +130,7 @@ namespace QFramework
 		{
 			if (mCurState != null && mStateDict[mCurState.Name].TranslationDict.ContainsKey(eventName))
 			{
-				QFSMTranslation tempTranslation = mStateDict[mCurState.Name].TranslationDict[eventName];
+				var tempTranslation = mStateDict[mCurState.Name].TranslationDict[eventName];
 				tempTranslation.FromState.OnExit();
 				mCurState = tempTranslation.ToState;
 				tempTranslation.ToState.OnEnter();
