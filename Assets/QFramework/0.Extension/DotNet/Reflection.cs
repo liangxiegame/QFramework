@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -23,14 +24,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using UnityEngine;
-
 namespace QFramework
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using UnityEngine;
+    
     public class AssemblyManager
     {
         /// <summary>

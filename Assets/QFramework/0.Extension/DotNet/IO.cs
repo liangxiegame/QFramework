@@ -2,7 +2,6 @@
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
  * Copyright (c) 2018 liangxie
- * TODO: Copy To Persistant
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
