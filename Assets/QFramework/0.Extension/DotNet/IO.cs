@@ -38,6 +38,21 @@ namespace QFramework
 	/// </summary>
 	public static class IOExtension
 	{
+		public static void Example()
+		{
+			var testDir = Application.persistentDataPath.CombinePath("TestFolder");
+			testDir.CreateDirIfNotExists();
+
+			Debug.Log(Directory.Exists(testDir));
+			testDir.DeleteDirIfExists();
+			Debug.Log(Directory.Exists(testDir));
+
+			var testFile = testDir.CombinePath("test.txt");
+			testDir.CreateDirIfNotExists();
+			File.Create(testFile);
+			testFile.DeleteFileIfExists();
+		}
+		
 		/// <summary>
 		/// 创建新的文件夹,如果存在则不创建
 		/// </summary>

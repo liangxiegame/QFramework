@@ -31,6 +31,23 @@ namespace QFramework
 
     public static class OOPExtension
     {
+        interface ExampleInterface
+        {
+
+        }
+
+        public static void Example()
+        {
+            if (typeof(OOPExtension).ImplementsInterface<ExampleInterface>())
+            {
+            }
+
+            if (new object().ImplementsInterface<ExampleInterface>())
+            {
+            }
+        }
+
+
         /// <summary>
         /// Determines whether the type implements the specified interface
         /// and is not an interface itself.

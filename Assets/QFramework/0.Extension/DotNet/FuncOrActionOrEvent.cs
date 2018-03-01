@@ -27,9 +27,35 @@
 namespace QFramework
 {
     using System;
-
+    using UnityEngine;
+    
     public static class FuncOrActionOrEventExtension
     {
+        private delegate void TestDelegate();
+
+        public static void Example()
+        {
+            // action
+            Action action = () => Debug.Log("action called");
+            action.InvokeGracefully(); // if (action != null) action();
+
+            // func
+            Func<int> func = () => 1;
+            func.InvokeGracefully();
+
+            /*
+            public static T InvokeGracefully<T>(this Func<T> selfFunc)
+            {
+                return null != selfFunc ? selfFunc() : default(T);
+            }
+            */
+
+            // delegate
+            TestDelegate testDelegate = () => { };
+            testDelegate.InvokeGracefully();
+        }
+        
+        
         #region Func Extension
 
         public static T InvokeGracefully<T>(this Func<T> selfFunc)

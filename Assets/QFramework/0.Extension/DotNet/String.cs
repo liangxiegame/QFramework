@@ -75,6 +75,16 @@ namespace QFramework
 
     public static class StringExtention
     {
+        public static void Example()
+        {
+            var emptyStr = string.Empty;
+            Debug.Log(emptyStr.IsNotNullAndEmpty());
+            Debug.Log(emptyStr.IsNullOrEmpty());
+            emptyStr = emptyStr.Append("appended").Append("1").ToString();
+            Debug.Log(emptyStr);
+            Debug.Log(emptyStr.IsNullOrEmpty());
+        }
+        
         /// <summary>
         /// Check Whether string is null or empty
         /// </summary>

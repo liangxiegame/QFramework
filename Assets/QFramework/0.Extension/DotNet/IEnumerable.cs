@@ -24,16 +24,39 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEngine;
-
 namespace QFramework
 {
     using System.Collections.Generic;
     using System;
     using System.Linq;
+    using UnityEngine;
 
     public static class IEnumerableExtension
     {
+        public static void Example()
+        {
+            // Array
+            var testArray = new int[] {1, 2, 3};
+            testArray.ForEach(number => Debug.Log(number));
+
+            // IEnumerable<T>
+            IEnumerable<int> testIenumerable = new List<int> {1, 2, 3};
+            testIenumerable.ForEach(number => Debug.Log(number));
+            var testDictionary = new Dictionary<string, string>()
+                .ForEach(keyValue => Log.I("key:{0},value:{1}", keyValue.Key, keyValue.Value));
+            
+            // testList
+            var testList = new List<int> {1, 2, 3};
+            testList.ForEach(number => Debug.Log(number));
+            testList.ForEachReverse(number => Debug.Log(number));
+
+            // merge
+            var dictionary1 = new Dictionary<string, string> {{"1", "2"}};
+            var dictionary2 = new Dictionary<string, string> {{"3", "4"}};
+            var dictionary3 = dictionary1.Merge(dictionary2);
+            dictionary3.ForEach(pair => Debug.LogFormat("{0}:{1}", pair.Key, pair.Value));
+        }
+
         #region Array Extension
 
         /// <summary>

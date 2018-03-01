@@ -28,8 +28,19 @@ namespace QFramework
 {
 	using UnityEngine.Events;
 
-	public static class UnityActionUtil
+	public static class UnityActionExtension
 	{
+		public static void Example()
+		{
+			UnityAction action = () => { };
+			UnityAction<int> actionWithInt = num => { };
+			UnityAction<int, string> actionWithIntString = (num, str) => { };
+
+			action.InvokeGracefully();
+			actionWithInt.InvokeGracefully(1);
+			actionWithIntString.InvokeGracefully(1, "str");		
+		}
+		
 		/// <summary>
 		/// Call action
 		/// </summary>

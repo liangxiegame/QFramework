@@ -26,7 +26,6 @@
 namespace QFramework.Test.Core
 {
 	using UnityEngine;
-	using UnityEditor;
 	using NUnit.Framework;
 
 	public class ColorUtilTest {

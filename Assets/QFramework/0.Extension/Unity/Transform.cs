@@ -38,6 +38,71 @@ namespace QFramework
 	/// </summary>
 	public static class TransformExtension
 	{
+		public static void Example()
+		{
+			var selfScript = new GameObject().AddComponent<MonoBehaviour>();
+			var transform = selfScript.transform;
+			
+			transform
+				.Parent(null)
+				.LocalIdentity()
+				.LocalPositionIdentity()
+				.LocalRotationIdentity()
+				.LocalScaleIdentity()
+				.LocalPosition(Vector3.zero)
+				.LocalPosition(0, 0, 0)
+				.LocalPosition(0, 0)
+				.LocalPositionX(0)
+				.LocalPositionY(0)
+				.LocalPositionZ(0)
+				.LocalRotation(Quaternion.identity)
+				.LocalScale(Vector3.one)
+				.LocalScaleX(1.0f)
+				.LocalScaleY(1.0f)
+				.Identity()
+				.PositionIdentity()
+				.RotationIdentity()
+				.Position(Vector3.zero)
+				.PositionX(0)
+				.PositionY(0)
+				.PositionZ(0)
+				.Rotation(Quaternion.identity)
+				.DestroyAllChild()
+				.AsLastSibling()
+				.AsFirstSibling()
+				.SiblingIndex(0);
+
+			selfScript
+				.Parent(null)
+				.LocalIdentity()
+				.LocalPositionIdentity()
+				.LocalRotationIdentity()
+				.LocalScaleIdentity()
+				.LocalPosition(Vector3.zero)
+				.LocalPosition(0, 0, 0)
+				.LocalPosition(0, 0)
+				.LocalPositionX(0)
+				.LocalPositionY(0)
+				.LocalPositionZ(0)
+				.LocalRotation(Quaternion.identity)
+				.LocalScale(Vector3.one)
+				.LocalScaleX(1.0f)
+				.LocalScaleY(1.0f)
+				.Identity()
+				.PositionIdentity()
+				.RotationIdentity()
+				.Position(Vector3.zero)
+				.PositionX(0)
+				.PositionY(0)
+				.PositionZ(0)
+				.Rotation(Quaternion.identity)
+				.DestroyAllChild()
+				.AsLastSibling()
+				.AsFirstSibling()
+				.SiblingIndex(0);
+		}
+		
+		
 		/// <summary>
 		/// 缓存的一些变量,免得每次声明
 		/// </summary>

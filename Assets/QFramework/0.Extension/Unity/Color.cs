@@ -30,6 +30,12 @@ namespace QFramework
 
 	public static class ColorExtension 
 	{
+		public static void Example()
+		{
+			var color = "#C5563CFF".HtmlStringToColor();
+			Debug.Log(color);
+		}
+		
 		/// <summary>
 		/// #C5563CFF -> 197.0f / 255,86.0f / 255,60.0f / 255
 		/// </summary>

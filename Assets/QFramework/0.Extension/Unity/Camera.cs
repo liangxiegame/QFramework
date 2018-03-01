@@ -30,6 +30,12 @@ namespace QFramework
 	
 	public static class CameraExtension 
 	{
+		public static void Example()
+		{
+			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
+			Debug.Log(screenshotTexture2D.width);
+		}
+
 		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
 		{
 			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);

@@ -30,6 +30,32 @@ namespace QFramework
 
     public static class ObjectExtension
     {
+        public static void Example()
+        {
+            var gameObject = new GameObject();
+            
+            gameObject.Instantiate()
+                .Name("ExtensionExample")
+                .DestroySelf();
+
+            gameObject.Instantiate()
+                .DestroySelfGracefully();
+
+            gameObject.Instantiate()
+                .DestroySelfAfterDelay(1.0f);
+
+            gameObject.Instantiate()
+                .DestroySelfAfterDelayGracefully(1.0f);
+
+            gameObject
+                .ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+                .Name("TestObj")
+                .ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+                .Name("ExtensionExample")
+                .DontDestroyOnLoad();
+        }
+        
+        
         #region CEUO001 Instantiate
 
         public static T Instantiate<T>(this T selfObj) where T : Object
