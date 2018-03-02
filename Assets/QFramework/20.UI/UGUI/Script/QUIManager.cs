@@ -26,27 +26,29 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 namespace QFramework
 {
 	using UnityEngine;
 	using System.Collections.Generic;
 	using UnityEngine.UI;
+	using System;
 
 #if SLUA_SUPPORT
 	using SLua;
 #endif
 
-	public enum UILevel
+	public class UILevel
 	{
-		Bg, //背景层UI
-		AnimationUnderPage, //动画层
-		Common, //普通层UI
-		AnimationOnPage, // 动画层
-		PopUI, //弹出层UI
-		Guide, //新手引导层
-		Const, //持续存在层UI
-		Toast, //对话框层UI
-		Forward, //最高UI层用来放置UI特效和模型
+		public const int Bg                 = -2;  //背景层UI
+		public const int AnimationUnderPage = -1; //动画层
+		public const int Common             = 0; //普通层UI
+		public const int AnimationOnPage    = 1; // 动画层
+		public const int PopUI              = 2; //弹出层UI
+		public const int Guide              = 3; //新手引导层
+		public const int Const              = 4; //持续存在层UI
+		public const int Toast              = 5; //对话框层UI
+		public const int Forward            = 6; //最高UI层用来放置UI特效和模型
 	}
 
 #if SLUA_SUPPORT
@@ -116,7 +118,6 @@ namespace QFramework
 			get { return mGraphicRaycaster; }
 		}
 
-
 		public void SetResolution(int width, int height)
 		{
 			mCanvasScaler.referenceResolution = new UnityEngine.Vector2(width, height);
@@ -127,11 +128,11 @@ namespace QFramework
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
 		}
 
-		public IUIBehaviour OpenUI(string uiBehaviourName, UILevel canvasLevel)
+		public IUIBehaviour OpenUI(string uiBehaviourName, int canvasLevel)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
-				CreateUI(uiBehaviourName, (int) canvasLevel);
+				CreateUI(uiBehaviourName, canvasLevel);
 			}
 
 			mAllUI[uiBehaviourName].Show();
@@ -146,7 +147,7 @@ namespace QFramework
 		/// <param name="uiLevel"></param>
 		/// <param name="initData"></param>
 		/// <returns></returns>
-		public GameObject CreateUIObj(string uiBehaviourName, int uiLevel)
+		public GameObject CreateUIObj(string uiBehaviourName, int uiLevel,string assetBundleName = null)
 		{
 			IUIBehaviour ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
@@ -156,43 +157,43 @@ namespace QFramework
 				return ui.Transform.gameObject;
 			}
 
-			ui = QUIBehaviour.Load(uiBehaviourName);
+			ui = QUIBehaviour.Load(uiBehaviourName,assetBundleName);
 
 			switch (uiLevel)
 			{
-				case (int) UILevel.Bg:
+				case UILevel.Bg:
 					ui.Transform.SetParent(mBgTrans);
 					break;
-				case (int) UILevel.AnimationUnderPage:
+				case UILevel.AnimationUnderPage:
 					ui.Transform.SetParent(mAnimationUnderPageTrans);
 					break;
-				case (int) UILevel.Common:
+				case UILevel.Common:
 					ui.Transform.SetParent(mCommonTrans);
 					break;
-				case (int) UILevel.AnimationOnPage:
+				case UILevel.AnimationOnPage:
 					ui.Transform.SetParent(mAnimationOnPageTrans);
 					break;
-				case (int) UILevel.PopUI:
+				case UILevel.PopUI:
 					ui.Transform.SetParent(mPopUITrans);
 					break;
-				case (int) UILevel.Const:
+				case UILevel.Const:
 					ui.Transform.SetParent(mConstTrans);
 					break;
-				case (int) UILevel.Toast:
+				case UILevel.Toast:
 					ui.Transform.SetParent(mToastTrans);
 					break;
-				case (int) UILevel.Forward:
+				case UILevel.Forward:
 					ui.Transform.SetParent(mForwardTrans);
 					break;
 			}
 
 			var uiGoRectTrans = ui.Transform as RectTransform;
 
-			uiGoRectTrans.offsetMin = UnityEngine.Vector2.zero;
-			uiGoRectTrans.offsetMax = UnityEngine.Vector2.zero;
+			uiGoRectTrans.offsetMin = Vector2.zero;
+			uiGoRectTrans.offsetMax = Vector2.zero;
 			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-			uiGoRectTrans.anchorMin = UnityEngine.Vector2.zero;
-			uiGoRectTrans.anchorMax = UnityEngine.Vector2.one;
+			uiGoRectTrans.anchorMin = Vector2.zero;
+			uiGoRectTrans.anchorMax = Vector2.one;
 
 			ui.Transform.LocalScaleIdentity();
 			ui.Transform.gameObject.name = uiBehaviourName;
@@ -309,19 +310,16 @@ namespace QFramework
 			return retValue;
 		}
 
-		public IUIBehaviour CreateUI(string uiBehaviourName, int level, IUIData uiData = null)
+		public IUIBehaviour CreateUI(string uiBehaviourName, int level, IUIData uiData = null,string assetBundleName = null)
 		{
 			IUIBehaviour ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
-				Log.W("{0}: already exist", uiBehaviourName);
 				return ui;
 			}
-			GameObject uiObj = CreateUIObj(uiBehaviourName, (int) level);
+			var uiObj = CreateUIObj(uiBehaviourName, level, assetBundleName);
 
 			ui = uiObj.GetComponent<IUIBehaviour>();
-
-			Log.I("QUIManager {0} Load Success", ui.Transform.name);
 
 			mAllUI.Add(uiBehaviourName, ui);
 
@@ -335,13 +333,13 @@ namespace QFramework
 		/// <summary>
 		/// Create&ShowUI
 		/// </summary>
-		public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null) where T : QUIBehaviour
+		public T OpenUI<T>(int canvasLevel = UILevel.Common, IUIData uiData = null,string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
 		{
-			string behaviourName = GetUIBehaviourName<T>();
+			var behaviourName = prefabName ?? GetUIBehaviourName<T>();
 
 			if (!mAllUI.ContainsKey(behaviourName))
 			{
-				CreateUI(behaviourName, (int) canvasLevel, uiData);
+				CreateUI(behaviourName, canvasLevel, uiData,assetBundleName);
 			}
 
 			mAllUI[behaviourName].Show();
@@ -378,23 +376,39 @@ namespace QFramework
 
 	public static class UIMgr
 	{
-		#region 高频率用的api
 
-		public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null) where T : QUIBehaviour
+		internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
+			string prefabName = null) where T : QUIBehaviour
 		{
-			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData);
+			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName,prefabName);
 		}
 
-		public static void ClosePanel<T>() where T : QUIBehaviour
+		internal static void ClosePanel<T>() where T : QUIBehaviour
 		{
 			QUIManager.Instance.CloseUI<T>();
 		}
 
-		public static T GetPanel<T>() where T : QUIBehaviour
+		internal static T GetPanel<T>() where T : QUIBehaviour
 		{
 			return QUIManager.Instance.GetUI<T>();
 		}
 
+
+		#region 给脚本层用的api
+		public static QUIBehaviour GetPanel(string panelName)
+		{
+			return QUIManager.Instance.GetUI(panelName);
+		}
+		
+//		public static QUIBehaviour OpenPanel(string panelName,int level = 0,string assetBundleName = null)
+//		{
+//			return QUIManager.Instance.OpenUI(panelName,level,assetBundleName) as QUIBehaviour;
+//		}
+
+		public static void ClosePanel(string panelName)
+		{
+			QUIManager.Instance.CloseUI(panelName);
+		}
 		#endregion
 	}
 }

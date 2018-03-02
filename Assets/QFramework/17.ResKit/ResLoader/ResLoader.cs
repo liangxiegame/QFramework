@@ -262,7 +262,7 @@ namespace QFramework
             mStrategy.OnAllTaskFinish(this);
         }
 
-        public T LoadAsset<T>(string ownerBundle, string assetName) where T : UnityEngine.Object
+        public T LoadSync<T>(string ownerBundle, string assetName) where T : UnityEngine.Object
         {
             ownerBundle = ownerBundle.ToLower();
             if (!ownerBundle.EndsWith("_project_putaogame"))
@@ -281,7 +281,7 @@ namespace QFramework
             return res.Asset as T;
         }
 
-        public T LoadAsset<T>(string assetName) where T : UnityEngine.Object
+        public T LoadSync<T>(string assetName) where T : UnityEngine.Object
         {
             return LoadSync(assetName) as T;
         }
@@ -313,7 +313,7 @@ namespace QFramework
                 {
                     return mCachedSpriteDict[spriteName];
                 }
-                var texture = LoadAsset<Texture2D>(bundleName, spriteName);
+                var texture = LoadSync<Texture2D>(bundleName, spriteName);
                 Sprite sprite = Sprite.Create(texture,new Rect(0,0,texture.width,texture.height),UnityEngine.Vector2.one * 0.5f);
                 mCachedSpriteDict.Add(spriteName,sprite);
                 return mCachedSpriteDict[spriteName];
@@ -321,7 +321,7 @@ namespace QFramework
             else 
 #endif
             {
-                return LoadAsset<Sprite>(bundleName,spriteName);
+                return LoadSync<Sprite>(bundleName,spriteName);
             }
         }
         
@@ -342,7 +342,7 @@ namespace QFramework
 			else 
 			#endif
 			{
-				return LoadAsset<Sprite>(spriteName);
+				return LoadSync<Sprite>(spriteName);
 			}
 		}
 

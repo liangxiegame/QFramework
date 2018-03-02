@@ -37,8 +37,18 @@ namespace QFramework
         ResLoader mResLoader = ResLoader.Allocate();
 
         public GameObject LoadPanelPrefab(string panelName)
-        {   
-            return mResLoader.LoadAsset<GameObject>(panelName);
+        {
+#if COCOS_SUPPORT
+            var retObj = mResLoader.LoadSync<GameObject>(string.Format("Resources/{0}", panelName));
+            if (null != retObj) return retObj;
+            #endif
+            
+            return mResLoader.LoadSync<GameObject>(panelName);
+        }
+
+        public GameObject LoadPanelPrefab(string assetBundleName, string panelName)
+        {
+            return mResLoader.LoadSync<GameObject>(assetBundleName, panelName);
         }
 
         public void Unload()

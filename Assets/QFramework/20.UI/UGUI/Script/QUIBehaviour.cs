@@ -65,10 +65,12 @@ namespace QFramework
 		private IUIPanelLoader mUiPanelLoader = null;
 		GameObject mPrefab = null;
 
-		public static QUIBehaviour Load(string panelName)
+		public static QUIBehaviour Load(string panelName, string assetBundleName = null)
 		{
 			var panelLoader = new DefaultUIPanelLoader();
-			var panelPrefab = panelLoader.LoadPanelPrefab(panelName);
+			var panelPrefab = assetBundleName.IsNullOrEmpty()
+				? panelLoader.LoadPanelPrefab(panelName)
+				: panelLoader.LoadPanelPrefab(assetBundleName, panelName);
 			var obj = Instantiate(panelPrefab);
 			var retScript = obj.GetComponent<QUIBehaviour>();
 			retScript.mUiPanelLoader = panelLoader;

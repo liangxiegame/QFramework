@@ -22,7 +22,7 @@ namespace QFramework
 
 		    strBuilder.AppendLine("namespace " + nameSpace);
 		    strBuilder.AppendLine("{");
-		    strBuilder.Append("\t").AppendFormat("public class {0}Data : UIPageData", behaviourName).AppendLine();
+		    strBuilder.Append("\t").AppendFormat("public class {0}Data : IUIData", behaviourName).AppendLine();
 		    strBuilder.Append("\t").AppendLine("{");
 		    strBuilder.Append("\t\t").AppendLine("// TODO: Query");
 		    strBuilder.Append("\t").AppendLine("}");

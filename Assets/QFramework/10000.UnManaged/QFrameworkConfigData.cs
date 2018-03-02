@@ -59,7 +59,7 @@ namespace QFramework
 			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
 			{
 				frameworkConfigData = new QFrameworkConfigData();
-				frameworkConfigData.Namespace = "Putao.ProjectName";
+				frameworkConfigData.Namespace = "QFramework.Example";
 			}
 
 			return frameworkConfigData;

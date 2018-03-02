@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -27,21 +27,11 @@ using UnityEngine;
 
 namespace QFramework.Example
 {
-	public class ResKitExample : MonoBehaviour
+	public class Example : MonoBehaviour
 	{
-		private ResLoader mResLoader = ResLoader.Allocate();
-		
-		private void Start()
+		private void Awake()
 		{
-			mResLoader.LoadSync<GameObject>("Resources/GameObject")
-				.Instantiate()
-				.Name("这是使用ResKit加载的对象");
-		}
-
-		private void OnDestroy()
-		{
-			mResLoader.Recycle2Cache();
-			mResLoader = null;
+			UIMgr.OpenPanel<UIMenuPanel>(prefabName:"Resources/UIMenuPanel");
 		}
 	}
 }

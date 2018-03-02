@@ -17,6 +17,7 @@ namespace QFramework
 
             strBuilder.AppendLine("using UnityEngine;");
             strBuilder.AppendLine("using UnityEngine.UI;");
+            strBuilder.AppendLine("using QFramework;");
             strBuilder.AppendLine("");
             strBuilder.AppendLine ();
             strBuilder.AppendLine ("namespace " + nameSpace);
