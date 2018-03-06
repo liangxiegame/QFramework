@@ -87,6 +87,8 @@ this
 
 - [@karsion](https://github.com/karsion)
 - [@huibinye](https://github.com/HUIBINYE)
+- [@dtknowlove](https://github.com/dtknowlove)
+- [@vin129](https://github.com/vin129)
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 
