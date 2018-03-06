@@ -133,7 +133,7 @@ namespace QFramework
 		/// <summary>
 		/// avoid override in child class
 		/// </summary>
-		protected override sealed void OnDestroy()
+		protected sealed override void OnDestroy()
 		{
 			base.OnDestroy();
 		}

@@ -39,7 +39,7 @@ namespace QFramework
 	public class QUICodeGenerator
 	{
 		[MenuItem("Assets/QUIFramework - Create UICode")]
-		static public void CreateUICode()
+		public static void CreateUICode()
 		{
 			UnityEngine.Object[] objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
 			bool displayProgress = objs.Length > 1;
@@ -151,7 +151,7 @@ namespace QFramework
 
 			string behaviourName = uiPrefab.name;
 			string strFilePath = uiPrefabPath.Replace(QFrameworkConfigData.Load().UIPrefabDir, GetScriptsPath());
-			IOExtension.CreateDirIfNotExists(strFilePath.Replace(uiPrefab.name + ".prefab", ""));
+			strFilePath.Replace(uiPrefab.name + ".prefab", "").CreateDirIfNotExists();
 			strFilePath = strFilePath.Replace(".prefab", ".cs");
 
 			if (File.Exists(strFilePath) == false)
