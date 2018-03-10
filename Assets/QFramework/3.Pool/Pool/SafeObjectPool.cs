@@ -24,10 +24,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-
 namespace QFramework
 {
+    using System;
+
     /// <summary>
     /// I cache type.
     /// </summary>
@@ -86,7 +86,7 @@ namespace QFramework
         {
             if (maxCount > 0)
             {
-                initCount = Math.Min(maxCount, initCount);
+                initCount = MathHelper.Min(maxCount, initCount);
             }
 
             if (CurCount < initCount)

@@ -27,6 +27,7 @@
 namespace QFramework
 {
 	using UnityEngine;
+	using System;
 
 #if SLUA_SUPPORT
 	using SLua;
@@ -331,6 +332,14 @@ namespace QFramework
 			selfComponent.transform.position = mPos;
 			return selfComponent;
 		}
+		
+		public static T PositionX<T>(this T selfComponent, Func<float,float> xSetter) where T : Component
+		{
+			mPos = selfComponent.transform.position;
+			mPos.x = xSetter(mPos.x);
+			selfComponent.transform.position = mPos;
+			return selfComponent;
+		}
 
 		public static T PositionY<T>(this T selfComponent, float y) where T : Component
 		{
@@ -339,11 +348,27 @@ namespace QFramework
 			selfComponent.transform.position = mPos;
 			return selfComponent;
 		}
+		
+		public static T PositionY<T>(this T selfComponent, Func<float,float> ySetter) where T : Component
+		{
+			mPos = selfComponent.transform.position;
+			mPos.y = ySetter(mPos.y);
+			selfComponent.transform.position = mPos;
+			return selfComponent;
+		}
 
 		public static T PositionZ<T>(this T selfComponent, float z) where T : Component
 		{
 			mPos = selfComponent.transform.position;
 			mPos.z = z;
+			selfComponent.transform.position = mPos;
+			return selfComponent;
+		}
+
+		public static T PositionZ<T>(this T selfComponent, Func<float, float> zSetter) where T : Component
+		{
+			mPos = selfComponent.transform.position;
+			mPos.z = zSetter(mPos.z);
 			selfComponent.transform.position = mPos;
 			return selfComponent;
 		}
