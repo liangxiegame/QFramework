@@ -86,7 +86,7 @@ namespace QFramework
         {
             if (maxCount > 0)
             {
-                initCount = MathHelper.Min(maxCount, initCount);
+                initCount = Math.Min(maxCount, initCount);
             }
 
             if (CurCount < initCount)

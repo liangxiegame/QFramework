@@ -24,10 +24,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
 	using UnityEngine;
-	using System;
 
 #if SLUA_SUPPORT
 	using SLua;
