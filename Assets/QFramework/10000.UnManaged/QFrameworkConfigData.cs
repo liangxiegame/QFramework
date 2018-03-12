@@ -28,7 +28,7 @@ namespace QFramework
 			get { return Application.dataPath + UIScriptDir; }
 		}
 
-		public string UIPrefabDir = "/ArtRes/AssetBundles/UIPrefab";
+		public string UIPrefabDir = "/Art/UIPrefab";
 
 		public string UIPrefabDirFullPath
 		{
@@ -44,7 +44,7 @@ namespace QFramework
 
 		public static QFrameworkConfigData Load()
 		{
-			IOExtension.CreateDirIfNotExists(mConfigSavedDir);
+			mConfigSavedDir.CreateDirIfNotExists();
 
 			if (!File.Exists(mConfigSavedDir + mConfigSavedFileName))
 			{

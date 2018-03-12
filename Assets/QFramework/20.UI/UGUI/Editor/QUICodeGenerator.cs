@@ -1,12 +1,34 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 xiaojun@putao.com
- * Copyright (c) 2017 maoling@putao.com
+ * Copyright (c) 2017 xiaojun
+ * Copyright (c) 2017 imagicbell
  * Copyright (c) 2017 liangxie
-****************************************************************************/
+ * Copyright (c) 2018.3 liangxie
+ * 
+ * http://liangxiegame.com
+ * https://github.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 /****************************************************************************
 change log:
-maoling@putao.com
+imagicbell
 Auto serialize QUIMark objects to *Components.cs which is auto generated after Unity finishing compling script. 
 change log:
 liqingyun@putao.com
@@ -16,35 +38,50 @@ auto add panel's monobehaivour
 namespace QFramework
 {
 	using System;
+	using System.Text;
 	using UnityEngine;
 	using System.Collections.Generic;
 	using UnityEditor;
 	using System.IO;
+	using System.Linq;
 
 	public class PanelCodeData
 	{
+		public string                     PanelName;
 		public Dictionary<string, string> DicNameToFullName = new Dictionary<string, string>();
-		public Dictionary<string, IUIMark> DicNameToIUIData = new Dictionary<string, IUIMark>();
-		public List<ElementCodeData> ElementCodeDatas = new List<ElementCodeData>();
+		public List<MarkedObjInfo>        MarkedObjInfos    = new List<MarkedObjInfo>();
+		public List<ElementCodeData>      ElementCodeDatas  = new List<ElementCodeData>();
 	}
 
 	public class ElementCodeData
 	{
-		public string BehaviourName;
+		public string                     BehaviourName;
 		public Dictionary<string, string> DicNameToFullName = new Dictionary<string, string>();
-		public Dictionary<string, IUIMark> DicNameToIUIData = new Dictionary<string, IUIMark>();
-		public List<ElementCodeData> ElementCodeDatas = new List<ElementCodeData>();
+		public List<MarkedObjInfo>        MarkedObjInfos    = new List<MarkedObjInfo>();
+		public List<ElementCodeData>      ElementCodeDatas  = new List<ElementCodeData>();
+	}
+	
+	/// <summary>
+	/// 存储一些Mark相关的信息
+	/// </summary>
+	public class MarkedObjInfo
+	{
+		public string Name;
+
+		public string PathToElement;
+
+		public IUIMark MarkObj;
 	}
 
 	public class QUICodeGenerator
 	{
-		[MenuItem("Assets/QUIFramework - Create UICode")]
+		[MenuItem("Assets/QFramework - Create UICode")]
 		public static void CreateUICode()
 		{
-			UnityEngine.Object[] objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
-			bool displayProgress = objs.Length > 1;
+			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
+			var displayProgress = objs.Length > 1;
 			if (displayProgress) EditorUtility.DisplayProgressBar("", "Create UIPrefab Code...", 0);
-			for (int i = 0; i < objs.Length; i++)
+			for (var i = 0; i < objs.Length; i++)
 			{
 				mInstance.CreateCode(objs[i] as GameObject, AssetDatabase.GetAssetPath(objs[i]));
 				if (displayProgress)
@@ -57,31 +94,50 @@ namespace QFramework
 
 		private void CreateCode(GameObject obj, string uiPrefabPath)
 		{
-			if (null != obj)
+			if (obj.IsNotNull())
 			{
-				PrefabType prefabType = PrefabUtility.GetPrefabType(obj);
+				var prefabType = PrefabUtility.GetPrefabType(obj);
 				if (PrefabType.Prefab != prefabType)
 				{
 					return;
 				}
-				GameObject clone = PrefabUtility.InstantiatePrefab(obj) as GameObject;
+
+				var clone = PrefabUtility.InstantiatePrefab(obj) as GameObject;
 				if (null == clone)
 				{
 					return;
 				}
 
 				mPanelCodeData = new PanelCodeData();
-
+				Debug.Log(clone.name);
+				mPanelCodeData.PanelName = clone.name.Replace("(clone)", string.Empty);
 				FindAllMarkTrans(clone.transform, "");
 				CreateUIPanelCode(obj, uiPrefabPath);
 
-				AddSerializeUIPrefab(obj, mPanelCodeData);
+				AddSerializeUIPrefab(obj);
 
 				GameObject.DestroyImmediate(clone);
 			}
 		}
 
+		string PathToParent(Transform trans, string parentName)
+		{
+			var retValue = new StringBuilder(trans.name);
 
+			while (trans.parent != null)
+			{
+				if (trans.parent.name.Equals(parentName))
+				{
+					break;
+				}
+
+				retValue = trans.parent.name.Append("/").Append(retValue);
+				trans = trans.parent;
+			}
+
+			return retValue.ToString();
+		}
+		
 		/// <summary>
 		/// 
 		/// </summary>
@@ -92,15 +148,20 @@ namespace QFramework
 		{
 			foreach (Transform childTrans in curTrans)
 			{
-				IUIMark uiMark = childTrans.GetComponent<IUIMark>();
+				var uiMark = childTrans.GetComponent<IUIMark>();
 
 				if (null != uiMark)
 				{
 					if (null == parentElementCodeData)
 					{
-						if (!mPanelCodeData.DicNameToIUIData.ContainsKey(uiMark.Transform.name))
+						if (!mPanelCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							mPanelCodeData.DicNameToIUIData.Add(uiMark.Transform.name, uiMark);
+							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo()
+							{
+								Name = uiMark.Transform.name,
+								MarkObj = uiMark,
+								PathToElement = PathToParent(childTrans, mPanelCodeData.PanelName)
+							});
 							mPanelCodeData.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
 						else
@@ -110,9 +171,14 @@ namespace QFramework
 					}
 					else
 					{
-						if (!parentElementCodeData.DicNameToIUIData.ContainsKey(uiMark.Transform.name))
+						if (!parentElementCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							parentElementCodeData.DicNameToIUIData.Add(uiMark.Transform.name, uiMark);
+							parentElementCodeData.MarkedObjInfos.Add(new MarkedObjInfo()
+							{
+								Name = uiMark.Transform.name,
+								MarkObj = uiMark,
+								PathToElement = PathToParent(childTrans, parentElementCodeData.BehaviourName)
+							});
 							parentElementCodeData.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
 						else
@@ -124,8 +190,7 @@ namespace QFramework
 
 				if (uiMark is QUIElement)
 				{
-					ElementCodeData elementCodeData = new ElementCodeData();
-					elementCodeData.BehaviourName = uiMark.ComponentName;
+					var elementCodeData = new ElementCodeData {BehaviourName = uiMark.ComponentName};
 					if (null == parentElementCodeData)
 					{
 						mPanelCodeData.ElementCodeDatas.Add(elementCodeData);
@@ -149,8 +214,14 @@ namespace QFramework
 			if (null == uiPrefab)
 				return;
 
-			string behaviourName = uiPrefab.name;
-			string strFilePath = uiPrefabPath.Replace(QFrameworkConfigData.Load().UIPrefabDir, GetScriptsPath());
+			var behaviourName = uiPrefab.name;
+			var strFilePath = uiPrefabPath.Replace(QFrameworkConfigData.Load().UIPrefabDir, GetScriptsPath());
+			if (!uiPrefabPath.Contains(QFrameworkConfigData.Load().UIPrefabDir) &&
+			    uiPrefabPath.Contains("/Resources"))
+			{
+				strFilePath = uiPrefabPath.Replace("/Resources", GetScriptsPath());
+			}
+
 			strFilePath.Replace(uiPrefab.name + ".prefab", "").CreateDirIfNotExists();
 			strFilePath = strFilePath.Replace(".prefab", ".cs");
 
@@ -165,38 +236,37 @@ namespace QFramework
 
 		private void CreateUIPanelComponentsCode(string behaviourName, string uiUIPanelfilePath)
 		{
-			string dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
-			string generateFilePath = dir + behaviourName + "Components.cs";
+			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
+			var generateFilePath = dir + behaviourName + "Components.cs";
 
 			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, GetProjectNamespace(), mPanelCodeData);
 
 			foreach (var elementCodeData in mPanelCodeData.ElementCodeDatas)
 			{
-				string elementDir = IOExtension.CreateDirIfNotExists(dir + behaviourName + "/");
+				var elementDir = (dir + behaviourName + "/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, elementCodeData);
 			}
 		}
 
-		private void CreateUIElementCode(string generateDirPath, ElementCodeData elementCodeData)
+		private static void CreateUIElementCode(string generateDirPath, ElementCodeData elementCodeData)
 		{
 			UIElementCodeTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + "Components.cs",
 				elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 
-
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
 			{
-				string elementDir = IOExtension.CreateDirIfNotExists(generateDirPath + elementCodeData.BehaviourName + "/");
+				var elementDir = (generateDirPath + elementCodeData.BehaviourName + "/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, childElementCodeData);
 			}
 		}
 
-		private void AddSerializeUIPrefab(GameObject uiPrefab, PanelCodeData panelData)
+		private static void AddSerializeUIPrefab(GameObject uiPrefab)
 		{
-			string prefabPath = AssetDatabase.GetAssetPath(uiPrefab);
+			var prefabPath = AssetDatabase.GetAssetPath(uiPrefab);
 			if (string.IsNullOrEmpty(prefabPath))
 				return;
 
-			string pathStr = EditorPrefs.GetString("AutoGenUIPrefabPath");
+			var pathStr = EditorPrefs.GetString("AutoGenUIPrefabPath");
 			if (string.IsNullOrEmpty(pathStr))
 			{
 				pathStr = prefabPath;
@@ -212,29 +282,27 @@ namespace QFramework
 		[UnityEditor.Callbacks.DidReloadScripts]
 		private static void SerializeUIPrefab()
 		{
-			string pathStr = EditorPrefs.GetString("AutoGenUIPrefabPath");
+			var pathStr = EditorPrefs.GetString("AutoGenUIPrefabPath");
 			if (string.IsNullOrEmpty(pathStr))
 				return;
 
 			EditorPrefs.DeleteKey("AutoGenUIPrefabPath");
 			Debug.Log(">>>>>>>SerializeUIPrefab: " + pathStr);
-			 
+
 			var assembly = ReflectionExtension.GetAssemblyCSharp();
 
-			string[] paths = pathStr.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
-			bool displayProgress = paths.Length > 3;
+			var paths = pathStr.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+			var displayProgress = paths.Length > 3;
 			if (displayProgress) EditorUtility.DisplayProgressBar("", "Serialize UIPrefab...", 0);
-			for (int i = 0; i < paths.Length; i++)
+			for (var i = 0; i < paths.Length; i++)
 			{
-				GameObject uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
+				var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
 				AttachSerializeObj(uiPrefab, uiPrefab.name, assembly);
 
 				// uibehaviour
-				string className = GetProjectNamespace() + "." + uiPrefab.name;
+				var className = GetProjectNamespace() + "." + uiPrefab.name;
 				var t = assembly.GetType(className);
-				var com = uiPrefab.GetComponent(t);
-				if (null == com)
-					com = uiPrefab.AddComponent(t);
+				var com = uiPrefab.GetComponent(t) ?? uiPrefab.AddComponent(t);
 
 				if (displayProgress)
 					EditorUtility.DisplayProgressBar("", "Serialize UIPrefab..." + uiPrefab.name, (float) (i + 1) / paths.Length);
@@ -254,15 +322,13 @@ namespace QFramework
 				processedMarks = new List<IUIMark>();
 			}
 
-			string className = GetProjectNamespace() + "." + behaviourName + "Components";
-			Type t = assembly.GetType(className);
-			var com = obj.GetComponent(t);
-			if (com == null)
-				com = obj.AddComponent(t);
-			SerializedObject sObj = new SerializedObject(com);
-			QUIElement[] uiMarks = obj.GetComponentsInChildren<QUIElement>(true);
+			var className = GetProjectNamespace() + "." + behaviourName;
+			var t = assembly.GetType(className);
+			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
+			var sObj = new SerializedObject(com);
+			var uiMarks = obj.GetComponentsInChildren<QUIElement>(true);
 
-			foreach (QUIElement elementMark in uiMarks)
+			foreach (var elementMark in uiMarks)
 			{
 				if (processedMarks.Contains(elementMark))
 				{
@@ -271,8 +337,8 @@ namespace QFramework
 
 				processedMarks.Add(elementMark);
 
-				string uiType = elementMark.ComponentName;
-				string propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
+				var uiType = elementMark.ComponentName;
+				var propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
 
 				if (sObj.FindProperty(propertyName) == null)
 				{
@@ -284,8 +350,8 @@ namespace QFramework
 				AttachSerializeObj(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
 			}
 
-			QUIMark[] marks = obj.GetComponentsInChildren<QUIMark>(true);
-			foreach (QUIMark elementMark in marks)
+			var marks = obj.GetComponentsInChildren<QUIMark>(true);
+			foreach (var elementMark in marks)
 			{
 				if (processedMarks.Contains(elementMark))
 				{
@@ -294,8 +360,7 @@ namespace QFramework
 
 				processedMarks.Add(elementMark);
 
-				string uiType = elementMark.ComponentName;
-				string propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
+				var propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
 				Log.I(propertyName);
 				sObj.FindProperty(propertyName).objectReferenceValue = elementMark.Transform.gameObject;
 			}
@@ -315,6 +380,6 @@ namespace QFramework
 
 		private PanelCodeData mPanelCodeData = null;
 
-		static private QUICodeGenerator mInstance = new QUICodeGenerator();
+		private static readonly QUICodeGenerator mInstance = new QUICodeGenerator();
 	}
 }

@@ -47,7 +47,9 @@ namespace QFramework
 		/// </summary>
 		public static void Vibrate()
 		{
+			#if UNITY_IOS
 			Handheld.Vibrate();
+			#endif
 		}
 		
 		/// <summary>

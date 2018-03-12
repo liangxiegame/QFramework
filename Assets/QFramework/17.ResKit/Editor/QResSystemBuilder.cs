@@ -56,11 +56,7 @@ namespace QFramework
 			AssetDatabase.Refresh();
 		}
 
-#if QABMANAGER_SUPPORT
-
-#else
-		[MenuItem("QFramework/ResSystem/Builder")]
-#endif
+		[MenuItem("QFramework/ResSystem/Builder %#r")]
 		public static void ExecuteAssetBundle()
 		{
 			QResSystemBuilder window = (QResSystemBuilder) GetWindow(typeof(QResSystemBuilder), true);
@@ -76,7 +72,6 @@ namespace QFramework
 
 			projectTag = EditorPrefs.GetString(KEY_ProjectTag, "");
 			//isUseFramework = EditorPrefs.GetBool (KEY_ZipFramework,true);
-
 
 			switch (EditorUserBuildSettings.activeBuildTarget)
 			{

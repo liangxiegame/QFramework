@@ -18,26 +18,24 @@ namespace QFramework
 		    strBuilder.AppendLine("using System.Collections.Generic;");
 		    strBuilder.AppendLine("using UnityEngine;");
 		    strBuilder.AppendLine("using UnityEngine.UI;");
-		    strBuilder.AppendLine("").AppendLine();
+		    strBuilder.AppendLine("using QFramework").AppendLine();
 
 		    strBuilder.AppendLine("namespace " + nameSpace);
 		    strBuilder.AppendLine("{");
-		    strBuilder.Append("\t").AppendFormat("public class {0}Data : IUIData", behaviourName).AppendLine();
+		    strBuilder.Append("\t").AppendFormat("public class {0}Data : UIPageData", behaviourName).AppendLine();
 		    strBuilder.Append("\t").AppendLine("{");
-		    strBuilder.Append("\t\t").AppendLine("// TODO: Query");
+		    strBuilder.Append("\t\t").AppendLine("// TODO: Query Mgr's Data");
 		    strBuilder.Append("\t").AppendLine("}");
 		    strBuilder.AppendLine();
-		    strBuilder.AppendFormat("\tpublic class {0} : QUIBehaviour", behaviourName);
+		    strBuilder.AppendFormat("\tpublic partial class {0} : QUIBehaviour", behaviourName);
 		    strBuilder.AppendLine();
 		    strBuilder.AppendLine("\t{");
 		    strBuilder.Append("\t\t").AppendLine("protected override void InitUI(IUIData uiData = null)");
 		    strBuilder.Append("\t\t").AppendLine("{");
-		    strBuilder.Append("\t\t").Append("\t")
-			    .AppendLine("mUIComponents = mIComponents as " + behaviourName + "Components;");
 		    strBuilder.Append("\t\t").Append("\t").AppendLine("mData = uiData as " + behaviourName + "Data;");
 		    strBuilder.Append("\t\t").Append("\t").AppendLine("//please add init code here");
 		    strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-		    strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,QMsg msg)");
+		    strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,PTMsg msg)");
 		    strBuilder.Append("\t\t").AppendLine("{");
 		    strBuilder.Append("\t\t\t").AppendLine("throw new System.NotImplementedException ();");
 		    strBuilder.Append("\t\t").AppendLine("}").AppendLine();
@@ -60,8 +58,6 @@ namespace QFramework
 		    strBuilder.Append("\t\t").AppendLine("{");
 		    strBuilder.Append("\t\t\t").AppendFormat("Debug.Log(\"[ {0}:]\" + content);", behaviourName).AppendLine();
 		    strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-
-		    strBuilder.Append("\t\t").AppendFormat("{0}Components mUIComponents = null;", behaviourName).AppendLine();
 		    strBuilder.Append("\t\t").AppendFormat("{0}Data mData = null;", behaviourName).AppendLine();
 		    strBuilder.Append("\t}").AppendLine();
 		    strBuilder.Append("}");
