@@ -92,6 +92,7 @@ this
 - [@huibinye](https://github.com/HUIBINYE)
 - [@dtknowlove](https://github.com/dtknowlove)
 - [@vin129](https://github.com/vin129)
+- [@kevin](https://github.com/KEVIN-ZED)
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 
