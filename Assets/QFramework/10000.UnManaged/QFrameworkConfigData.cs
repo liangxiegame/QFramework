@@ -75,39 +75,34 @@ namespace QFramework
 
 		#region AssetBundle 相关
 
-		public const string ABMANIFEST_AB_NAME = "putaogame";
 		public const string ABMANIFEST_ASSET_NAME = "assetbundlemanifest";
 
 		public static string AB_RELATIVE_PATH
 		{
-			get { return "AssetBundles/" + PlatformUtil.GetPlatformName() + "/putaogame/"; }
+			get { return "AssetBundles/" + PlatformUtil.GetPlatformName() + "/"; }
 		}
 
 		public static string AssetBundleUrl2Name(string url)
 		{
 			string retName = null;
-			string parren = FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" +
-			                ABMANIFEST_AB_NAME + "/";
+			string parren = FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/";
 			retName = url.Replace(parren, "");
 
-			parren = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" +
-			         ABMANIFEST_AB_NAME + "/";
+			parren = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/";
 			retName = retName.Replace(parren, "");
 			return retName;
 		}
 
 		public static string AssetBundleName2Url(string name)
 		{
-			string retUrl = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" +
-			                ABMANIFEST_AB_NAME + "/" + name;
+			string retUrl = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" + name;
 			
 			if (File.Exists(retUrl))
 			{
 				return retUrl;
 			}
 			
-			return FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" +
-			       ABMANIFEST_AB_NAME + "/" + name;
+			return FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" + name;
 		}
 
 		//导出目录
@@ -121,7 +116,7 @@ namespace QFramework
 		/// </summary>
 		public static string RELATIVE_AB_ROOT_FOLDER
 		{
-			get { return "/AssetBundles/" + PlatformUtil.GetPlatformName() + "/putaogame/"; }
+			get { return "/AssetBundles/" + PlatformUtil.GetPlatformName() + "/"; }
 		}
 
 		/// <summary>

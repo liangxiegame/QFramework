@@ -68,13 +68,6 @@ namespace QFramework
         {
             AssetDataGroup group = null;
 
-			int abIndex = table.AddAssetBundleName(QFrameworkConfigData.ABMANIFEST_AB_NAME, null, out group);
-
-            if (abIndex > 0)
-            {
-				group.AddAssetData(new AssetData(QFrameworkConfigData.ABMANIFEST_ASSET_NAME, ResType.ABAsset, abIndex,null));
-            }
-
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
             string[] abNames = AssetDatabase.GetAllAssetBundleNames();
@@ -83,7 +76,7 @@ namespace QFramework
                 for (int i = 0; i < abNames.Length; ++i)
                 {
                     string[] depends = AssetDatabase.GetAssetBundleDependencies(abNames[i], false);
-                    abIndex = table.AddAssetBundleName(abNames[i], depends, out group);
+                    var abIndex = table.AddAssetBundleName(abNames[i], depends, out group);
                     if (abIndex < 0)
                     {
                         continue;

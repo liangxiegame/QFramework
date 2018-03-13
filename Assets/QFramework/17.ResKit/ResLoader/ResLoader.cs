@@ -26,19 +26,19 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Object = UnityEngine.Object;
+
 namespace QFramework
 {
-    using System;
-    using UnityEngine;
-
-    using System.Collections.Generic;
-
     public class ResLoader : DisposableObject, IResLoader, IPoolable, IPoolType
     {
-        class CallBackWrap
+        private class CallBackWrap
         {
-            private Action<bool, IRes> mListener;
-            private IRes               mRes;
+            private readonly Action<bool, IRes> mListener;
+            private readonly IRes               mRes;
 
             public CallBackWrap(IRes r, Action<bool, IRes> l)
             {
@@ -53,37 +53,23 @@ namespace QFramework
 
             public bool IsRes(IRes res)
             {
-                if (res.AssetName == mRes.AssetName)
-                {
-                    return true;
-                }
-
-                return false;
+                return res.AssetName == mRes.AssetName;
             }
         }
 
-        private List<IRes>         mResArray     = new List<IRes>();
-        private LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
+        private readonly List<IRes>         mResArray     = new List<IRes>();
+        private readonly LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
         private Action             mListener;
         private IResLoaderStrategy mStrategy;
 
-        private bool mCacheFlag    = false;
-        private int  mLoadingCount = 0;
+        private int  mLoadingCount;
 
         private        LinkedList<CallBackWrap> mCallbackRecardList;
         private static DefaultLoaderStrategy    sDefaultStrategy;
 
         public static IResLoaderStrategy defaultStrategy
         {
-            get
-            {
-                if (sDefaultStrategy == null)
-                {
-                    sDefaultStrategy = new DefaultLoaderStrategy();
-                }
-
-                return sDefaultStrategy;
-            }
+            get { return sDefaultStrategy ?? (sDefaultStrategy = new DefaultLoaderStrategy()); }
         }
 
         public float Progress
@@ -95,10 +81,10 @@ namespace QFramework
                     return 1;
                 }
 
-                float unit = 1.0f / mResArray.Count;
-                float currentValue = unit * (mResArray.Count - mLoadingCount);
+                var unit = 1.0f / mResArray.Count;
+                var currentValue = unit * (mResArray.Count - mLoadingCount);
 
-                LinkedListNode<IRes> currentNode = mWaitLoadList.First;
+                var currentNode = mWaitLoadList.First;
 
                 while (currentNode != null)
                 {
@@ -110,22 +96,18 @@ namespace QFramework
             }
         }
 
-        public bool IsRecycled
-        {
-            get { return mCacheFlag; }
-
-            set { mCacheFlag = value; }
-        }
+        public bool IsRecycled { get; set; }
 
         public static ResLoader Allocate(IResLoaderStrategy strategy = null)
         {
-            ResLoader loader = SafeObjectPool<ResLoader>.Instance.Allocate();
+            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
             loader.SetStrategy(strategy);
             return loader;
         }
 
         public ResLoader()
         {
+            IsRecycled = false;
             SetStrategy(sDefaultStrategy);
         }
 
@@ -136,7 +118,7 @@ namespace QFramework
                 return;
             }
 
-            for (int i = list.Count - 1; i >= 0; --i)
+            for (var i = list.Count - 1; i >= 0; --i)
             {
                 Add2Load(list[i]);
             }
@@ -151,7 +133,7 @@ namespace QFramework
                 return;
             }
 
-            IRes res = FindResInArray(mResArray, ownerBundle, assetName);
+            var res = FindResInArray(mResArray, ownerBundle, assetName);
             if (res != null)
             {
                 if (listener != null)
@@ -177,13 +159,13 @@ namespace QFramework
             }
 
             //无论该资源是否加载完成，都需要添加对该资源依赖的引用
-            string[] depends = res.GetDependResList();
+            var depends = res.GetDependResList();
 
             if (depends != null)
             {
-                for (int i = 0; i < depends.Length; ++i)
+                foreach (var depend in depends)
                 {
-                    Add2Load(depends[i]);
+                    Add2Load(depend);
                 }
             }
 
@@ -199,7 +181,7 @@ namespace QFramework
                 return;
             }
 
-            IRes res = FindResInArray(mResArray, assetName);
+            var res = FindResInArray(mResArray, assetName);
             if (res != null)
             {
                 if (listener != null)
@@ -225,13 +207,13 @@ namespace QFramework
             }
 
             //无论该资源是否加载完成，都需要添加对该资源依赖的引用
-            string[] depends = res.GetDependResList();
+            var depends = res.GetDependResList();
 
             if (depends != null)
             {
-                for (int i = 0; i < depends.Length; ++i)
+                foreach (var depend in depends)
                 {
-                    Add2Load(depends[i]);
+                    Add2Load(depend);
                 }
             }
 
@@ -242,7 +224,7 @@ namespace QFramework
         {
             while (mWaitLoadList.Count > 0)
             {
-                IRes first = mWaitLoadList.First.Value;
+                var first = mWaitLoadList.First.Value;
                 --mLoadingCount;
                 mWaitLoadList.RemoveFirst();
 
@@ -260,33 +242,29 @@ namespace QFramework
             mStrategy.OnAllTaskFinish(this);
         }
 
-        public T LoadSync<T>(string ownerBundle, string assetName) where T : UnityEngine.Object
+        public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
-            ownerBundle = ownerBundle.ToLower();
-            if (!ownerBundle.EndsWith("_project_putaogame"))
-            {
-                ownerBundle += "_project_putaogame";
-            }
-
-            Add2Load(ownerBundle.ToLower(), assetName.ToLower());
+            var lowerBundle = ownerBundle.ToLower();
+            var lowerAssetName = assetName.ToLower();
+            Add2Load(lowerBundle, assetName.ToLower());
             LoadSync();
 
-            IRes res = ResMgr.Instance.GetRes(ownerBundle.ToLower(), assetName.ToLower(), false);
+            var res = ResMgr.Instance.GetRes(lowerBundle, lowerAssetName);
             if (res == null)
             {
-                Log.E("Failed to Load Res:" + ownerBundle + assetName);
+                Log.E("Failed to Load Res:" + ownerBundle + lowerAssetName);
                 return null;
             }
 
             return res.Asset as T;
         }
 
-        public T LoadSync<T>(string assetName) where T : UnityEngine.Object
+        public T LoadSync<T>(string assetName) where T : Object
         {
             return LoadSync(assetName) as T;
         }
 
-        public UnityEngine.Object LoadSync(string name)
+        public Object LoadSync(string name)
         {
             Add2Load(name);
             LoadSync();
@@ -302,10 +280,10 @@ namespace QFramework
         }
 
 #if UNITY_EDITOR
-        Dictionary<string, Sprite> mCachedSpriteDict = new Dictionary<string, Sprite>();
+        private readonly Dictionary<string, Sprite> mCachedSpriteDict = new Dictionary<string, Sprite>();
 #endif
 
-        public UnityEngine.Sprite LoadSprite(string bundleName, string spriteName)
+        public Sprite LoadSprite(string bundleName, string spriteName)
         {
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
@@ -317,19 +295,16 @@ namespace QFramework
 
                 var texture = LoadSync<Texture2D>(bundleName, spriteName);
                 Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                    UnityEngine.Vector2.one * 0.5f);
+                    Vector2.one * 0.5f);
                 mCachedSpriteDict.Add(spriteName, sprite);
                 return mCachedSpriteDict[spriteName];
             }
-            else
 #endif
-            {
-                return LoadSync<Sprite>(bundleName, spriteName);
-            }
+            return LoadSync<Sprite>(bundleName, spriteName);
         }
 
 
-        public UnityEngine.Sprite LoadSprite(string spriteName)
+        public Sprite LoadSprite(string spriteName)
         {
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
@@ -341,15 +316,12 @@ namespace QFramework
 
                 var texture = LoadSync(spriteName) as Texture2D;
                 Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                    UnityEngine.Vector2.one * 0.5f);
+                    Vector2.one * 0.5f);
                 mCachedSpriteDict.Add(spriteName, sprite);
                 return mCachedSpriteDict[spriteName];
             }
-            else
 #endif
-            {
-                return LoadSync<Sprite>(spriteName);
-            }
+            return LoadSync<Sprite>(spriteName);
         }
 
 
@@ -380,7 +352,7 @@ namespace QFramework
             }
 #endif
 
-            IRes res = ResMgr.Instance.GetRes(name, false);
+            var res = ResMgr.Instance.GetRes(name, false);
             if (res == null)
             {
                 return;
@@ -410,7 +382,7 @@ namespace QFramework
                 return;
             }
 
-            for (int i = names.Length - 1; i >= 0; --i)
+            for (var i = names.Length - 1; i >= 0; --i)
             {
                 ReleaseRes(names[i]);
             }
@@ -421,11 +393,9 @@ namespace QFramework
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
             {
-
                 foreach (var spritePair in mCachedSpriteDict)
                 {
                     GameObject.Destroy(spritePair.Value);
-
                 }
 
                 mCachedSpriteDict.Clear();
@@ -441,7 +411,7 @@ namespace QFramework
                 //确保首先删除的是AB，这样能对Asset的卸载做优化
                 mResArray.Reverse();
 
-                for (int i = mResArray.Count - 1; i >= 0; --i)
+                for (var i = mResArray.Count - 1; i >= 0; --i)
                 {
                     mResArray[i].UnRegisteResListener(OnResLoadFinish);
                     mResArray[i].Release();
@@ -458,7 +428,7 @@ namespace QFramework
         {
             if (mResArray.Count > 0)
             {
-                for (int i = mResArray.Count - 1; i >= 0; --i)
+                for (var i = mResArray.Count - 1; i >= 0; --i)
                 {
                     if (mResArray[i].UnloadImage(flag))
                     {
@@ -487,19 +457,15 @@ namespace QFramework
 
         public void Dump()
         {
-            for (int i = 0; i < mResArray.Count; ++i)
+            foreach (var resArray in mResArray)
             {
-                Log.I(mResArray[i].AssetName);
+                Log.I(resArray.AssetName);
             }
         }
 
         private void SetStrategy(IResLoaderStrategy strategy)
         {
-            mStrategy = strategy;
-            if (mStrategy == null)
-            {
-                mStrategy = defaultStrategy;
-            }
+            mStrategy = strategy ?? defaultStrategy;
         }
 
         private void DoLoadAsync()
@@ -510,7 +476,7 @@ namespace QFramework
                 //ResMgr.Instance.timeDebugger.Dump(-1);
                 if (mListener != null)
                 {
-                    Action callback = mListener;
+                    var callback = mListener;
                     mListener = null;
                     callback();
                 }
@@ -523,7 +489,7 @@ namespace QFramework
             while (nextNode != null)
             {
                 currentNode = nextNode;
-                IRes res = currentNode.Value;
+                var res = currentNode.Value;
                 nextNode = currentNode.Next;
                 if (res.IsDependResLoadFinish())
                 {
@@ -546,11 +512,10 @@ namespace QFramework
         {
             if (mCallbackRecardList != null)
             {
-                LinkedListNode<CallBackWrap> current = mCallbackRecardList.First;
-                LinkedListNode<CallBackWrap> next = null;
+                var current = mCallbackRecardList.First;
                 while (current != null)
                 {
-                    next = current.Next;
+                    var next = current.Next;
                     if (current.Value.IsRes(res))
                     {
                         if (release)
@@ -570,7 +535,7 @@ namespace QFramework
         {
             if (mCallbackRecardList != null)
             {
-                int count = mCallbackRecardList.Count;
+                var count = mCallbackRecardList.Count;
                 while (count > 0)
                 {
                     --count;
@@ -609,7 +574,7 @@ namespace QFramework
         private void AddRes2Array(IRes res, bool lastOrder)
         {
             //再次确保队列中没有它
-            IRes oldRes = FindResInArray(mResArray, res.AssetName);
+            var oldRes = FindResInArray(mResArray, res.AssetName);
 
             if (oldRes != null)
             {
@@ -640,7 +605,7 @@ namespace QFramework
                 return null;
             }
 
-            for (int i = list.Count - 1; i >= 0; --i)
+            for (var i = list.Count - 1; i >= 0; --i)
             {
                 if (list[i].AssetName.Equals(assetName) && list[i].OwnerBundleName.Equals(ownerBundleName))
                 {
@@ -659,7 +624,7 @@ namespace QFramework
                 return null;
             }
 
-            for (int i = list.Count - 1; i >= 0; --i)
+            for (var i = list.Count - 1; i >= 0; --i)
             {
                 if (list[i].AssetName.Equals(name))
                 {

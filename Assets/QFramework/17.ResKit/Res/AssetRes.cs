@@ -53,18 +53,10 @@ namespace QFramework
         {
             get
             {
-//	            if (null != mOwnerBundleName)
-//	            {
-//		            return mOwnerBundleName.ToLower();
-//	            }
-	            
-                if (mAssetBundleArray == null)
-                {
-                    return null;
-                }
-                return mAssetBundleArray[0];
+	            return mAssetBundleArray == null ? null : mAssetBundleArray[0];
             }
         }
+	    
         public AssetRes(string assetName) : base(assetName)
         {
             

@@ -1,14 +1,8 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-
-using System.Text;
 
 namespace QFramework
 {
-    
-    
     public class AssetDataTable : QSingleton<AssetDataTable>
     {
         [Serializable]
@@ -76,9 +70,7 @@ namespace QFramework
                 return -1;
             }
 
-            string key = null;
-
-            key = GetKeyFromABName(name);
+            var key = GetKeyFromABName(name);
 
             if (key == null)
             {
@@ -99,9 +91,9 @@ namespace QFramework
 
         public string GetAssetBundleName(string assetName, int index,string onwerBundleName)
         {
-            string result = null;
-            for (int i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
             {
+                string result;
                 if (!m_ActiveAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
                 {
                     continue;
@@ -120,11 +112,11 @@ namespace QFramework
 
         public string[] GetAllDependenciesByUrl(string url)
         {
-			string abName = QFrameworkConfigData.AssetBundleUrl2Name(url);
-            string[] depends = null;
+			var abName = QFrameworkConfigData.AssetBundleUrl2Name(url);
 
-            for (int i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
             {
+                string[] depends;
                 if (!m_ActiveAssetDataGroup[i].GetAssetBundleDepends(abName, out depends))
                 {
                     continue;

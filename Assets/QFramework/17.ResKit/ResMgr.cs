@@ -50,11 +50,7 @@ namespace QFramework
 
         #endregion
 
-
-#if UNITY_EDITOR
-
-#endif
-        public void InitResMgr()
+        public static void InitResMgr()
         {
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
@@ -76,18 +72,6 @@ namespace QFramework
         }
 
         #region 属性
-
-        //public TimeDebugger timeDebugger
-        //{
-        //    get
-        //    {
-        //        if (mTimeDebugger == null)
-        //        {
-        //            mTimeDebugger = new TimeDebugger("#Res");
-        //        }
-        //        return mTimeDebugger;
-        //    }
-        //}
 
         public void SetResMapDirty()
         {
@@ -241,7 +225,7 @@ namespace QFramework
                 return;
             }
 
-            IEnumeratorTask task = mIEnumeratorTaskStack.First.Value;
+            var task = mIEnumeratorTaskStack.First.Value;
             mIEnumeratorTaskStack.RemoveFirst();
 
             ++mCurrentCoroutineCount;

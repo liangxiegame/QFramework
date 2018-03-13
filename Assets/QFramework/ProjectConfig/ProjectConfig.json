@@ -1,0 +1,12 @@
+{
+  "Namespace": "QFramework.PlatformRunner",
+  "ResLoaderSupportIndex": 0,
+  "LuaSupportIndex": 0,
+  "CocosSupportIndex": 0,
+  "UIScriptDir": "/Scripts/UI",
+  "UIPrefabDir": "/Art/UIPrefab",
+  "UIFactoryFileDir": "/QFramework/Framework/Script",
+  "UIScriptDirFullPath": "/Users/liangxie/Documents/Career/Product/ParkourUnity/Client/Assets/Scripts/UI",
+  "UIPrefabDirFullPath": "/Users/liangxie/Documents/Career/Product/ParkourUnity/Client/Assets/Art/UIPrefab",
+  "UIFactoryFileFullPath": "/Users/liangxie/Documents/Career/Product/ParkourUnity/Client/Assets/QFramework/Framework/Script/QUIFactory.cs"
+}

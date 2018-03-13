@@ -32,14 +32,13 @@ namespace QFramework
 	
 	public class QResSystemBuilder : EditorWindow
 	{
-		private int buildTargetIndex = 0;
-		private string[] platformLabels = new string[] {"Windows32", "iOS", "Android"};
+		private int mBuildTargetIndex = 0;
+		private readonly string[] mPlatformLabels = {"Windows32", "iOS", "Android"};
 		private Vector2 scrollPos;
 		private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
 		private const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
 
 		private const string KEY_ProjectTag = "KEY_ProjectTag";
-		private const string KEY_ZipFramework = "KEY_ZipFramework";
 
 		public static string resVersion = "100";
 		private static string projectTag = "";
@@ -65,34 +64,32 @@ namespace QFramework
 			window.Show();
 		}
 
-		void OnEnable()
+		private void OnEnable()
 		{
 			resVersion = EditorPrefs.GetString(KEY_QAssetBundleBuilder_RESVERSION, "100");
 			isEnableGenerateClass = EditorPrefs.GetBool(KEY_AUTOGENERATE_CLASS, true);
 
 			projectTag = EditorPrefs.GetString(KEY_ProjectTag, "");
-			//isUseFramework = EditorPrefs.GetBool (KEY_ZipFramework,true);
 
 			switch (EditorUserBuildSettings.activeBuildTarget)
 			{
 				case BuildTarget.Android:
-					buildTargetIndex = 2;
+					mBuildTargetIndex = 2;
 					break;
 				case BuildTarget.iOS:
-					buildTargetIndex = 1;
+					mBuildTargetIndex = 1;
 					break;
 				default:
-					buildTargetIndex = 0;
+					mBuildTargetIndex = 0;
 					break;
 
 			}
 		}
 
-		void DrawMenu()
+		private void DrawMenu()
 		{
-			GUILayout.Toolbar(buildTargetIndex, platformLabels);
+			GUILayout.Toolbar(mBuildTargetIndex, mPlatformLabels);
 		}
-
 
 		public void OnDisable()
 		{
@@ -101,7 +98,7 @@ namespace QFramework
 			EditorPrefs.SetString(KEY_ProjectTag, projectTag);
 		}
 
-		void OnGUI()
+		private void OnGUI()
 		{
 			scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500), GUILayout.Height(400));
 			GUILayout.BeginVertical();
@@ -152,11 +149,11 @@ namespace QFramework
 
 		}
 
-		void BuildWithTarget(BuildTarget buildTarget)
+		private void BuildWithTarget(BuildTarget buildTarget)
 		{
 			AssetDatabase.RemoveUnusedAssetBundleNames();
 			AssetDatabase.Refresh();
-			BuildScript.BuildAssetBundles(buildTarget, projectTag);
+			BuildScript.BuildAssetBundles(buildTarget);
 		}
 	}
 }

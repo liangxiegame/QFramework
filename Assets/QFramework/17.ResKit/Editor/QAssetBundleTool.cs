@@ -44,15 +44,11 @@ namespace QFramework
 		public const string LABEL_ZIP = "ptab_zip";
 		public const string LABEL_FILE = "ptab_file";
 
-		#if QRESSYSTEM_SUPPORT
 		static QResSystemMark ()
 		{
-			Selection.selectionChanged = OnSelectionChanged;
-		 
+			Selection.selectionChanged = OnSelectionChanged;		 
 			EditorApplication.update += Update;
-
 		}
-		#endif
 
 		private static int markCounter = 0;
 		private static string lastMarkPth = string.Empty;
@@ -87,13 +83,13 @@ namespace QFramework
 		{
 			string path = MouseSelector.GetSelectedPathOrFallback ();
 			if (!string.IsNullOrEmpty (path)) {
-				Object obj = AssetDatabase.LoadAssetAtPath (path,typeof(Object));
-				bool contain = HasQABLabel(obj,LABEL_AB);
-				Menu.SetChecked (Mark_AssetBundle, contain);
-				contain = HasQABLabel (obj,LABEL_ZIP);
-				Menu.SetChecked (Mark_HotUpdateZip,contain);
-				contain = HasQABLabel (obj,LABEL_FILE);
-				Menu.SetChecked (Mark_HotUpdateFile,contain);
+//				Object obj = AssetDatabase.LoadAssetAtPath (path,typeof(Object));
+//				bool contain = HasQABLabel(obj,LABEL_AB);
+//				Menu.SetChecked (Mark_AssetBundle, contain);
+//				contain = HasQABLabel (obj,LABEL_ZIP);
+//				Menu.SetChecked (Mark_HotUpdateZip,contain);
+//				contain = HasQABLabel (obj,LABEL_FILE);
+//				Menu.SetChecked (Mark_HotUpdateFile,contain);
 			}
 		}
 

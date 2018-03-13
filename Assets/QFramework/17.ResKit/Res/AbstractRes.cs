@@ -48,15 +48,6 @@ namespace QFramework
                 }
                 return mSimulateAssetBundleInEditor != 0;
             }
-            set
-            {
-                int newValue = value ? 1 : 0;
-                if (newValue != mSimulateAssetBundleInEditor)
-                {
-                    mSimulateAssetBundleInEditor = newValue;
-                    UnityEditor.EditorPrefs.SetBool(kSimulateAssetBundles, value);
-                }
-            }
         }
 #endif
 
