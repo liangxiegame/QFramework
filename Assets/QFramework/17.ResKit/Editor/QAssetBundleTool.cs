@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal;
 
 namespace QFramework
 {
 	[InitializeOnLoad]
 	public class QResSystemMark
 	{
-		public const string AssetBundlesOutputPath = "AssetBundles";
-		public static int mSimulateAssetBundleInEditor = -1;
-		private const string kSimulateAssetBundles = "SimulateAssetBundles";
-	
+		public const  string AssetBundlesOutputPath       = "AssetBundles";
+		private static int    mSimulateAssetBundleInEditor = -1;
+		private const string kSimulateAssetBundles        = "SimulateAssetBundles";
+
 		// Flag to indicate if we want to simulate assetBundles in Editor without building them actually.
-		public static bool SimulateAssetBundleInEditor 
+		public static bool SimulateAssetBundleInEditor
 		{
 			get
 			{
@@ -27,7 +25,7 @@ namespace QFramework
 			}
 			set
 			{
-				int newValue = value ? 1 : 0;
+				var newValue = value ? 1 : 0;
 				if (newValue != mSimulateAssetBundleInEditor)
 				{
 					mSimulateAssetBundleInEditor = newValue;
@@ -36,53 +34,60 @@ namespace QFramework
 			}
 		}
 
-		private const string Mark_AssetBundle = "Assets/ResSystem Mark/AssetBundle";
+		private const string Mark_AssetBundle   = "Assets/ResSystem Mark/AssetBundle";
 		private const string Mark_HotUpdateFile = "Assets/ResSystem Mark/File";
-		private const string Mark_HotUpdateZip = "Assets/ResSystem Mark/Zip";
+		private const string Mark_HotUpdateZip  = "Assets/ResSystem Mark/Zip";
 
-		public const string LABEL_AB = "ptab_ab";
-		public const string LABEL_ZIP = "ptab_zip";
-		public const string LABEL_FILE = "ptab_file";
+		private const string LABEL_AB   = "QAssetBundle";
+		private const string LABEL_ZIP  = "QZip";
+		private const string LABEL_FILE = "QFile";
 
-		static QResSystemMark ()
+		static QResSystemMark()
 		{
-			Selection.selectionChanged = OnSelectionChanged;		 
+			Selection.selectionChanged = OnSelectionChanged;
 			EditorApplication.update += Update;
 		}
 
-		private static int markCounter = 0;
+		private static int    markCounter = 0;
 		private static string lastMarkPth = string.Empty;
-		private static void ResetQMark(string path){
 
-			Object tempObj = PrefabUtility.CreateEmptyPrefab ( "Assets/ptressystem_temp.prefab");
-			AssetDatabase.SaveAssets ();
-			AssetDatabase.Refresh ();
+		private static void ResetQMark(string path)
+		{
+
+			Object tempObj = PrefabUtility.CreateEmptyPrefab("Assets/qreskit_temp.prefab");
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
 			Selection.activeObject = tempObj;
 			lastMarkPth = path;
 			markCounter = 0;
 
 		}
-		static void Update(){
-			
-			if (markCounter < 2) {
-				markCounter++;
-			}else if(markCounter==2){
-				markCounter++;
-				if (!string.IsNullOrEmpty (lastMarkPth)) {
-					Object obj = AssetDatabase.LoadAssetAtPath (lastMarkPth,typeof(Object));
-					Selection.activeObject = obj;
-					AssetDatabase.DeleteAsset ("Assets/ptressystem_temp.prefab");
-					AssetDatabase.Refresh ();
-				
 
+		static void Update()
+		{
+
+			if (markCounter < 2)
+			{
+				markCounter++;
+			}
+			else if (markCounter == 2)
+			{
+				markCounter++;
+				if (!string.IsNullOrEmpty(lastMarkPth))
+				{
+					Object obj = AssetDatabase.LoadAssetAtPath(lastMarkPth, typeof(Object));
+					Selection.activeObject = obj;
+					AssetDatabase.DeleteAsset("Assets/qreskit_temp.prefab");
+					AssetDatabase.Refresh();
 				}
 			}
 		}
 
-		public static void OnSelectionChanged ()
+		private static void OnSelectionChanged()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			if (!string.IsNullOrEmpty (path)) {
+			string path = MouseSelector.GetSelectedPathOrFallback();
+			if (!string.IsNullOrEmpty(path))
+			{
 //				Object obj = AssetDatabase.LoadAssetAtPath (path,typeof(Object));
 //				bool contain = HasQABLabel(obj,LABEL_AB);
 //				Menu.SetChecked (Mark_AssetBundle, contain);
@@ -93,86 +98,110 @@ namespace QFramework
 			}
 		}
 
-		public static bool HasQABLabel(Object obj,string label){
-			string[] labels =  AssetDatabase.GetLabels (obj);
-			List<string> lbs = new List<string> (labels);
-			foreach (string lb in lbs){
-				if (lb == label) {
+		public static bool HasQABLabel(Object obj, string label)
+		{
+			string[] labels = AssetDatabase.GetLabels(obj);
+			List<string> lbs = new List<string>(labels);
+			foreach (string lb in lbs)
+			{
+				if (lb == label)
+				{
 					return true;
 				}
 			}
+
 			return false;
 		}
-		private static void RemoveUselessLabels(Object obj){
-			string[] labels =  AssetDatabase.GetLabels (obj);
-			List<string> lbs = new List<string> (labels);
-			for(int i=lbs.Count-1;i>=0;i--){
-				string lb = lbs [i];
-				if(lb!=LABEL_AB&&lb!=LABEL_ZIP&&lb!=LABEL_FILE){
-					lbs.Remove (lb);
+
+		private static void RemoveUselessLabels(Object obj)
+		{
+			var labels = AssetDatabase.GetLabels(obj);
+			var lbs = new List<string>(labels);
+			for (var i = lbs.Count - 1; i >= 0; i--)
+			{
+				var lb = lbs[i];
+				if (lb != LABEL_AB && lb != LABEL_ZIP && lb != LABEL_FILE)
+				{
+					lbs.Remove(lb);
 				}
 			}
-			AssetDatabase.SetLabels (obj,lbs.ToArray());
+
+			AssetDatabase.SetLabels(obj, lbs.ToArray());
 		}
 
-		public static bool SetLabels(Object obj,string label){
-			RemoveUselessLabels (obj);
-			string[] labels =  AssetDatabase.GetLabels (obj);
-			List<string> lbs = new List<string> (labels);
-			foreach (string lb in lbs){
-				if (lb == label) {
-					lbs.Remove (lb);
-					AssetDatabase.SetLabels (obj,lbs.ToArray());
+		public static bool SetLabels(Object obj, string label)
+		{
+			RemoveUselessLabels(obj);
+			string[] labels = AssetDatabase.GetLabels(obj);
+			List<string> lbs = new List<string>(labels);
+			foreach (string lb in lbs)
+			{
+				if (lb == label)
+				{
+					lbs.Remove(lb);
+					AssetDatabase.SetLabels(obj, lbs.ToArray());
 					return false;
 				}
 			}
-			lbs.Add (label);
-			AssetDatabase.SetLabels (obj,lbs.ToArray());
-		
-			EditorUtility.SetDirty (obj);
-			AssetDatabase.SaveAssets ();
-			AssetDatabase.Refresh ();
+
+			lbs.Add(label);
+			AssetDatabase.SetLabels(obj, lbs.ToArray());
+
+			EditorUtility.SetDirty(obj);
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
 
 			return true;
 
 		}
 
-		#if QRESSYSTEM_SUPPORT
+#if QRESSYSTEM_SUPPORT
 		[MenuItem(Mark_HotUpdateZip)]
 		#endif
-		public static void MarkHotUpdateZip(){
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			if (string.IsNullOrEmpty (path) || !Directory.Exists (path)) {
+		public static void MarkHotUpdateZip()
+		{
+			string path = MouseSelector.GetSelectedPathOrFallback();
+			if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
+			{
 				return;
 			}
 
-			Object obj = AssetDatabase.LoadAssetAtPath (path, typeof(Object));
-			bool contain = SetLabels (obj, LABEL_ZIP);
-			if (!contain) {
-				Menu.SetChecked (Mark_HotUpdateZip, false);
-			} else {
-				Menu.SetChecked (Mark_HotUpdateZip, true);
+			Object obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
+			bool contain = SetLabels(obj, LABEL_ZIP);
+			if (!contain)
+			{
+				Menu.SetChecked(Mark_HotUpdateZip, false);
 			}
+			else
+			{
+				Menu.SetChecked(Mark_HotUpdateZip, true);
+			}
+
 			ResetQMark(path);
 		}
 
-		[MenuItem (Mark_HotUpdateFile)]
-		public static void MarkHotUpdateFile ()
+		[MenuItem(Mark_HotUpdateFile)]
+		public static void MarkHotUpdateFile()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			if (string.IsNullOrEmpty (path) || !File.Exists (path)) {
+			string path = MouseSelector.GetSelectedPathOrFallback();
+			if (string.IsNullOrEmpty(path) || !File.Exists(path))
+			{
 				return;
 			}
 
-			Object obj = AssetDatabase.LoadAssetAtPath (path, typeof(Object));
-			bool contain = SetLabels (obj, LABEL_FILE);
-			if (!contain) {
-				Menu.SetChecked (Mark_HotUpdateFile, false);
-			} else {
-				Menu.SetChecked (Mark_HotUpdateFile, true);
+			Object obj = AssetDatabase.LoadAssetAtPath(path, typeof(Object));
+			bool contain = SetLabels(obj, LABEL_FILE);
+			if (!contain)
+			{
+				Menu.SetChecked(Mark_HotUpdateFile, false);
 			}
+			else
+			{
+				Menu.SetChecked(Mark_HotUpdateFile, true);
+			}
+
 			ResetQMark(path);
-	
+
 		}
 
 		public static void MarkQAB(string path)
@@ -194,6 +223,7 @@ namespace QFramework
 					Menu.SetChecked(Mark_AssetBundle, true);
 					ai.assetBundleName = dir.Name.Replace(".", "_");
 				}
+
 				AssetDatabase.RemoveUnusedAssetBundleNames();
 
 				ResetQMark(path);
@@ -218,6 +248,7 @@ namespace QFramework
 					return false;
 				}
 			}
+
 			lbs.Add(label);
 			AssetDatabase.SetLabels(obj, lbs.ToArray());
 
@@ -252,46 +283,47 @@ namespace QFramework
 					Menu.SetChecked(Mark_AssetBundle, true);
 					ai.assetBundleName = dir.Name.Replace(".", "_");
 				}
+
 				AssetDatabase.RemoveUnusedAssetBundleNames();
 
 				ResetQMark(path);
 			}
 		}
 
-		[MenuItem (Mark_AssetBundle)]
-		public static void MarkQABDir ()
+		[MenuItem(Mark_AssetBundle)]
+		public static void MarkQABDir()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
+			string path = MouseSelector.GetSelectedPathOrFallback();
 			MarkQAB(path);
 		}
 
 		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubFolder")]
 		public static void MarkQABForAllSubFolder()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			string[] childpaths = Directory.GetDirectories(path);
-			for (int i = 0; i < childpaths.Length; i++)
+			var path = MouseSelector.GetSelectedPathOrFallback();
+			var childpaths = Directory.GetDirectories(path);
+			foreach (var childpath in childpaths)
 			{
-				Debug.Log(">>>>>> Mark QAB: " + childpaths[i]);
-				MarkQABAlways(childpaths[i]);
+				Debug.Log(">>>>>> Mark QAB: " + childpath);
+				MarkQABAlways(childpath);
 			}
 		}
 
 		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubFolder")]
 		public static void UnMarkQABForAllSubFolder()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			string[] childpaths = Directory.GetDirectories(path);
-			for (int i = 0; i < childpaths.Length; i++)
+			var path = MouseSelector.GetSelectedPathOrFallback();
+			var childpaths = Directory.GetDirectories(path);
+			foreach (var childpath in childpaths)
 			{
-				Debug.Log(">>>>>> UnMark QAB: " + childpaths[i]);
-				AssetImporter ai = AssetImporter.GetAtPath(childpaths[i]);
+				Debug.Log(">>>>>> UnMark QAB: " + childpath);
+				var ai = AssetImporter.GetAtPath(childpath);
 
-				Object obj = AssetDatabase.LoadAssetAtPath(childpaths[i], typeof(Object));
+				var obj = AssetDatabase.LoadAssetAtPath(childpath, typeof(Object));
 				RemoveUselessLabels(obj);
 
-				List<string> labels = AssetDatabase.GetLabels(obj).ToList();
-				foreach (string lb in labels)
+				var labels = AssetDatabase.GetLabels(obj).ToList();
+				foreach (var lb in labels)
 				{
 					if (lb == LABEL_AB)
 					{
@@ -304,42 +336,43 @@ namespace QFramework
 				Menu.SetChecked(Mark_AssetBundle, false);
 				ai.assetBundleName = null;
 				AssetDatabase.RemoveUnusedAssetBundleNames();
-				ResetQMark(childpaths[i]);
+				ResetQMark(childpath);
 			}
 		}
 
 		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubAssets")]
 		public static void MarkQABForAllSubAssets()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			string[] childpaths = Directory.GetFiles(path);
-			for (int i = 0; i < childpaths.Length; i++)
+			var path = MouseSelector.GetSelectedPathOrFallback();
+			var childpaths = Directory.GetFiles(path);
+			foreach (var childpath in childpaths)
 			{
-				Debug.Log(">>>>>> Mark QAB: " + childpaths[i]);
-				if (!childpaths [i].EndsWith (".meta"))
+				Debug.Log(">>>>>> Mark QAB: " + childpath);
+				if (!childpath.EndsWith(".meta"))
 				{
-					MarkQABAlways (childpaths [i]);
+					MarkQABAlways(childpath);
 				}
 			}
 		}
+
 		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubAssets")]
 		public static void UnMarkQABForAllSubAssets()
 		{
-			string path = MouseSelector.GetSelectedPathOrFallback ();
-			string[] childpaths = Directory.GetFiles(path);
-			for (int i = 0; i < childpaths.Length; i++)
+			var path = MouseSelector.GetSelectedPathOrFallback();
+			var childpaths = Directory.GetFiles(path);
+			foreach (var childpath in childpaths)
 			{
-				Debug.Log(">>>>>> UnMark QAB: " + childpaths[i]);
-				if (childpaths [i].EndsWith (".meta"))
+				Debug.Log(">>>>>> UnMark QAB: " + childpath);
+				if (childpath.EndsWith(".meta"))
 					continue;
 
-				AssetImporter ai = AssetImporter.GetAtPath(childpaths[i]);
+				var ai = AssetImporter.GetAtPath(childpath);
 
-				Object obj = AssetDatabase.LoadAssetAtPath(childpaths[i], typeof(Object));
+				var obj = AssetDatabase.LoadAssetAtPath(childpath, typeof(Object));
 				RemoveUselessLabels(obj);
 
-				List<string> labels = AssetDatabase.GetLabels(obj).ToList();
-				foreach (string lb in labels)
+				var labels = AssetDatabase.GetLabels(obj).ToList();
+				foreach (var lb in labels)
 				{
 					if (lb == LABEL_AB)
 					{
@@ -352,10 +385,8 @@ namespace QFramework
 				Menu.SetChecked(Mark_AssetBundle, false);
 				ai.assetBundleName = null;
 				AssetDatabase.RemoveUnusedAssetBundleNames();
-				ResetQMark(childpaths[i]);
+				ResetQMark(childpath);
 			}
 		}
-
-
 	}
 }
