@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace QFramework.Example
+namespace QFramework.PlatformRunner
 {
 	public class UIMenuPanelData : IUIData
 	{
@@ -19,6 +19,9 @@ namespace QFramework.Example
 			mUIComponents = mIComponents as UIMenuPanelComponents;
 			mData = uiData as UIMenuPanelData;
 			//please add init code here
+
+
+
 		}
 
 		protected override void ProcessMsg (int eventId,QMsg msg)
@@ -28,9 +31,16 @@ namespace QFramework.Example
 
 		protected override void RegisterUIEvent()
 		{
-			mUIComponents.BtnPlay.onClick.AddListener(() => { Log.I("on btn play clicked"); });
+			mUIComponents.BtnPlay.onClick.AddListener(() => {
+                Log.I("on btn play clicked"); 
+                UIMgr.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
+                Hide();
+            });
 
-			mUIComponents.BtnSetting.onClick.AddListener(() => { Log.I("on btn setting clicked"); });
+			mUIComponents.BtnSetting.onClick.AddListener(() => { 
+                Log.I("on btn setting clicked");
+                UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI,prefabName: "Resources/UISettingPanel");
+            });
 		}
 
 		protected override void OnShow()

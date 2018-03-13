@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61C728FA-7CC8-8E4C-67BD-64176B686E80}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Editor:5</UnityProjectType>
+    <UnityBuildTarget>StandaloneOSXIntel64:27</UnityBuildTarget>
+    <UnityVersion>5.6.5p2</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_5;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_VR;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_5;UNITY_5_6;UNITY_5;UNITY_64;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_VR;ENABLE_CLUSTERINPUT;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/System.XML.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/Boo.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript.Lang">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/UnityScript.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Mono/lib/mono/2.0/System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TreeEditor">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Analytics">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/Editor/UnityEditor.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.HoloLens">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/Editor/UnityEditor.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Purchasing">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityPurchasing/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+      <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
+      <HintPath>/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
+    </Reference>
+    <Reference Include="QFramework.Log">
+      <HintPath>Assets/QFramework/Libs/QFramework.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>Assets/QFramework/Libs/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>Assets/QFramework/Libs/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets/QFramework/Libs/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{111C4462-2CFE-0EFA-9557-BF171DEC91AF}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Example\1.UI\Editor\EditorGUIExample.cs" />
+    <Compile Include="Assets\QFramework\10000.UnManaged\Editor\ClearAllData.cs" />
+    <Compile Include="Assets\QFramework\10000.UnManaged\Editor\QFrameworkConfigEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\AssetBundle\AssetBundleExporter.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\AssetBundle\AssetFileFilter.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\BuildScript.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\LoomEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\QAssetBundleTool.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\QBundleInfoGenerator.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\QResSystemBuilder.cs" />
+    <Compile Include="Assets\QFramework\17.ResKit\Editor\ResSystemMenuItems.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Button.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\AbstractLayout.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\AbstractWidget.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\Button.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\Checkbox.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\DateTimePicker.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\DropdownBox.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\EventBinding.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\ExecuteAction.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\GUI.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\HorizontalLayout.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\ILayout.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\IWidget.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\Label.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\LayerPicker.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\LayoutButton.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\PropertyBinding.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\RootLayout.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\Spacer.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\TextBox.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\Vector3Field.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Editor\VerticalLayout.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\EditorView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\EditorWindow.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\FlexibaleSpaceView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\GUIHorizontalView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\GUILabelView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\GUISpaceView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\HorizontalView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\IEditorView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\IGUIView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\IView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\LableView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\ScrollView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\SpaceView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\VerticalView.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Web\Demo01\Demo01.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Web\Demo01\Editor\ExampleWindow.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Web\Demo02\Editor\Demo02.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Web\Editor\CustomWebViewEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EasyEditor\Web\Editor\WebViewEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EditorGUIUtils.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EditorPathManager.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\EditorUtils.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\IOEditorPathConfig.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\IOPathEditor.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\PTCodeGenerator.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\PathConfig.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\PathTest\Editor\EditorFileUtilsTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\PathTest\Editor\FilePathTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\PathTest\Editor\PathHelperTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\RSG.Toolkit-1.0.0.0\Argument.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\RSG.Toolkit-1.0.0.0\ILogger.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\RSG.Toolkit-1.0.0.0\LinqExts.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\RSG.Toolkit-1.0.0.0\Reflection.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\RSG.Toolkit-1.0.0.0\ReflectionUtils.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Test\Editor\ColorUtilTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Test\Editor\GameObjectUtilTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Test\Editor\IOUtilsTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Test\Editor\JsonUtilTest.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Utils\AssetLabelHelper.cs" />
+    <Compile Include="Assets\QFramework\20.UI\EasyEditor\Editor\Utils\MouseSelector.cs" />
+    <Compile Include="Assets\QFramework\20.UI\UGUI\Editor\QUICodeGenerator.cs" />
+    <Compile Include="Assets\QFramework\20.UI\UGUI\Editor\UIElementCodeTemplate.cs" />
+    <Compile Include="Assets\QFramework\20.UI\UGUI\Editor\UIPanelCodeTemplate.cs" />
+    <Compile Include="Assets\QFramework\20.UI\UGUI\Editor\UIPanelComponentsCodeTemplate.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Editor\OverrideCreateUIMenuItem.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Editor\SelectionHelper.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Inspector\AnimationInspector.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Inspector\AutoReferencer.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Inspector\CustomCustomEditor.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Inspector\RectTransformInspector.cs" />
+    <Compile Include="Assets\QFramework\9.EditorEx\Editor\Inspector\TransformInspector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\QFramework\6.UniRx\ReadMe.txt" />
+    <None Include="Assets\QFramework\readme.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

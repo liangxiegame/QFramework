@@ -25,13 +25,14 @@
 
 using UnityEngine;
 
-namespace QFramework.Example
+namespace QFramework.PlatformRunner
 {
 	public class Example : MonoBehaviour
 	{
 		private void Awake()
 		{
-			UIMgr.OpenPanel<UIMenuPanel>(prefabName:"Resources/UIMenuPanel");
+            UIMgr.OpenPanel<UIMenuPanel>(prefabName: "Resources/UIMenuPanel");
+
 		}
 	}
 }

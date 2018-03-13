@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace QFramework.Example
+namespace QFramework.PlatformRunner
 {
 	public class UIMenuPanelComponents : MonoBehaviour, IUIComponents
 	{
