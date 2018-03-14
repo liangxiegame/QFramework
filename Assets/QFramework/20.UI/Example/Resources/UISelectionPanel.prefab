@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 114768960759817976}
   - component: {fileID: 114474259405743878}
   m_Layer: 5
-  m_Name: UISectionPanel
+  m_Name: UISelectionPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -630,6 +630,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 663f5f211431e41f7a1218c241455c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mReceiveMsgOnlyObjActive: 1
+  mPrivateMgr: {fileID: 0}
+  mPrivateEventIds: []
+  mPrefab: {fileID: 0}
+  mClosed: 0
+  sectionNu: 4
+  buttons: []
   SectionBtn: {fileID: 114440169712467784}
   backBtn: {fileID: 114374276622143664}
   settingBtn: {fileID: 114530078231272440}
