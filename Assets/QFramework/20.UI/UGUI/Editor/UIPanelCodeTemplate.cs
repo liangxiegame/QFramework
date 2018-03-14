@@ -18,11 +18,7 @@ namespace QFramework
 		    strBuilder.AppendLine("using System.Collections.Generic;");
 		    strBuilder.AppendLine("using UnityEngine;");
 		    strBuilder.AppendLine("using UnityEngine.UI;");
-<<<<<<< HEAD
-            strBuilder.AppendLine("using QFramework;").AppendLine();
-=======
 		    strBuilder.AppendLine("using QFramework;").AppendLine();
->>>>>>> origin/master
 
 		    strBuilder.AppendLine("namespace " + nameSpace);
 		    strBuilder.AppendLine("{");
@@ -39,11 +35,7 @@ namespace QFramework
 		    strBuilder.Append("\t\t").Append("\t").AppendLine("mData = uiData as " + behaviourName + "Data;");
 		    strBuilder.Append("\t\t").Append("\t").AppendLine("//please add init code here");
 		    strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-<<<<<<< HEAD
-            strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg(int eventId, QMsg msg)");
-=======
 		    strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,QMsg msg)");
->>>>>>> origin/master
 		    strBuilder.Append("\t\t").AppendLine("{");
 		    strBuilder.Append("\t\t\t").AppendLine("throw new System.NotImplementedException ();");
 		    strBuilder.Append("\t\t").AppendLine("}").AppendLine();
