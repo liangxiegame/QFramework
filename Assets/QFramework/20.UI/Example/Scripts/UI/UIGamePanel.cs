@@ -27,11 +27,13 @@ namespace QFramework.UIExample
 {
 	public class UIGamePanelData : UIPageData
 	{
-        // TODO: Query Mgr's Data
-        public int SectionNo;
-        public UIGamePanelData(int SectionNo){
-            this.SectionNo = SectionNo;
-        }
+		// TODO: Query Mgr's Data
+		public int SectionNo;
+
+		public UIGamePanelData(int SectionNo)
+		{
+			this.SectionNo = SectionNo;
+		}
 	}
 
 	public partial class UIGamePanel : QUIBehaviour
@@ -44,14 +46,16 @@ namespace QFramework.UIExample
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
-			throw new System.NotImplementedException ();
+			throw new System.NotImplementedException();
 		}
 
 		protected override void RegisterUIEvent()
 		{
-            backBtn.onClick.AddListener(() => { 
-                UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-                CloseSelf(); });
+			backBtn.onClick.AddListener(() =>
+			{
+				UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
+				CloseSelf();
+			});
 		}
 
 		UIGamePanelData mData = null;
