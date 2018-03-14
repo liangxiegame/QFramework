@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 
-namespace QFramework.PlatformRunner
+namespace QFramework.UIExample
 {
 	public class UISettingPanelData : UIPageData
 	{

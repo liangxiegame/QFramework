@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UIEventID  {
-    public enum  MenuPanel{
-        EnumStar = (int)1,
+public static class UIEventID
+{
+    public enum MenuPanel
+    {
+        EnumStar = (int) 1,
 
         GameStar,
         Setting,
@@ -13,7 +15,8 @@ public static class UIEventID  {
         EnumEnd,
     }
 
-    public enum SettingPanel{
+    public enum SettingPanel
+    {
         EnumStar = MenuPanel.EnumEnd,
 
         ShowSetting,

@@ -228,6 +228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a9d604e7a7945c4ad58513d70424bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BtnPlay: {fileID: 114244091657257920}
+  BtnSetting: {fileID: 114371378993814438}
 --- !u!114 &114514617521414416
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -4,90 +4,66 @@ using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
 
-namespace QFramework.PlatformRunner
+namespace QFramework.UIExample
 {
-	public class UISectionPanelData : UIPageData
+	public class UISelectionPanelData : UIPageData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UISectionPanel : QUIBehaviour
+	public partial class UISelectionPanel : QUIBehaviour
 	{
-        private int sectionNu = 4;
-        private Button[] buttons;
+		private const int SectionNumber = 4;
+
+		private readonly Button[] mButtons = new Button[SectionNumber];
 
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UISectionPanelData;
-           
-			//please add init code here
-            SetButtons();
+			mData = uiData as UISelectionPanelData;
+
+			for (var i = 0; i < mButtons.Length; i++)
+			{
+				mButtons[i] = SectionBtn
+					.Instantiate()
+					.Parent(SectionBtn.transform.parent)
+					.LocalScaleIdentity()
+					.LocalPositionIdentity()
+					.Name("Section" + (i + 1))
+					.Show()
+					.ApplySelfTo(selfBtn => selfBtn.GetComponentInChildren<Text>().text = selfBtn.name)
+					.ApplySelfTo(selfBtn =>
+					{
+						var index = i;
+						selfBtn.onClick.AddListener(() => { ChoiceSection(index); });
+					});
+			}
 		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
-			throw new System.NotImplementedException ();
+			throw new System.NotImplementedException();
 		}
 
 		protected override void RegisterUIEvent()
-        {
-            if(buttons != null){
-                for (int i = 0; i < buttons.Length; i++)
-                {
-                    int index = i;
-                    buttons[i].onClick.AddListener(() => { ChoiceSection(index); });
-                }
-            }
-
-            settingBtn.onClick.AddListener(() => {
-                UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
-            });
-            backBtn.onClick.AddListener(() => { 
-                UIMgr.OpenPanel<UIMenuPanel>(UILevel.PopUI, prefabName: "Resources/UIMenuPanel");
-                CloseSelf(); });
-		}
-
-		protected override void OnShow()
 		{
-			base.OnShow();
+
+			settingBtn.onClick.AddListener(() =>
+			{
+				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
+			});
+			backBtn.onClick.AddListener(() =>
+			{
+				UIMgr.OpenPanel<UIMenuPanel>(UILevel.PopUI, prefabName: "Resources/UIMenuPanel");
+				CloseSelf();
+			});
 		}
 
-		protected override void OnHide()
+		private void ChoiceSection(int i)
 		{
-			base.OnHide();
+			CloseSelf();
+			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData(i + 1), prefabName: "Resources/UIGamePanel");
 		}
 
-		protected override void OnClose()
-		{
-			base.OnClose();
-		}
-
-        private void SetButtons(){
-            buttons = new Button[sectionNu];
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                GameObject obj = Instantiate(SectionBtn.gameObject) as GameObject;
-                obj.transform.parent = SectionBtn.gameObject.transform.parent;
-                obj.transform.localScale = Vector3.one;
-                obj.transform.position = Vector3.one;
-                string btnName = "Section" + (i+1).ToString();
-                obj.name = btnName;
-                obj.Show();
-                obj.GetComponentInChildren<Text>().text = btnName;
-                buttons[i] = obj.GetComponent<Button>();
-            }
-        }
-
-        private void ChoiceSection(int i ){
-            Hide();
-            UIMgr.OpenPanel<UIGamePanel>(UILevel.Common,new UIGamePanelData(i+1), prefabName: "Resources/UIGamePanel");
-        }
-
-		void ShowLog(string content)
-		{
-			Debug.Log("[ UISectionPanel:]" + content);
-		}
-
-		UISectionPanelData mData = null;
+		UISelectionPanelData mData = null;
 	}
 }

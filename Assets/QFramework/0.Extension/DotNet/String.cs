@@ -181,7 +181,7 @@ namespace QFramework
         /// <param name="selfStr"></param>
         /// <param name="args"></param>
         /// <returns></returns>
-        public static string Format(this string selfStr, params object[] args)
+        public static string FillFormat(this string selfStr, params object[] args)
         {
             return string.Format(selfStr, args);
         }

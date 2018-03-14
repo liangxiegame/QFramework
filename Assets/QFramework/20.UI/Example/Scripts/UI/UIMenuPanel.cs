@@ -25,35 +25,40 @@
 
 namespace QFramework.UIExample
 {
-	public class UIGamePanelData : UIPageData
+	public class UIMenuPanelData : IUIData
 	{
-        // TODO: Query Mgr's Data
-        public int SectionNo;
-        public UIGamePanelData(int SectionNo){
-            this.SectionNo = SectionNo;
-        }
+		// TODO: Query
 	}
 
-	public partial class UIGamePanel : QUIBehaviour
+	public partial class UIMenuPanel : QUIBehaviour
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UIGamePanelData;
-			gameText.text = "Hello,You are in Section {0}".FillFormat(mData.SectionNo);
+			mData = uiData as UIMenuPanelData;
+			//please add init code here
 		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
-			throw new System.NotImplementedException ();
+			throw new System.NotImplementedException();
 		}
 
 		protected override void RegisterUIEvent()
 		{
-            backBtn.onClick.AddListener(() => { 
-                UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-                CloseSelf(); });
+			BtnPlay.onClick.AddListener(() =>
+			{
+				Log.I("on btn play clicked");
+				UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
+				CloseSelf();
+			});
+
+			BtnSetting.onClick.AddListener(() =>
+			{
+				Log.I("on btn setting clicked");
+				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
+			});
 		}
 
-		UIGamePanelData mData = null;
+		UIMenuPanelData mData = null;
 	}
 }
