@@ -9,11 +9,11 @@
 
 #### 技术支持：
 
-**如在使用中遇到问题请提交 [这里](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
+* **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
 
-**QQ群:623597263**
+* **QQ群:623597263**
 
-**不想进群的同学也可以在 [这里](https://gitter.im/qframeworkio/qframework) 进行讨论**
+* **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
 
 #### 下载地址:
 * [Asset Store](http://u3d.as/SJ9)(如果觉得不错给个好评哦~,或者给个小小的 Star~,这些都会转化成我们的动力)
