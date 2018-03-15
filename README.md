@@ -20,7 +20,7 @@
 * [各个独立模块下载](https://github.com/liangxiegame/QFramework/releases)
 
 #### 赞助:
-* 如果觉得不错可以在 [这里 AssetStore ] (http://u3d.as/SJ9) 给个 5 星哦~
+* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~
 * 或者给此仓库一个小小的 Star~
 * 以上这些都会转化成我们的动力,提供更好的技术服务!
 
