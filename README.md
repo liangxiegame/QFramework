@@ -16,7 +16,13 @@
 * **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
 
 #### 下载地址:
-* [Asset Store](http://u3d.as/SJ9)(如果觉得不错给个好评哦~,或者给个小小的 Star~,这些都会转化成我们的动力)
+* [Asset Store](http://u3d.as/SJ9)
+* [各个独立模块下载](https://github.com/liangxiegame/QFramework/releases)
+
+#### 赞助:
+* 如果觉得不错可以在 [这里(AssetStore)](http://u3d.as/SJ9) 给个 5 星哦~
+* 或者给此仓库一个小小的 Star~
+* 以上这些都会转化成我们的动力,提供更好的技术服务!
 
 #### 运行环境
 
@@ -64,11 +70,6 @@ this
 	// 6. Destroy(this.gameObject)
 	.DestroyGameObj();
 ```
-
-
-本文档部分文字参考自:http://catlib.io
-
-
 
 #### 包含项目:
 
