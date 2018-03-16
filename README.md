@@ -60,7 +60,6 @@ this
 #### 包含项目:
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
 * [LShortcut4Unity:A Short Cut Tools For Unity Editor](https://github.com/LoveOfCodeGod/LShortcut4Unity)
-* [Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 * [Catlib.Core](https://github.com/CatLib/Core)
