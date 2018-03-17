@@ -27,9 +27,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
-	using System;
 	using UnityEngine;
 	/// <summary>
 	/// 每个UIbehaviour对应的Data
@@ -39,19 +40,6 @@ namespace QFramework
 	}
 
 	public class UIPageData : IUIData
-	{
-		/// <summary>
-		/// 记录上一个页面，建议直接使用class name
-		/// </summary>
-		public string LastPage;
-	}
-
-	public class UIElementData : IUIData
-	{
-	}
-
-	[Obsolete("弃用，page请用UIPageData")]
-	public class QUIData : IUIData
 	{
 	}
 
@@ -63,7 +51,6 @@ namespace QFramework
 		}
 
 		private IUIPanelLoader mUiPanelLoader = null;
-		GameObject mPrefab = null;
 
 		public static QUIBehaviour Load(string panelName, string assetBundleName = null)
 		{
@@ -74,11 +61,8 @@ namespace QFramework
 			var obj = Instantiate(panelPrefab);
 			var retScript = obj.GetComponent<QUIBehaviour>();
 			retScript.mUiPanelLoader = panelLoader;
-			retScript.mPrefab = panelPrefab;
 			return retScript;
 		}
-
-		protected bool mClosed = false;
 
 		protected override void SetupMgr()
 		{
@@ -93,9 +77,6 @@ namespace QFramework
 			{
 				mIComponents.Clear();
 			}
-
-			Debug.Log(name + " remove Success");
-
 		}
 
 		public void Init(IUIData uiData = null)
@@ -148,6 +129,9 @@ namespace QFramework
 			{
 				Destroy(gameObject);
 			}
+
+			mOnPanelClosed.InvokeGracefully();
+			mOnPanelClosed = null;
 			mUiPanelLoader.Unload();
 			mUiPanelLoader = null;
 		}
@@ -162,6 +146,13 @@ namespace QFramework
 		/// </summary>
 		protected virtual void OnClose()
 		{
+		}
+
+		private Action mOnPanelClosed;
+
+		public void OnClosed(Action onPanelClosed)
+		{
+			mOnPanelClosed = onPanelClosed;
 		}
 	}
 }

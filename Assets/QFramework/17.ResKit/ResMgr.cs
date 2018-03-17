@@ -50,7 +50,7 @@ namespace QFramework
 
         #endregion
 
-        public static void InitResMgr()
+        public static void Init()
         {
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)

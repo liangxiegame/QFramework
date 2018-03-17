@@ -3,6 +3,8 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
+using System;
+
 namespace QFramework 
 {
 	using UnityEngine;
@@ -21,5 +23,7 @@ namespace QFramework
 		void Hide();
 		
 		void Close(bool destroy = true);
+
+		void OnClosed(Action onPanelClosed);
 	}
 }

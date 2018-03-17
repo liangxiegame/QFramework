@@ -39,7 +39,7 @@ namespace QFramework.Example
 		// Use this for initialization
 		private IEnumerator Start()
 		{
-			ResMgr.InitResMgr();
+			ResMgr.Init();
 
 			// net image
 			mResLoader.Add2Load(
