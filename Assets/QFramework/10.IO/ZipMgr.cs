@@ -4,7 +4,7 @@
  *
  * TODO:之后可能不用这个了
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

@@ -9,7 +9,7 @@
  * https://github.com/JefferiesTube/UnityEditorHelper
  * https://github.com/liortal53/MissingReferencesUnity
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * https://github.com/liangxiegame/QSingleton
  * https://github.com/liangxiegame/QChain

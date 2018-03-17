@@ -3,7 +3,7 @@
  *
  * Reference from :http://www.cnblogs.com/tuyile006/archive/2008/04/25/1170894.html
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

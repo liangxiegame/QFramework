@@ -2,7 +2,7 @@
  * Copyright (c) 2017 liangxie
  * reference blog:http://blog.csdn.net/aisajiajiao/article/details/17622063
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

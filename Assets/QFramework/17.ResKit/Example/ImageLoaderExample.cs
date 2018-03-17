@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * https://github.com/liangxiegame/QSingleton
  * https://github.com/liangxiegame/QChain
@@ -43,7 +43,7 @@ namespace QFramework.Example
 
 			// net image
 			mResLoader.Add2Load(
-				"http://liangxiegame.com/content/images/2017/07/-----2017-07-01-12-14-56.png".ToNetImageResName(),
+				"http://qframework.io/content/images/2017/07/-----2017-07-01-12-14-56.png".ToNetImageResName(),
 				delegate(bool b, IRes res)
 				{
 					Log.E(b);

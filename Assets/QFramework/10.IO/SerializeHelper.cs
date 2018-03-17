@@ -5,7 +5,7 @@
  *
  * TODO: 这个应该写成扩展关键字方式的
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

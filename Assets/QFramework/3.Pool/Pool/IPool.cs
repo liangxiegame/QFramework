@@ -38,7 +38,7 @@
  * http://www.rivellomultimediaconsulting.com/
  * http://www.rivellomultimediaconsulting.com/unity3d-mvcs-architectures-strangeioc-2/
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

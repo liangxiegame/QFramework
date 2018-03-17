@@ -2,7 +2,7 @@
  * Copyright (c) 2017 liangxie
  * this code is borrowed from RxOfficial(rx.codeplex.com) and modified
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

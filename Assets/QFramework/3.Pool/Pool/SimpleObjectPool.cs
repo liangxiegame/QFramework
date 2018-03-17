@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,7 +28,7 @@ namespace QFramework
     using System;
 
     /// <summary>
-    /// Unity 游戏框架搭建 (十九) 简易对象池：http://liangxiegame.com/post/24/ 的例子
+    /// Unity 游戏框架搭建 (十九) 简易对象池：http://qframework.io/post/24/ 的例子
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class SimpleObjectPool<T> : Pool<T>

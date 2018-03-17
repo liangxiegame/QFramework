@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018.3 vin129
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

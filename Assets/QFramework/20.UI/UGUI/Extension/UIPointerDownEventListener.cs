@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 yuanhuibin@putao.com
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * https://github.com/liangxiegame/QSingleton
  * https://github.com/liangxiegame/QChain

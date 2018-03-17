@@ -2,7 +2,7 @@
  * Copyright (c) 2017 liangxie
  * copy, modified from Rx Official
  * 
- * http://liangxiegame.com
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
