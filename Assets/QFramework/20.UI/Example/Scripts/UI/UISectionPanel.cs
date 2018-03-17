@@ -67,11 +67,11 @@ namespace QFramework.UIExample
 
 		protected override void RegisterUIEvent()
 		{
-
 			settingBtn.onClick.AddListener(() =>
 			{
 				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
 			});
+			
 			backBtn.onClick.AddListener(() =>
 			{
 				UIMgr.OpenPanel<UIMenuPanel>(UILevel.PopUI, prefabName: "Resources/UIMenuPanel");

@@ -56,7 +56,6 @@ namespace QFramework
 		public virtual void Show()
 		{
 			gameObject.SetActive (true);
-			Log.I("On Show:{0}",name);
 
 			OnShow ();
 		}

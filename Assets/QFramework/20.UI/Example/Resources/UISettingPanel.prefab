@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 222198812582914684}
   - component: {fileID: 114178129479509104}
   - component: {fileID: 114739919591840324}
+  - component: {fileID: 114523208589208662}
   m_Layer: 5
   m_Name: UISettingPanel
   m_TagString: Untagged
@@ -300,6 +301,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4211833ca4e7a4984b2d973425a62933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114523208589208662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559174437466518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9bf2949ae8f84f898ede0996f17df93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BtnBack: {fileID: 0}
+  BtnSound: {fileID: 0}
+  BtnHelp: {fileID: 0}
 --- !u!114 &114545885329347480
 MonoBehaviour:
   m_ObjectHideFlags: 1
