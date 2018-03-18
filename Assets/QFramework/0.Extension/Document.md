@@ -4,8 +4,6 @@ the Extensions Module is wrapper for Unity and .Net's API
 
 简单来说都是对 .Net 和  Unity 的 API 进行了一层封装
 
-
-
 #### QuickStart:
 
 ``` csharp
@@ -34,4 +32,3 @@ Resources.Load<GameObject>("playerPrefab")
 	.Layer("Default")
 	.ApplySelfTo(_ => { Debug.Log("playerPrefab instantiated"); });
 ```
-
