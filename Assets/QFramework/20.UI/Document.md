@@ -21,15 +21,9 @@
 
 创建一个Panel并命名，建议以UI为前缀。并添加一些元素（例如Button），并为其添加**标记**。标记方式为添加**QUIMark Component**
 
-![F2DC34F-821A-46DA-9283-0641A795A4C](/Users/vin129/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/515019721/QQ/Temp.db/DF2DC34F-821A-46DA-9283-0641A795A4C6.png)
-
-![B759EFC-4204-4117-A092-5C791968963](/Users/vin129/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/515019721/QQ/Temp.db/CB759EFC-4204-4117-A092-5C791968963F.png)
-
 将你编辑好的Panel以**Prefab**方式存放到Resources 或 标记为AssetBundle
 
 右击 preafb,选择 **QFramework-Create UICode **，会生成对应脚本。
-
-![4021508-768C-42BC-B44F-B705AF24E1C](/Users/vin129/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/515019721/QQ/Temp.db/94021508-768C-42BC-B44F-B705AF24E1C5.png)
 
 ### 开始编写你的第一个QFram脚本
 
@@ -82,11 +76,7 @@ namespace QFramework.UIExample
 
 为你的场景添加**QUIManager**，位置在 Aseets/QFramework/20.UI/Resources/QUIManager。
 
-![5CF9EB1-BDD7-40DF-A29A-A1791FBA198](/Users/vin129/Library/Containers/com.tencent.qq/Data/Library/Application Support/QQ/Users/515019721/QQ/Temp.db/C5CF9EB1-BDD7-40DF-A29A-A1791FBA1989.png)
-
-
-
-开启你的第一个界面
+启动你的第一个界面
 
 ```csharp
 namespace QFramework.UIExample
@@ -101,3 +91,31 @@ namespace QFramework.UIExample
 }
 ```
 
+### 管理你的界面
+
+```csharp
+		internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
+			string prefabName = null) where T : QUIBehaviour
+			
+			
+		internal static void ClosePanel<T>() where T : QUIBehaviour
+```
+
+使用**UIMgr**的**OpenPanel**与**ClosePanel**来开关你的界面。
+
+```csharp
+public class UILevel
+	{
+		public const int Bg                 = -2;  //背景层UI
+		public const int AnimationUnderPage = -1; //动画层
+		public const int Common             = 0; //普通层UI
+		public const int AnimationOnPage    = 1; // 动画层
+		public const int PopUI              = 2; //弹出层UI
+		public const int Guide              = 3; //新手引导层
+		public const int Const              = 4; //持续存在层UI
+		public const int Toast              = 5; //对话框层UI
+		public const int Forward            = 6; //最高UI层用来放置UI特效和模型
+	}
+```
+
+请对你的UIPanel进行分层，他们将显示在QUIManager对应的层级中。
