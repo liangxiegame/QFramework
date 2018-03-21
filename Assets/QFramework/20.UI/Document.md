@@ -25,52 +25,145 @@
 
 右击 preafb,选择 **QFramework-Create UICode **，会生成对应脚本。
 
-### 开始编写你的第一个QFram脚本
+### 开始编写你的第一个QUI脚本
+
+使用**Create UICode**会生成两份有关的脚本文件
 
 ``` csharp
 namespace QFramework.UIExample
-
 {
-
+	//界面相关的PanelCode
     public class UIMenuPanelData : IUIData
-
     {
-        // TODO: Query
+        // 这里存放Panel相关数据
     }
-
     public partial class UIMenuPanel : QUIBehaviour
     {
         protected override void InitUI(IUIData uiData = null)
         {
             mData = uiData as UIMenuPanelData;
-            
             //please add init code here
         }
 
         protected override void ProcessMsg(int eventId, QMsg msg)
         {
             throw new System.NotImplementedException();
+            // 这里处理消息
         }
         
         protected override void RegisterUIEvent()
         {
-            BtnPlay.onClick.AddListener(() =>
-            {
-                Log.I("on btn play clicked");
-                UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-                CloseSelf();
-            });
-            BtnSetting.onClick.AddListener(() =>
-            {
-                Log.I("on btn setting clicked");
-                UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
-            });
+			//这里可以进行UI事件的注册
         }   
         UIMenuPanelData mData = null;
     }
 }
 
 ```
+
+```csharp
+namespace QFramework.UIExample
+{
+	//收集被标记的组件
+	public partial class UIMenuPanel
+	{
+		[SerializeField] public Button BtnPlay;
+		[SerializeField] public Button BtnSetting;
+	}
+}
+```
+
+
+
+### QUICode使用流程
+
+* 使用**UIMgr.OpenPanel**创建你的UI界面
+
+  ```csharp
+  internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
+  ```
+
+  UILeve:来区分UIPanel的层级，例如UILeve.PopUI，UILeve.Guide，会放置在QUIManager中对应区域
+
+  UIData:传递Panel初始化的数据
+
+  assetBundleName/prefabName：Panel所相对应的路径
+
+* 关闭界面
+
+  ```csharp
+  CloseSelf();
+  ```
+
+  可编写关闭响应
+
+  ```csharp
+  protected override void OnClose()
+  {
+      UnRegisterAllEvent();
+      base.OnClose();
+  }
+  ```
+
+* 显示与隐藏
+
+  ```csharp
+   Show();
+   Hide();
+  ```
+
+  编写相关响应
+
+  ```csharp
+  protected override void OnShow()
+  {
+      base.OnShow();
+  }
+  protected override void OnHide()
+  {
+      base.OnHide();
+  }
+  ```
+
+* 消息（事件）的注册与发送
+
+  注册你的事件
+
+  ```csharp
+  protected void RegisterEvent<T>(T eventId) where T : IConvertible
+  ```
+
+  发送
+
+  ```csharp
+  protected void SendEvent<T>(T eventId) where T : IConvertible
+  ```
+
+  响应
+
+  ```csharp
+  protected virtual void ProcessMsg (int eventId,QMsg msg) {}
+  ```
+
+  UI事件的ID段为3000～5999
+
+  ```csharp
+  	public class QMsgSpan
+  	{
+  		public const int Count = 3000;
+  	}
+  	public partial class QMgrID
+  	{
+  		public const int Framework = 0;
+  		public const int UI = Framework + QMsgSpan.Count; // 3000
+  		public const int Audio = UI + QMsgSpan.Count; // 6000
+      }
+  ```
+
+  ​
+
+  ​
+
 
 ### 用QFarm的方式启动你的界面
 
@@ -91,31 +184,4 @@ namespace QFramework.UIExample
 }
 ```
 
-### 管理你的界面
-
-```csharp
-		internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
-			string prefabName = null) where T : QUIBehaviour
-			
-			
-		internal static void ClosePanel<T>() where T : QUIBehaviour
-```
-
-使用**UIMgr**的**OpenPanel**与**ClosePanel**来开关你的界面。
-
-```csharp
-public class UILevel
-	{
-		public const int Bg                 = -2;  //背景层UI
-		public const int AnimationUnderPage = -1; //动画层
-		public const int Common             = 0; //普通层UI
-		public const int AnimationOnPage    = 1; // 动画层
-		public const int PopUI              = 2; //弹出层UI
-		public const int Guide              = 3; //新手引导层
-		public const int Const              = 4; //持续存在层UI
-		public const int Toast              = 5; //对话框层UI
-		public const int Forward            = 6; //最高UI层用来放置UI特效和模型
-	}
-```
-
-请对你的UIPanel进行分层，他们将显示在QUIManager对应的层级中。
+### 

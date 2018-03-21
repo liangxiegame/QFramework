@@ -6,21 +6,7 @@ public static class UIEventID
 {
     public enum MenuPanel
     {
-        EnumStar = (int) 1,
-
-        GameStar,
-        Setting,
-
-
-        EnumEnd,
+        OnChangeMusic = 3001,//ui事件ID为3000～5999，见QMsgSpan
     }
 
-    public enum SettingPanel
-    {
-        EnumStar = MenuPanel.EnumEnd,
-
-        ShowSetting,
-
-        EnumEn,
-    }
 }

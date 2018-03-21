@@ -50,8 +50,22 @@ namespace QFramework.UIExample
 
 		protected override void RegisterUIEvent()
 		{
-			musicBar.onValueChanged.AddListener((float value) => { musicText.text = value.ToString(); });
-			backBtn.onClick.AddListener(() => { CloseSelf(); });
+			musicBar.onValueChanged.AddListener((float value) => { 
+                musicText.text = value.ToString();
+               
+            });
+            backBtn.onClick.AddListener(() => { SendEvent<int>((int)UIEventID.MenuPanel.OnChangeMusic);//CloseSelf(); 
+            });
+		}
+
+		protected override void OnHide()
+		{
+            base.OnHide();
+		}
+
+		protected override void OnShow()
+		{
+            base.OnShow();
 		}
 
 		protected override void OnClose()

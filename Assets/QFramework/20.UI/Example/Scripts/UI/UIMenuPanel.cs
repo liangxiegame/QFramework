@@ -40,11 +40,18 @@ namespace QFramework.UIExample
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
-			throw new System.NotImplementedException();
+            Log.I("Process");
+            switch(eventId){
+                case (int)UIEventID.MenuPanel.OnChangeMusic:
+                    Log.I("{0}:Process EventId {1}",Transform.name,eventId);
+                    break;
+            }
 		}
 
 		protected override void RegisterUIEvent()
 		{
+            RegisterEvent<int>((int)UIEventID.MenuPanel.OnChangeMusic);
+
 			BtnPlay.onClick.AddListener(() =>
 			{
 				Log.I("on btn play clicked");

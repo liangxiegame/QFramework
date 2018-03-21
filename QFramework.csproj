@@ -294,8 +294,6 @@
     <Compile Include="Assets\QFramework\20.UI\EasyEditor\View\LayoutLabel.cs" />
     <Compile Include="Assets\QFramework\20.UI\EasyEditor\View\LayoutVertical.cs" />
     <Compile Include="Assets\QFramework\20.UI\EasyEditor\View\OnGUIEvent.cs" />
-    <Compile Include="Assets\QFramework\20.UI\Example\EasyEditorExample\test1.cs" />
-    <Compile Include="Assets\QFramework\20.UI\Example\EasyEditorExample\testEditor.cs" />
     <Compile Include="Assets\QFramework\20.UI\Example\Example.cs" />
     <Compile Include="Assets\QFramework\20.UI\Example\Scripts\UI\UIGamePanel.cs" />
     <Compile Include="Assets\QFramework\20.UI\Example\Scripts\UI\UIGamePanelComponents.cs" />
