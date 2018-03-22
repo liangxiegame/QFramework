@@ -72,7 +72,7 @@ this
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
 * [cocos2d/cocos2d-x](https://github.com/cocos2d/cocos2d-x)
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
-#### 贡献者 Developer/Contributor:
+#### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
 - [@huibinye](https://github.com/HUIBINYE)
 - [@dtknowlove](https://github.com/dtknowlove)
