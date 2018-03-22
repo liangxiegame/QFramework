@@ -78,6 +78,7 @@ this
 - [@dtknowlove](https://github.com/dtknowlove)
 - [@vin129](https://github.com/vin129)
 - [@kevin](https://github.com/KEVIN-ZED)
+- [@SilenceT](https://github.com/SilenceT)
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 #### 教程 Tutorial
