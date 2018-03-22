@@ -4,7 +4,7 @@ using QFramework;
 
 namespace QFramework.UIExample
 {
-	public partial class UISelectionPanel
+	public partial class UISectionPanel
 	{
 		[SerializeField] public Button SectionBtn;
 		[SerializeField] public Button backBtn;
