@@ -17,7 +17,7 @@
 
   基于QUIManager与CreatUICode便捷迅速地完成界面的开发。
 
-### 创建你的第一个QFarmUI界面
+### 创建你的第一个QFramUI界面
 
 创建一个Panel并命名，建议以UI为前缀。并添加一些元素（例如Button），并为其添加**标记**。标记方式为添加**QUIMark Component**
 
