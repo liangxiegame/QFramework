@@ -54,7 +54,7 @@ namespace QFramework.UIExample
                 musicText.text = value.ToString();
                
             });
-            backBtn.onClick.AddListener(() => { SendEvent<int>((int)UIEventID.MenuPanel.OnChangeMusic);//CloseSelf(); 
+            backBtn.onClick.AddListener(() => { SendEvent<int>((int)UIEventID.MenuPanel.OnChangeMusic);CloseSelf(); 
             });
 		}
 

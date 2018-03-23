@@ -27,12 +27,12 @@ using UnityEngine.UI;
 
 namespace QFramework.UIExample
 {
-	public class UISelectionPanelData : UIPageData
+	public class UISectionPanelData : UIPageData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UISelectionPanel : QUIBehaviour
+	public partial class UISectionPanel : QUIBehaviour
 	{
 		private const int SectionNumber = 4;
 
@@ -40,7 +40,7 @@ namespace QFramework.UIExample
 
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UISelectionPanelData;
+			mData = uiData as UISectionPanelData;
 
 			for (var i = 0; i < mButtons.Length; i++)
 			{
@@ -85,6 +85,6 @@ namespace QFramework.UIExample
 			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData(i + 1), prefabName: "Resources/UIGamePanel");
 		}
 
-		UISelectionPanelData mData = null;
+		UISectionPanelData mData = null;
 	}
 }

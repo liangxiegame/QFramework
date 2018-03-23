@@ -53,7 +53,7 @@ namespace QFramework.UIExample
 		{
 			backBtn.onClick.AddListener(() =>
 			{
-				UIMgr.OpenPanel<UISelectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
+				UIMgr.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
 				CloseSelf();
 			});
 		}
