@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class UIEventID
+namespace QFramework.UIExample
 {
-    public enum MenuPanel
+    public static class UIEventID
     {
-        OnChangeMusic = 3001,//ui事件ID为3000～5999，见QMsgSpan
+        public enum MenuPanel
+        {
+            ChangeMenuColor = 3001,//ui事件ID为3000～5999，见QMsgSpan
+        }
     }
-
 }

@@ -36,21 +36,23 @@ namespace QFramework.UIExample
 		{
 			mData = uiData as UIMenuPanelData;
 			//please add init code here
+            ImageBg.color = "#FFFFFFFF".HtmlStringToColor();
 		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
             Log.I("Process");
             switch(eventId){
-                case (int)UIEventID.MenuPanel.OnChangeMusic:
+                case (int)UIEventID.MenuPanel.ChangeMenuColor:
                     Log.I("{0}:Process EventId {1}",Transform.name,eventId);
+                    ImageBg.color = "#00FFFFFF".HtmlStringToColor();
                     break;
             }
 		}
 
 		protected override void RegisterUIEvent()
 		{
-            RegisterEvent<int>((int)UIEventID.MenuPanel.OnChangeMusic);
+            RegisterEvent<int>((int)UIEventID.MenuPanel.ChangeMenuColor);
 
 			BtnPlay.onClick.AddListener(() =>
 			{
