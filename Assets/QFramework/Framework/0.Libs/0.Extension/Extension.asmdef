@@ -1,8 +1,0 @@
-{
-    "name": "Extension",
-    "references": [
-        "Libs"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

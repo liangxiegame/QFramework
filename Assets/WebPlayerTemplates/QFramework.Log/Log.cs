@@ -71,34 +71,21 @@ namespace QFramework
             set { mLogLevel = value; }
         }
 
-        public static void I(object msg)
+        public static void I(object msg, params object[] args)
         {
             if (mLogLevel < LogLevel.Normal)
             {
                 return;
             }
 
-            Debug.Log(msg);
-        }
-
-        public static void I(string msg, params object[] args)
-        {
-            if (mLogLevel < LogLevel.Normal)
+            if (args == null || args.Length == 0)
             {
-                return;
+                Debug.Log(msg);
+
             }
-
-            Debug.Log(string.Format(msg, args));
-        }
-
-        public static void E(object msg)
-        {
-            if (mLogLevel < LogLevel.Error)
-            {
-                return;
+            else {
+                Debug.LogFormat(msg.ToString(), args); 
             }
-
-            Debug.LogError(msg);
         }
 
         public static void E(Exception e)
@@ -111,14 +98,19 @@ namespace QFramework
             Debug.LogException(e);
         }
 
-        public static void E(string msg, params object[] args)
+        public static void E(object msg, params object[] args)
         {
             if (mLogLevel < LogLevel.Error)
             {
                 return;
             }
 
-            Debug.LogError(string.Format(msg, args));
+            if (args == null || args.Length == 0) {
+                Debug.LogError(msg);
+            } else {
+                Debug.LogError(string.Format(msg.ToString(), args));
+            }
+
         }
 
         public static void W(object msg)
