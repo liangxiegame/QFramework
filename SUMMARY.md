@@ -8,11 +8,7 @@
   * [API Static Extension](/Assets/QFramework/Framework/0.Libs/0.Extension/Document.md)
     - [DotNet](/Assets/QFramework/Framework/0.Libs/0.Extension/DocDotNet.md)
     - [Unity](/Assets/QFramework/Framework/0.Libs/0.Extension/DocUnity.md)
-
-
-
-  * [1.DataStructure](/Assets/QFramework/1.DataStructure/Document.md)
-  * [2. Singleton](/Assets/QFramework/2.Singleton/Document.md)
+  * [Singleton](/Assets/QFramework/Framework/0.Libs/2.Singleton/Document.md)
   * [3.Pool](/Assets/QFramework/3.Pool/Document.md)
   * [4.FSM](/Assets/QFramework/4.FSM/Document.md)
   * [5.RefCounter](/Assets/QFramework/5.RefCounter/Document.md)
