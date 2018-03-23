@@ -5,9 +5,9 @@
 * [Res Kit](/Assets/QFramework/Framework/2.ResKit/Document.md)
 * [UI Kit](/Assets/QFramework/Framework/3.UI/Document.md)
 * [Other/ScriptCollection]
-  * [API Static Extension](/Assets/QFramework/0.Libs/0.Extension/Document.md)
-    - [DotNet](/Assets/QFramework/0.Libs/0.Extension/DocDotNet.md)
-    - [Unity](/Assets/QFramework/0.Libs/0.Extension/DocUnity.md)
+  * [API Static Extension](/Assets/QFramework/Framework/0.Libs/0.Extension/Document.md)
+    - [DotNet](/Assets/QFramework/Framework/0.Libs/0.Extension/DocDotNet.md)
+    - [Unity](/Assets/QFramework/Framework/0.Libs/0.Extension/DocUnity.md)
 
 
 
