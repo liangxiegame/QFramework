@@ -26,22 +26,30 @@
 * UI
 * Action
 * ResKit
-#### 快速开始
-Unity API GameObject 扩展:
+#### 快速开始:
+
+**1.Action Kit**
+
+* chainning style(Driven by MonoBehaviour or Update
+
 ``` csharp
-gameObject
-	// 1. gameObject.SetActive(true)
-	.Show()
-	// 2. gameObject.SetActive(false)
-	.Hide()
-	// 3. gameObject.name = "Yeah" (这是UnityEngine.Object的API)
-	.Name("Yeah")
-	// 4. gameObject.layer = 10
-	.Layer(0)
-	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
-	.Layer("Default")
-	// 6. Destroy(gameObject) (这是UnityEngine.Object的API)
-	.DestroySelf();
+this.Sequence()
+	.Delay(1.0f)
+	.Event(()=>Log.I("Delayed 1 second))
+	.Until(()=>something is done)
+	.Begin();
+```
+
+**object oriented style**
+``` 
+var sequenceNode = new SequenceNode();
+sequenceNode.Append(DelayNode.Allocate(1.0f));
+sequenceNode.Append(EventNode.Allocate(()=>Log.I("Delayed 1 second));
+sequenceNode.Append(UntilNode.Allocate(()=>something is true));
+
+this.ExecuteNode(sequenceNode);
+```
+
 ```
 Unity API MonoBehaviour 扩展:
 ``` csharp
