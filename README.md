@@ -65,6 +65,18 @@ loader.Recycle2Cache()
 loader = null
 ```
 
+**3.UI Kit
+``` csharp
+// open a panel from assetBundle
+UIMgr.OpenPanel<UIMainPanel>()
+
+// load a panel from specified Resources
+UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel")
+
+// load a panel from specield assetName
+UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
+```
+
 #### 包含项目 Include Projects:
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
 * [LShortcut4Unity:A Short Cut Tools For Unity Editor](https://github.com/LoveOfCodeGod/LShortcut4Unity)
