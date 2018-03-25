@@ -1,5 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018.3 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,13 +26,24 @@
 
 namespace QFramework
 {
-    public class ObjectIsNotRetainedByOwnerExceptionWithHint : ExceptionWithHint
+    using UnityEditor;
+    using System.IO;
+
+    public static class MouseSelector
     {
-        public ObjectIsNotRetainedByOwnerExceptionWithHint(object obj, object owner)
-            : base("'" + owner + "' cannot release " + obj + "!\n" +
-                   "Object is not retained by this object!",
-                "An entity can only be released from objects that retain it.")
+        public static string GetSelectedPathOrFallback()
         {
-        }    
+            var path = string.Empty;
+
+            foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+            {
+                path = AssetDatabase.GetAssetPath(obj);
+                if (path.IsNotNullAndEmpty() && File.Exists(path))
+                {
+                }
+            }
+
+            return path;
+        }
     }
 }

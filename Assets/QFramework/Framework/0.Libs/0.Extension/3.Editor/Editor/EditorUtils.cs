@@ -1,49 +1,48 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018.3 liangxie
 ****************************************************************************/
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-	using UnityEngine;
-	
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
 	using UnityEditor;
 	#endif
-	using System;
-	using System.IO;
-	using System.Text;
-	using System.Collections.Generic;
-	using System.Security.Cryptography;
-	using Object = UnityEngine.Object;
 
-    public class EditorUtils
+    public static class EditorUtils
     {
-        //ѡ���ļ�����Ч:��Ҫѡ��ĳ���ļ�����
         public static string CurrentSelectPath
         {
             get
             {
-                if (Selection.activeObject == null)
-                {
-                    return null;
-                }
-                return AssetDatabase.GetAssetPath(Selection.activeObject);
+                return Selection.activeObject == null ? null : AssetDatabase.GetAssetPath(Selection.activeObject);
             }
         }
 
         public static string AssetsPath2ABSPath(string assetsPath)
         {
-            string assetRootPath = System.IO.Path.GetFullPath(Application.dataPath);
+            string assetRootPath = Path.GetFullPath(Application.dataPath);
             return assetRootPath.Substring(0, assetRootPath.Length - 6) + assetsPath;
         }
 
         public static string ABSPath2AssetsPath(string absPath)
         {
-            string assetRootPath = System.IO.Path.GetFullPath(Application.dataPath);
+            string assetRootPath = Path.GetFullPath(Application.dataPath);
 			Debug.Log (assetRootPath);
-			Debug.Log (System.IO.Path.GetFullPath (absPath));
-            return "Assets" + System.IO.Path.GetFullPath(absPath).Substring(assetRootPath.Length).Replace("\\", "/");
+			Debug.Log (Path.GetFullPath (absPath));
+            return "Assets" + Path.GetFullPath(absPath).Substring(assetRootPath.Length).Replace("\\", "/");
         }
 
 
@@ -59,7 +58,7 @@ namespace QFramework
 
         public static bool ExcuteCmd(string toolName, string args, bool isThrowExcpetion = true)
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
+            Process process = new Process();
             process.StartInfo.FileName = toolName;
             process.StartInfo.Arguments = args;
             process.StartInfo.CreateNoWindow = true;
@@ -71,22 +70,22 @@ namespace QFramework
             return true;
         }
 
-        public static void OuputProcessLog(System.Diagnostics.Process p, bool isThrowExcpetion)
+        public static void OuputProcessLog(Process p, bool isThrowExcpetion)
         {
             string standardError = string.Empty;
             p.BeginErrorReadLine();
 
-            p.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler((sender, outLine) =>
+            p.ErrorDataReceived += (sender, outLine) =>
             {
                 standardError += outLine.Data;
-            });
+            };
 
             string standardOutput = string.Empty;
             p.BeginOutputReadLine();
-            p.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler((sender, outLine) =>
+            p.OutputDataReceived += (sender, outLine) =>
             {
                 standardOutput += outLine.Data;
-            });
+            };
 
             p.WaitForExit();
             p.Close();
@@ -99,10 +98,8 @@ namespace QFramework
                     Log.E(standardError);
                     throw new Exception(standardError);
                 }
-                else
-                {
-                    Log.I(standardError);
-                }
+
+                Log.I(standardError);
             }
         }
 
@@ -125,18 +122,18 @@ namespace QFramework
                     item = argString.Substring(curPos + 1, argString.Length - curPos - 1);
                 }
 
-                item = EditorUtils.StringTrim(item);
+                item = StringTrim(item);
                 int splitPos = item.IndexOf(' ');
 
                 if (splitPos == -1)
                 {
-                    string key = EditorUtils.StringTrim(item);
+                    string key = StringTrim(item);
                     result[key] = "";
                 }
                 else
                 {
-                    string key = EditorUtils.StringTrim(item.Substring(0, splitPos));
-                    string value = EditorUtils.StringTrim(item.Substring(splitPos + 1, item.Length - splitPos - 1));
+                    string key = StringTrim(item.Substring(0, splitPos));
+                    string value = StringTrim(item.Substring(splitPos + 1, item.Length - splitPos - 1));
                     result[key] = value;
                 }
 
@@ -152,7 +149,7 @@ namespace QFramework
                 return "";
 
             MD5CryptoServiceProvider md5CSP = new MD5CryptoServiceProvider();
-            FileStream file = new FileStream(absPath, System.IO.FileMode.Open);
+            FileStream file = new FileStream(absPath, FileMode.Open);
             byte[] retVal = md5CSP.ComputeHash(file);
             file.Close();
             string result = "";
@@ -183,7 +180,7 @@ namespace QFramework
         {
             string dirABSPath = ABSPath2AssetsPath(dirAssetsPath);
 			Debug.Log (dirABSPath);
-            List<string> assetsABSPathList = IOExtension.GetDirSubFilePathList(dirABSPath, isRecursive, suffix);
+            List<string> assetsABSPathList = dirABSPath.GetDirSubFilePathList(isRecursive, suffix);
             List<Object> resultObjectList = new List<Object>();
 
             for (int i = 0; i < assetsABSPathList.Count; ++i)
@@ -224,7 +221,7 @@ namespace QFramework
         {
             string path = string.Empty;
 
-            foreach (UnityEngine.Object obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+            foreach (Object obj in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
             {
                 path = AssetDatabase.GetAssetPath(obj);
                 if (!string.IsNullOrEmpty(path) && File.Exists(path))
@@ -269,7 +266,7 @@ namespace QFramework
 
         public static string StringTrim(string str)
         {
-            return StringTrim(str, new char[] { ' ', '\t' });
+            return StringTrim(str, ' ', '\t');
         }
 
         static bool IsInCharArray(char[] array, char c)
@@ -329,11 +326,11 @@ namespace QFramework
         public static void Abort(string errMsg)
         {
             Log.E("BatchMode Abort Exit " + errMsg);
-            System.Threading.Thread.CurrentThread.Abort();
-            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            Thread.CurrentThread.Abort();
+            Process.GetCurrentProcess().Kill();
 
-            System.Environment.ExitCode = 1;
-            System.Environment.Exit(1);
+            Environment.ExitCode = 1;
+            Environment.Exit(1);
 
             EditorApplication.Exit(1);
         }

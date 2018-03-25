@@ -58,7 +58,7 @@ namespace QFramework
         {
             if (!Owners.Add(refOwner))
             {
-                throw new ObjectIsAlreadyRetainedByOwnerException(mObj, refOwner);
+                Log.E("ObjectIsAlreadyRetainedByOwnerException");
             }
         }
 
@@ -66,7 +66,7 @@ namespace QFramework
         {
             if (!Owners.Remove(refOwner))
             {
-                throw new ObjectIsNotRetainedByOwnerExceptionWithHint(mObj, refOwner);
+                Log.E("ObjectIsNotRetainedByOwnerExceptionWithHint");
             }
         }
     }
