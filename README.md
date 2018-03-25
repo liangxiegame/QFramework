@@ -16,17 +16,11 @@
 #### 下载地址 Download:
 * [Asset Store](http://u3d.as/SJ9)
 * [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
-#### 赞助 Donate:
-* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
-* 或者给此仓库一个小小的 Star~ star this repository
-* 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
 #### 运行环境
 * Unity 5.5.x ~ 2017.x
-#### 特性
-* UI
-* Action
-* ResKit
-#### 快速开始:
+
+#### 快速开始 QuickStart:
 
 **1.Action Kit**
 
@@ -65,7 +59,7 @@ loader.Recycle2Cache()
 loader = null
 ```
 
-**3.UI Kit
+**3.UI Kit**
 ``` csharp
 // open a panel from assetBundle
 UIMgr.OpenPanel<UIMainPanel>()
@@ -99,6 +93,12 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 - [@SilenceT](https://github.com/SilenceT)
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
+
+#### 赞助 Donate:
+* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
+* 或者给此仓库一个小小的 Star~ star this repository
+* 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
 #### 教程 Tutorial
 * [如何打造自己的框架](http://liangxiegame.com/post/1/)
 * [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
