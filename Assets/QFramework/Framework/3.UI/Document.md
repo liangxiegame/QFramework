@@ -19,6 +19,40 @@
 
   基于QUIManager与CreatUICode便捷迅速地完成界面的开发。
 
+### UI模块特征
+
+* ##### CodeGenerator
+
+  配合QUIMark生成UICode并对Mark的组件自动绑定。
+
+* ##### UIManager
+
+
+  管理与组织界面，如创建、显示隐藏界面，划分了UI层级。
+
+  ​
+
+### UICode的生命周期
+
+```csharp
+Init(IUIData uiData = null);
+
+Show();
+    
+OnShow();
+    
+IUIBehaviour.Close(bool destroyed = true);
+
+OnClose();
+
+OnDestroy();
+    
+OnBeforeDestroy();   
+```
+
+
+
+
 ### 创建你的第一个QFramUI界面
 
 创建一个Panel并命名，建议以UI为前缀。并添加一些元素（例如Button），并为其添加**标记**。标记方式为添加**QUIMark Component**
