@@ -41,7 +41,7 @@ this.Sequence()
 ```
 
 **object oriented style**
-``` 
+``` csharp
 var sequenceNode = new SequenceNode();
 sequenceNode.Append(DelayNode.Allocate(1.0f));
 sequenceNode.Append(EventNode.Allocate(()=>Log.I("Delayed 1 second));
@@ -50,23 +50,26 @@ sequenceNode.Append(UntilNode.Allocate(()=>something is true));
 this.ExecuteNode(sequenceNode);
 ```
 
-```
-Unity API MonoBehaviour 扩展:
+**2.Res Kit**
+
 ``` csharp
-this
-	// 1. this.gameObject.Show()
-	.Show()
-	// 2. this.gameObject.Hide()
-	.Hide()
-	// 3. this.gameObject.Name("Yeah")
-	.Name("Yeah")
-	// 4. gameObject.layer = 10
-	.Layer(0)
-	// 5. gameObject.layer = LayerMask.NameToLayer("Default);
-	.Layer("Default")
-	// 6. Destroy(this.gameObject)
-	.DestroyGameObj();
+
+// allocate a loader when initialize a panel or a monobehavour
+var loader = ResLoader.Allocate<ResLoader>();
+
+// load someth in a panel or a monobehaviour
+
+loader.LoadSync<GameObject>("Resources/smobj")
+
+loader.LoadSync<Texture2D>("Resources/Bg")
+
+
+// resycle this panel/monobehaivour loaded res when destroyed 
+
+loader.Recycle2Cache()
+loader = null
 ```
+
 #### 包含项目 Include Projects:
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
 * [LShortcut4Unity:A Short Cut Tools For Unity Editor](https://github.com/LoveOfCodeGod/LShortcut4Unity)
