@@ -8,23 +8,13 @@
   QFramework 是一套 **渐进式** 的 **快速开发** 框架。目标是作为无框架经验的公司、独立开发者、以及 Unity3D 初学者们的 **第一套框架**。框架内部积累了多个项目的在各个技术方向的解决方案。学习成本低，接入成本低，重构成本低，二次开发成本低，文档内容丰富(提供使用方式以及原理、开发文档)。
   
   QFramework is a **Progressive** and **RAD** framework.Goal is become indie developer and fresh man's **The First Framework**。It's include many project's tech solution.Easy 2 Learn,Easy 2 Install,Easy 2 Refactor,Easy 2 Modify,Feature Packed documents.
-#### 技术支持 Tech Support：
-* [文档 Document](http://qframework.io)
-* **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
-* **QQ群:623597263**
-* **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
-#### 下载地址 Download:
-* [Asset Store](http://u3d.as/SJ9)
-* [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
 
-#### 运行环境
-* Unity 5.5.x ~ 2017.x
 
 #### 快速开始 QuickStart:
 
 **1.Action Kit**
 
-* chainning style(Driven by MonoBehaviour or Update
+* chainning style(Driven by MonoBehaviour or Update)
 
 ``` csharp
 this.Sequence()
@@ -70,6 +60,29 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel")
 // load a panel from specield assetName
 UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 ```
+#### 技术支持 Tech Support：
+* [文档 Document](http://qframework.io)
+* **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
+* **QQ群:623597263**
+* **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
+
+#### 教程 Tutorial
+* [如何打造自己的框架](http://liangxiegame.com/post/1/)
+* [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
+* [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
+
+#### 赞助 Donate:
+* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
+* 或者给此仓库一个小小的 Star~ star this repository
+* 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
+#### 下载地址 Download:
+* [Asset Store](http://u3d.as/SJ9)
+* [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
+
+#### 运行环境
+* Unity 5.5.x ~ 2017.x
+
 
 #### 包含项目 Include Projects:
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
@@ -94,12 +107,3 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 
-#### 赞助 Donate:
-* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
-* 或者给此仓库一个小小的 Star~ star this repository
-* 以上这些都会转化成我们的动力,提供更好的技术服务! 
-
-#### 教程 Tutorial
-* [如何打造自己的框架](http://liangxiegame.com/post/1/)
-* [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
-* [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
