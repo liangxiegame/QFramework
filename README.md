@@ -66,7 +66,11 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 * **QQ群:623597263**
 * **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
 
-#### 教程 Tutorial
+#### 下载地址 Download:
+* [Asset Store](http://u3d.as/SJ9)
+* [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
+
+#### 教程 Tutorial (Chinese)
 * [如何打造自己的框架](http://liangxiegame.com/post/1/)
 * [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
 * [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
@@ -76,13 +80,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 * 或者给此仓库一个小小的 Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
-#### 下载地址 Download:
-* [Asset Store](http://u3d.as/SJ9)
-* [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
-
 #### 运行环境
 * Unity 5.5.x ~ 2017.x
-
 
 #### 包含项目 Include Projects:
 * [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
