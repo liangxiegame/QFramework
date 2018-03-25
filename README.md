@@ -24,7 +24,8 @@ this.Sequence()
 	.Begin();
 ```
 
-* object oriented style**
+* object oriented style
+
 ``` csharp
 var sequenceNode = new SequenceNode();
 sequenceNode.Append(DelayNode.Allocate(1.0f));
