@@ -203,7 +203,7 @@ namespace QFramework.UIExample
 
 ### 用QFarm的方式启动你的界面
 
-为你的场景添加**QUIManager**，位置在 Aseets/QFramework/20.UI/Resources/QUIManager。
+为你的场景添加**QUIManager**，位置在 Aseets/QFramework/Framework/3.UI/Resources/QUIManager。
 
 启动你的第一个界面
 
