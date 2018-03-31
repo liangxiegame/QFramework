@@ -30,3 +30,5 @@ Assembly-CSharp.sln
 Assembly-CSharp.userprefs
 QFramework2017.sln
 .vs
+Assets/StreamingAssets/AssetBundles
+AssetBundles.meta

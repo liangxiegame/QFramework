@@ -122,9 +122,7 @@ namespace QFramework
 		{
 			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
 			{
-				Log.I(response);
 				var latestedVersionInfo = FrameworkVersionInfo.ParseLatest(response);
-				Log.I(latestedVersionInfo.Assets.Count);
 			});
 		}
 

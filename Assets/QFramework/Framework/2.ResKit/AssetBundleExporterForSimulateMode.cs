@@ -41,7 +41,7 @@ namespace QFramework
 			ProcessAssetBundleRes(table);
 
 		    string filePath =
-		        IOExtension.CreateDirIfNotExists(FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER) +
+		        (FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
 		        QFrameworkConfigData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
 			table.Save(filePath);
 			AssetDatabase.Refresh ();
@@ -52,12 +52,12 @@ namespace QFramework
 
         private static string AssetPath2Name(string assetPath)
         {
-            int startIndex = assetPath.LastIndexOf("/") + 1;
-            int endIndex = assetPath.LastIndexOf(".");
+            var startIndex = assetPath.LastIndexOf("/") + 1;
+            var endIndex = assetPath.LastIndexOf(".");
 
             if (endIndex > 0)
             {
-                int length = endIndex - startIndex;
+                var length = endIndex - startIndex;
                 return assetPath.Substring(startIndex, length).ToLower();
             }
 
@@ -70,12 +70,12 @@ namespace QFramework
 
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
-            string[] abNames = AssetDatabase.GetAllAssetBundleNames();
+            var abNames = AssetDatabase.GetAllAssetBundleNames();
             if (abNames != null && abNames.Length > 0)
             {
-                for (int i = 0; i < abNames.Length; ++i)
+                for (var i = 0; i < abNames.Length; ++i)
                 {
-                    string[] depends = AssetDatabase.GetAssetBundleDependencies(abNames[i], false);
+                    var depends = AssetDatabase.GetAssetBundleDependencies(abNames[i], false);
                     var abIndex = table.AddAssetBundleName(abNames[i], depends, out group);
                     if (abIndex < 0)
                     {
@@ -100,7 +100,6 @@ namespace QFramework
             table.Dump();
         }
 #endregion
-
     }
 }
 #endif
