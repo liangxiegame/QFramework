@@ -81,13 +81,6 @@ namespace QFramework
 
 		#region AssetBundle 相关
 
-		public const string ABMANIFEST_ASSET_NAME = "assetbundlemanifest";
-
-		public static string AB_RELATIVE_PATH
-		{
-			get { return "AssetBundles/" + PlatformUtil.GetPlatformName() + "/"; }
-		}
-
 		public static string AssetBundleUrl2Name(string url)
 		{
 			string retName = null;

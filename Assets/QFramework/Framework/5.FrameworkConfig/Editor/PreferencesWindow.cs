@@ -19,13 +19,13 @@ namespace QFramework
 	
 	public class PreferencesWindow : EditorWindow
 	{
-		[MenuItem("QFramework/FrameworkConfig")]
-		static void Open() 
+		[MenuItem("QFramework/Preference &f")]
+		private static void Open()
 		{
-			PreferencesWindow frameworkConfigEditorWindow = (PreferencesWindow)GetWindow(typeof(PreferencesWindow),true);
-			frameworkConfigEditorWindow.titleContent = new  GUIContent("QFrameworkConfig");
-			frameworkConfigEditorWindow.CurConfigData = QFrameworkConfigData.Load ();
-			frameworkConfigEditorWindow.Show ();
+			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
+			frameworkConfigEditorWindow.titleContent = new GUIContent("QFrameworkConfig");
+			frameworkConfigEditorWindow.CurConfigData = QFrameworkConfigData.Load();
+			frameworkConfigEditorWindow.Show();
 			frameworkConfigEditorWindow.OnShow();
 		}
 
@@ -35,54 +35,6 @@ namespace QFramework
 		[MenuItem(FrameworkMenuItems.CheckForUpdates,false,FrameworkMenuItemsPriorities.CheckForUpdates)]
 		static void requestLatestRelease()
 		{
-
-//			var www = new WWW(URL_GITHUB_API_LATEST_RELEASE);
-//			EditorCoroutine.Add(() => www.isDone, () =>
-//			{
-//				if (!string.IsNullOrEmpty(www.error)) Debug.Log("WWW failed: " + www.error);
-//				else
-//				{
-//					Log.E(www.error);
-//				}
-//				Debug.Log("WWW result : " + www.text);
-//			});
-			
-			
-//			using(UnityWebRequest www = UnityWebRequest.Get(URL_GITHUB_API_LATEST_RELEASE)) {
-//				www.Send();
-// 
-//				while (www.responseCode == -1) {
-//					//do something, or nothing while blocking
-//				}
-//				if(www.isError) {
-//					Debug.Log(www.error);
-//				}
-//				else {
-//					//Show results as text
-//					Debug.Log(www.responseCode.ToString());
-//					//process downloadHandler.text
-//				}
-//			}
-//
-//			ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
-//
-//			ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
-//			var httpWebRequest = (HttpWebRequest) WebRequest.Create(URL_GITHUB_API_LATEST_RELEASE);
-//			
-//			httpWebRequest.UserAgent = Environment.UserName + "liangxiegame/QFramework/CheckForUpdates";
-//			httpWebRequest.Timeout = 15000;
-//			var webResponse = httpWebRequest.GetResponse();
-//
-////			ServicePointManager.ServerCertificateValidationCallback -= trustSource;
-//			var response = string.Empty;
-//			using (var streamReader = new StreamReader(webResponse.GetResponseStream()))
-//			{
-//				response = streamReader.ReadToEnd();
-//			}
-//			
-//			Log.I(response);
-
-//			return response;
 		}
 		
 		

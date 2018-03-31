@@ -27,8 +27,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-
 namespace QFramework
 {
 	using UnityEngine;
@@ -71,13 +69,10 @@ namespace QFramework
 
 		protected override void OnBeforeDestroy()
 		{
-			DestroyUI();
-
-			if (mIComponents != null)
-			{
-				mIComponents.Clear();
-			}
+			ClearUIComponents();
 		}
+		
+		protected virtual void ClearUIComponents(){}
 
 		public void Init(IUIData uiData = null)
 		{
@@ -87,8 +82,6 @@ namespace QFramework
 
 		void InnerInit(IUIData uiData = null)
 		{
-			mIComponents = gameObject.GetComponent<IUIComponents>();
-
 			InitUI(uiData);
 		}
 
@@ -100,16 +93,6 @@ namespace QFramework
 		{
 		}
 
-		protected virtual void DestroyUI()
-		{
-		}
-
-		protected void SetUIComponents(IUIComponents uiComponents)
-		{
-			mIComponents = uiComponents;
-		}
-
-		protected IUIComponents mIComponents = null;
 
 		/// <summary>
 		/// avoid override in child class

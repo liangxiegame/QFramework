@@ -28,10 +28,11 @@ namespace QFramework
 {
     using System.Text;
     using System.IO;
-    
+
     public static class UIPanelComponentsCodeTemplate
     {
-        public static void Generate(string generateFilePath,string behaviourName,string nameSpace, PanelCodeData panelCodeData)
+        public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
+            PanelCodeData panelCodeData)
         {
             var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
             var strBuilder = new StringBuilder();
@@ -39,20 +40,30 @@ namespace QFramework
             strBuilder.AppendLine("using UnityEngine;");
             strBuilder.AppendLine("using UnityEngine.UI;");
             strBuilder.AppendLine("using QFramework;");
-            strBuilder.AppendLine ();
-            strBuilder.AppendLine ("namespace " + nameSpace);
-            strBuilder.AppendLine ("{");
+            strBuilder.AppendLine();
+            strBuilder.AppendLine("namespace " + nameSpace);
+            strBuilder.AppendLine("{");
             strBuilder.AppendFormat("\tpublic partial class {0}", behaviourName);
             strBuilder.AppendLine();
             strBuilder.AppendLine("\t{");
-			
+
             foreach (var objInfo in panelCodeData.MarkedObjInfos)
             {
                 var strUIType = objInfo.MarkObj.ComponentName;
                 strBuilder.AppendFormat("\t\t[SerializeField] public {0} {1};\r\n",
-                    strUIType,objInfo.Name);
+                    strUIType, objInfo.Name);
             }
-            
+
+            strBuilder.AppendLine();
+            strBuilder.Append("\t\t").AppendLine("protected override void ClearUIComponents()");
+            strBuilder.Append("\t\t").AppendLine("{");
+            foreach (var markInfo in panelCodeData.MarkedObjInfos)
+            {
+                strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
+                    markInfo.Name);
+            }
+
+            strBuilder.Append("\t\t").AppendLine("}");
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("}");
             sw.Write(strBuilder);
