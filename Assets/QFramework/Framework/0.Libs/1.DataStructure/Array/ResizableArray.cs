@@ -84,12 +84,10 @@ namespace QFramework
             var size = mArray.Length;
 
             mArray[index] = null;
-            var newIndex = 0;
 
-            for (var i = index; i < size; i++)
+            for (var i = index; i < size - 1; i++)
             {
-                mArray[newIndex] = mArray[i];
-                newIndex++;
+                mArray[i] = mArray[i + 1];
             }
 
             Array.Resize(ref mArray, mArray.Length - 1);

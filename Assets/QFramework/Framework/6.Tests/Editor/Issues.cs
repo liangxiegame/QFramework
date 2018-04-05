@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 liuzhenhua@putao.com
+﻿/****************************************************************************
+ * Copyright (c) 2018.3 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,45 +23,24 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using NUnit.Framework;
 
-namespace QFramework.Test.Core
+namespace QFramework
 {
-	using UnityEngine;
-	using UnityEditor;
-	using NUnit.Framework;
-
-	public class IOUtilsTest
+	public class Issues
 	{
-		public static string testPath = Application.dataPath + "/PTUGame/PTFramework/Core/Pool/";
-
 		[Test]
-		public void IOUtilsTest_GetDirSubFilePathList_Count()
+		// https://github.com/liangxiegame/QFramework/issues/21
+		public void Issue21()
 		{
-			//Arrange
-			int count = 0;
+			var testArrays = new ResizeableArray<string>(0);
 
-			//Act
-			//Try to rename the GameObject
-			count = IOExtension.GetDirSubFilePathList(testPath,true,".cs").Count;
+			testArrays.Append("1");
+			testArrays.Append("2");
 
-			//Assert
-			//The object has a new name
-			Assert.AreEqual(4,count);
-		}
-		
-		[Test]
-		public void IOUtilsTest_GetDirSubDirNameList_Count()
-		{
-			//Arrange
-			int count = 0;
+			testArrays.RemoveAt(0);
 
-			//Act
-			//Try to rename the GameObject
-			count = IOExtension.GetDirSubDirNameList(testPath).Count;
-
-			//Assert
-			//The object has a new name
-			Assert.AreEqual(1,count);
+			Assert.AreEqual(testArrays[0], "2");
 		}
 	}
 }

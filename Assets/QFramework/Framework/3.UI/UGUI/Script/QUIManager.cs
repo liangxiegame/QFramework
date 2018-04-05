@@ -1,12 +1,11 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 magicbel
+ * Copyright (c) 2017 magicbell
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018.3 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
