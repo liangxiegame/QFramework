@@ -85,12 +85,10 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 * Unity 5.5.x ~ 2017.x
 
 #### 包含项目 Include Projects:
-* [~~UniPM:A Package Manager For Unity3D~~](https://github.com/UniPM/UniPM)
-* [LShortcut4Unity:A Short Cut Tools For Unity Editor](https://github.com/LoveOfCodeGod/LShortcut4Unity)
-* [UniRx](https://github.com/neuecc/UniRx)
 * [Catlib.Core](https://github.com/CatLib/Core)
 * [ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)
 * [StateManageEditor](https://github.com/827922094/StateManageEditor)
+* [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 * [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 #### 参考 Reference:
