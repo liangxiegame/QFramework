@@ -27,15 +27,17 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class Json_Path_Protobuf : MonoBehaviour
+    public class JsonPathProtobuf : MonoBehaviour
     {
         private void Start()
         {
-            ProtoBufTest tempProto = new ProtoBufTest();
-            tempProto.ID = 1;
-            tempProto.Msg = "Hello";
+            var tempProto = new ProtoBufTest
+            {
+                ID = 1,
+                Msg = "Hello"
+            };
 
-            JsonTest tempJson = new JsonTest {Age = 18};
+            var tempJson = new JsonTest {Age = 18};
 
             this.Sequence()
                 .Until(() => { return Input.GetKeyDown(KeyCode.P); })
@@ -78,17 +80,17 @@ namespace QFramework
     [System.Serializable]
     public class JsonTest
     {
-        private string name;
+        private string mName;
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return mName; }
+            set { mName = value; }
         }
-        private int age;
+        private int mAge;
         public int Age
         {
-            get { return age; }
-            set { age = value; }
+            get { return mAge; }
+            set { mAge = value; }
         }
     }
 }
