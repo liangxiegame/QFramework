@@ -1,11 +1,12 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 magicbell
+ * Copyright (c) 2017 magicbel
  * Copyright (c) 2017 liangxie
- * Copyright (c) 2018.3 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ * https://github.com/liangxiegame/QSingleton
+ * https://github.com/liangxiegame/QChain
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -59,24 +60,24 @@ namespace QFramework
 	public class QUIManager : QMgrBehaviour, ISingleton
 	{
 		Dictionary<string, IUIBehaviour> mAllUI = new Dictionary<string, IUIBehaviour>();
+        QLayerLogic mLayerLogic;
+        QUIPanelStack mUIPanelStack;
 
-		[SerializeField] Transform mBgTrans;
-		[SerializeField] Transform mAnimationUnderPageTrans;
-		[SerializeField] Transform mCommonTrans;
-		[SerializeField] Transform mAnimationOnPageTrans;
-		[SerializeField] Transform mPopUITrans;
-		[SerializeField] Transform mConstTrans;
-		[SerializeField] Transform mToastTrans;
-		[SerializeField] Transform mForwardTrans;
 		[SerializeField] Camera mUICamera;
 		[SerializeField] Canvas mCanvas;
 		[SerializeField] CanvasScaler mCanvasScaler;
 		[SerializeField] GraphicRaycaster mGraphicRaycaster;
 
+		private void Awake()
+		{
+            mLayerLogic = FindObjectOfType<QLayerLogic>();
+            mUIPanelStack = QUIPanelStack.Instance;
+		}
+
 		public void OnSingletonInit()
 		{
 			Log.I("QUIManager Init");
-		}
+        }
 
 		private static QUIManager mInstance;
 
@@ -158,44 +159,10 @@ namespace QFramework
 
 			ui = QUIBehaviour.Load(uiBehaviourName,assetBundleName);
 
-			switch (uiLevel)
-			{
-				case UILevel.Bg:
-					ui.Transform.SetParent(mBgTrans);
-					break;
-				case UILevel.AnimationUnderPage:
-					ui.Transform.SetParent(mAnimationUnderPageTrans);
-					break;
-				case UILevel.Common:
-					ui.Transform.SetParent(mCommonTrans);
-					break;
-				case UILevel.AnimationOnPage:
-					ui.Transform.SetParent(mAnimationOnPageTrans);
-					break;
-				case UILevel.PopUI:
-					ui.Transform.SetParent(mPopUITrans);
-					break;
-				case UILevel.Const:
-					ui.Transform.SetParent(mConstTrans);
-					break;
-				case UILevel.Toast:
-					ui.Transform.SetParent(mToastTrans);
-					break;
-				case UILevel.Forward:
-					ui.Transform.SetParent(mForwardTrans);
-					break;
-			}
+            mLayerLogic.SetLayer(uiLevel,ui);
+            mUIPanelStack.OnCreatUI(uiLevel,ui,uiBehaviourName);
 
-			var uiGoRectTrans = ui.Transform as RectTransform;
-
-			uiGoRectTrans.offsetMin = Vector2.zero;
-			uiGoRectTrans.offsetMax = Vector2.zero;
-			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-			uiGoRectTrans.anchorMin = Vector2.zero;
-			uiGoRectTrans.anchorMax = Vector2.one;
-
-			ui.Transform.LocalScaleIdentity();
-			ui.Transform.gameObject.name = uiBehaviourName;
+            ui.Transform.gameObject.name = uiBehaviourName;
 
 			return ui.Transform.gameObject;
 		}
@@ -237,6 +204,7 @@ namespace QFramework
 			}
 
 			mAllUI.Clear();
+            mUIPanelStack.ClearStack();
 		}
 
 		/// <summary>
@@ -253,6 +221,7 @@ namespace QFramework
 			{
 				behaviour.Close();
 				mAllUI.Remove(behaviourName);
+                mUIPanelStack.RemoveUI(behaviourName,behaviour);
 			}
 		}
 
