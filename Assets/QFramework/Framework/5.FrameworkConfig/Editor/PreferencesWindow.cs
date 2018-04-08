@@ -25,6 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.IO;
+
 namespace QFramework
 {
 	using System;
@@ -100,6 +102,34 @@ namespace QFramework
 			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
 			{
 				var latestedVersionInfo = FrameworkVersionInfo.ParseLatest(response);
+				latestedVersionInfo.Assets.ForEach(asset =>
+				{
+					Log.I(asset.Name);
+					if (asset.Name.StartsWith("QFramework"))
+					{
+						var version = asset.Name.Replace("QFramework_v", string.Empty).Replace(".unitypackage", string.Empty);
+						var versionChars = version.Split('.');
+						int versionCode = 0;
+
+						versionChars.ForEach(versionChar =>
+						{
+							versionCode *= 100;
+							versionCode += versionChar.ToInt();
+						});
+						
+						Log.I(versionCode);
+						// 版本比较
+						ObservableWWW.GetAndGetBytes(asset.BrowserDownloadUrl).Subscribe(bytes =>
+						{
+							File.WriteAllBytes(Application.dataPath + "/" + asset.Name, bytes);
+							
+							AssetDatabase.ImportPackage(Application.dataPath + "/" + asset.Name,true);							
+						});
+					}
+				});
+			}, e =>
+			{
+				Log.E(e);
 			});
 		}
 

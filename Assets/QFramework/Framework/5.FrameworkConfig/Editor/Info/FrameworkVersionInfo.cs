@@ -65,8 +65,8 @@ namespace QFramework
     {
         [JsonProperty("url")]                  public string Login;
         [JsonProperty("id")]                   public int    Id;
-        [JsonProperty("name")]                 public string AvatarUrl;
-        [JsonProperty("label")]                public string GravatarId;
+        [JsonProperty("name")]                 public string Name;
+        [JsonProperty("label")]                public string Label;
         [JsonProperty("uploader")]             public Author Uploader;
         [JsonProperty("content_type")]         public string ContentType;
         [JsonProperty("size")]                 public int    Size;
