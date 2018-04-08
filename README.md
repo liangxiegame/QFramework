@@ -28,9 +28,9 @@ this.Sequence()
 
 ``` csharp
 var sequenceNode = new SequenceNode();
-sequenceNode.Append(DelayNode.Allocate(1.0f));
-sequenceNode.Append(EventNode.Allocate(()=>Log.I("Delayed 1 second));
-sequenceNode.Append(UntilNode.Allocate(()=>something is true));
+sequenceNode.Append(DelayAction.Allocate(1.0f));
+sequenceNode.Append(EventAction.Allocate(()=>Log.I("Delayed 1 second));
+sequenceNode.Append(UntilAction.Allocate(()=>something is true));
 
 this.ExecuteNode(sequenceNode);
 ```
