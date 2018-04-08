@@ -27,24 +27,22 @@
 
 namespace QFramework
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
 
     public class QLayerLogic : MonoBehaviour
     {
-        [SerializeField]Transform mBgTrans;
-        [SerializeField]Transform mAnimationUnderPageTrans;
-        [SerializeField]Transform mCommonTrans;
-        [SerializeField]Transform mAnimationOnPageTrans;
-        [SerializeField]Transform mPopUITrans;
-        [SerializeField]Transform mConstTrans;
-        [SerializeField]Transform mToastTrans;
-        [SerializeField]Transform mForwardTrans;
+        [SerializeField] Transform mBgTrans;
+        [SerializeField] Transform mAnimationUnderPageTrans;
+        [SerializeField] Transform mCommonTrans;
+        [SerializeField] Transform mAnimationOnPageTrans;
+        [SerializeField] Transform mPopUITrans;
+        [SerializeField] Transform mConstTrans;
+        [SerializeField] Transform mToastTrans;
+        [SerializeField] Transform mForwardTrans;
 
 
-        public void SetLayer(int uiLevel, IUIBehaviour ui) {
+        public void SetLayer(int uiLevel, IUIBehaviour ui)
+        {
             switch (uiLevel)
             {
                 case UILevel.Bg:
@@ -72,6 +70,7 @@ namespace QFramework
                     ui.Transform.SetParent(mForwardTrans);
                     break;
             }
+
             var uiGoRectTrans = ui.Transform as RectTransform;
 
             uiGoRectTrans.offsetMin = Vector2.zero;

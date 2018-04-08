@@ -24,9 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-namespace QFramework {
-    using System;
-    using System.Collections;
+
+namespace QFramework
+{
     using System.Collections.Generic;
 
     public class QUIPanelStack : ISingleton
@@ -36,7 +36,9 @@ namespace QFramework {
             Log.I("QUIPanelStack init");
         }
 
-        private QUIPanelStack(){}
+        private QUIPanelStack()
+        {
+        }
 
         private static QUIPanelStack mInstance;
 
@@ -48,7 +50,7 @@ namespace QFramework {
                 {
                     mInstance = QSingletonProperty<QUIPanelStack>.Instance;
                 }
-               
+
                 return mInstance;
             }
         }
@@ -58,38 +60,42 @@ namespace QFramework {
         /// </summary>
         /// <param name="uilevel"></param>
         /// <param name="ui"></param>
-        public void OnCreatUI(int uilevel, IUIBehaviour ui,string uiBehaviourName)
+        public void OnCreatUI(int uilevel, IUIBehaviour ui, string uiBehaviourName)
         {
             if (Push(uilevel, ui))
-                mAllUIStackSite.Add(uiBehaviourName,uilevel);
+                mAllUIStackSite.Add(uiBehaviourName, uilevel);
         }
 
-        public void RemoveUI(string uiName,IUIBehaviour ui) {
+        public void RemoveUI(string uiName, IUIBehaviour ui)
+        {
             var uilevel = GetUILevel(uiName);
-            if (mAllStack.ContainsKey(uilevel)) {
+            if (mAllStack.ContainsKey(uilevel))
+            {
                 mAllStack[uilevel].Remove(ui);
                 mAllUIStackSite.Remove(uiName);
-            }      
+            }
         }
 
-        public int GetUILevel(string uiName){
+        public int GetUILevel(string uiName)
+        {
             return mAllUIStackSite[uiName];
         }
 
-        public void CloseLastUI(int uilevel) {
+        public void CloseLastUI(int uilevel)
+        {
             IUIBehaviour ui = GetLastUI(uilevel);
             if (ui != null)
                 QUIManager.Instance.CloseUI(ui.Transform.gameObject.name);
         }
 
-        public void ClearStack(){
+        public void ClearStack()
+        {
             mAllStack.Clear();
             mAllUIStackSite.Clear();
         }
 
-
-
-        private bool Push(int uilevel, IUIBehaviour ui) {
+        private bool Push(int uilevel, IUIBehaviour ui)
+        {
             if (!mAllStack.ContainsKey(uilevel))
                 mAllStack.Add(uilevel, new List<IUIBehaviour>());
             if (!mAllStack[uilevel].Contains(ui))
@@ -97,25 +103,27 @@ namespace QFramework {
                 mAllStack[uilevel].Add(ui);
                 return true;
             }
+
             return false;
         }
 
-        private IUIBehaviour GetLastUI(int uilevel) {
+        private IUIBehaviour GetLastUI(int uilevel)
+        {
             if (mAllStack.ContainsKey(uilevel))
             {
                 var count = mAllStack[uilevel].Count;
-                if(count > 0)
-                    return mAllStack[uilevel][count - 1] ;
+                if (count > 0)
+                    return mAllStack[uilevel][count - 1];
             }
+
             return null;
         }
 
-
-
-
         #region property
-        Dictionary<int, List<IUIBehaviour>> mAllStack = new Dictionary<int, List<IUIBehaviour>>();
-        Dictionary<string, int> mAllUIStackSite = new Dictionary<string, int>();
+
+        Dictionary<int, List<IUIBehaviour>> mAllStack       = new Dictionary<int, List<IUIBehaviour>>();
+        Dictionary<string, int>             mAllUIStackSite = new Dictionary<string, int>();
+
         #endregion
     }
 }
