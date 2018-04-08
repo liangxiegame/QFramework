@@ -69,7 +69,7 @@ namespace QFramework
 
 			if (QResSystemBuilder.isEnableGenerateClass)
 			{
-				"QFrameworkData".CreateDirIfNotExists();
+				"Assets/QFrameworkData".CreateDirIfNotExists();
 
                 var path = Path.GetFullPath(Application.dataPath + Path.DirectorySeparatorChar + "QFrameworkData/QAssets.cs");
 				var writer = new StreamWriter(File.Open(path, FileMode.Create));
