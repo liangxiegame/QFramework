@@ -60,7 +60,7 @@ namespace QFramework {
         /// <param name="ui"></param>
         public void OnCreatUI(int uilevel, IUIBehaviour ui,string uiBehaviourName)
         {
-            if (push(uilevel, ui))
+            if (Push(uilevel, ui))
                 mAllUIStackSite.Add(uiBehaviourName,uilevel);
         }
 
@@ -77,7 +77,7 @@ namespace QFramework {
         }
 
         public void CloseLastUI(int uilevel) {
-            IUIBehaviour ui = getLastUI(uilevel);
+            IUIBehaviour ui = GetLastUI(uilevel);
             if (ui != null)
                 QUIManager.Instance.CloseUI(ui.Transform.gameObject.name);
         }
@@ -89,7 +89,7 @@ namespace QFramework {
 
 
 
-        private bool push(int uilevel, IUIBehaviour ui) {
+        private bool Push(int uilevel, IUIBehaviour ui) {
             if (!mAllStack.ContainsKey(uilevel))
                 mAllStack.Add(uilevel, new List<IUIBehaviour>());
             if (!mAllStack[uilevel].Contains(ui))
@@ -100,7 +100,7 @@ namespace QFramework {
             return false;
         }
 
-        private IUIBehaviour getLastUI(int uilevel) {
+        private IUIBehaviour GetLastUI(int uilevel) {
             if (mAllStack.ContainsKey(uilevel))
             {
                 var count = mAllStack[uilevel].Count;
