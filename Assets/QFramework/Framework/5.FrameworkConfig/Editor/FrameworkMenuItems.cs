@@ -12,6 +12,8 @@ namespace QFramework
         public const string Preferences = "QFramework/Preferences... #%e";
         
         public const string CheckForUpdates = "QFramework/Check for Updates...";
+
+        public const string Feedback = "QFramework/Feedback";
     }
     
     public static class FrameworkMenuItemsPriorities {
@@ -20,7 +22,9 @@ namespace QFramework
 
         public const int CheckForUpdates = 10;
 
-        public const int documentation = 11;
+        public const int Feedback = 11;
+
+        public const int documentation = 12;
 
         public const int feedback_report_a_bug          = 20;
         public const int feedback_request_a_feature     = 21;
