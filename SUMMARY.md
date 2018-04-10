@@ -13,4 +13,5 @@
 * [发布日志-ReleaseNotes](https://github.com/liangxiegame/QFramework/releases)
 * Unity 游戏框架搭建
   * [1.概述-Intro](/Assets/HowToWriteUnityGameFramework/01.Intro/Intro.md)
-
+  * [2.单例的模板-QSingleton](/Assets/HowToWriteUnityGameFramework/02.QSingleton/QSingleton.md)
+  * [3.单例的模板-QSingleton](/Assets/HowToWriteUnityGameFramework/02.QSingleton/QSingleton.md)
