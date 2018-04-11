@@ -1,0 +1,165 @@
+# Unity 游戏框架搭建 (十一) 简易AssetBundle打包工具(一)
+
+最近在看Unity官方的 AssetBundle（以下简称 AB )的教程,也照着做了一遍,不过做出来的 AssetBundleManager 的 API 设计得有些不太习惯。目前想到了一个可行的解决方案。AB 相关的内容有点多,所以为了良好的阅读体验,就把教程分为几个小文章，一次写一个点。 
+
+#### 1. AssetBundle设置:
+
+首先要确定一个专门打资源包用的目录,我的框架定的目录是
+QArt/QAB,并存放了一些Prefab资源,如下所示。
+![](http://liangxiegame.com/content/images/2016/08/1.png)
+
+然后选定TestAB目录,将Inspector窗口的设置为如下图所示:
+
+![](http://liangxiegame.com/content/images/2016/08/2.png)
+
+一级名字为testab,二级扩展名为unity3d。
+这样AB就设置好了。
+
+#### 2. 制作编辑器工具。
+
+这里打包的核心API只有一个,就是
+
+```
+BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);
+```
+
+贴上编辑器工具代码:
+
+```
+using UnityEditor;
+using System.Collections;
+using UnityEngine;
+using System.IO;
+using System.Collections.Generic;
+
+namespace QFramework.Editor {
+
+    public class QABEditor
+    {
+        [MenuItem("QFramework/AB/Build")]
+        public static void BuildAssetBundle()
+        {
+            // AB包输出路径
+            string outPath = Application.streamingAssetsPath + "/QAB";
+
+            // 检查路径是否存在
+            CheckDirAndCreate (outPath);
+
+            BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);
+
+            // 刚创建的文件夹和目录能马上再Project视窗中出现
+            AssetDatabase.Refresh ();
+        }
+
+        /// <summary>
+        /// 判断路径是否存在,不存在则创建
+        /// </summary>
+        public static void CheckDirAndCreate(string dirPath)
+        {
+            if (!Directory.Exists (dirPath)) {
+                Directory.CreateDirectory (dirPath);
+            }
+        }
+     }
+}
+```
+
+**这个脚本要放在Editor目录下!!!**
+
+**这个脚本要放在Editor目录下!!!**
+
+**这个脚本要放在Editor目录下!!!**
+
+#### 使用方法:
+
+点击QFramework/AB/Build
+
+![](http://liangxiegame.com/content/images/2016/08/3.png)
+
+之后,生成的AB包如下所示:
+
+![](http://liangxiegame.com/content/images/2016/08/4-1.png)
+
+AB包就打好了,接下来开始测试AB包的使用。
+
+#### 3.测试:
+
+代码很简单,如下所示,一些常识性的问题就不介绍了。
+
+```
+using UnityEngine;
+using System.Collections;
+using System.IO;
+
+namespace QFramework.Example {
+    public class TestABEditor : MonoBehaviour {
+
+        // Use this for initialization
+        IEnumerator Start () {
+
+            WWW www = new WWW ("file:///" + Application.streamingAssetsPath + Path.DirectorySeparatorChar + "QAssetBundle" + Path.DirectorySeparatorChar + "testab.unity3d");
+
+            yield return www;
+
+            if (string.IsNullOrEmpty (www.error)) {
+                var go = www.assetBundle.LoadAsset<GameObject> ("Canvas");
+
+                Instantiate (go);
+            }
+            else {
+                Debug.LogError (www.error);
+            }
+
+        }
+
+        // Update is called once per frame
+        void Update () {
+
+        }
+    }
+}
+```
+
+##### 运行结果:
+
+![](http://liangxiegame.com/content/images/2016/08/5.png)
+
+最初版的打包工具就做好了,接下来到了吐槽的时刻了。
+
+#### 4.存在的问题:
+
+1. 不支持多平台,只能打当前PlayerSettings所设置的平台的AB包,有点麻烦。
+2. 需要手动设置AB包的名字和扩展名,这个问题完全可以交给代码实现。
+3. 看不到整个工程究竟有哪些设置了AB包的名字,哪些没设置,有些无关的资源误操作设置了AB包名,要排查这种资源要花些时间。
+4. 测试的代码中暴露的字符串太多了,其中包括AB包名,AB包路径,要加载的资源名字,这些都可以集中管理或者生成代码。
+5. 欢迎补充
+
+这些问题在此后的文章中一步一步解决,希望大家多给些建议。
+
+#### 欢迎讨论!
+
+#### 相关链接:
+
+[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+
+[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+
+QFramework &游戏框架搭建 QQ 交流群: 623597263
+
+转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+
+微信公众号:liangxiegame
+
+![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+
+#### 支持笔者:
+
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星 (如果有评论小的真是感激不尽): http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+
+笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
