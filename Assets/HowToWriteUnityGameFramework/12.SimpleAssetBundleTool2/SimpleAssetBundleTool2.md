@@ -1,144 +1,175 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (十二) 简易AssetBundle打包工具(二)
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+上篇文章中实现了基本的打包功能,在这篇我们来解决不同平台打AB包的问题。
 
-关于Unity的架构有如下几种常用的方式。
-
-#### 1.EmptyGO:
-
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
-
-缺点:逻辑代码散落在各处,不适合大型项目。
-
-#### 2.Simple GameManager:
-
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
-
-将不同的功能单独管理。如下:
-
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
-
-#### 实现一个简单的PoolManager<br>
-
-
+本篇文章的核心api还是:
 ``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);  
+```
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
+在第三个参数中,只要传入不同平台 BuildTarget就可以了。目前只考虑Android和iOS平台。
 
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+#### 区分iOS、Android平台
+
+很简单,只要在上篇文章的QABEditor类中将原来的BuildAssetBundle方法分为BuildAssetBundleiOS和BuildAssetBundleAndroid即可。代码如下所示。
+``` csharp
+public class QABEditor
+	{
+		[MenuItem("QFramework/AB/Build iOS")]
+		public static void BuildABiOS()
+		{
+			string outputPath = QPath.ABBuildOutPutDir (RuntimePlatform.IPhonePlayer);
+
+			QIO.CreateDirIfNotExists (outputPath);
+
+			QABBuilder.BuildAssetBundles (BuildTarget.iOS);
+
+			AssetDatabase.Refresh ();
+		}
+
+		[MenuItem("QFramework/AB/Build Android")]
+		public static void BuildABAndroid()
+		{
+			string outputPath = QPath.ABBuildOutPutDir (RuntimePlatform.Android);
+				
+			QIO.CreateDirIfNotExists (outputPath);
+
+			QABBuilder.BuildAssetBundles (BuildTarget.Android);
+
+			AssetDatabase.Refresh ();
+
+		}
+}
+```
+大家觉得代码中有几个类有些陌生。下面我来一一介绍下。
+
+#### QPath.ABBuildOutPutDir(build target)
+
+QPath这个类在我的框架中是用来指定固定的路径用的,因为路径的代码全是字符串,不能让字符串暴露在各处都是,这样会影响代码的可读性。统一管理起来比较方便修改。ABBuildOutPutDir这个API的实现如下所示,就不多说了。
+``` csharp
+	/// <summary>
+	/// 所有的路径常量都在这里
+	/// </summary>
+	public class QPath 
+	{
+		/// <summary>
+		/// 资源输出的路径
+		/// </summary>
+		public static string ABBuildOutPutDir(RuntimePlatform platform) {
+			string retDirPath = null;
+			switch (platform) {
+			case RuntimePlatform.Android:
+				retDirPath = Application.streamingAssetsPath + "/QAB/Android";
+				break;
+			case RuntimePlatform.IPhonePlayer:
+				retDirPath = Application.streamingAssetsPath + "/QAB/iOS";
+				break;
+			case RuntimePlatform.WindowsPlayer:
+			case RuntimePlatform.WindowsEditor:
+				retDirPath = Application.streamingAssetsPath + "/QAB/Windows";
+				break;
+			case RuntimePlatform.OSXPlayer:
+			case RuntimePlatform.OSXEditor:
+				retDirPath = Application.streamingAssetsPath + "/QAB/OSX";
+				break;
+			}
+
+			return retDirPath;
+		}
+
+		/// <summary>
+		/// 打包之前的源资源文件
+		/// </summary>
+		public static string SrcABDir  {
+			get {
+				return Application.dataPath + "/QArt/QAB";
+			}
+		}
+    }
+}
+```
+#### QIO.CreateDirIfNotExists (outputPath)
+
+QIO这个类是用来封装C#的System.IO和一些文件操作相关的API。CreateDirIfNotExists这个命名非常的傻瓜,会点英文就应该可以理解了。下面贴出实现代码,
+``` csharp
+using UnityEngine;
+using System.Collections;
+using System.IO;
+
+/// <summary>
+/// 各种文件的读写复制操作,主要是对System.IO的一些封装
+/// </summary>
+namespace QFramework {
+	
+	public class QIO {
+
+		/// <summary>
+		/// 创建新的文件夹,如果存在则不创建
+		/// </summary>
+		public static void CreateDirIfNotExists(string dirFullPath)
+		{
+			if (!Directory.Exists (dirFullPath)) {
+				Directory.CreateDirectory (dirFullPath);
+			}
+		}
+	}
 }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+#### QABBuilder
+QABBuilder只是封装了本文的核心API
+``` csharp
+BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);  
+```
+封装的原因是打AB包成功后,要对AB包进行一些处理,比如计算包尺寸,计算哈希或者md5值。主要是为了以后的热更新做准备的。看下QABBuilder核心实现.
 
-更好的实现方式是将一个PoolManager分成:
+``` csharp
+	public class QABBuilder
+	{
+		public static string overloadedDevelopmentServerURL = "";
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+		public static void BuildAssetBundles(BuildTarget buildTarget)
+		{
+			string outputPath = Path.Combine(QPlatform.ABundlesOutputPath,  QPlatform.GetPlatformName());
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+			if (Directory.Exists (outputPath)) {
+				Directory.Delete (outputPath,true);
+			}
+			Directory.CreateDirectory (outputPath);
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+			BuildPipeline.BuildAssetBundles(outputPath,BuildAssetBundleOptions.None,buildTarget);
 
-* SaveManager: 配置管理。
+			GenerateVersionConfig (outputPath);
+			if(Directory.Exists(Application.streamingAssetsPath+"/QAB")){
+				Directory.Delete (Application.streamingAssetsPath+"/QAB",true);
+			}
+			Directory.CreateDirectory (Application.streamingAssetsPath+"/QAB");
+			FileUtil.ReplaceDirectory (QPlatform.ABundlesOutputPath,Application.streamingAssetsPath+"/QAB");
+			AssetDatabase.Refresh ();
+		}
+    }
+}
+```
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+#### 使用方式
 
-#### 4.将View和Model之间增加一个媒介层。
+按这里
 
-MVCS:StrangeIOC插件。
+![](https://ws2.sinaimg.cn/large/006tNc79gy1fqisndp906j30io07eglw.jpg)
 
-MVVM:uFrame插件。
+结果看这里(创建了iOS文件夹)
 
-#### 5. ECS(Entity Component Based  System)
+![](https://ws1.sinaimg.cn/large/006tNc79gy1fqisnf9h8wj30e00fmglj.jpg)
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+介绍完毕,睡觉了!
 
-#### 相关链接:
+#### 欢迎讨论!
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+附:[我的框架地址](https://github.com/liangxiegame/QFramework)
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
-
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)
 
 微信公众号:liangxiegame
 
 ![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
-
-#### 支持我们:
-
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
-
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
-
-笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
