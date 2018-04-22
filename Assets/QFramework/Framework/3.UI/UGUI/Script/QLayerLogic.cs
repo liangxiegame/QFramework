@@ -28,58 +28,295 @@
 namespace QFramework
 {
     using UnityEngine;
+    using System.Collections.Generic;
+
+    public enum AutoLayerTag {
+        Bottom,
+        Comm,
+        Top,
+        Hide,
+    }
 
     public class QLayerLogic : MonoBehaviour
     {
-        [SerializeField] Transform mBgTrans;
-        [SerializeField] Transform mAnimationUnderPageTrans;
-        [SerializeField] Transform mCommonTrans;
-        [SerializeField] Transform mAnimationOnPageTrans;
-        [SerializeField] Transform mPopUITrans;
-        [SerializeField] Transform mConstTrans;
-        [SerializeField] Transform mToastTrans;
-        [SerializeField] Transform mForwardTrans;
+        private const int mNormalPadding = 10;
+        private const int mLayerMaxPanelNum = 10000;
+        private const int diffValue = 0 - UILevel.Bg;
 
+        public const int BOTTOM_INDEX = 10;
+        public const int COMM_INDEX = BOTTOM_INDEX + mLayerMaxPanelNum * mNormalPadding;
+        public const int TOP_INDEX = COMM_INDEX + 9* mLayerMaxPanelNum * mNormalPadding;
+        public const int HIDE_INDEX = -10;
 
-        public void SetLayer(int uiLevel, IUIBehaviour ui)
+        private Transform mAlwayBottomLayer;
+        private Transform mCommLayer;
+        private Transform mAlwayTopLayer;
+        private Transform mHideLayer;
+
+        private int mBottomOrder = BOTTOM_INDEX;
+        private int[] mCommOrder; // TODO 是否别分这么细
+        private int mTopOrder = TOP_INDEX;
+
+        private List<QUIBehaviour> ToHideList = new List<QUIBehaviour>();
+        private Dictionary<AutoLayerTag,List<QUIBehaviour>> mUILayerMap = new Dictionary<AutoLayerTag, List<QUIBehaviour>>();
+
+        public void InitLayer(Transform LayerParent) {
+            mAlwayBottomLayer = new GameObject("BottomLayer").AddComponent<RectTransform>();
+            mCommLayer = new GameObject("CommLayer").AddComponent<RectTransform>();
+            mAlwayTopLayer = new GameObject("TopLayer").AddComponent<RectTransform>();
+            mHideLayer = new GameObject("HideLayer").AddComponent<RectTransform>();
+
+            mAlwayBottomLayer.SetParent(LayerParent);
+            mCommLayer.SetParent(LayerParent);
+            mAlwayTopLayer.SetParent(LayerParent);
+            mHideLayer.SetParent(LayerParent);
+
+            mHideLayer.SetSiblingIndex(0);
+            mAlwayBottomLayer.SetSiblingIndex(1);
+            mCommLayer.SetSiblingIndex(2);
+            mAlwayTopLayer.SetSiblingIndex(3);
+
+            InitailRectTrans(mAlwayBottomLayer as RectTransform);
+            InitailRectTrans(mCommLayer as RectTransform);
+            InitailRectTrans(mAlwayTopLayer as RectTransform);
+            InitailRectTrans(mHideLayer as RectTransform);
+            mHideLayer.Hide();
+     
+            mCommOrder = new int[8];
+            for (int i = 0; i < mCommOrder.Length; i++)
+                mCommOrder[i] = COMM_INDEX + i * mLayerMaxPanelNum * mNormalPadding;
+        }
+
+        public void ClearUILayerMap() {
+            mBottomOrder = BOTTOM_INDEX;
+            mTopOrder = TOP_INDEX;
+            mCommOrder = new int[8];
+            for (int i = 0; i < mCommOrder.Length; i++)
+                mCommOrder[i] = COMM_INDEX + i * mLayerMaxPanelNum * mNormalPadding;
+            mUILayerMap.Clear();
+        }
+
+        public void SetLayer(int uiLevel, QUIBehaviour ui)
         {
+            if (ui == null)
+                return;
+            ui.UILayerType = uiLevel;
             switch (uiLevel)
             {
-                case UILevel.Bg:
-                    ui.Transform.SetParent(mBgTrans);
+                case UILevel.AlwayBottom:
+                    AddUIPanel(AutoLayerTag.Bottom,ui);
+                    ui.Transform.SetParent(mAlwayBottomLayer);          
                     break;
-                case UILevel.AnimationUnderPage:
-                    ui.Transform.SetParent(mAnimationUnderPageTrans);
+                case UILevel.AlwayTop:
+                    AddUIPanel(AutoLayerTag.Top, ui);
+                    ui.Transform.SetParent(mAlwayTopLayer);
                     break;
-                case UILevel.Common:
-                    ui.Transform.SetParent(mCommonTrans);
-                    break;
-                case UILevel.AnimationOnPage:
-                    ui.Transform.SetParent(mAnimationOnPageTrans);
-                    break;
-                case UILevel.PopUI:
-                    ui.Transform.SetParent(mPopUITrans);
-                    break;
-                case UILevel.Const:
-                    ui.Transform.SetParent(mConstTrans);
-                    break;
-                case UILevel.Toast:
-                    ui.Transform.SetParent(mToastTrans);
-                    break;
-                case UILevel.Forward:
-                    ui.Transform.SetParent(mForwardTrans);
+                default:
+                    AddCommUIPanel(uiLevel, ui);
+                    ui.Transform.SetParent(mCommLayer);
                     break;
             }
-
-            var uiGoRectTrans = ui.Transform as RectTransform;
-
-            uiGoRectTrans.offsetMin = Vector2.zero;
-            uiGoRectTrans.offsetMax = Vector2.zero;
-            uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-            uiGoRectTrans.anchorMin = Vector2.zero;
-            uiGoRectTrans.anchorMax = Vector2.one;
-
-            ui.Transform.LocalScaleIdentity();
+            InitailRectTrans(ui.Transform as RectTransform);
         }
+
+        //TODO隐藏和关闭在重排之前不得进行创建，要约束一下
+        public void OnUIPanelClose(QUIBehaviour ui) {
+            RemoveUILayer(ui);
+        }
+
+        private void RemoveUILayer(QUIBehaviour ui, int uiLevel = -10000) {
+            if(uiLevel == -10000)
+                uiLevel = ui.UILayerType;
+            switch (uiLevel)
+            {
+                case UILevel.AlwayBottom:
+                    if (RemoveUIPanel(AutoLayerTag.Bottom, ui))
+                    {
+                        //mBottomOrder -= mNormalPadding;
+                    }
+                    break;
+                case UILevel.AlwayTop:
+                    if (RemoveUIPanel(AutoLayerTag.Top, ui))
+                    {
+                        //mTopOrder -= mNormalPadding;
+                    }
+                    break;
+                default:
+                    if (RemoveUIPanel(AutoLayerTag.Comm, ui))
+                    {
+                        Log.I(ui.name);
+                        if (uiLevel + diffValue < 0 || uiLevel - diffValue >= mCommOrder.Length) { }
+                        else
+                        {
+                            //mCommOrder[uiLevel + diffValue] -= mNormalPadding;
+                        }
+                    }
+                    break;
+            }
+        }
+
+        public void OnUIPanelShow(QUIBehaviour ui)
+        {
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Hide) && mUILayerMap[AutoLayerTag.Hide].Contains(ui))
+            {
+                mUILayerMap[AutoLayerTag.Hide].Remove(ui);
+                SetLayer(ui.UILayerType, ui);
+            }
+        }
+
+        public void OnUIPanelHide(QUIBehaviour ui) {
+            RemoveUILayer(ui);
+            AddUIPanel(AutoLayerTag.Hide, ui);
+            ui.Transform.SetParent(mHideLayer);
+            InitailRectTrans(ui.Transform as RectTransform);
+        }
+
+        private int SortCompare(QUIBehaviour a, QUIBehaviour b)
+        {
+            return a.LayerSortIndex.CompareTo(b.LayerSortIndex);
+        }
+
+        //排序
+        public void SortAllUIPanel()
+        {
+            Log.I("Sortting");
+            CheckLayerMap();
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Bottom))
+            {
+                mUILayerMap[AutoLayerTag.Bottom].Sort(SortCompare);
+                mBottomOrder = BOTTOM_INDEX;
+                ReSetLayerList(mUILayerMap[AutoLayerTag.Bottom], ref mBottomOrder);
+            }
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Top))
+            {
+                mUILayerMap[AutoLayerTag.Top].Sort(SortCompare);
+                mTopOrder = TOP_INDEX;
+                ReSetLayerList(mUILayerMap[AutoLayerTag.Top], ref mTopOrder);
+            }
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Comm))
+            {
+                mUILayerMap[AutoLayerTag.Comm].Sort(SortCompare);
+                for (int i = 0; i < mCommOrder.Length; i++)
+                    mCommOrder[i] = COMM_INDEX + i * mLayerMaxPanelNum * mNormalPadding;
+                ReSetCommLaterList();
+            }
+        }
+
+
+        private void CheckLayerMap() {
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Bottom))
+            {
+                var list = mUILayerMap[AutoLayerTag.Bottom];
+                CheckLayerList(ref list); 
+            }
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Top))
+            {
+                var list = mUILayerMap[AutoLayerTag.Top];
+                CheckLayerList(ref list);  
+            }
+            if (mUILayerMap.ContainsKey(AutoLayerTag.Comm))
+            {
+                var list = mUILayerMap[AutoLayerTag.Comm];
+                CheckLayerList(ref list);
+            }
+        }
+
+        private void CheckLayerList(ref List<QUIBehaviour> list) {
+            ToHideList.Clear();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].LayerSortIndex == HIDE_INDEX)
+                {
+                    ToHideList.Add(list[i]);
+                }
+            }
+            for (int i = 0; i < ToHideList.Count; i++)
+                QUIManager.Instance.HideUI(ToHideList[i].Transform.gameObject.name);
+        }
+
+        private void ReSetLayerList(List<QUIBehaviour> list,ref int order)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                order += mNormalPadding;
+                list[i].SetSiblingIndexAndNewLayerIndex(i, order);
+            }
+        }
+
+        private void ReSetCommLaterList() {
+            if (!mUILayerMap.ContainsKey(AutoLayerTag.Comm))
+                return;
+            var list = mUILayerMap[AutoLayerTag.Comm];
+            for (int i = 0; i < list.Count; i++) {
+                int uiLevel = list[i].UILayerType;
+                if (uiLevel + diffValue < 0 || uiLevel - diffValue >= mCommOrder.Length)
+                    continue;
+                else {
+                    mCommOrder[uiLevel + diffValue] += mNormalPadding;
+                    list[i].SetSiblingIndexAndNewLayerIndex(i,mCommOrder[uiLevel + diffValue]);
+                }
+            }
+        }
+
+
+
+        private void AddCommUIPanel(int uiLevel, QUIBehaviour ui) {
+            if (!mUILayerMap.ContainsKey(AutoLayerTag.Comm))
+                mUILayerMap.Add(AutoLayerTag.Comm, new List<QUIBehaviour>());
+            mUILayerMap[AutoLayerTag.Comm].Add(ui);
+
+            mCommOrder[uiLevel + diffValue] += mNormalPadding;
+
+            var order = HIDE_INDEX;
+            if (uiLevel + diffValue < 0 || uiLevel - diffValue >= mCommOrder.Length)
+            {
+                ui.LayerSortIndex = order;
+                return;
+            }
+            order = mCommOrder[uiLevel + diffValue];
+            ui.LayerSortIndex = order;
+        }
+
+
+        private void AddUIPanel(AutoLayerTag tag, QUIBehaviour ui) {
+            if (!mUILayerMap.ContainsKey(tag))
+                mUILayerMap.Add(tag, new List<QUIBehaviour>());
+            mUILayerMap[tag].Add(ui);
+            var order = HIDE_INDEX;
+            switch (tag)
+            {
+                case AutoLayerTag.Bottom:
+                    mBottomOrder += mNormalPadding;
+                    order = mBottomOrder;
+                    break;
+                case AutoLayerTag.Top:
+                    mTopOrder += mNormalPadding;
+                    order = mTopOrder;
+                    break;
+                case AutoLayerTag.Hide:
+                    break;
+            }
+            ui.LayerSortIndex = order;
+        }
+
+
+        private bool RemoveUIPanel(AutoLayerTag tag,QUIBehaviour ui)
+        {
+            if (mUILayerMap.ContainsKey(tag) && mUILayerMap[tag].Contains(ui))
+                return mUILayerMap[tag].Remove(ui);
+            else
+                return false;
+        }
+
+        public static void InitailRectTrans(RectTransform RectTrans) {
+            RectTrans.offsetMin = Vector2.zero;
+            RectTrans.offsetMax = Vector2.zero;
+            RectTrans.anchoredPosition3D = Vector3.zero;
+            RectTrans.anchorMin = Vector2.zero;
+            RectTrans.anchorMax = Vector2.one;
+
+            RectTrans.LocalScaleIdentity();
+        }
+
     }
 }

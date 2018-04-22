@@ -29,11 +29,12 @@
 
 namespace QFramework
 {
-	using UnityEngine;
-	/// <summary>
-	/// 每个UIbehaviour对应的Data
-	/// </summary>
-	public interface IUIData
+    using System;
+    using UnityEngine;
+    /// <summary>
+    /// 每个UIbehaviour对应的Data
+    /// </summary>
+    public interface IUIData
 	{
 	}
 
@@ -48,9 +49,33 @@ namespace QFramework
 			get { return transform; }
 		}
 
-		private IUIPanelLoader mUiPanelLoader = null;
+        private int mUILayerType = -10000;
+        private int mLayerSortIndex = -10;
+        private IUIPanelLoader mUiPanelLoader = null;
 
-		public static QUIBehaviour Load(string panelName, string assetBundleName = null)
+        public int UILayerType
+        {
+            get
+            { return mUILayerType; }
+            set
+            {
+                if (mUILayerType != -10000)
+                {
+                    mUILayerType = value;
+                }
+                mUILayerType = value;
+            }
+        }
+
+        public int LayerSortIndex
+        {
+            get
+            { return mLayerSortIndex; }
+            set
+            { mLayerSortIndex = value; }
+        }
+
+        public static QUIBehaviour Load(string panelName, string assetBundleName = null)
 		{
 			var panelLoader = new DefaultUIPanelLoader();
 			var panelPrefab = assetBundleName.IsNullOrEmpty()
@@ -74,7 +99,17 @@ namespace QFramework
 		
 		protected virtual void ClearUIComponents(){}
 
-		public void Init(IUIData uiData = null)
+
+        public void SetSiblingIndexAndNewLayerIndex(int siblingIndex, int layerIndex) {
+            if(mLayerSortIndex != layerIndex)
+            {
+                Transform.SetSiblingIndex(siblingIndex);
+                mLayerSortIndex = layerIndex;
+            }
+        }
+
+
+        public void Init(IUIData uiData = null)
 		{
 			InnerInit(uiData);
 			RegisterUIEvent();

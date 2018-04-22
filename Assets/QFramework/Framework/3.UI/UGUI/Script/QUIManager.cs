@@ -40,6 +40,7 @@ namespace QFramework
 
 	public class UILevel
 	{
+        public const int AlwayBottom        = -3; //如果不想区分太复杂那最底层的UI请使用这个
 		public const int Bg                 = -2;  //背景层UI
 		public const int AnimationUnderPage = -1; //动画层
 		public const int Common             = 0; //普通层UI
@@ -49,6 +50,7 @@ namespace QFramework
 		public const int Const              = 4; //持续存在层UI
 		public const int Toast              = 5; //对话框层UI
 		public const int Forward            = 6; //最高UI层用来放置UI特效和模型
+        public const int AlwayTop           = 7; //如果不想区分太复杂那最上层的UI请使用这个
 	}
 
 #if SLUA_SUPPORT
@@ -63,6 +65,9 @@ namespace QFramework
         QLayerLogic mLayerLogic;
         QUIPanelStack mUIPanelStack;
 
+        private bool mReSetLayerIndexDirty = false;
+        private bool mAllUIMapChange = false;
+
 		[SerializeField] Camera mUICamera;
 		[SerializeField] Canvas mCanvas;
 		[SerializeField] CanvasScaler mCanvasScaler;
@@ -71,6 +76,7 @@ namespace QFramework
 		private void Awake()
 		{
             mLayerLogic = FindObjectOfType<QLayerLogic>();
+            mLayerLogic.InitLayer(mCanvas.transform);
             mUIPanelStack = QUIPanelStack.Instance;
 		}
 
@@ -128,7 +134,17 @@ namespace QFramework
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
 		}
 
-		public IUIBehaviour OpenUI(string uiBehaviourName, int canvasLevel)
+        public void ReSetLayerIndexDirty() {
+            mReSetLayerIndexDirty = true;
+        }
+
+        //层级排序
+        public void ReSortUILayer() {
+            mReSetLayerIndexDirty = false;
+            mLayerLogic.SortAllUIPanel();
+        }
+
+        public IUIBehaviour OpenUI(string uiBehaviourName, int canvasLevel)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
@@ -136,7 +152,8 @@ namespace QFramework
 			}
 
 			mAllUI[uiBehaviourName].Show();
-			return mAllUI[uiBehaviourName];
+            ReSetLayerIndexDirty();
+            return mAllUI[uiBehaviourName];
 		}
 
 
@@ -159,9 +176,9 @@ namespace QFramework
 
 			ui = QUIBehaviour.Load(uiBehaviourName,assetBundleName);
 
-            mLayerLogic.SetLayer(uiLevel,ui);
+            mLayerLogic.SetLayer(uiLevel,ui as QUIBehaviour);
             mUIPanelStack.OnCreatUI(uiLevel,ui,uiBehaviourName);
-
+            ReSetLayerIndexDirty();
             ui.Transform.gameObject.name = uiBehaviourName;
 
 			return ui.Transform.gameObject;
@@ -177,7 +194,9 @@ namespace QFramework
 			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
 			{
 				uiBehaviour.Show();
-			}
+                mLayerLogic.OnUIPanelShow(uiBehaviour as QUIBehaviour);
+                ReSetLayerIndexDirty();
+            }
 		}
 
 		/// <summary>
@@ -190,7 +209,9 @@ namespace QFramework
 			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
 			{
 				uiBehaviour.Hide();
-			}
+                mLayerLogic.OnUIPanelHide(uiBehaviour as QUIBehaviour);
+                ReSetLayerIndexDirty();
+            }
 		}
 
 		/// <summary>
@@ -205,7 +226,8 @@ namespace QFramework
 
 			mAllUI.Clear();
             mUIPanelStack.ClearStack();
-		}
+            mLayerLogic.ClearUILayerMap();
+        }
 
 		/// <summary>
 		/// 关闭并卸载UI
@@ -222,7 +244,9 @@ namespace QFramework
 				behaviour.Close();
 				mAllUI.Remove(behaviourName);
                 mUIPanelStack.RemoveUI(behaviourName,behaviour);
-			}
+                mLayerLogic.OnUIPanelClose(behaviour as QUIBehaviour);
+                ReSetLayerIndexDirty();
+            }
 		}
 
 		/// <summary>
@@ -296,22 +320,43 @@ namespace QFramework
 			return ui;
 		}
 
-		#region UnityCSharp Generic Support
+        #region 生命周期 
 
-		/// <summary>
-		/// Create&ShowUI
-		/// </summary>
-		public T OpenUI<T>(int canvasLevel = UILevel.Common, IUIData uiData = null,string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
+        public void Update()
+        {
+            if (mReSetLayerIndexDirty)
+                ReSortUILayer();
+        }
+
+        private void LateUpdate()
+        {
+            if (mReSetLayerIndexDirty)
+                ReSortUILayer();
+        }
+
+
+        #endregion
+
+        #region UnityCSharp Generic Support
+
+        /// <summary>
+        /// Create&ShowUI
+        /// </summary>
+        public T OpenUI<T>(int canvasLevel = UILevel.Common, IUIData uiData = null,string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
 		{
 			var behaviourName = prefabName ?? GetUIBehaviourName<T>();
 
-			if (!mAllUI.ContainsKey(behaviourName))
-			{
-				CreateUI(behaviourName, canvasLevel, uiData,assetBundleName);
-			}
-
-			mAllUI[behaviourName].Show();
-			return mAllUI[behaviourName] as T;
+            if (!mAllUI.ContainsKey(behaviourName))
+            {
+                CreateUI(behaviourName, canvasLevel, uiData, assetBundleName);
+            }
+            else {
+                mLayerLogic.OnUIPanelShow(mAllUI[behaviourName] as QUIBehaviour);
+            }
+            
+            mAllUI[behaviourName].Show();
+            ReSetLayerIndexDirty();
+            return mAllUI[behaviourName] as T;
 		}
 
 

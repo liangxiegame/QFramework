@@ -58,7 +58,7 @@ namespace QFramework.UIExample
 			{
 				Log.I("on btn play clicked");
 				UIMgr.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-				CloseSelf();
+                QUIManager.Instance.HideUI(this.name);
 			});
 
 			BtnSetting.onClick.AddListener(() =>
