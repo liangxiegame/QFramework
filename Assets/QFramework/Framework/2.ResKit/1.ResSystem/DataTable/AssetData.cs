@@ -35,55 +35,46 @@ namespace QFramework
     [Serializable]
     public class AssetData
     {
-        private string mAssetName;
-        private string mOwnerBundleName;
-        private int mAbIndex;
-        private short mAssetType;
+        /// <summary>
+        /// 资源名字
+        /// </summary>
+        public string AssetName { get; private set; }
 
-        public string AssetName
-        {
-            get { return mAssetName; }
-            set { mAssetName = value; }
-        }
+        /// <summary>
+        /// 资源类型
+        /// </summary>
+        public short AssetType { get; private set; }
+        
+        /// <summary>
+        /// 资源索引 
+        /// </summary>
+        public int AssetBundleIndex { get; private set; }
 
-        public int AssetBundleIndex
-        {
-            get { return mAbIndex; }
-            set { mAbIndex = value; }
-        }
-
-        public string OwnerBundleName
-        {
-            get { return mOwnerBundleName; }
-            set { mOwnerBundleName = value; }
-        }
+        /// <summary>
+        /// 所属的 Bundle 名字
+        /// </summary>
+        public string OwnerBundleName { get; private set; }
 
         public string UUID
         {
             get
             {
-                return string.IsNullOrEmpty(mOwnerBundleName)
+                return string.IsNullOrEmpty(OwnerBundleName)
                     ? AssetName.ToLower()
                     : OwnerBundleName.ToLower() + AssetName.ToLower();
             }
         }
 
-        public short AssetType
+        public AssetData()
         {
-            get { return mAssetType; }
-            set { mAssetType = value; }
         }
 
         public AssetData(string assetName, short assetType, int abIndex, string ownerBundleName)
         {
-            mAssetName = assetName;
-            mAssetType = assetType;
-            mAbIndex = abIndex;
-            mOwnerBundleName = ownerBundleName;
-        }
-
-        public AssetData()
-        {
+            AssetName = assetName;
+            AssetType = assetType;
+            AssetBundleIndex = abIndex;
+            OwnerBundleName = ownerBundleName;
         }
     }
 }
