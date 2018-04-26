@@ -30,7 +30,7 @@ namespace QFramework
 	using UnityEngine;
 	using UnityEditor;
 	
-	public class QResSystemBuilder : EditorWindow
+	public class ResKitEditorWindow : EditorWindow
 	{
 		private int mBuildTargetIndex = 0;
 		private readonly string[] mPlatformLabels = {"Windows32", "iOS", "Android"};
@@ -55,10 +55,10 @@ namespace QFramework
 			AssetDatabase.Refresh();
 		}
 
-		[MenuItem("QFramework/ResSystem/Builder %#r")]
+		[MenuItem("QFramework/Res Kit %#r")]
 		public static void ExecuteAssetBundle()
 		{
-			QResSystemBuilder window = (QResSystemBuilder) GetWindow(typeof(QResSystemBuilder), true);
+			ResKitEditorWindow window = (ResKitEditorWindow) GetWindow(typeof(ResKitEditorWindow), true);
 			Debug.Log(Screen.width + " screen width*****");
 			window.position = new Rect(100, 100, 500, 400);
 			window.Show();

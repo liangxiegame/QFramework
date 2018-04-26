@@ -67,7 +67,7 @@ namespace QFramework
 
 			AssetDatabase.Refresh();
 
-			if (QResSystemBuilder.isEnableGenerateClass)
+			if (ResKitEditorWindow.isEnableGenerateClass)
 			{
 				"Assets/QFrameworkData".CreateDirIfNotExists();
 
