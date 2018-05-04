@@ -31,7 +31,7 @@
   管理与组织界面，如创建、显示隐藏界面，划分了UI层级。
 
 
-### UICode的生命周期
+### UICode 的生命周期
 
 ```csharp
 Init(IUIData uiData = null);
@@ -52,17 +52,17 @@ OnBeforeDestroy();
 
 
 
-### 创建你的第一个QFramUI界面
+### 创建你的第一个QFramework UI 界面
 
 创建一个Panel并命名，建议以UI为前缀。并添加一些元素（例如Button），并为其添加**标记**。标记方式为添加**QUIMark Component**
 
-将你编辑好的Panel以**Prefab**方式存放到Resources 或 标记为AssetBundle
+将你编辑好的 Panel 以 **Prefab** 方式存放到Resources 或 标记为AssetBundle
 
-右击 preafb,选择 **QFramework-Create UICode **，会生成对应脚本。
+右击 preafb,选择 ** QFramework-Create UICode **，会生成对应脚本。
 
 ### 开始编写你的第一个QUI脚本
 
-使用**Create UICode**会生成两份有关的脚本文件
+使用 **Create UICode** 会生成两份有关的脚本文件
 
 ``` csharp
 namespace QFramework.UIExample
@@ -112,15 +112,15 @@ namespace QFramework.UIExample
 
 ### QUICode使用流程
 
-* 使用**UIMgr.OpenPanel**创建你的UI界面
+* 使用 **UIMgr.OpenPanel** 创建你的UI界面
 
   ```csharp
   internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
   ```
 
-  UILeve:来区分UIPanel的层级，例如UILeve.PopUI，UILeve.Guide，会放置在QUIManager中对应区域
+  UILevel:来区分UIPanel的层级，例如UILeve.PopUI，UILeve.Guide，会放置在 UIRoot 中对应区域
 
-  UIData:传递Panel初始化的数据
+  UIData:传递Panel初始化的数据 (UIData 会自动生成模板)
 
   assetBundleName/prefabName：Panel所相对应的路径
 
@@ -195,14 +195,9 @@ namespace QFramework.UIExample
       }
   ```
 
-  ​
+### 用 QFramework 的方式启动你的界面
 
-  ​
-
-
-### 用QFarm的方式启动你的界面
-
-为你的场景添加**QUIManager**，位置在 Aseets/QFramework/Framework/3.UI/Resources/QUIManager。
+为你的场景添加 **UIRoot**，位置在 Aseets/QFramework/Framework/3.UI/Resources/UIRoot。
 
 启动你的第一个界面
 
@@ -218,5 +213,3 @@ namespace QFramework.UIExample
 	}
 }
 ```
-
-### 
