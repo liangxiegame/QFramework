@@ -98,9 +98,9 @@ namespace QFramework
 
 				if (null == mInstance)
 				{
-					Instantiate(Resources.Load<GameObject>("QUIManager"));
+					Instantiate(Resources.Load<GameObject>("UIRoot"));
 					mInstance = QMonoSingletonProperty<QUIManager>.Instance;
-					mInstance.name = "QUIManager";
+					mInstance.name = "UIRoot";
 					DontDestroyOnLoad(mInstance);
 				}
 
