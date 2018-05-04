@@ -1,11 +1,10 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 magicbel
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +24,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-
 
 namespace QFramework
 {
@@ -75,7 +73,7 @@ namespace QFramework
 
 		private void Awake()
 		{
-            mLayerLogic = FindObjectOfType<QLayerLogic>();
+            mLayerLogic = GetComponent<QLayerLogic>();
             mLayerLogic.InitLayer(mCanvas.transform);
             mUIPanelStack = QUIPanelStack.Instance;
 		}
@@ -389,7 +387,6 @@ namespace QFramework
 
 	public static class UIMgr
 	{
-
 		internal static T OpenPanel<T>(int canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
 			string prefabName = null) where T : QUIBehaviour
 		{
@@ -406,17 +403,11 @@ namespace QFramework
 			return QUIManager.Instance.GetUI<T>();
 		}
 
-
 		#region 给脚本层用的api
 		public static QUIBehaviour GetPanel(string panelName)
 		{
 			return QUIManager.Instance.GetUI(panelName);
 		}
-		
-//		public static QUIBehaviour OpenPanel(string panelName,int level = 0,string assetBundleName = null)
-//		{
-//			return QUIManager.Instance.OpenUI(panelName,level,assetBundleName) as QUIBehaviour;
-//		}
 
 		public static void ClosePanel(string panelName)
 		{
