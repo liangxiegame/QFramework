@@ -35,7 +35,7 @@ namespace QFramework.Example
     public class AutoReferencerExample : MonoBehaviour
     {
         [Header("Try click the [Find Ref] button,"), Space(-10)]
-        [Header("or try press middle mouse button.")]
+        [Header("or try press alt + middle mouse button.")]
         //Find self component
         public Transform tfSelf;
         public AutoReferencerExample autoReferencerExampleSelf;

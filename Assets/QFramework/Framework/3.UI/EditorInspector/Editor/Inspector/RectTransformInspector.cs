@@ -354,7 +354,7 @@ namespace QFramework
             public readonly GUIContent pasteContent = new GUIContent("P", "Paste component value");
             public readonly GUIContent fillParentContent = new GUIContent("F", "Fill the parent RectTransform");
             public readonly GUIContent normalSizeDeltaContent = new GUIContent("N", "Change to normal sizeDelta mode");
-            public readonly GUIContent readmeContent = new GUIContent("Readme", "Ctrl + ↑ move 1 pixel, and Shift 10 pixel");
+            public readonly GUIContent readmeContent = new GUIContent("Readme", "Ctrl+Arrow key move rectTransform\nCtrl: 1px    Shift: 10px");
         }
     }
 }

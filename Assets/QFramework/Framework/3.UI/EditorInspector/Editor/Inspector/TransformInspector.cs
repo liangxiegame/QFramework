@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -37,33 +36,17 @@ namespace QFramework
     [CustomEditor(typeof(Transform), true)]
     public class TransformInspector : UnityEditor.Editor
     {
-        public static Vector3 localPositionCopy = Vector3.zero;
-        public static Quaternion localRotationCopy = Quaternion.identity;
-        public static Vector3 loacalScaleCopy = Vector3.one;
-        public static Vector3 positionCopy = Vector3.zero;
-        public static Quaternion rotationCopy = Quaternion.identity;
-
         private float fScale = 1;
         private SerializedProperty m_LocalPosition;
         private SerializedProperty m_LocalRotation;
         private SerializedProperty m_LocalScale;
-
-        private bool isPP;
-        private bool isPR;
-        private bool isPS;
-        private bool isPAll;
 
         private void OnEnable()
         {
             m_LocalPosition = serializedObject.FindProperty("m_LocalPosition");
             m_LocalRotation = serializedObject.FindProperty("m_LocalRotation");
             m_LocalScale = serializedObject.FindProperty("m_LocalScale");
-
             fScale = m_LocalScale.FindPropertyRelative("x").floatValue;
-            isPP = PlayerPrefs.GetInt("TransformInspectorPP", 1) == 1;
-            isPR = PlayerPrefs.GetInt("TransformInspectorPR", 1) == 1;
-            isPS = PlayerPrefs.GetInt("TransformInspectorPS", 1) == 1;
-            isPAll = isPP && isPR && isPS;
         }
 
         private static Vector3 Round(Vector3 v3Value, int nDecimalPoint = 0)
@@ -88,9 +71,18 @@ namespace QFramework
                 s_Contents = new Contents();
             }
 
-            serializedObject.Update();
-
             EditorGUIUtility.labelWidth = 15f;
+            serializedObject.Update();
+            //Event e = Event.current;
+            //if (e != null)
+            //{
+            //    if (e.type == EventType.KeyDown && e.alt)
+            //    {
+            //        Tools.pivotRotation = Tools.pivotRotation == PivotRotation.Local ? PivotRotation.Global : PivotRotation.Local;
+            //        e.Use();
+            //    }
+            //}
+
             DrawPosition();
             DrawRotation();
             DrawScale();
@@ -132,79 +124,81 @@ namespace QFramework
                 GUI.color = new Color(1f, 1f, 0.5f, 1f);
                 if (GUILayout.Button("Copy", "ButtonLeft"))
                 {
-                    localPositionCopy = m_LocalPosition.vector3Value;
-                    localRotationCopy = m_LocalRotation.quaternionValue;
-                    loacalScaleCopy = m_LocalScale.vector3Value;
+                    TransformInspectorCopyData.localPositionCopy = m_LocalPosition.vector3Value;
+                    TransformInspectorCopyData.localRotationCopy = m_LocalRotation.quaternionValue;
+                    TransformInspectorCopyData.loacalScaleCopy = m_LocalScale.vector3Value;
                     Transform t = target as Transform;
-                    ;
-                    positionCopy = t.position;
-                    rotationCopy = t.rotation;
+                    TransformInspectorCopyData.positionCopy = t.position;
+                    TransformInspectorCopyData.rotationCopy = t.rotation;
                 }
 
+                bool isGlobal = Tools.pivotRotation == PivotRotation.Global;
                 GUI.color = new Color(1f, 0.5f, 0.5f, 1f);
-                if (GUILayout.Button("PLocal", "ButtonMid"))
+                if (GUILayout.Button("Paste", "ButtonMid"))
                 {
                     Undo.RecordObjects(targets, "Paste Local");
-                    if (isPP)
+                    if (isGlobal)
                     {
-                        m_LocalPosition.vector3Value = localPositionCopy;
+                        PastePosition();
+                        PasteRotation();
                     }
-
-                    if (isPR)
+                    else
                     {
-                        m_LocalRotation.quaternionValue = localRotationCopy;
-                    }
-
-                    if (isPS)
-                    {
-                        m_LocalScale.vector3Value = loacalScaleCopy;
+                        m_LocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
+                        m_LocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
+                        m_LocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
                     }
                 }
 
                 //世界坐标复制会有误差
-                if (GUILayout.Button("PWorld", "ButtonRight"))
+                if (GUILayout.Button("PPos", "ButtonMid"))
                 {
-                    Undo.RecordObjects(targets, "Paste World");
-                    if (isPP)
+                    Undo.RecordObjects(targets, "PPos");
+                    if (isGlobal)
                     {
-                        foreach (var o in targets)
-                        {
-                            var t = (Transform)o;
-                            t.position = positionCopy;
-                        }
+                        PastePosition();
                     }
-
-                    if (isPR)
+                    else
                     {
-                        foreach (var o in targets)
-                        {
-                            var t = (Transform)o;
-                            t.rotation = rotationCopy;
-                        }
-                    }
-
-                    if (isPS)
-                    {
-                        m_LocalScale.vector3Value = loacalScaleCopy;
+                        m_LocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
                     }
                 }
 
-                //GUI.color = new Color(1f, 0.75f, 0.5f, 1f);
-                GetValueP(ref isPP, "P", "TransformInspectorPP");
-                GetValueP(ref isPR, "R", "TransformInspectorPR");
-                GetValueP(ref isPS, "S", "TransformInspectorPS");
-                bool value = GUILayout.Toggle(isPAll, "All");
-                if (value != isPAll)
+                if (GUILayout.Button("PRot", "ButtonMid"))
                 {
-                    isPAll = value;
-                    isPP = isPR = isPS = isPAll;
-                    PlayerPrefs.SetInt("TransformInspectorPP", isPAll ? 1 : 0);
-                    PlayerPrefs.SetInt("TransformInspectorPR", isPAll ? 1 : 0);
-                    PlayerPrefs.SetInt("TransformInspectorPS", isPAll ? 1 : 0);
-                    PlayerPrefs.Save();
+                    Undo.RecordObjects(targets, "PRot");
+                    if (isGlobal)
+                    {
+                        PasteRotation();
+                    }
+                    else
+                    {
+                        m_LocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
+                    }
+                }
+
+                using (new EditorGUI.DisabledScope(isGlobal))
+                {
+                    if (GUILayout.Button("PSca", "ButtonMid"))
+                    {
+                        Undo.RecordObjects(targets, "PSca");
+                        m_LocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
+                    }
+                }
+
+                GUIContent pivotRotationContent = s_Contents.pivotPasteGlobal;
+                pivotRotationContent.text = "Global";
+                if (Tools.pivotRotation == PivotRotation.Local)
+                {
+                    pivotRotationContent = s_Contents.pivotPasteLocal;
+                    pivotRotationContent.text = "Local";
                 }
 
                 GUI.color = c;
+                if (GUILayout.Button(pivotRotationContent, "ButtonRight",GUILayout.MaxHeight(18)))
+                {
+                    Tools.pivotRotation = Tools.pivotRotation == PivotRotation.Local ? PivotRotation.Global : PivotRotation.Local;
+                }
             }
             EditorGUILayout.EndHorizontal();
 
@@ -220,15 +214,23 @@ namespace QFramework
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void GetValueP(ref bool isP, string strName, string strKey)
+        private void PasteRotation()
         {
-            bool value = GUILayout.Toggle(isP, strName);
-            if (value != isP)
+            foreach (Object o in targets)
             {
-                isP = value;
-                isPAll = isPP && isPR && isPS;
-                PlayerPrefs.SetInt(strKey, isP ? 1 : 0);
-                PlayerPrefs.Save();
+                Transform t = (Transform)o;
+                t.rotation = TransformInspectorCopyData.rotationCopy;
+                EditorUtility.SetDirty(t);
+            }
+        }
+
+        private void PastePosition()
+        {
+            foreach (Object o in targets)
+            {
+                Transform t = (Transform)o;
+                t.position = TransformInspectorCopyData.positionCopy;
+                EditorUtility.SetDirty(t);
             }
         }
 
@@ -270,7 +272,7 @@ namespace QFramework
 
         private class BottomPanelContents
         {
-            public readonly GUIContent calc = new GUIContent("Calc", "Run the system Calc");
+            //public readonly GUIContent calc = new GUIContent("Calc", "Run the system Calc");
             public readonly GUIContent findRef = new GUIContent("Find Ref", "Auto find references by Property Name");
             public readonly GUIContent calledByEditor = new GUIContent("CalledByEditor()", "Find and call a Function \"CalledByEditor()\" using reflection");
             public readonly GUIContent calledByEditorc = new GUIContent("c", "Copy \"CalledByEditor()\" code");
@@ -290,7 +292,18 @@ namespace QFramework
                 {
                     if (e.button == 2)
                     {
-                        AutoReferencer.FindReferences(targets);
+                        if (e.alt)
+                        {
+                            AutoReferencer.FindReferences(targets);
+                            e.Use();
+                            return;
+                        }
+
+                        Undo.RecordObjects(Selection.gameObjects, "Active");
+                        Selection.gameObjects.ForEach(go =>
+                        {
+                            go.SetActive(!go.activeSelf);
+                        });
                         e.Use();
                     }
                 }
@@ -298,15 +311,6 @@ namespace QFramework
 
             EditorGUILayout.BeginHorizontal();
             {
-                if (GUILayout.Button(s_BottomPanelContents.calc))
-                {
-                    var Info = new ProcessStartInfo
-                               {
-                                   FileName = "calc.exe "
-                               };
-                    Process.Start(Info);
-                }
-
                 if (GUILayout.Button(s_BottomPanelContents.findRef))
                 {
                     AutoReferencer.FindReferences(targets);
@@ -527,6 +531,10 @@ namespace QFramework
             public readonly GUIContent rotationContent = new GUIContent("R", "The local rotation of this Game Object relative to the parent. Click the button to 0.");
 
             public const string floatingPointWarning = "Due to floating-point precision limitations, it is recommended to bring the world coordinates of the GameObject within a smaller range.";
+
+            public readonly GUIContent pivotPasteLocal = EditorGUIUtility.IconContent("ToolHandleLocal", "Local|Tool handles are in loacl paste.");
+
+            public readonly GUIContent pivotPasteGlobal = EditorGUIUtility.IconContent("ToolHandleGlobal", "Global|Tool handles are in global paste.");
         }
     }
 }
