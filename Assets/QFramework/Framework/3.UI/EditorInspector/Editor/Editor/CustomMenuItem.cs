@@ -161,7 +161,7 @@ namespace QFramework
         ///     在非UI树下的GameObject上新建UI元素也会 自己主动加入到Canvas下（默认在UI树下）
         ///     加入到指定的UI元素下
         /// </summary>
-        [MenuItem("GameObject/UI/img !raycastTarget")]
+        [MenuItem("GameObject/UI/img (Uncheck Raycast Target)")]
         private static void CreatImages()
         {
             Transform activeTransform = Selection.activeTransform;
@@ -197,7 +197,7 @@ namespace QFramework
             return go;
         }
 
-        [MenuItem("GameObject/UI/txt !raycastTarget")]
+        [MenuItem("GameObject/UI/txt (Uncheck Raycast Target)")]
         private static void CreatTexts()
         {
             Transform activeTransform = Selection.activeTransform;
