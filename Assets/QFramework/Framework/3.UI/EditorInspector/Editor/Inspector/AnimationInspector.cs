@@ -30,11 +30,12 @@ using UnityEngine;
 
 namespace QFramework
 {
+    [CanEditMultipleObjects]
     [CustomEditor(typeof(Animation))]
-    public class ExtendedAnimation : UnityEditor.Editor
+    internal class AnimationInspector : UnityEditor.Editor
     {
-        private AnimationClip[] animationClips = null;
         public Animation targetAnimation;
+        private AnimationClip[] animationClips = null;
 
         private void OnEnable()
         {
@@ -57,7 +58,7 @@ namespace QFramework
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.ObjectField(animationClips[i], typeof(AnimationClip), false);
                 string strClipName = animationClips[i].name;
-                if (GUILayout.Button("Copy Name", EditorStyles.miniButton))
+                if (GUILayout.Button(new GUIContent("Get Name", "Copy the clip's name to the clipboard"), EditorStyles.miniButton))
                 {
                     TextEditor te = new TextEditor();
                     te.text = strClipName;
@@ -65,6 +66,10 @@ namespace QFramework
                     te.Copy();
                 }
 
+                GUILayout.Space(24);
+                EditorGUILayout.EndHorizontal();
+
+                EditorGUILayout.BeginHorizontal();
                 if (Application.isPlaying)
                 {
                     if (targetAnimation.IsPlaying(strClipName))
@@ -76,16 +81,40 @@ namespace QFramework
                     }
                     else
                     {
-                        if (GUILayout.Button("Play", EditorStyles.miniButton))
+                        if (GUILayout.Button("> ClampForever", EditorStyles.miniButton))
                         {
-                            targetAnimation.Play(strClipName);
+                            targetAnimation[strClipName].wrapMode = WrapMode.ClampForever;
+                            DoAnimation(strClipName);
+                        }
+
+                        if (GUILayout.Button("> Once", EditorStyles.miniButton))
+                        {
+                            targetAnimation[strClipName].wrapMode = WrapMode.Once;
+                            DoAnimation(strClipName);
+                        }
+
+                        if (GUILayout.Button("> Loop", EditorStyles.miniButton))
+                        {
+                            targetAnimation[strClipName].wrapMode = WrapMode.Loop;
+                            DoAnimation(strClipName);
                         }
                     }
                 }
 
+                GUILayout.Space(24);
                 EditorGUILayout.EndHorizontal();
 
+                GUILayout.Space(-4);
+                EditorGUILayout.BeginHorizontal();
                 AnimationState aniState = targetAnimation[strClipName];
+                if (!aniState)
+                {
+                    EditorGUILayout.HelpBox("This clip is not initialized.! Please run the game", MessageType.Warning);
+                    GUILayout.Space(24);
+                    EditorGUILayout.EndHorizontal();
+                    continue;
+                }
+
                 if (aniState.normalizedTime > 0)
                 {
                     EditorGUI.ProgressBar(GUILayoutUtility.GetRect(Screen.width - 100, 16), aniState.time/animationClips[i].length, aniState.time.ToString("F3") + " / " + animationClips[i].length.ToString("F3"));
@@ -99,7 +128,21 @@ namespace QFramework
                     EditorGUILayout.EndHorizontal();
                 }
 
-                //EditorGUILayout.Space();
+                GUILayout.Space(24);
+                EditorGUILayout.EndHorizontal();
+                GUILayout.Space(6);
+            }
+        }
+
+        private void DoAnimation(string strClipName)
+        {
+            if (targetAnimation.isPlaying)
+            {
+                targetAnimation.CrossFade(strClipName);
+            }
+            else
+            {
+                targetAnimation.Play(strClipName);
             }
         }
 
