@@ -52,18 +52,116 @@ namespace QFramework
 -------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+
     /// <summary>
     ///     创建 Text、Image 的时候默认不选中 raycastTarget 等
     /// </summary>
-    public class OverrideCreateUIMenuItem
+    internal static class CustomMenuItem
     {
+        [MenuItem("GameObject/Duplicate - Top &D")]
+        private static void Duplicate()
+        {
+            GameObject[] gameObjects = Selection.gameObjects;
+            Object[] newObjects = new Object[gameObjects.Length];
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                GameObject gameObject = gameObjects[i];
+                GameObject gameObjectClone = gameObject.Instantiate().Name(gameObject.name);
+                gameObjectClone.transform.SetParent(gameObject.transform.parent);
+                gameObjectClone.transform.SetSiblingIndex(gameObject.transform.GetSiblingIndex() + 1);
+                newObjects[i] = gameObjectClone;
+                Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
+            }
+
+            Selection.objects = newObjects;
+        }
+
+        [MenuItem("GameObject/Create Empty - Top &N", false, -1)]
+        private static void CreateEmpty()
+        {
+            Transform activeTransform = Selection.activeTransform;
+            GameObject go = new GameObject("GameObject");
+            Undo.RegisterCreatedObjectUndo(go, "CreateEmpty");
+            Selection.activeGameObject = go;
+            if (activeTransform) // 移动到选择的物体上
+            {
+                go.transform.SetParent(activeTransform, false);
+                go.transform.SetAsFirstSibling();
+                go.Layer(activeTransform.gameObject.layer);
+
+                //跟随父物体是RectTransform
+                RectTransform rtTransform = activeTransform.GetComponent<RectTransform>();
+                if (rtTransform)
+                {
+                    go.AddComponent<RectTransform>();
+                }
+            }
+        }
+
+        [MenuItem("GameObject/Transform/Group &G", false, 0)]
+        private static void Group()
+        {
+            GameObject[] gameObjects = Selection.gameObjects;
+            if (gameObjects.Length == 0)
+            {
+                return;
+            }
+
+            Transform parent = gameObjects[0].transform.parent;
+            int nSiblingIndex = gameObjects[0].transform.GetSiblingIndex();
+            GameObject go = new GameObject("Group");
+            Undo.RegisterCreatedObjectUndo(go, "CreateEmpty");
+            Undo.FlushUndoRecordObjects();
+            for (int i = 0; i < gameObjects.Length; i++)
+            {
+                GameObject gameObject = gameObjects[i];
+                Undo.SetTransformParent(gameObject.transform, go.transform, "Group");
+            }
+
+            go.transform.Parent(parent).SiblingIndex(nSiblingIndex);
+            EditorGUIUtility.PingObject(gameObjects[0]);
+        }
+
+        [MenuItem("GameObject/Transform/Sort &S", false, 0)]
+        private static void Sort()
+        {
+            for (int i = 0; i < Selection.transforms.Length; i++)
+            {
+                Transform transform = Selection.transforms[i];
+                Sort(transform);
+            }
+        }
+
+        //不稳定排序
+        private static void Sort(Transform transform)
+        {
+            Undo.RegisterFullObjectHierarchyUndo(transform, "Sort");
+            int count = transform.childCount;
+            int nLast = count - 1;
+            for (int i = 1; i < count; i++)
+            {
+                Transform tLast = transform.GetChild(nLast);
+                tLast.SetSiblingIndex(i);
+                for (int j = 0; j < i; j++)
+                {
+                    Transform next = transform.GetChild(j);
+                    int n = EditorUtility.NaturalCompare(tLast.name, next.name);
+                    if (n < 0)
+                    {
+                        tLast.SetSiblingIndex(j);
+                        break;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         ///     第一次创建UI元素时。没有canvas、EventSystem全部要生成，Canvas作为父节点
         ///     之后再空的位置上建UI元素会自己主动加入到Canvas下
         ///     在非UI树下的GameObject上新建UI元素也会 自己主动加入到Canvas下（默认在UI树下）
         ///     加入到指定的UI元素下
         /// </summary>
-        [MenuItem("GameObject/UI/img (No Raycast Target)")]
+        [MenuItem("GameObject/UI/img !raycastTarget")]
         private static void CreatImages()
         {
             Transform activeTransform = Selection.activeTransform;
@@ -93,12 +191,13 @@ namespace QFramework
         private static GameObject Image()
         {
             GameObject go = new GameObject("img", typeof(Image));
+            Undo.RegisterCreatedObjectUndo(go, "Image");
             go.GetComponent<Image>().raycastTarget = false;
             Selection.activeGameObject = go;
             return go;
         }
 
-        [MenuItem("GameObject/UI/txt (No Raycast Target)")]
+        [MenuItem("GameObject/UI/txt !raycastTarget")]
         private static void CreatTexts()
         {
             Transform activeTransform = Selection.activeTransform;
@@ -107,19 +206,19 @@ namespace QFramework
             if (!activeTransform) // 在根文件夹创建的。 自己主动移动到 Canvas下
             {
                 txt.transform.SetParent(canvasObj.transform, false);
-                txt.gameObject.layer = canvasObj.layer;
+                txt.Layer(canvasObj.layer);
             }
             else
             {
                 if (!activeTransform.GetComponentInParent<Canvas>()) // 没有在UI树下
                 {
                     txt.transform.SetParent(canvasObj.transform, false);
-                    txt.gameObject.layer = canvasObj.layer;
+                    txt.Layer(canvasObj.layer);
                 }
                 else
                 {
                     txt.transform.SetParent(activeTransform, false);
-                    txt.gameObject.layer = activeTransform.gameObject.layer;
+                    txt.Layer(activeTransform.gameObject.layer);
                 }
             }
         }
@@ -127,6 +226,7 @@ namespace QFramework
         private static GameObject Text()
         {
             GameObject go = new GameObject("txt", typeof(Text));
+            Undo.RegisterCreatedObjectUndo(go, "Text");
             Text text = go.GetComponent<Text>();
             text.raycastTarget = false;
             text.supportRichText = false;
@@ -143,15 +243,25 @@ namespace QFramework
         private static GameObject SecurityCheck()
         {
             Canvas cv = Object.FindObjectOfType<Canvas>();
-            GameObject canvas = !cv ? new GameObject("Canvas", typeof(Canvas)) : cv.gameObject;
-            if (!Object.FindObjectOfType<EventSystem>())
+            GameObject goCanvas;
+            if (!cv)
             {
-                // ReSharper disable once ObjectCreationAsStatement
-                new GameObject("EventSystem", typeof(EventSystem));
+                goCanvas = new GameObject("Canvas", typeof(Canvas));
+                Undo.RegisterCreatedObjectUndo(goCanvas, "Canvas");
+            }
+            else
+            {
+                goCanvas = cv.gameObject;
             }
 
-            canvas.layer = LayerMask.NameToLayer("UI");
-            return canvas;
+            if (!Object.FindObjectOfType<EventSystem>())
+            {
+                GameObject go = new GameObject("EventSystem", typeof(EventSystem));
+                Undo.RegisterCreatedObjectUndo(go, "EventSystem");
+            }
+
+            goCanvas.Layer("UI");
+            return goCanvas;
         }
     }
 }
