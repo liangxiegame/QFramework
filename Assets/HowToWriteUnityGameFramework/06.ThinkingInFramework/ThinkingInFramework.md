@@ -1,121 +1,113 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (六) 关于框架的一些好文和一些思考
+在进行项目架构阶段,游戏框架可以解决一部分问题。剩下的架构问题还需要根据不同的项目解决。总之游戏框架是游戏架构的一部分。
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+### 关于锤子和钉子:
 
-关于Unity的架构有如下几种常用的方式。
+最近又拿起了《代码大全》和《暗时间》，想起来《暗时间》的作者维护了一个个人博客,就去逛一逛。
 
-#### 1.EmptyGO:
+这几天一直琢磨一句话:手里拿着锤子看什么都像钉子。于是翻到了博客[《锤子和钉子》](http://mindhacks.cn/2009/01/16/hammers-and-nails/)。我的这个行为很好的阐述了什么叫:手里拿着锤子看什么都想钉子- -。
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+看完之后深度自省了一下- -
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+文章很有趣,推荐大家读下。
 
-#### 2.Simple GameManager:
+对于框架,用锤子和钉子来比喻不太恰当,框架就像一把剑,而项目就是锤子。
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+框架需要经过项目的千锤百炼,才会越来越锋利(当然我的意思不是为了写框架而写框架,框架是副产品,真正锋利的是自己)。
 
-将不同的功能单独管理。如下:
+对于这句话:手里拿着锤子看什么都像钉子。我的观点是:如果以前没使用过这把锤子,当你使用这把锤子的时候,就会给你带来新的视野,新的角度去思考问题。
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+比如以前自己开发游戏都没有框架这种概念的,写代码都是重新造个小轮子,轮子很不好用,当时视野又小又不知道有其他替代的解决方案,当听到游戏框架这个词的时候才开始去思考关于框架的问题,当开始着手搭建自己的框架时,才会开始注意到以前没注意到的东西。
 
-#### 实现一个简单的PoolManager<br>
+所以,开始打造自己的框架吧!
 
+### 关于架构:
+首先推荐一篇关于架构的好文:[10年感触：架构是什么？——消灭架构！](http://www.manew.com/thread-89749-1-1.html)，文中作者很通俗地解释了什么是架构:
 
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
-
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
-}
 ```
+   架构是一个约定，一个规则，一个大家都懂得遵守的共识。那这是什么样的约定、什么样的规则、什么样的共识呢？
+   我以包为例，我经常出差，双肩背包里装了不少东西。笔记本电脑、电源、2个上网卡、鼠标、USB线、一盒大的名片、一盒小的名片、口香糖、Mini-DisplayPort转VGA接口、U盘、几根笔、小螺丝刀、洗漱用品、干净衣服、袜子、香水、老婆给我带的抹脸膏（她嫌我最近累，脸有点黄）、钱包、Token卡、耳机、纸巾、USB线、U盘等。这个包有很多格子，最外面的格子我放常用的，比如笔、纸、一盒小的名片等；中间的格子一般放的是衣服、袜子、洗漱用品、香水等；靠背的那个大格子放了笔记本电脑，和笔记本电脑相近的小格子放的是两个上网卡、Mini-DisplayPort转VGA接口、大盒名片、记事本，和笔记本电脑相近的大格子放的是电源、鼠标、口香糖等。
+　　我闭着眼睛都可以将我的东西从包里掏出来，闭着眼睛都可以将东西塞到包里！但是，非常不幸的是，一旦我老婆整理过我的包，那我就很惨了，老是因为找不到东西而变得抓狂！更不幸的，要是我那个不到两岁的“小可爱”翻过，就更不得了了。
+    这个包就是我放所有物品的“架构”，每一个东西放置的位置就是我的“约定、规则、共识”。倘若我老婆也知道我的“架构”、我的“约定、规则、共识”，那么不管她怎么动我的包，我都照样能够轻易的拿东西或者放东西。进一步，如果我的同事也知道我的“架构”，知道我的“约定、规则、共识”，那么他们什么时候动我的包，我也毫无所知！
+```
+### 架构的典型组成部分:
+以下分类来自《代码大全》3.5小节的《架构的典型组成部分》,并用我的框架来做了一遍对比。
+#### 由框架解决的架构问题:
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+##### 主要的类:  
 
-更好的实现方式是将一个PoolManager分成:
+书上写的是:架构应该详细定义所用的主要的类。在我的框架里,提供的主要的的类有QFSM(状态机),QMsgDispatcher(消息分发器)。在未来还会提供ResourceManager,GameManager等,现在框架中有一份实现,但是其实现有些复杂,不易阅读和理解,等有比较容易理解的实现时候会对其写一篇文章,还有一些主要的模块需要客户端自己实现。
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+##### 资源管理:
+包括资源加载/卸载,音频、模型、纹理等,是模块化管理资源还是统一管理资源?,我的框架目前有一份实现,但不够易用,未来会提供易用版本。
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+##### 国际化/本地化:
+很多游戏都会有海外版,国内版,各个国家的版本,如何进行切换/翻译?(我的框架未来会提供)。
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+##### 输入输出、错误处理: 
+我的框架未来会提供错误日志。
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+##### 性能:
+1.如何检测?框架应该提供相应的数据。
+2.指标如何确定?速度?内存?成本?，游戏开发中还有Draw Call,GC等等(我的框架未来会提供)。
 
-* SaveManager: 配置管理。
+#### 由客户端解决的架构问题
+##### 程序组织: 
+包括文件结构应该反映文件或文件夹之间的关系,要思考以什么方式组织比如:先按照模块分文件结构再按照MVC或者先按照MVC分,然后再按照每个模块来区分，再推荐一篇好文:[Unity3D手游开发实践《腾讯桌球》客户端开发经验总结](http://www.gameres.com/654759.html)(文章略长),文章的第一小节就有讲到关于文件组织。
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
 
-#### 4.将View和Model之间增加一个媒介层。
+##### 数据设计:
+书中指的是设计数据库表。在游戏框架中是指提供给客户端使用的数据结构定义,包括何种结构定义玩家的数据信息,策划表结构的定义等等。好的数据结构定义 + 烂的代码质量 >> 坏的数据结构定义 + 好的代码质量。
 
-MVCS:StrangeIOC插件。
+##### 业务规则:
+属于游戏逻辑范畴,需客户端实现。
 
-MVVM:uFrame插件。
+##### 用户界面设计:
+用户界面组件之间如何通信,如何管理?用户界面和业务规则还有数据之间如何通信?通信方面已提供消息分发器(QMsgDispatcher)。
 
-#### 5. ECS(Entity Component Based  System)
+##### 安全性:
+资源如何加密,如何防破解,防反编译,安全数据检查,服务器验证等等。
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+##### 可伸缩性:
+可伸缩性是指满足未来需求的能力，包括程序的可扩展性,用户量增长时系统的策略等等。
 
-#### 相关链接:
+##### 互用性:
+如果预计这个系统会与其他软件或硬件共享数据或资源,架构应该描述如何完成这一任务。
+
+##### 容错性:
+举个例子:当界面跳转时,系统不可以接受输入(我的框架不提供)。
+
+##### 关于买还是造的决策:
+Unity可以有很多可以使用的插件、C#库可以使用,很多问题迎刃而解,(我的框架不会包含任何插件,项目不同需要的插件也不同)。
+### 核对表摘自《代码大全》:
+1. 程序的整体组织结构是否清晰?是否包含一个良好的架构全局观(及其理由)?
+2. 是否明确定义了主要的构造块(包括每个构造块的职责范围及其他构造块接口)?
+3. 是否明显涵盖了"需求"中列出的所有功能(每个功能对应的架构块不太多也不太少)?
+4. 是否描述并论证了那些最关键的类?
+5. 是否描述并论证了数据设计?
+6. 书否详细定义了数据库的组织结构和内容?
+7. 是否支出了所用关键的业务规则,并描述其对系统的影响?
+8. 是否描述了用户界面设计的策略?
+9. 是否将用户界面模块化,使界面的变更不会影响程序其余部分?
+10. 是否描述并论证了处理I/O的策略?
+11. 是否估算了稀缺资源(如线程、数据库连接、句柄、网络带宽等)的使用量,是否描述并论证了资源管理的策略?
+12. 是否描述了架构的安全需求?
+13. 架构是否为每个类、每个子系统、或每个功能域(functionality area)提供空间与实践预算?
+14. 架构是否描述了如何达到可伸缩性?
+15. 架构是否关注互操作性?
+16. 是否描述了国际化/本地化的策略?
+17. 是否提供了一套内聚的错误处理策略?
+18. 是否规定了容错的办法(如果需要)?
+19. 是否正式了系统各个部分的技术可行性?
+20. 是否详细描述了过度工程的方法?
+21. 是否包含了必要的"买 vs 造"的决策?
+22. 架构是否描述了如何加工被复用的代码,使之符合其他架构的目标?
+23. 是否将架构设计得能够使用很可能出现的变更?
+24. 你,作为一名实现该系统的程序员,是否对这个架构感觉良好?
+
+### 欢迎讨论!
+
+### 相关链接:
 
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
 
@@ -127,11 +119,11 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr1ywcobcwj30by0byt9i.jpg)
 
-#### 支持我们:
+#### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
 * 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
 * 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
@@ -140,5 +132,3 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 * 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建

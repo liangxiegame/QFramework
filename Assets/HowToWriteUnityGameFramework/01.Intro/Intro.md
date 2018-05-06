@@ -4,17 +4,17 @@
 
 关于Unity的架构有如下几种常用的方式。
 
-#### 1.EmptyGO:
+### 1.EmptyGO:
 
   在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
 
 缺点:逻辑代码散落在各处,不适合大型项目。
 
-#### 2.Simple GameManager:
+### 2.Simple GameManager:
 
   所有与GameObject无关的逻辑都放在一个单例中。
 缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+### 3.Manager Of Managers:
 
 将不同的功能单独管理。如下:
 
@@ -24,7 +24,7 @@
 * AudioManager: 音效管理。 
 * PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
 
-#### 实现一个简单的PoolManager<br>
+### 实现一个简单的 PoolManager:
 
 
 ``` csharp
@@ -74,7 +74,7 @@ public void Trim()
 }
 ```
 
-##### 缺点:
+#### 缺点:
 * 不能管理prefabs。
 * 没有进行分类。
 
@@ -85,7 +85,7 @@ public void Trim()
     * PrefabPool负责Prefab的加载和卸载。
     * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
 
-##### 要注意的是:
+#### 要注意的是:
 * 每个SpawnPool是EmeptyGO。
 * 每个PoolManager管理两个List (Active,Deactive)。
 
@@ -104,18 +104,18 @@ public void Trim()
     数据混淆,截屏操作。
     	MenuManager 菜单管理。
 
-#### 4.将View和Model之间增加一个媒介层。
+### 4.将View和Model之间增加一个媒介层。
 
 MVCS:StrangeIOC插件。
 
 MVVM:uFrame插件。
 
-#### 5. ECS(Entity Component Based  System)
+### 5. ECS(Entity Component Based  System)
 
-Unity是基于ECS,比较适合GamePlay模块使用。
+Unity 是基于 ECS,比较适合GamePlay模块使用。
 还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
 
-#### 相关链接:
+### 相关链接:
 
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
 
@@ -127,18 +127,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr1ywcobcwj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
