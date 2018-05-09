@@ -58,16 +58,25 @@ namespace QFramework
 		{
 			if (mExcutingNodes.Count > 0)
 			{
-				if (mExcutingNodes[0].Execute(dt))
+				// 如果有异常，则进行销毁，不再进行下边的操作
+				if (mExcutingNodes[0].Disposed && !mExcutingNodes[0].Finished)
+				{
+					Dispose();
+					return;
+				}
+ 
+				while (mExcutingNodes[0].Execute(dt))
 				{
 					mExcutingNodes.RemoveAt(0);
+  
+					if (mExcutingNodes.Count == 0)
+					{
+						break;
+					}
 				}
-			} 
-			else
-			{
-				Finished = true;
-				Completed = true;
 			}
+ 
+			Finished = mExcutingNodes.Count == 0;
 		}
 
 		public static SequenceNode Allocate(params IAction[] nodes)

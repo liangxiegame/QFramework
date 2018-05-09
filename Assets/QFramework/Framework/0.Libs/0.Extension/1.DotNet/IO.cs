@@ -459,6 +459,14 @@ namespace QFramework
 			var lastIndex = name.LastIndexOf("/");
 			return name.Substring(0, lastIndex + 1);
 		}
+		
+		public static string GetLastDirName(this string absOrAssetsPath)
+		{
+			var name = absOrAssetsPath.Replace("\\", "/");
+			var dirs = name.Split('/');
+
+			return dirs[dirs.Length - 2];
+		}
 
 		#endregion
 	}

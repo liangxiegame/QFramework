@@ -397,8 +397,31 @@ namespace QFramework
 
 		#endregion
 
+		#region CETR009 WorldScale/LossyScale/GlobalScale/Scale
+ 
+		public static Vector3 GetGlobalScale<T>(this T selfComponent) where T : Component
+		{
+			return selfComponent.transform.lossyScale;
+		}
+ 
+		public static Vector3 GetScale<T>(this T selfComponent) where T : Component
+		{
+			return selfComponent.transform.lossyScale;
+		}
+		
+		public static Vector3 GetWorldScale<T>(this T selfComponent) where T : Component
+		{
+			return selfComponent.transform.lossyScale;
+		}
+		
+		public static Vector3 GetLossyScale<T>(this T selfComponent) where T : Component
+		{
+			return selfComponent.transform.lossyScale;
+		}
+ 
+		#endregion
 
-		#region CETR009 Destroy All Child
+		#region CETR010 Destroy All Child
 		
 		public static T DestroyAllChild<T>(this T selfComponent) where T : Component
 		{
@@ -426,7 +449,7 @@ namespace QFramework
 
 		#endregion
 
-		#region CETR0010 Sibling Index
+		#region CETR011 Sibling Index
 
 		public static T AsLastSibling<T>(this T selfComponent) where T : Component
 		{

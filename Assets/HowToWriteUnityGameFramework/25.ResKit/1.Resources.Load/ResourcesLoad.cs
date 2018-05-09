@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,8 @@ namespace QFramework.ResKitLearn
 		// Use this for initialization
 		private IEnumerator Start()
 		{
+			gameObject.AddComponent<XXXPanel>();
+			
 			yield return new WaitForSeconds(1.0f);
 
 			var testTexture = Resources.Load<Texture2D>("TestTexture");
@@ -44,6 +47,31 @@ namespace QFramework.ResKitLearn
 			yield return new WaitForSeconds(1.0f);
 
 			Resources.UnloadAsset(testTexture);
+		}
+	}
+
+	public class XXXPanel : MonoBehaviour
+	{
+		private List<Object> mLoadedAssets = new List<Object>();
+		
+		private void Start()
+		{
+			var testTexture = Resources.Load<Texture2D>("TestTexture");
+			// do sth
+
+			mLoadedAssets.Add(testTexture);
+			
+			testTexture = Resources.Load<Texture2D>("TestTexture");
+			// do sth
+
+			mLoadedAssets.Add(testTexture);
+		}
+
+		private void OnDestroy()
+		{
+			mLoadedAssets.ForEach(Resources.UnloadAsset);
+			mLoadedAssets.Clear();
+			mLoadedAssets = null;
 		}
 	}
 }

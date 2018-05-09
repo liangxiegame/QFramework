@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -27,6 +27,11 @@ namespace QFramework
 {
     public abstract class NodeAction : IAction
     {
+        bool IAction.Disposed
+        {
+            get { return mDisposed; }
+        }
+
         public System.Action OnBeganCallback = null;
         public System.Action OnEndedCallback = null;
         public System.Action OnDisposedCallback = null;

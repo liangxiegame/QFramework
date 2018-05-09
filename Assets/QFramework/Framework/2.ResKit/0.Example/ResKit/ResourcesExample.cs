@@ -1,7 +1,7 @@
-/****************************************************************************
- * Copyright (c) 2017 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018.5 liangxie
  * 
- * http://qframework.io
+ * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,23 +23,21 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+using UnityEngine;
+
+namespace QFramework.Example
 {
-    using System;
+	public class ResourcesExample : MonoBehaviour
+	{
+		private void Start()
+		{
+//			Resources.Load<Texture2D>();
+		}
 
-    /// <summary>
-    /// 执行节点的基类
-    /// </summary>
-    public interface IAction : IDisposable
-    {
-        bool Disposed { get; }
+		// Update is called once per frame
+		void Update()
+		{
 
-        void Break();
-        
-        bool Execute(float delta);
-
-        void Reset();
-        
-        bool Finished { get; }
-    }
+		}
+	}
 }

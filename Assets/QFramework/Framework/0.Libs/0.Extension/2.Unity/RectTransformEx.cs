@@ -58,5 +58,10 @@ namespace QFramework
 			selfRectTrans.sizeDelta = sizeDelta;
 			return selfRectTrans;
 		}
+	    
+	    public static Vector2 GetWorldSize(this RectTransform selfRectTrans)
+	    {
+		    return RectTransformUtility.CalculateRelativeRectTransformBounds(selfRectTrans).size;
+	    }
 	}
 }

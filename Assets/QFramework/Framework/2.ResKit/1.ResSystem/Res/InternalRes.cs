@@ -1,11 +1,10 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 liangxie
+ * Copyright (c) 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +27,6 @@
 
 namespace QFramework
 {
-    using System;
     using UnityEngine;
     using System.Collections;
     
@@ -46,7 +44,7 @@ namespace QFramework
             return res;
         }
 
-        public static string Name2Path(string name)
+        private static string Name2Path(string name)
         {
             return name.Substring(10);
         }
@@ -128,13 +126,13 @@ namespace QFramework
                 yield break;
             }
 
-            ResourceRequest rQ = Resources.LoadAsync(Name2Path(mAssetName));
+            var resourceRequest = Resources.LoadAsync(Name2Path(mAssetName));
 
-            mResourceRequest = rQ;
-            yield return rQ;
+            mResourceRequest = resourceRequest;
+            yield return resourceRequest;
             mResourceRequest = null;
 
-            if (!rQ.isDone)
+            if (!resourceRequest.isDone)
             {
                 Log.E("Failed to Load Resources:" + mAssetName);
                 OnResLoadFaild();
@@ -142,7 +140,7 @@ namespace QFramework
                 yield break;
             }
 
-            mAsset = rQ.asset;
+            mAsset = resourceRequest.asset;
 
             State = ResState.Ready;
 

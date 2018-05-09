@@ -91,8 +91,6 @@ namespace QFramework
                     return null;
             }
         }
-        
-        
 
         public static IRes Create(string assetName)
         {
@@ -104,28 +102,27 @@ namespace QFramework
             else if (assetName.StartsWith("NetImage:"))
             {
                 assetType = ResType.NetImageRes;
-            } else if (assetName.StartsWith("LocalImage:"))
+            }
+            else if (assetName.StartsWith("LocalImage:"))
             {
                 assetType = ResType.LocalImageRes;
             }
             else
             {
-                AssetData data = AssetDataTable.Instance.GetAssetData(assetName);
+                var data = AssetDataTable.Instance.GetAssetData(assetName);
                 if (data == null)
                 {
                     Log.E("Failed to Create Res. Not Find AssetData:" + assetName);
                     return null;
                 }
-                else
-                {
-                    assetType = data.AssetType;
-                }
+
+                assetType = data.AssetType;
             }
 
             return Create(assetName, assetType);
         }
 
-        public static IRes Create(string assetName, short assetType)
+        private static IRes Create(string assetName, short assetType)
         {
             switch (assetType)
             {

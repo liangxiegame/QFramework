@@ -1,8 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018.3 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie 
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,15 +24,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
-
-/****************************************************************************
-change log:
-imagicbell
-Auto serialize QUIMark objects to *Components.cs which is auto generated after Unity finishing compling script. 
-change log:
-liqingyun@putao.com
-auto add panel's monobehaivour
-****************************************************************************/
 
 namespace QFramework
 {
@@ -73,7 +63,7 @@ namespace QFramework
 		public IUIMark MarkObj;
 	}
 
-	public class QUICodeGenerator
+	public class UICodeGenerator
 	{
 		[MenuItem("Assets/QFramework - Create UICode")]
 		public static void CreateUICode()
@@ -120,7 +110,7 @@ namespace QFramework
 			}
 		}
 
-		string PathToParent(Transform trans, string parentName)
+		private static string PathToParent(Transform trans, string parentName)
 		{
 			var retValue = new StringBuilder(trans.name);
 
@@ -213,23 +203,35 @@ namespace QFramework
 		{
 			if (null == uiPrefab)
 				return;
-
+ 
 			var behaviourName = uiPrefab.name;
-			var strFilePath = uiPrefabPath.Replace(QFrameworkConfigData.Load().UIPrefabDir, GetScriptsPath());
-			if (!uiPrefabPath.Contains(QFrameworkConfigData.Load().UIPrefabDir) &&
-			    uiPrefabPath.Contains("/Resources"))
+ 
+			var strFilePath = string.Empty;
+ 
+			var prefabDirPattern = QFrameworkConfigData.Load().UIPrefabDir;
+ 
+			if (uiPrefabPath.Contains(prefabDirPattern))
+			{
+				strFilePath = uiPrefabPath.Replace(prefabDirPattern, GetScriptsPath());
+ 
+			} else if (uiPrefabPath.Contains("/Resources"))
 			{
 				strFilePath = uiPrefabPath.Replace("/Resources", GetScriptsPath());
 			}
-
-			strFilePath.Replace(uiPrefab.name + ".prefab", "").CreateDirIfNotExists();
+			else
+			{
+				strFilePath = uiPrefabPath.Replace("/" + uiPrefabPath.GetLastDirName(), GetScriptsPath());
+			}
+ 
+			strFilePath.Replace(uiPrefab.name + ".prefab", string.Empty).CreateDirIfNotExists();
+			
 			strFilePath = strFilePath.Replace(".prefab", ".cs");
-
+			
 			if (File.Exists(strFilePath) == false)
 			{
 				UIPanelCodeTemplate.Generate(strFilePath, behaviourName, GetProjectNamespace());
 			}
-
+ 
 			CreateUIPanelComponentsCode(behaviourName, strFilePath);
 			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
@@ -379,6 +381,6 @@ namespace QFramework
 
 		private PanelCodeData mPanelCodeData = null;
 
-		private static readonly QUICodeGenerator mInstance = new QUICodeGenerator();
+		private static readonly UICodeGenerator mInstance = new UICodeGenerator();
 	}
 }

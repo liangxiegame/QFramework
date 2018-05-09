@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018.3 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,8 +25,10 @@
 
 namespace QFramework
 {
-    using System.Text;
+    using System;
     using System.IO;
+    using System.Text;
+    using UnityEngine;
 
     public static class UIPanelComponentsCodeTemplate
     {
@@ -37,16 +38,21 @@ namespace QFramework
             var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
             var strBuilder = new StringBuilder();
 
-            strBuilder.AppendLine("using UnityEngine;");
-            strBuilder.AppendLine("using UnityEngine.UI;");
-            strBuilder.AppendLine("using QFramework;");
+            strBuilder.AppendLine("/****************************************************************************");
+            strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month,SystemInfo.deviceName);
+            strBuilder.AppendLine(" ****************************************************************************/");
             strBuilder.AppendLine();
             strBuilder.AppendLine("namespace " + nameSpace);
             strBuilder.AppendLine("{");
-            strBuilder.AppendFormat("\tpublic partial class {0}", behaviourName);
+            strBuilder.AppendLine("\tusing UnityEngine;");
+            strBuilder.AppendLine("\tusing UnityEngine.UI;");
+            strBuilder.AppendLine("\tusing QFramework;");
             strBuilder.AppendLine();
+            strBuilder.AppendFormat("\tpublic partial class {0}", behaviourName);
             strBuilder.AppendLine("\t{");
-
+            strBuilder.AppendFormat("\t\tpublic const string NAME = \"{0}\";", behaviourName);
+            strBuilder.AppendLine();
+            
             foreach (var objInfo in panelCodeData.MarkedObjInfos)
             {
                 var strUIType = objInfo.MarkObj.ComponentName;
