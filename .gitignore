@@ -32,3 +32,5 @@ QFramework2017.sln
 .vs
 Assets/StreamingAssets/AssetBundles
 AssetBundles.meta
+bin.meta
+obj.meta
