@@ -52,22 +52,64 @@ namespace QFramework.ResKitLearn
 
 	public class XXXPanel : MonoBehaviour
 	{
-		private List<Object> mLoadedAssets = new List<Object>();
+		ResourcesLoader mResourcesLoader = new ResourcesLoader();
 		
 		private void Start()
 		{
-			var testTexture = Resources.Load<Texture2D>("TestTexture");
+			var testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-
-			mLoadedAssets.Add(testTexture);
 			
-			testTexture = Resources.Load<Texture2D>("TestTexture");
+			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-
-			mLoadedAssets.Add(testTexture);
 		}
 
 		private void OnDestroy()
+		{
+			mResourcesLoader.UnloadAll();
+			mResourcesLoader = null;
+		}
+	}
+	
+	public class YYYPanel : MonoBehaviour
+	{
+		ResourcesLoader mResourcesLoader = new ResourcesLoader();
+		
+		private void Start()
+		{
+			var testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
+			// do sth
+			
+			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
+			// do sth
+		}
+
+		private void OnDestroy()
+		{
+			mResourcesLoader.UnloadAll();
+			mResourcesLoader = null;
+		}
+	}
+
+	public class ResourcesLoader
+	{
+		private List<Object> mLoadedAssets = new List<Object>();
+
+		public T LoadSync<T>(string resName) where T : Object
+		{
+			var retRes = mLoadedAssets.Find(asset => asset.name == resName);
+
+			if (retRes == null)
+			{
+				retRes = Resources.Load<T>("resName");
+				
+				mLoadedAssets.Add(retRes);
+				// 容错处理
+			}
+
+			return retRes as T;
+		}
+
+		public void UnloadAll()
 		{
 			mLoadedAssets.ForEach(Resources.UnloadAsset);
 			mLoadedAssets.Clear();
