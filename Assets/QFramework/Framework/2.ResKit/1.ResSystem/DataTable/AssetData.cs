@@ -35,25 +35,26 @@ namespace QFramework
     [Serializable]
     public class AssetData
     {
+
         /// <summary>
         /// 资源名字
         /// </summary>
-        public string AssetName { get; private set; }
+        public readonly string AssetName;
 
         /// <summary>
         /// 资源类型
         /// </summary>
-        public short AssetType { get; private set; }
-        
+        public readonly short AssetType;
+
         /// <summary>
         /// 资源索引 
         /// </summary>
-        public int AssetBundleIndex { get; private set; }
+        public readonly int AssetBundleIndex;
 
         /// <summary>
         /// 所属的 Bundle 名字
         /// </summary>
-        public string OwnerBundleName { get; private set; }
+        public readonly string OwnerBundleName;
 
         public string UUID
         {
