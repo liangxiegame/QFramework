@@ -123,9 +123,9 @@ namespace QFramework
 				return false;
 			}
 
-			using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+			using (var fs = new FileStream(path, FileMode.OpenOrCreate))
 			{
-				XmlSerializer xmlserializer = new XmlSerializer(obj.GetType());
+				var xmlserializer = new XmlSerializer(obj.GetType());
 				xmlserializer.Serialize(fs, obj);
 				return true;
 			}
