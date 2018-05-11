@@ -1,27 +1,6 @@
 ﻿// /****************************************************************************
 //  * Copyright (c) 2018 ZhongShan KPP Technology Co
-//  * Copyright (c) 2018 Karsion
-//  * 
-//  * https://github.com/karsion
-//  * Date: 2018-02-28 15:19
-//  *
-//  * Permission is hereby granted, free of charge, to any person obtaining a copy
-//  * of this software and associated documentation files (the "Software"), to deal
-//  * in the Software without restriction, including without limitation the rights
-//  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  * copies of the Software, and to permit persons to whom the Software is
-//  * furnished to do so, subject to the following conditions:
-//  * 
-//  * The above copyright notice and this permission notice shall be included in
-//  * all copies or substantial portions of the Software.
-//  * 
-//  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  * THE SOFTWARE.
+//  * Date: 2018-05-11 16:45
 //  ****************************************************************************/
 
 using UnityEditor;
@@ -52,10 +31,6 @@ namespace QFramework
 -------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-
-    /// <summary>
-    ///     创建 Text、Image 的时候默认不选中 raycastTarget 等
-    /// </summary>
     internal static class CustomMenuItem
     {
         [MenuItem("GameObject/Duplicate - Top &D")]
@@ -66,9 +41,43 @@ namespace QFramework
             for (int i = 0; i < gameObjects.Length; i++)
             {
                 GameObject gameObject = gameObjects[i];
-                GameObject gameObjectClone = gameObject.Instantiate().Name(gameObject.name);
+                //避免生成物体时打了原来排序，先缓存
+                int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
+                PrefabType prefabType = PrefabUtility.GetPrefabType(gameObject);
+                GameObject gameObjectClone = null;
+                //只有预置物的Root才支持预置物拷贝，否则都是新的克隆
+                switch (prefabType)
+                {
+                    //default:
+                    case PrefabType.None:
+                    case PrefabType.MissingPrefabInstance:
+                    case PrefabType.DisconnectedPrefabInstance:
+                    case PrefabType.DisconnectedModelPrefabInstance:
+                        gameObjectClone = gameObject.Instantiate().Name(gameObject.name);
+                        break;
+
+                    //case PrefabType.Prefab:
+                    //case PrefabType.ModelPrefab:
+                    //    break;
+                    case PrefabType.PrefabInstance:
+                    case PrefabType.ModelPrefabInstance:
+                        GameObject goPrefabRoot = PrefabUtility.FindPrefabRoot(gameObject);
+                        if (goPrefabRoot == gameObject)
+                        {
+                            gameObjectClone = PrefabUtility.InstantiatePrefab(PrefabUtility.GetPrefabParent(gameObject)) as GameObject;
+                        }
+                        else
+                        {
+                            gameObjectClone = gameObject.Instantiate();
+                        }
+
+                        break;
+                }
+
+                //设置一些东西并支持回退功能
+                gameObjectClone.Name(gameObject.name);
                 gameObjectClone.transform.SetParent(gameObject.transform.parent);
-                gameObjectClone.transform.SetSiblingIndex(gameObject.transform.GetSiblingIndex() + 1);
+                gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
                 newObjects[i] = gameObjectClone;
                 Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
             }
@@ -89,7 +98,7 @@ namespace QFramework
                 go.transform.SetAsFirstSibling();
                 go.Layer(activeTransform.gameObject.layer);
 
-                //跟随父物体是RectTransform
+                //跟随父物体是不是RectTransform?
                 RectTransform rtTransform = activeTransform.GetComponent<RectTransform>();
                 if (rtTransform)
                 {
@@ -101,12 +110,14 @@ namespace QFramework
         [MenuItem("GameObject/Transform/Group &G", false, 0)]
         private static void Group()
         {
-            GameObject[] gameObjects = Selection.gameObjects;
-            if (gameObjects.Length == 0)
+            //没选中物体能干啥
+            if (Selection.objects.Length == 0)
             {
                 return;
             }
 
+            //new一个gameObject去装选中的物体
+            GameObject[] gameObjects = Selection.gameObjects;
             Transform parent = gameObjects[0].transform.parent;
             int nSiblingIndex = gameObjects[0].transform.GetSiblingIndex();
             GameObject go = new GameObject("Group");
