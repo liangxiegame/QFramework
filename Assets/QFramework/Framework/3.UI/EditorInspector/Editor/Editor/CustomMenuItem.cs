@@ -41,8 +41,9 @@ namespace QFramework
             for (int i = 0; i < gameObjects.Length; i++)
             {
                 GameObject gameObject = gameObjects[i];
+                Transform tfSource = gameObject.transform;
                 //避免生成物体时打了原来排序，先缓存
-                int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
+                int nSiblingIndex = tfSource.GetSiblingIndex() + 1;
                 PrefabType prefabType = PrefabUtility.GetPrefabType(gameObject);
                 GameObject gameObjectClone = null;
                 //只有预置物的Root才支持预置物拷贝，否则都是新的克隆
@@ -76,7 +77,11 @@ namespace QFramework
 
                 //设置一些东西并支持回退功能
                 gameObjectClone.Name(gameObject.name);
-                gameObjectClone.transform.SetParent(gameObject.transform.parent);
+                gameObjectClone.transform.SetParent(tfSource.parent);
+                gameObjectClone.transform.LocalPosition(tfSource.localPosition)
+                               .LocalRotation(tfSource.localRotation)
+                               .LocalScale(tfSource.localScale);
+
                 gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
                 newObjects[i] = gameObjectClone;
                 Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
