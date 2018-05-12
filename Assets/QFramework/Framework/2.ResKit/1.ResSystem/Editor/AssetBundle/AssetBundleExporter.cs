@@ -1,11 +1,33 @@
-﻿
+﻿/****************************************************************************
+ * Copyright (c) 2017 snowcold
+ * Copyright (c) 2017 ~ 2018.5 liangxie
+ * 
+ * http://qframework.io
+ * https://github.com/liangxiegame/QFramework
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 using UnityEditor;
 
 using System.Collections.Generic;
 using System.IO;
-
-
 
 namespace QFramework
 {
@@ -29,7 +51,7 @@ namespace QFramework
         //自动设置选中目录下的AssetBundle Name
         public static void GenAssetNameAsFolderName()
         {
-            string selectPath = EditorUtils.GetSelectedDirAssetsPath();
+            var selectPath = EditorUtils.GetSelectedDirAssetsPath();
             if (selectPath == null)
             {
                 Log.W("Not Select Any Folder!");
@@ -81,30 +103,18 @@ namespace QFramework
                     continue;
                 }
 
-                string fileName = Path.GetFileName(filePaths[i]);
+                var fileName = Path.GetFileName(filePaths[i]);
 
-                string fullFileName = string.Format("{0}/{1}", folderPath, fileName);
+                var fullFileName = string.Format("{0}/{1}", folderPath, fileName);
 
-                AssetImporter ai = AssetImporter.GetAtPath(fullFileName);
+                var ai = AssetImporter.GetAtPath(fullFileName);
                 if (ai == null)
                 {
                     Log.E("Not Find Asset:" + fullFileName);
                     return;
                 }
-                else
-                {
-                    if (useFolderName)
-                    {
-                        ai.assetBundleName = assetBundleName;
-                    }
-                    else
-                    {
-                        ai.assetBundleName = string.Format("{0}/{1}", assetBundleName, PathHelper.FileNameWithoutSuffix(fileName));
-                    }
-                }
-                
-                //ai.SaveAndReimport();
-                //Log.I("Success Process Asset:" + fileName);
+
+                ai.assetBundleName = useFolderName ? assetBundleName : string.Format("{0}/{1}", assetBundleName, PathHelper.FileNameWithoutSuffix(fileName));
             }
 
             //递归处理文件夹
@@ -122,7 +132,7 @@ namespace QFramework
 #region 指定具体文件构建
         public static void BuildAssetBundlesInSelectFolder()
         {
-            string selectPath = EditorUtils.GetSelectedDirAssetsPath();//.CurrentSelectFolder;
+            var selectPath = EditorUtils.GetSelectedDirAssetsPath();//.CurrentSelectFolder;
             if (selectPath == null)
             {
                 Log.W("Not Select Any Folder!");
@@ -141,8 +151,8 @@ namespace QFramework
             }
 
             Log.I("Start Build AssetBundle:" + folderPath);
-            string fullFolderPath = EditorUtils.AssetsPath2ABSPath(folderPath);//EditUtils.GetFullPath4AssetsPath(folderPath);
-            string assetBundleName = EditorUtils.AssetPath2ReltivePath(folderPath);// EditUtils.GetReltivePath4AssetPath(folderPath);
+            var fullFolderPath = EditorUtils.AssetsPath2ABSPath(folderPath);//EditUtils.GetFullPath4AssetsPath(folderPath);
+            var assetBundleName = EditorUtils.AssetPath2ReltivePath(folderPath);// EditUtils.GetReltivePath4AssetPath(folderPath);
             var filePaths = Directory.GetFiles(fullFolderPath);
 
             AssetBundleBuild abb = new AssetBundleBuild();
@@ -150,14 +160,14 @@ namespace QFramework
 
             List<string> fileNameList = new List<string>();
 
-            for (int i = 0; i < filePaths.Length; ++i)
+            foreach (var filePath in filePaths)
             {
-                if (!AssetFileFilter.IsAsset(filePaths[i]))
+                if (!AssetFileFilter.IsAsset(filePath))
                 {
                     continue;
                 }
 
-                string fileName = Path.GetFileName(filePaths[i]);
+                var fileName = Path.GetFileName(filePath);
                 fileName = string.Format("{0}/{1}", folderPath, fileName);
                 fileNameList.Add(fileName);
             }

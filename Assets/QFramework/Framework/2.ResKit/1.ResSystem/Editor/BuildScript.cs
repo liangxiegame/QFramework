@@ -28,7 +28,7 @@ namespace QFramework
 		public static void BuildAssetBundles(BuildTarget buildTarget)
 		{
 			// Choose the output path according to the build target.
-			var outputPath = Path.Combine(QResSystemMark.AssetBundlesOutputPath, GetPlatformName());
+			var outputPath = Path.Combine(ResKitMark.AssetBundlesOutputPath, GetPlatformName());
 			outputPath.CreateDirIfNotExists();
 
 			BuildPipeline.BuildAssetBundles(outputPath, BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
@@ -73,7 +73,7 @@ namespace QFramework
 
                 var path = Path.GetFullPath(Application.dataPath + Path.DirectorySeparatorChar + "QFrameworkData/QAssets.cs");
 				var writer = new StreamWriter(File.Open(path, FileMode.Create));
-				QBundleInfoGenerator.WriteClass(writer, "QAssetBundle", AssetBundleInfos);
+				ResKitInfoGenerator.WriteClass(writer, "QAssetBundle", AssetBundleInfos);
 				writer.Close();
 				AssetDatabase.Refresh();
 			}

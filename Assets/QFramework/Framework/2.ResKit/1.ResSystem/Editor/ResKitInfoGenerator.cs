@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-	public static class QBundleInfoGenerator
+	public static class ResKitInfoGenerator
 	{
 		public static void WriteClass(TextWriter writer, string ns, List<AssetBundleInfo> assetBundleInfos)
 		{

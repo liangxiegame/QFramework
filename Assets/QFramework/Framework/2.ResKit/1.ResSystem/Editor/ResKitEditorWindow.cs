@@ -1,10 +1,8 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +31,7 @@ namespace QFramework
 	public class ResKitEditorWindow : EditorWindow
 	{
 		private int mBuildTargetIndex = 0;
-		private readonly string[] mPlatformLabels = {"Windows32", "iOS", "Android"};
+		private readonly string[] mPlatformLabels = {"Windows32/OSX", "iOS", "Android"};
 		private Vector2 scrollPos;
 		private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
 		private const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
@@ -41,15 +39,13 @@ namespace QFramework
 		private const string KEY_ProjectTag = "KEY_ProjectTag";
 
 		public static string resVersion = "100";
-		private static string projectTag = "";
 
-		//public static bool isUseFramework = true;
 		public static bool isEnableGenerateClass = false;
 
 		public static void ForceClear()
 		{
 
-			QResSystemMark.AssetBundlesOutputPath.DeleteDirIfExists();
+			ResKitMark.AssetBundlesOutputPath.DeleteDirIfExists();
 			(Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
 
 			AssetDatabase.Refresh();
@@ -58,7 +54,7 @@ namespace QFramework
 		[MenuItem("QFramework/Res Kit %#r")]
 		public static void ExecuteAssetBundle()
 		{
-			ResKitEditorWindow window = (ResKitEditorWindow) GetWindow(typeof(ResKitEditorWindow), true);
+			var window = (ResKitEditorWindow) GetWindow(typeof(ResKitEditorWindow), true);
 			Debug.Log(Screen.width + " screen width*****");
 			window.position = new Rect(100, 100, 500, 400);
 			window.Show();
@@ -68,8 +64,6 @@ namespace QFramework
 		{
 			resVersion = EditorPrefs.GetString(KEY_QAssetBundleBuilder_RESVERSION, "100");
 			isEnableGenerateClass = EditorPrefs.GetBool(KEY_AUTOGENERATE_CLASS, true);
-
-			projectTag = EditorPrefs.GetString(KEY_ProjectTag, "");
 
 			switch (EditorUserBuildSettings.activeBuildTarget)
 			{
@@ -95,7 +89,6 @@ namespace QFramework
 		{
 			EditorPrefs.SetBool(KEY_AUTOGENERATE_CLASS, isEnableGenerateClass);
 			EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, resVersion);
-			EditorPrefs.SetString(KEY_ProjectTag, projectTag);
 		}
 
 		private void OnGUI()
@@ -114,18 +107,13 @@ namespace QFramework
 			DrawMenu();
 
 			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class");
+			ResKitMark.SimulateAssetBundleInEditor = GUILayout.Toggle(ResKitMark.SimulateAssetBundleInEditor, "Simulation Mode");
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("ResVersion:");
 			resVersion = GUILayout.TextField(resVersion);
 			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("Project Tag:");
-			projectTag = GUILayout.TextField(projectTag);
-
-			GUILayout.EndHorizontal();
-
+			
 			if (GUILayout.Button("1.Gen Res Tree File"))
 			{
 				AssetBundleExporter.BuildDataTable();
@@ -149,7 +137,7 @@ namespace QFramework
 
 		}
 
-		private void BuildWithTarget(BuildTarget buildTarget)
+		private static void BuildWithTarget(BuildTarget buildTarget)
 		{
 			AssetDatabase.RemoveUnusedAssetBundleNames();
 			AssetDatabase.Refresh();
