@@ -28,7 +28,7 @@ namespace QFramework
 		public struct DelayedQueueItem
 		{
 			public float time;
-			public System.Action action;
+			public Action action;
 		}
 
 		protected void QueueOnMainThread (System.Action action)

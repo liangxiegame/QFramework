@@ -98,7 +98,7 @@ namespace QFramework
             var filePaths = Directory.GetFiles(workPath);
             for (int i = 0; i < filePaths.Length; ++i)
             {
-                if (!AssetFileFilter.IsAsset(filePaths[i]))
+                if (!filePaths[i].EndsWith(".meta"))
                 {
                     continue;
                 }
@@ -162,7 +162,7 @@ namespace QFramework
 
             foreach (var filePath in filePaths)
             {
-                if (!AssetFileFilter.IsAsset(filePath))
+                if (!filePath.EndsWith(".meta"))
                 {
                     continue;
                 }
