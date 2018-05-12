@@ -1,11 +1,9 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,12 +57,12 @@ namespace QFramework
             }
 #endif
             AssetDataTable.Instance.Reset();
-            List<string> outResult = new List<string>();
+            var outResult = new List<string>();
             FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
-            for (int i = 0; i < outResult.Count; ++i)
+            foreach (var outRes in outResult)
             {
-                Log.I("Init[ResMgr]: {0}",outResult[i]);
-                AssetDataTable.Instance.LoadFromFile(outResult[i]);
+                Log.I("Init[ResMgr]: {0}",outRes);
+                AssetDataTable.Instance.LoadFromFile(outRes);
             }
             
             AssetDataTable.Instance.SwitchLanguage("cn");
@@ -155,17 +153,6 @@ namespace QFramework
             return default(R);
         }
 
-        public R GetAsset<R>(string name) where R : UnityEngine.Object
-        {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(name, out res))
-            {
-                return res.Asset as R;
-            }
-
-            return null;
-        }
-
         #endregion
 
         #region Private Func
@@ -190,10 +177,9 @@ namespace QFramework
 
             mIsResMapDirty = false;
 
-            IRes res = null;
-            for (int i = mResList.Count - 1; i >= 0; --i)
+            for (var i = mResList.Count - 1; i >= 0; --i)
             {
-                res = mResList[i];
+                var res = mResList[i];
                 if (res.RefCount <= 0 && res.State != ResState.Loading)
                 {
                     if (res.ReleaseRes())

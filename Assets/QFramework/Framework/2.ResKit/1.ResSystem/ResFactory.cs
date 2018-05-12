@@ -26,11 +26,8 @@
 
 namespace QFramework
 {
-        
-    public class ResFactory
+    public static class ResFactory
     {
-        private delegate IRes ResCreator(string name);
-
         static ResFactory()
         {
             Log.I("Init[ResFactory]");

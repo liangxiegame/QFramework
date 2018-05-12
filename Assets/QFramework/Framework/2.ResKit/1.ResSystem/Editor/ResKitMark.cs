@@ -59,9 +59,9 @@ namespace QFramework
 			}
 		}
 
-		private const string Mark_AssetBundle   = "Assets/ResSystem Mark/AssetBundle";
-		private const string Mark_HotUpdateFile = "Assets/ResSystem Mark/File";
-		private const string Mark_HotUpdateZip  = "Assets/ResSystem Mark/Zip";
+		private const string Mark_AssetBundle   = "Assets/ResKit Mark/AssetBundle";
+		private const string Mark_HotUpdateFile = "Assets/ResKit Mark/File";
+		private const string Mark_HotUpdateZip  = "Assets/ResKit Mark/Zip";
 
 		private const string LABEL_AB   = "QAssetBundle";
 		private const string LABEL_ZIP  = "QZip";
@@ -320,7 +320,7 @@ namespace QFramework
 			MarkQAB(path);
 		}
 
-		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubFolder")]
+		[MenuItem("Assets/ResKit Mark/AssetBundleAllSubFolder")]
 		public static void MarkQABForAllSubFolder()
 		{
 			var path = MouseSelector.GetSelectedPathOrFallback();
@@ -332,7 +332,7 @@ namespace QFramework
 			}
 		}
 
-		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubFolder")]
+		[MenuItem("Assets/ResKit Mark/Un_AssetBundleAllSubFolder")]
 		public static void UnMarkQABForAllSubFolder()
 		{
 			var path = MouseSelector.GetSelectedPathOrFallback();
@@ -363,7 +363,7 @@ namespace QFramework
 			}
 		}
 
-		[MenuItem("Assets/ResSystem Mark/AssetBundleAllSubAssets")]
+		[MenuItem("Assets/ResKit Mark/AssetBundleAllSubAssets")]
 		public static void MarkQABForAllSubAssets()
 		{
 			var path = MouseSelector.GetSelectedPathOrFallback();
@@ -378,7 +378,7 @@ namespace QFramework
 			}
 		}
 
-		[MenuItem("Assets/ResSystem Mark/Un_AssetBundleAllSubAssets")]
+		[MenuItem("Assets/ResKit Mark/Un_AssetBundleAllSubAssets")]
 		public static void UnMarkQABForAllSubAssets()
 		{
 			var path = MouseSelector.GetSelectedPathOrFallback();
