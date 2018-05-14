@@ -34,7 +34,7 @@ namespace QFramework
     public class AbstractRes : SimpleRC, IRes, IPoolable
     {
 #if UNITY_EDITOR
-        static int mSimulateAssetBundleInEditor = -1;
+        private static int mSimulateAssetBundleInEditor = -1;
         const string kSimulateAssetBundles = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
 
         // Flag to indicate if we want to simulate assetBundles in Editor without building them actually.
@@ -46,6 +46,7 @@ namespace QFramework
                 {
                     mSimulateAssetBundleInEditor = UnityEditor.EditorPrefs.GetBool(kSimulateAssetBundles, true) ? 1 : 0;
                 }
+
                 return mSimulateAssetBundleInEditor != 0;
             }
         }

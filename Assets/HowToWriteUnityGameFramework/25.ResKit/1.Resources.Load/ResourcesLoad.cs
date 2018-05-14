@@ -25,6 +25,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -100,7 +101,7 @@ namespace QFramework.ResKitLearn
 
 			if (retRes == null)
 			{
-				retRes = Resources.Load<T>("resName");
+				retRes = ResourcesManager.Instance.GetRes(resName);
 				
 				mLoadedAssets.Add(retRes);
 				// 容错处理
@@ -114,6 +115,24 @@ namespace QFramework.ResKitLearn
 			mLoadedAssets.ForEach(Resources.UnloadAsset);
 			mLoadedAssets.Clear();
 			mLoadedAssets = null;
+		}
+	}
+
+
+	public class ResourcesManager : QSingleton<ResourcesManager>
+	{
+		private static List<Object> mLoadedAssets = new List<Object>();
+
+		public Object GetRes(string resName)
+		{
+			var retRes = mLoadedAssets.Find(loadedAsset => loadedAsset.name == resName);
+
+			if (retRes == null)
+			{
+				retRes = Resources.Load(resName);
+			}
+
+			return retRes;
 		}
 	}
 }
