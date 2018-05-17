@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -49,11 +50,11 @@ namespace QFramework
         {
             m_ActiveAssetDataGroup.Clear();
 
-            string languageKey = string.Format("[{0}]", key);
+            var languageKey = string.Format("[{0}]", key);
 
-            for (int i = m_AllAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = m_AllAssetDataGroup.Count - 1; i >= 0; --i)
             {
-                AssetDataGroup group = m_AllAssetDataGroup[i];
+                var group = m_AllAssetDataGroup[i];
 
                 if (!group.key.Contains("i18res"))
                 {
@@ -138,7 +139,8 @@ namespace QFramework
         public string[] GetAllDependenciesByUrl(string url)
         {
 			var abName = QFrameworkConfigData.AssetBundleUrl2Name(url);
-
+            var a = new AssetBundleManifest();
+            
             for (var i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
             {
                 string[] depends;
