@@ -36,11 +36,11 @@ namespace QFramework
 		public static void BuildDataTable()
 		{
 			Log.I("Start BuildAssetDataTable!");
-			AssetDataTable table = AssetDataTable.Create();
+			var table = ResDatas.Create();
 
 			ProcessAssetBundleRes(table);
 
-		    string filePath =
+		    var filePath =
 		        (FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
 		        QFrameworkConfigData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
 			table.Save(filePath);
@@ -64,40 +64,32 @@ namespace QFramework
             return assetPath.Substring(startIndex).ToLower();
         }
 
-        private static void ProcessAssetBundleRes(AssetDataTable table)
+        private static void ProcessAssetBundleRes(ResDatas table)
         {
-            AssetDataGroup group = null;
-
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
             var abNames = AssetDatabase.GetAllAssetBundleNames();
             if (abNames != null && abNames.Length > 0)
             {
-                for (var i = 0; i < abNames.Length; ++i)
+                foreach (var abName in abNames)
                 {
-                    var depends = AssetDatabase.GetAssetBundleDependencies(abNames[i], false);
-                    var abIndex = table.AddAssetBundleName(abNames[i], depends, out group);
+                    var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
+                    AssetDataGroup group = null;
+                    var abIndex = table.AddAssetBundleName(abName, depends, out @group);
                     if (abIndex < 0)
                     {
                         continue;
                     }
 
-                    string[] assets = AssetDatabase.GetAssetPathsFromAssetBundle(abNames[i]);
+                    var assets = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
                     foreach (var cell in assets)
                     {
-                        if (cell.EndsWith(".unity"))
-                        {
-                            group.AddAssetData(new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex,abNames[i]));
-                        }
-                        else
-                        {
-                            group.AddAssetData(new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex,abNames[i]));
-                        }
+                        @group.AddAssetData(cell.EndsWith(".unity")
+                            ? new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex, abName)
+                            : new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex, abName));
                     }
                 }
             }
-
-            table.Dump();
         }
 #endregion
     }

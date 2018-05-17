@@ -369,7 +369,7 @@ namespace QFramework
             {
                 res.UnRegisteResListener(OnResLoadFinish);
                 res.Release();
-                ResMgr.Instance.SetResMapDirty();
+                ResMgr.Instance.ClearOnUpdate();
             }
         }
 
@@ -416,13 +416,13 @@ namespace QFramework
                 }
 
                 mResArray.Clear();
-                ResMgr.Instance.SetResMapDirty();
+                ResMgr.Instance.ClearOnUpdate();
             }
 
             RemoveAllCallbacks(true);
         }
 
-        public void UnloadImage(bool flag)
+        public void UnloadAllInstantialteRes(bool flag)
         {
             if (mResArray.Count > 0)
             {
@@ -443,7 +443,7 @@ namespace QFramework
                     }
                 }
 
-                ResMgr.Instance.SetResMapDirty();
+                ResMgr.Instance.ClearOnUpdate();
             }
         }
 

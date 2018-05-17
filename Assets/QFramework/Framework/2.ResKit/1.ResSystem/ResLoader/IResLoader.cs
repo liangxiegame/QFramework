@@ -11,6 +11,6 @@ namespace QFramework
     {
         void Add2Load(string assetName, Action<bool, IRes> listener, bool lastOrder = true);
         void ReleaseAllRes();
-        void UnloadImage(bool flag);
+        void UnloadAllInstantialteRes(bool flag);
     }
 }

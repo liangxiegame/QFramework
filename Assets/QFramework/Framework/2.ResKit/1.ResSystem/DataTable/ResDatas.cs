@@ -29,7 +29,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class AssetDataTable : QSingleton<AssetDataTable>
+    public class ResDatas : QSingleton<ResDatas>
     {
         [Serializable]
         public class SerializeData
@@ -69,12 +69,12 @@ namespace QFramework
             Log.I("AssetDataTable Switch 2 Language:" + key);
         }
 
-        public static AssetDataTable Create()
+        public static ResDatas Create()
         {
-            return new AssetDataTable();
+            return new ResDatas();
         }
         
-        private AssetDataTable(){}
+        private ResDatas(){}
 
         public void Reset()
         {
@@ -237,20 +237,6 @@ namespace QFramework
             {
                 Log.E("Failed Save AssetDataTable:" + outPath);
             }
-        }
-
-        public void Dump()
-        {
-            //StringBuilder builder = new StringBuilder();
-
-            Log.I("#DUMP AssetDataTable BEGIN");
-
-            for (int i = 0; i < m_AllAssetDataGroup.Count; ++i)
-            {
-                m_AllAssetDataGroup[i].Dump();
-            }
-
-            Log.I("#DUMP AssetDataTable END");
         }
 
         private void SetSerizlizeData(SerializeData data)

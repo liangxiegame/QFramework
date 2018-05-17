@@ -44,28 +44,28 @@ namespace QFramework
 
             public ABUnit(string name, string[] depends)
             {
-                this.abName = name;
+                abName = name;
                 if (depends == null || depends.Length == 0)
                 {
 
                 }
                 else
                 {
-                    this.abDepends = depends;
+                    abDepends = depends;
                 }
             }
 
             public override string ToString()
             {
-                string result = string.Format("ABName:" + abName);
+                var result = string.Format("ABName:" + abName);
                 if (abDepends == null)
                 {
                     return result;
                 }
 
-                for (int i = 0; i < abDepends.Length; ++i)
+                foreach (var abDepend in abDepends)
                 {
-                    result += string.Format(" #:{0}", abDepends[i]);
+                    result += string.Format(" #:{0}", abDepend);
                 }
 
                 return result;
@@ -75,26 +75,26 @@ namespace QFramework
         [Serializable]
         public class SerializeData
         {
-            private string m_Key;
-            private ABUnit[] m_ABUnitArray;
-            private AssetData[] m_AssetDataArray;
+            private string mKey;
+            private ABUnit[] mAbUnitArray;
+            private AssetData[] mAssetDataArray;
 
             public string key
             {
-                get { return m_Key; }
-                set { m_Key = value; }
+                get { return mKey; }
+                set { mKey = value; }
             }
 
             public ABUnit[] abUnitArray
             {
-                get { return m_ABUnitArray; }
-                set { m_ABUnitArray = value; }
+                get { return mAbUnitArray; }
+                set { mAbUnitArray = value; }
             }
 
             public AssetData[] assetDataArray
             {
-                get { return m_AssetDataArray; }
-                set { m_AssetDataArray = value; }
+                get { return mAssetDataArray; }
+                set { mAssetDataArray = value; }
             }
         }
 
@@ -158,24 +158,6 @@ namespace QFramework
             AddAssetData(new AssetData(name, ResType.AssetBundle, index,null));
 
             return index;
-        }
-
-        public int GetAssetBundleIndex(string name)
-        {
-            if (mABUnitArray == null)
-            {
-                return -1;
-            }
-
-            for (int i = 0; i < mABUnitArray.Count; ++i)
-            {
-                if (mABUnitArray[i].abName.Equals(name))
-                {
-                    return i;
-                }
-            }
-            Log.W("Failed Find AssetBundleIndex By Name:" + name);
-            return -1;
         }
 
         public bool GetAssetBundleName(string assetName, int index, out string result)
@@ -318,32 +300,9 @@ namespace QFramework
             return true;
         }
 
-        public void LoadFromFile(string path)
-        {
-            object data = SerializeHelper.DeserializeBinary(path);
-
-            if (data == null)
-            {
-                Log.E("Failed Deserialize AssetDataTable:" + path);
-                return;
-            }
-
-            SerializeData sd = data as SerializeData;
-
-            if (sd == null)
-            {
-                Log.E("Failed Load AssetDataTable:" + path);
-                return;
-            }
-
-            Reset();
-
-            SetSerizlizeData(sd);
-        }
-
         public SerializeData GetSerializeData()
         {
-            SerializeData sd = new SerializeData();
+            var sd = new SerializeData();
             sd.key = m_Key;
             sd.abUnitArray = mABUnitArray.ToArray();
             if (mAssetDataMap != null)
@@ -362,63 +321,6 @@ namespace QFramework
             return sd;
         }
 
-        public void Save(string outPath)
-        {
-            SerializeData sd = new SerializeData();
-            sd.abUnitArray = mABUnitArray.ToArray();
-            if (mAssetDataMap != null)
-            {
-                AssetData[] acArray = new AssetData[mAssetDataMap.Count];
-
-                int index = 0;
-                foreach (var item in mAssetDataMap)
-                {
-                    acArray[index++] = item.Value;
-                }
-
-                sd.assetDataArray = acArray;
-            }
-
-            if (SerializeHelper.SerializeBinary(outPath, sd))
-            {
-                Log.I("Success Save AssetDataTable:" + outPath);
-            }
-            else
-            {
-                Log.E("Failed Save AssetDataTable:" + outPath);
-            }
-        }
-
-        public void Dump()
-        {
-            StringBuilder builder = new StringBuilder();
-
-            builder.AppendLine("#DUMP AssetDataGroup :" + m_Key);
-
-            if (mABUnitArray != null)
-            {
-                builder.AppendLine(" #DUMP AssetBundleNameArray BEGIN");
-                for (int i = 0; i < mABUnitArray.Count; ++i)
-                {
-                    builder.AppendLine(mABUnitArray[i].ToString());
-                }
-                builder.AppendLine(" #DUMP AssetBundleNameArray END");
-            }
-
-            if (mAssetDataMap != null)
-            {
-                builder.AppendLine(" #DUMP AssetBundleNameArray BEGIN");
-                foreach (var item in mAssetDataMap)
-                {
-                    builder.AppendLine(item.Key);
-                }
-                builder.AppendLine(" #DUMP AssetBundleNameArray END");
-            }
-
-            builder.AppendLine("#DUMP AssetDataGroup END");
-
-//            Log.I(builder.ToString());
-        }
 
         private void SetSerizlizeData(SerializeData data)
         {
@@ -433,9 +335,8 @@ namespace QFramework
             {
                 mAssetDataMap = new Dictionary<string, AssetData>();
 
-                for (int i = 0; i < data.assetDataArray.Length; ++i)
+                foreach (var config in data.assetDataArray)
                 {
-                    AssetData config = data.assetDataArray[i];
                     AddAssetData(config);
                 }
             }

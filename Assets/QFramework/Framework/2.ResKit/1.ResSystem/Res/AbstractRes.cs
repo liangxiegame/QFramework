@@ -304,7 +304,7 @@ namespace QFramework
             mResListener = null;
         }
 
-        public virtual IEnumerator StartIEnumeratorTask(Action finishCallback)
+        public virtual IEnumerator DoLoadAsync(Action finishCallback)
         {
             finishCallback();
             yield break;

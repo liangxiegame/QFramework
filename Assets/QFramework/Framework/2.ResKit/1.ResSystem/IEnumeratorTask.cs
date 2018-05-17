@@ -30,7 +30,7 @@ namespace QFramework
     
     public interface IEnumeratorTask
     {
-        IEnumerator StartIEnumeratorTask(System.Action finishCallback);
+        IEnumerator DoLoadAsync(System.Action finishCallback);
     }
 
     public interface IEnumeratorTaskMgr

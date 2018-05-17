@@ -50,7 +50,7 @@ namespace QFramework
             }
             else
             {
-                AssetData data = AssetDataTable.Instance.GetAssetData(assetName,ownerBundleName);
+                AssetData data = ResDatas.Instance.GetAssetData(assetName,ownerBundleName);
                 if (data == null)
                 {
                     Log.E("Failed to Create Res. Not Find AssetData:" + ownerBundleName + assetName );
@@ -104,7 +104,7 @@ namespace QFramework
             }
             else
             {
-                var data = AssetDataTable.Instance.GetAssetData(assetName);
+                var data = ResDatas.Instance.GetAssetData(assetName);
                 if (data == null)
                 {
                     Log.E("Failed to Create Res. Not Find AssetData:" + assetName);

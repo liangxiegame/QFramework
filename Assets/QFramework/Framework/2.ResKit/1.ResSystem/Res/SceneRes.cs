@@ -76,7 +76,7 @@ namespace QFramework
 
             AssetBundleRes abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 
-            if (abR == null || abR.assetBundle == null)
+            if (abR == null || abR.AssetBundle == null)
             {
                 Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + abR);
                 return false;

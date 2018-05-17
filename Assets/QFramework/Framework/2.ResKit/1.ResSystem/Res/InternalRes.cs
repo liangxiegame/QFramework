@@ -99,10 +99,10 @@ namespace QFramework
 
             State = ResState.Loading;
 
-            ResMgr.Instance.PostIEnumeratorTask(this);
+            ResMgr.Instance.PushIEnumeratorTask(this);
         }
 
-        public override IEnumerator StartIEnumeratorTask(System.Action finishCallback)
+        public override IEnumerator DoLoadAsync(System.Action finishCallback)
         {
             if (RefCount <= 0)
             {

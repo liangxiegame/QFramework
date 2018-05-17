@@ -186,13 +186,13 @@ namespace QFramework
                 return;
             }
 
-            ResMgr.Instance.PostIEnumeratorTask(this);
+            ResMgr.Instance.PushIEnumeratorTask(this);
             //ResMgr.S.PostLoadTask(LoadImage());
         }
 
         //完全的WWW方式,Unity 帮助管理纹理缓存，并且效率貌似更高
         // TODO:persistantPath 用 read
-        public override IEnumerator StartIEnumeratorTask(System.Action finishCallback)
+        public override IEnumerator DoLoadAsync(System.Action finishCallback)
         {
             var imageBytes = File.ReadAllBytes(mFullPath);
 

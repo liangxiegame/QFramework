@@ -90,7 +90,7 @@ namespace QFramework
 
             AssetBundleRes abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 
-	        if (abR == null || abR.assetBundle == null)
+	        if (abR == null || abR.AssetBundle == null)
             {
                 Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
                 return false;
@@ -123,7 +123,7 @@ namespace QFramework
 			else
 			#endif
 			{	
-				obj = abR.assetBundle.LoadAsset (mAssetName);
+				obj = abR.AssetBundle.LoadAsset (mAssetName);
 			}
             //timer.End();
 
@@ -159,10 +159,10 @@ namespace QFramework
 
             State = ResState.Loading;
 
-            ResMgr.Instance.PostIEnumeratorTask(this);
+            ResMgr.Instance.PushIEnumeratorTask(this);
         }
 
-        public override IEnumerator StartIEnumeratorTask(System.Action finishCallback)
+        public override IEnumerator DoLoadAsync(System.Action finishCallback)
         {
             if (RefCount <= 0)
             {
@@ -173,7 +173,7 @@ namespace QFramework
 
             AssetBundleRes abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 
-            if (abR == null || abR.assetBundle == null)
+            if (abR == null || abR.AssetBundle == null)
             {
                 Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
                 OnResLoadFaild();
@@ -199,7 +199,7 @@ namespace QFramework
 			else
 			#endif
 			{	
-				AssetBundleRequest abQ = abR.assetBundle.LoadAssetAsync(mAssetName);
+				AssetBundleRequest abQ = abR.AssetBundle.LoadAssetAsync(mAssetName);
 				mAssetBundleRequest = abQ;
 
 				yield return abQ;
@@ -254,8 +254,8 @@ namespace QFramework
 			mAssetBundleArray = null;
 
 			AssetData config = mOwnerBundleName != null
-				? AssetDataTable.Instance.GetAssetData(mAssetName, mOwnerBundleName)
-				: AssetDataTable.Instance.GetAssetData(mAssetName);
+				? ResDatas.Instance.GetAssetData(mAssetName, mOwnerBundleName)
+				: ResDatas.Instance.GetAssetData(mAssetName);
 
 			if (config == null)
 			{
@@ -263,7 +263,7 @@ namespace QFramework
 				return;
 			}
 
-			string assetBundleName = AssetDataTable.Instance.GetAssetBundleName(config.AssetName, config.AssetBundleIndex,mOwnerBundleName);
+			string assetBundleName = ResDatas.Instance.GetAssetBundleName(config.AssetName, config.AssetBundleIndex,mOwnerBundleName);
 
 			if (string.IsNullOrEmpty(assetBundleName))
 			{

@@ -42,7 +42,7 @@ namespace QFramework
         private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
 
         //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
-        private bool mIsResMapDirty = false;
+        private bool mClearOnUpdate = false;
 
         #endregion
 
@@ -54,27 +54,27 @@ namespace QFramework
                 AssetBundleExporterForSimulateMode.BuildDataTable();
             }
 #endif
-            AssetDataTable.Instance.Reset();
+            ResDatas.Instance.Reset();
             var outResult = new List<string>();
             FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
             foreach (var outRes in outResult)
             {
                 Log.I("Init[ResMgr]: {0}",outRes);
-                AssetDataTable.Instance.LoadFromFile(outRes);
+                ResDatas.Instance.LoadFromFile(outRes);
             }
             
-            AssetDataTable.Instance.SwitchLanguage("cn");
+            ResDatas.Instance.SwitchLanguage("cn");
             Log.I("Init[ResMgr]");
         }
 
         #region 属性
 
-        public void SetResMapDirty()
+        public void ClearOnUpdate()
         {
-            mIsResMapDirty = true;
+            mClearOnUpdate = true;
         }
 
-        public void PostIEnumeratorTask(IEnumeratorTask task)
+        public void PushIEnumeratorTask(IEnumeratorTask task)
         {
             if (task == null)
             {
@@ -157,7 +157,7 @@ namespace QFramework
 
         private void Update()
         {
-            if (mIsResMapDirty)
+            if (mClearOnUpdate)
             {
                 RemoveUnusedRes();
             }
@@ -165,12 +165,12 @@ namespace QFramework
 
         private void RemoveUnusedRes()
         {
-            if (!mIsResMapDirty)
+            if (!mClearOnUpdate)
             {
                 return;
             }
 
-            mIsResMapDirty = false;
+            mClearOnUpdate = false;
 
             for (var i = mResList.Count - 1; i >= 0; --i)
             {
@@ -210,7 +210,7 @@ namespace QFramework
             mIEnumeratorTaskStack.RemoveFirst();
 
             ++mCurrentCoroutineCount;
-            StartCoroutine(task.StartIEnumeratorTask(OnIEnumeratorTaskFinish));
+            StartCoroutine(task.DoLoadAsync(OnIEnumeratorTaskFinish));
         }
 
         #endregion
