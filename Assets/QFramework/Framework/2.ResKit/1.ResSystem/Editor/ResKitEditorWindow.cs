@@ -45,7 +45,7 @@ namespace QFramework
 		public static void ForceClear()
 		{
 
-			ResKitMark.AssetBundlesOutputPath.DeleteDirIfExists();
+			ResKitAssetsMenu.AssetBundlesOutputPath.DeleteDirIfExists();
 			(Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
 
 			AssetDatabase.Refresh();
@@ -107,7 +107,7 @@ namespace QFramework
 			DrawMenu();
 
 			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class");
-			ResKitMark.SimulateAssetBundleInEditor = GUILayout.Toggle(ResKitMark.SimulateAssetBundleInEditor, "Simulation Mode");
+			ResKitAssetsMenu.SimulateAssetBundleInEditor = GUILayout.Toggle(ResKitAssetsMenu.SimulateAssetBundleInEditor, "Simulation Mode");
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("ResVersion:");

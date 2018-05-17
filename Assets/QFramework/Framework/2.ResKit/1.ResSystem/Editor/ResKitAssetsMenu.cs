@@ -32,7 +32,7 @@ using System.Linq;
 namespace QFramework
 {
 	[InitializeOnLoad]
-	public class ResKitMark
+	public class ResKitAssetsMenu
 	{
 		public const   string AssetBundlesOutputPath       = "AssetBundles";
 		private static int    mSimulateAssetBundleInEditor = -1;
@@ -67,7 +67,7 @@ namespace QFramework
 		private const string LABEL_ZIP  = "QZip";
 		private const string LABEL_FILE = "QFile";
 
-		static ResKitMark()
+		static ResKitAssetsMenu()
 		{
 			Selection.selectionChanged = OnSelectionChanged;
 			EditorApplication.update += Update;

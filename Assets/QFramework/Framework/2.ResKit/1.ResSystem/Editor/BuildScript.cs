@@ -47,7 +47,7 @@ namespace QFramework
 		public static void BuildAssetBundles(BuildTarget buildTarget)
 		{
 			// Choose the output path according to the build target.
-			var outputPath = Path.Combine(ResKitMark.AssetBundlesOutputPath, GetPlatformName());
+			var outputPath = Path.Combine(ResKitAssetsMenu.AssetBundlesOutputPath, GetPlatformName());
 			outputPath.CreateDirIfNotExists();
 
 			BuildPipeline.BuildAssetBundles(outputPath, BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
