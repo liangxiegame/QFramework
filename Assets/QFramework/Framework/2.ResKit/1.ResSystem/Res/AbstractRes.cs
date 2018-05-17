@@ -1,11 +1,9 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +32,8 @@ namespace QFramework
     public class AbstractRes : SimpleRC, IRes, IPoolable
     {
 #if UNITY_EDITOR
-        private static int mSimulateAssetBundleInEditor = -1;
-        const string kSimulateAssetBundles = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
+        private static int    mSimulateAssetBundleInEditor = -1;
+        const          string kSimulateAssetBundles        = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
 
         // Flag to indicate if we want to simulate assetBundles in Editor without building them actually.
         public static bool SimulateAssetBundleInEditor
@@ -53,17 +51,16 @@ namespace QFramework
 #endif
 
 
-        protected string mAssetName;
-        protected string mOwnerBundleName;
-        private short mResState = ResState.Waiting;
-        private bool mCacheFlag = false;
-        protected UnityEngine.Object mAsset;
+        protected string                 mAssetName;
+        protected string                 mOwnerBundleName;
+        private   short                  mResState = ResState.Waiting;
+        protected UnityEngine.Object     mAsset;
         private event Action<bool, IRes> mResListener;
 
         public string AssetName
         {
             get { return mAssetName; }
-            set { mAssetName = value; }
+            protected set { mAssetName = value; }
         }
 
 
@@ -90,14 +87,12 @@ namespace QFramework
         {
             get
             {
-                if (mResState == ResState.Loading)
+                switch (mResState)
                 {
-                    return CalculateProgress();
-                }
-
-                if (mResState == ResState.Ready)
-                {
-                    return 1;
+                    case ResState.Loading:
+                        return CalculateProgress();
+                    case ResState.Ready:
+                        return 1;
                 }
 
                 return 0;
@@ -112,20 +107,9 @@ namespace QFramework
         public UnityEngine.Object Asset
         {
             get { return mAsset; }
-            set { mAsset = value; }
         }
 
-        public virtual object RawAsset
-        {
-            get { return null; }
-        }
-
-        public bool IsRecycled
-        {
-            get { return mCacheFlag; }
-
-            set { mCacheFlag = value; }
-        }
+        public bool IsRecycled { get; set; }
 
         public virtual void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
         {
@@ -176,42 +160,35 @@ namespace QFramework
 
         private void NotifyResEvent(bool result)
         {
-            if (mResListener != null)
-            {
-                mResListener(result, this);
-                mResListener = null;
-            }
+            mResListener.InvokeGracefully(result, this);
+            mResListener = null;
         }
 
         protected AbstractRes(string assetName)
         {
+            IsRecycled = false;
             mAssetName = assetName;
         }
 
         public AbstractRes()
         {
-
+            IsRecycled = false;
         }
 
         protected bool CheckLoadAble()
         {
-            if (mResState == ResState.Waiting)
-            {
-                return true;
-            }
-
-            return false;
+            return mResState == ResState.Waiting;
         }
 
         protected void HoldDependRes()
         {
-            string[] depends = GetDependResList();
+            var depends = GetDependResList();
             if (depends == null || depends.Length == 0)
             {
                 return;
             }
 
-            for (int i = depends.Length - 1; i >= 0; --i)
+            for (var i = depends.Length - 1; i >= 0; --i)
             {
                 var res = ResMgr.Instance.GetRes(depends[i], false);
                 if (res != null)
@@ -223,13 +200,13 @@ namespace QFramework
 
         protected void UnHoldDependRes()
         {
-            string[] depends = GetDependResList();
+            var depends = GetDependResList();
             if (depends == null || depends.Length == 0)
             {
                 return;
             }
 
-            for (int i = depends.Length - 1; i >= 0; --i)
+            for (var i = depends.Length - 1; i >= 0; --i)
             {
                 var res = ResMgr.Instance.GetRes(depends[i], false);
                 if (res != null)
@@ -257,13 +234,13 @@ namespace QFramework
 
         public bool IsDependResLoadFinish()
         {
-            string[] depends = GetDependResList();
+            var depends = GetDependResList();
             if (depends == null || depends.Length == 0)
             {
                 return true;
             }
 
-            for (int i = depends.Length - 1; i >= 0; --i)
+            for (var i = depends.Length - 1; i >= 0; --i)
             {
                 var res = ResMgr.Instance.GetRes(depends[i], false);
                 if (res == null || res.State != ResState.Ready)
@@ -327,7 +304,7 @@ namespace QFramework
             mResListener = null;
         }
 
-        public virtual IEnumerator StartIEnumeratorTask(System.Action finishCallback)
+        public virtual IEnumerator StartIEnumeratorTask(Action finishCallback)
         {
             finishCallback();
             yield break;

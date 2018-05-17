@@ -68,7 +68,7 @@ namespace QFramework
             get { return string.Format("{0}{1}", FilePath.PersistentDataPath4Photo, mHashCode); }
         }
 
-        public override object RawAsset
+        public virtual object RawAsset
         {
             get { return mRawAsset; }
         }

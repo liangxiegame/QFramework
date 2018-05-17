@@ -28,7 +28,6 @@
 
 namespace QFramework
 {
-	using System;
 	using UnityEngine;
 	using System.Collections;
     	

@@ -41,8 +41,6 @@ namespace QFramework
         //private TimeDebugger mTimeDebugger;
         private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
 
-        private bool mIsWorking = true;
-
         //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
         private bool mIsResMapDirty = false;
 
@@ -159,12 +157,9 @@ namespace QFramework
 
         private void Update()
         {
-            if (mIsWorking)
+            if (mIsResMapDirty)
             {
-                if (mIsResMapDirty)
-                {
-                    RemoveUnusedRes();
-                }
+                RemoveUnusedRes();
             }
         }
 

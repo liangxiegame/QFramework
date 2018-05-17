@@ -29,7 +29,7 @@
 namespace QFramework
 {
     using UnityEngine;
-        
+
     public class BaseRes : AbstractRes
     {
         public BaseRes(string assetName) : base(assetName)
@@ -52,7 +52,7 @@ namespace QFramework
                 }
                 else
                 {
-                        Resources.UnloadAsset(mAsset);
+                    Resources.UnloadAsset(mAsset);
                 }
 
                 mAsset = null;

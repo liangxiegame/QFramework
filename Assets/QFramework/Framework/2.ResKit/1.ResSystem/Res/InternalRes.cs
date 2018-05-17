@@ -35,7 +35,7 @@ namespace QFramework
 
         public static InternalRes Allocate(string name)
         {
-            InternalRes res = SafeObjectPool<InternalRes>.Instance.Allocate();
+            var res = SafeObjectPool<InternalRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -46,16 +46,6 @@ namespace QFramework
         private static string Name2Path(string name)
         {
             return name.Substring(10);
-        }
-
-        public InternalRes(string assetName) : base(assetName)
-        {
-
-        }
-
-        public InternalRes()
-        {
-
         }
 
         public override void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
@@ -75,18 +65,14 @@ namespace QFramework
                 return false;
             }
 
-            if (string.IsNullOrEmpty(mAssetName))
+            if (mAssetName.IsNullOrEmpty())
             {
                 return false;
             }
 
             State = ResState.Loading;
 
-            //TimeDebugger timer = ResMgr.Instance.timeDebugger;
-
-            //timer.Begin("Resources.Load:" + mName);
             mAsset = Resources.Load(Name2Path(mAssetName));
-            //timer.End();
 
             if (mAsset == null)
             {

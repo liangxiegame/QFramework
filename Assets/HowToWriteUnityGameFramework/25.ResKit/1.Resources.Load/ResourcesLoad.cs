@@ -25,8 +25,9 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.PlaymodeTests;
 using UnityEngine.UI;
 
 namespace QFramework.ResKitLearn
@@ -39,12 +40,12 @@ namespace QFramework.ResKitLearn
 		private IEnumerator Start()
 		{
 			gameObject.AddComponent<XXXPanel>();
-			
+
 			yield return new WaitForSeconds(1.0f);
 
 			var testTexture = Resources.Load<Texture2D>("TestTexture");
 			mImage.texture = testTexture;
-			
+
 			yield return new WaitForSeconds(1.0f);
 
 			Resources.UnloadAsset(testTexture);
@@ -54,85 +55,129 @@ namespace QFramework.ResKitLearn
 	public class XXXPanel : MonoBehaviour
 	{
 		ResourcesLoader mResourcesLoader = new ResourcesLoader();
-		
+
 		private void Start()
 		{
 			var testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-			
+
 			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
 		}
 
 		private void OnDestroy()
 		{
-			mResourcesLoader.UnloadAll();
+			mResourcesLoader.ReleaseAllRes();
 			mResourcesLoader = null;
 		}
 	}
-	
+
 	public class YYYPanel : MonoBehaviour
 	{
 		ResourcesLoader mResourcesLoader = new ResourcesLoader();
-		
+
 		private void Start()
 		{
 			var testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-			
+
 			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
 		}
 
 		private void OnDestroy()
 		{
-			mResourcesLoader.UnloadAll();
+			mResourcesLoader.ReleaseAllRes();
 			mResourcesLoader = null;
 		}
 	}
 
 	public class ResourcesLoader
 	{
-		private List<Object> mLoadedAssets = new List<Object>();
+		private List<Res> mLoadedAssets = new List<Res>();
 
 		public T LoadSync<T>(string resName) where T : Object
 		{
-			var retRes = mLoadedAssets.Find(asset => asset.name == resName);
+			var retRes = mLoadedAssets.Find(asset => asset.Name == resName);
 
 			if (retRes == null)
 			{
-				retRes = ResourcesManager.Instance.GetRes(resName);
-				
+				retRes = ResourcesManager.GetRes(resName);
+				retRes.Retain();
+
 				mLoadedAssets.Add(retRes);
 				// 容错处理
 			}
 
-			return retRes as T;
+			return retRes.Asset as T;
 		}
 
-		public void UnloadAll()
+		public void ReleaseAllRes()
 		{
-			mLoadedAssets.ForEach(Resources.UnloadAsset);
-			mLoadedAssets.Clear();
-			mLoadedAssets = null;
+			mLoadedAssets.ForEach(res => res.Release());
+			mLoadedAssets.Clear();			
 		}
 	}
 
-
 	public class ResourcesManager : QSingleton<ResourcesManager>
 	{
-		private static List<Object> mLoadedAssets = new List<Object>();
+		private static List<Res> mLoadedAssets = new List<Res>();
 
-		public Object GetRes(string resName)
+		public static Res GetRes(string resName)
 		{
-			var retRes = mLoadedAssets.Find(loadedAsset => loadedAsset.name == resName);
+			var retRes = mLoadedAssets.Find(loadedAsset => loadedAsset.Name == resName);
 
 			if (retRes == null)
 			{
-				retRes = Resources.Load(resName);
+				retRes = new Res(resName);
+				retRes.LoadSync();
+
+				mLoadedAssets.Add(retRes);
 			}
 
 			return retRes;
+		}
+
+		public static void RemoveRes(Res res)
+		{
+			mLoadedAssets.Remove(res);
+		}
+	}
+
+	public class Res : SimpleRC
+	{
+		public Res(string resName)
+		{
+			Name = resName;
+		}
+
+		public Object Asset { get; protected set; }
+
+		public string Name { get; protected set; }
+
+		public void LoadSync()
+		{
+			Asset = Resources.Load(Name);
+		}
+
+		protected override void OnZeroRef()
+		{
+			Resources.UnloadAsset(Asset);
+			Asset = null;
+
+			// 从管理器上移除自己
+			ResourcesManager.RemoveRes(this);
+		}
+
+		[Test]
+		public static void TestRes()
+		{
+			var res = new Res("TestTexture");
+			res.LoadSync();
+			Assert.AreEqual(res.Asset.name, "TestTexture");
+			res.Retain();
+			res.Release();
+			Assert.IsNull(res.Asset);
 		}
 	}
 }
