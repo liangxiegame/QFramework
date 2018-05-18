@@ -39,7 +39,7 @@ namespace QFramework
 
         public static AssetBundleRes Allocate(string name)
         {
-            AssetBundleRes res = SafeObjectPool<AssetBundleRes>.Instance.Allocate();
+            var res = SafeObjectPool<AssetBundleRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -79,19 +79,28 @@ namespace QFramework
 
             State = ResState.Loading;
 
-            var url = QFrameworkConfigData.AssetBundleName2Url(mAssetName);
-            var bundle = AssetBundle.LoadFromFile(url);
-
-            mUnloadFlag = true;
-
-            if (bundle == null)
+#if UNITY_EDITOR
+            if (SimulateAssetBundleInEditor)
             {
-                Log.E("Failed Load AssetBundle:" + mAssetName);
-                OnResLoadFaild();
-                return false;
+            }
+            else
+            {
+#endif
+                var url = QFrameworkConfigData.AssetBundleName2Url(mAssetName);
+                var bundle = AssetBundle.LoadFromFile(url);
+
+                mUnloadFlag = true;
+
+                if (bundle == null)
+                {
+                    Log.E("Failed Load AssetBundle:" + mAssetName);
+                    OnResLoadFaild();
+                    return false;
+                }
+
+                AssetBundle = bundle;
             }
 
-            AssetBundle = bundle;
             State = ResState.Ready;
 
             return true;
@@ -119,22 +128,31 @@ namespace QFramework
                 yield break;
             }
 
-            var url = QFrameworkConfigData.AssetBundleName2Url(mAssetName);
-            var abcR = AssetBundle.LoadFromFileAsync(url);
-
-            mAssetBundleCreateRequest = abcR;
-            yield return abcR;
-            mAssetBundleCreateRequest = null;
-
-            if (!abcR.isDone)
+#if UNITY_EDITOR
+            if (SimulateAssetBundleInEditor)
             {
-                Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
-                OnResLoadFaild();
-                finishCallback();
-                yield break;
+                yield return null;
             }
+            else
+            {
+#endif
+                var url = QFrameworkConfigData.AssetBundleName2Url(mAssetName);
+                var abcR = AssetBundle.LoadFromFileAsync(url);
 
-            AssetBundle = abcR.assetBundle;
+                mAssetBundleCreateRequest = abcR;
+                yield return abcR;
+                mAssetBundleCreateRequest = null;
+
+                if (!abcR.isDone)
+                {
+                    Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
+                    OnResLoadFaild();
+                    finishCallback();
+                    yield break;
+                }
+
+                AssetBundle = abcR.assetBundle;
+            }
 
             State = ResState.Ready;
             finishCallback();

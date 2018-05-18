@@ -74,7 +74,7 @@ namespace QFramework
                 return false;
             }
 
-            AssetBundleRes abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
+            var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 
             if (abR == null || abR.AssetBundle == null)
             {

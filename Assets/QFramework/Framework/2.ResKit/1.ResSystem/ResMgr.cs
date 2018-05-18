@@ -53,16 +53,19 @@ namespace QFramework
             {
                 AssetBundleExporterForSimulateMode.BuildDataTable();
             }
-#endif
-            ResDatas.Instance.Reset();
-            var outResult = new List<string>();
-            FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
-            foreach (var outRes in outResult)
+            else
             {
-                Log.I("Init[ResMgr]: {0}",outRes);
-                ResDatas.Instance.LoadFromFile(outRes);
+#endif
+                ResDatas.Instance.Reset();
+                var outResult = new List<string>();
+                FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
+                foreach (var outRes in outResult)
+                {
+                    Log.I("Init[ResMgr]: {0}", outRes);
+                    ResDatas.Instance.LoadFromFile(outRes);
+                }
             }
-            
+
             ResDatas.Instance.SwitchLanguage("cn");
             Log.I("Init[ResMgr]");
         }

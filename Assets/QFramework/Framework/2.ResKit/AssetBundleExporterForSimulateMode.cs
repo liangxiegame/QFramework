@@ -31,24 +31,18 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public class AssetBundleExporterForSimulateMode
+    public static class AssetBundleExporterForSimulateMode
     {
-		public static void BuildDataTable()
-		{
-			Log.I("Start BuildAssetDataTable!");
-			var table = ResDatas.Create();
-
-			ProcessAssetBundleRes(table);
-
-		    var filePath =
-		        (FilePath.StreamingAssetsPath + QFrameworkConfigData.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
-		        QFrameworkConfigData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
-			table.Save(filePath);
-			AssetDatabase.Refresh ();
-		}
+        public static ResDatas BuildDataTable()
+        {
+            Log.I("Start BuildAssetDataTable!");
+            var resDatas = ResDatas.Create();
+            ProcessAssetBundleRes(resDatas);
+            return resDatas;
+        }
 
 
-#region 构建 AssetDataTable
+        #region 构建 AssetDataTable
 
         private static string AssetPath2Name(string assetPath)
         {
@@ -74,7 +68,7 @@ namespace QFramework
                 foreach (var abName in abNames)
                 {
                     var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
-                    AssetDataGroup group = null;
+                    AssetDataGroup group;
                     var abIndex = table.AddAssetBundleName(abName, depends, out @group);
                     if (abIndex < 0)
                     {

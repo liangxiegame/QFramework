@@ -34,12 +34,12 @@ namespace QFramework
         [Serializable]
         public class SerializeData
         {
-            private AssetDataGroup.SerializeData[] m_AssetDataGroup;
+            private AssetDataGroup.SerializeData[] mAssetDataGroup;
 
-            public AssetDataGroup.SerializeData[] assetDataGroup
+            public AssetDataGroup.SerializeData[] AssetDataGroup
             {
-                get { return m_AssetDataGroup; }
-                set { m_AssetDataGroup = value; }
+                get { return mAssetDataGroup; }
+                set { mAssetDataGroup = value; }
             }
         }
 
@@ -71,7 +71,7 @@ namespace QFramework
 
         public static ResDatas Create()
         {
-            return new ResDatas();
+            return Instance;
         }
         
         private ResDatas(){}
@@ -185,20 +185,9 @@ namespace QFramework
             return null;
         }
 
-        public bool AddAssetData(string key, AssetData data)
-        {
-            var group = GetAssetDataGroup(key);
-            if (group == null)
-            {
-                Log.E("Not Find Group:" + key);
-                return false;
-            }
-            return group.AddAssetData(data);
-        }
-
         public void LoadFromFile(string path)
         {
-			object data = SerializeHelper.DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
+			var data = SerializeHelper.DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
 
             if (data == null)
             {
@@ -206,7 +195,7 @@ namespace QFramework
                 return;
             }
 
-            SerializeData sd = data as SerializeData;
+            var sd = data as SerializeData;
 
             if (sd == null)
             {
@@ -222,11 +211,11 @@ namespace QFramework
         {
             SerializeData sd = new SerializeData();
 
-            sd.assetDataGroup = new AssetDataGroup.SerializeData[m_AllAssetDataGroup.Count];
+            sd.AssetDataGroup = new AssetDataGroup.SerializeData[m_AllAssetDataGroup.Count];
 
             for (int i = 0; i < m_AllAssetDataGroup.Count; ++i)
             {
-                sd.assetDataGroup[i] = m_AllAssetDataGroup[i].GetSerializeData();
+                sd.AssetDataGroup[i] = m_AllAssetDataGroup[i].GetSerializeData();
             }
 
             if (SerializeHelper.SerializeBinary(outPath, sd))
@@ -241,14 +230,14 @@ namespace QFramework
 
         private void SetSerizlizeData(SerializeData data)
         {
-            if (data == null || data.assetDataGroup == null)
+            if (data == null || data.AssetDataGroup == null)
             {
                 return;
             }
 
-            for (int i = data.assetDataGroup.Length - 1; i >= 0; --i)
+            for (int i = data.AssetDataGroup.Length - 1; i >= 0; --i)
             {
-                m_AllAssetDataGroup.Add(BuildAssetDataGroup(data.assetDataGroup[i]));
+                m_AllAssetDataGroup.Add(BuildAssetDataGroup(data.AssetDataGroup[i]));
             }
         }
 
@@ -270,7 +259,7 @@ namespace QFramework
             return null;
         }
 
-        private string GetKeyFromABName(string name)
+        private static string GetKeyFromABName(string name)
         {
             int pIndex = name.IndexOf('/');
 
