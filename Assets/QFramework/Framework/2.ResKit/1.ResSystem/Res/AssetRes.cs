@@ -87,8 +87,6 @@ namespace QFramework
 			}
 
 
-			HoldDependRes();
-
 			Object obj = null;
 
 #if UNITY_EDITOR
@@ -103,6 +101,9 @@ namespace QFramework
 					OnResLoadFaild();
 					return false;
 				}
+				
+				HoldDependRes();
+
 				State = ResState.Loading;
 
 				obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
@@ -117,6 +118,8 @@ namespace QFramework
 					Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
 					return false;
 				}
+				
+				HoldDependRes();
 
 				State = ResState.Loading;
 				
@@ -164,23 +167,15 @@ namespace QFramework
 				yield break;
 			}
 
+			
+			Object obj = null;
+
 			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
-
-			if (abR == null || abR.AssetBundle == null)
-			{
-				Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
-				OnResLoadFaild();
-				finishCallback();
-				yield break;
-			}
-
-			//确保加载过程中依赖资源不被释放:目前只有AssetRes需要处理该情况
-			HoldDependRes();
 
 #if UNITY_EDITOR
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
-				string[] assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
+				var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
 				{
 					Log.E("Failed Load Asset:" + mAssetName);
@@ -189,11 +184,30 @@ namespace QFramework
 					yield break;
 				}
 
+				//确保加载过程中依赖资源不被释放:目前只有AssetRes需要处理该情况
+				HoldDependRes();
+
 				mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
+
+				UnHoldDependRes();
 			}
 			else
 #endif
 			{
+				
+				if (abR == null || abR.AssetBundle == null)
+				{
+					Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
+					OnResLoadFaild();
+					finishCallback();
+					yield break;
+				}
+				
+				
+				HoldDependRes();
+
+				State = ResState.Loading;
+				
 				var abQ = abR.AssetBundle.LoadAssetAsync(mAssetName);
 				mAssetBundleRequest = abQ;
 

@@ -31,7 +31,7 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public static class AssetBundleExporterForSimulateMode
+    public static class EditorRuntimeAssetDataCollector
     {
         public static ResDatas BuildDataTable()
         {

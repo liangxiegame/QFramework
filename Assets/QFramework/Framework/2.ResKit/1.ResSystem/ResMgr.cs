@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
  * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
@@ -47,15 +47,15 @@ namespace QFramework
         #endregion
 
         public static void Init()
-        {
+	    {        
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
             {
-                AssetBundleExporterForSimulateMode.BuildDataTable();
+	            EditorRuntimeAssetDataCollector.BuildDataTable();
             }
             else
-            {
 #endif
+            {
                 ResDatas.Instance.Reset();
                 var outResult = new List<string>();
                 FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
