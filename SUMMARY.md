@@ -16,3 +16,4 @@
   * [2.单例的模板-QSingleton](/Assets/HowToWriteUnityGameFramework/02.QSingleton/QSingleton.md)
   * [3.单例的模板-QSingleton](/Assets/HowToWriteUnityGameFramework/02.QSingleton/QSingleton.md)
   * [11.简易AssetBundle打包工具(一)](/Assets/HowToWriteUnityGameFramework/11.SimpleAssetBundleTool1/SimpleAssetBundleTool1.md)
+  * [20.更安全的对象池](/Assets/HowToWriteUnityGameFramework/20.SafeObjectPool/SafeObjectPool.md)

@@ -1,7 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 maoling@putao.com
- * Copyright (c) 2018.3 liangxie
- * Copyright (c) 2018.4 liangxie
+ * 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,11 +23,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
-
 namespace QFramework
 {
 	using System;
+	using System.IO;
 	using System.Net.Security;
 	using System.Security.Cryptography.X509Certificates;
 	using UniRx;
@@ -42,10 +39,10 @@ namespace QFramework
 		private static void Open()
 		{
 			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
-			frameworkConfigEditorWindow.titleContent = new GUIContent("QFrameworkConfig");
-			frameworkConfigEditorWindow.CurConfigData = QFrameworkConfigData.Load();
+			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
+			frameworkConfigEditorWindow.CurSettingData = QFrameworkSettingData.Load();
 			frameworkConfigEditorWindow.Show();
-			frameworkConfigEditorWindow.OnShow();
+			OnShow();
 		}
 
 		private const string URL_GITHUB_API_LATEST_RELEASE =
@@ -59,7 +56,7 @@ namespace QFramework
 		}
 
 		[MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
-		static void Feedback()
+		private static void Feedback()
 		{
 			Application.OpenURL(URL_GITHUB_ISSUE);
 		}
@@ -71,9 +68,11 @@ namespace QFramework
 			bool isOk = true;
 			// If there are errors in the certificate chain,
 			// look at each error to determine the cause.
-			if (sslPolicyErrors != SslPolicyErrors.None) {
-				for (int i=0; i<chain.ChainStatus.Length; i++) {
-					if (chain.ChainStatus[i].Status == X509ChainStatusFlags.RevocationStatusUnknown) {
+			if (sslPolicyErrors != SslPolicyErrors.None)
+			{
+				foreach (var chainStatus in chain.ChainStatus)
+				{
+					if (chainStatus.Status == X509ChainStatusFlags.RevocationStatusUnknown) {
 						continue;
 					}
 					chain.ChainPolicy.RevocationFlag = X509RevocationFlag.EntireChain;
@@ -97,7 +96,7 @@ namespace QFramework
 
 		private bool mHasNewVersion = false;
 
-		private void OnShow()
+		private static void OnShow()
 		{
 			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
 			{
@@ -133,18 +132,17 @@ namespace QFramework
 			});
 		}
 
-		public QFrameworkConfigData CurConfigData;
-	
-		void OnGUI() 
+		public QFrameworkSettingData CurSettingData;
+
+		private void OnGUI() 
 		{
-			CurConfigData.Namespace = EditorGUIUtils.GUILabelAndTextField ("Namespace", CurConfigData.Namespace);
-		
-			CurConfigData.UIScriptDir = EditorGUIUtils.GUILabelAndTextField ("UI Script Generate Dir", CurConfigData.UIScriptDir);
-			CurConfigData.UIPrefabDir = EditorGUIUtils.GUILabelAndTextField ("UI Prefab Dir", CurConfigData.UIPrefabDir);
+			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField ("Namespace", CurSettingData.Namespace);
+			CurSettingData.UIScriptDir = EditorGUIUtils.GUILabelAndTextField ("UI Script Generate Dir", CurSettingData.UIScriptDir);
+			CurSettingData.UIPrefabDir = EditorGUIUtils.GUILabelAndTextField ("UI Prefab Dir", CurSettingData.UIPrefabDir);
 
 			if (GUILayout.Button ("Apply")) 
 			{
-				CurConfigData.Save ();
+				CurSettingData.Save ();
 			}
 
 			if (mHasNewVersion)

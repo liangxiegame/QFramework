@@ -1,129 +1,547 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (二十) 更安全的对象池
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+上篇文章介绍了,只需通过实现 IObjectFactory 接口和继承 Pool 类，就可以很方便地实现一个SimpleObjectPool。SimpleObjectPool 可以满足大部分的对象池的需求。而笔者通常将 SimpleObjectPool 用于项目开发，原因是接入比较方便，适合在发现性能瓶颈时迅速接入，不需要更改瓶颈对象的内部代码，而且代码精简较容易掌控。
 
-关于Unity的架构有如下几种常用的方式。
+本篇内容会较多:)
 
-#### 1.EmptyGO:
+#### 新的需求来了
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+当我们把对象池应用在框架开发中，我们就有了新的需求。
+* 要保证使用时安全。
+* 易用性。
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+现在让我们思考下 SimpleObjectPool 哪里不安全?
 
-#### 2.Simple GameManager:
+贴上 SimpleObjectPool 的源码:
+``` C#
+    public class SimpleObjectPool<T> : Pool<T>
+    {
+        readonly Action<T> mResetMethod;
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+        public SimpleObjectPool(Func<T> factoryMethod, Action<T> resetMethod = null,int initCount = 0)
+        {
+            mFactory = new CustomObjectFactory<T>(factoryMethod);
+            mResetMethod = resetMethod;
 
-将不同的功能单独管理。如下:
+            for (int i = 0; i < initCount; i++)
+            {
+                mCacheStack.Push(mFactory.Create());
+            }
+        }
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
-
-#### 实现一个简单的PoolManager<br>
-
-
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
-
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
-}
+        public override bool Recycle(T obj)
+        {
+            mResetMethod.InvokeGracefully(obj);
+            mCacheStack.Push(obj);
+            return true;
+        }
+    }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+首先不安全的地方是泛型 T,在上篇文章中我们说泛型是灵活的体现，但是在框架设计中未约束的泛型却有可能是未知的隐患。我们很有可能在写代码时把 SimpleObjectPool<Fish> 写成 SimpleObjectPool<Fit>，而如果恰好你的工程里有 Fit 类，再加上使用var来声明变量而不是具体的类型（笔者较喜欢用var），那么这个错误要过好久才能发现。
 
-更好的实现方式是将一个PoolManager分成:
+为了解决这个问题，我们要给泛型T加上约束。要求可被对象池管理的对象必须是某种类型。是什么类型呢？就是IPoolAble类型。
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+``` C#
+    public interface IPoolable
+    {
+        
+    }
+```
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+然后我们要给对象池类的泛型加上类型约束，本文的对象池我们叫SafeObjectPool。
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+``` C#
+    public class SafeObjectPool<T> : Pool<T> where T : IPoolable
+```
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+OK，第一个安全问题解决了。
 
-* SaveManager: 配置管理。
+第二个安全问题来了,我们有可能将一个 IPoolable 对象回收两次。为了解决这个问题，我们可以在SafeObjectPool 维护一个已经分配过的对象容器来记录对象是否被回收过，也可以在 IPoolable 对象中增加是否被回收的标记。这两种方式笔者倾向于后者，维护一个容器的成本相比只是在对象上增加标记的成本来说高太多了。
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+我们在 IPoolable 接口上增加一个 bool 变量来表示对象是否被回收过。
 
-#### 4.将View和Model之间增加一个媒介层。
+``` C#
+    public interface IPoolAble
+    {        
+        bool IsRecycled { get; set; }
+    }
+```
 
-MVCS:StrangeIOC插件。
+接着在进行 Allocate 和 Recycle 时进行标记和拦截。
+``` C#
+    public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
+    {
+		  ...
+        public override T Allocate()
+        {
+            T result = base.Allocate();
+            result.IsRecycled = false;
+            return result;
+        }
 
-MVVM:uFrame插件。
+        public override bool Recycle(T t)
+        {
+            if (t == null || t.IsRecycled)
+            {
+                return false;
+            }
 
-#### 5. ECS(Entity Component Based  System)
+            t.IsRecycled = true;
+            mCacheStack.Push(t);
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+            return true;
+        }
+    }
+```
+
+OK,第二个安全问题解决了。接下来第三个不是安全问题，是职责问题。我们再次观察下上篇文章中的SimpleObjectPool
+``` C#
+    public class SimpleObjectPool<T> : Pool<T>
+    {
+        readonly Action<T> mResetMethod;
+
+        public SimpleObjectPool(Func<T> factoryMethod, Action<T> resetMethod = null,int initCount = 0)
+        {
+            mFactory = new CustomObjectFactory<T>(factoryMethod);
+            mResetMethod = resetMethod;
+
+            for (int i = 0; i < initCount; i++)
+            {
+                mCacheStack.Push(mFactory.Create());
+            }
+        }
+
+        public override bool Recycle(T obj)
+        {
+            mResetMethod.InvokeGracefully(obj);
+            mCacheStack.Push(obj);
+            return true;
+        }
+    }
+```
+
+可以看到，对象回收时的重置操作是由构造函数传进来的 mResetMethod 来完成的。当然，上篇忘记说了，这也是灵活的体现：）通过将重置的控制权开放给开发者，这样在接入 SimpleObjectPool 时，不需要更改对象内部的代码。
+
+在框架设计中我们要收敛一些了，重置的操作要由对象自己来完成，我们要在 IPoolable 接口增加一个接收重置事件的方法。
+
+``` C#
+    public interface IPoolAble
+    {
+        void OnRecycled();
+        
+        bool IsRecycled { get; set; }
+    }
+```
+
+当 SafeObjectPool 回收对象时来触发它。
+
+``` C#
+    public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
+    {
+		  ...
+        public override bool Recycle(T t)
+        {
+            if (t == null || t.IsRecycled)
+            {
+                return false;
+            }
+
+            t.IsRecycled = true;
+            t.OnRecycled();
+            mCacheStack.Push(t);
+
+            return true;
+        }
+    }
+
+```
+
+同样地，在 SimpleObjectPool 中，创建对象的控制权我们也开放了出去，在 SafeObjectPool 中我们要收回来。还记得上篇文章的 CustomObjectFactory 嘛?
+
+``` C#
+    public class CustomObjectFactory<T> : IObjectFactory<T>
+    {
+        public CustomObjectFactory(Func<T> factoryMethod)
+        {
+            mFactoryMethod = factoryMethod;
+        }
+        
+        protected Func<T> mFactoryMethod;
+
+        public T Create()
+        {
+            return mFactoryMethod();
+        }
+    }
+```
+
+CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有的，只要开发者有办法搞出个对象就可以。现在我们要加上限制，大部分对象是 new 出来的。所以我们要设计一个可以 new 出对象的工厂。我们叫它 DefaultObjectFactory。
+
+``` C#
+    public class DefaultObjectFactory<T> : IObjectFactory<T> where T : new()
+    {
+        public T Create()
+        {
+            return new T();
+        }
+    }
+```
+
+注意下对泛型 T 的约束:)
+
+接下来我们在构造 SafeObjectPool 时，创建一个 DefaultObjectFactory。
+
+``` C#
+    public class SafeObjectPool<T> : Pool<T> where T : IPoolAble, new()
+    {
+        public SafeObjectPool()
+        {
+            mFactory = new DefaultObjectFactory<T>();
+        }
+		  ...
+```
+
+注意 SafeObjectPool 的泛型也要加上 new() 的约束。
+
+这样安全的 SafeObjectPool 已经完成了。
+
+我们先测试下:
+
+``` C#
+		class Msg : IPoolAble
+		{
+			public void OnRecycled()
+			{
+				Log.I("OnRecycled");
+			}
+			
+			public bool IsRecycled { get; set; }
+		}
+		
+		private void Start()
+		{
+			var msgPool = new SafeObjectPool<Msg>();
+			
+			msgPool.Init(100,50); // max count:100 init count: 50
+			
+			Log.I("msgPool.CurCount:{0}", msgPool.CurCount);
+			
+			var fishOne = msgPool.Allocate();
+			
+			Log.I("msgPool.CurCount:{0}", msgPool.CurCount);
+			
+			msgPool.Recycle(fishOne);
+
+			Log.I("msgPool.CurCount:{0}", msgPool.CurCount);
+			
+			for (int i = 0; i < 10; i++)
+			{
+				msgPool.Allocate();
+			}
+			
+			Log.I("msgPool.CurCount:{0}", msgPool.CurCount);
+		}
+```
+
+由于是框架级的对象池，例子将上文的 Fish 改成 Msg。
+
+输出结果:
+``` C#
+OnRecycled 
+OnRecycled
+... x50
+msgPool.CurCount:50
+msgPool.CurCount:49
+OnRecycled
+msgPool.CurCount:50
+msgPool.CurCount:40
+```
+
+OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的对象池?
+
+#### 改进:
+以上只是保证了机制的安全，这还不够。
+我们想要用户获取一个 Msg 对象应该像 new Msg() 一样自然。要做到这样，我们需要做一些工作。
+
+首先，Msg 的对象池全局只有一个就够了，为了实现这个需求，我们会想到用单例，但是 SafeObjectPool 已经继承了 Pool 了，不能再继承 QSingleton 了。还记得以前介绍的 QSingletonProperty 嘛？是时候该登场了，代码如下所示。
+
+``` C#
+    /// <summary>
+    /// Object pool.
+    /// </summary>
+    public class SafeObjectPool<T> : Pool<T>, ISingleton where T : IPoolAble, new()
+    {
+        #region Singleton
+        protected void OnSingletonInit()
+        {
+        }
+
+        public SafeObjectPool()
+        {
+            mFactory = new DefaultObjectFactory<T>();
+        }
+
+        public static SafeObjectPool<T> Instance
+        {
+            get { return QSingletonProperty<SafeObjectPool<T>>.Instance; }
+        }
+
+        public void Dispose()
+        {
+            QSingletonProperty<SafeObjectPool<T>>.Dispose();
+        }
+        #endregion
+```
+
+注意，构造方法的访问权限改成了 protected.
+
+我们现在不想让用户通过 SafeObjectPool 来 Allocate 和 Recycle 池对象了，那么 Allocate 和 Recycle 的控制权就要交给池对象来管理。
+
+由于控制权交给池对象管理这个需求不是必须的，所以我们要再提供一个接口
+``` C#
+    public interface IPoolType
+    {
+        void Recycle2Cache();
+    }
+```
+
+为什么只有一个 Recycle2Cache,没有 Allocate 相关的方法呢？
+因为在池对象创建之前我们没有任何池对象，只能用静态方法创建。这就需要池对象提供一个静态的 Allocate 了。使用方法如下所示。
+
+``` C#
+		class Msg : IPoolAble,IPoolType
+		{
+			#region IPoolAble 实现
+
+			public void OnRecycled()
+			{
+				Log.I("OnRecycled");
+			}
+			
+			public bool IsRecycled { get; set; }
+
+			#endregion
+		
+			
+			#region IPoolType 实现
+
+			public static Msg Allocate()
+			{
+				return SafeObjectPool<Msg>.Instance.Allocate();
+			}
+			
+			public void Recycle2Cache()
+			{
+				SafeObjectPool<Msg>.Instance.Recycle(this);
+			}
+			
+			#endregion
+		}
+```
+
+贴上测试代码:
+
+``` C#
+			SafeObjectPool<Msg>.Instance.Init(100, 50);			
+			
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+			
+			var fishOne = Msg.Allocate();
+			
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+			
+			fishOne.Recycle2Cache();
+
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+			
+			for (int i = 0; i < 10; i++)
+			{
+				Msg.Allocate();
+			}
+			
+			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
+```
+
+测试结果:
+``` C#
+OnRecycled 
+OnRecycled
+... x50
+msgPool.CurCount:50
+msgPool.CurCount:49
+OnRecycled
+msgPool.CurCount:50
+msgPool.CurCount:40
+```
+
+测试结果一致，现在贴上 SafeObejctPool 的全部代码。这篇文章内容好多，写得我都快吐了- -。
+
+``` C#
+   using System;
+
+    /// <summary>
+    /// I cache type.
+    /// </summary>
+    public interface IPoolType
+    {
+        void Recycle2Cache();
+    }
+
+    /// <summary>
+    /// I pool able.
+    /// </summary>
+    public interface IPoolAble
+    {
+        void OnRecycled();
+        
+        bool IsRecycled { get; set; }
+    }
+
+    /// <summary>
+    /// Count observer able.
+    /// </summary>
+    public interface ICountObserveAble
+    {
+        int CurCount { get; }
+    }
+
+    /// <summary>
+    /// Object pool.
+    /// </summary>
+    public class SafeObjectPool<T> : Pool<T>, ISingleton where T : IPoolAble, new()
+    {
+        #region Singleton
+        public void OnSingletonInit()
+        {
+        }
+
+        protected SafeObjectPool()
+        {
+            mFactory = new DefaultObjectFactory<T>();
+        }
+
+        public static SafeObjectPool<T> Instance
+        {
+            get { return QSingletonProperty<SafeObjectPool<T>>.Instance; }
+        }
+
+        public void Dispose()
+        {
+            QSingletonProperty<SafeObjectPool<T>>.Dispose();
+        }
+        #endregion
+
+
+        /// <summary>
+        /// Init the specified maxCount and initCount.
+        /// </summary>
+        /// <param name="maxCount">Max Cache count.</param>
+        /// <param name="initCount">Init Cache count.</param>
+        public void Init(int maxCount, int initCount)
+        {
+            if (maxCount > 0)
+            {
+                initCount = Math.Min(maxCount, initCount);
+
+                mMaxCount = maxCount;
+            }
+
+            if (CurCount < initCount)
+            {
+                for (int i = CurCount; i < initCount; ++i)
+                {
+                    Recycle(mFactory.Create());
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the max cache count.
+        /// </summary>
+        /// <value>The max cache count.</value>
+        public int MaxCacheCount
+        {
+            get { return mMaxCount; }
+            set
+            {
+                mMaxCount = value;
+
+                if (mCacheStack != null)
+                {
+                    if (mMaxCount > 0)
+                    {
+                        if (mMaxCount < mCacheStack.Count)
+                        {
+                            int removeCount = mMaxCount - mCacheStack.Count;
+                            while (removeCount > 0)
+                            {
+                                mCacheStack.Pop();
+                                --removeCount;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Allocate T instance.
+        /// </summary>
+        public override T Allocate()
+        {
+            T result = base.Allocate();
+            result.IsRecycled = false;
+            return result;
+        }
+
+        /// <summary>
+        /// Recycle the T instance
+        /// </summary>
+        /// <param name="t">T.</param>
+        public override bool Recycle(T t)
+        {
+            if (t == null || t.IsRecycled)
+            {
+                return false;
+            }
+
+            if (mMaxCount > 0)
+            {
+                if (mCacheStack.Count >= mMaxCount)
+                {
+                    t.OnRecycled();
+                    return false;
+                }
+            }
+
+            t.IsRecycled = true;
+            t.OnRecycled();
+            mCacheStack.Push(t);
+
+            return true;
+        }
+    }
+```
+
+代码实现很简单，但是要考虑很多。
+
+#### 总结:
+* SimpleObjectPool 适合用于项目开发，渐进式，更灵活。
+* SafeObjectPool 适合用于库级开发，更多限制，要求开发者一开始就想好，更安全。
+
+OK，今天就到这里。
+
 
 #### 相关链接:
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+附: [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
 
 [教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
 转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+
+QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
@@ -131,14 +549,12 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 #### 支持我们:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建

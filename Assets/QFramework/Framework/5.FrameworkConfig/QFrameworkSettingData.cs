@@ -35,12 +35,12 @@ namespace QFramework
 
 #endif
 	[Serializable]
-	public class QFrameworkConfigData
+	public class QFrameworkSettingData
 	{
-		static string mConfigSavedDir =
+		static readonly string mConfigSavedDir =
 			(Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/";
 
-		static string mConfigSavedFileName = "ProjectConfig.json";
+		static readonly string mConfigSavedFileName = "ProjectConfig.json";
 
 		public string Namespace;
 
@@ -48,7 +48,7 @@ namespace QFramework
 
 		public string UIPrefabDir = "/Art/UIPrefab";
 
-		public static QFrameworkConfigData Load()
+		public static QFrameworkSettingData Load()
 		{
 			mConfigSavedDir.CreateDirIfNotExists();
 
@@ -60,11 +60,11 @@ namespace QFramework
 				}
 			}
 
-			var frameworkConfigData = SerializeHelper.LoadJson<QFrameworkConfigData>(mConfigSavedDir + mConfigSavedFileName);
+			var frameworkConfigData = SerializeHelper.LoadJson<QFrameworkSettingData>(mConfigSavedDir + mConfigSavedFileName);
 
 			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
 			{
-				frameworkConfigData = new QFrameworkConfigData();
+				frameworkConfigData = new QFrameworkSettingData();
 				frameworkConfigData.Namespace = "QFramework.Example";
 			}
 

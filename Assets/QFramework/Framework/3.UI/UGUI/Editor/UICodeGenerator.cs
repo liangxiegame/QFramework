@@ -208,7 +208,7 @@ namespace QFramework
  
 			var strFilePath = string.Empty;
  
-			var prefabDirPattern = QFrameworkConfigData.Load().UIPrefabDir;
+			var prefabDirPattern = QFrameworkSettingData.Load().UIPrefabDir;
  
 			if (uiPrefabPath.Contains(prefabDirPattern))
 			{
@@ -371,12 +371,12 @@ namespace QFramework
 
 		private static string GetScriptsPath()
 		{
-			return QFrameworkConfigData.Load().UIScriptDir;
+			return QFrameworkSettingData.Load().UIScriptDir;
 		}
 
 		private static string GetProjectNamespace()
 		{
-			return QFrameworkConfigData.Load().Namespace;
+			return QFrameworkSettingData.Load().Namespace;
 		}
 
 		private PanelCodeData mPanelCodeData = null;

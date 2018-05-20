@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UniRx;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -107,13 +109,14 @@ namespace QFramework
 			DrawMenu();
 
 			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class");
-			ResKitAssetsMenu.SimulateAssetBundleInEditor = GUILayout.Toggle(ResKitAssetsMenu.SimulateAssetBundleInEditor, "Simulation Mode");
+			ResKitAssetsMenu.SimulateAssetBundleInEditor =
+				GUILayout.Toggle(ResKitAssetsMenu.SimulateAssetBundleInEditor, "Simulation Mode");
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("ResVersion:");
 			resVersion = GUILayout.TextField(resVersion);
 			GUILayout.EndHorizontal();
-			
+
 			if (GUILayout.Button("1.Gen Res Tree File"))
 			{
 				AssetBundleExporter.BuildDataTable();
@@ -135,8 +138,19 @@ namespace QFramework
 
 			EditorGUILayout.EndScrollView();
 
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Url:");
+			mHttpUrl = GUILayout.TextField(mHttpUrl);
+			GUILayout.EndHorizontal();
+
+			if (GUILayout.Button("Http Test"))
+			{
+				ObservableWWW.Get(mHttpUrl).Subscribe(response => { Log.E(response); });
+			}
 		}
 
+		private string mHttpUrl;
 		private static void BuildWithTarget(BuildTarget buildTarget)
 		{
 			AssetDatabase.RemoveUnusedAssetBundleNames();
