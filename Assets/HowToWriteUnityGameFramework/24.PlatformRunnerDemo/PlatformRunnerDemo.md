@@ -1,119 +1,49 @@
-# Unity 游戏框架搭建 (一) 概述
+## Unity 游戏框架搭建 (二十四):v0.0.5 发布一个平台跑酷 Demo
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+## 做这个 Demo 的目的:
 
-关于Unity的架构有如下几种常用的方式。
+有很多同学都问笔者要 **QFramework** 的 **Demo**。笔者近期做的项目都没法开源出来，因为都是公司的商业项目。但是笔者又不想让大家失望，所以索性把笔者刚入行时候的一个跑酷项目拿出来给大家作为 **Demo**。
 
-#### 1.EmptyGO:
+说起来真的很巧,**QFramework** 最初版本是从这个跑酷项目里头抽出来并开源的，之后再反过来支持着这个跑酷项目。所以这个跑酷项目对我来说意义非凡。
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+这个项目是笔者出来做独立开发时候的第一个**外包游戏产品**，而笔者当时刚毕业半年，学习 Unity 两个月。
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+## 这是一个还未完成的 Demo:
 
-#### 2.Simple GameManager:
+首先这个跑酷项目完成时所用的 **QFramework** 的版本是两年前的版本，这两年期间 **QFramework** 经历了无数次 rebase 和重构，也添加了几个核心模块，在最初作为框架核心模块的部分，已经未经过考验被淘汰掉了，所以这个跑酷项目所用的 **QFramework 版本**已经无法表现 **它的** 的 **易上手、快速开发、愉快的开发体验** 的基因。
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+其次，跑酷项目里使用的 UI 插件是 NGUI，而 QFramework 目前只支持 UGUI，UI 的部分逻辑需要进行重写。这部分工作目前只完成了一半。目前这个项目里的一半的代码是两年前的我的写的代码，当然之后都会慢慢迭代掉的。
 
-将不同的功能单独管理。如下:
+然后，项目里有一部分付费插件,NGUI,DOTween,Rain Maker 等。
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+最后，**Demo** 里的资源版权是商业的，不允许用在自己项目里用，也不允许在网上进行传播，在这里大家可以当做是破解出来的资源和源码，当然后续我会把里边的资源慢慢换成开源的资源，并逐步开源化的。
 
-#### 实现一个简单的PoolManager<br>
+## 当前版本: v0.0.5
 
+这个 **Demo** 的**版本**会和 **QFramework** 保持同步，在每次 **QFramework** 更新时 **Demo** 会在同一版本迭代一部分内容。计划在 **QFramework v0.1.1** 版本时将 **Demo** 完全开源化并使用非常宽松的 MIT 协议。
 
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+## 后续的写作计划
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
+之后的专栏都会围绕着这个 **Demo** 进行框架使用场景的讲解。这个需要笔者准备一段时间进行好好的沉淀。毕竟笔者还没有写过涉及具体项目的教程。所以接下来一段时间，都只会持续更新此篇文章，更新的内容是 **Demo** 的最新进展同步，暂时不会再接着往下写了，当笔者准备好了，会出来接着往下写的。
 
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
-}
-```
+## Demo 获取方式:
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+加我微信或者 qq 或者发邮箱给我,我会和您保持联系，这样做的目的一是要在初期未开源的阶段控制拥有此 **Demo** 的人数，二是为了收集您对 **Demo** 反馈，并可以向您更好地提供技术支持，当 **Demo** 到您手上的时候已经说明您已经读过本篇的所有内容，并承诺会遵守如上所述的不能进行传播和商用目的的条例。
 
-更好的实现方式是将一个PoolManager分成:
+微信:popperrock
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+qq:441881077
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+邮箱:liangxiegame@163.com
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+## Demo 运行:
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
-
-* SaveManager: 配置管理。
-
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
-
-#### 4.将View和Model之间增加一个媒介层。
-
-MVCS:StrangeIOC插件。
-
-MVVM:uFrame插件。
-
-#### 5. ECS(Entity Component Based  System)
-
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+- 打开项目
+- 快捷键 Command/Ctrl + Shift + R 弹出资源打包界面。
+- 点击 Build。
+- 打开 Assets/Scene/Game 场景.
+- 运行 Unity。
+- 祝您愉快~
 
 #### 相关链接:
 
@@ -129,16 +59,14 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 ![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
