@@ -1,119 +1,156 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (二十三)  重构小工具 Platform
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
-
-关于Unity的架构有如下几种常用的方式。
-
-#### 1.EmptyGO:
-
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
-
-缺点:逻辑代码散落在各处,不适合大型项目。
-
-#### 2.Simple GameManager:
-
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
-
-将不同的功能单独管理。如下:
-
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
-
-#### 实现一个简单的PoolManager<br>
-
+在日常开发中，我们经常遇到或者写出这样的代码
 
 ``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+var sTrAngeNamingVariable = "a variable";
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
+#if UNITY_IOS || UNITY_ANDROID || UNITY_EDITOR
+		sTrAngeNamingVariable = "a!value";
+#else
+		sTrAngeNamingVariable = "other value";
+#endif
+```
+宏本身没有什么问题。但是 MonoDevelop IDE  上，只要写了宏判断，后边的代码的排版就会出问题。这是第一点。
 
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
+第二点是，当我们发现 sTrAngeNamingVariable 的命名很不规范的时候，要对此变量进行重命名。一般的 IDE 都会支持变量/类/方法的重命名。
+
+借助 IDE 的重命名功能，代码会变成如下:
+``` csharp
+var strangeVariableName = "a variable";
+
+#if UNITY_IOS || UNITY_ANDROID || UNITY_EDITOR
+	strangeVariableName = "a!value";
+#else
+	sTrAngeNamingVariable = "other value";
+#endif
+```
+
+else 代码块里的变量重命名没有成功。当宏判断散落在各处时，很难发现这种错误。直到打包/AssetBundle/切换平台时，问题才会暴露(笔者也是被坑了很多次T.T)。
+
+从这里得出的结论 : 当进行重构时，宏相关的代码会对重构造成风险，也不利于维护。在这里笔者设计出了 Platform。首先看下怎么使用:
+``` csharp
+var strangeVariableName = "a variable";
+
+if (Platform.IsiOS || Platform.IsAndroid || Platform.IsEditor)
 {
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+	sTrAngeNamingVariable = "a!value";
+}
+else
+{
+	sTrAngeNamingVariable = "other value";
+}
+```
+代码很简单，就是把 宏 换成了 Platform 而已。
+这时候我们再进行下重命名。重命名后代码如下:
+``` csharp
+if (Platform.IsiOS || Platform.IsAndroid || Platform.IsEditor)
+{
+	strangeNamingVariable = "a!value";
+}
+else
+{
+	strangeNamingVariable = "other value";
+}
+```
+重命名问题解决了。
+Platform 的代码很简单，贴出简单看下就可以了。
+``` csharp
+namespace QFramework
+{
+	public class Platform
+	{
+		public static bool IsAndroid
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_ANDROID
+                retValue = true;    
+#endif
+				return retValue;
+			}
+		}
+         
+		public static bool IsEditor
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_EDITOR
+				retValue = true;    
+#endif
+				return retValue;
+			}
+		}
+        
+		public static bool IsiOS
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_IOS
+				retValue = true;    
+#endif
+				return retValue;
+			}
+		}
+	}
 }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+只是简单的把宏封装了一下。
 
-更好的实现方式是将一个PoolManager分成:
+但是  Platform 不是万能的，有一些事项还是要注意一下。
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+* 在有 Platform 的条件语句块里，不能使用平台特有的  API ，如果要使用这种 API 还是建议封装一下，平台特有的 API 或者 宏 最好不要出现在 UI 或者 逻辑层代码中。
+* Platform.cs 这个类不能打成 dll。
+* 其他的大家来补充:)，目前上线了几个项目，都没什么问题。
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+当笔者在接手一个项目的时候，优先会把所有宏相关的判断，能换的全换成  Platform ，不能换的，比如使用了平台特有 API 的都会简单封装下，然后再进行一些小部分的重命名，以熟悉一些代码的逻辑。
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+有一些宏判断比较棘手，比如:
+``` csharp
+if ("1" == "2" || "2" == "3")
+{
+	// do sth
+#if UNITY_EDITOR
+}
+else
+{
+	// do sth	
+#else
+	// do sth
+#endif
+}
+```
+如果遇到这种代码，
+首先先揍一顿写这种代码的人吧。哈哈，开玩笑的。
+体谅一下吧，也许是版本太急了，谁都不想写出这样的代码，都有苦衷，都不容易，最起码是没有 bug 的。
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+解决办法是有的，就是复制一遍代码。第一份代码删掉 # if 代码块的代码，把宏换成对应的  Platform API，第二份代码删掉  # else 代码块的代码，然后一样把宏换成对应的 Platform API。 剩下的就容易解决了。
 
-* SaveManager: 配置管理。
+17 年年底的时候看了 《重构》 这本书，这里还是推荐大家看一下吧，有点枯燥，但是收获很多。
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+Hard Code 是难免的，追求代码质量的道路是没有终点的，让代码产生价值才是我们游戏开发者要做的。
 
-#### 4.将View和Model之间增加一个媒介层。
+今天就到这里。
 
-MVCS:StrangeIOC插件。
+#### 相关链接:
 
-MVVM:uFrame插件。
+附: [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
 
-#### 5. ECS(Entity Component Based  System)
+[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+
+QFramework&游戏框架搭建QQ交流群: 623597263
+
+微信公众号:liangxiegame
+
+![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+
+#output/Unity游戏框架搭建
 
 #### 相关链接:
 
@@ -129,16 +166,14 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 ![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
