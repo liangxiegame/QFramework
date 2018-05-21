@@ -17,6 +17,7 @@
   * [3.单例的模板-QSingleton](/Assets/HowToWriteUnityGameFramework/02.QSingleton/QSingleton.md)
   * [11.简易AssetBundle打包工具(一)](/Assets/HowToWriteUnityGameFramework/11.SimpleAssetBundleTool1/SimpleAssetBundleTool1.md)
   * [20.更安全的对象池](/Assets/HowToWriteUnityGameFramework/20.SafeObjectPool/SafeObjectPool.md)
+  * [21.使用对象池时的一些细节](/Assets/HowToWriteUnityGameFramework/21.UseSafeObjectPoolSafety/UseSafeObjectPoolSafety.md)
   * [22.简易引用计数器](/Assets/HowToWriteUnityGameFramework/22.SimpleRC/SimpleRC.md)
   * [23.重构小工具 Platform](/Assets/HowToWriteUnityGameFramework/23.Platform2Refactor/Platform.md)
   * [24.v0.0.5 发布一个平台跑酷 Demo](/Assets/HowToWriteUnityGameFramework/24.PlatformRunnerDemo/PlatformRunnerDemo.md)
