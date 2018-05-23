@@ -29,15 +29,14 @@ namespace QFramework
     
 	public static class UIRectTransformExtension
     {
-	    public static Vector2 GetLocalPosInRect(this RectTransform selfRectTrans,Camera camera = null)
+        public static Vector2 GetLocalPosInRect(this RectTransform selfRectTrans, Camera camera = null)
         {
-	        Vector2 retLocalPos;
-            var cam = (camera == null ? QUIManager.Instance.RootCanvas.worldCamera : camera);
+            Vector2 retLocalPos;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(selfRectTrans, Input.mousePosition,
-            cam, out retLocalPos);
+                camera, out retLocalPos);
             return retLocalPos;
         }
- 
+
         public static bool InRect(this RectTransform selfRectTrans, Camera camera = null)
         {
             if (null == camera)

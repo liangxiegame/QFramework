@@ -1,6 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -268,6 +267,14 @@ namespace QFramework
 		{
 			mScale = selfComponent.transform.localScale;
 			mScale.y = y;
+			selfComponent.transform.localScale = mScale;
+			return selfComponent;
+		}
+		
+		public static T LocalScaleZ<T>(this T selfComponent, float z) where T : Component
+		{
+			mScale = selfComponent.transform.localScale;
+			mScale.z = z;
 			selfComponent.transform.localScale = mScale;
 			return selfComponent;
 		}
