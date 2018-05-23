@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -68,5 +68,27 @@ namespace QFramework
         }
 
         public bool IsRecycled { get; set; }
+        
+//        [Test]
+//        public static void Test()
+//        {
+//            int a = 0;
+//            var delayAction = Allocate(() => { a++; });
+// 
+//            while (!delayAction.Finished && delayAction.Execute(0.02f))
+//            {
+// 
+//            }
+// 
+//            delayAction.Dispose();
+// 
+//            Assert.IsTrue(((IPoolable) delayAction).IsRecycled);
+//            Assert.AreEqual(delayAction.OnBeganCallback, null);
+//            Assert.AreEqual(delayAction.OnEndedCallback, null);
+//            Assert.AreEqual(delayAction.OnDisposedCallback, null);
+//            Assert.AreEqual(delayAction.OnDisposedCallback, null);
+//            Assert.AreEqual(a, 1);
+//            Assert.IsFalse(delayAction.mDisposed);
+//        }
     }
 }

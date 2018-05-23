@@ -402,6 +402,12 @@ namespace QFramework
 		{
 			return QUIManager.Instance.GetUI<T>();
 		}
+		
+		public static void SetResolution(int width, int height, float matchOnWidthOrHeight)
+		{
+			QUIManager.Instance.SetResolution(width, height);
+			QUIManager.Instance.SetMatchOnWidthOrHeight(matchOnWidthOrHeight);
+		}
 
 		#region 给脚本层用的api
 		public static QUIBehaviour GetPanel(string panelName)

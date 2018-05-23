@@ -178,7 +178,7 @@ namespace QFramework
 					}
 				}
 
-				if (uiMark is QUIElement)
+				if (uiMark is UIElement)
 				{
 					var elementCodeData = new ElementCodeData {BehaviourName = uiMark.ComponentName};
 					if (null == parentElementCodeData)
@@ -327,7 +327,7 @@ namespace QFramework
 			var t = assembly.GetType(className);
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
-			var uiMarks = obj.GetComponentsInChildren<QUIElement>(true);
+			var uiMarks = obj.GetComponentsInChildren<UIElement>(true);
 
 			foreach (var elementMark in uiMarks)
 			{

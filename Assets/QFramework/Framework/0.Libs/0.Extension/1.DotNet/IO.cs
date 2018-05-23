@@ -1,7 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -77,6 +76,19 @@ namespace QFramework
 			}
 		}
 
+		/// <summary>
+		/// 清空 Dir,如果存在。
+		/// </summary>
+		public static void EmptyDirIfExists(this string dirFullPath)
+		{
+			if (Directory.Exists(dirFullPath))
+			{
+				Directory.Delete(dirFullPath, true);
+			}
+ 
+			Directory.CreateDirectory(dirFullPath);
+		}
+		
 		/// <summary>
 		/// 删除文件 如果存在
 		/// </summary>

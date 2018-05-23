@@ -1,10 +1,9 @@
-/****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,19 +25,11 @@
 
 namespace QFramework
 {
-    /// <summary>
-    /// 启动执行节点
-    /// </summary>
-    public class ProcessNode : NodeAction
+    public abstract class UIComponent : UIElement
     {
-        protected string mTips = "Default";
-
-        public virtual float Progress { get; set; }
-
-        public virtual string Tips
+        public override UIMarkType GetUIMarkType()
         {
-            get { return mTips; }
-            set { mTips = value; }
+            return UIMarkType.Component;
         }
     }
 }

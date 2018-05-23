@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-	public abstract class QUIElementList : QUIElement
+	public abstract class UIElementList : UIElement
 	{
 
 	}
