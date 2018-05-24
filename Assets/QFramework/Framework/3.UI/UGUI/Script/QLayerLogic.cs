@@ -41,7 +41,7 @@ namespace QFramework
     {
         private const int mNormalPadding = 10;
         private const int mLayerMaxPanelNum = 10000;
-        private const int diffValue = 0 - UILevel.Bg;
+	    private const int diffValue = 0 - (int)UILevel.Bg;
 
         public const int BOTTOM_INDEX = 10;
         public const int COMM_INDEX = BOTTOM_INDEX + mLayerMaxPanelNum * mNormalPadding;
@@ -103,11 +103,11 @@ namespace QFramework
             ui.UILayerType = uiLevel;
             switch (uiLevel)
             {
-                case UILevel.AlwayBottom:
+            	case (int)UILevel.AlwayBottom:
                     AddUIPanel(AutoLayerTag.Bottom,ui);
                     ui.Transform.SetParent(mAlwayBottomLayer);          
                     break;
-                case UILevel.AlwayTop:
+            	case (int)UILevel.AlwayTop:
                     AddUIPanel(AutoLayerTag.Top, ui);
                     ui.Transform.SetParent(mAlwayTopLayer);
                     break;
@@ -129,13 +129,13 @@ namespace QFramework
                 uiLevel = ui.UILayerType;
             switch (uiLevel)
             {
-                case UILevel.AlwayBottom:
+            	case (int)UILevel.AlwayBottom:
                     if (RemoveUIPanel(AutoLayerTag.Bottom, ui))
                     {
                         //mBottomOrder -= mNormalPadding;
                     }
                     break;
-                case UILevel.AlwayTop:
+            	case (int)UILevel.AlwayTop:
                     if (RemoveUIPanel(AutoLayerTag.Top, ui))
                     {
                         //mTopOrder -= mNormalPadding;
