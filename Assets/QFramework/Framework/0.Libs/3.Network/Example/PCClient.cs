@@ -47,7 +47,7 @@ namespace QFramework
             mSocketClient.Disconnect();
         }
 
-        private void OnDestroy()
+        protected override void OnDestroy()
         {
             DisConnect();
         }

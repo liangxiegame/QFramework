@@ -140,7 +140,7 @@ namespace QFramework
 		/// <summary>
 		/// 关闭,不允许子类调用
 		/// </summary>
-		void IUIBehaviour.Close(bool destroyed = true)
+		void IUIBehaviour.Close(bool destroyed)
 		{
 			OnClose();
 			if (destroyed)
@@ -156,7 +156,7 @@ namespace QFramework
 
 		protected void CloseSelf()
 		{
-			QUIManager.Instance.CloseUI(this.name);
+			QUIManager.Instance.CloseUI(name);
 		}
 
 		/// <summary>
@@ -166,9 +166,9 @@ namespace QFramework
 		{
 		}
 
-		private System.Action mOnPanelClosed;
+		private Action mOnPanelClosed;
 
-		public void OnClosed(System.Action onPanelClosed)
+		public void OnClosed(Action onPanelClosed)
 		{
 			mOnPanelClosed = onPanelClosed;
 		}

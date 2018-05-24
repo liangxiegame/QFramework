@@ -130,7 +130,7 @@ namespace QFramework
         /// <summary>
         /// Allocate T instance.
         /// </summary>
-        public T Allocate()
+        public override T Allocate()
         {
             var result = base.Allocate();
             result.IsRecycled = false;

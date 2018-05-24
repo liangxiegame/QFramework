@@ -461,7 +461,7 @@ namespace QFramework
         }
 
         // 退出游戏回调，只在游戏结束时调用一次
-        protected void OnDestroy()
+        protected override void OnDestroy()
         {
             lock (mRequestLock)
             {

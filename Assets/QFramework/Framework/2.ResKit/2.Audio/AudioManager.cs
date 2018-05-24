@@ -198,7 +198,7 @@ namespace QFramework
 
 		protected override void ProcessMsg(int key, QMsg msg)
 		{
-			switch (msg.msgId)
+            switch (msg.EventID)
 			{
 				case (int) AudioEvent.SoundSwitch:
 					AudioMsgWithBool soundSwitchMsg = msg as AudioMsgWithBool;

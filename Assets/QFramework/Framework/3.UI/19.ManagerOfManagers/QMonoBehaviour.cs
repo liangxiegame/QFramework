@@ -100,7 +100,7 @@ namespace QFramework
 			}
 		}
 
-		public void SendMsg(QMsg msg)
+		public virtual void SendMsg(QMsg msg)
 		{
 			mCurMgr.SendMsg(msg);
 		}

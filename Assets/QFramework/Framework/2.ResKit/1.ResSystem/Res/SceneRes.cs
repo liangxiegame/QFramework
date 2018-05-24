@@ -31,7 +31,7 @@ namespace QFramework
         
     public class SceneRes : AssetRes
     {
-        public new static SceneRes Allocate(string name)
+        public static SceneRes Allocate(string name)
         {
             SceneRes res = SafeObjectPool<SceneRes>.Instance.Allocate();
             if (res != null)

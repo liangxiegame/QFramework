@@ -79,11 +79,11 @@ namespace QFramework
 			mEventSystem.UnRegister (msgEvent, process);
 		}
 
-		public void SendMsg(QMsg msg)
+		public override void SendMsg(QMsg msg)
 		{
-			if (msg.GetMgrID() == mMgrId)
+            if (msg.ManagerID == mMgrId)
 			{
-				Process(msg.msgId,msg);
+                Process(msg.EventID, msg);
 			}
 			else 
 			{
