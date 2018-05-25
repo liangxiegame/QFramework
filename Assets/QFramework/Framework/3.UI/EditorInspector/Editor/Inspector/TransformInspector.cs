@@ -1,27 +1,6 @@
 ﻿// /****************************************************************************
 //  * Copyright (c) 2018 ZhongShan KPP Technology Co
-//  * Copyright (c) 2018 Karsion
-//  * 
-//  * https://github.com/karsion
-//  * Date: 2018-02-28 15:59
-//  *
-//  * Permission is hereby granted, free of charge, to any person obtaining a copy
-//  * of this software and associated documentation files (the "Software"), to deal
-//  * in the Software without restriction, including without limitation the rights
-//  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  * copies of the Software, and to permit persons to whom the Software is
-//  * furnished to do so, subject to the following conditions:
-//  * 
-//  * The above copyright notice and this permission notice shall be included in
-//  * all copies or substantial portions of the Software.
-//  * 
-//  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  * THE SOFTWARE.
+//  * Date: 2018-05-25 1:05
 //  ****************************************************************************/
 
 using System;
@@ -34,12 +13,21 @@ namespace QFramework
 {
     [CanEditMultipleObjects]
     [CustomEditor(typeof(Transform), true)]
-    public class TransformInspector : UnityEditor.Editor
+    public class TransformInspector : CustomCustomEditor
     {
         private float fScale = 1;
         private SerializedProperty m_LocalPosition;
         private SerializedProperty m_LocalRotation;
         private SerializedProperty m_LocalScale;
+
+        public TransformInspector()
+            : base("TransformInspector")
+        {
+        }
+
+        protected override void OnSceneGUI()
+        {
+        }
 
         private void OnEnable()
         {
@@ -64,6 +52,7 @@ namespace QFramework
             return v3Value/nScale;
         }
 
+        private static GUIStyle style;
         public override void OnInspectorGUI()
         {
             if (s_Contents == null)
@@ -71,21 +60,40 @@ namespace QFramework
                 s_Contents = new Contents();
             }
 
-            EditorGUIUtility.labelWidth = 15f;
-            serializedObject.Update();
-            //Event e = Event.current;
-            //if (e != null)
-            //{
-            //    if (e.type == EventType.KeyDown && e.alt)
-            //    {
-            //        Tools.pivotRotation = Tools.pivotRotation == PivotRotation.Local ? PivotRotation.Global : PivotRotation.Local;
-            //        e.Use();
-            //    }
-            //}
+            if (style == null)
+            {
+                style = new GUIStyle("button");
+                style.fixedWidth = 18;
+                style.stretchWidth = true;
+                style.fixedHeight = 16;
+                style.margin = new RectOffset(0, 0, 1, 2);
+            }
 
-            DrawPosition();
-            DrawRotation();
-            DrawScale();
+            serializedObject.Update();
+            GUILayout.BeginHorizontal();
+            GUILayout.BeginVertical();
+            if (GUILayout.Button(s_Contents.positionContent, style))
+            {
+                m_LocalPosition.vector3Value = Vector3.zero;
+            }
+
+            if (GUILayout.Button(s_Contents.rotationContent, style))
+            {
+                m_LocalRotation.quaternionValue = Quaternion.identity;
+            }
+            if (GUILayout.Button(s_Contents.scaleContent, style))
+            {
+                fScale = 1;
+                m_LocalScale.vector3Value = Vector3.one;
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(-50);
+            GUILayout.BeginVertical();
+            base.OnInspectorGUI();
+            GUILayout.EndVertical();
+            GUILayout.EndHorizontal();
+
             EditorGUILayout.BeginHorizontal();
             {
                 EditorGUIUtility.labelWidth = 37f;
@@ -195,7 +203,7 @@ namespace QFramework
                 }
 
                 GUI.color = c;
-                if (GUILayout.Button(pivotRotationContent, "ButtonRight",GUILayout.MaxHeight(18)))
+                if (GUILayout.Button(pivotRotationContent, "ButtonRight", GUILayout.MaxHeight(18)))
                 {
                     Tools.pivotRotation = Tools.pivotRotation == PivotRotation.Local ? PivotRotation.Global : PivotRotation.Local;
                 }
@@ -232,40 +240,6 @@ namespace QFramework
                 t.position = TransformInspectorCopyData.positionCopy;
                 EditorUtility.SetDirty(t);
             }
-        }
-
-        private void DrawPosition()
-        {
-            GUILayout.BeginHorizontal();
-            {
-                var reset = GUILayout.Button(s_Contents.positionContent, GUILayout.Width(18), GUILayout.Height(17));
-
-                EditorGUILayout.PropertyField(m_LocalPosition.FindPropertyRelative("x"));
-                EditorGUILayout.PropertyField(m_LocalPosition.FindPropertyRelative("y"));
-                EditorGUILayout.PropertyField(m_LocalPosition.FindPropertyRelative("z"));
-                if (reset)
-                {
-                    m_LocalPosition.vector3Value = Vector3.zero;
-                }
-            }
-            GUILayout.EndHorizontal();
-        }
-
-        private void DrawScale()
-        {
-            GUILayout.BeginHorizontal();
-            {
-                var reset = GUILayout.Button(s_Contents.scaleContent, GUILayout.Width(18), GUILayout.Height(17));
-                EditorGUILayout.PropertyField(m_LocalScale.FindPropertyRelative("x"));
-                EditorGUILayout.PropertyField(m_LocalScale.FindPropertyRelative("y"));
-                EditorGUILayout.PropertyField(m_LocalScale.FindPropertyRelative("z"));
-                if (reset)
-                {
-                    fScale = 1;
-                    m_LocalScale.vector3Value = Vector3.one;
-                }
-            }
-            GUILayout.EndHorizontal();
         }
 
         private static BottomPanelContents s_BottomPanelContents;
@@ -326,13 +300,13 @@ namespace QFramework
                     TextEditor te = new TextEditor();
                     te.text =
                         @"
-#if UNITY_EDITOR
-    private void CalledByEditor()
-    {
-        
-    }
-#endif
-";
+    #if UNITY_EDITOR
+        private void CalledByEditor()
+        {
+            
+        }
+    #endif
+    ";
                     te.OnFocus();
                     te.Copy();
                 }

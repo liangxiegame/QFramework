@@ -81,27 +81,6 @@ namespace QFramework
             }
         }
 
-        //protected Editor EditorInstanceScene
-        //{
-        //    get
-        //    {
-        //        if (editorInstance == null)
-        //        {
-        //            if (target != null)
-        //            {
-        //                editorInstance = CreateEditor(target, decoratedEditorType);
-        //            }
-        //        }
-
-        //        if (editorInstance == null)
-        //        {
-        //            Debug.LogError("Could not create editor !");
-        //        }
-
-        //        return editorInstance;
-        //    }
-        //}
-
         private static Type GetCustomEditorType(Type type)
         {
             const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
@@ -117,15 +96,15 @@ namespace QFramework
 
         private void Init()
         {
-            const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+            //const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
 
-            CustomEditor[] attributes = GetType().GetCustomAttributes(typeof(CustomEditor), true) as CustomEditor[];
-            if (attributes == null)
-            {
-                return;
-            }
-            FieldInfo field = attributes.Select(editor => editor.GetType().GetField("m_InspectedType", flags)).First();
-            editedObjectType = field.GetValue(attributes[0]) as Type;
+            //CustomEditor[] attributes = GetType().GetCustomAttributes(typeof(CustomEditor), true) as CustomEditor[];
+            //if (attributes == null)
+            //{
+            //    return;
+            //}
+            //FieldInfo field = attributes.Select(editor => editor.GetType().GetField("m_InspectedType", flags)).First();
+            editedObjectType = GetCustomEditorType(GetType());
         }
 
         private void OnDisable()
@@ -171,10 +150,13 @@ namespace QFramework
             method.Invoke(editor, EMPTY_ARRAY);
         }
 
-        //protected virtual void OnSceneGUI()
-        //{
-        //    CallInspectorMethod("OnSceneGUI", EditorInstanceScene);
-        //}
+        protected virtual void OnSceneGUI()
+        {
+            if (editorInstance)
+            {
+                CallInspectorMethod("OnSceneGUI", editorInstance);
+            }
+        }
 
         protected override void OnHeaderGUI()
         {
@@ -252,7 +234,7 @@ namespace QFramework
         /// </summary>
         private Type editedObjectType;
 
-        private UnityEditor.Editor editorInstance;
+        public UnityEditor.Editor editorInstance;
         #endregion
     }
 }

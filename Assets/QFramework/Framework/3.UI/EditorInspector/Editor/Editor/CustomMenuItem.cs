@@ -41,47 +41,11 @@ namespace QFramework
             for (int i = 0; i < gameObjects.Length; i++)
             {
                 GameObject gameObject = gameObjects[i];
-                Transform tfSource = gameObject.transform;
-                //避免生成物体时打了原来排序，先缓存
-                int nSiblingIndex = tfSource.GetSiblingIndex() + 1;
-                PrefabType prefabType = PrefabUtility.GetPrefabType(gameObject);
-                GameObject gameObjectClone = null;
-                //只有预置物的Root才支持预置物拷贝，否则都是新的克隆
-                switch (prefabType)
-                {
-                    //default:
-                    case PrefabType.None:
-                    case PrefabType.MissingPrefabInstance:
-                    case PrefabType.DisconnectedPrefabInstance:
-                    case PrefabType.DisconnectedModelPrefabInstance:
-                        gameObjectClone = gameObject.Instantiate().Name(gameObject.name);
-                        break;
-
-                    //case PrefabType.Prefab:
-                    //case PrefabType.ModelPrefab:
-                    //    break;
-                    case PrefabType.PrefabInstance:
-                    case PrefabType.ModelPrefabInstance:
-                        GameObject goPrefabRoot = PrefabUtility.FindPrefabRoot(gameObject);
-                        if (goPrefabRoot == gameObject)
-                        {
-                            gameObjectClone = PrefabUtility.InstantiatePrefab(PrefabUtility.GetPrefabParent(gameObject)) as GameObject;
-                        }
-                        else
-                        {
-                            gameObjectClone = gameObject.Instantiate();
-                        }
-
-                        break;
-                }
-
-                //设置一些东西并支持回退功能
-                gameObjectClone.Name(gameObject.name);
-                gameObjectClone.transform.SetParent(tfSource.parent);
-                gameObjectClone.transform.LocalPosition(tfSource.localPosition)
-                               .LocalRotation(tfSource.localRotation)
-                               .LocalScale(tfSource.localScale);
-
+                int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
+                Selection.activeGameObject = gameObject;
+                Unsupported.DuplicateGameObjectsUsingPasteboard();
+                GameObject gameObjectClone = Selection.activeGameObject;
+                gameObjectClone.name = gameObject.name;
                 gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
                 newObjects[i] = gameObjectClone;
                 Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
@@ -112,7 +76,9 @@ namespace QFramework
             }
         }
 
-        [MenuItem("GameObject/Transform/Group &G", false, 0)]
+        //private static int nGroupCount = 0;
+
+        [MenuItem("GameObject/Group &G")]
         private static void Group()
         {
             //没选中物体能干啥
@@ -121,10 +87,17 @@ namespace QFramework
                 return;
             }
 
-            //new一个gameObject去装选中的物体
+            //nGroupCount++;
+            //if (nGroupCount < Selection.objects.Length)
+            //{
+            //    return;
+            //}
+
+            //nGroupCount = 0;
             GameObject[] gameObjects = Selection.gameObjects;
             Transform parent = gameObjects[0].transform.parent;
             int nSiblingIndex = gameObjects[0].transform.GetSiblingIndex();
+            //new一个gameObject去装选中的物体
             GameObject go = new GameObject("Group");
             Undo.RegisterCreatedObjectUndo(go, "CreateEmpty");
             Undo.FlushUndoRecordObjects();
