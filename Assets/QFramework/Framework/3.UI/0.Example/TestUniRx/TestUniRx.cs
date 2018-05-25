@@ -137,6 +137,7 @@ namespace LFramework
         {
             Sample10_MainThreadDispatcher temp = new Sample10_MainThreadDispatcher();
 //            CurrentSub = temp.Run();
+            Debug.Log(temp);
         }
         #endregion
 

@@ -302,8 +302,8 @@ namespace QFramework
 				AttachSerializeObj(uiPrefab, uiPrefab.name, assembly);
 
 				// uibehaviour
-				var className = GetProjectNamespace() + "." + uiPrefab.name;
-				var t = assembly.GetType(className);
+                //var className = GetProjectNamespace() + "." + uiPrefab.name;
+                //var t = assembly.GetType(className);
 
 				if (displayProgress)
 					EditorUtility.DisplayProgressBar("", "Serialize UIPrefab..." + uiPrefab.name, (float) (i + 1) / paths.Length);

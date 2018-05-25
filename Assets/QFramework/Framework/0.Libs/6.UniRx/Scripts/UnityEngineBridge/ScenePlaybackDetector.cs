@@ -3,6 +3,7 @@
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+#pragma warning disable 618
 
 namespace UniRx
 {

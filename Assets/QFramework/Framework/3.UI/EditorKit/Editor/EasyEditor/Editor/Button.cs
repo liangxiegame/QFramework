@@ -49,10 +49,10 @@ namespace UnityEditorUI
     internal class Button : AbstractWidget, IButton
     {
         // Private members
-        private string mText = String.Empty;
-        private string mTooltip = String.Empty;
-        private int mWidth = -1;
-        private int mHeight = -1;
+        //private string mText = String.Empty;
+        //private string mTooltip = String.Empty;
+        //private int mWidth = -1;
+        //private int mHeight = -1;
         private Texture2D mTexture2D;
 
         private readonly EventBinding<IButton> mClickEvent;
@@ -60,25 +60,25 @@ namespace UnityEditorUI
         // Public interfaces for getting PropertyBindings
         public IButton Text(string text)
         {
-            mText = text;
+            //mText = text;
             return this;
         }
 
         public IButton Tooltip(string toolTip)
         {
-            mTooltip = toolTip;
+            //mTooltip = toolTip;
             return this;
         }
 
         public IButton Width(int width)
         {
-            mWidth = width;
+            //mWidth = width;
             return this;
         }
 
         public IButton Height(int height)
         {
-            mHeight = height;
+            //mHeight = height;
             return this;
         }
 

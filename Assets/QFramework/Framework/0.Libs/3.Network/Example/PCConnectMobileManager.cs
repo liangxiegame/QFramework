@@ -121,7 +121,7 @@ namespace QFramework
                     break;
                 case (int)PCConnectMobileEvent.SocketEvent:
                     SocketMsg socketMsg = msg as SocketMsg;
-                    socketMsg.msgId = socketMsg.ToEventID;
+                    socketMsg.EventID = socketMsg.ToEventID;
 
                     if (IsPCClient)
                     {

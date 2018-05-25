@@ -105,7 +105,7 @@ namespace QFramework
 			mCurMgr.SendMsg(msg);
 		}
 
-		protected void SendEvent<T>(T eventId) where T : IConvertible
+        public virtual void SendEvent<T>(T eventId) where T : IConvertible
 		{
 			mCurMgr.SendEvent(eventId);
 		}

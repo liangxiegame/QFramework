@@ -4,19 +4,19 @@
 
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 
 namespace QFramework
 {
 	public class DragMe : MonoBehaviour,IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
-		private UnityEngine.Vector2 onBeginDragPosition;
+        //private Vector2 onBeginDragPosition;
 
 		private RectTransform mDraggingPlane;
 
 		public void OnPointerDown (PointerEventData data)
 		{
-			onBeginDragPosition = data.position;
+            //onBeginDragPosition = data.position;
 		}
 
 		public void OnDrag(PointerEventData data)
@@ -27,8 +27,8 @@ namespace QFramework
 
 		private void SetDraggedPosition(PointerEventData data)
 		{
-			if (data.pointerEnter != null && data.pointerEnter.transform as RectTransform != null)
-				mDraggingPlane = data.pointerEnter.transform as RectTransform;
+			if (data.pointerEnter != null && data.pointerEnter.transform is RectTransform)
+                mDraggingPlane = data.pointerEnter.transform as RectTransform;
 
 			var rt = gameObject.GetComponent<RectTransform>();
 			Vector3 globalMousePos;
@@ -44,7 +44,7 @@ namespace QFramework
 			//		Destroy(m_DraggingIcon);
 		}
 
-		static public T FindInParents<T>(GameObject go) where T : Component
+		public static T FindInParents<T>(GameObject go) where T : Component
 		{
 			if (go == null) return null;
 			var comp = go.GetComponent<T>();
@@ -58,10 +58,11 @@ namespace QFramework
 				comp = t.gameObject.GetComponent<T>();
 				t = t.parent;
 			}
+
 			return comp;
 		}
 
-		void CreateDragIcon( PointerEventData data)
+	    private void CreateDragIcon( PointerEventData data)
 		{
 			var canvas = FindInParents<Canvas>(gameObject);
 			if (canvas == null)

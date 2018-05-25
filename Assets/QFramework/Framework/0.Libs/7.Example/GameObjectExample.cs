@@ -64,6 +64,8 @@ namespace QFramework.Example
 				// 10. instantiatedObj = Instantiate(gameObject)
 				.ApplySelfTo(selfObj => instantiatedObj = selfObj.Instantiate());
 
+            Debug.Log(instantiatedObj);
+
 			#region 通过MonoBehaviour去调用GameObject相关的API
 
 			this

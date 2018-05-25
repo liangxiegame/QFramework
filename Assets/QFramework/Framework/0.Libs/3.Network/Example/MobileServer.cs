@@ -29,7 +29,7 @@ namespace QFramework
 	using System.Net.Sockets;
 	using System.Collections;
 	using System.Text;
-	using System;
+    //using System;
 	using UnityEngine;
 	using System.Collections.Generic;
 
@@ -40,7 +40,7 @@ namespace QFramework
 	public class MobileServer : QMonoSingleton<MobileServer>
 	{
 		private ISocketServer mSocketServer;
-		private string mMessage = String.Empty;
+		private string mMessage = string.Empty;
 
 		private void Awake()
 		{
@@ -71,7 +71,7 @@ namespace QFramework
 			mSocketServer.ReceivedFromClient += delegate(ISocketClientToken client, byte[] message)
 			{
 				SocketMsg msg = SerializeHelper.FromProtoBuff<SocketMsg>(message);
-				mMessage = msg.msgId + ":" + msg.ToEventID;
+				mMessage = msg.EventID + ":" + msg.ToEventID;
 				if (!string.IsNullOrEmpty(msg.Msg))
 				{
 					mMessage += ":" + msg.Msg;
@@ -116,7 +116,7 @@ namespace QFramework
 			}
 		}
 
-		private void OnDestroy()
+	    protected override void OnDestroy()
 		{
             mSocketServer.Close();
 			mSocketServer = null;

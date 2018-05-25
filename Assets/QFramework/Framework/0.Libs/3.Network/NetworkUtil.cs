@@ -74,6 +74,7 @@ namespace QFramework
 		    if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
 		    {
 		        AddressIP = _IPAddress.ToString();
+                Debug.Log(AddressIP);
 		    }  
 		}  
 #endif  

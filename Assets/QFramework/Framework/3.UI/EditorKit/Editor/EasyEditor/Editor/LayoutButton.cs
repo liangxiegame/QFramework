@@ -48,10 +48,10 @@ namespace UnityEditorUI
     internal class LayoutButton : AbstractWidget, ILayoutButton
     {
         // Private members
-        private string text = String.Empty;
-        private string tooltip = String.Empty;
-        private int width = -1;
-        private int height = -1;
+        //private string text = String.Empty;
+        //private string tooltip = String.Empty;
+        //private int width = -1;
+        //private int height = -1;
         private Texture2D mTexture2D;
 
         // Concrete property bindings
@@ -77,25 +77,25 @@ namespace UnityEditorUI
 
         internal LayoutButton(ILayout parent) : base(parent)
         {
-            textProperty = new PropertyBinding<string, ILayoutButton>(
-                this,
-                value => text = value
-            );
+            //textProperty = new PropertyBinding<string, ILayoutButton>(
+            //    this,
+            //    value => text = value
+            //);
 
-            tooltipProperty = new PropertyBinding<string, ILayoutButton>(
-                this,
-                value => tooltip = value
-            );
+            //tooltipProperty = new PropertyBinding<string, ILayoutButton>(
+            //    this,
+            //    value => tooltip = value
+            //);
 
-            widthProperty = new PropertyBinding<int, ILayoutButton>(
-                this,
-                value => width = value
-            );
+            //widthProperty = new PropertyBinding<int, ILayoutButton>(
+            //    this,
+            //    value => width = value
+            //);
 
-            heightProperty = new PropertyBinding<int, ILayoutButton>(
-                this,
-                value => height = value
-            );
+            //heightProperty = new PropertyBinding<int, ILayoutButton>(
+            //    this,
+            //    value => height = value
+            //);
 
             mTexture2DProperty = new PropertyBinding<Texture2D, ILayoutButton>(
                 this,

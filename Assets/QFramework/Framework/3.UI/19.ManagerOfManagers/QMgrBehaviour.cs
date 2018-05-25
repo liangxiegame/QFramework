@@ -91,15 +91,15 @@ namespace QFramework
 			}
 		}
 
-		public void SendEvent<T>(T eventId) where T : IConvertible
-		{
+        public override void SendEvent<T>(T eventId)
+	    {
 			SendMsg(QMsg.Allocate(eventId));
 		}
 
 		// 来了消息以后,通知整个消息链
 		protected override void ProcessMsg(int eventId,QMsg msg)
 		{
-			mEventSystem.Send(msg.msgId,msg);
+			mEventSystem.Send(msg.EventID,msg);
 		}
 	}
 }

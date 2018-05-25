@@ -64,7 +64,7 @@ namespace QFramework
         {
             isDrag = false;
 
-            if (eventData != null && eventData.position != null && eventData.pressPosition != null)
+            if (eventData != null)
             {
                 bool bLeft = eventData.position.x < eventData.pressPosition.x;
                 if (bLeft)

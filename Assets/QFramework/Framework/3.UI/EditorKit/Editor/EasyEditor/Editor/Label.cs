@@ -25,17 +25,17 @@ namespace UnityEditorUI
         /// <summary>
         /// Whether or not the label should be displayed in bold (default is false).
         /// </summary>
-        IPropertyBinding<bool, ILabel> Bold { get; }
+        //IPropertyBinding<bool, ILabel> Bold { get; }
 
         /// <summary>
         /// Width of the widget in pixels. Default uses auto-layout.
         /// </summary>
-        IPropertyBinding<int, ILabel> Width { get; }
+        //IPropertyBinding<int, ILabel> Width { get; }
 
         /// <summary>
         /// Height of the widget in pixels. Default uses auto-layout.
         /// </summary>
-        IPropertyBinding<int, ILabel> Height { get; }
+        //IPropertyBinding<int, ILabel> Height { get; }
     }
 
     /// <summary>
@@ -45,53 +45,54 @@ namespace UnityEditorUI
     {
         private string text = String.Empty;
         private string tooltip = String.Empty;
-        private bool bold = false;
-        private int width = -1;
-        private int height = -1;
+        //private bool bold = false;
+        //private int width = -1;
+        //private int height = -1;
 
         private PropertyBinding<string, ILabel> textProperty;
         private PropertyBinding<string, ILabel> tooltipProperty;
-        private PropertyBinding<bool, ILabel> boldProperty;
-        private PropertyBinding<int, ILabel> widthProperty;
-        private PropertyBinding<int, ILabel> heightProperty;
+        //private PropertyBinding<bool, ILabel> boldProperty;
+        //private PropertyBinding<int, ILabel> widthProperty;
+        //private PropertyBinding<int, ILabel> heightProperty;
 
         public IPropertyBinding<string, ILabel> Text { get { return textProperty; } }
         public IPropertyBinding<string, ILabel> Tooltip { get { return tooltipProperty; } }
-        public IPropertyBinding<bool, ILabel> Bold { get { return boldProperty; } }
-        public IPropertyBinding<int, ILabel> Width { get { return widthProperty; } }
-        public IPropertyBinding<int, ILabel> Height { get { return heightProperty; } }
+        //public IPropertyBinding<bool, ILabel> Bold { get { return boldProperty; } }
+        //public IPropertyBinding<int, ILabel> Width { get { return widthProperty; } }
+        //public IPropertyBinding<int, ILabel> Height { get { return heightProperty; } }
 
         internal Label(ILayout parent) : base(parent)
         {
             textProperty = new PropertyBinding<string, ILabel>(
                 this,
-                value => this.text = value
+                value => text = value
             );
 
             tooltipProperty = new PropertyBinding<string, ILabel>(
                 this,
-                value => this.tooltip = value
+                value => tooltip = value
             );
             
-            boldProperty = new PropertyBinding<bool, ILabel>(
-                this,
-                value => this.bold = value
-            );
+            //boldProperty = new PropertyBinding<bool, ILabel>(
+            //    this,
+            //    value => bold = value
+            //);
 
-            widthProperty = new PropertyBinding<int, ILabel>(
-                this,
-                value => this.width = value
-            );
+            //widthProperty = new PropertyBinding<int, ILabel>(
+            //    this,
+            //    value => width = value
+            //);
             
-            heightProperty = new PropertyBinding<int, ILabel>(
-                this,
-                value => this.height = value
-            );
+            //heightProperty = new PropertyBinding<int, ILabel>(
+            //    this,
+            //    value => height = value
+            //);
         }
 
         public override void OnGUI()
         {
             var guiContent = new GUIContent(text, tooltip);
+            /*用这些有问题
             var style = bold ? EditorStyles.boldLabel : EditorStyles.label;
             var layoutOptions = new List<GUILayoutOption>();
             if (width >= 0)
@@ -102,8 +103,10 @@ namespace UnityEditorUI
             {
                 layoutOptions.Add(GUILayout.Height(height));
             }
-            
-//            GUILayout.Label(guiContent, style, layoutOptions.ToArray());
+
+            GUILayout.Label(guiContent, style, layoutOptions.ToArray());
+            */
+
             // 默认用这个其他的有一堆问题
             GUILayout.Label(guiContent);
         }
@@ -112,9 +115,9 @@ namespace UnityEditorUI
         {
             textProperty.BindViewModel(viewModel);
             tooltipProperty.BindViewModel(viewModel);
-            boldProperty.BindViewModel(viewModel);
-            widthProperty.BindViewModel(viewModel);
-            heightProperty.BindViewModel(viewModel);
+            //boldProperty.BindViewModel(viewModel);
+            //widthProperty.BindViewModel(viewModel);
+            //heightProperty.BindViewModel(viewModel);
         }
     }
 }

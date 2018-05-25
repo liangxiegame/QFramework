@@ -10,7 +10,7 @@ namespace UnityEditorUI
     /// <summary>
     /// Binds a widget's property to a property in the external view model.
     /// </summary>
-    public interface IPropertyBinding<ValueT, WidgetT>
+    public interface IPropertyBinding<ValueT, out WidgetT>
     {
         /// <summary>
         /// Configure the property to bind to later.

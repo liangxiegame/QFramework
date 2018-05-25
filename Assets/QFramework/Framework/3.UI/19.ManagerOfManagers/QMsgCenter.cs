@@ -33,7 +33,7 @@ namespace QFramework
 		public void SendMsg(QMsg tmpMsg)
 		{
 			// Framework Msg
-			switch (tmpMsg.GetMgrID())
+			switch (tmpMsg.ManagerID)
 			{
 				case QMgrID.UI:
 					QUIManager.Instance.SendMsg(tmpMsg);

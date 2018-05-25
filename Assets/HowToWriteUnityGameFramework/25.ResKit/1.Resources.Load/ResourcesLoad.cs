@@ -27,7 +27,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.PlaymodeTests;
+//using UnityEngine.PlaymodeTests;
 using UnityEngine.UI;
 
 namespace QFramework.ResKitLearn
@@ -60,10 +60,11 @@ namespace QFramework.ResKitLearn
 		{
 			var testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-
+            Debug.Log(testTexture);
 			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
-		}
+            Debug.Log(testTexture);
+        }
 
 		private void OnDestroy()
 		{
@@ -83,6 +84,7 @@ namespace QFramework.ResKitLearn
 
 			testTexture = mResourcesLoader.LoadSync<Texture2D>("TestTexture");
 			// do sth
+            Debug.Log(testTexture);
 		}
 
 		private void OnDestroy()
@@ -169,7 +171,7 @@ namespace QFramework.ResKitLearn
 			ResourcesManager.RemoveRes(this);
 		}
 
-		[Test]
+        //[Test]
 		public static void TestRes()
 		{
 			var res = new Res("TestTexture");

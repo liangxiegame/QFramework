@@ -102,7 +102,7 @@ namespace QFramework
             if (success)
             {
                 SocketMsg msg = SerializeHelper.FromProtoBuff<SocketMsg>(message);
-                Log.I("Received:{0}", msg.msgId);
+                Log.I("Received:{0}", msg.EventID);
                 mMsgQueue.Enqueue(msg);
             }
         }

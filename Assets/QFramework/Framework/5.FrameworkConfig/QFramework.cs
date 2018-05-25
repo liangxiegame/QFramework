@@ -89,7 +89,7 @@ namespace QFramework
 			OnGUIEvent.InvokeGracefully();
 		}
 
-		protected void OnDestroy()
+		protected override void OnDestroy()
 		{
 			OnDestroyEvent.InvokeGracefully();
 		}
