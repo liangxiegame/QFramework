@@ -32,49 +32,26 @@ using Debug = UnityEngine.Debug;
 
 namespace QFramework
 {
-    public class SelectionHelper
+    internal class SelectionHelper
     {
         [InitializeOnLoadMethod]
         private static void Start()
         {
+            //在Hierarchy面板按鼠标中键相当于开关GameObject
             EditorApplication.hierarchyWindowItemOnGUI += HierarchyWindowItemOnGui;
+
+            //在Project面板按鼠标中键相当于Show In Explorer
             EditorApplication.projectWindowItemOnGUI += ProjectWindowItemOnGui;
         }
 
-        //在Hierarchy面板按鼠标中键相当于开关GameObject
-        private static void HierarchyWindowItemOnGui(int instanceID, Rect selectionRect)
-        {
-            Event e = Event.current;
-            if ((e.type == EventType.KeyDown && e.keyCode == KeyCode.Space) || (e.type == EventType.MouseDown && e.button == 2))
-            {
-                if (e.alt)
-                {
-                    Selection.gameObjects.ForEach(go => Debug.Log(go.transform.GetPath()));
-                }
-                else
-                {
-                    Undo.RecordObjects(Selection.gameObjects, "Active");
-                    Selection.gameObjects.ForEach(go =>
-                    {
-                        go.SetActive(!go.activeSelf);
-                    });
-                }
-
-                e.Use();
-            }
-        }
-
-        //在Project面板按鼠标中键相当于Show In Explorer
-        //In the Project panel, the middle mouse button is equivalent to "Show In Explorer".
         private static void ProjectWindowItemOnGui(string guid, Rect selectionRect)
         {
-            Event e = Event.current;
-            if (e.type == EventType.MouseDown
-                && e.button == 2
-                && selectionRect.Contains(e.mousePosition))
+            if (Event.current.type == EventType.MouseDown
+            && Event.current.button == 2
+            && selectionRect.Contains(Event.current.mousePosition))
             {
                 string strPath = AssetDatabase.GUIDToAssetPath(guid);
-                if (e.alt)
+                if (Event.current.alt)
                 {
                     Debug.Log(strPath);
                     Event.current.Use();
@@ -90,8 +67,41 @@ namespace QFramework
                     Process.Start("explorer.exe", "/select," + Path.GetFullPath(strPath));
                 }
 
+                Event.current.Use();
+            }
+        }
+
+        private static void HierarchyWindowItemOnGui(int instanceID, Rect selectionRect)
+        {
+            Event e = Event.current;
+            if (e.type == EventType.KeyDown)
+            {
+                switch (e.keyCode)
+                {
+                    case KeyCode.Space:
+                        ToggleGameObjcetActiveSelf();
+                        e.Use();
+                        break;
+                    case KeyCode.Pause:
+                        Selection.gameObjects.ForEach(go => Debug.Log(go.transform.GetPath()));
+                        e.Use();
+                        break;
+                }
+            }
+            else if (e.type == EventType.MouseDown && e.button == 2)
+            {
+                ToggleGameObjcetActiveSelf();
                 e.Use();
             }
+        }
+
+        internal static void ToggleGameObjcetActiveSelf()
+        {
+            Undo.RecordObjects(Selection.gameObjects, "Active");
+            Selection.gameObjects.ForEach(go =>
+            {
+                go.SetActive(!go.activeSelf);
+            });
         }
     }
 }

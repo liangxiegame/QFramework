@@ -49,12 +49,10 @@ namespace QFramework
         protected CustomCustomEditor(string editorTypeName)
         {
             decoratedEditorType = editorAssembly.GetTypes().FirstOrDefault(t => t.Name == editorTypeName);
-
             Init();
 
             // Check CustomEditor types.
-            Type originalEditedType = GetCustomEditorType(decoratedEditorType);
-
+            var originalEditedType = GetCustomEditorType(decoratedEditorType);
             if (originalEditedType != editedObjectType)
             {
                 throw new ArgumentException(
@@ -90,20 +88,13 @@ namespace QFramework
             {
                 return null;
             }
-            FieldInfo field = attributes.Select(editor => editor.GetType().GetField("m_InspectedType", flags)).First();
+
+            var field = attributes.Select(editor => editor.GetType().GetField("m_InspectedType", flags)).First();
             return field.GetValue(attributes[0]) as Type;
         }
 
         private void Init()
         {
-            //const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-
-            //CustomEditor[] attributes = GetType().GetCustomAttributes(typeof(CustomEditor), true) as CustomEditor[];
-            //if (attributes == null)
-            //{
-            //    return;
-            //}
-            //FieldInfo field = attributes.Select(editor => editor.GetType().GetField("m_InspectedType", flags)).First();
             editedObjectType = GetCustomEditorType(GetType());
         }
 
@@ -113,6 +104,15 @@ namespace QFramework
             {
                 DestroyImmediate(editorInstance);
             }
+        }
+
+        protected void CallFieldMethod(string fieldName, string methodName, Type[] types, params object[] parameters)
+        {
+            Type type = EditorInstance.GetType();
+            FieldInfo fieldInfo = type.GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            type = fieldInfo.FieldType;
+            MethodInfo methodInfo = type.GetMethod(methodName, types);
+            methodInfo.Invoke(fieldInfo.GetValue(EditorInstance), parameters);
         }
 
         /// <summary>
@@ -147,20 +147,30 @@ namespace QFramework
             {
                 return;
             }
+
             method.Invoke(editor, EMPTY_ARRAY);
         }
+
+        protected void CallInspectorMethod(string methodName)
+        {
+            CallInspectorMethod(methodName, editorInstance);
+        }
+
 
         protected virtual void OnSceneGUI()
         {
             if (editorInstance)
             {
-                CallInspectorMethod("OnSceneGUI", editorInstance);
+                CallInspectorMethod("OnSceneGUI");
             }
         }
 
         protected override void OnHeaderGUI()
         {
-            CallInspectorMethod("OnHeaderGUI", EditorInstance);
+            if (editorInstance)
+            {
+                CallInspectorMethod("OnHeaderGUI");
+            }
         }
 
         public override void OnInspectorGUI()
@@ -234,7 +244,7 @@ namespace QFramework
         /// </summary>
         private Type editedObjectType;
 
-        public UnityEditor.Editor editorInstance;
+        private UnityEditor.Editor editorInstance;
         #endregion
     }
 }

@@ -336,7 +336,7 @@ namespace QFramework
             }
             GUILayout.EndHorizontal();
 
-            TransformInspector.DrawBottomPanel(targets);
+            TransformInspector.DrawBottomPanel(target, targets);
             serializedObject.ApplyModifiedProperties();
         }
 
