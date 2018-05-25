@@ -110,3 +110,6 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 - [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
 
+### 代码规范完全遵循:
+
+[QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
