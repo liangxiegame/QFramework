@@ -17,6 +17,7 @@
   * [3.MonoBehaviour 单例的模板](/Assets/HowToWriteUnityGameFramework/02.QMonoSingleton/QMonoSingleton.md)
   * [4.简易有限状态机](/Assets/HowToWriteUnityGameFramework/04.SimpleFSM/SimpleFSM.md)
   * [5.简易消息机制](/Assets/HowToWriteUnityGameFramework/05.SimpleMsgDispatcher/SimpleMsgDispatcher.md)
+  * [6.关于框架的一些好文和一些思考](/Assets/HowToWriteUnityGameFramework/06.ThinkingInFramework/ThinkingInFramework.md)
   * [11.简易AssetBundle打包工具(一)](/Assets/HowToWriteUnityGameFramework/11.SimpleAssetBundleTool1/SimpleAssetBundleTool1.md)
   * [20.更安全的对象池](/Assets/HowToWriteUnityGameFramework/20.SafeObjectPool/SafeObjectPool.md)
   * [21.使用对象池时的一些细节](/Assets/HowToWriteUnityGameFramework/21.UseSafeObjectPoolSafety/UseSafeObjectPoolSafety.md)
