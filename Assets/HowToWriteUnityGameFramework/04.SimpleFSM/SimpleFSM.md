@@ -1,119 +1,168 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (四) 简易有限状态机
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+#### 为什么用有限状态机?
 
-关于Unity的架构有如下几种常用的方式。
+之前做过一款跑酷游戏,跑酷角色有很多状态:跑、跳、二段跳、死亡等等。一开始是使用if/switch来切换状态,但是每次角色添加一个状态（提前没规划好),所有状态处理相关的代码就会指数级增长,那样就会嗅出代码的坏味道了。在这种处理状态并且状态数量不是特别多的情况下,自然就想到了引入状态机。
 
-#### 1.EmptyGO:
+优点:
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+* 使代码整洁,状态容易扩展和管理。
+* 可复用。
+* 还没想到.....
+  缺点:
+* 也没想到......
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+#### 什么是有限状态机?
+解释不清楚,看了下百度百科。反正是一种数据结构,一个解决问题的工具。
+从百度百科可以看到,有限状态机最最最基础的概念有两个:状态和转移。
+从刚才跑酷的例子来讲,跑、跳、二段跳等这些就是角色的状态。
 
-#### 2.Simple GameManager:
+如图所示:
+![](/content/images/2016/05/-----2016-05-08---3-10-32.png)
+主角从跑状态切换到跳状态,从跳状态切换到二段跳状态,这里的切换就是指状态的转移。状态的转移是有条件的,比如主角从跑状态不可以直接切换到二段跳状态。但是可以从二段跳状态切换到跑状态。
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+另外,一个基本的状态有:进入状态、退出状态、接收输入、转移状态等动作。但是仅仅作为跑酷的角色的状态管理来说,只需要转移状态就足够了。有兴趣的同学可以自行扩展。
+#### 如何实现?
+恰好之前看到过一个还算简易的实现(简易就是指我能看得懂- -,希望大家也是),原版是用lua实现的,我的跑酷游戏是用C# 实现的,所以直接贴出C#代码。
 
-将不同的功能单独管理。如下:
-
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
-
-#### 实现一个简单的PoolManager<br>
-
-
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
+```csharp
+namespace QFramework
 {
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+	using System.Collections.Generic;
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
+	/// <summary>
+	/// 教程地址:http://liangxiegame.com/post/4/
+	/// </summary>
+	public class QFSMLite
+	{
+		/// <summary>
+		/// FSM callfunc.
+		/// </summary>
+		public delegate void FSMCallfunc(params object[] param);
 
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+		/// <summary>
+		/// QFSM state.
+		/// </summary>
+		class QFSMState
+		{
+			private string mName;
+
+			public QFSMState(string name)
+			{
+				mName = name;
+			}
+
+			/// <summary>
+			/// The translation dict.
+			/// </summary>
+			public readonly Dictionary<string, QFSMTranslation> TranslationDict = new Dictionary<string, QFSMTranslation>();
+		}
+
+		/// <summary>
+		/// Translation 
+		/// </summary>
+		public class QFSMTranslation
+		{
+			public string FromState;
+			public string Name;
+			public string ToState;
+			public FSMCallfunc OnTranslationCallback; // 回调函数
+
+			public QFSMTranslation(string fromState, string name, string toState, FSMCallfunc onTranslationCallback)
+			{
+				FromState = fromState;
+				ToState = toState;
+				Name = name;
+				OnTranslationCallback = onTranslationCallback;
+			}
+		}
+
+		public string State { get; private set; }
+
+		/// <summary>
+		/// The m state dict.
+		/// </summary>
+		private readonly Dictionary<string, QFSMState> mStateDict = new Dictionary<string, QFSMState>();
+
+		/// <summary>
+		/// Adds the state.
+		/// </summary>
+		/// <param name="name">Name.</param>
+		public void AddState(string name)
+		{
+			mStateDict[name] = new QFSMState(name);
+		}
+
+		/// <summary>
+		/// Adds the translation.
+		/// </summary>
+		/// <param name="fromState">From state.</param>
+		/// <param name="name">Name.</param>
+		/// <param name="toState">To state.</param>
+		/// <param name="callfunc">Callfunc.</param>
+		public void AddTranslation(string fromState, string name, string toState, FSMCallfunc callfunc)
+		{
+			mStateDict[fromState].TranslationDict[name] = new QFSMTranslation(fromState, name, toState, callfunc);
+		}
+
+		/// <summary>
+		/// Start the specified name.
+		/// </summary>
+		/// <param name="name">Name.</param>
+		public void Start(string name)
+		{
+			State = name;
+		}
+
+		/// <summary>
+		/// Handles the event.
+		/// </summary>
+		/// <param name="name">Name.</param>
+		/// <param name="param">Parameter.</param>
+		public void HandleEvent(string name, params object[] param)
+		{
+			if (State != null && mStateDict[State].TranslationDict.ContainsKey(name))
+			{
+				QFSMTranslation tempTranslation = mStateDict[State].TranslationDict[name];
+				tempTranslation.OnTranslationCallback(param);
+				State = tempTranslation.ToState;
+			}
+		}
+
+		/// <summary>
+		/// Clear this instance.
+		/// </summary>
+		public void Clear()
+		{
+			mStateDict.Clear();
+		}
+	}
 }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+测试代码(需自行修改):
 
-更好的实现方式是将一个PoolManager分成:
+```csharp
+			mPlayerFsm = new QFSMLite();
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+			// 添加状态
+			mPlayerFsm.AddState(STATE_DIE);
+			mPlayerFsm.AddState(STATE_RUN);
+			mPlayerFsm.AddState(STATE_JUMP);
+			mPlayerFsm.AddState(STATE_DOUBLE_JUMP);
+			mPlayerFsm.AddState(STATE_DIE);
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+			// 添加跳转
+			mPlayerFsm.AddTranslation(STATE_RUN, EVENT_TOUCH_DOWN, STATE_JUMP, JumpThePlayer);
+			mPlayerFsm.AddTranslation(STATE_JUMP, EVENT_TOUCH_DOWN, STATE_DOUBLE_JUMP, DoubleJumpThePlayer);
+			mPlayerFsm.AddTranslation(STATE_JUMP, EVENT_LAND, STATE_RUN, RunThePlayer);
+			mPlayerFsm.AddTranslation(STATE_DOUBLE_JUMP, EVENT_LAND, STATE_RUN, RunThePlayer);
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+			// 启动状态机
+			mPlayerFsm.Start(STATE_RUN);
+```
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
-
-* SaveManager: 配置管理。
-
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
-
-#### 4.将View和Model之间增加一个媒介层。
-
-MVCS:StrangeIOC插件。
-
-MVVM:uFrame插件。
-
-#### 5. ECS(Entity Component Based  System)
-
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+就这些,想要进一步扩展的话,可以给FSMState类添加EnterCallback和ExitCallback等委托,然后在FSM的HandleEvent方法中进行调用。当时对跑酷的项目来说够用了,接没继续扩展了,我好懒- -,懒的借口是:没有最好的设计,只有最适合的设计,233333。
 
 #### 相关链接:
 
@@ -127,18 +176,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1fros9vo6tcj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8元，之后会涨价)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建

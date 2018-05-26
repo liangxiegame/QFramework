@@ -1,119 +1,250 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (五) 简易消息机制
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+#### 什么是消息机制?
 
-关于Unity的架构有如下几种常用的方式。
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1froscsk2kqj30to0eqmzm.jpg)
 
-#### 1.EmptyGO:
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frosctljtwj30tw0dqwg7.jpg)
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1froscyauzqj30ta0cgta3.jpg)
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1frosczxnmrj30zw0f6adi.jpg)
 
-#### 2.Simple GameManager:
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frosd20ydej314u0eegop.jpg)
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+23333333，让我先笑一会。
 
-将不同的功能单独管理。如下:
+#### 为什么用消息机制?
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+三个字,解!!!!耦!!!!合!!!!。
 
-#### 实现一个简单的PoolManager<br>
+#### 我的框架中的消息机制用例:
 
+1.接收者
 
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
+```csharp
+using UnityEngine;
+
+namespace QFramework.Example
 {
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
+	/// <summary>
+	/// 教程地址:http://liangxiegame.com/post/5/
+	/// </summary>
+	public class Receiver : MonoBehaviour, IMsgReceiver
+	{
+		// Use this for initialization
+		private void Awake()
+		{
+			this.RegisterLogicMsg("Receiver Show Sth", ReceiveMsg);
+		}
+
+		private void ReceiveMsg(object[] args)
+		{
+			foreach (var arg in args)
+			{
+				Log.I(arg);
+			}
+		}
+	}
 }
+```
+2.发送者
+```csharp
+using UnityEngine;
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
+namespace QFramework.Example
 {
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+	/// <summary>
+	/// 教程地址:http://liangxiegame.com/post/5/
+	/// </summary>
+	public class Sender : MonoBehaviour, IMsgSender
+	{
+		void Update()
+		{
+			this.SendLogicMsg("Receiver Show Sth", "你好", "世界");
+		}
+	}
 }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+3.运行结果
 
-更好的实现方式是将一个PoolManager分成:
+![](/content/images/2016/06/-----2016-06-05---1-11-11.png)
+使用起来几行代码的事情,实现起来就没这么简单了。
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+#### 如何实现的?
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+可以看到接收者实现了接口IMsgReceiver,发送者实现了接口IMsgSender。
+那先看下这两个接口定义。
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+IMsgReceiver:
+```csharp
+namespace QFramework 
+{
+	public interface IMsgReceiver
+	{
+	}
+}
+```
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+IMsgSender
 
-* SaveManager: 配置管理。
+```csharp
+namespace QFramework 
+{
+	public interface IMsgSender
+	{
+	}
+}
+```
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+毛都没有啊。也没有SendLogicMsg或者ReceiveLogicMsg方法的定义啊。
 
-#### 4.将View和Model之间增加一个媒介层。
+答案是使用C# this的扩展方式实现接口方法。
 
-MVCS:StrangeIOC插件。
+不清楚的童鞋请百度C# this扩展,有好多文章就不介绍了。
 
-MVVM:uFrame插件。
+以上先告一段落,先介绍个重要的角色,MsgDispatcher(消息分发器)。
 
-#### 5. ECS(Entity Component Based  System)
+贴上第一部分代码:
+```csharp
+/// <summary>
+	/// 消息分发器
+	/// C# this扩展 需要静态类
+	/// 教程地址:http://liangxiegame.com/post/5/
+	public static class MsgDispatcher
+	{
+		/// <summary>
+		/// 消息捕捉器
+		/// </summary>
+		private class LogicMsgHandler
+		{
+			public readonly IMsgReceiver Receiver;
+			public readonly Action<object[]> Callback;
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+			public LogicMsgHandler(IMsgReceiver receiver, Action<object[]> callback)
+			{
+				Receiver = receiver;
+				Callback = callback;
+			}
+		}
+
+		/// <summary>
+		/// 每个消息名字维护一组消息捕捉器。
+		/// </summary>
+		static readonly Dictionary<string, List<LogicMsgHandler>> mMsgHandlerDict =
+			new Dictionary<string, List<LogicMsgHandler>>();
+```
+读注释!!!
+
+
+贴上注册消息的代码
+```csharp
+/// <summary>
+		/// 注册消息,
+		/// 注意第一个参数,使用了C# this的扩展,
+		/// 所以只有实现IMsgReceiver的对象才能调用此方法
+		/// </summary>
+		public static void RegisterLogicMsg(this IMsgReceiver self, string msgName, Action<object[]> callback)
+		{
+			// 略过
+			if (string.IsNullOrEmpty(msgName))
+			{
+				Log.W("RegisterMsg:" + msgName + " is Null or Empty");
+				return;
+			}
+
+			// 略过
+			if (null == callback)
+			{
+				Log.W("RegisterMsg:" + msgName + " callback is Null");
+				return;
+			}
+
+			// 略过
+			if (!mMsgHandlerDict.ContainsKey(msgName))
+			{
+				mMsgHandlerDict[msgName] = new List<LogicMsgHandler>();
+			}
+
+			// 看下这里
+			var handlers = mMsgHandlerDict[msgName];
+
+			// 略过
+			// 防止重复注册
+			foreach (var handler in handlers)
+			{
+				if (handler.Receiver == self && handler.Callback == callback)
+				{
+					Log.W("RegisterMsg:" + msgName + " ayready Register");
+					return;
+				}
+			}
+
+			// 再看下这里
+			handlers.Add(new LogicMsgHandler(self, callback));
+		}
+```
+为了节省您时间,略过部分的代码就不要看了,什么?!!你都看了!!!! 23333
+
+发送消息相关的代码
+```csharp
+/// <summary>
+		/// 发送消息
+		/// 注意第一个参数
+		/// </summary>
+		public static void SendLogicMsg(this IMsgSender sender, string msgName, params object[] paramList)
+		{
+			// 略过,不用看
+			if (string.IsNullOrEmpty(msgName))
+			{
+				Log.E("SendMsg is Null or Empty");
+				return;
+			}
+
+			// 略过,不用看
+			if (!mMsgHandlerDict.ContainsKey(msgName))
+			{
+				Log.W("SendMsg is UnRegister");
+				return;
+			}
+
+			// 开始看!!!!
+			var handlers = mMsgHandlerDict[msgName];
+			var handlerCount = handlers.Count;
+
+			// 之所以是从后向前遍历,是因为  从前向后遍历删除后索引值会不断变化
+			// 参考文章,http://www.2cto.com/kf/201312/266723.html
+			for (var index = handlerCount - 1; index >= 0; index--)
+			{
+				var handler = handlers[index];
+
+				if (handler.Receiver != null)
+				{
+					Log.W("SendLogicMsg:" + msgName + " Succeed");
+					handler.Callback(paramList);
+				}
+				else
+				{
+					handlers.Remove(handler);
+				}
+			}
+		}
+```
+
+OK主要的部分全都贴出来啦
+
+
+#### 可以改进的地方:
+
+* 目前整个游戏的消息都由一个字典维护,可以改进为每个模块维护一个字典或者其他方式。
+* 消息名字类型由字符串定义的,可以改成枚举转unsigned int方式。
+* 欢迎补充。
+
+#### 坑
+
+* 如果是MonoBehaviour注册消息之后,GameObject Destroy之前一定要注销消息,之前的解决方案是,自定义一个基类来维护该对象已经注册的消息列表,然后在基类的OnDestory时候遍历卸载。
+* 欢迎补充。
 
 #### 相关链接:
 
@@ -127,18 +258,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1frosddz3lkj30by0bywf0.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
