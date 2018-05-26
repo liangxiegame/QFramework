@@ -1,119 +1,213 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (七) 减少加班利器-QApp类
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+本来这周想介绍一些框架中自认为比较好用的小工具的,但是发现很多小工具都依赖一个类----App。
 
-关于Unity的架构有如下几种常用的方式。
+App类的职责:
 
-#### 1.EmptyGO:
+1.接收Unity的生命周期事件。
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+2.做为游戏的入口。
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+3.一些框架级别的组件初始化。
 
-#### 2.Simple GameManager:
+本文只介绍App的职责2:做为游戏的入口。
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+#### Why?
+在我小时候做项目的时候,每次改一点点代码(或者不止一点点),要看下结果就要启动游戏->Loading界面->点击各种按钮->跳转到目标界面看结果或者Log之类的。一天如果10次这种行为会浪费很多时间,如果按照时薪算的话那就是......很多钱(捂嘴)。
+流程图是这样的:
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frosv4f87gj30gj080jrj.jpg)
 
-将不同的功能单独管理。如下:
+#### 为什么会出现这种问题呢?
+1.模块间的耦合度太高了。下一个模块要依赖前一个模块的一些数据或者逻辑。
+2.或者有可能是这个模块设计得太大了,界面太多,也会发生这种情况。
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+#### 解决方案:
+针对问题1:在模块的入口提供一个测试的接口,用来写这个模块的资源加载或者数据初始化的逻辑,...什么!?...你们项目就一个模块...来来来我们好好聊聊.....
+针对问题2:在模块的入口提供一个测试接口,写跳转到目标界面的相关代码。
+流程图是这样的:
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frost3hq0ij30gz0bfaaf.jpg)
+虽然很low但是勉强解决了问题。
 
-#### 实现一个简单的PoolManager<br>
+#### 阶段的划分
+资源加载乱七八糟的代码和最好能一步跳转到目标界面的代码,需要在出包或者跑完整游戏流程的时候失效。
+如何做到?答案是阶段的划分。
+我的框架里分为如下几个阶段:
+1.开发阶段: 不断的编码->验证结果->编码->验证结果->blablabla。
+2.出包/真机阶段: 这个阶段跑跑完整流程,在真机上跑跑,给QA测测。
+3.发布阶段:  上线了,yeah!。
 
-
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
+对应的枚举:
+```csharp
+public enum AppMode 
 {
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
-
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+	Developing,
+	QA,
+	Release
 }
 ```
+很明显,乱七八糟的代码是要在开发阶段有效，但是在QA或者Release版本中无效的。那么只要在游戏的入口处判断当前在什么阶段就好了。
+开始编码:
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+```csharp
+/// <summary>
+/// 全局唯一继承于MonoBehaviour的单例类，保证其他公共模块都以App的生命周期为准
+/// </summary>
+public class App : QMonoSingleton<App>
+{
+	public AppMode mode = AppMode.Developing;
 
-更好的实现方式是将一个PoolManager分成:
+	private App() {}
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+	void Awake()
+	{
+		// 确保不被销毁
+		DontDestroyOnLoad(gameObject);
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+		mInstance = this;
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+		// 进入欢迎界面
+		Application.targetFrameRate = 60;
+	}
+		
+	void  Start()
+    {
+		CoroutineMgr.Instance ().StartCoroutine (ApplicationDidFinishLaunching());
+	}
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+	/// <summary>
+	/// 进入游戏
+	/// </summary>
+	IEnumerator ApplicationDidFinishLaunching()
+	{
+		// 配置文件加载 类似PlayerPrefs
+		QSetting.Load();
 
-* SaveManager: 配置管理。
+		// 日志输出 
+		QLog.Instance ();
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+		yield return GameManager.Instance ().Init ();
 
-#### 4.将View和Model之间增加一个媒介层。
+		// 进入测试逻辑
+		if (App.Instance().mode == AppMode.Developing) 
+		{
+		
+            // 测试资源加载
+            ResMgr.Instance ().LoadRes ("TestRes",delegate(string resName, Object resObj) 
+		{
+ 				if (null != resObj) 
+				{
+                    GameObject.Instantiate(resObj);
+              }
+                // 进入目标界面等等
+ 
+            });
+            yield return null;
+		// 进入正常游戏逻辑
+		} 
+		else 
+		{
+			yield return GameManager.Instance ().Launch ();
+		}
+			
+		yield return null;
+	}
 
-MVCS:StrangeIOC插件。
 
-MVVM:uFrame插件。
+```
 
-#### 5. ECS(Entity Component Based  System)
+首先App是Mono单例,要接收Unity的生命周期.
+然后要维护一个AppMode类型的变量,便于区分。
+之后在,ApplicationDidFinishLaunching中有这么一段代码
+```csharp
+		// 进入测试逻辑
+		if (App.Instance().mode == AppMode.Developing) 
+		{
+			// 测试资源加载
+			ResMgr.Instance ().LoadRes ("TestRes",delegate(string resName, Object resObj) 
+			{
+				if (null != resObj) 
+				{
+					GameObject.Instantiate(resObj);
+				}
+				// 进入目标界面等等
+			});
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+			yield return null;
+
+		// 进入正常游戏逻辑
+		} 
+		else 
+		{
+			yield return GameManager.Instance ().Launch ();
+		}
+```
+在这段代码中做了阶段的区分。所有的逻辑都可以写在这里。这样基本的需求就满足啦。
+
+####还有一个问题:
+假如一个游戏的业务逻辑分为模块A,B,C,D,E,分为5个不同的人来开发,那App是一个mono单例,除非不提交App代码,否则每次都要解决冲突,同样很浪费时间。怎么办? 答案是通过多态来解决,先定义一个ITestEntry接口,只定义一个方法。
+```csharp
+	/// <summary>
+	/// 测试入口
+	/// </summary>
+	public interface ITestEntry 
+	{
+		/// <summary>
+		/// 启动
+		/// </summary>
+		IEnumerator Launch();
+	}
+```
+然后每个模块分别实现ITestEntry接口,例如AModuleTestEntry,BModuleTestEntry等等。
+看下项目中的实现:
+```csharp
+/// <summary>
+/// AR模块测试入口
+/// </summary>
+public class ARSceneTestEntry :MonoBehaviour,ITestEntry 
+{
+	public IEnumerator Launch() 
+	{
+		Debug.LogWarning ("进入AR场景开始");
+
+		yield return GameObject.Find ("ARScene").GetComponent<ARScene> ().Launch ();
+
+		yield return null;
+	}
+}
+
+```
+
+App类中阶段区分的代码要改成这样:
+```csharp
+		// 进入测试逻辑
+		if (App.Instance().mode == AppMode.Developing) {
+		
+			yield return GetComponent<ITestEntry> ().Launch ();
+
+		// 进入正常游戏逻辑
+		} else {
+			yield return GameManager.Instance ().Launch ();
+
+		}
+```
+
+因为Launch方法的返回类型是IEnumerator,所以很好控制跳转的时间。
+看下在Unity中是什么样的:
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1frostv3etsj30lt0abq4i.jpg)
+
+每个模块都要有个App的GameObject，原因是因为,框架的其他的组件依赖于App,也想过把依赖的部分抽离出来,那样的话可能命名为QMonoLifeCircleReceiver和ModuleEntry之类的,这样遵循了单一职责原则。不过孰优孰略各有千秋。我觉得叫App更直观一些,因为入口、组件初始化、启动某个模块应该是通常放在一起更人性化,还有一些ApplicationDidEnterBackground之类的事件还是模仿iOS的AppDelegate人性化一些。
+
+如果要跑完整流程,那么把模块的App GameObject关掉就好了。要注意一点是:在整个游戏的入口场景要有个App GameObject放在上面,并且AppMode要为Release或者QA。这样才能正常地跑起来。
+
+OK就这样....
+#### 对未来的一些畅想:
+
+1. 最近在想着如何为项目引入自动化测试,有一个思路是这样的,界面的所有输入包括点击事件等都包装成一个命令或者一个消息。测试的时候只要不断地自动发送消息或者命令就好了。当然只是个畅想。 那和这个有毛关系呢,有啊!界面跳转的时候可以发命令或者消息就够了啊,这样还很方便。 但实际上有很多问题,包括模块的最上层如何拿到一些界面组件的权限比如按钮等等。处理命令或者消息的话那么所有的输入都要经过一层过滤。。。。额。。想想好麻烦。。。以后吧。。。以后吧。。
+
+2. 框架的很多组件都是基于字典实现的。字典真好用,23333。以后还是想办法能改的都改成List吧。
+
+
+#### 欢迎讨论!
 
 #### 相关链接:
 
@@ -127,18 +221,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1frosusbd6oj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
