@@ -1,119 +1,190 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (十三) 无需继承的单例的模板
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+之前的文章中介绍的[Unity 游戏框架搭建 (二) 单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban/)和[Unity 游戏框架搭建 (三) MonoBehaviour单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-san-monobehaviourdan-li-de-mo-ban/)有一些问题。
 
-关于Unity的架构有如下几种常用的方式。
+#### 存在的问题:
 
-#### 1.EmptyGO:
+* 只要继承了单例的模板就无法再继承其他的类。
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+虽然单例继承其他类是比较脏的设计,但是难免会遇到不得不继承的时候。没有最好的设计，只有最合适的设计。
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+#### 解决方案:
 
-#### 2.Simple GameManager:
+* 首先实现单例的类从使用方式上应该不变,还是
+```csharp
+ XXX.Instance.ABCFunc()
+```
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+之前的单利的模板代码如下所示:
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection;
 
-将不同的功能单独管理。如下:
+/// <summary>
+/// 1.泛型
+/// 2.反射
+/// 3.抽象类
+/// 4.命名空间
+/// </summary>
+namespace QFramework {
+	public abstract class QSingleton<T> where T : QSingleton<T>
+	{
+		protected static T mInstance = null;
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+		protected QSingleton()
+		{
+		}
 
-#### 实现一个简单的PoolManager<br>
+		public static T Instance
+		{
 
+			get {
+				if (mInstance == null) {
+					// 先获取所有非public的构造方法
+					ConstructorInfo[] ctors = typeof(T).GetConstructors (BindingFlags.Instance | BindingFlags.NonPublic);
+					// 从ctors中获取无参的构造方法
+					ConstructorInfo ctor = Array.Find (ctors, c => c.GetParameters ().Length == 0);
+					if (ctor == null)
+						throw new Exception ("Non-public ctor() not found!");
+					// 调用构造方法
+					mInstance = ctor.Invoke (null) as T;
+				}
 
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+				return mInstance;
+			}
+		}
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
+		public void Dispose()
+		{
+			mInstance = null;
+		}
+	}
 }
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
 
-更好的实现方式是将一个PoolManager分成:
+按照以前的方式,如果想实现一个单例的代码应该是这样的:
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+```csharp
+using QFramework;  
+// 1.需要继承QSingleton。
+// 2.需要实现非public的构造方法。
+public class XXXManager : QSingleton<XXXManager> {  
+    private XXXManager() {
+        // to do ...
+    }
+}
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+public static void main(string[] args)  
+{
+    XXXManager.Instance().xxxyyyzzz();
+}
+```
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+如果我想XXXManager继承一个BaseManager代码就变成这样了
 
-* SaveManager: 配置管理。
+```csharp
+using QFramework;  
+// 1.需要继承QSingleton。
+// 2.需要实现非public的构造方法。
+public class XXXManager : BaseManager {  
+    private XXXManager() {
+        // to do ...
+    }
+}
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
 
-#### 4.将View和Model之间增加一个媒介层。
+public static void main(string[] args)  
+{
+    XXXManager.Instance().xxxyyyzzz();
+}
+```
 
-MVCS:StrangeIOC插件。
+这样这个类就不是单例了,怎么办?
 
-MVVM:uFrame插件。
+答案是通过C#的属性。
 
-#### 5. ECS(Entity Component Based  System)
+```csharp
+using QFramework;  
+// 1.需要继承QSingleton。
+// 2.需要实现非public的构造方法。
+public class XXXManager : BaseManager {  
+    private XXXManager() {
+        // to do ...
+    }
+    public static XXXManager Instance { 
+        get {
+            return QSingletonComponent<XXXManager>.Instance;
+        }
+    }
+}
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+
+public static void main(string[] args)  
+{
+    XXXManager.Instance().xxxyyyzzz();
+}
+```
+
+好了,又看到陌生的东西了,QSingletonComponent是什么?
+
+和之前的单例的模板很相似,贴上代码自己品吧...
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection;
+
+/// <summary>
+///	组合方式实现单例子
+/// </summary>
+namespace QFramework {
+
+	/// <summary>
+	/// class是引用类型
+	/// </summary>
+	public class QSingletonComponent<T> where T : class
+	{
+		protected static T mInstance = null;
+
+		public static T Instance
+		{
+
+			get {
+				if (mInstance == null) {
+					// 先获取所有非public的构造方法
+					ConstructorInfo[] ctors = typeof(T).GetConstructors (BindingFlags.Instance | BindingFlags.NonPublic);
+					// 从ctors中获取无参的构造方法
+					ConstructorInfo ctor = Array.Find (ctors, c => c.GetParameters ().Length == 0);
+					if (ctor == null)
+						throw new Exception ("Non-public ctor() not found!");
+					// 调用构造方法
+					mInstance = ctor.Invoke (null) as T;
+				}
+
+				return mInstance;
+			}
+		}
+
+		public static void Dispose()
+		{
+			mInstance = null;
+		}
+	}
+}
+```
+
+这样无法继承的问题就解决啦。
+
+缺点是:相比于QSingleton,QSingletonComponent在使用时候多了一次函数调用,不过做中小型项目应该可以应付了。
+
+介绍完毕,睡觉了。。。
+
+#### 欢迎讨论!
 
 #### 相关链接:
 
@@ -127,18 +198,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frottsioaoj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
