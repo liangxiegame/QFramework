@@ -23,6 +23,7 @@
   * [9.减少加班利器-QConsole](/Assets/HowToWriteUnityGameFramework/09.QConsole/QConsole.md)
   * [10.QFramework v0.0.2小结](/Assets/HowToWriteUnityGameFramework/10.AboutVersion0.0.2/AboutVersion0.0.2.md)
   * [11.简易AssetBundle打包工具(一)](/Assets/HowToWriteUnityGameFramework/11.SimpleAssetBundleTool1/SimpleAssetBundleTool1.md)
+  * [12.简易AssetBundle打包工具(二)](/Assets/HowToWriteUnityGameFramework/12.SimpleAssetBundleTool2/SimpleAssetBundleTool2.md)
   * [20.更安全的对象池](/Assets/HowToWriteUnityGameFramework/20.SafeObjectPool/SafeObjectPool.md)
   * [21.使用对象池时的一些细节](/Assets/HowToWriteUnityGameFramework/21.UseSafeObjectPoolSafety/UseSafeObjectPoolSafety.md)
   * [22.简易引用计数器](/Assets/HowToWriteUnityGameFramework/22.SimpleRC/SimpleRC.md)

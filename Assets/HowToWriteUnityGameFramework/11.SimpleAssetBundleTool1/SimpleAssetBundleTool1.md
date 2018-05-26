@@ -6,11 +6,11 @@
 
 首先要确定一个专门打资源包用的目录,我的框架定的目录是
 QArt/QAB,并存放了一些Prefab资源,如下所示。
-![](http://liangxiegame.com/content/images/2016/08/1.png)
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1frotmiittpj30be07ajrm.jpg)
 
 然后选定TestAB目录,将Inspector窗口的设置为如下图所示:
 
-![](http://liangxiegame.com/content/images/2016/08/2.png)
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1frotmjgzywj313b0dfabi.jpg)
 
 一级名字为testab,二级扩展名为unity3d。
 这样AB就设置好了。
@@ -25,7 +25,7 @@ BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuild
 
 贴上编辑器工具代码:
 
-```
+```csharp
 using UnityEditor;
 using System.Collections;
 using UnityEngine;
@@ -74,11 +74,11 @@ namespace QFramework.Editor {
 
 点击QFramework/AB/Build
 
-![](http://liangxiegame.com/content/images/2016/08/3.png)
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frotmw3h0aj307902m74f.jpg)
 
 之后,生成的AB包如下所示:
 
-![](http://liangxiegame.com/content/images/2016/08/4-1.png)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1frotmyvgktj30fg03ojrf.jpg)
 
 AB包就打好了,接下来开始测试AB包的使用。
 
@@ -86,7 +86,7 @@ AB包就打好了,接下来开始测试AB包的使用。
 
 代码很简单,如下所示,一些常识性的问题就不介绍了。
 
-```
+```csharp
 using UnityEngine;
 using System.Collections;
 using System.IO;
@@ -122,7 +122,7 @@ namespace QFramework.Example {
 
 ##### 运行结果:
 
-![](http://liangxiegame.com/content/images/2016/08/5.png)
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1frotn1tljkj30gi09u0sr.jpg)
 
 最初版的打包工具就做好了,接下来到了吐槽的时刻了。
 
@@ -150,16 +150,16 @@ QFramework &游戏框架搭建 QQ 交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1frotn48eioj30by0byt9i.jpg)
 
-#### 支持笔者:
+### 如果有帮助到您:
 
 如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
 - 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-- 下载 Asset Store 上的 QFramework 给个五星 (如果有评论小的真是感激不尽): http://u3d.as/SJ9
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
 - 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
 - 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
