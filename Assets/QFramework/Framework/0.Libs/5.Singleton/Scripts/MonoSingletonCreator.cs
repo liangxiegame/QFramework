@@ -46,8 +46,8 @@ namespace QFramework
 		{
 			T instance = null;
 
-			if (instance != null || (!mIsUnitTestMode && !Application.isPlaying)) return instance;
-			instance = GameObject.FindObjectOfType(typeof(T)) as T;
+			if (!mIsUnitTestMode && !Application.isPlaying) return instance;
+			instance = Object.FindObjectOfType<T>();
 
 			if (instance != null) return instance;
 			MemberInfo info = typeof(T);
