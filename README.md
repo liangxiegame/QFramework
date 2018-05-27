@@ -94,6 +94,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 * [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 #### 参考 Reference:
+* [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
 * [Qarth: Framework For Game Develop With Unity3d](https://github.com/SnowCold/Qarth)
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
