@@ -30,7 +30,7 @@ namespace QFramework.UIExample
 		// TODO: Query
 	}
 
-	public partial class UIMenuPanel : QUIBehaviour
+	public partial class UIMenuPanel : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{

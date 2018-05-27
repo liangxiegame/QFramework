@@ -57,8 +57,8 @@ namespace QFramework
         private int[] mCommOrder; // TODO 是否别分这么细
         private int mTopOrder = TOP_INDEX;
 
-        private List<QUIBehaviour> ToHideList = new List<QUIBehaviour>();
-        private Dictionary<AutoLayerTag,List<QUIBehaviour>> mUILayerMap = new Dictionary<AutoLayerTag, List<QUIBehaviour>>();
+        private List<UIPanel> ToHideList = new List<UIPanel>();
+        private Dictionary<AutoLayerTag,List<UIPanel>> mUILayerMap = new Dictionary<AutoLayerTag, List<UIPanel>>();
 
         public void InitLayer(Transform LayerParent) {
             mAlwayBottomLayer = new GameObject("BottomLayer").AddComponent<RectTransform>();
@@ -96,7 +96,7 @@ namespace QFramework
             mUILayerMap.Clear();
         }
 
-        public void SetLayer(int uiLevel, QUIBehaviour ui)
+        public void SetLayer(int uiLevel, UIPanel ui)
         {
             if (ui == null)
                 return;
@@ -120,11 +120,11 @@ namespace QFramework
         }
 
         //TODO隐藏和关闭在重排之前不得进行创建，要约束一下
-        public void OnUIPanelClose(QUIBehaviour ui) {
+        public void OnUIPanelClose(UIPanel ui) {
             RemoveUILayer(ui);
         }
 
-        private void RemoveUILayer(QUIBehaviour ui, int uiLevel = -10000) {
+        private void RemoveUILayer(UIPanel ui, int uiLevel = -10000) {
             if(uiLevel == -10000)
                 uiLevel = ui.UILayerType;
             switch (uiLevel)
@@ -155,7 +155,7 @@ namespace QFramework
             }
         }
 
-        public void OnUIPanelShow(QUIBehaviour ui)
+        public void OnUIPanelShow(UIPanel ui)
         {
             if (mUILayerMap.ContainsKey(AutoLayerTag.Hide) && mUILayerMap[AutoLayerTag.Hide].Contains(ui))
             {
@@ -164,14 +164,14 @@ namespace QFramework
             }
         }
 
-        public void OnUIPanelHide(QUIBehaviour ui) {
+        public void OnUIPanelHide(UIPanel ui) {
             RemoveUILayer(ui);
             AddUIPanel(AutoLayerTag.Hide, ui);
             ui.Transform.SetParent(mHideLayer);
             InitailRectTrans(ui.Transform as RectTransform);
         }
 
-        private int SortCompare(QUIBehaviour a, QUIBehaviour b)
+        private int SortCompare(UIPanel a, UIPanel b)
         {
             return a.LayerSortIndex.CompareTo(b.LayerSortIndex);
         }
@@ -221,7 +221,7 @@ namespace QFramework
             }
         }
 
-        private void CheckLayerList(ref List<QUIBehaviour> list) {
+        private void CheckLayerList(ref List<UIPanel> list) {
             ToHideList.Clear();
             for (int i = 0; i < list.Count; i++)
             {
@@ -234,7 +234,7 @@ namespace QFramework
                 QUIManager.Instance.HideUI(ToHideList[i].Transform.gameObject.name);
         }
 
-        private void ReSetLayerList(List<QUIBehaviour> list,ref int order)
+        private void ReSetLayerList(List<UIPanel> list,ref int order)
         {
             for (int i = 0; i < list.Count; i++)
             {
@@ -260,9 +260,9 @@ namespace QFramework
 
 
 
-        private void AddCommUIPanel(int uiLevel, QUIBehaviour ui) {
+        private void AddCommUIPanel(int uiLevel, UIPanel ui) {
             if (!mUILayerMap.ContainsKey(AutoLayerTag.Comm))
-                mUILayerMap.Add(AutoLayerTag.Comm, new List<QUIBehaviour>());
+                mUILayerMap.Add(AutoLayerTag.Comm, new List<UIPanel>());
             mUILayerMap[AutoLayerTag.Comm].Add(ui);
 
             mCommOrder[uiLevel + diffValue] += mNormalPadding;
@@ -278,9 +278,9 @@ namespace QFramework
         }
 
 
-        private void AddUIPanel(AutoLayerTag tag, QUIBehaviour ui) {
+        private void AddUIPanel(AutoLayerTag tag, UIPanel ui) {
             if (!mUILayerMap.ContainsKey(tag))
-                mUILayerMap.Add(tag, new List<QUIBehaviour>());
+                mUILayerMap.Add(tag, new List<UIPanel>());
             mUILayerMap[tag].Add(ui);
             var order = HIDE_INDEX;
             switch (tag)
@@ -300,7 +300,7 @@ namespace QFramework
         }
 
 
-        private bool RemoveUIPanel(AutoLayerTag tag,QUIBehaviour ui)
+        private bool RemoveUIPanel(AutoLayerTag tag,UIPanel ui)
         {
             if (mUILayerMap.ContainsKey(tag) && mUILayerMap[tag].Contains(ui))
                 return mUILayerMap[tag].Remove(ui);

@@ -43,8 +43,8 @@ namespace QFramework
         /// <param name="selfPanel"></param>
         /// <param name="btn"></param>
         /// <typeparam name="T"></typeparam>
-        public static void BindTransition<TSrcPanel, TDstPanel>(this Button btn) where TSrcPanel : QUIBehaviour
-            where TDstPanel : QUIBehaviour
+        public static void BindTransition<TSrcPanel, TDstPanel>(this Button btn) where TSrcPanel : UIPanel
+            where TDstPanel : UIPanel
         {
             btn.onClick.AddListener(() =>
             {

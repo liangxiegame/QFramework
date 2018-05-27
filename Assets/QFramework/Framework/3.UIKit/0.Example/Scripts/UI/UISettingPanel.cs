@@ -27,12 +27,12 @@ using UnityEngine;
 
 namespace QFramework.UIExample
 {
-	public class UISettingPanelData : UIPageData
+	public class UISettingPanelData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UISettingPanel : QUIBehaviour
+	public partial class UISettingPanel : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{

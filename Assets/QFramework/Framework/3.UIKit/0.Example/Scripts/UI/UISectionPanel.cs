@@ -27,12 +27,12 @@ using UnityEngine.UI;
 
 namespace QFramework.UIExample
 {
-	public class UISectionPanelData : UIPageData
+	public class UISectionPanelData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UISectionPanel : QUIBehaviour
+	public partial class UISectionPanel : UIPanel
 	{
 		private const int SectionNumber = 4;
 

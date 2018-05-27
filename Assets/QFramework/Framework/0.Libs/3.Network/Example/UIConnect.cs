@@ -30,12 +30,12 @@ using UniRx;
 
 namespace QFramework.Example
 {
-	public class UIConnectData : UIPageData
+	public class UIConnectData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UIConnect : QUIBehaviour
+	public partial class UIConnect : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{

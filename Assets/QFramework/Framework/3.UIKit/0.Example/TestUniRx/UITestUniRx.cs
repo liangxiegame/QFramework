@@ -32,12 +32,12 @@ using UniRx;
 
 namespace QFramework.Example
 {
-	public class UITestUniRxData : UIPageData
+	public class UITestUniRxData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UITestUniRx : QUIBehaviour
+	public partial class UITestUniRx : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{

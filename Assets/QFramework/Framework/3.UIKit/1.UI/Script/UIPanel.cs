@@ -1,12 +1,11 @@
 /****************************************************************************
- * Copyright (c) 2017 xiaojun@putao.com
+ * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 liangxie
- * Copyright (c) 2017 maoling@putao.com
+ * Copyright (c) 2017 maoling
+ * Copyright (c) 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,11 +37,16 @@ namespace QFramework
 	{
 	}
 
-	public class UIPageData : IUIData
+	public class UIPanelData : IUIData
 	{
 	}
 
-	public abstract class QUIBehaviour : QMonoBehaviour, IUIBehaviour
+	[Obsolete("弃用啦")]
+	public abstract class QUIBehaviour : UIPanel
+	{
+	}
+
+	public abstract class UIPanel : QMonoBehaviour, IUIBehaviour
 	{
 		public Transform Transform
 		{
@@ -75,14 +79,14 @@ namespace QFramework
             { mLayerSortIndex = value; }
         }
 
-        public static QUIBehaviour Load(string panelName, string assetBundleName = null)
+        public static UIPanel Load(string panelName, string assetBundleName = null)
 		{
 			var panelLoader = new DefaultUIPanelLoader();
 			var panelPrefab = assetBundleName.IsNullOrEmpty()
 				? panelLoader.LoadPanelPrefab(panelName)
 				: panelLoader.LoadPanelPrefab(assetBundleName, panelName);
 			var obj = Instantiate(panelPrefab);
-			var retScript = obj.GetComponent<QUIBehaviour>();
+			var retScript = obj.GetComponent<UIPanel>();
 			retScript.mUiPanelLoader = panelLoader;
 			return retScript;
 		}

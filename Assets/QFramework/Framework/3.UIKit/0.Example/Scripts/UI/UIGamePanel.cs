@@ -25,7 +25,7 @@
 
 namespace QFramework.UIExample
 {
-	public class UIGamePanelData : UIPageData
+	public class UIGamePanelData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 		public int SectionNo;
@@ -36,7 +36,7 @@ namespace QFramework.UIExample
 		}
 	}
 
-	public partial class UIGamePanel : QUIBehaviour
+	public partial class UIGamePanel : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{

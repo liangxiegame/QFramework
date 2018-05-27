@@ -182,9 +182,9 @@ namespace QFramework
 				return ui.Transform.gameObject;
 			}
 
-			ui = QUIBehaviour.Load(uiBehaviourName,assetBundleName);
+			ui = UIPanel.Load(uiBehaviourName,assetBundleName);
 
-			mLayerLogic.SetLayer((int)uiLevel,ui as QUIBehaviour);
+			mLayerLogic.SetLayer((int)uiLevel,ui as UIPanel);
             mUIPanelStack.OnCreatUI((int)uiLevel,ui,uiBehaviourName);
             ReSetLayerIndexDirty();
             ui.Transform.gameObject.name = uiBehaviourName;
@@ -202,7 +202,7 @@ namespace QFramework
 			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
 			{
 				uiBehaviour.Show();
-                mLayerLogic.OnUIPanelShow(uiBehaviour as QUIBehaviour);
+                mLayerLogic.OnUIPanelShow(uiBehaviour as UIPanel);
                 ReSetLayerIndexDirty();
             }
 		}
@@ -217,7 +217,7 @@ namespace QFramework
 			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
 			{
 				uiBehaviour.Hide();
-                mLayerLogic.OnUIPanelHide(uiBehaviour as QUIBehaviour);
+                mLayerLogic.OnUIPanelHide(uiBehaviour as UIPanel);
                 ReSetLayerIndexDirty();
             }
 		}
@@ -252,7 +252,7 @@ namespace QFramework
 				behaviour.Close();
 				mAllUI.Remove(behaviourName);
                 mUIPanelStack.RemoveUI(behaviourName,behaviour);
-                mLayerLogic.OnUIPanelClose(behaviour as QUIBehaviour);
+                mLayerLogic.OnUIPanelClose(behaviour as UIPanel);
                 ReSetLayerIndexDirty();
             }
 		}
@@ -262,12 +262,12 @@ namespace QFramework
 		/// </summary>
 		/// <param name="uiBehaviourName"></param>
 		/// <returns></returns>
-		public QUIBehaviour GetUI(string uiBehaviourName)
+		public UIPanel GetUI(string uiBehaviourName)
 		{
 			IUIBehaviour retUiBehaviour = null;
 			if (mAllUI.TryGetValue(uiBehaviourName, out retUiBehaviour))
 			{
-				return retUiBehaviour as QUIBehaviour;
+				return retUiBehaviour as UIPanel;
 			}
 			return null;
 		}
@@ -350,7 +350,7 @@ namespace QFramework
         /// <summary>
         /// Create&ShowUI
         /// </summary>
-        public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,string assetBundleName = null,string prefabName = null) where T : QUIBehaviour
+        public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,string assetBundleName = null,string prefabName = null) where T : UIPanel
 		{
 			var behaviourName = prefabName ?? GetUIBehaviourName<T>();
 
@@ -359,7 +359,7 @@ namespace QFramework
                 CreateUI(behaviourName, canvasLevel, uiData, assetBundleName);
             }
             else {
-                mLayerLogic.OnUIPanelShow(mAllUI[behaviourName] as QUIBehaviour);
+                mLayerLogic.OnUIPanelShow(mAllUI[behaviourName] as UIPanel);
             }
             
             mAllUI[behaviourName].Show();
@@ -368,22 +368,22 @@ namespace QFramework
 		}
 
 
-		public void ShowUI<T>() where T : QUIBehaviour
+		public void ShowUI<T>() where T : UIPanel
 		{
 			ShowUI(GetUIBehaviourName<T>());
 		}
 
-		public void HideUI<T>() where T : QUIBehaviour
+		public void HideUI<T>() where T : UIPanel
 		{
 			HideUI(GetUIBehaviourName<T>());
 		}
 
-		public void CloseUI<T>() where T : QUIBehaviour
+		public void CloseUI<T>() where T : UIPanel
 		{
 			CloseUI(GetUIBehaviourName<T>());
 		}
 
-		public T GetUI<T>() where T : QUIBehaviour
+		public T GetUI<T>() where T : UIPanel
 		{
 			return GetUI(GetUIBehaviourName<T>()) as T;
 		}
@@ -398,23 +398,23 @@ namespace QFramework
 	public static class UIMgr
 	{
 		internal static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
-			string prefabName = null) where T : QUIBehaviour
+			string prefabName = null) where T : UIPanel
 		{
 			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName,prefabName);
 		}
 
-		internal static QUIBehaviour OpenPanel(string panelName, UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
+		internal static UIPanel OpenPanel(string panelName, UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
 			string assetBundleName = null)
 		{
-			return QUIManager.Instance.OpenUI(panelName,canvasLevel,assetBundleName) as QUIBehaviour;
+			return QUIManager.Instance.OpenUI(panelName,canvasLevel,assetBundleName) as UIPanel;
 		}
 
-		internal static void ClosePanel<T>() where T : QUIBehaviour
+		internal static void ClosePanel<T>() where T : UIPanel
 		{
 			QUIManager.Instance.CloseUI<T>();
 		}
 
-		internal static T GetPanel<T>() where T : QUIBehaviour
+		internal static T GetPanel<T>() where T : UIPanel
 		{
 			return QUIManager.Instance.GetUI<T>();
 		}
@@ -426,7 +426,7 @@ namespace QFramework
 		}
 
 		#region 给脚本层用的api
-		public static QUIBehaviour GetPanel(string panelName)
+		public static UIPanel GetPanel(string panelName)
 		{
 			return QUIManager.Instance.GetUI(panelName);
 		}

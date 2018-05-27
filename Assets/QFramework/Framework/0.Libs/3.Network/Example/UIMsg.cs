@@ -35,12 +35,12 @@ namespace QFramework
         Msg=QMgrID.UI,
     }
 
-	public class UIMsgData : UIPageData
+	public class UIMsgData : UIPanelData
 	{
 		// TODO: Query Mgr's Data
 	}
 
-	public partial class UIMsg : QUIBehaviour
+	public partial class UIMsg : UIPanel
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
