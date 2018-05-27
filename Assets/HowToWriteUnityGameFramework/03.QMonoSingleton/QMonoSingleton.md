@@ -6,14 +6,14 @@
 先分析下需求:
 
 * 约束脚本实例对象的个数。 
-* 约束GameObject的个数。 
-* 接收MonoBehaviour生命周期。 
-* 销毁单例和对应的GameObject。
+* 约束 GameObject 的个数。 
+* 接收 MonoBehaviour 生命周期。 
+* 销毁单例和对应的 GameObject。
 
 首先，第一点,约束脚本实例对象的个数,这个在上一篇中已经实现了。
-但是第二点,约束GameObject的个数,这个需求,还没有思路,只好在游戏运行时判断有多少个GameObject已经挂上了该脚本,然后如果个数大于1抛出错误即可。 
-第三点,通过继承MonoBehaviour实现,只要覆写相应的回调方法即可。 第四点,在脚本销毁时,把静态实例置空。 完整的代码就如下所示:
-```
+但是第二点,约束 GameObject 的个数,这个需求,还没有思路,只好在游戏运行时判断有多少个 GameObject 已经挂上了该脚本,然后如果个数大于 1 抛出错误即可。 
+第三点,通过继承 MonoBehaviour 实现,只要覆写相应的回调方法即可。 第四点,在脚本销毁时,把静态实例置空。 完整的代码就如下所示:
+```csharp
 using UnityEngine;
 
 /// <summary>
@@ -68,7 +68,7 @@ namespace QFramework
 }
 ```
 #### 总结:
-目前已经实现了两种单例的模板,一种是需要接收Unity的生命周期的,一种是不需要接收生命周期的,可以配合着使用。虽然不是本人实现的,但是用起来可是超级爽快,2333。
+目前已经实现了两种单例的模板,一种是需要接收 Unity 的生命周期的,一种是不需要接收生命周期的,可以配合着使用。虽然不是本人实现的,但是用起来可是超级爽快,2333。
 
 ### 相关链接:
 
@@ -76,7 +76,7 @@ namespace QFramework
 
 [教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-QFramework&游戏框架搭建QQ交流群: 623597263
+QFramework &游戏框架搭建QQ交流群: 623597263
 
 转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
 
@@ -91,7 +91,7 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 - 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
 - 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
 - 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
 - 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
