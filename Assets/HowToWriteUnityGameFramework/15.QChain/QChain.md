@@ -1,119 +1,79 @@
-# Unity 游戏框架搭建 (一) 概述
+# Unity 游戏框架搭建 (十五) 优雅的 ActionKit(QChain)
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+加班加了三个月终于喘了口气，博客很久没有更新了，这段期间框架加了很多Feature，大部分不太稳定，这些Feature中实现起来比较简单而且用的比较稳定的就是链式编程支持了。
 
-关于Unity的架构有如下几种常用的方式。
+#### 什么是链式编程?
 
-#### 1.EmptyGO:
-
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
-
-缺点:逻辑代码散落在各处,不适合大型项目。
-
-#### 2.Simple GameManager:
-
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
-
-将不同的功能单独管理。如下:
-
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
-
-#### 实现一个简单的PoolManager<br>
-
-
+我想大家应该都接触过DOTween，用起来是这样的。
 ``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
+	transform.DOMove(Vector3.one, 0.5f)
+				.SetEase(Ease.InBack)
+				.OnKill(() => Debug.Log("on killed"))
+				.OnComplete(() => Debug.Log("on completed"));
+```
+像以上.XXX().YYY().ZZZ()这种写法就叫链式编程了。
 
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
+#### QChain是什么?
 
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
-}
+QFramework中有零零散散支持了链式写法，打算整理出来作为一个独立的库进行过维护。目前的使用方式如下:
+``` csharp
+			this.Show()
+				.LocalIdentity() // 归一化
+				.LocalPosition(Vector3.back)
+				.LocalPositionX(1.0f)
+				.Sequence() // 开始序列
+				.Delay(1.0f)
+				.Event(() => Log.I("frame event"))
+				.Until(() => count == 2)
+				.Event(() => Log.I("count is 2"))
+				.Begin() // 执行序列
+				.DisposeWhen(() => count == 3)
+				.OnDisposed(() => Log.I("On Disposed"));
+
+			this.Repeat()
+				.Delay(1.0f)
+				.Event(() => count++)
+				.Begin()
+				.DisposeWhenGameObjDestroyed();
+
+			this.Repeat(5)
+				.Event(() => Log.I(" Hello workd"))
+				.Begin()
+				.DisposeWhenFinished(); // 默认是这个
+			
+			this.Sequence()
+				.Delay(1.0f)
+				.Event(() => Log.I("delay one second"))
+				.Delay(1.0f)
+				.Event(() => Log.E("delay two second"))
+				.Begin();
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+#### 为什么要用QChain
 
-更好的实现方式是将一个PoolManager分成:
-
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
-
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
-
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
-
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
-
-* SaveManager: 配置管理。
-
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
-
-#### 4.将View和Model之间增加一个媒介层。
-
-MVCS:StrangeIOC插件。
-
-MVVM:uFrame插件。
-
-#### 5. ECS(Entity Component Based  System)
-
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+前段时间在给公司写一个蓝牙的插件,比较麻烦的是蓝牙管理类的状态同步和当状态改变时通知其他对象的问题。但是有了QChain，蓝牙连接的代码可以这样写:
+``` csharp
+			this.Sequence()
+				.Event(() => PTBluetooth.Initialize(true, false))
+				.Until(() => PTBluetooth.IsInitialized)
+				.Until(() => PTBluetooth.IsOpened)
+				.Event(() => PTBluetooth.ScanPeripheral((address, name, rssi, adInfo) => name.Contains("device")))
+				.Until(() => PTBluetooth.ScannedDevices.Count >= 1)
+				.Event(() => PTBluetooth.ConnectToPeripheral(PTBluetooth.ScannedDevices[0].Address))
+				.Begin()
+				.DisposeWhen(()=>
+				{
+					if (PTBluetooth.IsInitialized && !PTBluetooth.IsOpened)
+					{
+						// TODO: 这里处理初始化失败逻辑
+						return true;
+					}
+					
+					// ... 其他失败逻辑处理
+					return false;
+				});
+```
+这样写的好处是，逻辑不会分散到处都是。相比于协程,生命周期更好进行管理(不用管理协程对象)，可作为协程的替代方案。还有其他的好处随着本系列的更新逐个讨论。
 
 #### 相关链接:
 
@@ -127,18 +87,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws2.sinaimg.cn/large/006tKfTcgy1frqsk953swj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建
