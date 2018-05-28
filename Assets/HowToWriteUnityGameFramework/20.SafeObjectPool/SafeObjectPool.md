@@ -13,7 +13,7 @@
 现在让我们思考下 SimpleObjectPool 哪里不安全?
 
 贴上 SimpleObjectPool 的源码:
-``` C#
+``` csharp
     public class SimpleObjectPool<T> : Pool<T>
     {
         readonly Action<T> mResetMethod;
@@ -42,7 +42,7 @@
 
 为了解决这个问题，我们要给泛型T加上约束。要求可被对象池管理的对象必须是某种类型。是什么类型呢？就是IPoolAble类型。
 
-``` C#
+``` csharp
     public interface IPoolable
     {
         
@@ -51,7 +51,7 @@
 
 然后我们要给对象池类的泛型加上类型约束，本文的对象池我们叫SafeObjectPool。
 
-``` C#
+``` csharp
     public class SafeObjectPool<T> : Pool<T> where T : IPoolable
 ```
 
@@ -61,7 +61,7 @@ OK，第一个安全问题解决了。
 
 我们在 IPoolable 接口上增加一个 bool 变量来表示对象是否被回收过。
 
-``` C#
+``` csharp
     public interface IPoolAble
     {        
         bool IsRecycled { get; set; }
@@ -69,7 +69,7 @@ OK，第一个安全问题解决了。
 ```
 
 接着在进行 Allocate 和 Recycle 时进行标记和拦截。
-``` C#
+``` csharp
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
     {
 		  ...
@@ -96,7 +96,7 @@ OK，第一个安全问题解决了。
 ```
 
 OK,第二个安全问题解决了。接下来第三个不是安全问题，是职责问题。我们再次观察下上篇文章中的SimpleObjectPool
-``` C#
+``` csharp
     public class SimpleObjectPool<T> : Pool<T>
     {
         readonly Action<T> mResetMethod;
@@ -125,7 +125,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 在框架设计中我们要收敛一些了，重置的操作要由对象自己来完成，我们要在 IPoolable 接口增加一个接收重置事件的方法。
 
-``` C#
+``` csharp
     public interface IPoolAble
     {
         void OnRecycled();
@@ -136,7 +136,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 当 SafeObjectPool 回收对象时来触发它。
 
-``` C#
+``` csharp
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
     {
 		  ...
@@ -159,7 +159,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 同样地，在 SimpleObjectPool 中，创建对象的控制权我们也开放了出去，在 SafeObjectPool 中我们要收回来。还记得上篇文章的 CustomObjectFactory 嘛?
 
-``` C#
+``` csharp
     public class CustomObjectFactory<T> : IObjectFactory<T>
     {
         public CustomObjectFactory(Func<T> factoryMethod)
@@ -178,7 +178,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有的，只要开发者有办法搞出个对象就可以。现在我们要加上限制，大部分对象是 new 出来的。所以我们要设计一个可以 new 出对象的工厂。我们叫它 DefaultObjectFactory。
 
-``` C#
+``` csharp
     public class DefaultObjectFactory<T> : IObjectFactory<T> where T : new()
     {
         public T Create()
@@ -192,7 +192,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 
 接下来我们在构造 SafeObjectPool 时，创建一个 DefaultObjectFactory。
 
-``` C#
+``` csharp
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble, new()
     {
         public SafeObjectPool()
@@ -208,7 +208,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 
 我们先测试下:
 
-``` C#
+``` csharp
 		class Msg : IPoolAble
 		{
 			public void OnRecycled()
@@ -247,7 +247,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 由于是框架级的对象池，例子将上文的 Fish 改成 Msg。
 
 输出结果:
-``` C#
+``` csharp
 OnRecycled 
 OnRecycled
 ... x50
@@ -266,7 +266,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 
 首先，Msg 的对象池全局只有一个就够了，为了实现这个需求，我们会想到用单例，但是 SafeObjectPool 已经继承了 Pool 了，不能再继承 QSingleton 了。还记得以前介绍的 QSingletonProperty 嘛？是时候该登场了，代码如下所示。
 
-``` C#
+``` csharp
     /// <summary>
     /// Object pool.
     /// </summary>
@@ -299,7 +299,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 我们现在不想让用户通过 SafeObjectPool 来 Allocate 和 Recycle 池对象了，那么 Allocate 和 Recycle 的控制权就要交给池对象来管理。
 
 由于控制权交给池对象管理这个需求不是必须的，所以我们要再提供一个接口
-``` C#
+``` csharp
     public interface IPoolType
     {
         void Recycle2Cache();
@@ -309,7 +309,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 为什么只有一个 Recycle2Cache,没有 Allocate 相关的方法呢？
 因为在池对象创建之前我们没有任何池对象，只能用静态方法创建。这就需要池对象提供一个静态的 Allocate 了。使用方法如下所示。
 
-``` C#
+``` csharp
 		class Msg : IPoolAble,IPoolType
 		{
 			#region IPoolAble 实现
@@ -342,7 +342,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 
 贴上测试代码:
 
-``` C#
+``` csharp
 			SafeObjectPool<Msg>.Instance.Init(100, 50);			
 			
 			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
@@ -364,7 +364,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 ```
 
 测试结果:
-``` C#
+``` csharp
 OnRecycled 
 OnRecycled
 ... x50
@@ -377,7 +377,7 @@ msgPool.CurCount:40
 
 测试结果一致，现在贴上 SafeObejctPool 的全部代码。这篇文章内容好多，写得我都快吐了- -。
 
-``` C#
+``` csharp
    using System;
 
     /// <summary>
@@ -545,16 +545,16 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws3.sinaimg.cn/large/006tKfTcgy1frqsbrq6psj30by0byt9i.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
 如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
 - 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
 - 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
 - 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
 - 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
