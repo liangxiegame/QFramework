@@ -40,6 +40,9 @@ namespace QFramework
 	public class UIPanelData : IUIData
 	{
 	}
+	
+	[Obsolete("弃用啦")]
+	public class UIPageData : UIPanelData{}
 
 	[Obsolete("弃用啦")]
 	public abstract class QUIBehaviour : UIPanel

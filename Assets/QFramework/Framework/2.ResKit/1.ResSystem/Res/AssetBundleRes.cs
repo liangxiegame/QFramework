@@ -82,8 +82,8 @@ namespace QFramework
             {
             }
             else
-            {
 #endif
+            {
                 var url = QFrameworkSettingData.AssetBundleName2Url(mAssetName);
                 var bundle = AssetBundle.LoadFromFile(url);
 

@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using UniRx;
 
 namespace QFramework
@@ -150,7 +151,7 @@ namespace QFramework
 			}
 		}
 
-		private string mHttpUrl;
+		private string mHttpUrl = string.Empty;
 		private static void BuildWithTarget(BuildTarget buildTarget)
 		{
 			AssetDatabase.RemoveUnusedAssetBundleNames();
