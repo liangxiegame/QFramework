@@ -41,8 +41,8 @@ namespace QFramework
 			ProcessAssetBundleRes(table);
 
 		    var filePath =
-		        (FilePath.StreamingAssetsPath + QFrameworkSettingData.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
-		        QFrameworkSettingData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
+		        (FilePath.StreamingAssetsPath + FrameworkSettingData.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
+		        FrameworkSettingData.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
 			table.Save(filePath);
 			AssetDatabase.Refresh ();
 		}
@@ -97,7 +97,7 @@ namespace QFramework
             }
 
             abb.assetNames = fileNameList.ToArray();
-			BuildPipeline.BuildAssetBundles(QFrameworkSettingData.EDITOR_AB_EXPORT_ROOT_FOLDER,
+			BuildPipeline.BuildAssetBundles(FrameworkSettingData.EDITOR_AB_EXPORT_ROOT_FOLDER,
                 new AssetBundleBuild[1] { abb },
                 BuildAssetBundleOptions.ChunkBasedCompression,
                 BuildTarget.StandaloneWindows);

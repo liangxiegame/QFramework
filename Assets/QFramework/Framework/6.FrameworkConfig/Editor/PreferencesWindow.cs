@@ -40,7 +40,7 @@ namespace QFramework
 		{
 			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
-			frameworkConfigEditorWindow.CurSettingData = QFrameworkSettingData.Load();
+			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
 			frameworkConfigEditorWindow.Show();
 			OnShow();
 		}
@@ -132,7 +132,7 @@ namespace QFramework
 			});
 		}
 
-		public QFrameworkSettingData CurSettingData;
+		public FrameworkSettingData CurSettingData;
 
 		private void OnGUI() 
 		{

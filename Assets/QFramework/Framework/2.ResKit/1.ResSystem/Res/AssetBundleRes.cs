@@ -84,7 +84,7 @@ namespace QFramework
             else
 #endif
             {
-                var url = QFrameworkSettingData.AssetBundleName2Url(mAssetName);
+                var url = FrameworkSettingData.AssetBundleName2Url(mAssetName);
                 var bundle = AssetBundle.LoadFromFile(url);
 
                 mUnloadFlag = true;
@@ -134,7 +134,7 @@ namespace QFramework
             else
 #endif
             {
-                var url = QFrameworkSettingData.AssetBundleName2Url(mAssetName);
+                var url = FrameworkSettingData.AssetBundleName2Url(mAssetName);
                 var abcR = AssetBundle.LoadFromFileAsync(url);
 
                 mAssetBundleCreateRequest = abcR;
