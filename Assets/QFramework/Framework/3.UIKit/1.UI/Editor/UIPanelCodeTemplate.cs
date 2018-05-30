@@ -33,7 +33,7 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("protected override void InitUI(IUIData uiData = null)");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t").Append("\t")
-				.AppendLine("mData = uiData as " + behaviourName + "Data ?? new " + behaviourName + "();");
+				.AppendLine("mData = uiData as " + behaviourName + "Data ?? new " + behaviourName + "Data();");
 			strBuilder.Append("\t\t").Append("\t").AppendLine("//please add init code here");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,QMsg msg)");
