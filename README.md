@@ -43,11 +43,18 @@ this.ExecuteNode(sequenceNode);
 var loader = ResLoader.Allocate<ResLoader>();
 
 // load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("Resources/smobj")
+loader.LoadSync<GameObject>("Resources/smobj");
 
-loader.LoadSync<Texture2D>("Resources/Bg")
+loader.LoadSync<Texture2D>("Resources/Bg");
 
-// resycle this panel/monobehaivour loaded res when destroyed 
+// load by asset bundle's assetName
+loader.LoadSync<Texture2D>("HomeBg");
+
+// load by asset bundle name and assetName
+loader.LoadSync<Texture2D>("home","HomeBg");
+
+
+// resycle this panel/monobehaivour's loaded res when destroyed 
 loader.Recycle2Cache()
 loader = null
 ```
@@ -55,13 +62,13 @@ loader = null
 **3.UI Kit**
 ``` csharp
 // open a panel from assetBundle
-UIMgr.OpenPanel<UIMainPanel>()
+UIMgr.OpenPanel<UIMainPanel>();
 
 // load a panel from specified Resources
-UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel")
+UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
 
 // load a panel from specield assetName
-UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1")
+UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ```
 #### 技术支持 Tech Support：
 * [文档 Document](http://qframework.io)
