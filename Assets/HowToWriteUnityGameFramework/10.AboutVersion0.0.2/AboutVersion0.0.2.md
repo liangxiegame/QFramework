@@ -52,16 +52,6 @@ UI模块还没有写对应的文章来介绍。因为没有找到一种自己认
 
 #### 欢迎讨论!
 
-附:[我的框架地址](https://github.com/liangxiegame/QFramework)
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)
-
-微信公众号:liangxiegame
-
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1frothezp1cj30by0byt9i.jpg)
-
-#output/writing/Unity游戏框架搭建
-
 #### 相关链接:
 
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework

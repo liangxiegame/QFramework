@@ -31,7 +31,10 @@ namespace QFramework.Example
 {
 	public class SimpleObjectPoolExample : MonoBehaviour
 	{
-		class Fish
+		/// <summary>
+		/// 
+		/// </summary>
+		public class Fish 
 		{
 			
 		}

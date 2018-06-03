@@ -94,7 +94,7 @@ namespace QFramework
             }
         }
 
-        public bool IsRecycled { get; set; }
+        bool IPoolable.IsRecycled { get; set; }
 
         public static ResLoader Allocate(IResLoaderStrategy strategy = null)
         {
@@ -105,7 +105,6 @@ namespace QFramework
 
         public ResLoader()
         {
-            IsRecycled = false;
             SetStrategy(sDefaultStrategy);
         }
 
@@ -643,7 +642,7 @@ namespace QFramework
             mCallbackRecardList.AddLast(new CallBackWrap(res, listener));
         }
 
-        public void OnRecycled()
+        void IPoolable.OnRecycled()
         {
             ReleaseAllRes();
         }

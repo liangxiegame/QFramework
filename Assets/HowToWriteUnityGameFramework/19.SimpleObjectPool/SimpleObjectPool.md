@@ -1,120 +1,206 @@
-# Unity 游戏框架搭建 (一) 概述
+#  Unity 游戏框架搭建 (二十二)  简易引用计数器
 
-为了重构手头的一款项目,翻出来当时未接触Unity时候收藏的视频[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html),对于我这种初学者来说全是干货。简单的总结了一下,以后慢慢提炼。
+引用计数是一个很好用的技术概念，不要被这个名字吓到了。首先来讲讲引用计数是干嘛的。
 
-关于Unity的架构有如下几种常用的方式。
+#### 引用计数使用场景
+有一间黑色的屋子，里边有一盏灯。当第一个人进屋的时候灯会打开，之后的人进来则不用再次打开了，因为已经开过了。当屋子里的所有人离开的时候，灯则会关闭。
 
-#### 1.EmptyGO:
+我们先定义灯的对象模型:
+``` C#
+	class Light
+	{
+		public void Open()
+		{
+			Log.I("灯打开了");
+		}
 
-  在Hierarchy上创建一个空的GameObject,然后挂上所有与GameObject无关的逻辑控制的脚本。使用GameObject.Find()访问对象数据。
+		public void Close()
+		{
+			Log.I("灯关闭了");
+		}
+	}
+```
+很简单就是两个方法而已。
 
-缺点:逻辑代码散落在各处,不适合大型项目。
+再定义屋子的类,屋子应该持有一个Light的对象，并且要记录人们的进出。当有人进入，进入后当前房间只有一个人的时候，要把灯打开。当最后一个人离开的时候灯要关闭。
 
-#### 2.Simple GameManager:
+代码如下:
+``` C#
+	class Room
+	{
+		private Light mLight = new Light();
 
-  所有与GameObject无关的逻辑都放在一个单例中。
-缺点:单一文件过于庞大。
-#### 3.Manager Of Managers:
+		private int mPeopleCount = 0;
+		
+		public void EnterPeople()
+		{
+			if (mPeopleCount == 0)
+			{
+				mLight.Open();
+			}
 
-将不同的功能单独管理。如下:
+			++mPeopleCount;
+			
+			Log.I("一个人走进房间,房间里当前有{0}个人",mPeopleCount);
+		}
 
-* MainManager: 作为入口管理器。 
-* EventManager: 消息管理。 
-* GUIManager: 图形视图管理。 
-* AudioManager: 音效管理。 
-* PoolManager: GameObject管理（减少动态开辟内存消耗,减少GC)。
+		public void LeavePeople()
+		{
+			--mPeopleCount;
+			
+			if (mPeopleCount == 0)
+			{
+				mLight.Close();
+			}
 
-#### 实现一个简单的PoolManager<br>
+			Log.I("一个人走出房间,房间里当前有{0}个人", mPeopleCount);
+		}
+	}
+```
+很简单，我们来看下测试代码。
 
-
-``` csharp
-// 存储动可服用的GameObject。
-private List<GameObject> dormantObjects = new List<GameObject>();  
-// 在dormantObjects获取与go类型相同的GameObject,如果没有则new一个。
-public GameObject Spawn(GameObject go)  
-{
-     GameObject temp = null;
-     if (dormantObjects.Count > 0)
-     {
-          foreach (GameObject dob in dormantObjects)
-          {
-               if (dob.name == go.name)
-               {
-                    // Find an available GameObject
-                    temp = dob;
-                    dormantObjects.Remove(temp);
-                    return temp;
-               }
-          }
-     }
-     // Now Instantiate a new GameObject.
-     temp = GameObject.Instantialte(go) as GameObject;
-     temp.name = go.name;
-     return temp;
-}
-
-// 将用完的GameObject放入dormantObjects中
-public void Despawn(GameObject go)  
-{
-     go.transform.parent = PoolManager.transform;
-     go.SetActive(false);
-     dormantObject.Add(go);
-     Trim();
-}
-
-//FIFO 如果dormantObjects大于最大个数则将之前的GameObject都推出来。
-public void Trim()  
-{
-     while (dormantObjects.Count > Capacity)
-     {
-          GameObject dob = dormantObjects[0];
-          dormantObjects.RemoveAt(0);
-          Destroy(dob);
-     }
-}
+``` C#
+			var room = new Room();
+			room.EnterPeople();
+			room.EnterPeople();
+			room.EnterPeople();
+			
+			room.LeavePeople();
+			room.LeavePeople();
+			room.LeavePeople();
+			
+			room.EnterPeople();
 ```
 
-##### 缺点:
-* 不能管理prefabs。
-* 没有进行分类。
+看下输出的结果:
+``` C#
+灯打开了
+一个人走进房间,房间里当前有1个人
+一个人走进房间,房间里当前有2个人
+一个人走进房间,房间里当前有3个人
+一个人走出房间,房间里当前有2个人
+一个人走出房间,房间里当前有1个人
+一个人走出房间,房间里当前有0个人
+灯关闭了
+灯打开了
+一个人走进房间,房间里当前有1个人
+```
 
-更好的实现方式是将一个PoolManager分成:
+OK.以上就是引用计数这项计数的使用场景的所有代码。
+测试的代码比较整齐，很容易算出来当前有多少个人在屋子里，所以看不出来引用计数的作用。但是在日常开发中，我们可能会把EnterPeople和LeavePeople散落在工程的各个位置。这样就很难统计，这时候引用计数的作用就很明显了，它可以自动帮助你判断什么时候进行开灯关灯操作，而你不用写开关灯的一行代码。
 
-* 若干个 SpawnPool。
-  * 每个SpawnPool分成PrefabPool和PoolManager。
-    * PrefabPool负责Prefab的加载和卸载。
-    * PoolManager与之前的PoolMananger功能一样,负责GameObject的Spawn、Despawn和Trim。
+这个例子比较接近生活，假如笔者再换个例子，我们把Light对象换成资源对象，其开灯对应加载资源，关灯对应卸载资源。而屋子则是对应资源管理器,EnterPeople对应申请资源对象，LeavePeople对应归还资源对象。这样你只管在各个界面中申请各个资源，只要在界面关闭的时候归还各个资源对象就可以不用关心资源的加载和卸载了，可以减轻大脑的负荷。
 
-##### 要注意的是:
-* 每个SpawnPool是EmeptyGO。
-* 每个PoolManager管理两个List (Active,Deactive)。
+#### 简易计数器实现:
 
-讲了一堆,最后告诉有一个NB的插件叫PoolManager- -。
+计数器的接口很简单,代码如下:
+``` C#
+    public interface IRefCounter
+    {
+        int RefCount { get; }
 
-* LevelManager: 关卡管理。
-  推荐插件:MadLevelManager。
-  GameManager: 游戏管理。
-    [C#程序员整理的Unity 3D笔记（十二）：Unity3D之单体模式实现GameManager](http://www.tuicool.com/articles/u6NN7v)
+        void Retain(object refOwner = null);
+        void Release(object refOwner = null);
+    }
+```
+Retain是增加引用计数(RefCount+1),Release减去一个引用计数(RefCount—)。
+在接下来的具体实现中，当RefCount降为0时我们需要捕获一个事件,这个事件叫OnZeroRef。
+代码如下:
 
-* SaveManager: 配置管理。
+``` C#
+    public class SimpleRC : IRefCounter
+    {
+        public SimpleRC()
+        {
+            RefCount = 0;
+        }
 
-* 实现Resume,功能玩到一半数据临时存储。
-    推荐SaveManager插件。可以Load、Save均采用二进制(快!!!)
-    所有C#类型都可以做Serialize。
-    数据混淆,截屏操作。
-    	MenuManager 菜单管理。
+        public int RefCount { get; private set; }
 
-#### 4.将View和Model之间增加一个媒介层。
+        public void Retain(object refOwner = null)
+        {
+            ++RefCount;
+        }
 
-MVCS:StrangeIOC插件。
+        public void Release(object refOwner = null)
+        {
+            --RefCount;
+            if (RefCount == 0)
+            {
+                OnZeroRef();
+            }
+        }
 
-MVVM:uFrame插件。
+        protected virtual void OnZeroRef()
+        {
+        }
+    }
+```
 
-#### 5. ECS(Entity Component Based  System)
+以上就是简易引用计数器的所有实现了。
 
-Unity是基于ECS,比较适合GamePlay模块使用。
-还有比较有名的[Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+接下来我们用这个引用计数器，重构灯的使用场景的代码。
+``` C#
+	class Light
+	{
+		public void Open()
+		{
+			Log.I("灯打开了");
+		}
 
+		public void Close()
+		{
+			Log.I("灯关闭了");
+		}
+	}
+
+	class Room : SimpleRC
+	{
+		private Light mLight = new Light();
+		
+		public void EnterPeople()
+		{
+			if (RefCount == 0)
+			{
+				mLight.Open();
+			}
+
+			Retain();
+			
+			Log.I("一个人走进房间,房间里当前有{0}个人",RefCount);
+		}
+
+		public void LeavePeople()
+		{
+			// 当前还没走出，所以输出的时候先减1
+			Log.I("一个人走出房间,房间里当前有{0}个人", RefCount - 1);
+
+			// 这里才真正的走出了
+			Release();
+		}
+
+		protected override void OnZeroRef()
+		{
+			mLight.Close();
+		}
+	}
+```
+
+测试代码和之前的一样，我们看下测试结果:
+``` C#
+灯打开了
+一个人走进房间,房间里当前有1个人
+一个人走进房间,房间里当前有2个人
+一个人走进房间,房间里当前有3个人
+一个人走出房间,房间里当前有2个人
+一个人走出房间,房间里当前有1个人
+一个人走出房间,房间里当前有0个人
+灯关闭了
+灯打开了
+一个人走进房间,房间里当前有1个人
+```
+
+好了，今天就到这里
 #### 相关链接:
 
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
@@ -129,16 +215,14 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 ![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
 
-#### 支持我们:
+### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式支持笔者团队一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-* 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-* 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-* 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
+- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
+- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
-
-#output/Unity游戏框架搭建

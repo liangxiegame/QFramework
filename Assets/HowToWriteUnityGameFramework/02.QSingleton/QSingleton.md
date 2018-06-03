@@ -6,7 +6,7 @@
 
 先分析下需求,当设计一个manager时候,我们希望整个程序只有一个该manager对象实例,一般马上能想到的实现是这样的:
 
-```c#
+``` csharp
 public class XXXManager 
 {
     private static XXXManager instance = null;
@@ -28,7 +28,7 @@ public class XXXManager
 ```
 如果一个游戏需要10个各种各样的manager,那么以上这些代码要复制粘贴好多遍。重复的代码太多!!!想要把重复的代码抽离出来,怎么办?答案是引入泛型。实现如下:
 
-```C#
+``` csharp
 using System;  
 using System.Collections.Generic;  
 using System.Text;  
@@ -58,7 +58,7 @@ namespace QFramework
 ```
 为了可以被继承,静态实例和构造方法都使用protect修饰符。以上的问题很显而易见,那就是不能new一个泛型(3月9日补充:并不是不能new一个泛型,参考:[new一个泛型的实例，编译失败了，为什么?-CSDN论坛-CSDN.NET-中国最大的IT技术社区](http://bbs.csdn.net/topics/390911693)),(4月5日补充:有同学说可以new一个泛型的实例,不过要求改泛型提供了public的构造函数,好吧,这里不用new的原因是,无法显示调用private的构造函数)。因为泛型本身不是一个类型,那该怎么办呢?答案是使用反射。实现如下:
 
-```C#
+``` csharp
 using System;  
 using System.Collections.Generic;  
 using System.Text;  
@@ -102,7 +102,7 @@ namespace QFramework
 
 以上就是最终实现了。这个实现是在任何C#程序中都是通用的。其测试用例如下所示:
 
-```
+``` csharp
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。

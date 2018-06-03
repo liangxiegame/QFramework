@@ -84,6 +84,8 @@ namespace QFramework
         /// <param name="initCount">Init Cache count.</param>
         public void Init(int maxCount, int initCount)
         {
+            MaxCacheCount = maxCount;
+            
             if (maxCount > 0)
             {
                 initCount = Math.Min(maxCount, initCount);

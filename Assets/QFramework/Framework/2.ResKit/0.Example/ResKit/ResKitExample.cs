@@ -33,9 +33,15 @@ namespace QFramework.Example
 		
 		private void Start()
 		{
+			ResMgr.Init();
+			
 			mResLoader.LoadSync<GameObject>("Resources/GameObject")
 				.Instantiate()
 				.Name("这是使用ResKit加载的对象");
+
+			mResLoader.LoadSync<GameObject>("AssetObj")
+				.Instantiate()
+				.Name("这是使用通过 AssetName 加载的对象");
 		}
 
 		private void OnDestroy()

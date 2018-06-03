@@ -28,25 +28,32 @@ using UnityEngine;
 using QFramework;
 using UniRx;
 
-public class callPool : MonoBehaviour {
+public class CallPool : MonoBehaviour {
 
-    List<PoolTest> m_ObjList = new List<PoolTest>();
-
-    private void Start()
+    void Awake()
     {
-        this.Repeat()
-            .Until(() => { return Input.GetKeyDown(KeyCode.Space); })
-            .Event(() =>
-            {
-                PoolTest temp = SafeObjectPool<PoolTest>.Instance.Allocate();
-                temp.DebugIndex();
-                m_ObjList.Add(temp);
-            })
-            .Begin();
-
-        Observable.EveryUpdate()
-            .Where(x => Input.GetKeyDown(KeyCode.C) && m_ObjList.Count > 0)
-            .Subscribe(_ => { SafeObjectPool<PoolTest>.Instance.Recycle(m_ObjList[0]); m_ObjList.RemoveAt(0); Debug.Log("回收"); });
-
+        
+        
+        
+        
     }
+//    List<PoolTest> mObjList = new List<PoolTest>();
+//
+//    private void Start()
+//    {
+//        this.Repeat()
+//            .Until(() => { return Input.GetKeyDown(KeyCode.Space); })
+//            .Event(() =>
+//            {
+//                var temp = SafeObjectPool<PoolTest>.Instance.Allocate();
+//                temp.DebugIndex();
+//                mObjList.Add(temp);
+//            })
+//            .Begin();
+//
+//        Observable.EveryUpdate()
+//            .Where(x => Input.GetKeyDown(KeyCode.C) && mObjList.Count > 0)
+//            .Subscribe(_ => { SafeObjectPool<PoolTest>.Instance.Recycle(mObjList[0]); mObjList.RemoveAt(0); Debug.Log("回收"); });
+//
+//    }
 }
