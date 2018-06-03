@@ -1,206 +1,174 @@
-#  Unity 游戏框架搭建 (二十二)  简易引用计数器
+#  Unity 游戏框架搭建 (十九) 简易对象池
 
-引用计数是一个很好用的技术概念，不要被这个名字吓到了。首先来讲讲引用计数是干嘛的。
+在Unity中我们经常会用到对象池，使用对象池无非就是解决两个问题:
 
-#### 引用计数使用场景
-有一间黑色的屋子，里边有一盏灯。当第一个人进屋的时候灯会打开，之后的人进来则不用再次打开了，因为已经开过了。当屋子里的所有人离开的时候，灯则会关闭。
+* 一是减少new时候寻址造成的消耗，该消耗的原因是内存碎片。
+* 二是减少Object.Instantiate时内部进行序列化和反序列化而造成的CPU消耗。
 
-我们先定义灯的对象模型:
-``` C#
-	class Light
-	{
-		public void Open()
-		{
-			Log.I("灯打开了");
-		}
+想进一步了解对象池模式优化原理的同学可以参阅: [对象池模式:http://gpp.tkchu.me/object-pool.html](http://gpp.tkchu.me/object-pool.html)，本篇主要讲如何实现一个精简并且灵活的对象池。
 
-		public void Close()
-		{
-			Log.I("灯关闭了");
-		}
-	}
-```
-很简单就是两个方法而已。
+#### 设计：
 
-再定义屋子的类,屋子应该持有一个Light的对象，并且要记录人们的进出。当有人进入，进入后当前房间只有一个人的时候，要把灯打开。当最后一个人离开的时候灯要关闭。
-
-代码如下:
-``` C#
-	class Room
-	{
-		private Light mLight = new Light();
-
-		private int mPeopleCount = 0;
-		
-		public void EnterPeople()
-		{
-			if (mPeopleCount == 0)
-			{
-				mLight.Open();
-			}
-
-			++mPeopleCount;
-			
-			Log.I("一个人走进房间,房间里当前有{0}个人",mPeopleCount);
-		}
-
-		public void LeavePeople()
-		{
-			--mPeopleCount;
-			
-			if (mPeopleCount == 0)
-			{
-				mLight.Close();
-			}
-
-			Log.I("一个人走出房间,房间里当前有{0}个人", mPeopleCount);
-		}
-	}
-```
-很简单，我们来看下测试代码。
-
-``` C#
-			var room = new Room();
-			room.EnterPeople();
-			room.EnterPeople();
-			room.EnterPeople();
-			
-			room.LeavePeople();
-			room.LeavePeople();
-			room.LeavePeople();
-			
-			room.EnterPeople();
-```
-
-看下输出的结果:
-``` C#
-灯打开了
-一个人走进房间,房间里当前有1个人
-一个人走进房间,房间里当前有2个人
-一个人走进房间,房间里当前有3个人
-一个人走出房间,房间里当前有2个人
-一个人走出房间,房间里当前有1个人
-一个人走出房间,房间里当前有0个人
-灯关闭了
-灯打开了
-一个人走进房间,房间里当前有1个人
-```
-
-OK.以上就是引用计数这项计数的使用场景的所有代码。
-测试的代码比较整齐，很容易算出来当前有多少个人在屋子里，所以看不出来引用计数的作用。但是在日常开发中，我们可能会把EnterPeople和LeavePeople散落在工程的各个位置。这样就很难统计，这时候引用计数的作用就很明显了，它可以自动帮助你判断什么时候进行开灯关灯操作，而你不用写开关灯的一行代码。
-
-这个例子比较接近生活，假如笔者再换个例子，我们把Light对象换成资源对象，其开灯对应加载资源，关灯对应卸载资源。而屋子则是对应资源管理器,EnterPeople对应申请资源对象，LeavePeople对应归还资源对象。这样你只管在各个界面中申请各个资源，只要在界面关闭的时候归还各个资源对象就可以不用关心资源的加载和卸载了，可以减轻大脑的负荷。
-
-#### 简易计数器实现:
-
-计数器的接口很简单,代码如下:
-``` C#
-    public interface IRefCounter
+首先我们要弄清楚本篇对象池的几个概念，否则直接上代码大家会一头雾水。
+从字面上理解对象池，池的意思就是容器。我们可以从池中获取一个对象(一条鱼)，也可以向池中放入一个对象(一条鱼)。获取的操作我们叫Allocate(分配),而放入一个对象我们叫Recycle(回收)(ps:也有很多习惯叫Spawn和Despawn的,这个看自己习惯了)。所以我们可以定义池的接口为如下:
+``` csharp
+    public interface IPool<T>
     {
-        int RefCount { get; }
+        T Allocate();
 
-        void Retain(object refOwner = null);
-        void Release(object refOwner = null);
+        bool Recycle(T obj);
     }
 ```
-Retain是增加引用计数(RefCount+1),Release减去一个引用计数(RefCount—)。
-在接下来的具体实现中，当RefCount降为0时我们需要捕获一个事件,这个事件叫OnZeroRef。
-代码如下:
+为什么要用泛型呢？因为笔者开头说过，本篇主要讲如何实现一个精简并且灵活的对象池。这个灵活很大一部分是通过泛型体现的。
 
-``` C#
-    public class SimpleRC : IRefCounter
+前面有说过，池是容器的意思，在C#中可以是List,Queue或者Stack甚至是数组。所以对象池本身要维护一个容器。本篇我们选取Stack来作为池容器，原因是当我们在Allocate和Recycle时并不关心缓存的存储的顺序，只要求缓存对象的地址是连续的。代码如下所示:
+``` csharp
+    using System.Collections.Generic;
+
+    public abstract class Pool<T> : IPool<T>
     {
-        public SimpleRC()
+		  ...
+        protected Stack<T> mCacheStack = new Stack<T>();
+	      ...
+    }
+```
+
+Pool是个抽象类，为什么呢? 因为笔者开头说过，本篇主要讲如何实现一个精简并且灵活的对象池。这个灵活很大一部分是通过抽象类体现的。
+
+现在对象的存取和缓存接口都设计好了，那么这些对象是从哪里来的呢？我们分析下，创建对象我们知道有两种方式，反射构造方法和new一个对象。对象池的一个重要功能就是缓存，要想实现缓存就要求对象可以在对象池内部进行创建。所以我们要抽象出一个对象的工厂，代码如下所示:
+``` csharp
+    public interface IObjectFactory<T>
+    {
+        T Create();
+    }
+```
+那么大家要问为什么要用工厂? 因为笔者开头说过，本篇主要讲如何实现一个精简并且灵活的对象池。这个灵活很大一部分是通过工厂体现的。
+
+OK，现在对象的创建，存取，缓存的接口都设计好了。下面放出Pool的全部代码。
+``` csharp
+    using System.Collections.Generic;
+
+    public abstract class Pool<T> : IPool<T>
+    {
+        #region ICountObserverable
+        /// <summary>
+        /// Gets the current count.
+        /// </summary>
+        /// <value>The current count.</value>
+        public int CurCount
         {
-            RefCount = 0;
+            get { return mCacheStack.Count; }
+        }
+        #endregion
+        
+        protected IObjectFactory<T> mFactory;
+
+        protected Stack<T> mCacheStack = new Stack<T>();
+
+        /// <summary>
+        /// default is 5
+        /// </summary>
+        protected int mMaxCount = 5;
+
+        public virtual T Allocate()
+        {
+            return mCacheStack.Count == 0
+                ? mFactory.Create()
+                : mCacheStack.Pop();
         }
 
-        public int RefCount { get; private set; }
+        public abstract bool Recycle(T obj);
+    }
+```
 
-        public void Retain(object refOwner = null)
+代码不多，设计阶段基本就这样。下面介绍如何实现一个简易的对象池。
+
+#### 对象池实现
+
+首先要实现一个对象的创建器,代码如下所示:
+``` csharp
+    using System;
+
+    public class CustomObjectFactory<T> : IObjectFactory<T>
+    {
+        public CustomObjectFactory(Func<T> factoryMethod)
         {
-            ++RefCount;
+            mFactoryMethod = factoryMethod;
         }
+        
+        protected Func<T> mFactoryMethod;
 
-        public void Release(object refOwner = null)
+        public T Create()
         {
-            --RefCount;
-            if (RefCount == 0)
+            return mFactoryMethod();
+        }
+    }
+```
+比较简单，只是维护了一个返回值为T的委托(如果说得有误请指正)。
+对象池实现:
+``` csharp
+    using System;
+
+    /// <summary>
+    /// unsafe but fast
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class SimpleObjectPool<T> : Pool<T>
+    {
+        readonly Action<T> mResetMethod;
+
+        public SimpleObjectPool(Func<T> factoryMethod, Action<T> resetMethod = null,int initCount = 0)
+        {
+            mFactory = new CustomObjectFactory<T>(factoryMethod);
+            mResetMethod = resetMethod;
+
+            for (int i = 0; i < initCount; i++)
             {
-                OnZeroRef();
+                mCacheStack.Push(mFactory.Create());
             }
         }
 
-        protected virtual void OnZeroRef()
+        public override bool Recycle(T obj)
         {
+            mResetMethod.InvokeGracefully(obj);
+            mCacheStack.Push(obj);
+            return true;
         }
     }
 ```
+实现也很简单，这里不多说了。
 
-以上就是简易引用计数器的所有实现了。
+#### 如何使用?
+``` csharp
+			var fishPool = new SimpleObjectPool<Fish>(() => new Fish(), null, 100);
 
-接下来我们用这个引用计数器，重构灯的使用场景的代码。
-``` C#
-	class Light
-	{
-		public void Open()
-		{
-			Log.I("灯打开了");
-		}
+			Log.I("fishPool.CurCount:{0}", fishPool.CurCount);
 
-		public void Close()
-		{
-			Log.I("灯关闭了");
-		}
-	}
-
-	class Room : SimpleRC
-	{
-		private Light mLight = new Light();
-		
-		public void EnterPeople()
-		{
-			if (RefCount == 0)
-			{
-				mLight.Open();
-			}
-
-			Retain();
+			var fishOne = fishPool.Allocate();
 			
-			Log.I("一个人走进房间,房间里当前有{0}个人",RefCount);
-		}
+			Log.I("fishPool.CurCount:{0}", fishPool.CurCount);
 
-		public void LeavePeople()
-		{
-			// 当前还没走出，所以输出的时候先减1
-			Log.I("一个人走出房间,房间里当前有{0}个人", RefCount - 1);
+			fishPool.Recycle(fishOne);
+			
+			Log.I("fishPool.CurCount:{0}", fishPool.CurCount);
 
-			// 这里才真正的走出了
-			Release();
-		}
+			for (int i = 0; i < 10; i++)
+			{
+				fishPool.Allocate();
+			}
+			
+			Log.I("fishPool.CurCount:{0}", fishPool.CurCount);
+```
+运行结果:
 
-		protected override void OnZeroRef()
-		{
-			mLight.Close();
-		}
-	}
+```csharp
+fishPool.CurCount:100
+fishPool.CurCount:99
+fishPool.CurCount:100
+fishPool.CurCount:90
 ```
 
-测试代码和之前的一样，我们看下测试结果:
-``` C#
-灯打开了
-一个人走进房间,房间里当前有1个人
-一个人走进房间,房间里当前有2个人
-一个人走进房间,房间里当前有3个人
-一个人走出房间,房间里当前有2个人
-一个人走出房间,房间里当前有1个人
-一个人走出房间,房间里当前有0个人
-灯关闭了
-灯打开了
-一个人走进房间,房间里当前有1个人
-```
-
-好了，今天就到这里
+OK，本篇就介绍到这里
 #### 相关链接:
 
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
@@ -213,7 +181,7 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg)
 
 ### 如果有帮助到您:
 
@@ -222,7 +190,7 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 - 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
 - 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
 - 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 19 元，之后会涨价,课程会在 2018 年 6 月初结课)
+- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元，之后会涨价,课程会在 2018 年 6 月初结课)
 - 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
 
 笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
