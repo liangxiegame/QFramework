@@ -29,6 +29,7 @@
   * [15.优雅的 ActionKit(QChain)](/Assets/HowToWriteUnityGameFramework/15.QChain/QChain.md)
   * [16.v0.0.1 架构调整)](/Assets/HowToWriteUnityGameFramework/16.AboutVersion0.0.1/AboutVersion0.0.1.md)
   * [17.静态扩展GameObject实现链式编程](/Assets/HowToWriteUnityGameFramework/17.StaticThisExtensionWithGameObj/StaticThisExtensionWithGameObj.md)
+  * [18.静态扩展 + 泛型实现transform的链式编程](/Assets/HowToWriteUnityGameFramework/18.StaticThisExtensionWithTransform/StaticThisExtensionWithTransform.md)
   * [20.更安全的对象池](/Assets/HowToWriteUnityGameFramework/20.SafeObjectPool/SafeObjectPool.md)
   * [21.使用对象池时的一些细节](/Assets/HowToWriteUnityGameFramework/21.UseSafeObjectPoolSafety/UseSafeObjectPoolSafety.md)
   * [22.简易引用计数器](/Assets/HowToWriteUnityGameFramework/22.SimpleRC/SimpleRC.md)
