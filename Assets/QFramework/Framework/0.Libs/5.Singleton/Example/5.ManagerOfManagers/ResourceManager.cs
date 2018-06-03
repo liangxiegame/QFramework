@@ -32,7 +32,7 @@ namespace QFramework.Example
 	{
 		public static ResourceManager Instance
 		{
-			get { return QMonoSingletonProperty<ResourceManager>.Instance; }
+			get { return MonoSingletonProperty<ResourceManager>.Instance; }
 		}
 		
 		public void OnSingletonInit()
@@ -42,7 +42,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<ResourceManager>.Dispose();
+			MonoSingletonProperty<ResourceManager>.Dispose();
 		}
 
 		public Object LoadAsset(string assetName)

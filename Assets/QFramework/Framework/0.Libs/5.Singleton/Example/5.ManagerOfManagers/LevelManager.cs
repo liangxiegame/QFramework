@@ -30,7 +30,7 @@ namespace QFramework.Example
 	{
 		public static LevelManager Instance
 		{
-			get { return QMonoSingletonProperty<LevelManager>.Instance; }
+			get { return MonoSingletonProperty<LevelManager>.Instance; }
 		}
 		private LevelManager(){}
 		
@@ -41,7 +41,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<LevelManager>.Dispose();
+			MonoSingletonProperty<LevelManager>.Dispose();
 		}
 
 		public void StartLevel()

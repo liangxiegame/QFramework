@@ -32,7 +32,7 @@ namespace QFramework.Example
 	{
 		public static PoolManager Instance
 		{
-			get { return QMonoSingletonProperty<PoolManager>.Instance; }
+			get { return MonoSingletonProperty<PoolManager>.Instance; }
 		}
 		
 		public void OnSingletonInit()
@@ -42,7 +42,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<PoolManager>.Dispose();
+			MonoSingletonProperty<PoolManager>.Dispose();
 		}
 
 		public GameObject Spawn(GameObject goType)

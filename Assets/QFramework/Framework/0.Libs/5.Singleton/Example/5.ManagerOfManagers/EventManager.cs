@@ -32,7 +32,7 @@ namespace QFramework.Example
 	{
 		public static EventManager Instance
 		{
-			get { return QMonoSingletonProperty<EventManager>.Instance; }
+			get { return MonoSingletonProperty<EventManager>.Instance; }
 		}
 		
 		public void OnSingletonInit()
@@ -42,7 +42,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<EventManager>.Dispose();
+			MonoSingletonProperty<EventManager>.Dispose();
 		}
 
 		public void RegisterEvent<T>(string key, Action<T> onEvent)

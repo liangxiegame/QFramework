@@ -68,12 +68,12 @@ namespace QFramework
 
         public static SafeObjectPool<T> Instance
         {
-            get { return QSingletonProperty<SafeObjectPool<T>>.Instance; }
+            get { return SingletonProperty<SafeObjectPool<T>>.Instance; }
         }
 
         public void Dispose()
         {
-            QSingletonProperty<SafeObjectPool<T>>.Dispose();
+            SingletonProperty<SafeObjectPool<T>>.Dispose();
         }
         #endregion
 

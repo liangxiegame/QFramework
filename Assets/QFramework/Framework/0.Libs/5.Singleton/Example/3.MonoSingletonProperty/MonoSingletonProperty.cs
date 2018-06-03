@@ -32,12 +32,12 @@ namespace QFramework.Example
 	{
 		public static Class2MonoSingletonProperty Instance
 		{
-			get { return QMonoSingletonProperty<Class2MonoSingletonProperty>.Instance; }
+			get { return MonoSingletonProperty<Class2MonoSingletonProperty>.Instance; }
 		}
 		
 		public void Dispose()
 		{
-			QMonoSingletonProperty<Class2MonoSingletonProperty>.Dispose();
+			MonoSingletonProperty<Class2MonoSingletonProperty>.Dispose();
 		}
 		
 		public void OnSingletonInit()

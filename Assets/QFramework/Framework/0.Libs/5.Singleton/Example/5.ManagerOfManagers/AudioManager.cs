@@ -30,7 +30,7 @@ namespace QFramework.Example
 	{
 		public static AudioManager Instance
 		{
-			get { return QMonoSingletonProperty<AudioManager>.Instance; }
+			get { return MonoSingletonProperty<AudioManager>.Instance; }
 		}
 		
 		private AudioManager(){}
@@ -42,7 +42,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<AudioManager>.Dispose();
+			MonoSingletonProperty<AudioManager>.Dispose();
 		}
 
 

@@ -39,7 +39,7 @@ namespace QFramework
 		
 		public static NonPublicObjectPool<T> Instance
 		{
-			get { return QSingletonProperty<NonPublicObjectPool<T>>.Instance; }
+			get { return SingletonProperty<NonPublicObjectPool<T>>.Instance; }
 		}
 
 		protected NonPublicObjectPool()
@@ -49,7 +49,7 @@ namespace QFramework
 		
 		public void Dispose()
 		{
-			QSingletonProperty<NonPublicObjectPool<T>>.Dispose();
+			SingletonProperty<NonPublicObjectPool<T>>.Dispose();
 		}
 		#endregion
 

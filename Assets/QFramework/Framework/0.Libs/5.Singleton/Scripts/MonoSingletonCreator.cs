@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,29 +24,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Reflection;
-using UnityEngine;
-
 namespace QFramework
 {
-	public sealed class QSingletonCreator
+	using System.Reflection;
+	using UnityEngine;
+	
+	public static class MonoSingletonCreator
 	{
-		/// <summary>
-		/// for unit test
-		/// </summary>
-		private static bool mIsUnitTestMode;
-
-		public static bool IsUnitTestMode
-		{
-			get { return mIsUnitTestMode; }
-			set { mIsUnitTestMode = value; }
-		}
+		public static bool IsUnitTestMode { get; set; }
 
 		public static T CreateMonoSingleton<T>() where T : MonoBehaviour, ISingleton
 		{
 			T instance = null;
 
-			if (!mIsUnitTestMode && !Application.isPlaying) return instance;
+			if (!IsUnitTestMode && !Application.isPlaying) return instance;
 			instance = Object.FindObjectOfType<T>();
 
 			if (instance != null) return instance;
@@ -67,7 +58,7 @@ namespace QFramework
 			if (instance == null)
 			{
 				var obj = new GameObject(typeof(T).Name);
-				if (!mIsUnitTestMode)
+				if (!IsUnitTestMode)
 					Object.DontDestroyOnLoad(obj);
 				instance = obj.AddComponent<T>();
 			}
@@ -79,11 +70,11 @@ namespace QFramework
 
 		private static T CreateComponentOnGameObject<T>(string path, bool dontDestroy) where T : MonoBehaviour
 		{
-			var obj = FindGameObject(null, path, true, dontDestroy);
+			var obj = FindGameObject(path, true, dontDestroy);
 			if (obj == null)
 			{
 				obj = new GameObject("Singleton of " + typeof(T).Name);
-				if (dontDestroy && !mIsUnitTestMode)
+				if (dontDestroy && !IsUnitTestMode)
 				{
 					Object.DontDestroyOnLoad(obj);
 				}
@@ -92,14 +83,14 @@ namespace QFramework
 			return obj.AddComponent<T>();
 		}
 
-		static GameObject FindGameObject(GameObject root, string path, bool build, bool dontDestroy)
+		private static GameObject FindGameObject(string path, bool build, bool dontDestroy)
 		{
-			if (path == null || path.Length == 0)
+			if (string.IsNullOrEmpty(path))
 			{
 				return null;
 			}
 
-			string[] subPath = path.Split('/');
+			var subPath = path.Split('/');
 			if (subPath == null || subPath.Length == 0)
 			{
 				return null;
@@ -108,7 +99,7 @@ namespace QFramework
 			return FindGameObject(null, subPath, 0, build, dontDestroy);
 		}
 
-		static GameObject FindGameObject(GameObject root, string[] subPath, int index, bool build, bool dontDestroy)
+		private static GameObject FindGameObject(GameObject root, string[] subPath, int index, bool build, bool dontDestroy)
 		{
 			GameObject client = null;
 
@@ -135,7 +126,7 @@ namespace QFramework
 						client.transform.SetParent(root.transform);
 					}
 
-					if (dontDestroy && index == 0 && !mIsUnitTestMode)
+					if (dontDestroy && index == 0 && !IsUnitTestMode)
 					{
 						GameObject.DontDestroyOnLoad(client);
 					}

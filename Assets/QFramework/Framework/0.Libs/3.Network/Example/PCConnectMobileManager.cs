@@ -141,7 +141,7 @@ namespace QFramework
 
         public static PCConnectMobileManager Instance
         {
-            get { return QMonoSingletonProperty<PCConnectMobileManager>.Instance; }
+            get { return MonoSingletonProperty<PCConnectMobileManager>.Instance; }
         }
 
         protected override void SetupMgrId()

@@ -40,7 +40,7 @@ namespace QFramework
 		/// <value>The instance.</value>
         public static Framework Instance
 		{
-            get { return QMonoSingletonProperty<Framework>.Instance; }
+            get { return MonoSingletonProperty<Framework>.Instance; }
 		}
 
 		protected override void SetupMgrId()

@@ -23,21 +23,21 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework 
+namespace QFramework
 {
 	using UnityEngine;
 
-	public sealed class QMonoSingletonProperty<T> where T : MonoBehaviour,ISingleton
+	public static class MonoSingletonProperty<T> where T : MonoBehaviour, ISingleton
 	{
 		private static T mInstance = null;
 
 		public static T Instance
 		{
-			get 
+			get
 			{
-				if (null == mInstance ) 
+				if (null == mInstance)
 				{
-					mInstance = QSingletonCreator.CreateMonoSingleton<T> ();
+					mInstance = MonoSingletonCreator.CreateMonoSingleton<T>();
 				}
 
 				return mInstance;
@@ -46,7 +46,7 @@ namespace QFramework
 
 		public static void Dispose()
 		{
-			if (QSingletonCreator.IsUnitTestMode)
+			if (MonoSingletonCreator.IsUnitTestMode)
 			{
 				Object.DestroyImmediate(mInstance.gameObject);
 			}
@@ -56,6 +56,15 @@ namespace QFramework
 			}
 
 			mInstance = null;
+		}
+	}
+	
+	[System.Obsolete("弃用啦，请使用 MonoSingletonProperty")]
+	public static class QMonoSingletonProperty<T> where T : MonoBehaviour, ISingleton
+	{
+		public static T Instance
+		{
+			get { return MonoSingletonProperty<T>.Instance; }
 		}
 	}
 }

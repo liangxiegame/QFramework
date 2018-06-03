@@ -31,7 +31,7 @@ namespace QFramework.Example
 	{
 		public static Class2SignetonProperty Instance
 		{
-			get { return QSingletonProperty<Class2SignetonProperty>.Instance; }
+			get { return SingletonProperty<Class2SignetonProperty>.Instance; }
 		}
 
 		private Class2SignetonProperty() {}
@@ -45,7 +45,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QSingletonProperty<Class2SignetonProperty>.Dispose();
+			SingletonProperty<Class2SignetonProperty>.Dispose();
 		}
 		
 		public void Log(string content)

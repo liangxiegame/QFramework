@@ -53,7 +53,7 @@ namespace QFramework.Example
 		}
 	}
 
-	public class MonoSingleton : MonoBehaviour
+	public class MonoSingletonExample : MonoBehaviour
 	{
 		private IEnumerator Start()
 		{

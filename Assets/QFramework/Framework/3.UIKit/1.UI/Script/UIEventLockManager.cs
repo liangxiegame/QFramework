@@ -105,7 +105,7 @@ namespace QFramework
 
 		public static UIEventLockManager Instance
 		{
-			get { return QMonoSingletonProperty<UIEventLockManager>.Instance; }
+			get { return MonoSingletonProperty<UIEventLockManager>.Instance; }
 		}
 
 		public void OnSingletonInit()

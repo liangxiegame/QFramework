@@ -28,12 +28,13 @@ using UnityEngine;
 
 namespace QFramework.Example
 {
+	/// <inheritdoc />
 	/// <summary>
 	/// 教程地址:http://liangxiegame.com/post/3/
 	/// </summary>
-	public class QMonoSingletonExample : MonoBehaviour
+	public class MonoSingletonTutor : MonoBehaviour
 	{
-		class MonoClass : QMonoSingleton<MonoClass>
+		private class MonoClass : MonoSingleton<MonoClass>
 		{
 			public void Init()
 			{
@@ -42,7 +43,7 @@ namespace QFramework.Example
 		}
 		
 		// Use this for initialization
-		void Start()
+		private void Start()
 		{
 			MonoClass.Instance.Init();
 		}

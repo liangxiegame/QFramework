@@ -30,7 +30,7 @@ namespace QFramework.Example
 	{
 		public static GUIManager Instance
 		{
-			get { return QMonoSingletonProperty<GUIManager>.Instance; }
+			get { return MonoSingletonProperty<GUIManager>.Instance; }
 		}
 		
 		public void OnSingletonInit()
@@ -40,7 +40,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<GUIManager>.Dispose();
+			MonoSingletonProperty<GUIManager>.Dispose();
 		}
 
 		public void ShowGUI(string guiName)

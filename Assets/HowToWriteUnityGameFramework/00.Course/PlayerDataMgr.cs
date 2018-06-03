@@ -25,7 +25,7 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
 {
     private static PlayerDataMgr mInstance
     {
-        get { return QMonoSingletonProperty<PlayerDataMgr>.Instance; }
+        get { return MonoSingletonProperty<PlayerDataMgr>.Instance; }
     }
    
     void ISingleton.OnSingletonInit()

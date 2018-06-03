@@ -54,7 +54,7 @@ namespace QFramework.ResKitLearn
 
 	public class XXXPanel : MonoBehaviour
 	{
-		ResourcesLoader mResourcesLoader = new ResourcesLoader();
+		private ResourcesLoader mResourcesLoader = new ResourcesLoader();
 
 		private void Start()
 		{
@@ -121,9 +121,10 @@ namespace QFramework.ResKitLearn
 		}
 	}
 
-	public class ResourcesManager : QSingleton<ResourcesManager>
+	/// <inheritdoc />
+	public class ResourcesManager : Singleton<ResourcesManager>
 	{
-		private static List<Res> mLoadedAssets = new List<Res>();
+		private static readonly List<Res> mLoadedAssets = new List<Res>();
 
 		public static Res GetRes(string resName)
 		{

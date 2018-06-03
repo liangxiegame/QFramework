@@ -48,7 +48,7 @@ namespace QFramework
             {
                 if (null == mInstance)
                 {
-                    mInstance = QSingletonProperty<QUIPanelStack>.Instance;
+                    mInstance = SingletonProperty<QUIPanelStack>.Instance;
                 }
 
                 return mInstance;

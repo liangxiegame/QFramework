@@ -30,7 +30,7 @@ namespace QFramework.Example
     {
         public static GameManager Instance
         {
-            get { return QMonoSingletonProperty<GameManager>.Instance; }
+            get { return MonoSingletonProperty<GameManager>.Instance; }
         }
 		
         public void OnSingletonInit()
@@ -40,7 +40,7 @@ namespace QFramework.Example
 
         public void Dispose()
         {
-            QMonoSingletonProperty<GameManager>.Dispose();
+            MonoSingletonProperty<GameManager>.Dispose();
         }
 
         public void GameStart()

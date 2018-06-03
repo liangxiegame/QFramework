@@ -414,7 +414,7 @@ namespace QFramework
 
 		public static AudioManager Instance
 		{
-			get { return QMonoSingletonProperty<AudioManager>.Instance; }
+			get { return MonoSingletonProperty<AudioManager>.Instance; }
 		}
 
 		#endregion

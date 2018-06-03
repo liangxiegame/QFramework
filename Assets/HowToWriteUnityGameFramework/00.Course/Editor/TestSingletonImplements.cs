@@ -22,7 +22,7 @@ public class TestSingletonImplements
 /// 2. 泛型
 /// </summary>
 
-public class ASingleton : QSingleton<ASingleton>
+public class ASingleton : Singleton<ASingleton>
 {
 	private ASingleton()
 	{

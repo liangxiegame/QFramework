@@ -12,7 +12,7 @@ namespace QFramework
 	{
 		public static QMsgCenter Instance
 		{
-			get { return QMonoSingletonProperty<QMsgCenter>.Instance; }
+			get { return MonoSingletonProperty<QMsgCenter>.Instance; }
 		}
 
 		public void OnSingletonInit()
@@ -22,7 +22,7 @@ namespace QFramework
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<QMsgCenter>.Dispose();
+			MonoSingletonProperty<QMsgCenter>.Dispose();
 		}
 
 		void Awake()

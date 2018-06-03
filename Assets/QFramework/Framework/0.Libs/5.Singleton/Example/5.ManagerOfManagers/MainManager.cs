@@ -30,7 +30,7 @@ namespace QFramework.Example
 	{
 		public static MainManager Instance
 		{
-			get { return QMonoSingletonProperty<MainManager>.Instance; }
+			get { return MonoSingletonProperty<MainManager>.Instance; }
 		}
 		
 		public void OnSingletonInit()
@@ -40,7 +40,7 @@ namespace QFramework.Example
 
 		public void Dispose()
 		{
-			QMonoSingletonProperty<MainManager>.Dispose();
+			MonoSingletonProperty<MainManager>.Dispose();
 		}
 
 
