@@ -24,14 +24,14 @@
  ****************************************************************************/
 
 namespace QFramework
-{	
-	public abstract class QSingleton<T> : ISingleton where T : QSingleton<T>
+{
+	public abstract class Singleton<T> : ISingleton where T : Singleton<T>
 	{
 		protected static T mInstance;
-		
+
 		static object mLock = new object();
 
-		protected QSingleton()
+		protected Singleton()
 		{
 		}
 
@@ -57,6 +57,14 @@ namespace QFramework
 		}
 
 		public virtual void OnSingletonInit()
+		{
+		}
+	}
+
+	[System.Obsolete("弃用啦，建议用 Singleton")]
+	public abstract class QSingleton<T> : Singleton<T> where T : QSingleton<T>
+	{
+		protected QSingleton()
 		{
 		}
 	}
