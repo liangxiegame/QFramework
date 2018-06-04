@@ -98,8 +98,6 @@ namespace QFramework
 			return true;
 		}
 
-		private bool mHasNewVersion = false;
-
 		public void DownloadLatestVersion()
 		{
 			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
