@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * 2017 ~ 2018.5 liangxie
+ * 2017 ~ 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -32,25 +32,25 @@ namespace QFramework
 	using UniRx;
 	using UnityEngine;
 	using UnityEditor;
-	
+
 	public class PreferencesWindow : EditorWindow
 	{
-		[MenuItem(FrameworkMenuItems.Preferences,false,FrameworkMenuItemsPriorities.Preferences)]
+		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
 			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
+			frameworkConfigEditorWindow.position = new Rect(100, 100, 500, 400);
 			frameworkConfigEditorWindow.Show();
-			OnShow();
 		}
 
 		private const string URL_GITHUB_API_LATEST_RELEASE =
 			"https://api.github.com/repos/liangxiegame/QFramework/releases/latest";
 
 		private const string URL_GITHUB_ISSUE = "https://github.com/liangxiegame/QFramework/issues/new";
-		
-		[MenuItem(FrameworkMenuItems.CheckForUpdates,false,FrameworkMenuItemsPriorities.CheckForUpdates)]
+
+		[MenuItem(FrameworkMenuItems.CheckForUpdates, false, FrameworkMenuItemsPriorities.CheckForUpdates)]
 		static void requestLatestRelease()
 		{
 		}
@@ -62,7 +62,7 @@ namespace QFramework
 		}
 
 
-		public  static bool MyRemoteCertificateValidationCallback(System.Object sender,
+		public static bool MyRemoteCertificateValidationCallback(System.Object sender,
 			X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
 		{
 			bool isOk = true;
@@ -72,20 +72,24 @@ namespace QFramework
 			{
 				foreach (var chainStatus in chain.ChainStatus)
 				{
-					if (chainStatus.Status == X509ChainStatusFlags.RevocationStatusUnknown) {
+					if (chainStatus.Status == X509ChainStatusFlags.RevocationStatusUnknown)
+					{
 						continue;
 					}
+
 					chain.ChainPolicy.RevocationFlag = X509RevocationFlag.EntireChain;
 					chain.ChainPolicy.RevocationMode = X509RevocationMode.Online;
-					chain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan (0, 1, 0);
+					chain.ChainPolicy.UrlRetrievalTimeout = new TimeSpan(0, 1, 0);
 					chain.ChainPolicy.VerificationFlags = X509VerificationFlags.AllFlags;
-					bool chainIsValid = chain.Build ((X509Certificate2)certificate);
-					if (!chainIsValid) {
+					bool chainIsValid = chain.Build((X509Certificate2) certificate);
+					if (!chainIsValid)
+					{
 						isOk = false;
 						break;
 					}
 				}
 			}
+
 			return isOk;
 		}
 
@@ -96,7 +100,7 @@ namespace QFramework
 
 		private bool mHasNewVersion = false;
 
-		private static void OnShow()
+		public void DownloadLatestVersion()
 		{
 			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
 			{
@@ -108,49 +112,44 @@ namespace QFramework
 					{
 						var version = asset.Name.Replace("QFramework_v", string.Empty).Replace(".unitypackage", string.Empty);
 						var versionChars = version.Split('.');
-						int versionCode = 0;
+						var versionCode = 0;
 
 						versionChars.ForEach(versionChar =>
 						{
 							versionCode *= 100;
 							versionCode += versionChar.ToInt();
 						});
-						
+
 						Log.I(versionCode);
+
 						// 版本比较
 						ObservableWWW.GetAndGetBytes(asset.BrowserDownloadUrl).Subscribe(bytes =>
 						{
 							File.WriteAllBytes(Application.dataPath + "/" + asset.Name, bytes);
-							
-							AssetDatabase.ImportPackage(Application.dataPath + "/" + asset.Name,true);							
+							AssetDatabase.ImportPackage(Application.dataPath + "/" + asset.Name, true);
 						});
 					}
 				});
-			}, e =>
-			{
-				Log.E(e);
-			});
+			}, e => { Log.E(e); });
 		}
 
 		public FrameworkSettingData CurSettingData;
 
-		private void OnGUI() 
+		private void OnGUI()
 		{
-			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField ("Namespace", CurSettingData.Namespace);
-			CurSettingData.UIScriptDir = EditorGUIUtils.GUILabelAndTextField ("UI Script Generate Dir", CurSettingData.UIScriptDir);
-			CurSettingData.UIPrefabDir = EditorGUIUtils.GUILabelAndTextField ("UI Prefab Dir", CurSettingData.UIPrefabDir);
+			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", CurSettingData.Namespace);
+			CurSettingData.UIScriptDir =
+				EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", CurSettingData.UIScriptDir);
+			CurSettingData.UIPrefabDir = EditorGUIUtils.GUILabelAndTextField("UI Prefab Dir", CurSettingData.UIPrefabDir);
 
-			if (GUILayout.Button ("Apply")) 
+			if (GUILayout.Button("Apply"))
 			{
-				CurSettingData.Save ();
+				CurSettingData.Save();
 			}
 
-			if (mHasNewVersion)
+			if (GUILayout.Button("Download Latest Version"))
 			{
-				if (GUILayout.Button("Download New Version"))
-				{
-					
-				}
+				DownloadLatestVersion();
 			}
 		}
 	}
