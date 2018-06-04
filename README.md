@@ -55,8 +55,8 @@ loader.LoadSync<Texture2D>("home","HomeBg");
 
 
 // resycle this panel/monobehaivour's loaded res when destroyed 
-loader.Recycle2Cache()
-loader = null
+loader.Recycle2Cache();
+loader = null;
 ```
 
 **3.UI Kit**
