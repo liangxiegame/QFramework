@@ -37,7 +37,7 @@ namespace QFramework
 	/// 其实是FlexiSocket 的 Server 端
 	/// </summary>
 	[QMonoSingletonPath("[Framework]/MobileServer")]
-	public class MobileServer : QMonoSingleton<MobileServer>
+	public class MobileServer : MonoSingleton<MobileServer>
 	{
 		private ISocketServer mSocketServer;
 		private string mMessage = string.Empty;

@@ -11,7 +11,7 @@ using UnityEngine;
 namespace QFramework
 {
     [QMonoSingletonPath("[Tools]/Timer")]
-    public class Timer : QMonoSingleton<Timer>
+    public class Timer : MonoSingleton<Timer>
     {
         private readonly BinaryHeap<TimeItem> m_UnScaleTimeHeap = new BinaryHeap<TimeItem>(128, BinaryHeapSortMode.kMin);
         private readonly BinaryHeap<TimeItem> m_ScaleTimeHeap = new BinaryHeap<TimeItem>(128, BinaryHeapSortMode.kMin);

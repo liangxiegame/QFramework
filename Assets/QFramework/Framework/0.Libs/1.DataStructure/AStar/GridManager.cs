@@ -32,7 +32,7 @@ namespace QFramework
     /// <summary>
     /// 类处理所有代表地图的格子的属性
     /// </summary>
-    public class GridManager : QMonoSingleton<GridManager>
+    public class GridManager : MonoSingleton<GridManager>
     {
         public int NumOfRows;
         public int NumOfColumns;

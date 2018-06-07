@@ -41,7 +41,7 @@ namespace QFramework
 
     //http下载管理器
     [QMonoSingletonPath("[Singleton]/HttpDownloader")]
-    public class HttpDownloaderMgr : QMonoSingleton<HttpDownloaderMgr>
+    public class HttpDownloaderMgr : MonoSingleton<HttpDownloaderMgr>
     {
         public static string TimeOutError = "Time-Out";
         enum DownloadEvent

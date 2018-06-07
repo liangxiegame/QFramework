@@ -28,7 +28,7 @@ namespace QFramework.Example
 	using UnityEngine;
 
 	[QMonoSingletonPath("[Example]/PTMonoSingeltonPath")]
-	internal class ClassUseMonoSingletonPath : QMonoSingleton<ClassUseMonoSingletonPath>
+    internal class ClassUseMonoSingletonPath : MonoSingleton<ClassUseMonoSingletonPath>
 	{
 		
 	}

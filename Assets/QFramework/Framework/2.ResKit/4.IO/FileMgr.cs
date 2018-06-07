@@ -10,7 +10,7 @@ namespace QFramework
 	using UnityEngine;
 	using ICSharpCode.SharpZipLib.Zip;
 
-	public class FileMgr: QSingleton<FileMgr>
+    public class FileMgr : Singleton<FileMgr>
 	{
 		private List<string>    mSearchDirList = new List<string>();
 		private string          mStreamingAssetsPath;

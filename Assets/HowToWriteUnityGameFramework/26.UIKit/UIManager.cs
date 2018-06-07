@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using QFramework;
 using UnityEngine;
 
-public class UIManager : QMonoSingleton<UIManager>
+public class UIManager : MonoSingleton<UIManager>
 {
 	public GameObject UIMainPanelPrefab;
 	public GameObject UILevelPanelPrefab;

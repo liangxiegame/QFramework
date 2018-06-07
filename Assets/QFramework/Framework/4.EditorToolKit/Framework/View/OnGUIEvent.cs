@@ -23,45 +23,23 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Example
+using System;
+
+namespace QFramework
 {
-	using System.Collections;
-	using UnityEngine;
+    public sealed class OnGUIEvent : GUIView
+    {
+        private System.Action mOnGUIEvent;
 
-	internal class Class2MonoSingleton : MonoSingleton<Class2MonoSingleton>
-	{
-		public override void OnSingletonInit()
-		{
-			Debug.Log(name + ":" + "OnSingletonInit");
-		}
-
-		private void Awake()
-		{
-			Debug.Log(name + ":" + "Awake");
-		}
-
-		private void Start()
-		{
-			Debug.Log(name + ":" + "Start");
-		}
-
-		protected override void OnDestroy()
-		{
-			base.OnDestroy();
-			
-			Debug.Log(name + ":" + "OnDestroy");
-		}
-	}
-
-	public class MonoSingletonExample : MonoBehaviour
-	{
-		private IEnumerator Start()
-		{
-			var instance = Class2MonoSingleton.Instance;
-
-			yield return new WaitForSeconds(3.0f);
-			
-			instance.Dispose();
-		}
-	}
+        public OnGUIEvent Event(System.Action onGuiEvent)
+        {
+            mOnGUIEvent = onGuiEvent;
+            return this;
+        }
+        
+        public override void OnGUI()
+        {
+            if (Visible) mOnGUIEvent.InvokeGracefully();
+        }
+    }
 }

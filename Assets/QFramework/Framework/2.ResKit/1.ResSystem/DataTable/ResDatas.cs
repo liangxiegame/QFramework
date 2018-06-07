@@ -29,7 +29,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ResDatas : QSingleton<ResDatas>
+    public class ResDatas : Singleton<ResDatas>
     {
         [Serializable]
         public class SerializeData

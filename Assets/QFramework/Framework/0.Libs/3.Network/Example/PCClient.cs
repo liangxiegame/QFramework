@@ -30,7 +30,7 @@ namespace QFramework
     using System.Collections.Generic;
     
     [QMonoSingletonPath("[Framework]/PCClient")]
-    public class PCClient : QMonoSingleton<PCClient>
+    public class PCClient : MonoSingleton<PCClient>
     {
         private ISocketClient mSocketClient;
 

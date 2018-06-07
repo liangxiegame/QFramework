@@ -30,7 +30,7 @@ namespace QFramework
     using System.Collections.Generic;
 
     [QMonoSingletonPath("[Framework]/ResMgr")]
-    public class ResMgr : QMonoSingleton<ResMgr>, IEnumeratorTaskMgr
+    public class ResMgr : MonoSingleton<ResMgr>, IEnumeratorTaskMgr
     {
         #region 字段
 

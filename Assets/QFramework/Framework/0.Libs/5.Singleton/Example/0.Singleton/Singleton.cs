@@ -28,7 +28,7 @@ namespace QFramework.Example
 {
 	using UnityEngine;
 
-	internal class Class2Singleton : QSingleton<Class2Singleton>
+    internal class Class2Singleton : Singleton<Class2Singleton>
 	{
 		private static int mIndex = 0;
 

@@ -43,7 +43,7 @@ namespace QFramework
 
     public delegate void OnZipProgress(string zipFilePath, string outDirPath, float percent);
 
-    class ZipMgr : QSingleton<ZipMgr>
+    class ZipMgr : Singleton<ZipMgr>
     {
         class ZipWorker
         {
