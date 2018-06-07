@@ -69,7 +69,7 @@ namespace QFramework.Example
 
 3.运行结果
 
-![](/content/images/2016/06/-----2016-06-05---1-11-11.png)
+![](https://ws2.sinaimg.cn/large/006tNc79gy1fs3e3jm8rij31bq0c0jtg.jpg)
 使用起来几行代码的事情,实现起来就没这么简单了。
 
 #### 如何实现的?
