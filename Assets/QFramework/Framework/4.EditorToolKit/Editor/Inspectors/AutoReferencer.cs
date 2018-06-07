@@ -44,7 +44,7 @@ namespace QFramework
                 Undo.RecordObjects(monos, "CalledByEditor");
                 for (int i = 0; i < monos.Length; i++)
                 {
-                    //找脚本上的FR函数，编辑器调用
+                    //找脚本上的CalledByEditor函数，编辑器调用
                     MethodInfo methodInfo = monos[i].GetType()
                                                     .GetMethod("CalledByEditor", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                     if (methodInfo == null)

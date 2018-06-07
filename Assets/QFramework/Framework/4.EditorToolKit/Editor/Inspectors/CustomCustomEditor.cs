@@ -1,10 +1,9 @@
 ﻿// /****************************************************************************
-//  * Copyright (c) 2018 ZhongShan KPP Technology Co
-//  * Copyright (c) 2018 Karsion
+//  * Copyright (c) 2018 Karsion(拖鞋)
 //  * 
-//  * https://github.com/karsion
-//  * Date: 2018-02-28 15:55
-//  *
+//  * http://qframework.io
+//  * https://github.com/liangxiegame/QFramework
+//  * 
 //  * Permission is hereby granted, free of charge, to any person obtaining a copy
 //  * of this software and associated documentation files (the "Software"), to deal
 //  * in the Software without restriction, including without limitation the rights
@@ -39,7 +38,6 @@ namespace QFramework
     /// </summary>
     public abstract class CustomCustomEditor : UnityEditor.Editor
     {
-        // empty array for invoking methods using reflection
         private static readonly object[] EMPTY_ARRAY = new object[0];
 
         private static readonly Dictionary<string, MethodInfo> decoratedMethods = new Dictionary<string, MethodInfo>();
@@ -51,7 +49,6 @@ namespace QFramework
             decoratedEditorType = editorAssembly.GetTypes().FirstOrDefault(t => t.Name == editorTypeName);
             Init();
 
-            // Check CustomEditor types.
             var originalEditedType = GetCustomEditorType(decoratedEditorType);
             if (originalEditedType != editedObjectType)
             {
@@ -115,14 +112,9 @@ namespace QFramework
             methodInfo.Invoke(fieldInfo.GetValue(EditorInstance), parameters);
         }
 
-        /// <summary>
-        ///     Delegates a method call with the given name to the decorated editor instance.
-        /// </summary>
         protected void CallInspectorMethod(string methodName, UnityEditor.Editor editor)
         {
             MethodInfo method = null;
-
-            // Add MethodInfo to cache
             if (!decoratedMethods.ContainsKey(methodName))
             {
                 const BindingFlags flags = BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public;
@@ -155,7 +147,6 @@ namespace QFramework
         {
             CallInspectorMethod(methodName, editorInstance);
         }
-
 
         protected virtual void OnSceneGUI()
         {
@@ -234,16 +225,8 @@ namespace QFramework
         }
 
         #region Editor Fields
-        /// <summary>
-        ///     Type object for the internally used (decorated) editor.
-        /// </summary>
         private readonly Type decoratedEditorType;
-
-        /// <summary>
-        ///     Type object for the object that is edited by this editor.
-        /// </summary>
         private Type editedObjectType;
-
         private UnityEditor.Editor editorInstance;
         #endregion
     }
