@@ -28,6 +28,9 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
         get { return MonoSingletonProperty<PlayerDataMgr>.Instance; }
     }
    
+    /// <summary>
+    /// 对外阉割
+    /// </summary>
     void ISingleton.OnSingletonInit()
     {
         mPlayerData = new PlayerData();
@@ -35,7 +38,7 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
 
     }
     
-    #region public
+    #region public 对外提供的 API
 
     public static void SavePlayerData()
     {
@@ -57,6 +60,4 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
     {
         // 保存到本地
     }
-
-
 }

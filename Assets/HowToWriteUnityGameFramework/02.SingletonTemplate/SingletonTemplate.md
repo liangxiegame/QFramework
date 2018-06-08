@@ -508,9 +508,147 @@ public class Test
 }
 ```
 
-这种单例也比较常见。这两种方式区别在于创建实例的时机。
+这种单例实现也比较常见，被称为懒单例模式，乘坐懒的原因是用到的时候再去创建，这样可以减缓内存和 CPU 压力。造成的风险则是，声明周期不可控。
 
 
+
+所以说第一个利弊是懒加载的利弊。
+
+* 懒加载
+  * 优点:减少内存和 CPU  压力。
+  * 缺点:声明周期不可控。
+
+懒加载是可用不可用的，在 Unity 开发中一般用单例的模板时候都是用懒加载的方式的。
+
+
+
+其他的还有 全局唯一 和 全局访问。
+
+全局唯一这个没什么好说的，单例的存在就是为了保证全局唯一，只有个优点吧。
+
+
+
+提供全局访问。提供全局访问这个功能，优点是方便获取单例实例。缺点就很明显了，在文章的开始，笔者说
+
+> 很多开发者或者有经验的老手都会建议尽量不要用单例模式，这是有原因的。
+
+
+
+这个原因就是因为全局访问。一个实例的全局访问会有很多风险，当然静态类也是可以全局访问的。但是静态类一般我们用作工具或者 Helper，所以没什么问题。但是单例本身是一个实例，是一个对象。所以对象有的时候是有声明周期的，并且有时候还有上下文(缓存的数据、状态)。而有时候还须有一定特定的顺序去使用 API。这些都是非常有可能的。 所以说要设计一个好的单例类，好的管理类。是对开发者要求是非常高的。不过在这里笔者提醒一下，不是说要把单例类设计得非常好才是完全正确的。有的时候，我们来不及花精力去设计，考虑周全，但是可以完成工作，完成任务，这样最起码是对得起公司付的工资的，而且功能完成了，等不忙的时候可以回来再思考的嘛，罗马不是一天建成的，但是罗马可以通过一点一点迭代完成。具体要求高在哪里，主要是符合设计模式的六大设计原则就好。
+
+接下来笔者就贴出一个笔者认为比较严格的单例类设计。
+
+
+
+原则上是，保留单例优点的同时，去削弱使用它的风险。
+
+目前来看，单例使用的风险主要是全局访问，所以削弱全局访问就好了。笔者所分享的方式是，对外提供的 API 都用静态 API。Instance 变量不对外提供，外部访问只能通过静态的 API。而内部则维护一个私有的单例实例。
+
+代码如下：
+
+``` csharp
+using System;
+using QFramework;
+using UnityEngine;
+
+/// <summary>
+/// 职责:
+/// 1. 用户数据管理
+/// 2. 玩家数据管理
+/// 3. Manager  容器: List/Dictionary  增删改查
+/// </summary>
+///
+///
+public class PlayerData
+{
+    public string Username;
+    
+    public int Level;
+    
+    public string Carrer;
+}
+
+
+[QMonoSingletonPath("[Game]/PlayerDataMgr")]
+public class PlayerDataMgr : MonoBehaviour,ISingleton
+{
+    private static PlayerDataMgr mInstance
+    {
+        get { return MonoSingletonProperty<PlayerDataMgr>.Instance; }
+    }
+   
+    /// <summary>
+    /// 对外阉割
+    /// </summary>
+    void ISingleton.OnSingletonInit()
+    {
+        mPlayerData = new PlayerData();
+        // 从本地加载的一个操作
+
+    }
+    
+    #region public 对外提供的 API
+
+    public static void SavePlayerData()
+    {
+        mInstance.Save();
+    }
+    
+    public static PlayerData GetPlayerData()
+    {
+        return mInstance.mPlayerData;
+    }
+    
+    #endregion
+
+    
+    private PlayerData mPlayerData;
+
+    
+    private void Save()
+    {
+        // 保存到本地
+    }
+}
+```
+
+
+
+使用上非常干净简洁:
+
+``` csharp
+public class TestMonoSingletonA : MonoBehaviour {
+
+	// Use this for initialization
+	private void Start()
+	{
+		var playerData = PlayerDataMgr.GetPlayerData();
+
+		playerData.Level++;
+
+		PlayerDataMgr.SavePlayerData();		
+	}
+
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
+```
+
+### 命名小建议 
+
+到这里还要补充一下，笔者呢不太喜欢 Instance 这个命名。在命名上，很多书籍都建议用业务命名而不是用技术概念来命名。
+
+比如 PlayerDataSaver 是业务命名，但是 SerializeHelper 则是技术命名，本质上他们两个都可以做数据存储相关的任务。但是 PlayerDataSaver,更适合人类阅读。
+
+Instance 是技术概念命名，而不是业务命名。尽量不要让技术概念的命名出现在 UI/逻辑层。只可以在框架层或者插件曾出现是允许的。
+
+以上这些是笔者的自己的观点，不是标准的原则，大家看看就好。
+
+
+
+今天的内容就这些，谢谢阅读~
 
 #### 相关链接:
 
