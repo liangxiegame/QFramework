@@ -42,7 +42,7 @@ namespace QFramework
             // IEnumerable<T>
             IEnumerable<int> testIenumerable = new List<int> {1, 2, 3};
             testIenumerable.ForEach(number => Debug.Log(number));
-            var testDictionary = new Dictionary<string, string>()
+            new Dictionary<string, string>()
                 .ForEach(keyValue => Log.I("key:{0},value:{1}", keyValue.Key, keyValue.Value));
             
             // testList
