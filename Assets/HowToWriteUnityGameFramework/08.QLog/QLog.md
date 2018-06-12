@@ -1,7 +1,7 @@
 # Unity 游戏框架搭建 (八) 减少加班利器-QLog
 
 #### 为毛要实现这个工具?
-在我小时候,每当游戏到了测试阶段,交给QA测试,QA测试了一会儿拿着设备过来说游戏闪退了。。。。当我拿到设备后测了好久Bug也没有复现,排查了好久也没有头绪,就算接了Bugly拿到的也只是闪退的异常信息,或者干脆拿不到。很抓狂,因为这个我是没少加班。所以当时想着解决下这个小小的痛点。。。
+在我小时候,每当游戏到了测试阶段,交给 QA 测试, QA 测试了一会儿拿着设备过来说游戏闪退了。。。。当我拿到设备后测了好久 Bug 也没有复现,排查了好久也没有头绪,就算接了 Bugly 拿到的也只是闪退的异常信息,或者干脆拿不到。很抓狂,因为这个我是没少加班。所以当时想着解决下这个小小的痛点。。。
 #### 现在框架中的QLog:
 怎么用呢?在初始化的地方调用这句话就够了。
 ```csharp
@@ -10,22 +10,22 @@ QLog.Instance ();
 其实做成单例也没有必要。。。。
 #### 日志获取方法:
 PC端或者Mac端,日志存放在工程的如下位置:
-![](/content/images/2016/07/-----2016-07-16---3-54-31.png)
+![](https://ws4.sinaimg.cn/large/006tKfTcgy1fs8gye2encj30z60im77k.jpg)
 打开之后是这样的:
-![](/content/images/2016/07/-----2016-07-16---3-54-44.png)
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fs8gytcyx7j30yy0o2gqj.jpg)
 最后一条信息是触发了一个空指针异常,堆栈信息一目了然。
 如果是iOS端,需要使用类似同步推或者iTools工具获取日志文件,路径是这样的:
-![](/content/images/2016/07/-----2016-07-16---3-58-28.png)
+![](https://ws1.sinaimg.cn/large/006tKfTcgy1fs8gyztx6jj30xs0f40uw.jpg)
 Android端的话,类似的方式,但是具体路径没查过,不好意思。。。
 #### 初版
-一开始想做一个保存Debug.Log、Debug.LogWaring、Debug.LogErr信息奥本地文件的小工具。上网一查原来有大神实现了,贴上链接:http://www.xuanyusong.com/archives/2477。
-其思路是使用Application.RegisterLocCallback注册回调,每次使用Debug.Log等API时候会触发一次回调,在回调中将Log信息保存在本地。而且意外的发现,Application.RegisterLogCallback也能接收到异常和错误信息。<br>
-所以将这份实现作为QLog的初版用了一段时间,发现存在一个问题,如果游戏发生闪退,好多Log信息没来得及存到本地,因为刷入到本地操作是通过Update完成的,每帧之间的间隔,其实很长。
+一开始想做一个保存 Debug.Log、Debug.LogWaring、Debug.LogError 信息奥本地文件的小工具。上网一查原来有大神实现了,贴上链接: http://www.xuanyusong.com/archives/2477。
+其思路是使用 Application.RegisterLocCallback 注册回调,每次使用 Debug.Log 等 API 时候会触发一次回调,在回调中将Log信息保存在本地。而且意外的发现,Application.RegisterLogCallback 也能接收到异常和错误信息。<br>
+所以将这份实现作为 QLog 的初版用了一段时间,发现存在一个问题,如果游戏发生闪退,好多 Log 信息没来得及存到本地,因为刷入到本地操作是通过 Update 完成的,每帧之间的间隔,其实很长。
 #### 现在的版本:
-后来找到了一份实现,思路和初版一样区别是将Update改成线程来刷。Application.RegisterLogCallback这时候已经弃用了,改成了Application.logMessageReceived,后来又找到了Application.logMessageReceivedThreaded。
-如果只是使用Application.logMessageReceived的时候,在真机上如果发生Error或者Exception时,收不到堆栈信息。但是使用了Application.logMessageReceivedThreaded就可以接收到堆栈信息了,不过在处理Log信息的时候要保证线程安全。
+后来找到了一份实现,思路和初版一样区别是将Update改成线程来刷。Application.RegisterLogCallback 这时候已经弃用了,改成了 Application.logMessageReceived,后来又找到了 Application.logMessageReceivedThreaded。
+如果只是使用 Application.logMessageReceived 的时候,在真机上如果发生 Error 或者 Exception 时,收不到堆栈信息。但是使用了 Application.logMessageReceivedThreaded 就可以接收到堆栈信息了,不过在处理 Log 信息的时候要保证线程安全。
 
-说明部分就这些吧,实现起来其实没什么难点,主要就是好好利用Application.logMessageReceived和Application.logMessageReceivedThreaded这两个API就好了。
+说明部分就这些吧,实现起来其实没什么难点,主要就是好好利用 Application.logMessageReceived 和 Application.logMessageReceivedThreaded 这两个API就好了。
 
 下面贴上我的框架中的实现,这里要注意一下,这份实现依赖于上篇文章介绍的App类(已经重命名为QApp了)。<br><br>
 接口类ILogOutput:
@@ -35,7 +35,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace QFramework {
+namespace QFramework 
+{
 	/// <summary>
 	/// 日志输出接口
 	/// </summary>
@@ -62,7 +63,8 @@ using System.Threading;
 using System.IO;
 using UnityEngine;
 
-namespace QFramework {
+namespace QFramework 
+{
 	/// <summary>
 	/// 文本日志输出
 	/// </summary>
@@ -318,7 +320,7 @@ namespace  QFramework {
 
 [教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-QFramework&游戏框架搭建QQ交流群: 623597263
+QFramework & 游戏框架搭建 QQ 交流群: 623597263
 
 转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
 
