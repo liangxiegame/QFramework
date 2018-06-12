@@ -2,7 +2,7 @@
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 liangxie
  * Copyright (c) 2017 maoling
- * Copyright (c) 2018.5 liangxie
+ * Copyright (c) 2018.5 ~ 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,21 +28,24 @@
 
 namespace QFramework
 {
-    using System;
-    using UnityEngine;
-    /// <summary>
-    /// 每个UIbehaviour对应的Data
-    /// </summary>
-    public interface IUIData
+	using System;
+	using UnityEngine;
+
+	/// <summary>
+	/// 每个UIbehaviour对应的Data
+	/// </summary>
+	public interface IUIData
 	{
 	}
 
 	public class UIPanelData : IUIData
 	{
 	}
-	
+
 	[Obsolete("弃用啦")]
-	public class UIPageData : UIPanelData{}
+	public class UIPageData : UIPanelData
+	{
+	}
 
 	[Obsolete("弃用啦")]
 	public abstract class QUIBehaviour : UIPanel
@@ -56,33 +59,23 @@ namespace QFramework
 			get { return transform; }
 		}
 
-        private int mUILayerType = -10000;
-        private int mLayerSortIndex = -10;
-        private IUIPanelLoader mUiPanelLoader = null;
+		private int            mUILayerType    = -10000;
+		private int            mLayerSortIndex = -10;
+		private IUIPanelLoader mUiPanelLoader  = null;
 
-        public int UILayerType
-        {
-            get
-            { return mUILayerType; }
-            set
-            {
-                if (mUILayerType != -10000)
-                {
-                    mUILayerType = value;
-                }
-                mUILayerType = value;
-            }
-        }
+		public int UILayerType
+		{
+			get { return mUILayerType; }
+			set { mUILayerType = value; }
+		}
 
-        public int LayerSortIndex
-        {
-            get
-            { return mLayerSortIndex; }
-            set
-            { mLayerSortIndex = value; }
-        }
+		public int LayerSortIndex
+		{
+			get { return mLayerSortIndex; }
+			set { mLayerSortIndex = value; }
+		}
 
-        public static UIPanel Load(string panelName, string assetBundleName = null)
+		public static UIPanel Load(string panelName, string assetBundleName = null)
 		{
 			var panelLoader = new DefaultUIPanelLoader();
 			var panelPrefab = assetBundleName.IsNullOrEmpty()
@@ -103,20 +96,23 @@ namespace QFramework
 		{
 			ClearUIComponents();
 		}
-		
-		protected virtual void ClearUIComponents(){}
+
+		protected virtual void ClearUIComponents()
+		{
+		}
 
 
-        public void SetSiblingIndexAndNewLayerIndex(int siblingIndex, int layerIndex) {
-            if(mLayerSortIndex != layerIndex)
-            {
-                Transform.SetSiblingIndex(siblingIndex);
-                mLayerSortIndex = layerIndex;
-            }
-        }
+		public void SetSiblingIndexAndNewLayerIndex(int siblingIndex, int layerIndex)
+		{
+			if (mLayerSortIndex != layerIndex)
+			{
+				Transform.SetSiblingIndex(siblingIndex);
+				mLayerSortIndex = layerIndex;
+			}
+		}
 
 
-        public void Init(IUIData uiData = null)
+		public void Init(IUIData uiData = null)
 		{
 			InnerInit(uiData);
 			RegisterUIEvent();
