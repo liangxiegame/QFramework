@@ -213,7 +213,7 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![](https://ws2.sinaimg.cn/large/006tNc79ly1fsb2mjfji8j30by0byt9i.jpg)
 
 ### 如果有帮助到您:
 
