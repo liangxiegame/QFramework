@@ -39,6 +39,7 @@ namespace QFramework.Example
         /// </summary>
         [Button("Init", showIfRunTime = ShowIfRunTime.Editing)]
         public int ButtonAtt1;
+
         private void Init()
         {
             Undo.RecordObject(this, "Init");
@@ -82,14 +83,12 @@ namespace QFramework.Example
 
         public bool IsJump;
 
-        [ShowIf("@IsJump")]
-        public float JumpHeight;
+        [ShowIf("@IsJump")] public float JumpHeight;
 
-        [ShowIfAnd("@IsJump", "@IsRun")]
-        public bool IsStop;
+        [ShowIfAnd("@IsJump", "@IsRun")] public bool IsStop;
 
         public Collider[] Colliders;
-        public Transform TfSelf;
+        public Transform  TfSelf;
 
         /// <summary>
         /// 直接给函数显示一个Button
@@ -98,7 +97,9 @@ namespace QFramework.Example
         [ButtonEx]
         private void CallInit()
         {
+#if UNITY_EDITOR
             Init();
+#endif
         }
     }
 }
