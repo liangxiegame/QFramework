@@ -39,7 +39,7 @@ namespace QFramework.Example
 //		[Inject]
 //		public IServiceTest a { get; set; }
 
-		private ServiceTest()
+		public ServiceTest()
 		{
 			i++;
 		}
