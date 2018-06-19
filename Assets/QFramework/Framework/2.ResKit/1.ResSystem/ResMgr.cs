@@ -134,7 +134,7 @@ namespace QFramework
             if (res != null)
             {
                 mResDictionary.Add(assetName, res);
-                mResList.Add(res);
+
                 if (!mResList.Contains(res))
                 {
                     mResList.Add(res);
