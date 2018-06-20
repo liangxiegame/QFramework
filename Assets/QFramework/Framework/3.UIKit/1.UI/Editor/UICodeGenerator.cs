@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ~ 2018.5 liangxie 
+ * Copyright (c) 2017 ~ 2018.6 liangxie 
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -355,7 +355,7 @@ namespace QFramework
 				// 这部分
 				if (uiMark.GetUIMarkType() != UIMarkType.DefaultUnityElement)
 				{
-					var ptuimark = obj.GetComponent<QUIMark>();
+					var ptuimark = obj.GetComponent<UIMark>();
 					if (ptuimark != null)
 					{
 						UnityEngine.Object.DestroyImmediate(ptuimark, true);

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -46,9 +46,8 @@ namespace QFramework
             strBuilder.AppendLine("{");
             strBuilder.AppendLine("\tusing UnityEngine;");
             strBuilder.AppendLine("\tusing UnityEngine.UI;");
-            strBuilder.AppendLine("\tusing QFramework;");
             strBuilder.AppendLine();
-            strBuilder.AppendFormat("\tpublic partial class {0}", behaviourName);
+            strBuilder.AppendFormat("\tpublic partial class {0}\n", behaviourName);
             strBuilder.AppendLine("\t{");
             strBuilder.AppendFormat("\t\tpublic const string NAME = \"{0}\";", behaviourName);
             strBuilder.AppendLine();

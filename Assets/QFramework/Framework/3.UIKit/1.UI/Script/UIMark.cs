@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -36,11 +36,12 @@ namespace QFramework
 		Element,
 		Component
 	}
-	
+
+	/// <inheritdoc />
 	/// <summary>
 	/// UI的标记
 	/// </summary>
-	public class QUIMark : MonoBehaviour, IUIMark
+	public class UIMark : MonoBehaviour, IUIMark
 	{
 		public UIMarkType MarkType = UIMarkType.DefaultUnityElement;
 
