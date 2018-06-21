@@ -40,12 +40,19 @@ QFramework&游戏框架搭建QQ交流群: 623597263
 
 ### 如果有帮助到您:
 
-如果觉得本篇教程或者 QFramework 对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
+如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 给 QFramework 一个 Star:https://github.com/liangxiegame/QFramework
-- 下载 Asset Store 上的 QFramework 给个五星(如果有评论小的真是感激不尽):http://u3d.as/SJ9
-- 购买 gitchat 话题并给 5 星好评: http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77 (6 元，会员免费)
-- 购买同名的蛮牛视频课程并给 5 星好评:http://edu.manew.com/course/431 (目前定价 29.8 元)
+- 给 QFramework 一个 Star
+  - 地址: https://github.com/liangxiegame/QFramework
+- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+  - 地址: http://u3d.as/SJ9
+- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
+  - 价格: 6 元，会员免费
+  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
+- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理神器 ResKit》
+  - 价格: 6 元，会员免费
+  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+- 购买同名的蛮牛视频课程录播课程:
+  - 价格 ~~19.2 元~~ 29.8 元
+  - 地址: http://edu.manew.com/course/431 
 - 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
-
-笔者在这里保证 QFramework、入门教程、文档和此框架搭建系列的专栏永远免费开源。以上捐助产品的内容对于使用 QFramework 的使用来讲都不是必须的，所以大家不用担心，各位使用 QFramework 或者 阅读此专栏 已经是对笔者团队最大的支持了。
