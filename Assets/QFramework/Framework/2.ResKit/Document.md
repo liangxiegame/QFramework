@@ -31,15 +31,19 @@ loader = null;
 ``` csharp
 // init res mgr before load asset bundle
 ResMgr.Init();
+
 // allocate a loader when initialize a panel or a monobehavour
 var loader = ResLoader.Allocate<ResLoader>();
 
 // load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("smobj")
+var smObjPrefab = loader.LoadSync<GameObject>("smObj");
 
-loader.LoadSync<Texture2D>("Bg")
+var bgTexture = loader.LoadSync<Texture2D>("Bg");
+
+var logoTexture = loader.LoadSync<Texture2D>("hometextures","logo");
 
 // resycle this panel/monobehaivour loaded res when destroyed 
-loader.Recycle2Cache()
-loader = null
+loader.Recycle2Cache();
+
+loader = null;
 ```
