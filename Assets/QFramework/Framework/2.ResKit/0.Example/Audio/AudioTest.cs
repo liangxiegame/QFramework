@@ -1,5 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018.3 布鞋 827922094@qq.com
+ * Copyright (c) 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,8 +27,8 @@
 using UnityEngine;
 using QFramework;
 
-public class AudioTest : MonoBehaviour {
-
+public class AudioTest : MonoBehaviour 
+{
     private void Start()
     {
         ResMgr.Init();
@@ -36,7 +37,6 @@ public class AudioTest : MonoBehaviour {
 
         AudioManager.Instance.SendMsg(new AudioMusicMsg("BackGroundMusic"));
 
-        AudioManager.Instance.SendMsg(new AudioStopMusicMsg());
+        AudioManager.Instance.SendMsg(new AudioStopMusicMsg());   
     }
-
 }
