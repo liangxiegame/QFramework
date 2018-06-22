@@ -7,13 +7,13 @@
 var loader = ResLoader.Allocate<ResLoader>();
 
 // load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("Resources/smobj")
+loader.LoadSync<GameObject>("Resources/smobj");
 
-loader.LoadSync<Texture2D>("Resources/Bg")
+loader.LoadSync<Texture2D>("Resources/Bg");
 
 // resycle this panel/monobehaivour loaded res when destroyed 
-loader.Recycle2Cache()
-loader = null
+loader.Recycle2Cache();
+loader = null;
 ```
 
 ## 加载网络资源
