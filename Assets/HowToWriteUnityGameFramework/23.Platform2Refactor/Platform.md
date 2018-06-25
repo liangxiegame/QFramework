@@ -139,27 +139,11 @@ Hard Code 是难免的，追求代码质量的道路是没有终点的，让代�
 
 #### 相关链接:
 
-附: [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
-
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
-
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-微信公众号:liangxiegame
-
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
-
-#output/Unity游戏框架搭建
-
-#### 相关链接:
-
 [我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
 
 [教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-QFramework&游戏框架搭建QQ交流群: 623597263
+QFramework & 游戏框架搭建 QQ 交流群: 623597263
 
 转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
 

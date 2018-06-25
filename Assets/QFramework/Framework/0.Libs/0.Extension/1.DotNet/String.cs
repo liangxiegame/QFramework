@@ -211,7 +211,14 @@ namespace QFramework
             var retValue = defaulValue;
             return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
         }
- 
+
+        public static DateTime ToDateTime(this string selfStr, DateTime defaultValue = default(DateTime))
+        {
+            var retValue = defaultValue;
+            return DateTime.TryParse(selfStr, out retValue) ? retValue : defaultValue;
+        }
+
+
         public static float ToFloat(this string selfStr,float defaulValue = 0)
         {
             var retValue = defaulValue;

@@ -66,7 +66,7 @@ namespace QFramework
 
 	public class UICodeGenerator
 	{
-		[MenuItem("Assets/@QFramework - Create UICode")]
+		[MenuItem("Assets/@UIKit - Create UICode")]
 		public static void CreateUICode()
 		{
 			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
