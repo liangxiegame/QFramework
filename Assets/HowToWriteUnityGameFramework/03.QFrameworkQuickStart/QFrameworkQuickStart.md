@@ -395,7 +395,7 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理神器 ResKit》
+- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
   - 价格: 6 元，会员免费
   - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
 - 给 QFramework 一个 Star
