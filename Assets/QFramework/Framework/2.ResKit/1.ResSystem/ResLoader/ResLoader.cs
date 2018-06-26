@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.6 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,16 +24,114 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Object = UnityEngine.Object;
-
 namespace QFramework
 {
+    using System;
+    using System.Collections.Generic;
+    using UnityEngine;
+    using Object = UnityEngine.Object;
+
     public class ResLoader : DisposableObject, IResLoader, IPoolable, IPoolType
     {
-        private class CallBackWrap
+        /// <summary>
+        /// ID:RKRL001 申请ResLoader对象 ResLoader.Allocate（IResLoaderStrategy strategy = null)
+        /// </summary>
+        /// <param name="strategy">加载策略</param>
+        /// <returns></returns>
+        public static ResLoader Allocate(IResLoaderStrategy strategy = null)
+        {
+            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
+            loader.SetStrategy(strategy);
+            return loader;
+        }
+
+        /// <summary>
+        /// ID:RKRL002 释放ResLoader对象 ResLoader.Recycle2Cache
+        /// </summary>
+        public void Recycle2Cache()
+        {
+            SafeObjectPool<ResLoader>.Instance.Recycle(this);
+        }
+
+        /// <summary>
+        /// ID:RKRL003 同步加载AssetBundle里的资源 ResLoader.LoadSync<T>(string ownerBundle,string assetBundle)
+        /// </summary>
+        /// <param name="ownerBundle">assetBundle名字</param>
+        /// <param name="assetName">资源名字</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
+        {
+            ownerBundle = ownerBundle.ToLower();
+            assetName = assetName.ToLower();
+            Add2Load(ownerBundle, assetName);
+            LoadSync();
+
+            var res = ResMgr.Instance.GetRes(ownerBundle, assetName);
+            if (res == null)
+            {
+                Log.E("Failed to Load Res:" + ownerBundle + assetName);
+                return null;
+            }
+
+            return res.Asset as T;
+        }
+
+        /// <summary>
+        /// ID:RKRL003 只通过资源名字进行同步加载 ResLoader.LoadSync<T>(string assetName)
+        /// </summary>
+        /// <param name="assetName">资源名字</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T LoadSync<T>(string assetName) where T : Object
+        {
+            return LoadSync(assetName) as T;
+        }
+
+        /// <summary>
+        /// ID:RKRL003 只通过资源名字进行同步加载,
+        /// </summary>
+        /// <param name="name">资源名字</param>
+        /// <returns></returns>
+        public Object LoadSync(string name)
+        {
+            Add2Load(name);
+            LoadSync();
+
+            var res = ResMgr.Instance.GetRes(name, false);
+            if (res == null)
+            {
+                Log.E("Failed to Load Res:" + name);
+                return null;
+            }
+
+            return res.Asset;
+        }
+
+        private void LoadSync()
+        {
+            while (mWaitLoadList.Count > 0)
+            {
+                var first = mWaitLoadList.First.Value;
+                --mLoadingCount;
+                mWaitLoadList.RemoveFirst();
+
+                if (first == null)
+                {
+                    return;
+                }
+
+                if (first.LoadSync())
+                {
+                    first.AcceptLoaderStrategySync(this, mStrategy);
+                }
+            }
+
+            mStrategy.OnAllTaskFinish(this);
+        }
+
+
+        class CallBackWrap
         {
             private readonly Action<bool, IRes> mListener;
             private readonly IRes               mRes;
@@ -55,10 +153,10 @@ namespace QFramework
             }
         }
 
-        private readonly List<IRes>         mResArray     = new List<IRes>();
+        private readonly List<IRes>         mResList      = new List<IRes>();
         private readonly LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
-        private System.Action             mListener;
-        private IResLoaderStrategy mStrategy;
+        private          Action             mListener;
+        private          IResLoaderStrategy mStrategy;
 
         private int  mLoadingCount;
 
@@ -67,7 +165,15 @@ namespace QFramework
 
         public static IResLoaderStrategy defaultStrategy
         {
-            get { return sDefaultStrategy ?? (sDefaultStrategy = new DefaultLoaderStrategy()); }
+            get
+            {
+                if (sDefaultStrategy == null)
+                {
+                    sDefaultStrategy = new DefaultLoaderStrategy();
+                }
+
+                return sDefaultStrategy;
+            }
         }
 
         public float Progress
@@ -79,8 +185,8 @@ namespace QFramework
                     return 1;
                 }
 
-                var unit = 1.0f / mResArray.Count;
-                var currentValue = unit * (mResArray.Count - mLoadingCount);
+                var unit = 1.0f / mResList.Count;
+                var currentValue = unit * (mResList.Count - mLoadingCount);
 
                 var currentNode = mWaitLoadList.First;
 
@@ -94,14 +200,8 @@ namespace QFramework
             }
         }
 
-        bool IPoolable.IsRecycled { get; set; }
+        public bool IsRecycled { get; set; }
 
-        public static ResLoader Allocate(IResLoaderStrategy strategy = null)
-        {
-            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
-            loader.SetStrategy(strategy);
-            return loader;
-        }
 
         public ResLoader()
         {
@@ -130,7 +230,7 @@ namespace QFramework
                 return;
             }
 
-            var res = FindResInArray(mResArray, ownerBundle, assetName);
+            var res = FindResInArray(mResList, ownerBundle, assetName);
             if (res != null)
             {
                 if (listener != null)
@@ -170,15 +270,15 @@ namespace QFramework
         }
 
 
-        public void Add2Load(string assetName, Action<bool, IRes> listener = null, bool lastOrder = true)
+        public void Add2Load(string resName, Action<bool, IRes> listener = null, bool lastOrder = true)
         {
-            if (string.IsNullOrEmpty(assetName))
+            if (string.IsNullOrEmpty(resName))
             {
                 Log.E("Res Name Is Null.");
                 return;
             }
 
-            var res = FindResInArray(mResArray, assetName);
+            var res = FindResInArray(mResList, resName);
             if (res != null)
             {
                 if (listener != null)
@@ -190,7 +290,7 @@ namespace QFramework
                 return;
             }
 
-            res = ResMgr.Instance.GetRes(assetName, true);
+            res = ResMgr.Instance.GetRes(resName, true);
 
             if (res == null)
             {
@@ -217,64 +317,6 @@ namespace QFramework
             AddRes2Array(res, lastOrder);
         }
 
-        public void LoadSync()
-        {
-            while (mWaitLoadList.Count > 0)
-            {
-                var first = mWaitLoadList.First.Value;
-                --mLoadingCount;
-                mWaitLoadList.RemoveFirst();
-
-                if (first == null)
-                {
-                    return;
-                }
-
-                if (first.LoadSync())
-                {
-                    first.AcceptLoaderStrategySync(this, mStrategy);
-                }
-            }
-
-            mStrategy.OnAllTaskFinish(this);
-        }
-
-        public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
-        {
-            var lowerBundle = ownerBundle.ToLower();
-            var lowerAssetName = assetName.ToLower();
-            Add2Load(lowerBundle, assetName);
-            LoadSync();
-
-            var res = ResMgr.Instance.GetRes(lowerBundle, lowerAssetName);
-            if (res == null)
-            {
-                Log.E("Failed to Load Res:" + ownerBundle + lowerAssetName);
-                return null;
-            }
-
-            return res.Asset as T;
-        }
-
-        public T LoadSync<T>(string assetName) where T : Object
-        {
-            return LoadSync(assetName) as T;
-        }
-
-        public Object LoadSync(string name)
-        {
-            Add2Load(name);
-            LoadSync();
-
-            IRes res = ResMgr.Instance.GetRes(name, false);
-            if (res == null)
-            {
-                Log.E("Failed to Load Res:" + name);
-                return null;
-            }
-
-            return res.Asset;
-        }
 
 #if UNITY_EDITOR
         private readonly Dictionary<string, Sprite> mCachedSpriteDict = new Dictionary<string, Sprite>();
@@ -291,12 +333,13 @@ namespace QFramework
                 }
 
                 var texture = LoadSync<Texture2D>(bundleName, spriteName);
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
                     Vector2.one * 0.5f);
                 mCachedSpriteDict.Add(spriteName, sprite);
                 return mCachedSpriteDict[spriteName];
             }
 #endif
+
             return LoadSync<Sprite>(bundleName, spriteName);
         }
 
@@ -312,27 +355,26 @@ namespace QFramework
                 }
 
                 var texture = LoadSync(spriteName) as Texture2D;
-                Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
+                var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
                     Vector2.one * 0.5f);
                 mCachedSpriteDict.Add(spriteName, sprite);
                 return mCachedSpriteDict[spriteName];
             }
 #endif
+
             return LoadSync<Sprite>(spriteName);
         }
 
 
-        public void LoadAsync(System.Action listener = null)
+        public void LoadAsync(Action listener = null)
         {
             mListener = listener;
-            //ResMgr.Instance.timeDebugger.Begin("LoadAsync");
             DoLoadAsync();
         }
 
-        public void ReleaseRes(string name)
+        public void ReleaseRes(string resName)
         {
-
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(resName))
             {
                 return;
             }
@@ -340,16 +382,16 @@ namespace QFramework
 #if UNITY_EDITOR
             if (AbstractRes.SimulateAssetBundleInEditor)
             {
-                if (mCachedSpriteDict.ContainsKey(name))
+                if (mCachedSpriteDict.ContainsKey(resName))
                 {
-                    var sprite = mCachedSpriteDict[name];
+                    var sprite = mCachedSpriteDict[resName];
                     GameObject.Destroy(sprite);
-                    mCachedSpriteDict.Remove(name);
+                    mCachedSpriteDict.Remove(resName);
                 }
             }
 #endif
 
-            var res = ResMgr.Instance.GetRes(name, false);
+            var res = ResMgr.Instance.GetRes(resName);
             if (res == null)
             {
                 return;
@@ -364,7 +406,7 @@ namespace QFramework
                 }
             }
 
-            if (mResArray.Remove(res))
+            if (mResList.Remove(res))
             {
                 res.UnRegisteResListener(OnResLoadFinish);
                 res.Release();
@@ -403,18 +445,18 @@ namespace QFramework
             mLoadingCount = 0;
             mWaitLoadList.Clear();
 
-            if (mResArray.Count > 0)
+            if (mResList.Count > 0)
             {
                 //确保首先删除的是AB，这样能对Asset的卸载做优化
-                mResArray.Reverse();
+                mResList.Reverse();
 
-                for (var i = mResArray.Count - 1; i >= 0; --i)
+                for (var i = mResList.Count - 1; i >= 0; --i)
                 {
-                    mResArray[i].UnRegisteResListener(OnResLoadFinish);
-                    mResArray[i].Release();
+                    mResList[i].UnRegisteResListener(OnResLoadFinish);
+                    mResList[i].Release();
                 }
 
-                mResArray.Clear();
+                mResList.Clear();
                 ResMgr.Instance.ClearOnUpdate();
             }
 
@@ -423,22 +465,22 @@ namespace QFramework
 
         public void UnloadAllInstantialteRes(bool flag)
         {
-            if (mResArray.Count > 0)
+            if (mResList.Count > 0)
             {
-                for (var i = mResArray.Count - 1; i >= 0; --i)
+                for (var i = mResList.Count - 1; i >= 0; --i)
                 {
-                    if (mResArray[i].UnloadImage(flag))
+                    if (mResList[i].UnloadImage(flag))
                     {
-                        if (mWaitLoadList.Remove(mResArray[i]))
+                        if (mWaitLoadList.Remove(mResList[i]))
                         {
                             --mLoadingCount;
                         }
 
-                        RemoveCallback(mResArray[i], true);
+                        RemoveCallback(mResList[i], true);
 
-                        mResArray[i].UnRegisteResListener(OnResLoadFinish);
-                        mResArray[i].Release();
-                        mResArray.RemoveAt(i);
+                        mResList[i].UnRegisteResListener(OnResLoadFinish);
+                        mResList[i].Release();
+                        mResList.RemoveAt(i);
                     }
                 }
 
@@ -454,9 +496,9 @@ namespace QFramework
 
         public void Dump()
         {
-            foreach (var resArray in mResArray)
+            foreach (var res in mResList)
             {
-                Log.I(resArray.AssetName);
+                Log.I(res.AssetName);
             }
         }
 
@@ -469,8 +511,6 @@ namespace QFramework
         {
             if (mLoadingCount == 0)
             {
-                //ResMgr.Instance.timeDebugger.End();
-                //ResMgr.Instance.timeDebugger.Dump(-1);
                 if (mListener != null)
                 {
                     var callback = mListener;
@@ -510,9 +550,10 @@ namespace QFramework
             if (mCallbackRecardList != null)
             {
                 var current = mCallbackRecardList.First;
+                LinkedListNode<CallBackWrap> next = null;
                 while (current != null)
                 {
-                    var next = current.Next;
+                    next = current.Next;
                     if (current.Value.IsRes(res))
                     {
                         if (release)
@@ -571,7 +612,7 @@ namespace QFramework
         private void AddRes2Array(IRes res, bool lastOrder)
         {
             //再次确保队列中没有它
-            var oldRes = FindResInArray(mResArray, res.AssetName);
+            var oldRes = FindResInArray(mResList, res.AssetName);
 
             if (oldRes != null)
             {
@@ -579,7 +620,7 @@ namespace QFramework
             }
 
             res.Retain();
-            mResArray.Add(res);
+            mResList.Add(res);
 
             if (res.State != ResState.Ready)
             {
@@ -604,7 +645,7 @@ namespace QFramework
 
             for (var i = list.Count - 1; i >= 0; --i)
             {
-                if (list[i].AssetName.Equals(assetName) && list[i].OwnerBundleName.Equals(ownerBundleName))
+                if (list[i].AssetName.Equals(assetName) && list[i].OwnerBundleName == ownerBundleName)
                 {
                     return list[i];
                 }
@@ -645,11 +686,6 @@ namespace QFramework
         void IPoolable.OnRecycled()
         {
             ReleaseAllRes();
-        }
-
-        public void Recycle2Cache()
-        {
-            SafeObjectPool<ResLoader>.Instance.Recycle(this);
         }
     }
 }

@@ -30,11 +30,11 @@ namespace QFramework.Example
 	public class ResKitExample : MonoBehaviour
 	{
 		private ResLoader mResLoader = ResLoader.Allocate();
-		
+
 		private void Start()
 		{
 			ResMgr.Init();
-			
+
 			mResLoader.LoadSync<GameObject>("Resources/GameObject")
 				.Instantiate()
 				.Name("这是使用ResKit加载的对象");
@@ -42,6 +42,10 @@ namespace QFramework.Example
 			mResLoader.LoadSync<GameObject>("AssetObj")
 				.Instantiate()
 				.Name("这是使用通过 AssetName 加载的对象");
+
+			mResLoader.LoadSync<GameObject>("assetobj_prefab", "AssetObj")
+				.Instantiate()
+				.Name("这是使用通过 AssetName  和 AssetBundle 加载的对象");
 		}
 
 		private void OnDestroy()

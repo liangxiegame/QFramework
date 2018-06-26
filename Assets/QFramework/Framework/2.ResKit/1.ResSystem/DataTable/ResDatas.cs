@@ -172,9 +172,9 @@ namespace QFramework
 
         public AssetData GetAssetData(string assetName,string ownerBundle)
         {
-            for (int i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = m_ActiveAssetDataGroup.Count - 1; i >= 0; --i)
             {
-                AssetData result = m_ActiveAssetDataGroup[i].GetAssetData(assetName,ownerBundle);
+                var result = m_ActiveAssetDataGroup[i].GetAssetData(assetName,ownerBundle);
                 if (result == null)
                 {
                     continue;

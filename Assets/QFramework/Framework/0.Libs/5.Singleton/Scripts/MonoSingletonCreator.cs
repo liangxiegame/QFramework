@@ -45,7 +45,7 @@ namespace QFramework
 			var attributes = info.GetCustomAttributes(true);
 			foreach (var atribute in attributes)
 			{
-				var defineAttri = atribute as QMonoSingletonPath;
+				var defineAttri = atribute as MonoSingletonPath;
 				if (defineAttri == null)
 				{
 					continue;
