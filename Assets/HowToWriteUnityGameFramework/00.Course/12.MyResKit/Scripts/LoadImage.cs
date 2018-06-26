@@ -70,9 +70,9 @@ namespace MyResKit
 			
 			var asset = Resources.Load<T>(assetName);
 
-			var res = new Res(asset);
+			loadedRes = new Res(asset);
 
-			mSharedLoadedReses.Add(res);
+			mSharedLoadedReses.Add(loadedRes);
 			
 			loadedRes.Retain();
 
