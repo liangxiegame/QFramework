@@ -131,6 +131,16 @@ namespace QFramework
 			}, e => { Log.E(e); });
 		}
 
+		public void DownloadDemo()
+		{
+			Application.OpenURL("http://liangxiegame.com/content/demo/Demo_v0.0.7.unitypackage");
+//			ObservableWWW.GetAndGetBytes("http://liangxiegame.com/content/demo/Demo_v0.0.7.unitypackage").Subscribe(bytes =>
+//			{
+//				File.WriteAllBytes(Application.dataPath + "/" + "Demo_v0.0.7", bytes);
+//				AssetDatabase.ImportPackage(Application.dataPath + "/" + "Demo_v0.0.7", true);
+//			});
+		}
+
 		public FrameworkSettingData CurSettingData;
 
 		private void OnGUI()
@@ -149,6 +159,12 @@ namespace QFramework
 			{
 				DownloadLatestVersion();
 			}
+
+			if (GUILayout.Button("Download Demo"))
+			{
+				DownloadDemo();
+			}
+			
 		}
 	}
 }
