@@ -86,7 +86,7 @@ QFramework 的目标是要做到像 Quick-Cocos2d-x 一样 “简单、强大”
 
 QFramework 群里有人形容 QFramework 三个词:简单、粗暴、还有点小精致，笔者觉得形容地非常地贴切。
 
-目前主要三个模块，UIKit,ResKit,ActionKit。目前还有一个模块 EditorKit 正在开发中。
+目前主要三个模块，UIKit,ResKit,ActionKit。另外还有一个模块 EditorKit 正在开发中。
 
 看到这里大家可能对 ActionKit 有些陌生，它的前身就是 QChain，负责所有的异步逻辑，包含 UniRx 和  Promise 还有一套轻量级的行为树。之后会用一个非常详细的文章介绍它。
 
