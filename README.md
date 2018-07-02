@@ -40,7 +40,7 @@ this.ExecuteNode(sequenceNode);
 **2.Res Kit**
 ``` csharp
 // allocate a loader when initialize a panel or a monobehavour
-var loader = ResLoader.Allocate<ResLoader>();
+var loader = ResLoader.Allocate();
 
 // load someth in a panel or a monobehaviour
 loader.LoadSync<GameObject>("Resources/smobj");
