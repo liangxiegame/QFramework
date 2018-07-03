@@ -47,7 +47,6 @@ namespace QFramework
 
 		public static void ForceClear()
 		{
-
 			ResKitAssetsMenu.AssetBundlesOutputPath.DeleteDirIfExists();
 			(Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
 
@@ -118,12 +117,7 @@ namespace QFramework
 			resVersion = GUILayout.TextField(resVersion);
 			GUILayout.EndHorizontal();
 
-			if (GUILayout.Button("1.Gen Res Tree File"))
-			{
-				AssetBundleExporter.BuildDataTable();
-			}
-
-			if (GUILayout.Button("2.Build"))
+			if (GUILayout.Button("Build"))
 			{
 				AssetBundleExporter.BuildDataTable();
 				BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
@@ -138,7 +132,6 @@ namespace QFramework
 			GUILayout.Space(50);
 
 			EditorGUILayout.EndScrollView();
-
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("Url:");

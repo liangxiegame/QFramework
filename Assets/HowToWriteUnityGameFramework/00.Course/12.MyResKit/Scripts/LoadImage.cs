@@ -1,9 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace MyResKit
 {
@@ -40,7 +38,7 @@ namespace MyResKit
 		/// <summary>
 		/// 共享的 
 		/// </summary>
-		private static List<Res> mSharedLoadedReses = new List<Res>();
+		public static List<Res> SharedLoadedReses = new List<Res>();
 		
 		
 		/// <summary>
@@ -57,7 +55,7 @@ namespace MyResKit
 				return loadedRes as T;
 			}
 
-			loadedRes = mSharedLoadedReses.Find(loadedAsset => loadedAsset.Name == assetName);
+			loadedRes = SharedLoadedReses.Find(loadedAsset => loadedAsset.Name == assetName);
 
 			if (loadedRes != null)
 			{
@@ -72,7 +70,7 @@ namespace MyResKit
 
 			loadedRes = new Res(asset);
 
-			mSharedLoadedReses.Add(loadedRes);
+			SharedLoadedReses.Add(loadedRes);
 			
 			loadedRes.Retain();
 
@@ -121,6 +119,10 @@ namespace MyResKit
 			if (mReferenceCount == 0)
 			{
 				Resources.UnloadAsset(mAsset);
+
+				ResLoader.SharedLoadedReses.Remove(this);
+
+				mAsset = null;
 			}
 		}
 	}

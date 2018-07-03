@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine.UI;
 
 namespace QFramework
 {
@@ -51,9 +52,14 @@ namespace QFramework
 			sequenceNode2.Dispose();
 			sequenceNode2 = null;
 			*/
-			
+
 			// 或者 OnDestroy 触发时进行销毁
 			sequenceNode2.AddTo(this);
+		}
+
+		void OnLoginSucceed()
+		{
+			
 		}
 
 		private SequenceNode mSequenceNode3 = SequenceNode.Allocate(
