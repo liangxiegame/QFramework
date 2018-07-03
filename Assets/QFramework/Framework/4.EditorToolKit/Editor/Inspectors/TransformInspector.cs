@@ -1,4 +1,5 @@
-﻿// /****************************************************************************
+﻿
+// /****************************************************************************
 //  * Copyright (c) 2018 Karsion(拖鞋)
 //  * Date: 2018-06-07 18:29
 //  *
@@ -285,9 +286,8 @@ namespace QFramework
         {
             foreach (Object o in targets)
             {
-                Transform t = (Transform)o;
-                t.rotation = TransformInspectorCopyData.rotationCopy;
-                EditorUtility.SetDirty(t);
+                SerializedObject so = new SerializedObject(o);
+                so.FindProperty("m_LocalRotation").quaternionValue = TransformInspectorCopyData.rotationCopy;
             }
         }
 
@@ -295,9 +295,8 @@ namespace QFramework
         {
             foreach (Object o in targets)
             {
-                Transform t = (Transform)o;
-                t.position = TransformInspectorCopyData.positionCopy;
-                EditorUtility.SetDirty(t);
+                SerializedObject so = new SerializedObject(o);
+                so.FindProperty("m_LocalPosition").vector3Value = TransformInspectorCopyData.localPositionCopy;
             }
         }
 
