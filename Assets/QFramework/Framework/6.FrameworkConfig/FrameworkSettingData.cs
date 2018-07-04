@@ -37,9 +37,9 @@ namespace QFramework
 	[Serializable]
 	public class FrameworkSettingData
 	{
+#if UNITY_EDITOR
 		static readonly string mConfigSavedDir =
 			(Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/";
-
 		static readonly string mConfigSavedFileName = "ProjectConfig.json";
 
 		public string Namespace;
@@ -74,11 +74,10 @@ namespace QFramework
 		public void Save()
 		{
 			this.SaveJson(mConfigSavedDir + mConfigSavedFileName);
-#if UNITY_EDITOR
 			AssetDatabase.Refresh();
-#endif
-		}
 
+		}
+#endif
 		#region AssetBundle 相关
 
 		public static string AssetBundleUrl2Name(string url)
