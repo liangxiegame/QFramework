@@ -52,8 +52,21 @@ namespace QFramework
 -------------------------------------------------------------------------------------------------------------------------------------------
 */
 
+
     internal static class CustomMenuItem
     {
+        #region Project窗口
+        [MenuItem("Assets/Copy Name")]
+        private static void CopyName()
+        {
+            TextEditor te = new TextEditor();
+            te.text = Selection.activeObject.name;
+            te.OnFocus();
+            te.Copy();
+        }
+        #endregion
+
+        #region Hierarchy窗口
         [MenuItem("GameObject/Duplicate - Top &D")]
         private static void Duplicate()
         {
@@ -266,5 +279,6 @@ namespace QFramework
             goCanvas.Layer("UI");
             return goCanvas;
         }
+        #endregion
     }
 }
