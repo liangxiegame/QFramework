@@ -48,10 +48,13 @@ namespace QFramework
                     EditorUtility.DisplayProgressBar("处理中>>>", filePath, (float)i / (float)files.Length);
 
                     TextureImporter textureImporter = AssetImporter.GetAtPath(filePath) as TextureImporter;
-                    if (textureImporter == null)
-                        return;
+                    if (textureImporter == null) { return; }
+
                     //判断图片有无alpha通道，有默认格式设置成：RGBA16；无默认格式设置成：RGB16
+#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5 || UNITY_5_6)
                     textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
+#endif
+                    
                     AssetDatabase.ImportAsset(filePath);
 
                     Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(filePath);
@@ -68,6 +71,8 @@ namespace QFramework
                         defaultTextureFormat = TextureImporterFormat.RGBA16;
                     }
 
+#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5 || UNITY_5_6)
+                    #region OLD Settings
                     TextureImporterSettings settings = new TextureImporterSettings();
                     textureImporter.ReadTextureSettings(settings);
 
@@ -75,30 +80,52 @@ namespace QFramework
                     int defaultMaxTextureSize = textureImporter.maxTextureSize; //settings.maxTextureSize;
                     defaultMaxTextureSize = Math.Min(textureSize, defaultMaxTextureSize);
                     defaultMaxTextureSize = (int)(defaultMaxTextureSize * halveRate);
+
                     settings.textureFormat = defaultTextureFormat;
                     settings.maxTextureSize = GetValidSize(defaultMaxTextureSize);
+                    //textureImporter.maxTextureSize = GetValidSize(defaultMaxTextureSize);
 
-                    //int androidMaxTextureSize = 0;
-                    //TextureImporterFormat androidTextureFormat = UnityEditor.TextureImporterFormat.ETC_RGB4;
-                    //bool isAndroidOverWrite = textureImporter.GetPlatformTextureSettings("Android", out androidMaxTextureSize, out androidTextureFormat);
-                    //if (true == isAndroidOverWrite)
-                    //{
-                    //    androidMaxTextureSize = Math.Min(textureSize, androidMaxTextureSize);
-                    //    androidMaxTextureSize = (int)(androidMaxTextureSize * halveRate);
-                    //    textureImporter.SetPlatformTextureSettings("Android", GetValidSize(androidMaxTextureSize), androidTextureFormat, CompressQuality);
-                    //}
+                    #region IOS Android
+                                        ////int androidMaxTextureSize = 0;
+                                        ////TextureImporterFormat androidTextureFormat = UnityEditor.TextureImporterFormat.ETC_RGB4;
+                                        ////bool isAndroidOverWrite = textureImporter.GetPlatformTextureSettings("Android", out androidMaxTextureSize, out androidTextureFormat);
+                                        ////if (true == isAndroidOverWrite)
+                                        ////{
+                                        ////    androidMaxTextureSize = Math.Min(textureSize, androidMaxTextureSize);
+                                        ////    androidMaxTextureSize = (int)(androidMaxTextureSize * halveRate);
+                                        ////    textureImporter.SetPlatformTextureSettings("Android", GetValidSize(androidMaxTextureSize), androidTextureFormat, CompressQuality);
+                                        ////}
 
-                    //int iphoneMaxTextureSize = 0;
-                    //TextureImporterFormat iphoneTextureFormat = UnityEditor.TextureImporterFormat.PVRTC_RGBA4;
-                    //bool isIphoneOverWrite = textureImporter.GetPlatformTextureSettings("iPhone", out iphoneMaxTextureSize, out iphoneTextureFormat);
-                    //if (true == isIphoneOverWrite)
-                    //{
-                    //    iphoneMaxTextureSize = Math.Min(textureSize, iphoneMaxTextureSize);
-                    //    iphoneMaxTextureSize = (int)(iphoneMaxTextureSize * halveRate);
-                    //    textureImporter.SetPlatformTextureSettings("iPhone", GetValidSize(iphoneMaxTextureSize), iphoneTextureFormat, CompressQuality);
-                    //}
-
+                                        ////int iphoneMaxTextureSize = 0;
+                                        ////TextureImporterFormat iphoneTextureFormat = UnityEditor.TextureImporterFormat.PVRTC_RGBA4;
+                                        ////bool isIphoneOverWrite = textureImporter.GetPlatformTextureSettings("iPhone", out iphoneMaxTextureSize, out iphoneTextureFormat);
+                                        ////if (true == isIphoneOverWrite)
+                                        ////{
+                                        ////    iphoneMaxTextureSize = Math.Min(textureSize, iphoneMaxTextureSize);
+                                        ////    iphoneMaxTextureSize = (int)(iphoneMaxTextureSize * halveRate);
+                                        ////    textureImporter.SetPlatformTextureSettings("iPhone", GetValidSize(iphoneMaxTextureSize), iphoneTextureFormat, CompressQuality);
+                                        ////}
+                    #endregion
                     textureImporter.SetTextureSettings(settings);
+                    #endregion
+
+#else
+                    #region NEW Settings
+                    TextureImporterPlatformSettings setting = new TextureImporterPlatformSettings();
+                    setting = textureImporter.GetDefaultPlatformTextureSettings();
+
+                    textureImporter.textureType = TextureImporterType.Default;
+                    int defaultMaxTextureSize = textureImporter.maxTextureSize;
+                    defaultMaxTextureSize = Math.Min(textureSize, defaultMaxTextureSize);
+                    defaultMaxTextureSize = (int)(defaultMaxTextureSize * halveRate);
+
+                    setting.format = defaultTextureFormat;
+                    setting.maxTextureSize = GetValidSize(defaultMaxTextureSize);
+                    
+                    textureImporter.SetPlatformTextureSettings(setting);
+                    #endregion
+#endif
+
                     AssetDatabase.SaveAssets();
                     DoAssetReimport(filePath, ImportAssetOptions.ForceUpdate | ImportAssetOptions.ForceSynchronousImport);
                 }
