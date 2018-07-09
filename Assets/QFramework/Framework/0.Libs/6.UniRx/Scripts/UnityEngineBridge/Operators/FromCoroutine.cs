@@ -64,6 +64,7 @@ namespace UniRx.Operators
         }
     }
 
+
     internal class FromMicroCoroutineObservable<T> : OperatorObservableBase<T>
     {
         readonly Func<IObserver<T>, CancellationToken, IEnumerator> coroutine;
