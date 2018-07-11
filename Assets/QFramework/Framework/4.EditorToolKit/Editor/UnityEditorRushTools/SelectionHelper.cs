@@ -82,16 +82,20 @@ namespace QFramework
                         ToggleGameObjcetActiveSelf();
                         e.Use();
                         break;
-                    case KeyCode.Pause:
-                        Selection.gameObjects.ForEach(go => Debug.Log(go.transform.GetPath()));
-                        e.Use();
-                        break;
                 }
             }
             else if (e.type == EventType.MouseDown && e.button == 2)
             {
-                ToggleGameObjcetActiveSelf();
-                e.Use();
+                if (e.alt)
+                {
+                    Selection.gameObjects.ForEach(go => Debug.Log(go.transform.GetPath()));
+                    e.Use();
+                }
+                else
+                {
+                    ToggleGameObjcetActiveSelf();
+                    e.Use();
+                }
             }
         }
 

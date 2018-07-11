@@ -48,7 +48,7 @@ namespace QFramework
         private string mFullPath;
         private string mHashCode;
         private object mRawAsset;
-        private WWW mWWW;
+        private WWW mWWW = null;
 
         public static LocalImageRes Allocate(string name)
         {

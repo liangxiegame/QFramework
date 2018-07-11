@@ -522,7 +522,55 @@ namespace QFramework
 			selfTrans.localScale = fromTrans.localScale;
 		}
 
-        public static Transform FindChildRecursion(this Transform tfParent, System.Func<Transform, bool> predicate)
+        /// <summary>
+        /// 递归遍历子物体，并调用函数
+        /// </summary>
+        /// <param name="tfParent"></param>
+        /// <param name="action"></param>
+        public static void ActionRecursion(this Transform tfParent, Action<Transform> action)
+        {
+            action(tfParent);
+            foreach (Transform tfChild in tfParent)
+            {
+                tfChild.ActionRecursion(action);
+            }
+        }
+
+        /// <summary>
+        /// 递归遍历查找指定的名字的子物体
+        /// </summary>
+        /// <param name="tfParent">当前Transform</param>
+        /// <param name="name">目标名</param>
+        /// <param name="stringComparison">字符串比较规则</param>
+        /// <returns></returns>
+        public static Transform FindChildRecursion(this Transform tfParent, string name, StringComparison stringComparison = StringComparison.Ordinal)
+        {
+            if (tfParent.name.Equals(name, stringComparison))
+            {
+                //Debug.Log("Hit " + tfParent.name);
+                return tfParent;
+            }
+
+            foreach (Transform tfChild in tfParent)
+            {
+                Transform tfFinal = null;
+                tfFinal = tfChild.FindChildRecursion(name, stringComparison);
+                if (tfFinal)
+                {
+                    return tfFinal;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// 递归遍历查找相应条件的子物体
+        /// </summary>
+        /// <param name="tfParent">当前Transform</param>
+        /// <param name="predicate">条件</param>
+        /// <returns></returns>
+        public static Transform FindChildRecursion(this Transform tfParent, Func<Transform, bool> predicate)
         {
             if (predicate(tfParent))
             {

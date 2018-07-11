@@ -36,6 +36,8 @@ namespace QFramework.Example
     {
         [Header("Try click the [Find Ref] button,"), Space(-10)]
         [Header("or try press alt + middle mouse button.")]
+        [Header("点击[Find Ref]按钮看效果"), Space(-10)]
+        [Header("或者使用alt + 鼠标中键看效果.")]
         //Find self component
         public Transform tfSelf;
         public AutoReferencerExample autoReferencerExampleSelf;

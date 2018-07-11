@@ -168,7 +168,7 @@ namespace QFramework
 			}
 
 			
-			Object obj = null;
+            //Object obj = null;
 
 			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 

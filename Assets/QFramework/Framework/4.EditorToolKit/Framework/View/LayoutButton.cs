@@ -39,13 +39,13 @@ namespace QFramework
             return this;
         }
         
-        public LayoutButton Width(float width)
+        public new LayoutButton Width(float width)
         {
             base.Width = width;
             return this;
         }
-        
-        public LayoutButton Height(float height)
+
+        public new LayoutButton Height(float height)
         {
             base.Height = height;
             return this;

@@ -97,7 +97,7 @@ namespace QFramework
                     if (elementType == typeof(GameObject))
                     {
                         Transform[] tfs = mono.GetComponentsInChildren<Transform>();
-                        Transform[] tfHits = Array.FindAll(tfs, item => item.name.StartsWith(field.Name));
+                        Transform[] tfHits = Array.FindAll(tfs, item => item.name.StartsWith(field.Name, StringComparison.OrdinalIgnoreCase));
                         int nLength = tfHits.Length;
                         GameObject[] gos = new GameObject[nLength];
                         for (int i = 0; i < nLength; i++)
@@ -112,7 +112,7 @@ namespace QFramework
                     }
 
                     Component[] coms = mono.GetComponentsInChildren(elementType);
-                    Component[] comHits = Array.FindAll(coms, item => item.name.StartsWith(field.Name));
+                    Component[] comHits = Array.FindAll(coms, item => item.name.StartsWith(field.Name, StringComparison.OrdinalIgnoreCase));
                     if (elementType != null)
                     {
                         filledArray = Array.CreateInstance(elementType, comHits.Length);
@@ -124,10 +124,14 @@ namespace QFramework
                 }
                 #endregion
 
-                //如果不空，就跳过。但是GameObject类型和Transform类型的object值是字符串"null"，很恶心，要转字符串比较
-                if (objValue != null && fieldType != typeof(string) && !objValue.ToString().Equals("null"))
+                //因为UnityEngine.Object重写了空判断，所以要把objValue转成UnityEngine.Object再判断是否为空，
+                if (objValue != null)
                 {
-                    continue;
+                    Object uObject = objValue as Object;
+                    if (uObject)
+                    {
+                        continue;
+                    }
                 }
 
                 //查找自身的变量
@@ -149,7 +153,7 @@ namespace QFramework
 
                 //迭代遍历子物体看看有没有同名的
                 FieldInfo info = field;
-                Transform tf = mono.transform.FindChildRecursion(tfChild => tfChild.name.Equals(info.Name));
+                Transform tf = mono.transform.FindChildRecursion(info.Name, StringComparison.OrdinalIgnoreCase);
                 if (tf == null)
                 {
                     continue;
