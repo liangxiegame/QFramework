@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,24 +28,36 @@ namespace QFramework
 {
     using UnityEngine;
     using System.Collections;
+
+    public enum InternalResNamePrefixType
+    {
+        Url, // resources://
+        Folder, // Resources/
+    }
     
     public class InternalRes : BaseRes
-    {
+    { 
         private ResourceRequest mResourceRequest;
 
-        public static InternalRes Allocate(string name)
+        private string mPath;
+        
+        public static InternalRes Allocate(string name,InternalResNamePrefixType prefixType)
         {
             var res = SafeObjectPool<InternalRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
             }
-            return res;
-        }
 
-        private static string Name2Path(string name)
-        {
-            return name.Substring(10);
+            if (prefixType == InternalResNamePrefixType.Url)
+            {
+                res.mPath = name.Substring("resources://".Length);
+            }
+            else
+            {
+                res.mPath = name.Substring("Resources/".Length);
+            }
+            return res;
         }
 
         public override void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
@@ -72,11 +84,11 @@ namespace QFramework
 
             State = ResState.Loading;
 
-            mAsset = Resources.Load(Name2Path(mAssetName));
+            mAsset = Resources.Load(mPath);
 
             if (mAsset == null)
             {
-                Log.E("Failed to Load Asset From Resources:" + Name2Path(mAssetName));
+                Log.E("Failed to Load Asset From Resources:" + mPath);
                 OnResLoadFaild();
                 return false;
             }
@@ -111,7 +123,7 @@ namespace QFramework
                 yield break;
             }
 
-            var resourceRequest = Resources.LoadAsync(Name2Path(mAssetName));
+            var resourceRequest = Resources.LoadAsync(mPath);
 
             mResourceRequest = resourceRequest;
             yield return resourceRequest;

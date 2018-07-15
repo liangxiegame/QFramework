@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.IO;
 using UnityEngine;
 
 namespace QFramework.Example
@@ -35,7 +36,7 @@ namespace QFramework.Example
 		{
 			ResMgr.Init();
 
-			mResLoader.LoadSync<GameObject>("Resources/GameObject")
+			mResLoader.LoadSync<GameObject>("resources://GameObject")
 				.Instantiate()
 				.Name("这是使用ResKit加载的对象");
 
