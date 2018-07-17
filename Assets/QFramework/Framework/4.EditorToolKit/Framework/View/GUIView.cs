@@ -32,13 +32,13 @@ namespace QFramework
     {
         #region transform
 
-        private Matrix4x4 mTransform = Matrix4x4.identity;
+        //private Matrix4x4 mTransform = Matrix4x4.identity;
 
-        public IOnGUIView Scale(float scale)
-        {
-            mTransform = Matrix4x4.Scale(new Vector3(scale, scale, 1f));
-            return this;
-        }
+        //public IOnGUIView Scale(float scale)
+        //{
+        //    mTransform = Matrix4x4.Scale(new Vector3(scale, scale, 1f));
+        //    return this;
+        //}
         
         #endregion
         

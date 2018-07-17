@@ -44,7 +44,7 @@ namespace LFramework
         #region 变量
         public static readonly UniRx.Diagnostics.Logger         log = new UniRx.Diagnostics.Logger("L Log");
         CompositeDisposable                                     disposables = new CompositeDisposable();
-        IReactiveProperty<bool>                                 isChange = new ReactiveProperty<bool>(false);
+        //IReactiveProperty<bool>                                 isChange = new ReactiveProperty<bool>(false);
         IDisposable                                             CurrentSub;
         #endregion
 

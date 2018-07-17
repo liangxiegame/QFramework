@@ -71,7 +71,7 @@ namespace QFramework
 			return ManagerID;
 		}
 		
-		[Obsolete("deprecated,use allocate instead")]
+        //[Obsolete("deprecated,use allocate instead")]
 		public QMsg(int eventID)
 		{
 			EventID = eventID;

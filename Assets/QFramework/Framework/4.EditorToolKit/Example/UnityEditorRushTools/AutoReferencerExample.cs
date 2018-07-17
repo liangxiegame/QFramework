@@ -41,6 +41,7 @@ namespace QFramework.Example
         //Find self component
         public Transform tfSelf;
         public AutoReferencerExample autoReferencerExampleSelf;
+
         //Find self gameObject
         public GameObject goSelf;
         //Find child gameObject
