@@ -94,7 +94,7 @@ namespace QFramework
         public static IRes Create(string assetName)
         {
             short assetType = 0;
-            if (assetName.StartsWith("resources://"))
+            if (assetName.StartsWith("Resources/") || assetName.StartsWith("resources://"))
             {
                 assetType = ResType.Internal;
             }
