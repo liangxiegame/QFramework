@@ -138,9 +138,18 @@ namespace QFramework
 			mHttpUrl = GUILayout.TextField(mHttpUrl);
 			GUILayout.EndHorizontal();
 
-			if (GUILayout.Button("Http Test"))
+			if (GUILayout.Button("Http Get"))
 			{
 				ObservableWWW.Get(mHttpUrl).Subscribe(response => { Log.E(response); });
+			}
+
+			if (GUILayout.Button("Http Post"))
+			{
+				WWWForm form = new WWWForm();
+				form.AddField("username", "123");
+				form.AddField("date_joined", DateTime.Now.ToString());
+				ObservableWWW.Post("http://127.0.0.1:8000/api/users/", form)
+					.Subscribe(response => { Log.E(response); });
 			}
 		}
 
