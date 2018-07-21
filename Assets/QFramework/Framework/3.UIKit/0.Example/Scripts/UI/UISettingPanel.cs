@@ -36,7 +36,6 @@ namespace QFramework.UIExample
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UISettingPanelData;
 			ShowLog("show");
 			//please add init code here
 		}
@@ -74,7 +73,5 @@ namespace QFramework.UIExample
 		{
 			Debug.Log("[ UISettingPanel:]" + content);
 		}
-
-		UISettingPanelData mData = null;
 	}
 }

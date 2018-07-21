@@ -34,8 +34,6 @@ namespace QFramework.UIExample
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UIMenuPanelData;
-			//please add init code here
             ImageBg.color = "#FFFFFFFF".HtmlStringToColor();
 		}
 
@@ -67,7 +65,5 @@ namespace QFramework.UIExample
 				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
 			});
 		}
-
-		UIMenuPanelData mData = null;
 	}
 }

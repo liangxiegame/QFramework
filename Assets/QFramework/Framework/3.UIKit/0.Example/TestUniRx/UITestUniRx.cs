@@ -41,8 +41,6 @@ namespace QFramework.Example
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UITestUniRxData;
-			//please add init code here
 		}
 
 		protected override void ProcessMsg (int eventId,QMsg msg)
@@ -83,7 +81,5 @@ namespace QFramework.Example
 		{
 			Debug.Log("[ UITestUniRx:]" + content);
 		}
-
-		UITestUniRxData mData = null;
 	}
 }

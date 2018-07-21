@@ -14,6 +14,7 @@ namespace QFramework
 	{	
 		/// <summary>
 		/// EventID
+		/// TODO: raname 2 Id
 		/// </summary>
 		public virtual int EventID { get; set; }
 		

@@ -40,8 +40,6 @@ namespace QFramework.UIExample
 
 		protected override void InitUI(IUIData uiData = null)
 		{
-			mData = uiData as UISectionPanelData;
-
 			for (var i = 0; i < mButtons.Length; i++)
 			{
 				mButtons[i] = SectionBtn
@@ -84,7 +82,5 @@ namespace QFramework.UIExample
             QUIManager.Instance.HideUI(this.name);
 			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData(i + 1), prefabName: "Resources/UIGamePanel");
 		}
-
-		UISectionPanelData mData = null;
 	}
 }

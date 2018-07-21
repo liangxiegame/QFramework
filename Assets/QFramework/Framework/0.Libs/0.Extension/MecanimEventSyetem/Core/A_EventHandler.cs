@@ -22,15 +22,10 @@ namespace QFramework
         }
         #endregion
         /// <summary>动画机及其事件信息Pairs</summary>
-        private List<A_EventInfo> eventContainer;
-        /// <summary>用户主动标记的事件，用于移除</summary>
-        private Dictionary<string, Action<AnimationEvent>> buffedEvent; 
+        private List<A_EventInfo> eventContainer =  new List<A_EventInfo>();
+
         private const string func = "AnimatorEventCallBack";
-        public A_EventHandler()
-        {
-            eventContainer = new List<A_EventInfo>();
-            buffedEvent = new Dictionary<string, Action<AnimationEvent>>();
-        }
+
         /// <summary>
         /// 为事件基础信息进行缓存
         /// </summary>

@@ -69,8 +69,22 @@ namespace QFramework
             }
 
             strBuilder.Append("\t\t").AppendLine("}");
+            strBuilder.AppendLine();
+            strBuilder.AppendFormat("\t\tprivate {0}Data mPrivateData = null;\n", behaviourName);
+            strBuilder.AppendLine();
+            strBuilder.AppendFormat("\t\tpublic {0}Data mData\n", behaviourName);
+            strBuilder.AppendLine("\t\t{");
+            strBuilder.Append("\t\t\tget { return mPrivateData ?? (mPrivateData = new ").Append(behaviourName).Append("Data()); }")
+                .AppendLine();
+            strBuilder.AppendLine("\t\t\tset");
+            strBuilder.AppendLine("\t\t\t{");
+            strBuilder.AppendLine("\t\t\t\tmUIData = value;");
+            strBuilder.AppendLine("\t\t\t\tmPrivateData = value;");
+            strBuilder.AppendLine("\t\t\t}");
+            strBuilder.AppendLine("\t\t}");
             strBuilder.AppendLine("\t}");
             strBuilder.AppendLine("}");
+            
             sw.Write(strBuilder);
             sw.Flush();
             sw.Close();

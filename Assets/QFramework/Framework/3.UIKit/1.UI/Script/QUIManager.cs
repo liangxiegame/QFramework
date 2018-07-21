@@ -62,7 +62,6 @@ namespace QFramework
         QUIPanelStack mUIPanelStack;
 
         private bool mReSetLayerIndexDirty = false;
-        private bool mAllUIMapChange = false;
 
 		[SerializeField] Camera mUICamera;
 		[SerializeField] Canvas mCanvas;

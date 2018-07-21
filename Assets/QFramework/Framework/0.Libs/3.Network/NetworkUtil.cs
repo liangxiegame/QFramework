@@ -45,40 +45,6 @@ namespace QFramework
         /// <returns>IP string</returns>
         public static string GetAddressIP()
         {
-            string AddressIP = string.Empty;  
-#if UNITY_IPHONE
-            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
-            foreach (NetworkInterface adapter in adapters)  
-            {  
-                if (adapter.Supports(NetworkInterfaceComponent.IPv4))  
-                {  
-                    UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;  
-                    if (uniCast.Count > 0)  
-                    {  
-                        foreach (UnicastIPAddressInformation uni in uniCast)  
-                        {  
-                            //得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4  
-                            if (uni.Address.AddressFamily == AddressFamily.InterNetwork)
-                            {
-                                AddressIP = uni.Address.ToString();
-                            }
-                        }  
-                    }  
-                }  
-            }  
-#endif
-#if UNITY_STANDALONE_WIN
-        //获取本地的IP地址  
-		foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)  
-		{
-		    if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
-		    {
-		        AddressIP = _IPAddress.ToString();
-                Debug.Log(AddressIP);
-		    }  
-		}  
-#endif  
-
             return Network.player.ipAddress;  
         }
 

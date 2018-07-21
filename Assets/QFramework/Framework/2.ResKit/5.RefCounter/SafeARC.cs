@@ -23,10 +23,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
+
 namespace QFramework
 {
-    using System.Collections.Generic;
-
     /// Automatic Reference Counting (ARC)
     /// is used internally to prevent pooling retained Objects.
     /// If you use retain manually you also have to
@@ -46,13 +46,7 @@ namespace QFramework
             get { return mOwners; }
         }
 
-        readonly object mObj;
         readonly HashSet<object> mOwners = new HashSet<object>();
-
-        public SafeARC(object obj)
-        {
-            mObj = obj;
-        }
 
         public void Retain(object refOwner)
         {

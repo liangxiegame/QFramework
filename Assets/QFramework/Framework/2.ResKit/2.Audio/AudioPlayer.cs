@@ -11,8 +11,6 @@ namespace QFramework
 	/// </summary>
 	public class AudioPlayer : IPoolType, IPoolable
 	{
-		ResLoader mResLoader = ResLoader.Allocate();
-
 		public bool IsRecycled { get; set; }
 
 		public void OnRecycled()
