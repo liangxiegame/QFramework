@@ -1,11 +1,9 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 liuzhenhua@putao.com
+ * Copyright (c) 2017 liuzhenhua
  * Copyright (c) 2017 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

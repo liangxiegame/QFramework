@@ -57,7 +57,7 @@ namespace QFramework
 	{
 		public static T Instance
 		{
-			get { return QSingletonProperty<T>.Instance; }
+			get { return SingletonProperty<T>.Instance; }
 		}
 	}
 }

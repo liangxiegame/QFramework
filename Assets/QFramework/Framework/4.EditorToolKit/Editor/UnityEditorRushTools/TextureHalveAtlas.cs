@@ -51,7 +51,7 @@ namespace QFramework
                     if (textureImporter == null) { return; }
 
                     //判断图片有无alpha通道，有默认格式设置成：RGBA16；无默认格式设置成：RGB16
-#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5 || UNITY_5_6)
+#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4)
                     textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
 #endif
                     
@@ -71,7 +71,7 @@ namespace QFramework
                         defaultTextureFormat = TextureImporterFormat.RGBA16;
                     }
 
-#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4 || UNITY_5_5 || UNITY_5_6)
+#if (UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2 || UNITY_5_3 || UNITY_5_4)
                     #region OLD Settings
                     TextureImporterSettings settings = new TextureImporterSettings();
                     textureImporter.ReadTextureSettings(settings);

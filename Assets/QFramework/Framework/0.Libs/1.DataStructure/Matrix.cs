@@ -2,9 +2,6 @@
  * Copyright (c) 2017 liangxie
  * 
  * https://github.com/mathnet/
- * https://github.com/liangxiegame/QSingleton
- * https://github.com/liangxiegame/QChain
- *
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
