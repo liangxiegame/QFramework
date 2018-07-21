@@ -270,15 +270,6 @@ namespace QFramework
 			return null;
 		}
 
-		/// <summary>
-		/// 获取UI相机
-		/// </summary>
-		/// <returns></returns>
-		public Camera GetUICamera()
-		{
-			return mUICamera;
-		}
-
 		protected override void SetupMgrId()
 		{
 			mMgrId = QMgrID.UI;
