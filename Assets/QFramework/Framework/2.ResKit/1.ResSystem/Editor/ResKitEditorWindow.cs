@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using UniRx;
 
 namespace QFramework
@@ -145,11 +146,13 @@ namespace QFramework
 
 			if (GUILayout.Button("Http Post"))
 			{
-				WWWForm form = new WWWForm();
-				form.AddField("username", "123");
-				form.AddField("date_joined", DateTime.Now.ToString());
-				ObservableWWW.Post("http://127.0.0.1:8000/api/users/", form)
-					.Subscribe(response => { Log.E(response); });
+//				WWWForm form = new WWWForm();
+//				form.AddField("content", "123");
+//				ObservableWWW.Post("http://127.0.0.1:8000/demo/save/", form)
+//					.Subscribe(response => { Log.E(response); });
+				
+				ObservableWWW.Get("http://127.0.0.1:8000/demo/save/?content=" + new OK().ToJson()).Subscribe(response => { Log.E(response); });
+
 			}
 		}
 
@@ -160,5 +163,15 @@ namespace QFramework
 			AssetDatabase.Refresh();
 			BuildScript.BuildAssetBundles(buildTarget);
 		}
+	}
+
+	[SerializeField]
+	public class OK
+	{
+		public List<string> aaa = new List<string>()
+		{
+			"1",
+			"2"
+		};
 	}
 }
