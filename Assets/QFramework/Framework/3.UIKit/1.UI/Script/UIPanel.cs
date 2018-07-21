@@ -59,9 +59,10 @@ namespace QFramework
 			get { return transform; }
 		}
 
-		private int            mUILayerType    = -10000;
-		private int            mLayerSortIndex = -10;
-		private IUIPanelLoader mUiPanelLoader  = null;
+		private   int            mUILayerType    = -10000;
+		private   int            mLayerSortIndex = -10;
+		private   IUIPanelLoader mUiPanelLoader  = null;
+		protected IUIData        mUIData;
 
 		public int UILayerType
 		{
@@ -114,13 +115,9 @@ namespace QFramework
 
 		public void Init(IUIData uiData = null)
 		{
-			InnerInit(uiData);
-			RegisterUIEvent();
-		}
-
-		void InnerInit(IUIData uiData = null)
-		{
+			mUIData = uiData;
 			InitUI(uiData);
+			RegisterUIEvent();
 		}
 
 		protected virtual void InitUI(IUIData uiData = null)
@@ -155,6 +152,7 @@ namespace QFramework
 			mOnPanelClosed = null;
 			mUiPanelLoader.Unload();
 			mUiPanelLoader = null;
+			mUIData = null;
 		}
 
 		protected void CloseSelf()
