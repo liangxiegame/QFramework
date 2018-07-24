@@ -40,6 +40,7 @@ namespace QFramework
 			strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);
 			strBuilder.AppendLine(" ****************************************************************************/");
+			strBuilder.AppendLine();
 
 			strBuilder.AppendLine("using System;");
 			strBuilder.AppendLine("using System.Collections.Generic;");
@@ -85,8 +86,7 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("void ShowLog(string content)");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t\t").AppendFormat("Debug.Log(\"[ {0}:]\" + content);", behaviourName).AppendLine();
-			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-			strBuilder.Append("\t\t").AppendFormat("{0}Data mData = null;", behaviourName).AppendLine();
+			strBuilder.Append("\t\t").AppendLine("}");
 			strBuilder.Append("\t}").AppendLine();
 			strBuilder.Append("}");
 
