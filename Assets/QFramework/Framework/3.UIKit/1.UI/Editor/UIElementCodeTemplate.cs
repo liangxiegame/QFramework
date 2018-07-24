@@ -62,8 +62,8 @@ namespace QFramework
 			strBuilder.AppendLine("\t{");
 			strBuilder.Append("\t\t").AppendLine("private void Awake()");
 			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-			strBuilder.Append("\t}").AppendLine();
+			strBuilder.Append("\t\t").AppendLine("}");
+			strBuilder.AppendLine("\t}");
 			strBuilder.Append("}");
 
 			sw.Write(strBuilder);
