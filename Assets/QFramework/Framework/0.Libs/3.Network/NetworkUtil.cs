@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -30,7 +30,9 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 #endif
+using System.Net;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace QFramework
 {
@@ -45,7 +47,44 @@ namespace QFramework
         /// <returns>IP string</returns>
         public static string GetAddressIP()
         {
-            return Network.player.ipAddress;  
+            var AddressIP = string.Empty;
+#if UNITY_IPHONE
+            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
+            foreach (NetworkInterface adapter in adapters)  
+            {  
+                if (adapter.Supports(NetworkInterfaceComponent.IPv4))  
+                {  
+                    UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;  
+                    if (uniCast.Count > 0)  
+                    {  
+                        foreach (UnicastIPAddressInformation uni in uniCast)  
+                        {  
+                            //得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4  
+                            if (uni.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                AddressIP = uni.Address.ToString();
+                            }
+                        }  
+                    }  
+                }  
+            }  
+#endif
+
+#if UNITY_2018
+            //获取本地的IP地址  
+            foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            {
+                if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
+                {
+                    AddressIP = _IPAddress.ToString();
+                    return AddressIP;
+                }
+            }
+
+            return AddressIP;
+#else
+            return Network.player.ipAddress;
+#endif
         }
 
         public static bool IsReachable
