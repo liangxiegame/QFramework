@@ -69,18 +69,19 @@ namespace QFramework.UIExample
 			{
 				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
 			});
-			
+
 			backBtn.onClick.AddListener(() =>
 			{
-                UIMgr.OpenPanel<UIMenuPanel>(UILevel.Common, prefabName: "Resources/UIMenuPanel");
+				UIMgr.OpenPanel<UIMenuPanel>(UILevel.Common, prefabName: "Resources/UIMenuPanel");
 				CloseSelf();
 			});
 		}
 
 		private void ChoiceSection(int i)
 		{
-            QUIManager.Instance.HideUI(this.name);
-			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData(i + 1), prefabName: "Resources/UIGamePanel");
+			QUIManager.Instance.HideUI(this.name);
+			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData {SectionNo = i + 1},
+				prefabName: "Resources/UIGamePanel");
 		}
 	}
 }

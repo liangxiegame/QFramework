@@ -35,7 +35,7 @@ namespace QFramework
         public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
             PanelCodeData panelCodeData)
         {
-            var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
+            var sw = new StreamWriter(generateFilePath, false, new UTF8Encoding(false));
             var strBuilder = new StringBuilder();
 
             strBuilder.AppendLine("/****************************************************************************");

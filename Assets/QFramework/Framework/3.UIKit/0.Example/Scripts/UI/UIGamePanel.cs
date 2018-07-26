@@ -29,11 +29,6 @@ namespace QFramework.UIExample
 	{
 		// TODO: Query Mgr's Data
 		public int SectionNo;
-
-		public UIGamePanelData(int SectionNo)
-		{
-			this.SectionNo = SectionNo;
-		}
 	}
 
 	public partial class UIGamePanel : UIPanel
@@ -57,7 +52,5 @@ namespace QFramework.UIExample
 				CloseSelf();
 			});
 		}
-
-		UIGamePanelData mData = null;
 	}
 }

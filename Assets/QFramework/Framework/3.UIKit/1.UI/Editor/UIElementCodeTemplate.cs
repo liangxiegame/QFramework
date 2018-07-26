@@ -36,7 +36,7 @@ namespace QFramework
 		public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
 			ElementCodeData elementCodeData)
 		{
-			var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
+			var sw = new StreamWriter(generateFilePath, false, new UTF8Encoding(false));
 			var strBuilder = new StringBuilder();
 
 			var markType = elementCodeData.MarkedObjInfo.MarkObj.GetUIMarkType();
