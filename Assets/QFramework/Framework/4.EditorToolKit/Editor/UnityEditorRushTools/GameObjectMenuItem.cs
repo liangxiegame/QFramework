@@ -1,28 +1,27 @@
-﻿// /****************************************************************************
-//  * Copyright (c) 2018 Karsion(拖鞋)
-//  * Date: 2018-06-07 18:32
-//  *
-//  * http://qframework.io
-//  * https://github.com/liangxiegame/QFramework
-//  * 
-//  * Permission is hereby granted, free of charge, to any person obtaining a copy
-//  * of this software and associated documentation files (the "Software"), to deal
-//  * in the Software without restriction, including without limitation the rights
-//  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  * copies of the Software, and to permit persons to whom the Software is
-//  * furnished to do so, subject to the following conditions:
-//  * 
-//  * The above copyright notice and this permission notice shall be included in
-//  * all copies or substantial portions of the Software.
-//  * 
-//  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  * THE SOFTWARE.
-//  ****************************************************************************/
+﻿/****************************************************************************
+ * Copyright (c) 2017 ~ 2018.7 Karsion
+ * 
+ * http://qframework.io
+ * https://github.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 using UnityEditor;
 using UnityEngine;
@@ -31,62 +30,90 @@ using UnityEngine.UI;
 
 namespace QFramework
 {
-    /*
--------------------------------------------------------------------------------------------------------------------------------------------
 
-    To define a hot-key, use the following special characters: 
-
-        % (Ctrl on Windows, Cmd on OS X)
-        # (Shift)
-        & (Alt)
-        _ (no key modifiers). 
-
-    For example, to define the hot-key Shift-Alt-g use "#&g". To define the hot-key g and no key modifiers pressed use "_g".
-
-    Some special keys are supported, for example "#LEFT" would map to Shift-left. The keys supported like this are: 
-
-        LEFT, RIGHT, UP, DOWN, F1 .. F12, HOME, END, PGUP, PGDN.
-    
-    eg. [MenuItem("GameObject/UI/img &g")]
-
--------------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-
-    internal static class CustomMenuItem
+    internal static class GameObjectMenuItem
     {
-        #region Project窗口
-        [MenuItem("Assets/Copy Name")]
-        private static void CopyName()
+        [MenuItem("GameObject/ReplacePrefab &A")]
+        private static void ReplacePrefab()
         {
-            TextEditor te = new TextEditor();
-            te.text = Selection.activeObject.name;
-            te.OnFocus();
-            te.Copy();
+            for (int i = 0; i < Selection.gameObjects.Length; i++)
+            {
+                GameObject go = Selection.gameObjects[i];
+                PrefabType type = PrefabUtility.GetPrefabType(go);
+                switch (type)
+                {
+                    case PrefabType.PrefabInstance:
+                    case PrefabType.DisconnectedPrefabInstance:
+                        GameObject gameObject = PrefabUtility.FindValidUploadPrefabInstanceRoot(go);
+                        Object prefabParent = PrefabUtility.GetPrefabParent(gameObject);
+                        //Undo.RecordObject(prefabParent, "ReplacePrefab");
+                        PrefabUtility.ReplacePrefab(gameObject, prefabParent);
+                        Undo.RecordObject(gameObject, "ReplacePrefab");
+                        PrefabUtility.RevertPrefabInstance(gameObject);
+                        break;
+                }
+            }
         }
-        #endregion
 
-        #region Hierarchy窗口
         [MenuItem("GameObject/Duplicate - Top &D")]
         private static void Duplicate()
         {
+            //GameObject[] gameObjects = Selection.gameObjects;
+            //Object[] newObjects = new Object[gameObjects.Length];
             GameObject[] gameObjects = Selection.gameObjects;
-            Object[] newObjects = new Object[gameObjects.Length];
+            if (gameObjects.Length == 0)
+            {
+                return;
+            }
+
+            bool isTop = false;
+            int nSiblingIndex = 0;
+            if (gameObjects.Length == 1)
+            {
+                isTop = true;
+                nSiblingIndex = Selection.activeTransform.GetSiblingIndex();
+            }
+
+            Unsupported.DuplicateGameObjectsUsingPasteboard();
+            gameObjects = Selection.gameObjects;
             for (int i = 0; i < gameObjects.Length; i++)
             {
                 GameObject gameObject = gameObjects[i];
-                int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
-                Selection.activeGameObject = gameObject;
-                Unsupported.DuplicateGameObjectsUsingPasteboard();
-                GameObject gameObjectClone = Selection.activeGameObject;
-                gameObjectClone.name = gameObject.name;
-                gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
-                newObjects[i] = gameObjectClone;
-                Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
+                string strName = gameObject.name;
+                if (strName.EndsWith(")"))
+                {
+                    gameObject.name = strName.Remove(strName.Length - 4);
+                }
+
+                Undo.RegisterCreatedObjectUndo(gameObject, "Duplicate");
             }
 
-            Selection.objects = newObjects;
+            if (isTop)
+            {
+                Selection.activeTransform.SetSiblingIndex(nSiblingIndex+1);
+            }
         }
+
+        //private static void Duplicate()
+        //{
+        //    GameObject[] gameObjects = Selection.gameObjects;
+        //    Object[] newObjects = new Object[gameObjects.Length];
+        //    for (int i = 0; i < gameObjects.Length; i++)
+        //    {
+        //        GameObject gameObject = gameObjects[i];
+        //        int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
+        //        Selection.activeGameObject = gameObject;
+        //        Unsupported.DuplicateGameObjectsUsingPasteboard();
+        //        GameObject gameObjectClone = Selection.activeGameObject;
+        //        gameObjectClone.name = gameObject.name;
+        //        gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
+        //        EditorApplication.DirtyHierarchyWindowSorting();
+        //        newObjects[i] = gameObjectClone;
+        //        Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
+        //    }
+
+        //    Selection.objects = newObjects;
+        //}
 
         [MenuItem("GameObject/Create Empty - Top &N", false, -1)]
         private static void CreateEmpty()
@@ -99,9 +126,9 @@ namespace QFramework
             {
                 go.transform.SetParent(activeTransform, false);
                 go.transform.SetAsFirstSibling();
-                go.Layer(activeTransform.gameObject.layer);
+                EditorApplication.DirtyHierarchyWindowSorting();
+                go.layer = activeTransform.gameObject.layer;
 
-                //跟随父物体是不是RectTransform?
                 RectTransform rtTransform = activeTransform.GetComponent<RectTransform>();
                 if (rtTransform)
                 {
@@ -110,21 +137,18 @@ namespace QFramework
             }
         }
 
-
-        [MenuItem("GameObject/Group &G")]
+        [MenuItem("GameObject/Transform/Group &G", false)]
         private static void Group()
         {
-            //没选中物体能干啥
-            if (Selection.objects.Length == 0)
+            //Debug.Log("Group");
+            GameObject[] gameObjects = Selection.gameObjects;
+            if (gameObjects.Length == 0)
             {
                 return;
             }
 
-            GameObject[] gameObjects = Selection.gameObjects;
             Transform parent = gameObjects[0].transform.parent;
             int nSiblingIndex = gameObjects[0].transform.GetSiblingIndex();
-
-            //new一个gameObject去装选中的物体
             GameObject go = new GameObject("Group");
             Undo.RegisterCreatedObjectUndo(go, "CreateEmpty");
             Undo.FlushUndoRecordObjects();
@@ -134,21 +158,30 @@ namespace QFramework
                 Undo.SetTransformParent(gameObject.transform, go.transform, "Group");
             }
 
-            go.transform.Parent(parent).SiblingIndex(nSiblingIndex);
+            go.transform.SetParent(parent);
+            go.transform.SetSiblingIndex(nSiblingIndex);
+            EditorApplication.DirtyHierarchyWindowSorting();
             EditorGUIUtility.PingObject(gameObjects[0]);
         }
 
-        [MenuItem("GameObject/Transform/Sort &S", false, 0)]
+        [MenuItem("GameObject/Transform/Sort &S", false)]
         private static void Sort()
         {
+            GameObject[] gameObjects = Selection.gameObjects;
+            if (gameObjects.Length == 0)
+            {
+                return;
+            }
+
             for (int i = 0; i < Selection.transforms.Length; i++)
             {
                 Transform transform = Selection.transforms[i];
                 Sort(transform);
             }
+
+            EditorApplication.DirtyHierarchyWindowSorting();
         }
 
-        //不稳定排序
         private static void Sort(Transform transform)
         {
             Undo.RegisterFullObjectHierarchyUndo(transform, "Sort");
@@ -177,7 +210,7 @@ namespace QFramework
         ///     在非UI树下的GameObject上新建UI元素也会 自己主动加入到Canvas下（默认在UI树下）
         ///     加入到指定的UI元素下
         /// </summary>
-        [MenuItem("GameObject/UI/img (Uncheck Raycast Target)")]
+        [MenuItem("GameObject/UI/img")]
         private static void CreatImages()
         {
             Transform activeTransform = Selection.activeTransform;
@@ -213,7 +246,7 @@ namespace QFramework
             return go;
         }
 
-        [MenuItem("GameObject/UI/txt (Uncheck Raycast Target)")]
+        [MenuItem("GameObject/UI/txt")]
         private static void CreatTexts()
         {
             Transform activeTransform = Selection.activeTransform;
@@ -222,19 +255,19 @@ namespace QFramework
             if (!activeTransform) // 在根文件夹创建的。 自己主动移动到 Canvas下
             {
                 txt.transform.SetParent(canvasObj.transform, false);
-                txt.Layer(canvasObj.layer);
+                txt.gameObject.layer = canvasObj.layer;
             }
             else
             {
                 if (!activeTransform.GetComponentInParent<Canvas>()) // 没有在UI树下
                 {
                     txt.transform.SetParent(canvasObj.transform, false);
-                    txt.Layer(canvasObj.layer);
+                    txt.gameObject.layer = canvasObj.layer;
                 }
                 else
                 {
                     txt.transform.SetParent(activeTransform, false);
-                    txt.Layer(activeTransform.gameObject.layer);
+                    txt.gameObject.layer = activeTransform.gameObject.layer;
                 }
             }
         }
@@ -259,15 +292,15 @@ namespace QFramework
         private static GameObject SecurityCheck()
         {
             Canvas cv = Object.FindObjectOfType<Canvas>();
-            GameObject goCanvas;
+            GameObject canvas;
             if (!cv)
             {
-                goCanvas = new GameObject("Canvas", typeof(Canvas));
-                Undo.RegisterCreatedObjectUndo(goCanvas, "Canvas");
+                canvas = new GameObject("Canvas", typeof(Canvas));
+                Undo.RegisterCreatedObjectUndo(canvas, "Canvas");
             }
             else
             {
-                goCanvas = cv.gameObject;
+                canvas = cv.gameObject;
             }
 
             if (!Object.FindObjectOfType<EventSystem>())
@@ -276,9 +309,8 @@ namespace QFramework
                 Undo.RegisterCreatedObjectUndo(go, "EventSystem");
             }
 
-            goCanvas.Layer("UI");
-            return goCanvas;
+            canvas.layer = LayerMask.NameToLayer("UI");
+            return canvas;
         }
-        #endregion
     }
 }
