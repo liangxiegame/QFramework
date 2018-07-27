@@ -46,8 +46,7 @@ namespace QFramework
 			frameworkConfigEditorWindow.Show();
 		}
 
-		private const string URL_GITHUB_API_LATEST_RELEASE =
-			"https://api.github.com/repos/liangxiegame/QFramework/releases/latest";
+
 
 		private const string URL_GITHUB_ISSUE = "https://github.com/liangxiegame/QFramework/issues/new";
 
@@ -99,39 +98,6 @@ namespace QFramework
 			return true;
 		}
 
-		public void DownloadLatestVersion()
-		{
-			ObservableWWW.Get(URL_GITHUB_API_LATEST_RELEASE).Subscribe(response =>
-			{
-				var latestedVersionInfo = FrameworkVersionInfo.ParseLatest(response);
-				latestedVersionInfo.Assets.ForEach(asset =>
-				{
-					Log.I(asset.Name);
-					if (asset.Name.StartsWith("QFramework"))
-					{
-						var version = asset.Name.Replace("QFramework_v", string.Empty).Replace(".unitypackage", string.Empty);
-						var versionChars = version.Split('.');
-						var versionCode = 0;
-
-						versionChars.ForEach(versionChar =>
-						{
-							versionCode *= 100;
-							versionCode += versionChar.ToInt();
-						});
-
-						Log.I(versionCode);
-
-						// 版本比较
-						ObservableWWW.GetAndGetBytes(asset.BrowserDownloadUrl).Subscribe(bytes =>
-						{
-							File.WriteAllBytes(Application.dataPath + "/" + asset.Name, bytes);
-							AssetDatabase.ImportPackage(Application.dataPath + "/" + asset.Name, true);
-						});
-					}
-				});
-			}, e => { Log.E(e); });
-		}
-
 		public void DownloadDemo()
 		{
 			Application.OpenURL("http://liangxiegame.com/content/demo/Demo_v0.0.7.unitypackage");
@@ -173,7 +139,7 @@ namespace QFramework
 			
 			if (GUILayout.Button("Download Latest Version"))
 			{
-				DownloadLatestVersion();
+				this.ExecuteNode(new DowloadLatestFramework());
 			}
 
 			if (GUILayout.Button("Download Demo"))
