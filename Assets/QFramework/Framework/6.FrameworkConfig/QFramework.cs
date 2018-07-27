@@ -27,6 +27,7 @@ namespace QFramework
 {
 	using UnityEngine.Events;
 	
+	/// <inheritdoc />
 	/// <summary>
 	/// 全局唯一继承于MonoBehaviour的单例类，保证其他公共模块都以App的生命周期为准
 	/// 这个东西很基类，没什么用。概念也不太清晰
@@ -69,22 +70,22 @@ namespace QFramework
 		public UnityAction OnDestroyEvent = delegate { };
 		public UnityAction OnApplicationQuitEvent = delegate { };
 
-		void Update()
+		private void Update()
 		{
 			OnUpdateEvent.InvokeGracefully();
 		}
 
-		void FixedUpdate()
+		private void FixedUpdate()
 		{
 			OnFixedUpdateEvent.InvokeGracefully();
 		}
 
-		void LateUpdate()
+		private void LateUpdate()
 		{
 			OnLateUpdateEvent.InvokeGracefully();
 		}
 
-		void OnGUI()
+		private void OnGUI()
 		{
 			OnGUIEvent.InvokeGracefully();
 		}
@@ -94,7 +95,7 @@ namespace QFramework
 			OnDestroyEvent.InvokeGracefully();
 		}
 
-		void OnApplicationQuit()
+		private void OnApplicationQuit()
 		{
 			OnApplicationQuitEvent.InvokeGracefully();
 		}

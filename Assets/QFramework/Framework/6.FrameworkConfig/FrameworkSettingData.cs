@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 magicbell
- * Copyright (c) 2018.3 liangxie
+ * Copyright (c) 2018.3 ~ 7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -40,7 +40,8 @@ namespace QFramework
 #if UNITY_EDITOR
 		static readonly string mConfigSavedDir =
 			(Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/";
-		static readonly string mConfigSavedFileName = "ProjectConfig.json";
+
+		private const string mConfigSavedFileName = "ProjectConfig.json";
 
 		public string Namespace;
 
@@ -64,8 +65,7 @@ namespace QFramework
 
 			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
 			{
-				frameworkConfigData = new FrameworkSettingData();
-				frameworkConfigData.Namespace = "QFramework.Example";
+				frameworkConfigData = new FrameworkSettingData {Namespace = "QFramework.Example"};
 			}
 
 			return frameworkConfigData;
@@ -78,53 +78,5 @@ namespace QFramework
 
 		}
 #endif
-		#region AssetBundle 相关
-
-		public static string AssetBundleUrl2Name(string url)
-		{
-			string retName = null;
-			string parren = FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/";
-			retName = url.Replace(parren, "");
-
-			parren = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/";
-			retName = retName.Replace(parren, "");
-			return retName;
-		}
-
-		public static string AssetBundleName2Url(string name)
-		{
-			string retUrl = FilePath.PersistentDataPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" + name;
-
-			if (File.Exists(retUrl))
-			{
-				return retUrl;
-			}
-
-			return FilePath.StreamingAssetsPath + "AssetBundles/" + PlatformUtil.GetPlatformName() + "/" + name;
-		}
-
-		//导出目录
-		public static string EDITOR_AB_EXPORT_ROOT_FOLDER
-		{
-			get { return "StreamingAssets/AssetBundles/" + RELATIVE_AB_ROOT_FOLDER; }
-		}
-
-		/// <summary>
-		/// AssetBundle存放路径
-		/// </summary>
-		public static string RELATIVE_AB_ROOT_FOLDER
-		{
-			get { return "/AssetBundles/" + PlatformUtil.GetPlatformName() + "/"; }
-		}
-
-		/// <summary>
-		/// AssetBundle 配置路径
-		/// </summary>
-		public static string EXPORT_ASSETBUNDLE_CONFIG_FILENAME
-		{
-			get { return "asset_bindle_config.bin"; }
-		}
-
-		#endregion
 	}
 }
