@@ -32,7 +32,6 @@ namespace QFramework
 {
 #if UNITY_EDITOR
 	using UnityEditor;
-
 #endif
 	[Serializable]
 	public class FrameworkSettingData

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * 2017 ~ 2018.6 liangxie
+ * 2017 ~ 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -42,6 +42,7 @@ namespace QFramework
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
 			frameworkConfigEditorWindow.position = new Rect(100, 100, 500, 400);
+			frameworkConfigEditorWindow.Init();
 			frameworkConfigEditorWindow.Show();
 		}
 
@@ -142,7 +143,13 @@ namespace QFramework
 		}
 
 		public FrameworkSettingData CurSettingData;
+		public FrameworkLocalVersion FrameworkLocalVersion;
 
+		private void Init()
+		{
+			FrameworkLocalVersion = FrameworkLocalVersion.Get();
+		}
+		
 		private void OnGUI()
 		{
 			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", CurSettingData.Namespace);
@@ -155,6 +162,11 @@ namespace QFramework
 				CurSettingData.Save();
 			}
 
+
+			GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
+			
+			GUILayout.BeginHorizontal();
+			
 			if (GUILayout.Button("Download Latest Version"))
 			{
 				DownloadLatestVersion();
@@ -164,6 +176,8 @@ namespace QFramework
 			{
 				DownloadDemo();
 			}
+			
+			GUILayout.EndHorizontal();
 			
 		}
 	}
