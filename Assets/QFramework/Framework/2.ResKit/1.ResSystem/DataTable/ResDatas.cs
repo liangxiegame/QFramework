@@ -71,6 +71,11 @@ namespace QFramework
 
         public static ResDatas Create()
         {
+            if (Instance != null)
+            {
+                Instance.Dispose();
+            }
+            
             return Instance;
         }
         

@@ -120,8 +120,8 @@ namespace QFramework
 
 			if (GUILayout.Button("Build"))
 			{
-				AssetBundleExporter.BuildDataTable();
 				BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
+				Close();
 			}
 
 			if (GUILayout.Button("ForceClear"))
