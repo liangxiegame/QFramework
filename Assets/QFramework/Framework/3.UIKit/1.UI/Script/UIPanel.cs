@@ -52,12 +52,14 @@ namespace QFramework
 	{
 	}
 
-	public abstract class UIPanel : QMonoBehaviour, IUIBehaviour
+	public abstract class UIPanel : QMonoBehaviour, IUIPanel
 	{
 		public Transform Transform
 		{
 			get { return transform; }
 		}
+
+		public UIPanelInfo PanelInfo { get; set; }
 
 		private   int            mUILayerType    = -10000;
 		private   int            mLayerSortIndex = -10;
@@ -140,7 +142,7 @@ namespace QFramework
 		/// <summary>
 		/// 关闭,不允许子类调用
 		/// </summary>
-		void IUIBehaviour.Close(bool destroyed)
+		void IUIPanel.Close(bool destroyed)
 		{
 			OnClose();
 			if (destroyed)

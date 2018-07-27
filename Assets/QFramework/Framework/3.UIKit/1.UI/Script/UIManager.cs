@@ -56,46 +56,46 @@ namespace QFramework
 	//// <summary>
 	/// <inheritdoc />
 	/// <![CDATA[The 'member' start tag on line 2 position 2 does not match the end tag of 'summary'. Line 3, position 3.]]>
-	public class QUIManager : QMgrBehaviour, ISingleton
+	[MonoSingletonPath("UIRoot")]
+	public class UIManager : QMgrBehaviour, ISingleton
 	{
-		private Dictionary<string, IUIBehaviour> mAllUI = new Dictionary<string, IUIBehaviour>();
-		private QLayerLogic mLayerLogic;
-		private QUIPanelStack mUIPanelStack;
+		private Dictionary<string, IUIPanel> mAllUI = new Dictionary<string, IUIPanel>();
 
-		private bool mReSetLayerIndexDirty = false;
-
+		[SerializeField] private Transform mBgTrans;
+		[SerializeField] private Transform mAnimationUnderTrans;
+		[SerializeField] private Transform mCommonTrans;
+		[SerializeField] private Transform mAnimationOnTrans;
+		[SerializeField] private Transform mPopUITrans;
+		[SerializeField] private Transform mConstTrans;
+		[SerializeField] private Transform mToastTrans;
+		[SerializeField] private Transform mForwardTrans;
+		
 		[SerializeField] private Camera mUICamera;
 		[SerializeField] private Canvas mCanvas;
 		[SerializeField] private CanvasScaler mCanvasScaler;
 		[SerializeField] private GraphicRaycaster mGraphicRaycaster;
 
-		private void Awake()
-		{
-			mLayerLogic = GetComponent<QLayerLogic>();
-			mLayerLogic.InitLayer(mCanvas.transform);
-			mUIPanelStack = QUIPanelStack.Instance;
-		}
+		public Stack<UIPanelInfo> mUIStack = new Stack<UIPanelInfo>(); 
 
 		void ISingleton.OnSingletonInit()
 		{
-			Log.I("QUIManager Init");
 		}
 
-		private static QUIManager mInstance;
+		private static UIManager mInstance;
 
-		public static QUIManager Instance
+		public static UIManager Instance
 		{
 			get
 			{
 				if (null == mInstance)
 				{
-					mInstance = FindObjectOfType<QUIManager>();
+					mInstance = FindObjectOfType<UIManager>();
 				}
 
 				if (null == mInstance)
 				{
 					Instantiate(Resources.Load<GameObject>("UIRoot"));
-					mInstance = MonoSingletonProperty<QUIManager>.Instance;
+					mInstance = MonoSingletonProperty<UIManager>.Instance;
 					mInstance.name = "UIRoot";
 					DontDestroyOnLoad(mInstance);
 				}
@@ -130,19 +130,7 @@ namespace QFramework
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
 		}
 
-		public void ReSetLayerIndexDirty()
-		{
-			mReSetLayerIndexDirty = true;
-		}
-
-		//层级排序
-		public void ReSortUILayer()
-		{
-			mReSetLayerIndexDirty = false;
-			mLayerLogic.SortAllUIPanel();
-		}
-
-		public IUIBehaviour OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData, string assetBundleName)
+		public IUIPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData, string assetBundleName)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
@@ -153,7 +141,7 @@ namespace QFramework
 			return mAllUI[uiBehaviourName];
 		}
 
-		public IUIBehaviour OpenUI(string uiBehaviourName, UILevel canvasLevel)
+		public IUIPanel OpenUI(string uiBehaviourName, UILevel canvasLevel)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
@@ -161,7 +149,6 @@ namespace QFramework
 			}
 
 			mAllUI[uiBehaviourName].Show();
-			ReSetLayerIndexDirty();
 			return mAllUI[uiBehaviourName];
 		}
 
@@ -175,7 +162,7 @@ namespace QFramework
 		/// <returns></returns>
 		public GameObject CreateUIObj(string uiBehaviourName, UILevel uiLevel, string assetBundleName = null)
 		{
-			IUIBehaviour ui;
+			IUIPanel ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
 				Log.W("{0}: already exist", uiBehaviourName);
@@ -185,11 +172,46 @@ namespace QFramework
 
 			ui = UIPanel.Load(uiBehaviourName, assetBundleName);
 
-			mLayerLogic.SetLayer((int) uiLevel, ui as UIPanel);
-			mUIPanelStack.OnCreatUI((int) uiLevel, ui, uiBehaviourName);
-			ReSetLayerIndexDirty();
-			ui.Transform.gameObject.name = uiBehaviourName;
+			switch (uiLevel)
+			{
+				case UILevel.Bg:
+					ui.Transform.SetParent(mBgTrans);
+					break;
+				case UILevel.AnimationUnderPage:
+					ui.Transform.SetParent(mAnimationUnderTrans);
+					break;
+				case UILevel.Common:
+					ui.Transform.SetParent(mCommonTrans);
+					break;
+				case UILevel.AnimationOnPage:
+					ui.Transform.SetParent(mAnimationOnTrans);
+					break;
+				case UILevel.PopUI:
+					ui.Transform.SetParent(mPopUITrans);
+					break;
+				case UILevel.Const:
+					ui.Transform.SetParent(mConstTrans);
+					break;
+				case UILevel.Toast:
+					ui.Transform.SetParent(mToastTrans);
+					break;
+				case UILevel.Forward:
+					ui.Transform.SetParent(mForwardTrans);
+					break;
+			}
 
+			var uiGoRectTrans = ui.Transform as RectTransform;
+
+			uiGoRectTrans.offsetMin = Vector2.zero;
+			uiGoRectTrans.offsetMax = Vector2.zero;
+			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
+			uiGoRectTrans.anchorMin = Vector2.zero;
+			uiGoRectTrans.anchorMax = Vector2.one;
+
+			ui.Transform.LocalScaleIdentity();
+			ui.Transform.gameObject.name = uiBehaviourName;
+			
+			ui.PanelInfo = new UIPanelInfo {AssetBundleName = assetBundleName, Level = uiLevel, PanelName = uiBehaviourName};
 			return ui.Transform.gameObject;
 		}
 
@@ -199,12 +221,10 @@ namespace QFramework
 		/// <param name="uiBehaviourName"></param>
 		public void ShowUI(string uiBehaviourName)
 		{
-			IUIBehaviour uiBehaviour = null;
-			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
+			IUIPanel iuiPanel = null;
+			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
 			{
-				uiBehaviour.Show();
-				mLayerLogic.OnUIPanelShow(uiBehaviour as UIPanel);
-				ReSetLayerIndexDirty();
+				iuiPanel.Show();
 			}
 		}
 
@@ -214,12 +234,10 @@ namespace QFramework
 		/// <param name="uiBehaviourName"></param>
 		public void HideUI(string uiBehaviourName)
 		{
-			IUIBehaviour uiBehaviour = null;
-			if (mAllUI.TryGetValue(uiBehaviourName, out uiBehaviour))
+			IUIPanel iuiPanel = null;
+			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
 			{
-				uiBehaviour.Hide();
-				mLayerLogic.OnUIPanelHide(uiBehaviour as UIPanel);
-				ReSetLayerIndexDirty();
+				iuiPanel.Hide();
 			}
 		}
 
@@ -234,8 +252,6 @@ namespace QFramework
 			}
 
 			mAllUI.Clear();
-			mUIPanelStack.ClearStack();
-			mLayerLogic.ClearUILayerMap();
 		}
 
 		/// <summary>
@@ -244,7 +260,7 @@ namespace QFramework
 		/// <param name="behaviourName"></param>
 		public void CloseUI(string behaviourName)
 		{
-			IUIBehaviour behaviour = null;
+			IUIPanel behaviour = null;
 
 			mAllUI.TryGetValue(behaviourName, out behaviour);
 
@@ -252,11 +268,32 @@ namespace QFramework
 			{
 				behaviour.Close();
 				mAllUI.Remove(behaviourName);
-				mUIPanelStack.RemoveUI(behaviourName, behaviour);
-				mLayerLogic.OnUIPanelClose(behaviour as UIPanel);
-				ReSetLayerIndexDirty();
 			}
 		}
+		
+		public void Push<T>() where T : UIPanel
+		{
+			Push(GetUI<T>());
+		}
+
+		public void Push(IUIPanel view)
+		{
+			if (view != null)
+			{
+				mUIStack.Push(view.PanelInfo);
+				view.Close();
+				mAllUI.Remove(view.Transform.name);
+			}
+		}
+
+		public void Back(string currentPanelName)
+		{
+			var previousPanelInfo = mUIStack.Pop();
+			CloseUI(currentPanelName);
+			OpenUI(previousPanelInfo.PanelName, previousPanelInfo.Level, previousPanelInfo.UIData,
+				previousPanelInfo.AssetBundleName);
+		}
+		
 
 		/// <summary>
 		/// 获取UIBehaviour
@@ -265,10 +302,10 @@ namespace QFramework
 		/// <returns></returns>
 		public UIPanel GetUI(string uiBehaviourName)
 		{
-			IUIBehaviour retUiBehaviour = null;
-			if (mAllUI.TryGetValue(uiBehaviourName, out retUiBehaviour))
+			IUIPanel retIuiPanel = null;
+			if (mAllUI.TryGetValue(uiBehaviourName, out retIuiPanel))
 			{
-				return retUiBehaviour as UIPanel;
+				return retIuiPanel as UIPanel;
 			}
 
 			return null;
@@ -303,10 +340,10 @@ namespace QFramework
 			return retValue;
 		}
 
-		public IUIBehaviour CreateUI(string uiBehaviourName, UILevel level = UILevel.Common, IUIData uiData = null,
+		public IUIPanel CreateUI(string uiBehaviourName, UILevel level = UILevel.Common, IUIData uiData = null,
 			string assetBundleName = null)
 		{
-			IUIBehaviour ui;
+			IUIPanel ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
 				return ui;
@@ -314,7 +351,7 @@ namespace QFramework
 
 			var uiObj = CreateUIObj(uiBehaviourName, level, assetBundleName);
 
-			ui = uiObj.GetComponent<IUIBehaviour>();
+			ui = uiObj.GetComponent<IUIPanel>();
 
 			mAllUI.Add(uiBehaviourName, ui);
 
@@ -322,23 +359,6 @@ namespace QFramework
 
 			return ui;
 		}
-
-		#region 生命周期 
-
-		public void Update()
-		{
-			if (mReSetLayerIndexDirty)
-				ReSortUILayer();
-		}
-
-		private void LateUpdate()
-		{
-			if (mReSetLayerIndexDirty)
-				ReSortUILayer();
-		}
-
-
-		#endregion
 
 		#region UnityCSharp Generic Support
 
@@ -354,13 +374,8 @@ namespace QFramework
 			{
 				CreateUI(behaviourName, canvasLevel, uiData, assetBundleName);
 			}
-			else
-			{
-				mLayerLogic.OnUIPanelShow(mAllUI[behaviourName] as UIPanel);
-			}
 
 			mAllUI[behaviourName].Show();
-			ReSetLayerIndexDirty();
 			return mAllUI[behaviourName] as T;
 		}
 
@@ -386,18 +401,29 @@ namespace QFramework
 		}
 
 		#endregion
-
-		#region LuaSupport
-
-		#endregion
 	}
 
 	public static class UIMgr
 	{
+		public static void Push<T>() where T : UIPanel
+		{
+			UIManager.Instance.Push<T>();
+		}
+
+		public static void Push(UIPanel view)
+		{
+			UIManager.Instance.Push(view);
+		}
+		
+		public static Camera Camera
+		{
+			get { return UIManager.Instance.UICamera; }
+		}
+		
 		public static void SetResolution(int width, int height, float matchOnWidthOrHeight)
 		{
-			QUIManager.Instance.SetResolution(width, height);
-			QUIManager.Instance.SetMatchOnWidthOrHeight(matchOnWidthOrHeight);
+			UIManager.Instance.SetResolution(width, height);
+			UIManager.Instance.SetMatchOnWidthOrHeight(matchOnWidthOrHeight);
 		}
 
 		#region 高频率调用的 api 只能在 Mono 层使用
@@ -406,23 +432,23 @@ namespace QFramework
 			string assetBundleName = null,
 			string prefabName = null) where T : UIPanel
 		{
-			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName, prefabName);
+			return UIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName, prefabName);
 		}
 		
 		internal static T OpenPanel<T>(IUIData uiData, string assetBundleName = null,
 			string prefabName = null) where T : UIPanel
 		{
-			return QUIManager.Instance.OpenUI<T>(UILevel.Common, uiData, assetBundleName,prefabName);
+			return UIManager.Instance.OpenUI<T>(UILevel.Common, uiData, assetBundleName,prefabName);
 		}
 
 		internal static void ClosePanel<T>() where T : UIPanel
 		{
-			QUIManager.Instance.CloseUI<T>();
+			UIManager.Instance.CloseUI<T>();
 		}
 
 		internal static T GetPanel<T>() where T : UIPanel
 		{
-			return QUIManager.Instance.GetUI<T>();
+			return UIManager.Instance.GetUI<T>();
 		}
 
 		#endregion
@@ -431,19 +457,25 @@ namespace QFramework
 
 		public static UIPanel GetPanel(string panelName)
 		{
-			return QUIManager.Instance.GetUI(panelName);
+			return UIManager.Instance.GetUI(panelName);
 		}
 
 		public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
 		{
-			return QUIManager.Instance.OpenUI(panelName, level, null, assetBundleName) as UIPanel;
+			return UIManager.Instance.OpenUI(panelName, level, null, assetBundleName) as UIPanel;
 		}
 
 		public static void ClosePanel(string panelName)
 		{
-			QUIManager.Instance.CloseUI(panelName);
+			UIManager.Instance.CloseUI(panelName);
 		}
 
 		#endregion
+	}
+	
+	[Obsolete("弃用啦")]
+	public class QUIManager : UIManager
+	{
+			
 	}
 }
