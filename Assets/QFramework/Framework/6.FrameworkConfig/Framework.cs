@@ -43,10 +43,10 @@ namespace QFramework
 		{
             get { return MonoSingletonProperty<Framework>.Instance; }
 		}
-
-		protected override void SetupMgrId()
+		
+		public override int ManagerId
 		{
-			mMgrId = QMgrID.Framework;
+			get { return QMgrID.Framework; }
 		}
 
 		public void OnSingletonInit()

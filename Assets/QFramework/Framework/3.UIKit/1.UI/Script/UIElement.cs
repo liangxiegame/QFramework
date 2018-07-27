@@ -31,7 +31,7 @@ namespace QFramework
     /// belone to a panel 
     /// </summary>
     public abstract class UIElement : QMonoBehaviour,IUIMark
-    {        
+    {
         public virtual UIMarkType GetUIMarkType()
         {
             return UIMarkType.Element;
@@ -43,10 +43,10 @@ namespace QFramework
         {
             get { return transform; }
         }
-        
-        protected override void SetupMgr()
+
+        public override IManager Manager
         {
-            mCurMgr = QUIManager.Instance;
+            get { return UIManager.Instance; }
         }
     }
 }

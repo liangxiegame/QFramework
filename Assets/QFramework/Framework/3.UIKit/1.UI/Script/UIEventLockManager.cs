@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using CatLib;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -96,9 +98,9 @@ namespace QFramework
 	[QMonoSingletonPath("[Event]/UIEventLockManager")]
 	public class UIEventLockManager : QMgrBehaviour, ISingleton
 	{
-		protected override void SetupMgrId()
+		public override int ManagerId
 		{
-			mMgrId = QMgrID.UIFilter;
+			get { return QMgrID.UIFilter; }
 		}
 
 		public static UIEventLockManager Instance

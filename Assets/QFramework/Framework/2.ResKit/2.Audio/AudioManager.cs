@@ -187,13 +187,12 @@ namespace QFramework
 		public void Dispose()
 		{
 		}
-		
 
-		protected override void SetupMgrId()
+		public override int ManagerId
 		{
-			mMgrId = QMgrID.Audio;
+			get { return QMgrID.Audio; }
 		}
-
+		
 		protected override void ProcessMsg(int key, QMsg msg)
 		{
             switch (msg.EventID)

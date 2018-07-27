@@ -31,7 +31,7 @@ namespace QFramework
 	{
 		public static Camera UICamera
 		{
-			get { return QUIManager.Instance.UICamera; }
+			get { return UIManager.Instance.UICamera; }
 		}
 		
 		public static void SetPerspectiveMode()

@@ -41,7 +41,7 @@ namespace QFramework
 
 		public abstract int ManagerId { get ; }
 
-		protected override IManager mMgr
+		public override IManager Manager
 		{
 			get { return this; }
 		}
@@ -58,7 +58,7 @@ namespace QFramework
 
 		public override void SendMsg(QMsg msg)
 		{
-            if (msg.ManagerID == mManagerId)
+            if (msg.ManagerID == ManagerId)
 			{
                 Process(msg.EventID, msg);
 			}

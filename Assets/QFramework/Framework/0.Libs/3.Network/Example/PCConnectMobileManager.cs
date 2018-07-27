@@ -143,10 +143,10 @@ namespace QFramework
         {
             get { return MonoSingletonProperty<PCConnectMobileManager>.Instance; }
         }
-
-        protected override void SetupMgrId()
+        
+        public override int ManagerId
         {
-            mMgrId = QMgrID.PCConnectMobile;
+            get { return QMgrID.PCConnectMobile; }
         }
     }
 }

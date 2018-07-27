@@ -167,7 +167,7 @@ namespace QFramework
 
 		protected void CloseSelf()
 		{
-			QUIManager.Instance.CloseUI(name);
+			UIManager.Instance.CloseUI(name);
 		}
 
 		protected void Back()

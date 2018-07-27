@@ -79,7 +79,7 @@ namespace QFramework.UIExample
 
 		private void ChoiceSection(int i)
 		{
-			QUIManager.Instance.HideUI(this.name);
+			UIManager.Instance.HideUI(this.name);
 			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData {SectionNo = i + 1},
 				prefabName: "Resources/UIGamePanel");
 		}

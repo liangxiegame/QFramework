@@ -40,25 +40,25 @@ namespace QFramework
         public static bool InRect(this RectTransform selfRectTrans, Camera camera = null)
         {
             if (null == camera)
-                camera = QUIManager.Instance.RootCanvas.worldCamera;
+                camera = UIManager.Instance.RootCanvas.worldCamera;
  
             return RectTransformUtility.RectangleContainsScreenPoint(selfRectTrans, Input.mousePosition, camera);
         }
  
         public static Vector2 ToScreenPoint(this RectTransform selfRectTrans)
         {
-            return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, selfRectTrans.position);
+            return RectTransformUtility.WorldToScreenPoint(UIManager.Instance.RootCanvas.worldCamera, selfRectTrans.position);
         }
  
         public static Vector2 ToScreenPoint(this RectTransform selfRectTrans, Vector2 worldPos)
         {
-            return RectTransformUtility.WorldToScreenPoint(QUIManager.Instance.RootCanvas.worldCamera, worldPos);
+            return RectTransformUtility.WorldToScreenPoint(UIManager.Instance.RootCanvas.worldCamera, worldPos);
         }
  
         public static bool InRootTransRect(this RectTransform selfRectTrans, RectTransform rootTrans, Camera camera = null)
         {
             if (null == camera)
-                camera = QUIManager.Instance.RootCanvas.worldCamera;
+                camera = UIManager.Instance.RootCanvas.worldCamera;
             return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(), camera);
         }
  

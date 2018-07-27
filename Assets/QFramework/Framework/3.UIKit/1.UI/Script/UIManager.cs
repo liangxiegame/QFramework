@@ -310,10 +310,10 @@ namespace QFramework
 
 			return null;
 		}
-
-		protected override void SetupMgrId()
+		
+		public override int ManagerId
 		{
-			mMgrId = QMgrID.UI;
+			get { return QMgrID.UI; }
 		}
 
 		/// <summary>
