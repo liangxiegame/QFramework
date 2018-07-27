@@ -408,11 +408,11 @@ namespace QFramework
 		{
 			return QUIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName, prefabName);
 		}
-
-		internal static UIPanel OpenPanel(string panelName, UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
-			string assetBundleName = null)
+		
+		internal static T OpenPanel<T>(IUIData uiData, string assetBundleName = null,
+			string prefabName = null) where T : UIPanel
 		{
-			return QUIManager.Instance.OpenUI(panelName, canvasLevel, uiData, assetBundleName) as UIPanel;
+			return QUIManager.Instance.OpenUI<T>(UILevel.Common, uiData, assetBundleName,prefabName);
 		}
 
 		internal static void ClosePanel<T>() where T : UIPanel
