@@ -53,20 +53,20 @@ namespace QFramework
 	[CustomLuaClass]
 #endif
 	//// <summary>
-	/// UGUI UI界面管理器
-	/// </summary>
+	/// <inheritdoc />
+	/// <![CDATA[The 'member' start tag on line 2 position 2 does not match the end tag of 'summary'. Line 3, position 3.]]>
 	public class QUIManager : QMgrBehaviour, ISingleton
 	{
-		Dictionary<string, IUIBehaviour> mAllUI = new Dictionary<string, IUIBehaviour>();
-        QLayerLogic mLayerLogic;
-        QUIPanelStack mUIPanelStack;
+		private Dictionary<string, IUIBehaviour> mAllUI = new Dictionary<string, IUIBehaviour>();
+		private QLayerLogic mLayerLogic;
+		private QUIPanelStack mUIPanelStack;
 
         private bool mReSetLayerIndexDirty = false;
 
-		[SerializeField] Camera mUICamera;
-		[SerializeField] Canvas mCanvas;
-		[SerializeField] CanvasScaler mCanvasScaler;
-		[SerializeField] GraphicRaycaster mGraphicRaycaster;
+		[SerializeField] private Camera mUICamera;
+		[SerializeField] private Canvas mCanvas;
+		[SerializeField] private CanvasScaler mCanvasScaler;
+		[SerializeField] private GraphicRaycaster mGraphicRaycaster;
 
 		private void Awake()
 		{
