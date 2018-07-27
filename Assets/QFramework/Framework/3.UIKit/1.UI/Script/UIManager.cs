@@ -344,6 +344,7 @@ namespace QFramework
 			string assetBundleName = null)
 		{
 			IUIPanel ui;
+			
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
 				return ui;

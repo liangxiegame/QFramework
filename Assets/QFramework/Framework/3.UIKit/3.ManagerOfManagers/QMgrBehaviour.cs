@@ -39,26 +39,11 @@ namespace QFramework
 		public virtual void Init() {}
 		#endregion
 
-		protected int mMgrId = 0;
+		public abstract int ManagerId { get ; }
 
-		protected abstract void SetupMgrId ();
-
-		protected override void SetupMgr ()
+		protected override IManager mMgr
 		{
-			mCurMgr = this;
-		}
-
-		protected QMgrBehaviour() 
-		{
-			SetupMgrId ();
-		}
-
-		public void RegisterEvents<T>(IEnumerable<T> eventIds,OnEvent process) where T: IConvertible
-		{
-			foreach (var eventId in eventIds)
-			{
-				RegisterEvent(eventId,process);
-			}
+			get { return this; }
 		}
 
 		public void RegisterEvent<T>(T msgId,OnEvent process) where T:IConvertible
@@ -66,22 +51,14 @@ namespace QFramework
 			mEventSystem.Register (msgId, process);
 		}
 
-		public void UnRegisterEvents(List<ushort> msgs,OnEvent process)
+		public void UnRegistEvent<T>(T msgEvent, OnEvent process) where T : IConvertible
 		{
-			for (int i = 0;i < msgs.Count;i++)
-			{
-				UnRegistEvent(msgs[i],process);
-			}
-		}
-
-		public void UnRegistEvent(int msgEvent,OnEvent process)
-		{
-			mEventSystem.UnRegister (msgEvent, process);
+			mEventSystem.UnRegister(msgEvent, process);
 		}
 
 		public override void SendMsg(QMsg msg)
 		{
-            if (msg.ManagerID == mMgrId)
+            if (msg.ManagerID == mManagerId)
 			{
                 Process(msg.EventID, msg);
 			}
@@ -100,6 +77,14 @@ namespace QFramework
 		protected override void ProcessMsg(int eventId,QMsg msg)
 		{
 			mEventSystem.Send(msg.EventID,msg);
+		}
+		
+		protected override void OnBeforeDestroy()
+		{
+			if (mEventSystem.IsNotNull())
+			{
+				mEventSystem.OnRecycled();
+			}
 		}
 	}
 }

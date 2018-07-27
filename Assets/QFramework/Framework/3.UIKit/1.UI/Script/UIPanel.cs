@@ -1,8 +1,8 @@
 /****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 liangxie
- * Copyright (c) 2017 maoling
- * Copyright (c) 2018.5 ~ 2018.6 liangxie
+ * Copyright (c) 2017 imagicbell
+ * Copyright (c) 2018.5 ~ 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -30,6 +30,7 @@ namespace QFramework
 {
 	using System;
 	using UnityEngine;
+	using System.Collections.Generic;
 
 	/// <summary>
 	/// 每个UIbehaviour对应的Data
@@ -40,20 +41,43 @@ namespace QFramework
 
 	public class UIPanelData : IUIData
 	{
+		
 	}
 
-	[Obsolete("弃用啦")]
-	public class UIPageData : UIPanelData
+	[Serializable]
+	public class SubPanelInfo
 	{
-	}
-
-	[Obsolete("弃用啦")]
-	public abstract class QUIBehaviour : UIPanel
-	{
+		public string  PanelName;
+		public UILevel Level;
 	}
 
 	public abstract class UIPanel : QMonoBehaviour, IUIPanel
 	{
+		#region mvvm data binding
+		/* DataBinding
+
+		public string                 ContextName;
+
+		private IViewModel mContext;
+
+		/// <summary>
+		/// Context. Data Binding to View
+		/// </summary>
+		public IViewModel Context 
+		{
+			get { return mContext; } 
+			set 
+			{
+				mContext = value;
+				if (mContext != null) { ContextName = mContext.ToString(); }
+			}
+		}
+		*/
+		
+		#endregion
+		
+		[SerializeField] private List<SubPanelInfo> mSubPanelInfos = new List<SubPanelInfo>();
+
 		public Transform Transform
 		{
 			get { return transform; }
@@ -61,22 +85,8 @@ namespace QFramework
 
 		public UIPanelInfo PanelInfo { get; set; }
 
-		private   int            mUILayerType    = -10000;
-		private   int            mLayerSortIndex = -10;
 		private   IUIPanelLoader mUiPanelLoader  = null;
 		protected IUIData        mUIData;
-
-		public int UILayerType
-		{
-			get { return mUILayerType; }
-			set { mUILayerType = value; }
-		}
-
-		public int LayerSortIndex
-		{
-			get { return mLayerSortIndex; }
-			set { mLayerSortIndex = value; }
-		}
 
 		public static UIPanel Load(string panelName, string assetBundleName = null)
 		{
@@ -90,9 +100,10 @@ namespace QFramework
 			return retScript;
 		}
 
-		protected override void SetupMgr()
+
+		public override IManager Manager
 		{
-			mCurMgr = QUIManager.Instance;
+			get { return UIManager.Instance; }
 		}
 
 		protected override void OnBeforeDestroy()
@@ -104,22 +115,14 @@ namespace QFramework
 		{
 		}
 
-
-		public void SetSiblingIndexAndNewLayerIndex(int siblingIndex, int layerIndex)
-		{
-			if (mLayerSortIndex != layerIndex)
-			{
-				Transform.SetSiblingIndex(siblingIndex);
-				mLayerSortIndex = layerIndex;
-			}
-		}
-
-
 		public void Init(IUIData uiData = null)
 		{
 			mUIData = uiData;
 			InitUI(uiData);
 			RegisterUIEvent();
+			
+			mSubPanelInfos.ForEach(subPanelInfo => UIMgr.OpenPanel(subPanelInfo.PanelName, subPanelInfo.Level));
+
 		}
 
 		protected virtual void InitUI(IUIData uiData = null)
@@ -144,17 +147,22 @@ namespace QFramework
 		/// </summary>
 		void IUIPanel.Close(bool destroyed)
 		{
+			PanelInfo.UIData = mUIData;
+			mOnClosed.InvokeGracefully();
+			mOnClosed = null;
+			
 			OnClose();
 			if (destroyed)
 			{
 				Destroy(gameObject);
 			}
 
-			mOnPanelClosed.InvokeGracefully();
-			mOnPanelClosed = null;
 			mUiPanelLoader.Unload();
 			mUiPanelLoader = null;
 			mUIData = null;
+			
+			mSubPanelInfos.ForEach(subPanelInfo => UIMgr.ClosePanel(subPanelInfo.PanelName));
+			mSubPanelInfos.Clear();
 		}
 
 		protected void CloseSelf()
@@ -162,6 +170,11 @@ namespace QFramework
 			QUIManager.Instance.CloseUI(name);
 		}
 
+		protected void Back()
+		{
+			UIManager.Instance.Back(name);
+		}
+		
 		/// <summary>
 		/// 关闭
 		/// </summary>
@@ -169,11 +182,16 @@ namespace QFramework
 		{
 		}
 
-		private Action mOnPanelClosed;
+		private Action mOnClosed;
 
 		public void OnClosed(Action onPanelClosed)
 		{
-			mOnPanelClosed = onPanelClosed;
+			mOnClosed = onPanelClosed;
 		}
+	}
+	
+	[Obsolete("弃用啦")]
+	public abstract class QUIBehaviour : UIPanel
+	{
 	}
 }

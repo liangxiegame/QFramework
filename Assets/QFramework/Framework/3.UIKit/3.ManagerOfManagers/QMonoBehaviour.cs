@@ -29,29 +29,8 @@ namespace QFramework
 
 		protected virtual void ProcessMsg (int eventId,QMsg msg) {}
 
-		protected abstract void SetupMgr ();
 		
-		private QMgrBehaviour mPrivateMgr = null;
-		
-		protected QMgrBehaviour mCurMgr 
-		{
-			get 
-			{
-				if (mPrivateMgr == null ) 
-				{
-					SetupMgr ();
-				}
-
-				if (mPrivateMgr == null) 
-				{
-					Debug.LogError ("not set mgr yet");
-				}
-
-				return mPrivateMgr;
-			}
-
-			set { mPrivateMgr = value; }
-		}
+		public abstract IManager Manager { get; }
 			
 		public virtual void Show()
 		{
@@ -82,37 +61,37 @@ namespace QFramework
 
 		protected void RegisterEvent<T>(T eventId) where T : IConvertible
 		{
-			mEventIds.Add(eventId.ToUInt16(null));
-			mCurMgr.RegisterEvent(eventId, Process);
+			mCachedEventIds.Add(eventId.ToUInt16(null));
+			Manager.RegisterEvent(eventId, Process);
 		}
 		
 		protected void UnRegisterEvent<T>(T eventId) where T : IConvertible
 		{
-			mEventIds.Remove(eventId.ToUInt16(null));
-			mCurMgr.UnRegistEvent(eventId.ToInt32(null), Process);
+			mCachedEventIds.Remove(eventId.ToUInt16(null));
+			Manager.UnRegistEvent(eventId.ToInt32(null), Process);
 		}
 
 		protected void UnRegisterAllEvent()
 		{
 			if (null != mPrivateEventIds)
 			{
-				mCurMgr.UnRegisterEvents(mEventIds, Process);
+				mPrivateEventIds.ForEach(id => Manager.UnRegistEvent(id,Process));
 			}
 		}
 
 		public virtual void SendMsg(QMsg msg)
 		{
-			mCurMgr.SendMsg(msg);
+			Manager.SendMsg(msg);
 		}
 
         public virtual void SendEvent<T>(T eventId) where T : IConvertible
 		{
-			mCurMgr.SendEvent(eventId);
+			Manager.SendEvent(eventId);
 		}
 		
 		private List<ushort> mPrivateEventIds = null;
 		
-		private List<ushort> mEventIds
+		private List<ushort> mCachedEventIds
 		{
 			get
 			{
@@ -126,12 +105,10 @@ namespace QFramework
 		}
 
 		protected virtual void OnDestroy()
-		{
-		    OnBeforeDestroy();
-			mCurMgr = null;
-			
+		{			
 			if (Application.isPlaying) 
 			{
+				OnBeforeDestroy();
 				UnRegisterAllEvent();
 			}
 		}
