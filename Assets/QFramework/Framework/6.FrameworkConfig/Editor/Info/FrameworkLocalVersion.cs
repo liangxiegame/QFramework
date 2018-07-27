@@ -23,16 +23,15 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEditor;
 using UnityEngine;
 
 namespace QFramework
 {
     public class FrameworkLocalVersion
     {
-        private static string SavedFilePath = Application.dataPath + "/QFramework/Framework/version.json";
+        private static readonly string SavedFilePath = Application.dataPath + "/QFramework/Framework/version.json";
 
-        public string Version = "v0.0.8";
+        public string Version = "v0.0.9";
         
         public void Save()
         {

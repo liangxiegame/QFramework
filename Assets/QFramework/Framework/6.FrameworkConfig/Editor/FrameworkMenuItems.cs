@@ -9,7 +9,7 @@ namespace QFramework
 {
     public static class FrameworkMenuItems
     {
-        public const string Preferences = "QFramework/Preferences... #%e";
+        public const string Preferences = "QFramework/Preferences... %e";
         
         public const string CheckForUpdates = "QFramework/Check for Updates...";
 

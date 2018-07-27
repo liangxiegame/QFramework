@@ -152,6 +152,8 @@ namespace QFramework
 		
 		private void OnGUI()
 		{
+			GUILayout.Label("UI Kit Settings:");
+			GUILayout.BeginVertical("box");
 			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", CurSettingData.Namespace);
 			CurSettingData.UIScriptDir =
 				EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", CurSettingData.UIScriptDir);
@@ -161,8 +163,10 @@ namespace QFramework
 			{
 				CurSettingData.Save();
 			}
+			GUILayout.EndVertical();
 
-
+			GUILayout.Label("Framework:");
+			GUILayout.BeginVertical("box");
 			GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 			
 			GUILayout.BeginHorizontal();
@@ -178,7 +182,7 @@ namespace QFramework
 			}
 			
 			GUILayout.EndHorizontal();
-			
+			GUILayout.EndVertical();
 		}
 	}
 }
