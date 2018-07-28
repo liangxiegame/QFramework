@@ -26,10 +26,8 @@
 namespace QFramework
 {
 	using System;
-	using System.IO;
 	using System.Net.Security;
 	using System.Security.Cryptography.X509Certificates;
-	using UniRx;
 	using UnityEngine;
 	using UnityEditor;
 
@@ -98,16 +96,6 @@ namespace QFramework
 			return true;
 		}
 
-		public void DownloadDemo()
-		{
-			Application.OpenURL("http://liangxiegame.com/content/demo/Demo_v0.0.7.unitypackage");
-//			ObservableWWW.GetAndGetBytes("http://liangxiegame.com/content/demo/Demo_v0.0.7.unitypackage").Subscribe(bytes =>
-//			{
-//				File.WriteAllBytes(Application.dataPath + "/" + "Demo_v0.0.7", bytes);
-//				AssetDatabase.ImportPackage(Application.dataPath + "/" + "Demo_v0.0.7", true);
-//			});
-		}
-
 		public FrameworkSettingData CurSettingData;
 		public FrameworkLocalVersion FrameworkLocalVersion;
 
@@ -139,12 +127,12 @@ namespace QFramework
 			
 			if (GUILayout.Button("Download Latest Version"))
 			{
-				this.ExecuteNode(new DowloadLatestFramework());
+				this.ExecuteNode(new DownloadLatestFramework());
 			}
 
 			if (GUILayout.Button("Download Demo"))
 			{
-				DownloadDemo();
+				this.ExecuteNode(new DownloadLatestDemo());
 			}
 			
 			GUILayout.EndHorizontal();

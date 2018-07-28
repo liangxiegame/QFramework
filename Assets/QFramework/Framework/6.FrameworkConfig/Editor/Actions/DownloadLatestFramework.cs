@@ -33,7 +33,7 @@ namespace QFramework
     /// <summary>
     /// 下载最新版本的 Framework
     /// </summary>
-    public class DowloadLatestFramework : NodeAction
+    public class DownloadLatestFramework : NodeAction
     {
         private const string URL_GITHUB_API_LATEST_RELEASE =
             "https://api.github.com/repos/liangxiegame/QFramework/releases/latest";
