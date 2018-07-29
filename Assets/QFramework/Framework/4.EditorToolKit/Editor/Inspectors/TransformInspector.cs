@@ -117,6 +117,7 @@ namespace QFramework
             EditorGUILayout.PropertyField(m_LocalScale, s_Contents.scaleContent);
 
             Rect rect = GUILayoutUtility.GetLastRect();
+            rect.width = style.fixedWidth;
             rect.y -= 36;
             if (GUI.Button(rect, s_Contents.positionContent, style))
             {
