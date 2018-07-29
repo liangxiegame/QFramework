@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public static class EditorChain
+    public static class EditorActionKit
     {
         private static bool mRegistered = false;
         
@@ -33,7 +33,7 @@ namespace QFramework
             }
         }
         
-        public static void ExecuteNode<T>(this T self, NodeAction nodeAction) where T : EditorWindow
+        public static void ExecuteNode(NodeAction nodeAction)
         {
             RegisterUpdate();
             mNodes.Add(nodeAction);

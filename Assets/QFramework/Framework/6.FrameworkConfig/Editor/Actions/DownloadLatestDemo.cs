@@ -32,12 +32,19 @@ namespace QFramework
     /// </summary>
     public class DownloadLatestDemo : NodeAction
     {
+        private readonly string mVersion;
+        
+        public DownloadLatestDemo(string version)
+        {
+            mVersion = version;
+        }
+        
         private const string URL_DEMO_API =
-            "http://liangxiegame.com/content/demo/Demo_v0.0.8.unitypackage";
+            "http://liangxiegame.com/content/demo/Demo_{0}.unitypackage";
 
         protected override void OnBegin()
         {
-            Application.OpenURL(URL_DEMO_API);
+            Application.OpenURL(URL_DEMO_API.FillFormat(mVersion));
 //			ObservableWWW.GetAndGetBytes(URL_DEMO_API).Subscribe(bytes =>
 //			{
 //				File.WriteAllBytes(Application.dataPath + "/" + "Demo_v0.0.7", bytes);
