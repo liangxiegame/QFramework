@@ -6,9 +6,7 @@ This is QFrameworks's Roadmap.
 
 ### v0.0.x: Workflow Explore
 
-#### v0.0.8 Downloader
-
-* [Currently In Development](https://github.com/liangxiegame/QFramework/projects/8)
+#### v0.0.9 QFramework Package Manager [Current]
 
 ### v0.1.x: Guide Framework
 
