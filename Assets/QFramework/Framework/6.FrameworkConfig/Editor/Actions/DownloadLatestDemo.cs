@@ -34,7 +34,7 @@ namespace QFramework
     {
         private readonly string mVersion;
         
-        public DownloadLatestDemo(string version)
+        public DownloadLatestDemo(string version = "v0.0.8")
         {
             mVersion = version;
         }

@@ -127,12 +127,12 @@ namespace QFramework
 			
 			if (GUILayout.Button("Download Latest Version"))
 			{
-				this.ExecuteNode(new DownloadLatestFramework());
+				EditorActionKit.ExecuteNode(new DownloadLatestFramework());
 			}
 
 			if (GUILayout.Button("Download Demo"))
 			{
-				this.ExecuteNode(new DownloadLatestDemo());
+				EditorActionKit.ExecuteNode(new DownloadLatestDemo());
 			}
 			
 			GUILayout.EndHorizontal();
