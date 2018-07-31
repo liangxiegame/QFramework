@@ -6,40 +6,35 @@ namespace QFramework
 {
     public static class EditorActionKit
     {
-        private static bool mRegistered = false;
-        
-        private static void RegisterUpdate()
-        {
-            if (mRegistered) return;
-            EditorApplication.update += Update;
-            mRegistered = true;
-        }
-
-        private static void UnRegisterUpdate()
-        {
-            EditorApplication.update -= Update;
-        }
-
-        private static void Update()
-        {
-            if (mNodes.Count != 0)
-            {
-                if (!mNodes[0].Finished && mNodes[0].Execute(Time.deltaTime))
-                {
-                    var node = mNodes[0];
-                    mNodes.RemoveAt(0);
-                    node.Dispose();
-                }
-            }
-        }
-        
         public static void ExecuteNode(NodeAction nodeAction)
         {
-            RegisterUpdate();
-            mNodes.Add(nodeAction);
+            new NodeActionEditorWrapper(nodeAction);
         }
 
         private static List<NodeAction> mNodes = new List<NodeAction>();
+    }
 
+    public class NodeActionEditorWrapper
+    {
+        private NodeAction mNodeAction;
+
+        public NodeActionEditorWrapper(NodeAction action)
+        {
+            mNodeAction = action;
+            EditorApplication.update += Update;
+            mNodeAction.OnEndedCallback += () =>
+            {
+                EditorApplication.update -= Update; 
+            };
+        }
+
+        void Update()
+        {
+            if (!mNodeAction.Finished && mNodeAction.Execute(Time.deltaTime))
+            {
+                mNodeAction.Dispose();
+                mNodeAction = null;
+            }
+        }
     }
 }

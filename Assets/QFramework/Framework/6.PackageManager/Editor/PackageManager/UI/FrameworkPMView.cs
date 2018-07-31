@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -109,7 +110,18 @@ namespace QFramework
 
                 if (GUILayout.Button("Import", GUILayout.Width(90)))
                 {
-                    Application.OpenURL(packageData.url);
+                    bool deleteOlderVersion = EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否");
+      
+                    string path = Application.dataPath + "/QFramework/Framework/";
+
+                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.url, packageData.name));
+                    
+                    if (deleteOlderVersion && !string.IsNullOrEmpty(path))
+                    {
+                        Directory.Delete(path, true);
+
+                        AssetDatabase.Refresh();
+                    }
                 }
 
                 GUILayout.EndHorizontal();
