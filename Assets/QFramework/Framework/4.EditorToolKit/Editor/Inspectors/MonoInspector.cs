@@ -36,6 +36,11 @@ namespace QFramework
 
         public override void OnInspectorGUI()
         {
+            if (!target)
+            {
+                return;
+            }
+
             if (buttonExAttributeDrawer == null)
             {
                 buttonExAttributeDrawer = new ButtonExAttributeDrawer(target);
