@@ -220,10 +220,5 @@ namespace QFramework
 		{
 			return IsAndroidPlatform() && Phone160Resolution();
 		}
-
-		public static bool IsPaibot()
-		{
-			return IsAndroidPlatform() /*&& PTPluginUtil.IsPaibot()*/;
-		}
 	}
 }

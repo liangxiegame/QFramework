@@ -100,7 +100,7 @@ namespace QFramework
 		private void ProcessCompare()
 		{
 
-			Debug.Log("***** update res check ******");
+			Debug.Log("***** package manager check ******");
 
 			EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
 			{

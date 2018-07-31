@@ -38,7 +38,7 @@ namespace QFramework
         
         public static void Init(string readmeContent)
         {
-            ReadmeWindow readmeWin = (ReadmeWindow)GetWindow (typeof(ReadmeWindow), true,"PTPlugin Reame",true);
+            ReadmeWindow readmeWin = (ReadmeWindow)GetWindow (typeof(ReadmeWindow), true,"Package Manager Reame",true);
             readmeWin.mReadme = readmeContent;
             readmeWin.position = new Rect (Screen.width / 2, Screen.height / 2, 500, 300);
             readmeWin.Show ();
