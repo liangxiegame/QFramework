@@ -99,9 +99,6 @@ namespace QFramework
 
 		private void ProcessCompare()
 		{
-
-			Debug.Log("***** package manager check ******");
-
 			EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
 			{
 				if (packageDatas == null)

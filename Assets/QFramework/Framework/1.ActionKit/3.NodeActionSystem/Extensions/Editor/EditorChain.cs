@@ -10,8 +10,6 @@ namespace QFramework
         {
             new NodeActionEditorWrapper(nodeAction);
         }
-
-        private static List<NodeAction> mNodes = new List<NodeAction>();
     }
 
     public class NodeActionEditorWrapper
