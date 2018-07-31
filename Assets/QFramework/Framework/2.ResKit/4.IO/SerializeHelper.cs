@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ouyanggongming@putao.com
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 snowcold
+ * Copyright (c) 2017 ~ 7 liangxie
  *
  * TODO: 这个应该写成扩展关键字方式的
  * 

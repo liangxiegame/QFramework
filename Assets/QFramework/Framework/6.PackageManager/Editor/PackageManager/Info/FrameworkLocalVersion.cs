@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+﻿/****************************************************************************
+ * 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,35 +23,24 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-	using UnityEngine;
-	
-	public static class CameraExtension 
-	{
-		public static void Example()
-		{
-			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-			Debug.Log(screenshotTexture2D.width);
-		}
+    public class FrameworkLocalVersion
+    {
+        private static readonly string SavedFilePath = Application.dataPath + "/QFramework/Framework/version.json";
 
-		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
-		{
-			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = renderTexture;
-			camera.Render();
-
-			RenderTexture.active = renderTexture;
-
-			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
-			screenShot.ReadPixels(rect,0,0);
-			screenShot.Apply();
-
-			camera.targetTexture = null;
-			RenderTexture.active = null;
-			Object.Destroy(renderTexture);
-
-			return screenShot;
-		}
-	}
+        public string Version = "v0.0.9";
+        
+        public void Save()
+        {
+            this.SaveJson(SavedFilePath);
+        }
+        
+        public static FrameworkLocalVersion Get()
+        {
+            return SerializeHelper.LoadJson<FrameworkLocalVersion>(SavedFilePath);
+        }
+    }
 }

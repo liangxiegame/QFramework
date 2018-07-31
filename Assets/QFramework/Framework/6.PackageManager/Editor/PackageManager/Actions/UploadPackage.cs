@@ -1,9 +1,9 @@
-/****************************************************************************
- * Copyright (c) 2017 huibin123
+﻿/****************************************************************************
+ * Copyright (c) 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- *
+ * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,36 +23,47 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections.Specialized;
+
 namespace QFramework
 {
-    using UnityEngine;
-    using UnityEngine.Events;
-    using UnityEngine.EventSystems;
-    
-    public class UIPointerDownEventListener : MonoBehaviour,IPointerDownHandler
+    public class UploadPackage : NodeAction
     {
-        public UnityAction<PointerEventData> OnPointerDownEvent;
+        private Action<string> mOnUpload;
 
-        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-        {
-            if (OnPointerDownEvent != null) OnPointerDownEvent(eventData);
-        }
+        private string mName;
+        private string mType;
+        private string mVersion;
+        private string mReadme;
+        private string mRemoteUrl;
+        private string mFilePath;
 
-        public static UIPointerDownEventListener CheckAndAddListener(GameObject obj)
+        public UploadPackage(string remoteUrl,string name, string type, string version, string readme, string filePath,Action<string> onUpload = null)
         {
-            UIPointerDownEventListener listener = obj.GetComponent<UIPointerDownEventListener>();
-            if (listener == null) listener = obj.AddComponent<UIPointerDownEventListener>();
-
-            return listener;
-        }
-        public static  UIPointerDownEventListener Get(GameObject obj)
-        {
-            return CheckAndAddListener (obj);
+            mName = name;
+            mType = type;
+            mVersion = version;
+            mReadme = readme;
+            mRemoteUrl = remoteUrl;
+            mFilePath = filePath;
+            mOnUpload = onUpload;
         }
         
-        void OnDestroy()
+        protected override void OnBegin()
         {
-            OnPointerDownEvent = null;
+            base.OnBegin();
+
+            NameValueCollection postContent = new NameValueCollection
+            {
+                {"name", mName},
+                {"type", mType},
+                {"version", mVersion},
+                {"readme", mReadme}
+            };
+            string result = HttpHelper.HttpUploadFile(mRemoteUrl, mFilePath, postContent);
+
+            mOnUpload.InvokeGracefully(result);
         }
     }
 }

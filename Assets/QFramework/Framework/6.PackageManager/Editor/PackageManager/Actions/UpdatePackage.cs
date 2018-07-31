@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,35 +23,44 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+using System.Net;
+using System;
+using UnityEditor;
+using System.IO;
+
 namespace QFramework
 {
-	using UnityEngine;
-	
-	public static class CameraExtension 
+	public class UpdatePackage : NodeAction
 	{
-		public static void Example()
+		private readonly string mUrl;
+		private readonly string mPackageName;
+
+		public UpdatePackage(string url, string packageName)
 		{
-			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-			Debug.Log(screenshotTexture2D.width);
+			mUrl = url;
+			mPackageName = packageName;
 		}
 
-		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
+		protected override void OnBegin()
 		{
-			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = renderTexture;
-			camera.Render();
+			base.OnBegin();
 
-			RenderTexture.active = renderTexture;
+			string tempFile = mPackageName + ".unitypackage";
 
-			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
-			screenShot.ReadPixels(rect,0,0);
-			screenShot.Apply();
+			Debug.Log(mUrl + ">>>>>>:");
 
-			camera.targetTexture = null;
-			RenderTexture.active = null;
-			Object.Destroy(renderTexture);
+			EditorUtility.DisplayProgressBar("插件更新", "插件下载中....", 0.5f);
 
-			return screenShot;
+			WebClient client = new WebClient();
+
+			client.DownloadFile(new Uri(mUrl), tempFile);
+
+			EditorUtility.ClearProgressBar();
+
+			AssetDatabase.ImportPackage(tempFile, true);
+
+			File.Delete(tempFile);
 		}
 	}
 }

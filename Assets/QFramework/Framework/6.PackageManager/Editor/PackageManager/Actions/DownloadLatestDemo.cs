@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,35 +23,33 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-	using UnityEngine;
-	
-	public static class CameraExtension 
-	{
-		public static void Example()
-		{
-			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-			Debug.Log(screenshotTexture2D.width);
-		}
+    /// <summary>
+    /// 下载最新版本的 Framework
+    /// </summary>
+    public class DownloadLatestDemo : NodeAction
+    {
+        private readonly string mVersion;
+        
+        public DownloadLatestDemo(string version)
+        {
+            mVersion = version;
+        }
+        
+        private const string URL_DEMO_API =
+            "http://liangxiegame.com/content/demo/Demo_{0}.unitypackage";
 
-		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
-		{
-			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = renderTexture;
-			camera.Render();
-
-			RenderTexture.active = renderTexture;
-
-			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
-			screenShot.ReadPixels(rect,0,0);
-			screenShot.Apply();
-
-			camera.targetTexture = null;
-			RenderTexture.active = null;
-			Object.Destroy(renderTexture);
-
-			return screenShot;
-		}
-	}
+        protected override void OnBegin()
+        {
+            Application.OpenURL(URL_DEMO_API.FillFormat(mVersion));
+//			ObservableWWW.GetAndGetBytes(URL_DEMO_API).Subscribe(bytes =>
+//			{
+//				File.WriteAllBytes(Application.dataPath + "/" + "Demo_v0.0.7", bytes);
+//				AssetDatabase.ImportPackage(Application.dataPath + "/" + "Demo_v0.0.7", true);
+//			});
+        }
+    }
 }

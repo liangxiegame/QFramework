@@ -1,5 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+ * Copyright (c) 2017 magicbell
+ * Copyright (c) 2018.3 ~ 7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,35 +24,60 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.IO;
+using UnityEngine;
+
 namespace QFramework
 {
-	using UnityEngine;
-	
-	public static class CameraExtension 
+#if UNITY_EDITOR
+	using UnityEditor;
+#endif
+	[Serializable]
+	public class FrameworkSettingData
 	{
-		public static void Example()
+#if UNITY_EDITOR
+		static string mConfigSavedDir
 		{
-			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-			Debug.Log(screenshotTexture2D.width);
+			get { return (Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/"; }
 		}
 
-		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
+		private const string mConfigSavedFileName = "ProjectConfig.json";
+
+		public string Namespace;
+
+		public string UIScriptDir = "/Scripts/UI";
+
+		public string UIPrefabDir = "/Art/UIPrefab";
+
+		public static FrameworkSettingData Load()
 		{
-			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = renderTexture;
-			camera.Render();
+			mConfigSavedDir.CreateDirIfNotExists();
 
-			RenderTexture.active = renderTexture;
+			if (!File.Exists(mConfigSavedDir + mConfigSavedFileName))
+			{
+				using (var fileStream = File.Create(mConfigSavedDir + mConfigSavedFileName))
+				{
+					fileStream.Close();
+				}
+			}
 
-			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
-			screenShot.ReadPixels(rect,0,0);
-			screenShot.Apply();
+			var frameworkConfigData = SerializeHelper.LoadJson<FrameworkSettingData>(mConfigSavedDir + mConfigSavedFileName);
 
-			camera.targetTexture = null;
-			RenderTexture.active = null;
-			Object.Destroy(renderTexture);
+			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
+			{
+				frameworkConfigData = new FrameworkSettingData {Namespace = "QFramework.Example"};
+			}
 
-			return screenShot;
+			return frameworkConfigData;
 		}
+
+		public void Save()
+		{
+			this.SaveJson(mConfigSavedDir + mConfigSavedFileName);
+			AssetDatabase.Refresh();
+
+		}
+#endif
 	}
 }

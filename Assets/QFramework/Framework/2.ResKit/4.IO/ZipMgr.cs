@@ -1,6 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2017 ouyanggongming@putao.com
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 snowcold
+ * Copyright (c) 2017 ~ 2018.7 liangxie
  *
  * TODO:之后可能不用这个了
  * 
