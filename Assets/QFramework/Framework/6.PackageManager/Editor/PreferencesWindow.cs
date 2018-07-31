@@ -43,11 +43,6 @@ namespace QFramework
 
 		private const string URL_GITHUB_ISSUE = "https://github.com/liangxiegame/QFramework/issues/new";
 
-		[MenuItem(FrameworkMenuItems.CheckForUpdates, false, FrameworkMenuItemsPriorities.CheckForUpdates)]
-		static void requestLatestRelease()
-		{
-		}
-
 		[MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
 		private static void Feedback()
 		{
