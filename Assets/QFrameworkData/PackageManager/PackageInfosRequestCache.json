@@ -1,85 +1,60 @@
 {
   "PackageDatas": [
     {
-      "name": "Demo",
-      "version": "v0.0.7",
-      "type": "type",
+      "Name": "Demo",
       "readme": {
         "items": null
       },
-      "url": "http://liangxiegame.com/media/Demo_v0.0.7.unitypackage"
+      "PackageVersions": [
+        {
+          "Version": "v0.0.9",
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
+        },
+        {
+          "Version": "v0.0.8",
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.8.unitypackage"
+        },
+        {
+          "Version": "v0.0.7",
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.7.unitypackage"
+        }
+      ],
+      "Version": "v0.0.9",
+      "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
     },
     {
-      "name": "Demo",
-      "version": "v0.0.8",
-      "type": "type",
+      "Name": "QFramework",
       "readme": {
         "items": null
       },
-      "url": "http://liangxiegame.com/media/Demo_v0.0.8.unitypackage"
-    },
-    {
-      "name": "Demo",
-      "version": "v0.0.9",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.4",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.4.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.5",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.5.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.6",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.6.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.7",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.7.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.8",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.8.unitypackage"
-    },
-    {
-      "name": "QFramework",
-      "version": "v0.0.9",
-      "type": "type",
-      "readme": {
-        "items": null
-      },
-      "url": "http://liangxiegame.com/media/QFramework_v0.0.9.unitypackage"
+      "PackageVersions": [
+        {
+          "Version": "v0.0.9",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_KhmB1Lz.unitypackage"
+        },
+        {
+          "Version": "v0.0.8",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.8.unitypackage"
+        },
+        {
+          "Version": "v0.0.7",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.7.unitypackage"
+        },
+        {
+          "Version": "v0.0.6",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.6.unitypackage"
+        },
+        {
+          "Version": "v0.0.5",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.5.unitypackage"
+        },
+        {
+          "Version": "v0.0.4",
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.4.unitypackage"
+        }
+      ],
+      "Version": "v0.0.9",
+      "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_KhmB1Lz.unitypackage"
     }
   ]
 }
