@@ -67,25 +67,20 @@ namespace QFramework
             GUILayout.BeginVertical("box");
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Download Latest Version"))
-            {
-                EditorActionKit.ExecuteNode(new DownloadLatestFramework());
-            }
-
-            if (GUILayout.Button(string.Format("Download Demo:{0}", FrameworkLocalVersion.Version)))
-            {
-                EditorActionKit.ExecuteNode(new DownloadLatestDemo(FrameworkLocalVersion.Version));
-            }
-
-
-            GUILayout.EndHorizontal();
-
             DrawWithServer();
 
             GUILayout.BeginHorizontal();
 
+            if (GUILayout.Button("Manage Package"))
+            {
+                Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/");
+            }
+            
+            if (GUILayout.Button("Upload Package"))
+            {
+                Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/add/");
+            }
+            
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
@@ -93,6 +88,7 @@ namespace QFramework
             GUILayout.EndScrollView();
 
         }
+
         private void DrawWithServer()
         {
             // 这里开始具体的内容
@@ -104,89 +100,28 @@ namespace QFramework
             GUILayout.Label("Readme", mTitleStyle, GUILayout.Width(100));
 
             GUILayout.EndHorizontal();
-            
+
             GUILayout.BeginVertical("box");
-            
-            
-            
-            
+
             foreach (var packageData in mPackageDatas)
             {
                 GUILayout.BeginHorizontal();
 
-//                if (localPlugin != null)
-//                {
-//                    GUILayout.Label(packageData.name, mTitleStyle, GUILayout.Width(150));
-//                    
-//                    if (PackageUtil.HasNewVersion(serverPlugin.version, localPlugin.version))
-//                    {
-//                        GUILayout.Label(localPlugin.version, mTitleStyle, GUILayout.Width(100));
-//
-//
-//                        if (GUILayout.Button("Update", GUILayout.Width(90)))
-//                        {
-//                            if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
-//                            {
-//                                if (!string.IsNullOrEmpty(localPlugin.url))
-//                                {
-//                                    Directory.Delete(localPlugin.url, true);
-//
-//                                    AssetDatabase.Refresh();
-//                                }
-//                            }
-//                            
-//                            EditorActionKit.ExecuteNode(new UpdatePackage(serverCategory.url + "/" + serverPlugin.url,
-//                                serverPlugin.name + "_v" + serverPlugin.version));
-//                        }
-//                    }
-//                    else
-//                    {
-//                        GUILayout.Label(packageData.version, mTitleStyle, GUILayout.Width(100));
-//
-//                        if (GUILayout.Button("Import", GUILayout.Width(90)))
-//                        {
-//
-//                            if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
-//                            {
-//                                if (!string.IsNullOrEmpty(packageData.url))
-//                                {
-//                                    Directory.Delete(packageData.url, true);
-//
-//                                    AssetDatabase.Refresh();
-//                                }
-//                            }
-//
-//                            EditorActionKit.ExecuteNode(new UpdatePackage(packageData.url + "/" + packageData.url,
-//                                packageData.name + "_v" + packageData.version));
-//                        }
-//                    }
-                    
-//                    if(GUILayout.Button("Readme",GUILayout.Width(90))){
-//
-//                        ShowReadMe ("123123123");
-//                    }
-//                }
-//                else
-//                {
-                    GUILayout.Label(packageData.name, mTitleStyle, GUILayout.Width(150));
-                    GUILayout.Label(packageData.version, mTitleStyle, GUILayout.Width(100));
-                    GUILayout.Label(" ", newVersionStyle, GUILayout.Width(100));
+                GUILayout.Label(packageData.name, mTitleStyle, GUILayout.Width(150));
+                GUILayout.Label(packageData.version, mTitleStyle, GUILayout.Width(100));
+                GUILayout.Label(" ", newVersionStyle, GUILayout.Width(100));
 
-                    if (GUILayout.Button("Import", GUILayout.Width(90)))
-                    {   
-//                        EditorActionKit.ExecuteNode(new UpdatePackage(serverCategory.url + "/" + serverPlugin.url,
-//                            serverPlugin.name + "_v" + serverPlugin.version));
-                        Log.E("open url?{0}", packageData.url);
-                        Application.OpenURL(packageData.url);
-                    }
-//                }
+                if (GUILayout.Button("Import", GUILayout.Width(90)))
+                {
+                    Application.OpenURL(packageData.url);
+                }
 
                 GUILayout.EndHorizontal();
             }
-            
+
             GUILayout.EndVertical();
         }
-        
+
         private void ShowReadMe(string readmeContet)
         {
             ReadmeWindow.Init(readmeContet);
