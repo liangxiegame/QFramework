@@ -30,15 +30,11 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class FrameworkPMView 
+    public class FrameworkPMView
     {
         private List<PackageData> mPackageDatas = new List<PackageData>();
-        
-        public FrameworkLocalVersion FrameworkLocalVersion;
 
-        private GUIStyle mTitleStyle;
-        private GUIStyle newVersionStyle;
-        private GUIStyle mFocusCategoryStyle;
+        public FrameworkLocalVersion FrameworkLocalVersion;
 
         public void Init()
         {
@@ -46,14 +42,9 @@ namespace QFramework
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
-            EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
-            {
-                mPackageDatas = packageDatas;
-            }));
-            
-            InitStyles();
+            EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
         }
-        
+
         private Vector2 mScrollPos;
 
         public void OnGUI()
@@ -72,12 +63,12 @@ namespace QFramework
             {
                 Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/");
             }
-            
+
             if (GUILayout.Button("Upload Package"))
             {
                 Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/add/");
             }
-            
+
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
@@ -90,32 +81,31 @@ namespace QFramework
         {
             // 这里开始具体的内容
             GUILayout.BeginHorizontal("box");
-            GUILayout.Label("Package", mTitleStyle, GUILayout.Width(150));
-            GUILayout.Label("Server", mTitleStyle, GUILayout.Width(100));
-            GUILayout.Label("Local", mTitleStyle, GUILayout.Width(100));
-            GUILayout.Label("Action", mTitleStyle, GUILayout.Width(100));
-            GUILayout.Label("Readme", mTitleStyle, GUILayout.Width(100));
-
+            GUILayout.Label("Package", GUILayout.Width(150));
+            GUILayout.Label("Server", GUILayout.Width(100));
+            GUILayout.Label("Local", GUILayout.Width(100));
+            GUILayout.Label("Action", GUILayout.Width(100));
+            GUILayout.Label("Readme", GUILayout.Width(100));
             GUILayout.EndHorizontal();
 
             GUILayout.BeginVertical("box");
 
             foreach (var packageData in mPackageDatas)
             {
+                GUILayout.Space(2);
                 GUILayout.BeginHorizontal();
-
-                GUILayout.Label(packageData.name, mTitleStyle, GUILayout.Width(150));
-                GUILayout.Label(packageData.version, mTitleStyle, GUILayout.Width(100));
-                GUILayout.Label(" ", newVersionStyle, GUILayout.Width(100));
+                GUILayout.Label(packageData.Name, GUILayout.Width(150));
+                GUILayout.Label(packageData.Version, GUILayout.Width(100));
+                GUILayout.Label(" ", GUILayout.Width(100));
 
                 if (GUILayout.Button("Import", GUILayout.Width(90)))
                 {
                     bool deleteOlderVersion = EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否");
-      
+
                     string path = Application.dataPath + "/QFramework/Framework/";
 
-                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.url, packageData.name));
-                    
+                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
+
                     if (deleteOlderVersion && !string.IsNullOrEmpty(path))
                     {
                         Directory.Delete(path, true);
@@ -127,31 +117,14 @@ namespace QFramework
                 GUILayout.EndHorizontal();
             }
 
+            GUILayout.Space(2);
+
             GUILayout.EndVertical();
         }
 
         private void ShowReadMe(string readmeContet)
         {
             ReadmeWindow.Init(readmeContet);
-        }
-
-        private void InitStyles ()
-        {
-            mTitleStyle = new GUIStyle
-            {
-                fontStyle = FontStyle.Bold,
-                alignment = TextAnchor.MiddleCenter,
-                normal = {textColor = Color.gray}
-            };
-
-
-            newVersionStyle = new GUIStyle {alignment = TextAnchor.MiddleCenter};
-
-            mFocusCategoryStyle = EditorStyles.miniButton;
-            mFocusCategoryStyle.fontStyle = FontStyle.Bold;
-            
-            mFocusCategoryStyle.alignment = TextAnchor.MiddleCenter;
-            mFocusCategoryStyle.richText = true;
         }
     }
 }

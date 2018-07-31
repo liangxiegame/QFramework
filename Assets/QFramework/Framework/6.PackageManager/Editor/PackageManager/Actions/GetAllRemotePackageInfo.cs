@@ -47,23 +47,37 @@ namespace QFramework
             ObservableWWW.Get("http://liangxiegame.com/demo/get_all_demo_info").Subscribe(response =>
             {
                 var responseJson = JObject.Parse(response);
-                JArray demoInfos = responseJson["all_demo_info"] as JArray;
+                JArray packageInfosJson = responseJson["all_demo_info"] as JArray;
 
                 var packageDatas = new List<PackageData>();
-                foreach (var demoInfo in demoInfos)
+                foreach (var demoInfo in packageInfosJson)
                 {
                     var name = demoInfo["name"].Value<string>();
+                    
+                    var package = packageDatas.Find(packageData => packageData.Name == name);
+
+                    if (package == null)
+                    {
+                        package = new PackageData()
+                        {
+                            Name = name,
+                        };
+                        
+                        packageDatas.Add(package);
+                    }
+                                       
                     var version = demoInfo["version"].Value<string>();
                     var url = demoInfo["download_url"].Value<string>();
-                    packageDatas.Add(new PackageData()
+
+                    package.PackageVersions.Add(new PackageVersion()
                     {
-                        name = name,
-                        version = version,
-                        url = url,
-                        type = "type"
+                        Version = version,
+                        DownloadUrl = url,
                     });
                 }
 
+                packageDatas.ForEach(packageData => packageData.PackageVersions.Sort((a, b) => GetVersionNumber(b.Version) - GetVersionNumber(a.Version)));
+                
                 mOnGet.InvokeGracefully(packageDatas);
 
                 new PackageInfosRequestCache()
@@ -79,6 +93,10 @@ namespace QFramework
             });
         }
 
+        public static int GetVersionNumber(string version)
+        {
+            return int.Parse(version.Replace("v", string.Empty).Replace(".", ""));
+        }
     }
 
     public class PackageInfosRequestCache
