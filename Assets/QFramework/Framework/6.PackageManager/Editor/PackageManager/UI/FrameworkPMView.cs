@@ -41,18 +41,14 @@ namespace QFramework
 
         public void Init()
         {
-
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
-            
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
             {
-                Log.E(packageDatas.Count);
                 mPackageDatas = packageDatas;
             }));
-
             
             InitStyles();
         }
