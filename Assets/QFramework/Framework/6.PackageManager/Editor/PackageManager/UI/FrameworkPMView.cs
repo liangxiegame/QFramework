@@ -104,14 +104,14 @@ namespace QFramework
 
                     string path = Application.dataPath + "/QFramework/Framework/";
 
-                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
-
                     if (deleteOlderVersion && !string.IsNullOrEmpty(path))
                     {
                         Directory.Delete(path, true);
 
                         AssetDatabase.Refresh();
                     }
+
+                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
                 }
 
                 GUILayout.EndHorizontal();
