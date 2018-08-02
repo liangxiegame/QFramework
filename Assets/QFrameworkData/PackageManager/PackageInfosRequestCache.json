@@ -23,6 +23,20 @@
       "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
     },
     {
+      "Name": "Example",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.9",
+          "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage"
+        }
+      ],
+      "Version": "v0.0.9",
+      "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage"
+    },
+    {
       "Name": "QFramework",
       "readme": {
         "items": null
