@@ -1,9 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 imagicbell
  * Copyright (c) 2017 ouyanggongming@putao.com
- * Copyright (c) 2017 liangxie
- *
- * TODO: 这个应该写成扩展关键字方式的
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -27,11 +25,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 namespace QFramework
 {
 	using System.IO;
 	using System.Xml.Serialization;
     using Newtonsoft.Json;
+	using System.Text;
 
     public static class SerializeHelper
 	{
@@ -130,30 +130,68 @@ namespace QFramework
 				return true;
 			}
 		}
-
-		public static object DeserializeXML<T>(string path)
+		
+		/// <summary>  
+		/// 字节转string  
+		/// </summary>  
+		/// <param name="b">字节数组</param>  
+		/// <returns></returns>  
+		public static string UTF8ByteArrayToString(byte[] b)
 		{
-			if (string.IsNullOrEmpty(path))
+			UTF8Encoding encoding = new UTF8Encoding();
+			string s = encoding.GetString(b);
+			return (s);
+		}
+		
+		/// <summary>  
+		/// 字符串转字节数组  
+		/// </summary>  
+		/// <param name="s">字符内容</param>  
+		/// <returns></returns>  
+		public static byte[] StringToUTF8ByteArray(string s)
+		{
+			var encoding = new UTF8Encoding();
+			var b = encoding.GetBytes(s);
+			return b;
+		}
+		
+		/// <summary>  
+		/// 反序列化  
+		/// </summary>  
+		/// <param name="xmlString">string内容</param>  
+		/// <param name="t">类型</param>  
+		/// <returns></returns>  
+		public static T DeserializeContent2XmlObj<T>(this string xmlString) where T : class
+		{
+			var ms = new MemoryStream(StringToUTF8ByteArray(xmlString));
+			var xs = new XmlSerializer(typeof(T));
+			return xs.Deserialize(ms) as T;
+		}
+		
+
+		public static T DeserializePath2XmlObj<T>(this string path) where T : class 
+		{
+			if (string.IsNullOrEmpty(path) || !File.Exists(path))
 			{
 				Log.W("DeserializeBinary Without Valid Path.");
-				return null;
+				return default(T);
 			}
 
-			FileInfo fileInfo = new FileInfo(path);
+			var fileInfo = new FileInfo(path);
 
-			using (FileStream fs = fileInfo.OpenRead())
+			using (var fs = fileInfo.OpenRead())
 			{
-				XmlSerializer xmlserializer = new XmlSerializer(typeof(T));
-				object data = xmlserializer.Deserialize(fs);
+				var xmlserializer = new XmlSerializer(typeof(T));
+				var data = xmlserializer.Deserialize(fs);
 
 				if (data != null)
 				{
-					return data;
+					return data as T;
 				}
 			}
 
 			Log.W("DeserializeBinary Failed:" + path);
-			return null;
+			return default(T);
 		}
 
 		public static string ToJson<T>(this T obj) where T : class
