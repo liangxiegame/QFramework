@@ -1,4 +1,4 @@
-# Unity 游戏框架搭建 2018 (三) QFramework 快速入门
+# (三) QFramework 快速入门
 
 ## 前言
 
