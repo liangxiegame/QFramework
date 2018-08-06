@@ -1,4 +1,4 @@
-# Unity 游戏框架搭建 2018 (一) 架构、框架与 QFramework 简介
+# (一) 架构、框架与 QFramework 简介
 
 
 ### 约定
