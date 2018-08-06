@@ -70,7 +70,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
 // load a panel from specield assetName
 UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ```
-#### 技术支持 Tech Support：
+
+### 技术支持 Tech Support：
 * [文档 Document](http://qframework.io)
 * **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
 * **QQ群:623597263 (群内有福利哦~)**
@@ -85,15 +86,15 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
 * [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
 
-#### 赞助 Donate:
+### 赞助 Donate:
 * 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
 * 或者给此仓库一个小小的 Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
-#### 运行环境
+### 运行环境
 * Unity 5.5.x ~ 2017.x
 
-#### 包含项目 Include Projects:
+### 包含项目 Include Projects:
 * [Catlib.Core](https://github.com/CatLib/Core)
 * [ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)
 * [StateManageEditor](https://github.com/827922094/StateManageEditor)
@@ -107,7 +108,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
 * [cocos2d/cocos2d-x](https://github.com/cocos2d/cocos2d-x)
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
-#### 贡献者/感谢 Developer/Contributor:
+
+### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
 - [@huibinye](https://github.com/HUIBINYE)
 - [@dtknowlove](https://github.com/dtknowlove)
