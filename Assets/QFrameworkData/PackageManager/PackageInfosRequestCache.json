@@ -1,6 +1,20 @@
 {
   "PackageDatas": [
     {
+      "Name": "0.Lib",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage"
+    },
+    {
       "Name": "Demo",
       "readme": {
         "items": null
@@ -44,7 +58,7 @@
       "PackageVersions": [
         {
           "Version": "v0.0.9",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_R9SKkcW.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage"
         },
         {
           "Version": "v0.0.8",
@@ -68,7 +82,7 @@
         }
       ],
       "Version": "v0.0.9",
-      "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_R9SKkcW.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage"
     }
   ]
 }

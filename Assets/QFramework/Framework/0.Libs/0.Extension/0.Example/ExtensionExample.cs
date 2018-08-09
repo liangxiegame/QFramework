@@ -81,7 +81,7 @@ namespace QFramework.Example
 			BehaviourExtension.Example();
 			CameraExtension.Example();
 			ColorExtension.Example();
-			GameObjectExtension.Example();
+			QFramework.GameObjectExtension.Example();
 			GraphicExtension.Example();
 			ImageExtension.Example();
 			ObjectExtension.Example();
