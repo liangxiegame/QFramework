@@ -156,39 +156,49 @@ BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuild
 
 按这里
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1frotpdnmeqj30io07egmz.jpg)
+![][image-1]
 
 结果看这里(创建了iOS文件夹)
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fqisnf9h8wj30e00fmglj.jpg)
+![][image-2]
 
 介绍完毕,睡觉了!
 
-#### 欢迎讨论!
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-附:[我的框架地址](https://github.com/liangxiegame/QFramework)
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)
+QFramework &游戏框架搭建QQ交流群: 623597263
+
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1frotphkbcwj30by0byt9i.jpg)
+![][image-3]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	https://ws1.sinaimg.cn/large/006tKfTcgy1frotpdnmeqj30io07egmz.jpg
+[image-2]:	https://ws1.sinaimg.cn/large/006tNc79gy1fqisnf9h8wj30e00fmglj.jpg
+[image-3]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

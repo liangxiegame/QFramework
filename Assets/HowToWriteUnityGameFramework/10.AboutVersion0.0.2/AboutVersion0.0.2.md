@@ -3,32 +3,32 @@
 从框架搭建系列的第一篇文章开始到现在有四个多月时间了,这段时间对自己来说有很多的收获,好多小伙伴和前辈不管是在评论区还是私下里给出的建议非常有参考性,在此先谢过各位。
 
 说到是一篇小节,先列出框架的概要图。
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1frothawkluj30m20r975s.jpg)
+![][image-1]
 
 目前,图中除了UI模块和未支持的部分,都有相应的文章来介绍。
 
 设计模式:
 
-* [Unity 游戏框架搭建 (二) 单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban/)
-* [Unity 游戏框架搭建 (三) MonoBehaviour单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-san-monobehaviourdan-li-de-mo-ban/)
+* [Unity 游戏框架搭建 (二) 单例的模板][1]
+* [Unity 游戏框架搭建 (三) MonoBehaviour单例的模板][2]
 
 事件:
 
-* [Unity 游戏框架搭建 (五) 简易消息机制](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-wu-jian-yi-xiao-xi-ji-zhi/)
+* [Unity 游戏框架搭建 (五) 简易消息机制][3]
 
 AI:
 
-* [Unity 游戏框架搭建 (四) 简易有限状态机](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban-2/)
+* [Unity 游戏框架搭建 (四) 简易有限状态机][4]
 
 模块化:
 
-* [Unity 游戏框架搭建 (七) 减少加班利器-QApp类](http://liangxiegame.com/untitled-2/)
+* [Unity 游戏框架搭建 (七) 减少加班利器-QApp类][5]
 
 调试:
 
-* [Unity 游戏框架搭建 (八) 减少加班利器-QLog](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-ba-jian-shao-jia-ban-li-qi-qlog/)
+* [Unity 游戏框架搭建 (八) 减少加班利器-QLog][6]
 
-* [Unity 游戏框架搭建 (九) 减少加班利器-QConsole](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-jiu-jian-shao-jia-ban-li-qi-qconsole/)
+* [Unity 游戏框架搭建 (九) 减少加班利器-QConsole][7]
 
 UI模块还没有写对应的文章来介绍。因为没有找到一种自己认为满意的方式,目前暂时使用UGUIManager或者NGUIManager来配合UILayer应付UI的开发。
 
@@ -52,35 +52,47 @@ UI模块还没有写对应的文章来介绍。因为没有找到一种自己认
 
 #### 欢迎讨论!
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][8]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][9]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][10] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](http://liangxiegame.com/content/images/2017/06/qrcode_for_gh_32f0f3669ac8_430.jpg)
+![][image-2]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][11] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][12]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban/
+[2]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-san-monobehaviourdan-li-de-mo-ban/
+[3]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-wu-jian-yi-xiao-xi-ji-zhi/
+[4]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban-2/
+[5]:	http://liangxiegame.com/untitled-2/
+[6]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-ba-jian-shao-jia-ban-li-qi-qlog/
+[7]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-jiu-jian-shao-jia-ban-li-qi-qconsole/
+[8]:	https://github.com/liangxiegame/QFramework
+[9]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[10]:	http://liangxiegame.com/
+[11]:	https://github.com/liangxiegame/QFramework
+[12]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	https://ws2.sinaimg.cn/large/006tKfTcgy1frothawkluj30m20r975s.jpg
+[image-2]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

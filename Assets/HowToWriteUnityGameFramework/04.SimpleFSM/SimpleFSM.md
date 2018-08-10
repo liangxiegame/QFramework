@@ -18,7 +18,7 @@
 从刚才跑酷的例子来讲,跑、跳、二段跳等这些就是角色的状态。
 
 如图所示:
-![](http://liangxiegame.com/content/images/2016/05/-----2016-05-08---3-10-32.png)
+![][image-1]
 主角从跑状态切换到跳状态,从跳状态切换到二段跳状态,这里的切换就是指状态的转移。状态的转移是有条件的,比如主角从跑状态不可以直接切换到二段跳状态。但是可以从二段跳状态切换到跑状态。
 
 另外,一个基本的状态有:进入状态、退出状态、接收输入、转移状态等动作。但是仅仅作为跑酷的角色的状态管理来说,只需要转移状态就足够了。有兴趣的同学可以自行扩展。
@@ -164,35 +164,40 @@ namespace QFramework
 
 就这些,想要进一步扩展的话,可以给FSMState类添加EnterCallback和ExitCallback等委托,然后在FSM的HandleEvent方法中进行调用。当时对跑酷的项目来说够用了,接没继续扩展了,我好懒- -,懒的借口是:没有最好的设计,只有最适合的设计,233333。
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fros9vo6tcj30by0byt9i.jpg)
+![][image-2]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	http://liangxiegame.com/content/images/2016/05/-----2016-05-08---3-10-32.png
+[image-2]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

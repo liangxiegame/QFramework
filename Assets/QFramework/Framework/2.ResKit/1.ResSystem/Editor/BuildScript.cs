@@ -102,7 +102,7 @@ namespace QFramework
 
 		private static string GetPlatformName()
 		{
-			return PlatformUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			return ResKitUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 		}
 	}
 }

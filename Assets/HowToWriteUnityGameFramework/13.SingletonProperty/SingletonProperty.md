@@ -1,6 +1,6 @@
 # Unity 游戏框架搭建 (十三) 无需继承的单例的模板
 
-之前的文章中介绍的[Unity 游戏框架搭建 (二) 单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban/)和[Unity 游戏框架搭建 (三) MonoBehaviour单例的模板](http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-san-monobehaviourdan-li-de-mo-ban/)有一些问题。
+之前的文章中介绍的[Unity 游戏框架搭建 (二) 单例的模板][1]和[Unity 游戏框架搭建 (三) MonoBehaviour单例的模板][2]有一些问题。
 
 #### 存在的问题:
 
@@ -186,35 +186,41 @@ namespace QFramework {
 
 #### 欢迎讨论!
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][3]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][4]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][5] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1frottsioaoj30by0byt9i.jpg)
+![][image-1]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][6] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][7]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-er-dan-li-de-mo-ban/
+[2]:	http://liangxiegame.com/unity-you-xi-kuang-jia-da-jian-san-monobehaviourdan-li-de-mo-ban/
+[3]:	https://github.com/liangxiegame/QFramework
+[4]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[5]:	http://liangxiegame.com/
+[6]:	https://github.com/liangxiegame/QFramework
+[7]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

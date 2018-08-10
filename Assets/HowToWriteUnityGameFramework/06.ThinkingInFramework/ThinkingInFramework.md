@@ -5,7 +5,7 @@
 
 最近又拿起了《代码大全》和《暗时间》，想起来《暗时间》的作者维护了一个个人博客,就去逛一逛。
 
-这几天一直琢磨一句话:手里拿着锤子看什么都像钉子。于是翻到了博客[《锤子和钉子》](http://mindhacks.cn/2009/01/16/hammers-and-nails/)。我的这个行为很好的阐述了什么叫:手里拿着锤子看什么都想钉子- -。
+这几天一直琢磨一句话:手里拿着锤子看什么都像钉子。于是翻到了博客[《锤子和钉子》][1]。我的这个行为很好的阐述了什么叫:手里拿着锤子看什么都想钉子- -。
 
 看完之后深度自省了一下- -
 
@@ -22,14 +22,12 @@
 所以,开始打造自己的框架吧!
 
 ### 关于架构:
-首先推荐一篇关于架构的好文:[10年感触：架构是什么？——消灭架构！](http://www.manew.com/thread-89749-1-1.html)，文中作者很通俗地解释了什么是架构:
+首先推荐一篇关于架构的好文:[10年感触：架构是什么？——消灭架构！][2]，文中作者很通俗地解释了什么是架构:
 
-```
-   架构是一个约定，一个规则，一个大家都懂得遵守的共识。那这是什么样的约定、什么样的规则、什么样的共识呢？
-   我以包为例，我经常出差，双肩背包里装了不少东西。笔记本电脑、电源、2个上网卡、鼠标、USB线、一盒大的名片、一盒小的名片、口香糖、Mini-DisplayPort转VGA接口、U盘、几根笔、小螺丝刀、洗漱用品、干净衣服、袜子、香水、老婆给我带的抹脸膏（她嫌我最近累，脸有点黄）、钱包、Token卡、耳机、纸巾、USB线、U盘等。这个包有很多格子，最外面的格子我放常用的，比如笔、纸、一盒小的名片等；中间的格子一般放的是衣服、袜子、洗漱用品、香水等；靠背的那个大格子放了笔记本电脑，和笔记本电脑相近的小格子放的是两个上网卡、Mini-DisplayPort转VGA接口、大盒名片、记事本，和笔记本电脑相近的大格子放的是电源、鼠标、口香糖等。
-　　我闭着眼睛都可以将我的东西从包里掏出来，闭着眼睛都可以将东西塞到包里！但是，非常不幸的是，一旦我老婆整理过我的包，那我就很惨了，老是因为找不到东西而变得抓狂！更不幸的，要是我那个不到两岁的“小可爱”翻过，就更不得了了。
-    这个包就是我放所有物品的“架构”，每一个东西放置的位置就是我的“约定、规则、共识”。倘若我老婆也知道我的“架构”、我的“约定、规则、共识”，那么不管她怎么动我的包，我都照样能够轻易的拿东西或者放东西。进一步，如果我的同事也知道我的“架构”，知道我的“约定、规则、共识”，那么他们什么时候动我的包，我也毫无所知！
-```
+	   架构是一个约定，一个规则，一个大家都懂得遵守的共识。那这是什么样的约定、什么样的规则、什么样的共识呢？
+	   我以包为例，我经常出差，双肩背包里装了不少东西。笔记本电脑、电源、2个上网卡、鼠标、USB线、一盒大的名片、一盒小的名片、口香糖、Mini-DisplayPort转VGA接口、U盘、几根笔、小螺丝刀、洗漱用品、干净衣服、袜子、香水、老婆给我带的抹脸膏（她嫌我最近累，脸有点黄）、钱包、Token卡、耳机、纸巾、USB线、U盘等。这个包有很多格子，最外面的格子我放常用的，比如笔、纸、一盒小的名片等；中间的格子一般放的是衣服、袜子、洗漱用品、香水等；靠背的那个大格子放了笔记本电脑，和笔记本电脑相近的小格子放的是两个上网卡、Mini-DisplayPort转VGA接口、大盒名片、记事本，和笔记本电脑相近的大格子放的是电源、鼠标、口香糖等。
+	　　我闭着眼睛都可以将我的东西从包里掏出来，闭着眼睛都可以将东西塞到包里！但是，非常不幸的是，一旦我老婆整理过我的包，那我就很惨了，老是因为找不到东西而变得抓狂！更不幸的，要是我那个不到两岁的“小可爱”翻过，就更不得了了。
+	    这个包就是我放所有物品的“架构”，每一个东西放置的位置就是我的“约定、规则、共识”。倘若我老婆也知道我的“架构”、我的“约定、规则、共识”，那么不管她怎么动我的包，我都照样能够轻易的拿东西或者放东西。进一步，如果我的同事也知道我的“架构”，知道我的“约定、规则、共识”，那么他们什么时候动我的包，我也毫无所知！
 ### 架构的典型组成部分:
 以下分类来自《代码大全》3.5小节的《架构的典型组成部分》,并用我的框架来做了一遍对比。
 #### 由框架解决的架构问题:
@@ -44,7 +42,7 @@
 ##### 国际化/本地化:
 很多游戏都会有海外版,国内版,各个国家的版本,如何进行切换/翻译?(我的框架未来会提供)。
 
-##### 输入输出、错误处理: 
+##### 输入输出、错误处理:
 我的框架未来会提供错误日志。
 
 ##### 性能:
@@ -52,12 +50,12 @@
 2.指标如何确定?速度?内存?成本?，游戏开发中还有Draw Call,GC等等(我的框架未来会提供)。
 
 #### 由客户端解决的架构问题
-##### 程序组织: 
-包括文件结构应该反映文件或文件夹之间的关系,要思考以什么方式组织比如:先按照模块分文件结构再按照MVC或者先按照MVC分,然后再按照每个模块来区分，再推荐一篇好文:[Unity3D手游开发实践《腾讯桌球》客户端开发经验总结](http://www.gameres.com/654759.html)(文章略长),文章的第一小节就有讲到关于文件组织。
+##### 程序组织:
+包括文件结构应该反映文件或文件夹之间的关系,要思考以什么方式组织比如:先按照模块分文件结构再按照MVC或者先按照MVC分,然后再按照每个模块来区分，再推荐一篇好文:[Unity3D手游开发实践《腾讯桌球》客户端开发经验总结][3](文章略长),文章的第一小节就有讲到关于文件组织。
 
 
 ##### 数据设计:
-书中指的是设计数据库表。在游戏框架中是指提供给客户端使用的数据结构定义,包括何种结构定义玩家的数据信息,策划表结构的定义等等。好的数据结构定义 + 烂的代码质量 >> 坏的数据结构定义 + 好的代码质量。
+书中指的是设计数据库表。在游戏框架中是指提供给客户端使用的数据结构定义,包括何种结构定义玩家的数据信息,策划表结构的定义等等。好的数据结构定义 + 烂的代码质量 \>\> 坏的数据结构定义 + 好的代码质量。
 
 ##### 业务规则:
 属于游戏逻辑范畴,需客户端实现。
@@ -107,35 +105,42 @@ Unity可以有很多可以使用的插件、C#库可以使用,很多问题迎刃
 
 ### 欢迎讨论!
 
-### 相关链接:
+## 相关链接:
+[我的框架地址][4]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][5]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][6] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr1ywcobcwj30by0byt9i.jpg)
+![][image-1]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][7] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][8]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	http://mindhacks.cn/2009/01/16/hammers-and-nails/
+[2]:	http://www.manew.com/thread-89749-1-1.html
+[3]:	http://www.gameres.com/654759.html
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[6]:	http://liangxiegame.com/
+[7]:	https://github.com/liangxiegame/QFramework
+[8]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

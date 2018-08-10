@@ -15,6 +15,90 @@
       "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage"
     },
     {
+      "Name": "1.ActionKit",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage"
+    },
+    {
+      "Name": "2.ResKit",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage"
+    },
+    {
+      "Name": "3.UIKit",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage"
+    },
+    {
+      "Name": "4.EditorToolKit",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage"
+    },
+    {
+      "Name": "5.ScriptCollection",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage"
+    },
+    {
+      "Name": "6.PackageManager",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage"
+    },
+    {
       "Name": "Demo",
       "readme": {
         "items": null

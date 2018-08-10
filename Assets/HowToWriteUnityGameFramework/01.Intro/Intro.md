@@ -3,7 +3,7 @@
 
 ### 约定
 
-还记得上版本的第二十四篇的约定嘛？现在出来履行啦~
+还记得上版本的第二十四篇的约定嘛？现在出来履行啦\~
 
 ### 为什么要重制?
 
@@ -165,7 +165,7 @@ QFramework 介绍到这里。
 
 > 在写一个项目的时候，不要短视地说我就把这个项目做完了，就是交一个差上线了就完了，我们希望每写一个游戏的时候，我们都积累一些东西，把写的每一行代码，都当成是一个可以收藏的，甚至是可以传递下去的这样的一个资产。有了这样一个思想，可能我们在写代码的时候，整个的思维模式会完全不一样。——刘钢《Unity 项目架构和开发管理》
 
-以上这段话来自刘钢老师的讲座[《Unity项目架构设计与开发管理》](http://v.qq.com/boke/page/d/0/u/d016340mkcu.html) 的结尾。
+以上这段话来自刘钢老师的讲座[《Unity项目架构设计与开发管理》][1] 的结尾。
 
 ### Unity 项目架构设计与开发管理
 
@@ -209,38 +209,44 @@ MVVM:uFrame 插件。
 ### 5. ECS (Entity Component Based  System)
 
 Unity 是基于 ECS,比较适合 GamePlay 模块使用。
-还有比较有名的 [Entitas-CSharp](https://github.com/sschmid/Entitas-CSharp)
+还有比较有名的 [Entitas-CSharp][2]
 
 
-### 相关链接:
+## 相关链接:
+[我的框架地址][3]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][4]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework & 游戏框架搭建 QQ 交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][5] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr1ywcobcwj30by0byt9i.jpg)
+![][image-1]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][6] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题[《命名的力量：变量》][7]
+	* 价格: 12 元
+	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: http://edu.manew.com/course/431
+* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	http://v.qq.com/boke/page/d/0/u/d016340mkcu.html
+[2]:	https://github.com/sschmid/Entitas-CSharp
+[3]:	https://github.com/liangxiegame/QFramework
+[4]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[5]:	http://liangxiegame.com/
+[6]:	https://github.com/liangxiegame/QFramework
+[7]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg
