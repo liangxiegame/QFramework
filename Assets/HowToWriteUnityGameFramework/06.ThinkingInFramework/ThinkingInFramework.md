@@ -125,13 +125,13 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][8]
+* 购买 gitchat 话题:[《命名的力量：变量》][8]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][9]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][10]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][11]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	http://mindhacks.cn/2009/01/16/hammers-and-nails/
@@ -141,6 +141,9 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 [5]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [6]:	http://liangxiegame.com/
 [7]:	https://github.com/liangxiegame/QFramework
-[8]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[8]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[9]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[10]:	http://edu.manew.com/course/431
+[11]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

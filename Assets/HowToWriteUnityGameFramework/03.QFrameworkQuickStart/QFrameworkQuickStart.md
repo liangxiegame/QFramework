@@ -24,7 +24,7 @@ ResKit 中用户最频繁使用的 API 只有 ResLoader 这一个类。字如其
 
 比如，加载 Resources 目录下的资源，代码如下：
 
-``` csharp
+```cs
 // allocate a loader when initialize a panel or a monobehavour
 var loader = ResLoader.Allocate();
 
@@ -68,7 +68,7 @@ loader.Recycle2Cache() 做了两件事情：
 
 在代码中加载 AssetBundle 资源:
 
-``` csharp 
+```cs
 // init res mgr before load asset bundle
 ResMgr.Init();
 
@@ -127,10 +127,11 @@ UI Kit 是 QFramework 中的 UI 开发套件。它集成了 UI 管理，可积�
 
 第四步 编写 UI 脚本
 
-``` csharp
+```cs
 /****************************************************************************
  * 2018.6 凉鞋的MacBook Pro (2)
  ****************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -203,7 +204,7 @@ namespace QFramework.Example
 则可以看到该界面。
 
 当然用代码打开该页面也比较简单。
-``` csharp
+```cs
 UIMgr.OpenPanel<UIHomePanel>();
 ```
 
@@ -223,7 +224,7 @@ ActionKit 有两个基础概念 Node 和 Action:
 
 通过 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 this.Delay(1.0f, () =>
 {
 	Log.I("延时 1s");
@@ -232,14 +233,14 @@ this.Delay(1.0f, () =>
 
 通过申请 **DelayNode** 对象，使用 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 var delay2s = DelayAction.Allocate(2.0f, () => { Log.I("延时 2s"); });
 this.ExecuteNode(delay2s);
 ```
 
 使用 **Update** 驱动延时回调。
 
-``` csharp
+```cs
 private DelayAction mDelay3s = DelayAction.Allocate(3.0f, () => { Log.I("延时 3s"); });
 
 private void Update()
@@ -259,14 +260,14 @@ private void Update()
 
 通过申请 **EventAction** 对象，使用 **this**(MonoBehaviour) 触发事件执行。
 
-``` csharp
+```cs
 var eventAction = EventAction.Allocate(() => { Log.I("event 1 called"); }, () => { Log.I("event 2 called"); });
 this.ExecuteNode(eventAction);
 ```
 
 使用 **Update** 驱动回调。
 
-``` csharp
+```cs
 private EventAction mEventAction2 = EventAction.Allocate(() => { Log.I("event 3 called"); }, () => { Log.I("event 4 called"); });
 
 private void Update()
@@ -288,7 +289,7 @@ private void Update()
 
 通过 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 this.Sequence()
 	.Delay(1.0f)
 	.Event(() => Log.I("Sequence1 延时了 1s"))
@@ -299,7 +300,7 @@ this.Sequence()
 
 通过申请 **SequenceNode** 对象，使用 **this**(MonoBehaviour) 触发节点执行。
 
-``` csharp
+```cs
 	var sequenceNode2 = SequenceNode.Allocate(DelayAction.Allocate(1.5f));
 	sequenceNode2.Append(EventAction.Allocate(() => Log.I("Sequence2 延时 1.5s")));
 	sequenceNode2.Append(DelayAction.Allocate(0.5f));
@@ -318,7 +319,7 @@ this.Sequence()
 
 使用 **Update** 驱动执行。
 
-``` csharp
+```cs
 private SequenceNode mSequenceNode3 = SequenceNode.Allocate(
 			DelayAction.Allocate(3.0f),
 			EventAction.Allocate(() => { Log.I("Sequence3 延时 3.0f"); }));
@@ -397,20 +398,23 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws1.sinaimg.cn/large/006tNc79gy1fsjuraz57qj30b8084glk.jpg
 [image-2]:	https://ws2.sinaimg.cn/large/006tNc79gy1fsn6kemcguj30e808i3yg.jpg

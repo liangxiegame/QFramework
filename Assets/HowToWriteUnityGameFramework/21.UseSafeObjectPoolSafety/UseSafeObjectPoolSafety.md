@@ -2,7 +2,7 @@
 
 上篇文章使用SafeObjectPool实现了一个简单的Msg类。代码如下:
 
-``` csharp
+```cs
 		class Msg : IPoolAble,IPoolType
 		{
 			#region IPoolAble 实现
@@ -40,7 +40,7 @@
 这个是可以做到的，就是把OnRecycled和IsRecycled使用接口的显示实现。
 
 代码如下:
-``` csharp
+```cs
 		class Msg : IPoolAble,IPoolType
 		{
 			#region IPoolAble 实现
@@ -100,13 +100,13 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][6]
+* 购买 gitchat 话题:[《命名的力量：变量》][6]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][7]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][8]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][9]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	http://www.cnblogs.com/ben-zhang/archive/2012/12/18/2823455.html
@@ -114,6 +114,9 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 [3]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [4]:	http://liangxiegame.com/
 [5]:	https://github.com/liangxiegame/QFramework
-[6]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[7]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[8]:	http://edu.manew.com/course/431
+[9]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

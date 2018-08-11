@@ -3,7 +3,7 @@
 上篇文章中实现了基本的打包功能,在这篇我们来解决不同平台打AB包的问题。
 
 本篇文章的核心api还是:
-``` csharp
+```cs
 BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);  
 ```
 
@@ -12,7 +12,7 @@ BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuild
 #### 区分iOS、Android平台
 
 很简单,只要在上篇文章的QABEditor类中将原来的BuildAssetBundle方法分为BuildAssetBundleiOS和BuildAssetBundleAndroid即可。代码如下所示。
-``` csharp
+```cs
 public class QABEditor
 	{
 		[MenuItem("QFramework/AB/Build iOS")]
@@ -46,7 +46,7 @@ public class QABEditor
 #### QPath.ABBuildOutPutDir(build target)
 
 QPath这个类在我的框架中是用来指定固定的路径用的,因为路径的代码全是字符串,不能让字符串暴露在各处都是,这样会影响代码的可读性。统一管理起来比较方便修改。ABBuildOutPutDir这个API的实现如下所示,就不多说了。
-``` csharp
+```cs
 	/// <summary>
 	/// 所有的路径常量都在这里
 	/// </summary>
@@ -91,7 +91,7 @@ QPath这个类在我的框架中是用来指定固定的路径用的,因为路�
 #### QIO.CreateDirIfNotExists (outputPath)
 
 QIO这个类是用来封装C#的System.IO和一些文件操作相关的API。CreateDirIfNotExists这个命名非常的傻瓜,会点英文就应该可以理解了。下面贴出实现代码,
-``` csharp
+```cs
 using UnityEngine;
 using System.Collections;
 using System.IO;
@@ -118,12 +118,12 @@ namespace QFramework {
 
 #### QABBuilder
 QABBuilder只是封装了本文的核心API
-``` csharp
+```cs
 BuildPipeline.BuildAssetBundles (outPath, 0, EditorUserBuildSettings.activeBuildTarget);  
 ```
 封装的原因是打AB包成功后,要对AB包进行一些处理,比如计算包尺寸,计算哈希或者md5值。主要是为了以后的热更新做准备的。看下QABBuilder核心实现.
 
-``` csharp
+```cs
 	public class QABBuilder
 	{
 		public static string overloadedDevelopmentServerURL = "";
@@ -184,20 +184,23 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws1.sinaimg.cn/large/006tKfTcgy1frotpdnmeqj30io07egmz.jpg
 [image-2]:	https://ws1.sinaimg.cn/large/006tNc79gy1fqisnf9h8wj30e00fmglj.jpg

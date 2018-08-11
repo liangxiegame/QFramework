@@ -2,18 +2,18 @@
 
 本篇文章介绍如何实现如下代码的链式编程:
 
-``` csharp
+```cs
 			this.Position(Vector3.one)			
 				.LocalScale(1.0f)				
 				.Rotation(Quaternion.identity); 
 ```
 
-以上代码中,this为MonoBehaviour类型的对象。
+以上代码中,this为 MonoBehaviour 类型的对象。
 
-#### 如何实现?
+## 如何实现?
 
 通过上篇文章介绍的return this + 静态扩展很容易做到,实现代码如下所示:
-``` csharp
+```cs
 		public static MonoBehaviour Position(this MonoBehaviour selfBehaviour, Vector3 position) 
 		{
 			selfBehaviour.transform.position = position;
@@ -34,7 +34,7 @@
 ```
 
 很容易实现对吧?但是这样有个问题，由于静态扩展方法返回的是MonoBehaviour类而不是this所属的类型，所以接下来链式方法中只能使用MonoBehaviour的方法。不能像如下方式使用。
-``` csharp
+```cs
 			this.Position(Vector3.one)			
 				.LocalScale(1.0f)				
 				.Rotation(Quaternion.identity)
@@ -45,9 +45,9 @@
 
 如何解决这个问题呢?答案是引入泛型。
 
-#### 引入泛型
+## 引入泛型
 实现代码如下所示:
-``` csharp
+```cs
 		public static T Position<T>(this T selfBehaviour, Vector3 position) where T : MonoBehaviour
 		{
 			selfBehaviour.transform.position = position;
@@ -66,11 +66,11 @@
 			return selfBehaviour;
 		}
 ```
-实现很简单，只是把之前代码中的MonoBehaivour改成泛型T,然后增加一个约束: where T : MonoBehaviour。表示这个泛型一定要继承自MonoBehaviour。这样之前例子中的this可以使用MonoBehaviour之外的方法实现链式编程了。
+实现很简单，只是把之前代码中的 MonoBehaivour 改成泛型 T,然后增加一个约束: where T : MonoBehaviour。表示这个泛型一定要继承自 MonoBehaviour。这样之前例子中的this可以使用MonoBehaviour 之外的方法实现链式编程了。
 
-#### 进一步完善
-不只是自己实现的MonoBehaviour脚本像UGUI的Image等都要支持transform的链式编程。那么就要找到transfom到底是哪个类？最后找到了如下代码。
-``` csharp
+## 进一步完善
+不只是自己实现的 MonoBehaviour 脚本像 UGUI 的 Image 等都要支持 transform 的链式编程。那么就要找到 transfom 到底是哪个类？最后找到了如下代码。
+```cs
 namespace UnityEngine
 {
   /// <summary>
@@ -85,9 +85,9 @@ namespace UnityEngine
     public extern Transform transform { [MethodImpl(MethodImplOptions.InternalCall)] get; }
 ...
 ```
-最终定位到,transform是Component的属性器。
+最终定位到,transform 是 Component 的属性器。
 所以可以将之前的实现改为如下代码:
-``` csharp
+```cs
 		public static T Position<T>(this T selfComponent, Vector3 position) where T : Component
 		{
 			selfComponent.transform.position = position;
@@ -106,8 +106,8 @@ namespace UnityEngine
 			return selfComponent;
 		}
 ```
-通过此种方式实现Graphfic,Component等类，最后可以实现如下方式的链式编程。
-``` csharp
+通过此种方式实现 Graphfic,Component 等类，最后可以实现如下方式的链式编程。
+```cs
 			Image image = null;
 
 			image.LocalPosition(Vector3.back)
@@ -139,19 +139,22 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

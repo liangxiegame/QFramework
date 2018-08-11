@@ -3,7 +3,7 @@
 
 在日常开发中，我们经常遇到或者写出这样的代码
 
-``` csharp
+```cs
 var sTrAngeNamingVariable = "a variable";
 
 #if UNITY_IOS || UNITY_ANDROID || UNITY_EDITOR
@@ -17,7 +17,7 @@ var sTrAngeNamingVariable = "a variable";
 第二点是，当我们发现 sTrAngeNamingVariable 的命名很不规范的时候，要对此变量进行重命名。一般的 IDE 都会支持变量/类/方法的重命名。
 
 借助 IDE 的重命名功能，代码会变成如下:
-``` csharp
+```cs
 var strangeVariableName = "a variable";
 
 #if UNITY_IOS || UNITY_ANDROID || UNITY_EDITOR
@@ -30,7 +30,7 @@ var strangeVariableName = "a variable";
 else 代码块里的变量重命名没有成功。当宏判断散落在各处时，很难发现这种错误。直到打包/AssetBundle/切换平台时，问题才会暴露(笔者也是被坑了很多次T.T)。
 
 从这里得出的结论 : 当进行重构时，宏相关的代码会对重构造成风险，也不利于维护。在这里笔者设计出了 Platform。首先看下怎么使用:
-``` csharp
+```cs
 var strangeVariableName = "a variable";
 
 if (Platform.IsiOS || Platform.IsAndroid || Platform.IsEditor)
@@ -44,7 +44,7 @@ else
 ```
 代码很简单，就是把 宏 换成了 Platform 而已。
 这时候我们再进行下重命名。重命名后代码如下:
-``` csharp
+```cs
 if (Platform.IsiOS || Platform.IsAndroid || Platform.IsEditor)
 {
 	strangeNamingVariable = "a!value";
@@ -56,7 +56,7 @@ else
 ```
 重命名问题解决了。
 Platform 的代码很简单，贴出简单看下就可以了。
-``` csharp
+```cs
 namespace QFramework
 {
 	public class Platform
@@ -111,7 +111,7 @@ namespace QFramework
 当笔者在接手一个项目的时候，优先会把所有宏相关的判断，能换的全换成  Platform ，不能换的，比如使用了平台特有 API 的都会简单封装下，然后再进行一些小部分的重命名，以熟悉一些代码的逻辑。
 
 有一些宏判断比较棘手，比如:
-``` csharp
+```cs
 if ("1" == "2" || "2" == "3")
 {
 	// do sth
@@ -157,19 +157,22 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

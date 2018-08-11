@@ -5,7 +5,7 @@
 #### 什么是链式编程?
 
 我想大家应该都接触过DOTween，用起来是这样的。
-``` csharp
+```cs
 	transform.DOMove(Vector3.one, 0.5f)
 				.SetEase(Ease.InBack)
 				.OnKill(() => Debug.Log("on killed"))
@@ -16,7 +16,7 @@
 #### QChain是什么?
 
 QFramework中有零零散散支持了链式写法，打算整理出来作为一个独立的库进行过维护。目前的使用方式如下:
-``` csharp
+```cs
 			this.Show()
 				.LocalIdentity() // 归一化
 				.LocalPosition(Vector3.back)
@@ -52,7 +52,7 @@ QFramework中有零零散散支持了链式写法，打算整理出来作为一�
 #### 为什么要用QChain
 
 前段时间在给公司写一个蓝牙的插件,比较麻烦的是蓝牙管理类的状态同步和当状态改变时通知其他对象的问题。但是有了QChain，蓝牙连接的代码可以这样写:
-``` csharp
+```cs
 			this.Sequence()
 				.Event(() => PTBluetooth.Initialize(true, false))
 				.Until(() => PTBluetooth.IsInitialized)
@@ -95,19 +95,22 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

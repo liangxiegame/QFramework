@@ -39,7 +39,7 @@
 
 先分析下需求,当设计一个 Manager 时候,我们希望整个程序只有一个该 Manager 类的实例,一般马上能想到的实现是这样的:
 
-``` csharp
+```cs
 public class XXXManager 
 {
     private static XXXManager instance = null;
@@ -71,7 +71,7 @@ public class XXXManager
 
 实现如下:
 
-``` csharp
+```cs
 namespace QFramework 
 {  
     public abstract class Singleton<T> where T : Singleton<T>
@@ -106,7 +106,7 @@ namespace QFramework
 
 SingletonCreator.cs
 
-``` csharp
+```cs
 namespace QFramework
 {
     using System;
@@ -141,7 +141,7 @@ namespace QFramework
 
 ISingleton.cs
 
-``` csharp
+```cs
 namespace QFramework
 {    
     public interface ISingleton
@@ -153,7 +153,7 @@ namespace QFramework
 
 Singleton.cs
 
-``` csharp
+```cs
 namespace QFramework
 {
 	public abstract class Singleton<T> : ISingleton where T : Singleton<T>
@@ -196,7 +196,7 @@ namespace QFramework
 
 以上就是最终实现了，并且加上了线程锁,而且实现了一个用来接收初始化事件的接口 ISingleton。这个实现是在任何 C# 程序中都是通用的。其测试用例如下所示:
 
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承 Singleton。
 // 2.需要实现非 public 的构造方法。
@@ -233,7 +233,7 @@ public static void main(string[] args)
 * 销毁单例和对应的 GameObject。
 
 首先，第一点,约束脚本实例对象的个数,这个在上一篇中已经实现了。 但是第二点,约束 GameObject 的个数,这个需求,还没有思路,只好在游戏运行时判断有多少个 GameObject 已经挂上了该脚本,然后如果个数大于1抛出错误即可。 第三点,通过继承 MonoBehaviour 实现,只要覆写相应的回调方法即可。 第四点,在脚本销毁时,把静态实例置空。 完整的代码就如下所示:
-``` csharp
+```cs
 using UnityEngine;
 
 /// <summary>
@@ -309,11 +309,11 @@ namespace QFramework
 
 * 首先要保证实现单例的类从使用方式上应该不变,还是
 
-``` csharp
+```cs
 XXX.Instance.ABCFunc();
 ```
 之前的单例的模板代码如下所示:
-``` csharp
+```cs
 namespace QFramework
 {
 	public abstract class Singleton<T> : ISingleton where T : Singleton<T>
@@ -356,7 +356,7 @@ namespace QFramework
 
 按照以前的方式,如果想实现一个单例的代码应该是这样的:
 
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -375,7 +375,7 @@ public static void main(string[] args)
 ```
 
 如果我想 XXXManager 继承一个 BaseManager 代码就变成这样了
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -390,7 +390,7 @@ public class XXXManager : BaseManager
 
 这样这个类就不是单例了,怎么办?
 答案是通过 C# 的属性器。
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -423,7 +423,7 @@ public static void main(string[] args)
 好了,又看到陌生的东西了,SingletonProperty 是什么?
 和之前的单例的模板很相似,贴上代码自己品吧...
 
-``` csharp
+```cs
 namespace QFramework
 {
 	public static class SingletonProperty<T> where T : class, ISingleton
@@ -477,7 +477,7 @@ namespace QFramework
 
 保证一个类仅有一个实例,这个是对单例的一个需求。但是这句话没有告诉你，这个实例什么时候应该去创建。而笔者所知到的创建方式一般是有两种，第一种是在程序编译后马上创建，一般实现方式是在声明静态成员变量的时候去 new 一个实例，实现如下。
 
-``` csharp
+```cs
 public class Test
 {
     public static readonly Test Instance = new Test();
@@ -488,7 +488,7 @@ public class Test
 
 第二种则第一次获取实例时去创建，实现如下:
 
-``` csharp
+```cs
 public class Test
 {
     public static Test mInstance;
@@ -546,7 +546,7 @@ public class Test
 
 代码如下：
 
-``` csharp
+```cs
 using System;
 using QFramework;
 using UnityEngine;
@@ -616,7 +616,7 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
 
 使用上非常干净简洁:
 
-``` csharp
+```cs
 public class TestMonoSingletonA : MonoBehaviour {
 
 	// Use this for initialization
@@ -670,19 +670,22 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

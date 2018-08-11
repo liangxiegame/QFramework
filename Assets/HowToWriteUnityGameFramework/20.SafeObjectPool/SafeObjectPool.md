@@ -4,7 +4,7 @@
 
 本篇内容会较多:)
 
-#### 新的需求来了
+## 新的需求来了
 
 当我们把对象池应用在框架开发中，我们就有了新的需求。
 * 要保证使用时安全。
@@ -13,7 +13,7 @@
 现在让我们思考下 SimpleObjectPool 哪里不安全?
 
 贴上 SimpleObjectPool 的源码:
-``` csharp
+```cs
     public class SimpleObjectPool<T> : Pool<T>
     {
         readonly Action<T> mResetMethod;
@@ -38,11 +38,11 @@
     }
 ```
 
-首先不安全的地方是泛型 T,在上篇文章中我们说泛型是灵活的体现，但是在框架设计中未约束的泛型却有可能是未知的隐患。我们很有可能在写代码时把 SimpleObjectPool<Fish> 写成 SimpleObjectPool<Fit>，而如果恰好你的工程里有 Fit 类，再加上使用var来声明变量而不是具体的类型（笔者较喜欢用var），那么这个错误要过好久才能发现。
+首先不安全的地方是泛型 T,在上篇文章中我们说泛型是灵活的体现，但是在框架设计中未约束的泛型却有可能是未知的隐患。我们很有可能在写代码时把 SimpleObjectPool\<Fish\> 写成 SimpleObjectPool\<Fit\>，而如果恰好你的工程里有 Fit 类，再加上使用var来声明变量而不是具体的类型（笔者较喜欢用var），那么这个错误要过好久才能发现。
 
 为了解决这个问题，我们要给泛型T加上约束。要求可被对象池管理的对象必须是某种类型。是什么类型呢？就是IPoolAble类型。
 
-``` csharp
+```cs
     public interface IPoolable
     {
         
@@ -51,7 +51,7 @@
 
 然后我们要给对象池类的泛型加上类型约束，本文的对象池我们叫SafeObjectPool。
 
-``` csharp
+```cs
     public class SafeObjectPool<T> : Pool<T> where T : IPoolable
 ```
 
@@ -61,7 +61,7 @@ OK，第一个安全问题解决了。
 
 我们在 IPoolable 接口上增加一个 bool 变量来表示对象是否被回收过。
 
-``` csharp
+```cs
     public interface IPoolAble
     {        
         bool IsRecycled { get; set; }
@@ -69,7 +69,7 @@ OK，第一个安全问题解决了。
 ```
 
 接着在进行 Allocate 和 Recycle 时进行标记和拦截。
-``` csharp
+```cs
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
     {
 		  ...
@@ -96,7 +96,7 @@ OK，第一个安全问题解决了。
 ```
 
 OK,第二个安全问题解决了。接下来第三个不是安全问题，是职责问题。我们再次观察下上篇文章中的SimpleObjectPool
-``` csharp
+```cs
     public class SimpleObjectPool<T> : Pool<T>
     {
         readonly Action<T> mResetMethod;
@@ -125,7 +125,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 在框架设计中我们要收敛一些了，重置的操作要由对象自己来完成，我们要在 IPoolable 接口增加一个接收重置事件的方法。
 
-``` csharp
+```cs
     public interface IPoolAble
     {
         void OnRecycled();
@@ -136,7 +136,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 当 SafeObjectPool 回收对象时来触发它。
 
-``` csharp
+```cs
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble
     {
 		  ...
@@ -159,7 +159,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 同样地，在 SimpleObjectPool 中，创建对象的控制权我们也开放了出去，在 SafeObjectPool 中我们要收回来。还记得上篇文章的 CustomObjectFactory 嘛?
 
-``` csharp
+```cs
     public class CustomObjectFactory<T> : IObjectFactory<T>
     {
         public CustomObjectFactory(Func<T> factoryMethod)
@@ -178,7 +178,7 @@ OK,第二个安全问题解决了。接下来第三个不是安全问题，是�
 
 CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有的，只要开发者有办法搞出个对象就可以。现在我们要加上限制，大部分对象是 new 出来的。所以我们要设计一个可以 new 出对象的工厂。我们叫它 DefaultObjectFactory。
 
-``` csharp
+```cs
     public class DefaultObjectFactory<T> : IObjectFactory<T> where T : new()
     {
         public T Create()
@@ -192,7 +192,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 
 接下来我们在构造 SafeObjectPool 时，创建一个 DefaultObjectFactory。
 
-``` csharp
+```cs
     public class SafeObjectPool<T> : Pool<T> where T : IPoolAble, new()
     {
         public SafeObjectPool()
@@ -208,7 +208,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 
 我们先测试下:
 
-``` csharp
+```cs
 		class Msg : IPoolAble
 		{
 			public void OnRecycled()
@@ -247,7 +247,7 @@ CustomObjectFactory 不管要创建对象的构造方法是私有的还是公有
 由于是框架级的对象池，例子将上文的 Fish 改成 Msg。
 
 输出结果:
-``` csharp
+```cs
 OnRecycled 
 OnRecycled
 ... x50
@@ -260,13 +260,13 @@ msgPool.CurCount:40
 
 OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的对象池?
 
-#### 改进:
+## 改进:
 以上只是保证了机制的安全，这还不够。
 我们想要用户获取一个 Msg 对象应该像 new Msg() 一样自然。要做到这样，我们需要做一些工作。
 
 首先，Msg 的对象池全局只有一个就够了，为了实现这个需求，我们会想到用单例，但是 SafeObjectPool 已经继承了 Pool 了，不能再继承 QSingleton 了。还记得以前介绍的 QSingletonProperty 嘛？是时候该登场了，代码如下所示。
 
-``` csharp
+```cs
     /// <summary>
     /// Object pool.
     /// </summary>
@@ -299,7 +299,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 我们现在不想让用户通过 SafeObjectPool 来 Allocate 和 Recycle 池对象了，那么 Allocate 和 Recycle 的控制权就要交给池对象来管理。
 
 由于控制权交给池对象管理这个需求不是必须的，所以我们要再提供一个接口
-``` csharp
+```cs
     public interface IPoolType
     {
         void Recycle2Cache();
@@ -309,7 +309,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 为什么只有一个 Recycle2Cache,没有 Allocate 相关的方法呢？
 因为在池对象创建之前我们没有任何池对象，只能用静态方法创建。这就需要池对象提供一个静态的 Allocate 了。使用方法如下所示。
 
-``` csharp
+```cs
 		class Msg : IPoolAble,IPoolType
 		{
 			#region IPoolAble 实现
@@ -342,7 +342,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 
 贴上测试代码:
 
-``` csharp
+```cs
 			SafeObjectPool<Msg>.Instance.Init(100, 50);			
 			
 			Log.I("msgPool.CurCount:{0}", SafeObjectPool<Msg>.Instance.CurCount);
@@ -364,7 +364,7 @@ OK，测试结果没问题。不过，难道要让用户自己去维护 Msg 的�
 ```
 
 测试结果:
-``` csharp
+```cs
 OnRecycled 
 OnRecycled
 ... x50
@@ -377,7 +377,7 @@ msgPool.CurCount:40
 
 测试结果一致，现在贴上 SafeObejctPool 的全部代码。这篇文章内容好多，写得我都快吐了- -。
 
-``` csharp
+```cs
    using System;
 
     /// <summary>
@@ -526,7 +526,7 @@ msgPool.CurCount:40
 
 代码实现很简单，但是要考虑很多。
 
-#### 总结:
+## 总结:
 * SimpleObjectPool 适合用于项目开发，渐进式，更灵活。
 * SafeObjectPool 适合用于库级开发，更多限制，要求开发者一开始就想好，更安全。
 
@@ -553,19 +553,22 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
 	* 地址: http://u3d.as/SJ9
-* 购买 gitchat 话题[《命名的力量：变量》][5]
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
 	* 价格: 12 元
-	* 地址: http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
 * 购买同名的蛮牛视频课程录播课程: 
 	* 价格 49.2 元
-	* 地址: http://edu.manew.com/course/431
-* 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
 [2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
-[5]:	%20http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
 
 [image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg
