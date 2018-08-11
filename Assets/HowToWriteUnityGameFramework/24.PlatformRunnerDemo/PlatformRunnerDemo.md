@@ -75,7 +75,7 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 价格  49.2 元，内容会在 2018 年 10 月份完结
 
 [1]:	https://github.com/liangxiegame/QFramework
-[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 [3]:	http://liangxiegame.com/
 [4]:	https://github.com/liangxiegame/QFramework
 [5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
