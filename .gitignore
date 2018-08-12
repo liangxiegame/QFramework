@@ -39,3 +39,5 @@ AssetBundles
 Assets/QFramework/Demo
 Demo.meta
 Plugins.meta
+obj/
+Packages/
