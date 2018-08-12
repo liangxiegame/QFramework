@@ -2,7 +2,7 @@
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 liangxie
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2018.5 ~ 2018.7 liangxie
+ * Copyright (c) 2018.5 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -51,7 +51,7 @@ namespace QFramework
 		public UILevel Level;
 	}
 
-	public abstract class UIPanel : QMonoBehaviour, IUIPanel
+	public abstract class UIPanel : QMonoBehaviour, IPanel
 	{
 		#region mvvm data binding
 		/* DataBinding
@@ -85,18 +85,18 @@ namespace QFramework
 
 		public UIPanelInfo PanelInfo { get; set; }
 
-		private   IUIPanelLoader mUiPanelLoader  = null;
+		private   IPanelLoader mPanelLoader  = null;
 		protected IUIData        mUIData;
 
 		public static UIPanel Load(string panelName, string assetBundleName = null)
 		{
-			var panelLoader = new DefaultUIPanelLoader();
+			var panelLoader = new DefaultPanelLoader();
 			var panelPrefab = assetBundleName.IsNullOrEmpty()
 				? panelLoader.LoadPanelPrefab(panelName)
 				: panelLoader.LoadPanelPrefab(assetBundleName, panelName);
 			var obj = Instantiate(panelPrefab);
 			var retScript = obj.GetComponent<UIPanel>();
-			retScript.mUiPanelLoader = panelLoader;
+			retScript.mPanelLoader = panelLoader;
 			return retScript;
 		}
 
@@ -145,7 +145,7 @@ namespace QFramework
 		/// <summary>
 		/// 关闭,不允许子类调用
 		/// </summary>
-		void IUIPanel.Close(bool destroyed)
+		void IPanel.Close(bool destroyed)
 		{
 			PanelInfo.UIData = mUIData;
 			mOnClosed.InvokeGracefully();
@@ -157,8 +157,8 @@ namespace QFramework
 				Destroy(gameObject);
 			}
 
-			mUiPanelLoader.Unload();
-			mUiPanelLoader = null;
+			mPanelLoader.Unload();
+			mPanelLoader = null;
 			mUIData = null;
 			
 			mSubPanelInfos.ForEach(subPanelInfo => UIMgr.ClosePanel(subPanelInfo.PanelName));

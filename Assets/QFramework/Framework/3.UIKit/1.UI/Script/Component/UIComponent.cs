@@ -1,9 +1,9 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.5 liangxie
+ * Copyright (c) 2018.5 ~ 8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -22,35 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
- 
+
 namespace QFramework
 {
-    using UnityEngine.UI;
- 
-    /// <summary>
-    /// 可能是个 Action
-    /// </summary>
-    public class UITransition
+    public abstract class UIComponent : UIElement
     {
-        // serc panel  dst panel
-    }
- 
-    public static class UITransitionExtension
-    {
-        /// <summary>
-        /// 绑定跳转逻辑
-        /// </summary>
-        /// <param name="selfPanel"></param>
-        /// <param name="btn"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void BindTransition<TSrcPanel, TDstPanel>(this Button btn) where TSrcPanel : UIPanel
-            where TDstPanel : UIPanel
+        public override UIMarkType GetUIMarkType()
         {
-            btn.onClick.AddListener(() =>
-            {
-                UIMgr.ClosePanel<TSrcPanel>();
-                UIMgr.OpenPanel<TDstPanel>();
-            });
+            return UIMarkType.Component;
         }
     }
 }

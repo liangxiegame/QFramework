@@ -30,18 +30,11 @@ namespace QFramework
 {
 	using UnityEngine;
 
-	public enum UIMarkType
-	{
-		DefaultUnityElement,
-		Element,
-		Component
-	}
-
 	/// <inheritdoc />
 	/// <summary>
 	/// UI的标记
 	/// </summary>
-	public class UIMark : MonoBehaviour, IUIMark
+	public class UIMark : MonoBehaviour, IMark
 	{
 		public UIMarkType MarkType = UIMarkType.DefaultUnityElement;
 

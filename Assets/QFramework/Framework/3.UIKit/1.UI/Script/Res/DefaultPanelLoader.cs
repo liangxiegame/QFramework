@@ -30,7 +30,7 @@ namespace QFramework
     /// <summary>
     /// Default
     /// </summary>
-    public class DefaultUIPanelLoader : IUIPanelLoader
+    public class DefaultPanelLoader : IPanelLoader
     {
         ResLoader mResLoader = ResLoader.Allocate();
 

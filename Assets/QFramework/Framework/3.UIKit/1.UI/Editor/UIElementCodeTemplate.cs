@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -40,7 +40,6 @@ namespace QFramework
 			var strBuilder = new StringBuilder();
 
 			var markType = elementCodeData.MarkedObjInfo.MarkObj.GetUIMarkType();
-			var componentName = elementCodeData.MarkedObjInfo.MarkObj.ComponentName;
 
 			strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);

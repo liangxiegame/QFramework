@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2018.5 liangxie
+/****************************************************************************
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,11 +25,28 @@
 
 namespace QFramework
 {
-    public abstract class UIComponent : UIElement
+    using UnityEngine;
+
+    /// <summary>
+    /// belone to a panel 
+    /// </summary>
+    public abstract class UIElement : QMonoBehaviour,IMark
     {
-        public override UIMarkType GetUIMarkType()
+        public virtual UIMarkType GetUIMarkType()
         {
-            return UIMarkType.Component;
+            return UIMarkType.Element;
+        }
+        
+        public abstract string ComponentName { get; }
+        
+        public Transform Transform
+        {
+            get { return transform; }
+        }
+
+        public override IManager Manager
+        {
+            get { return UIManager.Instance; }
         }
     }
 }

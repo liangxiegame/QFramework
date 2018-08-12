@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2018.5 ~ 7  liangxie
+ * Copyright (c) 2018.5 ~ 8  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -59,7 +59,7 @@ namespace QFramework
 	[MonoSingletonPath("UIRoot")]
 	public class UIManager : QMgrBehaviour, ISingleton
 	{
-		private Dictionary<string, IUIPanel> mAllUI = new Dictionary<string, IUIPanel>();
+		private Dictionary<string, IPanel> mAllUI = new Dictionary<string, IPanel>();
 
 		[SerializeField] private Transform mBgTrans;
 		[SerializeField] private Transform mAnimationUnderTrans;
@@ -114,12 +114,6 @@ namespace QFramework
 			get { return mUICamera; }
 		}
 
-		// TODO: 全局唯一事件管理
-		public GraphicRaycaster GlobalGraphicRaycaster
-		{
-			get { return mGraphicRaycaster; }
-		}
-
 		public void SetResolution(int width, int height)
 		{
 			mCanvasScaler.referenceResolution = new UnityEngine.Vector2(width, height);
@@ -130,7 +124,7 @@ namespace QFramework
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
 		}
 
-		public IUIPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData, string assetBundleName)
+		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData, string assetBundleName)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
@@ -141,7 +135,7 @@ namespace QFramework
 			return mAllUI[uiBehaviourName];
 		}
 
-		public IUIPanel OpenUI(string uiBehaviourName, UILevel canvasLevel)
+		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel)
 		{
 			if (!mAllUI.ContainsKey(uiBehaviourName))
 			{
@@ -162,7 +156,7 @@ namespace QFramework
 		/// <returns></returns>
 		public GameObject CreateUIObj(string uiBehaviourName, UILevel uiLevel, string assetBundleName = null)
 		{
-			IUIPanel ui;
+			IPanel ui;
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
 				Log.W("{0}: already exist", uiBehaviourName);
@@ -221,7 +215,7 @@ namespace QFramework
 		/// <param name="uiBehaviourName"></param>
 		public void ShowUI(string uiBehaviourName)
 		{
-			IUIPanel iuiPanel = null;
+			IPanel iuiPanel = null;
 			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
 			{
 				iuiPanel.Show();
@@ -234,7 +228,7 @@ namespace QFramework
 		/// <param name="uiBehaviourName"></param>
 		public void HideUI(string uiBehaviourName)
 		{
-			IUIPanel iuiPanel = null;
+			IPanel iuiPanel = null;
 			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
 			{
 				iuiPanel.Hide();
@@ -260,7 +254,7 @@ namespace QFramework
 		/// <param name="behaviourName"></param>
 		public void CloseUI(string behaviourName)
 		{
-			IUIPanel behaviour = null;
+			IPanel behaviour = null;
 
 			mAllUI.TryGetValue(behaviourName, out behaviour);
 
@@ -276,7 +270,7 @@ namespace QFramework
 			Push(GetUI<T>());
 		}
 
-		public void Push(IUIPanel view)
+		public void Push(IPanel view)
 		{
 			if (view != null)
 			{
@@ -302,7 +296,7 @@ namespace QFramework
 		/// <returns></returns>
 		public UIPanel GetUI(string uiBehaviourName)
 		{
-			IUIPanel retIuiPanel = null;
+			IPanel retIuiPanel = null;
 			if (mAllUI.TryGetValue(uiBehaviourName, out retIuiPanel))
 			{
 				return retIuiPanel as UIPanel;
@@ -340,10 +334,10 @@ namespace QFramework
 			return retValue;
 		}
 
-		public IUIPanel CreateUI(string uiBehaviourName, UILevel level = UILevel.Common, IUIData uiData = null,
+		public IPanel CreateUI(string uiBehaviourName, UILevel level = UILevel.Common, IUIData uiData = null,
 			string assetBundleName = null)
 		{
-			IUIPanel ui;
+			IPanel ui;
 			
 			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
 			{
@@ -352,7 +346,7 @@ namespace QFramework
 
 			var uiObj = CreateUIObj(uiBehaviourName, level, assetBundleName);
 
-			ui = uiObj.GetComponent<IUIPanel>();
+			ui = uiObj.GetComponent<IPanel>();
 
 			mAllUI.Add(uiBehaviourName, ui);
 

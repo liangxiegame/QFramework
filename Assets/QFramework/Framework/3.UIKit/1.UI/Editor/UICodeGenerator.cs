@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ~ 2018.6 liangxie 
+ * Copyright (c) 2017 ~ 2018.8 liangxie 
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -61,12 +61,12 @@ namespace QFramework
 
 		public string PathToElement;
 
-		public IUIMark MarkObj;
+		public IMark MarkObj;
 	}
 
 	public class UICodeGenerator
 	{
-		[MenuItem("Assets/@UIKit - Create UICode")]
+		[MenuItem("Assets/@UI Kit - Create UICode")]
 		public static void CreateUICode()
 		{
 			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
@@ -111,7 +111,7 @@ namespace QFramework
 			}
 		}
 
-		string PathToParent(Transform trans, string parentName)
+		private static string PathToParent(Transform trans, string parentName)
 		{
 			var retValue = new StringBuilder(trans.name);
 
@@ -140,7 +140,7 @@ namespace QFramework
 		{
 			foreach (Transform childTrans in curTrans)
 			{
-				var uiMark = childTrans.GetComponent<IUIMark>();
+				var uiMark = childTrans.GetComponent<IMark>();
 
 				if (null != uiMark)
 				{
@@ -148,7 +148,7 @@ namespace QFramework
 					{
 						if (!mPanelCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo()
+							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo
 							{
 								Name = uiMark.Transform.name,
 								MarkObj = uiMark,
@@ -185,7 +185,7 @@ namespace QFramework
 						var elementCodeData = new ElementCodeData
 						{
 							BehaviourName = uiMark.ComponentName,
-							MarkedObjInfo = new MarkedObjInfo()
+							MarkedObjInfo = new MarkedObjInfo
 							{
 								MarkObj = uiMark
 							}
@@ -335,17 +335,18 @@ namespace QFramework
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
 			if (displayProgress) EditorUtility.ClearProgressBar();
+			
 		}
 
 		private static void AttachSerializeObj(GameObject obj, string behaviourName, System.Reflection.Assembly assembly,
-			List<IUIMark> processedMarks = null)
+			List<IMark> processedMarks = null)
 		{
 			if (null == processedMarks)
 			{
-				processedMarks = new List<IUIMark>();
+				processedMarks = new List<IMark>();
 			}
 
-			var uiMark = obj.GetComponent<IUIMark>();
+			var uiMark = obj.GetComponent<IMark>();
 			var className = string.Empty;
 
 			if (uiMark != null)
@@ -372,7 +373,7 @@ namespace QFramework
 
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
-			var uiMarks = obj.GetComponentsInChildren<IUIMark>(true);
+			var uiMarks = obj.GetComponentsInChildren<IMark>(true);
 
 			foreach (var elementMark in uiMarks)
 			{
@@ -396,7 +397,7 @@ namespace QFramework
 				AttachSerializeObj(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
 			}
 
-			var marks = obj.GetComponentsInChildren<IUIMark>(true);
+			var marks = obj.GetComponentsInChildren<IMark>(true);
 			foreach (var elementMark in marks)
 			{
 				if (processedMarks.Contains(elementMark))

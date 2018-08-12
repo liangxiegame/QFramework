@@ -10,7 +10,7 @@ namespace QFramework
 	using SLua;
 	[CustomLuaClass]
 	#endif
-	public class QUIEventListener : EventTrigger
+	public class UIEventListener : EventTrigger
 	{
 		// TODO: refactor proper name
 		public System.Action onClick;
@@ -29,14 +29,14 @@ namespace QFramework
 
 		public System.Action<bool> onValueChanged;
 
-		public static QUIEventListener CheckAndAddListener(GameObject go)
+		public static UIEventListener CheckAndAddListener(GameObject go)
 		{
-			QUIEventListener listener = go.GetComponent<QUIEventListener>();
-			if (listener == null) listener = go.AddComponent<QUIEventListener>();
+			UIEventListener listener = go.GetComponent<UIEventListener>();
+			if (listener == null) listener = go.AddComponent<UIEventListener>();
 
 			return listener;
 		}
-		public static  QUIEventListener Get(GameObject go)
+		public static  UIEventListener Get(GameObject go)
 		{
 			return CheckAndAddListener (go);
 		}

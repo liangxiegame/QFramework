@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 xiaojun
- * Copyright (c) 2017 ~ 2018.7  liangxie
+ * Copyright (c) 2017 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,27 +23,14 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework 
+namespace QFramework
 {
-	using UnityEngine;
+    using UnityEngine;
+    
+    public interface IPanelLoader
+    {
+        GameObject LoadPanelPrefab(string panelName);
 
-	/// <summary>
-	/// IUI behaviour.
-	/// </summary>
-	public interface IUIPanel
-	{
-		Transform Transform { get; }
-		
-		UIPanelInfo PanelInfo { get; set; }
-
-		void Init(IUIData uiData = null);
-
-		void Show();
-
-		void Hide();
-		
-		void Close(bool destroy = true);
-
-		void OnClosed(System.Action onPanelClosed);
-	}
+        void Unload();
+    }
 }

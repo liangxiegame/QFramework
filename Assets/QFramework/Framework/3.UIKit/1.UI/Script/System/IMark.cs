@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -27,7 +27,14 @@ namespace QFramework
 {
     using UnityEngine;
 
-    public interface IUIMark
+    public enum UIMarkType
+    {
+        DefaultUnityElement,
+        Element,
+        Component
+    }
+    
+    public interface IMark
     {
         string ComponentName { get; }
 

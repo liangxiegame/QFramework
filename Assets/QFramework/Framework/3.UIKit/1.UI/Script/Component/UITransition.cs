@@ -25,50 +25,64 @@
 
 namespace QFramework
 {
-    using System.Collections;
-    using System.Collections.Generic;
-    using UnityEngine;
-    
-    [System.Serializable]
-    public class UIPanelTesterInfo
+    using System;
+    using UnityEngine.UI;
+ 
+    /// <summary>
+    /// 可能是个 Action
+    /// </summary>
+    public class UITransition
     {
-        /// <summary>
-        /// 页面的名字
-        /// </summary>
-        public string PanelName;
-
-        /// <summary>
-        /// 层级名字
-        /// </summary>
-        public UILevel Level;
+        // serc panel  dst panel
     }
-
-    public class UIPanelTester : MonoBehaviour
+ 
+    public static class UITransitionExtension
     {
         /// <summary>
-        /// 页面的名字
+        /// 绑定跳转逻辑
         /// </summary>
-        public string PanelName;
-
-        /// <summary>
-        /// 层级名字
-        /// </summary>
-        public UILevel Level;
-
-        [SerializeField] private List<UIPanelTesterInfo> mOtherPanels;
-
-        private void Awake()
+        /// <param name="selfPanel"></param>
+        /// <param name="btn"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void BindTransition<TSrcPanel, TDstPanel>(this Button btn) where TSrcPanel : UIPanel
+            where TDstPanel : UIPanel
         {
-            ResMgr.Init();
+            btn.onClick.AddListener(() =>
+            {
+                UIMgr.ClosePanel<TSrcPanel>();
+                UIMgr.OpenPanel<TDstPanel>();
+            });
+        }
+        
+        /// <summary>
+        /// 绑定跳转逻辑
+        /// </summary>
+        /// <param name="selfPanel"></param>
+        /// <param name="btn"></param>
+        /// <typeparam name="T"></typeparam>
+        public static Action Transition<TDstPanel>(this UIPanel selfBehaviour,IUIData uidata = null) where TDstPanel : UIPanel
+        {
+            return () =>
+            {
+                UIMgr.ClosePanel(selfBehaviour.name);
+                UIMgr.OpenPanel<TDstPanel>(uidata);
+            };
         }
 
-        private IEnumerator Start()
+        // TODO:这里要想办法抽象下
+        public static void Do(this Action action)
         {
-            yield return new WaitForSeconds(0.2f);
-			
-            UIMgr.OpenPanel(PanelName, Level);
-
-            mOtherPanels.ForEach(panelTesterInfo => { UIMgr.OpenPanel(panelTesterInfo.PanelName, panelTesterInfo.Level); });
+            action();
+        }
+        
+        public static void Start(this Action action)
+        {
+            action();
+        }
+        
+        public static void Begin(this Action action)
+        {
+            action();
         }
     }
 }
