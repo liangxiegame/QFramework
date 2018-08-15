@@ -8,11 +8,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/0.Lib/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/0.Lib/"
     },
     {
       "Name": "1.ActionKit",
@@ -22,11 +24,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/1.ActionKit/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.0_9ygNQ6Y.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/1.ActionKit/"
     },
     {
       "Name": "2.ResKit",
@@ -36,11 +40,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/2.ResKit/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/2.ResKit/"
     },
     {
       "Name": "3.UIKit",
@@ -50,11 +56,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/3.UIKit/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/3.UIKit_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/3.UIKit/"
     },
     {
       "Name": "4.EditorToolKit",
@@ -64,11 +72,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/"
     },
     {
       "Name": "5.ScriptCollection",
@@ -78,11 +88,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/5.ScriptCollection/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/5.ScriptCollection/"
     },
     {
       "Name": "6.PackageManager",
@@ -92,11 +104,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/6.PackageManager/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/6.PackageManager/"
     },
     {
       "Name": "Demo",
@@ -106,19 +120,23 @@
       "PackageVersions": [
         {
           "Version": "v0.0.9",
-          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage",
+          "InstallPath": "Assets/QFramework/Demo/"
         },
         {
           "Version": "v0.0.8",
-          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.8.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.8.unitypackage",
+          "InstallPath": "Assets/QFramework/Demo/"
         },
         {
           "Version": "v0.0.7",
-          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.7.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.7.unitypackage",
+          "InstallPath": "Assets/QFramework/Demo/"
         }
       ],
       "Version": "v0.0.9",
-      "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/Demo_v0.0.9.unitypackage",
+      "InstallPath": "Assets/QFramework/Demo/"
     },
     {
       "Name": "Example",
@@ -128,11 +146,13 @@
       "PackageVersions": [
         {
           "Version": "v0.0.9",
-          "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage",
+          "InstallPath": "Assets/QFramework/Example/"
         }
       ],
       "Version": "v0.0.9",
-      "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9.unitypackage",
+      "InstallPath": "Assets/QFramework/Example/"
     },
     {
       "Name": "QFramework",
@@ -142,31 +162,54 @@
       "PackageVersions": [
         {
           "Version": "v0.0.9",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         },
         {
           "Version": "v0.0.8",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.8.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.8.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         },
         {
           "Version": "v0.0.7",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.7.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.7.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         },
         {
           "Version": "v0.0.6",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.6.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.6.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         },
         {
           "Version": "v0.0.5",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.5.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.5.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         },
         {
           "Version": "v0.0.4",
-          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.4.unitypackage"
+          "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.4.unitypackage",
+          "InstallPath": "Assets/QFramework/Framework/"
         }
       ],
       "Version": "v0.0.9",
-      "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage"
+      "DownloadUrl": "http://liangxiegame.com/media/QFramework_v0.0.9_OfY0OAC.unitypackage",
+      "InstallPath": "Assets/QFramework/Framework/"
+    },
+    {
+      "Name": "UIImageGrayShader",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/UIImageGrayShader_v0.0.0.unitypackage",
+          "InstallPath": "Assets/QFramework/Effect/UIImageGray/"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/UIImageGrayShader_v0.0.0.unitypackage",
+      "InstallPath": "Assets/QFramework/Effect/UIImageGray/"
     }
   ]
 }

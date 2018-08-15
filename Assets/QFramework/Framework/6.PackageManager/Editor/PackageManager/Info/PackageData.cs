@@ -19,6 +19,11 @@ namespace QFramework
             get { return PackageVersions.First().DownloadUrl; }
         }
 
+		public string InstallPath
+		{
+			get { return PackageVersions.First ().InstallPath; }
+		}
+
         public Readme readme;
         
         public List<PackageVersion> PackageVersions = new List<PackageVersion>();
@@ -35,5 +40,7 @@ namespace QFramework
         public string Version;
 
         public string DownloadUrl;
+
+		public string InstallPath = "Assets/QFramework/Framework/";
     }
 }

@@ -43,61 +43,60 @@ namespace QFramework
         }
 
         protected override void OnBegin()
-        {
-            ObservableWWW.Get("http://liangxiegame.com/demo/get_all_demo_info").Subscribe(response =>
-            {
-                var responseJson = JObject.Parse(response);
-                JArray packageInfosJson = responseJson["all_demo_info"] as JArray;
+		{
+			ObservableWWW.Get ("http://liangxiegame.com/demo/get_all_demo_info").Subscribe (response =>
+			{
+				var responseJson = JObject.Parse (response);
+				JArray packageInfosJson = responseJson ["all_demo_info"] as JArray;
 
-                var packageDatas = new List<PackageData>();
-                foreach (var demoInfo in packageInfosJson)
-                {
-                    var name = demoInfo["name"].Value<string>();
+				var packageDatas = new List<PackageData> ();
+				foreach (var demoInfo in packageInfosJson)
+				{
+					var name = demoInfo ["name"].Value<string> ();
                     
-                    var package = packageDatas.Find(packageData => packageData.Name == name);
+					var package = packageDatas.Find (packageData => packageData.Name == name);
 
-                    if (package == null)
-                    {
-                        package = new PackageData()
-                        {
-                            Name = name,
-                        };
+					if (package == null)
+					{
+						package = new PackageData () {
+							Name = name,
+						};
                         
-                        packageDatas.Add(package);
-                    }
+						packageDatas.Add (package);
+					}
                                        
-                    var version = demoInfo["version"].Value<string>();
-                    var url = demoInfo["download_url"].Value<string>();
+					var version = demoInfo ["version"].Value<string> ();
+					var url = demoInfo ["download_url"].Value<string> ();
+					var installPath = demoInfo ["install_path"].Value<string> ();
 
-                    package.PackageVersions.Add(new PackageVersion()
-                    {
-                        Version = version,
-                        DownloadUrl = url,
-                    });
-                }
+					package.PackageVersions.Add (new PackageVersion () {
+						Version = version,
+						DownloadUrl = url,
+						InstallPath = installPath
+					});
+				}
 
-                packageDatas.ForEach(packageData => packageData.PackageVersions.Sort((a, b) => GetVersionNumber(b.Version) - GetVersionNumber(a.Version)));
+				packageDatas.ForEach (packageData => packageData.PackageVersions.Sort ((a, b) => GetVersionNumber (b.Version) - GetVersionNumber (a.Version)));
                 
-                mOnGet.InvokeGracefully(packageDatas);
+				mOnGet.InvokeGracefully (packageDatas);
 
-                new PackageInfosRequestCache()
-                {
-                    PackageDatas = packageDatas
-                }.Save();
+				new PackageInfosRequestCache () {
+					PackageDatas = packageDatas
+				}.Save ();
                 
-                Finished = true;
-            }, e =>
-            {
-                mOnGet.InvokeGracefully(null);
-                Log.E(e);
-            });
-        }
+				Finished = true;
+			}, e =>
+			{
+				mOnGet.InvokeGracefully (null);
+				Log.E (e);
+			});
+		}
 
         public static int GetVersionNumber(string version)
         {
             return int.Parse(version.Replace("v", string.Empty).Replace(".", ""));
         }
-    }
+	}
 
     public class PackageInfosRequestCache
     {

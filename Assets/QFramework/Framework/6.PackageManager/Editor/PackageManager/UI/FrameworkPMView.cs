@@ -102,7 +102,7 @@ namespace QFramework
                 {
                     bool deleteOlderVersion = EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否");
 
-                    string path = Application.dataPath + "/QFramework/Framework/";
+					string path = Application.dataPath.Replace ("Assets", packageData.InstallPath);
 
                     if (deleteOlderVersion && !string.IsNullOrEmpty(path))
                     {
