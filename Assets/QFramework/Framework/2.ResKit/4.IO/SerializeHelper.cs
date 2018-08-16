@@ -166,9 +166,11 @@ namespace QFramework
             return JsonConvert.DeserializeObject<T>(json);
 		}
 
-		public static void SaveJson<T>(this T obj, string path) where T : class
+		public static string SaveJson<T>(this T obj, string path) where T : class
 		{
-			File.WriteAllText(path, obj.ToJson<T>());
+			var jsonContent = obj.ToJson();
+			File.WriteAllText(path, jsonContent);
+			return jsonContent;
 		}
 
 		public static T LoadJson<T>(string path) where T : class

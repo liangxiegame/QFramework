@@ -9,12 +9,12 @@
         {
           "Version": "v0.0.0",
           "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage",
-          "InstallPath": "Assets/QFramework/Framework/0.Lib/"
+          "InstallPath": "Assets/QFramework/Framework/0.Libs/"
         }
       ],
       "Version": "v0.0.0",
       "DownloadUrl": "http://liangxiegame.com/media/0.Lib_v0.0.0_IR5byF5.unitypackage",
-      "InstallPath": "Assets/QFramework/Framework/0.Lib/"
+      "InstallPath": "Assets/QFramework/Framework/0.Libs/"
     },
     {
       "Name": "1.ActionKit",
@@ -196,20 +196,36 @@
       "InstallPath": "Assets/QFramework/Framework/"
     },
     {
-      "Name": "UIImageGrayShader",
+      "Name": "UIImageGray",
       "readme": {
         "items": null
       },
       "PackageVersions": [
         {
           "Version": "v0.0.0",
-          "DownloadUrl": "http://liangxiegame.com/media/UIImageGrayShader_v0.0.0.unitypackage",
+          "DownloadUrl": "http://liangxiegame.com/media/UIImageGray_v0.0.0.unitypackage",
           "InstallPath": "Assets/QFramework/Effect/UIImageGray/"
         }
       ],
       "Version": "v0.0.0",
-      "DownloadUrl": "http://liangxiegame.com/media/UIImageGrayShader_v0.0.0.unitypackage",
+      "DownloadUrl": "http://liangxiegame.com/media/UIImageGray_v0.0.0.unitypackage",
       "InstallPath": "Assets/QFramework/Effect/UIImageGray/"
+    },
+    {
+      "Name": "UIImageOutline",
+      "readme": {
+        "items": null
+      },
+      "PackageVersions": [
+        {
+          "Version": "v0.0.0",
+          "DownloadUrl": "http://liangxiegame.com/media/UIImageOutline_v0.0.0_E85OTfB.unitypackage",
+          "InstallPath": "Assets/QFramework/Effect/UIImageOutline/"
+        }
+      ],
+      "Version": "v0.0.0",
+      "DownloadUrl": "http://liangxiegame.com/media/UIImageOutline_v0.0.0_E85OTfB.unitypackage",
+      "InstallPath": "Assets/QFramework/Effect/UIImageOutline/"
     }
   ]
 }
