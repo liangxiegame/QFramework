@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -31,17 +31,25 @@ namespace QFramework
 	/// <summary>
 	/// 序列执行节点
 	/// </summary>
-	public class SequenceNode : NodeAction ,IPoolable
+    public class SequenceNode : NodeAction ,IPoolable, INode
 	{
 		protected readonly List<IAction> mNodes = new List<IAction>();
 		protected readonly List<IAction> mExcutingNodes = new List<IAction>();
 		
-		public bool Completed = false;
-
 		public int TotalCount
 		{
 			get { return mExcutingNodes.Count; }
 		}
+
+        public IAction CurrentExecutingNode
+        {
+            get
+            {
+                var currentNode = mExcutingNodes[0];
+                var node = currentNode as INode;
+                return node == null ? currentNode : node.CurrentExecutingNode;
+            }
+        }
 
 		protected override void OnReset()
 		{
@@ -51,7 +59,6 @@ namespace QFramework
 				node.Reset();
 				mExcutingNodes.Add(node);
 			}
-			Completed = false;
 		}
 
 		protected override void OnExecute(float dt)
@@ -79,9 +86,12 @@ namespace QFramework
 			Finished = mExcutingNodes.Count == 0;
 		}
 
+        protected virtual void OnCurrentActionFinished() { }
+
 		public static SequenceNode Allocate(params IAction[] nodes)
 		{
 			var retNode = SafeObjectPool<SequenceNode>.Instance.Allocate();
+
 			foreach (var node in nodes)
 			{
 				retNode.mNodes.Add(node);
@@ -91,9 +101,11 @@ namespace QFramework
 			return retNode;
 		}
 
+
 		/// <summary>
 		/// 不建议使用
 		/// </summary>
+        [System.Obsolete("请使用 Allocate")]
 		public SequenceNode(){}
 
 		public SequenceNode Append(IAction appendedNode)

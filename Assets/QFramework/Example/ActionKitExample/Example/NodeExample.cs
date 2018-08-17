@@ -49,8 +49,7 @@ namespace QFramework
                    .DisposeWhen(() => { return Input.GetKeyDown(KeyCode.S); })
                    .OnDisposed(() => { Debug.Log("结束"); });
                })
-               .Begin()
-               .DisposeWhenFinished();
+                .Begin();
         }
 
         #region Update的情况

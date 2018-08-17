@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
@@ -25,38 +25,8 @@
 
 namespace QFramework
 {
-    using System;
-
-    /// <summary>
-    /// like filter, add condition
-    /// </summary>
-    public class UntilAction : NodeAction, IPoolable
+    public interface INode
     {
-        private Func<bool> mCondition;
-
-        public static UntilAction Allocate(Func<bool> condition)
-        {
-            var retNode = SafeObjectPool<UntilAction>.Instance.Allocate();
-            retNode.mCondition = condition;
-            return retNode;
-        }
-
-        protected override void OnExecute(float dt)
-        {
-            Finished = mCondition.InvokeGracefully();
-        }
-
-        protected override void OnDispose()
-        {
-            SafeObjectPool<UntilAction>.Instance.Recycle(this);
-        }
-
-        void IPoolable.OnRecycled()
-        {
-            Reset();
-            mCondition = null;
-        }
-
-        bool IPoolable.IsRecycled { get; set; }
+        IAction CurrentExecutingNode { get; }
     }
 }

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,7 +25,6 @@
 
 namespace QFramework 
 {
-	using System.Linq;
 	using System.Collections.Generic;
 	
 	/// <summary>
@@ -33,40 +32,58 @@ namespace QFramework
 	/// </summary>
 	public class SpawnNode :NodeAction 
 	{
-		protected List<IAction> mNodeList = new List<IAction>();
+        protected List<NodeAction> mNodes = new List<NodeAction>();
 
-		protected override void OnReset()
-		{
-			foreach (var executeNode in mNodeList)
-			{
-				executeNode.Reset();
-			}
-		}
-		
-		protected override void OnExecute(float dt)
-		{
-			foreach (var node in mNodeList.Where(node => !node.Finished))
-			{
-				if (node.Execute(dt))
-				{
-					Finished = mNodeList.All(n => n.Finished);
-				}
-			}
-		}
-		
-		public SpawnNode(params IAction[] nodes)
-		{
-			mNodeList.AddRange (nodes);
-		}
-		
-		protected override void OnDispose()
-		{
-			foreach (var node in mNodeList)
-			{
-				node.Dispose();
-			}
-			mNodeList.Clear();
-			mNodeList = null;
-		}
-	}
+        protected override void OnReset()
+        {
+            mNodes.ForEach(node => node.Reset());
+            mFinishCount = 0;
+        }
+
+        public override void Finish()
+        {
+            mNodes.ForEachReverse(node => { node.Finish(); });
+            base.Finish();
+        }
+
+        protected override void OnExecute(float dt)
+        {
+            mNodes.ForEachReverse((node, index) =>
+            {
+                if (!node.Finished && node.Execute(dt))
+                    Finished = mNodes.Count == mFinishCount;
+            });
+        }
+
+        private int mFinishCount = 0;
+
+        private void IncreaseFinishCount()
+        {
+            mFinishCount++;
+        }
+
+        public SpawnNode(params NodeAction[] nodes)
+        {
+            mNodes.AddRange(nodes);
+            nodes.ForEach(node => { node.OnEndedCallback += IncreaseFinishCount; });
+        }
+
+        public void Add(params NodeAction[] nodes)
+        {
+            mNodes.AddRange(nodes);
+            nodes.ForEach(node => { node.OnEndedCallback += IncreaseFinishCount; });
+        }
+
+        protected override void OnDispose()
+        {
+            foreach (var node in mNodes)
+            {
+                node.OnEndedCallback -= IncreaseFinishCount;
+                node.Dispose();
+            }
+
+            mNodes.Clear();
+            mNodes = null;
+        }
+    }
 }

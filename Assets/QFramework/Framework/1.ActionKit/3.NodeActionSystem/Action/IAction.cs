@@ -34,11 +34,11 @@ namespace QFramework
     {
         bool Disposed { get; }
 
-        void Break();
-        
         bool Execute(float delta);
 
         void Reset();
+
+        void Finish();
         
         bool Finished { get; }
     }

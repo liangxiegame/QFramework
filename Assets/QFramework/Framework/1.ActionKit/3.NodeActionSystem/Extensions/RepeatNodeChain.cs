@@ -32,14 +32,14 @@ namespace QFramework
             get { return mRepeatAction; }
         }
 
-        private RepeatAction mRepeatAction;
+        private RepeatNode mRepeatAction;
 
         private SequenceNode mSequenceNode;
         
         public RepeatNodeChain(int repeatCount)
         {
-            mSequenceNode = new SequenceNode();
-            mRepeatAction = new RepeatAction(mSequenceNode,repeatCount);
+            mSequenceNode = SequenceNode.Allocate();
+            mRepeatAction = new RepeatNode(mSequenceNode,repeatCount);
         }
 
         public override IActionChain Append(IAction node)
@@ -51,12 +51,15 @@ namespace QFramework
         protected override void OnDispose()
         {
             base.OnDispose();
+
             if (null != mRepeatAction)
             {
                 mRepeatAction.Dispose();
             }
 
             mRepeatAction = null;
+
+            mSequenceNode.Dispose();
             mSequenceNode = null;
         }
     }

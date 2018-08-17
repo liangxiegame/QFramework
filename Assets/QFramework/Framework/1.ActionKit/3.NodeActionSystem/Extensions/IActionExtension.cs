@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2018.8 liangxie
+ * Copyright (c) 2017 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,38 +25,32 @@
 
 namespace QFramework
 {
+    using System.Collections;
+    using UnityEngine;
     using System;
-
-    /// <summary>
-    /// like filter, add condition
-    /// </summary>
-    public class UntilAction : NodeAction, IPoolable
+    
+    
+    public static class IActionExtension
     {
-        private Func<bool> mCondition;
-
-        public static UntilAction Allocate(Func<bool> condition)
+        public static T ExecuteNode<T>(this T selBehaviour, IAction commandNode) where T : MonoBehaviour
         {
-            var retNode = SafeObjectPool<UntilAction>.Instance.Allocate();
-            retNode.mCondition = condition;
-            return retNode;
+            selBehaviour.StartCoroutine(commandNode.Execute());
+            return selBehaviour;
         }
 
-        protected override void OnExecute(float dt)
+        public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent) where T : MonoBehaviour
         {
-            Finished = mCondition.InvokeGracefully();
+            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
         }
-
-        protected override void OnDispose()
+        
+        public static IEnumerator Execute(this IAction selfNode)
         {
-            SafeObjectPool<UntilAction>.Instance.Recycle(this);
+            if (selfNode.Finished) selfNode.Reset();
+            
+            while (!selfNode.Execute(Time.deltaTime))
+            {
+                yield return null;
+            }
         }
-
-        void IPoolable.OnRecycled()
-        {
-            Reset();
-            mCondition = null;
-        }
-
-        bool IPoolable.IsRecycled { get; set; }
     }
 }

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,18 +25,27 @@
 
 namespace QFramework
 {
-    public class RepeatAction : NodeAction
+    public class RepeatNode : NodeAction,INode
     {
-        public RepeatAction(IAction node, int repeatCount)
+        public RepeatNode(IAction node, int repeatCount)
         {
             RepeatCount = repeatCount;
             mNode = node;
+        }
+
+        public IAction CurrentExecutingNode
+        {
+            get
+            {
+                var currentNode = mNode;
+                var node = currentNode as INode;
+                return node == null ? currentNode : node.CurrentExecutingNode;
+            }
         }
         
         private IAction mNode;
         
         public int RepeatCount = 1;
-        public bool Completed = false;
 
         private int mCurRepeatCount = 0;
 
@@ -47,7 +56,7 @@ namespace QFramework
                 mNode.Reset();
             }
             mCurRepeatCount = 0;
-            Completed = false;
+            Finished = false;
         }
         
         protected override void OnExecute(float dt)
@@ -70,7 +79,6 @@ namespace QFramework
             if (mCurRepeatCount == RepeatCount)
             {
                 Finished = true;
-                Completed = true;
             }
         }
 

@@ -1,5 +1,5 @@
-/****************************************************************************
- * Copyright (c) 2017 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,32 +25,19 @@
 
 namespace QFramework
 {
-    using System.Collections;
-    using UnityEngine;
-    using System;
-    
-    
-    public static class IExecuteNodeExtension
+    /// <summary>
+    /// 启动执行节点
+    /// </summary>
+    public class ProcessNode : NodeAction
     {
-        public static T ExecuteNode<T>(this T selBehaviour, IAction commandNode) where T : MonoBehaviour
-        {
-            selBehaviour.StartCoroutine(commandNode.Execute());
-            return selBehaviour;
-        }
+        protected string mTips = "Default";
 
-        public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent) where T : MonoBehaviour
+        public virtual float Progress { get; set; }
+
+        public virtual string Tips
         {
-            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
-        }
-        
-        public static IEnumerator Execute(this IAction selfNode)
-        {
-            if (selfNode.Finished) selfNode.Reset();
-            
-            while (!selfNode.Execute(Time.deltaTime))
-            {
-                yield return null;
-            }
+            get { return mTips; }
+            set { mTips = value; }
         }
     }
 }

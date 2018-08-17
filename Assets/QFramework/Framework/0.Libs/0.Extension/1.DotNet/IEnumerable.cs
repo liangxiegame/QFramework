@@ -111,6 +111,23 @@ namespace QFramework
         }
 
         /// <summary>
+        /// Fors the each reverse.
+        /// </summary>
+        /// <returns>The each reverse.</returns>
+        /// <param name="selfList">Self list.</param>
+        /// <param name="action">Action.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T, int> action)
+        {
+            if (action == null) throw new ArgumentException();
+
+            for (var i = selfList.Count - 1; i >= 0; --i)
+                action(selfList[i], i);
+
+            return selfList;
+        }
+
+        /// <summary>
         /// 遍历列表
         /// </summary>
         /// <typeparam name="T">列表类型</typeparam>

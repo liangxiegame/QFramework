@@ -38,7 +38,6 @@ namespace QFramework
 				.Delay(1.0f)
 				.Event(() => Log.I("Sequence1 延时了 1s"))
 				.Begin()
-				.DisposeWhenFinished() // Default is DisposeWhenGameObjDestroyed
 				.OnDisposed(() => { Log.I("Sequence1 destroyed"); });
 
 			var sequenceNode2 = SequenceNode.Allocate(DelayAction.Allocate(1.5f));

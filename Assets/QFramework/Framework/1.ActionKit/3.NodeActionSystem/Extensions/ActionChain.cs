@@ -26,9 +26,7 @@
 namespace QFramework
 {
     using UnityEngine;
-    using QFramework;
     using System;
-    using UniRx;
 
     public abstract class ActionChain : NodeAction, IActionChain, IDisposeWhen
     {
@@ -38,31 +36,22 @@ namespace QFramework
 
         public abstract IActionChain Append(IAction node);
 
-        protected override void OnBegin()
-        {
-            base.OnBegin();
-
-            if (mDisposeWhenOnDestroyed)
-            {
-                this.AddTo(Executer);
-            }
-        }
-
         protected override void OnExecute(float dt)
         {
             if (mDisposeWhenCondition && mDisposeCondition.InvokeGracefully())
             {
-                Finished = true;
+                Finish();
             }
             else
             {
                 Finished = mNode.Execute(dt);
             }
+        }
 
-            if (Finished && mDisposeWhenFinished)
-            {
-                Dispose();
-            }
+        protected override void OnEnd()
+        {
+            base.OnEnd();
+            Dispose();
         }
 
         protected override void OnDispose()
@@ -70,8 +59,6 @@ namespace QFramework
             base.OnDispose();
             Executer = null;
             mDisposeWhenCondition = false;
-            mDisposeWhenFinished = false;
-            mDisposeWhenOnDestroyed = false;
             mDisposeCondition = null;
             mOnDisposedEvent.InvokeGracefully();
             mOnDisposedEvent = null;
@@ -83,34 +70,20 @@ namespace QFramework
             return this;
         }
 
-        private bool mDisposeWhenOnDestroyed = false;
-        private bool mDisposeWhenFinished = true;
         private bool mDisposeWhenCondition = false;
         private Func<bool> mDisposeCondition;
-        private System.Action mOnDisposedEvent = null;
-
-        public IDisposeEventRegister DisposeWhenGameObjDestroyed()
-        {
-            mDisposeWhenFinished = false;
-            mDisposeWhenOnDestroyed = true;
-            return this;
-        }
-
-        /// <summary>
-        /// Default
-        /// </summary>
-        /// <returns></returns>
-        public IDisposeEventRegister DisposeWhenFinished()
-        {
-            mDisposeWhenFinished = true;
-            return this;
-        }
+        private Action mOnDisposedEvent = null;
 
         public IDisposeEventRegister DisposeWhen(Func<bool> condition)
         {
-            mDisposeWhenFinished = true;
             mDisposeWhenCondition = true;
             mDisposeCondition = condition;
+            return this;
+        }
+
+        IDisposeEventRegister IDisposeEventRegister.OnFinished(Action onFinishedEvent)
+        {
+            OnEndedCallback += onFinishedEvent;
             return this;
         }
 

@@ -27,21 +27,21 @@ namespace QFramework
 {
     using System;
     using UnityEngine;
+    using UniRx;
     
-    public static class IExecuteNodeChainExtention
+    public static class IActionChainExtention
     {
         public static IActionChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
         {
             var retNodeChain = new RepeatNodeChain(count) {Executer = selfbehaviour};
-            // dispose when distroyed
-            retNodeChain.DisposeWhenGameObjDestroyed();
+            retNodeChain.AddTo(selfbehaviour);
             return retNodeChain;
         }
 
         public static IActionChain Sequence<T>(this T selfbehaviour) where T : MonoBehaviour
         {
             var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
-            retNodeChain.DisposeWhenGameObjDestroyed();
+            retNodeChain.AddTo(selfbehaviour);
             return retNodeChain;
         }
 

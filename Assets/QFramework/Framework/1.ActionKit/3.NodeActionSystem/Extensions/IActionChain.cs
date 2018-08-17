@@ -42,16 +42,13 @@ namespace QFramework
     
     public interface IDisposeWhen : IDisposeEventRegister
     {
-        IDisposeEventRegister DisposeWhenGameObjDestroyed();
-
         IDisposeEventRegister DisposeWhen(Func<bool> condition);
-
-        IDisposeEventRegister DisposeWhenFinished();
-
     }
 
     public interface IDisposeEventRegister
     {
         void OnDisposed(System.Action onDisposedEvent);
+
+        IDisposeEventRegister OnFinished(Action onFinishedEvent);
     }
 }
