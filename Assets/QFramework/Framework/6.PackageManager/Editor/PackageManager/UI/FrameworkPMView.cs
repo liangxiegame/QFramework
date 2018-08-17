@@ -100,15 +100,16 @@ namespace QFramework
 
                 if (GUILayout.Button("Import", GUILayout.Width(90)))
                 {
-                    bool deleteOlderVersion = EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否");
-
 					string path = Application.dataPath.Replace ("Assets", packageData.InstallPath);
 
-                    if (deleteOlderVersion && !string.IsNullOrEmpty(path))
+                    if (Directory.Exists(path))
                     {
-                        Directory.Delete(path, true);
+                        if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
+                        {
+                            Directory.Delete(path, true);
 
-                        AssetDatabase.Refresh();
+                            AssetDatabase.Refresh();
+                        }
                     }
 
                     EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
