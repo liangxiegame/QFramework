@@ -106,7 +106,7 @@ namespace QFramework
         {
             get
             {
-                return (Application.dataPath + "/QFrameworkData/PackageManager/").CreateDirIfNotExists() +
+                return (Application.dataPath + "/.qframework/PackageManager/").CreateDirIfNotExists() +
                        "PackageInfosRequestCache.json";
             }
         }
