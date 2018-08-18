@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * 2018.7 liangxie
+ * 2018.7 ~ 8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,10 +23,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEngine;
-
 namespace QFramework
 {
+    using UnityEngine;
+    using System.IO;
+
     public class FrameworkLocalVersion
     {
         private static readonly string SavedFilePath = Application.dataPath + "/QFramework/Framework/version.json";
@@ -40,6 +41,11 @@ namespace QFramework
         
         public static FrameworkLocalVersion Get()
         {
+            if (!File.Exists(SavedFilePath)){
+                
+                return new FrameworkLocalVersion();
+            }
+
             return SerializeHelper.LoadJson<FrameworkLocalVersion>(SavedFilePath);
         }
     }

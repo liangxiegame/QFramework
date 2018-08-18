@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 liangxie
+ * Copyright (c) 2018.7 ~ 8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -61,12 +61,12 @@ namespace QFramework
 
             if (GUILayout.Button("Manage Package"))
             {
-                Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/");
+                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/");
             }
 
             if (GUILayout.Button("Upload Package"))
             {
-                Application.OpenURL("http://liangxiegame.com/admin/demo/packagefile/add/");
+                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/add/");
             }
 
             GUILayout.EndHorizontal();
