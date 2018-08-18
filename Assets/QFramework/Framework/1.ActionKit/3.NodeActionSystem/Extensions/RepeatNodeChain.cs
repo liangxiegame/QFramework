@@ -38,7 +38,7 @@ namespace QFramework
         
         public RepeatNodeChain(int repeatCount)
         {
-            mSequenceNode = SequenceNode.Allocate();
+            mSequenceNode = new SequenceNode();
             mRepeatAction = new RepeatNode(mSequenceNode,repeatCount);
         }
 

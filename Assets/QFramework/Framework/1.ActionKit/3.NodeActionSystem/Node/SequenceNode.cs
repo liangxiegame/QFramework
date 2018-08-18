@@ -27,13 +27,12 @@ namespace QFramework
 {
 	using System.Collections.Generic;
 
-	/// <inheritdoc />
 	/// <summary>
 	/// 序列执行节点
 	/// </summary>
-    public class SequenceNode : NodeAction ,IPoolable, INode
+	public class SequenceNode : NodeAction ,INode
 	{
-		protected readonly List<IAction> mNodes = new List<IAction>();
+		protected readonly List<IAction> mNodes         = new List<IAction>();
 		protected readonly List<IAction> mExcutingNodes = new List<IAction>();
 		
 		public int TotalCount
@@ -41,15 +40,16 @@ namespace QFramework
 			get { return mExcutingNodes.Count; }
 		}
 
-        public IAction CurrentExecutingNode
-        {
-            get
-            {
-                var currentNode = mExcutingNodes[0];
-                var node = currentNode as INode;
-                return node == null ? currentNode : node.CurrentExecutingNode;
-            }
-        }
+		public IAction CurrentExecutingNode
+		{
+			get
+			{
+				var currentNode = mExcutingNodes[0];
+				var node = currentNode as INode;
+				Log.E(node);
+				return node == null ? currentNode : node.CurrentExecutingNode;
+			}
+		}
 
 		protected override void OnReset()
 		{
@@ -71,42 +71,33 @@ namespace QFramework
 					Dispose();
 					return;
 				}
- 
+
 				while (mExcutingNodes[0].Execute(dt))
 				{
 					mExcutingNodes.RemoveAt(0);
-  
+
+					OnCurrentActionFinished();
+
 					if (mExcutingNodes.Count == 0)
 					{
 						break;
 					}
 				}
 			}
- 
+
 			Finished = mExcutingNodes.Count == 0;
 		}
 
-        protected virtual void OnCurrentActionFinished() { }
+		protected virtual void OnCurrentActionFinished() {}
 
-		public static SequenceNode Allocate(params IAction[] nodes)
+		public SequenceNode(params IAction[] nodes)
 		{
-			var retNode = SafeObjectPool<SequenceNode>.Instance.Allocate();
-
 			foreach (var node in nodes)
 			{
-				retNode.mNodes.Add(node);
-				retNode.mExcutingNodes.Add(node);
+				mNodes.Add(node);
+				mExcutingNodes.Add(node);
 			}
-
-			return retNode;
 		}
-
-
-		/// <summary>
-		/// 不建议使用
-		/// </summary>
-        [System.Obsolete("请使用 Allocate")]
-		public SequenceNode(){}
 
 		public SequenceNode Append(IAction appendedNode)
 		{
@@ -119,17 +110,16 @@ namespace QFramework
 		{
 			base.OnDispose();
 			
-			SafeObjectPool<SequenceNode>.Instance.Recycle(this);
-		}
+			if (null != mNodes)
+			{
+				mNodes.ForEach(node => node.Dispose());
+				mNodes.Clear();
+			}
 
-		void IPoolable.OnRecycled()
-		{
-			mNodes.ForEach(node => node.Dispose());
-			mNodes.Clear();
-
-			mExcutingNodes.Clear();
-		}
-
-		bool IPoolable.IsRecycled { get; set; }
+			if (null != mExcutingNodes)
+			{
+				mExcutingNodes.Clear();
+			}
+		}	
 	}
 }

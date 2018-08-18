@@ -30,12 +30,11 @@ namespace QFramework
 	public class NodeActionSystem
 	{
 		[RuntimeInitializeOnLoadMethod]
-		static void InitNodeSystem()
+		private static void InitNodeSystem()
 		{
 			// cache list			
 			
 			// cache node
-			SafeObjectPool<SequenceNode>.Instance.Init(20, 20);
 			SafeObjectPool<DelayAction>.Instance.Init(50, 50);
 			SafeObjectPool<EventAction>.Instance.Init(50, 50);
 		}

@@ -40,7 +40,7 @@ namespace QFramework
 				.Begin()
 				.OnDisposed(() => { Log.I("Sequence1 destroyed"); });
 
-			var sequenceNode2 = SequenceNode.Allocate(DelayAction.Allocate(1.5f));
+			var sequenceNode2 = new SequenceNode(DelayAction.Allocate(1.5f));
 			sequenceNode2.Append(EventAction.Allocate(() => Log.I("Sequence2 延时 1.5s")));
 			sequenceNode2.Append(DelayAction.Allocate(0.5f));
 			sequenceNode2.Append(EventAction.Allocate(() => Log.I("Sequence2 延时 2.0s")));
@@ -61,7 +61,7 @@ namespace QFramework
 			
 		}
 
-		private SequenceNode mSequenceNode3 = SequenceNode.Allocate(
+		private SequenceNode mSequenceNode3 = new SequenceNode(
 			DelayAction.Allocate(3.0f),
 			EventAction.Allocate(() => { Log.I("Sequence3 延时 3.0f"); }));
 

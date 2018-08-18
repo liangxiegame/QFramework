@@ -39,7 +39,7 @@ namespace QFramework
 
         public SequenceNodeChain()
         {
-            mSequenceNode = SafeObjectPool<SequenceNode>.Instance.Allocate();
+            mSequenceNode = new SequenceNode();
         }
 
         public override IActionChain Append(IAction node)

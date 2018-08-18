@@ -27,6 +27,7 @@ namespace QFramework
 {
     using System;
 
+    /// <inheritdoc />
     /// <summary>
     /// like filter, add condition
     /// </summary>
