@@ -121,7 +121,7 @@ namespace QFramework
 			foreach (var objInfo in panelCodeData.MarkedObjInfos)
 			{
 				var strUIType = objInfo.MarkObj.ComponentName;
-				strBuilder.AppendFormat("\t\tpublic {0} {1};\r\n",
+				strBuilder.AppendFormat("\t\t[SerializeField] public {0} {1};\r\n",
 					strUIType, objInfo.Name);
 			}
 
