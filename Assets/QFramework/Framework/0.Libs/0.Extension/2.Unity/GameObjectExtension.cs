@@ -177,12 +177,12 @@ namespace QFramework
 
         #endregion
 		
-	#region CEGO007 Component
+		#region CEGO007 Component
 
         public static T GetOrAddComponent<T>(this GameObject selfComponent) where T : Component
         {
             var comp = selfComponent.gameObject.GetComponent<T>();
-            return !comp ? comp : selfComponent.gameObject.AddComponent<T>();
+            return comp ? comp : selfComponent.gameObject.AddComponent<T>();
         }
 
         #endregion
