@@ -36,7 +36,7 @@ namespace QFramework
 
         public FrameworkLocalVersion FrameworkLocalVersion;
 
-        [MenuItem("Assets/@QPM - Make Package")]
+        [MenuItem("Assets/@QPM - Make Package",priority = 0)]
         static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -79,8 +79,8 @@ namespace QFramework
             }
         }
         
-        [MenuItem("Assets/@QPM - Export Pacakge")]
-        static void ExportPacakge()
+        [MenuItem("Assets/@QPM - Export Pacakge",priority = 1)]
+        private static void ExportPacakge()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
 
@@ -115,14 +115,14 @@ namespace QFramework
 
         public void OnGUI()
         {
-            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(600), GUILayout.Height(480));
-
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
+            
+
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
             DrawWithServer();
-
+            
             GUILayout.BeginHorizontal();
 
             if (GUILayout.Button("Manage Package"))
@@ -136,10 +136,9 @@ namespace QFramework
             }
 
             GUILayout.EndHorizontal();
-
+            
             GUILayout.EndVertical();
 
-            GUILayout.EndScrollView();
         }
 
         private void DrawWithServer()
@@ -154,6 +153,8 @@ namespace QFramework
             GUILayout.EndHorizontal();
 
             GUILayout.BeginVertical("box");
+            
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, false, true, GUILayout.Height(240));
 
             foreach (var packageData in mPackageDatas)
             {
@@ -194,9 +195,12 @@ namespace QFramework
                 GUILayout.EndHorizontal();
             }
 
+            GUILayout.EndScrollView();
+
             GUILayout.Space(2);
 
             GUILayout.EndVertical();
+            
         }
 
         private void ShowReadMe(string readmeContet)

@@ -33,10 +33,10 @@ namespace QFramework
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
-			var frameworkConfigEditorWindow = (PreferencesWindow) EditorWindow.GetWindow(typeof(PreferencesWindow), true);
+			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
-			frameworkConfigEditorWindow.position = new Rect(100, 100, 600, 500);
+			frameworkConfigEditorWindow.position = new Rect(100, 100, 590, 460);
 			frameworkConfigEditorWindow.Init();
 			frameworkConfigEditorWindow.Show();
 		}
