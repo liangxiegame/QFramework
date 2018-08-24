@@ -36,14 +36,76 @@ namespace QFramework
 
         public FrameworkLocalVersion FrameworkLocalVersion;
 
+        [MenuItem("Assets/@QPM - Make Package")]
+        static void MakePackage()
+        {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (path.IsNotNullAndEmpty())
+            {
+                if (Directory.Exists(path))
+                {
+                    var installPath = string.Empty;
+
+                    if (path.EndsWith("/"))
+                    {
+                        installPath = path;
+                    }
+                    else
+                    {
+                        installPath = path + "/";
+                    }
+
+                    new PackageVersion()
+                    {
+                        InstallPath = installPath,
+                        Version = "v0.0.0" 
+                    }.Save();
+                }
+            }
+        }
+        
+        [MenuItem("Assets/QPM - Export Pacakge")]
+        static void ExportPacakge()
+        {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (path.IsNotNullAndEmpty())
+            {
+                if (Directory.Exists(path))
+                {
+                    var installPath = string.Empty;
+
+                    if (path.EndsWith("/"))
+                    {
+                        installPath = path;
+                    }
+                    else
+                    {
+                        installPath = path + "/";
+                    }
+
+                    var packageVersion = PackageVersion.Load(installPath);
+
+                    var fileName = "/Users/liangxie/Desktop/" + packageVersion.Name + "_" + packageVersion.Version;
+                    AssetDatabase.ExportPackage(packageVersion.InstallPath,fileName,ExportPackageOptions.Recurse);
+
+                }
+            }   
+        }
+
+
         public void Init()
         {
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
+            InstalledPackageVersions.Reload();
+
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
-        }
+
+        }                
 
         private Vector2 mScrollPos;
 
@@ -74,7 +136,6 @@ namespace QFramework
             GUILayout.EndVertical();
 
             GUILayout.EndScrollView();
-
         }
 
         private void DrawWithServer()
@@ -96,23 +157,34 @@ namespace QFramework
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(packageData.Name, GUILayout.Width(150));
                 GUILayout.Label(packageData.Version, GUILayout.Width(100));
-                GUILayout.Label(" ", GUILayout.Width(100));
+                var insalledPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
+                GUILayout.Label(insalledPackage != null ? insalledPackage.Version : " ", GUILayout.Width(90));
 
-                if (GUILayout.Button("Import", GUILayout.Width(90)))
+                if (insalledPackage != null && packageData.VersionNumber > insalledPackage.VersionNumber)
                 {
-					string path = Application.dataPath.Replace ("Assets", packageData.InstallPath);
-
-                    if (Directory.Exists(path))
+                    if (GUILayout.Button("Update", GUILayout.Width(90)))
                     {
-                        if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
+                        var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
+
+                        if (Directory.Exists(path))
                         {
-                            Directory.Delete(path, true);
+                            if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
+                            {
+                                Directory.Delete(path, true);
 
-                            AssetDatabase.Refresh();
+                                AssetDatabase.Refresh();
+                            }
                         }
-                    }
 
-                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("Import", GUILayout.Width(90)))
+                    {
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
                 }
 
                 GUILayout.EndHorizontal();

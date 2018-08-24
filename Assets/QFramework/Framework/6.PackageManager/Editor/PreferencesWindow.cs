@@ -33,7 +33,7 @@ namespace QFramework
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
-			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
+			var frameworkConfigEditorWindow = (PreferencesWindow) EditorWindow.GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
 			frameworkConfigEditorWindow.position = new Rect(100, 100, 600, 500);
@@ -63,6 +63,7 @@ namespace QFramework
 		{
 			GUILayout.Label("UI Kit Settings:");
 			GUILayout.BeginVertical("box");
+			
 			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", CurSettingData.Namespace);
 			CurSettingData.UIScriptDir =
 				EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", CurSettingData.UIScriptDir);

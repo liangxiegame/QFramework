@@ -31,36 +31,52 @@ using System.IO;
 
 namespace QFramework
 {
-	public class UpdatePackage : NodeAction
+	public class InstallPackage : NodeAction
 	{
-		private readonly string mUrl;
-		private readonly string mPackageName;
+		private PackageData mRequestPackageData;
 
-		public UpdatePackage(string url, string packageName)
+		public InstallPackage(PackageData requestPackageData)
 		{
-			mUrl = url;
-			mPackageName = packageName;
+			mRequestPackageData = requestPackageData;
 		}
 
 		protected override void OnBegin()
 		{
 			base.OnBegin();
 
-			string tempFile = mPackageName + ".unitypackage";
+			var tempFile = mRequestPackageData.Name + ".unitypackage";
 
-			Debug.Log(mUrl + ">>>>>>:");
+			Debug.Log(mRequestPackageData.DownloadUrl + ">>>>>>:");
 
-			EditorUtility.DisplayProgressBar("插件更新", "插件下载中....", 0.5f);
+			EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.5f);
 
-			WebClient client = new WebClient();
+			var client = new WebClient();
 
-			client.DownloadFile(new Uri(mUrl), tempFile);
+			client.DownloadProgressChanged += OnProgressChanged;
+
+			client.DownloadFile(new Uri(mRequestPackageData.DownloadUrl), tempFile);
+
+			client.DownloadProgressChanged -= OnProgressChanged;
 
 			EditorUtility.ClearProgressBar();
 
 			AssetDatabase.ImportPackage(tempFile, true);
 
 			File.Delete(tempFile);
+			
+			mRequestPackageData.SaveVersionFile();
+
+			AssetDatabase.Refresh();
+
+			InstalledPackageVersions.Reload();
+		}
+
+		void OnProgressChanged(object obj, DownloadProgressChangedEventArgs args)
+		{
+			EditorUtility.DisplayProgressBar("插件更新",
+				"插件下载中 {0} m/{1} m....".FillFormat(args.BytesReceived / 1024 / 1024,
+					args.TotalBytesToReceive / 1024 / 1024), args.BytesReceived / args.TotalBytesToReceive);
+
 		}
 	}
 }

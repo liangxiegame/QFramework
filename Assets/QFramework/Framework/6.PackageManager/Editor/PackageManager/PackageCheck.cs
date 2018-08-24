@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 liangxie
+ * Copyright (c) 2018.7 ~ 8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,6 +23,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -88,8 +91,6 @@ namespace QFramework
 			mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
 		}
 
-
-
 		private bool ReCheckConfigDatas()
 		{
 			mCheckInterval = 60;
@@ -105,9 +106,9 @@ namespace QFramework
 				{
 					return;
 				}
-				if (packageDatas.Count != PackageInfosRequestCache.Get().PackageDatas.Count)
+
+				if (ArePackageEqual(packageDatas))
 				{
-					ShowDisplayDialog();
 
 				}
 			}));
@@ -116,11 +117,32 @@ namespace QFramework
 			GoToWait();
 		}
 
+		bool ArePackageEqual(List<PackageData> requestPackageDatas)
+		{
+			foreach (var requestPackageData in requestPackageDatas)
+			{
+				var installedPackageVersion = InstalledPackageVersions.Get()
+					.Find(packageVersion => packageVersion.Name == requestPackageData.Name);
 
-		public static void ShowDisplayDialog()
+				if (installedPackageVersion == null)
+				{
+					Log.I("有新的插件更新");
+				}
+				else if (!requestPackageData.Installed ||
+				         requestPackageData.VersionNumber <= installedPackageVersion.VersionNumber) continue;
+
+				ShowDisplayDialog(requestPackageData.Name);
+				return false;
+			}
+
+			return true;
+		}
+
+
+		public static void ShowDisplayDialog(string packageName)
 		{
 			var result = EditorUtility.DisplayDialog("PackageManager",
-				"有插件更新,请前往查看",
+				"{0} 有新版本更新,请前往查看".FillFormat(packageName),
 				"前往查看", "稍后查看");
 
 			if (result)

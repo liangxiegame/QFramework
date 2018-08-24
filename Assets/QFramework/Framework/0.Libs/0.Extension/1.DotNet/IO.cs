@@ -477,7 +477,7 @@ namespace QFramework
 			var name = absOrAssetsPath.Replace("\\", "/");
 			var dirs = name.Split('/');
 
-			return dirs[dirs.Length - 2];
+			return absOrAssetsPath.EndsWith("/") ? dirs[dirs.Length - 2] : dirs[dirs.Length - 1];
 		}
 
 		#endregion
