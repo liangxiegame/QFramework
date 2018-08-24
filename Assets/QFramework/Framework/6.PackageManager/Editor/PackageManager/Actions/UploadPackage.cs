@@ -34,8 +34,37 @@ namespace QFramework
 {
     public static class UploadPackage
     {
-        private const string LOGIN_URL  = "http://liangxiegame.com/xadmin/login/";
-        private const string UPLOAD_URL = "http://liangxiegame.com/framework_package/upload_package/";
+        private static string LOGIN_URL
+        {
+            get {
+                if (mIsTest)
+                {
+                    return "http://127.0.0.1:8000/xadmin/login/";
+                }
+                else
+                {
+                    return "http://liangxiegame.com/xadmin/login/";
+                }
+            }
+        }
+
+        private static string UPLOAD_URL
+        {
+            get
+            {
+                if (mIsTest)
+                {
+                    return "http://127.0.0.1:8000/framework_package/upload_package/";
+
+                }
+                else
+                {
+                    return "http://liangxiegame.com/framework_package/upload_package/";
+                }
+            }
+        }
+
+        private const bool mIsTest = false;
 
         public static IEnumerator DoUpload(string username, string password, PackageVersion packageVersion,Action succeed)
         {
