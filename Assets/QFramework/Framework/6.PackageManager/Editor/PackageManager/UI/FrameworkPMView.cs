@@ -65,7 +65,21 @@ namespace QFramework
             }
         }
         
-        [MenuItem("Assets/QPM - Export Pacakge")]
+        
+        
+        private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
+
+        public static void ExportPaths(string exportPackageName,params string[] paths)
+        {
+            if (Directory.Exists(paths[0]))
+            {
+                AssetDatabase.ExportPackage(paths,
+                    EXPORT_ROOT_DIR.CombinePath(exportPackageName), ExportPackageOptions.Recurse);
+                AssetDatabase.Refresh();
+            }
+        }
+        
+        [MenuItem("Assets/@QPM - Export Pacakge")]
         static void ExportPacakge()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -74,26 +88,16 @@ namespace QFramework
             {
                 if (Directory.Exists(path))
                 {
-                    var installPath = string.Empty;
+                    var packageVersion = PackageVersion.Load(path);
 
-                    if (path.EndsWith("/"))
-                    {
-                        installPath = path;
-                    }
-                    else
-                    {
-                        installPath = path + "/";
-                    }
-
-                    var packageVersion = PackageVersion.Load(installPath);
-
-                    var fileName = "/Users/liangxie/Desktop/" + packageVersion.Name + "_" + packageVersion.Version;
-                    AssetDatabase.ExportPackage(packageVersion.InstallPath,fileName,ExportPackageOptions.Recurse);
-
+                    var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
+  
+                    ExportPaths(fileName,path);
+                 
+                    OpenInFileBrowser.Open(EXPORT_ROOT_DIR);
                 }
             }   
         }
-
 
         public void Init()
         {

@@ -107,9 +107,9 @@ namespace QFramework
 					return;
 				}
 
-				if (ArePackageEqual(packageDatas))
+				if (CheckNewVersionDialog(packageDatas,PackageInfosRequestCache.Get().PackageDatas))
 				{
-
+					
 				}
 			}));
 			
@@ -117,29 +117,36 @@ namespace QFramework
 			GoToWait();
 		}
 
-		bool ArePackageEqual(List<PackageData> requestPackageDatas)
+		private static bool CheckNewVersionDialog(List<PackageData> requestPackageDatas,List<PackageData> cachedPackageDatas)
 		{
 			foreach (var requestPackageData in requestPackageDatas)
 			{
+				var cachedPacakgeData =
+					cachedPackageDatas.Find(packageData => packageData.Name == requestPackageData.Name);
+
 				var installedPackageVersion = InstalledPackageVersions.Get()
 					.Find(packageVersion => packageVersion.Name == requestPackageData.Name);
 
 				if (installedPackageVersion == null)
 				{
-					Log.I("有新的插件更新");
 				}
-				else if (!requestPackageData.Installed ||
-				         requestPackageData.VersionNumber <= installedPackageVersion.VersionNumber) continue;
+				else if (cachedPacakgeData == null &&
+				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
+				         cachedPacakgeData != null && requestPackageData.Installed &&
+				         requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
+				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
+				{
 
-				ShowDisplayDialog(requestPackageData.Name);
-				return false;
+					ShowDisplayDialog(requestPackageData.Name);
+					return false;
+				}
 			}
 
 			return true;
 		}
 
 
-		public static void ShowDisplayDialog(string packageName)
+		private static void ShowDisplayDialog(string packageName)
 		{
 			var result = EditorUtility.DisplayDialog("PackageManager",
 				"{0} 有新版本更新,请前往查看".FillFormat(packageName),
