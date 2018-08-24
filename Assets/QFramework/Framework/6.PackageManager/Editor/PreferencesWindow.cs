@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using EditorCoroutines;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -56,7 +58,7 @@ namespace QFramework
 		private void Init()
 		{
 			mPMView = new FrameworkPMView();
-			mPMView.Init();
+			mPMView.Init(this);
 		}
 
 		private void OnGUI()
@@ -78,6 +80,9 @@ namespace QFramework
 			GUILayout.EndVertical();
 
 			mPMView.OnGUI();
+			
+			
+			
 		}
 	}
 }

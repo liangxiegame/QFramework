@@ -24,46 +24,78 @@
  ****************************************************************************/
 
 using System;
-using System.Collections.Specialized;
+using System.Collections;
+using System.IO;
+using System.Text.RegularExpressions;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace QFramework
 {
-    public class UploadPackage : NodeAction
+    public static class UploadPackage
     {
-        private Action<string> mOnUpload;
+        private const string LOGIN_URL  = "http://liangxiegame.com/xadmin/login/";
+        private const string UPLOAD_URL = "http://liangxiegame.com/framework_package/upload_package/";
 
-        private string mName;
-        private string mType;
-        private string mVersion;
-        private string mReadme;
-        private string mRemoteUrl;
-        private string mFilePath;
-
-        public UploadPackage(string remoteUrl,string name, string type, string version, string readme, string filePath,Action<string> onUpload = null)
+        public static IEnumerator DoUpload(string username, string password, PackageVersion packageVersion,Action succeed)
         {
-            mName = name;
-            mType = type;
-            mVersion = version;
-            mReadme = readme;
-            mRemoteUrl = remoteUrl;
-            mFilePath = filePath;
-            mOnUpload = onUpload;
-        }
-        
-        protected override void OnBegin()
-        {
-            base.OnBegin();
+            var loginPage = UnityWebRequest.Get(LOGIN_URL);
 
-            NameValueCollection postContent = new NameValueCollection
+            yield return loginPage.Send();
+
+            if (loginPage.isError)
             {
-                {"name", mName},
-                {"type", mType},
-                {"version", mVersion},
-                {"readme", mReadme}
-            };
-            string result = HttpHelper.HttpUploadFile(mRemoteUrl, mFilePath, postContent);
+                Debug.Log(loginPage.error);
+                yield break;
+            }
 
-            mOnUpload.InvokeGracefully(result);
+            // get the csrf cookie
+            var SetCookie = loginPage.GetResponseHeader("set-cookie");
+            var rxCookie = new Regex("csrftoken=(?<csrf_token>.{64});");
+            var cookieMatches = rxCookie.Matches(SetCookie);
+            var csrfCookie = cookieMatches[0].Groups["csrf_token"].Value;
+
+            // get the middleware value
+//            var loginPageHtml = loginPage.downloadHandler.text;
+//            var rxMiddleware = new Regex("name='csrfmiddlewaretoken' value='(?<csrf_token>.{64})'");
+//            var middlewareMatches = rxMiddleware.Matches(loginPageHtml);
+//            string csrfMiddlewareToken = middlewareMatches[0].Groups["csrf_token"].Value;
+
+            /*
+             * Make a login request.
+             */
+
+            var form = new WWWForm();
+            var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
+            var fullpath = FrameworkPMView.ExportPaths(fileName, packageVersion.InstallPath);
+            var file = File.ReadAllBytes(fullpath);
+
+            form.AddField("username", username);
+            form.AddField("password", password);
+
+            form.AddField("name", packageVersion.Name);
+            form.AddField("file_name", fileName);
+            form.AddBinaryData("file", file);
+            form.AddField("version", packageVersion.Version);
+
+            UnityWebRequest doLogin3 =
+                UnityWebRequest.Post(UPLOAD_URL, form);
+            doLogin3.SetRequestHeader("cookie", "csrftoken=" + csrfCookie);
+            doLogin3.SetRequestHeader("X-CSRFToken", csrfCookie);
+
+            File.Delete(fullpath);
+
+            yield return doLogin3.Send();
+
+            if (doLogin3.isError)
+            {
+                Log.E(doLogin3.error);
+            }
+            else
+            {
+                Log.I(doLogin3.downloadHandler.text);
+                succeed.InvokeGracefully();
+            }
         }
     }
 }

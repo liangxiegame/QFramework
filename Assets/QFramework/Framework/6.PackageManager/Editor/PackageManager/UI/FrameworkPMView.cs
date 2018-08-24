@@ -25,6 +25,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
 
@@ -69,14 +70,24 @@ namespace QFramework
         
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
-        public static void ExportPaths(string exportPackageName,params string[] paths)
+        public static string ExportPaths(string exportPackageName,params string[] paths)
         {
             if (Directory.Exists(paths[0]))
             {
+                if (paths[0].EndsWith("/"))
+                {
+                    paths[0] = paths[0].Remove(paths[0].Length - 1);
+                }
+                
+                var filePath = EXPORT_ROOT_DIR.CombinePath(exportPackageName);
                 AssetDatabase.ExportPackage(paths,
-                    EXPORT_ROOT_DIR.CombinePath(exportPackageName), ExportPackageOptions.Recurse);
+                    filePath, ExportPackageOptions.Recurse);
                 AssetDatabase.Refresh();
+
+                return filePath;
             }
+
+            return string.Empty;
         }
         
         [MenuItem("Assets/@QPM - Export Pacakge",priority = 1)]
@@ -99,8 +110,12 @@ namespace QFramework
             }   
         }
 
-        public void Init()
+        private EditorWindow mWindow;
+        
+        public void Init(EditorWindow window)
         {
+            mWindow = window;
+            
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
@@ -109,6 +124,9 @@ namespace QFramework
 
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
 
+
+            mUserName = EditorPrefs.GetString("username", string.Empty);
+            mPassword = EditorPrefs.GetString("password", string.Empty);
         }                
 
         private Vector2 mScrollPos;
@@ -139,8 +157,16 @@ namespace QFramework
             
             GUILayout.EndVertical();
 
+
+            GUILayout.Space(50);
+
+            mUserName = EditorGUIUtils.GUILabelAndTextField("username:", mUserName);
+            mPassword = EditorGUIUtils.GUILabelAndTextField("password:", mPassword);
         }
 
+        private string mUserName = string.Empty;
+        private string mPassword = string.Empty;
+        
         private void DrawWithServer()
         {
             // 这里开始具体的内容
@@ -182,6 +208,23 @@ namespace QFramework
                         }
 
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
+                }
+                else if (insalledPackage != null && packageData.VersionNumber < insalledPackage.VersionNumber)
+                {
+                    if (GUILayout.Button("Upload", GUILayout.Width(90)))
+                    {
+                        EditorPrefs.SetString("username",mUserName);
+                        EditorPrefs.SetString("password",mPassword);
+                        
+                        mWindow.StartCoroutine(UploadPackage.DoUpload(mUserName, mPassword, insalledPackage,
+                            () =>
+                            {
+                                EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
+                                {
+                                    mPackageDatas = packageDatas;
+                                }));
+                            }));
                     }
                 }
                 else
