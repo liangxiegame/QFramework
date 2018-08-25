@@ -62,6 +62,8 @@ namespace QFramework
                         InstallPath = installPath,
                         Version = "v0.0.0" 
                     }.Save();
+                    
+                    AssetDatabase.Refresh();
                 }
             }
         }
