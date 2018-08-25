@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -82,8 +81,6 @@ namespace QFramework
         {
             PackageVersions.First().Save();
         }
-
-
     }
 
     [Serializable]
@@ -112,6 +109,13 @@ namespace QFramework
         public string DownloadUrl;
 
 		public string InstallPath = "Assets/QFramework/Framework/";
+
+        public string FileName
+        {
+            get { return Name + "_" + Version + ".unitypackage"; }
+        }
+
+        public ReleaseItem Readme = new ReleaseItem();
 
         public void Save()
         {

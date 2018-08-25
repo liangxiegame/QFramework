@@ -27,10 +27,7 @@ namespace QFramework
         {
             if (items == null)
             {
-
-                items = new List<ReleaseItem>();
-                items.Add(pluginReadme);
-
+                items = new List<ReleaseItem> {pluginReadme};
             }
             else
             {

@@ -57,7 +57,7 @@ namespace QFramework
                         installPath = path + "/";
                     }
 
-                    new PackageVersion()
+                    new PackageVersion
                     {
                         InstallPath = installPath,
                         Version = "v0.0.0" 
@@ -67,8 +67,6 @@ namespace QFramework
                 }
             }
         }
-        
-        
         
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
@@ -125,10 +123,6 @@ namespace QFramework
             InstalledPackageVersions.Reload();
 
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
-
-
-            mUserName = EditorPrefs.GetString("username", string.Empty);
-            mPassword = EditorPrefs.GetString("password", string.Empty);
         }                
 
         private Vector2 mScrollPos;
@@ -143,31 +137,11 @@ namespace QFramework
 
             DrawWithServer();
             
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Manage Package"))
-            {
-                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/");
-            }
-
-            if (GUILayout.Button("Upload Package"))
-            {
-                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/add/");
-            }
-
-            GUILayout.EndHorizontal();
-            
             GUILayout.EndVertical();
 
 
             GUILayout.Space(50);
-
-            mUserName = EditorGUIUtils.GUILabelAndTextField("username:", mUserName);
-            mPassword = EditorGUIUtils.GUILabelAndTextField("password:", mPassword);
         }
-
-        private string mUserName = string.Empty;
-        private string mPassword = string.Empty;
         
         private void DrawWithServer()
         {
@@ -210,23 +184,6 @@ namespace QFramework
                         }
 
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                    }
-                }
-                else if (insalledPackage != null && packageData.VersionNumber < insalledPackage.VersionNumber)
-                {
-                    if (GUILayout.Button("Upload", GUILayout.Width(90)))
-                    {
-                        EditorPrefs.SetString("username",mUserName);
-                        EditorPrefs.SetString("password",mPassword);
-                        
-                        mWindow.StartCoroutine(UploadPackage.DoUpload(mUserName, mPassword, insalledPackage,
-                            () =>
-                            {
-                                EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
-                                {
-                                    mPackageDatas = packageDatas;
-                                }));
-                            }));
                     }
                 }
                 else
