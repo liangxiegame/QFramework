@@ -25,6 +25,7 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
@@ -192,6 +193,11 @@ namespace QFramework
                     {
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
                     }
+                }
+                
+                if (GUILayout.Button("Readme", GUILayout.Width(90)))
+                {
+                    ShowReadMe(packageData.PackageVersions.First().Readme.content);
                 }
 
                 GUILayout.EndHorizontal();
