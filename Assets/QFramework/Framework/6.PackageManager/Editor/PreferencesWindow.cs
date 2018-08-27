@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using EditorCoroutines;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -36,7 +38,7 @@ namespace QFramework
 			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
-			frameworkConfigEditorWindow.position = new Rect(100, 100, 600, 500);
+			frameworkConfigEditorWindow.position = new Rect(100, 100, 590, 460);
 			frameworkConfigEditorWindow.Init();
 			frameworkConfigEditorWindow.Show();
 		}
@@ -56,13 +58,14 @@ namespace QFramework
 		private void Init()
 		{
 			mPMView = new FrameworkPMView();
-			mPMView.Init();
+			mPMView.Init(this);
 		}
 
 		private void OnGUI()
 		{
 			GUILayout.Label("UI Kit Settings:");
 			GUILayout.BeginVertical("box");
+			
 			CurSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", CurSettingData.Namespace);
 			CurSettingData.UIScriptDir =
 				EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", CurSettingData.UIScriptDir);
@@ -77,6 +80,9 @@ namespace QFramework
 			GUILayout.EndVertical();
 
 			mPMView.OnGUI();
+			
+			
+			
 		}
 	}
 }

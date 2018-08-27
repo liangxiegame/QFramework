@@ -1,9 +1,9 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 liangxie
+ * Copyright (c) 2018.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,44 +23,50 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEngine;
-using System.Net;
-using System;
 using UnityEditor;
-using System.IO;
 
 namespace QFramework
 {
-	public class UpdatePackage : NodeAction
-	{
-		private readonly string mUrl;
-		private readonly string mPackageName;
+    public class User
+    {
+        private static string mUsername;
+        private static string mPassword;
 
-		public UpdatePackage(string url, string packageName)
-		{
-			mUrl = url;
-			mPackageName = packageName;
-		}
+        public static string Username
+        {
+            get
+            {
+                if (mUsername.IsNullOrEmpty())
+                {
+                    mUsername = EditorPrefs.GetString("username",string.Empty);
+                }
 
-		protected override void OnBegin()
-		{
-			base.OnBegin();
+                return mUsername;
+            }
+            set { mUsername = value; }
+        }
 
-			string tempFile = mPackageName + ".unitypackage";
+        public static string Password
+        {
+            get
+            {
+                if (mPassword.IsNullOrEmpty())
+                {
+                    mPassword = EditorPrefs.GetString("password", string.Empty);
+                }
 
-			Debug.Log(mUrl + ">>>>>>:");
+                return mPassword;
+            }
 
-			EditorUtility.DisplayProgressBar("插件更新", "插件下载中....", 0.5f);
+            set { mPassword = value; }
+        }
 
-			WebClient client = new WebClient();
 
-			client.DownloadFile(new Uri(mUrl), tempFile);
-
-			EditorUtility.ClearProgressBar();
-
-			AssetDatabase.ImportPackage(tempFile, true);
-
-			File.Delete(tempFile);
-		}
-	}
+        public static void Save()
+        {
+            EditorPrefs.SetString("username",mUsername);
+            EditorPrefs.SetString("password",mPassword);
+        }
+        
+    }
 }

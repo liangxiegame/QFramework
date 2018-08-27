@@ -1,0 +1,14 @@
+{
+  "Version": "v0.0.6",
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
+  "Readme": {
+    "version": "v0.0.6",
+    "content": "修改界面",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-08-25"
+  },
+  "Name": "6.PackageManager",
+  "VersionNumber": 6,
+  "FileName": "6.PackageManager_v0.0.6.unitypackage"
+}

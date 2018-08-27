@@ -160,7 +160,6 @@ namespace QFramework
             request.Method = "POST";
             request.KeepAlive = true;
             request.Credentials = CredentialCache.DefaultCredentials;
-
             using (Stream stream = request.GetRequestStream())
             {
                 //1.1 key/value

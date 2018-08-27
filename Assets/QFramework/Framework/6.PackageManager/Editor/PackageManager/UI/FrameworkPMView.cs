@@ -25,6 +25,8 @@
 
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
 
@@ -36,47 +38,112 @@ namespace QFramework
 
         public FrameworkLocalVersion FrameworkLocalVersion;
 
-        public void Init()
+        [MenuItem("Assets/@QPM - Make Package",priority = 0)]
+        static void MakePackage()
         {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (path.IsNotNullAndEmpty())
+            {
+                if (Directory.Exists(path))
+                {
+                    var installPath = string.Empty;
+
+                    if (path.EndsWith("/"))
+                    {
+                        installPath = path;
+                    }
+                    else
+                    {
+                        installPath = path + "/";
+                    }
+
+                    new PackageVersion
+                    {
+                        InstallPath = installPath,
+                        Version = "v0.0.0" 
+                    }.Save();
+                    
+                    AssetDatabase.Refresh();
+                }
+            }
+        }
+        
+        private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
+
+        public static string ExportPaths(string exportPackageName,params string[] paths)
+        {
+            if (Directory.Exists(paths[0]))
+            {
+                if (paths[0].EndsWith("/"))
+                {
+                    paths[0] = paths[0].Remove(paths[0].Length - 1);
+                }
+                
+                var filePath = EXPORT_ROOT_DIR.CombinePath(exportPackageName);
+                AssetDatabase.ExportPackage(paths,
+                    filePath, ExportPackageOptions.Recurse);
+                AssetDatabase.Refresh();
+
+                return filePath;
+            }
+
+            return string.Empty;
+        }
+        
+        [MenuItem("Assets/@QPM - Export Pacakge",priority = 1)]
+        private static void ExportPacakge()
+        {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (path.IsNotNullAndEmpty())
+            {
+                if (Directory.Exists(path))
+                {
+                    var packageVersion = PackageVersion.Load(path);
+
+                    var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
+  
+                    ExportPaths(fileName,path);
+                 
+                    OpenInFileBrowser.Open(EXPORT_ROOT_DIR);
+                }
+            }   
+        }
+
+        private EditorWindow mWindow;
+        
+        public void Init(EditorWindow window)
+        {
+            mWindow = window;
+            
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
+            InstalledPackageVersions.Reload();
+
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
-        }
+        }                
 
         private Vector2 mScrollPos;
 
         public void OnGUI()
         {
-            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(600), GUILayout.Height(480));
-
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
+            
+
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
             DrawWithServer();
-
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("Manage Package"))
-            {
-                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/");
-            }
-
-            if (GUILayout.Button("Upload Package"))
-            {
-                Application.OpenURL("http://liangxiegame.com/xadmin/demo/packagefile/add/");
-            }
-
-            GUILayout.EndHorizontal();
-
+            
             GUILayout.EndVertical();
 
-            GUILayout.EndScrollView();
 
+            GUILayout.Space(50);
         }
-
+        
         private void DrawWithServer()
         {
             // 这里开始具体的内容
@@ -89,6 +156,8 @@ namespace QFramework
             GUILayout.EndHorizontal();
 
             GUILayout.BeginVertical("box");
+            
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, false, true, GUILayout.Height(240));
 
             foreach (var packageData in mPackageDatas)
             {
@@ -96,31 +165,50 @@ namespace QFramework
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(packageData.Name, GUILayout.Width(150));
                 GUILayout.Label(packageData.Version, GUILayout.Width(100));
-                GUILayout.Label(" ", GUILayout.Width(100));
+                var insalledPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
+                GUILayout.Label(insalledPackage != null ? insalledPackage.Version : " ", GUILayout.Width(90));
 
-                if (GUILayout.Button("Import", GUILayout.Width(90)))
+                if (insalledPackage != null && packageData.VersionNumber > insalledPackage.VersionNumber)
                 {
-					string path = Application.dataPath.Replace ("Assets", packageData.InstallPath);
-
-                    if (Directory.Exists(path))
+                    if (GUILayout.Button("Update", GUILayout.Width(90)))
                     {
-                        if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
+                        var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
+
+                        if (Directory.Exists(path))
                         {
-                            Directory.Delete(path, true);
+                            if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
+                            {
+                                Directory.Delete(path, true);
 
-                            AssetDatabase.Refresh();
+                                AssetDatabase.Refresh();
+                            }
                         }
-                    }
 
-                    EditorActionKit.ExecuteNode(new UpdatePackage(packageData.DownloadUrl, packageData.Name));
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
+                }
+                else
+                {
+                    if (GUILayout.Button("Import", GUILayout.Width(90)))
+                    {
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
+                }
+                
+                if (GUILayout.Button("Readme", GUILayout.Width(90)))
+                {
+                    ShowReadMe(packageData.PackageVersions.First().Readme.content);
                 }
 
                 GUILayout.EndHorizontal();
             }
 
+            GUILayout.EndScrollView();
+
             GUILayout.Space(2);
 
             GUILayout.EndVertical();
+            
         }
 
         private void ShowReadMe(string readmeContet)
