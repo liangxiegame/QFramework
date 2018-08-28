@@ -19,8 +19,8 @@ namespace QFramework
                     //自定义部分
                     "/*******************************************************************\n"
                     + "* Copyright(c) #YEAR# #COMPANY#\n"
-                    + "* All rights reserved."
-                    + "*"
+                    + "* All rights reserved.\n"
+                    + "*\n"
                     + "* 文件名称: #SCRIPTFULLNAME#\n"
                     + "* 简要描述:\n"
                     + "* \n"
@@ -33,19 +33,19 @@ namespace QFramework
                     + "using System.Collections.Generic;\n"
                     + "using UnityEngine;\n"
                     + "\n"
-                    + "public class #SCRIPTNAME# : MonoBehaviour {\n"
+                    + "public class #SCRIPTNAME# : MonoBehaviour\n"
+                    + "{\n"
+                    + "\t// Use this for initialization\n"
+                    + "\tvoid Start()\n"
+                    + "\t{\n"
+                    + "\t\t#NOTRIM#\n"
+                    + "\t}\n"
                     + "\n"
-                    + "     // Use this for initialization\n"
-                    + "     void Start()\n"
-                    + "     {\n"
-                    + "         #NOTRIM#\n"
-                    + "     }\n"
-                    + "\n"
-                    + "	    // Update is called once per frame\n"
-                    + "     void Update()\n"
-                    + "     {\n"
-                    + "         #NOTRIM#\n"
-                    + "     }\n"
+                    + "\t// Update is called once per frame\n"
+                    + "\tvoid Update()\n"
+                    + "\t{\n"
+                    + "\t\t#NOTRIM#\n"
+                    + "\t}\n"
                     + "}";
             
             byte[] curTexts = System.Text.Encoding.UTF8.GetBytes(head);
@@ -83,13 +83,16 @@ namespace QFramework
             string realPath = Application.dataPath.Replace("Assets", "") + newFilePath;
             string scriptContent = File.ReadAllText(realPath);
 
+            //自定义修改系统信息
+            //PlayerSettings.companyName = "";
+
             //这里现自定义的一些规则  
             scriptContent = scriptContent.Replace("#SCRIPTFULLNAME#", Path.GetFileName(newFilePath));
             scriptContent = scriptContent.Replace("#COMPANY#", PlayerSettings.companyName);
             scriptContent = scriptContent.Replace("#AUTHOR#", "SilenceT");
             scriptContent = scriptContent.Replace("#VERSION#", "1.0");
             scriptContent = scriptContent.Replace("#UNITYVERSION#", Application.unityVersion);
-            scriptContent = scriptContent.Replace("#DATE#", System.DateTime.Now.ToString("yyyy-MM-dd-HH:mm"));
+            scriptContent = scriptContent.Replace("#DATE#", System.DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"));
             scriptContent = scriptContent.Replace("#YEAR#", System.DateTime.Now.ToString("yyyy"));
 
             File.WriteAllText(realPath, scriptContent);
