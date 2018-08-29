@@ -69,16 +69,26 @@ namespace QFramework
 					var url = demoInfo ["download_url"].Value<string> ();
 					var installPath = demoInfo ["install_path"].Value<string> ();
 					var release_note = demoInfo["release_note"].Value<string>();
+
+					var releaseItem = new ReleaseItem(version, release_note, "liangxie", "now");
 					
 					package.PackageVersions.Add (new PackageVersion () {
 						Version = version,
 						DownloadUrl = url,
 						InstallPath = installPath,
-						Readme = new ReleaseItem(version,release_note,"liangxie","now")
+						Readme =releaseItem
 					});
+					
+					package.readme.AddReleaseNote(releaseItem);
 				}
 
-				packageDatas.ForEach (packageData => packageData.PackageVersions.Sort ((a, b) => GetVersionNumber (b.Version) - GetVersionNumber (a.Version)));
+				packageDatas.ForEach (packageData =>
+				{
+					packageData.PackageVersions.Sort((a, b) =>
+							GetVersionNumber(b.Version) - GetVersionNumber(a.Version));
+					packageData.readme.items.Sort((a, b) =>
+						GetVersionNumber(b.version) - GetVersionNumber(a.version));
+				});
                 
 				mOnGet.InvokeGracefully (packageDatas);
 

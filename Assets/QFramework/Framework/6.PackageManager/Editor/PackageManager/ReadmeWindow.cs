@@ -27,23 +27,23 @@ namespace QFramework
 {
     using UnityEditor;
     using UnityEngine;
-    
-    public class ReadmeWindow :EditorWindow
+
+    public class ReadmeWindow : EditorWindow
     {
-        private ReleaseItem mReleaseItem;
-        
+        private Readme mReadme;
+
         private Vector2 mScrollPos = Vector2.zero;
 
         private GUIStyle mTitleStyle;
-        
-        public static void Init(ReleaseItem releaseItem)
+
+        public static void Init(Readme readme)
         {
-            var readmeWin = (ReadmeWindow)GetWindow (typeof(ReadmeWindow), true,"Package Manager Reame",true);
-            readmeWin.mReleaseItem = releaseItem;
-            readmeWin.position = new Rect (Screen.width / 2, Screen.height / 2, 500, 300);
-            readmeWin.Show ();
+            var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, "Package Manager Reame", true);
+            readmeWin.mReadme = readme;
+            readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 500, 300);
+            readmeWin.Show();
         }
-        
+
         void OnEnable()
         {
             mTitleStyle = new GUIStyle
@@ -57,29 +57,26 @@ namespace QFramework
 
         public void OnGUI()
         {
-            mScrollPos = GUILayout.BeginScrollView (mScrollPos, true,true ,GUILayout.Width(480), GUILayout.Height(300));
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(480), GUILayout.Height(300));
 
-//            for(int i= mReadme.items.Count-1;i>=0;i--)
-//            {
-//                ReadmeItem item = mReadme.items [i];
-                GUILayout.BeginHorizontal (EditorStyles.helpBox);
-                GUILayout.BeginVertical ();
-                GUILayout.BeginHorizontal ();
-				 
-                GUILayout.Label ("version: "+mReleaseItem.version ,mTitleStyle,GUILayout.Width(130));
-                GUILayout.Label ("date: "+mReleaseItem.date ,mTitleStyle,GUILayout.Width(130));
-                GUILayout.Label("author: " + mReleaseItem.author,mTitleStyle);
-            
-                GUILayout.EndHorizontal ();
-                GUILayout.Label (mReleaseItem.content);
-                GUILayout.EndVertical ();
+            mReadme.items.ForEach(item =>
+            {
+                GUILayout.BeginHorizontal(EditorStyles.helpBox);
+                GUILayout.BeginVertical();
+                GUILayout.BeginHorizontal();
 
+                GUILayout.Label("version: " + item.version, mTitleStyle, GUILayout.Width(130));
+                GUILayout.Label("date: " + item.date, mTitleStyle, GUILayout.Width(130));
+                GUILayout.Label("author: " + item.author, mTitleStyle);
 
-                GUILayout.EndHorizontal ();
-//            }
+                GUILayout.EndHorizontal();
+                GUILayout.Label(item.content);
+                GUILayout.EndVertical();
 
-            GUILayout.EndScrollView ();
+                GUILayout.EndHorizontal();
+            });
 
+            GUILayout.EndScrollView();
         }
     }
 }

@@ -173,7 +173,7 @@ namespace QFramework
                 
                 if (GUILayout.Button("Readme", GUILayout.Width(90)))
                 {
-                    ShowReadMe(packageData.PackageVersions.First().Readme);
+                    ShowReadMe(packageData.readme);
                 }
 
                 GUILayout.EndHorizontal();
@@ -187,9 +187,9 @@ namespace QFramework
             
         }
 
-        private void ShowReadMe(ReleaseItem releaseItem)
+        private void ShowReadMe(Readme readme)
         {
-            ReadmeWindow.Init(releaseItem);
+            ReadmeWindow.Init(readme);
         }
     }
 }

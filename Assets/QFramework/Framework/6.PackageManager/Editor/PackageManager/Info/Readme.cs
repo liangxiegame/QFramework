@@ -23,7 +23,7 @@ namespace QFramework
             return items.First(s => s.version == version);
         }
 
-        public void AddReadme(ReleaseItem pluginReadme)
+        public void AddReleaseNote(ReleaseItem pluginReadme)
         {
             if (items == null)
             {
