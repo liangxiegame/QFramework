@@ -1,7 +1,14 @@
 {
-  "Version": "v0.0.2",
-  "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.2.unitypackage",
+  "Version": "v0.0.3",
+  "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
+  "Readme": {
+    "version": "v0.0.3",
+    "content": "添加 AnchorPosY 的扩展",
+    "author": "iMac03010154",
+    "date": "2018-08-27"
+  },
   "Name": "0.Libs",
-  "VersionNumber": 2
+  "VersionNumber": 3,
+  "FileName": "0.Libs_v0.0.3.unitypackage"
 }

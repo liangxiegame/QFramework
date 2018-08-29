@@ -72,7 +72,11 @@ namespace QFramework
 
             yield return loginPage.Send();
 
+            #if UNITY_2018_2_OR_NEWER
+            if (loginPage.isNetworkError)
+            #else
             if (loginPage.isError)
+            #endif
             {
                 Debug.Log(loginPage.error);
                 yield break;
@@ -116,7 +120,11 @@ namespace QFramework
 
             yield return doLogin3.Send();
 
+            #if UNITY_2018_2_OR_NEWER
+            if (doLogin3.isNetworkError)
+            #else
             if (doLogin3.isError)
+            #endif            
             {
                 Log.E(doLogin3.error);
             }
