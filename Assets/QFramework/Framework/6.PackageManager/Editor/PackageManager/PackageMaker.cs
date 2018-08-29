@@ -189,6 +189,7 @@ namespace QFramework
 
 		private string mVersionText = string.Empty;
 
+		private string mReleaseNote = string.Empty;
 		private void DrawInit()
 		{
 			if (mHasConfigFile)
@@ -204,7 +205,7 @@ namespace QFramework
 			mVersionText = GUILayout.TextField(mVersionText, GUILayout.Width(100));
 			GUILayout.EndHorizontal();
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
-			mPackageVersion.Readme.content = GUILayout.TextArea(mPackageVersion.Readme.content, GUILayout.Width(250), GUILayout.Height(300));
+			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
 
 
 			User.Username = EditorGUIUtils.GUILabelAndTextField("username:", User.Username);
@@ -227,7 +228,7 @@ namespace QFramework
 				}
 
 				mPackageVersion.Version = mVersionText;
-				mPackageVersion.Readme = new ReleaseItem(mVersionText, mPackageVersion.Readme.content, SystemInfo.deviceName,
+				mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote, SystemInfo.deviceName,
 					DateTime.Now.ToString("yyyy-MM-dd"));
 
 

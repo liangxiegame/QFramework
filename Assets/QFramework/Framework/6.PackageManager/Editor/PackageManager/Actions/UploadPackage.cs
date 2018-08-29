@@ -110,6 +110,7 @@ namespace QFramework
             form.AddField("file_name", fileName);
             form.AddBinaryData("file", file);
             form.AddField("version", packageVersion.Version);
+            form.AddField("release_note", packageVersion.Readme.content);
 
             UnityWebRequest doLogin3 =
                 UnityWebRequest.Post(UPLOAD_URL, form);

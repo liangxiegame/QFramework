@@ -44,10 +44,10 @@ namespace QFramework
 
         protected override void OnBegin()
 		{
-			ObservableWWW.Get ("http://liangxiegame.com/demo/get_all_demo_info").Subscribe (response =>
+			ObservableWWW.Get ("http://liangxiegame.com/framework_package/get_all_package_info").Subscribe (response =>
 			{
 				var responseJson = JObject.Parse (response);
-				JArray packageInfosJson = responseJson ["all_demo_info"] as JArray;
+				JArray packageInfosJson = responseJson ["all_package_info"] as JArray;
 
 				var packageDatas = new List<PackageData> ();
 				foreach (var demoInfo in packageInfosJson)
@@ -68,11 +68,13 @@ namespace QFramework
 					var version = demoInfo ["version"].Value<string> ();
 					var url = demoInfo ["download_url"].Value<string> ();
 					var installPath = demoInfo ["install_path"].Value<string> ();
-
+					var release_note = demoInfo["release_note"].Value<string>();
+					
 					package.PackageVersions.Add (new PackageVersion () {
 						Version = version,
 						DownloadUrl = url,
-						InstallPath = installPath
+						InstallPath = installPath,
+						Readme = new ReleaseItem(version,release_note,"liangxie","now")
 					});
 				}
 

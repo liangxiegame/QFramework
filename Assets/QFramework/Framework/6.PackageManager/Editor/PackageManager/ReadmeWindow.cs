@@ -30,16 +30,16 @@ namespace QFramework
     
     public class ReadmeWindow :EditorWindow
     {
-        private string mReadme;
+        private ReleaseItem mReleaseItem;
         
         private Vector2 mScrollPos = Vector2.zero;
 
         private GUIStyle mTitleStyle;
         
-        public static void Init(string readmeContent)
+        public static void Init(ReleaseItem releaseItem)
         {
-            ReadmeWindow readmeWin = (ReadmeWindow)GetWindow (typeof(ReadmeWindow), true,"Package Manager Reame",true);
-            readmeWin.mReadme = readmeContent;
+            var readmeWin = (ReadmeWindow)GetWindow (typeof(ReadmeWindow), true,"Package Manager Reame",true);
+            readmeWin.mReleaseItem = releaseItem;
             readmeWin.position = new Rect (Screen.width / 2, Screen.height / 2, 500, 300);
             readmeWin.Show ();
         }
@@ -66,17 +66,12 @@ namespace QFramework
                 GUILayout.BeginVertical ();
                 GUILayout.BeginHorizontal ();
 				 
-//                GUILayout.Label ("version: "+item.version,mTitleStyle,GUILayout.Width(130));
-//                GUILayout.Label ("date: "+item.date,mTitleStyle,GUILayout.Width(130));
-//                GUILayout.Label ("author: "+item.author);
-
-            GUILayout.Label ("version: v0.0.8",mTitleStyle,GUILayout.Width(130));
-            GUILayout.Label ("date: ",mTitleStyle,GUILayout.Width(130));
-            GUILayout.Label ("author: ");
+                GUILayout.Label ("version: "+mReleaseItem.version ,mTitleStyle,GUILayout.Width(130));
+                GUILayout.Label ("date: "+mReleaseItem.date ,mTitleStyle,GUILayout.Width(130));
+                GUILayout.Label("author: " + mReleaseItem.author,mTitleStyle);
             
                 GUILayout.EndHorizontal ();
-//                GUILayout.Label (item.content);
-                GUILayout.Label (mReadme);
+                GUILayout.Label (mReleaseItem.content);
                 GUILayout.EndVertical ();
 
 

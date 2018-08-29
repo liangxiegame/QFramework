@@ -91,32 +91,8 @@ namespace QFramework
             return string.Empty;
         }
         
-        [MenuItem("Assets/@QPM - Export Pacakge",priority = 1)]
-        private static void ExportPacakge()
-        {
-            var path = MouseSelector.GetSelectedPathOrFallback();
-
-            if (path.IsNotNullAndEmpty())
-            {
-                if (Directory.Exists(path))
-                {
-                    var packageVersion = PackageVersion.Load(path);
-
-                    var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
-  
-                    ExportPaths(fileName,path);
-                 
-                    OpenInFileBrowser.Open(EXPORT_ROOT_DIR);
-                }
-            }   
-        }
-
-        private EditorWindow mWindow;
-        
         public void Init(EditorWindow window)
-        {
-            mWindow = window;
-            
+        {   
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
@@ -197,7 +173,7 @@ namespace QFramework
                 
                 if (GUILayout.Button("Readme", GUILayout.Width(90)))
                 {
-                    ShowReadMe(packageData.PackageVersions.First().Readme.content);
+                    ShowReadMe(packageData.PackageVersions.First().Readme);
                 }
 
                 GUILayout.EndHorizontal();
@@ -211,9 +187,9 @@ namespace QFramework
             
         }
 
-        private void ShowReadMe(string readmeContet)
+        private void ShowReadMe(ReleaseItem releaseItem)
         {
-            ReadmeWindow.Init(readmeContet);
+            ReadmeWindow.Init(releaseItem);
         }
     }
 }
