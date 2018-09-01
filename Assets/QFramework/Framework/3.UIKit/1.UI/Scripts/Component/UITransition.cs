@@ -41,7 +41,7 @@ namespace QFramework
             {
                 UIMgr.OpenPanel<TDstPanel>(uiLevel, uiData, assetBundleName, prefabName);
             };
-            transition.OutCompleted = () => { UIMgr.ClosePanel(selfBehaviour.name); };
+            
 
             UIMgr.OpenPanel<UITransitionPanel>(UILevel.Forward, new UITransitionPanelData()
             {

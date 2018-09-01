@@ -71,9 +71,8 @@ namespace QFramework.UIExample
 			});
 
 			backBtn.onClick.AddListener(() =>
-			{
-				UIMgr.OpenPanel<UIMenuPanel>(UILevel.Common, prefabName: "Resources/UIMenuPanel");
-				CloseSelf();
+			{				
+				this.DoTransition<UIMenuPanel>(new FadeInOut(),UILevel.Common, prefabName: "Resources/UIMenuPanel");
 			});
 		}
 

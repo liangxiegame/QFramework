@@ -34,35 +34,35 @@ namespace QFramework.UIExample
 	{
 		protected override void InitUI(IUIData uiData = null)
 		{
-            ImageBg.color = "#FFFFFFFF".HtmlStringToColor();
+			ImageBg.color = "#FFFFFFFF".HtmlStringToColor();
 		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{
-            Log.I("Process");
-            switch(eventId){
-                case (int)UIEventID.MenuPanel.ChangeMenuColor:
-                    Log.I("{0}:Process EventId {1}",Transform.name,eventId);
-                    ImageBg.color = "#00FFFFFF".HtmlStringToColor();
-                    break;
-            }
+			Log.I("Process");
+			switch (eventId)
+			{
+				case (int) UIEventID.MenuPanel.ChangeMenuColor:
+					Log.I("{0}:Process EventId {1}", Transform.name, eventId);
+					ImageBg.color = "#00FFFFFF".HtmlStringToColor();
+					break;
+			}
 		}
 
 		protected override void RegisterUIEvent()
 		{
-            RegisterEvent<int>((int)UIEventID.MenuPanel.ChangeMenuColor);
+			RegisterEvent(UIEventID.MenuPanel.ChangeMenuColor);
 
 			BtnPlay.onClick.AddListener(() =>
 			{
-				Log.I("on btn play clicked");
-				UIMgr.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-                UIManager.Instance.HideUI(this.name);
+				this.DoTransition<UISectionPanel>(new FadeInOut(), UILevel.Common,
+					prefabName: "Resources/UISectionPanel");
 			});
 
 			BtnSetting.onClick.AddListener(() =>
 			{
-				Log.I("on btn setting clicked");
-				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI, prefabName: "Resources/UISettingPanel");
+				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI,
+					prefabName: "Resources/UISettingPanel");
 			});
 		}
 	}

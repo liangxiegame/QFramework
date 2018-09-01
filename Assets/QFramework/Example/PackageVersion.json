@@ -1,0 +1,14 @@
+{
+  "Version": "v0.0.1",
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Example/",
+  "Readme": {
+    "version": "v0.0.1",
+    "content": "add UITransition Example",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-09-01"
+  },
+  "Name": "Example",
+  "VersionNumber": 1,
+  "FileName": "Example_v0.0.1.unitypackage"
+}

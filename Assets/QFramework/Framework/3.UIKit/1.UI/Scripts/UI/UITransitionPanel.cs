@@ -26,8 +26,12 @@ namespace QFramework
 			//please add init code here
 
 			Image = GetComponent<Image>();
-			
+
+			mData.Transition.OutCompleted = CloseSelf;
+
 			mData.Transition.Do(this);
+			
+			
 
 		}
 
