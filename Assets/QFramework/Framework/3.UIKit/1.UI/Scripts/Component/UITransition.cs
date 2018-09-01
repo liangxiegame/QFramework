@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.5 ~ 8 liangxie
+ * Copyright (c) 2018.5 ~ 9 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -27,17 +27,28 @@ namespace QFramework
 {
     using System;
     using UnityEngine.UI;
- 
-    /// <summary>
-    /// 可能是个 Action
-    /// </summary>
-    public class UITransition
-    {
-        // serc panel  dst panel
-    }
- 
+
     public static class UITransitionExtension
     {
+        public static void DoTransition<TDstPanel>(this UIPanel selfBehaviour, UITransition transition,
+            UILevel uiLevel = UILevel.Common,
+            IUIData uiData = null,
+            string assetBundleName = null,
+            string prefabName = null) where TDstPanel : UIPanel
+        {
+            transition.FromPanel = selfBehaviour;
+            transition.InCompleted = () =>
+            {
+                UIMgr.OpenPanel<TDstPanel>(uiLevel, uiData, assetBundleName, prefabName);
+            };
+            transition.OutCompleted = () => { UIMgr.ClosePanel(selfBehaviour.name); };
+
+            UIMgr.OpenPanel<UITransitionPanel>(UILevel.Forward, new UITransitionPanelData()
+            {
+                Transition = transition
+            }, prefabName: "Resources/UITransitionPanel");
+        }
+
         /// <summary>
         /// 绑定跳转逻辑
         /// </summary>

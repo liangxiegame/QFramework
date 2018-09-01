@@ -1,14 +1,14 @@
 {
-  "Version": "v0.0.3",
+  "Version": "v0.0.4",
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.3",
-    "content": "添加 AnchorPosY 的扩展",
-    "author": "iMac03010154",
-    "date": "2018-08-27"
+    "version": "v0.0.4",
+    "content": "引入开源版 DoTween",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-09-01"
   },
   "Name": "0.Libs",
-  "VersionNumber": 3,
-  "FileName": "0.Libs_v0.0.3.unitypackage"
+  "VersionNumber": 4,
+  "FileName": "0.Libs_v0.0.4.unitypackage"
 }
