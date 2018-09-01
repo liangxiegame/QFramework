@@ -1,14 +1,14 @@
 {
-  "Version": "v0.0.12",
+  "Version": "v0.0.13",
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
   "Readme": {
-    "version": "v0.0.12",
-    "content": "添加显示 ReadMe 功能",
+    "version": "v0.0.13",
+    "content": "fix:check wrong release note",
     "author": "iMac03010154",
-    "date": "2018-08-29"
+    "date": "2018-08-30"
   },
   "Name": "6.PackageManager",
-  "VersionNumber": 12,
-  "FileName": "6.PackageManager_v0.0.12.unitypackage"
+  "VersionNumber": 13,
+  "FileName": "6.PackageManager_v0.0.13.unitypackage"
 }

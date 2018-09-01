@@ -215,7 +215,7 @@ namespace QFramework
 			{
 				User.Save();
 
-				if (mPackageVersion.Readme.content.Length < 2)
+				if (mReleaseNote.Length < 2)
 				{
 					ShowErrorMsg("请输入版本修改说明");
 					return;
