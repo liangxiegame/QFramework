@@ -2,6 +2,13 @@
   "Version": "v0.0.9",
   "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9_VZRp2RU.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/Example/",
+  "Readme": {
+    "version": "v0.0.9",
+    "content": "",
+    "author": "liangxie",
+    "date": "now"
+  },
   "Name": "Example",
-  "VersionNumber": 9
+  "VersionNumber": 9,
+  "FileName": "Example_v0.0.9.unitypackage"
 }

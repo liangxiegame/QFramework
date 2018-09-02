@@ -1,4 +1,4 @@
-﻿#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+﻿#if (NET_4_6 || NET_STANDARD_2_0)
 
 using System;
 using System.Collections;
@@ -86,14 +86,18 @@ namespace UniRx
 
     public static class CoroutineAsyncExtensions
     {
-        public static CoroutineAsyncBridge<WWW> GetAwaiter(this WWW www)
-        {
-            return CoroutineAsyncBridge<WWW>.Start(www);
-        }
-
         public static CoroutineAsyncBridge GetAwaiter(this Coroutine coroutine)
         {
             return CoroutineAsyncBridge.Start(coroutine);
+        }
+
+#if !CSHARP_7_OR_LATER
+
+        // should use UniRx.Async in C# 7.0
+
+        public static CoroutineAsyncBridge<WWW> GetAwaiter(this WWW www)
+        {
+            return CoroutineAsyncBridge<WWW>.Start(www);
         }
 
         public static CoroutineAsyncBridge<AsyncOperation> GetAwaiter(this AsyncOperation asyncOperation)
@@ -105,6 +109,8 @@ namespace UniRx
         {
             return CoroutineAsyncBridge.Start(coroutine);
         }
+
+#endif
     }
 }
 

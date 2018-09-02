@@ -482,13 +482,6 @@ namespace UniRx
                 mainThreadToken = new object();
                 initialized = true;
 
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
-                if (UniRxSynchronizationContext.AutoInstall)
-                {
-                    SynchronizationContext.SetSynchronizationContext(new UniRxSynchronizationContext());
-                }
-#endif
-
                 updateMicroCoroutine = new MicroCoroutine(ex => unhandledExceptionCallback(ex));
                 fixedUpdateMicroCoroutine = new MicroCoroutine(ex => unhandledExceptionCallback(ex));
                 endOfFrameMicroCoroutine = new MicroCoroutine(ex => unhandledExceptionCallback(ex));

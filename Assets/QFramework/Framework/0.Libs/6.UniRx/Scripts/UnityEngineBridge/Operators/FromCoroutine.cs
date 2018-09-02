@@ -18,7 +18,7 @@ namespace UniRx.Operators
         {
             var fromCoroutineObserver = new FromCoroutine(observer, cancel);
 
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if (NETFX_CORE || NET_4_6 || NET_STANDARD_2_0 || UNITY_WSA_10_0)
             var moreCancel = new CancellationDisposable();
             var token = moreCancel.Token;
 #else
@@ -64,7 +64,6 @@ namespace UniRx.Operators
         }
     }
 
-
     internal class FromMicroCoroutineObservable<T> : OperatorObservableBase<T>
     {
         readonly Func<IObserver<T>, CancellationToken, IEnumerator> coroutine;
@@ -81,7 +80,7 @@ namespace UniRx.Operators
         {
             var microCoroutineObserver = new FromMicroCoroutine(observer, cancel);
 
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if (NETFX_CORE || NET_4_6 || NET_STANDARD_2_0 || UNITY_WSA_10_0)
             var moreCancel = new CancellationDisposable();
             var token = moreCancel.Token;
 #else

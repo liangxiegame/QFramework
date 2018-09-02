@@ -1,14 +1,14 @@
 {
-  "Version": "v0.0.4",
+  "Version": "v0.0.5",
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.4",
-    "content": "引入开源版 DoTween",
+    "version": "v0.0.5",
+    "content": "upgrade UniRx 5.5.0 -> 6.2.0",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-09-01"
+    "date": "2018-09-02"
   },
   "Name": "0.Libs",
-  "VersionNumber": 4,
-  "FileName": "0.Libs_v0.0.4.unitypackage"
+  "VersionNumber": 5,
+  "FileName": "0.Libs_v0.0.5.unitypackage"
 }

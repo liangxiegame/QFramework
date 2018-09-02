@@ -1,6 +1,6 @@
 ﻿// defined from .NET Framework 4.5 and NETFX_CORE
 
-#if !(NETFX_CORE || ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if !(NETFX_CORE || NET_4_6 || NET_STANDARD_2_0 || UNITY_WSA_10_0)
 
 using System;
 

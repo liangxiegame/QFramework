@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UniRx.InternalUtil;
 
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if (NET_4_6 || NET_STANDARD_2_0)
 using System.Runtime.CompilerServices;
 using System.Threading;
 #endif
@@ -10,7 +10,7 @@ using System.Threading;
 namespace UniRx
 {
     public sealed class AsyncSubject<T> : ISubject<T>, IOptimizedObservable<T>, IDisposable
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if (NET_4_6 || NET_STANDARD_2_0)
         , INotifyCompletion
 #endif
     {
@@ -29,7 +29,7 @@ namespace UniRx
             {
                 ThrowIfDisposed();
                 if (!isStopped) throw new InvalidOperationException("AsyncSubject is not completed yet");
-                if (lastError != null) throw lastError;
+                if (lastError != null) lastError.Throw();
                 return lastValue;
             }
         }
@@ -219,7 +219,7 @@ namespace UniRx
         }
 
 
-#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+#if (NET_4_6 || NET_STANDARD_2_0)
 
         /// <summary>
         /// Gets an awaitable object for the current AsyncSubject.
@@ -315,7 +315,7 @@ namespace UniRx
 
             if (lastError != null)
             {
-                throw lastError;
+                lastError.Throw();
             }
 
             if (!hasValue)

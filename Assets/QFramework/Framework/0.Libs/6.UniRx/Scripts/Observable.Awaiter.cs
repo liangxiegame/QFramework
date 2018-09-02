@@ -1,4 +1,4 @@
-﻿#if (ENABLE_MONO_BLEEDING_EDGE_EDITOR || ENABLE_MONO_BLEEDING_EDGE_STANDALONE)
+﻿#if (NET_4_6 || NET_STANDARD_2_0)
 
 using System;
 using System.Collections.Generic;
