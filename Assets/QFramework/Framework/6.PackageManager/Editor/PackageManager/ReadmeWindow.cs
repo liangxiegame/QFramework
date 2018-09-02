@@ -36,12 +36,17 @@ namespace QFramework
 
         private GUIStyle mTitleStyle;
 
-        public static void Init(Readme readme)
+        private PackageVersion mPackageVersion;
+        
+        public static void Init(Readme readme,PackageVersion packageVersion)
         {
+           
             var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, "Package Manager Reame", true);
             readmeWin.mReadme = readme;
+            readmeWin.mPackageVersion = packageVersion;
             readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 500, 300);
             readmeWin.Show();
+            
         }
 
         void OnEnable()
@@ -59,6 +64,8 @@ namespace QFramework
         {
             mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(480), GUILayout.Height(300));
 
+            GUILayout.Label("类型:" + mPackageVersion.Type, mTitleStyle);
+            
             mReadme.items.ForEach(item =>
             {
                 GUILayout.BeginHorizontal(EditorStyles.helpBox);

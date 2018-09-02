@@ -29,7 +29,7 @@ using System.IO;
 using System.Linq;
 
 namespace QFramework
-{
+{   
     [Serializable]
     public class PackageData
     {
@@ -82,6 +82,16 @@ namespace QFramework
             PackageVersions.First().Save();
         }
     }
+    
+    public enum PackageType
+    {
+        FrameworkModule, //fm
+        Shader, //s
+        UIKitComponent, //uc
+        Plugin, // p
+        AppOrGameDemoOrTemplate, //agt
+        DocumentsOrTutorial, //doc
+    }
 
     [Serializable]
     public class PackageVersion
@@ -92,6 +102,8 @@ namespace QFramework
         }
         
         public string Version;
+
+        public PackageType Type;
         
         public int VersionNumber
         {

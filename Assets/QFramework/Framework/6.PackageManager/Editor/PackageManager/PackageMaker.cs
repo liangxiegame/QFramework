@@ -190,6 +190,9 @@ namespace QFramework
 		private string mVersionText = string.Empty;
 
 		private string mReleaseNote = string.Empty;
+		
+
+		
 		private void DrawInit()
 		{
 			if (mHasConfigFile)
@@ -204,12 +207,19 @@ namespace QFramework
 			GUILayout.Label("发布版本号", GUILayout.Width(100));
 			mVersionText = GUILayout.TextField(mVersionText, GUILayout.Width(100));
 			GUILayout.EndHorizontal();
+			
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("类型",GUILayout.Width(100));
+			
+			mPackageVersion.Type = (PackageType)EditorGUILayout.EnumPopup(mPackageVersion.Type);
+			
+			GUILayout.EndHorizontal();
+			
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
 			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
 
-
 			User.Username = EditorGUIUtils.GUILabelAndTextField("username:", User.Username);
-			User.Password = EditorGUIUtils.GUILabelAndTextField("password:", User.Password);
+			User.Password = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password);
 
 			if (GUILayout.Button("发布"))
 			{

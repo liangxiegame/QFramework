@@ -26,6 +26,21 @@ namespace QFramework
 			return retString;
 		}
 		
+		public static string GUILabelAndPasswordField(string labelContent,string textFieldContent,bool horizontal = true)
+		{
+			if (horizontal)
+				EditorGUILayout.BeginHorizontal ();
+
+			GUILayout.Label (labelContent);
+
+			string retString = EditorGUILayout.PasswordField(textFieldContent);
+
+			if (horizontal)
+				EditorGUILayout.EndHorizontal();
+
+			return retString;
+		}
+		
 
 		public static int GUILabelAndPopup(string labelContent,int popupIndex,string[] popupContents)
 		{

@@ -112,6 +112,19 @@ namespace QFramework
             form.AddField("version", packageVersion.Version);
             form.AddField("release_note", packageVersion.Readme.content);
 
+            if (packageVersion.Type == PackageType.FrameworkModule)
+            {
+                form.AddField("type", "fm");
+            }
+            else if (packageVersion.Type == PackageType.Shader)
+            {
+                form.AddField("type","s");
+            } 
+            else if (packageVersion.Type == PackageType.AppOrGameDemoOrTemplate)
+            {
+                form.AddField("type", "agt");
+            }
+
             UnityWebRequest doLogin3 =
                 UnityWebRequest.Post(UPLOAD_URL, form);
             doLogin3.SetRequestHeader("cookie", "csrftoken=" + csrfCookie);
