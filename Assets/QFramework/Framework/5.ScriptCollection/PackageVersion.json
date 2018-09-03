@@ -1,7 +1,15 @@
 {
-  "Version": "v0.0.2",
+  "Version": "v0.0.3",
+  "Type": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/5.ScriptCollection/",
+  "Readme": {
+    "version": "v0.0.3",
+    "content": "add post fx behaviour",
+    "author": "iMac03010154",
+    "date": "2018-09-03"
+  },
   "Name": "5.ScriptCollection",
-  "VersionNumber": 0
+  "VersionNumber": 3,
+  "FileName": "5.ScriptCollection_v0.0.3.unitypackage"
 }

@@ -1,7 +1,15 @@
 {
-  "Version": "v0.0.2",
+  "Version": "v0.0.3",
+  "Type": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/",
+  "Readme": {
+    "version": "v0.0.3",
+    "content": "add Password Field",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-09-02"
+  },
   "Name": "4.EditorToolKit",
-  "VersionNumber": 0
+  "VersionNumber": 3,
+  "FileName": "4.EditorToolKit_v0.0.3.unitypackage"
 }
