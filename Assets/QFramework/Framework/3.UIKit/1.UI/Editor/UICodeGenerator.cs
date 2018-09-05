@@ -236,7 +236,7 @@ namespace QFramework
 			}
 			else
 			{
-				strFilePath = uiPrefabPath.Replace("/" + uiPrefabPath.GetLastDirName(), GetScriptsPath());
+				strFilePath = uiPrefabPath.Replace("/" + GetLastDirName(uiPrefabPath), GetScriptsPath());
 			}
 
 			strFilePath.Replace(uiPrefab.name + ".prefab", string.Empty).CreateDirIfNotExists();
@@ -252,6 +252,14 @@ namespace QFramework
 			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
 
+		public static string GetLastDirName(string absOrAssetsPath)
+		{
+			var name = absOrAssetsPath.Replace("\\", "/");
+			var dirs = name.Split('/');
+
+			return dirs[dirs.Length - 2];
+		}
+		
 		private void CreateUIPanelComponentsCode(string behaviourName, string uiUIPanelfilePath)
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
