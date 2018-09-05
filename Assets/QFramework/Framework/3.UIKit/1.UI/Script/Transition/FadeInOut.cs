@@ -31,29 +31,45 @@ namespace QFramework
     public class FadeInOut : UITransition
     {
         public Color PanelColor = Color.black;
-        
-        public float  FadeInDuration = 0.5f;
-        public float  FadeOutDuration = 0.5f;
+
+        public float FadeInDuration  = 0.5f;
+        public float FadeOutDuration = 0.5f;
 
         public override void Do(UITransitionPanel panel)
         {
             panel.ExecuteNode(this);
-            
-            panel.Image.color = PanelColor;
-            panel.Image.ColorAlpha(0.0f);
-            
-            DOTween.Sequence()
-                .Append(panel.Image.DOFade(1.0f, FadeInDuration).OnComplete(() =>
-                {
-                    UIManager.Instance.CloseUI(FromPanel.name);
-                    InCompleted.InvokeGracefully();
-                }))
-                .Append(panel.Image.DOFade(0.0f, FadeOutDuration))
-                .OnComplete(()=>
-                {
-                    OutCompleted.InvokeGracefully();
-                    Finish();
-                });
+
+            if (FromPanel)
+            {
+                panel.Image.color = PanelColor;
+                panel.Image.ColorAlpha(0.0f);
+
+                DOTween.Sequence()
+                    .Append(panel.Image.DOFade(1.0f, FadeInDuration).OnComplete(() =>
+                    {
+                        UIManager.Instance.CloseUI(FromPanel.name);
+
+                        InCompleted.InvokeGracefully();
+                    }))
+                    .Append(panel.Image.DOFade(0.0f, FadeOutDuration))
+                    .OnComplete(() =>
+                    {
+                        OutCompleted.InvokeGracefully();
+                        Finish();
+                    });
+            }
+            else
+            {
+                InCompleted.InvokeGracefully();
+                panel.Image.color = PanelColor;
+                panel.Image.ColorAlpha(1.0f);
+                panel.Image.DOFade(0.0f, FadeOutDuration)
+                    .OnComplete(() =>
+                    {
+                        OutCompleted.InvokeGracefully();
+                        Finish();
+                    });
+            }
         }
     }
 }

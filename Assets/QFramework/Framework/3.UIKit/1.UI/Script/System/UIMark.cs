@@ -82,6 +82,8 @@ namespace QFramework
 						return "Animator";
 					if (null != GetComponent<Canvas>())
 						return "Canvas";
+					if (null != GetComponent("Empty4Raycast"))
+						return "Empty4Raycast";
 					if (null != GetComponent<RectTransform>())
 						return "RectTransform";
 
