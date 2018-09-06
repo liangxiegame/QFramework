@@ -108,6 +108,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
 * [cocos2d/cocos2d-x](https://github.com/cocos2d/cocos2d-x)
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
+* [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
+* [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
 
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
