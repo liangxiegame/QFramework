@@ -72,7 +72,7 @@ namespace QFramework
 
             yield return loginPage.Send();
 
-            #if UNITY_2018_2_OR_NEWER
+            #if UNITY_2017_1_OR_NEWER
             if (loginPage.isNetworkError)
             #else
             if (loginPage.isError)
@@ -134,7 +134,7 @@ namespace QFramework
 
             yield return doLogin3.Send();
 
-            #if UNITY_2018_2_OR_NEWER
+            #if UNITY_2017_1_OR_NEWER
             if (doLogin3.isNetworkError)
             #else
             if (doLogin3.isError)

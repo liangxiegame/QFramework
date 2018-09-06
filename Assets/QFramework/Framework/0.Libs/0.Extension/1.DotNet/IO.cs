@@ -480,6 +480,7 @@ namespace QFramework
 			return absOrAssetsPath.EndsWith("/") ? dirs[dirs.Length - 2] : dirs[dirs.Length - 1];
 		}
 
+		
 		#endregion
 	}
 }

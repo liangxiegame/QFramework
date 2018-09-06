@@ -1,13 +1,13 @@
 {
   "Version": "v0.0.3",
   "Type": 0,
-  "DownloadUrl": null,
+  "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.3.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/",
   "Readme": {
     "version": "v0.0.3",
     "content": "add Password Field",
-    "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-09-02"
+    "author": "liangxie",
+    "date": "now"
   },
   "Name": "4.EditorToolKit",
   "VersionNumber": 3,
