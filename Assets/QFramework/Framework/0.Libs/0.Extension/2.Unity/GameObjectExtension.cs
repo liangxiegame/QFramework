@@ -184,6 +184,12 @@ namespace QFramework
             var comp = selfComponent.gameObject.GetComponent<T>();
             return comp ? comp : selfComponent.gameObject.AddComponent<T>();
         }
+		
+		public static Component GetOrAddComponent(this GameObject selfComponent, Type type)
+        {
+            var comp = selfComponent.gameObject.GetComponent(type);
+            return comp ? comp : selfComponent.gameObject.AddComponent(type);
+        }
 
         #endregion
     }
