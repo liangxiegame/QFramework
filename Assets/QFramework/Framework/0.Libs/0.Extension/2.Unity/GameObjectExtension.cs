@@ -1,6 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018 liangxie
+ * Copyright (c) 2017 ~ 2018 liangxie
+ * Copyright (c) 2018.9 SilenceT
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,9 +24,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 namespace QFramework
 {
     using UnityEngine;
+    using System;
 
     /// <summary>
     /// GameObject's Util/Static This Extension

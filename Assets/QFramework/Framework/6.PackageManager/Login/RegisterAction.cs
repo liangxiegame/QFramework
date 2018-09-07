@@ -87,7 +87,7 @@ namespace QFramework
             #if UNITY_2017_1_OR_NEWER
             if (doRegister.isNetworkError)
             #else
-            if (doLogin3.isError)
+            if (doRegister.isError)
             #endif            
             {
                 Log.E(doRegister.error);

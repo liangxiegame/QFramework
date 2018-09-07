@@ -1,15 +1,15 @@
 {
-  "Version": "v0.0.4",
+  "Version": "v0.0.5",
   "Type": 0,
-  "DownloadUrl": null,
+  "DownloadUrl": "http://liangxiegame.com/media/5.ScriptCollection_v0.0.5.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/5.ScriptCollection/",
   "Readme": {
-    "version": "v0.0.4",
-    "content": "PostFXBehaviour Support Material.",
-    "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-09-04"
+    "version": "v0.0.5",
+    "content": "add shader lib framework",
+    "author": "liangxie",
+    "date": "now"
   },
   "Name": "5.ScriptCollection",
-  "VersionNumber": 4,
-  "FileName": "5.ScriptCollection_v0.0.4.unitypackage"
+  "VersionNumber": 5,
+  "FileName": "5.ScriptCollection_v0.0.5.unitypackage"
 }

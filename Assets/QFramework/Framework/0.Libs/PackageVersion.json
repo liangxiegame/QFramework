@@ -1,14 +1,15 @@
 {
-  "Version": "v0.0.5",
+  "Version": "v0.0.6",
+  "Type": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.5",
-    "content": "upgrade UniRx 5.5.0 -> 6.2.0",
+    "version": "v0.0.6",
+    "content": "add get or add component",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-09-02"
+    "date": "2018-09-07"
   },
   "Name": "0.Libs",
-  "VersionNumber": 5,
-  "FileName": "0.Libs_v0.0.5.unitypackage"
+  "VersionNumber": 6,
+  "FileName": "0.Libs_v0.0.6.unitypackage"
 }
