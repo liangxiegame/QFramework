@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 liangxie
+ * Copyright (c) 2018.7 ~ 9 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,8 +25,11 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using UniRx;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -69,7 +72,7 @@ namespace QFramework
         public static IEnumerator DoUpload(string username, string password, PackageVersion packageVersion,Action succeed)
         {
             var loginPage = UnityWebRequest.Get(LOGIN_URL);
-
+            EditorUtility.DisplayProgressBar("插件上传","获取验证信息",0.1f);
             yield return loginPage.Send();
 
             #if UNITY_2017_1_OR_NEWER
@@ -82,21 +85,14 @@ namespace QFramework
                 yield break;
             }
 
-            // get the csrf cookie
+            
+            EditorUtility.DisplayProgressBar("插件上传","生成 token",0.1f);
+
             var SetCookie = loginPage.GetResponseHeader("set-cookie");
             var rxCookie = new Regex("csrftoken=(?<csrf_token>.{64});");
             var cookieMatches = rxCookie.Matches(SetCookie);
             var csrfCookie = cookieMatches[0].Groups["csrf_token"].Value;
 
-            // get the middleware value
-//            var loginPageHtml = loginPage.downloadHandler.text;
-//            var rxMiddleware = new Regex("name='csrfmiddlewaretoken' value='(?<csrf_token>.{64})'");
-//            var middlewareMatches = rxMiddleware.Matches(loginPageHtml);
-//            string csrfMiddlewareToken = middlewareMatches[0].Groups["csrf_token"].Value;
-
-            /*
-             * Make a login request.
-             */
 
             var form = new WWWForm();
             var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
@@ -125,7 +121,8 @@ namespace QFramework
                 form.AddField("type", "agt");
             }
 
-            UnityWebRequest doLogin3 =
+            
+            var doLogin3 =
                 UnityWebRequest.Post(UPLOAD_URL, form);
             doLogin3.SetRequestHeader("cookie", "csrftoken=" + csrfCookie);
             doLogin3.SetRequestHeader("X-CSRFToken", csrfCookie);
@@ -133,6 +130,8 @@ namespace QFramework
             File.Delete(fullpath);
 
             yield return doLogin3.Send();
+            
+            EditorUtility.ClearProgressBar();
 
             #if UNITY_2017_1_OR_NEWER
             if (doLogin3.isNetworkError)
@@ -140,7 +139,7 @@ namespace QFramework
             if (doLogin3.isError)
             #endif            
             {
-                Log.E(doLogin3.error);
+                EditorUtility.DisplayDialog("插件上传", "上传失败!{0}".FillFormat(doLogin3.error), "确定");
             }
             else
             {
@@ -148,5 +147,6 @@ namespace QFramework
                 succeed.InvokeGracefully();
             }
         }
+        
     }
 }

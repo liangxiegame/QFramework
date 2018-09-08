@@ -1,13 +1,13 @@
 {
   "Version": "v0.0.3",
   "Type": 0,
-  "DownloadUrl": null,
+  "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.3.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/1.ActionKit/",
   "Readme": {
     "version": "v0.0.3",
     "content": "upgrade fsm",
-    "author": "iMac03010154",
-    "date": "2018-09-03"
+    "author": "liangxie",
+    "date": "now"
   },
   "Name": "1.ActionKit",
   "VersionNumber": 3,

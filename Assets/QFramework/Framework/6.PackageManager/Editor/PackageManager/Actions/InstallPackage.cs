@@ -28,6 +28,7 @@ using System.Net;
 using System;
 using UnityEditor;
 using System.IO;
+using UniRx;
 
 namespace QFramework
 {
@@ -44,39 +45,40 @@ namespace QFramework
 		{
 			base.OnBegin();
 
-			var tempFile = mRequestPackageData.Name + ".unitypackage";
+			var tempFile = "Assets/" + mRequestPackageData.Name + ".unitypackage";
 
 			Debug.Log(mRequestPackageData.DownloadUrl + ">>>>>>:");
 
-			EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.5f);
+			EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
 
-			var client = new WebClient();
+			var progressListener = new ScheduledNotifier<float>();
 
-			client.DownloadProgressChanged += OnProgressChanged;
+			ObservableWWW.GetAndGetBytes(mRequestPackageData.DownloadUrl, null, progressListener)
+				.Subscribe(bytes =>
+				{
+					File.WriteAllBytes(tempFile, bytes); 
+					
+					EditorUtility.ClearProgressBar();
 
-			client.DownloadFile(new Uri(mRequestPackageData.DownloadUrl), tempFile);
+					AssetDatabase.ImportPackage(tempFile, true);
 
-			client.DownloadProgressChanged -= OnProgressChanged;
-
-			EditorUtility.ClearProgressBar();
-
-			AssetDatabase.ImportPackage(tempFile, true);
-
-			File.Delete(tempFile);
+					File.Delete(tempFile);
 			
-			mRequestPackageData.SaveVersionFile();
+					mRequestPackageData.SaveVersionFile();
 
-			AssetDatabase.Refresh();
+					AssetDatabase.Refresh();
 
-			InstalledPackageVersions.Reload();
+					InstalledPackageVersions.Reload();
+					
+				});
+
+			progressListener.Subscribe(OnProgressChanged);
 		}
 
-		void OnProgressChanged(object obj, DownloadProgressChangedEventArgs args)
+		private void OnProgressChanged(float progress)
 		{
 			EditorUtility.DisplayProgressBar("插件更新",
-				"插件下载中 {0} m/{1} m....".FillFormat(args.BytesReceived / 1024 / 1024,
-					args.TotalBytesToReceive / 1024 / 1024), args.BytesReceived / args.TotalBytesToReceive);
-
+				"插件下载中 {0:P2}".FillFormat(progress), progress);
 		}
 	}
 }
