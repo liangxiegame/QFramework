@@ -1,7 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2018.3 liangxie
+ * Copyright (c) 2017 ~ 2018.9 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
