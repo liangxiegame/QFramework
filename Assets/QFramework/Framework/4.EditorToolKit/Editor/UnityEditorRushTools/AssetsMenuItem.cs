@@ -43,7 +43,7 @@ namespace QFramework
 
     internal static class AssetsMenuItem
     {
-        [MenuItem("Assets/Copy Name")]
+        [MenuItem("Assets/Copy/Copy Name")]
         private static void CopyName()
         {
             TextEditor te = new TextEditor();
@@ -51,5 +51,83 @@ namespace QFramework
             te.OnFocus();
             te.Copy();
         }
+
+        [MenuItem("Assets/Copy/Copy FilePath")]
+        private static void CopyFilePath()
+        {
+            TextEditor editor = new TextEditor();
+            editor.text = AssetDatabase.GetAssetPath(Selection.activeObject);
+            editor.SelectAll();
+            editor.Copy();
+
+            Debug.Log("FilePath: " + editor.text);
+        }
+
+        #region Copy Hierarchy Node Path
+        private static string mNodeStart = "";
+        private static string mNodeEnd = "";
+
+        [MenuItem("GameObject/Copy/CopyNodePath", false, 0)]
+        static void CopyNodePathFunc()
+        {
+            string nodePath = "";
+            GetNodePath(Selection.activeGameObject.transform, ref nodePath);
+
+            Debug.Log("CopyNodePath :" + nodePath);
+
+            //复制到剪贴板
+            TextEditor editor = new TextEditor();
+            editor.text = nodePath;
+            editor.SelectAll();
+            editor.Copy();
+        }
+
+        [MenuItem("GameObject/Copy/CopyNode ..] 1", false, 1)]
+        static void CopyNodeEnd()
+        {
+            string nodePath = "";
+            GetNodePath(Selection.activeGameObject.transform, ref nodePath);
+            Debug.Log("CopyNodeEnd :" + nodePath);
+
+            mNodeEnd = nodePath;
+        }
+
+        [MenuItem("GameObject/Copy/CopyNode [.. 2", false, 2)]
+        static void CopyNodeStart()
+        {
+            string nodePath = "";
+            GetNodePath(Selection.activeGameObject.transform.parent, ref nodePath);
+
+            Debug.Log("CopyNodeStart :" + nodePath);
+
+            mNodeStart = nodePath;
+            nodePath = mNodeEnd.Replace(mNodeStart, "");
+            nodePath = nodePath.TrimStart(new char[] { '/' }).TrimEnd(new char[] { '/' });
+            
+            TextEditor editor = new TextEditor();
+            editor.text = nodePath;
+            editor.SelectAll();
+            editor.Copy();
+        }
+
+        static void GetNodePath(Transform trans, ref string path)
+        {
+            if (path == "")
+            {
+                path = trans.name;
+            }
+            else
+            {
+                path = trans.name + "/" + path;
+            }
+
+            if (trans.parent != null)
+            {
+                GetNodePath(trans.parent, ref path);
+            }
+        }
+        #endregion
+
+
     }
 }
