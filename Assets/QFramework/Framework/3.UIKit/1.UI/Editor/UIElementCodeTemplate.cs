@@ -61,7 +61,6 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("private void Awake()");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t").AppendLine("}");
-			strBuilder.AppendLine("\t}");
 			strBuilder.AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void OnBeforeDestroy()");
 			strBuilder.Append("\t\t").AppendLine("{");

@@ -1,15 +1,15 @@
 {
-  "Version": "v0.0.8",
+  "Version": "v0.0.9",
   "Type": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
   "Readme": {
-    "version": "v0.0.8",
-    "content": "fix:ui component generate error",
+    "version": "v0.0.9",
+    "content": "fix: UIElementCodeGenerator",
     "author": "iMac03010154",
-    "date": "2018-09-06"
+    "date": "2018-09-12"
   },
   "Name": "3.UIKit",
-  "VersionNumber": 8,
-  "FileName": "3.UIKit_v0.0.8.unitypackage"
+  "VersionNumber": 9,
+  "FileName": "3.UIKit_v0.0.9.unitypackage"
 }
