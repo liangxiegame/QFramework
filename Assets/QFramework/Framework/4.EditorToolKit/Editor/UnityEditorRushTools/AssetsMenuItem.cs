@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -67,13 +68,13 @@ namespace QFramework
         private static string mNodeStart = "";
         private static string mNodeEnd = "";
 
-        [MenuItem("GameObject/Copy/CopyNodePath", false, 0)]
+        [MenuItem("GameObject/Copy/CopyNodePath ..]", false, 0)]
         static void CopyNodePathFunc()
         {
             string nodePath = "";
             GetNodePath(Selection.activeGameObject.transform, ref nodePath);
 
-            Debug.Log("CopyNodePath :" + nodePath);
+            Debug.Log("...]" + nodePath);
 
             //复制到剪贴板
             TextEditor editor = new TextEditor();
@@ -82,28 +83,43 @@ namespace QFramework
             editor.Copy();
         }
 
-        [MenuItem("GameObject/Copy/CopyNode ..] 1", false, 1)]
-        static void CopyNodeEnd()
+        [MenuItem("GameObject/Copy/CopyNodeSectionPath [...]")]
+        static void CopyNodePath()
         {
             string nodePath = "";
-            GetNodePath(Selection.activeGameObject.transform, ref nodePath);
-            Debug.Log("CopyNodeEnd :" + nodePath);
 
-            mNodeEnd = nodePath;
-        }
+            //获取最后一个obj
+            if (Selection.gameObjects.Length > 2)
+            {
+                string nodePathMin = "";
+                string nodePathMax = "";
+                for (int i = 0; i < Selection.gameObjects.Length; i++)
+                {
+                    string path = "";
+                    GetNodePath(Selection.gameObjects[i].transform, ref path);
 
-        [MenuItem("GameObject/Copy/CopyNode [.. 2", false, 2)]
-        static void CopyNodeStart()
-        {
-            string nodePath = "";
-            GetNodePath(Selection.activeGameObject.transform.parent, ref nodePath);
+                    if (i == 0) { nodePathMin = path; }
 
-            Debug.Log("CopyNodeStart :" + nodePath);
+                    if (path.Length > nodePathMax.Length)
+                    {
+                        nodePathMax = path;
+                    }
+                    if (path.Length < nodePathMin.Length)
+                    {
+                        nodePathMin = Selection.gameObjects[i].name;
+                    }
+                }
 
-            mNodeStart = nodePath;
-            nodePath = mNodeEnd.Replace(mNodeStart, "");
-            nodePath = nodePath.TrimStart(new char[] { '/' }).TrimEnd(new char[] { '/' });
-            
+                nodePath = nodePathMin + nodePathMax.Split(new string[] { nodePathMin }, StringSplitOptions.None)[1];
+            }
+            else
+            {
+                nodePath = Selection.activeGameObject.name;
+            }
+
+            Debug.Log("[...]" + nodePath);
+
+            //复制到剪贴板
             TextEditor editor = new TextEditor();
             editor.text = nodePath;
             editor.SelectAll();
