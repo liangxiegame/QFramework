@@ -1,15 +1,15 @@
 {
-  "Version": "v0.0.3",
+  "Version": "v0.0.5",
   "Type": 0,
-  "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.3.unitypackage",
+  "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.4.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/1.ActionKit/",
   "Readme": {
-    "version": "v0.0.3",
-    "content": "upgrade fsm",
-    "author": "liangxie",
-    "date": "now"
+    "version": "v0.0.5",
+    "content": "support demo",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-09-19"
   },
   "Name": "1.ActionKit",
-  "VersionNumber": 3,
-  "FileName": "1.ActionKit_v0.0.3.unitypackage"
+  "VersionNumber": 5,
+  "FileName": "1.ActionKit_v0.0.5.unitypackage"
 }

@@ -129,7 +129,9 @@ namespace QFramework
 
             File.Delete(fullpath);
 
+            var timer = Observable.Interval(TimeSpan.FromSeconds(0.5f)).Subscribe(_ => { Log.E("upload"); });
             yield return doLogin3.Send();
+            timer.Dispose();
             
             EditorUtility.ClearProgressBar();
 

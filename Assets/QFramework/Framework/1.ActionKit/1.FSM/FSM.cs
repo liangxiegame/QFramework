@@ -116,7 +116,7 @@ namespace QFramework
 		/// <param name="name">Name.</param>
 		/// <param name="toState">To state.</param>
 		/// <param name="onStateChagned">Callfunc.</param>
-		public void AddTranslation(TStateName fromState, KEventName name, TStateName toState, Action<object[]> onStateChagned = null  )
+		public void AddTransition(TStateName fromState, KEventName name, TStateName toState, Action<object[]> onStateChagned = null  )
 		{
 			if (!mStateDict.ContainsKey(fromState))
 			{
