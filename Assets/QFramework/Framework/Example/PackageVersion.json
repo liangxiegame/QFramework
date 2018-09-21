@@ -1,12 +1,13 @@
 {
   "Version": "v0.0.9",
+  "Type": 0,
   "DownloadUrl": "http://liangxiegame.com/media/Example_v0.0.9_VZRp2RU.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/Example/",
   "Readme": {
     "version": "v0.0.9",
-    "content": "",
-    "author": "liangxie",
-    "date": "now"
+    "content": "commit ZED folder",
+    "author": "XB-20180301MAAD",
+    "date": "2018-09-21"
   },
   "Name": "Example",
   "VersionNumber": 9,

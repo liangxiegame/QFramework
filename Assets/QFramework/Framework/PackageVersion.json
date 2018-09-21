@@ -1,0 +1,15 @@
+{
+  "Version": "v0.0.1",
+  "Type": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework",
+  "Readme": {
+    "version": "v0.0.1",
+    "content": "test",
+    "author": "XB-20180301MAAD",
+    "date": "2018-09-21"
+  },
+  "Name": "Framework",
+  "VersionNumber": 1,
+  "FileName": "Framework_v0.0.1.unitypackage"
+}
