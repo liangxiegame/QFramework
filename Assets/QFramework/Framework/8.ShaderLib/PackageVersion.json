@@ -1,15 +1,15 @@
 {
-  "Version": "v0.0.3",
+  "Version": "v0.0.5",
   "Type": 0,
-  "DownloadUrl": "http://liangxiegame.com/media/8.ShaderLib_v0.0.3.unitypackage",
+  "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/8.ShaderLib/",
   "Readme": {
-    "version": "v0.0.3",
-    "content": "add gray.cginc",
-    "author": "liangxie",
-    "date": "now"
+    "version": "v0.0.5",
+    "content": "UI.cginc improvements",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-09-23"
   },
   "Name": "8.ShaderLib",
-  "VersionNumber": 3,
-  "FileName": "8.ShaderLib_v0.0.3.unitypackage"
+  "VersionNumber": 5,
+  "FileName": "8.ShaderLib_v0.0.5.unitypackage"
 }
