@@ -91,14 +91,22 @@ namespace UniRx
             return CoroutineAsyncBridge.Start(coroutine);
         }
 
-#if !CSHARP_7_OR_LATER
+#if !(CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6)))
 
         // should use UniRx.Async in C# 7.0
 
+#if UNITY_2018_3_OR_NEWER
+#pragma warning disable CS0618
+#endif
         public static CoroutineAsyncBridge<WWW> GetAwaiter(this WWW www)
         {
             return CoroutineAsyncBridge<WWW>.Start(www);
         }
+#if UNITY_2018_3_OR_NEWER
+#pragma warning restore CS0618
+#endif
+
+
 
         public static CoroutineAsyncBridge<AsyncOperation> GetAwaiter(this AsyncOperation asyncOperation)
         {

@@ -42,3 +42,4 @@ Plugins.meta
 obj/
 Packages/
 Assets/.qframework
+Assembly-CSharp-firstpass.csproj

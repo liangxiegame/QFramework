@@ -1,4 +1,6 @@
-﻿#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#endif
 
 using System;
 using System.Collections.Generic;
@@ -6,7 +8,7 @@ using System.Threading;
 #if !UniRxLibrary
 using UnityEngine;
 #endif
-#if CSHARP_7_OR_LATER
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 using UniRx.Async;
 using UniRx.Async.Internal;
 #endif
@@ -18,7 +20,7 @@ namespace UniRx
         T Value { get; }
         bool HasValue { get; }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
         UniTask<T> WaitUntilValueChangedAsync(CancellationToken cancellationToken);
 #endif
     }
@@ -155,7 +157,7 @@ namespace UniRx
                 node = node.Next;
             }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
             commonPromise?.InvokeContinuation(ref value);
             if (removablePromises != null)
             {
@@ -244,7 +246,7 @@ namespace UniRx
                 node.OnCompleted();
                 node = node.Next;
             }
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
             commonPromise?.SetCanceled();
             commonPromise = null;
             if (removablePromises != null)
@@ -270,7 +272,7 @@ namespace UniRx
         }
 
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 
         static readonly Action<object> Callback = CancelCallback;
         ReactivePropertyReusablePromise<T> commonPromise;
@@ -299,7 +301,7 @@ namespace UniRx
 
             newPromise = new ReactivePropertyReusablePromise<T>(cancellationToken);
             removablePromises.Add(cancellationToken, newPromise);
-            cancellationToken.Register(Callback, Tuple.Create(this, newPromise), false);
+            cancellationToken.RegisterWithoutCaptureExecutionContext(Callback, Tuple.Create(this, newPromise));
 
             return newPromise.Task;
         }
@@ -460,7 +462,7 @@ namespace UniRx
                 node = node.Next;
             }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
             commonPromise?.SetCanceled();
             commonPromise = null;
             if (removablePromises != null)
@@ -520,7 +522,7 @@ namespace UniRx
                 node = node.Next;
             }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
             commonPromise?.InvokeContinuation(ref value);
             if (removablePromises != null)
             {
@@ -560,7 +562,7 @@ namespace UniRx
             return false;
         }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 
         static readonly Action<object> Callback = CancelCallback;
         ReactivePropertyReusablePromise<T> commonPromise;
@@ -589,7 +591,7 @@ namespace UniRx
 
             newPromise = new ReactivePropertyReusablePromise<T>(cancellationToken);
             removablePromises.Add(cancellationToken, newPromise);
-            cancellationToken.Register(Callback, Tuple.Create(this, newPromise), false);
+            cancellationToken.RegisterWithoutCaptureExecutionContext(Callback, Tuple.Create(this, newPromise));
 
             return newPromise.Task;
         }
@@ -626,7 +628,7 @@ namespace UniRx
             return new ReadOnlyReactiveProperty<T>(source);
         }
 
-#if (CSHARP_7_OR_LATER)
+#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 
         public static UniTask<T>.Awaiter GetAwaiter<T>(this IReadOnlyReactiveProperty<T> source)
         {

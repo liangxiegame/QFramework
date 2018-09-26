@@ -1,4 +1,4 @@
-﻿#if CSHARP_7_OR_LATER
+﻿#if CSHARP_7_OR_LATER || (UNITY_2018_3_OR_NEWER && (NET_STANDARD_2_0 || NET_4_6))
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
 using System;
@@ -61,6 +61,10 @@ namespace UniRx.Async
 
 #if ENABLE_WWW
 
+#if UNITY_2018_3_OR_NEWER
+#pragma warning disable CS0618
+#endif
+
         public static IAwaiter GetAwaiter(this WWW www)
         {
             Error.ThrowArgumentNullException(www, nameof(www));
@@ -96,6 +100,10 @@ namespace UniRx.Async
             }
             return new UniTask(awaiter);
         }
+
+#if UNITY_2018_3_OR_NEWER
+#pragma warning restore CS0618
+#endif
 
 #endif
 
@@ -430,6 +438,10 @@ namespace UniRx.Async
 
 #if ENABLE_WWW
 
+#if UNITY_2018_3_OR_NEWER
+#pragma warning disable CS0618
+#endif
+
         class WWWConfiguredAwaiter : IAwaiter, IPlayerLoopItem
         {
             WWW asyncOperation;
@@ -519,6 +531,10 @@ namespace UniRx.Async
                 this.continuation = continuation;
             }
         }
+
+#if UNITY_2018_3_OR_NEWER
+#pragma warning restore CS0618
+#endif
 
 #endif
 
