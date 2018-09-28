@@ -7,11 +7,8 @@ This is QFrameworks's Roadmap.
 ### v0.0.x: Workflow Explore
 
 #### v0.0.9 QFramework Package Manager [Latest Release]
-#### v0.0.10 [Current In Development]
-* xLua Support
-* Merge State Machine & ActionSequencer
-* UniRx Full Example
-* Guide Framework
+
+#### Current v0.0.10
 <blockquote class="trello-card"><a href="https://trello.com/c/UI0I2v2o/1-v0010">v0.0.10</a></blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>
 
 ### v0.1.x: User Service Improvement
