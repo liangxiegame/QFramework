@@ -38,6 +38,9 @@ uniform sampler2D _MainTex;
 			
 // 用于采样叠加的纹理(不用管,是固定套路)
 uniform fixed4 _TextureSampleAdd;
+
+uniform float4 _MainTex_ST;
+
 // 裁剪区域(不用管)
 uniform float4 _ClipRect;
 
@@ -61,6 +64,21 @@ v2f vert(appdata_t IN)
 	OUT.color = IN.color;
 	return OUT;
 }
+
+v2f vert_transform_tex(appdata_t IN) 
+{
+    v2f OUT;
+    UNITY_SETUP_INSTANCE_ID(IN)
+    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(OUT)
+    OUT.worldPosition = IN.vertex;
+    OUT.vertex = UnityObjectToClipPos(OUT.worldPosition);
+                
+    OUT.texcoord =  TRANSFORM_TEX(IN.texcoord,_MainTex);
+                
+    OUT.color = IN.color;
+                
+    return OUT;
+}
 		
 fixed4 ProcessColor(float2 uv,float4 inColor);
 
@@ -78,4 +96,23 @@ fixed4 frag(v2f IN) : SV_Target
 	#endif
 
 	return color;
+}
+
+// 添加新的函数原型
+fixed4 ProcessColor(float2 uv,float4 inColor,float4 worldPosition);
+
+// 片元着色器
+fixed4 frag_worldposition(v2f IN) : SV_Target 
+{               
+    // 生成灰度颜色(不用考虑  lerp 只看 float4里的就好
+    fixed4 color = ProcessColor(IN.texcoord,IN.color,IN.worldPosition);
+                
+    // 下边就是固定套路
+    color.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
+
+    #ifdef UNITY_UI_ALPHACLIP
+    clip(color.a - 0.001);
+    #endif
+
+    return color;
 }
