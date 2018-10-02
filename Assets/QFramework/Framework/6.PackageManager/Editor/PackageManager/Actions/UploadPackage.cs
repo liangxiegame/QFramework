@@ -84,7 +84,6 @@ namespace QFramework
                 Debug.Log(loginPage.error);
                 yield break;
             }
-
             
             EditorUtility.DisplayProgressBar("插件上传","生成 token",0.1f);
 
@@ -92,7 +91,6 @@ namespace QFramework
             var rxCookie = new Regex("csrftoken=(?<csrf_token>.{64});");
             var cookieMatches = rxCookie.Matches(SetCookie);
             var csrfCookie = cookieMatches[0].Groups["csrf_token"].Value;
-
 
             var form = new WWWForm();
             var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
