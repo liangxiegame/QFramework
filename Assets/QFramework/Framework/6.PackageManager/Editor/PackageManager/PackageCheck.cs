@@ -100,18 +100,21 @@ namespace QFramework
 
 		private void ProcessCompare()
 		{
-			EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
-			{
-				if (packageDatas == null)
-				{
-					return;
-				}
+            if (NetworkUtil.IsReachable)
+            {
+                EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
+                {
+                    if (packageDatas == null)
+                    {
+                        return;
+                    }
 
-				if (CheckNewVersionDialog(packageDatas,PackageInfosRequestCache.Get().PackageDatas))
-				{
-					
-				}
-			}));
+                    if (CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas))
+                    {
+
+                    }
+                }));
+            }
 			
 			ReCheckConfigDatas();
 			GoToWait();
