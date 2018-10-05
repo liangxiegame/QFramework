@@ -24,48 +24,22 @@
  ****************************************************************************/
 
 using UnityEditor;
+using UniRx;
 
 namespace QFramework
 {
     public class User
     {
-        private static string mUsername;
-        private static string mPassword;
+		public static StringReactiveProperty Username = new StringReactiveProperty (EditorPrefs.GetString ("username", string.Empty));
+		public static StringReactiveProperty Password = new StringReactiveProperty (EditorPrefs.GetString ("password", string.Empty));
 
-        public static string Username
-        {
-            get
-            {
-                if (mUsername.IsNullOrEmpty())
-                {
-                    mUsername = EditorPrefs.GetString("username",string.Empty);
-                }
 
-                return mUsername;
-            }
-            set { mUsername = value; }
-        }
-
-        public static string Password
-        {
-            get
-            {
-                if (mPassword.IsNullOrEmpty())
-                {
-                    mPassword = EditorPrefs.GetString("password", string.Empty);
-                }
-
-                return mPassword;
-            }
-
-            set { mPassword = value; }
-        }
-
+		public static bool Logined = false;
 
         public static void Save()
         {
-            EditorPrefs.SetString("username",mUsername);
-            EditorPrefs.SetString("password",mPassword);
+			EditorPrefs.SetString("username",Username.Value);
+			EditorPrefs.SetString("password",Password.Value);
         }
         
     }

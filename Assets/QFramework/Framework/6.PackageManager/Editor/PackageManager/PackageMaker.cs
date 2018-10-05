@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.8 liangxie
+ * Copyright (c) 2018.8 ~ 10 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -29,6 +29,7 @@ using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UniRx;
 
 namespace QFramework
 {
@@ -191,7 +192,7 @@ namespace QFramework
 
 		private string mReleaseNote = string.Empty;
 		
-
+		bool inRegisterView = false;
 		
 		private void DrawInit()
 		{
@@ -218,10 +219,40 @@ namespace QFramework
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
 			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
 
-			User.Username = EditorGUIUtils.GUILabelAndTextField("username:", User.Username);
-			User.Password = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password);
+			if (!User.Logined)
+			{
+				User.Username.Value = EditorGUIUtils.GUILabelAndTextField("username:", User.Username.Value);
+				User.Password.Value = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password.Value);
 
-			if (GUILayout.Button("发布"))
+				if (!inRegisterView && GUILayout.Button ("登录"))
+				{
+					Observable.FromCoroutine (_ => LoginAction.DoLogin (User.Username.Value, User.Password.Value, () =>
+					{
+						Debug.Log("True");
+						User.Logined = true;
+					})).Subscribe();
+				}
+
+				if (!inRegisterView && GUILayout.Button ("注册"))
+				{
+					inRegisterView = true;
+				}
+
+				if (inRegisterView)
+				{
+					if (GUILayout.Button ("注册"))
+					{
+
+					}
+
+					if (GUILayout.Button("返回注册"))
+					{
+						inRegisterView = false;
+					}
+				}
+			}
+
+			if (User.Logined && GUILayout.Button("发布"))
 			{
 				User.Save();
 
@@ -266,7 +297,7 @@ namespace QFramework
 
 		private void Upload()
 		{
-			this.StartCoroutine(UploadPackage.DoUpload(User.Username, User.Password, mPackageVersion, () =>
+			this.StartCoroutine(UploadPackage.DoUpload(User.Username.Value, User.Password.Value, mPackageVersion, () =>
 			{
 				mUploadResult = "上传成功";
 				GotoComplete();
