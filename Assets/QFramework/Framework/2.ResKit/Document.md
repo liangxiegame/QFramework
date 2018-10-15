@@ -13,6 +13,8 @@ var bgTexture = loader.LoadSync<Texture2D>("Resources/Bg");
 
 var gameObjPrefab = loader.LoadSync("Resources/gameObj") as GameObject;
 
+var imageSprite = resLoader.LoadSprite("Resources/TestTexture");
+ 
 // resycle this panel/monobehaivour loaded res when destroyed 
 loader.Recycle2Cache();
 loader = null;
@@ -41,6 +43,8 @@ var smObjPrefab = loader.LoadSync<GameObject>("smObj");
 var bgTexture = loader.LoadSync<Texture2D>("Bg");
 
 var logoTexture = loader.LoadSync<Texture2D>("hometextures","logo");
+
+var imageSprite = resLoader.LoadSprite("testtexture_png", "TestTexture");
 
 // resycle this panel/monobehaivour loaded res when destroyed 
 loader.Recycle2Cache();
