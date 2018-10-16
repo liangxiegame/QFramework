@@ -64,6 +64,8 @@ namespace QFramework
 						return "InputField";
 					if (null != GetComponent<Text>())
 						return "Text";
+                    if (null != GetComponent("TMP.TextMeshProUGUI"))
+                        return "TextMeshProUGUI";
 					if (null != GetComponent<Button>())
 						return "Button";
 					if (null != GetComponent<RawImage>())

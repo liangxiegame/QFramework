@@ -219,18 +219,18 @@ namespace QFramework
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
 			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
 
-			if (!User.Logined)
+			if (User.Token.Value.IsNullOrEmpty())
 			{
 				User.Username.Value = EditorGUIUtils.GUILabelAndTextField("username:", User.Username.Value);
 				User.Password.Value = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password.Value);
 
 				if (!inRegisterView && GUILayout.Button ("登录"))
 				{
-					Observable.FromCoroutine (_ => LoginAction.DoLogin (User.Username.Value, User.Password.Value, () =>
-					{
-						Debug.Log("True");
-						User.Logined = true;
-					})).Subscribe();
+                    GetTokenAction.DoGetToken(User.Username.Value, User.Password.Value, token =>
+                    {
+                        User.Token.Value = token;
+                        User.Save();
+                    });
 				}
 
 				if (!inRegisterView && GUILayout.Button ("注册"))
@@ -250,9 +250,15 @@ namespace QFramework
 						inRegisterView = false;
 					}
 				}
-			}
+            } else {
+                if (GUILayout.Button("注销"))
+                {
+                    User.Token.Value = string.Empty;
+                    User.Save();
+                }
+            }
 
-			if (User.Logined && GUILayout.Button("发布"))
+			if (User.Token.Value.IsNotNullAndEmpty() && GUILayout.Button("发布"))
 			{
 				User.Save();
 
@@ -297,11 +303,11 @@ namespace QFramework
 
 		private void Upload()
 		{
-			this.StartCoroutine(UploadPackage.DoUpload(User.Username.Value, User.Password.Value, mPackageVersion, () =>
-			{
-				mUploadResult = "上传成功";
-				GotoComplete();
-			}));
+            UploadPackage.DoUpload(mPackageVersion, () =>
+            {
+                mUploadResult = "上传成功";
+                GotoComplete();
+            });
 		}
 
 		private static void ShowErrorMsg(string content)

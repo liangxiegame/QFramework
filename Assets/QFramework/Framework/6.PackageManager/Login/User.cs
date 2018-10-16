@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.8 liangxie
+ * Copyright (c) 2018.8 ~ 10 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,24 +23,49 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
+using UnityEngine;
+
 using UniRx;
 
 namespace QFramework
 {
-    public class User
+    public static class User
     {
-		public static StringReactiveProperty Username = new StringReactiveProperty (EditorPrefs.GetString ("username", string.Empty));
-		public static StringReactiveProperty Password = new StringReactiveProperty (EditorPrefs.GetString ("password", string.Empty));
+        public static StringReactiveProperty Username = new StringReactiveProperty(LoadString("username"));
+        public static StringReactiveProperty Password = new StringReactiveProperty(LoadString("password"));
+        public static StringReactiveProperty Token = new StringReactiveProperty(LoadString("token"));
 
-
-		public static bool Logined = false;
-
+        public static bool Test = false;
+        
         public static void Save()
         {
-			EditorPrefs.SetString("username",Username.Value);
-			EditorPrefs.SetString("password",Password.Value);
+            Username.SaveString("username");
+            Password.SaveString("password");
+            Token.SaveString("token");
         }
-        
+
+        public static void SaveString(this StringReactiveProperty selfProperty, string key)
+        {
+#if UNITY_EDITOR
+            EditorPrefs.SetString(key, selfProperty.Value);
+#else
+            PlayerPrefs.SetString(key, selfProperty.Value);
+#endif
+        }
+
+
+        public static string LoadString(string key)
+        {
+
+#if UNITY_EDITOR
+            return EditorPrefs.GetString(key, string.Empty);
+#else
+            return PlayerPrefs.GetString(key, string.Empty);
+#endif
+        }
     }
 }

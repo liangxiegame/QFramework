@@ -1,13 +1,13 @@
 {
-  "Version": "v0.0.28",
+  "Version": "v0.0.27",
   "Type": 0,
   "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
   "Readme": {
-    "version": "v0.0.28",
-    "content": "尝试加入登录注册功能",
+    "version": "v0.0.27",
+    "content": "add UserModel",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-05"
+    "date": "2018-10-15"
   },
   "Name": "6.PackageManager",
   "VersionNumber": 27,

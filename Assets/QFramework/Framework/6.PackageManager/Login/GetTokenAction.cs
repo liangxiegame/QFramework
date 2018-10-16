@@ -36,7 +36,20 @@ namespace QFramework
 {
     public class GetTokenAction
     {
-        public const string URL = "http://liangxiegame.com/api-token-auth/";
+        private static string URL
+        {
+            get
+            {
+                if (User.Test)
+                {
+                    return "http://127.0.0.1:8000/api-token-auth/";
+                }
+                else
+                {
+                    return "http://liangxiegame.com/api-token-auth/";
+                }
+            }
+        }
 
         public static void DoGetToken(string username, string password, Action<string> onTokenGetted)
         {
@@ -44,7 +57,7 @@ namespace QFramework
             form.AddField("username", username);
             form.AddField("password", password);
 
-            ObservableWWW.Post("http://liangxiegame.com/api-token-auth/", form)
+            ObservableWWW.Post(URL, form)
                 .Subscribe(response =>
                 {
                     Debug.Log(response);

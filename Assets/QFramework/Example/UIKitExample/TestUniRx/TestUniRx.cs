@@ -30,8 +30,6 @@ using QFramework.Example;
 using UniRx;
 using UnityEngine.UI;
 using System;
-using UniRx.Examples;
-using UniRx.Diagnostics;
 using System.Text;
 
 namespace LFramework
@@ -63,8 +61,8 @@ namespace LFramework
             m_FuncList.Add("g", ReactiveSubscribe);//收集器
             m_FuncList.Add("h", TsfSubscribe);   //transform
 
-            ObservableLogger.Listener
-                .Subscribe(_ => Debug.Log(_));
+            //ObservableLogger.Listener
+                //.Subscribe(_ => Debug.Log(_));
 
             Observable.EveryUpdate()
                 .Do((x) =>
@@ -135,9 +133,9 @@ namespace LFramework
         #region 协程
         void Coroutine()
         {
-            Sample10_MainThreadDispatcher temp = new Sample10_MainThreadDispatcher();
+            //Sample10_MainThreadDispatcher temp = new Sample10_MainThreadDispatcher();
 //            CurrentSub = temp.Run();
-            Debug.Log(temp);
+            //Debug.Log(temp);
         }
         #endregion
 
