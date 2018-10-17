@@ -62,5 +62,17 @@ namespace QFramework
 				return retValue;
 			}
 		}
+
+        public static bool IsStandardAlone
+        {
+            get
+            {
+                bool retValue = false;
+#if UNITY_STANDALONE
+                retValue = true;
+#endif
+                return retValue;
+            }
+        }
 	}
 }

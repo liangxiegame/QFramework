@@ -69,6 +69,7 @@ namespace QFramework
             form.AddField("version", packageVersion.Version);
             form.AddField("release_note", packageVersion.Readme.content);
             form.AddField("install_path", packageVersion.InstallPath);
+            form.AddField("access_right", packageVersion.AccessRight.ToString().ToLower());
 
             if (packageVersion.Type == PackageType.FrameworkModule)
             {
@@ -82,6 +83,8 @@ namespace QFramework
             {
                 form.AddField("type", "agt");
             }
+
+
 
             Debug.Log(fullpath);
 

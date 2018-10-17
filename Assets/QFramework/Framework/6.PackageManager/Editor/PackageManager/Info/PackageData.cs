@@ -93,6 +93,12 @@ namespace QFramework
         DocumentsOrTutorial, //doc
     }
 
+    public enum PackageAccessRight
+    {
+        Public,
+        Private
+    }
+
     [Serializable]
     public class PackageVersion
     {
@@ -104,6 +110,8 @@ namespace QFramework
         public string Version;
 
         public PackageType Type;
+
+        public PackageAccessRight AccessRight;
         
         public int VersionNumber
         {

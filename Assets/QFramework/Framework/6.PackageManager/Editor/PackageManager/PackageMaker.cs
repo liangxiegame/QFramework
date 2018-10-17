@@ -215,6 +215,12 @@ namespace QFramework
 			mPackageVersion.Type = (PackageType)EditorGUILayout.EnumPopup(mPackageVersion.Type);
 			
 			GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("权限", GUILayout.Width(100));
+
+            mPackageVersion.AccessRight = (PackageAccessRight)EditorGUILayout.EnumPopup(mPackageVersion.AccessRight);
+            GUILayout.EndHorizontal();
 			
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
 			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
