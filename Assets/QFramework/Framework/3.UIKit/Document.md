@@ -17,7 +17,7 @@
 
   #### 这个 UI 模块有什么亮点？
 
-  基于QUIManager与CreatUICode便捷迅速地完成界面的开发。
+  基于 QUIManager 与 CreatUICode 便捷迅速地完成界面的开发。
 
 ### UI模块特征
 
