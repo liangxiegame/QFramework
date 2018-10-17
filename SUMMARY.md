@@ -3,7 +3,7 @@
 * [Unity 游戏框架 QFramework 简介-Intro](README.md)
 * [Action Kit ](/Assets/QFramework/Framework/1.ActionKit/Document.md)
 * [Res Kit](/Assets/QFramework/Framework/2.ResKit/Document.md)
-* [UI Kit](/Assets/QFramework/Framework/3.UI/Document.md)
+* [UI Kit](/Assets/QFramework/Framework/3.UIKit/Document.md)
 * [Editor ToolKit](/Assets/QFramework/Framework/4.EditorToolKit/Document.md)
   * [Inspectors](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Inspectors/Document.md)
   * [UnityEditorRushTools](/Assets/QFramework/Framework/4.EditorToolKit/Editor/UnityEditorRushTools/Document.md)
