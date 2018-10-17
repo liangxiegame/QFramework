@@ -46,3 +46,10 @@ Assembly-CSharp-firstpass.csproj
 Assets/QFramework/DoodleJump
 DoodleJump.meta
 PlatformRunner.meta
+QFramework2017.csproj
+QFramework2017.Editor.csproj
+QFramework2017.Editor.Plugins.csproj
+UniRx.Async.csproj
+UniRx.Async.Editor.csproj
+UniRx.csproj
+UniRx.Examples.csproj
