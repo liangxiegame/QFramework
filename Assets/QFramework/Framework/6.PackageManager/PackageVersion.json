@@ -1,15 +1,16 @@
 {
-  "Version": "v0.0.27",
+  "Version": "v0.0.28",
   "Type": 0,
+  "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
   "Readme": {
-    "version": "v0.0.27",
-    "content": "add UserModel",
+    "version": "v0.0.28",
+    "content": "add access_right",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-15"
+    "date": "2018-10-17"
   },
   "Name": "6.PackageManager",
-  "VersionNumber": 27,
-  "FileName": "6.PackageManager_v0.0.27.unitypackage"
+  "VersionNumber": 28,
+  "FileName": "6.PackageManager_v0.0.28.unitypackage"
 }
