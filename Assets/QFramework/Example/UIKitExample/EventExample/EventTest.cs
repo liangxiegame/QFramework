@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018.3 布鞋 827922094@qq.com
- * 
+ * Copyright (c) 2018.10 liangxie
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
  * 
@@ -24,24 +24,17 @@
  ****************************************************************************/
 
 using UnityEngine;
-using QFramework;
+using UniRx;
 
-public class EventGet : MonoBehaviour {
-
-	
-	void Start () {
-
-        QEventSystem.RegisterEvent(TestEvent.TestOne,GetEvent);
-
-	}
-
-    void GetEvent(int key, params object[] obj)
-    {
-        switch (key)
+namespace QFramework
+{
+    public class EventTest : MonoBehaviour
+    {       
+        void Start()
         {
-            case (int)TestEvent.TestOne:
-                this.LogInfo(obj[0].ToString());
-                break;
+            Observable.EveryUpdate()
+				.Where(x => Input.GetMouseButtonDown(0))
+                .Subscribe(_ => QEventSystem.SendEvent(TestEvent.TestOne,"Hello World!"));
         }
     }
 }
