@@ -1,15 +1,16 @@
 {
-  "Version": "v0.0.9",
+  "Version": "v0.0.10",
   "Type": 0,
+  "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
   "Readme": {
-    "version": "v0.0.9",
-    "content": "fix: UIElementCodeGenerator",
-    "author": "iMac03010154",
-    "date": "2018-09-12"
+    "version": "v0.0.10",
+    "content": "fix UIRoot.prefab",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-10-23"
   },
   "Name": "3.UIKit",
-  "VersionNumber": 9,
-  "FileName": "3.UIKit_v0.0.9.unitypackage"
+  "VersionNumber": 10,
+  "FileName": "3.UIKit_v0.0.10.unitypackage"
 }
