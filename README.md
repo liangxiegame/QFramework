@@ -92,7 +92,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
 ### 运行环境
-* Unity 5.5.x ~ 2018.x
+* Unity 5.6.x ~ 2018.x
 
 ### 包含项目 Include Projects:
 * [Catlib.Core](https://github.com/CatLib/Core)
