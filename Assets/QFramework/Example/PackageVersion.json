@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.12",
+  "Version": "v0.0.13",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.12",
-    "content": "add EventExample",
+    "version": "v0.0.13",
+    "content": "add bindings rx example",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-23"
+    "date": "2018-10-25"
   },
   "Name": "Example",
-  "VersionNumber": 12,
-  "FileName": "Example_v0.0.12.unitypackage"
+  "VersionNumber": 13,
+  "FileName": "Example_v0.0.13.unitypackage"
 }
