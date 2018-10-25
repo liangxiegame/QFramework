@@ -1,0 +1,12 @@
+{
+    "name": "Ac",
+    "references": [
+        "UniRx",
+        "Pool",
+        "Extension",
+        "DataStructure",
+        "Singleton"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

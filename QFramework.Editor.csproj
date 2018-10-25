@@ -195,6 +195,7 @@
     <Compile Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Scripts\Async\Editor\UniTaskTrackerTreeView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Scripts\Async\Editor\UniTaskTrackerWindow.cs" />
     <Compile Include="Assets\QFramework\Framework\1.ActionKit\3.NodeActionSystem\Extensions\Editor\EditorChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\1.ActionKit\Editor\Test.cs" />
     <Compile Include="Assets\QFramework\Framework\2.ResKit\1.ResSystem\Editor\AssetBundleExporter.cs" />
     <Compile Include="Assets\QFramework\Framework\2.ResKit\1.ResSystem\Editor\BuildScript.cs" />
     <Compile Include="Assets\QFramework\Framework\2.ResKit\1.ResSystem\Editor\ResKitAssetsMenu.cs" />
@@ -361,7 +362,10 @@
     <None Include="Assets\AssetStoreTools\Unity5.5-ImageEffects-master\Assets\Shader\VignetteFX.shader" />
     <None Include="Assets\AssetStoreTools\Unity5.5-ImageEffects-master\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\QFramework\Framework\0.Libs\0.Extension\3.Editor\Editor\EditorCoroutines\Readme - v1.1.0.txt" />
+    <None Include="Assets\QFramework\Framework\0.Libs\0.Extension\Extension.asmdef" />
+    <None Include="Assets\QFramework\Framework\0.Libs\1.DataStructure\DataStructure.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\3.Network\HttpClient\readme.txt" />
+    <None Include="Assets\QFramework\Framework\0.Libs\5.Singleton\Scripts\Singleton.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Examples\UniRx.Examples.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\ReadMe.txt" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Scripts\Async\Editor\UniRx.Async.Editor.asmdef" />
@@ -373,6 +377,9 @@
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\QFramework\Framework\1.ActionKit\ActionKit.asmdef" />
+    <None Include="Assets\QFramework\Framework\2.ResKit\3.Pool\ObjectFactory\ObjectFactory.asmdef" />
+    <None Include="Assets\QFramework\Framework\2.ResKit\3.Pool\Pool\Pool.asmdef" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
@@ -399,9 +406,6 @@
     <None Include="Assets\QFramework\Framework\notice.txt" />
     <None Include="Assets\QFramework\Framework\readme.txt" />
     <None Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Prefab\RainShader.shader" />
-    <None Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Readme.txt" />
-    <None Include="Assets\QFramework\PlatformRunner\Resources\CSV\level.txt" />
-    <None Include="Assets\QFramework\PlatformRunner\Resources\CSV\prop.txt" />
     <None Include="Assets\WebPlayerTemplates\QFramework.Log\bin\Debug\UnityEngine.xml" />
     <None Include="Assets\WebPlayerTemplates\QFramework.Log\obj\Debug\QFramework.Log.csproj.FileListAbsolute.txt" />
   </ItemGroup>

@@ -1,0 +1,10 @@
+{
+    "name": "Pool",
+    "references": [
+        "Singleton",
+        "ObjectFactory",
+        "Extension"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

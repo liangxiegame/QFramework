@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5cd461ef890d94c53a10ef3067baaa02
+guid: 502a692e4dbb64e13a40010d4288b689
 labels:
 - Qframework
 - V0.0.2
@@ -7,7 +7,6 @@ folderAsset: yes
 timeCreated: 1519047133
 licenseType: Free
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

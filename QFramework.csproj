@@ -939,6 +939,7 @@
     <Compile Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Prefab\RainCollision.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Prefab\RainScript.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Prefab\RainScript2D.cs" />
+    <Compile Include="Assets\QFramework\PlatformRunner\Scenes\Tests\Game\TestStageManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\02_Home\HomeModel.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\02_Home\HomeUICtrl.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\02_Home\HomeUIModel.cs" />
@@ -964,14 +965,13 @@
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Fruit\Fruit.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Fruit\FruitModel.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Fruit\FruitValue.cs" />
+    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game\BlockAir.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game\GameModel.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game\GameSceneLoading.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game\PlayerCtrl.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Game\PlayerModel.cs" />
-    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\GamePlayCtrl.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Interface\IBg.cs" />
-    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Interface\IStage.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Interface\IStageDataGenerator.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Logo\LogoScene.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\NGUITween\QTween.cs" />
@@ -982,9 +982,9 @@
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Prop\Protect.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\CustomStage.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\Loop.cs" />
-    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\RandomStage.cs" />
-    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\StageCtrl.cs" />
+    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\StageManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\StageModel.cs" />
+    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Stage\StageMonoBehaviour.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Theme\FirstLayerData.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Theme\LevelLogic.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\App\Theme\Stage1DataGenerator.cs" />
@@ -1015,7 +1015,6 @@
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Info\PropInfo.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\ConfigManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\GameManager.cs" />
-    <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\GoManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\InfoManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\LevelManager.cs" />
     <Compile Include="Assets\QFramework\PlatformRunner\Scripts\Manager\SoundManager.cs" />
@@ -1115,7 +1114,10 @@
     <None Include="Assets\AssetStoreTools\Unity5.5-ImageEffects-master\Assets\Shader\VignetteFX.shader" />
     <None Include="Assets\AssetStoreTools\Unity5.5-ImageEffects-master\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\QFramework\Framework\0.Libs\0.Extension\3.Editor\Editor\EditorCoroutines\Readme - v1.1.0.txt" />
+    <None Include="Assets\QFramework\Framework\0.Libs\0.Extension\Extension.asmdef" />
+    <None Include="Assets\QFramework\Framework\0.Libs\1.DataStructure\DataStructure.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\3.Network\HttpClient\readme.txt" />
+    <None Include="Assets\QFramework\Framework\0.Libs\5.Singleton\Scripts\Singleton.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Examples\UniRx.Examples.asmdef" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\ReadMe.txt" />
     <None Include="Assets\QFramework\Framework\0.Libs\6.UniRx\Scripts\Async\Editor\UniRx.Async.Editor.asmdef" />
@@ -1127,6 +1129,9 @@
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\DOTween50.xml" />
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\QFramework\Framework\0.Libs\Plugins\Demigiant\DOTween\readme.txt" />
+    <None Include="Assets\QFramework\Framework\1.ActionKit\ActionKit.asmdef" />
+    <None Include="Assets\QFramework\Framework\2.ResKit\3.Pool\ObjectFactory\ObjectFactory.asmdef" />
+    <None Include="Assets\QFramework\Framework\2.ResKit\3.Pool\Pool\Pool.asmdef" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\AOT\Newtonsoft.Json.XML" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\Standalone\Newtonsoft.Json.XML" />
     <None Include="Assets\QFramework\Framework\2.ResKit\4.IO\Plugins\JsonDotNet\Assemblies\Windows\Newtonsoft.Json.XML" />
@@ -1153,9 +1158,6 @@
     <None Include="Assets\QFramework\Framework\notice.txt" />
     <None Include="Assets\QFramework\Framework\readme.txt" />
     <None Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Prefab\RainShader.shader" />
-    <None Include="Assets\QFramework\PlatformRunner\Libs\RainMaker\Readme.txt" />
-    <None Include="Assets\QFramework\PlatformRunner\Resources\CSV\level.txt" />
-    <None Include="Assets\QFramework\PlatformRunner\Resources\CSV\prop.txt" />
     <None Include="Assets\WebPlayerTemplates\QFramework.Log\bin\Debug\UnityEngine.xml" />
     <None Include="Assets\WebPlayerTemplates\QFramework.Log\obj\Debug\QFramework.Log.csproj.FileListAbsolute.txt" />
   </ItemGroup>

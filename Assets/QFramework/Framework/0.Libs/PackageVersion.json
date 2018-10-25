@@ -1,15 +1,16 @@
 {
-  "Version": "v0.0.11",
+  "Version": "v0.0.13",
   "Type": 0,
+  "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.10.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.11",
-    "content": "add HttpClient",
+    "version": "v0.0.13",
+    "content": "add assembly definition",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-15"
+    "date": "2018-10-24"
   },
   "Name": "0.Libs",
-  "VersionNumber": 11,
-  "FileName": "0.Libs_v0.0.11.unitypackage"
+  "VersionNumber": 13,
+  "FileName": "0.Libs_v0.0.13.unitypackage"
 }

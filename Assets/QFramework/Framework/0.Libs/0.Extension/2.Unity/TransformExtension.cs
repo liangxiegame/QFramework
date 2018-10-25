@@ -112,12 +112,23 @@ namespace QFramework
 		private static Vector3 mPos;
 		
 		#region CETR001 Parent
+        public static T Parent<T>(this T selfComponent, Component parentComponent) where T : Component
+        {
+            selfComponent.transform.SetParent(parentComponent == null ? null : parentComponent.transform);
+            return selfComponent;
+        }
 
-		public static T Parent<T>(this T selfComponent, Transform parent) where T : Component
-		{
-			selfComponent.transform.SetParent(parent);
-			return selfComponent;
-		}
+        /// <summary>
+        /// 设置成为顶端 Transform
+        /// </summary>
+        /// <returns>The root transform.</returns>
+        /// <param name="selfComponent">Self component.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static T AsRootTransform<T>(this T selfComponent) where T : Component
+        {
+            selfComponent.transform.SetParent(null);
+            return selfComponent;
+        }
 
 		#endregion
 
