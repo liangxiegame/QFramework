@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.6",
+  "Version": "v0.0.7",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.4.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/1.ActionKit/",
   "Readme": {
-    "version": "v0.0.6",
-    "content": "add assembly definition",
+    "version": "v0.0.7",
+    "content": "单元测试代码剔除",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-24"
+    "date": "2018-10-26"
   },
   "Name": "1.ActionKit",
-  "VersionNumber": 6,
-  "FileName": "1.ActionKit_v0.0.6.unitypackage"
+  "VersionNumber": 7,
+  "FileName": "1.ActionKit_v0.0.7.unitypackage"
 }
