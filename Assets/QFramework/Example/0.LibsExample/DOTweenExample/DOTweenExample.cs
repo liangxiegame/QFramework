@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 liangxie
+ * Copyright (c) 2018.10 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,35 +23,27 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework.Example
 {
 	using UnityEngine;
-	
-	public static class CameraExtension 
+    using UnityEngine.UI;
+    using DG.Tweening;
+
+    public class DOTweenExample : MonoBehaviour 
 	{
-		public static void Example()
-		{
-			var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-			Debug.Log(screenshotTexture2D.width);
-		}
+        Button mBtnMove;
 
-		public static Texture2D CaptureCamera(this Camera camera,Rect rect)
-		{
-			var renderTexture = new RenderTexture(Screen.width,Screen.height,0);
-			camera.targetTexture = renderTexture;
-			camera.Render();
 
-			RenderTexture.active = renderTexture;
+        GameObject mCube;
 
-			var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
-			screenShot.ReadPixels(rect,0,0);
-			screenShot.Apply();
+        void Start () 
+        {
+            mCube = GameObject.Find("Cube");
 
-			camera.targetTexture = null;
-			RenderTexture.active = null;
-			Object.Destroy(renderTexture);
+            mBtnMove = transform.Find("BtnMove").GetComponent<Button>();
 
-			return screenShot;
-		}
-	}
+            mBtnMove.onClick.AddListener(() => { mCube.transform.DOMoveX(5, 1f); });
+       
+        }
+    }
 }

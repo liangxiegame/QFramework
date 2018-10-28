@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.17",
+  "Version": "v0.0.18",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.17",
-    "content": "add unirx example",
+    "version": "v0.0.18",
+    "content": "add dotween example",
     "author": "凉鞋的MacBook Pro (2)",
     "date": "2018-10-28"
   },
   "Name": "Example",
-  "VersionNumber": 17,
-  "FileName": "Example_v0.0.17.unitypackage"
+  "VersionNumber": 18,
+  "FileName": "Example_v0.0.18.unitypackage"
 }

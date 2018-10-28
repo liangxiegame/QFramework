@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.16",
+  "Version": "v0.0.17",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.10.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.16",
-    "content": "move all example 2 Example package",
+    "version": "v0.0.17",
+    "content": "merge all .Net extensions 2 DotNetExtensions.cs\n\nmerge all Unity extensions 2 UnityAPI Extensions.cs",
     "author": "凉鞋的MacBook Pro (2)",
     "date": "2018-10-28"
   },
   "Name": "0.Libs",
-  "VersionNumber": 16,
-  "FileName": "0.Libs_v0.0.16.unitypackage"
+  "VersionNumber": 17,
+  "FileName": "0.Libs_v0.0.17.unitypackage"
 }
