@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.18",
+  "Version": "v0.0.20",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.10.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.18",
-    "content": "remove editor extensions",
+    "version": "v0.0.20",
+    "content": "删除掉  IData 接口",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-28"
+    "date": "2018-10-29"
   },
   "Name": "0.Libs",
-  "VersionNumber": 18,
-  "FileName": "0.Libs_v0.0.18.unitypackage"
+  "VersionNumber": 20,
+  "FileName": "0.Libs_v0.0.20.unitypackage"
 }

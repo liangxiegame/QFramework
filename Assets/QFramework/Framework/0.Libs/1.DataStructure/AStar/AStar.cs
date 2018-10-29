@@ -29,6 +29,9 @@ namespace QFramework
     using UnityEngine;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// A 星算法的一种实现
+    /// </summary>
     public class AStar
     {
         public static PriorityQueue ClosedList, OpenList;
