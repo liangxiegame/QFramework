@@ -1,8 +1,0 @@
-{
-    "name": "DataStructure",
-    "references": [
-        "Singleton"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}
