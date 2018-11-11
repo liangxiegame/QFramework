@@ -56,20 +56,19 @@ namespace QFramework
 			ObservableWWW.GetAndGetBytes(mRequestPackageData.DownloadUrl, null, progressListener)
 				.Subscribe(bytes =>
 				{
-					File.WriteAllBytes(tempFile, bytes); 
-					
+					File.WriteAllBytes(tempFile, bytes);
+
 					EditorUtility.ClearProgressBar();
 
 					AssetDatabase.ImportPackage(tempFile, true);
 
 					File.Delete(tempFile);
-			
+
 					mRequestPackageData.SaveVersionFile();
 
 					AssetDatabase.Refresh();
 
 					InstalledPackageVersions.Reload();
-					
 				});
 
 			progressListener.Subscribe(OnProgressChanged);
