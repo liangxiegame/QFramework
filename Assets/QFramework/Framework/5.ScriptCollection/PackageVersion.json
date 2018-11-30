@@ -1,15 +1,16 @@
 {
-  "Version": "v0.0.6",
+  "Version": "v0.0.7",
   "Type": 0,
+  "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/5.ScriptCollection/",
   "Readme": {
-    "version": "v0.0.6",
-    "content": "move PostFXBehaviour 2 ShaderLib",
+    "version": "v0.0.7",
+    "content": "上传一次插件",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-02"
+    "date": "2018-11-19"
   },
   "Name": "5.ScriptCollection",
-  "VersionNumber": 6,
-  "FileName": "5.ScriptCollection_v0.0.6.unitypackage"
+  "VersionNumber": 7,
+  "FileName": "5.ScriptCollection_v0.0.7.unitypackage"
 }

@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.3",
+  "Version": "v0.0.5",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "Readme": {
-    "version": "v0.0.3",
-    "content": "取消 Assembly Definition",
+    "version": "v0.0.5",
+    "content": "AudioManager 给 Sound 添加静音功能",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-11-02"
+    "date": "2018-11-23"
   },
   "Name": "2.ResKit",
-  "VersionNumber": 3,
-  "FileName": "2.ResKit_v0.0.3.unitypackage"
+  "VersionNumber": 5,
+  "FileName": "2.ResKit_v0.0.5.unitypackage"
 }

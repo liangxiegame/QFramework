@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.6",
+  "Version": "v0.0.7",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.3.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/",
   "Readme": {
-    "version": "v0.0.6",
-    "content": "add copy path function",
+    "version": "v0.0.7",
+    "content": "上传一次插件",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-24"
+    "date": "2018-11-19"
   },
   "Name": "4.EditorToolKit",
-  "VersionNumber": 6,
-  "FileName": "4.EditorToolKit_v0.0.6.unitypackage"
+  "VersionNumber": 7,
+  "FileName": "4.EditorToolKit_v0.0.7.unitypackage"
 }

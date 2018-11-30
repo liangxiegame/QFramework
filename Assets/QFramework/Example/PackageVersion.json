@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.18",
+  "Version": "v0.0.19",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.18",
-    "content": "add dotween example",
+    "version": "v0.0.19",
+    "content": "加入 CatLib Example ",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-10-28"
+    "date": "2018-11-23"
   },
   "Name": "Example",
-  "VersionNumber": 18,
-  "FileName": "Example_v0.0.18.unitypackage"
+  "VersionNumber": 19,
+  "FileName": "Example_v0.0.19.unitypackage"
 }

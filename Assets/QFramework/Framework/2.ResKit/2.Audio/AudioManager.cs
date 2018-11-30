@@ -29,10 +29,11 @@ namespace QFramework
 	using UnityEngine.Events;
 	using System.Collections.Generic;
 	using UnityEngine;
-		
-	#region 消息id定义
+    using UniRx;
 
-	public enum AudioEvent
+    #region 消息id定义
+
+    public enum AudioEvent
 	{
 		Began = QMgrID.Audio,
 		SoundSwitch,
@@ -108,7 +109,7 @@ namespace QFramework
 		/// </summary>
 		void ReadAudioSetting()
 		{
-			SoundOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
+            SoundOn.Value = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
 			MusicOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_MUSIC_ON, 1) == 1 ? true : false;
 			VoiceOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_VOICE_ON, 1) == 1 ? true : false;
 
@@ -122,7 +123,7 @@ namespace QFramework
 		/// </summary>
 		void SaveAudioSetting()
 		{
-			PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, SoundOn == true ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, SoundOn.Value == true ? 1 : 0);
 			PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, MusicOn == true ? 1 : 0);
 			PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, MusicOn == true ? 1 : 0);
 			PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, SoundVolume);
@@ -199,7 +200,7 @@ namespace QFramework
 			{
 				case (int) AudioEvent.SoundSwitch:
 					AudioMsgWithBool soundSwitchMsg = msg as AudioMsgWithBool;
-					SoundOn = soundSwitchMsg.on;
+                    SoundOn.Value = soundSwitchMsg.on;
 					break;
 				case (int) AudioEvent.MusicSwitch:
 					AudioMsgWithBool musicSwitchMsg = msg as AudioMsgWithBool;
@@ -261,7 +262,10 @@ namespace QFramework
 			}
 		}
 
-		public bool SoundOn { get; private set; }
+
+
+
+        public BoolReactiveProperty SoundOn = new BoolReactiveProperty();
 		public bool MusicOn { get; private set; }
 		public bool VoiceOn { get; private set; }
 
@@ -356,23 +360,26 @@ namespace QFramework
 		/// </summary>
 		void PlaySound(AudioSoundMsg soundMsg)
 		{
-			AudioUnit unit = SafeObjectPool<AudioUnit>.Instance.Allocate();
+            if (SoundOn.Value)
+            {
+                AudioUnit unit = SafeObjectPool<AudioUnit>.Instance.Allocate();
 
-			unit.SetOnStartListener(delegate(AudioUnit soundUnit)
-			{
-				soundMsg.onSoundBeganCallback.InvokeGracefully();
-				
-				unit.SetOnStartListener(null);
-			});
+                unit.SetOnStartListener(delegate (AudioUnit soundUnit)
+                {
+                    soundMsg.onSoundBeganCallback.InvokeGracefully();
 
-			unit.SetAudio(gameObject, soundMsg.SoundName, false);
+                    unit.SetOnStartListener(null);
+                });
 
-			unit.SetOnFinishListener(delegate(AudioUnit soundUnit)
-			{
-				soundMsg.onSoundEndedCallback.InvokeGracefully();
+                unit.SetAudio(gameObject, soundMsg.SoundName, false);
 
-				unit.SetOnFinishListener(null);
-			});
+                unit.SetOnFinishListener(delegate (AudioUnit soundUnit)
+                {
+                    soundMsg.onSoundEndedCallback.InvokeGracefully();
+
+                    unit.SetOnFinishListener(null);
+                });
+            }
 		}
 
 		/// <summary>

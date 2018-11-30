@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.21",
+  "Version": "v0.0.24",
   "Type": 0,
   "AccessRight": 0,
-  "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.10.unitypackage",
+  "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.21",
-    "content": "取消 Assembly Definition",
+    "version": "v0.0.24",
+    "content": "PTDeviceUtil->DeviceUtil",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-11-02"
+    "date": "2018-11-26"
   },
   "Name": "0.Libs",
-  "VersionNumber": 21,
-  "FileName": "0.Libs_v0.0.21.unitypackage"
+  "VersionNumber": 24,
+  "FileName": "0.Libs_v0.0.24.unitypackage"
 }

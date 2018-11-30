@@ -38,7 +38,7 @@ namespace QFramework
 	/// 2.resolution ratio calculte; Support QUIManager
 	/// TODO:// add ResolutionManager Or Util
 	/// </summary>
-	public class PTDeviceUtil
+	public class DeviceUtil
 	{
 		/// <summary>
 		/// Vibrateable
@@ -149,11 +149,21 @@ namespace QFramework
 			return aspect > (1920.0f / 1152 - 0.05) && aspect < (1920.0f / 1152 + 0.05);
 		}
 
-		/// <summary>
-		/// height/width = 1.60  Huawei Pad?  2560 / 1600
-		/// </summary>
-		/// <returns></returns>
-		public static bool Phone160Resolution()
+        /// <summary>
+        /// height/width = 1.5  iPhone 4/4s 960x640
+        /// </summary>
+        /// <returns></returns>
+        public static bool Phone15Resolution()
+        {
+            float aspect = Screen.height > Screen.width ? (float)Screen.height / Screen.width : (float)Screen.width / Screen.height;
+            return aspect > (960.0f / 640 - 0.05) && aspect < (960.0f / 640+ 0.05);
+        }
+
+        /// <summary>
+        /// height/width = 1.60  Huawei Pad?  2560 / 1600
+        /// </summary>
+        /// <returns></returns>
+        public static bool Phone160Resolution()
 		{
 			float aspect = Screen.height > Screen.width ? (float)Screen.height / Screen.width : (float)Screen.width / Screen.height;
 			return aspect > (2560.0f / 1600 - 0.05) && aspect < (2560.0f / 1600 + 0.05);

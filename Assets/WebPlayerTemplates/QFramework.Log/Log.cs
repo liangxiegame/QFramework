@@ -28,7 +28,9 @@
 namespace QFramework
 {
     using System;
+#if UNITY_ENGINE
     using UnityEngine;
+#endif
 
     public enum LogLevel
     {
@@ -80,11 +82,15 @@ namespace QFramework
 
             if (args == null || args.Length == 0)
             {
+#if UNITY_ENGINE
                 Debug.Log(msg);
-
+#endif
             }
-            else {
+            else
+            {
+#if UNITY_ENGINE
                 Debug.LogFormat(msg.ToString(), args); 
+#endif
             }
         }
 
@@ -94,8 +100,9 @@ namespace QFramework
             {
                 return;
             }
-
+#if UNITY_ENGINE
             Debug.LogException(e);
+#endif
         }
 
         public static void E(object msg, params object[] args)
@@ -105,10 +112,18 @@ namespace QFramework
                 return;
             }
 
-            if (args == null || args.Length == 0) {
+            if (args == null || args.Length == 0)
+            {
+#if UNITY_ENGINE
                 Debug.LogError(msg);
-            } else {
+#endif
+            }
+            else
+            {
+#if UNITY_ENGINE
+
                 Debug.LogError(string.Format(msg.ToString(), args));
+#endif
             }
 
         }
@@ -119,8 +134,10 @@ namespace QFramework
             {
                 return;
             }
-           
+#if UNITY_ENGINE
+
             Debug.LogWarning(msg);
+#endif
         }
 
         public static void W(string msg, params object[] args)
@@ -129,8 +146,10 @@ namespace QFramework
             {
                 return;
             }
+#if UNITY_ENGINE
 
             Debug.LogWarning(string.Format(msg, args));
+#endif
         }
     }
 }
