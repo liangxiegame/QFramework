@@ -32,7 +32,7 @@ namespace QFramework
     public class ClearAllData
     {   
         [MenuItem("QFramework/ClearAllData")]
-        static void Clear()
+        private static void Clear()
         {
             PlayerPrefs.DeleteAll();
             Directory.Delete(Application.persistentDataPath, true);

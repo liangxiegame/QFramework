@@ -44,7 +44,7 @@ namespace QFramework
             var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, "Package Manager Reame", true);
             readmeWin.mReadme = readme;
             readmeWin.mPackageVersion = packageVersion;
-            readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 500, 300);
+            readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 600, 300);
             readmeWin.Show();
             
         }
@@ -62,7 +62,7 @@ namespace QFramework
 
         public void OnGUI()
         {
-            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(480), GUILayout.Height(300));
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(580), GUILayout.Height(300));
 
             GUILayout.Label("类型:" + mPackageVersion.Type, mTitleStyle);
             

@@ -50,6 +50,16 @@ namespace QFramework
 			get { return PackageVersions.First ().InstallPath; }
 		}
 
+        public PackageType Type
+        {
+            get { return PackageVersions.First().Type; }
+        }
+
+        public PackageAccessRight AccessRight
+        {
+            get { return PackageVersions.First().AccessRight; }
+        }
+
         public Readme readme;
         
         public List<PackageVersion> PackageVersions = new List<PackageVersion>();

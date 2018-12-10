@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * 2017 ~ 2018.7 liangxie
+ * Copyright 2017 ~ 2018.11 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,8 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using EditorCoroutines;
-
 namespace QFramework
 {
 	using UnityEngine;
@@ -38,7 +36,7 @@ namespace QFramework
 			var frameworkConfigEditorWindow = (PreferencesWindow) GetWindow(typeof(PreferencesWindow), true);
 			frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 			frameworkConfigEditorWindow.CurSettingData = FrameworkSettingData.Load();
-			frameworkConfigEditorWindow.position = new Rect(100, 100, 590, 460);
+			frameworkConfigEditorWindow.position = new Rect(100, 100, 690, 460);
 			frameworkConfigEditorWindow.Init();
 			frameworkConfigEditorWindow.Show();
 		}

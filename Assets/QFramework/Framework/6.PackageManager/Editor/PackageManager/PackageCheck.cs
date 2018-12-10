@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 ~ 8 liangxie
+ * Copyright (c) 2018.7 ~ 11 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,11 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEditor;
-using UnityEngine;
 
 namespace QFramework
 {
@@ -50,7 +47,7 @@ namespace QFramework
 
 		static PackageCheck()
 		{
-			if (!EditorApplication.isPlayingOrWillChangePlaymode)
+			if (!EditorApplication.isPlayingOrWillChangePlaymode && NetworkUtil.IsReachable)
 			{
 				PackageCheck packageCheck = new PackageCheck()
 				{
@@ -65,6 +62,9 @@ namespace QFramework
 
 		private void CustomUpdate()
 		{
+			// 添加网络判断
+			if (!NetworkUtil.IsReachable) return;
+			
 			switch (mCheckStatus)
 			{
 				case CheckStatus.WAIT:

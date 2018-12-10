@@ -61,7 +61,7 @@ namespace QFramework
 	{
 		private Dictionary<string, IPanel> mAllUI = new Dictionary<string, IPanel>();
 
-		[SerializeField] private Transform mBgTrans;
+        [SerializeField] private Transform mBgTrans;
 		[SerializeField] private Transform mAnimationUnderTrans;
 		[SerializeField] private Transform mCommonTrans;
 		[SerializeField] private Transform mAnimationOnTrans;
@@ -441,7 +441,12 @@ namespace QFramework
 			UIManager.Instance.CloseUI<T>();
 		}
 
-		internal static T GetPanel<T>() where T : UIPanel
+        internal static void CloseAllPanel()
+        {
+            UIManager.Instance.CloseAllUI();
+        }
+
+        internal static T GetPanel<T>() where T : UIPanel
 		{
 			return UIManager.Instance.GetUI<T>();
 		}

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 ~ 8 liangxie
+ * Copyright (c) 2018.7 ~ 11 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,7 +26,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
 
@@ -38,7 +37,7 @@ namespace QFramework
 
         public FrameworkLocalVersion FrameworkLocalVersion;
 
-        [MenuItem("Assets/@QPM - Make Package",priority = 0)]
+        [MenuItem("Assets/@QPM - Make Package", priority = 0)]
         static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -61,17 +60,17 @@ namespace QFramework
                     new PackageVersion
                     {
                         InstallPath = installPath,
-                        Version = "v0.0.0" 
+                        Version = "v0.0.0"
                     }.Save();
-                    
+
                     AssetDatabase.Refresh();
                 }
             }
         }
-        
+
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
-        public static string ExportPaths(string exportPackageName,params string[] paths)
+        public static string ExportPaths(string exportPackageName, params string[] paths)
         {
             if (Directory.Exists(paths[0]))
             {
@@ -79,7 +78,7 @@ namespace QFramework
                 {
                     paths[0] = paths[0].Remove(paths[0].Length - 1);
                 }
-                
+
                 var filePath = EXPORT_ROOT_DIR.CombinePath(exportPackageName);
                 AssetDatabase.ExportPackage(paths,
                     filePath, ExportPackageOptions.Recurse);
@@ -90,9 +89,9 @@ namespace QFramework
 
             return string.Empty;
         }
-        
+
         public void Init(EditorWindow window)
-        {   
+        {
             FrameworkLocalVersion = FrameworkLocalVersion.Get();
 
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
@@ -100,7 +99,7 @@ namespace QFramework
             InstalledPackageVersions.Reload();
 
             EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
-        }                
+        }
 
         private Vector2 mScrollPos;
 
@@ -108,31 +107,32 @@ namespace QFramework
         {
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
-            
+
 
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
             DrawWithServer();
-            
+
             GUILayout.EndVertical();
 
 
             GUILayout.Space(50);
         }
-        
+
         private void DrawWithServer()
         {
             // 这里开始具体的内容
             GUILayout.BeginHorizontal("box");
             GUILayout.Label("Package", GUILayout.Width(150));
-            GUILayout.Label("Server", GUILayout.Width(100));
-            GUILayout.Label("Local", GUILayout.Width(100));
+            GUILayout.Label("Server", GUILayout.Width(80));
+            GUILayout.Label("Local", GUILayout.Width(80));
+            GUILayout.Label("Type", GUILayout.Width(120));
             GUILayout.Label("Action", GUILayout.Width(100));
             GUILayout.Label("Readme", GUILayout.Width(100));
             GUILayout.EndHorizontal();
 
             GUILayout.BeginVertical("box");
-            
+
             mScrollPos = GUILayout.BeginScrollView(mScrollPos, false, true, GUILayout.Height(240));
 
             foreach (var packageData in mPackageDatas)
@@ -140,11 +140,12 @@ namespace QFramework
                 GUILayout.Space(2);
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(packageData.Name, GUILayout.Width(150));
-                GUILayout.Label(packageData.Version, GUILayout.Width(100));
-                var insalledPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
-                GUILayout.Label(insalledPackage != null ? insalledPackage.Version : " ", GUILayout.Width(90));
+                GUILayout.Label(packageData.Version, GUILayout.Width(80));
+                var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
+                GUILayout.Label(installedPackage != null ? installedPackage.Version : " ", GUILayout.Width(80));
+                GUILayout.Label(packageData.Type.ToString(), GUILayout.Width(120));
 
-                if (insalledPackage != null && packageData.VersionNumber > insalledPackage.VersionNumber)
+                if (installedPackage != null && packageData.VersionNumber > installedPackage.VersionNumber)
                 {
                     if (GUILayout.Button("Update", GUILayout.Width(90)))
                     {
@@ -170,7 +171,7 @@ namespace QFramework
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
                     }
                 }
-                
+
                 if (GUILayout.Button("Readme", GUILayout.Width(90)))
                 {
                     ReadmeWindow.Init(packageData.readme, packageData.PackageVersions.First());
@@ -184,7 +185,6 @@ namespace QFramework
             GUILayout.Space(2);
 
             GUILayout.EndVertical();
-            
         }
     }
 }

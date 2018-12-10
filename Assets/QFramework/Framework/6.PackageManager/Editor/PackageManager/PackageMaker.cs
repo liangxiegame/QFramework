@@ -25,11 +25,9 @@
 
 using System;
 using System.IO;
-using EditorCoroutines;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
-using UniRx;
 
 namespace QFramework
 {
@@ -145,9 +143,7 @@ namespace QFramework
 					}
 
 					break;
-
 			}
-
 		}
 
 
@@ -191,9 +187,9 @@ namespace QFramework
 		private string mVersionText = string.Empty;
 
 		private string mReleaseNote = string.Empty;
-		
+
 		bool inRegisterView = false;
-		
+
 		private void DrawInit()
 		{
 			if (mHasConfigFile)
@@ -208,20 +204,20 @@ namespace QFramework
 			GUILayout.Label("发布版本号", GUILayout.Width(100));
 			mVersionText = GUILayout.TextField(mVersionText, GUILayout.Width(100));
 			GUILayout.EndHorizontal();
-			
+
 			GUILayout.BeginHorizontal();
-			GUILayout.Label("类型",GUILayout.Width(100));
-			
-			mPackageVersion.Type = (PackageType)EditorGUILayout.EnumPopup(mPackageVersion.Type);
-			
+			GUILayout.Label("类型", GUILayout.Width(100));
+
+			mPackageVersion.Type = (PackageType) EditorGUILayout.EnumPopup(mPackageVersion.Type);
+
 			GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("权限", GUILayout.Width(100));
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("权限", GUILayout.Width(100));
 
-            mPackageVersion.AccessRight = (PackageAccessRight)EditorGUILayout.EnumPopup(mPackageVersion.AccessRight);
-            GUILayout.EndHorizontal();
-			
+			mPackageVersion.AccessRight = (PackageAccessRight) EditorGUILayout.EnumPopup(mPackageVersion.AccessRight);
+			GUILayout.EndHorizontal();
+
 			GUILayout.Label("发布说明:", GUILayout.Width(150));
 			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
 
@@ -230,23 +226,23 @@ namespace QFramework
 				User.Username.Value = EditorGUIUtils.GUILabelAndTextField("username:", User.Username.Value);
 				User.Password.Value = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password.Value);
 
-				if (!inRegisterView && GUILayout.Button ("登录"))
+				if (!inRegisterView && GUILayout.Button("登录"))
 				{
-                    GetTokenAction.DoGetToken(User.Username.Value, User.Password.Value, token =>
-                    {
-                        User.Token.Value = token;
-                        User.Save();
-                    });
+					GetTokenAction.DoGetToken(User.Username.Value, User.Password.Value, token =>
+					{
+						User.Token.Value = token;
+						User.Save();
+					});
 				}
 
-				if (!inRegisterView && GUILayout.Button ("注册"))
+				if (!inRegisterView && GUILayout.Button("注册"))
 				{
 					inRegisterView = true;
 				}
 
 				if (inRegisterView)
 				{
-					if (GUILayout.Button ("注册"))
+					if (GUILayout.Button("注册"))
 					{
 
 					}
@@ -256,13 +252,15 @@ namespace QFramework
 						inRegisterView = false;
 					}
 				}
-            } else {
-                if (GUILayout.Button("注销"))
-                {
-                    User.Token.Value = string.Empty;
-                    User.Save();
-                }
-            }
+			}
+			else
+			{
+				if (GUILayout.Button("注销"))
+				{
+					User.Token.Value = string.Empty;
+					User.Save();
+				}
+			}
 
 			if (User.Token.Value.IsNotNullAndEmpty() && GUILayout.Button("发布"))
 			{
@@ -309,11 +307,11 @@ namespace QFramework
 
 		private void Upload()
 		{
-            UploadPackage.DoUpload(mPackageVersion, () =>
-            {
-                mUploadResult = "上传成功";
-                GotoComplete();
-            });
+			UploadPackage.DoUpload(mPackageVersion, () =>
+			{
+				mUploadResult = "上传成功";
+				GotoComplete();
+			});
 		}
 
 		private static void ShowErrorMsg(string content)
