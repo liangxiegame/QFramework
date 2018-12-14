@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFrameowrk
+namespace QFramework
 {
     using System;
 
