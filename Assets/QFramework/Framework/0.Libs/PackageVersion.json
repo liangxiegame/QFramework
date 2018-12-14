@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.24",
+  "Version": "v0.0.25",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.24",
-    "content": "PTDeviceUtil->DeviceUtil",
+    "version": "v0.0.25",
+    "content": "支持 2018.3 和 .net 4.6",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-11-26"
+    "date": "2018-12-14"
   },
   "Name": "0.Libs",
-  "VersionNumber": 24,
-  "FileName": "0.Libs_v0.0.24.unitypackage"
+  "VersionNumber": 25,
+  "FileName": "0.Libs_v0.0.25.unitypackage"
 }

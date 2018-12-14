@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.9",
+  "Version": "v0.0.10",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.4.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/1.ActionKit/",
   "Readme": {
-    "version": "v0.0.9",
-    "content": "上传一次插件",
+    "version": "v0.0.10",
+    "content": "修复命名空间问题",
     "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-11-19"
+    "date": "2018-12-14"
   },
   "Name": "1.ActionKit",
-  "VersionNumber": 9,
-  "FileName": "1.ActionKit_v0.0.9.unitypackage"
+  "VersionNumber": 10,
+  "FileName": "1.ActionKit_v0.0.10.unitypackage"
 }
