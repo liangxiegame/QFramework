@@ -24,8 +24,6 @@
  ****************************************************************************/
 
 using UnityEngine;
-using System.Net;
-using System;
 using UnityEditor;
 using System.IO;
 using UniRx;
@@ -60,7 +58,7 @@ namespace QFramework
 
 					EditorUtility.ClearProgressBar();
 
-					AssetDatabase.ImportPackage(tempFile, true);
+					AssetDatabase.ImportPackage(tempFile, false);
 
 					File.Delete(tempFile);
 
@@ -68,7 +66,14 @@ namespace QFramework
 
 					AssetDatabase.Refresh();
 
+					EditorUtility.DisplayDialog(mRequestPackageData.Name, "插件下载成功", "OK");
+
 					InstalledPackageVersions.Reload();
+				}, e =>
+				{
+					EditorUtility.ClearProgressBar();
+
+					EditorUtility.DisplayDialog(mRequestPackageData.Name, "插件安装失败,请联系 liangxiegame@163.com 或者加入 QQ 群:623597263" + e.ToString() + ";", "OK");
 				});
 
 			progressListener.Subscribe(OnProgressChanged);

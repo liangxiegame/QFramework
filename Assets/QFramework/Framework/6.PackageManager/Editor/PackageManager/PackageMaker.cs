@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.8 ~ 10 liangxie
+ * Copyright (c) 2018.8 ~ 12 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,6 +25,7 @@
 
 using System;
 using System.IO;
+using UniRx;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -34,7 +35,6 @@ namespace QFramework
 	public class PackageMaker : EditorWindow
 	{
 		private const byte STATE_GENERATE_INIT      = 0;
-		private const byte STATE_GENERATE_PACKING   = 1;
 		private const byte STATE_GENERATE_UPLOADING = 2;
 		private const byte STATE_GENERATE_COMPLETE  = 3;
 
@@ -44,7 +44,35 @@ namespace QFramework
 
 		private PackageVersion mPackageVersion;
 
-		private bool mHasConfigFile;
+		private static void MakePackage()
+		{
+			var path = MouseSelector.GetSelectedPathOrFallback();
+
+			if (path.IsNotNullAndEmpty())
+			{
+				if (Directory.Exists(path))
+				{
+					var installPath = string.Empty;
+
+					if (path.EndsWith("/"))
+					{
+						installPath = path;
+					}
+					else
+					{
+						installPath = path + "/";
+					}
+
+					new PackageVersion
+					{
+						InstallPath = installPath,
+						Version = "v0.0.0"
+					}.Save();
+
+					AssetDatabase.Refresh();
+				}
+			}
+		}
 
 		[MenuItem("Assets/@QPM - Publish Package", priority = 2)]
 		public static void ExportPTPlugin()
@@ -98,20 +126,13 @@ namespace QFramework
 
 			var files = Directory.GetFiles(packageFolder, "PackageVersion.json", SearchOption.TopDirectoryOnly);
 
-			if (files.Length > 0)
+			if (files.Length <= 0)
 			{
-
-				mHasConfigFile = true;
-
-				mPackageVersion = PackageVersion.Load(packageFolder);
+				MakePackage();
 			}
-			else
-			{
 
-				mPackageVersion = new PackageVersion() {InstallPath = packageFolder};
+			mPackageVersion = PackageVersion.Load(packageFolder);
 
-				mHasConfigFile = false;
-			}
 
 			EditorApplication.update += Update;
 
@@ -127,12 +148,6 @@ namespace QFramework
 		{
 			switch (mGenerateState)
 			{
-
-				case STATE_GENERATE_PACKING:
-
-					GotoUploading();
-
-					break;
 				case STATE_GENERATE_COMPLETE:
 
 					if (EditorUtility.DisplayDialog("上传结果", mUploadResult, "OK"))
@@ -163,20 +178,6 @@ namespace QFramework
 			mGenerateState = STATE_GENERATE_COMPLETE;
 		}
 
-		private void GotoPacking()
-		{
-			mGenerateState = STATE_GENERATE_PACKING;
-			noticeMessage = "插件导出中,请稍后...";
-		}
-
-		private void GotoUploading()
-		{
-			noticeMessage = "插件上传中,请稍后...";
-			mUploadResult = null;
-			mGenerateState = STATE_GENERATE_UPLOADING;
-			Upload();
-		}
-
 		private string noticeMessage = "";
 
 		private void DrawNotice()
@@ -192,13 +193,12 @@ namespace QFramework
 
 		private void DrawInit()
 		{
-			if (mHasConfigFile)
-			{
-				GUILayout.BeginHorizontal();
-				GUILayout.Label("当前版本号", GUILayout.Width(100));
-				GUILayout.Label(mPackageVersion.Version, GUILayout.Width(100));
-				GUILayout.EndHorizontal();
-			}
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("当前版本号", GUILayout.Width(100));
+			GUILayout.Label(mPackageVersion.Version, GUILayout.Width(100));
+			GUILayout.EndHorizontal();
+
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("发布版本号", GUILayout.Width(100));
@@ -257,37 +257,70 @@ namespace QFramework
 			{
 				if (GUILayout.Button("注销"))
 				{
-					User.Token.Value = string.Empty;
-					User.Save();
+					User.Clear();
 				}
 			}
 
-			if (User.Token.Value.IsNotNullAndEmpty() && GUILayout.Button("发布"))
+			if (User.Token.Value.IsNotNullAndEmpty())
 			{
-				User.Save();
+				var clicked = false;
+				var deleteLocal = false;
 
-				if (mReleaseNote.Length < 2)
+				if (GUILayout.Button("发布"))
 				{
-					ShowErrorMsg("请输入版本修改说明");
-					return;
+					clicked = true;
 				}
 
-				if (!IsVersionValide(mVersionText))
+				if (GUILayout.Button("发布并删除本地"))
 				{
-					ShowErrorMsg("请输入正确的版本号");
-					return;
+					clicked = true;
+					deleteLocal = true;
 				}
 
-				mPackageVersion.Version = mVersionText;
-				mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote, SystemInfo.deviceName,
-					DateTime.Now.ToString("yyyy-MM-dd"));
+				if (clicked)
+				{
+					User.Save();
 
+					if (mReleaseNote.Length < 2)
+					{
+						ShowErrorMsg("请输入版本修改说明");
+						return;
+					}
 
-				mPackageVersion.Save();
+					if (!IsVersionValide(mVersionText))
+					{
+						ShowErrorMsg("请输入正确的版本号");
+						return;
+					}
 
-				AssetDatabase.Refresh();
+					mPackageVersion.Version = mVersionText;
+					mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote, SystemInfo.deviceName,
+						DateTime.Now.ToString("yyyy-MM-dd"));
 
-				GotoPacking();
+					mPackageVersion.Save();
+
+					AssetDatabase.Refresh();
+
+					noticeMessage = "插件导出中,请稍后...";
+
+					Observable.NextFrame().Subscribe(_ =>
+					{
+						noticeMessage = "插件上传中,请稍后...";
+						mUploadResult = null;
+						mGenerateState = STATE_GENERATE_UPLOADING;
+						UploadPackage.DoUpload(mPackageVersion, () =>
+						{
+							if (deleteLocal)
+							{
+								Directory.Delete(mPackageVersion.InstallPath, true);
+								AssetDatabase.Refresh();
+							}
+
+							mUploadResult = "上传成功";
+							GotoComplete();
+						});
+					});
+				}
 			}
 		}
 
@@ -302,16 +335,6 @@ namespace QFramework
 					DrawNotice();
 					break;
 			}
-		}
-
-
-		private void Upload()
-		{
-			UploadPackage.DoUpload(mPackageVersion, () =>
-			{
-				mUploadResult = "上传成功";
-				GotoComplete();
-			});
 		}
 
 		private static void ShowErrorMsg(string content)

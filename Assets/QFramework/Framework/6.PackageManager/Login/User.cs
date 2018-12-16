@@ -40,12 +40,31 @@ namespace QFramework
         public static StringReactiveProperty Token = new StringReactiveProperty(LoadString("token"));
 
         public static bool Test = false;
+
+        public static bool Logined
+        {
+            get
+            {
+                return Token.Value.IsNotNullAndEmpty() &&
+                       Username.Value.IsNotNullAndEmpty() &&
+                       Password.Value.IsNotNullAndEmpty();
+            }
+        }
+        
         
         public static void Save()
         {
             Username.SaveString("username");
             Password.SaveString("password");
             Token.SaveString("token");
+        }
+
+        public static void Clear()
+        {
+            Username.Value = string.Empty;
+            Password.Value = string.Empty;
+            Token.Value = string.Empty;
+            Save();
         }
 
         public static void SaveString(this StringReactiveProperty selfProperty, string key)

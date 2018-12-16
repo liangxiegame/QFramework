@@ -83,8 +83,10 @@ namespace QFramework
             {
                 form.AddField("type", "agt");
             }
-
-
+            else if (packageVersion.Type == PackageType.Plugin)
+            {
+                form.AddField("type", "p");
+            }
 
             Debug.Log(fullpath);
 
@@ -98,7 +100,6 @@ namespace QFramework
                              Debug.Log(responseContent);
                              succeed.InvokeGracefully();
                              File.Delete(fullpath);
-
                          }, e =>
                          {
                              EditorUtility.ClearProgressBar();

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright 2017 ~ 2018.11 liangxie
+ * Copyright 2017 ~ 2018.12 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -78,9 +78,6 @@ namespace QFramework
 			GUILayout.EndVertical();
 
 			mPMView.OnGUI();
-			
-			
-			
 		}
 	}
 }

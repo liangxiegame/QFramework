@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 ~ 11 liangxie
+ * Copyright (c) 2018.7 ~ 12 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -43,42 +43,89 @@ namespace QFramework
         }
 
         protected override void OnBegin()
-		{
-			ObservableWWW.Get ("http://liangxiegame.com/framework_package/get_all_package_info").Subscribe (response =>
+        {
+	        Dictionary<string, string> headers = null;
+
+	        if (User.Logined)
+	        {
+		        headers = new Dictionary<string, string>()
+		        {
+			        {"Authorization", "Token " + User.Token}
+		        };
+	        }
+
+	        ObservableWWW.Get ("http://liangxiegame.com/api/packages/",headers).Subscribe (response =>
 			{
-				var responseJson = JObject.Parse (response);
-				JArray packageInfosJson = responseJson ["all_package_info"] as JArray;
+				var responseJson = JArray.Parse (response);
+				var packageInfosJson = responseJson;
 
 				var packageDatas = new List<PackageData> ();
-				foreach (var demoInfo in packageInfosJson)
+				foreach (var packageInfo in packageInfosJson)
 				{
-					var name = demoInfo ["name"].Value<string> ();
-                    
-					var package = packageDatas.Find (packageData => packageData.Name == name);
+					var name = packageInfo["name"].Value<string>();
+
+					var package = packageDatas.Find(packageData => packageData.Name == name);
 
 					if (package == null)
 					{
-						package = new PackageData () {
+						package = new PackageData()
+						{
 							Name = name,
 						};
-                        
-						packageDatas.Add (package);
+
+						packageDatas.Add(package);
 					}
-                                       
-					var version = demoInfo ["version"].Value<string> ();
-					var url = demoInfo ["download_url"].Value<string> ();
-					var installPath = demoInfo ["install_path"].Value<string> ();
-					var release_note = demoInfo["release_note"].Value<string>();
+
+					var version = packageInfo["version"].Value<string>();
+					var url = packageInfo["file"].Value<string>(); // download_url
+					var installPath = packageInfo["install_path"].Value<string>();
+					var release_note = packageInfo["release_note"].Value<string>();
 
 					var releaseItem = new ReleaseItem(version, release_note, "liangxie", "now");
-					
-					package.PackageVersions.Add (new PackageVersion () {
+					var typeName = packageInfo["type"].Value<string>();
+					var accessRightName = packageInfo["access_right"].Value<string>();
+
+					var packageType = PackageType.FrameworkModule;
+
+					switch (typeName)
+					{
+						case "fm":
+							packageType = PackageType.FrameworkModule;
+							break;
+						case "s":
+							packageType = PackageType.Shader;
+							break;
+						case "agt":
+							packageType = PackageType.AppOrGameDemoOrTemplate;
+							break;
+						case "p":
+							packageType = PackageType.Plugin;
+							break;
+					}
+
+					var accessRight = PackageAccessRight.Public;
+
+					switch (accessRightName)
+					{
+						case "public":
+							accessRight = PackageAccessRight.Public;
+							break;
+						case "private":
+							accessRight = PackageAccessRight.Private;
+							break;
+
+					}
+
+					package.PackageVersions.Add(new PackageVersion()
+					{
 						Version = version,
 						DownloadUrl = url,
 						InstallPath = installPath,
-						Readme =releaseItem
+						Type = packageType,
+						AccessRight = accessRight,
+						Readme = releaseItem,
 					});
-					
+
 					package.readme.AddReleaseNote(releaseItem);
 				}
 

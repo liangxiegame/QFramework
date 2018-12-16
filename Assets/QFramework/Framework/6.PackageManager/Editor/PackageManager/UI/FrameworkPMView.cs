@@ -37,37 +37,6 @@ namespace QFramework
 
         public FrameworkLocalVersion FrameworkLocalVersion;
 
-        [MenuItem("Assets/@QPM - Make Package", priority = 0)]
-        static void MakePackage()
-        {
-            var path = MouseSelector.GetSelectedPathOrFallback();
-
-            if (path.IsNotNullAndEmpty())
-            {
-                if (Directory.Exists(path))
-                {
-                    var installPath = string.Empty;
-
-                    if (path.EndsWith("/"))
-                    {
-                        installPath = path;
-                    }
-                    else
-                    {
-                        installPath = path + "/";
-                    }
-
-                    new PackageVersion
-                    {
-                        InstallPath = installPath,
-                        Version = "v0.0.0"
-                    }.Save();
-
-                    AssetDatabase.Refresh();
-                }
-            }
-        }
-
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
         public static string ExportPaths(string exportPackageName, params string[] paths)
@@ -103,30 +72,61 @@ namespace QFramework
 
         private Vector2 mScrollPos;
 
+        private int mToolbarIndex = 0;
+        
+        private string[] mToolbarNamesLogined = {"Framework","Plugin","UIKitComponent","Shader","AppOrTemplate", "Private"};
+        private string[] mToolbarNamesUnLogined = {"Framework","Plugin","UIKitComponent","Shader","AppOrTemplate"};
+
+        public string[] ToolbarNames
+        {
+            get { return User.Logined ? mToolbarNamesLogined : mToolbarNamesUnLogined; }
+        }
+
+        public IEnumerable<PackageData> SelectedPackageType
+        {
+            get
+            {
+                switch (mToolbarIndex)
+                {
+                    case 0:
+                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
+                    case 1:
+                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.Plugin);
+                    case 2:
+                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent);
+                    case 3:
+                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.Shader);
+                    case 4:
+                        return mPackageDatas.Where(packageData =>
+                            packageData.Type == PackageType.AppOrGameDemoOrTemplate);
+                    case 5:
+                        return mPackageDatas.Where(packageData =>
+                            packageData.AccessRight == PackageAccessRight.Private);
+                    default:
+                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
+                }
+            }
+        }
+
+
         public void OnGUI()
         {
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
 
-
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
-            DrawWithServer();
+            if (User.Logined)
+            {
+                mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
+            }
 
-            GUILayout.EndVertical();
-
-
-            GUILayout.Space(50);
-        }
-
-        private void DrawWithServer()
-        {
             // 这里开始具体的内容
             GUILayout.BeginHorizontal("box");
             GUILayout.Label("Package", GUILayout.Width(150));
             GUILayout.Label("Server", GUILayout.Width(80));
             GUILayout.Label("Local", GUILayout.Width(80));
-            GUILayout.Label("Type", GUILayout.Width(120));
+            GUILayout.Label("Right", GUILayout.Width(120));
             GUILayout.Label("Action", GUILayout.Width(100));
             GUILayout.Label("Readme", GUILayout.Width(100));
             GUILayout.EndHorizontal();
@@ -135,7 +135,7 @@ namespace QFramework
 
             mScrollPos = GUILayout.BeginScrollView(mScrollPos, false, true, GUILayout.Height(240));
 
-            foreach (var packageData in mPackageDatas)
+            foreach (var packageData in SelectedPackageType)
             {
                 GUILayout.Space(2);
                 GUILayout.BeginHorizontal();
@@ -143,9 +143,16 @@ namespace QFramework
                 GUILayout.Label(packageData.Version, GUILayout.Width(80));
                 var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
                 GUILayout.Label(installedPackage != null ? installedPackage.Version : " ", GUILayout.Width(80));
-                GUILayout.Label(packageData.Type.ToString(), GUILayout.Width(120));
+                GUILayout.Label(packageData.AccessRight.ToString(), GUILayout.Width(120));
 
-                if (installedPackage != null && packageData.VersionNumber > installedPackage.VersionNumber)
+                if (installedPackage == null)
+                {
+                    if (GUILayout.Button("Import", GUILayout.Width(90)))
+                    {
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                    }
+                }
+                else if (installedPackage != null && packageData.VersionNumber > installedPackage.VersionNumber)
                 {
                     if (GUILayout.Button("Update", GUILayout.Width(90)))
                     {
@@ -153,23 +160,17 @@ namespace QFramework
 
                         if (Directory.Exists(path))
                         {
-                            if (EditorUtility.DisplayDialog("UpdatePackage", "是否移除本地旧版本?", "是", "否"))
-                            {
-                                Directory.Delete(path, true);
-
-                                AssetDatabase.Refresh();
-                            }
+                            Directory.Delete(path, true);
                         }
 
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
                     }
                 }
-                else
+                else if (installedPackage != null)
                 {
-                    if (GUILayout.Button("Import", GUILayout.Width(90)))
-                    {
-                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                    }
+                    
+                    // maybe support upload? 
+                    GUILayout.Space(94);
                 }
 
                 if (GUILayout.Button("Readme", GUILayout.Width(90)))
@@ -185,6 +186,11 @@ namespace QFramework
             GUILayout.Space(2);
 
             GUILayout.EndVertical();
+
+            GUILayout.EndVertical();
+
+
+            GUILayout.Space(50);
         }
     }
 }
