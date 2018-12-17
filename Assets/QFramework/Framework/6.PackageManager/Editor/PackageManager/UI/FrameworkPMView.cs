@@ -116,10 +116,7 @@ namespace QFramework
 
             GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
 
-            if (User.Logined)
-            {
-                mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
-            }
+            mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
 
             // 这里开始具体的内容
             GUILayout.BeginHorizontal("box");

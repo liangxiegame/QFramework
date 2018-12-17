@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.44",
+  "Version": "v0.0.45",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.35.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
   "Readme": {
-    "version": "v0.0.44",
-    "content": "更改错误信息",
-    "author": "凉鞋的MacBook Pro (2)",
-    "date": "2018-12-16"
+    "version": "v0.0.45",
+    "content": "show all type in unlogin state",
+    "author": "DESKTOP-ALVD4JR",
+    "date": "2018-12-17"
   },
   "Name": "6.PackageManager",
-  "VersionNumber": 44,
-  "FileName": "6.PackageManager_v0.0.44.unitypackage"
+  "VersionNumber": 45,
+  "FileName": "6.PackageManager_v0.0.45.unitypackage"
 }
