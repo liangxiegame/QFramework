@@ -26,6 +26,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UniRx;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,8 +35,6 @@ namespace QFramework
     public class FrameworkPMView
     {
         private List<PackageData> mPackageDatas = new List<PackageData>();
-
-        public FrameworkLocalVersion FrameworkLocalVersion;
 
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
@@ -59,10 +58,12 @@ namespace QFramework
             return string.Empty;
         }
 
-        public void Init(EditorWindow window)
+        private PreferencesWindow mMainWindow;
+        
+        public void Init(PreferencesWindow window)
         {
-            FrameworkLocalVersion = FrameworkLocalVersion.Get();
-
+            mMainWindow = window;
+            
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
             InstalledPackageVersions.Reload();
@@ -108,13 +109,25 @@ namespace QFramework
             }
         }
 
+       
+        public static bool VersionCheck
+        {
+            get { return EditorPrefs.GetBool("QFRAMEWORK_VERSION_CHECK", true); }
+            set { EditorPrefs.SetBool("QFRAMEWORK_VERSION_CHECK", value); }
+        }
 
         public void OnGUI()
         {
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
-
-            GUILayout.Label(string.Format("Current Framework Version:{0}", FrameworkLocalVersion.Version));
+            
+            GUILayout.BeginHorizontal();
+            GUILayout.Label(string.Format("QFramework:{0}",
+                mPackageDatas.Find(packageData => packageData.Name == "Framework").Version),GUILayout.Width(150));
+            
+            VersionCheck = GUILayout.Toggle(VersionCheck, "Version Check");
+            
+            GUILayout.EndHorizontal();
 
             mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
 
@@ -147,6 +160,9 @@ namespace QFramework
                     if (GUILayout.Button("Import", GUILayout.Width(90)))
                     {
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                        
+                        mMainWindow.Close();
+                        mMainWindow = null;
                     }
                 }
                 else if (installedPackage != null && packageData.VersionNumber > installedPackage.VersionNumber)
@@ -159,8 +175,11 @@ namespace QFramework
                         {
                             Directory.Delete(path, true);
                         }
-
+                       
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+                        
+                        mMainWindow.Close();
+                        mMainWindow = null;
                     }
                 }
                 else if (installedPackage != null)

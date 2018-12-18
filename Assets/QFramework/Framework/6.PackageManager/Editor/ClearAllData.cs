@@ -43,4 +43,14 @@ namespace QFramework
             }            
         }
     }
+
+    public class ReopenProject
+    {
+        [MenuItem("QFramework/ReopenProject")]
+        private static void Reopen()
+        {
+            EditorApplication.OpenProject(Path.Combine(Application.dataPath,"../"));
+
+        }
+    }
 }

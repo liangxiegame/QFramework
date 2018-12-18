@@ -109,9 +109,9 @@ namespace QFramework
                         return;
                     }
 
-                    if (CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas))
+                    if (FrameworkPMView.VersionCheck)
                     {
-
+	                    CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
                     }
                 }));
             }
@@ -152,7 +152,7 @@ namespace QFramework
 		private static void ShowDisplayDialog(string packageName)
 		{
 			var result = EditorUtility.DisplayDialog("PackageManager",
-				"{0} 有新版本更新,请前往查看".FillFormat(packageName),
+				"{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)".FillFormat(packageName),
 				"前往查看", "稍后查看");
 
 			if (result)

@@ -69,6 +69,8 @@ namespace QFramework
 					EditorUtility.DisplayDialog(mRequestPackageData.Name, "插件下载成功", "OK");
 
 					InstalledPackageVersions.Reload();
+
+//					EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
 				}, e =>
 				{
 					EditorUtility.ClearProgressBar();
