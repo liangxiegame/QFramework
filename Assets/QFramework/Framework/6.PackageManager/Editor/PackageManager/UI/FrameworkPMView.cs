@@ -188,6 +188,13 @@ namespace QFramework
                 {
                     if (GUILayout.Button("Reimport", GUILayout.Width(90)))
                     {
+                        var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
+
+                        if (Directory.Exists(path))
+                        {
+                            Directory.Delete(path, true);
+                        }
+                        
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
 
                         mMainWindow.Close();
