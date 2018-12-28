@@ -38,7 +38,7 @@ namespace QFramework.Example
 
 			mResLoader.LoadSync<GameObject>("resources://GameObject")
 				.Instantiate()
-				.Name("这是使用ResKit加载的对象");
+				.Name("这是使用 ResKit 加载的对象");
 
 			mResLoader.LoadSync<GameObject>("AssetObj")
 				.Instantiate()

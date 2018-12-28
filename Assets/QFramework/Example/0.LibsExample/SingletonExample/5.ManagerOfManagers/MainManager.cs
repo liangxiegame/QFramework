@@ -25,7 +25,7 @@
 
 namespace QFramework.Example
 {	
-	[QMonoSingletonPath("[Main]/MainManager")]
+	[QFramework.MonoSingletonPath("[Main]/MainManager")]
 	public class MainManager : ManagerBase,ISingleton
 	{
 		public static MainManager Instance

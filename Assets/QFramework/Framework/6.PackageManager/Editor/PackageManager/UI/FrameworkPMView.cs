@@ -59,11 +59,11 @@ namespace QFramework
         }
 
         private PreferencesWindow mMainWindow;
-        
+
         public void Init(PreferencesWindow window)
         {
             mMainWindow = window;
-            
+
             mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
 
             InstalledPackageVersions.Reload();
@@ -74,9 +74,11 @@ namespace QFramework
         private Vector2 mScrollPos;
 
         private int mToolbarIndex = 0;
-        
-        private string[] mToolbarNamesLogined = {"Framework","Plugin","UIKitComponent","Shader","AppOrTemplate", "Private"};
-        private string[] mToolbarNamesUnLogined = {"Framework","Plugin","UIKitComponent","Shader","AppOrTemplate"};
+
+        private string[] mToolbarNamesLogined =
+            {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private"};
+
+        private string[] mToolbarNamesUnLogined = {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate"};
 
         public string[] ToolbarNames
         {
@@ -109,7 +111,7 @@ namespace QFramework
             }
         }
 
-       
+
         public static bool VersionCheck
         {
             get { return EditorPrefs.GetBool("QFRAMEWORK_VERSION_CHECK", true); }
@@ -120,13 +122,13 @@ namespace QFramework
         {
             GUILayout.Label("Framework:");
             GUILayout.BeginVertical("box");
-            
+
             GUILayout.BeginHorizontal();
             GUILayout.Label(string.Format("QFramework:{0}",
-                mPackageDatas.Find(packageData => packageData.Name == "Framework").Version),GUILayout.Width(150));
-            
+                mPackageDatas.Find(packageData => packageData.Name == "Framework").Version), GUILayout.Width(150));
+
             VersionCheck = GUILayout.Toggle(VersionCheck, "Version Check");
-            
+
             GUILayout.EndHorizontal();
 
             mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
@@ -160,7 +162,7 @@ namespace QFramework
                     if (GUILayout.Button("Import", GUILayout.Width(90)))
                     {
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                        
+
                         mMainWindow.Close();
                         mMainWindow = null;
                     }
@@ -175,16 +177,25 @@ namespace QFramework
                         {
                             Directory.Delete(path, true);
                         }
-                       
+
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                        
+
+                        mMainWindow.Close();
+                        mMainWindow = null;
+                    }
+                }
+                else if (installedPackage.IsNotNull() && packageData.VersionNumber == installedPackage.VersionNumber)
+                {
+                    if (GUILayout.Button("Reimport", GUILayout.Width(90)))
+                    {
+                        EditorActionKit.ExecuteNode(new InstallPackage(packageData));
+
                         mMainWindow.Close();
                         mMainWindow = null;
                     }
                 }
                 else if (installedPackage != null)
                 {
-                    
                     // maybe support upload? 
                     GUILayout.Space(94);
                 }

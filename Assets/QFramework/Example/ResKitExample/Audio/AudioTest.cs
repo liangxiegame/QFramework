@@ -33,10 +33,15 @@ public class AudioTest : MonoBehaviour
     {
         ResMgr.Init();
 
+        // 
         AudioManager.Instance.SendMsg(new AudioSoundMsg("TestSound"));
 
         AudioManager.Instance.SendMsg(new AudioMusicMsg("BackGroundMusic"));
 
-        AudioManager.Instance.SendMsg(new AudioStopMusicMsg());   
+        AudioManager.Instance.SendMsg(new AudioStopMusicMsg());
+
+        AudioManager.PlaySound("TestSound");
+        
+        AudioManager.PlayMusic("BackgroundMusic");
     }
 }

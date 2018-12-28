@@ -25,7 +25,7 @@
 
 namespace QFramework.Example
 {
-	[QMonoSingletonPath("[GUI]/GUIManager")]
+	[QFramework.MonoSingletonPath("[GUI]/GUIManager")]
 	public class GUIManager : ManagerBase,ISingleton
 	{
 		public static GUIManager Instance

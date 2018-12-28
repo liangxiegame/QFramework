@@ -25,7 +25,7 @@
 
 namespace QFramework.Example
 {
-	[QMonoSingletonPath("[Level]/LevelManager")]
+	[QFramework.MonoSingletonPath("[Level]/LevelManager")]
 	public class LevelManager : ManagerBase,ISingleton
 	{
 		public static LevelManager Instance

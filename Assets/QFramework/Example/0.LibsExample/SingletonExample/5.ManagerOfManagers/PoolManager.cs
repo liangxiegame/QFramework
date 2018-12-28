@@ -27,7 +27,7 @@ namespace QFramework.Example
 {
 	using UnityEngine;
 
-	[QMonoSingletonPath("[Pool]/PoolManager")]
+	[QFramework.MonoSingletonPath("[Pool]/PoolManager")]
 	public class PoolManager : ManagerBase,ISingleton
 	{
 		public static PoolManager Instance

@@ -25,7 +25,7 @@
 
 namespace QFramework.Example
 {
-    [QMonoSingletonPath("[Game]/GameManager")]
+    [QFramework.MonoSingletonPath("[Game]/GameManager")]
     public class GameManager : ManagerBase,ISingleton
     {
         public static GameManager Instance
