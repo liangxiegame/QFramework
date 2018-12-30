@@ -8,12 +8,18 @@
 
 通过 **this**(MonoBehaviour) 触发延时回调。
 
+**快捷方式**
+
 ``` csharp
 this.Delay(1.0f, () =>
 {
 	Log.I("延时 1s");
 });
 ```
+
+
+
+**面向对象**
 
 通过申请 **DelayNode** 对象，使用 **this**(MonoBehaviour) 触发延时回调。
 
@@ -23,6 +29,8 @@ this.ExecuteNode(delay2s);
 ```
 
 使用 **Update** 驱动延时回调。
+
+**Update 方式**
 
 ``` csharp
 private DelayNode mDelay3s = DelayNode.Allocate(3.0f, () => { Log.I("延时 3s"); });

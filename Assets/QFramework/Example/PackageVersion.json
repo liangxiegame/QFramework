@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.34",
+  "Version": "v0.0.35",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.34",
-    "content": "change folder",
+    "version": "v0.0.35",
+    "content": "add ActionQueue Example",
     "author": "LIANGXIE",
     "date": "2018-12-30"
   },
   "Name": "Example",
-  "VersionNumber": 34,
-  "FileName": "Example_v0.0.34.unitypackage"
+  "VersionNumber": 35,
+  "FileName": "Example_v0.0.35.unitypackage"
 }
