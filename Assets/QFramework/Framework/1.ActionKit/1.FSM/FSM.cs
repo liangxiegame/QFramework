@@ -31,12 +31,12 @@ namespace QFramework
 	/// <summary>
 	/// FSM
 	/// </summary>
-	public class FSM<TStateName,KEventName> : IDisposable
+	public class FSM<TStateEnum,TEventEnum> : IDisposable
 	{
 
-		private Action<TStateName, TStateName> mOnStateChanged = null;
+		private Action<TStateEnum, TStateEnum> mOnStateChanged = null;
 		
-		public FSM(Action<TStateName,TStateName> onStateChanged = null)
+		public FSM(Action<TStateEnum,TStateEnum> onStateChanged = null)
 		{
 			mOnStateChanged = onStateChanged;
 		}
@@ -49,11 +49,11 @@ namespace QFramework
 		/// <summary>
 		/// QFSM state.
 		/// </summary>
-		class FSMState<TStateName>
+		class FSMState<TName>
 		{
-			public TStateName Name;
+			public TName Name;
 
-			public FSMState(TStateName name)
+			public FSMState(TName name)
 			{
 				Name = name;
 			}
@@ -61,8 +61,8 @@ namespace QFramework
 			/// <summary>
 			/// The translation dict.
 			/// </summary>
-			public readonly Dictionary<KEventName, FSMTranslation<TStateName, KEventName>> TranslationDict =
-				new Dictionary<KEventName, FSMTranslation<TStateName, KEventName>>();
+			public readonly Dictionary<TEventEnum, FSMTranslation<TName, TEventEnum>> TranslationDict =
+				new Dictionary<TEventEnum, FSMTranslation<TName, TEventEnum>>();
 		}
 
 		/// <summary>
@@ -88,9 +88,9 @@ namespace QFramework
 		/// <summary>
 		/// The state of the m current.
 		/// </summary>
-		TStateName mCurState;
+		TStateEnum mCurState;
 
-		public TStateName State
+		public TStateEnum State
 		{
 			get { return mCurState; }
 		}
@@ -98,15 +98,15 @@ namespace QFramework
 		/// <summary>
 		/// The m state dict.
 		/// </summary>
-		Dictionary<TStateName, FSMState<TStateName>> mStateDict = new Dictionary<TStateName, FSMState<TStateName>>();
+		Dictionary<TStateEnum, FSMState<TStateEnum>> mStateDict = new Dictionary<TStateEnum, FSMState<TStateEnum>>();
 
 		/// <summary>
 		/// Adds the state.
 		/// </summary>
 		/// <param name="name">Name.</param>
-		private void AddState(TStateName name)
+		private void AddState(TStateEnum name)
 		{
-			mStateDict[name] = new FSMState<TStateName>(name);
+			mStateDict[name] = new FSMState<TStateEnum>(name);
 		}
 
 		/// <summary>
@@ -116,7 +116,7 @@ namespace QFramework
 		/// <param name="name">Name.</param>
 		/// <param name="toState">To state.</param>
 		/// <param name="onStateChagned">Callfunc.</param>
-		public void AddTransition(TStateName fromState, KEventName name, TStateName toState, Action<object[]> onStateChagned = null  )
+		public void AddTransition(TStateEnum fromState, TEventEnum name, TStateEnum toState, Action<object[]> onStateChagned = null  )
 		{
 			if (!mStateDict.ContainsKey(fromState))
 			{
@@ -128,14 +128,14 @@ namespace QFramework
 				AddState(toState);
 			}
 
-			mStateDict[fromState].TranslationDict[name] = new FSMTranslation<TStateName,KEventName>(fromState, name, toState, onStateChagned);
+			mStateDict[fromState].TranslationDict[name] = new FSMTranslation<TStateEnum,TEventEnum>(fromState, name, toState, onStateChagned);
 		}
 
 		/// <summary>
 		/// Start the specified name.
 		/// </summary>
 		/// <param name="name">Name.</param>
-		public void Start(TStateName name)
+		public void Start(TStateEnum name)
 		{
 			mCurState = name;
 		}
@@ -145,7 +145,7 @@ namespace QFramework
 		/// </summary>
 		/// <param name="name">Name.</param>
 		/// <param name="param">Parameter.</param>
-		public void HandleEvent(KEventName name, params object[] param)
+		public void HandleEvent(TEventEnum name, params object[] param)
 		{
 			if (mCurState != null && mStateDict[mCurState].TranslationDict.ContainsKey(name))
 			{

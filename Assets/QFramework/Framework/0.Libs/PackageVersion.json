@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.28",
+  "Version": "v0.0.29",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.28",
-    "content": "update dotween v1.2",
+    "version": "v0.0.29",
+    "content": "move unused module",
     "author": "LIANGXIE",
-    "date": "2018-12-28"
+    "date": "2018-12-29"
   },
   "Name": "0.Libs",
-  "VersionNumber": 28,
-  "FileName": "0.Libs_v0.0.28.unitypackage"
+  "VersionNumber": 29,
+  "FileName": "0.Libs_v0.0.29.unitypackage"
 }

@@ -6,8 +6,6 @@ namespace QFramework
 {
     public class UIEditorWindow : EditorWindow
     {
-        UIManager m_UIManager;
-
         [MenuItem("QFramework/CreateUIRoot", priority = 600)]
         public static void ShowWindow()
         {
@@ -21,7 +19,7 @@ namespace QFramework
 
             if (uiManager)
             {
-                m_UIManager = uiManager.GetComponent<UIManager>();
+                uiManager.GetComponent<UIManager>();
             }
         }
 

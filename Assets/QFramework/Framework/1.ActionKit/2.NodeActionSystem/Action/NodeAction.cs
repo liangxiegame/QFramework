@@ -52,7 +52,6 @@ namespace QFramework
             OnEnd();
         }
 
-
         public void Break()
         {
             Finished = true;

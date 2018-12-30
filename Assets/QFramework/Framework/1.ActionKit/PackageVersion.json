@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.11",
+  "Version": "v0.0.14",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/1.ActionKit_v0.0.4.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/1.ActionKit/",
   "Readme": {
-    "version": "v0.0.11",
-    "content": "change folder",
+    "version": "v0.0.14",
+    "content": "add dotween node",
     "author": "LIANGXIE",
-    "date": "2018-12-28"
+    "date": "2018-12-29"
   },
   "Name": "1.ActionKit",
-  "VersionNumber": 11,
-  "FileName": "1.ActionKit_v0.0.11.unitypackage"
+  "VersionNumber": 14,
+  "FileName": "1.ActionKit_v0.0.14.unitypackage"
 }

@@ -29,7 +29,7 @@ namespace QFramework
     using UnityEngine;
     using UniRx;
     
-    public static class IActionChainExtention
+    public static partial class IActionChainExtention
     {
         public static IActionChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
         {
@@ -43,6 +43,11 @@ namespace QFramework
             var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
             retNodeChain.AddTo(selfbehaviour);
             return retNodeChain;
+        }
+
+        public static IActionChain OnlyBegin(this IActionChain selfChain, Action<OnlyBeginAction> onBegin)
+        {
+            return selfChain.Append(OnlyBeginAction.Allocate(onBegin));
         }
 
         public static IActionChain Delay(this IActionChain senfChain, float seconds)

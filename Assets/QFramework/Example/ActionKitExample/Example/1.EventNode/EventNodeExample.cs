@@ -31,7 +31,15 @@ namespace QFramework.Example
 	{
 		private void Start()
 		{
-			var eventNode = EventAction.Allocate(() => { Log.I("event 1 called"); }, () => { Log.I("event 2 called"); });
+			var eventNode = EventAction.Allocate(() =>
+			{
+				Log.I("event 1 called"); 
+				
+			}, () =>
+			{
+				Log.I("event 2 called");
+				
+			});
 			this.ExecuteNode(eventNode);
 		}
 

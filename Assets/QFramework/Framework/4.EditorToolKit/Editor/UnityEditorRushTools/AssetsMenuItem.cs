@@ -65,8 +65,8 @@ namespace QFramework
         }
 
         #region Copy Hierarchy Node Path
-        private static string mNodeStart = "";
-        private static string mNodeEnd = "";
+//        private static string mNodeStart = "";
+//        private static string mNodeEnd = "";
 
         [MenuItem("GameObject/Copy/CopyNodePath ..]", false, 0)]
         static void CopyNodePathFunc()

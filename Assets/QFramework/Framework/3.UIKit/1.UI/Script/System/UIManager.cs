@@ -465,6 +465,11 @@ namespace QFramework
 			return UIManager.Instance.OpenUI(panelName, level, null, assetBundleName) as UIPanel;
 		}
 
+		public static UIPanel OpenPanel(string panelName)
+		{
+			return UIManager.Instance.OpenUI(panelName, UILevel.Common, null, null) as UIPanel;
+		}
+		
 		public static void ClosePanel(string panelName)
 		{
 			UIManager.Instance.CloseUI(panelName);
