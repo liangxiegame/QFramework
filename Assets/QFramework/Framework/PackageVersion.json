@@ -1,15 +1,15 @@
 {
-  "Version": "v0.0.10",
+  "Version": "v0.0.11",
   "Type": 4,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "Readme": {
-    "version": "v0.0.10",
+    "version": "v0.0.11",
     "content": "publish alpha",
     "author": "凉鞋的MacBook Pro (2)",
     "date": "2018-10-05"
   },
   "Name": "Framework",
-  "VersionNumber": 10,
-  "FileName": "Framework_v0.0.10.unitypackage"
+  "VersionNumber": 11,
+  "FileName": "Framework_v0.0.11.unitypackage"
 }

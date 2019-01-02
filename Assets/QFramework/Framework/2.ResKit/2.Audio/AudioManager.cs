@@ -479,6 +479,14 @@ namespace QFramework
         {
             Instance.mMainUnit.Stop();
         }
+        
+        public static void StopVoice()
+        {
+            if (Instance.mVoiceUnit.IsNotNull())
+            {
+                Instance.mVoiceUnit.Stop();
+            }
+        }
 
         public static void PauseMusic()
         {
@@ -561,11 +569,6 @@ namespace QFramework
 
             var unit = SafeObjectPool<AudioUnit>.Instance.Allocate();
             unit.SetAudio(Instance.gameObject, soundName, loop);
-        }
-
-        void StopVoice()
-        {
-            mVoiceUnit.Stop();
         }
 
         #region 单例实现

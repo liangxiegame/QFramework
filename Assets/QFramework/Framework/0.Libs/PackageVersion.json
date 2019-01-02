@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.29",
+  "Version": "v0.0.30",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.29",
-    "content": "move unused module",
+    "version": "v0.0.30",
+    "content": "support 2018.2 ",
     "author": "LIANGXIE",
-    "date": "2018-12-29"
+    "date": "2019-01-02"
   },
   "Name": "0.Libs",
-  "VersionNumber": 29,
-  "FileName": "0.Libs_v0.0.29.unitypackage"
+  "VersionNumber": 30,
+  "FileName": "0.Libs_v0.0.30.unitypackage"
 }

@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.10",
+  "Version": "v0.0.11",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "Readme": {
-    "version": "v0.0.10",
-    "content": "Move Exampe 2 Example Module",
+    "version": "v0.0.11",
+    "content": "add stop voice",
     "author": "LIANGXIE",
-    "date": "2018-12-28"
+    "date": "2019-01-01"
   },
   "Name": "2.ResKit",
-  "VersionNumber": 10,
-  "FileName": "2.ResKit_v0.0.10.unitypackage"
+  "VersionNumber": 11,
+  "FileName": "2.ResKit_v0.0.11.unitypackage"
 }
