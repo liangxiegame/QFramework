@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,10 +9,10 @@ namespace QFramework
     /// <summary>
     /// 添加文件头说明
     /// </summary>
-
-    public class AddFileHead : MonoBehaviour
+    public class AddFileHead 
     {
-        [MenuItem("QFramework/Tool/File/UpdateFileHead")]
+        #region 更新格式
+        [MenuItem("QFramework/Tool/File/2.更新文件头格式")]
         public static void UpdateFileHead()
         {
             string NewBehaviourScriptPath =  EditorApplication.applicationContentsPath + "/Resources/ScriptTemplates/81-C# Script-NewBehaviourScript.cs.txt";
@@ -62,6 +64,58 @@ namespace QFramework
                 }
             }
         }
+        #endregion
+
+        #region 打开文件
+        const string NotePadJJ_APP_NAME = "notepad++.exe";
+        const string NotePad_APP_NAME = "notepad.exe";
+
+        /// <summary>
+        /// 用notepad++打开文件
+        /// </summary>
+        [MenuItem("QFramework/Tool/File/1.编辑文件头格式 NotePad++")]
+        static public void OpenForNotePadJJ()
+        {
+            string dir_path = Application.dataPath + "/QFramework/Framework/4.EditorToolKit/Editor/UnityEditorRushTools/AddFileHead.cs";
+            InvokeCmd(NotePadJJ_APP_NAME, dir_path);
+        }
+
+        /// <summary>
+        /// 用记事本打开文件
+        /// </summary>
+        [MenuItem("QFramework/Tool/File/1.编辑文件头格式 记事本")]
+        static public void OpenForNotePad()
+        {
+            string dir_path = Application.dataPath + "/QFramework/Framework/4.EditorToolKit/Editor/UnityEditorRushTools/AddFileHead.cs";
+            InvokeCmd(NotePad_APP_NAME, dir_path);
+        }
+
+        /// <summary>
+        /// 调用CMD 命令
+        /// </summary>
+        public static void InvokeCmd(string cmd, string dir_path)
+        {
+            UnityEngine.Debug.Log(cmd);
+            AssetDatabase.Refresh();
+            new Thread(new ThreadStart(() =>
+            {
+                try
+                {
+                    System.Diagnostics.Process p = new System.Diagnostics.Process();
+                    p.StartInfo.FileName = cmd;
+                    p.StartInfo.Arguments = dir_path;
+                    p.Start();
+                    p.WaitForExit();
+                    p.Close();
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e.Message);
+                }
+            })).Start();
+        }
+        
+        #endregion
     }
 
     //解析
@@ -98,4 +152,5 @@ namespace QFramework
             File.WriteAllText(realPath, scriptContent);
         }
     }
+    
 }

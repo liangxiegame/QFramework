@@ -14,12 +14,14 @@ public static class CustomHierarchy
     public static bool EnableCustomHierarchyLabel = true;
 
     private static bool HierarchySwitch = false;
-    [MenuItem("QFramework/Tool/Hierarchy/CustomHierarchy")]
+
+    private const string menuItemPath = "QFramework/Tool/Hierarchy/Hierarchy面板扩展";
+    [MenuItem(menuItemPath)]
     public static void OpenCustomHierarchy()
     {
-        bool flag = Menu.GetChecked("QFramework/Tool/Hierarchy/CustomHierarchy");
+        bool flag = Menu.GetChecked(menuItemPath);
         HierarchySwitch = !flag;
-        Menu.SetChecked("QFramework/Tool/Hierarchy/CustomHierarchy", !flag);
+        Menu.SetChecked(menuItemPath, !flag);
 
         if (HierarchySwitch)
         {
