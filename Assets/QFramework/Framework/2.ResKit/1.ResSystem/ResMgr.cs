@@ -216,6 +216,23 @@ namespace QFramework
             }
         }
 
+        private void OnGUI()
+        {
+            if (Platform.IsEditor && Input.GetKey(KeyCode.F1))
+            {
+                GUILayout.BeginVertical("box");
+                
+                mResList.ForEach(res =>
+                {
+                    GUILayout.Label("bundleName:{0} assetName:{1} refCount:{2}".FillFormat(res.OwnerBundleName,
+                        res.AssetName,
+                        res.RefCount));
+                });
+                
+                GUILayout.EndVertical();
+            }
+        }
+
         private void OnIEnumeratorTaskFinish()
         {
             --mCurrentCoroutineCount;
