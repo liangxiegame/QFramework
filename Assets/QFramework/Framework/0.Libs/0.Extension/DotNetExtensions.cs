@@ -288,47 +288,6 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 获得随机列表中元素
-        /// </summary>
-        /// <typeparam name="T">元素类型</typeparam>
-        /// <param name="list">列表</param>
-        /// <returns></returns>
-        public static T GetRandomItem<T>(this List<T> list)
-        {
-            return list[UnityEngine.Random.Range(0, list.Count - 1)];
-        }
-
-        /// <summary>
-        /// 根据权值来获取索引
-        /// </summary>
-        /// <param name="powers"></param>
-        /// <returns></returns>
-        public static int GetRandomWithPower(this List<int> powers)
-        {
-            var sum = 0;
-            foreach (var power in powers)
-            {
-                sum += power;
-            }
-
-            var randomNum = UnityEngine.Random.Range(0, sum);
-            var currentSum = 0;
-            for (var i = 0; i < powers.Count; i++)
-            {
-                var nextSum = currentSum + powers[i];
-                if (randomNum >= currentSum && randomNum <= nextSum)
-                {
-                    return i;
-                }
-
-                currentSum = nextSum;
-            }
-
-            Log.E("权值范围计算错误！");
-            return -1;
-        }
-
-        /// <summary>
         /// 拷贝到
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -403,27 +362,6 @@ namespace QFramework
         {
             return dictionaries.Aggregate(dictionary,
                 (current, dict) => current.Union(dict).ToDictionary(kv => kv.Key, kv => kv.Value));
-        }
-
-        /// <summary>
-        /// 根据权值获取值，Key为值，Value为权值
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="powersDict"></param>
-        /// <returns></returns>
-        public static T GetRandomWithPower<T>(this Dictionary<T, int> powersDict)
-        {
-            var keys = new List<T>();
-            var values = new List<int>();
-
-            foreach (var key in powersDict.Keys)
-            {
-                keys.Add(key);
-                values.Add(powersDict[key]);
-            }
-
-            var finalKeyIndex = values.GetRandomWithPower();
-            return keys[finalKeyIndex];
         }
 
         /// <summary>

@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.30",
+  "Version": "v0.0.31",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.30",
-    "content": "support 2018.2 ",
-    "author": "LIANGXIE",
-    "date": "2019-01-02"
+    "version": "v0.0.31",
+    "content": "DotNet Extension 支持其他 .Net 平台",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2019-01-05"
   },
   "Name": "0.Libs",
-  "VersionNumber": 30,
-  "FileName": "0.Libs_v0.0.30.unitypackage"
+  "VersionNumber": 31,
+  "FileName": "0.Libs_v0.0.31.unitypackage"
 }

@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
+
 namespace QFramework
 {
     using System;
@@ -42,7 +44,7 @@ namespace QFramework
             component.Enable(); // component.enabled = true
             component.Disable(); // component.enabled = false
         }
-        
+
         public static T Enable<T>(this T selfBehaviour) where T : Behaviour
         {
             selfBehaviour.enabled = true;
@@ -72,7 +74,7 @@ namespace QFramework
 
             RenderTexture.active = renderTexture;
 
-            var screenShot = new Texture2D((int)rect.width, (int)rect.height, TextureFormat.RGB24, false);
+            var screenShot = new Texture2D((int) rect.width, (int) rect.height, TextureFormat.RGB24, false);
             screenShot.ReadPixels(rect, 0, 0);
             screenShot.Apply();
 
@@ -226,6 +228,7 @@ namespace QFramework
             {
                 selfBehaviour.gameObject.DestroySelfAfterDelay(delay);
             }
+
             return selfBehaviour;
         }
 
@@ -383,6 +386,7 @@ namespace QFramework
             {
                 Object.Destroy(selfObj);
             }
+
             return selfObj;
         }
 
@@ -402,6 +406,7 @@ namespace QFramework
             {
                 Object.Destroy(selfObj, delay);
             }
+
             return selfObj;
         }
 
@@ -592,10 +597,12 @@ namespace QFramework
         /// 缓存的一些变量,免得每次声明
         /// </summary>
         private static Vector3 mLocalPos;
+
         private static Vector3 mScale;
         private static Vector3 mPos;
 
         #region CETR001 Parent
+
         public static T Parent<T>(this T selfComponent, Component parentComponent) where T : Component
         {
             selfComponent.transform.SetParent(parentComponent == null ? null : parentComponent.transform);
@@ -1038,7 +1045,8 @@ namespace QFramework
         /// <param name="name">目标名</param>
         /// <param name="stringComparison">字符串比较规则</param>
         /// <returns></returns>
-        public static Transform FindChildRecursion(this Transform tfParent, string name, StringComparison stringComparison = StringComparison.Ordinal)
+        public static Transform FindChildRecursion(this Transform tfParent, string name,
+            StringComparison stringComparison = StringComparison.Ordinal)
         {
             if (tfParent.name.Equals(name, stringComparison))
             {
@@ -1131,6 +1139,7 @@ namespace QFramework
                 selfAction();
                 return true;
             }
+
             return false;
         }
 
@@ -1147,6 +1156,7 @@ namespace QFramework
                 selfAction(t);
                 return true;
             }
+
             return false;
         }
 
@@ -1162,7 +1172,71 @@ namespace QFramework
                 selfAction(t, k);
                 return true;
             }
+
             return false;
+        }
+
+        /// <summary>
+        /// 获得随机列表中元素
+        /// </summary>
+        /// <typeparam name="T">元素类型</typeparam>
+        /// <param name="list">列表</param>
+        /// <returns></returns>
+        public static T GetRandomItem<T>(this List<T> list)
+        {
+            return list[UnityEngine.Random.Range(0, list.Count - 1)];
+        }
+
+
+        /// <summary>
+        /// 根据权值来获取索引
+        /// </summary>
+        /// <param name="powers"></param>
+        /// <returns></returns>
+        public static int GetRandomWithPower(this List<int> powers)
+        {
+            var sum = 0;
+            foreach (var power in powers)
+            {
+                sum += power;
+            }
+
+            var randomNum = UnityEngine.Random.Range(0, sum);
+            var currentSum = 0;
+            for (var i = 0; i < powers.Count; i++)
+            {
+                var nextSum = currentSum + powers[i];
+                if (randomNum >= currentSum && randomNum <= nextSum)
+                {
+                    return i;
+                }
+
+                currentSum = nextSum;
+            }
+
+            Log.E("权值范围计算错误！");
+            return -1;
+        }
+
+        /// <summary>
+        /// 根据权值获取值，Key为值，Value为权值
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="powersDict"></param>
+        /// <returns></returns>
+        public static T GetRandomWithPower<T>(this Dictionary<T, int> powersDict)
+        {
+            var keys = new List<T>();
+            var values = new List<int>();
+
+            foreach (var key in powersDict.Keys)
+            {
+                keys.Add(key);
+                values.Add(powersDict[key]);
+            }
+
+            var finalKeyIndex = values.GetRandomWithPower();
+            return keys[finalKeyIndex];
         }
     }
 }
