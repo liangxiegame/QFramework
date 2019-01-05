@@ -248,7 +248,7 @@ namespace QFramework
 				UIPanelCodeTemplate.Generate(strFilePath, behaviourName, GetProjectNamespace());
 			}
 
-			CreateUIPanelComponentsCode(behaviourName, strFilePath);
+			CreateUIPanelDesignerCode(behaviourName, strFilePath);
 			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
 
@@ -260,10 +260,10 @@ namespace QFramework
 			return dirs[dirs.Length - 2];
 		}
 		
-		private void CreateUIPanelComponentsCode(string behaviourName, string uiUIPanelfilePath)
+		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath)
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
-			var generateFilePath = dir + behaviourName + "Components.cs";
+			var generateFilePath = dir + behaviourName + "designer.cs";
 
 			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, GetProjectNamespace(), mPanelCodeData);
 
@@ -285,7 +285,7 @@ namespace QFramework
 					elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 			}
 			
-			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + "Components.cs",
+			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + "designer.cs",
 				elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
