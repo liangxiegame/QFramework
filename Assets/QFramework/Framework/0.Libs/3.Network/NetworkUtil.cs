@@ -45,7 +45,7 @@ namespace QFramework
         public static string GetAddressIP()
         {
             var AddressIP = "";
-
+#if !UNITY_WEBGL
 #if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0 || UNITY_2018_1
             AddressIP = Network.player.ipAddress;
 #else
@@ -58,7 +58,8 @@ namespace QFramework
                 }
             }
 #endif
-
+#endif
+            
 #if UNITY_IPHONE
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
             foreach (NetworkInterface adapter in adapters)  

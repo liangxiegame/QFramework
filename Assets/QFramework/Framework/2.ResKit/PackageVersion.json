@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.12",
+  "Version": "v0.0.14",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "Readme": {
-    "version": "v0.0.12",
-    "content": "add runtime debug info key F1",
+    "version": "v0.0.14",
+    "content": "webgl support",
     "author": "LIANGXIE",
-    "date": "2019-01-03"
+    "date": "2019-01-06"
   },
   "Name": "2.ResKit",
-  "VersionNumber": 12,
-  "FileName": "2.ResKit_v0.0.12.unitypackage"
+  "VersionNumber": 14,
+  "FileName": "2.ResKit_v0.0.14.unitypackage"
 }

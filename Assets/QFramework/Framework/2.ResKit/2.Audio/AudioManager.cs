@@ -115,8 +115,8 @@ namespace QFramework
         void ReadAudioSetting()
         {
             SoundOn.Value = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
-            MusicOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_MUSIC_ON, 1) == 1 ? true : false;
-            VoiceOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_VOICE_ON, 1) == 1 ? true : false;
+            IsMusicOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_MUSIC_ON, 1) == 1 ? true : false;
+            IsVoiceOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_VOICE_ON, 1) == 1 ? true : false;
 
             SoundVolume = PlayerPrefs.GetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, 1.0f);
             MusicVolume = PlayerPrefs.GetFloat(KEY_AUDIO_MANAGER_MUSIC_VOLUME, 1.0f);
@@ -129,8 +129,8 @@ namespace QFramework
         void SaveAudioSetting()
         {
             PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, SoundOn.Value == true ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, MusicOn == true ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, MusicOn == true ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, IsMusicOn == true ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, IsVoiceOn == true ? 1 : 0);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, SoundVolume);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_MUSIC_VOLUME, MusicVolume);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_VOICE_VOLUME, VoiceVolume);
@@ -209,8 +209,8 @@ namespace QFramework
                     break;
                 case (int) AudioEvent.MusicSwitch:
                     AudioMsgWithBool musicSwitchMsg = msg as AudioMsgWithBool;
-                    MusicOn = musicSwitchMsg.on;
-                    if (!MusicOn)
+                    IsMusicOn = musicSwitchMsg.on;
+                    if (!IsMusicOn)
                     {
                         StopMusic();
                     }
@@ -405,7 +405,7 @@ namespace QFramework
         }
 
         public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
-            Action onEndCallback = null, bool allowMusicOff = true)
+            Action onEndCallback = null, bool allowMusicOff = true,float volume = 1.0f)
         {
             var self = Instance;
             self.mCurMusicName = musicName;
@@ -425,6 +425,7 @@ namespace QFramework
             {
                 onBeganCallback.InvokeGracefully();
 
+                self.mMainUnit.SetVolume(volume);
 //调用完就置为null，否则应用层每注册一个而没有注销，都会调用
                 self.mMainUnit.SetOnStartListener(null);
             });
@@ -541,7 +542,7 @@ namespace QFramework
         {
             mVoiceUnit.SetOnStartListener(delegate(AudioUnit musicUnit)
             {
-                SetVolume(mMainUnit, VolumeLevel.Min);
+//                SetVolume(mVoiceUnit, VolumeLevel.Min);
 
                 msg.onVoiceBeganCallback.InvokeGracefully();
 
@@ -552,7 +553,7 @@ namespace QFramework
 
             mVoiceUnit.SetOnFinishListener(delegate(AudioUnit musicUnit)
             {
-                SetVolume(mMainUnit, VolumeLevel.Max);
+//                SetVolume(mVoiceUnit, VolumeLevel.Max);
 
                 msg.onVoiceEndedCallback.InvokeGracefully();
 

@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2018.3 vin129
+/****************************************************************************
+ * Copyright (c) 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,51 +23,43 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UniRx;
+using System;
+using System.Collections.Generic;
 
-namespace QFramework.UIExample
+namespace QFramework
 {
-	public class UIMenuPanelData : IUIData
-	{
-		// TODO: Query
-	}
+    public abstract class HttpDeleteAction : NodeAction
+    {
+        protected abstract Dictionary<string, string> Headers { get; }
+        protected abstract string                     Url     { get; }
+        
+        
+        protected abstract string Id { get; }
 
-	public partial class UIMenuPanel : UIPanel
-	{
-		protected override void InitUI(IUIData uiData = null)
-		{
-			ImageBg.color = "#FFFFFFFF".HtmlStringToColor();
+        private IDisposable mDisposable;
 
-			Observable.NextFrame().Subscribe(_ => { UIMgr.GetPanel<UIMenuPanel>().LogInfo(); });
-		}
+        protected override void OnBegin()
+        {
+            mDisposable = API.HttpDelete(Url.FillFormat(Id), Headers, () =>
+            {
+                mDisposable = null;
+                OnResponse();
+                Finish();
+            });
+        }
 
-		protected override void ProcessMsg(int eventId, QMsg msg)
-		{
-			Log.I("Process");
-			switch (eventId)
-			{
-				case (int) UIEventID.MenuPanel.ChangeMenuColor:
-					Log.I("{0}:Process EventId {1}", Transform.name, eventId);
-					ImageBg.color = "#00FFFFFF".HtmlStringToColor();
-					break;
-			}
-		}
 
-		protected override void RegisterUIEvent()
-		{
-			RegisterEvent(UIEventID.MenuPanel.ChangeMenuColor);
+        protected abstract void OnResponse();
 
-			BtnPlay.onClick.AddListener(() =>
-			{
-				this.DoTransition<UISectionPanel>(new FadeInOut(), UILevel.Common,
-					prefabName: "Resources/UISectionPanel");
-			});
+        protected override void OnDispose()
+        {
+            if (mDisposable.IsNotNull())
+            {
+                mDisposable.Dispose();
+                mDisposable = null;
+            }
 
-			BtnSetting.onClick.AddListener(() =>
-			{
-				UIMgr.OpenPanel<UISettingPanel>(UILevel.PopUI,
-					prefabName: "Resources/UISettingPanel");
-			});
-		}
-	}
+            base.OnDispose();
+        }
+    }
 }

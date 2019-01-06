@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.34",
+  "Version": "v0.0.38",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/0.Libs_v0.0.22.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/0.Libs/",
   "Readme": {
-    "version": "v0.0.34",
-    "content": "add Http Patch API",
-    "author": "凉鞋的MacBook Pro (2)",
-    "date": "2019-01-05"
+    "version": "v0.0.38",
+    "content": "support webgl",
+    "author": "LIANGXIE",
+    "date": "2019-01-06"
   },
   "Name": "0.Libs",
-  "VersionNumber": 34,
-  "FileName": "0.Libs_v0.0.34.unitypackage"
+  "VersionNumber": 38,
+  "FileName": "0.Libs_v0.0.38.unitypackage"
 }

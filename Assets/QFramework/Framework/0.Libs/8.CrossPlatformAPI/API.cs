@@ -7,7 +7,12 @@ namespace QFramework
     {
         IDisposable HttpGet(string url, Dictionary<string, string> headers, Action<string> onResponse);
 
+        IDisposable HttpPost(string url, Dictionary<string, string> headers,
+            Dictionary<string, string> form, Action<string> onResponse);
+
         IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse);
+
+        IDisposable HttpDelete(string url, Dictionary<string, string> headers, Action onResponse);
 
     }
 
@@ -24,9 +29,20 @@ namespace QFramework
             return mAPI.HttpGet(url, headers, onResponse);
         }
 
+        public static IDisposable HttpPost(string url, Dictionary<string, string> headers,
+            Dictionary<string, string> form, Action<string> onResponse)
+        {
+            return mAPI.HttpPost(url, headers, form, onResponse);
+        }
+
         public static IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse)
         {
             return mAPI.HttpPatch(url, headers,content, onResponse);
+        }
+
+        public static IDisposable HttpDelete(string url, Dictionary<string, string> headers, Action onResponse)
+        {
+            return mAPI.HttpDelete(url, headers, onResponse);
         }
     }
 }

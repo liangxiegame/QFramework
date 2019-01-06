@@ -35,7 +35,7 @@ namespace QFramework
 	public class ResKitEditorWindow : EditorWindow
 	{
 		private int mBuildTargetIndex = 0;
-		private readonly string[] mPlatformLabels = {"Windows32/OSX/Linux", "iOS", "Android"};
+		private readonly string[] mPlatformLabels = {"Windows32/OSX/Linux", "iOS", "Android","WebGL"};
 		private Vector2 scrollPos;
 		private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
 		private const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
@@ -70,6 +70,9 @@ namespace QFramework
 
 			switch (EditorUserBuildSettings.activeBuildTarget)
 			{
+				case BuildTarget.WebGL:
+					mBuildTargetIndex = 3;
+					break;
 				case BuildTarget.Android:
 					mBuildTargetIndex = 2;
 					break;
