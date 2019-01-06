@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * 2018.5 凉鞋的MacBook Pro (2)
+/****************************************************************************
+ * 2019.1 LIANGXIE
  ****************************************************************************/
 
 namespace QFramework.UIExample
@@ -7,8 +7,10 @@ namespace QFramework.UIExample
 	using UnityEngine;
 	using UnityEngine.UI;
 
-	public partial class UISettingPanel	{
+	public partial class UISettingPanel
+	{
 		public const string NAME = "UISettingPanel";
+
 		[SerializeField] public Button eventBtn;
 		[SerializeField] public Button backBtn;
 
@@ -16,6 +18,18 @@ namespace QFramework.UIExample
 		{
 			eventBtn = null;
 			backBtn = null;
+		}
+
+		private UISettingPanelData mPrivateData = null;
+
+		public UISettingPanelData mData
+		{
+			get { return mPrivateData ?? (mPrivateData = new UISettingPanelData()); }
+			set
+			{
+				mUIData = value;
+				mPrivateData = value;
+			}
 		}
 	}
 }

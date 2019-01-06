@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.36",
+  "Version": "v0.0.37",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.36",
-    "content": "rename refcount example",
+    "version": "v0.0.37",
+    "content": "update component 2 designer",
     "author": "LIANGXIE",
-    "date": "2019-01-03"
+    "date": "2019-01-06"
   },
   "Name": "Example",
-  "VersionNumber": 36,
-  "FileName": "Example_v0.0.36.unitypackage"
+  "VersionNumber": 37,
+  "FileName": "Example_v0.0.37.unitypackage"
 }

@@ -263,7 +263,7 @@ namespace QFramework
 		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath)
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
-			var generateFilePath = dir + behaviourName + "designer.cs";
+			var generateFilePath = dir + behaviourName + ".Designer.cs";
 
 			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, GetProjectNamespace(), mPanelCodeData);
 
@@ -285,7 +285,7 @@ namespace QFramework
 					elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 			}
 			
-			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + "designer.cs",
+			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + ".Designer.cs",
 				elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)

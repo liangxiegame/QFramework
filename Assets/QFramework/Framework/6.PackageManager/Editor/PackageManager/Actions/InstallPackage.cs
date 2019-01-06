@@ -66,11 +66,10 @@ namespace QFramework
 
 					AssetDatabase.Refresh();
 
-					EditorUtility.DisplayDialog(mRequestPackageData.Name, "插件下载成功", "OK");
+					Log.I("PackageManager:插件下载成功");
 
 					InstalledPackageVersions.Reload();
 
-//					EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
 				}, e =>
 				{
 					EditorUtility.ClearProgressBar();

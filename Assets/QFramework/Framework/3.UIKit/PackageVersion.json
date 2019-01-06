@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.17",
+  "Version": "v0.0.18",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
   "Readme": {
-    "version": "v0.0.17",
-    "content": "component=>designer",
-    "author": "凉鞋的MacBook Pro (2)",
-    "date": "2019-01-05"
+    "version": "v0.0.18",
+    "content": "designer => .Designer",
+    "author": "LIANGXIE",
+    "date": "2019-01-06"
   },
   "Name": "3.UIKit",
-  "VersionNumber": 17,
-  "FileName": "3.UIKit_v0.0.17.unitypackage"
+  "VersionNumber": 18,
+  "FileName": "3.UIKit_v0.0.18.unitypackage"
 }

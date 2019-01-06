@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.56",
+  "Version": "v0.0.57",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/6.PackageManager_v0.0.35.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/6.PackageManager/",
   "Readme": {
-    "version": "v0.0.56",
-    "content": "add audio manager's volume",
-    "author": "凉鞋的MacBook Pro (2)",
+    "version": "v0.0.57",
+    "content": "dialog=> log",
+    "author": "LIANGXIE",
     "date": "2019-01-06"
   },
   "Name": "6.PackageManager",
-  "VersionNumber": 56,
-  "FileName": "6.PackageManager_v0.0.56.unitypackage"
+  "VersionNumber": 57,
+  "FileName": "6.PackageManager_v0.0.57.unitypackage"
 }
