@@ -65,7 +65,7 @@ namespace QFramework
 		public void InitResMgr()
         {   
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 EditorRuntimeAssetDataCollector.BuildDataTable();
             }
@@ -224,9 +224,10 @@ namespace QFramework
                 
                 mResList.ForEach(res =>
                 {
-                    GUILayout.Label("bundleName:{0} assetName:{1} refCount:{2}".FillFormat(res.OwnerBundleName,
+                    GUILayout.Label("bundleName:{0} assetName:{1} refCount:{2} state:{3}".FillFormat(res.OwnerBundleName,
                         res.AssetName,
-                        res.RefCount));
+                        res.RefCount,
+                        res.State));
                 });
                 
                 GUILayout.EndVertical();

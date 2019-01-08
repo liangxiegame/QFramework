@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2018.6 liangxie
+ * Copyright (c) 2017 ~ 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -31,7 +30,7 @@ namespace QFramework
     using UnityEngine;
     using Object = UnityEngine.Object;
 
-    public class ResLoader : DisposableObject, IResLoader, IPoolable, IPoolType
+    public class ResLoader : DisposableObject, IResLoader
     {
         /// <summary>
         /// ID:RKRL001 申请ResLoader对象 ResLoader.Allocate（IResLoaderStrategy strategy = null)
@@ -200,9 +199,6 @@ namespace QFramework
             }
         }
 
-        public bool IsRecycled { get; set; }
-
-
         public ResLoader()
         {
             SetStrategy(sDefaultStrategy);
@@ -230,7 +226,7 @@ namespace QFramework
                 return;
             }
 
-            var res = FindResInArray(mResList, ownerBundle, assetName);
+            var res = FindResInArray(mResList, assetName, ownerBundle);
             if (res != null)
             {
                 if (listener != null)
@@ -325,7 +321,7 @@ namespace QFramework
         public Sprite LoadSprite(string bundleName, string spriteName)
         {
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -347,7 +343,7 @@ namespace QFramework
         public Sprite LoadSprite(string spriteName)
         {
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -380,7 +376,7 @@ namespace QFramework
             }
 
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(resName))
                 {
@@ -430,7 +426,7 @@ namespace QFramework
         public void ReleaseAllRes()
         {
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 foreach (var spritePair in mCachedSpriteDict)
                 {
@@ -463,7 +459,7 @@ namespace QFramework
             RemoveAllCallbacks(true);
         }
 
-        public void UnloadAllInstantialteRes(bool flag)
+        public void UnloadAllInstantiateRes(bool flag)
         {
             if (mResList.Count > 0)
             {
@@ -597,13 +593,7 @@ namespace QFramework
             {
                 RemoveAllCallbacks(false);
 
-                //ResMgr.Instance.timeDebugger.End();
-                //ResMgr.Instance.timeDebugger.Dump(-1);
-                if (mListener != null)
-                {
-                    mListener();
-                    mListener = null;
-                }
+                mListener.InvokeGracefully();
 
                 mStrategy.OnAllTaskFinish(this);
             }
@@ -636,37 +626,31 @@ namespace QFramework
             }
         }
 
-        private static IRes FindResInArray(List<IRes> list, string ownerBundleName, string assetName)
+        private static IRes FindResInArray(List<IRes> list, string assetName, string ownerBundleName = null)
         {
             if (list == null)
             {
                 return null;
             }
 
-            for (var i = list.Count - 1; i >= 0; --i)
+            if (ownerBundleName.IsNotNullAndEmpty())
             {
-                if (list[i].AssetName.Equals(assetName) && list[i].OwnerBundleName == ownerBundleName)
+                for (var i = list.Count - 1; i >= 0; --i)
                 {
-                    return list[i];
+                    if (list[i].AssetName.Equals(assetName) && list[i].OwnerBundleName == ownerBundleName)
+                    {
+                        return list[i];
+                    }
                 }
             }
-
-            return null;
-        }
-
-
-        private static IRes FindResInArray(List<IRes> list, string name)
-        {
-            if (list == null)
+            else
             {
-                return null;
-            }
-
-            for (var i = list.Count - 1; i >= 0; --i)
-            {
-                if (list[i].AssetName.Equals(name))
+                for (var i = list.Count - 1; i >= 0; --i)
                 {
-                    return list[i];
+                    if (list[i].AssetName.Equals(assetName))
+                    {
+                        return list[i];
+                    }
                 }
             }
 
@@ -682,6 +666,8 @@ namespace QFramework
 
             mCallbackRecardList.AddLast(new CallBackWrap(res, listener));
         }
+
+        bool IPoolable.IsRecycled { get; set; }
 
         void IPoolable.OnRecycled()
         {

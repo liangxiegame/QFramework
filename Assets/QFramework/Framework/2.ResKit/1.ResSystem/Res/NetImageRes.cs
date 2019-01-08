@@ -38,7 +38,7 @@ namespace QFramework
         }
     }
     
-    public class NetImageRes : AbstractRes, IDownloadTask
+    public class NetImageRes : Res, IDownloadTask
     {
         private string mUrl;
         private string mHashCode;

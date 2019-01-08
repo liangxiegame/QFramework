@@ -33,7 +33,7 @@ namespace QFramework
             Log.I("Init[ResFactory]");
             SafeObjectPool<AssetBundleRes>.Instance.MaxCacheCount = 20;
             SafeObjectPool<AssetRes>.Instance.MaxCacheCount = 40;
-            SafeObjectPool<InternalRes>.Instance.MaxCacheCount = 40;
+            SafeObjectPool<ResourcesRes>.Instance.MaxCacheCount = 40;
             SafeObjectPool<NetImageRes>.Instance.MaxCacheCount = 20;
         }
 
@@ -75,7 +75,7 @@ namespace QFramework
                 case ResType.ABScene:
                     return SceneRes.Allocate(assetName);
                 case ResType.Internal:
-                    return InternalRes.Allocate(assetName,
+                    return ResourcesRes.Allocate(assetName,
                         assetName.StartsWith("resources://")
                             ? InternalResNamePrefixType.Url
                             : InternalResNamePrefixType.Folder);

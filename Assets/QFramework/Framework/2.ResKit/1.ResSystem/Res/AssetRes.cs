@@ -29,7 +29,7 @@ namespace QFramework
 	using UnityEngine;
 	using System.Collections;
 
-	public class AssetRes : BaseRes
+	public class AssetRes : Res
 	{
 		protected string[]           mAssetBundleArray;
 		protected AssetBundleRequest mAssetBundleRequest;

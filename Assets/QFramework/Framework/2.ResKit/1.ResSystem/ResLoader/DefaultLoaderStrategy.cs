@@ -44,7 +44,7 @@ namespace QFramework
 
         }
 
-        public void OnAsyncLoadFinish(IResLoader loader, InternalRes res)
+        public void OnAsyncLoadFinish(IResLoader loader, ResourcesRes res)
         {
 
         }
@@ -54,7 +54,7 @@ namespace QFramework
 
         }
 
-        public void OnSyncLoadFinish(IResLoader loader, InternalRes res)
+        public void OnSyncLoadFinish(IResLoader loader, ResourcesRes res)
         {
 
         }

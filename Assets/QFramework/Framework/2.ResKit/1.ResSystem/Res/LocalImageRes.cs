@@ -41,7 +41,7 @@ namespace QFramework
     /// <summary>
     /// 本地图片加载器
     /// </summary>
-    public class LocalImageRes : AbstractRes, IDownloadTask
+    public class LocalImageRes : Res, IDownloadTask
     {
         private string mFullPath;
         private string mHashCode;
