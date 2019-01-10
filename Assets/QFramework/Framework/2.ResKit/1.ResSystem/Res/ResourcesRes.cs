@@ -158,5 +158,10 @@ namespace QFramework
 
             return mResourceRequest.progress;
         }
+
+        public override string ToString()
+        {
+            return "Type:Resources {1}".FillFormat(AssetName, base.ToString());
+        }
     }
 }

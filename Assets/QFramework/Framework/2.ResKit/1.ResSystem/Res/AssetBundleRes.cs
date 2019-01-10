@@ -201,5 +201,10 @@ namespace QFramework
                 AssetBundle = null;
             }
         }
+
+        public override string ToString()
+        {
+            return "Type:AssetBundle\t {0}".FillFormat(base.ToString());
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace QFramework
 			foreach (var assetBundleInfo in assetBundleInfos)
 			{
 				var className = assetBundleInfo.Name;
-				var bundleName = className.Substring(0, 1).ToUpper() + className.Substring(1);
+				var bundleName = className.Substring(0, 1).ToLower() + className.Substring(1);
 				int firstNumber;
 				if (int.TryParse(bundleName[0].ToString(), out firstNumber))
 				{
@@ -62,15 +62,15 @@ namespace QFramework
 					Type = new CodeTypeReference(typeof(System.String))
 				};
 				codeType.Members.Add(bundleNameField);
-				bundleNameField.InitExpression = new CodePrimitiveExpression(bundleName.ToUpperInvariant());
+				bundleNameField.InitExpression = new CodePrimitiveExpression(bundleName.ToLowerInvariant());
 
 				var checkRepeatDict = new Dictionary<string, string>();
 				foreach (var asset in assetBundleInfo.assets)
 				{
 					var assetField = new CodeMemberField {Attributes = MemberAttributes.Public | MemberAttributes.Const};
 
-					var content = Path.GetFileNameWithoutExtension(asset).ToUpperInvariant();
-					assetField.Name = content.Replace("@", "_").Replace("!", "_");
+					var content = Path.GetFileNameWithoutExtension(asset);
+					assetField.Name = content.ToUpperInvariant().Replace("@", "_").Replace("!", "_");
 					assetField.Type = new CodeTypeReference(typeof(System.String));
 					if (!assetField.Name.StartsWith("[") && !assetField.Name.StartsWith(" [") &&
 					    !checkRepeatDict.ContainsKey(assetField.Name))

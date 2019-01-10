@@ -93,7 +93,7 @@ namespace QFramework
 
             if (CurCount < initCount)
             {
-                for (int i = CurCount; i < initCount; ++i)
+                for (var i = CurCount; i < initCount; ++i)
                 {
                     Recycle(new T());
                 }

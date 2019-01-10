@@ -21,9 +21,9 @@ namespace QFramework.Example
 		{
 			RawImage rawImage = transform.Find("RawImage").GetComponent<RawImage>();
 
-			rawImage.texture = mResLoader.LoadSync<Texture2D>("TestImage");
+//			rawImage.texture = mResLoader.LoadSync<Texture2D>("TestImage");
 			
-//			rawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
+			rawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
 		}
 
 		private void OnDestroy()

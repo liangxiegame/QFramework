@@ -35,54 +35,55 @@ namespace QFramework
             SafeObjectPool<AssetRes>.Instance.MaxCacheCount = 40;
             SafeObjectPool<ResourcesRes>.Instance.MaxCacheCount = 40;
             SafeObjectPool<NetImageRes>.Instance.MaxCacheCount = 20;
+            SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
         }
 
-        public static IRes Create(string assetName, string ownerBundleName = null)
+        public static IRes Create(ResSearchRule resSearchRule)
         {
             short assetType = 0;
-            if (assetName.StartsWith("Resources/") || assetName.StartsWith("resources://"))
+            if (resSearchRule.AssetName.StartsWith("Resources/") || resSearchRule.AssetName.StartsWith("resources://"))
             {
                 assetType = ResType.Internal;
             }
-            else if (assetName.StartsWith("NetImage:"))
+            else if (resSearchRule.AssetName.StartsWith("NetImage:"))
             {
                 assetType = ResType.NetImageRes;
             }
             else
             {
-                var data = ResDatas.Instance.GetAssetData(assetName, ownerBundleName);
+                var data = ResDatas.Instance.GetAssetData(resSearchRule);
 
                 if (data == null)
                 {
-                    Log.E("Failed to Create Res. Not Find AssetData:" + ownerBundleName + assetName);
+                    Log.E("Failed to Create Res. Not Find AssetData:" + resSearchRule);
                     return null;
                 }
 
                 assetType = data.AssetType;
             }
 
-            return Create(assetName, ownerBundleName, assetType);
+            return Create(resSearchRule, assetType);
         }
 
-        public static IRes Create(string assetName, string ownerBundleName, short assetType)
+        public static IRes Create(ResSearchRule resSearchRule, short assetType)
         {
             switch (assetType)
             {
                 case ResType.AssetBundle:
-                    return AssetBundleRes.Allocate(assetName);
+                    return AssetBundleRes.Allocate(resSearchRule.AssetName);
                 case ResType.ABAsset:
-                    return AssetRes.Allocate(assetName, ownerBundleName);
+                    return AssetRes.Allocate(resSearchRule.AssetName, resSearchRule.OwnerBundle);
                 case ResType.ABScene:
-                    return SceneRes.Allocate(assetName);
+                    return SceneRes.Allocate(resSearchRule.AssetName);
                 case ResType.Internal:
-                    return ResourcesRes.Allocate(assetName,
-                        assetName.StartsWith("resources://")
+                    return ResourcesRes.Allocate(resSearchRule.AssetName,
+                        resSearchRule.AssetName.StartsWith("resources://")
                             ? InternalResNamePrefixType.Url
                             : InternalResNamePrefixType.Folder);
                 case ResType.NetImageRes:
-                    return NetImageRes.Allocate(assetName);
+                    return NetImageRes.Allocate(resSearchRule.AssetName);
                 case ResType.LocalImageRes:
-                    return LocalImageRes.Allocate(assetName);
+                    return LocalImageRes.Allocate(resSearchRule.AssetName);
                 default:
                     Log.E("Invalid assetType :" + assetType);
                     return null;

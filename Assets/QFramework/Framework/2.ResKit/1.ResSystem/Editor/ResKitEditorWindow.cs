@@ -125,6 +125,7 @@ namespace QFramework
 			{
 				BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
 				Close();
+				return;
 			}
 
 			if (GUILayout.Button("ForceClear"))

@@ -102,38 +102,11 @@ namespace QFramework
             TryStartNextIEnumeratorTask();
         }
 
-        public IRes GetRes(string ownerBundleName, string assetName, bool createNew = false)
+
+        public IRes GetRes(ResSearchRule resSearchRule, bool createNew = false)
         {
             IRes res = null;
-
-            if (mResDictionary.TryGetValue((ownerBundleName + assetName).ToLower(), out res))
-            {
-                return res;
-            }
-
-            if (!createNew)
-            {
-                return null;
-            }
-
-            res = ResFactory.Create(assetName, ownerBundleName);
-
-            if (res != null)
-            {
-                mResDictionary.Add((ownerBundleName + assetName).ToLower(), res);
-                
-                if (!mResList.Contains(res))
-                {
-                    mResList.Add(res);
-                }
-            }
-            return res;
-        }
-
-        public IRes GetRes(string assetName, bool createNew = false)
-        {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(assetName, out res))
+            if (mResDictionary.TryGetValue(resSearchRule.DictionaryKey, out res))
             {
                 return res;
             }
@@ -144,11 +117,11 @@ namespace QFramework
                 return null;
             }
 
-            res = ResFactory.Create(assetName);
+            res = ResFactory.Create(resSearchRule);
 
             if (res != null)
             {
-                mResDictionary.Add(assetName, res);
+                mResDictionary.Add(resSearchRule.DictionaryKey, res);
                 if (!mResList.Contains(res))
                 {
                     mResList.Add(res);
@@ -222,14 +195,15 @@ namespace QFramework
             {
                 GUILayout.BeginVertical("box");
                 
-                mResList.ForEach(res =>
-                {
-                    GUILayout.Label("bundleName:{0} assetName:{1} refCount:{2} state:{3}".FillFormat(res.OwnerBundleName,
-                        res.AssetName,
-                        res.RefCount,
-                        res.State));
-                });
-                
+                GUILayout.Label("ResKit", new GUIStyle {fontSize = 30});
+                GUILayout.Space(10);
+                GUILayout.Label("ResInfo", new GUIStyle {fontSize = 20});
+                mResList.ForEach(res => { GUILayout.Label((res as Res).ToString()); });
+                GUILayout.Space(10);
+
+                GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
+                GUILayout.Label(string.Format("ResSearchRule:{0}",
+                    SafeObjectPool<ResSearchRule>.Instance.CurCount));
                 GUILayout.EndVertical();
             }
         }

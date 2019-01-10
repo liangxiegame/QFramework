@@ -192,7 +192,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res != null)
                 {
                     res.Retain();
@@ -210,7 +213,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res != null)
                 {
                     res.Release();
@@ -244,7 +250,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res == null || res.State != ResState.Ready)
                 {
                     return false;
@@ -323,6 +332,11 @@ namespace QFramework
         {
             finishCallback();
             yield break;
+        }
+
+        public override string ToString()
+        {
+            return "Name:{0}\t State:{1}\t RefCount:{2}".FillFormat(AssetName,State,RefCount);
         }
 
         #endregion
