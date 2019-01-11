@@ -34,14 +34,12 @@ namespace QFramework
 
         private Vector2 mScrollPos = Vector2.zero;
 
-        private GUIStyle mTitleStyle;
-
         private PackageVersion mPackageVersion;
         
         public static void Init(Readme readme,PackageVersion packageVersion)
         {
-           
-            var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, "Package Manager Reame", true);
+
+            var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, packageVersion.Name, true);
             readmeWin.mReadme = readme;
             readmeWin.mPackageVersion = packageVersion;
             readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 600, 300);
@@ -49,22 +47,11 @@ namespace QFramework
             
         }
 
-        void OnEnable()
-        {
-            mTitleStyle = new GUIStyle
-            {
-                fontStyle = FontStyle.Bold,
-                fontSize = 12,
-                alignment = TextAnchor.LowerLeft,
-                normal = {textColor = Color.white}
-            };
-        }
-
         public void OnGUI()
         {
             mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(580), GUILayout.Height(300));
 
-            GUILayout.Label("类型:" + mPackageVersion.Type, mTitleStyle);
+            GUILayout.Label("类型:" + mPackageVersion.Type);
             
             mReadme.items.ForEach(item =>
             {
@@ -72,9 +59,9 @@ namespace QFramework
                 GUILayout.BeginVertical();
                 GUILayout.BeginHorizontal();
 
-                GUILayout.Label("version: " + item.version, mTitleStyle, GUILayout.Width(130));
-                GUILayout.Label("date: " + item.date, mTitleStyle, GUILayout.Width(130));
-                GUILayout.Label("author: " + item.author, mTitleStyle);
+                GUILayout.Label("version: " + item.version, GUILayout.Width(130));
+                GUILayout.Label("author: " + item.author);
+                GUILayout.Label("date: " + item.date);
 
                 GUILayout.EndHorizontal();
                 GUILayout.Label(item.content);

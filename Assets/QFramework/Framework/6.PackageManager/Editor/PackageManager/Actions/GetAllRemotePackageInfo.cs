@@ -79,9 +79,11 @@ namespace QFramework
 					var version = packageInfo["version"].Value<string>();
 					var url = packageInfo["file"].Value<string>(); // download_url
 					var installPath = packageInfo["install_path"].Value<string>();
-					var release_note = packageInfo["release_note"].Value<string>();
-
-					var releaseItem = new ReleaseItem(version, release_note, "liangxie", "now");
+					var releaseNote = packageInfo["release_note"].Value<string>();
+					var createAt = packageInfo["create_at"].Value<string>();
+					var creator = packageInfo["creator"].Value<string>();
+					
+					var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
 					var typeName = packageInfo["type"].Value<string>();
 					var accessRightName = packageInfo["access_right"].Value<string>();
 
@@ -124,6 +126,7 @@ namespace QFramework
 						Type = packageType,
 						AccessRight = accessRight,
 						Readme = releaseItem,
+						
 					});
 
 					package.readme.AddReleaseNote(releaseItem);
