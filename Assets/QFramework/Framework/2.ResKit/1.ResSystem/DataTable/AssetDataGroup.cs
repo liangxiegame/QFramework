@@ -33,6 +33,19 @@ namespace QFramework
 {
     public class AssetDataGroup
     {
+        public IEnumerable<AssetData> AssetDatas
+        {
+            get { return mAssetDataMap.Values; }
+        }
+
+        public IEnumerable<ABUnit> AssetBundleDatas
+        {
+            get
+            {
+                return mABUnitArray;
+            }
+        }
+
         /// <summary>
         /// 代表依赖关系的类
         /// </summary>
@@ -116,7 +129,7 @@ namespace QFramework
         public AssetDataGroup(SerializeData data)
         {
             m_Key = data.key;
-            SetSerizlizeData(data);
+            SetSerializeData(data);
         }
 
         public void Reset()
@@ -312,7 +325,7 @@ namespace QFramework
         }
 
 
-        private void SetSerizlizeData(SerializeData data)
+        private void SetSerializeData(SerializeData data)
         {
             if (data == null)
             {

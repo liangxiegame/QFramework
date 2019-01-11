@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.22",
+  "Version": "v0.0.23",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "Readme": {
-    "version": "v0.0.22",
-    "content": "remove unused parameter",
-    "author": "LIANGXIE",
-    "date": "2019-01-09"
+    "version": "v0.0.23",
+    "content": "add Generate Class Btn",
+    "author": "liangxie",
+    "date": "2019 年 01 月 11 日 18:34"
   },
   "Name": "2.ResKit",
-  "VersionNumber": 22,
-  "FileName": "2.ResKit_v0.0.22.unitypackage"
+  "VersionNumber": 23,
+  "FileName": "2.ResKit_v0.0.23.unitypackage"
 }

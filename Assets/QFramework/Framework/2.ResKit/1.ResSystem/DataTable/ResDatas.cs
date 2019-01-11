@@ -31,6 +31,11 @@ namespace QFramework
 {
     public class ResDatas : Singleton<ResDatas>
     {
+        public IList<AssetDataGroup> AllAssetDataGroups
+        {
+            get { return mAllAssetDataGroup; }
+        }
+
         [Serializable]
         public class SerializeData
         {
