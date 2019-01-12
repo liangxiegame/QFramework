@@ -28,16 +28,6 @@ namespace QFramework
 {
     public static class ResFactory
     {
-        static ResFactory()
-        {
-            Log.I("Init[ResFactory]");
-            SafeObjectPool<AssetBundleRes>.Instance.MaxCacheCount = 20;
-            SafeObjectPool<AssetRes>.Instance.MaxCacheCount = 40;
-            SafeObjectPool<ResourcesRes>.Instance.MaxCacheCount = 40;
-            SafeObjectPool<NetImageRes>.Instance.MaxCacheCount = 20;
-            SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
-        }
-
         public static IRes Create(ResSearchRule resSearchRule)
         {
             short assetType = 0;

@@ -34,7 +34,7 @@ namespace QFramework
     
     
     public class ResSearchRule : IPoolable,IPoolType
-    {
+    {   
         public string AssetName { get;private set; }
 
         public string OwnerBundle { get; private set; }

@@ -39,6 +39,14 @@ namespace QFramework
         /// </summary>
         public static void Init()
         {
+            SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
+            SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+
+            
             Instance.InitResMgr();
         }
 
@@ -204,6 +212,7 @@ namespace QFramework
                 GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
                 GUILayout.Label(string.Format("ResSearchRule:{0}",
                     SafeObjectPool<ResSearchRule>.Instance.CurCount));
+                GUILayout.Label(string.Format("ResLoader:{0}", SafeObjectPool<ResLoader>.Instance.CurCount));
                 GUILayout.EndVertical();
             }
         }
