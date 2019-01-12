@@ -73,15 +73,12 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void OnShow()");
 			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t\t").AppendLine("base.OnShow();");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void OnHide()");
 			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t\t").AppendLine("base.OnHide();");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void OnClose()");
 			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t\t").AppendLine("base.OnClose();");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("void ShowLog(string content)");
 			strBuilder.Append("\t\t").AppendLine("{");
