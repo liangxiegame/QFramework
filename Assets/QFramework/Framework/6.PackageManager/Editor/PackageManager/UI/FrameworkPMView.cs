@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 ~ 11 liangxie
+ * Copyright (c) 2018.7 ~ 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,7 +26,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using UniRx;
 using UnityEditor;
 using UnityEngine;
 
@@ -138,9 +137,10 @@ namespace QFramework
             GUILayout.Label("Package", GUILayout.Width(150));
             GUILayout.Label("Server", GUILayout.Width(80));
             GUILayout.Label("Local", GUILayout.Width(80));
-            GUILayout.Label("Right", GUILayout.Width(120));
-            GUILayout.Label("Action", GUILayout.Width(100));
-            GUILayout.Label("Readme", GUILayout.Width(100));
+            GUILayout.Label("Access Right", GUILayout.Width(80));
+            GUILayout.Label("Doc", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 40f});
+            GUILayout.Label("Action", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 100f});
+            GUILayout.Label("Release Note", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 100f});
             GUILayout.EndHorizontal();
 
             GUILayout.BeginVertical("box");
@@ -155,8 +155,13 @@ namespace QFramework
                 GUILayout.Label(packageData.Version, GUILayout.Width(80));
                 var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
                 GUILayout.Label(installedPackage != null ? installedPackage.Version : " ", GUILayout.Width(80));
-                GUILayout.Label(packageData.AccessRight.ToString(), GUILayout.Width(120));
+                GUILayout.Label(packageData.AccessRight.ToString(), GUILayout.Width(80));
 
+                if (GUILayout.Button("Doc", GUILayout.Width(40)))
+                {                    
+                    DocsWindow.Init(packageData.InstallPath);
+                }
+                
                 if (installedPackage == null)
                 {
                     if (GUILayout.Button("Import", GUILayout.Width(90)))
@@ -207,7 +212,7 @@ namespace QFramework
                     GUILayout.Space(94);
                 }
 
-                if (GUILayout.Button("Readme", GUILayout.Width(90)))
+                if (GUILayout.Button("Release Notes", GUILayout.Width(100)))
                 {
                     ReadmeWindow.Init(packageData.readme, packageData.PackageVersions.First());
                 }

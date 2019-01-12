@@ -14,15 +14,16 @@ namespace QFramework
             {
                 Reload();
             }
-            
+
             return mPackageVersions;
         }
 
         public static void Reload()
         {
             mPackageVersions.Clear();
-            
-            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),name=>name.EndsWith("PackageVersion.json"));
+
+            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
+                name => name.EndsWith("PackageVersion.json"));
 
             versionFiles.ForEach(fileName =>
             {
