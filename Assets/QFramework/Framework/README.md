@@ -1,5 +1,1 @@
-This asset is governed by the Asset Store EULA;
-however,the following components are governd by the licenses indicated below:
-
-A.[QFramework]
-[MIT]
+https://www.notion.so/qframework/QFramework-e5a4846c79de459da0407859000bac24
