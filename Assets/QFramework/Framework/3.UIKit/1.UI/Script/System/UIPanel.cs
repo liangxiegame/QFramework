@@ -41,7 +41,7 @@ namespace QFramework
 
 	public class UIPanelData : IUIData
 	{
-		
+		protected UIPanel mPanel;
 	}
 
 	[Serializable]
@@ -52,30 +52,7 @@ namespace QFramework
 	}
 
 	public abstract class UIPanel : QMonoBehaviour, IPanel
-	{
-		#region mvvm data binding
-		/* DataBinding
-
-		public string                 ContextName;
-
-		private IViewModel mContext;
-
-		/// <summary>
-		/// Context. Data Binding to View
-		/// </summary>
-		public IViewModel Context 
-		{
-			get { return mContext; } 
-			set 
-			{
-				mContext = value;
-				if (mContext != null) { ContextName = mContext.ToString(); }
-			}
-		}
-		*/
-		
-		#endregion
-		
+	{		
 		[SerializeField] private List<SubPanelInfo> mSubPanelInfos = new List<SubPanelInfo>();
 
 		public Transform Transform
@@ -118,6 +95,7 @@ namespace QFramework
 		public void Init(IUIData uiData = null)
 		{
 			mUIData = uiData;
+			OnInit(uiData);
 			InitUI(uiData);
 			RegisterUIEvent();
 			
@@ -125,15 +103,23 @@ namespace QFramework
 
 		}
 
-		protected virtual void InitUI(IUIData uiData = null)
+		public void Open(IUIData uiData = null)
 		{
-		}
-
-		protected virtual void RegisterUIEvent()
-		{
+			OnOpen(uiData);
 		}
 
 
+
+		protected virtual void OnInit(IUIData uiData = null)
+		{
+			
+		}
+		
+		protected virtual void OnOpen(IUIData uiData = null)
+		{
+			
+		}
+	
 		/// <summary>
 		/// avoid override in child class
 		/// </summary>
@@ -152,6 +138,7 @@ namespace QFramework
 			mOnClosed = null;
 			
 			OnClose();
+			
 			if (destroyed)
 			{
 				Destroy(gameObject);
@@ -174,13 +161,11 @@ namespace QFramework
 		{
 			UIManager.Instance.Back(name);
 		}
-		
+
 		/// <summary>
-		/// 关闭
+		/// 必须使用这个
 		/// </summary>
-		protected virtual void OnClose()
-		{
-		}
+		protected abstract void OnClose();
 
 		private Action mOnClosed;
 
@@ -188,6 +173,17 @@ namespace QFramework
 		{
 			mOnClosed = onPanelClosed;
 		}
+
+
+		#region 不建议啊使用
+		protected virtual void InitUI(IUIData uiData = null)
+		{
+		}
+		
+		protected virtual void RegisterUIEvent()
+		{
+		}
+		#endregion
 	}
 	
 	[Obsolete("弃用啦")]

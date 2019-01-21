@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.24",
+  "Version": "v0.0.26",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "Readme": {
-    "version": "v0.0.24",
-    "content": "Show ResLoader's pool",
+    "version": "v0.0.26",
+    "content": "test LoadLocalImage Async",
     "author": "liangxie",
-    "date": "2019 年 01 月 12 日 13:47"
+    "date": "2019 年 01 月 13 日 18:15"
   },
   "Name": "2.ResKit",
-  "VersionNumber": 24,
-  "FileName": "2.ResKit_v0.0.24.unitypackage"
+  "VersionNumber": 26,
+  "FileName": "2.ResKit_v0.0.26.unitypackage"
 }

@@ -14,6 +14,7 @@ namespace QFramework
 
 		protected override void ClearUIComponents()
 		{
+			mData = null;
 		}
 
 		private UITransitionPanelData mPrivateData = null;

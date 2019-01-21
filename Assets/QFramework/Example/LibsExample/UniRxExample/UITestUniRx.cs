@@ -74,7 +74,6 @@ namespace QFramework.Example
 
 		protected override void OnClose()
 		{
-			base.OnClose();
 		}
 
 		void ShowLog(string content)

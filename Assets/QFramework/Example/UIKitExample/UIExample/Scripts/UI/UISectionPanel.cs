@@ -82,5 +82,10 @@ namespace QFramework.UIExample
 			UIMgr.OpenPanel<UIGamePanel>(UILevel.Common, new UIGamePanelData {SectionNo = i + 1},
 				prefabName: "Resources/UIGamePanel");
 		}
+		
+		protected override void OnClose()
+		{
+			
+		}
 	}
 }

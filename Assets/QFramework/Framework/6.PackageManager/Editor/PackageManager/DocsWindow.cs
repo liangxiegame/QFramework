@@ -17,10 +17,7 @@ namespace QFramework
         {
             var readmeWin = (DocsWindow) GetWindow(typeof(DocsWindow), true, packagePath, true);
             readmeWin.mPackagePath = packagePath;
-            if (Directory.Exists(packagePath))
-            {
-                readmeWin.mDocPaths = Directory.GetFiles(packagePath, "*.md", SearchOption.AllDirectories);
-            }
+            readmeWin.mDocPaths = Directory.GetFiles(packagePath, "*.md", SearchOption.AllDirectories);
 
             readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 600, 300);
             readmeWin.Show();
@@ -38,9 +35,9 @@ namespace QFramework
                 
                 if (GUILayout.Button(docName))
                 {
-                    DocViewerWindow.Load("file:///" + docPath);
-//                    DocViewerWindow.Load(
-//                        "https://www.notion.so/qframework/QFramework-e5a4846c79de459da0407859000bac24");
+//                    DocViewerWindow.Load("file:///" + docPath);
+                    DocViewerWindow.Load(
+                        "https://www.notion.so/qframework/QFramework-e5a4846c79de459da0407859000bac24");
                 }
             });
 

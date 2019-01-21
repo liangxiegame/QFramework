@@ -30,14 +30,20 @@ namespace QFramework
     {
         public static IRes Create(ResSearchRule resSearchRule)
         {
+            var lowerAssetName = resSearchRule.AssetName.ToLower();
+            
             short assetType = 0;
-            if (resSearchRule.AssetName.StartsWith("Resources/") || resSearchRule.AssetName.StartsWith("resources://"))
+            if (lowerAssetName.StartsWith("resources/") || lowerAssetName.StartsWith("resources://"))
             {
                 assetType = ResType.Internal;
             }
-            else if (resSearchRule.AssetName.StartsWith("NetImage:"))
+            else if (lowerAssetName.StartsWith("netimage:"))
             {
                 assetType = ResType.NetImageRes;
+            }
+            else if (lowerAssetName.StartsWith("localimage:"))
+            {
+                assetType = ResType.LocalImageRes;
             }
             else
             {

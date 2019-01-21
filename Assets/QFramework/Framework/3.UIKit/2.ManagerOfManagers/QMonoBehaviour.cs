@@ -46,7 +46,6 @@ namespace QFramework
 			OnHide ();
 
 			gameObject.SetActive (false);
-//			Log.I("On Hide:{0}",name);
 		}
 
 		protected virtual void OnHide() {}

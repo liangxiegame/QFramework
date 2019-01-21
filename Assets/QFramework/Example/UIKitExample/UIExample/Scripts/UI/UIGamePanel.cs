@@ -33,6 +33,7 @@ namespace QFramework.UIExample
 
 	public partial class UIGamePanel : UIPanel
 	{
+
 		protected override void InitUI(IUIData uiData = null)
 		{
 			mData = uiData as UIGamePanelData;
@@ -51,6 +52,11 @@ namespace QFramework.UIExample
 				UIMgr.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
 				CloseSelf();
 			});
+		}
+		
+		protected override void OnClose()
+		{
+			
 		}
 	}
 }

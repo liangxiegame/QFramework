@@ -31,8 +31,6 @@ namespace QFramework
 
 			mData.Transition.Do(this);
 			
-			
-
 		}
 
 		protected override void ProcessMsg (int eventId,QMsg msg)
@@ -44,19 +42,8 @@ namespace QFramework
 		{
 		}
 
-		protected override void OnShow()
-		{
-			base.OnShow();
-		}
-
-		protected override void OnHide()
-		{
-			base.OnHide();
-		}
-
 		protected override void OnClose()
 		{
-			base.OnClose();
 		}
 
 		void ShowLog(string content)

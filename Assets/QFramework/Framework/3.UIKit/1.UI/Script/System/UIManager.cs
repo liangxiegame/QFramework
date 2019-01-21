@@ -124,89 +124,19 @@ namespace QFramework
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
 		}
 
-		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData, string assetBundleName)
+		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData = null,
+			string assetBundleName = null)
 		{
-			if (!mAllUI.ContainsKey(uiBehaviourName))
+			IPanel retPanel = null;
+
+			if (!mAllUI.TryGetValue(uiBehaviourName, out retPanel))
 			{
-				CreateUI(uiBehaviourName, canvasLevel, uiData, assetBundleName);
+				retPanel = CreateUI(uiBehaviourName, canvasLevel, uiData, assetBundleName);
 			}
 
-			mAllUI[uiBehaviourName].Show();
-			return mAllUI[uiBehaviourName];
-		}
-
-		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel)
-		{
-			if (!mAllUI.ContainsKey(uiBehaviourName))
-			{
-				CreateUI(uiBehaviourName, canvasLevel);
-			}
-
-			mAllUI[uiBehaviourName].Show();
-			return mAllUI[uiBehaviourName];
-		}
-
-
-		/// <summary>
-		/// 创建UIPanel
-		/// </summary>
-		/// <param name="uiBehaviourName"></param>
-		/// <param name="uiLevel"></param>
-		/// <param name="initData"></param>
-		/// <returns></returns>
-		public GameObject CreateUIObj(string uiBehaviourName, UILevel uiLevel, string assetBundleName = null)
-		{
-			IPanel ui;
-			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
-			{
-				Log.W("{0}: already exist", uiBehaviourName);
-				// 直接返回,不要再调一次Init(),Init()应该只能调用一次
-				return ui.Transform.gameObject;
-			}
-
-			ui = UIPanel.Load(uiBehaviourName, assetBundleName);
-
-			switch (uiLevel)
-			{
-				case UILevel.Bg:
-					ui.Transform.SetParent(mBgTrans);
-					break;
-				case UILevel.AnimationUnderPage:
-					ui.Transform.SetParent(mAnimationUnderTrans);
-					break;
-				case UILevel.Common:
-					ui.Transform.SetParent(mCommonTrans);
-					break;
-				case UILevel.AnimationOnPage:
-					ui.Transform.SetParent(mAnimationOnTrans);
-					break;
-				case UILevel.PopUI:
-					ui.Transform.SetParent(mPopUITrans);
-					break;
-				case UILevel.Const:
-					ui.Transform.SetParent(mConstTrans);
-					break;
-				case UILevel.Toast:
-					ui.Transform.SetParent(mToastTrans);
-					break;
-				case UILevel.Forward:
-					ui.Transform.SetParent(mForwardTrans);
-					break;
-			}
-
-			var uiGoRectTrans = ui.Transform as RectTransform;
-
-			uiGoRectTrans.offsetMin = Vector2.zero;
-			uiGoRectTrans.offsetMax = Vector2.zero;
-			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-			uiGoRectTrans.anchorMin = Vector2.zero;
-			uiGoRectTrans.anchorMax = Vector2.one;
-
-			ui.Transform.LocalScaleIdentity();
-			ui.Transform.gameObject.name = uiBehaviourName;
-			
-			ui.PanelInfo = new UIPanelInfo {AssetBundleName = assetBundleName, Level = uiLevel, PanelName = uiBehaviourName};
-			return ui.Transform.gameObject;
+			retPanel.Open(uiData);
+			retPanel.Show();
+			return retPanel;
 		}
 
 		/// <summary>
@@ -297,6 +227,7 @@ namespace QFramework
 		public UIPanel GetUI(string uiBehaviourName)
 		{
 			IPanel retIuiPanel = null;
+			
 			if (mAllUI.TryGetValue(uiBehaviourName, out retIuiPanel))
 			{
 				return retIuiPanel as UIPanel;
@@ -317,16 +248,15 @@ namespace QFramework
 
 		private string GetUIBehaviourName<T>()
 		{
-			string fullBehaviourName = typeof(T).ToString();
+			var fullBehaviourName = typeof(T).ToString();
 			string retValue = null;
 
-			if (mFullname4UIBehaviourName.ContainsKey(fullBehaviourName))
-			{
-				retValue = mFullname4UIBehaviourName[fullBehaviourName];
+			if (mFullname4UIBehaviourName.TryGetValue(fullBehaviourName, out retValue))
+			{	
 			}
 			else
 			{
-				string[] nameSplits = fullBehaviourName.Split(new char[] {'.'});
+				var nameSplits = fullBehaviourName.Split('.');
 				retValue = nameSplits[nameSplits.Length - 1];
 				mFullname4UIBehaviourName.Add(fullBehaviourName, retValue);
 			}
@@ -344,9 +274,49 @@ namespace QFramework
 				return ui;
 			}
 
-			var uiObj = CreateUIObj(uiBehaviourName, level, assetBundleName);
+			ui = UIPanel.Load(uiBehaviourName, assetBundleName);
 
-			ui = uiObj.GetComponent<IPanel>();
+			switch (level)
+			{
+				case UILevel.Bg:
+					ui.Transform.SetParent(mBgTrans);
+					break;
+				case UILevel.AnimationUnderPage:
+					ui.Transform.SetParent(mAnimationUnderTrans);
+					break;
+				case UILevel.Common:
+					ui.Transform.SetParent(mCommonTrans);
+					break;
+				case UILevel.AnimationOnPage:
+					ui.Transform.SetParent(mAnimationOnTrans);
+					break;
+				case UILevel.PopUI:
+					ui.Transform.SetParent(mPopUITrans);
+					break;
+				case UILevel.Const:
+					ui.Transform.SetParent(mConstTrans);
+					break;
+				case UILevel.Toast:
+					ui.Transform.SetParent(mToastTrans);
+					break;
+				case UILevel.Forward:
+					ui.Transform.SetParent(mForwardTrans);
+					break;
+			}
+
+			var uiGoRectTrans = ui.Transform as RectTransform;
+
+			uiGoRectTrans.offsetMin = Vector2.zero;
+			uiGoRectTrans.offsetMax = Vector2.zero;
+			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
+			uiGoRectTrans.anchorMin = Vector2.zero;
+			uiGoRectTrans.anchorMax = Vector2.one;
+
+			ui.Transform.LocalScaleIdentity();
+			ui.Transform.gameObject.name = uiBehaviourName;
+
+			ui.PanelInfo = new UIPanelInfo
+				{AssetBundleName = assetBundleName, Level = level, PanelName = uiBehaviourName};
 
 			mAllUI.Add(uiBehaviourName, ui);
 
@@ -363,15 +333,7 @@ namespace QFramework
 		public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
 			string prefabName = null) where T : UIPanel
 		{
-			var behaviourName = prefabName ?? GetUIBehaviourName<T>();
-
-			if (!mAllUI.ContainsKey(behaviourName))
-			{
-				CreateUI(behaviourName, canvasLevel, uiData, assetBundleName);
-			}
-
-			mAllUI[behaviourName].Show();
-			return mAllUI[behaviourName] as T;
+			return OpenUI(prefabName ?? GetUIBehaviourName<T>(), canvasLevel, uiData, assetBundleName) as T;
 		}
 
 

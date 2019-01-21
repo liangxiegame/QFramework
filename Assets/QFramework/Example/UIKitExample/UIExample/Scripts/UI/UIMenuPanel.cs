@@ -69,5 +69,10 @@ namespace QFramework.UIExample
 					prefabName: "Resources/UISettingPanel");
 			});
 		}
+		
+		protected override void OnClose()
+		{
+			
+		}
 	}
 }

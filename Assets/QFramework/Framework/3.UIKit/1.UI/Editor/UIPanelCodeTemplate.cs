@@ -58,17 +58,18 @@ namespace QFramework
 			strBuilder.AppendFormat("\tpublic partial class {0} : UIPanel", behaviourName);
 			strBuilder.AppendLine();
 			strBuilder.AppendLine("\t{");
+			strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,QMsg msg)");
+			strBuilder.Append("\t\t").AppendLine("{");
+			strBuilder.Append("\t\t\t").AppendLine("throw new System.NotImplementedException ();");
+			strBuilder.Append("\t\t").AppendLine("}")
+				.AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void InitUI(IUIData uiData = null)");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t").Append("\t")
 				.AppendLine("mData = uiData as " + behaviourName + "Data ?? new " + behaviourName + "Data();");
 			strBuilder.Append("\t\t").Append("\t").AppendLine("//please add init code here");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-			strBuilder.Append("\t\t").AppendLine("protected override void ProcessMsg (int eventId,QMsg msg)");
-			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t\t").AppendLine("throw new System.NotImplementedException ();");
-			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
-			strBuilder.Append("\t\t").AppendLine("protected override void RegisterUIEvent()");
+			strBuilder.Append("\t\t").AppendLine("protected override void OnOpen(IUIData uiData = null)");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t").AppendLine("}").AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void OnShow()");
@@ -125,12 +126,15 @@ namespace QFramework
 			strBuilder.AppendLine();
 			strBuilder.Append("\t\t").AppendLine("protected override void ClearUIComponents()");
 			strBuilder.Append("\t\t").AppendLine("{");
+			
 			foreach (var markInfo in panelCodeData.MarkedObjInfos)
 			{
 				strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
 					markInfo.Name);
 			}
 
+			strBuilder.AppendLine("\t\t\tmData = null;");
+			
 			strBuilder.Append("\t\t").AppendLine("}");
 			strBuilder.AppendLine();
 			strBuilder.AppendFormat("\t\tprivate {0}Data mPrivateData = null;\n", behaviourName);

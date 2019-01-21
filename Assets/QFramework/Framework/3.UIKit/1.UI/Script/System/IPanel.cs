@@ -39,6 +39,8 @@ namespace QFramework
 
 		void Init(IUIData uiData = null);
 
+		void Open(IUIData uiData = null);
+
 		void Show();
 
 		void Hide();

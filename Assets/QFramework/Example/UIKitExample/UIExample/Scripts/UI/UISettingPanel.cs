@@ -66,7 +66,6 @@ namespace QFramework.UIExample
 		protected override void OnClose()
 		{
 			UnRegisterAllEvent();
-			base.OnClose();
 		}
 
 		void ShowLog(string content)
