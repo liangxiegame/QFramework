@@ -1,0 +1,15 @@
+{
+  "Version": "v0.0.9",
+  "Type": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/8.ShaderLib/",
+  "Readme": {
+    "version": "v0.0.9",
+    "content": "add PostFXBehaviour",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-10-02"
+  },
+  "Name": "8.ShaderLib",
+  "VersionNumber": 9,
+  "FileName": "8.ShaderLib_v0.0.9.unitypackage"
+}

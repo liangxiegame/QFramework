@@ -13,9 +13,9 @@ App 类的职责:
 本文只介绍App的职责2:做为游戏的入口。
 
 #### Why?
-在我小时候做项目的时候,每次改一点点代码(或者不止一点点),要看下结果就要启动游戏->Loading界面->点击各种按钮->跳转到目标界面看结果或者Log之类的。一天如果10次这种行为会浪费很多时间,如果按照时薪算的话那就是......很多钱(捂嘴)。
+在我小时候做项目的时候,每次改一点点代码(或者不止一点点),要看下结果就要启动游戏-\>Loading界面-\>点击各种按钮-\>跳转到目标界面看结果或者Log之类的。一天如果10次这种行为会浪费很多时间,如果按照时薪算的话那就是......很多钱(捂嘴)。
 流程图是这样的:
-![](https://ws4.sinaimg.cn/large/006tNc79ly1fsb2wkfk24j30gj080jrj.jpg)
+![][image-1]
 
 #### 为什么会出现这种问题呢?
 1.模块间的耦合度太高了。下一个模块要依赖前一个模块的一些数据或者逻辑。
@@ -25,14 +25,14 @@ App 类的职责:
 针对问题1:在模块的入口提供一个测试的接口,用来写这个模块的资源加载或者数据初始化的逻辑,...什么!?...你们项目就一个模块...来来来我们好好聊聊.....
 针对问题2:在模块的入口提供一个测试接口,写跳转到目标界面的相关代码。
 流程图是这样的:
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1frost3hq0ij30gz0bfaaf.jpg)
+![][image-2]
 虽然很low但是勉强解决了问题。
 
 #### 阶段的划分
 资源加载乱七八糟的代码和最好能一步跳转到目标界面的代码,需要在出包或者跑完整游戏流程的时候失效。
 如何做到?答案是阶段的划分。
 我的框架里分为如下几个阶段:
-1.开发阶段: 不断的编码->验证结果->编码->验证结果->blablabla。
+1.开发阶段: 不断的编码-\>验证结果-\>编码-\>验证结果-\>blablabla。
 2.出包/真机阶段: 这个阶段跑跑完整流程,在真机上跑跑,给QA测测。
 3.发布阶段:  上线了,yeah!。
 
@@ -143,7 +143,7 @@ public class App : QMonoSingleton<App>
 ```
 在这段代码中做了阶段的区分。所有的逻辑都可以写在这里。这样基本的需求就满足啦。
 
-####还有一个问题:
+#### 还有一个问题:
 假如一个游戏的业务逻辑分为模块A,B,C,D,E,分为5个不同的人来开发,那App是一个mono单例,除非不提交App代码,否则每次都要解决冲突,同样很浪费时间。怎么办? 答案是通过多态来解决,先定义一个ITestEntry接口,只定义一个方法。
 ```csharp
 	/// <summary>
@@ -193,7 +193,7 @@ App类中阶段区分的代码要改成这样:
 
 因为Launch方法的返回类型是IEnumerator,所以很好控制跳转的时间。
 看下在Unity中是什么样的:
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1frostv3etsj30lt0abq4i.jpg)
+![][image-3]
 
 每个模块都要有个App的GameObject，原因是因为,框架的其他的组件依赖于App,也想过把依赖的部分抽离出来,那样的话可能命名为QMonoLifeCircleReceiver和ModuleEntry之类的,这样遵循了单一职责原则。不过孰优孰略各有千秋。我觉得叫App更直观一些,因为入口、组件初始化、启动某个模块应该是通常放在一起更人性化,还有一些ApplicationDidEnterBackground之类的事件还是模仿iOS的AppDelegate人性化一些。
 
@@ -209,35 +209,45 @@ OK就这样....
 
 #### 欢迎讨论!
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws1.sinaimg.cn/large/006tKfTcgy1frosusbd6oj30by0byt9i.jpg)
+![][image-4]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tNc79ly1fsb2wkfk24j30gj080jrj.jpg
+[image-2]:	https://ws4.sinaimg.cn/large/006tKfTcgy1frost3hq0ij30gz0bfaaf.jpg
+[image-3]:	https://ws1.sinaimg.cn/large/006tKfTcgy1frostv3etsj30lt0abq4i.jpg
+[image-4]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

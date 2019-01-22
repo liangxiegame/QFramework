@@ -4,7 +4,7 @@
 
 很多开发者或者有经验的老手都会建议尽量不要用单例模式，这是有原因的。
 
-单例模式是设计模式中最简单的也是大家通常最先接触的一种设计模式。在框架的设计中一些管理类或者系统类多多少少都会用到单例模式，比如 QFramework 中的 UIMgr，ResMgr 都是单例。当然在平时的游戏开发过程中也会用到单例模式，比如数据管理类，角色管理类等等，以上这些都是非常常见的使用单例的应用场景。
+单例模式是设计模式中最简单的也是大家通常最先接触的一种设计模式。在框架的设计中一些管理类或者系统类多多少少都会用到单例模式，比如 QFramework 中的 UIMgr，ResMgr 都是单例。当然在平时的游戏开发过程中也会用到单例模式，比如数据管理类，角色管理类等等，以上这些都是非常常见的使用单例的应用场景。
 
 那么今天笔者想好好聊聊单例的使用上要注意的问题，希望大家对单例有更立体的认识，并介绍 QFramework 中单例套件的使用和实现细节。
 
@@ -20,12 +20,12 @@
 可能说有的朋友不太了解单例，笔者先对单例做一个简单的介绍。
 
 ### 定义
->保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+> 保证一个类仅有一个实例，并提供一个访问它的全局访问点。
 
 定义比较简洁而且不难理解。
 
 再引用一个比较有意思的例子
->俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公 Singleton，她们只要说道“老公”，都是指的同一个人，那就是我(刚才做了个梦啦，哪有这么好的事)。-《泡妞与设计模式》
+> 俺有6个漂亮的老婆，她们的老公都是我，我就是我们家里的老公 Singleton，她们只要说道“老公”，都是指的同一个人，那就是我(刚才做了个梦啦，哪有这么好的事)。-《泡妞与设计模式》
 
 这个例子非常形象地介绍了我们日常开发中使用单例类的情景，不管在哪里都可以获得同一个并且唯一的单例类的实例。 
 
@@ -39,7 +39,7 @@
 
 先分析下需求,当设计一个 Manager 时候,我们希望整个程序只有一个该 Manager 类的实例,一般马上能想到的实现是这样的:
 
-``` csharp
+```cs
 public class XXXManager 
 {
     private static XXXManager instance = null;
@@ -71,7 +71,7 @@ public class XXXManager
 
 实现如下:
 
-``` csharp
+```cs
 namespace QFramework 
 {  
     public abstract class Singleton<T> where T : Singleton<T>
@@ -106,7 +106,7 @@ namespace QFramework
 
 SingletonCreator.cs
 
-``` csharp
+```cs
 namespace QFramework
 {
     using System;
@@ -141,7 +141,7 @@ namespace QFramework
 
 ISingleton.cs
 
-``` csharp
+```cs
 namespace QFramework
 {    
     public interface ISingleton
@@ -153,7 +153,7 @@ namespace QFramework
 
 Singleton.cs
 
-``` csharp
+```cs
 namespace QFramework
 {
 	public abstract class Singleton<T> : ISingleton where T : Singleton<T>
@@ -196,7 +196,7 @@ namespace QFramework
 
 以上就是最终实现了，并且加上了线程锁,而且实现了一个用来接收初始化事件的接口 ISingleton。这个实现是在任何 C# 程序中都是通用的。其测试用例如下所示:
 
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承 Singleton。
 // 2.需要实现非 public 的构造方法。
@@ -233,7 +233,7 @@ public static void main(string[] args)
 * 销毁单例和对应的 GameObject。
 
 首先，第一点,约束脚本实例对象的个数,这个在上一篇中已经实现了。 但是第二点,约束 GameObject 的个数,这个需求,还没有思路,只好在游戏运行时判断有多少个 GameObject 已经挂上了该脚本,然后如果个数大于1抛出错误即可。 第三点,通过继承 MonoBehaviour 实现,只要覆写相应的回调方法即可。 第四点,在脚本销毁时,把静态实例置空。 完整的代码就如下所示:
-``` csharp
+```cs
 using UnityEngine;
 
 /// <summary>
@@ -309,11 +309,11 @@ namespace QFramework
 
 * 首先要保证实现单例的类从使用方式上应该不变,还是
 
-``` csharp
+```cs
 XXX.Instance.ABCFunc();
 ```
 之前的单例的模板代码如下所示:
-``` csharp
+```cs
 namespace QFramework
 {
 	public abstract class Singleton<T> : ISingleton where T : Singleton<T>
@@ -356,7 +356,7 @@ namespace QFramework
 
 按照以前的方式,如果想实现一个单例的代码应该是这样的:
 
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -375,7 +375,7 @@ public static void main(string[] args)
 ```
 
 如果我想 XXXManager 继承一个 BaseManager 代码就变成这样了
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -390,7 +390,7 @@ public class XXXManager : BaseManager
 
 这样这个类就不是单例了,怎么办?
 答案是通过 C# 的属性器。
-``` csharp
+```cs
 using QFramework;  
 // 1.需要继承QSingleton。
 // 2.需要实现非public的构造方法。
@@ -423,7 +423,7 @@ public static void main(string[] args)
 好了,又看到陌生的东西了,SingletonProperty 是什么?
 和之前的单例的模板很相似,贴上代码自己品吧...
 
-``` csharp
+```cs
 namespace QFramework
 {
 	public static class SingletonProperty<T> where T : class, ISingleton
@@ -477,7 +477,7 @@ namespace QFramework
 
 保证一个类仅有一个实例,这个是对单例的一个需求。但是这句话没有告诉你，这个实例什么时候应该去创建。而笔者所知到的创建方式一般是有两种，第一种是在程序编译后马上创建，一般实现方式是在声明静态成员变量的时候去 new 一个实例，实现如下。
 
-``` csharp
+```cs
 public class Test
 {
     public static readonly Test Instance = new Test();
@@ -488,7 +488,7 @@ public class Test
 
 第二种则第一次获取实例时去创建，实现如下:
 
-``` csharp
+```cs
 public class Test
 {
     public static Test mInstance;
@@ -546,7 +546,7 @@ public class Test
 
 代码如下：
 
-``` csharp
+```cs
 using System;
 using QFramework;
 using UnityEngine;
@@ -616,7 +616,7 @@ public class PlayerDataMgr : MonoBehaviour,ISingleton
 
 使用上非常干净简洁:
 
-``` csharp
+```cs
 public class TestMonoSingletonA : MonoBehaviour {
 
 	// Use this for initialization
@@ -636,7 +636,7 @@ public class TestMonoSingletonA : MonoBehaviour {
 }
 ```
 
-### 命名小建议 
+### 命名小建议
 
 到这里还要补充一下，笔者呢不太喜欢 Instance 这个命名。在命名上，很多书籍都建议用业务命名而不是用技术概念来命名。
 
@@ -648,37 +648,44 @@ Instance 是技术概念命名，而不是业务命名。尽量不要让技术�
 
 
 
-今天的内容就这些，谢谢阅读~
+今天的内容就这些，谢谢阅读\~
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fs3dpkrblsj30by0byt9i.jpg)
+![][image-1]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

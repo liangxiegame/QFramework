@@ -3,7 +3,7 @@
 #### 为毛要实现这个工具?
 
 1. 在我小时候,每当游戏在真机运行时,我们看到的日志是这样的。
-  ![](https://ws4.sinaimg.cn/large/006tKfTcgy1frota0uanhj31kw0r449t.jpg)
+  ![][image-1]
   没高亮啊,还有乱七八糟的堆栈信息,好干扰日志查看,好影响心情。
 
 2. 还有就是必须始终连着usb线啊，我想要想躺着测试。。。
@@ -15,7 +15,7 @@
 QConsole.Instance();
 ```
 就好了,使用之后效果是这样的。
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1frota6m4cuj30h8094woc.jpg)
+![][image-2]
 在Editor模式下,F1控制开关。
 
 在真机上需要在屏幕上同时按下五个手指就可以控制开关了。(本来考虑11个手指萌一下的)。
@@ -347,35 +347,44 @@ namespace QFramework {
 
 #### 欢迎讨论!
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1frota9altkj30by0bywf0.jpg)
+![][image-3]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
+
+[image-1]:	https://ws4.sinaimg.cn/large/006tKfTcgy1frota0uanhj31kw0r449t.jpg
+[image-2]:	https://ws3.sinaimg.cn/large/006tKfTcgy1frota6m4cuj30h8094woc.jpg
+[image-3]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

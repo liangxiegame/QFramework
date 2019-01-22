@@ -2,15 +2,15 @@
 
 #### 什么是消息机制?
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1froscsk2kqj30to0eqmzm.jpg)
+![][image-1]
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1frosctljtwj30tw0dqwg7.jpg)
+![][image-2]
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1froscyauzqj30ta0cgta3.jpg)
+![][image-3]
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1frosczxnmrj30zw0f6adi.jpg)
+![][image-4]
 
-![](https://ws4.sinaimg.cn/large/006tKfTcgy1frosd20ydej314u0eegop.jpg)
+![][image-5]
 
 23333333，让我先笑一会。
 
@@ -69,7 +69,7 @@ namespace QFramework.Example
 
 3.运行结果
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fs3e3jm8rij31bq0c0jtg.jpg)
+![][image-6]
 使用起来几行代码的事情,实现起来就没这么简单了。
 
 #### 如何实现的?
@@ -246,35 +246,48 @@ OK主要的部分全都贴出来啦
 * 如果是MonoBehaviour注册消息之后,GameObject Destroy之前一定要注销消息,之前的解决方案是,自定义一个基类来维护该对象已经注册的消息列表,然后在基类的OnDestory时候遍历卸载。
 * 欢迎补充。
 
-#### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+QFramework &游戏框架搭建QQ交流群: 623597263
 
-QFramework&游戏框架搭建QQ交流群: 623597263
-
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1frosddz3lkj30by0bywf0.jpg)
+![][image-7]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
+
+[image-1]:	https://ws2.sinaimg.cn/large/006tKfTcgy1froscsk2kqj30to0eqmzm.jpg
+[image-2]:	https://ws4.sinaimg.cn/large/006tKfTcgy1frosctljtwj30tw0dqwg7.jpg
+[image-3]:	https://ws3.sinaimg.cn/large/006tKfTcgy1froscyauzqj30ta0cgta3.jpg
+[image-4]:	https://ws2.sinaimg.cn/large/006tKfTcgy1frosczxnmrj30zw0f6adi.jpg
+[image-5]:	https://ws4.sinaimg.cn/large/006tKfTcgy1frosd20ydej314u0eegop.jpg
+[image-6]:	https://ws2.sinaimg.cn/large/006tNc79gy1fs3e3jm8rij31bq0c0jtg.jpg
+[image-7]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

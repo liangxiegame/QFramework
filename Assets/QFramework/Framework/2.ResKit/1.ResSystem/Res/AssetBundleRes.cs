@@ -29,7 +29,7 @@ namespace QFramework
     using UnityEngine;
     using System.Collections;
 
-    public class AssetBundleRes : AbstractRes
+    public class AssetBundleRes : Res
     {
         private bool                     mUnloadFlag = true;
         private string[]                 mDependResList;
@@ -200,6 +200,11 @@ namespace QFramework
                 AssetBundle.Unload(mUnloadFlag);
                 AssetBundle = null;
             }
+        }
+
+        public override string ToString()
+        {
+            return "Type:AssetBundle\t {0}".FillFormat(base.ToString());
         }
     }
 }

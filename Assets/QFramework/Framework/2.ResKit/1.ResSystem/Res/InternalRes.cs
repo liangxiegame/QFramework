@@ -35,15 +35,15 @@ namespace QFramework
         Folder, // Resources/
     }
     
-    public class InternalRes : BaseRes
+    public class ResourcesRes : Res
     { 
         private ResourceRequest mResourceRequest;
 
         private string mPath;
         
-        public static InternalRes Allocate(string name,InternalResNamePrefixType prefixType)
+        public static ResourcesRes Allocate(string name,InternalResNamePrefixType prefixType)
         {
-            var res = SafeObjectPool<InternalRes>.Instance.Allocate();
+            var res = SafeObjectPool<ResourcesRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -146,7 +146,7 @@ namespace QFramework
 
         public override void Recycle2Cache()
         {
-            SafeObjectPool<InternalRes>.Instance.Recycle(this);
+            SafeObjectPool<ResourcesRes>.Instance.Recycle(this);
         }
 
         protected override float CalculateProgress()
@@ -157,6 +157,11 @@ namespace QFramework
             }
 
             return mResourceRequest.progress;
+        }
+
+        public override string ToString()
+        {
+            return "Type:Resources {1}".FillFormat(AssetName, base.ToString());
         }
     }
 }

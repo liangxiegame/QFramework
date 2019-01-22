@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,13 +44,109 @@ namespace QFramework
 
     internal static class AssetsMenuItem
     {
-        [MenuItem("Assets/Copy Name")]
+        [MenuItem("GameObject/Copy/名称")]
         private static void CopyName()
         {
             TextEditor te = new TextEditor();
             te.text = Selection.activeObject.name;
             te.OnFocus();
             te.Copy();
+
+            Debug.Log("Name: " + te.text);
         }
+
+        //[MenuItem("Assets/Copy/Copy FilePath")]
+        //private static void CopyFilePath()
+        //{
+        //    TextEditor editor = new TextEditor();
+        //    editor.text = AssetDatabase.GetAssetPath(Selection.activeObject);
+        //    editor.SelectAll();
+        //    editor.Copy();
+
+        //    Debug.Log("FilePath: " + editor.text);
+        //}
+
+        #region Copy Hierarchy Node Path
+        [MenuItem("GameObject/Copy/节点路径 ..]")]//, false, 0
+        static void CopyNodePathFunc()
+        {
+            string nodePath = "";
+            GetNodePath(Selection.activeGameObject.transform, ref nodePath);
+
+            Debug.Log("...] " + nodePath);
+
+            //复制到剪贴板
+            TextEditor editor = new TextEditor();
+            editor.text = nodePath;
+            editor.SelectAll();
+            editor.Copy();
+        }
+
+        [MenuItem("GameObject/Copy/节点区域路径 [...]")]
+        static void CopyNodePath()
+        {
+            string nodePath = "";
+
+            //获取最后一个obj
+            if (Selection.gameObjects.Length >= 2)
+            {
+                string nodePathMin = "";
+                string nodePathMax = "";
+                string nodeMinName = "";
+
+                for (int i = 0; i < Selection.gameObjects.Length; i++)
+                {
+                    string path = "";
+                    GetNodePath(Selection.gameObjects[i].transform, ref path);
+
+                    if (i == 0) { nodePathMin = path; nodeMinName = Selection.gameObjects[i].name; }
+
+                    if (path.Length > nodePathMax.Length)
+                    {
+                        nodePathMax = path;
+                    }
+                    if (path.Length < nodePathMin.Length)
+                    {
+                        nodePathMin = path;
+                        nodeMinName = Selection.gameObjects[i].name;
+                    }
+                }
+
+                int index =  nodePathMax.IndexOf(nodeMinName);
+                nodePath = nodePathMax.Substring(index, nodePathMax.Length - index);
+            }
+            else
+            {
+                nodePath = Selection.activeGameObject.name;
+            }
+
+            Debug.Log("[...] " + nodePath);
+
+            //复制到剪贴板
+            TextEditor editor = new TextEditor();
+            editor.text = nodePath;
+            editor.SelectAll();
+            editor.Copy();
+        }
+
+        static void GetNodePath(Transform trans, ref string path)
+        {
+            if (path == "")
+            {
+                path = trans.name;
+            }
+            else
+            {
+                path = trans.name + "/" + path;
+            }
+
+            if (trans.parent != null)
+            {
+                GetNodePath(trans.parent, ref path);
+            }
+        }
+        #endregion
+
+
     }
 }

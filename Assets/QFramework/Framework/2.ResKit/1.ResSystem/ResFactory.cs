@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,118 +28,58 @@ namespace QFramework
 {
     public static class ResFactory
     {
-        static ResFactory()
+        public static IRes Create(ResSearchRule resSearchRule)
         {
-            Log.I("Init[ResFactory]");
-            SafeObjectPool<AssetBundleRes>.Instance.MaxCacheCount = 20;
-            SafeObjectPool<AssetRes>.Instance.MaxCacheCount = 40;
-            SafeObjectPool<InternalRes>.Instance.MaxCacheCount = 40;
-            SafeObjectPool<NetImageRes>.Instance.MaxCacheCount = 20;
-        }
-
-        public static IRes Create(string assetName, string ownerBundleName)
-        {
+            var lowerAssetName = resSearchRule.AssetName.ToLower();
+            
             short assetType = 0;
-            if (assetName.StartsWith("Resources/") || assetName.StartsWith("resources://"))
+            if (lowerAssetName.StartsWith("resources/") || lowerAssetName.StartsWith("resources://"))
             {
                 assetType = ResType.Internal;
             }
-            else if (assetName.StartsWith("NetImage:"))
+            else if (lowerAssetName.StartsWith("netimage:"))
             {
                 assetType = ResType.NetImageRes;
             }
-            else
-            {
-                var data = ResDatas.Instance.GetAssetData(assetName, ownerBundleName);
-
-                if (data == null)
-                {
-                    Log.E("Failed to Create Res. Not Find AssetData:" + ownerBundleName + assetName);
-                    return null;
-                }
-                else
-                {
-                    assetType = data.AssetType;
-                }
-            }
-
-            return Create(assetName, ownerBundleName, assetType);
-        }
-
-        public static IRes Create(string assetName, string ownerBundleName, short assetType)
-        {
-            switch (assetType)
-            {
-                case ResType.AssetBundle:
-                    return AssetBundleRes.Allocate(assetName);
-                case ResType.ABAsset:
-                    return AssetRes.Allocate(assetName, ownerBundleName);
-                case ResType.ABScene:
-                    return SceneRes.Allocate(assetName);
-                case ResType.Internal:
-                    return InternalRes.Allocate(assetName,
-                        assetName.StartsWith("resources://")
-                            ? InternalResNamePrefixType.Url
-                            : InternalResNamePrefixType.Folder);
-                case ResType.NetImageRes:
-                    return NetImageRes.Allocate(assetName);
-                case ResType.LocalImageRes:
-                    return LocalImageRes.Allocate(assetName);
-                default:
-                    Log.E("Invalid assetType :" + assetType);
-                    return null;
-            }
-        }
-
-        public static IRes Create(string assetName)
-        {
-            short assetType = 0;
-            if (assetName.StartsWith("Resources/") || assetName.StartsWith("resources://"))
-            {
-                assetType = ResType.Internal;
-            }
-            else if (assetName.StartsWith("NetImage:"))
-            {
-                assetType = ResType.NetImageRes;
-            }
-            else if (assetName.StartsWith("LocalImage:"))
+            else if (lowerAssetName.StartsWith("localimage:"))
             {
                 assetType = ResType.LocalImageRes;
             }
             else
             {
-                var data = ResDatas.Instance.GetAssetData(assetName);
+                var data = ResDatas.Instance.GetAssetData(resSearchRule);
+
                 if (data == null)
                 {
-                    Log.E("Failed to Create Res. Not Find AssetData:" + assetName);
+                    Log.E("Failed to Create Res. Not Find AssetData:" + resSearchRule);
                     return null;
                 }
 
                 assetType = data.AssetType;
             }
 
-            return Create(assetName, assetType);
+            return Create(resSearchRule, assetType);
         }
 
-        private static IRes Create(string assetName, short assetType)
+        public static IRes Create(ResSearchRule resSearchRule, short assetType)
         {
             switch (assetType)
             {
                 case ResType.AssetBundle:
-                    return AssetBundleRes.Allocate(assetName);
+                    return AssetBundleRes.Allocate(resSearchRule.AssetName);
                 case ResType.ABAsset:
-                    return AssetRes.Allocate(assetName);
+                    return AssetRes.Allocate(resSearchRule.AssetName, resSearchRule.OwnerBundle);
                 case ResType.ABScene:
-                    return SceneRes.Allocate(assetName);
+                    return SceneRes.Allocate(resSearchRule.AssetName);
                 case ResType.Internal:
-                    return InternalRes.Allocate(assetName,
-                        assetName.StartsWith("resources://")
+                    return ResourcesRes.Allocate(resSearchRule.AssetName,
+                        resSearchRule.AssetName.StartsWith("resources://")
                             ? InternalResNamePrefixType.Url
                             : InternalResNamePrefixType.Folder);
                 case ResType.NetImageRes:
-                    return NetImageRes.Allocate(assetName);
+                    return NetImageRes.Allocate(resSearchRule.AssetName);
                 case ResType.LocalImageRes:
-                    return LocalImageRes.Allocate(assetName);
+                    return LocalImageRes.Allocate(resSearchRule.AssetName);
                 default:
                     Log.E("Invalid assetType :" + assetType);
                     return null;

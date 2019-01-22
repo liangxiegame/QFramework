@@ -29,7 +29,7 @@ namespace QFramework
 	using UnityEngine;
 	using System.Collections;
 
-	public class AssetRes : BaseRes
+	public class AssetRes : Res
 	{
 		protected string[]           mAssetBundleArray;
 		protected AssetBundleRequest mAssetBundleRequest;
@@ -260,9 +260,9 @@ namespace QFramework
 		{
 			mAssetBundleArray = null;
 
-			AssetData config = mOwnerBundleName != null
-				? ResDatas.Instance.GetAssetData(mAssetName, mOwnerBundleName)
-				: ResDatas.Instance.GetAssetData(mAssetName);
+			var resSearchRule = ResSearchRule.Allocate(mAssetName, mOwnerBundleName);
+			var config = ResDatas.Instance.GetAssetData(resSearchRule);
+			resSearchRule.Recycle2Cache();
 
 			if (config == null)
 			{
@@ -275,12 +275,17 @@ namespace QFramework
 
 			if (string.IsNullOrEmpty(assetBundleName))
 			{
-				Log.E("Not Find AssetBundle In Config:" + config.AssetBundleIndex);
+				Log.E("Not Find AssetBundle In Config:" + config.AssetBundleIndex + mOwnerBundleName);
 				return;
 			}
 
 			mAssetBundleArray = new string[1];
 			mAssetBundleArray[0] = assetBundleName;
+		}
+
+		public override string ToString()
+		{
+			return "Type:Asset\t {0}\t FromAssetBundle:{1}".FillFormat(base.ToString(), AssetBundleName);
 		}
 	}
 }

@@ -24,12 +24,14 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
     using System;
     using System.Collections;
 
-    public class AbstractRes : SimpleRC, IRes, IPoolable
+    public class Res : SimpleRC, IRes, IPoolable
     {
 #if UNITY_EDITOR
         private static int    mSimulateAssetBundleInEditor = -1;
@@ -53,7 +55,7 @@ namespace QFramework
 
         protected string                 mAssetName;
         protected string                 mOwnerBundleName;
-        private   short                  mResState = ResState.Waiting;
+        private   ResState               mResState = ResState.Waiting;
         protected UnityEngine.Object     mAsset;
         private event Action<bool, IRes> mResListener;
 
@@ -64,7 +66,7 @@ namespace QFramework
         }
 
 
-        public short State
+        public ResState State
         {
             get { return mResState; }
             set
@@ -164,13 +166,13 @@ namespace QFramework
             mResListener = null;
         }
 
-        protected AbstractRes(string assetName)
+        protected Res(string assetName)
         {
             IsRecycled = false;
             mAssetName = assetName;
         }
 
-        public AbstractRes()
+        public Res()
         {
             IsRecycled = false;
         }
@@ -190,7 +192,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res != null)
                 {
                     res.Retain();
@@ -208,7 +213,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res != null)
                 {
                     res.Release();
@@ -242,7 +250,10 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var res = ResMgr.Instance.GetRes(depends[i], false);
+                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var res = ResMgr.Instance.GetRes(resSearchRule, false);
+                resSearchRule.Recycle2Cache();
+                
                 if (res == null || res.State != ResState.Ready)
                 {
                     return false;
@@ -280,7 +291,20 @@ namespace QFramework
 
         protected virtual void OnReleaseRes()
         {
+            //如果Image 直接释放了，这里会直接变成NULL
+            if (mAsset != null)
+            {
+                if (mAsset is GameObject)
+                {
 
+                }
+                else
+                {
+                    Resources.UnloadAsset(mAsset);
+                }
+
+                mAsset = null;
+            }
         }
 
         protected override void OnZeroRef()
@@ -308,6 +332,11 @@ namespace QFramework
         {
             finishCallback();
             yield break;
+        }
+
+        public override string ToString()
+        {
+            return "Name:{0}\t State:{1}\t RefCount:{2}".FillFormat(AssetName,State,RefCount);
         }
 
         #endregion

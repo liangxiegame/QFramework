@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ~ 2018.6 liangxie 
+ * Copyright (c) 2017 ~ 2018.8 liangxie 
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -61,12 +61,12 @@ namespace QFramework
 
 		public string PathToElement;
 
-		public IUIMark MarkObj;
+		public IMark MarkObj;
 	}
 
 	public class UICodeGenerator
 	{
-		[MenuItem("Assets/@UIKit - Create UICode")]
+		[MenuItem("Assets/@UI Kit - Create UICode")]
 		public static void CreateUICode()
 		{
 			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
@@ -111,7 +111,7 @@ namespace QFramework
 			}
 		}
 
-		string PathToParent(Transform trans, string parentName)
+		private static string PathToParent(Transform trans, string parentName)
 		{
 			var retValue = new StringBuilder(trans.name);
 
@@ -140,7 +140,7 @@ namespace QFramework
 		{
 			foreach (Transform childTrans in curTrans)
 			{
-				var uiMark = childTrans.GetComponent<IUIMark>();
+				var uiMark = childTrans.GetComponent<IMark>();
 
 				if (null != uiMark)
 				{
@@ -148,7 +148,7 @@ namespace QFramework
 					{
 						if (!mPanelCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo()
+							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo
 							{
 								Name = uiMark.Transform.name,
 								MarkObj = uiMark,
@@ -185,7 +185,7 @@ namespace QFramework
 						var elementCodeData = new ElementCodeData
 						{
 							BehaviourName = uiMark.ComponentName,
-							MarkedObjInfo = new MarkedObjInfo()
+							MarkedObjInfo = new MarkedObjInfo
 							{
 								MarkObj = uiMark
 							}
@@ -236,7 +236,7 @@ namespace QFramework
 			}
 			else
 			{
-				strFilePath = uiPrefabPath.Replace("/" + uiPrefabPath.GetLastDirName(), GetScriptsPath());
+				strFilePath = uiPrefabPath.Replace("/" + GetLastDirName(uiPrefabPath), GetScriptsPath());
 			}
 
 			strFilePath.Replace(uiPrefab.name + ".prefab", string.Empty).CreateDirIfNotExists();
@@ -248,14 +248,22 @@ namespace QFramework
 				UIPanelCodeTemplate.Generate(strFilePath, behaviourName, GetProjectNamespace());
 			}
 
-			CreateUIPanelComponentsCode(behaviourName, strFilePath);
+			CreateUIPanelDesignerCode(behaviourName, strFilePath);
 			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
 
-		private void CreateUIPanelComponentsCode(string behaviourName, string uiUIPanelfilePath)
+		public static string GetLastDirName(string absOrAssetsPath)
+		{
+			var name = absOrAssetsPath.Replace("\\", "/");
+			var dirs = name.Split('/');
+
+			return dirs[dirs.Length - 2];
+		}
+		
+		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath)
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
-			var generateFilePath = dir + behaviourName + "Components.cs";
+			var generateFilePath = dir + behaviourName + ".Designer.cs";
 
 			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, GetProjectNamespace(), mPanelCodeData);
 
@@ -277,7 +285,7 @@ namespace QFramework
 					elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 			}
 			
-			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + "Components.cs",
+			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + ".Designer.cs",
 				elementCodeData.BehaviourName, GetProjectNamespace(), elementCodeData);
 
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
@@ -321,6 +329,7 @@ namespace QFramework
 			var paths = pathStr.Split(new[] {';'}, StringSplitOptions.RemoveEmptyEntries);
 			var displayProgress = paths.Length > 3;
 			if (displayProgress) EditorUtility.DisplayProgressBar("", "Serialize UIPrefab...", 0);
+			
 			for (var i = 0; i < paths.Length; i++)
 			{
 				var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
@@ -334,18 +343,34 @@ namespace QFramework
 
 			AssetDatabase.SaveAssets();
 			AssetDatabase.Refresh();
+			
+			for (var i = 0; i < paths.Length; i++)
+			{
+				var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
+				AttachSerializeObj(uiPrefab, uiPrefab.name, assembly);
+
+				// uibehaviour
+				if (displayProgress)
+					EditorUtility.DisplayProgressBar("", "Serialize UIPrefab..." + uiPrefab.name, (float) (i + 1) / paths.Length);
+				Debug.Log(">>>>>>>Success Serialize UIPrefab: " + uiPrefab.name);
+			}
+
+			AssetDatabase.SaveAssets();
+			AssetDatabase.Refresh();
+			
 			if (displayProgress) EditorUtility.ClearProgressBar();
+			
 		}
 
 		private static void AttachSerializeObj(GameObject obj, string behaviourName, System.Reflection.Assembly assembly,
-			List<IUIMark> processedMarks = null)
+			List<IMark> processedMarks = null)
 		{
 			if (null == processedMarks)
 			{
-				processedMarks = new List<IUIMark>();
+				processedMarks = new List<IMark>();
 			}
 
-			var uiMark = obj.GetComponent<IUIMark>();
+			var uiMark = obj.GetComponent<IMark>();
 			var className = string.Empty;
 
 			if (uiMark != null)
@@ -372,7 +397,7 @@ namespace QFramework
 
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
-			var uiMarks = obj.GetComponentsInChildren<IUIMark>(true);
+			var uiMarks = obj.GetComponentsInChildren<IMark>(true);
 
 			foreach (var elementMark in uiMarks)
 			{
@@ -388,7 +413,7 @@ namespace QFramework
 
 				if (sObj.FindProperty(propertyName) == null)
 				{
-					Log.I("sObj is Null:{0} {1}", propertyName, uiType);
+					Log.I("sObj is Null:{0} {1} {2}", propertyName, uiType,sObj);
 					continue;
 				}
 
@@ -396,7 +421,7 @@ namespace QFramework
 				AttachSerializeObj(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
 			}
 
-			var marks = obj.GetComponentsInChildren<IUIMark>(true);
+			var marks = obj.GetComponentsInChildren<IMark>(true);
 			foreach (var elementMark in marks)
 			{
 				if (processedMarks.Contains(elementMark))

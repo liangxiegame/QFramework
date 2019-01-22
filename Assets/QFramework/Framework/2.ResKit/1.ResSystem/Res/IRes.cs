@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2018.5 liangxie
+ * Copyright (c) 2017 ~ 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,11 +28,11 @@ namespace QFramework
 {
     using System;
 
-    public static class ResState
+    public enum ResState
     {
-        public const short Waiting = 0;
-        public const short Loading = 1;
-        public const short Ready   = 2;
+        Waiting = 0,
+        Loading = 1,
+        Ready   = 2,
     }
 
     public static class ResType
@@ -51,7 +51,7 @@ namespace QFramework
 
         string OwnerBundleName { get; }
 
-        short State { get; }
+        ResState State { get; }
 
         UnityEngine.Object Asset { get; }
 

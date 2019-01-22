@@ -33,12 +33,12 @@ namespace QFramework
         void OnSyncLoadFinish(IResLoader loader, IRes res);
         void OnSyncLoadFinish(IResLoader loader, AssetBundleRes res);
         void OnSyncLoadFinish(IResLoader loader, AssetRes res);
-        void OnSyncLoadFinish(IResLoader loader, InternalRes res);
+        void OnSyncLoadFinish(IResLoader loader, ResourcesRes res);
 
         void OnAsyncLoadFinish(IResLoader loader, IRes res);
         void OnAsyncLoadFinish(IResLoader loader, AssetBundleRes res);
         void OnAsyncLoadFinish(IResLoader loader, AssetRes res);
-        void OnAsyncLoadFinish(IResLoader loader, InternalRes res);
+        void OnAsyncLoadFinish(IResLoader loader, ResourcesRes res);
     }
 
     public class AbstractResLoaderStrategy : IResLoaderStrategy
@@ -63,7 +63,7 @@ namespace QFramework
 
         }
 
-        public virtual void OnSyncLoadFinish(IResLoader loader, InternalRes res)
+        public virtual void OnSyncLoadFinish(IResLoader loader, ResourcesRes res)
         {
 
         }
@@ -83,7 +83,7 @@ namespace QFramework
 
         }
 
-        public virtual void OnAsyncLoadFinish(IResLoader loader, InternalRes res)
+        public virtual void OnAsyncLoadFinish(IResLoader loader, ResourcesRes res)
         {
 
         }

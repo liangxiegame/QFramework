@@ -6,9 +6,12 @@ This is QFrameworks's Roadmap.
 
 ### v0.0.x: Workflow Explore
 
-#### v0.0.9 QFramework Package Manager [Current]
+#### v0.0.9 QFramework Package Manager [Latest Release]
 
-### v0.1.x: Guide Framework
+#### Current v0.0.10
+<blockquote class="trello-card"><a href="https://trello.com/c/UI0I2v2o/1-v0010">v0.0.10</a></blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>
+
+### v0.1.x: User Service Improvement
 
 ### v0.2.x: User Case Collection
 
@@ -20,7 +23,7 @@ This is QFrameworks's Roadmap.
 
 * Blog Article 2 Frameworks Folder
 
-### Research
+### Research (研究)
 * Guidance Framework
 * Data Binding
 * Visual Scripting,NBP,FBP

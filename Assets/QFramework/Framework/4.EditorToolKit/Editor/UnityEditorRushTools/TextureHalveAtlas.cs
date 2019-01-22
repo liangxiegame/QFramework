@@ -14,22 +14,32 @@ namespace QFramework
 
     public class TextureHalveAtlas : MonoBehaviour
     {
-
         public static int CompressQuality = 50;
         public static float halveRate = 0.5f;
+        private static bool IsFinish = false;
 
-        [MenuItem("QFramework/Tool/UI/TextureHalveSize")]
+        [MenuItem("QFramework/Tool/UI/最优图片尺寸")]
         public static void HalveAtlas()
         {
+            int errorDirPathCount = 0;
+
+            IsFinish = false;
+            
             UnityEngine.Object[] objects = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets); //获取选择文件夹
             for (int i = 0; i < objects.Length; i++)
             {
                 string dirPath = AssetDatabase.GetAssetPath(objects[i]).Replace("\\", "/");
                 if (!Directory.Exists(dirPath))
                 {
-                    EditorUtility.DisplayDialog("错误", "选择正确文件夹！", "好的");
+                    errorDirPathCount++;
+
+                    if (i == objects.Length - 1 && errorDirPathCount > 0) { EditorUtility.DisplayDialog("错误", "选择正确文件夹！", "好的"); }
+
                     continue;
                 }
+
+                if (i == objects.Length - 1) { IsFinish = true; }
+
                 HalveSprite(dirPath);
             }
         }
@@ -131,8 +141,11 @@ namespace QFramework
                 }
             }
 
-            EditorUtility.ClearProgressBar();
-            EditorUtility.DisplayDialog("成功", "处理完成！", "好的");
+            if (IsFinish)
+            {
+                EditorUtility.ClearProgressBar();
+                EditorUtility.DisplayDialog("成功", "处理完成！", "好的");
+            }
         }
 
         private static int GetValidSize(int size)

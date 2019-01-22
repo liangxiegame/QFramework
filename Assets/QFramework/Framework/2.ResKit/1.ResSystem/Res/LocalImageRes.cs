@@ -41,7 +41,7 @@ namespace QFramework
     /// <summary>
     /// 本地图片加载器
     /// </summary>
-    public class LocalImageRes : AbstractRes, IDownloadTask
+    public class LocalImageRes : Res, IDownloadTask
     {
         private string mFullPath;
         private string mHashCode;
@@ -185,74 +185,67 @@ namespace QFramework
             }
 
             ResMgr.Instance.PushIEnumeratorTask(this);
-            //ResMgr.S.PostLoadTask(LoadImage());
         }
 
         //完全的WWW方式,Unity 帮助管理纹理缓存，并且效率貌似更高
         // TODO:persistantPath 用 read
         public override IEnumerator DoLoadAsync(System.Action finishCallback)
         {
-            var imageBytes = File.ReadAllBytes(mFullPath);
+//            var imageBytes = File.ReadAllBytes(mFullPath);
 
-            Texture2D loadTexture2D = new Texture2D(256, 256, TextureFormat.RGB24,false);
-            loadTexture2D.LoadImage(imageBytes);
+//            Texture2D loadTexture2D = new Texture2D(256, 256, TextureFormat.RGB24,false);
+//            loadTexture2D.LoadImage(imageBytes);
             
-            if (RefCount <= 0)
-            {
-                OnResLoadFaild();
-                finishCallback();
-                yield break;
-            }
-
-//            WWW www = new WWW(mFullPath);
-
-//            mWWW = www;
-
-//            yield return www;
-
-//            mWWW = null;
-
-//            if (www.error != null)
+//            if (RefCount <= 0)
 //            {
-//                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mFullPath, www.error));
 //                OnResLoadFaild();
 //                finishCallback();
 //                yield break;
 //            }
 
-//            if (!www.isDone)
-//            {
-//                Log.E("LocalImageRes WWW Not Done! Url:" + mFullPath);
-//                OnResLoadFaild();
-//                finishCallback();
+            WWW www = new WWW("file://" + mFullPath);
 
-//                www.Dispose();
-//                www = null;
+            mWWW = www;
 
-//                yield break;
-//            }
+            yield return www;
+
+            mWWW = null;
+
+            if (www.error != null)
+            {
+                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mFullPath, www.error));
+                OnResLoadFaild();
+                finishCallback();
+                yield break;
+            }
+
+            if (!www.isDone)
+            {
+                Log.E("LocalImageRes WWW Not Done! Url:" + mFullPath);
+                OnResLoadFaild();
+                finishCallback();
+
+                www.Dispose();
+                www = null;
+
+                yield break;
+            }
 
             if (RefCount <= 0)
             {
                 OnResLoadFaild();
                 finishCallback();
 
-//                www.Dispose();
-//                www = null;
+                www.Dispose();
+                www = null;
                 yield break;
             }
 
-            //TimeDebugger dt = new TimeDebugger("Tex");
-            //dt.Begin("LoadingTask");
-            //这里是同步的操作
-//            mAsset = www.texture;
-            mAsset = loadTexture2D;
-            //dt.End();
+            mAsset = www.texture;
 
-//            www.Dispose();
-//            www = null;
+            www.Dispose();
+            www = null;
 
-            //dt.Dump(-1);
 
             State = ResState.Ready;
 

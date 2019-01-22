@@ -1,5 +1,5 @@
 {
-	"plugins" : ["edit-link","sunlight-highlighter","-highlight","code"],
+	"plugins" : ["edit-link","sunlight-highlighter","-highlight","code","disqus"],
 	"pluginsConfig": {
 		"edit-link" : {
 			"base": "https://github.com/liangxiegame/QFramework/edit/master",
@@ -7,6 +7,9 @@
 		},
 		"sunlight-highlighter": {
 			"theme": "dark"
-		}
+		},
+        "disqus": {
+            "shortName": "liangxiegame"
+        }
 	}
 }

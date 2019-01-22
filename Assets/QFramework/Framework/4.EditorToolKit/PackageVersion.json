@@ -1,0 +1,16 @@
+{
+  "Version": "v0.0.9",
+  "Type": 0,
+  "AccessRight": 0,
+  "DownloadUrl": "http://liangxiegame.com/media/4.EditorToolKit_v0.0.3.unitypackage",
+  "InstallPath": "Assets/QFramework/Framework/4.EditorToolKit/",
+  "Readme": {
+    "version": "v0.0.9",
+    "content": "fix event bug",
+    "author": "LIANGXIE",
+    "date": "2018-12-29"
+  },
+  "Name": "4.EditorToolKit",
+  "VersionNumber": 9,
+  "FileName": "4.EditorToolKit_v0.0.9.unitypackage"
+}

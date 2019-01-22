@@ -14,7 +14,7 @@ QFramework 开发至今已经三年了，到目前为止，还没有进行一次
 
 对应 QFramework 中的目录结构如下:
 
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fsjuraz57qj30b8084glk.jpg)
+![][image-1]
 
 本文使用的 QFramework 版本为 v0.0.7 版本，下载地址在文章尾部给出。
 
@@ -24,7 +24,7 @@ ResKit 中用户最频繁使用的 API 只有 ResLoader 这一个类。字如其
 
 比如，加载 Resources 目录下的资源，代码如下：
 
-``` csharp
+```cs
 // allocate a loader when initialize a panel or a monobehavour
 var loader = ResLoader.Allocate();
 
@@ -68,7 +68,7 @@ loader.Recycle2Cache() 做了两件事情：
 
 在代码中加载 AssetBundle 资源:
 
-``` csharp 
+```cs
 // init res mgr before load asset bundle
 ResMgr.Init();
 
@@ -108,29 +108,30 @@ UI Kit 是 QFramework 中的 UI 开发套件。它集成了 UI 管理，可积�
 
 第一步:将 UIRoot 拖入 Hierarchy 中
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fsn6kemcguj30e808i3yg.jpg)
+![][image-2]
 
 
 
 可以看到，Design 是专门用来拼界面用的，当该场景运行时，Design 节点下的所有东西都会被隐藏。
 
 第二步: 拼好任意一个界面,对在代码中想要获取的控件添加 UIMark 脚本。
-![](https://ws1.sinaimg.cn/large/006tNc79gy1fsn6okau4qj318o10gjt6.jpg)
+![][image-3]
 
 第三步:将该 Panel 制作成 prefab 放到任意位置 (推荐放在 Assets/Art/UIPrefab 中),右击该 prefab,选择 @ResKit - Create UI Code 来生成 UI 代码。
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fsn6snj32aj30py0v8jst.jpg)
+![][image-4]
 
 生成代码位置如下:
 
-![](https://ws3.sinaimg.cn/large/006tNc79gy1fsn6va6dkvj30di0gs74g.jpg)
+![][image-5]
 
 第四步 编写 UI 脚本
 
-``` csharp
+```cs
 /****************************************************************************
  * 2018.6 凉鞋的MacBook Pro (2)
  ****************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -195,7 +196,7 @@ namespace QFramework.Example
 * 在场景中创建 GameObject 命名为 TestUIHomePanel。
 * 挂上 UIPanelTester 脚本,填入 Panel 名字。
 
-![](https://ws2.sinaimg.cn/large/006tNc79gy1fsn725dtjvj30me08adg1.jpg)
+![][image-6]
 
 * 将该 UI 的 prefab 标记为 AssetBundle。
 * 运行。
@@ -203,7 +204,7 @@ namespace QFramework.Example
 则可以看到该界面。
 
 当然用代码打开该页面也比较简单。
-``` csharp
+```cs
 UIMgr.OpenPanel<UIHomePanel>();
 ```
 
@@ -223,7 +224,7 @@ ActionKit 有两个基础概念 Node 和 Action:
 
 通过 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 this.Delay(1.0f, () =>
 {
 	Log.I("延时 1s");
@@ -232,14 +233,14 @@ this.Delay(1.0f, () =>
 
 通过申请 **DelayNode** 对象，使用 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 var delay2s = DelayAction.Allocate(2.0f, () => { Log.I("延时 2s"); });
 this.ExecuteNode(delay2s);
 ```
 
 使用 **Update** 驱动延时回调。
 
-``` csharp
+```cs
 private DelayAction mDelay3s = DelayAction.Allocate(3.0f, () => { Log.I("延时 3s"); });
 
 private void Update()
@@ -259,14 +260,14 @@ private void Update()
 
 通过申请 **EventAction** 对象，使用 **this**(MonoBehaviour) 触发事件执行。
 
-``` csharp
+```cs
 var eventAction = EventAction.Allocate(() => { Log.I("event 1 called"); }, () => { Log.I("event 2 called"); });
 this.ExecuteNode(eventAction);
 ```
 
 使用 **Update** 驱动回调。
 
-``` csharp
+```cs
 private EventAction mEventAction2 = EventAction.Allocate(() => { Log.I("event 3 called"); }, () => { Log.I("event 4 called"); });
 
 private void Update()
@@ -288,7 +289,7 @@ private void Update()
 
 通过 **this**(MonoBehaviour) 触发延时回调。
 
-``` csharp
+```cs
 this.Sequence()
 	.Delay(1.0f)
 	.Event(() => Log.I("Sequence1 延时了 1s"))
@@ -299,7 +300,7 @@ this.Sequence()
 
 通过申请 **SequenceNode** 对象，使用 **this**(MonoBehaviour) 触发节点执行。
 
-``` csharp
+```cs
 	var sequenceNode2 = SequenceNode.Allocate(DelayAction.Allocate(1.5f));
 	sequenceNode2.Append(EventAction.Allocate(() => Log.I("Sequence2 延时 1.5s")));
 	sequenceNode2.Append(DelayAction.Allocate(0.5f));
@@ -318,7 +319,7 @@ this.Sequence()
 
 使用 **Update** 驱动执行。
 
-``` csharp
+```cs
 private SequenceNode mSequenceNode3 = SequenceNode.Allocate(
 			DelayAction.Allocate(3.0f),
 			EventAction.Allocate(() => { Log.I("Sequence3 延时 3.0f"); }));
@@ -377,35 +378,48 @@ Action Kit:
 
 OK，今天先到这里。
 
-### 相关链接:
+## 相关链接:
+[我的框架地址][1]:https://github.com/liangxiegame/QFramework
 
-[我的框架地址](https://github.com/liangxiegame/QFramework):https://github.com/liangxiegame/QFramework
-
-[教程源码](https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework):https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
+[教程源码][2]:https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/
 
 QFramework &游戏框架搭建QQ交流群: 623597263
 
-转载请注明地址:[凉鞋的笔记](http://liangxiegame.com/)http://liangxiegame.com/
+转载请注明地址:[凉鞋的笔记][3] http://liangxiegame.com/
 
 微信公众号:liangxiegame
 
-![](https://ws2.sinaimg.cn/large/006tKfTcgy1fr1ywcobcwj30by0byt9i.jpg)
+![][image-7]
 
-### 如果有帮助到您:
-
+## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-- 购买 gitchat 话题《Unity 游戏框架搭建：资源管理 与 ResKit 精讲》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5b29df073104f252297a779c
-- 给 QFramework 一个 Star
-  - 地址: https://github.com/liangxiegame/QFramework
-- 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
-  - 地址: http://u3d.as/SJ9
-- 购买同名的蛮牛视频课程录播课程:
-  - 价格 ~~19.2 元~~ 29.8 元
-  - 地址: http://edu.manew.com/course/431 
-- 购买 gitchat 话题《Unity 游戏框架搭建：我所理解的框架》
-  - 价格: 6 元，会员免费
-  - 地址:  http://gitbook.cn/gitchat/activity/5abc3f43bad4f418fb78ab77
-- 购买同名电子书 :https://www.kancloud.cn/liangxiegame/unity_framework_design( 29.9 元，内容会在 2018 年 10 月份完结)
+* 给 [QFramework][4] 一个 Star
+	* 地址: https://github.com/liangxiegame/QFramework
+* 给 Asset Store 上的 QFramework 并给个五星(需要先下载)
+	* 地址: http://u3d.as/SJ9
+* 购买 gitchat 话题:[《命名的力量：变量》][5]
+	* 价格: 12 元
+	* 地址: [https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 ][6]
+* 购买同名的蛮牛视频课程录播课程: 
+	* 价格 49.2 元
+	* 地址: [http://edu.manew.com/course/431][7]
+* 购买同名电子书:[https://www.kancloud.cn/liangxiegame/unity_framework_design][8]
+	* 价格  49.2 元，内容会在 2018 年 10 月份完结
+
+[1]:	https://github.com/liangxiegame/QFramework
+[2]:	https://github.com/liangxiegame/QFramework/tree/master/Assets/HowToWriteUnityGameFramework/%0A
+[3]:	http://liangxiegame.com/
+[4]:	https://github.com/liangxiegame/QFramework
+[5]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388
+[6]:	https://gitbook.cn/gitchat/activity/5b65904096290075f5829388 "https://gitbook.cn/gitchat/activity/5b65904096290075f5829388"
+[7]:	http://edu.manew.com/course/431
+[8]:	https://www.kancloud.cn/liangxiegame/unity_framework_design
+
+[image-1]:	https://ws1.sinaimg.cn/large/006tNc79gy1fsjuraz57qj30b8084glk.jpg
+[image-2]:	https://ws2.sinaimg.cn/large/006tNc79gy1fsn6kemcguj30e808i3yg.jpg
+[image-3]:	https://ws1.sinaimg.cn/large/006tNc79gy1fsn6okau4qj318o10gjt6.jpg
+[image-4]:	https://ws2.sinaimg.cn/large/006tNc79gy1fsn6snj32aj30py0v8jst.jpg
+[image-5]:	https://ws3.sinaimg.cn/large/006tNc79gy1fsn6va6dkvj30di0gs74g.jpg
+[image-6]:	https://ws2.sinaimg.cn/large/006tNc79gy1fsn725dtjvj30me08adg1.jpg
+[image-7]:	https://ws4.sinaimg.cn/large/006tKfTcgy1fryc5skygwj30by0byt9i.jpg

@@ -1,0 +1,16 @@
+{
+  "Version": "v0.0.2",
+  "Type": 0,
+  "AccessRight": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/7.Tests/",
+  "Readme": {
+    "version": "v0.0.2",
+    "content": "remove tests",
+    "author": "DESKTOP-ALVD4JR",
+    "date": "2018-12-19"
+  },
+  "Name": "7.Tests",
+  "VersionNumber": 2,
+  "FileName": "7.Tests_v0.0.2.unitypackage"
+}

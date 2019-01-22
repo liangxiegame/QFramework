@@ -8,7 +8,7 @@
 
 # QFramework 简介 Intro
   [QFramework](https://github.com/liangxiegame/QFramework) 是一套 **渐进式** 的 **快速开发** 框架。目标是作为无框架经验的公司、独立开发者、以及 Unity3D 初学者们的 **第一套框架**。框架内部积累了多个项目的在各个技术方向的解决方案。学习成本低，接入成本低，重构成本低，二次开发成本低，文档内容丰富(提供使用方式以及原理、开发文档)。github:https://github.com/liangxiegame/QFramework
-  
+
   [QFramework](https://github.com/liangxiegame/QFramework) is a **Progressive** and **RAD** framework.Goal is become indie developer and fresh man's **The First Framework**。It's include many project's tech solution.Easy 2 Learn,Easy 2 Install,Easy 2 Refactor,Easy 2 Modify,Feature Packed documents. github:https://github.com/liangxiegame/QFramework
 
 
@@ -60,6 +60,7 @@ loader = null;
 ```
 
 **3.UI Kit**
+
 ``` csharp
 // open a panel from assetBundle
 UIMgr.OpenPanel<UIMainPanel>();
@@ -72,19 +73,14 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ```
 
 ### 技术支持 Tech Support：
-* [文档 Document](http://qframework.io)
+* [文档 Document:http://doc.qframework.io](http://doc.qframework.io)
 * **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
 * **QQ群:623597263 (群内有福利哦~)**
-* **不想进群的同学也可以在 [这里 gitter](https://gitter.im/qframeworkio/qframework) 进行讨论**
+* **社区:http://community.qframework.io/**
 
 #### 下载地址 Download:
+* 最新版本:https://github.com/liangxiegame/QFramework/releases
 * [Asset Store](http://u3d.as/SJ9)
-* [各个独立模块下载 Modules](https://github.com/liangxiegame/QFramework/releases)
-
-#### 教程 Tutorial (Chinese)
-* [如何打造自己的框架](http://liangxiegame.com/post/1/)
-* [零基础开始打造自己的框架](http://liangxiegame.com/post/26/)
-* [C#入门与框架设计(视频)](http://edu.manew.com/course/431)
 
 ### 赞助 Donate:
 * 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
@@ -92,7 +88,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
 ### 运行环境
-* Unity 5.5.x ~ 2017.x
+* Unity 5.6.x ~ 2018.x
 
 ### 包含项目 Include Projects:
 * [Catlib.Core](https://github.com/CatLib/Core)
@@ -101,6 +97,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 * [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
+
 #### 参考 Reference:
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
@@ -108,6 +105,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
 * [cocos2d/cocos2d-x](https://github.com/cocos2d/cocos2d-x)
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
+* [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
+* [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
 
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
@@ -123,3 +122,13 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 代码规范完全遵循:
 
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
+
+### 结构图 (v0.0.10)
+
+![](http://assets.processon.com/chart_image/5c1dd179e4b095ccfeeb6204.png)
+
+
+
+## QFramework 功能列表;
+
+![](https://ws1.sinaimg.cn/large/006qQBdDly1fyprr0xrpnj30t712mjv1.jpg)

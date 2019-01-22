@@ -39,6 +39,14 @@ namespace QFramework
         /// </summary>
         public static void Init()
         {
+            SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
+            SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+
+            
             Instance.InitResMgr();
         }
 
@@ -65,7 +73,7 @@ namespace QFramework
 		public void InitResMgr()
         {   
 #if UNITY_EDITOR
-            if (AbstractRes.SimulateAssetBundleInEditor)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 EditorRuntimeAssetDataCollector.BuildDataTable();
             }
@@ -102,38 +110,11 @@ namespace QFramework
             TryStartNextIEnumeratorTask();
         }
 
-        public IRes GetRes(string ownerBundleName, string assetName, bool createNew = false)
+
+        public IRes GetRes(ResSearchRule resSearchRule, bool createNew = false)
         {
             IRes res = null;
-
-            if (mResDictionary.TryGetValue((ownerBundleName + assetName).ToLower(), out res))
-            {
-                return res;
-            }
-
-            if (!createNew)
-            {
-                return null;
-            }
-
-            res = ResFactory.Create(assetName, ownerBundleName);
-
-            if (res != null)
-            {
-                mResDictionary.Add((ownerBundleName + assetName).ToLower(), res);
-                
-                if (!mResList.Contains(res))
-                {
-                    mResList.Add(res);
-                }
-            }
-            return res;
-        }
-
-        public IRes GetRes(string assetName, bool createNew = false)
-        {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(assetName, out res))
+            if (mResDictionary.TryGetValue(resSearchRule.DictionaryKey, out res))
             {
                 return res;
             }
@@ -144,11 +125,11 @@ namespace QFramework
                 return null;
             }
 
-            res = ResFactory.Create(assetName);
+            res = ResFactory.Create(resSearchRule);
 
             if (res != null)
             {
-                mResDictionary.Add(assetName, res);
+                mResDictionary.Add(resSearchRule.DictionaryKey, res);
                 if (!mResList.Contains(res))
                 {
                     mResList.Add(res);
@@ -213,6 +194,26 @@ namespace QFramework
                         res.Recycle2Cache();
                     }
                 }
+            }
+        }
+
+        private void OnGUI()
+        {
+            if (Platform.IsEditor && Input.GetKey(KeyCode.F1))
+            {
+                GUILayout.BeginVertical("box");
+                
+                GUILayout.Label("ResKit", new GUIStyle {fontSize = 30});
+                GUILayout.Space(10);
+                GUILayout.Label("ResInfo", new GUIStyle {fontSize = 20});
+                mResList.ForEach(res => { GUILayout.Label((res as Res).ToString()); });
+                GUILayout.Space(10);
+
+                GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
+                GUILayout.Label(string.Format("ResSearchRule:{0}",
+                    SafeObjectPool<ResSearchRule>.Instance.CurCount));
+                GUILayout.Label(string.Format("ResLoader:{0}", SafeObjectPool<ResLoader>.Instance.CurCount));
+                GUILayout.EndVertical();
             }
         }
 

@@ -33,6 +33,19 @@ namespace QFramework
 {
     public class AssetDataGroup
     {
+        public IEnumerable<AssetData> AssetDatas
+        {
+            get { return mAssetDataMap.Values; }
+        }
+
+        public IEnumerable<ABUnit> AssetBundleDatas
+        {
+            get
+            {
+                return mABUnitArray;
+            }
+        }
+
         /// <summary>
         /// 代表依赖关系的类
         /// </summary>
@@ -116,7 +129,7 @@ namespace QFramework
         public AssetDataGroup(SerializeData data)
         {
             m_Key = data.key;
-            SetSerizlizeData(data);
+            SetSerializeData(data);
         }
 
         public void Reset()
@@ -144,7 +157,9 @@ namespace QFramework
                 mABUnitArray = new List<ABUnit>();
             }
 
-            AssetData config = GetAssetData(name);
+            var resSearchRule = ResSearchRule.Allocate(name);
+            AssetData config = GetAssetData(resSearchRule);
+            resSearchRule.Recycle2Cache();
 
             if (config != null)
             {
@@ -185,7 +200,11 @@ namespace QFramework
 
         public ABUnit GetABUnit(string assetName)
         {
-            AssetData data = GetAssetData(assetName);
+            var resSearchRule = ResSearchRule.Allocate(assetName);
+            
+            AssetData data = GetAssetData(resSearchRule);
+            
+            resSearchRule.Recycle2Cache();
 
             if (data == null)
             {
@@ -215,42 +234,22 @@ namespace QFramework
 
             return true;
         }
-        
-        public AssetData GetAssetData(string assetName)
+
+        public AssetData GetAssetData(ResSearchRule resSearchRule)
         {
-            if (mAssetDataMap == null)
-            {
-                return null;
-            }
-
-            string key = assetName.ToLower() ;
-
             AssetData result = null;
-            if (mAssetDataMap.TryGetValue(key, out result))
+
+            if (resSearchRule.OwnerBundle.IsNotNull() && mUUID4AssetData.IsNotNull())
             {
-                return result;
+                return mUUID4AssetData.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
             }
 
-            return null;
-        }
-        
-
-        public AssetData GetAssetData(string assetName,string ownerBundle)
-        {
-            if (mUUID4AssetData == null)
+            if (resSearchRule.OwnerBundle.IsNull() && mAssetDataMap.IsNotNull())
             {
-                return null;
+                return mAssetDataMap.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
             }
 
-            string uuid = (ownerBundle + assetName).ToLower();
-
-            AssetData result = null;
-            if (mUUID4AssetData.TryGetValue(uuid, out result))
-            {
-                return result;
-            }
-
-            return null;
+            return result;
         }
 
         public bool AddAssetData(AssetData data)
@@ -269,7 +268,9 @@ namespace QFramework
 
             if (mAssetDataMap.ContainsKey(key))
             {
-                AssetData old = GetAssetData(data.AssetName, null);
+                var resSearchRule = ResSearchRule.Allocate(data.AssetName);
+                var old = GetAssetData(resSearchRule);
+                resSearchRule.Recycle2Cache();
 
                 try
                 {
@@ -288,7 +289,9 @@ namespace QFramework
 
             if (mUUID4AssetData.ContainsKey(data.UUID))
             {
-                AssetData old = GetAssetData(data.AssetName, data.OwnerBundleName);
+                var resSearchRule = ResSearchRule.Allocate(data.AssetName, data.OwnerBundleName);
+                AssetData old = GetAssetData(resSearchRule);
+                resSearchRule.Recycle2Cache();
 
                 Log.E("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
                     mABUnitArray[old.AssetBundleIndex].abName, mABUnitArray[data.AssetBundleIndex].abName);
@@ -322,7 +325,7 @@ namespace QFramework
         }
 
 
-        private void SetSerizlizeData(SerializeData data)
+        private void SetSerializeData(SerializeData data)
         {
             if (data == null)
             {

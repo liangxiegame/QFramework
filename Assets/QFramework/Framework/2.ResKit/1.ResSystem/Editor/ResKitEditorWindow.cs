@@ -35,7 +35,7 @@ namespace QFramework
 	public class ResKitEditorWindow : EditorWindow
 	{
 		private int mBuildTargetIndex = 0;
-		private readonly string[] mPlatformLabels = {"Windows32/OSX", "iOS", "Android"};
+		private readonly string[] mPlatformLabels = {"Windows32/OSX/Linux", "iOS", "Android","WebGL"};
 		private Vector2 scrollPos;
 		private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
 		private const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
@@ -59,7 +59,7 @@ namespace QFramework
 		{
 			var window = (ResKitEditorWindow) GetWindow(typeof(ResKitEditorWindow), true);
 			Debug.Log(Screen.width + " screen width*****");
-			window.position = new Rect(100, 100, 500, 400);
+			window.position = new Rect(100, 100, 600, 400);
 			window.Show();
 		}
 
@@ -70,6 +70,9 @@ namespace QFramework
 
 			switch (EditorUserBuildSettings.activeBuildTarget)
 			{
+				case BuildTarget.WebGL:
+					mBuildTargetIndex = 3;
+					break;
 				case BuildTarget.Android:
 					mBuildTargetIndex = 2;
 					break;
@@ -96,7 +99,7 @@ namespace QFramework
 
 		private void OnGUI()
 		{
-			scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Width(500), GUILayout.Height(400));
+			scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(400));
 			GUILayout.BeginVertical();
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("PersistanePath:");
@@ -109,7 +112,7 @@ namespace QFramework
 
 			DrawMenu();
 
-			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class");
+			isEnableGenerateClass = GUILayout.Toggle(isEnableGenerateClass, "auto generate class when build");
 			ResKitAssetsMenu.SimulateAssetBundleInEditor =
 				GUILayout.Toggle(ResKitAssetsMenu.SimulateAssetBundleInEditor, "Simulation Mode");
 
@@ -118,10 +121,17 @@ namespace QFramework
 			resVersion = GUILayout.TextField(resVersion);
 			GUILayout.EndHorizontal();
 
+			if (GUILayout.Button("Generate Class"))
+			{
+				BuildScript.WriteClass();
+				AssetDatabase.Refresh();
+			}
+
 			if (GUILayout.Button("Build"))
 			{
 				BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
 				Close();
+				return;
 			}
 
 			if (GUILayout.Button("ForceClear"))
@@ -145,14 +155,8 @@ namespace QFramework
 			}
 
 			if (GUILayout.Button("Http Post"))
-			{
-//				WWWForm form = new WWWForm();
-//				form.AddField("content", "123");
-//				ObservableWWW.Post("http://127.0.0.1:8000/demo/save/", form)
-//					.Subscribe(response => { Log.E(response); });
-				
+			{	
 				ObservableWWW.Get("http://127.0.0.1:8000/demo/save/?content=" + new OK().ToJson()).Subscribe(response => { Log.E(response); });
-
 			}
 		}
 
