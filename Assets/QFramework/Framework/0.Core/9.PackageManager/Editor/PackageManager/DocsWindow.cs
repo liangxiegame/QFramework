@@ -36,8 +36,11 @@ namespace QFramework
                 if (GUILayout.Button(docName))
                 {
 //                    DocViewerWindow.Load("file:///" + docPath);
-                    DocViewerWindow.Load(
-                        "https://www.notion.so/qframework/QFramework-e5a4846c79de459da0407859000bac24");
+//                    DocViewerWindow.Load(
+//                        "https://www.notion.so/qframework/QFramework-e5a4846c79de459da0407859000bac24");
+//                    DocViewerWindow.Load("https://mp.weixin.qq.com/s/qzmztWaemixdvzY1G0gxdw");
+                    DocViewerWindow.Load("https://mp.weixin.qq.com/s/yIaQLffk-te03IGtaDqEiQ");
+
                 }
             });
 

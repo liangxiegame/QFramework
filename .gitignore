@@ -62,3 +62,8 @@ Pool.csproj
 QFramework2017.Plugins.csproj
 Singleton.csproj
 DevOps.meta
+Assets/QFramework/PackagePublisher/Editor/PackageMaker.cs
+Assets/QFramework/PackagePublisher/Editor/PackageMaker.cs.meta
+Assets/QFramework/PackagePublisher/PackageVersion.json
+Assets/QFramework/PackagePublisher/PackageVersion.json.meta
+Assets/QFramework/PackagePublisher.meta
