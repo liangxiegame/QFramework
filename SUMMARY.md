@@ -3,10 +3,10 @@
 * [Unity 游戏框架 QFramework 简介-Intro](README.md)
 * 核心功能-Core Features
   * [Action Kit ](/Assets/QFramework/Framework/0.Core/0.ActionKit/Document.md)
-  * [Res Kit](/Assets/QFramework/Framework/2.ResKit/Document.md)
-  * [UI Kit](/Assets/QFramework/Framework/3.UIKit/Document.md)
+  * [Res Kit](/Assets/QFramework/Framework/1.ResKit/Document.md)
+  * [UI Kit](/Assets/QFramework/Framework/2.UIKit/Document.md)
     * [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)
-  * [Editor ToolKit](/Assets/QFramework/Framework/4.EditorToolKit/Document.md)
+  * [Editor ToolKit](/Assets/QFramework/Framework/3.EditorToolKit/Document.md)
     * [Inspectors](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Inspectors/Document.md)
     * [UnityEditorRushTools](/Assets/QFramework/Framework/4.EditorToolKit/Editor/UnityEditorRushTools/Document.md)
     * [Attribute](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Attribute/Document.md)
