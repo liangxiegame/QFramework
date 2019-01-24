@@ -131,4 +131,4 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 ## QFramework 功能列表;
 
-![](https://ws1.sinaimg.cn/large/006qQBdDly1fyprr0xrpnj30t712mjv1.jpg)
+![](https://ws1.sinaimg.cn/large/006qQBdDgy1fzhk7pvhkaj320i26i4cu.jpg)
