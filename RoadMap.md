@@ -8,8 +8,10 @@ This is QFrameworks's Roadmap.
 
 #### v0.0.9 QFramework Package Manager [Latest Release]
 
-#### Current v0.0.10
-<blockquote class="trello-card"><a href="https://trello.com/c/UI0I2v2o/1-v0010">v0.0.10</a></blockquote><script src="https://p.trellocdn.com/embed.min.js"></script>
+#### Current v0.0.14
+* PackageManager Service Improvement
+* doc complete
+* qf guidline 2019 book
 
 ### v0.1.x: User Service Improvement
 
