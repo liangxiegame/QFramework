@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.39",
+  "Version": "v0.0.40",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.39",
-    "content": "add catlib example",
+    "version": "v0.0.40",
+    "content": "support 5.6",
     "author": "liangxie",
-    "date": "2019 年 01 月 21 日 10:32"
+    "date": "2019 年 01 月 25 日 12:39"
   },
   "Name": "Example",
-  "VersionNumber": 39,
-  "FileName": "Example_v0.0.39.unitypackage"
+  "VersionNumber": 40,
+  "FileName": "Example_v0.0.40.unitypackage"
 }

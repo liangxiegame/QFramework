@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.13",
+  "Version": "v0.0.14",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "Readme": {
-    "version": "v0.0.13",
-    "content": "ActionKit 集成到 Core 里",
+    "version": "v0.0.14",
+    "content": "suprot 5.6",
     "author": "liangxie",
-    "date": "2019 年 01 月 24 日 10:05"
+    "date": "2019 年 01 月 25 日 12:40"
   },
   "Name": "Framework",
-  "VersionNumber": 13,
-  "FileName": "Framework_v0.0.13.unitypackage"
+  "VersionNumber": 14,
+  "FileName": "Framework_v0.0.14.unitypackage"
 }

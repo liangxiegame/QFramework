@@ -9,9 +9,8 @@ namespace QFramework.Example
 	public class CatlibExample : MonoBehaviour
 	{
 		// Use this for initialization
-		IEnumerator Start()
-		{
-
+		private IEnumerator Start()
+		{			
 			var application = new Application();
 			application.Bootstrap();
 			application.Register(new FileSystemProvider());
@@ -20,7 +19,6 @@ namespace QFramework.Example
 			yield return new WaitForEndOfFrame();
 			
 			App.Make<IFileSystem>().HelloWorld();
-
 		}
 
 		
