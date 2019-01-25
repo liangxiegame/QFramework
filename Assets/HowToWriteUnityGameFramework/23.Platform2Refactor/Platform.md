@@ -148,7 +148,7 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 
 微信公众号:liangxiegame
 
-![][https://s3.us-west-2.amazonaws.com/secure.notion-static.com/347c0821-ec03-4318-ac06-99e0536ca558/qrcode_for_gh_b4b5e104e2c0_344.jpg?AWSAccessKeyId=ASIAT73L2G45K5WJNQ6Z&Expires=1548463576&Signature=SEMV8zKjXwGhFDXCw%2BUu4H4hydE%3D&x-amz-security-token=FQoGZXIvYXdzEKj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDGRp6XONd1Z%2FowgXeCK3AySON6Pbdmpe5YKIoJBVQ1JraMcix%2FWWoZJID8UoKuQtiRPTcXHFqOEOv%2FycYCrWz3p2hSBN3Ew8NHRweWLZsJ%2FOHTKD%2BTd%2BejV2S37h7EGkKJQs5IX3Q9mAkHOFhVISiEj1EN5qxLYmP9eygzsZ%2BUxq46Qr0Rm1eEVEr6I4czAgWotEZsWa%2BBFaiy5D2%2F0ODnbqBcrDMdpcBKP6KtTwgu%2BvL2iDtCeoMivVllC3YeAgiSQCGRb%2FO2Aja1uUo4tEL0styO4VbA13tFeiCX1Nm6kpoYf%2Bfbic5hOalwUgum5iTIl%2BEsCwAHQO6foclvCrOyqYOie1X3IG9TA5EjkJZ9rgVWHZfeQL6ho3EAVgi91Xlc0Nmd88NVr1Y0Jl8AQJiakttQLdqRYLerOxn120k75VeX%2FtlSAAUDtzxTs6vgTGtqoX8ra7DxHpuNaJ33oN1VMoWJbggUruEhi6qnBixYzOxYbYtAGASeQvBC1F94%2BGPx79R2AR%2Fb29qDZ8oQLSQ2tQG3CyYffJtmck%2Fs43TGQgAukUOj0qrW5NC5m9ZGrZcAHKrcibAWdbctf%2B4YJC6LRq%2BkCGYNYo0f2o4gU%3D]
+![](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/347c0821-ec03-4318-ac06-99e0536ca558/qrcode_for_gh_b4b5e104e2c0_344.jpg?AWSAccessKeyId=ASIAT73L2G45K5WJNQ6Z&Expires=1548463576&Signature=SEMV8zKjXwGhFDXCw%2BUu4H4hydE%3D&x-amz-security-token=FQoGZXIvYXdzEKj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDGRp6XONd1Z%2FowgXeCK3AySON6Pbdmpe5YKIoJBVQ1JraMcix%2FWWoZJID8UoKuQtiRPTcXHFqOEOv%2FycYCrWz3p2hSBN3Ew8NHRweWLZsJ%2FOHTKD%2BTd%2BejV2S37h7EGkKJQs5IX3Q9mAkHOFhVISiEj1EN5qxLYmP9eygzsZ%2BUxq46Qr0Rm1eEVEr6I4czAgWotEZsWa%2BBFaiy5D2%2F0ODnbqBcrDMdpcBKP6KtTwgu%2BvL2iDtCeoMivVllC3YeAgiSQCGRb%2FO2Aja1uUo4tEL0styO4VbA13tFeiCX1Nm6kpoYf%2Bfbic5hOalwUgum5iTIl%2BEsCwAHQO6foclvCrOyqYOie1X3IG9TA5EjkJZ9rgVWHZfeQL6ho3EAVgi91Xlc0Nmd88NVr1Y0Jl8AQJiakttQLdqRYLerOxn120k75VeX%2FtlSAAUDtzxTs6vgTGtqoX8ra7DxHpuNaJ33oN1VMoWJbggUruEhi6qnBixYzOxYbYtAGASeQvBC1F94%2BGPx79R2AR%2Fb29qDZ8oQLSQ2tQG3CyYffJtmck%2Fs43TGQgAukUOj0qrW5NC5m9ZGrZcAHKrcibAWdbctf%2B4YJC6LRq%2BkCGYNYo0f2o4gU%3D)
 
 ## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
@@ -157,4 +157,4 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 	* 地址: https://github.com/liangxiegame/QFramework
 * 加入 siki A 计划，可以免费观看笔者的全部课程
 	* 价格: 12 元
-	* 地址: [http://www.sikiedu.com/user/52592]
+	* 地址: http://www.sikiedu.com/user/52592
