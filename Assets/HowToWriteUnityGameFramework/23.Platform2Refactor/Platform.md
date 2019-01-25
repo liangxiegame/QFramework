@@ -153,7 +153,7 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 ## 如果有帮助到您:
 如果觉得本篇教程对您有帮助，不妨通过以下方式赞助笔者一下，鼓励笔者继续写出更多高质量的教程，也让更多的力量加入 QFramework 。
 
-* 给 [QFramework][4] 一个 Star
+* 给 [QFramework](https://github.com/liangxiegame/QFramework) 一个 Star
 	* 地址: https://github.com/liangxiegame/QFramework
 * 加入 siki A 计划，可以免费观看笔者的全部课程
 	* 价格: 12 元
