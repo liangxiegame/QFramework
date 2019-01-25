@@ -155,6 +155,9 @@ QFramework &游戏框架搭建QQ交流群: 623597263
 
 * 给 [QFramework](https://github.com/liangxiegame/QFramework) 一个 Star
 	* 地址: https://github.com/liangxiegame/QFramework
+* 加入 凉鞋的笔记 [月会员](https://appQa6a81PN4633.h5.xiaoeknow.com/content_page/eyJ0eXBlIjozLCJyZXNvdXJjZV90eXBlIjoiIiwicmVzb3VyY2VfaWQiOiIiLCJwcm9kdWN0X2lkIjoicF81YzQwOWE0NDJhNzViX1hhUzl3dUo4IiwiYXBwX2lkIjoiYXBwUWE2YTgxUE40NjMzIn0)计划
+	* 地址：http://kks.me/baAPk
+* 购买专栏 [《Untiy 游戏框架搭建 2019》](http://kks.me/baAPq)
+	* 地址:http://kks.me/baAPq
 * 加入 siki A 计划，可以免费观看笔者的全部课程
-	* 价格: 12 元
 	* 地址: http://www.sikiedu.com/user/52592
