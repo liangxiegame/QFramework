@@ -17,7 +17,8 @@ namespace QFramework
 			return ObservableWWW.Get(url, headers).Subscribe(onResponse);
 		}
 
-		public IDisposable HttpPost(string url, Dictionary<string, string> headers, Dictionary<string, string> form, Action<string> onResponse)
+		public IDisposable HttpPost(string url, Dictionary<string, string> headers, Dictionary<string, string> form,
+			Action<string> onResponse)
 		{
 			var wwwForm = new WWWForm();
 
@@ -42,7 +43,7 @@ namespace QFramework
 			contentDict.ForEach((key, value) => { jsonForm[key] = value; });
 
 			var content = new ByteArrayContent(Encoding.UTF8.GetBytes(jsonForm.ToString()), "application/json");
-			
+
 			httpClient.Patch(new Uri(url), content, (responseContent) => { onResponse(responseContent.Data); });
 
 			return Disposable.Create(() => httpClient.Abort());
@@ -57,9 +58,15 @@ namespace QFramework
 				headers.ForEach((k, v) => { request.SetRequestHeader(k, v); });
 			}
 
+#if UNITY_2017_1_OR_NEWER
 			return request.SendWebRequest()
 				.AsAsyncOperationObservable()
-				.Subscribe(operation => { onResponse.Invoke(); });;
+				.Subscribe(operation => { onResponse.Invoke(); });
+#else
+			return request.Send()
+				.AsAsyncOperationObservable()
+				.Subscribe(operation => { onResponse.Invoke(); });
+#endif
 		}
 	}
 }

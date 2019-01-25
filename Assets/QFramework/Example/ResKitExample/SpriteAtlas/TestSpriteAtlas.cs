@@ -37,22 +37,24 @@ namespace QFramework
 	public class TestSpriteAtlas : MonoBehaviour
 	{
 		[SerializeField] private Image mImage;
-		
+
 		// Use this for initialization
 		private IEnumerator Start()
 		{
 			var loader = ResLoader.Allocate();
-			
+
 			ResMgr.Init();
 
+#if UNITY_2017_1_OR_NEWER
 			var spriteAtlas = loader.LoadSync<SpriteAtlas>("spriteatlas");
 			var square = spriteAtlas.GetSprite("Square");
 			Log.I(spriteAtlas.spriteCount);
 
 			mImage.sprite = square;
-			
+#endif
+
 			yield return new WaitForSeconds(5.0f);
-			
+
 			loader.Recycle2Cache();
 			loader = null;
 		}
