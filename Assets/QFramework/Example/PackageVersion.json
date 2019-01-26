@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.40",
+  "Version": "v0.0.42",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "Readme": {
-    "version": "v0.0.40",
-    "content": "support 5.6",
+    "version": "v0.0.42",
+    "content": "add IOC Example",
     "author": "liangxie",
-    "date": "2019 年 01 月 25 日 12:39"
+    "date": "2019 年 01 月 26 日 18:32"
   },
   "Name": "Example",
-  "VersionNumber": 40,
-  "FileName": "Example_v0.0.40.unitypackage"
+  "VersionNumber": 42,
+  "FileName": "Example_v0.0.42.unitypackage"
 }

@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.22",
+  "Version": "v0.1.0",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
-  "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
+  "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
   "Readme": {
-    "version": "v0.0.22",
-    "content": "add OnOpen ",
+    "version": "v0.1.0",
+    "content": "move folder",
     "author": "liangxie",
-    "date": "2019 年 01 月 13 日 21:13"
+    "date": "2019 年 01 月 24 日 11:51"
   },
-  "Name": "3.UIKit",
-  "VersionNumber": 22,
-  "FileName": "3.UIKit_v0.0.22.unitypackage"
+  "Name": "2.UIKit",
+  "VersionNumber": 100,
+  "FileName": "2.UIKit_v0.1.0.unitypackage"
 }

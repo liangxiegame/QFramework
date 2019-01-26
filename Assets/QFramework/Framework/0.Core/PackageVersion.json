@@ -1,16 +1,16 @@
 {
-  "Version": "v0.0.5",
+  "Version": "v0.1.0",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "Readme": {
-    "version": "v0.0.5",
-    "content": "support 5.6",
+    "version": "v0.1.0",
+    "content": "import uFrame's IOC Solution",
     "author": "liangxie",
-    "date": "2019 年 01 月 25 日 12:40"
+    "date": "2019 年 01 月 26 日 18:27"
   },
   "Name": "0.Core",
-  "VersionNumber": 5,
-  "FileName": "0.Core_v0.0.5.unitypackage"
+  "VersionNumber": 100,
+  "FileName": "0.Core_v0.1.0.unitypackage"
 }
