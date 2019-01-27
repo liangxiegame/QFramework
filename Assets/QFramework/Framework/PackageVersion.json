@@ -1,17 +1,17 @@
 {
-  "Version": "v0.0.16",
+  "Version": "v0.0.17",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.0.16",
-    "content": "using iOC 2 manage the PM",
+    "version": "v0.0.17",
+    "content": "fix:load assembly bug",
     "author": "liangxie",
-    "date": "2019 年 01 月 27 日 16:27"
+    "date": "2019 年 01 月 27 日 16:39"
   },
   "Name": "Framework",
-  "VersionNumber": 16,
-  "FileName": "Framework_v0.0.16.unitypackage"
+  "VersionNumber": 17,
+  "FileName": "Framework_v0.0.17.unitypackage"
 }
