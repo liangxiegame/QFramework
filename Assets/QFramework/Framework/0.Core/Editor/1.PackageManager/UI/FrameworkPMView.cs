@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditorUI;
 using UnityEngine;
 
 namespace QFramework.Editor
@@ -126,16 +127,42 @@ namespace QFramework.Editor
             get { return true; }
         }
 
+        private RootLayout mRootLayout = null;
+
+        private RootLayout mFrameworkInfoLayout = null;
+
         public void Init(IQFrameworkContainer container)
         {
+            mRootLayout = new RootLayout();
+            mRootLayout
+                .Label().Text.Value("Framework:").End()
+                .End();
             
+            mFrameworkInfoLayout = new RootLayout();
+
+            var frameworkData = mPackageDatas.Find(packageData => packageData.Name == "Framework");
+            var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
+            
+            mFrameworkInfoLayout
+                .HorizontalLayout()
+                .Label()
+                    .Text.Value(frameworkVersion)
+                .End()
+                .Toggle()
+                    .Text.Value("Version Check")
+                    .On.Bind(()=>VersionCheck).End()
+                .End();
+            
+            mFrameworkInfoLayout.BindViewModel(this);
+
         }
 
         public override void OnGUI()
         {
             base.OnGUI();
             
-            GUILayout.Label("Framework:");
+            mRootLayout.OnGUI();
+            
             GUILayout.BeginVertical("box");
 
             GUILayout.BeginHorizontal();

@@ -27,6 +27,8 @@ namespace UnityEditorUI
         /// </summary>
         ILabel Label();
 
+        IToggle Toggle(int width = -1);
+        
         /// <summary>
         /// Creates a new TextBox and adds it to the layout.
         /// </summary>
@@ -74,6 +76,7 @@ namespace UnityEditorUI
         /// Creates a horizontal layout and adds it to this layout.
         /// </summary>
         ILayout HorizontalLayout(string text = null);
+        
         
 
         /// <summary>

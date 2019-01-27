@@ -35,6 +35,7 @@ namespace QFramework.Editor
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
+			PackageApplication.Container = null;
 			
 			var window = PackageApplication.Container.Resolve<PreferencesWindow>();
 

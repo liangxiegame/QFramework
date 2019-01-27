@@ -67,6 +67,13 @@ namespace UnityEditorUI
             return newLabel;
         }
 
+        public IToggle Toggle(int width = -1)
+        {
+            var toggle = new Toggle(this,width);
+            children.Add(toggle);
+            return toggle;
+        }
+
         /// <summary>
         /// Creates a new TextBox and adds it to the layout.
         /// </summary>
