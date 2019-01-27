@@ -1,0 +1,9 @@
+{
+    "name": "QFramework.Core.Runtime",
+    "references": [
+        "UniRx",
+        "HTTP"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

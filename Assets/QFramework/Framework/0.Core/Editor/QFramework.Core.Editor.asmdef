@@ -1,0 +1,11 @@
+{
+    "name": "QFramework.Core.Editor",
+    "references": [
+        "QFramework.Core.Runtime",
+        "UniRx"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

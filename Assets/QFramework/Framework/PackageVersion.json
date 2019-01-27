@@ -1,16 +1,17 @@
 {
-  "Version": "v0.0.15",
+  "Version": "v0.0.16",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
+  "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.0.15",
-    "content": "add uFrame 的 IOC 解决方案，详情查看 Example。",
+    "version": "v0.0.16",
+    "content": "using iOC 2 manage the PM",
     "author": "liangxie",
-    "date": "2019 年 01 月 26 日 18:32"
+    "date": "2019 年 01 月 27 日 16:27"
   },
   "Name": "Framework",
-  "VersionNumber": 15,
-  "FileName": "Framework_v0.0.15.unitypackage"
+  "VersionNumber": 16,
+  "FileName": "Framework_v0.0.16.unitypackage"
 }
