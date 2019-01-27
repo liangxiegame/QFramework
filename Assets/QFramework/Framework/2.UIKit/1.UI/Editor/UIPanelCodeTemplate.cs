@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.8 liangxie
+ * Copyright (c) 2017 ~ 2019.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -63,7 +63,7 @@ namespace QFramework
 			strBuilder.Append("\t\t\t").AppendLine("throw new System.NotImplementedException ();");
 			strBuilder.Append("\t\t").AppendLine("}")
 				.AppendLine();
-			strBuilder.Append("\t\t").AppendLine("protected override void InitUI(IUIData uiData = null)");
+			strBuilder.Append("\t\t").AppendLine("protected override void OnInit(IUIData uiData = null)");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t").Append("\t")
 				.AppendLine("mData = uiData as " + behaviourName + "Data ?? new " + behaviourName + "Data();");

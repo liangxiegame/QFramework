@@ -157,11 +157,18 @@ namespace QFramework
                 GUILayout.Label(installedPackage != null ? installedPackage.Version : " ", GUILayout.Width(80));
                 GUILayout.Label(packageData.AccessRight.ToString(), GUILayout.Width(80));
 
-                if (GUILayout.Button("Doc", GUILayout.Width(40)))
-                {                    
-                    DocsWindow.Init(packageData.InstallPath);
+                if (packageData.DocUrl.IsNotNullAndEmpty())
+                {
+                    if (GUILayout.Button("Doc", GUILayout.Width(40)))
+                    {
+                        Application.OpenURL(packageData.DocUrl);
+                    }
                 }
-                
+                else
+                {
+                    GUILayout.Space(40);
+                }
+
                 if (installedPackage == null)
                 {
                     if (GUILayout.Button("Import", GUILayout.Width(90)))

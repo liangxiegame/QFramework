@@ -5,7 +5,6 @@ namespace QFramework.Example
 {
 	public class AssetBundleResExample : MonoBehaviour
 	{
-
 		private ResLoader mResLoader = ResLoader.Allocate();
 
 		public RawImage RawImage;
@@ -23,7 +22,7 @@ namespace QFramework.Example
 			RawImage.texture = mResLoader.LoadSync<Texture2D>("TestImage");
 			
 			// 通过下边方式也一样
-//			RawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
+			RawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
 		}
 
 		private void OnDestroy()

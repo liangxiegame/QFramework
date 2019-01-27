@@ -50,6 +50,11 @@ namespace QFramework
 			get { return PackageVersions.First ().InstallPath; }
 		}
 
+        public string DocUrl
+        {
+            get { return PackageVersions.First().DocUrl; }
+        }
+
         public PackageType Type
         {
             get { return PackageVersions.First().Type; }
@@ -144,6 +149,8 @@ namespace QFramework
         {
             get { return Name + "_" + Version + ".unitypackage"; }
         }
+
+        public string DocUrl;
 
         public ReleaseItem Readme = new ReleaseItem();
 

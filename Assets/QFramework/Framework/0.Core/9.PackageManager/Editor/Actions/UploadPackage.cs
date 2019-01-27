@@ -70,7 +70,8 @@ namespace QFramework
             form.AddField("release_note", packageVersion.Readme.content);
             form.AddField("install_path", packageVersion.InstallPath);
             form.AddField("access_right", packageVersion.AccessRight.ToString().ToLower());
-
+            form.AddField("doc_url",packageVersion.DocUrl);
+            
             if (packageVersion.Type == PackageType.FrameworkModule)
             {
                 form.AddField("type", "fm");

@@ -82,7 +82,7 @@ namespace QFramework
 					var releaseNote = packageInfo["release_note"].Value<string>();
 					var createAt = packageInfo["create_at"].Value<string>();
 					var creator = packageInfo["creator"].Value<string>();
-					
+					var docUrl = packageInfo["doc_url"].Value<string>();
 					var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
 					var typeName = packageInfo["type"].Value<string>();
 					var accessRightName = packageInfo["access_right"].Value<string>();
@@ -126,6 +126,7 @@ namespace QFramework
 						Type = packageType,
 						AccessRight = accessRight,
 						Readme = releaseItem,
+						DocUrl = docUrl,
 						
 					});
 
