@@ -1,5 +1,7 @@
 
 
+using UniRx.Triggers;
+
 namespace UnityEditorUI
 {
     using System.Collections.Generic;
@@ -60,16 +62,16 @@ namespace UnityEditorUI
         /// <summary>
         /// Creates a new label and adds it to the view.
         /// </summary>
-        public ILabel Label()
+        public ILabel Label(int width= -1)
         {
-            var newLabel = new Label(this);
+            var newLabel = new Label(this,width);
             children.Add(newLabel);
             return newLabel;
         }
 
-        public IToggle Toggle(int width = -1)
+        public IToggle Toggle()
         {
-            var toggle = new Toggle(this,width);
+            var toggle = new Toggle(this);
             children.Add(toggle);
             return toggle;
         }

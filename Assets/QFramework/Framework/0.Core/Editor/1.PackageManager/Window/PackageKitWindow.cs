@@ -30,18 +30,18 @@ namespace QFramework.Editor
 	using UnityEngine;
 	using UnityEditor;
 
-	public class PreferencesWindow : QEditorWindow
+	public class PackageKitWindow : QEditorWindow
 	{
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
 			PackageApplication.Container = null;
 			
-			var window = PackageApplication.Container.Resolve<PreferencesWindow>();
+			var window = PackageApplication.Container.Resolve<PackageKitWindow>();
 
 			if (window == null)
 			{
-				var frameworkConfigEditorWindow = Create<PreferencesWindow>(true);
+				var frameworkConfigEditorWindow = Create<PackageKitWindow>(true);
 				frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
 				frameworkConfigEditorWindow.position = new Rect(100, 100, 690, 460);
 				frameworkConfigEditorWindow.Init();
@@ -65,8 +65,6 @@ namespace QFramework.Editor
 
 		private void Init()
 		{
-//			AddChild(new FrameworkPMView(this));
-
 			PackageApplication.Container
 				.ResolveAll<IPackageKitView>()
 				.OrderBy(view => view.RenderOrder)

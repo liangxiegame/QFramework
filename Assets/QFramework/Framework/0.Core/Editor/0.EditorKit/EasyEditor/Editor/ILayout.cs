@@ -25,9 +25,9 @@ namespace UnityEditorUI
         /// <summary>
         /// Creates a new label and adds it to the view.
         /// </summary>
-        ILabel Label();
+        ILabel Label(int width = -1);
 
-        IToggle Toggle(int width = -1);
+        IToggle Toggle();
         
         /// <summary>
         /// Creates a new TextBox and adds it to the layout.

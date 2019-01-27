@@ -30,6 +30,7 @@ using UnityEditor;
 using UnityEditorUI;
 using UnityEngine;
 
+
 namespace QFramework.Editor
 {
     public class FrameworkPMView : GUIView,IPackageKitView
@@ -145,7 +146,7 @@ namespace QFramework.Editor
             
             mFrameworkInfoLayout
                 .HorizontalLayout()
-                .Label()
+                .Label(150)
                     .Text.Value(frameworkVersion)
                 .End()
                 .Toggle()
@@ -165,13 +166,7 @@ namespace QFramework.Editor
             
             GUILayout.BeginVertical("box");
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label(string.Format("QFramework:{0}",
-                mPackageDatas.Find(packageData => packageData.Name == "Framework").Version), GUILayout.Width(150));
-
-            VersionCheck = GUILayout.Toggle(VersionCheck, "Version Check");
-
-            GUILayout.EndHorizontal();
+            mFrameworkInfoLayout.OnGUI();
 
             mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
 
@@ -218,7 +213,7 @@ namespace QFramework.Editor
                     {
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
 
-                        PackageApplication.Container.Resolve<PreferencesWindow>().Close();
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
 
                     }
                 }
@@ -235,7 +230,7 @@ namespace QFramework.Editor
 
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
 
-                        PackageApplication.Container.Resolve<PreferencesWindow>().Close();
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     }
                 }
                 else if (installedPackage.IsNotNull() && packageData.VersionNumber == installedPackage.VersionNumber)
@@ -250,7 +245,7 @@ namespace QFramework.Editor
                         }
                         
                         EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                        PackageApplication.Container.Resolve<PreferencesWindow>().Close();
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
 
                     }
                 }

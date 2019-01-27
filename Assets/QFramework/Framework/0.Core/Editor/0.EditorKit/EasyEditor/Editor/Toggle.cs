@@ -59,7 +59,7 @@ namespace UnityEditorUI
             get { return onProperty; }
         }
 
-        internal Toggle(ILayout parent, int width) : base(parent)
+        internal Toggle(ILayout parent) : base(parent)
         {
             textProperty = new PropertyBinding<string, IToggle>(
                 this,
@@ -70,24 +70,11 @@ namespace UnityEditorUI
                 this,
                 value => on = value
             );
-
-            mWidth = width;
         }
-
-        private int mWidth;
 
         public override void OnGUI()
         {
-            var newOn = false;
-
-            if (mWidth == -1)
-            {
-                GUILayout.Toggle(@on, text);
-            }
-            else
-            {
-                GUILayout.Toggle(@on, text, GUILayout.Width(mWidth));
-            }
+            var newOn = GUILayout.Toggle(@on, text);
 
             if (newOn != @on)
             {
