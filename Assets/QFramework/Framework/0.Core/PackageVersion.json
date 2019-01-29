@@ -1,17 +1,17 @@
 {
-  "Version": "v0.1.9",
+  "Version": "v0.1.10",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.9",
-    "content": "add Unity MVVM",
+    "version": "v0.1.10",
+    "content": "support uframe.ecs",
     "author": "liangxie",
-    "date": "2019 年 01 月 27 日 22:24"
+    "date": "2019 年 01 月 27 日 22:52"
   },
   "Name": "0.Core",
-  "VersionNumber": 109,
-  "FileName": "0.Core_v0.1.9.unitypackage"
+  "VersionNumber": 110,
+  "FileName": "0.Core_v0.1.10.unitypackage"
 }

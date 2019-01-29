@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework.Example
@@ -17,7 +15,6 @@ namespace QFramework.Example
 			
 			container.Resolve<A>().HelloWorld();
 		}
-
 
 		public class A
 		{

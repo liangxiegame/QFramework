@@ -2,11 +2,11 @@ using System;
 
 namespace QFramework
 {
-    public class uFrameEventMapping : Attribute
+    public class QFrameworkEventMapping : Attribute
     {
         public string Title { get; set; }
 
-        public uFrameEventMapping(string title)
+        public QFrameworkEventMapping(string title)
         {
             Title = title;
         }
