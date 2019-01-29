@@ -16,7 +16,7 @@ namespace TreeView {
 		[MenuItem("Tools/Tree View Example Window")]
 		private static void CreateEditorWindow()
 		{
-			EditorWindow.GetWindow<AssetTreeEditorWindow>("Asset Tree");
+			GetWindow<AssetTreeEditorWindow>("Asset Tree");
 		}
 
 		private AssetTree _assetTree;

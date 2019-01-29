@@ -145,6 +145,11 @@ namespace QFramework.GraphDesigner
             return MethodFromTypeMethod(type, methodName, out methodInfo, callBase);
         }
 
+        public static string Value2StringExpression(this string code)
+        {
+            return "\"" + code + "\"";
+        }
+
         public static CodeConstructor ToCodeConstructor(this MethodInfo constructor)
         {
             var code = new CodeConstructor()
@@ -351,10 +356,15 @@ namespace QFramework.GraphDesigner
             }
             return new CodeTypeReference((Type)obj.GetType());
         }
-        //public static CodeMemberMethod Parameter(this CodeMemberMethod method)
-        //{
 
-        //}
+        public static CodeSnippetExpression ToCodeSnippetExpression(this object obj)
+        {
+            return new CodeSnippetExpression()
+            {
+                Value = "\"" + obj + "\""
+            };
+        }
+
         public static CodeTypeDeclaration end(this CodeMemberMethod method)
         {
             return method.UserData["Decleration"] as CodeTypeDeclaration;

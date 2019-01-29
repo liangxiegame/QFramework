@@ -1,8 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using UnityEditor;
 using UnityEngine.UI;
-using System;
 using System.IO;
 
 namespace QFramework

@@ -30,7 +30,6 @@ using UnityEditor;
 using UnityEditorUI;
 using UnityEngine;
 
-
 namespace QFramework.Editor
 {
     public class FrameworkPMView : GUIView,IPackageKitView
@@ -71,7 +70,11 @@ namespace QFramework.Editor
 
         private Vector2 mScrollPos;
 
-        private int mToolbarIndex = 0;
+        public int ToolbarIndex
+        {
+            get { return EditorPrefs.GetInt("PM_TOOLBAR_INDEX", 0); }
+            set { EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value); }
+        }
 
         private string[] mToolbarNamesLogined =
             {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private"};
@@ -87,7 +90,7 @@ namespace QFramework.Editor
         {
             get
             {
-                switch (mToolbarIndex)
+                switch (ToolbarIndex)
                 {
                     case 0:
                         return mPackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
@@ -145,13 +148,20 @@ namespace QFramework.Editor
             var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
             
             mFrameworkInfoLayout
+                    // Framework 层
                 .HorizontalLayout()
                 .Label(150)
                     .Text.Value(frameworkVersion)
                 .End()
                 .Toggle()
                     .Text.Value("Version Check")
-                    .On.Bind(()=>VersionCheck).End()
+                    .On.Bind(()=>VersionCheck)
+                .End()
+                .End() // end horizontal
+                    // 工具栏
+                .Toolbar(ToolbarIndex,ToolbarNames)
+                    .Index.Bind(()=>ToolbarIndex)
+                .End()
                 .End();
             
             mFrameworkInfoLayout.BindViewModel(this);
@@ -167,8 +177,6 @@ namespace QFramework.Editor
             GUILayout.BeginVertical("box");
 
             mFrameworkInfoLayout.OnGUI();
-
-            mToolbarIndex = GUILayout.Toolbar(mToolbarIndex, ToolbarNames);
 
             // 这里开始具体的内容
             GUILayout.BeginHorizontal("box");
@@ -251,7 +259,6 @@ namespace QFramework.Editor
                 }
                 else if (installedPackage != null)
                 {
-                    // maybe support upload? 
                     GUILayout.Space(94);
                 }
 

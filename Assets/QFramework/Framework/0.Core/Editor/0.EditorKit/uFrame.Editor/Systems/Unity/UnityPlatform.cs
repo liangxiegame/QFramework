@@ -54,12 +54,6 @@ namespace QFramework.GraphDesigner.Unity
             try
             {
                 InvertApplication.SignalEvent<ITaskProgressHandler>(_=>_.Progress(progress, message));
-                //if (progress > 100f)
-                //{
-                //    EditorUtility.ClearProgressBar();
-                //    return;
-                //}
-                //EditorUtility.DisplayProgressBar("Generating", message, progress/1f);
             }
             catch (Exception ex)
             {

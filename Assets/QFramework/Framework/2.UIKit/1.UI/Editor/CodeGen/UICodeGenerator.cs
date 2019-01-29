@@ -24,6 +24,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Linq;
+using QFramework.GraphDesigner;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -64,6 +67,8 @@ namespace QFramework
 				{
 					return;
 				}
+				
+				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelCodeDesignerTemplate>();
 
 				UIMarkCollector.mPanelCodeData = new PanelCodeData();
 				Debug.Log(clone.name);
@@ -71,6 +76,8 @@ namespace QFramework
 				UIMarkCollector.FindAllMarkTrans(clone.transform, "");
 				CreateUIPanelCode(obj, uiPrefabPath);
 
+
+				
 				UISerializer.AddSerializeUIPrefab(obj);
 
 				Object.DestroyImmediate(clone);
@@ -120,8 +127,19 @@ namespace QFramework
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
 			var generateFilePath = dir + behaviourName + ".Designer.cs";
 
-			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+//			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
 
+			var factory = new RegisteredTemplateGeneratorsFactory();
+				
+			var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+								
+			CompilingSystem.GenerateFile(new FileInfo(generateFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+			{
+				Generators = generators.ToArray()
+			});
+
+			
+			
 			foreach (var elementCodeData in UIMarkCollector.mPanelCodeData.ElementCodeDatas)
 			{
 				var elementDir = string.Empty;
@@ -134,18 +152,20 @@ namespace QFramework
 
 		private static void CreateUIElementCode(string generateDirPath, ElementCodeData elementCodeData)
 		{
-			if (File.Exists(generateDirPath + elementCodeData.BehaviourName + ".cs") == false)
+			var panelFilePathWhithoutExt = generateDirPath + elementCodeData.BehaviourName;
+
+			if (File.Exists(panelFilePathWhithoutExt + ".cs") == false)
 			{
-				UIElementCodeTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + ".cs",
+				UIElementCodeTemplate.Generate(panelFilePathWhithoutExt + ".cs",
 					elementCodeData.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeData);
 			}
-			
-			UIElementCodeComponentTemplate.Generate(generateDirPath + elementCodeData.BehaviourName + ".Designer.cs",
+
+			UIElementCodeComponentTemplate.Generate(panelFilePathWhithoutExt + ".Designer.cs",
 				elementCodeData.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeData);
 
 			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
 			{
-				var elementDir = (generateDirPath + elementCodeData.BehaviourName + "/").CreateDirIfNotExists();
+				var elementDir = (panelFilePathWhithoutExt + "/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, childElementCodeData);
 			}
 		}

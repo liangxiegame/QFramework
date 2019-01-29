@@ -464,14 +464,8 @@ namespace QFramework.GraphDesigner
             if (refresh)
             {
                 refresh = false;
-                RefreshContent();
-               
+                RefreshContent(); 
             } 
-
-            //if (DiagramDrawer != null)
-            //{
-            //    DiagramDrawer.Refresh(InvertGraphEditor.PlatformDrawer);
-            //}
         }
 
         public void Renamed(IDiagramNodeItem nodeItem, string editText, string name)
@@ -493,11 +487,6 @@ namespace QFramework.GraphDesigner
                 refresh = true;
             }
             DiagramViewModel.RecordInserted(record);
-            //if (record is IDiagramNodeItem)
-            //{
-            //    refresh = true;
-            //}
-
         }
 
         public bool refresh = false;
@@ -511,17 +500,6 @@ namespace QFramework.GraphDesigner
             }
 
             DiagramViewModel.RecordRemoved(record);
-            
-           
-            //if (record is IDiagramNode)
-            //{
-            //    refresh = true;
-            //}
-            //else
-            //{
-            //   RefreshByData(record);
-            //}
-           
         }
 
         public void PropertyChanged(IDataRecord record, string name, object previousValue, object nextValue)
@@ -552,9 +530,7 @@ namespace QFramework.GraphDesigner
                 {
                     drawer.Children.Clear();
                     vm.DataObjectChanged();
-                    // drawer.Refresh(InvertGraphEditor.PlatformDrawer);
                     drawers.Add(drawer);
-                    //InvertApplication.Log(string.Format("Refreshed {0}", drawer.GetType().Name));
                 }
             });
             RefreshDrawerList(drawers);
@@ -594,17 +570,9 @@ namespace QFramework.GraphDesigner
                 var item = drawers[index];
                 if (item.ViewModelObject == null) continue;
                 var dataObject = item.ViewModelObject.DataObject as IDataRecord;
-                var vm = item.ViewModelObject as GraphItemViewModel;
+                var vm = item.ViewModelObject;
                 if (dataObject != null && vm != null && item != null)
                     action(item, vm, dataObject);
-                //if (item.ViewModelObject != null && item.ViewModelObject.DataObject == record)
-                //{
-                //    item.Children.Clear();
-                //    item.ViewModelObject.ContentItems.Clear();
-                //    item.ViewModelObject.DataObjectChanged();
-                //    InvertApplication.Log("Refreshing " + item.GetType().Name);
-                //    //item.Refresh(InvertGraphEditor.PlatformDrawer,item.Bounds.position,true);
-                //}
                 LoopDrawers(item.Children, action);
             }
         }

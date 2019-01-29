@@ -1,17 +1,17 @@
 {
-  "Version": "v0.1.6",
+  "Version": "v0.2.0",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
   "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
   "Readme": {
-    "version": "v0.1.6",
-    "content": "整理代码生成部分逻辑",
+    "version": "v0.2.0",
+    "content": "using code dom generate uicode",
     "author": "liangxie",
-    "date": "2019 年 01 月 29 日 17:26"
+    "date": "2019 年 01 月 29 日 21:06"
   },
   "Name": "2.UIKit",
-  "VersionNumber": 106,
-  "FileName": "2.UIKit_v0.1.6.unitypackage"
+  "VersionNumber": 200,
+  "FileName": "2.UIKit_v0.2.0.unitypackage"
 }

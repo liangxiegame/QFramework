@@ -82,10 +82,6 @@ namespace QFramework.GraphDesigner.Unity
             {
                 InvertApplication.SignalEvent<ITaskProgressEvent>(_=>_.Progress(99f,"Waiting On Unity...", true));
             }
-            else
-            {
-                
-            }
 
             InvertApplication.SignalEvent<IDrawUFrameWindow>(_ => _.Draw(width, height, _scrollPosition, 1f));
         }
@@ -94,7 +90,6 @@ namespace QFramework.GraphDesigner.Unity
         {
             ModifierKeyStates = null;
             MouseEvent = null;
-
         }
 
         public void Repaint()

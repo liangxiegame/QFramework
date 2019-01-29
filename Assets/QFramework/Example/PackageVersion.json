@@ -1,17 +1,17 @@
 {
-  "Version": "v0.0.44",
+  "Version": "v0.0.45",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.0.44",
-    "content": "fix example's namespace 2 QF.Example",
+    "version": "v0.0.45",
+    "content": "update ui example",
     "author": "liangxie",
-    "date": "2019 年 01 月 29 日 15:48"
+    "date": "2019 年 01 月 29 日 21:05"
   },
   "Name": "Example",
-  "VersionNumber": 44,
-  "FileName": "Example_v0.0.44.unitypackage"
+  "VersionNumber": 45,
+  "FileName": "Example_v0.0.45.unitypackage"
 }

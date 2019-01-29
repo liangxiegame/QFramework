@@ -7,6 +7,7 @@ using Invert.Common;
 using QFramework.GraphDesigner;
 using QFramework.MVVM;
 using UnityEngine;
+using NotifyCollectionChangedEventArgs = QFramework.MVVM.NotifyCollectionChangedEventArgs;
 
 namespace QFramework.GraphDesigner
 {
