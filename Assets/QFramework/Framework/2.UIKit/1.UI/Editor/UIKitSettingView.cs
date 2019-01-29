@@ -30,11 +30,11 @@ namespace QFramework
 {
     public class UIKitSettingView : GUIView,IPackageKitView
     {
-        private FrameworkSettingData mFrameworkSettingData;
+        private UIKitSettingData mUiKitSettingData;
 		
         public UIKitSettingView()
         {
-            mFrameworkSettingData = FrameworkSettingData.Load();
+            mUiKitSettingData = UIKitSettingData.Load();
         }
 
         public IQFrameworkContainer Container { get; set; }
@@ -61,15 +61,15 @@ namespace QFramework
             GUILayout.Label("UI Kit Settings:");
             GUILayout.BeginVertical("box");
 
-            mFrameworkSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", mFrameworkSettingData.Namespace);
-            mFrameworkSettingData.UIScriptDir =
-                EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", mFrameworkSettingData.UIScriptDir);
-            mFrameworkSettingData.UIPrefabDir =
-                EditorGUIUtils.GUILabelAndTextField("UI Prefab Dir", mFrameworkSettingData.UIPrefabDir);
+            mUiKitSettingData.Namespace = EditorGUIUtils.GUILabelAndTextField("Namespace", mUiKitSettingData.Namespace);
+            mUiKitSettingData.UIScriptDir =
+                EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", mUiKitSettingData.UIScriptDir);
+            mUiKitSettingData.UIPrefabDir =
+                EditorGUIUtils.GUILabelAndTextField("UI Prefab Dir", mUiKitSettingData.UIPrefabDir);
 			
             if (GUILayout.Button("Apply"))
             {
-                mFrameworkSettingData.Save();
+                mUiKitSettingData.Save();
             }
 			
             GUILayout.EndVertical();
