@@ -246,7 +246,7 @@ namespace QFramework.GraphDesigner
 
         }
 
-        public ObservableCollection<GraphItemViewModel> PropertyViewModels { get; set; }
+        public MVVM.ObservableCollection<GraphItemViewModel> PropertyViewModels { get; set; }
 
         public override Vector2 Position
         {

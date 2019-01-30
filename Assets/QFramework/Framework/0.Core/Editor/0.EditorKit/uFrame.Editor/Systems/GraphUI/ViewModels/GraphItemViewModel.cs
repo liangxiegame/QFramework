@@ -61,7 +61,7 @@ namespace QFramework.GraphDesigner
 
         private bool _isSelected = false;
         private List<ConnectorViewModel> _connectors;
-        private readonly ObservableCollection<GraphItemViewModel> _contentItems = new ObservableCollection<GraphItemViewModel>();
+        private readonly MVVM.ObservableCollection<GraphItemViewModel> _contentItems = new MVVM.ObservableCollection<GraphItemViewModel>();
 
         public const string IsSelectedProperty = "IsSelected";
 
@@ -153,7 +153,7 @@ namespace QFramework.GraphDesigner
             set { _connectors = value; }
         }
 
-        public ObservableCollection<GraphItemViewModel> ContentItems
+        public MVVM.ObservableCollection<GraphItemViewModel> ContentItems
         {
             get { return _contentItems; }
         

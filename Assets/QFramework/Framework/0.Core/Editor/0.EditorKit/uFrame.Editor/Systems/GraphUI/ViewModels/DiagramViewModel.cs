@@ -13,7 +13,7 @@ namespace QFramework.GraphDesigner
 {
     public class DiagramViewModel : ViewModel, IDataRecordInserted, IDataRecordRemoved, IDataRecordPropertyChanged
     {
-        private ObservableCollection<GraphItemViewModel> _graphItems = new ObservableCollection<GraphItemViewModel>();
+        private MVVM.ObservableCollection<GraphItemViewModel> _graphItems = new MVVM.ObservableCollection<GraphItemViewModel>();
     
 
         private InspectorViewModel _inspectorViewModel;
@@ -502,7 +502,7 @@ namespace QFramework.GraphDesigner
         }
         public IDiagramNode[] CurrentNodes { get; set; }
 
-        public ObservableCollection<GraphItemViewModel> GraphItems
+        public MVVM.ObservableCollection<GraphItemViewModel> GraphItems
         {
             get { return _graphItems; }
             set { _graphItems = value; }

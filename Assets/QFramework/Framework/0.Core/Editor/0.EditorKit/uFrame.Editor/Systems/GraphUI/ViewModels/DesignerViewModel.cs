@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using QFramework.MVVM;
 
 namespace QFramework.GraphDesigner
 {
     public class DesignerViewModel : ViewModel<Workspace>
     {
-        private ObservableCollection<TabViewModel> _tabs;
+        private MVVM.ObservableCollection<TabViewModel> _tabs;
  
         private WorkspaceService _workspaceService;
 
