@@ -1,17 +1,17 @@
 {
-  "Version": "v0.1.17",
+  "Version": "v0.1.18",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.17",
-    "content": "saved toolbar index",
+    "version": "v0.1.18",
+    "content": "add UnRegisterTemplate",
     "author": "liangxie",
-    "date": "2019 年 01 月 29 日 21:06"
+    "date": "2019 年 01 月 30 日 09:49"
   },
   "Name": "0.Core",
-  "VersionNumber": 117,
-  "FileName": "0.Core_v0.1.17.unitypackage"
+  "VersionNumber": 118,
+  "FileName": "0.Core_v0.1.18.unitypackage"
 }

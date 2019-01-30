@@ -68,15 +68,13 @@ namespace QFramework
 					return;
 				}
 				
-				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelCodeDesignerTemplate>();
+
 
 				UIMarkCollector.mPanelCodeData = new PanelCodeData();
 				Debug.Log(clone.name);
 				UIMarkCollector.mPanelCodeData.PanelName = clone.name.Replace("(clone)", string.Empty);
 				UIMarkCollector.FindAllMarkTrans(clone.transform, "");
 				CreateUIPanelCode(obj, uiPrefabPath);
-
-
 				
 				UISerializer.AddSerializeUIPrefab(obj);
 
@@ -91,31 +89,23 @@ namespace QFramework
 
 			var behaviourName = uiPrefab.name;
 
-			var strFilePath = string.Empty;
-
-			var prefabDirPattern = UIKitSettingData.Load().UIPrefabDir;
-
-			if (uiPrefabPath.Contains(prefabDirPattern))
-			{
-				strFilePath = uiPrefabPath.Replace(prefabDirPattern, UIKitSettingData.GetScriptsPath());
-
-			}
-			else if (uiPrefabPath.Contains("/Resources"))
-			{
-				strFilePath = uiPrefabPath.Replace("/Resources", UIKitSettingData.GetScriptsPath());
-			}
-			else
-			{
-				strFilePath = uiPrefabPath.Replace("/" + CodeGenUtil.GetLastDirName(uiPrefabPath), UIKitSettingData.GetScriptsPath());
-			}
-
-			strFilePath.Replace(uiPrefab.name + ".prefab", string.Empty).CreateDirIfNotExists();
-
-			strFilePath = strFilePath.Replace(".prefab", ".cs");
+			var strFilePath = CodeGenUtil.GenSourceFilePathFromPrefabPath(uiPrefabPath, behaviourName);
 
 			if (File.Exists(strFilePath) == false)
 			{
-				UIPanelCodeTemplate.Generate(strFilePath, behaviourName, UIKitSettingData.GetProjectNamespace());
+				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDataTemplate>();
+				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelTemplate>();
+				
+				var factory = new RegisteredTemplateGeneratorsFactory();
+				
+				var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+								
+				CompilingSystem.GenerateFile(new FileInfo(strFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+				{
+					Generators = generators.ToArray()
+				});
+
+				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
 			}
 
 			CreateUIPanelDesignerCode(behaviourName, strFilePath);
@@ -127,7 +117,7 @@ namespace QFramework
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
 			var generateFilePath = dir + behaviourName + ".Designer.cs";
 
-//			UIPanelComponentsCodeTemplate.Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+			RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDesignerTemplate>();
 
 			var factory = new RegisteredTemplateGeneratorsFactory();
 				
@@ -137,9 +127,9 @@ namespace QFramework
 			{
 				Generators = generators.ToArray()
 			});
+			
+			RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
 
-			
-			
 			foreach (var elementCodeData in UIMarkCollector.mPanelCodeData.ElementCodeDatas)
 			{
 				var elementDir = string.Empty;

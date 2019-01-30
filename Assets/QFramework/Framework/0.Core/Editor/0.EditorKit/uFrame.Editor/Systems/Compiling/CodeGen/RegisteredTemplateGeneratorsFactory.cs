@@ -29,6 +29,17 @@ namespace QFramework.GraphDesigner
             if (!list.Contains(type))
                 list.Add(type);
         }
+        
+        public static void UnRegisterTemplate<TFor>()
+            where TFor : class, IDataRecord
+        {
+            List<Type> list;
+            if (RegisteredTemplates.TryGetValue(typeof(TFor), out list))
+            {
+                RegisteredTemplates.Remove(typeof(TFor));
+            }
+        }
+        
         public override IEnumerable<OutputGenerator> CreateGenerators(IGraphConfiguration graphConfig, IDataRecord item)
         {
 

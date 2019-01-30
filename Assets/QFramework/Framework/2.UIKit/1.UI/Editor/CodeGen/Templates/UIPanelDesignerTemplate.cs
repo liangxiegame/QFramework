@@ -32,7 +32,7 @@ namespace QFramework
     [RequiresNamespace("UnityEngine")]
     [RequiresNamespace("UnityEngine.UI")]
     [AsPartial]
-    public class UIPanelCodeDesignerTemplate : IClassTemplate<PanelCodeData>,ITemplateCustomFilename
+    public class UIPanelDesignerTemplate : IClassTemplate<PanelCodeData>,ITemplateCustomFilename
     {
         public string OutputPath  { get; private set; }
         public bool   CanGenerate
@@ -47,9 +47,12 @@ namespace QFramework
 
             var dataTypeName = Ctx.Data.PanelName + "Data";
 
-            var nameField = Ctx.CurrentDeclaration._public_(typeof(string), "NAME");
-            nameField.Attributes = MemberAttributes.Const | nameField.Attributes;
-            nameField.InitExpression = Ctx.Data.PanelName.ToCodeSnippetExpression();
+            var nameField = new CodeMemberField(typeof(string), "NAME")
+            {
+                Attributes = MemberAttributes.Const | MemberAttributes.Public,
+                InitExpression = Ctx.Data.PanelName.ToCodeSnippetExpression()
+            };
+            Ctx.CurrentDeclaration.Members.Add(nameField);
 
             Ctx.Data.MarkedObjInfos.ForEach(info =>
             {
