@@ -38,7 +38,14 @@ namespace QFramework
         }
         
         public abstract string ComponentName { get; }
-        
+
+        private string mCustomComent;
+
+        public string Comment
+        {
+            get { return mCustomComent; }
+        }
+
         public Transform Transform
         {
             get { return transform; }

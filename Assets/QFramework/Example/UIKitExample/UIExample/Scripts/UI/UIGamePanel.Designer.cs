@@ -21,11 +21,12 @@ namespace QFramework.Example
     public partial class UIGamePanel
     {
         
-        public string NAME = "UIGamePanel";
+        public const string NAME = "UIGamePanel";
         
         [SerializeField()]
         public Text gameText;
         
+        // 返回按钮
         [SerializeField()]
         public Button backBtn;
         

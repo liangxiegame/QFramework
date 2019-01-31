@@ -57,6 +57,12 @@ namespace QFramework
             Ctx.Data.MarkedObjInfos.ForEach(info =>
             {
                 var field = Ctx.CurrentDeclaration._public_(info.MarkObj.ComponentName, info.Name);
+
+                if (info.MarkObj.Comment.IsNotNullAndEmpty())
+                {
+                    field.Comments.Add(new CodeCommentStatement(info.MarkObj.Comment));
+                }
+
                 field.CustomAttributes.Add(new CodeAttributeDeclaration("SerializeField".ToCodeReference()));
             });
 
