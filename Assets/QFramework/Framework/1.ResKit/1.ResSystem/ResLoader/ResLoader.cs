@@ -358,7 +358,7 @@ namespace QFramework
         public Sprite LoadSprite(string bundleName, string spriteName)
         {
 #if UNITY_EDITOR
-            if (ResKit.ModeLogic is SimulationModeLogic)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -380,7 +380,7 @@ namespace QFramework
         public Sprite LoadSprite(string spriteName)
         {
 #if UNITY_EDITOR
-            if (ResKit.ModeLogic is SimulationModeLogic)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -414,7 +414,7 @@ namespace QFramework
             }
 
 #if UNITY_EDITOR
-            if (ResKit.ModeLogic is SimulationModeLogic)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(resName))
                 {
@@ -467,7 +467,7 @@ namespace QFramework
         public void ReleaseAllRes()
         {
 #if UNITY_EDITOR
-            if (ResKit.ModeLogic is SimulationModeLogic)
+            if (Res.SimulateAssetBundleInEditor)
             {
                 foreach (var spritePair in mCachedSpriteDict)
                 {

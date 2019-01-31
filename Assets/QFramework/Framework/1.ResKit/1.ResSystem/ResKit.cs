@@ -31,33 +31,5 @@ namespace QFramework
         {
             ResMgr.Init();
         }
-
-        private static IModeLogic mModeLogic = null;
-
-        public static IModeLogic ModeLogic
-        {
-            get
-            {
-                if (mModeLogic == null)
-                {
-#if UNITY_EDITOR
-                    var simulationMode = UnityEditor.EditorPrefs.GetBool("SimulateAssetBundles", true);
-                    if (simulationMode)
-                    {
-                        mModeLogic = new SimulationModeLogic();
-                    }
-                    else
-                    {
-                        mModeLogic = new RealModeLogic();
-                    }
-#else
-                    mModeLogic = new RealModeLogic();
-#endif
-
-                }
-
-                return mModeLogic;
-            }
-        }
     }
 }
