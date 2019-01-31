@@ -78,7 +78,7 @@ namespace QFramework
             State = ResState.Loading;
 
 #if UNITY_EDITOR
-            if (SimulateAssetBundleInEditor)
+            if (ResKit.ModeLogic is SimulationModeLogic)
             {
             }
             else
@@ -127,7 +127,7 @@ namespace QFramework
             }
 
 #if UNITY_EDITOR
-            if (SimulateAssetBundleInEditor)
+            if (ResKit.ModeLogic is SimulationModeLogic)
             {
                 yield return null;
             }

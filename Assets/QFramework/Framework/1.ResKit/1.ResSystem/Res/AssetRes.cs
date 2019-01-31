@@ -88,10 +88,11 @@ namespace QFramework
 			Object obj = null;
 
 #if UNITY_EDITOR
-			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (ResKit.ModeLogic is SimulationModeLogic && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
+				
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
-
+				
 				var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
 				{
@@ -171,7 +172,7 @@ namespace QFramework
 			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
 
 #if UNITY_EDITOR
-			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (ResKit.ModeLogic is SimulationModeLogic && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
 				var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)

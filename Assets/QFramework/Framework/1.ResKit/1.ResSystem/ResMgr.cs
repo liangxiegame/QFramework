@@ -73,7 +73,7 @@ namespace QFramework
 		public void InitResMgr()
         {   
 #if UNITY_EDITOR
-            if (Res.SimulateAssetBundleInEditor)
+            if (ResKit.ModeLogic is SimulationModeLogic)
             {
                 EditorRuntimeAssetDataCollector.BuildDataTable();
             }
