@@ -117,7 +117,7 @@ namespace QFramework
                     {
                         if (mMaxCount < mCacheStack.Count)
                         {
-                            int removeCount = mMaxCount - mCacheStack.Count;
+                            int removeCount = mCacheStack.Count - mMaxCount;
                             while (removeCount > 0)
                             {
                                 mCacheStack.Pop();

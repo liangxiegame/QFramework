@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2019.2 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,6 +23,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
+
+using System.Linq;
 
 namespace QFramework
 {
@@ -150,29 +152,20 @@ namespace QFramework
 				return;
 			}
 
-			DirectoryInfo dir = new DirectoryInfo(dirName);
+			var dir = new DirectoryInfo(dirName);
 
 			if (null != dir.Parent && dir.Attributes.ToString().IndexOf("System") > -1)
 			{
 				return;
 			}
 
-			FileInfo[] finfo = dir.GetFiles();
-			string fname = string.Empty;
-			for (int i = 0; i < finfo.Length; i++)
-			{
-				fname = finfo[i].Name;
+			var fileInfos = dir.GetFiles(fileName);
+			outResult.AddRange(fileInfos.Select(fileInfo => fileInfo.FullName));
 
-				if (fname == fileName)
-				{
-					outResult.Add(finfo[i].FullName);
-				}
-			}
-
-			DirectoryInfo[] dinfo = dir.GetDirectories();
-			for (int i = 0; i < dinfo.Length; i++)
+			var dirInfos = dir.GetDirectories();
+			foreach (var dinfo in dirInfos)
 			{
-				GetFileInFolder(dinfo[i].FullName, fileName, outResult);
+				GetFileInFolder(dinfo.FullName, fileName, outResult);
 			}
 		}
 	}
