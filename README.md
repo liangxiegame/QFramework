@@ -107,6 +107,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
 * [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
 * [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
+* [uFrame](https://github.com/uFrame/uFrame.Complete)
 
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
