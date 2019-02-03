@@ -31,7 +31,7 @@ namespace QFramework
         [GenerateMethod, AsOverride]
         protected void OnInit(IUIData uiData = null)
         {
-            Ctx._("mData = uiData as UIOKPanelData ?? new UIOKPanelData()");
+            Ctx._("mData = uiData as {0} ?? new {0}()",Ctx.Data.PanelName + "Data");
             Ctx._comment("please add init code here");
         }
 
