@@ -277,9 +277,6 @@ namespace QFramework.Editor
             GUILayout.EndVertical();
 
             GUILayout.EndVertical();
-
-
-            GUILayout.Space(50);
         }
     }
 }

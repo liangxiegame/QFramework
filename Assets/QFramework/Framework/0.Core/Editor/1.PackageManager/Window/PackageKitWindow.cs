@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright 2017 ~ 2019.1 liangxie
+ * Copyright 2017 ~ 2019.2 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -69,15 +69,6 @@ namespace QFramework.Editor
 				.ResolveAll<IPackageKitView>()
 				.OrderBy(view => view.RenderOrder)
 				.ForEach(view => AddChild(view as GUIView));
-		}
-
-		public override void OnGUI()
-		{	
-			base.OnGUI();
-//			if (PackageApplication.Container != null)
-//			{
-//				PackageApplication.SignalEvent<IPackageKitView>(_ => _.OnGUI());
-//			}
 		}
 	}	
 }

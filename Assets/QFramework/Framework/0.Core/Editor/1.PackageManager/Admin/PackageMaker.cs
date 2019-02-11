@@ -74,8 +74,14 @@ namespace QFramework.Editor
 			}
 		}
 
+		[MenuItem("Assets/@QPM - Publish Package", true)]
+		static bool ValiedateExportPackage()
+		{
+			return User.Logined;
+		}
+
 		[MenuItem("Assets/@QPM - Publish Package", priority = 2)]
-		public static void ExportPTPlugin()
+		public static void publishPackage()
 		{
 			if (Application.internetReachability == NetworkReachability.NotReachable)
 			{
@@ -145,7 +151,6 @@ namespace QFramework.Editor
 			EditorApplication.update -= Update;
 		}
 
-
 		private void Update()
 		{
 			switch (mGenerateState)
@@ -192,16 +197,13 @@ namespace QFramework.Editor
 		private string mReleaseNote = string.Empty;
 
 		
-		bool inRegisterView = false;
 
 		private void DrawInit()
 		{
-
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("当前版本号", GUILayout.Width(100));
 			GUILayout.Label(mPackageVersion.Version, GUILayout.Width(100));
 			GUILayout.EndHorizontal();
-
 
 			GUILayout.BeginHorizontal();
 			GUILayout.Label("发布版本号", GUILayout.Width(100));
@@ -232,46 +234,6 @@ namespace QFramework.Editor
 				mPackageVersion.DocUrl = GUIUtility.systemCopyBuffer;
 			}
 			GUILayout.EndHorizontal();
-			
-			if (User.Token.Value.IsNullOrEmpty())
-			{
-				User.Username.Value = EditorGUIUtils.GUILabelAndTextField("username:", User.Username.Value);
-				User.Password.Value = EditorGUIUtils.GUILabelAndPasswordField("password:", User.Password.Value);
-
-				if (!inRegisterView && GUILayout.Button("登录"))
-				{
-					GetTokenAction.DoGetToken(User.Username.Value, User.Password.Value, token =>
-					{
-						User.Token.Value = token;
-						User.Save();
-					});
-				}
-
-				if (!inRegisterView && GUILayout.Button("注册"))
-				{
-					inRegisterView = true;
-				}
-
-				if (inRegisterView)
-				{
-					if (GUILayout.Button("注册"))
-					{
-
-					}
-
-					if (GUILayout.Button("返回注册"))
-					{
-						inRegisterView = false;
-					}
-				}
-			}
-			else
-			{
-				if (GUILayout.Button("注销"))
-				{
-					User.Clear();
-				}
-			}
 
 			if (User.Token.Value.IsNotNullAndEmpty())
 			{
