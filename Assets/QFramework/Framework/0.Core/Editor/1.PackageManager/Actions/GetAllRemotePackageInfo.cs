@@ -32,134 +32,130 @@ namespace QFramework
     using UniRx;
     using System.Collections.Generic;
     using Newtonsoft.Json.Linq;
-    
+
     public class GetAllRemotePackageInfo : NodeAction
     {
-        private Action<List<PackageData>> mOnGet;
-        
-        public GetAllRemotePackageInfo(Action <List<PackageData>> onGet)
-        {
-            mOnGet = onGet;
-        }
+	    private Action<List<PackageData>> mOnGet;
 
-        protected override void OnBegin()
-        {
-	        Dictionary<string, string> headers = null;
+	    public GetAllRemotePackageInfo(Action<List<PackageData>> onGet)
+	    {
+		    mOnGet = onGet;
+	    }
 
-	        if (User.Logined)
-	        {
-		        headers = new Dictionary<string, string>()
-		        {
-			        {"Authorization", "Token " + User.Token}
-		        };
-	        }
+	    protected override void OnBegin()
+	    {
+		    Dictionary<string, string> headers = null;
 
-	        ObservableWWW.Get ("http://liangxiegame.com/api/packages/",headers).Subscribe (response =>
-			{
-				var responseJson = JArray.Parse (response);
-				var packageInfosJson = responseJson;
+		    if (User.Logined)
+		    {
+			    headers = new Dictionary<string, string>()
+			    {
+				    {"Authorization", "Token " + User.Token}
+			    };
+		    }
 
-				var packageDatas = new List<PackageData> ();
-				foreach (var packageInfo in packageInfosJson)
-				{
-					var name = packageInfo["name"].Value<string>();
+		    ObservableWWW.Get("http://liangxiegame.com/api/packages/", headers).Subscribe(response =>
+		    {
+			    var responseJson = JArray.Parse(response);
+			    var packageInfosJson = responseJson;
 
-					var package = packageDatas.Find(packageData => packageData.Name == name);
+			    var packageDatas = new List<PackageData>();
+			    foreach (var packageInfo in packageInfosJson)
+			    {
+				    var name = packageInfo["name"].Value<string>();
 
-					if (package == null)
-					{
-						package = new PackageData()
-						{
-							Name = name,
-						};
+				    var package = packageDatas.Find(packageData => packageData.Name == name);
 
-						packageDatas.Add(package);
-					}
+				    if (package == null)
+				    {
+					    package = new PackageData()
+					    {
+						    Name = name,
+					    };
 
-					var version = packageInfo["version"].Value<string>();
-					var url = packageInfo["file"].Value<string>(); // download_url
-					var installPath = packageInfo["install_path"].Value<string>();
-					var releaseNote = packageInfo["release_note"].Value<string>();
-					var createAt = packageInfo["create_at"].Value<string>();
-					var creator = packageInfo["creator"].Value<string>();
-					var docUrl = packageInfo["doc_url"].Value<string>();
-					var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
-					var typeName = packageInfo["type"].Value<string>();
-					var accessRightName = packageInfo["access_right"].Value<string>();
+					    packageDatas.Add(package);
+				    }
 
-					var packageType = PackageType.FrameworkModule;
+				    var version = packageInfo["version"].Value<string>();
+				    var url = packageInfo["file"].Value<string>(); // download_url
+				    var installPath = packageInfo["install_path"].Value<string>();
+				    var releaseNote = packageInfo["release_note"].Value<string>();
+				    var createAt = packageInfo["create_at"].Value<string>();
+				    var creator = packageInfo["creator"].Value<string>();
+				    var docUrl = packageInfo["doc_url"].Value<string>();
+				    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
+				    var typeName = packageInfo["type"].Value<string>();
+				    var accessRightName = packageInfo["access_right"].Value<string>();
 
-					switch (typeName)
-					{
-						case "fm":
-							packageType = PackageType.FrameworkModule;
-							break;
-						case "s":
-							packageType = PackageType.Shader;
-							break;
-						case "agt":
-							packageType = PackageType.AppOrGameDemoOrTemplate;
-							break;
-						case "p":
-							packageType = PackageType.Plugin;
-							break;
-					}
+				    var packageType = PackageType.FrameworkModule;
 
-					var accessRight = PackageAccessRight.Public;
+				    switch (typeName)
+				    {
+					    case "fm":
+						    packageType = PackageType.FrameworkModule;
+						    break;
+					    case "s":
+						    packageType = PackageType.Shader;
+						    break;
+					    case "agt":
+						    packageType = PackageType.AppOrGameDemoOrTemplate;
+						    break;
+					    case "p":
+						    packageType = PackageType.Plugin;
+						    break;
+				    }
 
-					switch (accessRightName)
-					{
-						case "public":
-							accessRight = PackageAccessRight.Public;
-							break;
-						case "private":
-							accessRight = PackageAccessRight.Private;
-							break;
+				    var accessRight = PackageAccessRight.Public;
 
-					}
+				    switch (accessRightName)
+				    {
+					    case "public":
+						    accessRight = PackageAccessRight.Public;
+						    break;
+					    case "private":
+						    accessRight = PackageAccessRight.Private;
+						    break;
 
-					package.PackageVersions.Add(new PackageVersion()
-					{
-						Version = version,
-						DownloadUrl = url,
-						InstallPath = installPath,
-						Type = packageType,
-						AccessRight = accessRight,
-						Readme = releaseItem,
-						DocUrl = docUrl,
-						
-					});
+				    }
 
-					package.readme.AddReleaseNote(releaseItem);
-				}
+				    package.PackageVersions.Add(new PackageVersion()
+				    {
+					    Version = version,
+					    DownloadUrl = url,
+					    InstallPath = installPath,
+					    Type = packageType,
+					    AccessRight = accessRight,
+					    Readme = releaseItem,
+					    DocUrl = docUrl,
 
-				packageDatas.ForEach (packageData =>
-				{
-					packageData.PackageVersions.Sort((a, b) =>
-							GetVersionNumber(b.Version) - GetVersionNumber(a.Version));
-					packageData.readme.items.Sort((a, b) =>
-						GetVersionNumber(b.version) - GetVersionNumber(a.version));
-				});
-                
-				mOnGet.InvokeGracefully (packageDatas);
+				    });
 
-				new PackageInfosRequestCache () {
-					PackageDatas = packageDatas
-				}.Save ();
-                
-				Finished = true;
-			}, e =>
-			{
-				mOnGet.InvokeGracefully (null);
-				Log.E (e);
-			});
-		}
+				    package.readme.AddReleaseNote(releaseItem);
+			    }
 
-        public static int GetVersionNumber(string version)
-        {
-            return int.Parse(version.Replace("v", string.Empty).Replace(".", ""));
-        }
-	}
+			    packageDatas.ForEach(packageData =>
+			    {
+				    packageData.PackageVersions.Sort((a, b) =>
+					    b.VersionNumber - a.VersionNumber);
+				    packageData.readme.items.Sort((a, b) =>
+					    b.VersionNumber - a.VersionNumber);
+			    });
+
+			    mOnGet.InvokeGracefully(packageDatas);
+
+			    new PackageInfosRequestCache()
+			    {
+				    PackageDatas = packageDatas
+			    }.Save();
+
+			    Finished = true;
+		    }, e =>
+		    {
+			    mOnGet.InvokeGracefully(null);
+			    Log.E(e);
+		    });
+	    }
+    }
 
     public class PackageInfosRequestCache
     {

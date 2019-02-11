@@ -26,5 +26,20 @@ namespace QFramework
         public string content = "";
         public string author  = "";
         public string date    = "";
+        
+        
+        public int VersionNumber
+        {
+            get
+            {
+                var numbersStr = version.RemoveString("v").Split('.');
+
+                var retNumber = numbersStr[2].ToInt();
+                retNumber += numbersStr[1].ToInt() * 100;
+                retNumber += numbersStr[0].ToInt() * 10000;
+                
+                return retNumber;
+            }
+        }
     }
 }

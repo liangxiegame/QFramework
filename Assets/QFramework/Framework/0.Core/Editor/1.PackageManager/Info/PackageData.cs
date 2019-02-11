@@ -137,6 +137,7 @@ namespace QFramework
                 var retNumber = numbersStr[2].ToInt();
                 retNumber += numbersStr[1].ToInt() * 100;
                 retNumber += numbersStr[0].ToInt() * 10000;
+                
                 return retNumber;
             }
         }
