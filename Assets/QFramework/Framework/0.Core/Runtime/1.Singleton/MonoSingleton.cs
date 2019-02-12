@@ -74,10 +74,4 @@ namespace QFramework
 			mInstance = null;
 		}
 	}
-
-	[System.Obsolete("弃用啦,请使用 MonoSingleton")]
-	public abstract class QMonoSingleton<T> : MonoSingleton<T> where T : QMonoSingleton<T>
-	{
-		
-	}
 }

@@ -40,7 +40,12 @@ namespace QFramework
 			if (!IsUnitTestMode && !Application.isPlaying) return instance;
 			instance = Object.FindObjectOfType<T>();
 
-			if (instance != null) return instance;
+			if (instance != null)
+			{
+				instance.OnSingletonInit();
+				return instance;
+			}
+
 			MemberInfo info = typeof(T);
 			var attributes = info.GetCustomAttributes(true);
 			foreach (var atribute in attributes)
@@ -64,7 +69,6 @@ namespace QFramework
 			}
 
 			instance.OnSingletonInit();
-
 			return instance;
 		}
 
