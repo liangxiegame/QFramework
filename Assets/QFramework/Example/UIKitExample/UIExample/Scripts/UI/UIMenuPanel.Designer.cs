@@ -2,7 +2,7 @@
  * 2019.1 LIANGXIE
  ****************************************************************************/
 
-namespace QFramework.UIExample
+namespace QFramework.Example
 {
 	using UnityEngine;
 	using UnityEngine.UI;
@@ -20,6 +20,7 @@ namespace QFramework.UIExample
 			ImageBg = null;
 			BtnPlay = null;
 			BtnSetting = null;
+			mData = null;
 		}
 
 		private UIMenuPanelData mPrivateData = null;

@@ -91,7 +91,6 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * Unity 5.6.x ~ 2018.x
 
 ### 包含项目 Include Projects:
-* [Catlib.Core](https://github.com/CatLib/Core)
 * [ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)
 * [StateManageEditor](https://github.com/827922094/StateManageEditor)
 * [UniRx](https://github.com/neuecc/UniRx)
@@ -107,6 +106,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
 * [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
 * [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
+* [uFrame](https://github.com/uFrame/uFrame.Complete)
+* [Catlib.Core](https://github.com/CatLib/Core)
 
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
