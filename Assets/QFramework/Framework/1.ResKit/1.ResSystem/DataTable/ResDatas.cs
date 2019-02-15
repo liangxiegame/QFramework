@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -47,8 +48,8 @@ namespace QFramework
             }
         }
 
-        private readonly List<AssetDataGroup> mActiveAssetDataGroup = new List<AssetDataGroup>();
-        private readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
+        private List<AssetDataGroup> mActiveAssetDataGroup = new List<AssetDataGroup>();
+        private List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
 
         public void SwitchLanguage(string key)
         {
@@ -148,6 +149,7 @@ namespace QFramework
         public string[] GetAllDependenciesByUrl(string url)
         {
 			var abName = ResKitUtil.AssetBundleUrl2Name(url);
+            //var a = new AssetBundleManifest();
             
             for (var i = mActiveAssetDataGroup.Count - 1; i >= 0; --i)
             {
@@ -175,7 +177,7 @@ namespace QFramework
                 }
                 return result;
             }
-
+            //Log.W(string.Format("Not Find Asset : {0}", assetName));
             return null;
         }
 
@@ -203,12 +205,11 @@ namespace QFramework
 
         public void Save(string outPath)
         {
-            SerializeData sd = new SerializeData
-            {
-                AssetDataGroup = new AssetDataGroup.SerializeData[mAllAssetDataGroup.Count]
-            };
+            SerializeData sd = new SerializeData();
 
-            for (var i = 0; i < mAllAssetDataGroup.Count; ++i)
+            sd.AssetDataGroup = new AssetDataGroup.SerializeData[mAllAssetDataGroup.Count];
+
+            for (int i = 0; i < mAllAssetDataGroup.Count; ++i)
             {
                 sd.AssetDataGroup[i] = mAllAssetDataGroup[i].GetSerializeData();
             }

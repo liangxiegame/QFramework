@@ -25,7 +25,7 @@
 
 using UnityEngine;
 
-namespace QFramework.Example
+namespace QFramework.UIExample
 {
 	public class Example : MonoBehaviour
 	{

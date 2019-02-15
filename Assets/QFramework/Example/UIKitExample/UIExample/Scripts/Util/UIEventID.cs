@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QFramework.Example
+namespace QFramework.UIExample
 {
     public static class UIEventID
     {

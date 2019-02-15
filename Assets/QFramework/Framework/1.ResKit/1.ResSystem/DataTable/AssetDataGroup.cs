@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.3 ~ 2019.1 liangxie
+ * Copyright (c) 2018.3 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -27,6 +27,7 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Text;
 
 namespace QFramework
 {

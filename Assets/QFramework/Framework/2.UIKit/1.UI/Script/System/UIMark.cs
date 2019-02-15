@@ -38,11 +38,6 @@ namespace QFramework
 	{
 		public UIMarkType MarkType = UIMarkType.DefaultUnityElement;
 
-		public string Comment
-		{
-			get { return CustomComment; }
-		}
-
 		public Transform Transform
 		{
 			get { return transform; }
@@ -50,12 +45,6 @@ namespace QFramework
 
 		public string CustomComponentName;
 
-		/// <summary>
-		/// 注释
-		/// </summary>
-		[Header("注释")]
-		public string CustomComment;
-		
 		public UIMarkType GetUIMarkType()
 		{
 			return MarkType;

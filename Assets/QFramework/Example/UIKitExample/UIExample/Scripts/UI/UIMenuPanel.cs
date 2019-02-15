@@ -25,7 +25,7 @@
 
 using UniRx;
 
-namespace QFramework.Example
+namespace QFramework.UIExample
 {
 	public class UIMenuPanelData : IUIData
 	{

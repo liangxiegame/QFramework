@@ -37,8 +37,6 @@ namespace QFramework
     public interface IMark
     {
         string ComponentName { get; }
-        
-        string Comment { get; }
 
         Transform Transform { get; }
 

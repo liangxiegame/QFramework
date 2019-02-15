@@ -25,7 +25,7 @@
 
 using UnityEngine.UI;
 
-namespace QFramework.Example
+namespace QFramework.UIExample
 {
 	public class UISectionPanelData : UIPanelData
 	{

@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework.Example
+namespace QFramework.UIExample
 {
 	public class UIGamePanelData : UIPanelData
 	{

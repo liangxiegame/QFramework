@@ -30,6 +30,8 @@ namespace QFramework
         public static void Init()
         {
             ResMgr.Init();
+            
+            
         }
     }
 }

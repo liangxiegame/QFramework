@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,14 +7,17 @@ namespace QFramework.Example
 {
 	public class LoadResourcesResExample : MonoBehaviour
 	{
-		public RawImage RawImage;
+		private RawImage mRawImage;
 		
-		private ResLoader mResLoader = ResLoader.Allocate();
+		ResLoader mResLoader = ResLoader.Allocate();
+	
 		
 		// Use this for initialization
-		private void Start()
+		void Start()
 		{
-			RawImage.texture = mResLoader.LoadSync<Texture2D>("resources://TestTexture");
+			mRawImage = transform.Find("RawImage").GetComponent<RawImage>();
+
+			mRawImage.texture = mResLoader.LoadSync<Texture2D>("resources://TestTexture");
 		}
 
 		private void OnDestroy()
