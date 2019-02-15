@@ -209,7 +209,7 @@ namespace QFramework
             GUILayout.EndHorizontal();
 
             //显示折叠
-            if (!iterator.isExpanded || iterator.serializedObject == null)
+            if (!iterator.isExpanded || iterator.serializedObject == null || iterator.arraySize == 0)
             {
                 return;
             }
