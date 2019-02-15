@@ -57,7 +57,11 @@ namespace QFramework
 				headers.ForEach((k, v) => { request.SetRequestHeader(k, v); });
 			}
 
+#if UNITY_5_6
+			return request.Send()
+#else
 			return request.SendWebRequest()
+#endif
 				.AsAsyncOperationObservable()
 				.Subscribe(operation => { onResponse.Invoke(); });;
 		}

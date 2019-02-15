@@ -47,7 +47,7 @@ namespace QFramework
 
         private float scaleAll = 1;
         private SerializedProperty spAnchoredPosition;
-        private SerializedProperty spLocalRotation;
+        //private SerializedProperty spLocalRotation;
         private SerializedProperty spLocalScale;
         private SerializedProperty spPivot;
         private SerializedProperty spSizeDelta;
@@ -68,7 +68,7 @@ namespace QFramework
         {
             spAnchoredPosition = serializedObject.FindProperty("m_AnchoredPosition");
             spSizeDelta = serializedObject.FindProperty("m_SizeDelta");
-            spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
+            //spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
             spLocalScale = serializedObject.FindProperty("m_LocalScale");
             spPivot = serializedObject.FindProperty("m_Pivot");
             scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
