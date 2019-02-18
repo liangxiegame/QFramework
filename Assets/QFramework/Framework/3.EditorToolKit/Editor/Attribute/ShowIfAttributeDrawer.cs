@@ -152,7 +152,7 @@ namespace QFramework
             return CheckFieldOrProperty(obj, target);
         }
 
-        internal static bool CheckShowTargets(SerializedProperty property, ShowIfAttribute orAttribute)
+        private static bool CheckShowTargets(SerializedProperty property, ShowIfAttribute orAttribute)
         {
             bool res = true;
             if (orAttribute.mode == ShowIfAttribute.Mode.And)

@@ -45,10 +45,10 @@ namespace QFramework
                     case PrefabType.PrefabInstance:
                     case PrefabType.DisconnectedPrefabInstance:
                         GameObject gameObject = PrefabUtility.FindValidUploadPrefabInstanceRoot(go);
-#if UNITY_2018
+#if UNITY_2018_2_OR_NEWER
                         Object prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
 #else
-                        Object prefabParent = PrefabUtility.GetPrefabParent(gameObject);
+                        var prefabParent = PrefabUtility.GetPrefabParent(gameObject);
 #endif
                         //Undo.RecordObject(prefabParent, "ReplacePrefab");
                         PrefabUtility.ReplacePrefab(gameObject, prefabParent);

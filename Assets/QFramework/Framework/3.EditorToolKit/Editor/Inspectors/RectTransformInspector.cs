@@ -24,7 +24,6 @@
 //  * THE SOFTWARE.
 //  ****************************************************************************/
 
-using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -47,13 +46,15 @@ namespace QFramework
 
         private float scaleAll = 1;
         private SerializedProperty spAnchoredPosition;
-        //private SerializedProperty spLocalRotation;
+        private SerializedProperty spLocalRotation;
         private SerializedProperty spLocalScale;
         private SerializedProperty spPivot;
         private SerializedProperty spSizeDelta;
 
         public RectTransformInspector()
-            : base("RectTransformEditor") { }
+            : base("RectTransformEditor")
+        {
+        }
 
         private void MoveTargetAnchoredPosition(Vector2 v2Unit)
         {
@@ -68,7 +69,7 @@ namespace QFramework
         {
             spAnchoredPosition = serializedObject.FindProperty("m_AnchoredPosition");
             spSizeDelta = serializedObject.FindProperty("m_SizeDelta");
-            //spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
+            spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
             spLocalScale = serializedObject.FindProperty("m_LocalScale");
             spPivot = serializedObject.FindProperty("m_Pivot");
             scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
@@ -102,8 +103,8 @@ namespace QFramework
                     {
                         autoSetNativeSize = false;
                         RectTransform tf = target as RectTransform;
-                        float x = image.sprite.rect.width / image.pixelsPerUnit;
-                        float y = image.sprite.rect.height / image.pixelsPerUnit;
+                        float x = image.sprite.rect.width/image.pixelsPerUnit;
+                        float y = image.sprite.rect.height/image.pixelsPerUnit;
                         tf.anchorMax = tf.anchorMin;
                         tf.sizeDelta = new Vector2(x, y);
                     }
@@ -117,22 +118,22 @@ namespace QFramework
                     {
                         case KeyCode.UpArrow:
                             Undo.RecordObjects(targets, "UpArrow");
-                            MoveTargetAnchoredPosition(Vector2.up * nUnit);
+                            MoveTargetAnchoredPosition(Vector2.up*nUnit);
                             e.Use();
                             break;
                         case KeyCode.DownArrow:
                             Undo.RecordObjects(targets, "DownArrow");
-                            MoveTargetAnchoredPosition(Vector2.down * nUnit);
+                            MoveTargetAnchoredPosition(Vector2.down*nUnit);
                             e.Use();
                             break;
                         case KeyCode.LeftArrow:
                             Undo.RecordObjects(targets, "LeftArrow");
-                            MoveTargetAnchoredPosition(Vector2.left * nUnit);
+                            MoveTargetAnchoredPosition(Vector2.left*nUnit);
                             e.Use();
                             break;
                         case KeyCode.RightArrow:
                             Undo.RecordObjects(targets, "RightArrow");
-                            MoveTargetAnchoredPosition(Vector2.right * nUnit);
+                            MoveTargetAnchoredPosition(Vector2.right*nUnit);
                             e.Use();
                             break;
                     }
@@ -143,18 +144,18 @@ namespace QFramework
             if (stylePivotSetup == null)
             {
                 stylePivotSetup = new GUIStyle("PreButton")
-                {
-                    normal = new GUIStyle("CN Box").normal,
-                    active = new GUIStyle("AppToolbar").normal,
-                    overflow = new RectOffset(),
-                    padding = new RectOffset(0, 0, -1, 0),
-                    fixedWidth = 19
-                };
+                                  {
+                                      normal = new GUIStyle("CN Box").normal,
+                                      active = new GUIStyle("AppToolbar").normal,
+                                      overflow = new RectOffset(),
+                                      padding = new RectOffset(0, 0, -1, 0),
+                                      fixedWidth = 19
+                                  };
 
                 styleMove = new GUIStyle(stylePivotSetup)
-                {
-                    padding = new RectOffset(0, 0, -2, 0)
-                };
+                            {
+                                padding = new RectOffset(0, 0, -2, 0)
+                            };
             }
 
             GUILayout.BeginHorizontal();
@@ -162,7 +163,6 @@ namespace QFramework
                 GUILayout.BeginVertical();
                 {
                     #region Tools
-
                     GUILayout.BeginHorizontal();
                     {
                         EditorGUIUtility.labelWidth = 64;
@@ -170,7 +170,7 @@ namespace QFramework
                         if (!Mathf.Approximately(scaleAll, newScale))
                         {
                             scaleAll = newScale;
-                            spLocalScale.vector3Value = Vector3.one * scaleAll;
+                            spLocalScale.vector3Value = Vector3.one*scaleAll;
                         }
                     }
 
@@ -178,8 +178,7 @@ namespace QFramework
 
                     GUILayout.BeginHorizontal();
                     {
-                        if (GUILayout.Button(s_Contents.anchoredPosition0Content, strButtonLeft,
-                            GUILayout.Width(fButtonWidth)))
+                        if (GUILayout.Button(s_Contents.anchoredPosition0Content, strButtonLeft, GUILayout.Width(fButtonWidth)))
                         {
                             foreach (Object item in targets)
                             {
@@ -195,23 +194,13 @@ namespace QFramework
 
                         if (GUILayout.Button(s_Contents.rotation0Content, strButtonMid, GUILayout.Width(fButtonWidth)))
                         {
-                            Undo.RecordObjects(targets, "rotationContent");
-                            MethodInfo method =
-                                typeof(Transform).GetMethod("SetLocalEulerAngles", BindingFlags.Instance | BindingFlags.NonPublic);
-                            object[] clear = { Vector3.zero, 0 };
-                            for (int i = 0; i < targets.Length; i++)
-                            {
-                                method.Invoke(targets[i], clear);
-                            }
-
-                            Event.current.type = EventType.Used;
+                            spLocalRotation.quaternionValue = Quaternion.identity;
                         }
 
-                        if (GUILayout.Button(s_Contents.scale1Content, strButtonRight, GUILayout.Width(fButtonWidth)))
+                        if (GUILayout.Button(s_Contents.scale0Content, strButtonRight, GUILayout.Width(fButtonWidth)))
                         {
-                            scaleAll = 1;
                             spLocalScale.vector3Value = Vector3.one;
-                            Event.current.type = EventType.Used;
+                            scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
                         }
 
                         if (GUILayout.Button(s_Contents.roundContent))
@@ -223,11 +212,9 @@ namespace QFramework
                         }
                     }
                     GUILayout.EndHorizontal();
-
                     #endregion
 
                     #region Copy Paste
-
                     GUILayout.BeginHorizontal();
                     Color c = GUI.color;
                     GUI.color = new Color(1f, 1f, 0.5f, 1f);
@@ -259,8 +246,7 @@ namespace QFramework
                         }
                     }
 
-                    if (GUILayout.Button(s_Contents.normalSizeDeltaContent, strButtonRight,
-                        GUILayout.Width(fButtonWidth)))
+                    if (GUILayout.Button(s_Contents.normalSizeDeltaContent, strButtonRight, GUILayout.Width(fButtonWidth)))
                     {
                         Undo.RecordObjects(targets, "N");
                         foreach (Object item in targets)
@@ -275,7 +261,6 @@ namespace QFramework
 
                     GUILayout.Label(s_Contents.readmeContent);
                     GUILayout.EndHorizontal();
-
                     #endregion
                 }
                 GUILayout.EndVertical();
@@ -283,7 +268,6 @@ namespace QFramework
                 GUILayout.BeginVertical();
                 {
                     #region Pivot
-
                     GUILayout.Label("Pivot", "ProfilerPaneSubLabel"); //┌─┐
                     GUILayout.BeginHorizontal(); //│┼│
                     {
@@ -346,7 +330,6 @@ namespace QFramework
 
                     GUILayout.EndHorizontal();
                 }
-
                 #endregion
 
                 GUILayout.EndVertical();
@@ -363,20 +346,15 @@ namespace QFramework
         {
             public readonly GUIContent anchoredPosition0Content = new GUIContent("P", "AnchoredPosition 0");
             public readonly GUIContent scaleContent = new GUIContent("Scale …", "Scale all axis");
-            public readonly GUIContent scale1Content = new GUIContent("S", "Scale 1");
+            public readonly GUIContent scale0Content = new GUIContent("S", "Scale 0");
             public readonly GUIContent deltaSize0Content = new GUIContent("D", "DeltaSize 0");
             public readonly GUIContent rotation0Content = new GUIContent("R", "Rotation 0");
-
-            public readonly GUIContent roundContent =
-                new GUIContent("Round", "AnchoredPosition DeltaSize round to int");
-
+            public readonly GUIContent roundContent = new GUIContent("Round", "AnchoredPosition DeltaSize round to int");
             public readonly GUIContent copyContent = new GUIContent("C", "Copy component value");
             public readonly GUIContent pasteContent = new GUIContent("P", "Paste component value");
             public readonly GUIContent fillParentContent = new GUIContent("F", "Fill the parent RectTransform");
             public readonly GUIContent normalSizeDeltaContent = new GUIContent("N", "Change to normal sizeDelta mode");
-
-            public readonly GUIContent readmeContent =
-                new GUIContent("Readme", "Ctrl+Arrow key move rectTransform\nCtrl: 1px    Shift: 10px");
+            public readonly GUIContent readmeContent = new GUIContent("Readme", "Ctrl+Arrow key move rectTransform\nCtrl: 1px    Shift: 10px");
         }
     }
 }

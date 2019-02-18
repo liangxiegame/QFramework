@@ -1,19 +1,19 @@
 {
-  "Version": "v0.2.0",
+  "Version": "v0.2.1",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/3.EditorToolKit/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.2.0",
-    "content": "bug fixes",
+    "version": "v0.2.1",
+    "content": "restore Editor Tool Kit",
     "author": "liangxie",
-    "date": "2019 年 02 月 18 日 14:26",
-    "VersionNumber": 200
+    "date": "2019 年 02 月 18 日 20:20",
+    "VersionNumber": 201
   },
   "Id": null,
   "Name": "3.EditorToolKit",
-  "VersionNumber": 200,
-  "FileName": "3.EditorToolKit_v0.2.0.unitypackage"
+  "VersionNumber": 201,
+  "FileName": "3.EditorToolKit_v0.2.1.unitypackage"
 }
