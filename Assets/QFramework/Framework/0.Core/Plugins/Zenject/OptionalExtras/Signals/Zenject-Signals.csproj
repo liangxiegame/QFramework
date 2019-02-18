@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2F314FC6-5BD1-4A28-9FA0-F1F4C84871DE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Zenject</RootNamespace>
+    <AssemblyName>Zenject-Signals</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <IntermediateOutputPath>..\..\..\..\..\..\..\NonUnityBuild\Temp\Debug\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\..\..\..\NonUnityBuild\Temp\Debug\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\..\NonUnityBuild\Bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NOT_UNITY3D</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <IntermediateOutputPath>..\..\..\..\..\..\..\NonUnityBuild\Temp\Release\</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>..\..\..\..\..\..\..\NonUnityBuild\Temp\Release\</BaseIntermediateOutputPath>
+    <OutputPath>..\..\..\..\..\..\NonUnityBuild\Bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NOT_UNITY3D</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\AssemblyBuild\Zenject-usage\Zenject-usage.csproj">
+      <Project>{e22b1cbf-7e4d-48bd-953b-2b730bd9ff13}</Project>
+      <Name>Zenject-usage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Source\Zenject.csproj">
+      <Project>{46f25a62-2e29-48cb-95f3-bdbcb0976ddc}</Project>
+      <Name>Zenject</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Internal\Binders\BindSignal\BindSignalFromBinder.cs" />
+    <Compile Include="Internal\Binders\BindSignal\BindSignalIdToBinder.cs" />
+    <Compile Include="Internal\Binders\BindSignal\BindSignalToBinder.cs" />
+    <Compile Include="Internal\Binders\BindSignal\SignalCallbackWithLookupWrapper.cs" />
+    <Compile Include="Internal\Binders\BindSignal\SignalCallbackWrapper.cs" />
+    <Compile Include="Internal\Binders\DeclareSignal\DeclareSignalAsyncTickPriorityCopyBinder.cs" />
+    <Compile Include="Internal\Binders\DeclareSignal\DeclareSignalIdRequireHandlerAsyncTickPriorityCopyBinder.cs" />
+    <Compile Include="Internal\Binders\DeclareSignal\DeclareSignalRequireHandlerAsyncTickPriorityCopyBinder.cs" />
+    <Compile Include="Internal\Binders\DeclareSignal\SignalBindingBindInfo.cs" />
+    <Compile Include="Internal\Binders\DeclareSignal\SignalDeclarationBindInfo.cs" />
+    <Compile Include="Internal\Binders\SignalCopyBinder.cs" />
+    <Compile Include="Internal\Binders\SignalExtensions.cs" />
+    <Compile Include="Internal\Binders\SignalTickPriorityCopyBinder.cs" />
+    <Compile Include="Internal\SignalDeclaration.cs" />
+    <Compile Include="Internal\SignalSubscription.cs" />
+    <Compile Include="Internal\SignalSubscriptionId.cs" />
+    <Compile Include="Main\SignalBus.cs" />
+    <Compile Include="Main\SignalBusInstaller.cs" />
+    <Compile Include="Main\SignalDeclarationAsyncInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Internal\Binders.meta" />
+    <None Include="Internal\Binders\BindSignal.meta" />
+    <None Include="Internal\Binders\BindSignal\BindSignalFromBinder.cs.meta" />
+    <None Include="Internal\Binders\BindSignal\BindSignalToBinder.cs.meta" />
+    <None Include="Internal\Binders\BindSignal\SignalCallbackWithLookupWrapper.cs.meta" />
+    <None Include="Internal\Binders\BindSignal\SignalCallbackWrapper.cs.meta" />
+    <None Include="Internal\Binders\DeclareSignal.meta" />
+    <None Include="Internal\Binders\DeclareSignal\DeclareSignalAsyncTickPriorityCopyBinder.cs.meta" />
+    <None Include="Internal\Binders\DeclareSignal\DeclareSignalRequireHandlerAsyncTickPriorityCopyBinder.cs.meta" />
+    <None Include="Internal\Binders\DeclareSignal\SignalDeclarationBindInfo.cs.meta" />
+    <None Include="Internal\Binders\SignalCopyBinder.cs.meta" />
+    <None Include="Internal\Binders\SignalExtensions.cs.meta" />
+    <None Include="Internal\Binders\SignalTickPriorityCopyBinder.cs.meta" />
+    <None Include="Internal\SignalDeclaration.cs.meta" />
+    <None Include="Internal\SignalSubscription.cs.meta" />
+    <None Include="Internal\SignalSubscriptionId.cs.meta" />
+    <None Include="Main\SignalBus.cs.meta" />
+    <None Include="Main\SignalBusInstaller.cs.meta" />
+    <None Include="Main\SignalDeclarationAsyncInitializer.cs.meta" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

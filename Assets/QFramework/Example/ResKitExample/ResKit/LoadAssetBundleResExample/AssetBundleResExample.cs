@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,9 +5,9 @@ namespace QFramework.Example
 {
 	public class AssetBundleResExample : MonoBehaviour
 	{
+		private ResLoader mResLoader = ResLoader.Allocate();
 
-		ResLoader mResLoader = ResLoader.Allocate();
-
+		public RawImage RawImage;
 
 		private void Awake()
 		{
@@ -21,9 +19,10 @@ namespace QFramework.Example
 		{
 			RawImage rawImage = transform.Find("RawImage").GetComponent<RawImage>();
 
-			rawImage.texture = mResLoader.LoadSync<Texture2D>("TestImage");
+			RawImage.texture = mResLoader.LoadSync<Texture2D>("TestImage");
 			
-//			rawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
+			// 通过下边方式也一样
+			RawImage.texture = mResLoader.LoadSync<Texture2D>("testimage_png","TestImage");
 		}
 
 		private void OnDestroy()

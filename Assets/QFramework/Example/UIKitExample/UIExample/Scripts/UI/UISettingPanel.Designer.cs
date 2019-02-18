@@ -2,7 +2,7 @@
  * 2019.1 LIANGXIE
  ****************************************************************************/
 
-namespace QFramework.UIExample
+namespace QFramework.Example
 {
 	using UnityEngine;
 	using UnityEngine.UI;
@@ -18,6 +18,7 @@ namespace QFramework.UIExample
 		{
 			eventBtn = null;
 			backBtn = null;
+			mData = null;
 		}
 
 		private UISettingPanelData mPrivateData = null;

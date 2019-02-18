@@ -1,0 +1,3 @@
+<linker>
+    <assembly fullname="Zenject-usage" preserve="all"/>
+</linker>

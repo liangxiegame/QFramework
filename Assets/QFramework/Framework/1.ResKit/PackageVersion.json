@@ -1,16 +1,17 @@
 {
-  "Version": "v0.0.26",
+  "Version": "v0.1.2",
   "Type": 0,
   "AccessRight": 0,
-  "DownloadUrl": "http://liangxiegame.com/media/2.ResKit_v0.0.1.unitypackage",
-  "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/1.ResKit/",
+  "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.0.26",
-    "content": "test LoadLocalImage Async",
+    "version": "v0.1.2",
+    "content": "fix bug",
     "author": "liangxie",
-    "date": "2019 年 01 月 13 日 18:15"
+    "date": "2019 年 01 月 31 日 13:17"
   },
-  "Name": "2.ResKit",
-  "VersionNumber": 26,
-  "FileName": "2.ResKit_v0.0.26.unitypackage"
+  "Name": "1.ResKit",
+  "VersionNumber": 102,
+  "FileName": "1.ResKit_v0.1.2.unitypackage"
 }
