@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -38,9 +39,10 @@ namespace QFramework
     internal class TransformInspector : CustomCustomEditor
     {
         private float scale = 1;
-        private SerializedProperty m_LocalPosition;
-        private SerializedProperty m_LocalRotation;
-        private SerializedProperty m_LocalScale;
+        private SerializedProperty spLocalPosition;
+        private SerializedProperty spLocalRotation;
+        private SerializedProperty spLocalScale;
+        private TransformRotationGUI rotationGUI;
 
         internal TransformInspector()
             : base("TransformInspector")
@@ -53,25 +55,29 @@ namespace QFramework
 
         protected void OnEnable()
         {
-            m_LocalPosition = serializedObject.FindProperty("m_LocalPosition");
-            m_LocalRotation = serializedObject.FindProperty("m_LocalRotation");
-            m_LocalScale = serializedObject.FindProperty("m_LocalScale");
-            scale = m_LocalScale.FindPropertyRelative("x").floatValue;
+            spLocalPosition = serializedObject.FindProperty("m_LocalPosition");
+            spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
+            spLocalScale = serializedObject.FindProperty("m_LocalScale");
+            scale = spLocalScale.FindPropertyRelative("x").floatValue;
             if (s_Contents == null)
             {
                 s_Contents = new Contents();
             }
 
-            CallFieldMethod("m_RotationGUI", "OnEnable", new[]
-                                                         {
-                                                             typeof(SerializedProperty), typeof(GUIContent)
-                                                         }, m_LocalRotation, s_Contents.rotationContent);
+            //CallFieldMethod("m_RotationGUI", "OnEnable", new[]
+            //{
+            //    typeof(SerializedProperty), typeof(GUIContent)
+            //}, spLocalRotation, s_Contents.rotationContent);
+
+            if (rotationGUI == null)
+                rotationGUI = new TransformRotationGUI();
+            rotationGUI.Initialize(spLocalRotation, s_Contents.rotationContent);
         }
 
         private static Vector3 Round(Vector3 v3Value, int nDecimalPoint = 0)
         {
-            var nScale = 1;
-            for (var i = 0; i < nDecimalPoint; i++)
+            int nScale = 1;
+            for (int i = 0; i < nDecimalPoint; i++)
             {
                 nScale *= 10;
             }
@@ -112,29 +118,40 @@ namespace QFramework
                 EditorGUIUtility.wideMode = true;
             }
 
-            EditorGUILayout.PropertyField(m_LocalPosition, s_Contents.positionContent);
-            CallFieldMethod("m_RotationGUI", "RotationField", new Type[0], null);
-            EditorGUILayout.PropertyField(m_LocalScale, s_Contents.scaleContent);
+            EditorGUILayout.PropertyField(spLocalPosition, s_Contents.positionContent);
+            rotationGUI.Draw();
+            //CallFieldMethod("m_RotationGUI", "RotationField", new Type[0], null);
+            EditorGUILayout.PropertyField(spLocalScale, s_Contents.scaleContent);
 
             Rect rect = GUILayoutUtility.GetLastRect();
             rect.width = style.fixedWidth;
             rect.y -= 36;
             if (GUI.Button(rect, s_Contents.positionContent, style))
             {
-                m_LocalPosition.vector3Value = Vector3.zero;
+                spLocalPosition.vector3Value = Vector3.zero;
             }
 
             rect.y += 18;
             if (GUI.Button(rect, s_Contents.rotationContent, style))
             {
-                m_LocalRotation.quaternionValue = Quaternion.identity;
+                //spLocalRotation.quaternionValue = Quaternion.identity;
+                Undo.RecordObjects(targets, "rotationContent");
+                MethodInfo method =
+                    typeof(Transform).GetMethod("SetLocalEulerAngles", BindingFlags.Instance | BindingFlags.NonPublic);
+                object[] clear = { Vector3.zero, 0 };
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    method.Invoke(targets[i], clear);
+                }
+
+                Event.current.type = EventType.Used;
             }
 
             rect.y += 18;
             if (GUI.Button(rect, s_Contents.scaleContent, style))
             {
                 scale = 1;
-                m_LocalScale.vector3Value = Vector3.one;
+                spLocalScale.vector3Value = Vector3.one;
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -144,7 +161,7 @@ namespace QFramework
                 if (!Mathf.Approximately(scale, newScale))
                 {
                     scale = newScale;
-                    m_LocalScale.vector3Value = Vector3.one*scale;
+                    spLocalScale.vector3Value = Vector3.one*scale;
                 }
 
                 EditorGUILayout.LabelField("Round", GUILayout.Width(42f));
@@ -192,9 +209,9 @@ namespace QFramework
                 {
                     if (GUILayout.Button("Copy", "ButtonLeft"))
                     {
-                        TransformInspectorCopyData.localPositionCopy = m_LocalPosition.vector3Value;
-                        TransformInspectorCopyData.localRotationCopy = m_LocalRotation.quaternionValue;
-                        TransformInspectorCopyData.loacalScaleCopy = m_LocalScale.vector3Value;
+                        TransformInspectorCopyData.localPositionCopy = spLocalPosition.vector3Value;
+                        TransformInspectorCopyData.localRotationCopy = spLocalRotation.quaternionValue;
+                        TransformInspectorCopyData.loacalScaleCopy = spLocalScale.vector3Value;
                         Transform t = target as Transform;
                         TransformInspectorCopyData.positionCopy = t.position;
                         TransformInspectorCopyData.rotationCopy = t.rotation;
@@ -213,9 +230,9 @@ namespace QFramework
                     }
                     else
                     {
-                        m_LocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
-                        m_LocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
-                        m_LocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
+                        spLocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
+                        spLocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
+                        spLocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
                     }
                 }
 
@@ -228,7 +245,7 @@ namespace QFramework
                     }
                     else
                     {
-                        m_LocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
+                        spLocalPosition.vector3Value = TransformInspectorCopyData.localPositionCopy;
                     }
                 }
 
@@ -241,7 +258,7 @@ namespace QFramework
                     }
                     else
                     {
-                        m_LocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
+                        spLocalRotation.quaternionValue = TransformInspectorCopyData.localRotationCopy;
                     }
                 }
 
@@ -250,7 +267,7 @@ namespace QFramework
                     if (GUILayout.Button("PSca", "ButtonMid"))
                     {
                         Undo.RecordObjects(targets, "PSca");
-                        m_LocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
+                        spLocalScale.vector3Value = TransformInspectorCopyData.loacalScaleCopy;
                     }
                 }
 
