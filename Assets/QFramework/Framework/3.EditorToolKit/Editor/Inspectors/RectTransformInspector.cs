@@ -24,6 +24,7 @@
 //  * THE SOFTWARE.
 //  ****************************************************************************/
 
+using System.Reflection;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -144,18 +145,18 @@ namespace QFramework
             if (stylePivotSetup == null)
             {
                 stylePivotSetup = new GUIStyle("PreButton")
-                                  {
-                                      normal = new GUIStyle("CN Box").normal,
-                                      active = new GUIStyle("AppToolbar").normal,
-                                      overflow = new RectOffset(),
-                                      padding = new RectOffset(0, 0, -1, 0),
-                                      fixedWidth = 19
-                                  };
+                {
+                    normal = new GUIStyle("CN Box").normal,
+                    active = new GUIStyle("AppToolbar").normal,
+                    overflow = new RectOffset(),
+                    padding = new RectOffset(0, 0, -1, 0),
+                    fixedWidth = 19
+                };
 
                 styleMove = new GUIStyle(stylePivotSetup)
-                            {
-                                padding = new RectOffset(0, 0, -2, 0)
-                            };
+                {
+                    padding = new RectOffset(0, 0, -2, 0)
+                };
             }
 
             GUILayout.BeginHorizontal();
@@ -194,7 +195,16 @@ namespace QFramework
 
                         if (GUILayout.Button(s_Contents.rotation0Content, strButtonMid, GUILayout.Width(fButtonWidth)))
                         {
-                            spLocalRotation.quaternionValue = Quaternion.identity;
+                            Undo.RecordObjects(targets, "rotationContent");
+                            MethodInfo method =
+                                typeof(Transform).GetMethod("SetLocalEulerAngles", BindingFlags.Instance | BindingFlags.NonPublic);
+                            object[] clear = { Vector3.zero, 0 };
+                            for (int i = 0; i < targets.Length; i++)
+                            {
+                                method.Invoke(targets[i], clear);
+                            }
+
+                            Event.current.type = EventType.Used;
                         }
 
                         if (GUILayout.Button(s_Contents.scale0Content, strButtonRight, GUILayout.Width(fButtonWidth)))
