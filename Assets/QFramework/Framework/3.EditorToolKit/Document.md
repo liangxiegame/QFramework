@@ -2,6 +2,8 @@
 
 这里是对Unity编辑器的扩展，也包含了对Unity组件Inspector的拓展
 
+有任何问题请在 QQ 群里 @拖鞋
+
 # **工具**
 
 ## 1. **Transform检视面板**
