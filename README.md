@@ -3,6 +3,7 @@
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Documentation Status](./DocRes/passing.svg)](http://qframework.io)  [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 [![Coverage Status](https://coveralls.io/repos/github/liangxiegame/QFramework/badge.svg?branch=master)](https://coveralls.io/github/liangxiegame/QFramework?branch=master)
+[![Feature Requests](http://feathub.com/liangxiegame/QFramework?format=svg)](http://feathub.com/liangxiegame/QFramework)
 
 我们团队做的每一件事情，都是为了给开发者带来更好的开发体验,提高效率，减少加班。我们尽心应该以不同的方式思考。我们挑战现状的方式是通过把我们的框架打磨得十分精美，原理简单，新手友好，但不失强大。我们只是在这个过程中做出了优雅的 QFramework。想了解下嘛？ 
 
