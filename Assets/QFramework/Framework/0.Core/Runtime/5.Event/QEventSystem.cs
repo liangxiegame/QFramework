@@ -152,7 +152,7 @@ namespace QFramework
         #endregion
         
         
-        #region 搞频率使用的API
+        #region 高频率使用的API
         public static bool SendEvent<T>(T key,params object[] param) where T : IConvertible
         {
             return Instance.Send(key, param);
