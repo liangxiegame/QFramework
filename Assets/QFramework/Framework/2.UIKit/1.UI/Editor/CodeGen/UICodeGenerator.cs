@@ -38,6 +38,7 @@ namespace QFramework
 		[MenuItem("Assets/@UI Kit - Create UICode")]
 		public static void CreateUICode()
 		{
+			mScriptKitInfo = null;
 			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
 			var displayProgress = objs.Length > 1;
 			if (displayProgress) EditorUtility.DisplayProgressBar("", "Create UIPrefab Code...", 0);
@@ -78,6 +79,8 @@ namespace QFramework
 				
 				UISerializer.AddSerializeUIPrefab(obj);
 
+				HotScriptBind(obj);
+				
 				Object.DestroyImmediate(clone);
 			}
 		}
@@ -90,22 +93,31 @@ namespace QFramework
 			var behaviourName = uiPrefab.name;
 
 			var strFilePath = CodeGenUtil.GenSourceFilePathFromPrefabPath(uiPrefabPath, behaviourName);
-
-			if (File.Exists(strFilePath) == false)
-			{
-				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDataTemplate>();
-				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelTemplate>();
-				
-				var factory = new RegisteredTemplateGeneratorsFactory();
-				
-				var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
-								
-				CompilingSystem.GenerateFile(new FileInfo(strFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+			if(mScriptKitInfo.IsNotNull()){
+				if (File.Exists(strFilePath) == false)
 				{
-					Generators = generators.ToArray()
-				});
+					if(mScriptKitInfo.Templates.IsNotNull() && mScriptKitInfo.Templates[0].IsNotNull())
+						mScriptKitInfo.Templates[0].Generate(strFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(),null);
+				}
+			}
+			else
+			{
+				if (File.Exists(strFilePath) == false)
+				{
+					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDataTemplate>();
+					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelTemplate>();
+					
+					var factory = new RegisteredTemplateGeneratorsFactory();
+					
+					var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+									
+					CompilingSystem.GenerateFile(new FileInfo(strFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+					{
+						Generators = generators.ToArray()
+					});
 
-				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+					RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+				}
 			}
 
 			CreateUIPanelDesignerCode(behaviourName, strFilePath);
@@ -116,19 +128,32 @@ namespace QFramework
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
 			var generateFilePath = dir + behaviourName + ".Designer.cs";
-
-			RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDesignerTemplate>();
-
-			var factory = new RegisteredTemplateGeneratorsFactory();
-				
-			var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
-								
-			CompilingSystem.GenerateFile(new FileInfo(generateFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+			if(mScriptKitInfo.IsNotNull())
 			{
-				Generators = generators.ToArray()
-			});
-			
-			RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+				if(mScriptKitInfo.Templates.IsNotNull() && mScriptKitInfo.Templates[1].IsNotNull()){
+					mScriptKitInfo.Templates[1].Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+				}
+				mScriptKitInfo.HotScriptFilePath.CreateDirIfNotExists();
+				mScriptKitInfo.HotScriptFilePath = mScriptKitInfo.HotScriptFilePath + "/" + behaviourName + mScriptKitInfo.HotScriptSuffix;
+				if (File.Exists(mScriptKitInfo.HotScriptFilePath) == false && mScriptKitInfo.Templates.IsNotNull() &&  mScriptKitInfo.Templates[2].IsNotNull()){
+					mScriptKitInfo.Templates[2].Generate(mScriptKitInfo.HotScriptFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+				}
+			}
+			else
+			{
+				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDesignerTemplate>();
+
+				var factory = new RegisteredTemplateGeneratorsFactory();
+					
+				var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+									
+				CompilingSystem.GenerateFile(new FileInfo(generateFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
+				{
+					Generators = generators.ToArray()
+				});
+				
+				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+			}
 
 			foreach (var elementCodeData in UIMarkCollector.mPanelCodeData.ElementCodeDatas)
 			{
@@ -161,5 +186,36 @@ namespace QFramework
 		}
 
 		private static readonly UICodeGenerator mInstance = new UICodeGenerator();
+
+		#region ScriptKit 
+		public static void CreateScriptUICode(ScriptKitInfo info)
+		{
+			mScriptKitInfo = info;
+			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
+			var displayProgress = objs.Length > 1;
+			if (displayProgress) EditorUtility.DisplayProgressBar("", "<color=#EE6A50>ScriptKit:Create ScriptUI Code...</color>", 0);
+			for (var i = 0; i < objs.Length; i++)
+			{
+				mInstance.CreateCode(objs[i] as GameObject, AssetDatabase.GetAssetPath(objs[i]));
+				if (displayProgress)
+					EditorUtility.DisplayProgressBar("", "<color=#EE6A50>ScriptKit:Create ScriptUI Code...</color>", (float) (i + 1) / objs.Length);
+			}
+
+			AssetDatabase.Refresh();
+			if (displayProgress) EditorUtility.ClearProgressBar();
+		}	
+
+
+		private static void HotScriptBind(GameObject uiPrefab){
+			if(mScriptKitInfo.IsNotNull() && mScriptKitInfo.CodeBind.IsNotNull())
+			{
+				mScriptKitInfo.CodeBind.Invoke(uiPrefab,mScriptKitInfo.HotScriptFilePath);
+				AssetDatabase.SaveAssets();
+				AssetDatabase.Refresh();
+			}
+		}		
+
+		private static ScriptKitInfo mScriptKitInfo;
+		#endregion
 	}
 }
