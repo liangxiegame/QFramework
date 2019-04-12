@@ -5,7 +5,7 @@ class in Actionkit / Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.m
 ```可控事件```节点，和EventAction节点类似，但是通过回调可以控制节点结束时机。
 
 ## Implemented Properties
-* IsRecycled  缓存标记
+* IsRecycled    ```缓存标记```
 
 ## Inherits Methods
 
