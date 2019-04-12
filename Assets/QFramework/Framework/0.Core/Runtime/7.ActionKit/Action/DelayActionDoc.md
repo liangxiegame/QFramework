@@ -13,6 +13,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 ## Construction
 
 * public DelayAction(float delayTime)	
+
 | 参数      | 描述     |
 | --------- | -------- |
 | delayTime | 延迟时间 |
