@@ -40,8 +40,8 @@ public void OnDisposed(System.Action onDisposedEvent)  设置销毁时回调
 
 
 ```
-注释：下面的整段序列在按下键盘S或者this的MonoBehaviour失效时会主动或被动停止重复，主动停止(暨按下S)时输出"结束"```
-this.Repeat()
+注释：下面的整段序列在按下键盘S或者this的MonoBehaviour失效时会主动或被动停止重复，主动停止(暨按下S)时输出"结束"this.Repeat()
+
 this.Repeat
     .Delay(0.5f)
     .Event(() => { Debug.Log("0.5s"); })
