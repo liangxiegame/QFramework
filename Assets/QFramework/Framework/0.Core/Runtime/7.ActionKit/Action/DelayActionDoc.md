@@ -17,17 +17,16 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 | 参数      | 描述     |
 | --------- | -------- |
 | delayTime | 延迟时间 |
+
 ## Inherits Methods
 
 * Finish			      结束当前节点，
 
-* Break                              设置节点的状态为Finish
+* Break             设置节点的状态为Finish
 
-* Reset                              重置节点状态
+* Reset             重置节点状态
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
-
-
   | 参数 | 描述           |
   | ---- | -------------- |
   | dt   | 执行一次的时间 |
