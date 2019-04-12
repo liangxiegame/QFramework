@@ -6,7 +6,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 
 延迟节点，用于异步等待一段时间执行事件。
 
-<!--```参考:```IActionChainExtention.Delay-->
+参考:```IActionChainExtention.Delay```
 
 ## Properties
 
