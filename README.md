@@ -111,14 +111,16 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
-- [@huibinye](https://github.com/HUIBINYE)
-- [@dtknowlove](https://github.com/dtknowlove)
+- [@junyu-tu](https://github.com/junyu-tu)
 - [@vin129](https://github.com/vin129)
 - [@kevin](https://github.com/KEVIN-ZED)
 - [@827922094](https://github.com/827922094)
 - [@SilenceT](https://github.com/SilenceT)
-- [@imagicbell](https://github.com/imagicbell)
 - [@liangxie](https://github.com/liangxieq)
+
+- [~~@dtknowlove~~](https://github.com/dtknowlove)
+- [~~@huibinye~~](https://github.com/HUIBINYE)
+- [~~@imagicbell~~](https://github.com/imagicbell)
 
 ### 代码规范完全遵循:
 
