@@ -27,6 +27,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 * Reset             重置节点状态
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
+  
   | 参数 | 描述           |
   | ---- | -------------- |
   | dt   | 执行一次的时间 |
