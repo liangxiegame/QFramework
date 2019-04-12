@@ -11,9 +11,9 @@ class in Actionkit / Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.m
 
 * Finish			      结束当前节点，
 
-* Break                              设置节点的状态为Finish
+* Break             设置节点的状态为Finish
 
-* Reset                              重置节点状态
+* Reset             重置节点状态
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
 
