@@ -1,17 +1,13 @@
 ## DelayAction
-
 class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction.md)  /Implemented in : [IPoolable]()
 
 ## Description
-
 延迟节点，用于异步等待一段时间执行事件。
-
 参考:```IActionChainExtention.Delay```
 
 ## Properties
-
 - DelayTime  		    节点延迟总时间
-- IsRecycled                      缓存标记
+- IsRecycled        缓存标记
 
 ## Construction
 
