@@ -31,6 +31,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
 
+
   | 参数 | 描述           |
   | ---- | -------------- |
   | dt   | 执行一次的时间 |
@@ -40,6 +41,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 ## Static Methods
 
 - public static DelayAction Allocate(float delayTime, System.Action onEndCallback = null)	 从缓存池中创建延迟节点，并设置延迟时间和结束事件
+
 
   | 参数          | 描述     |
   | ------------- | -------- |
