@@ -19,6 +19,9 @@
           * [UIScrollPage](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIScrollPageDoc.md) 
           * [UIScrollPageMark](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIScrollPageMarkDoc.md) 
           * [UITransition](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UITransitionDoc.md) 
+        * [Res](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/ResDoc.md)
+          * [DefaultPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/DefaultPanelLoaderDoc.md) 
+          * [IPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/IPanelLoaderDoc.md) 
         <!--* [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)-->
   * [Editor ToolKit](/Assets/QFramework/Framework/3.EditorToolKit/Document.md)
     * [Inspectors](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Inspectors/Document.md)
