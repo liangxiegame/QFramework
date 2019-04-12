@@ -11,6 +11,7 @@ class in Actionkit / Inherits from:[NodeAction](www.baidu.com) / Implemented fro
 ## Construction
 * public RepeatNode(IAction node, int repeatCount)
 
+
 | 参数        | 描述                                                |
 | ----------- | --------------------------------------------------- |
 | node        | 需要循环的节点，这里是[序列执行节点](www.baidu.com) |
@@ -25,6 +26,7 @@ class in Actionkit / Inherits from:[NodeAction](www.baidu.com) / Implemented fro
 * Reset                              重置节点状态
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
+
 
   | 参数 | 描述           |
   | ---- | -------------- |
