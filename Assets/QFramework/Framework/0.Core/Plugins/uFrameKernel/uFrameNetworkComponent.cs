@@ -30,7 +30,7 @@ namespace uFrame.Kernel
         /// <example>
         /// this.OnEvent&lt;MyEventClass&gt;().Subscribe(myEventClassInstance=&gt;{ DO_SOMETHING_HERE });
         /// </example>
-        public IObservable<TEvent> OnEvent<TEvent>()
+        public System.IObservable<TEvent> OnEvent<TEvent>()
         {
             return EventAggregator.GetEvent<TEvent>();
         }

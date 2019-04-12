@@ -32,7 +32,7 @@ namespace uFrame.Kernel
 
         }
 
-        public IObservable<TEvent> OnEvent<TEvent>()
+        public System.IObservable<TEvent> OnEvent<TEvent>()
         {
             return EventAggregator.GetEvent<TEvent>();
         }
