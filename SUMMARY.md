@@ -20,7 +20,7 @@
           * [UIScrollPageMark](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIScrollPageMarkDoc.md) 
           * [UITransition](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UITransitionDoc.md) 
         * [Res](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/ResDoc.md)
-          * [DefaultPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/DefaultPanelLoaderDoc.md) ManagerOfManagers.md
+          * [DefaultPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/DefaultPanelLoaderDoc.md) 
           * [IPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/IPanelLoaderDoc.md) 
         <!--* [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)-->
     * [ManagerOfManagers](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/ManagerOfManagers.md)
