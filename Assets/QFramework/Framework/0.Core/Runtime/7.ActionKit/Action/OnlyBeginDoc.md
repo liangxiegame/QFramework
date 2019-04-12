@@ -18,6 +18,7 @@ class in Actionkit / Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.m
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
 
+
   | 参数 | 描述           |
   | ---- | -------------- |
   | dt   | 执行一次的时间 |
@@ -26,6 +27,7 @@ class in Actionkit / Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.m
 
 ## Public Methods
 * public static OnlyBeginAction Allocate(```Action<OnlyBeginAction> beginAction```)  
+
 
 | 参数        | 描述     |
 | ----------- | -------- |
