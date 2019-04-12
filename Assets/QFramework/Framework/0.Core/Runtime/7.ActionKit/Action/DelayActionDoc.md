@@ -29,7 +29,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
   
   | 参数 | 描述           |
-  | ---- | -------------- |
+  | ---- | ------------- |
   | dt   | 执行一次的时间 |
 
 * Dispose                          设置节点的状态为Dispose
