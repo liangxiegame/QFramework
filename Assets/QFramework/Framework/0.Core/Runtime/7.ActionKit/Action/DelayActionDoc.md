@@ -3,6 +3,7 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 
 ## Description
 延迟节点，用于异步等待一段时间执行事件。
+
 参考:```IActionChainExtention.Delay```
 
 ## Properties
@@ -12,8 +13,6 @@ class in ActionKit / Inherits from: [NodeAction ](ActionKitAPI/Action/NodeAction
 ## Construction
 
 * public DelayAction(float delayTime)	
-
-
 | 参数      | 描述     |
 | --------- | -------- |
 | delayTime | 延迟时间 |
