@@ -13,7 +13,7 @@
         * [UIRectTransform](/Assets/QFramework/Framework/2.UIKit/1.UI/Extension/UIRectTransformDoc.md)
         * [UISpriteAnimation](/Assets/QFramework/Framework/2.UIKit/1.UI/Extension/UISpriteAnimationDoc.md)
       * [Script](/Assets/QFramework/Framework/2.UIKit/1.UI/ScriptDoc.md) 
-        * [Component](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/ComponentDoc.md)
+        * [Component](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/ComponentDoc.md)
           * [UIComponent](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIComponentDoc.md) 
           * [UIElement](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIElementDoc.md) 
           * [UIScrollPage](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIScrollPageDoc.md) 
