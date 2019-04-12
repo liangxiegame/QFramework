@@ -45,9 +45,9 @@ class in NodeAction/ Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.m
 - OnRecycled                    缓存池回调
 
 
-```注释：下面是一段DoTween扩展节点的使用方式，一般作为链式节点的一部分使用，用于在链式中插入一段DoTween的动作```
 
 ```
+注释：下面是一段DoTween扩展节点的使用方式，一般作为链式节点的一部分使用，用于在链式中插入一段DoTween的动作
 public static IActionChain DOTween(this IActionChain selfChain, Func<Tweener> tweenFactory)
 {
 	return selfChain.Append(DOTweenAction.Allocate(tweenFactory));
