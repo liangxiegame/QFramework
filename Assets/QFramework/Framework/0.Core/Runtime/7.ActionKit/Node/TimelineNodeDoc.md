@@ -10,6 +10,7 @@ class in Actionkit / Inherits from:[NodeAction](www.baidu.com)
 ## Construction
 * public TimelineNode(params TimelinePair[] pairs)
 
+
 | 参数  | 描述                    |
 | ----- | ----------------------- |
 | pairs | 多个```时间-节点```线对 |
@@ -28,6 +29,7 @@ class in Actionkit / Inherits from:[NodeAction](www.baidu.com)
 
 * public bool Execute(float dt)     执行当前节点，需要传入执行一次的时间，返回是否执行结束
 
+
   | 参数 | 描述           |
   | ---- | -------------- |
   | dt   | 执行一次的时间 |
@@ -38,11 +40,13 @@ class in Actionkit / Inherits from:[NodeAction](www.baidu.com)
 
 * public void Append(TimelinePair pair)  增加```时间-节点```线对
 
+
 | 参数 | 描述          |
 | ---- | ------------- |
 | pair | 时间-节点线对 |
 
 * public void Append(float time, IAction node) 增加```时间-节点```线对多态
+
 
 | 参数 | 描述     |
 | ---- | -------- |
