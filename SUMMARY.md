@@ -5,7 +5,7 @@
   * [Action Kit ](/Assets/QFramework/Framework/0.Core/0.ActionKit/Document.md)
   * [Res Kit](/Assets/QFramework/Framework/1.ResKit/Document.md)
   * [UI Kit](/Assets/QFramework/Framework/2.UIKit/Document.md)
-    * [QUICameraUtil](/Assets/QFramework/Framework/2.UIKit/2.Extension/Document.md)
+    * [QUICameraUtil](/Assets/QFramework/Framework/2.UIKit/1.UI/Extension/DocQUICameraUtil.md)
     * [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)
   * [Editor ToolKit](/Assets/QFramework/Framework/3.EditorToolKit/Document.md)
     * [Inspectors](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Inspectors/Document.md)
