@@ -33,9 +33,8 @@ public void OnDisposed(System.Action onDisposedEvent)  设置销毁时回调
 | --------------- | ---------- |
 | onFinishedEvent | 销毁时回调 |
 
-```注释：下面的一段链式序列节点中添加了延迟节点、事件节点，将执行一次。在Begin之前我们还可以给他添加条件节点、可控事件节点、时间轴节点等```
-
 ```
+注释：下面的一段链式序列节点中添加了延迟节点、事件节点，将执行一次。在Begin之前我们还可以给他添加条件节点、可控事件节点、时间轴节点等
 	this.Sequence()
 		.Delay(1.0f)
 		.Event(() => Log.I("Sequece:1.0s"))
