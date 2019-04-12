@@ -20,9 +20,15 @@
           * [UIScrollPageMark](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UIScrollPageMarkDoc.md) 
           * [UITransition](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Component/UITransitionDoc.md) 
         * [Res](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/ResDoc.md)
-          * [DefaultPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/DefaultPanelLoaderDoc.md) 
+          * [DefaultPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/DefaultPanelLoaderDoc.md) ManagerOfManagers.md
           * [IPanelLoader](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Res/IPanelLoaderDoc.md) 
         <!--* [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)-->
+    * [ManagerOfManagers](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/ManagerOfManagers.md)
+      * [IManager](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/IManagerDoc.md)
+      * [QMgrBehaviour](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/QMgrBehaviourDoc.md)
+      * [QMonoBehaviour](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/QMonoBehaviourDoc.md)
+      * [QMsg](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/QMsgDoc.md)
+      * [QMsgCenter](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/QMsgCenterDoc.md)
   * [Editor ToolKit](/Assets/QFramework/Framework/3.EditorToolKit/Document.md)
     * [Inspectors](/Assets/QFramework/Framework/4.EditorToolKit/Editor/Inspectors/Document.md)
     * [UnityEditorRushTools](/Assets/QFramework/Framework/4.EditorToolKit/Editor/UnityEditorRushTools/Document.md)
