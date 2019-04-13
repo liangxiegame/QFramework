@@ -33,7 +33,7 @@ namespace QFramework
         protected string mTips = "Default";
 
         public virtual float Progress { get; set; }
-
+        
         public virtual string Tips
         {
             get { return mTips; }

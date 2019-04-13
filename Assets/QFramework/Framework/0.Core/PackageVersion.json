@@ -1,19 +1,19 @@
 {
-  "Version": "v0.4.8",
+  "Version": "v0.4.9",
   "Type": 0,
-  "AccessRight": 0,
+  "AccessRight": 1,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.4.8",
-    "content": "fix MVVM's compile error",
+    "version": "v0.4.9",
+    "content": "close module",
     "author": "liangxie",
-    "date": "2019 年 02 月 16 日 19:49",
-    "VersionNumber": 408
+    "date": "2019 年 04 月 13 日 21:19",
+    "VersionNumber": 409
   },
   "Id": null,
   "Name": "0.Core",
-  "VersionNumber": 408,
-  "FileName": "0.Core_v0.4.8.unitypackage"
+  "VersionNumber": 409,
+  "FileName": "0.Core_v0.4.9.unitypackage"
 }

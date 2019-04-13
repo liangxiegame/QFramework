@@ -1,17 +1,19 @@
 {
-  "Version": "v0.1.2",
+  "Version": "v0.1.3",
   "Type": 0,
-  "AccessRight": 0,
+  "AccessRight": 1,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/1.ResKit/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.2",
-    "content": "fix bug",
+    "version": "v0.1.3",
+    "content": "close module",
     "author": "liangxie",
-    "date": "2019 年 01 月 31 日 13:17"
+    "date": "2019 年 04 月 13 日 21:20",
+    "VersionNumber": 103
   },
+  "Id": null,
   "Name": "1.ResKit",
-  "VersionNumber": 102,
-  "FileName": "1.ResKit_v0.1.2.unitypackage"
+  "VersionNumber": 103,
+  "FileName": "1.ResKit_v0.1.3.unitypackage"
 }

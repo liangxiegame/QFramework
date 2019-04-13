@@ -55,12 +55,12 @@ namespace QFramework.Editor
 			}
 		}
 
-		private const string URL_GITHUB_ISSUE = "https://github.com/liangxiegame/QFramework/issues/new";
+		private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
 
 		[MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
 		private static void Feedback()
 		{
-			Application.OpenURL(URL_GITHUB_ISSUE);
+			Application.OpenURL(URL_FEEDBACK);
 		}
 
 		private void Init()

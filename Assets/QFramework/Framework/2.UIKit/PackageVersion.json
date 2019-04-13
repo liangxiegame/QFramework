@@ -1,19 +1,19 @@
 {
-  "Version": "v0.2.6",
+  "Version": "v0.2.8",
   "Type": 0,
-  "AccessRight": 0,
+  "AccessRight": 1,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
   "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
   "Readme": {
-    "version": "v0.2.6",
-    "content": "UI Kit Setting Improvements",
+    "version": "v0.2.8",
+    "content": "close module",
     "author": "liangxie",
-    "date": "2019 年 02 月 14 日 12:26",
-    "VersionNumber": 206
+    "date": "2019 年 04 月 13 日 21:20",
+    "VersionNumber": 208
   },
   "Id": null,
   "Name": "2.UIKit",
-  "VersionNumber": 206,
-  "FileName": "2.UIKit_v0.2.6.unitypackage"
+  "VersionNumber": 208,
+  "FileName": "2.UIKit_v0.2.8.unitypackage"
 }

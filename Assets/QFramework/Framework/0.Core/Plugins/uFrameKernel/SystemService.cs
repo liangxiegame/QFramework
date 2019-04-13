@@ -1,6 +1,7 @@
 using System.Collections;
 using QFramework;
 using UniRx;
+using System;
 
 namespace uFrame.Kernel
 {
@@ -32,7 +33,7 @@ namespace uFrame.Kernel
 
         }
 
-        public System.IObservable<TEvent> OnEvent<TEvent>()
+        public IObservable<TEvent> OnEvent<TEvent>()
         {
             return EventAggregator.GetEvent<TEvent>();
         }

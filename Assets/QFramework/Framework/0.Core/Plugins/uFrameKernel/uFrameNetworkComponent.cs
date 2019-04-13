@@ -1,6 +1,7 @@
 using System.Collections;
 using UniRx;
 using UnityEngine.Networking;
+using System;
 
 namespace uFrame.Kernel
 {
@@ -30,7 +31,7 @@ namespace uFrame.Kernel
         /// <example>
         /// this.OnEvent&lt;MyEventClass&gt;().Subscribe(myEventClassInstance=&gt;{ DO_SOMETHING_HERE });
         /// </example>
-        public System.IObservable<TEvent> OnEvent<TEvent>()
+        public IObservable<TEvent> OnEvent<TEvent>()
         {
             return EventAggregator.GetEvent<TEvent>();
         }

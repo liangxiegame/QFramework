@@ -1,4 +1,5 @@
 using UniRx;
+using System;
 
 namespace uFrame.Kernel
 {
@@ -10,7 +11,7 @@ namespace uFrame.Kernel
         /// </summary>
         /// <typeparam name="TEvent"></typeparam>
         /// <returns>An observable capable of subscriptions and filtering.</returns>
-        public static System.IObservable<TEvent> OnEvent<TEvent>(this ISystemService systemController)
+        public static IObservable<TEvent> OnEvent<TEvent>(this ISystemService systemController)
         {
             return systemController.EventAggregator.GetEvent<TEvent>();
         }
