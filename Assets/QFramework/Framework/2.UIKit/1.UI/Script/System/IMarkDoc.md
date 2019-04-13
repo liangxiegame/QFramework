@@ -4,19 +4,19 @@
 
 # 描述
 
-> **UMark** 自身资源管理脚本的基础接口
->
-> # 结构体
->
-> | **UIMarkType**      | UIMark类型          |
-> | ------------------- | ------------------- |
-> | DefaultUnityElement | 默认的Unity元素类型 |
-> | Element             | 元素                |
-> | Component           | 组件                |
->
-> ****
->
-> # **属性**
+**UMark** 自身资源管理脚本的基础接口
+
+# 结构体
+
+| **UIMarkType**      | UIMark类型          |
+| ------------------- | ------------------- |
+| DefaultUnityElement | 默认的Unity元素类型 |
+| Element             | 元素                |
+| Component           | 组件                |
+
+
+
+# **属性**
 
 | String ComponentName | 组件名称         |
 | -------------------- | ---------------- |
