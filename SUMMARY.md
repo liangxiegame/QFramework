@@ -56,6 +56,8 @@
           * [FadeInOut](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Transition/FadeInOutDoc.md) 
           * [FadeInOut](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Transition/ITransitionDoc.md) 
           * [UITransition](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/Transition/UITransitionDoc.md) 
+        * [UI](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/UIDoc.md)
+          * [UITransitionPanel](/Assets/QFramework/Framework/2.UIKit/1.UI/Script/UI/UITransitionPanelDoc.md) 
         <!--* [Event](/Assets/QFramework/Framework/3.UIKit/2.Event/Document.md)-->
     * [ManagerOfManagers](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/ManagerOfManagers.md)
       * [IManager](/Assets/QFramework/Framework/2.UIKit/2.ManagerOfManagers/IManagerDoc.md)
