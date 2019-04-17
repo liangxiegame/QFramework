@@ -1,0 +1,16 @@
+{
+  "Version": "v0.0.2",
+  "Type": 3,
+  "AccessRight": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/ToLua/",
+  "Readme": {
+    "version": "v0.0.2",
+    "content": "更改类型",
+    "author": "凉鞋的MacBook Pro (2)",
+    "date": "2018-12-16"
+  },
+  "Name": "ToLua",
+  "VersionNumber": 2,
+  "FileName": "ToLua_v0.0.2.unitypackage"
+}
