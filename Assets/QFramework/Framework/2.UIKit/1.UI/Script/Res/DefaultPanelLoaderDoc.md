@@ -1,3 +1,5 @@
+>作者：vin129     邮箱：515019721@qq.com
+
 # DefaultPanelLoader
 
 # 继承关系
