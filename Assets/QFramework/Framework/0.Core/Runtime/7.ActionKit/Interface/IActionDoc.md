@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## IAction
 interface in Actionkit / Implemented from:[IDisposable](www.baidu.com)
 
