@@ -1,4 +1,4 @@
-作者：Rycccc     邮箱：270025802@qq.com
+作者：Rycccc     邮箱：huanghonghaoart@gmail.com
 
 # ITransition
 
