@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## RepeatNode
 class in Actionkit / Inherits from:[NodeAction](www.baidu.com) / Implemented from:[INode](www.baidu.com) 
 
