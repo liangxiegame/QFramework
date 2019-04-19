@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## ActionChain
 class in Actionkit / Inherits from:[NodeAction](www.baidu.com) / Implemented from:[IActionChain](www.baidu.com),[IDisposeWhen](www.baidu.com)
 
