@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## RepeatNodeChain
 class in Actionkit / Inherits from:[ActionChain](www.baidu.com) 
 
