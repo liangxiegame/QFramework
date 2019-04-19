@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## IDisposeWhen
 
 interface in ActionKit /  Implemented in : IDisposeEventRegister
