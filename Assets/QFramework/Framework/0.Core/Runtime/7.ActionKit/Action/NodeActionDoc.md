@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## NodeAction 
 
 class in ActionKit / Implemented in : [IAction](https://github.com/827922094/Action-Kit-API/blob/master/www.baidu.com)
