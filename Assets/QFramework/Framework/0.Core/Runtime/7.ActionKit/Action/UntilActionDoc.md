@@ -1,3 +1,5 @@
+>作者：布鞋     邮箱：827922094@qq.com
+
 ## UntilAction
 class in Actionkit / Inherits from:[NodeAction](ActionKitAPI/Action/NodeAction.md)  / Implemented in : [IPoolable](www.baidu.com)
 
