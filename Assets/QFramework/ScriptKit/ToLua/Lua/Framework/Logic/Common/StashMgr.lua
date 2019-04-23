@@ -40,7 +40,6 @@ function StashMgr:RePush(wndScript,param)
     return false
 end
 
--- 从其他场颢切换过来后，要还原主菜单
 function StashMgr:Restore()
     local kScript = self.mWndList:Tail();
     if nil ~= kScript then

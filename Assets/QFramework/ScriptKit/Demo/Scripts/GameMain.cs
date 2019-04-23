@@ -10,6 +10,7 @@ public class GameMain : MonoBehaviour {
     {
         DontDestroyOnLoad(this.gameObject);
         Instance = this;
+        ResMgr.Init();
         LuaMain = LuaMain.getInstance();
     }
 

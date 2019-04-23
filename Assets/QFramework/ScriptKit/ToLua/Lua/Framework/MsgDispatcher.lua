@@ -1,7 +1,3 @@
---
--- Author: Your Name
--- Date: 2016-10-29 00:25:00
---
 MsgDispatcher = {};
 
 --将消息分发模块放置在Lua中的原因是，c#处理LuaTable的判断太麻烦，而且有LuaBehaviour可以接收到所有unity发出的事件

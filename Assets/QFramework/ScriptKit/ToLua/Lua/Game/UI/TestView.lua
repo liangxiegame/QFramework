@@ -5,13 +5,18 @@ local TestView = class("TestView",LuaBehaviour)
 
 --===== 初始化流程:注意Awake方法不要重写 =====
 function TestView:BindUI()
-	self.Button = self:Find(self.gameObject,Button);
+	self.Button1 = self:Find(self.gameObject,"Button1");
+	self.Button2 = self:Find(self.gameObject,"Button2");
 end
 
 function TestView:RegisterUIEvent()
 
-	QUIHelper.SetButtonClickEvent(self.Button,function()
+	QUIHelper.SetButtonClickEvent(self.Button1,function()
+		log("click Button1")
+	end)
 
+	QUIHelper.SetButtonClickEvent(self.Button2,function()
+		log("click Button2")
 	end)
 end
 

@@ -153,7 +153,7 @@ public static class CustomSettings
         _GT(typeof(Resources)),     
         _GT(typeof(LuaProfiler)),
         
-        
+        _GT(typeof(UILevel)),
         _GT(typeof(UIMgr)),
         _GT(typeof(ResMgr)),
         _GT(typeof(AudioManager)),

@@ -91,6 +91,7 @@ public static class LuaBinder
 		L.EndModule();
 		L.EndModule();
 		L.BeginModule("QFramework");
+		QFramework_UILevelWrap.Register(L);
 		QFramework_UIMgrWrap.Register(L);
 		QFramework_ResMgrWrap.Register(L);
 		QFramework_AudioManagerWrap.Register(L);

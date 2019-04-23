@@ -179,7 +179,7 @@ namespace QFramework
 			foreach (var objInfo in panelCodeData.MarkedObjInfos)
 			{
 				var strUIType = objInfo.MarkObj.ComponentName;
-				strBuilder.AppendFormat("\tself.{0} = self:Find(self.gameObject,{1});\r\n",
+				strBuilder.AppendFormat("\tself.{0} = self:Find(self.gameObject,\"{1}\");\r\n",
 					objInfo.Name,objInfo.PathToElement);
 			}
 			strBuilder.AppendLine("end");
