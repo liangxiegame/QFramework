@@ -409,7 +409,7 @@ public class UnityEngine_ParticleSystemWrap
 		{
 			ToLua.CheckArgsCount(L, 1);
 			bool arg0 = LuaDLL.luaL_checkboolean(L, 1);
-			UnityEngine.ParticleSystem.EnableMeshNonUniformScaleFix(arg0);
+			//UnityEngine.ParticleSystem.EnableMeshNonUniformScaleFix(arg0);
 			return 0;
 		}
 		catch (Exception e)
