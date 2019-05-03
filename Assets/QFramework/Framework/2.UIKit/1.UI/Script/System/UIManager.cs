@@ -279,39 +279,33 @@ namespace QFramework
 			switch (level)
 			{
 				case UILevel.Bg:
-					ui.Transform.SetParent(mBgTrans);
+					ui.Transform.SetParent(mBgTrans,false);
 					break;
 				case UILevel.AnimationUnderPage:
-					ui.Transform.SetParent(mAnimationUnderTrans);
+					ui.Transform.SetParent(mAnimationUnderTrans,false);
 					break;
 				case UILevel.Common:
-					ui.Transform.SetParent(mCommonTrans);
+					ui.Transform.SetParent(mCommonTrans,false);
 					break;
 				case UILevel.AnimationOnPage:
-					ui.Transform.SetParent(mAnimationOnTrans);
+					ui.Transform.SetParent(mAnimationOnTrans,false);
 					break;
 				case UILevel.PopUI:
-					ui.Transform.SetParent(mPopUITrans);
+					ui.Transform.SetParent(mPopUITrans,false);
 					break;
 				case UILevel.Const:
-					ui.Transform.SetParent(mConstTrans);
+					ui.Transform.SetParent(mConstTrans,false);
 					break;
 				case UILevel.Toast:
-					ui.Transform.SetParent(mToastTrans);
+					ui.Transform.SetParent(mToastTrans,false);
 					break;
 				case UILevel.Forward:
-					ui.Transform.SetParent(mForwardTrans);
+					ui.Transform.SetParent(mForwardTrans,false);
 					break;
 			}
 
 			var uiGoRectTrans = ui.Transform as RectTransform;
-
-			uiGoRectTrans.offsetMin = Vector2.zero;
-			uiGoRectTrans.offsetMax = Vector2.zero;
-			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-			uiGoRectTrans.anchorMin = Vector2.zero;
-			uiGoRectTrans.anchorMax = Vector2.one;
-
+			
 			ui.Transform.LocalScaleIdentity();
 			ui.Transform.gameObject.name = uiBehaviourName;
 
