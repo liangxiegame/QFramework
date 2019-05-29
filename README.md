@@ -124,7 +124,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [~~@imagicbell~~](https://github.com/imagicbell)
 
 ### 优秀的 Unity 库、框架
-- [xasset](https://github.com/xasset/xasset)(xasset 致力于为 Unity 项目提供一套精简稳健的资源管理环境)
+- [xasset](https://github.com/xasset/xasset):xasset 致力于为 Unity 项目提供一套精简稳健的资源管理环境
 
 ### 代码规范完全遵循:
 
