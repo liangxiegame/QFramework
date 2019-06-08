@@ -309,7 +309,7 @@ namespace QFramework
                 endIndex = end;
             }
 
-            for (var i = begin; i < end; i++)
+            for (var i = begin; i < endIndex; i++)
             {
                 to[i] = from[i];
             }
