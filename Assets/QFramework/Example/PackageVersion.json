@@ -1,17 +1,19 @@
 {
-  "Version": "v0.0.45",
+  "Version": "v0.0.46",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Example/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.0.45",
-    "content": "update ui example",
+    "version": "v0.0.46",
+    "content": "remove binding rx",
     "author": "liangxie",
-    "date": "2019 年 01 月 29 日 21:05"
+    "date": "2019 年 07 月 09 日 23:50",
+    "VersionNumber": 46
   },
+  "Id": null,
   "Name": "Example",
-  "VersionNumber": 45,
-  "FileName": "Example_v0.0.45.unitypackage"
+  "VersionNumber": 46,
+  "FileName": "Example_v0.0.46.unitypackage"
 }

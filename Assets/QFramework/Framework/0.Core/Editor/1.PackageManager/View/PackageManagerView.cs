@@ -180,7 +180,14 @@ namespace QFramework.Editor
 
                 // 这里开始具体的内容
                 GUILayout.BeginHorizontal("box");
-                GUILayout.Label("Package", GUILayout.Width(150));
+                
+                GUILayout.Label("Package",new GUIStyle()
+                {
+                    fontSize = 20
+                },GUILayout.Width(150));
+
+//                new LabelView("Package",150,20).OnGUI();
+                
                 GUILayout.Label("Server", GUILayout.Width(80));
                 GUILayout.Label("Local", GUILayout.Width(80));
                 GUILayout.Label("Access Right", GUILayout.Width(80));

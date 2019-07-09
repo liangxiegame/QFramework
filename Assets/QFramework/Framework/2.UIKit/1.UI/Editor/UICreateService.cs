@@ -207,8 +207,8 @@ namespace QFramework
 
         static void ReSaveUIManager(GameObject UIManagerGo)
         {
-            string dirPath = Application.dataPath + "/Resources/UI";
-            string filePath = "Assets/Resources/UI/UIRoot.prefab";
+            string dirPath = Application.dataPath + "/QFrameworkData/UI/Resources";
+            string filePath = "Assets/QFrameworkData/UI/Resources/UIRoot.prefab";
             Debug.Log(dirPath);
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
