@@ -1091,9 +1091,9 @@
       <Project>{FF12678E-6D9E-098C-4FA0-32075D19E30D}</Project>
       <Name>Zenject</Name>
     </ProjectReference>
-    <ProjectReference Include="QFramework.Core.DotnetExtensions.csproj">
-      <Project>{6BCEFB99-8497-0BBC-054A-CF46BC05EBE9}</Project>
-      <Name>QFramework.Core.DotnetExtensions</Name>
+    <ProjectReference Include="QFramework.Core.DotNetExtensions.csproj">
+      <Project>{9539C382-281B-C84C-7D18-539F1DB61141}</Project>
+      <Name>QFramework.Core.DotNetExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

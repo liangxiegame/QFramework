@@ -429,9 +429,9 @@
       <Project>{F01145E1-0003-C775-B18B-E0944371D3EF}</Project>
       <Name>HTTP</Name>
     </ProjectReference>
-    <ProjectReference Include="QFramework.Core.DotnetExtensions.csproj">
-      <Project>{6BCEFB99-8497-0BBC-054A-CF46BC05EBE9}</Project>
-      <Name>QFramework.Core.DotnetExtensions</Name>
+    <ProjectReference Include="QFramework.Core.DotNetExtensions.csproj">
+      <Project>{9539C382-281B-C84C-7D18-539F1DB61141}</Project>
+      <Name>QFramework.Core.DotNetExtensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

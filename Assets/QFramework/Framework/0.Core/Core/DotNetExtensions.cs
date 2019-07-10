@@ -33,6 +33,25 @@ namespace QFramework
     using System.Reflection;
     using System.Text;
 
+    /// <summary>
+    /// 通用的扩展，类的扩展
+    ///
+    /// ``` csharp
+    /// public static void Example()
+    ///{
+    ///var simpleClass = new object();
+    ///
+    ///    if (simpleClass.IsNull()) // simpleClass == null
+    ///{
+    ///    // do sth
+    ///}
+    ///else if (simpleClass.IsNotNull()) // simpleClasss != null
+    ///{
+    ///    // do sth
+    ///}
+    ///}
+    /// ```
+    /// </summary>
     public static class ClassExtention
     {
         public static void Example()
@@ -49,6 +68,12 @@ namespace QFramework
             }
         }
 
+        /// <summary>
+        /// 判断是否为空
+        /// </summary>
+        /// <param name="selfObj"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static bool IsNull<T>(this T selfObj) where T : class
         {
             return null == selfObj;
@@ -60,6 +85,9 @@ namespace QFramework
         }
     }
 
+    /// <summary>
+    /// 方法 或者 动作的扩展
+    /// </summary>
     public static class FuncOrActionOrEventExtension
     {
         private delegate void TestDelegate();
