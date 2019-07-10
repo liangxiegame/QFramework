@@ -3,8 +3,9 @@
     {
       "src": [
         {
+          "src": "Assets/QFramework/Framework/0.Core/Runime/0.Extension",
           "files": [
-            "QFramework.csproj"
+            "**/**.cs"
           ]
         }
       ],
@@ -19,7 +20,6 @@
         "files": [
           "api/**.yml",
           "api/index.md",
-
         ]
       },
       {
