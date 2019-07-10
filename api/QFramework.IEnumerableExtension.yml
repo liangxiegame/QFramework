@@ -1,0 +1,1736 @@
+### YamlMime:ManagedReference
+items:
+- uid: QFramework.IEnumerableExtension
+  commentId: T:QFramework.IEnumerableExtension
+  id: IEnumerableExtension
+  parent: QFramework
+  children:
+  - QFramework.IEnumerableExtension.AddRange``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1},System.Boolean)
+  - QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
+  - QFramework.IEnumerableExtension.Example
+  - QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
+  - QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+  - QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.List{``0},System.Action{System.Int32,``0})
+  - QFramework.IEnumerableExtension.ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  - QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0,System.Int32})
+  - QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0})
+  - QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
+  - QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
+  - QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
+  langs:
+  - csharp
+  - vb
+  name: IEnumerableExtension
+  nameWithType: IEnumerableExtension
+  fullName: QFramework.IEnumerableExtension
+  type: Class
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: IEnumerableExtension
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 178
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static class IEnumerableExtension
+    content.vb: Public Module IEnumerableExtension
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ToString
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: QFramework.IEnumerableExtension.Example
+  commentId: M:QFramework.IEnumerableExtension.Example
+  id: Example
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: Example()
+  nameWithType: IEnumerableExtension.Example()
+  fullName: QFramework.IEnumerableExtension.Example()
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: Example
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 180
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static void Example()
+    content.vb: Public Shared Sub Example
+  overload: QFramework.IEnumerableExtension.Example*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
+  commentId: M:QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
+  id: ForEach``1(``0[],System.Action{``0})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEach<T>(T[], Action<T>)
+  nameWithType: IEnumerableExtension.ForEach<T>(T[], Action<T>)
+  fullName: QFramework.IEnumerableExtension.ForEach<T>(T[], System.Action<T>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEach
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 213
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nFors the each.\n"
+  example: []
+  syntax:
+    content: public static T[] ForEach<T>(this T[] selfArray, Action<T> action)
+    parameters:
+    - id: selfArray
+      type: '{T}[]'
+      description: Self array.
+    - id: action
+      type: System.Action{{T}}
+      description: Action.
+    typeParameters:
+    - id: T
+      description: The 1st type parameter.
+    return:
+      type: '{T}[]'
+      description: The each.
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ForEach(Of T)(selfArray As T(), action As Action(Of T)) As T()
+  overload: QFramework.IEnumerableExtension.ForEach*
+  nameWithType.vb: IEnumerableExtension.ForEach(Of T)(T(), Action(Of T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEach(Of T)(T(), System.Action(Of T))
+  name.vb: ForEach(Of T)(T(), Action(Of T))
+- uid: QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+  commentId: M:QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+  id: ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEach<T>(IEnumerable<T>, Action<T>)
+  nameWithType: IEnumerableExtension.ForEach<T>(IEnumerable<T>, Action<T>)
+  fullName: QFramework.IEnumerableExtension.ForEach<T>(System.Collections.Generic.IEnumerable<T>, System.Action<T>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEach
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 226
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nFors the each.\n"
+  example: []
+  syntax:
+    content: public static IEnumerable<T> ForEach<T>(this IEnumerable<T> selfArray, Action<T> action)
+    parameters:
+    - id: selfArray
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: Self array.
+    - id: action
+      type: System.Action{{T}}
+      description: Action.
+    typeParameters:
+    - id: T
+      description: The 1st type parameter.
+    return:
+      type: System.Collections.Generic.IEnumerable{{T}}
+      description: The each.
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ForEach(Of T)(selfArray As IEnumerable(Of T), action As Action(Of T)) As IEnumerable(Of T)
+  overload: QFramework.IEnumerableExtension.ForEach*
+  nameWithType.vb: IEnumerableExtension.ForEach(Of T)(IEnumerable(Of T), Action(Of T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEach(Of T)(System.Collections.Generic.IEnumerable(Of T), System.Action(Of T))
+  name.vb: ForEach(Of T)(IEnumerable(Of T), Action(Of T))
+- uid: QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0})
+  commentId: M:QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0})
+  id: ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEachReverse<T>(List<T>, Action<T>)
+  nameWithType: IEnumerableExtension.ForEachReverse<T>(List<T>, Action<T>)
+  fullName: QFramework.IEnumerableExtension.ForEachReverse<T>(System.Collections.Generic.List<T>, System.Action<T>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEachReverse
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 248
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nFors the each reverse.\n"
+  example: []
+  syntax:
+    content: public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T> action)
+    parameters:
+    - id: selfList
+      type: System.Collections.Generic.List{{T}}
+      description: Self list.
+    - id: action
+      type: System.Action{{T}}
+      description: Action.
+    typeParameters:
+    - id: T
+      description: The 1st type parameter.
+    return:
+      type: System.Collections.Generic.List{{T}}
+      description: The each reverse.
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ForEachReverse(Of T)(selfList As List(Of T), action As Action(Of T)) As List(Of T)
+  overload: QFramework.IEnumerableExtension.ForEachReverse*
+  nameWithType.vb: IEnumerableExtension.ForEachReverse(Of T)(List(Of T), Action(Of T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEachReverse(Of T)(System.Collections.Generic.List(Of T), System.Action(Of T))
+  name.vb: ForEachReverse(Of T)(List(Of T), Action(Of T))
+- uid: QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0,System.Int32})
+  commentId: M:QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0,System.Int32})
+  id: ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0,System.Int32})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEachReverse<T>(List<T>, Action<T, Int32>)
+  nameWithType: IEnumerableExtension.ForEachReverse<T>(List<T>, Action<T, Int32>)
+  fullName: QFramework.IEnumerableExtension.ForEachReverse<T>(System.Collections.Generic.List<T>, System.Action<T, System.Int32>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEachReverse
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 265
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nFors the each reverse.\n"
+  example: []
+  syntax:
+    content: public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T, int> action)
+    parameters:
+    - id: selfList
+      type: System.Collections.Generic.List{{T}}
+      description: Self list.
+    - id: action
+      type: System.Action{{T},System.Int32}
+      description: Action.
+    typeParameters:
+    - id: T
+      description: The 1st type parameter.
+    return:
+      type: System.Collections.Generic.List{{T}}
+      description: The each reverse.
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ForEachReverse(Of T)(selfList As List(Of T), action As Action(Of T, Integer)) As List(Of T)
+  overload: QFramework.IEnumerableExtension.ForEachReverse*
+  nameWithType.vb: IEnumerableExtension.ForEachReverse(Of T)(List(Of T), Action(Of T, Int32))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEachReverse(Of T)(System.Collections.Generic.List(Of T), System.Action(Of T, System.Int32))
+  name.vb: ForEachReverse(Of T)(List(Of T), Action(Of T, Int32))
+- uid: QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.List{``0},System.Action{System.Int32,``0})
+  commentId: M:QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.List{``0},System.Action{System.Int32,``0})
+  id: ForEach``1(System.Collections.Generic.List{``0},System.Action{System.Int32,``0})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEach<T>(List<T>, Action<Int32, T>)
+  nameWithType: IEnumerableExtension.ForEach<T>(List<T>, Action<Int32, T>)
+  fullName: QFramework.IEnumerableExtension.ForEach<T>(System.Collections.Generic.List<T>, System.Action<System.Int32, T>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEach
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 281
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n遍历列表\n"
+  example: []
+  syntax:
+    content: public static void ForEach<T>(this List<T> list, Action<int, T> action)
+    parameters:
+    - id: list
+      type: System.Collections.Generic.List{{T}}
+      description: 目标表
+    - id: action
+      type: System.Action{System.Int32,{T}}
+      description: 行为
+    typeParameters:
+    - id: T
+      description: 列表类型
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Sub ForEach(Of T)(list As List(Of T), action As Action(Of Integer, T))
+  overload: QFramework.IEnumerableExtension.ForEach*
+  nameWithType.vb: IEnumerableExtension.ForEach(Of T)(List(Of T), Action(Of Int32, T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEach(Of T)(System.Collections.Generic.List(Of T), System.Action(Of System.Int32, T))
+  name.vb: ForEach(Of T)(List(Of T), Action(Of Int32, T))
+- uid: QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
+  commentId: M:QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
+  id: CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: CopyTo<T>(List<T>, List<T>, Int32, Int32)
+  nameWithType: IEnumerableExtension.CopyTo<T>(List<T>, List<T>, Int32, Int32)
+  fullName: QFramework.IEnumerableExtension.CopyTo<T>(System.Collections.Generic.List<T>, System.Collections.Generic.List<T>, System.Int32, System.Int32)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: CopyTo
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 297
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n拷贝到\n"
+  example: []
+  syntax:
+    content: public static void CopyTo<T>(this List<T> from, List<T> to, int begin = 0, int end = -1)
+    parameters:
+    - id: from
+      type: System.Collections.Generic.List{{T}}
+      description: ''
+    - id: to
+      type: System.Collections.Generic.List{{T}}
+      description: ''
+    - id: begin
+      type: System.Int32
+      description: ''
+    - id: end
+      type: System.Int32
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Sub CopyTo(Of T)(from As List(Of T), to As List(Of T), begin As Integer = 0, end As Integer = -1)
+  overload: QFramework.IEnumerableExtension.CopyTo*
+  nameWithType.vb: IEnumerableExtension.CopyTo(Of T)(List(Of T), List(Of T), Int32, Int32)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.CopyTo(Of T)(System.Collections.Generic.List(Of T), System.Collections.Generic.List(Of T), System.Int32, System.Int32)
+  name.vb: CopyTo(Of T)(List(Of T), List(Of T), Int32, Int32)
+- uid: QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
+  commentId: M:QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
+  id: ToArraySavely``1(System.Collections.Generic.List{``0})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ToArraySavely<T>(List<T>)
+  nameWithType: IEnumerableExtension.ToArraySavely<T>(List<T>)
+  fullName: QFramework.IEnumerableExtension.ToArraySavely<T>(System.Collections.Generic.List<T>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToArraySavely
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 323
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n将List转为Array\n"
+  example: []
+  syntax:
+    content: public static T[] ToArraySavely<T>(this List<T> selfList)
+    parameters:
+    - id: selfList
+      type: System.Collections.Generic.List{{T}}
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: '{T}[]'
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToArraySavely(Of T)(selfList As List(Of T)) As T()
+  overload: QFramework.IEnumerableExtension.ToArraySavely*
+  nameWithType.vb: IEnumerableExtension.ToArraySavely(Of T)(List(Of T))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ToArraySavely(Of T)(System.Collections.Generic.List(Of T))
+  name.vb: ToArraySavely(Of T)(List(Of T))
+- uid: QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
+  commentId: M:QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
+  id: TryGet``1(System.Collections.Generic.List{``0},System.Int32)
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: TryGet<T>(List<T>, Int32)
+  nameWithType: IEnumerableExtension.TryGet<T>(List<T>, Int32)
+  fullName: QFramework.IEnumerableExtension.TryGet<T>(System.Collections.Generic.List<T>, System.Int32)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: TryGet
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 342
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n尝试获取，如果没有该数则返回null\n"
+  example: []
+  syntax:
+    content: public static T TryGet<T>(this List<T> selfList, int index)
+    parameters:
+    - id: selfList
+      type: System.Collections.Generic.List{{T}}
+      description: ''
+    - id: index
+      type: System.Int32
+      description: ''
+    typeParameters:
+    - id: T
+      description: ''
+    return:
+      type: '{T}'
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function TryGet(Of T)(selfList As List(Of T), index As Integer) As T
+  overload: QFramework.IEnumerableExtension.TryGet*
+  nameWithType.vb: IEnumerableExtension.TryGet(Of T)(List(Of T), Int32)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.TryGet(Of T)(System.Collections.Generic.List(Of T), System.Int32)
+  name.vb: TryGet(Of T)(List(Of T), Int32)
+- uid: QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
+  commentId: M:QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
+  id: Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: Merge<TKey, TValue>(Dictionary<TKey, TValue>, Dictionary<TKey, TValue>[])
+  nameWithType: IEnumerableExtension.Merge<TKey, TValue>(Dictionary<TKey, TValue>, Dictionary<TKey, TValue>[])
+  fullName: QFramework.IEnumerableExtension.Merge<TKey, TValue>(System.Collections.Generic.Dictionary<TKey, TValue>, System.Collections.Generic.Dictionary<TKey, TValue>[])
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: Merge
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 359
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nMerge the specified dictionary and dictionaries.\n"
+  example: []
+  syntax:
+    content: public static Dictionary<TKey, TValue> Merge<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, params Dictionary<TKey, TValue>[] dictionaries)
+    parameters:
+    - id: dictionary
+      type: System.Collections.Generic.Dictionary{{TKey},{TValue}}
+      description: Dictionary.
+    - id: dictionaries
+      type: System.Collections.Generic.Dictionary{{TKey},{TValue}}[]
+      description: Dictionaries.
+    typeParameters:
+    - id: TKey
+      description: The 1st type parameter.
+    - id: TValue
+      description: The 2nd type parameter.
+    return:
+      type: System.Collections.Generic.Dictionary{{TKey},{TValue}}
+      description: The merge.
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function Merge(Of TKey, TValue)(dictionary As Dictionary(Of TKey, TValue), ParamArray dictionaries As Dictionary(Of TKey, TValue)()) As Dictionary(Of TKey, TValue)
+  overload: QFramework.IEnumerableExtension.Merge*
+  nameWithType.vb: IEnumerableExtension.Merge(Of TKey, TValue)(Dictionary(Of TKey, TValue), Dictionary(Of TKey, TValue)())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.Merge(Of TKey, TValue)(System.Collections.Generic.Dictionary(Of TKey, TValue), System.Collections.Generic.Dictionary(Of TKey, TValue)())
+  name.vb: Merge(Of TKey, TValue)(Dictionary(Of TKey, TValue), Dictionary(Of TKey, TValue)())
+- uid: QFramework.IEnumerableExtension.ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  commentId: M:QFramework.IEnumerableExtension.ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  id: ForEach``2(System.Collections.Generic.Dictionary{``0,``1},System.Action{``0,``1})
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: ForEach<K, V>(Dictionary<K, V>, Action<K, V>)
+  nameWithType: IEnumerableExtension.ForEach<K, V>(Dictionary<K, V>, Action<K, V>)
+  fullName: QFramework.IEnumerableExtension.ForEach<K, V>(System.Collections.Generic.Dictionary<K, V>, System.Action<K, V>)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ForEach
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 373
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n遍历\n"
+  example: []
+  syntax:
+    content: public static void ForEach<K, V>(this Dictionary<K, V> dict, Action<K, V> action)
+    parameters:
+    - id: dict
+      type: System.Collections.Generic.Dictionary{{K},{V}}
+      description: ''
+    - id: action
+      type: System.Action{{K},{V}}
+      description: ''
+    typeParameters:
+    - id: K
+      description: ''
+    - id: V
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Sub ForEach(Of K, V)(dict As Dictionary(Of K, V), action As Action(Of K, V))
+  overload: QFramework.IEnumerableExtension.ForEach*
+  nameWithType.vb: IEnumerableExtension.ForEach(Of K, V)(Dictionary(Of K, V), Action(Of K, V))
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.ForEach(Of K, V)(System.Collections.Generic.Dictionary(Of K, V), System.Action(Of K, V))
+  name.vb: ForEach(Of K, V)(Dictionary(Of K, V), Action(Of K, V))
+- uid: QFramework.IEnumerableExtension.AddRange``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1},System.Boolean)
+  commentId: M:QFramework.IEnumerableExtension.AddRange``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1},System.Boolean)
+  id: AddRange``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1},System.Boolean)
+  isExtensionMethod: true
+  parent: QFramework.IEnumerableExtension
+  langs:
+  - csharp
+  - vb
+  name: AddRange<K, V>(Dictionary<K, V>, Dictionary<K, V>, Boolean)
+  nameWithType: IEnumerableExtension.AddRange<K, V>(Dictionary<K, V>, Dictionary<K, V>, Boolean)
+  fullName: QFramework.IEnumerableExtension.AddRange<K, V>(System.Collections.Generic.Dictionary<K, V>, System.Collections.Generic.Dictionary<K, V>, System.Boolean)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: AddRange
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 394
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n向其中添加新的词典\n"
+  example: []
+  syntax:
+    content: public static void AddRange<K, V>(this Dictionary<K, V> dict, Dictionary<K, V> addInDict, bool isOverride = false)
+    parameters:
+    - id: dict
+      type: System.Collections.Generic.Dictionary{{K},{V}}
+      description: ''
+    - id: addInDict
+      type: System.Collections.Generic.Dictionary{{K},{V}}
+      description: ''
+    - id: isOverride
+      type: System.Boolean
+      description: ''
+    typeParameters:
+    - id: K
+      description: ''
+    - id: V
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Sub AddRange(Of K, V)(dict As Dictionary(Of K, V), addInDict As Dictionary(Of K, V), isOverride As Boolean = False)
+  overload: QFramework.IEnumerableExtension.AddRange*
+  nameWithType.vb: IEnumerableExtension.AddRange(Of K, V)(Dictionary(Of K, V), Dictionary(Of K, V), Boolean)
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.IEnumerableExtension.AddRange(Of K, V)(System.Collections.Generic.Dictionary(Of K, V), System.Collections.Generic.Dictionary(Of K, V), System.Boolean)
+  name.vb: AddRange(Of K, V)(Dictionary(Of K, V), Dictionary(Of K, V), Boolean)
+references:
+- uid: QFramework
+  commentId: N:QFramework
+  name: QFramework
+  nameWithType: QFramework
+  fullName: QFramework
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: QFramework.IEnumerableExtension.Example*
+  commentId: Overload:QFramework.IEnumerableExtension.Example
+  name: Example
+  nameWithType: IEnumerableExtension.Example
+  fullName: QFramework.IEnumerableExtension.Example
+- uid: QFramework.IEnumerableExtension.ForEach*
+  commentId: Overload:QFramework.IEnumerableExtension.ForEach
+  name: ForEach
+  nameWithType: IEnumerableExtension.ForEach
+  fullName: QFramework.IEnumerableExtension.ForEach
+- uid: '{T}[]'
+  isExternal: true
+  name: T[]
+  nameWithType: T[]
+  fullName: T[]
+  nameWithType.vb: T()
+  fullName.vb: T()
+  name.vb: T()
+  spec.csharp:
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: System.Action{{T}}
+  commentId: T:System.Action{``0}
+  parent: System
+  definition: System.Action`1
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`1
+  commentId: T:System.Action`1
+  isExternal: true
+  name: Action<T>
+  nameWithType: Action<T>
+  fullName: System.Action<T>
+  nameWithType.vb: Action(Of T)
+  fullName.vb: System.Action(Of T)
+  name.vb: Action(Of T)
+  spec.csharp:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`1
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable{{T}}
+  commentId: T:System.Collections.Generic.IEnumerable{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.IEnumerable`1
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.IEnumerable`1
+  commentId: T:System.Collections.Generic.IEnumerable`1
+  isExternal: true
+  name: IEnumerable<T>
+  nameWithType: IEnumerable<T>
+  fullName: System.Collections.Generic.IEnumerable<T>
+  nameWithType.vb: IEnumerable(Of T)
+  fullName.vb: System.Collections.Generic.IEnumerable(Of T)
+  name.vb: IEnumerable(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.IEnumerable`1
+    name: IEnumerable
+    nameWithType: IEnumerable
+    fullName: System.Collections.Generic.IEnumerable
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+- uid: QFramework.IEnumerableExtension.ForEachReverse*
+  commentId: Overload:QFramework.IEnumerableExtension.ForEachReverse
+  name: ForEachReverse
+  nameWithType: IEnumerableExtension.ForEachReverse
+  fullName: QFramework.IEnumerableExtension.ForEachReverse
+- uid: System.Collections.Generic.List{{T}}
+  commentId: T:System.Collections.Generic.List{``0}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    nameWithType: List
+    fullName: System.Collections.Generic.List
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action{{T},System.Int32}
+  commentId: T:System.Action{``0,System.Int32}
+  parent: System
+  definition: System.Action`2
+  name: Action<T, Int32>
+  nameWithType: Action<T, Int32>
+  fullName: System.Action<T, System.Int32>
+  nameWithType.vb: Action(Of T, Int32)
+  fullName.vb: System.Action(Of T, System.Int32)
+  name.vb: Action(Of T, Int32)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action`2
+  commentId: T:System.Action`2
+  isExternal: true
+  name: Action<T1, T2>
+  nameWithType: Action<T1, T2>
+  fullName: System.Action<T1, T2>
+  nameWithType.vb: Action(Of T1, T2)
+  fullName.vb: System.Action(Of T1, T2)
+  name.vb: Action(Of T1, T2)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: T1
+    nameWithType: T1
+    fullName: T1
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T2
+    nameWithType: T2
+    fullName: T2
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: T1
+    nameWithType: T1
+    fullName: T1
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T2
+    nameWithType: T2
+    fullName: T2
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action{System.Int32,{T}}
+  commentId: T:System.Action{System.Int32,``0}
+  parent: System
+  definition: System.Action`2
+  name: Action<Int32, T>
+  nameWithType: Action<Int32, T>
+  fullName: System.Action<System.Int32, T>
+  nameWithType.vb: Action(Of Int32, T)
+  fullName.vb: System.Action(Of System.Int32, T)
+  name.vb: Action(Of Int32, T)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - uid: System.Int32
+    name: Int32
+    nameWithType: Int32
+    fullName: System.Int32
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: T
+    nameWithType: T
+    fullName: T
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: QFramework.IEnumerableExtension.CopyTo*
+  commentId: Overload:QFramework.IEnumerableExtension.CopyTo
+  name: CopyTo
+  nameWithType: IEnumerableExtension.CopyTo
+  fullName: QFramework.IEnumerableExtension.CopyTo
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: QFramework.IEnumerableExtension.ToArraySavely*
+  commentId: Overload:QFramework.IEnumerableExtension.ToArraySavely
+  name: ToArraySavely
+  nameWithType: IEnumerableExtension.ToArraySavely
+  fullName: QFramework.IEnumerableExtension.ToArraySavely
+- uid: QFramework.IEnumerableExtension.TryGet*
+  commentId: Overload:QFramework.IEnumerableExtension.TryGet
+  name: TryGet
+  nameWithType: IEnumerableExtension.TryGet
+  fullName: QFramework.IEnumerableExtension.TryGet
+- uid: '{T}'
+  commentId: '!:T'
+  definition: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: T
+  name: T
+  nameWithType: T
+  fullName: T
+- uid: QFramework.IEnumerableExtension.Merge*
+  commentId: Overload:QFramework.IEnumerableExtension.Merge
+  name: Merge
+  nameWithType: IEnumerableExtension.Merge
+  fullName: QFramework.IEnumerableExtension.Merge
+- uid: System.Collections.Generic.Dictionary{{TKey},{TValue}}
+  commentId: T:System.Collections.Generic.Dictionary{``0,``1}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.Dictionary{{TKey},{TValue}}[]
+  isExternal: true
+  name: Dictionary<TKey, TValue>[]
+  nameWithType: Dictionary<TKey, TValue>[]
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>[]
+  nameWithType.vb: Dictionary(Of TKey, TValue)()
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)()
+  name.vb: Dictionary(Of TKey, TValue)()
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: System.Collections.Generic.Dictionary`2
+  commentId: T:System.Collections.Generic.Dictionary`2
+  isExternal: true
+  name: Dictionary<TKey, TValue>
+  nameWithType: Dictionary<TKey, TValue>
+  fullName: System.Collections.Generic.Dictionary<TKey, TValue>
+  nameWithType.vb: Dictionary(Of TKey, TValue)
+  fullName.vb: System.Collections.Generic.Dictionary(Of TKey, TValue)
+  name.vb: Dictionary(Of TKey, TValue)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: TKey
+    nameWithType: TKey
+    fullName: TKey
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: TValue
+    nameWithType: TValue
+    fullName: TValue
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Collections.Generic.Dictionary{{K},{V}}
+  commentId: T:System.Collections.Generic.Dictionary{``0,``1}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.Dictionary`2
+  name: Dictionary<K, V>
+  nameWithType: Dictionary<K, V>
+  fullName: System.Collections.Generic.Dictionary<K, V>
+  nameWithType.vb: Dictionary(Of K, V)
+  fullName.vb: System.Collections.Generic.Dictionary(Of K, V)
+  name.vb: Dictionary(Of K, V)
+  spec.csharp:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: K
+    nameWithType: K
+    fullName: K
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: V
+    nameWithType: V
+    fullName: V
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.Dictionary`2
+    name: Dictionary
+    nameWithType: Dictionary
+    fullName: System.Collections.Generic.Dictionary
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: K
+    nameWithType: K
+    fullName: K
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: V
+    nameWithType: V
+    fullName: V
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Action{{K},{V}}
+  commentId: T:System.Action{``0,``1}
+  parent: System
+  definition: System.Action`2
+  name: Action<K, V>
+  nameWithType: Action<K, V>
+  fullName: System.Action<K, V>
+  nameWithType.vb: Action(Of K, V)
+  fullName.vb: System.Action(Of K, V)
+  name.vb: Action(Of K, V)
+  spec.csharp:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: <
+    nameWithType: <
+    fullName: <
+  - name: K
+    nameWithType: K
+    fullName: K
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: V
+    nameWithType: V
+    fullName: V
+  - name: '>'
+    nameWithType: '>'
+    fullName: '>'
+  spec.vb:
+  - uid: System.Action`2
+    name: Action
+    nameWithType: Action
+    fullName: System.Action
+    isExternal: true
+  - name: '(Of '
+    nameWithType: '(Of '
+    fullName: '(Of '
+  - name: K
+    nameWithType: K
+    fullName: K
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - name: V
+    nameWithType: V
+    fullName: V
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: QFramework.IEnumerableExtension.AddRange*
+  commentId: Overload:QFramework.IEnumerableExtension.AddRange
+  name: AddRange
+  nameWithType: IEnumerableExtension.AddRange
+  fullName: QFramework.IEnumerableExtension.AddRange
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean

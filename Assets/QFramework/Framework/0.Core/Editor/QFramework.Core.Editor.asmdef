@@ -3,7 +3,8 @@
     "references": [
         "QFramework.Core.Runtime",
         "UniRx",
-        "Zenject"
+        "Zenject",
+        "QFramework.Core.DotNetExtensions"
     ],
     "includePlatforms": [
         "Editor"

@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{25F33447-9355-316F-9178-7303AB02F676}</ProjectGuid>
+    <ProjectGuid>{6BCEFB99-8497-0BBC-054A-CF46BC05EBE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework.Core.Runtime</AssemblyName>
+    <AssemblyName>QFramework.Core.DotnetExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -75,95 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\0.Extension\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\0.Extension\UnityAPIExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\ISingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\MonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\MonoSingletonCreator.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\MonoSingletonPath.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\MonoSingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\Singleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\SingletonCreator.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\SingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Cache\SimpleObjectCache.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\CustomObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\DefaultObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\IObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\NonPublicObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Pool\IPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Pool\NonPublicObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Pool\Pool.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Pool\SafeObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Pool\SimpleObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\3.RefCounter\SafeARC.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\3.RefCounter\SimpleRC.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\3.RefCounter\UnsafeARC.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\Attributes\QFrameworkEvent.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\Attributes\QFrameworkEventDispatcher.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\Attributes\SystemQFrameworkEvent.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\DebugInfo.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\InjectAttribute.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\IQFrameworkContainer.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\JSON.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\QFrameworkContainer.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\4.IOC\uFrameIdentifier.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\5.Event\QEventSystem.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.FSM\FSM.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.FSM\FSMLite.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\EditorFileUtils.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\FileMgr.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\FilePath.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\PathHelper.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\SerializeHelper.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\ZipMgr.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\6.IO\ZipUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\DelayAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\EventAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\HttpDeleteAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\HttpGetAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\HttpPatchAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\HttpPostAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\KeyEventAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\NodeAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\NodeActionSystem.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\OnlyBeginAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Action\UntilAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\ActionQueue.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\EventInjector.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Extensions\ActionChain.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Extensions\Editor\EditorChain.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Extensions\RepeatNodeChain.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Extensions\SequenceNodeChain.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Interface\IAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Interface\IActionChain.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Interface\IActionChainExtention.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Interface\IActionExtension.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Node\INode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Node\RepeatNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Node\SequenceNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Node\SpawnNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\Node\TimelineNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\ProcessNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\7.ActionKit\SupportOther\DOTweenAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\BinaryHeap.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\IBinaryHeapElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\TimeItem.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\Timer.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\TimerHelper.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\TimerManager.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\8.Timer\TimeUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\API.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\Device.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\HttpHelper.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\NetworkUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\UnityAPI.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\9.CrossPlatformAPI\XamariniOSAPI.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\UnityMVVM\INotifyCollectionChanged.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\UnityMVVM\NotifyCollectionChangedAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\UnityMVVM\NotifyCollectionChangedEventArgs.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\UnityMVVM\NotifyCollectionChangedEventHandler.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\UnityMVVM\ObservableCollection.cs" />
-    <None Include="Assets\QFramework\Framework\0.Core\Runtime\QFramework.Core.Runtime.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Core\DotNetExtensions.cs" />
+    <None Include="Assets\QFramework\Framework\0.Core\Core\DotNetExtensions.asmdef" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>/Applications/Unity/Hub/Editor/2017.4.27f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -419,20 +332,6 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
-      <Name>UniRx</Name>
-    </ProjectReference>
-    <ProjectReference Include="HTTP.csproj">
-      <Project>{F01145E1-0003-C775-B18B-E0944371D3EF}</Project>
-      <Name>HTTP</Name>
-    </ProjectReference>
-    <ProjectReference Include="QFramework.Core.DotnetExtensions.csproj">
-      <Project>{6BCEFB99-8497-0BBC-054A-CF46BC05EBE9}</Project>
-      <Name>QFramework.Core.DotnetExtensions</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

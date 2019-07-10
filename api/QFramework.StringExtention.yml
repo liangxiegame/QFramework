@@ -1,0 +1,1536 @@
+### YamlMime:ManagedReference
+items:
+- uid: QFramework.StringExtention
+  commentId: T:QFramework.StringExtention
+  id: StringExtention
+  parent: QFramework
+  children:
+  - QFramework.StringExtention.AddPrefix(System.String,System.String)
+  - QFramework.StringExtention.Append(System.String,System.String)
+  - QFramework.StringExtention.AppendFormat(System.String,System.String,System.Object[])
+  - QFramework.StringExtention.ArrayFromCSV(System.String)
+  - QFramework.StringExtention.Example
+  - QFramework.StringExtention.FillFormat(System.String,System.Object[])
+  - QFramework.StringExtention.HasChinese(System.String)
+  - QFramework.StringExtention.HasSpace(System.String)
+  - QFramework.StringExtention.IsNotNullAndEmpty(System.String)
+  - QFramework.StringExtention.IsNullOrEmpty(System.String)
+  - QFramework.StringExtention.IsTrimNotNullAndEmpty(System.String)
+  - QFramework.StringExtention.LastWord(System.String)
+  - QFramework.StringExtention.LowercaseFirst(System.String)
+  - QFramework.StringExtention.RemoveString(System.String,System.String[])
+  - QFramework.StringExtention.Split(System.String,System.Char)
+  - QFramework.StringExtention.ToCSV(System.String[])
+  - QFramework.StringExtention.ToDateTime(System.String,System.DateTime)
+  - QFramework.StringExtention.ToFloat(System.String,System.Single)
+  - QFramework.StringExtention.ToInt(System.String,System.Int32)
+  - QFramework.StringExtention.ToSpacedCamelCase(System.String)
+  - QFramework.StringExtention.ToUnixLineEndings(System.String)
+  - QFramework.StringExtention.UppercaseFirst(System.String)
+  langs:
+  - csharp
+  - vb
+  name: StringExtention
+  nameWithType: StringExtention
+  fullName: QFramework.StringExtention
+  type: Class
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: StringExtention
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1094
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static class StringExtention
+    content.vb: Public Module StringExtention
+  inheritance:
+  - System.Object
+  inheritedMembers:
+  - System.Object.Equals(System.Object)
+  - System.Object.Equals(System.Object,System.Object)
+  - System.Object.GetHashCode
+  - System.Object.GetType
+  - System.Object.MemberwiseClone
+  - System.Object.ToString
+  - System.Object.ReferenceEquals(System.Object,System.Object)
+  modifiers.csharp:
+  - public
+  - static
+  - class
+  modifiers.vb:
+  - Public
+  - Module
+- uid: QFramework.StringExtention.Example
+  commentId: M:QFramework.StringExtention.Example
+  id: Example
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: Example()
+  nameWithType: StringExtention.Example()
+  fullName: QFramework.StringExtention.Example()
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: Example
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1096
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static void Example()
+    content.vb: Public Shared Sub Example
+  overload: QFramework.StringExtention.Example*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.IsNullOrEmpty(System.String)
+  commentId: M:QFramework.StringExtention.IsNullOrEmpty(System.String)
+  id: IsNullOrEmpty(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: IsNullOrEmpty(String)
+  nameWithType: StringExtention.IsNullOrEmpty(String)
+  fullName: QFramework.StringExtention.IsNullOrEmpty(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: IsNullOrEmpty
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1111
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nCheck Whether string is null or empty\n"
+  example: []
+  syntax:
+    content: public static bool IsNullOrEmpty(this string selfStr)
+    parameters:
+    - id: selfStr
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function IsNullOrEmpty(selfStr As String) As Boolean
+  overload: QFramework.StringExtention.IsNullOrEmpty*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.IsNotNullAndEmpty(System.String)
+  commentId: M:QFramework.StringExtention.IsNotNullAndEmpty(System.String)
+  id: IsNotNullAndEmpty(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: IsNotNullAndEmpty(String)
+  nameWithType: StringExtention.IsNotNullAndEmpty(String)
+  fullName: QFramework.StringExtention.IsNotNullAndEmpty(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: IsNotNullAndEmpty
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1121
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nCheck Whether string is null or empty\n"
+  example: []
+  syntax:
+    content: public static bool IsNotNullAndEmpty(this string selfStr)
+    parameters:
+    - id: selfStr
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function IsNotNullAndEmpty(selfStr As String) As Boolean
+  overload: QFramework.StringExtention.IsNotNullAndEmpty*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.IsTrimNotNullAndEmpty(System.String)
+  commentId: M:QFramework.StringExtention.IsTrimNotNullAndEmpty(System.String)
+  id: IsTrimNotNullAndEmpty(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: IsTrimNotNullAndEmpty(String)
+  nameWithType: StringExtention.IsTrimNotNullAndEmpty(String)
+  fullName: QFramework.StringExtention.IsTrimNotNullAndEmpty(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: IsTrimNotNullAndEmpty
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1131
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\nCheck Whether string trim is null or empty\n"
+  example: []
+  syntax:
+    content: public static bool IsTrimNotNullAndEmpty(this string selfStr)
+    parameters:
+    - id: selfStr
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function IsTrimNotNullAndEmpty(selfStr As String) As Boolean
+  overload: QFramework.StringExtention.IsTrimNotNullAndEmpty*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.Split(System.String,System.Char)
+  commentId: M:QFramework.StringExtention.Split(System.String,System.Char)
+  id: Split(System.String,System.Char)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: Split(String, Char)
+  nameWithType: StringExtention.Split(String, Char)
+  fullName: QFramework.StringExtention.Split(System.String, System.Char)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: Split
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1141
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string[] Split(this string selfStr, char splitSymbol)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: splitSymbol
+      type: System.Char
+    return:
+      type: System.String[]
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function Split(selfStr As String, splitSymbol As Char) As String()
+  overload: QFramework.StringExtention.Split*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.UppercaseFirst(System.String)
+  commentId: M:QFramework.StringExtention.UppercaseFirst(System.String)
+  id: UppercaseFirst(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: UppercaseFirst(String)
+  nameWithType: StringExtention.UppercaseFirst(String)
+  fullName: QFramework.StringExtention.UppercaseFirst(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: UppercaseFirst
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1147
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string UppercaseFirst(this string str)
+    parameters:
+    - id: str
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function UppercaseFirst(str As String) As String
+  overload: QFramework.StringExtention.UppercaseFirst*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.LowercaseFirst(System.String)
+  commentId: M:QFramework.StringExtention.LowercaseFirst(System.String)
+  id: LowercaseFirst(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: LowercaseFirst(String)
+  nameWithType: StringExtention.LowercaseFirst(String)
+  fullName: QFramework.StringExtention.LowercaseFirst(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: LowercaseFirst
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1152
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string LowercaseFirst(this string str)
+    parameters:
+    - id: str
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function LowercaseFirst(str As String) As String
+  overload: QFramework.StringExtention.LowercaseFirst*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToUnixLineEndings(System.String)
+  commentId: M:QFramework.StringExtention.ToUnixLineEndings(System.String)
+  id: ToUnixLineEndings(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToUnixLineEndings(String)
+  nameWithType: StringExtention.ToUnixLineEndings(String)
+  fullName: QFramework.StringExtention.ToUnixLineEndings(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToUnixLineEndings
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1157
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string ToUnixLineEndings(this string str)
+    parameters:
+    - id: str
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToUnixLineEndings(str As String) As String
+  overload: QFramework.StringExtention.ToUnixLineEndings*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToCSV(System.String[])
+  commentId: M:QFramework.StringExtention.ToCSV(System.String[])
+  id: ToCSV(System.String[])
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToCSV(String[])
+  nameWithType: StringExtention.ToCSV(String[])
+  fullName: QFramework.StringExtention.ToCSV(System.String[])
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToCSV
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1162
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string ToCSV(this string[] values)
+    parameters:
+    - id: values
+      type: System.String[]
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToCSV(values As String()) As String
+  overload: QFramework.StringExtention.ToCSV*
+  nameWithType.vb: StringExtention.ToCSV(String())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.StringExtention.ToCSV(System.String())
+  name.vb: ToCSV(String())
+- uid: QFramework.StringExtention.ArrayFromCSV(System.String)
+  commentId: M:QFramework.StringExtention.ArrayFromCSV(System.String)
+  id: ArrayFromCSV(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ArrayFromCSV(String)
+  nameWithType: StringExtention.ArrayFromCSV(String)
+  fullName: QFramework.StringExtention.ArrayFromCSV(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ArrayFromCSV
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1171
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string[] ArrayFromCSV(this string values)
+    parameters:
+    - id: values
+      type: System.String
+    return:
+      type: System.String[]
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ArrayFromCSV(values As String) As String()
+  overload: QFramework.StringExtention.ArrayFromCSV*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToSpacedCamelCase(System.String)
+  commentId: M:QFramework.StringExtention.ToSpacedCamelCase(System.String)
+  id: ToSpacedCamelCase(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToSpacedCamelCase(String)
+  nameWithType: StringExtention.ToSpacedCamelCase(String)
+  fullName: QFramework.StringExtention.ToSpacedCamelCase(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToSpacedCamelCase
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1179
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string ToSpacedCamelCase(this string text)
+    parameters:
+    - id: text
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToSpacedCamelCase(text As String) As String
+  overload: QFramework.StringExtention.ToSpacedCamelCase*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.FillFormat(System.String,System.Object[])
+  commentId: M:QFramework.StringExtention.FillFormat(System.String,System.Object[])
+  id: FillFormat(System.String,System.Object[])
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: FillFormat(String, Object[])
+  nameWithType: StringExtention.FillFormat(String, Object[])
+  fullName: QFramework.StringExtention.FillFormat(System.String, System.Object[])
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: FillFormat
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1202
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n有点不安全,编译器不会帮你排查错误。\n"
+  example: []
+  syntax:
+    content: public static string FillFormat(this string selfStr, params object[] args)
+    parameters:
+    - id: selfStr
+      type: System.String
+      description: ''
+    - id: args
+      type: System.Object[]
+      description: ''
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function FillFormat(selfStr As String, ParamArray args As Object()) As String
+  overload: QFramework.StringExtention.FillFormat*
+  nameWithType.vb: StringExtention.FillFormat(String, Object())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.StringExtention.FillFormat(System.String, System.Object())
+  name.vb: FillFormat(String, Object())
+- uid: QFramework.StringExtention.Append(System.String,System.String)
+  commentId: M:QFramework.StringExtention.Append(System.String,System.String)
+  id: Append(System.String,System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: Append(String, String)
+  nameWithType: StringExtention.Append(String, String)
+  fullName: QFramework.StringExtention.Append(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: Append
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1207
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static StringBuilder Append(this string selfStr, string toAppend)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: toAppend
+      type: System.String
+    return:
+      type: System.Text.StringBuilder
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function Append(selfStr As String, toAppend As String) As StringBuilder
+  overload: QFramework.StringExtention.Append*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.AddPrefix(System.String,System.String)
+  commentId: M:QFramework.StringExtention.AddPrefix(System.String,System.String)
+  id: AddPrefix(System.String,System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: AddPrefix(String, String)
+  nameWithType: StringExtention.AddPrefix(String, String)
+  fullName: QFramework.StringExtention.AddPrefix(System.String, System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: AddPrefix
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1212
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string AddPrefix(this string selfStr, string toPrefix)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: toPrefix
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function AddPrefix(selfStr As String, toPrefix As String) As String
+  overload: QFramework.StringExtention.AddPrefix*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.AppendFormat(System.String,System.String,System.Object[])
+  commentId: M:QFramework.StringExtention.AppendFormat(System.String,System.String,System.Object[])
+  id: AppendFormat(System.String,System.String,System.Object[])
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: AppendFormat(String, String, Object[])
+  nameWithType: StringExtention.AppendFormat(String, String, Object[])
+  fullName: QFramework.StringExtention.AppendFormat(System.String, System.String, System.Object[])
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: AppendFormat
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1217
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: toAppend
+      type: System.String
+    - id: args
+      type: System.Object[]
+    return:
+      type: System.Text.StringBuilder
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function AppendFormat(selfStr As String, toAppend As String, ParamArray args As Object()) As StringBuilder
+  overload: QFramework.StringExtention.AppendFormat*
+  nameWithType.vb: StringExtention.AppendFormat(String, String, Object())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.StringExtention.AppendFormat(System.String, System.String, System.Object())
+  name.vb: AppendFormat(String, String, Object())
+- uid: QFramework.StringExtention.LastWord(System.String)
+  commentId: M:QFramework.StringExtention.LastWord(System.String)
+  id: LastWord(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: LastWord(String)
+  nameWithType: StringExtention.LastWord(String)
+  fullName: QFramework.StringExtention.LastWord(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: LastWord
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1222
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static string LastWord(this string selfUrl)
+    parameters:
+    - id: selfUrl
+      type: System.String
+    return:
+      type: System.String
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function LastWord(selfUrl As String) As String
+  overload: QFramework.StringExtention.LastWord*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToInt(System.String,System.Int32)
+  commentId: M:QFramework.StringExtention.ToInt(System.String,System.Int32)
+  id: ToInt(System.String,System.Int32)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToInt(String, Int32)
+  nameWithType: StringExtention.ToInt(String, Int32)
+  fullName: QFramework.StringExtention.ToInt(System.String, System.Int32)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToInt
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1227
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static int ToInt(this string selfStr, int defaulValue = 0)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: defaulValue
+      type: System.Int32
+    return:
+      type: System.Int32
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToInt(selfStr As String, defaulValue As Integer = 0) As Integer
+  overload: QFramework.StringExtention.ToInt*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToDateTime(System.String,System.DateTime)
+  commentId: M:QFramework.StringExtention.ToDateTime(System.String,System.DateTime)
+  id: ToDateTime(System.String,System.DateTime)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToDateTime(String, DateTime)
+  nameWithType: StringExtention.ToDateTime(String, DateTime)
+  fullName: QFramework.StringExtention.ToDateTime(System.String, System.DateTime)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToDateTime
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1233
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static DateTime ToDateTime(this string selfStr, DateTime defaultValue = default(DateTime))
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: defaultValue
+      type: System.DateTime
+    return:
+      type: System.DateTime
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToDateTime(selfStr As String, defaultValue As Date = Nothing) As Date
+  overload: QFramework.StringExtention.ToDateTime*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.ToFloat(System.String,System.Single)
+  commentId: M:QFramework.StringExtention.ToFloat(System.String,System.Single)
+  id: ToFloat(System.String,System.Single)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: ToFloat(String, Single)
+  nameWithType: StringExtention.ToFloat(String, Single)
+  fullName: QFramework.StringExtention.ToFloat(System.String, System.Single)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: ToFloat
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1240
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  syntax:
+    content: public static float ToFloat(this string selfStr, float defaulValue = 0F)
+    parameters:
+    - id: selfStr
+      type: System.String
+    - id: defaulValue
+      type: System.Single
+    return:
+      type: System.Single
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function ToFloat(selfStr As String, defaulValue As Single = 0F) As Single
+  overload: QFramework.StringExtention.ToFloat*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.HasChinese(System.String)
+  commentId: M:QFramework.StringExtention.HasChinese(System.String)
+  id: HasChinese(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: HasChinese(String)
+  nameWithType: StringExtention.HasChinese(String)
+  fullName: QFramework.StringExtention.HasChinese(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: HasChinese
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1251
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n是否存在中文字符\n"
+  example: []
+  syntax:
+    content: public static bool HasChinese(this string input)
+    parameters:
+    - id: input
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function HasChinese(input As String) As Boolean
+  overload: QFramework.StringExtention.HasChinese*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.HasSpace(System.String)
+  commentId: M:QFramework.StringExtention.HasSpace(System.String)
+  id: HasSpace(System.String)
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: HasSpace(String)
+  nameWithType: StringExtention.HasSpace(String)
+  fullName: QFramework.StringExtention.HasSpace(System.String)
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: HasSpace
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1261
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n是否存在空格\n"
+  example: []
+  syntax:
+    content: public static bool HasSpace(this string input)
+    parameters:
+    - id: input
+      type: System.String
+      description: ''
+    return:
+      type: System.Boolean
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function HasSpace(input As String) As Boolean
+  overload: QFramework.StringExtention.HasSpace*
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+- uid: QFramework.StringExtention.RemoveString(System.String,System.String[])
+  commentId: M:QFramework.StringExtention.RemoveString(System.String,System.String[])
+  id: RemoveString(System.String,System.String[])
+  isExtensionMethod: true
+  parent: QFramework.StringExtention
+  langs:
+  - csharp
+  - vb
+  name: RemoveString(String, String[])
+  nameWithType: StringExtention.RemoveString(String, String[])
+  fullName: QFramework.StringExtention.RemoveString(System.String, System.String[])
+  type: Method
+  source:
+    remote:
+      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+      branch: master
+      repo: git@github.com:liangxiegame/QFramework.git
+    id: RemoveString
+    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
+    startLine: 1272
+  assemblies:
+  - QFramework.Core.DotnetExtensions
+  namespace: QFramework
+  summary: "\n删除特定字符\n"
+  example: []
+  syntax:
+    content: public static string RemoveString(this string str, params string[] targets)
+    parameters:
+    - id: str
+      type: System.String
+      description: ''
+    - id: targets
+      type: System.String[]
+    return:
+      type: System.String
+      description: ''
+    content.vb: >-
+      <ExtensionAttribute>
+
+      Public Shared Function RemoveString(str As String, ParamArray targets As String()) As String
+  overload: QFramework.StringExtention.RemoveString*
+  nameWithType.vb: StringExtention.RemoveString(String, String())
+  modifiers.csharp:
+  - public
+  - static
+  modifiers.vb:
+  - Public
+  - Shared
+  fullName.vb: QFramework.StringExtention.RemoveString(System.String, System.String())
+  name.vb: RemoveString(String, String())
+references:
+- uid: QFramework
+  commentId: N:QFramework
+  name: QFramework
+  nameWithType: QFramework
+  fullName: QFramework
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  name: Object
+  nameWithType: Object
+  fullName: System.Object
+- uid: System.Object.Equals(System.Object)
+  commentId: M:System.Object.Equals(System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object)
+  nameWithType: Object.Equals(Object)
+  fullName: System.Object.Equals(System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.Equals(System.Object,System.Object)
+  commentId: M:System.Object.Equals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: Equals(Object, Object)
+  nameWithType: Object.Equals(Object, Object)
+  fullName: System.Object.Equals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.Equals(System.Object,System.Object)
+    name: Equals
+    nameWithType: Object.Equals
+    fullName: System.Object.Equals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetHashCode
+  commentId: M:System.Object.GetHashCode
+  parent: System.Object
+  isExternal: true
+  name: GetHashCode()
+  nameWithType: Object.GetHashCode()
+  fullName: System.Object.GetHashCode()
+  spec.csharp:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetHashCode
+    name: GetHashCode
+    nameWithType: Object.GetHashCode
+    fullName: System.Object.GetHashCode
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.GetType
+  commentId: M:System.Object.GetType
+  parent: System.Object
+  isExternal: true
+  name: GetType()
+  nameWithType: Object.GetType()
+  fullName: System.Object.GetType()
+  spec.csharp:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.GetType
+    name: GetType
+    nameWithType: Object.GetType
+    fullName: System.Object.GetType
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.MemberwiseClone
+  commentId: M:System.Object.MemberwiseClone
+  parent: System.Object
+  isExternal: true
+  name: MemberwiseClone()
+  nameWithType: Object.MemberwiseClone()
+  fullName: System.Object.MemberwiseClone()
+  spec.csharp:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.MemberwiseClone
+    name: MemberwiseClone
+    nameWithType: Object.MemberwiseClone
+    fullName: System.Object.MemberwiseClone
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ReferenceEquals(System.Object,System.Object)
+  commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
+  parent: System.Object
+  isExternal: true
+  name: ReferenceEquals(Object, Object)
+  nameWithType: Object.ReferenceEquals(Object, Object)
+  fullName: System.Object.ReferenceEquals(System.Object, System.Object)
+  spec.csharp:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ReferenceEquals(System.Object,System.Object)
+    name: ReferenceEquals
+    nameWithType: Object.ReferenceEquals
+    fullName: System.Object.ReferenceEquals
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ', '
+    nameWithType: ', '
+    fullName: ', '
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System
+  commentId: N:System
+  isExternal: true
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: QFramework.StringExtention.Example*
+  commentId: Overload:QFramework.StringExtention.Example
+  name: Example
+  nameWithType: StringExtention.Example
+  fullName: QFramework.StringExtention.Example
+- uid: QFramework.StringExtention.IsNullOrEmpty*
+  commentId: Overload:QFramework.StringExtention.IsNullOrEmpty
+  name: IsNullOrEmpty
+  nameWithType: StringExtention.IsNullOrEmpty
+  fullName: QFramework.StringExtention.IsNullOrEmpty
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  name: String
+  nameWithType: String
+  fullName: System.String
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  name: Boolean
+  nameWithType: Boolean
+  fullName: System.Boolean
+- uid: QFramework.StringExtention.IsNotNullAndEmpty*
+  commentId: Overload:QFramework.StringExtention.IsNotNullAndEmpty
+  name: IsNotNullAndEmpty
+  nameWithType: StringExtention.IsNotNullAndEmpty
+  fullName: QFramework.StringExtention.IsNotNullAndEmpty
+- uid: QFramework.StringExtention.IsTrimNotNullAndEmpty*
+  commentId: Overload:QFramework.StringExtention.IsTrimNotNullAndEmpty
+  name: IsTrimNotNullAndEmpty
+  nameWithType: StringExtention.IsTrimNotNullAndEmpty
+  fullName: QFramework.StringExtention.IsTrimNotNullAndEmpty
+- uid: QFramework.StringExtention.Split*
+  commentId: Overload:QFramework.StringExtention.Split
+  name: Split
+  nameWithType: StringExtention.Split
+  fullName: QFramework.StringExtention.Split
+- uid: System.Char
+  commentId: T:System.Char
+  parent: System
+  isExternal: true
+  name: Char
+  nameWithType: Char
+  fullName: System.Char
+- uid: System.String[]
+  isExternal: true
+  name: String[]
+  nameWithType: String[]
+  fullName: System.String[]
+  nameWithType.vb: String()
+  fullName.vb: System.String()
+  name.vb: String()
+  spec.csharp:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.String
+    name: String
+    nameWithType: String
+    fullName: System.String
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: QFramework.StringExtention.UppercaseFirst*
+  commentId: Overload:QFramework.StringExtention.UppercaseFirst
+  name: UppercaseFirst
+  nameWithType: StringExtention.UppercaseFirst
+  fullName: QFramework.StringExtention.UppercaseFirst
+- uid: QFramework.StringExtention.LowercaseFirst*
+  commentId: Overload:QFramework.StringExtention.LowercaseFirst
+  name: LowercaseFirst
+  nameWithType: StringExtention.LowercaseFirst
+  fullName: QFramework.StringExtention.LowercaseFirst
+- uid: QFramework.StringExtention.ToUnixLineEndings*
+  commentId: Overload:QFramework.StringExtention.ToUnixLineEndings
+  name: ToUnixLineEndings
+  nameWithType: StringExtention.ToUnixLineEndings
+  fullName: QFramework.StringExtention.ToUnixLineEndings
+- uid: QFramework.StringExtention.ToCSV*
+  commentId: Overload:QFramework.StringExtention.ToCSV
+  name: ToCSV
+  nameWithType: StringExtention.ToCSV
+  fullName: QFramework.StringExtention.ToCSV
+- uid: QFramework.StringExtention.ArrayFromCSV*
+  commentId: Overload:QFramework.StringExtention.ArrayFromCSV
+  name: ArrayFromCSV
+  nameWithType: StringExtention.ArrayFromCSV
+  fullName: QFramework.StringExtention.ArrayFromCSV
+- uid: QFramework.StringExtention.ToSpacedCamelCase*
+  commentId: Overload:QFramework.StringExtention.ToSpacedCamelCase
+  name: ToSpacedCamelCase
+  nameWithType: StringExtention.ToSpacedCamelCase
+  fullName: QFramework.StringExtention.ToSpacedCamelCase
+- uid: QFramework.StringExtention.FillFormat*
+  commentId: Overload:QFramework.StringExtention.FillFormat
+  name: FillFormat
+  nameWithType: StringExtention.FillFormat
+  fullName: QFramework.StringExtention.FillFormat
+- uid: System.Object[]
+  isExternal: true
+  name: Object[]
+  nameWithType: Object[]
+  fullName: System.Object[]
+  nameWithType.vb: Object()
+  fullName.vb: System.Object()
+  name.vb: Object()
+  spec.csharp:
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: '[]'
+    nameWithType: '[]'
+    fullName: '[]'
+  spec.vb:
+  - uid: System.Object
+    name: Object
+    nameWithType: Object
+    fullName: System.Object
+    isExternal: true
+  - name: ()
+    nameWithType: ()
+    fullName: ()
+- uid: QFramework.StringExtention.Append*
+  commentId: Overload:QFramework.StringExtention.Append
+  name: Append
+  nameWithType: StringExtention.Append
+  fullName: QFramework.StringExtention.Append
+- uid: System.Text.StringBuilder
+  commentId: T:System.Text.StringBuilder
+  parent: System.Text
+  isExternal: true
+  name: StringBuilder
+  nameWithType: StringBuilder
+  fullName: System.Text.StringBuilder
+- uid: System.Text
+  commentId: N:System.Text
+  isExternal: true
+  name: System.Text
+  nameWithType: System.Text
+  fullName: System.Text
+- uid: QFramework.StringExtention.AddPrefix*
+  commentId: Overload:QFramework.StringExtention.AddPrefix
+  name: AddPrefix
+  nameWithType: StringExtention.AddPrefix
+  fullName: QFramework.StringExtention.AddPrefix
+- uid: QFramework.StringExtention.AppendFormat*
+  commentId: Overload:QFramework.StringExtention.AppendFormat
+  name: AppendFormat
+  nameWithType: StringExtention.AppendFormat
+  fullName: QFramework.StringExtention.AppendFormat
+- uid: QFramework.StringExtention.LastWord*
+  commentId: Overload:QFramework.StringExtention.LastWord
+  name: LastWord
+  nameWithType: StringExtention.LastWord
+  fullName: QFramework.StringExtention.LastWord
+- uid: QFramework.StringExtention.ToInt*
+  commentId: Overload:QFramework.StringExtention.ToInt
+  name: ToInt
+  nameWithType: StringExtention.ToInt
+  fullName: QFramework.StringExtention.ToInt
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  name: Int32
+  nameWithType: Int32
+  fullName: System.Int32
+- uid: QFramework.StringExtention.ToDateTime*
+  commentId: Overload:QFramework.StringExtention.ToDateTime
+  name: ToDateTime
+  nameWithType: StringExtention.ToDateTime
+  fullName: QFramework.StringExtention.ToDateTime
+- uid: System.DateTime
+  commentId: T:System.DateTime
+  parent: System
+  isExternal: true
+  name: DateTime
+  nameWithType: DateTime
+  fullName: System.DateTime
+- uid: QFramework.StringExtention.ToFloat*
+  commentId: Overload:QFramework.StringExtention.ToFloat
+  name: ToFloat
+  nameWithType: StringExtention.ToFloat
+  fullName: QFramework.StringExtention.ToFloat
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  name: Single
+  nameWithType: Single
+  fullName: System.Single
+- uid: QFramework.StringExtention.HasChinese*
+  commentId: Overload:QFramework.StringExtention.HasChinese
+  name: HasChinese
+  nameWithType: StringExtention.HasChinese
+  fullName: QFramework.StringExtention.HasChinese
+- uid: QFramework.StringExtention.HasSpace*
+  commentId: Overload:QFramework.StringExtention.HasSpace
+  name: HasSpace
+  nameWithType: StringExtention.HasSpace
+  fullName: QFramework.StringExtention.HasSpace
+- uid: QFramework.StringExtention.RemoveString*
+  commentId: Overload:QFramework.StringExtention.RemoveString
+  name: RemoveString
+  nameWithType: StringExtention.RemoveString
+  fullName: QFramework.StringExtention.RemoveString

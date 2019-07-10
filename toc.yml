@@ -1,5 +1,7 @@
-- name: Articles
+- name: 文章
   href: articles/
-- name: Api Documentation
-  href: /
-  homepage: README.md
+- name: API 文档
+  href: api/
+- name: 框架搭建 2017
+  href: Assets/HowToWriteUnityGameFramework
+  homepage: index.md

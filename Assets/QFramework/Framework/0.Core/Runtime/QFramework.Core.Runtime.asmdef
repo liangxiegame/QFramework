@@ -2,7 +2,8 @@
     "name": "QFramework.Core.Runtime",
     "references": [
         "UniRx",
-        "HTTP"
+        "HTTP",
+        "QFramework.Core.DotNetExtensions"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

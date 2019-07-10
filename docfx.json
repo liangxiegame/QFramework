@@ -3,9 +3,8 @@
     {
       "src": [
         {
-          "src": "Assets/QFramework/Framework/0.Core/Runime/0.Extension",
           "files": [
-            "**/**.cs"
+            "QFramework.Core.DotnetExtensions.csproj"
           ]
         }
       ],
@@ -19,7 +18,7 @@
       {
         "files": [
           "api/**.yml",
-          "api/index.md",
+          "api/index.md"
         ]
       },
       {
@@ -53,7 +52,7 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "default"
+      "statictoc"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
