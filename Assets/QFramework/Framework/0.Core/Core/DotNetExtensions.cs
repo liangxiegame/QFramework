@@ -35,39 +35,25 @@ namespace QFramework
 
     /// <summary>
     /// 通用的扩展，类的扩展
-    ///
+    /// Example 实例
     /// ``` csharp
-    /// public static void Example()
+    ///public static void Example()
     ///{
-    ///var simpleClass = new object();
+    ///    var simpleClass = new object();
     ///
     ///    if (simpleClass.IsNull()) // simpleClass == null
-    ///{
-    ///    // do sth
-    ///}
-    ///else if (simpleClass.IsNotNull()) // simpleClasss != null
-    ///{
-    ///    // do sth
-    ///}
+    ///    {
+    ///        // do sth
+    ///    }
+    ///    else if (simpleClass.IsNotNull()) // simpleClasss != null
+    ///    {
+    ///        // do sth
+    ///    }
     ///}
     /// ```
     /// </summary>
     public static class ClassExtention
     {
-        public static void Example()
-        {
-            var simpleClass = new object();
-
-            if (simpleClass.IsNull()) // simpleClass == null
-            {
-                // do sth
-            }
-            else if (simpleClass.IsNotNull()) // simpleClasss != null
-            {
-                // do sth
-            }
-        }
-
         /// <summary>
         /// 判断是否为空
         /// </summary>
@@ -79,6 +65,12 @@ namespace QFramework
             return null == selfObj;
         }
 
+        /// <summary>
+        /// 判断不是为空
+        /// </summary>
+        /// <param name="selfObj"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static bool IsNotNull<T>(this T selfObj) where T : class
         {
             return null != selfObj;
@@ -87,36 +79,43 @@ namespace QFramework
 
     /// <summary>
     /// 方法 或者 动作的扩展
+    /// 示例:
+    /// ``` csharp
+    /// private delegate void TestDelegate();
+    ///
+    /// public static void Example()
+    /// {
+    ///     // action
+    ///     System.Action action = () => Log.I("action called");
+    ///     action.InvokeGracefully(); // if (action != null) action();
+    /// 
+    ///     // func
+    ///     Func<int> func = () => 1;
+    ///     func.InvokeGracefully();
+    /// 
+    ///     /*
+    ///     public static T InvokeGracefully<T>(this Func<T> selfFunc)
+    ///     {
+    ///         return null != selfFunc ? selfFunc() : default(T);
+    ///     }
+    ///     */
+    /// 
+    ///     // delegate
+    ///     TestDelegate testDelegate = () => { };
+    ///     testDelegate.InvokeGracefully();
+    /// }
+    /// ```
     /// </summary>
     public static class FuncOrActionOrEventExtension
     {
-        private delegate void TestDelegate();
-
-        public static void Example()
-        {
-            // action
-            System.Action action = () => Log.I("action called");
-            action.InvokeGracefully(); // if (action != null) action();
-
-            // func
-            Func<int> func = () => 1;
-            func.InvokeGracefully();
-
-            /*
-            public static T InvokeGracefully<T>(this Func<T> selfFunc)
-            {
-                return null != selfFunc ? selfFunc() : default(T);
-            }
-            */
-
-            // delegate
-            TestDelegate testDelegate = () => { };
-            testDelegate.InvokeGracefully();
-        }
-
-
         #region Func Extension
 
+        /// <summary>
+        /// 不为空则调用 Func
+        /// </summary>
+        /// <param name="selfFunc"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T InvokeGracefully<T>(this Func<T> selfFunc)
         {
             return null != selfFunc ? selfFunc() : default(T);
@@ -127,7 +126,7 @@ namespace QFramework
         #region Action
 
         /// <summary>
-        /// Call action
+        /// 不为空则调用 Action
         /// </summary>
         /// <param name="selfAction"></param>
         /// <returns> call succeed</returns>
@@ -142,10 +141,10 @@ namespace QFramework
         }
 
         /// <summary>
-        /// Call action
+        /// 不为空则调用 Action<T>
         /// </summary>
         /// <param name="selfAction"></param>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">参数</typeparam>
         /// <returns></returns>
         public static bool InvokeGracefully<T>(this Action<T> selfAction, T t)
         {
@@ -158,7 +157,7 @@ namespace QFramework
         }
 
         /// <summary>
-        /// Call action
+        /// 不为空则调用 Action<T,K>
         /// </summary>
         /// <param name="selfAction"></param>
         /// <returns> call succeed</returns>
@@ -173,7 +172,7 @@ namespace QFramework
         }
 
         /// <summary>
-        /// Call delegate
+        /// 不为空则调用委托
         /// </summary>
         /// <param name="selfAction"></param>
         /// <returns> call suceed </returns>
@@ -190,14 +189,23 @@ namespace QFramework
         #endregion
     }
 
+    /// <summary>
+    /// 泛型扩展
+    ///
+    /// 实例：
+    /// ``` csharp
+    /// var typeName = GenericExtention.GetTypeName<string>();
+    /// typeName.LogInfo(); // string
+    /// 
+    /// ```
+    /// </summary>
     public static class GenericExtention
     {
-        public static void Example()
-        {
-            var typeName = GenericExtention.GetTypeName<string>();
-            typeName.LogInfo();
-        }
-
+        /// <summary>
+        /// 获取泛型名字
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static string GetTypeName<T>()
         {
             return typeof(T).ToString();
