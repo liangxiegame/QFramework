@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "**.csproj"
+            "QFramework.csproj"
           ]
         }
       ],
@@ -18,7 +18,8 @@
       {
         "files": [
           "api/**.yml",
-          "api/README.md"
+          "api/index.md",
+
         ]
       },
       {
