@@ -163,11 +163,11 @@ public static class CustomHierarchy
             DrawRectIcon<NavMeshAgent>(selectionRect, go, colorNav, ref index, ref style);
             DrawRectIcon<NavMeshObstacle>(selectionRect, go, colorNav, ref index, ref style);
             // Network
-            DrawRectIcon<NetworkIdentity>(selectionRect, go, colorNetwork, ref index, ref style);
-            DrawRectIcon<NetworkAnimator>(selectionRect, go, colorNetwork, ref index, ref style);
-            DrawRectIcon<NetworkTransform>(selectionRect, go, colorNetwork, ref index, ref style);
-            DrawRectIcon<NetworkBehaviour>(selectionRect, go, colorNetwork, ref index, ref style);
-            DrawRectIcon<NetworkManager>(selectionRect, go, colorNetwork, ref index, ref style);
+//            DrawRectIcon<NetworkIdentity>(selectionRect, go, colorNetwork, ref index, ref style);
+//            DrawRectIcon<NetworkAnimator>(selectionRect, go, colorNetwork, ref index, ref style);
+//            DrawRectIcon<NetworkTransform>(selectionRect, go, colorNetwork, ref index, ref style);
+//            DrawRectIcon<NetworkBehaviour>(selectionRect, go, colorNetwork, ref index, ref style);
+//            DrawRectIcon<NetworkManager>(selectionRect, go, colorNetwork, ref index, ref style);
             // Particle
             DrawRectIcon<ParticleSystem>(selectionRect, go, colorParticle, ref index, ref style);
             // Audio
