@@ -22,9 +22,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: OOPExtension
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 768
+    startLine: 751
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static class OOPExtension
@@ -37,8 +37,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -64,9 +64,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Example
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 775
+    startLine: 758
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static void Example()
@@ -97,9 +97,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ImplementsInterface
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 794
+    startLine: 777
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\nDetermines whether the type implements the specified interface\nand is not an interface itself.\n"
   example: []
@@ -148,9 +148,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ImplementsInterface
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 806
+    startLine: 789
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\nDetermines whether the type implements the specified interface\nand is not an interface itself.\n"
   example: []
@@ -383,37 +383,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -468,6 +437,37 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

@@ -6,8 +6,6 @@ items:
   parent: QFramework
   children:
   - QFramework.IEnumerableExtension.AddRange``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1},System.Boolean)
-  - QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
-  - QFramework.IEnumerableExtension.Example
   - QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
   - QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})
   - QFramework.IEnumerableExtension.ForEach``1(System.Collections.Generic.List{``0},System.Action{System.Int32,``0})
@@ -15,8 +13,6 @@ items:
   - QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0,System.Int32})
   - QFramework.IEnumerableExtension.ForEachReverse``1(System.Collections.Generic.List{``0},System.Action{``0})
   - QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
-  - QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
-  - QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
   langs:
   - csharp
   - vb
@@ -31,9 +27,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IEnumerableExtension
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 178
+    startLine: 219
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static class IEnumerableExtension
@@ -46,8 +42,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -55,38 +51,6 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: QFramework.IEnumerableExtension.Example
-  commentId: M:QFramework.IEnumerableExtension.Example
-  id: Example
-  parent: QFramework.IEnumerableExtension
-  langs:
-  - csharp
-  - vb
-  name: Example()
-  nameWithType: IEnumerableExtension.Example()
-  fullName: QFramework.IEnumerableExtension.Example()
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: Example
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 180
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  syntax:
-    content: public static void Example()
-    content.vb: Public Shared Sub Example
-  overload: QFramework.IEnumerableExtension.Example*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
   commentId: M:QFramework.IEnumerableExtension.ForEach``1(``0[],System.Action{``0})
   id: ForEach``1(``0[],System.Action{``0})
@@ -106,11 +70,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEach
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 213
+    startLine: 235
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nFors the each.\n"
+  summary: "\n遍历数组\n<pre><code>var testArray = new[] { 1, 2, 3 };\ntestArray.ForEach(number => number.LogInfo());</code></pre>\n"
   example: []
   syntax:
     content: public static T[] ForEach<T>(this T[] selfArray, Action<T> action)
@@ -160,27 +124,21 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEach
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 226
+    startLine: 257
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nFors the each.\n"
-  example: []
   syntax:
     content: public static IEnumerable<T> ForEach<T>(this IEnumerable<T> selfArray, Action<T> action)
     parameters:
     - id: selfArray
       type: System.Collections.Generic.IEnumerable{{T}}
-      description: Self array.
     - id: action
       type: System.Action{{T}}
-      description: Action.
     typeParameters:
     - id: T
-      description: The 1st type parameter.
     return:
       type: System.Collections.Generic.IEnumerable{{T}}
-      description: The each.
     content.vb: >-
       <ExtensionAttribute>
 
@@ -214,27 +172,21 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEachReverse
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 248
+    startLine: 283
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nFors the each reverse.\n"
-  example: []
   syntax:
     content: public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T> action)
     parameters:
     - id: selfList
       type: System.Collections.Generic.List{{T}}
-      description: Self list.
     - id: action
       type: System.Action{{T}}
-      description: Action.
     typeParameters:
     - id: T
-      description: The 1st type parameter.
     return:
       type: System.Collections.Generic.List{{T}}
-      description: The each reverse.
     content.vb: >-
       <ExtensionAttribute>
 
@@ -268,27 +220,21 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEachReverse
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 265
+    startLine: 304
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nFors the each reverse.\n"
-  example: []
   syntax:
     content: public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T, int> action)
     parameters:
     - id: selfList
       type: System.Collections.Generic.List{{T}}
-      description: Self list.
     - id: action
       type: System.Action{{T},System.Int32}
-      description: Action.
     typeParameters:
     - id: T
-      description: The 1st type parameter.
     return:
       type: System.Collections.Generic.List{{T}}
-      description: The each reverse.
     content.vb: >-
       <ExtensionAttribute>
 
@@ -322,24 +268,19 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEach
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 281
+    startLine: 324
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n遍历列表\n"
-  example: []
   syntax:
     content: public static void ForEach<T>(this List<T> list, Action<int, T> action)
     parameters:
     - id: list
       type: System.Collections.Generic.List{{T}}
-      description: 目标表
     - id: action
       type: System.Action{System.Int32,{T}}
-      description: 行为
     typeParameters:
     - id: T
-      description: 列表类型
     content.vb: >-
       <ExtensionAttribute>
 
@@ -354,168 +295,6 @@ items:
   - Shared
   fullName.vb: QFramework.IEnumerableExtension.ForEach(Of T)(System.Collections.Generic.List(Of T), System.Action(Of System.Int32, T))
   name.vb: ForEach(Of T)(List(Of T), Action(Of Int32, T))
-- uid: QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
-  commentId: M:QFramework.IEnumerableExtension.CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
-  id: CopyTo``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0},System.Int32,System.Int32)
-  isExtensionMethod: true
-  parent: QFramework.IEnumerableExtension
-  langs:
-  - csharp
-  - vb
-  name: CopyTo<T>(List<T>, List<T>, Int32, Int32)
-  nameWithType: IEnumerableExtension.CopyTo<T>(List<T>, List<T>, Int32, Int32)
-  fullName: QFramework.IEnumerableExtension.CopyTo<T>(System.Collections.Generic.List<T>, System.Collections.Generic.List<T>, System.Int32, System.Int32)
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: CopyTo
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 297
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  summary: "\n拷贝到\n"
-  example: []
-  syntax:
-    content: public static void CopyTo<T>(this List<T> from, List<T> to, int begin = 0, int end = -1)
-    parameters:
-    - id: from
-      type: System.Collections.Generic.List{{T}}
-      description: ''
-    - id: to
-      type: System.Collections.Generic.List{{T}}
-      description: ''
-    - id: begin
-      type: System.Int32
-      description: ''
-    - id: end
-      type: System.Int32
-      description: ''
-    typeParameters:
-    - id: T
-      description: ''
-    content.vb: >-
-      <ExtensionAttribute>
-
-      Public Shared Sub CopyTo(Of T)(from As List(Of T), to As List(Of T), begin As Integer = 0, end As Integer = -1)
-  overload: QFramework.IEnumerableExtension.CopyTo*
-  nameWithType.vb: IEnumerableExtension.CopyTo(Of T)(List(Of T), List(Of T), Int32, Int32)
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: QFramework.IEnumerableExtension.CopyTo(Of T)(System.Collections.Generic.List(Of T), System.Collections.Generic.List(Of T), System.Int32, System.Int32)
-  name.vb: CopyTo(Of T)(List(Of T), List(Of T), Int32, Int32)
-- uid: QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
-  commentId: M:QFramework.IEnumerableExtension.ToArraySavely``1(System.Collections.Generic.List{``0})
-  id: ToArraySavely``1(System.Collections.Generic.List{``0})
-  isExtensionMethod: true
-  parent: QFramework.IEnumerableExtension
-  langs:
-  - csharp
-  - vb
-  name: ToArraySavely<T>(List<T>)
-  nameWithType: IEnumerableExtension.ToArraySavely<T>(List<T>)
-  fullName: QFramework.IEnumerableExtension.ToArraySavely<T>(System.Collections.Generic.List<T>)
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: ToArraySavely
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 323
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  summary: "\n将List转为Array\n"
-  example: []
-  syntax:
-    content: public static T[] ToArraySavely<T>(this List<T> selfList)
-    parameters:
-    - id: selfList
-      type: System.Collections.Generic.List{{T}}
-      description: ''
-    typeParameters:
-    - id: T
-      description: ''
-    return:
-      type: '{T}[]'
-      description: ''
-    content.vb: >-
-      <ExtensionAttribute>
-
-      Public Shared Function ToArraySavely(Of T)(selfList As List(Of T)) As T()
-  overload: QFramework.IEnumerableExtension.ToArraySavely*
-  nameWithType.vb: IEnumerableExtension.ToArraySavely(Of T)(List(Of T))
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: QFramework.IEnumerableExtension.ToArraySavely(Of T)(System.Collections.Generic.List(Of T))
-  name.vb: ToArraySavely(Of T)(List(Of T))
-- uid: QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
-  commentId: M:QFramework.IEnumerableExtension.TryGet``1(System.Collections.Generic.List{``0},System.Int32)
-  id: TryGet``1(System.Collections.Generic.List{``0},System.Int32)
-  isExtensionMethod: true
-  parent: QFramework.IEnumerableExtension
-  langs:
-  - csharp
-  - vb
-  name: TryGet<T>(List<T>, Int32)
-  nameWithType: IEnumerableExtension.TryGet<T>(List<T>, Int32)
-  fullName: QFramework.IEnumerableExtension.TryGet<T>(System.Collections.Generic.List<T>, System.Int32)
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: TryGet
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 342
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  summary: "\n尝试获取，如果没有该数则返回null\n"
-  example: []
-  syntax:
-    content: public static T TryGet<T>(this List<T> selfList, int index)
-    parameters:
-    - id: selfList
-      type: System.Collections.Generic.List{{T}}
-      description: ''
-    - id: index
-      type: System.Int32
-      description: ''
-    typeParameters:
-    - id: T
-      description: ''
-    return:
-      type: '{T}'
-      description: ''
-    content.vb: >-
-      <ExtensionAttribute>
-
-      Public Shared Function TryGet(Of T)(selfList As List(Of T), index As Integer) As T
-  overload: QFramework.IEnumerableExtension.TryGet*
-  nameWithType.vb: IEnumerableExtension.TryGet(Of T)(List(Of T), Int32)
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-  fullName.vb: QFramework.IEnumerableExtension.TryGet(Of T)(System.Collections.Generic.List(Of T), System.Int32)
-  name.vb: TryGet(Of T)(List(Of T), Int32)
 - uid: QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
   commentId: M:QFramework.IEnumerableExtension.Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
   id: Merge``2(System.Collections.Generic.Dictionary{``0,``1},System.Collections.Generic.Dictionary{``0,``1}[])
@@ -535,29 +314,22 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Merge
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 359
+    startLine: 351
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nMerge the specified dictionary and dictionaries.\n"
-  example: []
   syntax:
     content: public static Dictionary<TKey, TValue> Merge<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, params Dictionary<TKey, TValue>[] dictionaries)
     parameters:
     - id: dictionary
       type: System.Collections.Generic.Dictionary{{TKey},{TValue}}
-      description: Dictionary.
     - id: dictionaries
       type: System.Collections.Generic.Dictionary{{TKey},{TValue}}[]
-      description: Dictionaries.
     typeParameters:
     - id: TKey
-      description: The 1st type parameter.
     - id: TValue
-      description: The 2nd type parameter.
     return:
       type: System.Collections.Generic.Dictionary{{TKey},{TValue}}
-      description: The merge.
     content.vb: >-
       <ExtensionAttribute>
 
@@ -591,26 +363,20 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ForEach
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 373
+    startLine: 369
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n遍历\n"
-  example: []
   syntax:
     content: public static void ForEach<K, V>(this Dictionary<K, V> dict, Action<K, V> action)
     parameters:
     - id: dict
       type: System.Collections.Generic.Dictionary{{K},{V}}
-      description: ''
     - id: action
       type: System.Action{{K},{V}}
-      description: ''
     typeParameters:
     - id: K
-      description: ''
     - id: V
-      description: ''
     content.vb: >-
       <ExtensionAttribute>
 
@@ -644,11 +410,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: AddRange
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 394
+    startLine: 390
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n向其中添加新的词典\n"
+  summary: "\n向自动添加新的词典\n"
   example: []
   syntax:
     content: public static void AddRange<K, V>(this Dictionary<K, V> dict, Dictionary<K, V> addInDict, bool isOverride = false)
@@ -885,37 +651,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -973,17 +708,43 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: QFramework.IEnumerableExtension.Example*
-  commentId: Overload:QFramework.IEnumerableExtension.Example
-  name: Example
-  nameWithType: IEnumerableExtension.Example
-  fullName: QFramework.IEnumerableExtension.Example
 - uid: QFramework.IEnumerableExtension.ForEach*
   commentId: Overload:QFramework.IEnumerableExtension.ForEach
   name: ForEach
@@ -1422,38 +1183,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: QFramework.IEnumerableExtension.CopyTo*
-  commentId: Overload:QFramework.IEnumerableExtension.CopyTo
-  name: CopyTo
-  nameWithType: IEnumerableExtension.CopyTo
-  fullName: QFramework.IEnumerableExtension.CopyTo
-- uid: System.Int32
-  commentId: T:System.Int32
-  parent: System
-  isExternal: true
-  name: Int32
-  nameWithType: Int32
-  fullName: System.Int32
-- uid: QFramework.IEnumerableExtension.ToArraySavely*
-  commentId: Overload:QFramework.IEnumerableExtension.ToArraySavely
-  name: ToArraySavely
-  nameWithType: IEnumerableExtension.ToArraySavely
-  fullName: QFramework.IEnumerableExtension.ToArraySavely
-- uid: QFramework.IEnumerableExtension.TryGet*
-  commentId: Overload:QFramework.IEnumerableExtension.TryGet
-  name: TryGet
-  nameWithType: IEnumerableExtension.TryGet
-  fullName: QFramework.IEnumerableExtension.TryGet
-- uid: '{T}'
-  commentId: '!:T'
-  definition: T
-  name: T
-  nameWithType: T
-  fullName: T
-- uid: T
-  name: T
-  nameWithType: T
-  fullName: T
 - uid: QFramework.IEnumerableExtension.Merge*
   commentId: Overload:QFramework.IEnumerableExtension.Merge
   name: Merge

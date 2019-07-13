@@ -23,10 +23,12 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: AssemblyManager
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 813
+    startLine: 799
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\nAssembly 管理器\n"
+  example: []
   syntax:
     content: public class AssemblyManager
     content.vb: Public Class AssemblyManager
@@ -38,8 +40,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   extensionMethods:
   - QFramework.AssemblyManager.QFramework.ClassExtention.IsNull``1
   - QFramework.AssemblyManager.QFramework.ClassExtention.IsNotNull``1
@@ -71,9 +73,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: DefaultCSharpAssembly
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 830
+    startLine: 816
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取编辑器默认的程序集Assembly-CSharp.dll\n"
   example: []
@@ -110,9 +112,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetAssembly
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 860
+    startLine: 846
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取Assembly\n"
   example: []
@@ -151,9 +153,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetDefaultAssemblyType
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 888
+    startLine: 874
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取默认的程序集\n"
   example: []
@@ -192,9 +194,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetTypeList
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 894
+    startLine: 880
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static Type[] GetTypeList(string assemblyName)
@@ -415,37 +417,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -500,6 +471,37 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

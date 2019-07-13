@@ -20,10 +20,12 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: TypeEx
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1057
+    startLine: 1049
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n类型扩展\n"
+  example: []
   syntax:
     content: public static class TypeEx
     content.vb: Public Module TypeEx
@@ -35,8 +37,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -63,9 +65,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: DefaultForType
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1064
+    startLine: 1056
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取默认值\n"
   example: []
@@ -293,37 +295,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -378,6 +349,37 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

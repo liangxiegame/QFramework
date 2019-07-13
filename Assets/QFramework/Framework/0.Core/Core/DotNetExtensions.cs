@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2018.12 liangxie
+ * Copyright (c) 2017 ~ 2019.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -35,40 +35,24 @@ namespace QFramework
 
     /// <summary>
     /// 通用的扩展，类的扩展
-    /// Example 实例
-    /// ``` csharp
-    ///public static void Example()
-    ///{
-    ///    var simpleClass = new object();
-    ///
-    ///    if (simpleClass.IsNull()) // simpleClass == null
-    ///    {
-    ///        // do sth
-    ///    }
-    ///    else if (simpleClass.IsNotNull()) // simpleClasss != null
-    ///    {
-    ///        // do sth
-    ///    }
-    ///}
-    /// ```
     /// </summary>
     public static class ClassExtention
     {
         /// <summary>
         /// 功能：判断是否为空
         /// 示例：
-        /// ``` csharp
+        /// <code>
         /// var simpleObject = new object();
         ///
         /// if (simpleObject.IsNull()) // 等价于 simpleObject == null
         /// {
-        ///    // do sth
+        ///     // do sth
         /// }
-        /// ```
+        /// </code>
         /// </summary>
-        /// <param name="selfObj"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <param name="selfObj">判断对象(this)</param>
+        /// <typeparam name="T">对象的类型（可不填）</typeparam>
+        /// <returns>是否为空</returns>
         public static bool IsNull<T>(this T selfObj) where T : class
         {
             return null == selfObj;
@@ -77,18 +61,18 @@ namespace QFramework
         /// <summary>
         /// 功能：判断不是为空
         /// 示例：
-        /// ``` csharp
+        /// <code>
         /// var simpleObject = new object();
         ///
         /// if (simpleObject.IsNotNull()) // 等价于 simpleObject != null
         /// {
         ///    // do sth
         /// }
-        /// ```
+        /// </code>
         /// </summary>
-        /// <param name="selfObj"></param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <param name="selfObj">判断对象（this)</param>
+        /// <typeparam name="T">对象的类型（可不填）</typeparam>
+        /// <returns>是否不为空</returns>
         public static bool IsNotNull<T>(this T selfObj) where T : class
         {
             return null != selfObj;
@@ -97,31 +81,18 @@ namespace QFramework
 
     /// <summary>
     /// Func、Action、delegate 的扩展
-    /// 示例:
-    /// ``` csharp
-    /// private delegate void TestDelegate();
-    ///
-    /// public static void Example()
-    /// {
-    ///     // action
-    ///     System.Action action = () => Log.I("action called");
-    ///     action.InvokeGracefully(); // if (action != null) action();
-    ///     // delegate
-    ///     TestDelegate testDelegate = () => { };
-    ///     testDelegate.InvokeGracefully();
-    /// }
-    /// ```
     /// </summary>
     public static class FuncOrActionOrEventExtension
     {
         #region Func Extension
 
         /// <summary>
-        /// 不为空则调用 Func
-        /// ``` csharp
+        /// 功能：不为空则调用 Func
+        /// 示例:
+        /// <code>
         /// Func<int> func = ()=> 1;
         /// var number = func.InvokeGracefully(); // 等价于 if (func != null) number = func();
-        /// ```
+        /// </code>
         /// </summary>
         /// <param name="selfFunc"></param>
         /// <typeparam name="T"></typeparam>
@@ -136,11 +107,16 @@ namespace QFramework
         #region Action
 
         /// <summary>
-        /// 不为空则调用 Action
+        /// 功能：不为空则调用 Action
+        /// 示例:
+        /// <code>
+        /// System.Action action = () => Log.I("action called");
+        /// action.InvokeGracefully(); // if (action != null) action();
+        /// </code>
         /// </summary>
-        /// <param name="selfAction"></param>
-        /// <returns> call succeed</returns>
-        public static bool InvokeGracefully(this System.Action selfAction)
+        /// <param name="selfAction"> action 对象 </param>
+        /// <returns> 是否调用成功 </returns>
+        public static bool InvokeGracefully(this Action selfAction)
         {
             if (null != selfAction)
             {
@@ -152,10 +128,15 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用 Action<T>
+        /// 示例:
+        /// <code>
+        /// System.Action<int> action = (number) => Log.I("action called" + number);
+        /// action.InvokeGracefully(10); // if (action != null) action(10);
+        /// </code>
         /// </summary>
-        /// <param name="selfAction"></param>
+        /// <param name="selfAction"> action 对象</param>
         /// <typeparam name="T">参数</typeparam>
-        /// <returns></returns>
+        /// <returns> 是否调用成功</returns>
         public static bool InvokeGracefully<T>(this Action<T> selfAction, T t)
         {
             if (null != selfAction)
@@ -168,6 +149,10 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用 Action<T,K>
+        /// <code>
+        /// System.Action<int,string> action = (number,name) => Log.I("action called" + number + name);
+        /// action.InvokeGracefully(10,"qframework"); // if (action != null) action(10,"qframework");
+        /// </code>
         /// </summary>
         /// <param name="selfAction"></param>
         /// <returns> call succeed</returns>
@@ -183,6 +168,11 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用委托
+        /// <code>
+        /// // delegate
+        /// TestDelegate testDelegate = () => { };
+        /// testDelegate.InvokeGracefully();
+        /// </code>
         /// </summary>
         /// <param name="selfAction"></param>
         /// <returns> call suceed </returns>
@@ -200,19 +190,21 @@ namespace QFramework
     }
 
     /// <summary>
-    /// 泛型扩展
-    ///
+    /// 泛型工具
     /// 实例：
-    /// ``` csharp
+    /// <code>
     /// var typeName = GenericExtention.GetTypeName<string>();
     /// typeName.LogInfo(); // string
-    /// 
-    /// ```
+    /// </code>
     /// </summary>
-    public static class GenericExtention
+    public static class GenericUtil
     {
         /// <summary>
         /// 获取泛型名字
+        /// <code>
+        /// var typeName = GenericExtention.GetTypeName<string>();
+        /// typeName.LogInfo(); // string
+        /// </code>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -222,41 +214,25 @@ namespace QFramework
         }
     }
 
+    /// <summary>
+    /// 可枚举的集合扩展（Array、List<T>、Dictionary<K,V>)
+    /// </summary>
     public static class IEnumerableExtension
     {
-        public static void Example()
-        {
-            // Array
-            var testArray = new int[] { 1, 2, 3 };
-            testArray.ForEach(number => number.LogInfo());
-
-            // IEnumerable<T>
-            IEnumerable<int> testIenumerable = new List<int> { 1, 2, 3 };
-            testIenumerable.ForEach(number => number.LogInfo());
-            new Dictionary<string, string>()
-                .ForEach(keyValue => Log.I("key:{0},value:{1}", keyValue.Key, keyValue.Value));
-
-            // testList
-            var testList = new List<int> { 1, 2, 3 };
-            testList.ForEach(number => number.LogInfo());
-            testList.ForEachReverse(number => number.LogInfo());
-
-            // merge
-            var dictionary1 = new Dictionary<string, string> { { "1", "2" } };
-            var dictionary2 = new Dictionary<string, string> { { "3", "4" } };
-            var dictionary3 = dictionary1.Merge(dictionary2);
-            dictionary3.ForEach(pair => Log.I("{0}:{1}", pair.Key, pair.Value));
-        }
-
         #region Array Extension
 
         /// <summary>
-        /// Fors the each.
+        /// 遍历数组
+        /// <code>
+        /// var testArray = new[] { 1, 2, 3 };
+        /// testArray.ForEach(number => number.LogInfo());
+        /// </code>
         /// </summary>
         /// <returns>The each.</returns>
         /// <param name="selfArray">Self array.</param>
         /// <param name="action">Action.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
+        /// <returns> 返回自己 </returns>
         public static T[] ForEach<T>(this T[] selfArray, Action<T> action)
         {
             Array.ForEach(selfArray, action);
@@ -264,7 +240,16 @@ namespace QFramework
         }
 
         /// <summary>
-        /// Fors the each.
+        /// 遍历 IEnumerable
+        /// <code>
+        /// // IEnumerable<T>
+        /// IEnumerable<int> testIenumerable = new List<int> { 1, 2, 3 };
+        /// testIenumerable.ForEach(number => number.LogInfo());
+            
+        /// // 支持字典的遍历
+        /// new Dictionary<string, string>()
+        ///         .ForEach(keyValue => Log.I("key:{0},value:{1}", keyValue.Key, keyValue.Value));
+        /// </code>
         /// </summary>
         /// <returns>The each.</returns>
         /// <param name="selfArray">Self array.</param>
@@ -286,9 +271,13 @@ namespace QFramework
         #region List Extension
 
         /// <summary>
-        /// Fors the each reverse.
+        /// 倒序遍历
+        /// <code>
+        /// var testList = new List<int> { 1, 2, 3 };
+        /// testList.ForEachReverse(number => number.LogInfo()); // 3, 2, 1
+        /// </code>
         /// </summary>
-        /// <returns>The each reverse.</returns>
+        /// <returns>返回自己</returns>
         /// <param name="selfList">Self list.</param>
         /// <param name="action">Action.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
@@ -303,7 +292,11 @@ namespace QFramework
         }
 
         /// <summary>
-        /// Fors the each reverse.
+        /// 倒序遍历（可获得索引)
+        /// <code>
+        /// var testList = new List<int> { 1, 2, 3 };
+        /// testList.ForEachReverse((number,index)=> number.LogInfo()); // 3, 2, 1
+        /// </code>
         /// </summary>
         /// <returns>The each reverse.</returns>
         /// <param name="selfList">Self list.</param>
@@ -320,7 +313,11 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 遍历列表
+        /// 遍历列表(可获得索引）
+        /// <code>
+        /// var testList = new List<int> {1, 2, 3 };
+        /// testList.Foreach((number,index)=>number.LogInfo()); // 1, 2, 3,
+        /// </code>
         /// </summary>
         /// <typeparam name="T">列表类型</typeparam>
         /// <param name="list">目标表</param>
@@ -333,70 +330,19 @@ namespace QFramework
             }
         }
 
-        /// <summary>
-        /// 拷贝到
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="begin"></param>
-        /// <param name="end"></param>
-        public static void CopyTo<T>(this List<T> from, List<T> to, int begin = 0, int end = -1)
-        {
-            if (begin < 0)
-            {
-                begin = 0;
-            }
-
-            var endIndex = Math.Min(from.Count, to.Count) - 1;
-
-            if (end != -1 && end < endIndex)
-            {
-                endIndex = end;
-            }
-
-            for (var i = begin; i < endIndex; i++)
-            {
-                to[i] = from[i];
-            }
-        }
-
-        /// <summary>
-        /// 将List转为Array
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="selfList"></param>
-        /// <returns></returns>
-        public static T[] ToArraySavely<T>(this List<T> selfList)
-        {
-            var res = new T[selfList.Count];
-
-            for (var i = 0; i < selfList.Count; i++)
-            {
-                res[i] = selfList[i];
-            }
-
-            return res;
-        }
-
-        /// <summary>
-        /// 尝试获取，如果没有该数则返回null
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="selfList"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
-        public static T TryGet<T>(this List<T> selfList, int index)
-        {
-            return selfList.Count > index ? selfList[index] : default(T);
-        }
-
         #endregion
 
         #region Dictionary Extension
 
         /// <summary>
-        /// Merge the specified dictionary and dictionaries.
+        /// 合并字典
+        /// <code>
+        /// // 示例
+        /// var dictionary1 = new Dictionary<string, string> { { "1", "2" } };
+        /// var dictionary2 = new Dictionary<string, string> { { "3", "4" } };
+        /// var dictionary3 = dictionary1.Merge(dictionary2);
+        /// dictionary3.ForEach(pair => Log.I("{0}:{1}", pair.Key, pair.Value));
+        /// </code>
         /// </summary>
         /// <returns>The merge.</returns>
         /// <param name="dictionary">Dictionary.</param>
@@ -411,7 +357,11 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 遍历
+        /// 遍历字典
+        /// <code>
+        /// var dict = new Dictionary<string,string> {{"name","liangxie},{"age","18"}};
+        /// dict.ForEach((key,value)=> Log.I("{0}:{1}",key,value);//  name:liangxie    age:18
+        /// </code>
         /// </summary>
         /// <typeparam name="K"></typeparam>
         /// <typeparam name="V"></typeparam>
@@ -431,7 +381,7 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 向其中添加新的词典
+        /// 字典添加新的词典
         /// </summary>
         /// <typeparam name="K"></typeparam>
         /// <typeparam name="V"></typeparam>
@@ -463,27 +413,17 @@ namespace QFramework
     }
 
     /// <summary>
-    /// 各种文件的读写复制操作,主要是对System.IO的一些封装
+    /// 对 System.IO 的一些扩展
     /// </summary>
     public static class IOExtension
     {
-        public static void Example()
-        {
-            var testDir = "Assets/TestFolder";
-            testDir.CreateDirIfNotExists();
-
-            Directory.Exists(testDir).LogInfo();
-            testDir.DeleteDirIfExists();
-            Directory.Exists(testDir).LogInfo();
-
-            var testFile = testDir.CombinePath("test.txt");
-            testDir.CreateDirIfNotExists();
-            File.Create(testFile);
-            testFile.DeleteFileIfExists();
-        }
-
         /// <summary>
         /// 创建新的文件夹,如果存在则不创建
+        /// <code>
+        /// var testDir = "Assets/TestFolder";
+        /// testDir.CreateDirIfNotExists();
+        /// // 结果为，在 Assets 目录下创建 TestFolder
+        /// </code>
         /// </summary>
         public static string CreateDirIfNotExists(this string dirFullPath)
         {
@@ -497,6 +437,11 @@ namespace QFramework
 
         /// <summary>
         /// 删除文件夹，如果存在
+        /// <code>
+        /// var testDir = "Assets/TestFolder";
+        /// testDir.DeleteDirIfExists();
+        /// // 结果为，在 Assets 目录下删除了 TestFolder
+        /// </code>
         /// </summary>
         public static void DeleteDirIfExists(this string dirFullPath)
         {
@@ -507,7 +452,12 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 清空 Dir,如果存在。
+        /// 清空 Dir（保留目录),如果存在。
+        /// <code>
+        /// var testDir = "Assets/TestFolder";
+        /// testDir.EmptyDirIfExists();
+        /// // 结果为，清空了 TestFolder 里的内容
+        /// </code>
         /// </summary>
         public static void EmptyDirIfExists(this string dirFullPath)
         {
@@ -521,9 +471,16 @@ namespace QFramework
 
         /// <summary>
         /// 删除文件 如果存在
+        /// <code>
+        /// // 示例
+        /// var filePath = "Assets/Test.txt";
+        /// File.Create("Assets/Test);
+        /// filePath.DeleteFileIfExists();
+        /// // 结果为，删除了 Test.txt
+        /// </code>
         /// </summary>
         /// <param name="fileFullPath"></param>
-        /// <returns> True if exists</returns>
+        /// <returns> 是否进行了删除操作 </returns>
         public static bool DeleteFileIfExists(this string fileFullPath)
         {
             if (File.Exists(fileFullPath))
@@ -535,42 +492,22 @@ namespace QFramework
             return false;
         }
 
+        /// <summary>
+        /// 合并路径
+        /// <code>
+        /// // 示例：
+        /// Application.dataPath.CombinePath("Resources").LogInfo();  // /projectPath/Assets/Resources
+        /// </code>
+        /// </summary>
+        /// <param name="selfPath"></param>
+        /// <param name="toCombinePath"></param>
+        /// <returns> 合并后的路径 </returns>
         public static string CombinePath(this string selfPath, string toCombinePath)
         {
             return Path.Combine(selfPath, toCombinePath);
         }
 
         #region 未经过测试
-
-        /// <summary>
-        /// 保存文本
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="path"></param>
-        public static void SaveText(this string text, string path)
-        {
-            path.DeleteFileIfExists();
-
-            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write))
-            {
-                using (var sr = new StreamWriter(fs))
-                {
-                    sr.Write(text); //开始写入值
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// 读取文本
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public static string ReadText(this FileInfo file)
-        {
-            return ReadText(file.FullName);
-        }
-
         /// <summary>
         /// 读取文本
         /// </summary>
@@ -812,6 +749,9 @@ namespace QFramework
         #endregion
     }
 
+    /// <summary>
+    /// 面向对象扩展（继承、封装、多态)
+    /// </summary>
     public static class OOPExtension
     {
         interface ExampleInterface
@@ -857,6 +797,9 @@ namespace QFramework
         }
     }
 
+    /// <summary>
+    /// Assembly 管理器
+    /// </summary>
     public class AssemblyManager
     {
         /// <summary>
@@ -944,6 +887,9 @@ namespace QFramework
         }
     }
 
+    /// <summary>
+    /// 反射扩展
+    /// </summary>
     public static class ReflectionExtension
     {
         public static void Example()
@@ -1101,6 +1047,9 @@ namespace QFramework
         }
     }
 
+    /// <summary>
+    /// 类型扩展
+    /// </summary>
     public static class TypeEx
     {
         /// <summary>
@@ -1138,6 +1087,9 @@ namespace QFramework
     [AttributeUsage(AttributeTargets.Method)]
     public class FromString : Attribute { }
 
+    /// <summary>
+    /// 字符串扩展
+    /// </summary>
     public static class StringExtention
     {
         public static void Example()

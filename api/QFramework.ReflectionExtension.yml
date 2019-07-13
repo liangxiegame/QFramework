@@ -33,10 +33,12 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ReflectionExtension
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 900
+    startLine: 889
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n反射扩展\n"
+  example: []
   syntax:
     content: public static class ReflectionExtension
     content.vb: Public Module ReflectionExtension
@@ -48,8 +50,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -75,9 +77,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Example
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 902
+    startLine: 891
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static void Example()
@@ -107,9 +109,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetAssemblyCSharp
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 908
+    startLine: 897
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static Assembly GetAssemblyCSharp()
@@ -141,9 +143,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetAssemblyCSharpEditor
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 923
+    startLine: 912
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static Assembly GetAssemblyCSharpEditor()
@@ -176,9 +178,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeByReflect
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 945
+    startLine: 934
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n通过反射方式调用函数\n"
   example: []
@@ -230,9 +232,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFieldByReflect
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 957
+    startLine: 946
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n通过反射方式获取域值\n"
   example: []
@@ -278,9 +280,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetPropertyByReflect
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 969
+    startLine: 958
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n通过反射方式获取属性\n"
   example: []
@@ -330,9 +332,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 979
+    startLine: 968
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n拥有特性\n"
   example: []
@@ -378,9 +380,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 988
+    startLine: 977
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n拥有特性\n"
   example: []
@@ -426,9 +428,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 997
+    startLine: 986
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n拥有特性\n"
   example: []
@@ -474,9 +476,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1006
+    startLine: 995
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n拥有特性\n"
   example: []
@@ -522,16 +524,15 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFirstAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1015
+    startLine: 1004
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取第一个特性\n"
   example: []
   syntax:
     content: >-
       public static T GetFirstAttribute<T>(this MethodInfo method, bool inherit)
-
           where T : Attribute
     parameters:
     - id: method
@@ -575,16 +576,15 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFirstAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1026
+    startLine: 1015
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取第一个特性\n"
   example: []
   syntax:
     content: >-
       public static T GetFirstAttribute<T>(this FieldInfo field, bool inherit)
-
           where T : Attribute
     parameters:
     - id: field
@@ -628,16 +628,15 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFirstAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1037
+    startLine: 1026
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取第一个特性\n"
   example: []
   syntax:
     content: >-
       public static T GetFirstAttribute<T>(this PropertyInfo prop, bool inherit)
-
           where T : Attribute
     parameters:
     - id: prop
@@ -681,16 +680,15 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFirstAttribute
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1048
+    startLine: 1037
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取第一个特性\n"
   example: []
   syntax:
     content: >-
       public static T GetFirstAttribute<T>(this Type type, bool inherit)
-
           where T : Attribute
     parameters:
     - id: type
@@ -919,37 +917,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -1004,6 +971,37 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

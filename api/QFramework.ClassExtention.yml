@@ -5,7 +5,6 @@ items:
   id: ClassExtention
   parent: QFramework
   children:
-  - QFramework.ClassExtention.Example
   - QFramework.ClassExtention.IsNotNull``1(``0)
   - QFramework.ClassExtention.IsNull``1(``0)
   langs:
@@ -22,10 +21,12 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ClassExtention
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 35
+    startLine: 38
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n通用的扩展，类的扩展\n"
+  example: []
   syntax:
     content: public static class ClassExtention
     content.vb: Public Module ClassExtention
@@ -37,8 +38,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -46,38 +47,6 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: QFramework.ClassExtention.Example
-  commentId: M:QFramework.ClassExtention.Example
-  id: Example
-  parent: QFramework.ClassExtention
-  langs:
-  - csharp
-  - vb
-  name: Example()
-  nameWithType: ClassExtention.Example()
-  fullName: QFramework.ClassExtention.Example()
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: Example
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 37
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  syntax:
-    content: public static void Example()
-    content.vb: Public Shared Sub Example
-  overload: QFramework.ClassExtention.Example*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: QFramework.ClassExtention.IsNull``1(``0)
   commentId: M:QFramework.ClassExtention.IsNull``1(``0)
   id: IsNull``1(``0)
@@ -97,22 +66,26 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IsNull
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 51
+    startLine: 55
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n功能：判断是否为空\n示例：\n<pre><code>var simpleObject = new object();\n\nif (simpleObject.IsNull()) // 等价于 simpleObject == null\n{\n    // do sth\n}</code></pre>\n"
+  example: []
   syntax:
     content: >-
       public static bool IsNull<T>(this T selfObj)
-
           where T : class
     parameters:
     - id: selfObj
       type: '{T}'
+      description: 判断对象(this)
     typeParameters:
     - id: T
+      description: 对象的类型（可不填）
     return:
       type: System.Boolean
+      description: 是否为空
     content.vb: >-
       <ExtensionAttribute>
 
@@ -146,22 +119,26 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IsNotNull
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 56
+    startLine: 75
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n功能：判断不是为空\n示例：\n<pre><code>var simpleObject = new object();\n\nif (simpleObject.IsNotNull()) // 等价于 simpleObject != null\n{\n   // do sth\n}</code></pre>\n"
+  example: []
   syntax:
     content: >-
       public static bool IsNotNull<T>(this T selfObj)
-
           where T : class
     parameters:
     - id: selfObj
       type: '{T}'
+      description: 判断对象（this)
     typeParameters:
     - id: T
+      description: 对象的类型（可不填）
     return:
       type: System.Boolean
+      description: 是否不为空
     content.vb: >-
       <ExtensionAttribute>
 
@@ -380,37 +357,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -468,17 +414,43 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: QFramework.ClassExtention.Example*
-  commentId: Overload:QFramework.ClassExtention.Example
-  name: Example
-  nameWithType: ClassExtention.Example
-  fullName: QFramework.ClassExtention.Example
 - uid: QFramework.ClassExtention.IsNull*
   commentId: Overload:QFramework.ClassExtention.IsNull
   name: IsNull

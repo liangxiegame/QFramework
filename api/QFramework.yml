@@ -8,7 +8,7 @@ items:
   - QFramework.ClassExtention
   - QFramework.FromString
   - QFramework.FuncOrActionOrEventExtension
-  - QFramework.GenericExtention
+  - QFramework.GenericUtil
   - QFramework.IEnumerableExtension
   - QFramework.IOExtension
   - QFramework.OOPExtension
@@ -24,7 +24,7 @@ items:
   fullName: QFramework
   type: Namespace
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
 references:
 - uid: QFramework.ClassExtention
   commentId: T:QFramework.ClassExtention
@@ -37,11 +37,11 @@ references:
   name: FuncOrActionOrEventExtension
   nameWithType: FuncOrActionOrEventExtension
   fullName: QFramework.FuncOrActionOrEventExtension
-- uid: QFramework.GenericExtention
-  commentId: T:QFramework.GenericExtention
-  name: GenericExtention
-  nameWithType: GenericExtention
-  fullName: QFramework.GenericExtention
+- uid: QFramework.GenericUtil
+  commentId: T:QFramework.GenericUtil
+  name: GenericUtil
+  nameWithType: GenericUtil
+  fullName: QFramework.GenericUtil
 - uid: QFramework.IEnumerableExtension
   commentId: T:QFramework.IEnumerableExtension
   name: IEnumerableExtension

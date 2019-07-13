@@ -5,7 +5,6 @@ items:
   id: FuncOrActionOrEventExtension
   parent: QFramework
   children:
-  - QFramework.FuncOrActionOrEventExtension.Example
   - QFramework.FuncOrActionOrEventExtension.InvokeGracefully(System.Action)
   - QFramework.FuncOrActionOrEventExtension.InvokeGracefully(System.Delegate,System.Object[])
   - QFramework.FuncOrActionOrEventExtension.InvokeGracefully``1(System.Action{``0},``0)
@@ -25,10 +24,12 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: FuncOrActionOrEventExtension
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 62
+    startLine: 84
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\nFunc、Action、delegate 的扩展\n"
+  example: []
   syntax:
     content: public static class FuncOrActionOrEventExtension
     content.vb: Public Module FuncOrActionOrEventExtension
@@ -40,8 +41,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -49,38 +50,6 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: QFramework.FuncOrActionOrEventExtension.Example
-  commentId: M:QFramework.FuncOrActionOrEventExtension.Example
-  id: Example
-  parent: QFramework.FuncOrActionOrEventExtension
-  langs:
-  - csharp
-  - vb
-  name: Example()
-  nameWithType: FuncOrActionOrEventExtension.Example()
-  fullName: QFramework.FuncOrActionOrEventExtension.Example()
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: Example
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 66
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  syntax:
-    content: public static void Example()
-    content.vb: Public Shared Sub Example
-  overload: QFramework.FuncOrActionOrEventExtension.Example*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: QFramework.FuncOrActionOrEventExtension.InvokeGracefully``1(System.Func{``0})
   commentId: M:QFramework.FuncOrActionOrEventExtension.InvokeGracefully``1(System.Func{``0})
   id: InvokeGracefully``1(System.Func{``0})
@@ -100,9 +69,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeGracefully
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 91
+    startLine: 99
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static T InvokeGracefully<T>(this Func<T> selfFunc)
@@ -146,21 +115,21 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeGracefully
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 105
+    startLine: 118
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nCall action\n"
+  summary: "\n功能：不为空则调用 Action\n示例:\n<pre><code>System.Action action = () => Log.I(&quot;action called&quot;);\naction.InvokeGracefully(); // if (action != null) action();</code></pre>\n"
   example: []
   syntax:
     content: public static bool InvokeGracefully(this Action selfAction)
     parameters:
     - id: selfAction
       type: System.Action
-      description: ''
+      description: 'action 对象 '
     return:
       type: System.Boolean
-      description: call succeed
+      description: '是否调用成功 '
     content.vb: >-
       <ExtensionAttribute>
 
@@ -191,26 +160,21 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeGracefully
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 121
+    startLine: 139
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nCall action\n"
-  example: []
   syntax:
     content: public static bool InvokeGracefully<T>(this Action<T> selfAction, T t)
     parameters:
     - id: selfAction
       type: System.Action{{T}}
-      description: ''
     - id: t
       type: '{T}'
     typeParameters:
     - id: T
-      description: ''
     return:
       type: System.Boolean
-      description: ''
     content.vb: >-
       <ExtensionAttribute>
 
@@ -244,18 +208,15 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeGracefully
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 136
+    startLine: 158
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nCall action\n"
-  example: []
   syntax:
     content: public static bool InvokeGracefully<T, K>(this Action<T, K> selfAction, T t, K k)
     parameters:
     - id: selfAction
       type: System.Action{{T},{K}}
-      description: ''
     - id: t
       type: '{T}'
     - id: k
@@ -265,7 +226,6 @@ items:
     - id: K
     return:
       type: System.Boolean
-      description: call succeed
     content.vb: >-
       <ExtensionAttribute>
 
@@ -299,11 +259,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: InvokeGracefully
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 151
+    startLine: 178
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\nCall delegate\n"
+  summary: "\n不为空则调用委托\n<pre><code>// delegate\nTestDelegate testDelegate = () => { };\ntestDelegate.InvokeGracefully();</code></pre>\n"
   example: []
   syntax:
     content: public static bool InvokeGracefully(this Delegate selfAction, params object[] args)
@@ -534,37 +494,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -622,17 +551,43 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: QFramework.FuncOrActionOrEventExtension.Example*
-  commentId: Overload:QFramework.FuncOrActionOrEventExtension.Example
-  name: Example
-  nameWithType: FuncOrActionOrEventExtension.Example
-  fullName: QFramework.FuncOrActionOrEventExtension.Example
 - uid: QFramework.FuncOrActionOrEventExtension.InvokeGracefully*
   commentId: Overload:QFramework.FuncOrActionOrEventExtension.InvokeGracefully
   name: InvokeGracefully

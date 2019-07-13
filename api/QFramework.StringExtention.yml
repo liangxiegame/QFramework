@@ -41,9 +41,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: StringExtention
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1094
+    startLine: 1086
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static class StringExtention
@@ -56,8 +56,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -83,9 +83,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Example
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1096
+    startLine: 1088
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static void Example()
@@ -116,9 +116,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IsNullOrEmpty
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1111
+    startLine: 1103
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\nCheck Whether string is null or empty\n"
   example: []
@@ -161,9 +161,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IsNotNullAndEmpty
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1121
+    startLine: 1113
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\nCheck Whether string is null or empty\n"
   example: []
@@ -206,9 +206,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IsTrimNotNullAndEmpty
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1131
+    startLine: 1123
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\nCheck Whether string trim is null or empty\n"
   example: []
@@ -251,9 +251,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Split
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1141
+    startLine: 1133
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string[] Split(this string selfStr, char splitSymbol)
@@ -294,9 +294,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: UppercaseFirst
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1147
+    startLine: 1139
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string UppercaseFirst(this string str)
@@ -335,9 +335,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: LowercaseFirst
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1152
+    startLine: 1144
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string LowercaseFirst(this string str)
@@ -376,9 +376,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToUnixLineEndings
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1157
+    startLine: 1149
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string ToUnixLineEndings(this string str)
@@ -417,9 +417,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToCSV
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1162
+    startLine: 1154
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string ToCSV(this string[] values)
@@ -461,9 +461,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ArrayFromCSV
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1171
+    startLine: 1163
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string[] ArrayFromCSV(this string values)
@@ -502,9 +502,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToSpacedCamelCase
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1179
+    startLine: 1171
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string ToSpacedCamelCase(this string text)
@@ -543,9 +543,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: FillFormat
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1202
+    startLine: 1194
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n有点不安全,编译器不会帮你排查错误。\n"
   example: []
@@ -594,9 +594,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Append
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1207
+    startLine: 1199
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static StringBuilder Append(this string selfStr, string toAppend)
@@ -637,9 +637,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: AddPrefix
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1212
+    startLine: 1204
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string AddPrefix(this string selfStr, string toPrefix)
@@ -680,9 +680,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: AppendFormat
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1217
+    startLine: 1209
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
@@ -728,9 +728,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: LastWord
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1222
+    startLine: 1214
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string LastWord(this string selfUrl)
@@ -769,9 +769,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToInt
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1227
+    startLine: 1219
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static int ToInt(this string selfStr, int defaulValue = 0)
@@ -812,9 +812,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToDateTime
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1233
+    startLine: 1225
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static DateTime ToDateTime(this string selfStr, DateTime defaultValue = default(DateTime))
@@ -855,9 +855,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ToFloat
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1240
+    startLine: 1232
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static float ToFloat(this string selfStr, float defaulValue = 0F)
@@ -898,9 +898,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasChinese
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1251
+    startLine: 1243
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n是否存在中文字符\n"
   example: []
@@ -943,9 +943,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: HasSpace
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1261
+    startLine: 1253
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n是否存在空格\n"
   example: []
@@ -988,9 +988,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: RemoveString
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 1272
+    startLine: 1264
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n删除特定字符\n"
   example: []
@@ -1223,37 +1223,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -1308,6 +1277,37 @@ references:
     nameWithType: Object
     fullName: System.Object
     isExternal: true
+  - name: )
+    nameWithType: )
+    fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
   - name: )
     nameWithType: )
     fullName: )

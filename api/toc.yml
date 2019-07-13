@@ -10,8 +10,8 @@
     name: FromString
   - uid: QFramework.FuncOrActionOrEventExtension
     name: FuncOrActionOrEventExtension
-  - uid: QFramework.GenericExtention
-    name: GenericExtention
+  - uid: QFramework.GenericUtil
+    name: GenericUtil
   - uid: QFramework.IEnumerableExtension
     name: IEnumerableExtension
   - uid: QFramework.IOExtension

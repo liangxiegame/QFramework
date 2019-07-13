@@ -69,8 +69,8 @@ namespace QFramework.Example
 			// ClassExtention.Example();
 			// FuncOrActionOrEventExtension.Example();
 			// GenericExtention.Example();
-			IEnumerableExtension.Example();
-			IOExtension.Example();
+//			IEnumerableExtension.Example();
+//			IOExtension.Example();
 			OOPExtension.Example();
 			ReflectionExtension.Example();
 			StringExtention.Example();

@@ -11,7 +11,6 @@ items:
   - QFramework.IOExtension.DeleteDirIfExists(System.String)
   - QFramework.IOExtension.DeleteFileIfExists(System.String)
   - QFramework.IOExtension.EmptyDirIfExists(System.String)
-  - QFramework.IOExtension.Example
   - QFramework.IOExtension.GetDirectoryName(System.String)
   - QFramework.IOExtension.GetDirPath(System.String)
   - QFramework.IOExtension.GetDirSubDirNameList(System.String)
@@ -27,9 +26,7 @@ items:
   - QFramework.IOExtension.MakeDirectoryExist(System.String)
   - QFramework.IOExtension.MakeFileDirectoryExist(System.String)
   - QFramework.IOExtension.MakePathStandard(System.String)
-  - QFramework.IOExtension.ReadText(System.IO.FileInfo)
   - QFramework.IOExtension.ReadText(System.String)
-  - QFramework.IOExtension.SaveText(System.String,System.String)
   langs:
   - csharp
   - vb
@@ -44,11 +41,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: IOExtension
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 421
+    startLine: 417
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n各种文件的读写复制操作,主要是对System.IO的一些封装\n"
+  summary: "\n对 System.IO 的一些扩展\n"
   example: []
   syntax:
     content: public static class IOExtension
@@ -61,8 +58,8 @@ items:
   - System.Object.GetHashCode
   - System.Object.GetType
   - System.Object.MemberwiseClone
-  - System.Object.ToString
   - System.Object.ReferenceEquals(System.Object,System.Object)
+  - System.Object.ToString
   modifiers.csharp:
   - public
   - static
@@ -70,38 +67,6 @@ items:
   modifiers.vb:
   - Public
   - Module
-- uid: QFramework.IOExtension.Example
-  commentId: M:QFramework.IOExtension.Example
-  id: Example
-  parent: QFramework.IOExtension
-  langs:
-  - csharp
-  - vb
-  name: Example()
-  nameWithType: IOExtension.Example()
-  fullName: QFramework.IOExtension.Example()
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: Example
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 423
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  syntax:
-    content: public static void Example()
-    content.vb: Public Shared Sub Example
-  overload: QFramework.IOExtension.Example*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
 - uid: QFramework.IOExtension.CreateDirIfNotExists(System.String)
   commentId: M:QFramework.IOExtension.CreateDirIfNotExists(System.String)
   id: CreateDirIfNotExists(System.String)
@@ -121,11 +86,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: CreateDirIfNotExists
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 441
+    startLine: 427
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n创建新的文件夹,如果存在则不创建\n"
+  summary: "\n创建新的文件夹,如果存在则不创建\n<pre><code>var testDir = &quot;Assets/TestFolder&quot;;\ntestDir.CreateDirIfNotExists();\n// 结果为，在 Assets 目录下创建 TestFolder</code></pre>\n"
   example: []
   syntax:
     content: public static string CreateDirIfNotExists(this string dirFullPath)
@@ -164,11 +129,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: DeleteDirIfExists
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 454
+    startLine: 445
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n删除文件夹，如果存在\n"
+  summary: "\n删除文件夹，如果存在\n<pre><code>var testDir = &quot;Assets/TestFolder&quot;;\ntestDir.DeleteDirIfExists();\n// 结果为，在 Assets 目录下删除了 TestFolder</code></pre>\n"
   example: []
   syntax:
     content: public static void DeleteDirIfExists(this string dirFullPath)
@@ -205,11 +170,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: EmptyDirIfExists
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 465
+    startLine: 461
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n清空 Dir,如果存在。\n"
+  summary: "\n清空 Dir（保留目录),如果存在。\n<pre><code>var testDir = &quot;Assets/TestFolder&quot;;\ntestDir.EmptyDirIfExists();\n// 结果为，清空了 TestFolder 里的内容</code></pre>\n"
   example: []
   syntax:
     content: public static void EmptyDirIfExists(this string dirFullPath)
@@ -246,11 +211,11 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: DeleteFileIfExists
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 480
+    startLine: 483
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
-  summary: "\n删除文件 如果存在\n"
+  summary: "\n删除文件 如果存在\n<pre><code>// 示例\nvar filePath = &quot;Assets/Test.txt&quot;;\nFile.Create(&quot;Assets/Test);\nfilePath.DeleteFileIfExists();\n// 结果为，删除了 Test.txt</code></pre>\n"
   example: []
   syntax:
     content: public static bool DeleteFileIfExists(this string fileFullPath)
@@ -260,7 +225,7 @@ items:
       description: ''
     return:
       type: System.Boolean
-      description: True if exists
+      description: '是否进行了删除操作 '
     content.vb: >-
       <ExtensionAttribute>
 
@@ -291,114 +256,29 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: CombinePath
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 491
+    startLine: 504
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
+  summary: "\n合并路径\n<pre><code>// 示例：\nApplication.dataPath.CombinePath(&quot;Resources&quot;).LogInfo();  // /projectPath/Assets/Resources</code></pre>\n"
+  example: []
   syntax:
     content: public static string CombinePath(this string selfPath, string toCombinePath)
     parameters:
     - id: selfPath
       type: System.String
+      description: ''
     - id: toCombinePath
       type: System.String
+      description: ''
     return:
       type: System.String
+      description: '合并后的路径 '
     content.vb: >-
       <ExtensionAttribute>
 
       Public Shared Function CombinePath(selfPath As String, toCombinePath As String) As String
   overload: QFramework.IOExtension.CombinePath*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-- uid: QFramework.IOExtension.SaveText(System.String,System.String)
-  commentId: M:QFramework.IOExtension.SaveText(System.String,System.String)
-  id: SaveText(System.String,System.String)
-  isExtensionMethod: true
-  parent: QFramework.IOExtension
-  langs:
-  - csharp
-  - vb
-  name: SaveText(String, String)
-  nameWithType: IOExtension.SaveText(String, String)
-  fullName: QFramework.IOExtension.SaveText(System.String, System.String)
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: SaveText
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 503
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  summary: "\n保存文本\n"
-  example: []
-  syntax:
-    content: public static void SaveText(this string text, string path)
-    parameters:
-    - id: text
-      type: System.String
-      description: ''
-    - id: path
-      type: System.String
-      description: ''
-    content.vb: >-
-      <ExtensionAttribute>
-
-      Public Shared Sub SaveText(text As String, path As String)
-  overload: QFramework.IOExtension.SaveText*
-  modifiers.csharp:
-  - public
-  - static
-  modifiers.vb:
-  - Public
-  - Shared
-- uid: QFramework.IOExtension.ReadText(System.IO.FileInfo)
-  commentId: M:QFramework.IOExtension.ReadText(System.IO.FileInfo)
-  id: ReadText(System.IO.FileInfo)
-  isExtensionMethod: true
-  parent: QFramework.IOExtension
-  langs:
-  - csharp
-  - vb
-  name: ReadText(FileInfo)
-  nameWithType: IOExtension.ReadText(FileInfo)
-  fullName: QFramework.IOExtension.ReadText(System.IO.FileInfo)
-  type: Method
-  source:
-    remote:
-      path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-      branch: master
-      repo: git@github.com:liangxiegame/QFramework.git
-    id: ReadText
-    path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 522
-  assemblies:
-  - QFramework.Core.DotnetExtensions
-  namespace: QFramework
-  summary: "\n读取文本\n"
-  example: []
-  syntax:
-    content: public static string ReadText(this FileInfo file)
-    parameters:
-    - id: file
-      type: System.IO.FileInfo
-      description: ''
-    return:
-      type: System.String
-      description: ''
-    content.vb: >-
-      <ExtensionAttribute>
-
-      Public Shared Function ReadText(file As FileInfo) As String
-  overload: QFramework.IOExtension.ReadText*
   modifiers.csharp:
   - public
   - static
@@ -424,9 +304,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: ReadText
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 532
+    startLine: 515
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n读取文本\n"
   example: []
@@ -467,9 +347,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetDirectoryName
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 567
+    startLine: 550
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取文件夹名\n"
   example: []
@@ -508,9 +388,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFileName
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 579
+    startLine: 562
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取文件名\n"
   example: []
@@ -552,9 +432,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFileNameWithoutExtention
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 591
+    startLine: 574
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取不带后缀的文件名\n"
   example: []
@@ -596,9 +476,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFilePathWithoutExtention
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 601
+    startLine: 584
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取不带后缀的文件路径\n"
   example: []
@@ -637,9 +517,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: MakeFileDirectoryExist
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 612
+    startLine: 595
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n使目录存在,Path可以是目录名必须是文件名\n"
   example: []
@@ -675,9 +555,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: MakeDirectoryExist
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 625
+    startLine: 608
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n使目录存在\n"
   example: []
@@ -713,9 +593,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: Combine
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 638
+    startLine: 621
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n结合目录\n"
   example: []
@@ -757,9 +637,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetPathParentFolder
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 655
+    startLine: 638
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n获取父文件夹\n"
   example: []
@@ -798,9 +678,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: MakePathStandard
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 671
+    startLine: 654
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   summary: "\n使路径标准化，去除空格并将所有&apos;\\&apos;转换为&apos;/&apos;\n"
   example: []
@@ -840,9 +720,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetDirSubFilePathList
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 676
+    startLine: 659
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static List<string> GetDirSubFilePathList(this string dirABSPath, bool isRecursive = true, string suffix = "")
@@ -885,9 +765,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetDirSubDirNameList
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 712
+    startLine: 695
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static List<string> GetDirSubDirNameList(this string dirABSPath)
@@ -926,9 +806,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFileName
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 721
+    startLine: 704
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string GetFileName(this string absOrAssetsPath)
@@ -967,9 +847,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFileNameWithoutExtend
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 729
+    startLine: 712
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string GetFileNameWithoutExtend(this string absOrAssetsPath)
@@ -1008,9 +888,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetFileExtendName
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 737
+    startLine: 720
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string GetFileExtendName(this string absOrAssetsPath)
@@ -1049,9 +929,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetDirPath
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 749
+    startLine: 732
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string GetDirPath(this string absOrAssetsPath)
@@ -1090,9 +970,9 @@ items:
       repo: git@github.com:liangxiegame/QFramework.git
     id: GetLastDirName
     path: Assets/QFramework/Framework/0.Core/Core/DotNetExtensions.cs
-    startLine: 756
+    startLine: 739
   assemblies:
-  - QFramework.Core.DotnetExtensions
+  - QFramework.Core.DotNetExtensions
   namespace: QFramework
   syntax:
     content: public static string GetLastDirName(this string absOrAssetsPath)
@@ -1316,37 +1196,6 @@ references:
   - name: )
     nameWithType: )
     fullName: )
-- uid: System.Object.ToString
-  commentId: M:System.Object.ToString
-  parent: System.Object
-  isExternal: true
-  name: ToString()
-  nameWithType: Object.ToString()
-  fullName: System.Object.ToString()
-  spec.csharp:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
-  spec.vb:
-  - uid: System.Object.ToString
-    name: ToString
-    nameWithType: Object.ToString
-    fullName: System.Object.ToString
-    isExternal: true
-  - name: (
-    nameWithType: (
-    fullName: (
-  - name: )
-    nameWithType: )
-    fullName: )
 - uid: System.Object.ReferenceEquals(System.Object,System.Object)
   commentId: M:System.Object.ReferenceEquals(System.Object,System.Object)
   parent: System.Object
@@ -1404,17 +1253,43 @@ references:
   - name: )
     nameWithType: )
     fullName: )
+- uid: System.Object.ToString
+  commentId: M:System.Object.ToString
+  parent: System.Object
+  isExternal: true
+  name: ToString()
+  nameWithType: Object.ToString()
+  fullName: System.Object.ToString()
+  spec.csharp:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
+  spec.vb:
+  - uid: System.Object.ToString
+    name: ToString
+    nameWithType: Object.ToString
+    fullName: System.Object.ToString
+    isExternal: true
+  - name: (
+    nameWithType: (
+    fullName: (
+  - name: )
+    nameWithType: )
+    fullName: )
 - uid: System
   commentId: N:System
   isExternal: true
   name: System
   nameWithType: System
   fullName: System
-- uid: QFramework.IOExtension.Example*
-  commentId: Overload:QFramework.IOExtension.Example
-  name: Example
-  nameWithType: IOExtension.Example
-  fullName: QFramework.IOExtension.Example
 - uid: QFramework.IOExtension.CreateDirIfNotExists*
   commentId: Overload:QFramework.IOExtension.CreateDirIfNotExists
   name: CreateDirIfNotExists
@@ -1454,29 +1329,11 @@ references:
   name: CombinePath
   nameWithType: IOExtension.CombinePath
   fullName: QFramework.IOExtension.CombinePath
-- uid: QFramework.IOExtension.SaveText*
-  commentId: Overload:QFramework.IOExtension.SaveText
-  name: SaveText
-  nameWithType: IOExtension.SaveText
-  fullName: QFramework.IOExtension.SaveText
 - uid: QFramework.IOExtension.ReadText*
   commentId: Overload:QFramework.IOExtension.ReadText
   name: ReadText
   nameWithType: IOExtension.ReadText
   fullName: QFramework.IOExtension.ReadText
-- uid: System.IO.FileInfo
-  commentId: T:System.IO.FileInfo
-  parent: System.IO
-  isExternal: true
-  name: FileInfo
-  nameWithType: FileInfo
-  fullName: System.IO.FileInfo
-- uid: System.IO
-  commentId: N:System.IO
-  isExternal: true
-  name: System.IO
-  nameWithType: System.IO
-  fullName: System.IO
 - uid: QFramework.IOExtension.GetDirectoryName*
   commentId: Overload:QFramework.IOExtension.GetDirectoryName
   name: GetDirectoryName
