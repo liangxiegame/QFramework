@@ -21,7 +21,7 @@ namespace QFramework.Example
     public partial class UIGamePanel
     {
         
-        public string NAME = "UIGamePanel";
+        public const string NAME = "UIGamePanel";
         
         [SerializeField()]
         public Text gameText;
@@ -29,6 +29,9 @@ namespace QFramework.Example
         [SerializeField()]
         public Button backBtn;
         
+//        [SerializeField()]
+//        public void Dialog;
+//        
         private UIGamePanelData mPrivateData = null;
         
         public UIGamePanelData mData
@@ -48,6 +51,7 @@ namespace QFramework.Example
         {
             gameText = null;
             backBtn = null;
+//            Dialog = null;
             mData = null;
         }
     }
