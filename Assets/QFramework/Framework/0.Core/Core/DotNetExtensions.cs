@@ -55,7 +55,16 @@ namespace QFramework
     public static class ClassExtention
     {
         /// <summary>
-        /// 判断是否为空
+        /// 功能：判断是否为空
+        /// 示例：
+        /// ``` csharp
+        /// var simpleObject = new object();
+        ///
+        /// if (simpleObject.IsNull()) // 等价于 simpleObject == null
+        /// {
+        ///    // do sth
+        /// }
+        /// ```
         /// </summary>
         /// <param name="selfObj"></param>
         /// <typeparam name="T"></typeparam>
@@ -66,7 +75,16 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 判断不是为空
+        /// 功能：判断不是为空
+        /// 示例：
+        /// ``` csharp
+        /// var simpleObject = new object();
+        ///
+        /// if (simpleObject.IsNotNull()) // 等价于 simpleObject != null
+        /// {
+        ///    // do sth
+        /// }
+        /// ```
         /// </summary>
         /// <param name="selfObj"></param>
         /// <typeparam name="T"></typeparam>
@@ -78,7 +96,7 @@ namespace QFramework
     }
 
     /// <summary>
-    /// 方法 或者 动作的扩展
+    /// Func、Action、delegate 的扩展
     /// 示例:
     /// ``` csharp
     /// private delegate void TestDelegate();
@@ -88,18 +106,6 @@ namespace QFramework
     ///     // action
     ///     System.Action action = () => Log.I("action called");
     ///     action.InvokeGracefully(); // if (action != null) action();
-    /// 
-    ///     // func
-    ///     Func<int> func = () => 1;
-    ///     func.InvokeGracefully();
-    /// 
-    ///     /*
-    ///     public static T InvokeGracefully<T>(this Func<T> selfFunc)
-    ///     {
-    ///         return null != selfFunc ? selfFunc() : default(T);
-    ///     }
-    ///     */
-    /// 
     ///     // delegate
     ///     TestDelegate testDelegate = () => { };
     ///     testDelegate.InvokeGracefully();
@@ -112,6 +118,10 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用 Func
+        /// ``` csharp
+        /// Func<int> func = ()=> 1;
+        /// var number = func.InvokeGracefully(); // 等价于 if (func != null) number = func();
+        /// ```
         /// </summary>
         /// <param name="selfFunc"></param>
         /// <typeparam name="T"></typeparam>
