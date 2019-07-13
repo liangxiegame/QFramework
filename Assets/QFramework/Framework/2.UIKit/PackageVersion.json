@@ -1,19 +1,19 @@
 {
-  "Version": "v0.2.9",
+  "Version": "v0.3.0",
   "Type": 0,
   "AccessRight": 1,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
   "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
   "Readme": {
-    "version": "v0.2.9",
-    "content": "add (alt + m) mark function",
+    "version": "v0.3.0",
+    "content": "标记的面板改进",
     "author": "liangxiegame@163.com",
-    "date": "2019 年 07 月 13 日 22:49",
-    "VersionNumber": 209
+    "date": "2019 年 07 月 14 日 00:34",
+    "VersionNumber": 300
   },
   "Id": null,
   "Name": "2.UIKit",
-  "VersionNumber": 209,
-  "FileName": "2.UIKit_v0.2.9.unitypackage"
+  "VersionNumber": 300,
+  "FileName": "2.UIKit_v0.3.0.unitypackage"
 }

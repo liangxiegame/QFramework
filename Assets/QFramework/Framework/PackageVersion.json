@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.22",
+  "Version": "v0.0.23",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.0.22",
-    "content": "support 2019",
-    "author": "liangxie",
-    "date": "2019 年 07 月 11 日 13:49",
-    "VersionNumber": 22
+    "version": "v0.0.23",
+    "content": "UIKit Improvement",
+    "author": "liangxiegame@163.com",
+    "date": "2019 年 07 月 14 日 00:35",
+    "VersionNumber": 23
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 22,
-  "FileName": "Framework_v0.0.22.unitypackage"
+  "VersionNumber": 23,
+  "FileName": "Framework_v0.0.23.unitypackage"
 }

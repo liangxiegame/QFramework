@@ -41,13 +41,13 @@ namespace QFramework.Editor
 
 			if (window == null)
 			{
-				var frameworkConfigEditorWindow = Create<PackageKitWindow>(true);
-				frameworkConfigEditorWindow.titleContent = new GUIContent("QFramework Settings");
-				frameworkConfigEditorWindow.position = new Rect(100, 100, 690, 480);
-				frameworkConfigEditorWindow.Init();
-				frameworkConfigEditorWindow.Show();
+				var packag = Create<PackageKitWindow>(true);
+				packag.titleContent = new GUIContent("QFramework Settings");
+				packag.position = new Rect(100, 100, 690, 480);
+				packag.Init();
+				packag.Show();
 				
-				PackageApplication.Container.RegisterInstance(frameworkConfigEditorWindow);
+				PackageApplication.Container.RegisterInstance(packag);
 			}
 			else
 			{

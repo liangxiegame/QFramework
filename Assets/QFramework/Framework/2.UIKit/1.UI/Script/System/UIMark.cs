@@ -36,6 +36,7 @@ namespace QFramework
 	/// </summary>
 	public class UIMark : MonoBehaviour, IMark
 	{
+		[HideInInspector]
 		public UIMarkType MarkType = UIMarkType.DefaultUnityElement;
 
 		public string Comment
@@ -48,12 +49,13 @@ namespace QFramework
 			get { return transform; }
 		}
 
+		[HideInInspector]
 		public string CustomComponentName;
 
-		/// <summary>
-		/// 注释
-		/// </summary>
-		[Header("注释")]
+		[HideInInspector] 
+		public string ComponentGeneratePath;
+
+		[HideInInspector]
 		public string CustomComment;
 		
 		public UIMarkType GetUIMarkType()
