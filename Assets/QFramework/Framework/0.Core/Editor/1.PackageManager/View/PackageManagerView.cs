@@ -32,6 +32,7 @@ using Invert.Common.UI;
 using UnityEditor;
 using UnityEditorUI;
 using UnityEngine;
+using HorizontalLayout = EGO.Framework.HorizontalLayout;
 using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QFramework.Editor
@@ -144,43 +145,39 @@ namespace QFramework.Editor
             get { return true; }
         }
 
-        private RootLayout     mRootLayout    = null;
         private VerticalLayout mEGORootLayout = null;
-
-        private RootLayout mFrameworkInfoLayout = null;
 
         public void Init(IQFrameworkContainer container)
         {
-            mRootLayout = new RootLayout();
-
-            mFrameworkInfoLayout = new RootLayout();
-
             var frameworkData = mPackageDatas.Find(packageData => packageData.Name == "Framework");
             var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
 
-            mFrameworkInfoLayout
-                // Framework 层
-                .HorizontalLayout()
-                .Label(150)
-                .Text.Value(frameworkVersion)
-                .End()
-                .Toggle()
-                .Text.Value("Version Check")
-                .On.Bind(() => VersionCheck)
-                .End()
-                .End() // end horizontal
-                // 工具栏
-                .Toolbar(ToolbarIndex, ToolbarNames)
-                .Index.Bind(() => ToolbarIndex)
-                .End()
-                .End();
-
-            mFrameworkInfoLayout.BindViewModel(this);
-
             mEGORootLayout = new VerticalLayout();
 
-            new HeaderView().AddTo(mEGORootLayout);
 
+            var frameworkInfoLayout = new HorizontalLayout("box")
+                .AddTo(mEGORootLayout);
+
+            new EGO.Framework.LabelView(frameworkVersion)
+                .Width(150)
+                .FontBold()
+                .FontSize(12)
+                .AddTo(frameworkInfoLayout);
+
+            new ToggleView(LocaleText.VersionCheck, VersionCheck)
+//                .FontSize(12)
+//                .FontBold()
+                .AddTo(frameworkInfoLayout)
+                .Toggle.Bind(newValue => VersionCheck = newValue);
+
+            new ToolbarView(ToolbarIndex)
+                .Menus(ToolbarNames.ToList())
+                .AddTo(mEGORootLayout)
+                .Index.Bind(newIndex => ToolbarIndex = newIndex);
+
+
+            new HeaderView()
+                .AddTo(mEGORootLayout);
 
             var packageList = new VerticalLayout("box")
                 .AddTo(mEGORootLayout);
@@ -208,7 +205,7 @@ namespace QFramework.Editor
                 new PackageView(packageData).AddTo(scroll);
             }
         }
-        
+
 
         public override void OnGUI()
         {
@@ -216,11 +213,7 @@ namespace QFramework.Editor
 
             if (GUIHelpers.DoToolbarEx(LocaleText.FrameworkPackages))
             {
-                mRootLayout.OnGUI();
-
                 GUILayout.BeginVertical("box");
-
-                mFrameworkInfoLayout.OnGUI();
 
                 mEGORootLayout.DrawGUI();
 
@@ -233,6 +226,11 @@ namespace QFramework.Editor
             public static string FrameworkPackages
             {
                 get { return Language.IsChinese ? "框架模块" : "Framework Packages"; }
+            }
+
+            public static string VersionCheck
+            {
+                get { return Language.IsChinese ? "版本检测" : "Version Check"; }
             }
         }
     }

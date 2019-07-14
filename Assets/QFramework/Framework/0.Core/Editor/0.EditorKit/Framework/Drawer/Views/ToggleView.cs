@@ -1,11 +1,10 @@
-using UnityEditor.Graphs;
 using UnityEngine;
 
 namespace EGO.Framework
 {
     public class ToggleView : View
     {
-        public string Text { get; }
+        public string Text { get; private set; }
 
         public ToggleView(string text, bool initValue = false)
         {
@@ -17,7 +16,7 @@ namespace EGO.Framework
 
         protected override void OnGUI()
         {
-            Toggle.Value = GUILayout.Toggle(Toggle.Value, Text);
+            Toggle.Value = GUILayout.Toggle(Toggle.Value, Text, Style, LayoutStyles);
         }
     }
 }
