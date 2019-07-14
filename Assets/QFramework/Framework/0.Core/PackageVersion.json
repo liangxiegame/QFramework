@@ -1,19 +1,19 @@
 {
-  "Version": "v0.5.0",
+  "Version": "v0.5.1",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.5.0",
-    "content": "add language support",
+    "version": "v0.5.1",
+    "content": "import editor framework",
     "author": "liangxiegame@163.com",
-    "date": "2019 年 07 月 14 日 00:01",
-    "VersionNumber": 500
+    "date": "2019 年 07 月 14 日 12:16",
+    "VersionNumber": 501
   },
   "Id": null,
   "Name": "0.Core",
-  "VersionNumber": 500,
-  "FileName": "0.Core_v0.5.0.unitypackage"
+  "VersionNumber": 501,
+  "FileName": "0.Core_v0.5.1.unitypackage"
 }

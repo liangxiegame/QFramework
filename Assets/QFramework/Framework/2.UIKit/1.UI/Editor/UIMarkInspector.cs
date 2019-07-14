@@ -38,7 +38,9 @@ namespace QFramework
 
             GUILayout.BeginHorizontal();
             GUILayout.Label(LocaleText.MarkType,GUILayout.Width(100));
+            
             uiMarkScript.MarkType = (UIMarkType)EditorGUILayout.EnumPopup(uiMarkScript.MarkType);
+            
             GUILayout.EndHorizontal();
 
             if (uiMarkScript.MarkType == UIMarkType.DefaultUnityElement)
@@ -50,7 +52,7 @@ namespace QFramework
             }
             else if (uiMarkScript.MarkType == UIMarkType.Element)
             {
-                if (string.IsNullOrEmpty(uiMarkScript.CustomComponentName.Trim()))
+                if (uiMarkScript.CustomComponentName == null || string.IsNullOrEmpty(uiMarkScript.CustomComponentName.Trim()))
                 {
                     uiMarkScript.CustomComponentName = uiMarkScript.name;
                 }
@@ -62,7 +64,7 @@ namespace QFramework
                 
             } else if (uiMarkScript.MarkType == UIMarkType.Component)
             {
-                if (string.IsNullOrEmpty(uiMarkScript.CustomComponentName.Trim()))
+                if (uiMarkScript.CustomComponentName == null || string.IsNullOrEmpty(uiMarkScript.CustomComponentName.Trim()))
                 {
                     uiMarkScript.CustomComponentName = uiMarkScript.name;
                 }
