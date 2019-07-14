@@ -32,6 +32,14 @@ namespace QFramework.Editor
 
 	public class PackageKitWindow : QEditorWindow
 	{
+		class LocaleText
+		{
+			public static string QFrameworkSettings
+			{
+				get { return Language.IsChinese ? "QFramework 设置" : "QFramework Settings"; }
+			}
+		}
+		
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
@@ -42,8 +50,8 @@ namespace QFramework.Editor
 			if (window == null)
 			{
 				var packag = Create<PackageKitWindow>(true);
-				packag.titleContent = new GUIContent("QFramework Settings");
-				packag.position = new Rect(100, 100, 690, 480);
+				packag.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
+				packag.position = new Rect(Screen.width / 2, Screen.height /2, 690, 490);
 				packag.Init();
 				packag.Show();
 				

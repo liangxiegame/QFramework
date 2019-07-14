@@ -226,6 +226,8 @@
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\Singleton.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\SingletonCreator.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\1.Singleton\SingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\10.Tools\Language.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\10.Tools\Platform.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\Cache\SimpleObjectCache.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\CustomObjectFactory.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Runtime\2.Pool\ObjectFactory\DefaultObjectFactory.cs" />

@@ -23,27 +23,28 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using EGO.Framework;
 using Invert.Common.UI;
 using QFramework.Editor;
-using UnityEngine;
 
 namespace QFramework
 {
-    public class UIKitSettingView : GUIView,IPackageKitView
+    public class UIKitSettingView : GUIView, IPackageKitView
     {
         private UIKitSettingData mUiKitSettingData;
-		
+
         public UIKitSettingView()
         {
             mUiKitSettingData = UIKitSettingData.Load();
         }
 
         public IQFrameworkContainer Container { get; set; }
+
         public int RenderOrder
         {
             get { return 0; }
         }
-        
+
         public bool Ignore { get; private set; }
 
         public bool Enabled
@@ -51,32 +52,100 @@ namespace QFramework
             get { return true; }
         }
 
+        private VerticalLayout mRootLayout = null;
+
         public void Init(IQFrameworkContainer container)
         {
-            
+            mRootLayout = new VerticalLayout("box");
+
+            new EGO.Framework.SpaceView(6).AddTo(mRootLayout);
+
+            // 命名空间
+            var nameSpaceLayout = new HorizontalLayout()
+                .AddTo(mRootLayout);
+
+            new EGO.Framework.LabelView(LocaleText.Namespace)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(nameSpaceLayout);
+
+            new TextView(mUiKitSettingData.Namespace)
+                .AddTo(nameSpaceLayout)
+                .Content.Bind(content => mUiKitSettingData.Namespace = content);
+
+            // UI 生成的目录
+            new EGO.Framework.SpaceView(6).AddTo(mRootLayout);
+
+            var uiScriptGenerateDirLayout = new HorizontalLayout()
+                .AddTo(mRootLayout);
+
+            new EGO.Framework.LabelView(LocaleText.UIScriptGenerateDir)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(uiScriptGenerateDirLayout);
+
+            new TextView(mUiKitSettingData.UIScriptDir)
+                .AddTo(uiScriptGenerateDirLayout)
+                .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
+
+            new EGO.Framework.SpaceView(6).AddTo(mRootLayout);
+
+            var uiPanelPrefabDir = new HorizontalLayout()
+                .AddTo(mRootLayout);
+
+            new EGO.Framework.LabelView(LocaleText.UIPanelPrefabDir)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(uiPanelPrefabDir);
+
+            new TextView(mUiKitSettingData.UIPrefabDir)
+                .AddTo(uiPanelPrefabDir)
+                .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
+
+            new EGO.Framework.SpaceView(6).AddTo(mRootLayout);
+
+            new ButtonView(LocaleText.Apply, () => { mUiKitSettingData.Save(); })
+                .AddTo(mRootLayout);
         }
 
         public override void OnGUI()
         {
             base.OnGUI();
 
-            if (GUIHelpers.DoToolbarEx("UI Kit Settings"))
+            if (GUIHelpers.DoToolbarEx(LocaleText.UIKitSettings))
             {
-                GUILayout.BeginVertical("box");
+                mRootLayout.DrawGUI();
+            }
+        }
 
-                mUiKitSettingData.Namespace =
-                    EditorGUIUtils.GUILabelAndTextField("Namespace", mUiKitSettingData.Namespace);
-                mUiKitSettingData.UIScriptDir =
-                    EditorGUIUtils.GUILabelAndTextField("UI Script Generate Dir", mUiKitSettingData.UIScriptDir);
-                mUiKitSettingData.UIPrefabDir =
-                    EditorGUIUtils.GUILabelAndTextField("UI Prefab Dir", mUiKitSettingData.UIPrefabDir);
+        class LocaleText
+        {
+            public static string Namespace
+            {
+                get { return Language.IsChinese ? " 默认命名空间:" : " Namespace:"; }
+            }
 
-                if (GUILayout.Button("Apply"))
-                {
-                    mUiKitSettingData.Save();
-                }
+            public static string UIScriptGenerateDir
+            {
+                get { return Language.IsChinese ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:"; }
+            }
 
-                GUILayout.EndVertical();
+            public static string UIPanelPrefabDir
+            {
+                get { return Language.IsChinese ? " UIPanel Prefab 路径:" : " UIPanel Prefab Dir:"; }
+            }
+
+            public static string Apply
+            {
+                get { return Language.IsChinese ? "保存" : "Apply"; }
+            }
+
+            public static string UIKitSettings
+            {
+                get { return Language.IsChinese ? "UI Kit 设置" : "Ui Kit Settings"; }
             }
         }
     }

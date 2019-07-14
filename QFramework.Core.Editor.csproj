@@ -216,8 +216,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\EditorGUIUtils.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\EditorPathManager.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Framework\DataBinding\Property.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Framework\Drawer\Extensions\LayoutExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Framework\Drawer\Extensions\SubWindowExtension.cs" />
@@ -297,7 +295,6 @@
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\IMGUIMVVM\View\LayoutLabel.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\IMGUIMVVM\View\LayoutVertical.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\IMGUIMVVM\View\OnGUIEvent.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\IOEditorPathConfig.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\PathConfig.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\RSG.Toolkit-1.0.0.0\Argument.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\RSG.Toolkit-1.0.0.0\ILogger.cs" />
@@ -970,6 +967,7 @@
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\uFrame.Editor\Systems\WorkspacesUISystem.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Utils\AssetLabelHelper.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Utils\EditorCoroutine.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Utils\EditorGUIUtils.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Utils\EditorUtils.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\0.EditorKit\Utils\MouseSelector.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\Actions\DeletePackage.cs" />
@@ -993,7 +991,9 @@
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\Runtime\Login\RegisterAction.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\Runtime\Login\User.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\Runtime\Util\DjangoPost.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\View\HeaderView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\View\PackageManagerView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\View\PackageView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.Core\Editor\1.PackageManager\Window\PackageKitWindow.cs" />
     <None Include="Assets\QFramework\Framework\0.Core\Editor\QFramework.Core.Editor.asmdef" />
     <Reference Include="UnityEngine.UI">

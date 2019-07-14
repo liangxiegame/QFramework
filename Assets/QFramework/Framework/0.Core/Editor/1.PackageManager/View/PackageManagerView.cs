@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.7 ~ 2019.1 liangxie
+ * Copyright (c) 2018.7 ~ 2019.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,17 +23,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using EGO.Framework;
 using Invert.Common.UI;
 using UnityEditor;
 using UnityEditorUI;
 using UnityEngine;
+using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QFramework.Editor
 {
-    public class PackageManagerView : GUIView,IPackageKitView
+    public class PackageManagerView : GUIView, IPackageKitView
     {
         private List<PackageData> mPackageDatas = new List<PackageData>();
 
@@ -71,10 +74,17 @@ namespace QFramework.Editor
 
         private Vector2 mScrollPos;
 
+
+        private Action mOnToolbarIndexChanged;
+
         public int ToolbarIndex
         {
             get { return EditorPrefs.GetInt("PM_TOOLBAR_INDEX", 0); }
-            set { EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value); }
+            set
+            {
+                EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value);
+                mOnToolbarIndexChanged.InvokeGracefully();
+            }
         }
 
         private string[] mToolbarNamesLogined =
@@ -121,56 +131,90 @@ namespace QFramework.Editor
         }
 
         public IQFrameworkContainer Container { get; set; }
+
         public int RenderOrder
         {
             get { return 1; }
         }
-        
+
         public bool Ignore { get; private set; }
+
         public bool Enabled
         {
             get { return true; }
         }
 
-        private RootLayout mRootLayout = null;
+        private RootLayout     mRootLayout    = null;
+        private VerticalLayout mEGORootLayout = null;
 
         private RootLayout mFrameworkInfoLayout = null;
 
         public void Init(IQFrameworkContainer container)
         {
             mRootLayout = new RootLayout();
-            
+
             mFrameworkInfoLayout = new RootLayout();
 
             var frameworkData = mPackageDatas.Find(packageData => packageData.Name == "Framework");
             var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
-            
+
             mFrameworkInfoLayout
-                    // Framework 层
+                // Framework 层
                 .HorizontalLayout()
                 .Label(150)
-                    .Text.Value(frameworkVersion)
+                .Text.Value(frameworkVersion)
                 .End()
                 .Toggle()
-                    .Text.Value("Version Check")
-                    .On.Bind(()=>VersionCheck)
+                .Text.Value("Version Check")
+                .On.Bind(() => VersionCheck)
                 .End()
                 .End() // end horizontal
-                    // 工具栏
-                .Toolbar(ToolbarIndex,ToolbarNames)
-                    .Index.Bind(()=>ToolbarIndex)
+                // 工具栏
+                .Toolbar(ToolbarIndex, ToolbarNames)
+                .Index.Bind(() => ToolbarIndex)
                 .End()
                 .End();
-            
+
             mFrameworkInfoLayout.BindViewModel(this);
 
+            mEGORootLayout = new VerticalLayout();
+
+            new HeaderView().AddTo(mEGORootLayout);
+
+
+            var packageList = new VerticalLayout("box")
+                .AddTo(mEGORootLayout);
+
+            var scroll = new ScrollLayout()
+                .Height(240)
+                .AddTo(packageList);
+
+            new EGO.Framework.SpaceView(2).AddTo(scroll);
+
+            mOnToolbarIndexChanged = () =>
+            {
+                scroll.Clear();
+
+                foreach (var packageData in SelectedPackageType)
+                {
+                    new EGO.Framework.SpaceView(2).AddTo(scroll);
+                    new PackageView(packageData).AddTo(scroll);
+                }
+            };
+
+            foreach (var packageData in SelectedPackageType)
+            {
+                new EGO.Framework.SpaceView(2).AddTo(scroll);
+                new PackageView(packageData).AddTo(scroll);
+            }
         }
+        
 
         public override void OnGUI()
         {
             base.OnGUI();
 
-            if (GUIHelpers.DoToolbarEx("Framework Packages"))
+            if (GUIHelpers.DoToolbarEx(LocaleText.FrameworkPackages))
             {
                 mRootLayout.OnGUI();
 
@@ -178,109 +222,17 @@ namespace QFramework.Editor
 
                 mFrameworkInfoLayout.OnGUI();
 
-                // 这里开始具体的内容
-                GUILayout.BeginHorizontal("box");
-                
-                GUILayout.Label("Package",new GUIStyle()
-                {
-                    fontSize = 20
-                },GUILayout.Width(150));
+                mEGORootLayout.DrawGUI();
 
-//                new LabelView("Package",150,20).OnGUI();
-                
-                GUILayout.Label("Server", GUILayout.Width(80));
-                GUILayout.Label("Local", GUILayout.Width(80));
-                GUILayout.Label("Access Right", GUILayout.Width(80));
-                GUILayout.Label("Doc", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 40f});
-                GUILayout.Label("Action", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 100f});
-                GUILayout.Label("Release Note", new GUIStyle {alignment = TextAnchor.MiddleCenter, fixedWidth = 100f});
-                GUILayout.EndHorizontal();
-
-                GUILayout.BeginVertical("box");
-
-                mScrollPos = GUILayout.BeginScrollView(mScrollPos, false, true, GUILayout.Height(240));
-
-                foreach (var packageData in SelectedPackageType)
-                {
-                    GUILayout.Space(2);
-                    GUILayout.BeginHorizontal();
-                    GUILayout.Label(packageData.Name, GUILayout.Width(150));
-                    GUILayout.Label(packageData.Version, GUILayout.Width(80));
-                    var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
-                    GUILayout.Label(installedPackage != null ? installedPackage.Version : " ", GUILayout.Width(80));
-                    GUILayout.Label(packageData.AccessRight.ToString(), GUILayout.Width(80));
-
-                    if (packageData.DocUrl.IsNotNullAndEmpty())
-                    {
-                        if (GUILayout.Button("Doc", GUILayout.Width(40)))
-                        {
-                            Application.OpenURL(packageData.DocUrl);
-                        }
-                    }
-                    else
-                    {
-                        GUILayout.Space(40);
-                    }
-
-                    if (installedPackage == null)
-                    {
-                        if (GUILayout.Button("Import", GUILayout.Width(90)))
-                        {
-                            EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-
-                            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-
-                        }
-                    }
-                    else if (installedPackage != null && packageData.VersionNumber > installedPackage.VersionNumber)
-                    {
-                        if (GUILayout.Button("Update", GUILayout.Width(90)))
-                        {
-                            var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
-
-                            if (Directory.Exists(path))
-                            {
-                                Directory.Delete(path, true);
-                            }
-
-                            EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-
-                            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-                        }
-                    }
-                    else if (installedPackage.IsNotNull() &&
-                             packageData.VersionNumber == installedPackage.VersionNumber)
-                    {
-                        if (GUILayout.Button("Reimport", GUILayout.Width(90)))
-                        {
-                            var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
-
-                            if (Directory.Exists(path))
-                            {
-                                Directory.Delete(path, true);
-                            }
-
-                            EditorActionKit.ExecuteNode(new InstallPackage(packageData));
-                            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-
-                        }
-                    }
-                    else if (installedPackage != null)
-                    {
-                        GUILayout.Space(94);
-                    }
-
-                    if (GUILayout.Button("Release Notes", GUILayout.Width(100)))
-                    {
-                        ReadmeWindow.Init(packageData.readme, packageData.PackageVersions.First());
-                    }
-
-                    GUILayout.EndHorizontal();
-                }
-
-                GUILayout.EndScrollView();
                 GUILayout.EndVertical();
-                GUILayout.EndVertical();
+            }
+        }
+
+        class LocaleText
+        {
+            public static string FrameworkPackages
+            {
+                get { return Language.IsChinese ? "框架模块" : "Framework Packages"; }
             }
         }
     }

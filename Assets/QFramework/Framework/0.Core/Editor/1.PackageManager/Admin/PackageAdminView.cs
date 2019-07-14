@@ -52,6 +52,15 @@ namespace QFramework.Editor
 			mRootLayout = new RootLayout();
 		}
 
+		public void OnEnable()
+		{
+			
+		}
+
+		public void OnDisable()
+		{
+		}
+
 		bool inRegisterView = false;
 
 		public override void OnGUI()
