@@ -26,6 +26,7 @@
 using EGO.Framework;
 using Invert.Common.UI;
 using QFramework.Editor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -111,6 +112,7 @@ namespace QFramework
                 .AddTo(mRootLayout);
         }
 
+        private bool ShowLabel2;
         public override void OnGUI()
         {
             base.OnGUI();

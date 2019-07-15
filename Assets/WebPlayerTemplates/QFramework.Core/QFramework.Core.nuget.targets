@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(NuGetPackageRoot)' == ''">
-    <NuGetPackageRoot>/Users/liangxie/.nuget/packages/</NuGetPackageRoot>
-  </PropertyGroup>
-  <ImportGroup>
-    <Import Project="$(NuGetPackageRoot)nuget.build.packaging/0.2.0/build/NuGet.Build.Packaging.targets" Condition="Exists('$(NuGetPackageRoot)nuget.build.packaging/0.2.0/build/NuGet.Build.Packaging.targets')" />
-  </ImportGroup>
-</Project>

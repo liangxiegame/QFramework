@@ -9,13 +9,18 @@ namespace QFramework
         [MenuItem("GameObject/@UI Kit - Add Mark (alt + m) &m",false,-1)]
         public static void AddMark()
         {
-            var gameObj = Selection.objects.First() as GameObject;
-
-            if (gameObj)
+            foreach (var o in Selection.objects.OfType<GameObject>())
             {
-                gameObj.AddComponent<UIMark>();
+                if (o)
+                {
+                    var uiMark = o.GetComponent<UIMark>();
+
+                    if (!uiMark)
+                    {
+                        o.AddComponent<UIMark>();
+                    }
+                }
             }
         }
-
     }
 }

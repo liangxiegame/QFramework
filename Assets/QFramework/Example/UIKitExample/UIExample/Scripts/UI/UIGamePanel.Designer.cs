@@ -29,9 +29,9 @@ namespace QFramework.Example
         [SerializeField()]
         public Button backBtn;
         
-//        [SerializeField()]
-//        public void Dialog;
-//        
+        [SerializeField()]
+        public Text Text;
+        
         private UIGamePanelData mPrivateData = null;
         
         public UIGamePanelData mData
@@ -51,7 +51,7 @@ namespace QFramework.Example
         {
             gameText = null;
             backBtn = null;
-//            Dialog = null;
+            Text = null;
             mData = null;
         }
     }

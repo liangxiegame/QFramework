@@ -1,19 +1,19 @@
 {
-  "Version": "v0.3.3",
+  "Version": "v0.3.5",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
   "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
   "Readme": {
-    "version": "v0.3.3",
-    "content": "add localise",
+    "version": "v0.3.5",
+    "content": "uimark inspector refactor",
     "author": "liangxiegame@163.com",
-    "date": "2019 年 07 月 14 日 16:54",
-    "VersionNumber": 303
+    "date": "2019 年 07 月 15 日 10:49",
+    "VersionNumber": 305
   },
   "Id": null,
   "Name": "2.UIKit",
-  "VersionNumber": 303,
-  "FileName": "2.UIKit_v0.3.3.unitypackage"
+  "VersionNumber": 305,
+  "FileName": "2.UIKit_v0.3.5.unitypackage"
 }

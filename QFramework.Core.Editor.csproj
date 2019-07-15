@@ -1122,6 +1122,9 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+    <Reference Include="QF.PackageKit">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/PackageKit/Editor/QF.PackageKit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="QFramework.Core.Runtime.csproj">
