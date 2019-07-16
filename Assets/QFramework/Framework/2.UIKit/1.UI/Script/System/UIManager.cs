@@ -188,7 +188,7 @@ namespace QFramework
 
 			mAllUI.TryGetValue(behaviourName, out behaviour);
 
-			if (null != behaviour)
+			if ((behaviour as UIPanel))
 			{
 				behaviour.Close();
 				mAllUI.Remove(behaviourName);

@@ -7,7 +7,7 @@ namespace QFramework
     [RequiresNamespace("UnityEngine")]
     [RequiresNamespace("UnityEngine.UI")]
     [AsPartial]
-    public class UIPanelTemplate : IClassTemplate<PanelCodeData>, ITemplateCustomFilename
+    public class UIPanelTemplate : IClassTemplate<PanelCodeInfo>, ITemplateCustomFilename
     {
         public string OutputPath { get; private set; }
 
@@ -19,7 +19,7 @@ namespace QFramework
         public void TemplateSetup()
         {
             Ctx.SetBaseType(typeof(UIPanel));
-            Ctx.CurrentDeclaration.Name = Ctx.Data.PanelName;
+            Ctx.CurrentDeclaration.Name = Ctx.Data.GameObjectName;
         }
 
         [GenerateMethod, AsOverride]
@@ -31,7 +31,7 @@ namespace QFramework
         [GenerateMethod, AsOverride]
         protected void OnInit(IUIData uiData = null)
         {
-            Ctx._("mData = uiData as {0} ?? new {0}()",Ctx.Data.PanelName + "Data");
+            Ctx._("mData = uiData as {0} ?? new {0}()",Ctx.Data.GameObjectName + "Data");
             Ctx._comment("please add init code here");
         }
 
@@ -56,7 +56,7 @@ namespace QFramework
         }
 
 
-        public TemplateContext<PanelCodeData> Ctx { get; set; }
+        public TemplateContext<PanelCodeInfo> Ctx { get; set; }
 
         public string Filename { get; private set; }
     }

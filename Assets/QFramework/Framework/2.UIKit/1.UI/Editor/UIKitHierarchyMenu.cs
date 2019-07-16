@@ -6,18 +6,18 @@ namespace QFramework
 {
     public static class UIKitHierarchyMenu
     {
-        [MenuItem("GameObject/@UI Kit - Add Mark (alt + m) &m",false,-1)]
-        public static void AddMark()
+        [MenuItem("GameObject/@UI Kit - Add Bind (alt + b) &b",false,-1)]
+        public static void AddBind()
         {
             foreach (var o in Selection.objects.OfType<GameObject>())
             {
                 if (o)
                 {
-                    var uiMark = o.GetComponent<UIMark>();
+                    var uiMark = o.GetComponent<Bind>();
 
                     if (!uiMark)
                     {
-                        o.AddComponent<UIMark>();
+                        o.AddComponent<Bind>();
                     }
                 }
             }

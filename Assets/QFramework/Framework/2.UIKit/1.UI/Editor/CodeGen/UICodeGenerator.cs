@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun、imagicbell
- * Copyright (c) 2017 ~ 2019.1 liangxie 
+ * Copyright (c) 2017 ~ 2019.7 liangxie 
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -35,7 +35,7 @@ namespace QFramework
 
 	public class UICodeGenerator
 	{
-		[MenuItem("Assets/@UI Kit - Create UICode")]
+		[MenuItem("Assets/@UI Kit - Create UICode (alt+c) &c")]
 		public static void CreateUICode()
 		{
 			mScriptKitInfo = null;
@@ -70,14 +70,14 @@ namespace QFramework
 				}
 				
 
+				var panelCodeInfo = new PanelCodeInfo();
 
-				UIMarkCollector.mPanelCodeData = new PanelCodeData();
 				Debug.Log(clone.name);
-				UIMarkCollector.mPanelCodeData.PanelName = clone.name.Replace("(clone)", string.Empty);
-				UIMarkCollector.FindAllMarkTrans(clone.transform, "");
-				CreateUIPanelCode(obj, uiPrefabPath);
+				panelCodeInfo.GameObjectName = clone.name.Replace("(clone)", string.Empty);
+				BindCollector.SearchBinds(clone.transform, "",panelCodeInfo);
+				CreateUIPanelCode(obj, uiPrefabPath,panelCodeInfo);
 				
-				UISerializer.AddSerializeUIPrefab(obj);
+				UISerializer.StartAddComponent2PrefabAfterCompile(obj);
 
 				HotScriptBind(obj);
 				
@@ -85,7 +85,7 @@ namespace QFramework
 			}
 		}
 
-		private void CreateUIPanelCode(GameObject uiPrefab, string uiPrefabPath)
+		private void CreateUIPanelCode(GameObject uiPrefab, string uiPrefabPath,PanelCodeInfo panelCodeInfo)
 		{
 			if (null == uiPrefab)
 				return;
@@ -104,81 +104,81 @@ namespace QFramework
 			{
 				if (File.Exists(strFilePath) == false)
 				{
-					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDataTemplate>();
-					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelTemplate>();
+					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelDataTemplate>();
+					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelTemplate>();
 					
 					var factory = new RegisteredTemplateGeneratorsFactory();
 					
-					var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+					var generators = factory.CreateGenerators(new UIGraph(), panelCodeInfo);
 									
 					CompilingSystem.GenerateFile(new FileInfo(strFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
 					{
 						Generators = generators.ToArray()
 					});
 
-					RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+					RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeInfo>();
 				}
 			}
 
-			CreateUIPanelDesignerCode(behaviourName, strFilePath);
+			CreateUIPanelDesignerCode(behaviourName, strFilePath,panelCodeInfo);
 			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
 		
-		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath)
+		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath,PanelCodeInfo panelCodeInfo)
 		{
 			var dir = uiUIPanelfilePath.Replace(behaviourName + ".cs", "");
 			var generateFilePath = dir + behaviourName + ".Designer.cs";
 			if(mScriptKitInfo.IsNotNull())
 			{
 				if(mScriptKitInfo.Templates.IsNotNull() && mScriptKitInfo.Templates[1].IsNotNull()){
-					mScriptKitInfo.Templates[1].Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+					mScriptKitInfo.Templates[1].Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), panelCodeInfo);
 				}
 				mScriptKitInfo.HotScriptFilePath.CreateDirIfNotExists();
 				mScriptKitInfo.HotScriptFilePath = mScriptKitInfo.HotScriptFilePath + "/" + behaviourName + mScriptKitInfo.HotScriptSuffix;
 				if (File.Exists(mScriptKitInfo.HotScriptFilePath) == false && mScriptKitInfo.Templates.IsNotNull() &&  mScriptKitInfo.Templates[2].IsNotNull()){
-					mScriptKitInfo.Templates[2].Generate(mScriptKitInfo.HotScriptFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), UIMarkCollector.mPanelCodeData);
+					mScriptKitInfo.Templates[2].Generate(mScriptKitInfo.HotScriptFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), panelCodeInfo);
 				}
 			}
 			else
 			{
-				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeData,UIPanelDesignerTemplate>();
+				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelDesignerTemplate>();
 
 				var factory = new RegisteredTemplateGeneratorsFactory();
 					
-				var generators = factory.CreateGenerators(new UIGraph(), UIMarkCollector.mPanelCodeData);
+				var generators = factory.CreateGenerators(new UIGraph(), panelCodeInfo);
 									
 				CompilingSystem.GenerateFile(new FileInfo(generateFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
 				{
 					Generators = generators.ToArray()
 				});
 				
-				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeData>();
+				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeInfo>();
 			}
 
-			foreach (var elementCodeData in UIMarkCollector.mPanelCodeData.ElementCodeDatas)
+			foreach (var elementCodeData in panelCodeInfo.ElementCodeDatas)
 			{
 				var elementDir = string.Empty;
-				elementDir = elementCodeData.MarkedObjInfo.MarkObj.GetUIMarkType() == UIMarkType.Element
+				elementDir = elementCodeData.BindInfo.BindScript.GetBindType() == BindType.Element
 					? (dir + behaviourName + "/").CreateDirIfNotExists()
 					: (Application.dataPath + "/" + UIKitSettingData.GetScriptsPath() + "/Components/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, elementCodeData);
 			}
 		}
 
-		private static void CreateUIElementCode(string generateDirPath, ElementCodeData elementCodeData)
+		private static void CreateUIElementCode(string generateDirPath, ElementCodeInfo elementCodeInfo)
 		{
-			var panelFilePathWhithoutExt = generateDirPath + elementCodeData.BehaviourName;
+			var panelFilePathWhithoutExt = generateDirPath + elementCodeInfo.BehaviourName;
 
 			if (File.Exists(panelFilePathWhithoutExt + ".cs") == false)
 			{
 				UIElementCodeTemplate.Generate(panelFilePathWhithoutExt + ".cs",
-					elementCodeData.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeData);
+					elementCodeInfo.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeInfo);
 			}
 
 			UIElementCodeComponentTemplate.Generate(panelFilePathWhithoutExt + ".Designer.cs",
-				elementCodeData.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeData);
+				elementCodeInfo.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeInfo);
 
-			foreach (var childElementCodeData in elementCodeData.ElementCodeDatas)
+			foreach (var childElementCodeData in elementCodeInfo.ElementCodeDatas)
 			{
 				var elementDir = (panelFilePathWhithoutExt + "/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, childElementCodeData);

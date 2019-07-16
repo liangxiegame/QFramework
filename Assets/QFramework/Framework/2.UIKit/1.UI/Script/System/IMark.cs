@@ -27,14 +27,14 @@ namespace QFramework
 {
     using UnityEngine;
 
-    public enum UIMarkType
+    public enum BindType
     {
         DefaultUnityElement,
         Element,
         Component
     }
     
-    public interface IMark
+    public interface IBind
     {
         string ComponentName { get; }
         
@@ -42,6 +42,6 @@ namespace QFramework
 
         Transform Transform { get; }
 
-        UIMarkType GetUIMarkType();
+        BindType GetBindType();
     }
 }

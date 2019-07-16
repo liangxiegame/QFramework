@@ -3,35 +3,33 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class UIMarkCollector
+    public class BindCollector
     {
-	    public static PanelCodeData mPanelCodeData;
-
-        	/// <summary>
+	    /// <summary>
 		/// 
 		/// </summary>
 		/// <param name="rootTrans"></param>
 		/// <param name="curTrans"></param>
 		/// <param name="transFullName"></param>
-		public static void FindAllMarkTrans(Transform curTrans, string transFullName, ElementCodeData parentElementCodeData = null)
+		public static void SearchBinds(Transform curTrans, string transFullName,PanelCodeInfo panelCodeInfo = null, ElementCodeInfo parentElementCodeInfo = null)
 		{
 			foreach (Transform childTrans in curTrans)
 			{
-				var uiMark = childTrans.GetComponent<IMark>();
+				var uiMark = childTrans.GetComponent<IBind>();
 
 				if (null != uiMark)
 				{
-					if (null == parentElementCodeData)
+					if (null == parentElementCodeInfo)
 					{
-						if (!mPanelCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
+						if (!panelCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							mPanelCodeData.MarkedObjInfos.Add(new MarkedObjInfo
+							panelCodeInfo.BindInfos.Add(new BindInfo
 							{
 								Name = uiMark.Transform.name,
-								MarkObj = uiMark,
-								PathToElement = CodeGenUtil.PathToParent(childTrans, mPanelCodeData.PanelName)
+								BindScript = uiMark,
+								PathToElement = CodeGenUtil.PathToParent(childTrans, panelCodeInfo.GameObjectName)
 							});
-							mPanelCodeData.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
+							panelCodeInfo.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
 						else
 						{
@@ -40,15 +38,15 @@ namespace QFramework
 					}
 					else
 					{
-						if (!parentElementCodeData.MarkedObjInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
+						if (!parentElementCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
 						{
-							parentElementCodeData.MarkedObjInfos.Add(new MarkedObjInfo()
+							parentElementCodeInfo.BindInfos.Add(new BindInfo()
 							{
 								Name = uiMark.Transform.name,
-								MarkObj = uiMark,
-								PathToElement = CodeGenUtil.PathToParent(childTrans, parentElementCodeData.BehaviourName)
+								BindScript = uiMark,
+								PathToElement = CodeGenUtil.PathToParent(childTrans, parentElementCodeInfo.BehaviourName)
 							});
-							parentElementCodeData.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
+							parentElementCodeInfo.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
 						else
 						{
@@ -57,36 +55,36 @@ namespace QFramework
 					}
 
 
-					if (uiMark.GetUIMarkType() != UIMarkType.DefaultUnityElement)
+					if (uiMark.GetBindType() != BindType.DefaultUnityElement)
 					{
-						var elementCodeData = new ElementCodeData
+						var elementCodeData = new ElementCodeInfo
 						{
 							BehaviourName = uiMark.ComponentName,
-							MarkedObjInfo = new MarkedObjInfo
+							BindInfo = new BindInfo
 							{
-								MarkObj = uiMark
+								BindScript = uiMark
 							}
 						};
 
-						if (null == parentElementCodeData)
+						if (null == parentElementCodeInfo)
 						{
-							mPanelCodeData.ElementCodeDatas.Add(elementCodeData);
+							panelCodeInfo.ElementCodeDatas.Add(elementCodeData);
 						}
 						else
 						{
-							parentElementCodeData.ElementCodeDatas.Add(elementCodeData);
+							parentElementCodeInfo.ElementCodeDatas.Add(elementCodeData);
 						}
 
-						FindAllMarkTrans(childTrans, transFullName + childTrans.name + "/", elementCodeData);
+						SearchBinds(childTrans, transFullName + childTrans.name + "/",panelCodeInfo, elementCodeData);
 					}
 					else
 					{
-						FindAllMarkTrans(childTrans, transFullName + childTrans.name + "/", parentElementCodeData);
+						SearchBinds(childTrans, transFullName + childTrans.name + "/",panelCodeInfo, parentElementCodeInfo);
 					}
 				}
 				else
 				{
-					FindAllMarkTrans(childTrans, transFullName + childTrans.name + "/", parentElementCodeData);
+					SearchBinds(childTrans, transFullName + childTrans.name + "/",panelCodeInfo, parentElementCodeInfo);
 				}
 			}
 		}

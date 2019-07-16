@@ -27,9 +27,9 @@ namespace QFramework
 {
     public abstract class UIComponent : UIElement
     {
-        public override UIMarkType GetUIMarkType()
+        public override BindType GetBindType()
         {
-            return UIMarkType.Component;
+            return BindType.Component;
         }
     }
 }

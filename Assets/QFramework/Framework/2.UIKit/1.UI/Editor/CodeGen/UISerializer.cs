@@ -10,7 +10,7 @@ namespace QFramework
 {
     public class UISerializer
     {
-	    public static void AddSerializeUIPrefab(GameObject uiPrefab)
+	    public static void StartAddComponent2PrefabAfterCompile(GameObject uiPrefab)
 	    {
 		    var prefabPath = AssetDatabase.GetAssetPath(uiPrefab);
 		    if (string.IsNullOrEmpty(prefabPath))
@@ -30,7 +30,7 @@ namespace QFramework
 	    }
 	    
 	    [DidReloadScripts]
-	    private static void SerializeUIPrefab()
+	    private static void DoAddComponent2Prefab()
 	    {
 		    var pathStr = EditorPrefs.GetString("AutoGenUIPrefabPath");
 		    if (string.IsNullOrEmpty(pathStr))
@@ -48,7 +48,7 @@ namespace QFramework
 		    for (var i = 0; i < paths.Length; i++)
 		    {
 			    var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
-			    AttachSerializeObj(uiPrefab, uiPrefab.name, assembly);
+			    SetObjectRef2Property(uiPrefab, uiPrefab.name, assembly);
 
 			    // uibehaviour
 			    if (displayProgress)
@@ -62,7 +62,7 @@ namespace QFramework
 		    for (var i = 0; i < paths.Length; i++)
 		    {
 			    var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
-			    AttachSerializeObj(uiPrefab, uiPrefab.name, assembly);
+			    SetObjectRef2Property(uiPrefab, uiPrefab.name, assembly);
 
 			    // uibehaviour
 			    if (displayProgress)
@@ -76,15 +76,15 @@ namespace QFramework
 		    if (displayProgress) EditorUtility.ClearProgressBar();
 	    }
 	    
-	    public static void AttachSerializeObj(GameObject obj, string behaviourName, Assembly assembly,
-			List<IMark> processedMarks = null)
+	    public static void SetObjectRef2Property(GameObject obj, string behaviourName, Assembly assembly,
+			List<IBind> processedMarks = null)
 		{
 			if (null == processedMarks)
 			{
-				processedMarks = new List<IMark>();
+				processedMarks = new List<IBind>();
 			}
 
-			var uiMark = obj.GetComponent<IMark>();
+			var uiMark = obj.GetComponent<IBind>();
 			var className = string.Empty;
 
 			if (uiMark != null)
@@ -92,7 +92,7 @@ namespace QFramework
 				className = UIKitSettingData.GetProjectNamespace() + "." + uiMark.ComponentName;
 
 				// 这部分
-				if (uiMark.GetUIMarkType() != UIMarkType.DefaultUnityElement)
+				if (uiMark.GetBindType() != BindType.DefaultUnityElement)
 				{
 					var ptuimark = obj.GetComponent<UIMark>();
 					if (ptuimark != null)
@@ -110,11 +110,11 @@ namespace QFramework
 
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
-			var uiMarks = obj.GetComponentsInChildren<IMark>(true);
+			var bindScripts = obj.GetComponentsInChildren<IBind>(true);
 
-			foreach (var elementMark in uiMarks)
+			foreach (var elementMark in bindScripts)
 			{
-				if (processedMarks.Contains(elementMark) || elementMark.GetUIMarkType() == UIMarkType.DefaultUnityElement)
+				if (processedMarks.Contains(elementMark) || elementMark.GetBindType() == BindType.DefaultUnityElement)
 				{
 					continue;
 				}
@@ -131,10 +131,10 @@ namespace QFramework
 				}
 
 				sObj.FindProperty(propertyName).objectReferenceValue = elementMark.Transform.gameObject;
-				AttachSerializeObj(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
+				SetObjectRef2Property(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
 			}
 
-			var marks = obj.GetComponentsInChildren<IMark>(true);
+			var marks = obj.GetComponentsInChildren<IBind>(true);
 			foreach (var elementMark in marks)
 			{
 				if (processedMarks.Contains(elementMark))

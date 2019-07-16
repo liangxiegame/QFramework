@@ -3,8 +3,8 @@ using UnityEditor;
 
 namespace QFramework
 {
-    [CustomEditor(typeof(UIMark))]
-    public class UIMarkInspector : UnityEditor.Editor
+    [CustomEditor(typeof(Bind),true)]
+    public class BindInspector : UnityEditor.Editor
     {
         class LocaleText
         {
@@ -30,9 +30,9 @@ namespace QFramework
         }
 
 
-        private UIMark mUIMarkScript
+        private Bind mBindScript
         {
-            get { return target as UIMark; }
+            get { return target as Bind; }
         }
 
         private VerticalLayout mRootLayout;
@@ -55,12 +55,12 @@ namespace QFramework
                 .Width(100)
                 .AddTo(markTypeLine);
 
-            var enumPopupView = new EnumPopupView<UIMarkType>(mUIMarkScript.MarkType)
+            var enumPopupView = new EnumPopupView(mBindScript.MarkType)
                 .AddTo(markTypeLine);
 
             enumPopupView.ValueProperty.Bind(newValue =>
             {
-                mUIMarkScript.MarkType = (UIMarkType) newValue;
+                mBindScript.MarkType = (BindType)newValue;
 
                 OnRefresh();
             });
@@ -70,10 +70,10 @@ namespace QFramework
 
             new CustomView(() =>
             {
-                if (mUIMarkScript.CustomComponentName == null ||
-                    string.IsNullOrEmpty(mUIMarkScript.CustomComponentName.Trim()))
+                if (mBindScript.CustomComponentName == null ||
+                    string.IsNullOrEmpty(mBindScript.CustomComponentName.Trim()))
                 {
-                    mUIMarkScript.CustomComponentName = mUIMarkScript.name;
+                    mBindScript.CustomComponentName = mBindScript.name;
                 }
             }).AddTo(mRootLayout);
 
@@ -86,7 +86,7 @@ namespace QFramework
                 .FontSize(12)
                 .AddTo(mComponentLine);
 
-            new EGO.Framework.LabelView(mUIMarkScript.ComponentName)
+            new EGO.Framework.LabelView(mBindScript.ComponentName)
                 .FontBold()
                 .FontSize(12)
                 .AddTo(mComponentLine);
@@ -101,9 +101,12 @@ namespace QFramework
                 .FontSize(12)
                 .AddTo(mClassnameLine);
 
-            new TextView(mUIMarkScript.CustomComponentName)
+            new TextView(mBindScript.CustomComponentName)
                 .AddTo(mClassnameLine)
-                .Content.Bind(newValue => mUIMarkScript.CustomComponentName = newValue);
+                .Content.Bind(newValue =>
+                {
+                    mBindScript.CustomComponentName = newValue;
+                });
 
             mClassnameLine.AddTo(mRootLayout);
 
@@ -118,17 +121,17 @@ namespace QFramework
             new EGO.Framework.SpaceView()
                 .AddTo(mRootLayout);
 
-            new TextAreaView(mUIMarkScript.Comment)
+            new TextAreaView(mBindScript.Comment)
                 .Height(100)
                 .AddTo(mRootLayout)
-                .Content.Bind(newValue => mUIMarkScript.CustomComment = newValue);
+                .Content.Bind(newValue => mBindScript.CustomComment = newValue);
 
             OnRefresh();
         }
 
         private void OnRefresh()
         {
-            if (mUIMarkScript.MarkType == UIMarkType.DefaultUnityElement)
+            if (mBindScript.MarkType == BindType.DefaultUnityElement)
             {
                 mComponentLine.Show();
                 mClassnameLine.Hide();

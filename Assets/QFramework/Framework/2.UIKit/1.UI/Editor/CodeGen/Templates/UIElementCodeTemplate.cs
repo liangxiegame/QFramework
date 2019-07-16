@@ -34,12 +34,12 @@ namespace QFramework
 	public static class UIElementCodeTemplate
 	{
 		public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
-			ElementCodeData elementCodeData)
+			ElementCodeInfo elementCodeInfo)
 		{
 			var sw = new StreamWriter(generateFilePath, false, new UTF8Encoding(false));
 			var strBuilder = new StringBuilder();
 
-			var markType = elementCodeData.MarkedObjInfo.MarkObj.GetUIMarkType();
+			var markType = elementCodeInfo.BindInfo.BindScript.GetBindType();
 
 			strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);
@@ -55,7 +55,7 @@ namespace QFramework
 			strBuilder.AppendLine("namespace " + nameSpace);
 			strBuilder.AppendLine("{");
 			strBuilder.AppendFormat("\tpublic partial class {0} : {1}", behaviourName,
-				markType == UIMarkType.Component ? "UIComponent" : "UIElement");
+				markType == BindType.Component ? "UIComponent" : "UIElement");
 			strBuilder.AppendLine();
 			strBuilder.AppendLine("\t{");
 			strBuilder.Append("\t\t").AppendLine("private void Awake()");
@@ -77,7 +77,7 @@ namespace QFramework
 	public static class UIElementCodeComponentTemplate
 	{
 		public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
-			ElementCodeData elementCodeData)
+			ElementCodeInfo elementCodeInfo)
 		{
 			var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
 			var strBuilder = new StringBuilder();
@@ -96,9 +96,9 @@ namespace QFramework
 			strBuilder.AppendLine();
 			strBuilder.AppendLine("\t{");
 
-			foreach (var markInfo in elementCodeData.MarkedObjInfos)
+			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
-				var strUIType = markInfo.MarkObj.ComponentName;
+				var strUIType = markInfo.BindScript.ComponentName;
 				strBuilder.AppendFormat("\t\t[SerializeField] public {0} {1};\r\n",
 					strUIType, markInfo.Name);
 			}
@@ -107,7 +107,7 @@ namespace QFramework
 
 			strBuilder.Append("\t\t").AppendLine("public void Clear()");
 			strBuilder.Append("\t\t").AppendLine("{");
-			foreach (var markInfo in elementCodeData.MarkedObjInfos)
+			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
 				strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
 					markInfo.Name);
@@ -119,7 +119,7 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("public override string ComponentName");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t\t");
-			strBuilder.AppendLine("get { return \"" + elementCodeData.MarkedObjInfo.MarkObj.ComponentName + "\";}");
+			strBuilder.AppendLine("get { return \"" + elementCodeInfo.BindInfo.BindScript.ComponentName + "\";}");
 			strBuilder.Append("\t\t").AppendLine("}");
 			strBuilder.AppendLine("\t}");
 			strBuilder.AppendLine("}");

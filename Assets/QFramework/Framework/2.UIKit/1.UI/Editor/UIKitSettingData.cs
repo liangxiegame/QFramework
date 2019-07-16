@@ -48,6 +48,11 @@ namespace QFramework
 
 		public string UIPrefabDir = "/Art/UIPrefab";
 
+		public bool IsDefaultNamespace
+		{
+			get { return Namespace == "QFramework.Example"; }
+		}
+		
 		public static string GetScriptsPath()
 		{
 			return Load().UIScriptDir;
@@ -84,7 +89,6 @@ namespace QFramework
 		{
 			this.SaveJson(mConfigSavedDir + mConfigSavedFileName);
 			AssetDatabase.Refresh();
-
 		}
 	}
 }

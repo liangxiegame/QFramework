@@ -30,11 +30,11 @@ namespace QFramework
     /// <summary>
     /// belone to a panel 
     /// </summary>
-    public abstract class UIElement : QMonoBehaviour,IMark
+    public abstract class UIElement : QMonoBehaviour,IBind
     {
-        public virtual UIMarkType GetUIMarkType()
+        public virtual BindType GetBindType()
         {
-            return UIMarkType.Element;
+            return BindType.Element;
         }
         
         public abstract string ComponentName { get; }

@@ -27,7 +27,7 @@ namespace QFramework{
         using UnityEngine;
         public interface IBaseTemplate
         {
-            void Generate(string generateFilePath, string behaviourName, string nameSpace,PanelCodeData panelCodeData);
+            void Generate(string generateFilePath, string behaviourName, string nameSpace,PanelCodeInfo panelCodeInfo);
         } 
 
         public  delegate void ScriptKitCodeBind(GameObject uiPrefab,string filePath);

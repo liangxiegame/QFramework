@@ -32,7 +32,7 @@ namespace QFramework
     [RequiresNamespace("UnityEngine")]
     [RequiresNamespace("UnityEngine.UI")]
     [AsPartial]
-    public class UIPanelDesignerTemplate : IClassTemplate<PanelCodeData>,ITemplateCustomFilename
+    public class UIPanelDesignerTemplate : IClassTemplate<PanelCodeInfo>,ITemplateCustomFilename
     {
         public string OutputPath  { get; private set; }
         public bool   CanGenerate
@@ -43,24 +43,24 @@ namespace QFramework
         public void TemplateSetup()
         {
             Ctx.CurrentDeclaration.BaseTypes.Clear();
-            Ctx.CurrentDeclaration.Name = Ctx.Data.PanelName;
+            Ctx.CurrentDeclaration.Name = Ctx.Data.GameObjectName;
 
-            var dataTypeName = Ctx.Data.PanelName + "Data";
+            var dataTypeName = Ctx.Data.GameObjectName + "Data";
 
             var nameField = new CodeMemberField(typeof(string), "NAME")
             {
                 Attributes = MemberAttributes.Const | MemberAttributes.Public,
-                InitExpression = Ctx.Data.PanelName.ToCodeSnippetExpression()
+                InitExpression = Ctx.Data.GameObjectName.ToCodeSnippetExpression()
             };
             Ctx.CurrentDeclaration.Members.Add(nameField);
 
-            Ctx.Data.MarkedObjInfos.ForEach(info =>
+            Ctx.Data.BindInfos.ForEach(info =>
             {
-                var field = Ctx.CurrentDeclaration._public_(info.MarkObj.ComponentName, info.Name);
+                var field = Ctx.CurrentDeclaration._public_(info.BindScript.ComponentName, info.Name);
 
-                if (info.MarkObj.Comment.IsNotNullAndEmpty())
+                if (info.BindScript.Comment.IsNotNullAndEmpty())
                 {
-                    field.Comments.Add(new CodeCommentStatement(info.MarkObj.Comment));
+                    field.Comments.Add(new CodeCommentStatement(info.BindScript.Comment));
                 }
 
                 field.CustomAttributes.Add(new CodeAttributeDeclaration("SerializeField".ToCodeReference()));
@@ -73,7 +73,7 @@ namespace QFramework
         [GenerateMethod, AsOverride]
         protected void ClearUIComponents()
         {
-            Ctx.Data.MarkedObjInfos.ForEach(info => { Ctx._("{0} = null", info.Name); });
+            Ctx.Data.BindInfos.ForEach(info => { Ctx._("{0} = null", info.Name); });
             Ctx._("mData = null");
         }
 
@@ -82,7 +82,7 @@ namespace QFramework
         {
             get
             {
-                var dataTypeName = Ctx.Data.PanelName + "Data";
+                var dataTypeName = Ctx.Data.GameObjectName + "Data";
                 Ctx._("return mPrivateData ?? (mPrivateData = new {0}())",dataTypeName);
                 Ctx.CurrentProperty.Type = dataTypeName.ToCodeReference();
                 return dataTypeName;
@@ -93,7 +93,7 @@ namespace QFramework
                 Ctx._("mPrivateData = value");
             }
         }
-        public TemplateContext<PanelCodeData> Ctx { get; set; }
+        public TemplateContext<PanelCodeInfo> Ctx { get; set; }
         
         public string Filename { get; private set; }
     }

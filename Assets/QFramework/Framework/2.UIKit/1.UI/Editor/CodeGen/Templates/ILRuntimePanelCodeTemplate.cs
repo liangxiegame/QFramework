@@ -65,7 +65,7 @@ namespace QFramework
     public class ILRuntimePanelComponentsCodeGenerator
     {
         public static void Generate(string generateFilePath, string behaviourName, string nameSpace,
-            PanelCodeData panelCodeData)
+            PanelCodeInfo panelCodeInfo)
         {
             var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
             var strBuilder = new StringBuilder();
@@ -108,9 +108,9 @@ namespace QFramework
             strBuilder.AppendLine("\t\t}");
             strBuilder.AppendLine();
 
-            foreach (var markInfo in panelCodeData.MarkedObjInfos)
+            foreach (var markInfo in panelCodeInfo.BindInfos)
             {
-                var strUIType = markInfo.MarkObj.ComponentName;
+                var strUIType = markInfo.BindScript.ComponentName;
                 strBuilder.AppendFormat("\t\tpublic {0} {1};\r\n",
                     strUIType, markInfo.Name);
             }
@@ -119,9 +119,9 @@ namespace QFramework
 
             strBuilder.Append("\t\t").AppendLine("private void InternalInitView(Transform transform)");
             strBuilder.Append("\t\t").AppendLine("{");
-            foreach (var markInfo in panelCodeData.MarkedObjInfos)
+            foreach (var markInfo in panelCodeInfo.BindInfos)
             {
-                var strUIType = markInfo.MarkObj.ComponentName;
+                var strUIType = markInfo.BindScript.ComponentName;
                 strBuilder.AppendFormat("\t\t\t{0} = transform.Find(\"{1}\").GetComponent<{2}>();\r\n", markInfo.Name,
                     markInfo.PathToElement, strUIType);
             }
@@ -131,7 +131,7 @@ namespace QFramework
 
             strBuilder.Append("\t\t").AppendLine("public void InternalClearView()");
             strBuilder.Append("\t\t").AppendLine("{");
-            foreach (var markInfo in panelCodeData.MarkedObjInfos)
+            foreach (var markInfo in panelCodeInfo.BindInfos)
             {
                 strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
                     markInfo.Name);
