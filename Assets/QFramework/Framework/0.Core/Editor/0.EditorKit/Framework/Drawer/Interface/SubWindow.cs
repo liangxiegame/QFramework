@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +15,7 @@ namespace EGO.Framework
         }
 
         ILayout IView. Parent          { get; set; }
-        GUIStyle IView.Style           { get; }
+        GUIStyle IView.Style { get; }
         Color IView.   BackgroundColor { get; set; }
 
 

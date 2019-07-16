@@ -154,6 +154,7 @@ namespace QFramework.Editor
 
             mEGORootLayout = new VerticalLayout();
 
+
             var frameworkInfoLayout = new HorizontalLayout("box")
                 .AddTo(mEGORootLayout);
 

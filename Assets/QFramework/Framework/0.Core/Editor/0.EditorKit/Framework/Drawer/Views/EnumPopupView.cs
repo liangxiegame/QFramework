@@ -4,24 +4,22 @@ using UnityEngine;
 
 namespace EGO.Framework
 {
-    public class EnumPopupView<T> : View
+    public class EnumPopupView : View //where T : struct
     {
-        public Property<Enum> ValueProperty { get; private set; }
+        public Property<Enum> ValueProperty { get; }
 
-        public EnumPopupView(T initValue)
+        public EnumPopupView(Enum initValue)
         {
-            ValueProperty = new Property<Enum>(initValue as Enum);
-            ValueProperty.Value = initValue as Enum;
+            ValueProperty = new Property<Enum>(initValue);
+            ValueProperty.Value = initValue;
 
             Style = new GUIStyle(EditorStyles.popup);
         }
 
         protected override void OnGUI()
         {
-            if(typeof(T).IsEnum){
-                var enumType = ValueProperty.Value;
+                Enum enumType = ValueProperty.Value;
                 ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style, LayoutStyles);
-            }
         }
     }
 }

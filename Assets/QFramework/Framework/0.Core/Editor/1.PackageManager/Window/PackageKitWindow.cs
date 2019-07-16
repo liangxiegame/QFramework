@@ -27,58 +27,58 @@ using System.Linq;
 
 namespace QFramework.Editor
 {
-    using UnityEngine;
-    using UnityEditor;
+	using UnityEngine;
+	using UnityEditor;
 
-    public class PackageKitWindow : QEditorWindow
-    {
-        class LocaleText
-        {
-            public static string QFrameworkSettings
-            {
-                get { return Language.IsChinese ? "QFramework 设置" : "QFramework Settings"; }
-            }
-        }
+	public class PackageKitWindow : QEditorWindow
+	{
+		class LocaleText
+		{
+			public static string QFrameworkSettings
+			{
+				get { return Language.IsChinese ? "QFramework 设置" : "QFramework Settings"; }
+			}
+		}
+		
+		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
+		private static void Open()
+		{
+			PackageApplication.Container = null;
+			
+			var window = PackageApplication.Container.Resolve<PackageKitWindow>();
 
-        [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
-        private static void Open()
-        {
-            PackageApplication.Container = null;
+			if (window == null)
+			{
+				var packag = Create<PackageKitWindow>(true);
+				packag.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
+				packag.position = new Rect(Screen.width / 2, Screen.height /2, 690, 500);
+				packag.Init();
+				packag.Show();
+				
+				PackageApplication.Container.RegisterInstance(packag);
+			}
+			else
+			{
+				window.Show();
+			}
+		}
 
-            var window = PackageApplication.Container.Resolve<PackageKitWindow>();
+		private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
 
-            if (window == null)
-            {
-                var packageKitWindow = Create<PackageKitWindow>(true);
-                packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-                packageKitWindow.position = new Rect(Screen.width / 2.0f, Screen.height / 2.0f, 690, 500);
-                packageKitWindow.Init();
-                packageKitWindow.Show();
+		[MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
+		private static void Feedback()
+		{
+			Application.OpenURL(URL_FEEDBACK);
+		}
 
-                PackageApplication.Container.RegisterInstance(packageKitWindow);
-            }
-            else
-            {
-                window.Show();
-            }
-        }
-
-        private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
-
-        [MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
-        private static void Feedback()
-        {
-            Application.OpenURL(URL_FEEDBACK);
-        }
-
-        private void Init()
-        {
-            RemoveAllChidren();
-
-            PackageApplication.Container
-                .ResolveAll<IPackageKitView>()
-                .OrderBy(view => view.RenderOrder)
-                .ForEach(view => AddChild(view as GUIView));
-        }
-    }
+		private void Init()
+		{
+			RemoveAllChidren();
+			
+			PackageApplication.Container
+				.ResolveAll<IPackageKitView>()
+				.OrderBy(view => view.RenderOrder)
+				.ForEach(view => AddChild(view as GUIView));
+		}
+	}	
 }

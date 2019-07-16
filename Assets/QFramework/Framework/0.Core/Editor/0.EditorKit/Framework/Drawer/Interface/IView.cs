@@ -15,7 +15,7 @@ namespace EGO.Framework
         ILayout Parent { get; set; }
         
         GUIStyle Style { get; }
-        
+
         Color BackgroundColor { get; set; }
 
         void RefreshNextFrame();
