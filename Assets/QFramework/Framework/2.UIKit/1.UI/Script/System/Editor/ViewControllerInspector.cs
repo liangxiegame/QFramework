@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System;
+using EGO.Framework;
+using UnityEditor;
 using UnityEngine;
 
 namespace QFramework
@@ -27,6 +29,26 @@ namespace QFramework
             {
                 get { return Language.IsChinese ? "Prefab 生成目录:" : "Prefab Generate Folder:"; }
             }
+            
+            public static string Generate
+            {
+                get { return Language.IsChinese ? " 生成代码" : " Generate Code"; }
+            }
+        }
+
+
+        private VerticalLayout mRootLayout;
+        
+        private void OnEnable()
+        {
+            mRootLayout = new VerticalLayout();
+            
+            new ButtonView(LocaleText.Generate , () =>
+                {
+                    CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject);
+                })
+                .Height(30)
+                .AddTo(mRootLayout);
         }
 
         public override void OnInspectorGUI()
@@ -74,8 +96,10 @@ namespace QFramework
                     GUILayout.TextArea(codeGenerateInfo.PrefabFolder, GUILayout.Height(30));
                 GUILayout.EndHorizontal();
             }
+            
+            mRootLayout.DrawGUI();
 
-            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
         }
     }
 }

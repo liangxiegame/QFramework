@@ -13,7 +13,14 @@ namespace EGO.Framework
             ValueProperty = new Property<Enum>(initValue);
             ValueProperty.Value = initValue;
 
-            Style = new GUIStyle(EditorStyles.popup);
+            try
+            {
+                Style = new GUIStyle(EditorStyles.popup);
+            }
+            catch (Exception e )
+            {
+                
+            }
         }
 
         protected override void OnGUI()

@@ -1,6 +1,8 @@
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
@@ -19,6 +21,8 @@ namespace QFramework
                     {
                         o.AddComponent<Bind>();
                     }
+                    
+                    EditorUtils.MarkCurrentSceneDirty();
                 }
             }
         }

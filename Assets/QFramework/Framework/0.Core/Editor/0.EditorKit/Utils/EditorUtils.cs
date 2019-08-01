@@ -11,18 +11,24 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-#if UNITY_EDITOR
-	using UnityEditor;
-	#endif
+    using UnityEditor;
 
     public static class EditorUtils
     {
+
+        public static void MarkCurrentSceneDirty()
+        {
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+        }
+        
         public static string CurrentSelectPath
         {
             get

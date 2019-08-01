@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ViewControllerCode : EditorWindow
+    public class CreateViewControllerCode : EditorWindow
     {
         [MenuItem("GameObject/@(Alt+V)QF-UI Kit-Add View Controller &v", false, 0)]
         static void AddView()
@@ -33,7 +33,12 @@ namespace QFramework
         static void CreateCode()
         {
             var gameObject = Selection.objects.First() as GameObject;
+            DoCreateCodeFromScene(gameObject);
+        }
 
+
+        public static void DoCreateCodeFromScene(GameObject gameObject)
+        {
             if (!gameObject)
             {
                 Debug.LogWarning("需要选择 GameObject");
@@ -170,14 +175,14 @@ namespace QFramework
                     {
                         fullPrefabFolder.CreateDirIfNotExists();
 
-
+                        var genereateFolder = fullPrefabFolder + "/" + gameObject.name + ".prefab";
 #if UNITY_2018_1_OR_NEWER
                         PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject,
                             fullPrefabFolder + "/" + gameObject.name + ".prefab",
                             InteractionMode.AutomatedAction);
 #else
-                        PrefabUtility.CreatePrefab(fullPrefabFolder + "/" + gameObject.name + ".prefab", gameObject,
-                            ReplacePrefabOptions.ConnectToPrefab);
+                        genereateFolder = prefabFolder + "/" + gameObject.name + ".prefab";
+                        PrefabUtility.CreatePrefab(genereateFolder, gameObject, ReplacePrefabOptions.ConnectToPrefab);
 #endif
                     }
                 }
@@ -189,6 +194,8 @@ namespace QFramework
 
                 EditorPrefs.DeleteKey("GENERATE_CLASS_NAME");
                 EditorPrefs.DeleteKey("GAME_OBJECT_NAME");
+                
+                EditorUtils.MarkCurrentSceneDirty();
             }
         }
     }

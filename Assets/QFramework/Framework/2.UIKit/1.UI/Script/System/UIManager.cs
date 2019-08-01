@@ -179,6 +179,14 @@ namespace QFramework
 		}
 
 		/// <summary>
+		/// 隐藏所有 UI
+		/// </summary>
+		public void HideAllUI()
+		{
+			mAllUI.ForEach(keyValuePair => keyValuePair.Value.Hide());
+		}
+
+		/// <summary>
 		/// 关闭并卸载UI
 		/// </summary>
 		/// <param name="behaviourName"></param>
@@ -335,8 +343,7 @@ namespace QFramework
 		{
 			return OpenUI(prefabName ?? GetUIBehaviourName<T>(), canvasLevel, uiData, assetBundleName) as T;
 		}
-
-
+		
 		public void ShowUI<T>() where T : UIPanel
 		{
 			ShowUI(GetUIBehaviourName<T>());
@@ -403,9 +410,14 @@ namespace QFramework
 			UIManager.Instance.CloseUI<T>();
 		}
 
-        internal static void CloseAllPanel()
+		public static void CloseAllPanel()
         {
             UIManager.Instance.CloseAllUI();
+        }
+
+        public static void HideAllPanel()
+        {
+	        UIManager.Instance.HideAllUI();
         }
 
         internal static T GetPanel<T>() where T : UIPanel

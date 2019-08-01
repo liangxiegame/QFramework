@@ -35,57 +35,57 @@ namespace QFramework
             {
                 if (MarkType == BindType.DefaultUnityElement)
                 {
-                    if (null != GetComponent("SkeletonAnimation"))
-                        return "SkeletonAnimation";
-                    if (null != GetComponent<ScrollRect>())
-                        return "ScrollRect";
-                    if (null != GetComponent<InputField>())
-                        return "InputField";
-                    if (null != GetComponent("TMP.TextMeshProUGUI"))
-                        return "TextMeshProUGUI";
-                    if (null != GetComponent<Button>())
-                        return "Button";
-                    if (null != GetComponent<Text>())
-                        return "Text";
-                    if (null != GetComponent<RawImage>())
-                        return "RawImage";
-                    if (null != GetComponent<Toggle>())
-                        return "Toggle";
-                    if (null != GetComponent<Slider>())
-                        return "Slider";
-                    if (null != GetComponent<Scrollbar>())
-                        return "Scrollbar";
-                    if (null != GetComponent<Image>())
-                        return "Image";
-                    if (null != GetComponent<ToggleGroup>())
-                        return "ToggleGroup";
-                    if (null != GetComponent<Animator>())
-                        return "Animator";
-                    if (null != GetComponent<Canvas>())
-                        return "Canvas";
-                    if (null != GetComponent("Empty4Raycast"))
-                        return "Empty4Raycast";
-                    if (null != GetComponent<RectTransform>())
-                        return "RectTransform";
-                    if (GetComponent<MeshRenderer>())
-                    {
-                        return "MeshRenderer";
-                    }
+                    if (GetComponent("SkeletonAnimation")) return "SkeletonAnimation";
+                    if (GetComponent<ScrollRect>()) return "UnityEngine.UI.ScrollRect";
+                    if (GetComponent<InputField>()) return "UnityEngine.UI.InputField";
 
-                    if (GetComponent<SpriteRenderer>())
-                    {
-                        return "SpriteRenderer";
-                    }
+                    // text mesh pro supported
+                    if (GetComponent("TMP.TextMeshProUGUI")) return "TMP.TextMeshProUGUI";
+                    if (GetComponent("TMPro.TextMeshProUGUI")) return "TMPro.TextMeshProUGUI";
+                    if (GetComponent("TMPro.TextMeshPro")) return "TMPro.TextMeshPro";
+                    if (GetComponent("TMPro.TMP_InputField")) return "TMPro.TMP_InputField";
+
+                    // ugui bind
+                    if (GetComponent<Button>()) return "UnityEngine.UI.Button";
+                    if (GetComponent<Text>()) return "UnityEngine.UI.Text";
+                    if (GetComponent<RawImage>()) return "UnityEngine.UI.RawImage";
+                    if (GetComponent<Toggle>()) return "UnityEngine.UI.Toggle";
+                    if (GetComponent<Slider>()) return "UnityEngine.UI.Slider";
+                    if (GetComponent<Scrollbar>()) return "UnityEngine.UI.Scrollbar";
+                    if (GetComponent<Image>()) return "UnityEngine.UI.Image";
+                    if (GetComponent<ToggleGroup>()) return "UnityEngine.UI.ToggleGroup";
+
+                    // other
+                    if (GetComponent<Rigidbody>()) return "Rigidbody";
+                    if (GetComponent<Rigidbody2D>()) return "Rigidbody2D";
+
+                    if (GetComponent<BoxCollider2D>()) return "BoxCollider2D";
+                    if (GetComponent<BoxCollider>()) return "BoxCollider";
+                    if (GetComponent<CircleCollider2D>()) return "CircleCollider2D";
+                    if (GetComponent<SphereCollider>()) return "SphereCollider";
+                    if (GetComponent<MeshCollider>()) return "MeshCollider";
+                    
+                    if (GetComponent<Collider>()) return "Collider";
+                    if (GetComponent<Collider2D>()) return "Collider2D";
+
+                    if (GetComponent<Animator>()) return "Animator";
+                    if (GetComponent<Canvas>()) return "Canvas";
+                    if (GetComponent<Camera>()) return "Camera";
+                    if (GetComponent("Empty4Raycast")) return "QFramework.Empty4Raycast";
+                    if (GetComponent<RectTransform>()) return "RectTransform";
+                    if (GetComponent<MeshRenderer>()) return "MeshRenderer";
+
+                    if (GetComponent<SpriteRenderer>()) return "SpriteRenderer";
 
                     // NGUI 支持
                     if (GetComponent("UIButton")) return "UIButton";
                     if (GetComponent("UILabel")) return "UILabel";
+                    if (GetComponent("UISprite")) return "UISprite";
+                    if (GetComponent("UISlider")) return "UISlider";
+                    if (GetComponent("UITexture")) return "UITexture";
 
-                    if (GetComponent<ViewController>())
-                    {
-                        var script = GetComponent<ViewController>();
-                        return script.GetType().FullName;
-                    }
+                    if (GetComponent<ViewController>()) return GetComponent<ViewController>().GetType().FullName;
+
 
                     return "Transform";
                 }

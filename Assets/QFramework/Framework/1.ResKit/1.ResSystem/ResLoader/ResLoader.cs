@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System.Runtime.InteropServices;
+using UniRx;
 
 namespace QFramework
 {

@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace QFramework
 {
-    [CustomEditor(typeof(Bind),true)]
+    [CustomEditor(typeof(Bind), true)]
     public class BindInspector : UnityEditor.Editor
     {
         class LocaleText
@@ -26,6 +26,21 @@ namespace QFramework
             public static string Comment
             {
                 get { return Language.IsChinese ? " 注释" : " Comment"; }
+            }
+
+            public static string BelongsTo
+            {
+                get { return Language.IsChinese ? " 属于:" : " Belongs 2:"; }
+            }
+
+            public static string Select
+            {
+                get { return Language.IsChinese ? "选择" : "Select"; }
+            }
+
+            public static string Generate
+            {
+                get { return Language.IsChinese ? " 生成代码" : " Generate Code"; }
             }
         }
 
@@ -50,9 +65,8 @@ namespace QFramework
                 .AddTo(mRootLayout);
 
             new EGO.Framework.LabelView(LocaleText.MarkType)
-                .FontBold()
                 .FontSize(12)
-                .Width(100)
+                .Width(60)
                 .AddTo(markTypeLine);
 
             var enumPopupView = new EnumPopupView(mBindScript.MarkType)
@@ -60,7 +74,7 @@ namespace QFramework
 
             enumPopupView.ValueProperty.Bind(newValue =>
             {
-                mBindScript.MarkType = (BindType)newValue;
+                mBindScript.MarkType = (BindType) newValue;
 
                 OnRefresh();
             });
@@ -81,32 +95,53 @@ namespace QFramework
             mComponentLine = new HorizontalLayout();
 
             new EGO.Framework.LabelView(LocaleText.Type)
-                .Width(100)
-                .FontBold()
+                .Width(60)
                 .FontSize(12)
                 .AddTo(mComponentLine);
 
             new EGO.Framework.LabelView(mBindScript.ComponentName)
-                .FontBold()
                 .FontSize(12)
                 .AddTo(mComponentLine);
 
             mComponentLine.AddTo(mRootLayout);
 
+            new EGO.Framework.SpaceView()
+                .AddTo(mRootLayout);
+
+            var belongsTo = new HorizontalLayout()
+                .AddTo(mRootLayout);
+
+            new EGO.Framework.LabelView(LocaleText.BelongsTo)
+                .Width(60)
+                .FontSize(12)
+                .AddTo(belongsTo);
+
+            new EGO.Framework.LabelView(CodeGenUtil.GetBindBelongs2(target as Bind))
+                .Width(200)
+                .FontSize(12)
+                .AddTo(belongsTo);
+
+
+            new ButtonView(LocaleText.Select, () =>
+                {
+                    Selection.objects = new[]
+                    {
+                        CodeGenUtil.GetBindBelongs2GameObject(target as Bind)
+                    };
+                })
+                .Width(60)
+                .AddTo(belongsTo);
+
             mClassnameLine = new HorizontalLayout();
 
             new EGO.Framework.LabelView(LocaleText.ClassName)
-                .Width(100)
-                .FontBold()
+                .Width(60)
                 .FontSize(12)
                 .AddTo(mClassnameLine);
 
             new TextView(mBindScript.CustomComponentName)
                 .AddTo(mClassnameLine)
-                .Content.Bind(newValue =>
-                {
-                    mBindScript.CustomComponentName = newValue;
-                });
+                .Content.Bind(newValue => { mBindScript.CustomComponentName = newValue; });
 
             mClassnameLine.AddTo(mRootLayout);
 
@@ -115,7 +150,6 @@ namespace QFramework
 
             new EGO.Framework.LabelView(LocaleText.Comment)
                 .FontSize(12)
-                .FontBold()
                 .AddTo(mRootLayout);
 
             new EGO.Framework.SpaceView()
@@ -125,6 +159,12 @@ namespace QFramework
                 .Height(100)
                 .AddTo(mRootLayout)
                 .Content.Bind(newValue => mBindScript.CustomComment = newValue);
+
+            new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(target as Bind),
+                    () => { CreateViewControllerCode.DoCreateCodeFromScene((target as Bind).gameObject); })
+                .Height(30)
+                .AddTo(mRootLayout);
+
 
             OnRefresh();
         }

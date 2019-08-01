@@ -24,7 +24,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 
 namespace QFramework
 {
@@ -34,6 +36,29 @@ namespace QFramework
     using UnityEngine.UI;
     using Object = UnityEngine.Object;
 
+    public static class AnimatorExtension
+    {
+        public static void OnCurrentStateComplete(this Animator self,Action onCompleted )
+        {
+            DoCeckCurrentAnimationComplete(self, onCompleted)
+                .ToObservable()
+                .Subscribe()
+                .AddTo(self);
+        }
+        
+        static IEnumerator DoCeckCurrentAnimationComplete(this Animator self,Action onCompleted )
+        {
+            while (self.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1)
+            {
+                yield return null;
+            }
+
+            if (onCompleted != null && !self.IsInTransition(0))
+            {
+                onCompleted();
+            }
+        }
+    }
     public static class BehaviourExtension
     {
         public static void Example()

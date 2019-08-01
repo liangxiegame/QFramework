@@ -25,6 +25,53 @@ namespace QFramework
             return retValue.ToString();
         }
         
+        
+        public static string GetBindBelongs2(Bind bind)
+        {
+            var trans = bind.Transform;
+            
+            while (trans.parent != null)
+            {
+                if (trans.parent.GetComponent<ViewController>())
+                {
+                    return trans.parent.name + "(" +  trans.parent.GetComponent<ViewController>().ScriptName  + ")";
+                }
+                
+                if (trans.parent.GetComponent<UIPanel>())
+                {
+                    return "UIPanel" + "(" +trans.parent.GetComponent<UIPanel>().name + ")";
+                }
+
+
+                trans = trans.parent;
+            }
+
+            return trans.name;
+        }
+
+        public static GameObject GetBindBelongs2GameObject(Bind bind)
+        {
+            var trans = bind.Transform;
+            
+            while (trans.parent != null)
+            {
+                if (trans.parent.GetComponent<ViewController>())
+                {
+                    return trans.parent.gameObject;
+                }
+                
+                if (trans.parent.GetComponent<UIPanel>())
+                {
+                    return trans.parent.gameObject;
+                }
+
+
+                trans = trans.parent;
+            }
+
+            return bind.gameObject;
+        }
+        
         public static string GetLastDirName(string absOrAssetsPath)
         {
             var name = absOrAssetsPath.Replace("\\", "/");

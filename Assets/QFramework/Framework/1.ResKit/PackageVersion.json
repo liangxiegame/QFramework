@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.3",
+  "Version": "v0.1.5",
   "Type": 0,
-  "AccessRight": 1,
+  "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/1.ResKit/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.3",
-    "content": "close module",
-    "author": "liangxie",
-    "date": "2019 年 04 月 13 日 21:20",
-    "VersionNumber": 103
+    "version": "v0.1.5",
+    "content": "fix ResLoader's bug",
+    "author": "liangxiegame@163.com",
+    "date": "2019 年 07 月 21 日 10:59",
+    "VersionNumber": 105
   },
   "Id": null,
   "Name": "1.ResKit",
-  "VersionNumber": 103,
-  "FileName": "1.ResKit_v0.1.3.unitypackage"
+  "VersionNumber": 105,
+  "FileName": "1.ResKit_v0.1.5.unitypackage"
 }

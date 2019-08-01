@@ -3,8 +3,15 @@
     "references": [
         "UniRx",
         "HTTP",
-        "QFramework.Core.DotNetExtensions"
+        "QFramework.Core.DotNetExtensions",
+        "UniRx.Async"
     ],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
-    "excludePlatforms": []
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }

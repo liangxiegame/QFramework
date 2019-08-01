@@ -35,7 +35,7 @@ namespace EGO.Framework
             get { return mValue; } 
             set
             {
-                if (!value.Equals(mValue) || !setted)
+                if (value == null || !value.Equals(mValue) || !setted)
                 {
                     mValue = value;
                     mSetter.InvokeGracefully(mValue);

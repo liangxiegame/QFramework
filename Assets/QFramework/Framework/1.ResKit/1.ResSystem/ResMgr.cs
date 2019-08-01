@@ -34,11 +34,15 @@ namespace QFramework
     {
         #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
 
+        private static bool mResMgrInited = false;
         /// <summary>
         /// 初始化bin文件
         /// </summary>
         public static void Init()
         {
+            if (mResMgrInited) return;
+            mResMgrInited = true;
+            
             SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
             SafeObjectPool<AssetRes>.Instance.Init(40, 20);
             SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
