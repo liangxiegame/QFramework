@@ -1133,31 +1133,57 @@ namespace QFramework
         }
 
         /// <summary>
-        /// 避免每次都用.
+        /// 缓存
         /// </summary>
         private static readonly char[] mCachedSplitCharArray = { '.' };
 
+        /// <summary>
+        /// Split
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="splitSymbol"></param>
+        /// <returns></returns>
         public static string[] Split(this string selfStr, char splitSymbol)
         {
             mCachedSplitCharArray[0] = splitSymbol;
             return selfStr.Split(mCachedSplitCharArray);
         }
 
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string UppercaseFirst(this string str)
         {
             return char.ToUpper(str[0]) + str.Substring(1);
         }
 
+        /// <summary>
+        /// 首字母小写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string LowercaseFirst(this string str)
         {
             return char.ToLower(str[0]) + str.Substring(1);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static string ToUnixLineEndings(this string str)
         {
             return str.Replace("\r\n", "\n").Replace("\r", "\n");
         }
 
+        /// <summary>
+        /// 转换成 CSV
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
         public static string ToCSV(this string[] values)
         {
             return string.Join(", ", values
@@ -1218,17 +1244,34 @@ namespace QFramework
             return new StringBuilder(selfStr).AppendFormat(toAppend, args);
         }
 
+        /// <summary>
+        /// 最后一个单词
+        /// </summary>
+        /// <param name="selfUrl"></param>
+        /// <returns></returns>
         public static string LastWord(this string selfUrl)
         {
             return selfUrl.Split('/').Last();
         }
 
+        /// <summary>
+        /// 解析成数字类型
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="defaulValue"></param>
+        /// <returns></returns>
         public static int ToInt(this string selfStr, int defaulValue = 0)
         {
             var retValue = defaulValue;
             return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
         }
 
+        /// <summary>
+        /// 解析到时间类型
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
         public static DateTime ToDateTime(this string selfStr, DateTime defaultValue = default(DateTime))
         {
             var retValue = defaultValue;
@@ -1236,6 +1279,12 @@ namespace QFramework
         }
 
 
+        /// <summary>
+        /// 解析 Float 类型
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="defaulValue"></param>
+        /// <returns></returns>
         public static float ToFloat(this string selfStr, float defaulValue = 0)
         {
             var retValue = defaulValue;

@@ -1,7 +1,7 @@
 # Summary
 
 * [Unity 游戏框架 QFramework 简介-Intro](README.md)
-* [学习路线](/Doc/study_roadmap.md)
+* [学习路线](/index.md)
 * 核心功能-Core Features
   * [Action Kit](/Assets/QFramework/Framework/0.Core/Runtime/ActionKitDoc.md)
     * [Action](/Assets/QFramework/Framework/0.Core/Runtime/7.ActionKit/ActionDoc.md)
