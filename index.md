@@ -10,8 +10,11 @@
 
 2. 浏览 Example 实例
    * 如果是从 github clone 的项目：Example 的位置在如下图所示：
+
 ![屏幕快照 2019-07-10 13.44.21.png](https://i.loli.net/2019/07/10/5d257d4a9af8f23198.png)
+
    * 其他方式安装的 QF，Example 的下载地址在如图所示（快捷键 ctrl/cmd + e 打开设置面板):
+   
 ![屏幕快照 2019-07-10 13.46.03.png](https://i.loli.net/2019/07/10/5d257d32cd4f544743.png)
    
 3. QFramework 使用指南：（sikiedu 免费视频课程）：
