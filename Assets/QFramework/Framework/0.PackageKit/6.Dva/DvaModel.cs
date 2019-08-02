@@ -12,7 +12,7 @@ namespace QF.DVA
     }
 
     public abstract class DvaModel<TSelf, TState> : ReducerBase<TState, DvaAction>, IStoreAccessor
-        where TState : StateBase, new() where TSelf : DvaModel<TSelf, TState>, new()
+        where TState : DvaState, new() where TSelf : DvaModel<TSelf, TState>, new()
     {
         public DvaModel()
         {
@@ -65,7 +65,7 @@ namespace QF.DVA
         }
 
 
-        public static object Dispatch(string path,object payload)
+        public static object Dispatch(string path,object payload = null)
         {
             return Store.Dispatch(new DvaAction()
             {

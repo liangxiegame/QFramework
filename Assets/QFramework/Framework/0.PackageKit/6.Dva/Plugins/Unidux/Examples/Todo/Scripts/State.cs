@@ -5,7 +5,7 @@ using System.Linq;
 namespace Unidux.Example.Todo
 {
     [Serializable]
-    public class State : StateBase
+    public class State : DvaState
     {
         public TodoState Todo = new TodoState();
     }

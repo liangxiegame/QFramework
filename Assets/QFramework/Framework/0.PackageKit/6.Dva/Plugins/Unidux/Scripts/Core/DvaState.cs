@@ -4,7 +4,7 @@ using Unidux.Util;
 namespace Unidux
 {
     [Serializable]
-    public class StateBase : IState, IStateChanged, ICloneable
+    public class DvaState : IState, IStateChanged, ICloneable
     {
         public bool IsStateChanged { get; private set; }
         

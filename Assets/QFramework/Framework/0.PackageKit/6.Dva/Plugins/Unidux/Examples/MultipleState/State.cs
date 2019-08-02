@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Unidux.Example.MultipleState
 {
     [Serializable]
-    public class State : StateBase
+    public class State : DvaState
     {
         public int IntValue = 0;
         public uint UintValue = 0;

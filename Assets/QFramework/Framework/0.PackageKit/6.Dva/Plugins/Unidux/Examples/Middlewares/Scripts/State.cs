@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Unidux.Example.Middlewares
 {
     [Serializable]
-    public class State : StateBase
+    public class State : DvaState
     {
         public float StartTime;
 

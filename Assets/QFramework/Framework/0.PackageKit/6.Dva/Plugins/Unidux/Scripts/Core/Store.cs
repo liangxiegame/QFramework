@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Unidux
 {
-    public class Store<TState> : IStore<TState>, IStoreObject where TState : StateBase
+    public class Store<TState> : IStore<TState>, IStoreObject where TState : DvaState
     {
         private TState _state;
         private bool _changed;

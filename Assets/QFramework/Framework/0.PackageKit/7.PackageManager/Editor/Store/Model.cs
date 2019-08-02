@@ -11,7 +11,7 @@ namespace QF.PackageKit
     /// 状态
     /// </summary>
     [Serializable]
-    public class State : StateBase
+    public class State : DvaState
     {
         public List<PackageData> PackageDatas = new List<PackageData>();
 

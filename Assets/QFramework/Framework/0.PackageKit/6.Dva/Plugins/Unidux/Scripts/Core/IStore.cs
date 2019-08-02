@@ -3,7 +3,7 @@ using UniRx;
 
 namespace Unidux
 {
-    public interface IStore<TState> where TState : StateBase
+    public interface IStore<TState> where TState : DvaState
     {
         TState State { get; set; }
         Subject<TState> Subject { get; }

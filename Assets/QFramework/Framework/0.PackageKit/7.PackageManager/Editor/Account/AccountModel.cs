@@ -5,7 +5,7 @@ using Unidux;
 namespace QF.Editor
 {
     [Serializable]
-    public class State : StateBase
+    public class State : DvaState
     {
         public bool InLoginView = true;
 
