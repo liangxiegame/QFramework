@@ -9,10 +9,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{EBC8C80D-0DCC-E1BC-A76E-3746C8013612}</ProjectGuid>
+    <ProjectGuid>{565EC3A0-3C63-2BDC-61BE-E8D4D59B6A82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Zenject-Editor</AssemblyName>
+    <AssemblyName>QF.PacakgeKit</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -51,21 +51,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\ContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\GameObjectContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\ProjectContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\RunnableContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\SceneContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Editors\SceneDecoratorContextEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\EditorStaticInstaller.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\EditorWindow\ZenjectEditorWindow.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\ObjectGraphVisualizer.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\SceneParentLoading\DefaultSceneContractConfig.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\SceneParentLoading\SceneParentAutomaticLoader.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\UnityInspectorListEditor.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\ZenMenuItems.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\ZenUnityEditorUtil.cs" />
-     <None Include="Assets\QFramework\Framework\Plugins\Zenject\Source\Editor\Zenject-Editor.asmdef" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Actions\DeletePackage.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Actions\GetAllRemotePackageInfo.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Actions\InstallPackage.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Actions\UploadPackage.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Admin\PackageAdminView.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Admin\PackageMaker.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\ClearAllData.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\FrameworkMenuItems.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Info\FrameworkVersionInfo.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Info\PackageData.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Info\Readme.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Info\ReleaseItem.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\InstalledPackageVersions.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageApplication.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageCheck.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Plugin\IPackageKitView.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\ReadmeWindow.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Runtime\Login\GetTokenAction.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Runtime\Login\RegisterAction.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Runtime\Login\User.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Runtime\Util\DjangoPost.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\View\HeaderView.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\View\PackageManagerView.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\View\PackageView.cs" />
+     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Window\PackageKitWindow.cs" />
+     <None Include="Assets\QFramework\Framework\0.PackageKit\QF.PackageKit.asmdef" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>/Applications/Unity/Hub/Editor/2017.4.30f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>
@@ -324,10 +335,6 @@
  <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
  <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
  </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Zenject.csproj">
-      <Project>{FF12678E-6D9E-098C-4FA0-32075D19E30D}</Project>      <Name>Zenject</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

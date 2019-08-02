@@ -51,8 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\QFramework\Framework\0.Core\Core\DotNetExtensions.cs" />
-     <None Include="Assets\QFramework\Framework\0.Core\Core\DotNetExtensions.asmdef" />
+     <Compile Include="Assets\QFramework\Framework\12.Core\DotNetExtensions.cs" />
+     <None Include="Assets\QFramework\Framework\12.Core\DotNetExtensions.asmdef" />
  <Reference Include="UnityEngine.CoreModule">
  <HintPath>/Applications/Unity/Hub/Editor/2017.4.30f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
  </Reference>
@@ -254,39 +254,6 @@
  <Reference Include="UnityEditor.OSXStandalone.Extensions">
  <HintPath>/Applications/Unity/Hub/Editor/2017.4.30f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="QFramework.Log">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/QFramework.Log.dll</HintPath>
- </Reference>
- <Reference Include="ProtobufNet">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/ProtobufNet.dll</HintPath>
- </Reference>
- <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
- </Reference>
- <Reference Include="Zenject-usage">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Zenject/Source/Usage/Zenject-usage.dll</HintPath>
- </Reference>
- <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
- </Reference>
- <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
- </Reference>
- <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
- </Reference>
- <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
- </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/0.Core/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
@@ -310,6 +277,39 @@
  </Reference>
  <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
  <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+ </Reference>
+ <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="QFramework.Log">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/QFramework.Log.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
+ </Reference>
+ <Reference Include="ProtobufNet">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="Zenject-usage">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/Source/Usage/Zenject-usage.dll</HintPath>
+ </Reference>
+ <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
+ <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/Plugins/Zenject/OptionalExtras/ReflectionBaking/Lib/Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

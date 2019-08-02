@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2019.7 liangxie
+ * Copyright (c) 2017 ~ 2019.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -1229,16 +1229,35 @@ namespace QFramework
             return string.Format(selfStr, args);
         }
 
+        /// <summary>
+        /// 添加前缀
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toAppend"></param>
+        /// <returns></returns>
         public static StringBuilder Append(this string selfStr, string toAppend)
         {
             return new StringBuilder(selfStr).Append(toAppend);
         }
 
+        /// <summary>
+        /// 添加后缀
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toPrefix"></param>
+        /// <returns></returns>
         public static string AddPrefix(this string selfStr, string toPrefix)
         {
             return new StringBuilder(toPrefix).Append(selfStr).ToString();
         }
 
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toAppend"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
         {
             return new StringBuilder(selfStr).AppendFormat(toAppend, args);

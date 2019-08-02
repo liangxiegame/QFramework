@@ -1,0 +1,8 @@
+{
+    "name": "QF.PackageKit",
+    "references": [
+        "UniRx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
