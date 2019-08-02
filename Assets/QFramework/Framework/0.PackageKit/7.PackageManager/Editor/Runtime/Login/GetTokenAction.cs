@@ -29,8 +29,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UniRx;
 using UnityEngine;
-using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
+using QF.Extensions;
 
 namespace QF
 {
@@ -38,17 +38,7 @@ namespace QF
     {
         private static string URL
         {
-            get
-            {
-                if (User.Test)
-                {
-                    return "http://127.0.0.1:8000/api-token-auth/";
-                }
-                else
-                {
-                    return "http://liangxiegame.com/api-token-auth/";
-                }
-            }
+            get { return "https://api.liangxiegame.com/qf/v4/token"; }
         }
 
         public static void DoGetToken(string username, string password, Action<string> onTokenGetted)
@@ -62,9 +52,15 @@ namespace QF
                 {
                     Debug.Log(response);
 
-                    var token = JObject.Parse(response)["token"].Value<string>();
+                    var responseJson = JObject.Parse(response);
 
-                    onTokenGetted(token);
+                    var code = responseJson["code"].Value<int>();
+
+                    if (code == 1)
+                    {
+                        var token = responseJson["data"]["token"].Value<string>();
+                        onTokenGetted(token);
+                    }
                 });
         }
     }

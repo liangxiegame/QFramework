@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Unidux;
 using UniRx;
@@ -24,7 +25,9 @@ namespace QF.DVA
             {
                 ModelDB.DB.Add(Namespace,this);
             }
-            
+
+
+            Observable.EveryUpdate().Subscribe(_ => Update());
         }
 
         protected abstract string Namespace { get; }
@@ -89,5 +92,6 @@ namespace QF.DVA
 
             mSingleton = null;
         }
+        
     }
 }
