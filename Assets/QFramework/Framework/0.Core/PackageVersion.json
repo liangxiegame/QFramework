@@ -1,19 +1,19 @@
 {
-  "Version": "v0.6.0",
+  "Version": "v0.6.1",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.Core/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.6.0",
-    "content": "add  mark scene dirty helper",
+    "version": "v0.6.1",
+    "content": "打开的位置改到左上角",
     "author": "liangxie",
-    "date": "2019 年 07 月 21 日 09:32",
-    "VersionNumber": 600
+    "date": "2019 年 08 月 01 日 14:54",
+    "VersionNumber": 601
   },
   "Id": null,
   "Name": "0.Core",
-  "VersionNumber": 600,
-  "FileName": "0.Core_v0.6.0.unitypackage"
+  "VersionNumber": 601,
+  "FileName": "0.Core_v0.6.1.unitypackage"
 }

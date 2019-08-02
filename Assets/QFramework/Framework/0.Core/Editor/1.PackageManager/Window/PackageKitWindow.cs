@@ -51,7 +51,7 @@ namespace QFramework.Editor
 			{
 				var packag = Create<PackageKitWindow>(true);
 				packag.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-				packag.position = new Rect(Screen.width / 2, Screen.height /2, 690, 500);
+				packag.position = new Rect(100, 100, 690, 500);
 				packag.Init();
 				packag.Show();
 				
