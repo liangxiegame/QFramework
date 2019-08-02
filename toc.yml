@@ -2,4 +2,6 @@
   href: articles/
 - name: API 文档
   href: api/
-  homepage: README.md
+- name: 主页
+  href: /
+  homepage: index.md
