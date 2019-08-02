@@ -1,0 +1,8 @@
+{
+    "name": "QF.Extensions",
+    "references": [
+        "UniRx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

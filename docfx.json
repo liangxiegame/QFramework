@@ -4,7 +4,7 @@
       "src": [
         {
           "files": [
-            "QFramework.Core.DotnetExtensions.csproj"
+            "QF.Extensions.csproj"
           ]
         }
       ],
