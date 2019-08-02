@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace QF.Editor
 {
-	public interface IPackageKitView
+	public interface IPackageKitView 
 	{
 		IQFrameworkContainer Container { get; set; }
 		/// <summary>
@@ -18,7 +16,10 @@ namespace QF.Editor
 		
 		void Init(IQFrameworkContainer container);
 
+		void OnUpdate();
 		void OnGUI();
+
+		void OnDispose();
 	}
 	
 }

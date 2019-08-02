@@ -23,16 +23,15 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using EGO.Framework;
 using Invert.Common.UI;
-using QF.Action;
 using QF.Extensions;
+using QF.PackageKit;
+using UniRx;
 using UnityEditor;
-using UnityEditorUI;
 using UnityEngine;
 using HorizontalLayout = EGO.Framework.HorizontalLayout;
 using VerticalLayout = EGO.Framework.VerticalLayout;
@@ -41,8 +40,6 @@ namespace QF.Editor
 {
     public class PackageManagerView : GUIView, IPackageKitView
     {
-        private List<PackageData> mPackageDatas = new List<PackageData>();
-
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
         public static string ExportPaths(string exportPackageName, params string[] paths)
@@ -68,11 +65,10 @@ namespace QF.Editor
 
         public PackageManagerView()
         {
-            mPackageDatas = PackageInfosRequestCache.Get().PackageDatas;
-
             InstalledPackageVersions.Reload();
 
-            EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas => { mPackageDatas = packageDatas; }));
+
+            PackageKitModel.Effects.GetAllPackagesInfo();
         }
 
         private Vector2 mScrollPos;
@@ -100,37 +96,27 @@ namespace QF.Editor
             get { return User.Logined ? mToolbarNamesLogined : mToolbarNamesUnLogined; }
         }
 
-        public IEnumerable<PackageData> SelectedPackageType
+        public IEnumerable<PackageData> SelectedPackageType(List<PackageData> packageDatas)
         {
-            get
+            switch (ToolbarIndex)
             {
-                switch (ToolbarIndex)
-                {
-                    case 0:
-                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
-                    case 1:
-                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.Plugin);
-                    case 2:
-                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent);
-                    case 3:
-                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.Shader);
-                    case 4:
-                        return mPackageDatas.Where(packageData =>
-                            packageData.Type == PackageType.AppOrGameDemoOrTemplate);
-                    case 5:
-                        return mPackageDatas.Where(packageData =>
-                            packageData.AccessRight == PackageAccessRight.Private);
-                    default:
-                        return mPackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
-                }
+                case 0:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
+                case 1:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Plugin);
+                case 2:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent);
+                case 3:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Shader);
+                case 4:
+                    return packageDatas.Where(packageData =>
+                        packageData.Type == PackageType.AppOrGameDemoOrTemplate);
+                case 5:
+                    return packageDatas.Where(packageData =>
+                        packageData.AccessRight == PackageAccessRight.Private);
+                default:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
             }
-        }
-
-
-        public static bool VersionCheck
-        {
-            get { return EditorPrefs.GetBool("QFRAMEWORK_VERSION_CHECK", true); }
-            set { EditorPrefs.SetBool("QFRAMEWORK_VERSION_CHECK", value); }
         }
 
         public IQFrameworkContainer Container { get; set; }
@@ -151,61 +137,68 @@ namespace QF.Editor
 
         public void Init(IQFrameworkContainer container)
         {
-            var frameworkData = mPackageDatas.Find(packageData => packageData.Name == "Framework");
-            var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
-
-            mEGORootLayout = new VerticalLayout();
-
-
-            var frameworkInfoLayout = new HorizontalLayout("box")
-                .AddTo(mEGORootLayout);
-
-            new EGO.Framework.LabelView(frameworkVersion)
-                .Width(150)
-                .FontBold()
-                .FontSize(12)
-                .AddTo(frameworkInfoLayout);
-
-            new ToggleView(LocaleText.VersionCheck, VersionCheck)
-//                .FontSize(12)
-//                .FontBold()
-                .AddTo(frameworkInfoLayout)
-                .Toggle.Bind(newValue => VersionCheck = newValue);
-
-            new ToolbarView(ToolbarIndex)
-                .Menus(ToolbarNames.ToList())
-                .AddTo(mEGORootLayout)
-                .Index.Bind(newIndex => ToolbarIndex = newIndex);
-
-
-            new HeaderView()
-                .AddTo(mEGORootLayout);
-
-            var packageList = new VerticalLayout("box")
-                .AddTo(mEGORootLayout);
-
-            var scroll = new ScrollLayout()
-                .Height(240)
-                .AddTo(packageList);
-
-            new EGO.Framework.SpaceView(2).AddTo(scroll);
-
-            mOnToolbarIndexChanged = () =>
-            {
-                scroll.Clear();
-
-                foreach (var packageData in SelectedPackageType)
+            PackageKitModel.Subject.StartWith(PackageKitModel.State)
+                .Subscribe(state =>
                 {
-                    new EGO.Framework.SpaceView(2).AddTo(scroll);
-                    new PackageView(packageData).AddTo(scroll);
-                }
-            };
+                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
+                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
 
-            foreach (var packageData in SelectedPackageType)
-            {
-                new EGO.Framework.SpaceView(2).AddTo(scroll);
-                new PackageView(packageData).AddTo(scroll);
-            }
+                    mEGORootLayout = new VerticalLayout();
+
+                    var frameworkInfoLayout = new HorizontalLayout("box")
+                        .AddTo(mEGORootLayout);
+
+                    new EGO.Framework.LabelView(frameworkVersion)
+                        .Width(150)
+                        .FontBold()
+                        .FontSize(12)
+                        .AddTo(frameworkInfoLayout);
+
+                    new ToggleView(LocaleText.VersionCheck, state.VersionCheck)
+                        .AddTo(frameworkInfoLayout)
+                        .Toggle
+                        .Bind(newValue => state.VersionCheck = newValue);
+
+                    new ToolbarView(ToolbarIndex)
+                        .Menus(ToolbarNames.ToList())
+                        .AddTo(mEGORootLayout)
+                        .Index.Bind(newIndex => ToolbarIndex = newIndex);
+
+
+                    new HeaderView()
+                        .AddTo(mEGORootLayout);
+
+                    var packageList = new VerticalLayout("box")
+                        .AddTo(mEGORootLayout);
+
+                    var scroll = new ScrollLayout()
+                        .Height(240)
+                        .AddTo(packageList);
+
+                    new EGO.Framework.SpaceView(2).AddTo(scroll);
+
+                    mOnToolbarIndexChanged = () =>
+                    {
+                        scroll.Clear();
+
+                        foreach (var packageData in SelectedPackageType(state.PackageDatas))
+                        {
+                            new EGO.Framework.SpaceView(2).AddTo(scroll);
+                            new PackageView(packageData).AddTo(scroll);
+                        }
+                    };
+
+                    foreach (var packageData in SelectedPackageType(state.PackageDatas))
+                    {
+                        new EGO.Framework.SpaceView(2).AddTo(scroll);
+                        new PackageView(packageData).AddTo(scroll);
+                    }
+                });
+        }
+
+        public void OnUpdate()
+        {
+            PackageKitModel.Update();
         }
 
 
@@ -222,6 +215,12 @@ namespace QF.Editor
                 GUILayout.EndVertical();
             }
         }
+
+        public void OnDispose()
+        {
+            PackageKitModel.Dispose();
+        }
+
 
         class LocaleText
         {

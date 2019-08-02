@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 
 namespace QF
@@ -32,11 +33,42 @@ namespace QF
             mChildren.Remove(childView);
         }
 
+        public List<IOnGUIView> Children
+        {
+            get { return mChildren; }
+        }
+
         public void RemoveAllChidren()
         {
             mChildren.Clear();
         }
 
+        public virtual void OnOpen()
+        {
+            
+        }
+        public virtual void OnClose()
+        {
+            
+        }
+
+        private void OnEnable()
+        {
+            EditorApplication.update += OnUpdate;
+        }
+
+
+        private void OnDisable()
+        {
+            EditorApplication.update -= OnUpdate;
+        }
+
+        public virtual void OnUpdate()
+        {
+            
+        }
+
+        
         public virtual void OnGUI()
         {
             if (Visible) mChildren.ForEach(childView => childView.OnGUI());

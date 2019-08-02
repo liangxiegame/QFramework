@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
 using System.Linq;
 
 namespace QF.Editor
@@ -49,13 +50,13 @@ namespace QF.Editor
 
 			if (window == null)
 			{
-				var packag = Create<PackageKitWindow>(true);
-				packag.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-				packag.position = new Rect(100, 100, 690, 500);
-				packag.Init();
-				packag.Show();
+				var packageKitWindow = Create<PackageKitWindow>(true);
+				packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
+				packageKitWindow.position = new Rect(100, 100, 690, 500);
+				packageKitWindow.Init();
+				packageKitWindow.Show();
 				
-				PackageApplication.Container.RegisterInstance(packag);
+				PackageApplication.Container.RegisterInstance(packageKitWindow);
 			}
 			else
 			{
@@ -71,15 +72,33 @@ namespace QF.Editor
 			Application.OpenURL(URL_FEEDBACK);
 		}
 
+		public override void OnUpdate()
+		{
+			mPackageKitViews.ForEach(view=>view.OnUpdate());
+		}
+
+		public List<IPackageKitView> mPackageKitViews = null;
+
 		private void Init()
 		{
 			RemoveAllChidren();
-			
-			PackageApplication.Container
+
+			mPackageKitViews = PackageApplication.Container
 				.ResolveAll<IPackageKitView>()
 				.OrderBy(view => view.RenderOrder)
-				.ToList()
-				.ForEach(view => AddChild(view as GUIView));
+				.ToList();
+		}
+		
+		public override void OnGUI()
+		{
+			mPackageKitViews.ForEach(view=>view.OnGUI());
+		}
+
+		public override void OnClose()
+		{
+			mPackageKitViews.ForEach(view=>view.OnDispose());
+			
+			RemoveAllChidren();
 		}
 	}	
 }

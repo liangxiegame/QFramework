@@ -90,6 +90,11 @@ namespace QF
             mChildren.Remove(editorView);
         }
 
+        public List<IOnGUIView> Children
+        {
+            get { return mChildren; }
+        }
+
         public virtual void OnGUI()
         {
             if (Visible)

@@ -15,7 +15,22 @@ namespace EGO.Framework
 
         protected override void OnGUI()
         {
-            Content.Value = EditorGUILayout.TextField(Content.Value, GUI.skin.textField, LayoutStyles);
+            if (mPasswordMode)
+            {
+                Content.Value = EditorGUILayout.PasswordField(Content.Value, GUI.skin.textField, LayoutStyles);
+            }
+            else
+            {
+                Content.Value = EditorGUILayout.TextField(Content.Value, GUI.skin.textField, LayoutStyles);
+            }
+        }
+        
+        
+        private bool mPasswordMode = false;
+        public TextView PasswordMode()
+        {
+            mPasswordMode = true;
+            return this;
         }
     }
 }

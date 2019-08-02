@@ -26,6 +26,7 @@
 using System.Collections.Generic;
 using QF.Action;
 using QF.Extensions;
+using QF.PackageKit;
 using UnityEditor;
 
 namespace QF.Editor
@@ -111,7 +112,7 @@ namespace QF.Editor
                         return;
                     }
 
-                    if (PackageManagerView.VersionCheck)
+                    if (PackageKitModel.State.VersionCheck)
                     {
 	                    CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
                     }

@@ -6,7 +6,7 @@ namespace EGO.Framework
 {
     public abstract class Layout : View,ILayout
     {
-        private List<IView> Children = new List<IView>();
+        protected List<IView> Children = new List<IView>();
 
         public void AddChild(IView view)
         {

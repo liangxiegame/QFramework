@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace QF
 {
     public interface IOnGUIView
@@ -7,6 +9,8 @@ namespace QF
        
         void AddChild(IOnGUIView childView);
         void RemoveChild(IOnGUIView childView);
+        
+        List<IOnGUIView> Children { get; }
         
         void OnGUI();
 

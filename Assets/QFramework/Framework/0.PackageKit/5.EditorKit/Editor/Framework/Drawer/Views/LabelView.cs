@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace EGO.Framework
@@ -10,7 +11,7 @@ namespace EGO.Framework
         {
             Content = content;
         }
-        
+
         protected override void OnGUI()
         {
             GUILayout.Label(Content, Style, LayoutStyles);
