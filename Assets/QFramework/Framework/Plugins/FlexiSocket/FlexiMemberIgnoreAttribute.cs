@@ -1,6 +1,6 @@
 using System;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Attributed public members will not be serialized

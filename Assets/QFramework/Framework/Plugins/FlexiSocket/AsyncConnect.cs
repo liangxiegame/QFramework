@@ -28,7 +28,7 @@ using System.Collections;
 using System.Net;
 using System.Net.Sockets;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Async connect operation

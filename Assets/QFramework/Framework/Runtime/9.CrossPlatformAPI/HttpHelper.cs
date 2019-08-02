@@ -33,7 +33,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using UnityEngine;
 
-namespace QFramework
+namespace QF
 {
     public static class HttpHelper
     {

@@ -1,6 +1,6 @@
 
 
-namespace QFramework
+namespace QF
 {
 
 	public interface IActionListener

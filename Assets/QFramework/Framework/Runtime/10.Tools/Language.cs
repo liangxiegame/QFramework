@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace QFramework
+namespace QF
 {
     public class Language
     {

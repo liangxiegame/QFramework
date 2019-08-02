@@ -27,7 +27,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Message protocol to encode/decode message, also ensure the received message to be complete and correct

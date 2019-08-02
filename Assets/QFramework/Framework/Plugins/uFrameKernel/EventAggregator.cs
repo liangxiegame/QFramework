@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using JetBrains.Annotations;
-using QFramework;
+using QF;
 using UniRx;
 
 namespace uFrame.Kernel

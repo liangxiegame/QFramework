@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using QFramework;
+using QF;
 using UnityEngine;
 
 public interface ISerializerStream

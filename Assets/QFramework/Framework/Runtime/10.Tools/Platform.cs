@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QF
 {
 	public class Platform
 	{

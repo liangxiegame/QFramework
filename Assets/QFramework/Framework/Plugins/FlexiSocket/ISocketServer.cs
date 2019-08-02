@@ -24,9 +24,9 @@
 // Project source: https://github.com/theoxuan/FlexiSocket
 
 using System.Collections.ObjectModel;
-using QFramework.MVVM;
+using QF.MVVM;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Socket server

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using QFramework;
-using QFramework.Json;
+using QF;
+using QF.Json;
 using UnityEngine;
 
 namespace uFrame.Serialization

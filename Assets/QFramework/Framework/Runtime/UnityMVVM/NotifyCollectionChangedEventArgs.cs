@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace QFramework.MVVM
+namespace QF.MVVM
 {
  #if !NETFX_CORE
     public class NotifyCollectionChangedEventArgs : EventArgs

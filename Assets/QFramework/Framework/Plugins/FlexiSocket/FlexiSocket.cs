@@ -27,12 +27,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using QFramework.MVVM;
+using QF.MVVM;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 
-namespace QFramework
+namespace QF
 {
     public sealed class FlexiSocket : ISocketClient, ISocketServer, ISocketClientToken
     {

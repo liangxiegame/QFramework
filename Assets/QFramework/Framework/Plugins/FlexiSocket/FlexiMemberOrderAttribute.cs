@@ -25,7 +25,7 @@
 
 using System;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Custom order applied to serialization

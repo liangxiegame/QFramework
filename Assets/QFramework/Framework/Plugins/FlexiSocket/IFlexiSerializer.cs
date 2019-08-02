@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Custom serialization callback

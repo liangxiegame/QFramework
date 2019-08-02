@@ -33,7 +33,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace QFramework
+namespace QF
 {
     public sealed class FlexiSerializer
     {

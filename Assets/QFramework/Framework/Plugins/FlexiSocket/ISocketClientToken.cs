@@ -23,7 +23,7 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// A client token used at server side

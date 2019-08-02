@@ -1,3 +1,4 @@
+
 #if UNITY_5_6_OR_NEWER
 using System;
 using System.Collections.Generic;
@@ -7,8 +8,9 @@ using Newtonsoft.Json.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
+using QF.Extensions;
 
-namespace QFramework
+namespace QF.Action
 {
 	public class UnityAPI : IAPI
 	{
@@ -49,7 +51,7 @@ namespace QFramework
 			return Disposable.Create(() => httpClient.Abort());
 		}
 
-		public IDisposable HttpDelete(string url, Dictionary<string, string> headers, Action onResponse)
+		public IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse)
 		{
 			var request = UnityWebRequest.Delete(url);
 

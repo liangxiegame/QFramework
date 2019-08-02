@@ -23,7 +23,7 @@
 // *************************************************************************************************
 // Project source: https://github.com/theoxuan/FlexiSocket
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Member layout type

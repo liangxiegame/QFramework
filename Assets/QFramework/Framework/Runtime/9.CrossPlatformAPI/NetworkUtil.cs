@@ -31,7 +31,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// some net work util

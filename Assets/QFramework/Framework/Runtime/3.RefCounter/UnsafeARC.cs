@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QF
 {
     /// Automatic Entity Reference Counting (AERC)
     /// is used internally to prevent pooling retained entities.

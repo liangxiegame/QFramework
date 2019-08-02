@@ -1,4 +1,4 @@
-namespace QFramework.MVVM
+namespace QF.MVVM
 {
      #if !NETFX_CORE
     public enum NotifyCollectionChangedAction

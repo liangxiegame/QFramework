@@ -25,7 +25,7 @@
 
 using System;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Options applied to serialization

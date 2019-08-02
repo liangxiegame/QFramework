@@ -25,7 +25,7 @@
 
 using System;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Message structure type

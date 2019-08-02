@@ -25,7 +25,7 @@
 
 using System.Collections.Generic;
 
-namespace QFramework
+namespace QF
 {
     /// Automatic Reference Counting (ARC)
     /// is used internally to prevent pooling retained Objects.

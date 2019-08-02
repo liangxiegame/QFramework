@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QF
 {
 	using System;
 	using System.Collections.Generic;
@@ -150,8 +150,17 @@ namespace QFramework
 			if (mCurState != null && mStateDict[mCurState].TranslationDict.ContainsKey(name))
 			{
 				var tempTranslation = mStateDict[mCurState].TranslationDict[name];
-				tempTranslation.OnTranslationCallback.InvokeGracefully(param);
-				mOnStateChanged.InvokeGracefully(mCurState, tempTranslation.ToState);
+
+				if (tempTranslation.OnTranslationCallback != null)
+				{
+					tempTranslation.OnTranslationCallback.Invoke(param);
+				}
+
+				if (mOnStateChanged != null)
+				{
+					mOnStateChanged.Invoke(mCurState, tempTranslation.ToState);
+				}
+
 				mCurState = tempTranslation.ToState;
 			}
 		}
@@ -161,12 +170,16 @@ namespace QFramework
 		/// </summary>
 		public void Clear()
 		{
-			mStateDict.Values.ForEach(state =>
+			foreach (var keyValuePair in mStateDict)
 			{
-				state.TranslationDict.Values.ForEach(translation => { translation.OnTranslationCallback = null; });
-				state.TranslationDict.Clear();
-			});
-
+				foreach (var translationDictValue in keyValuePair.Value.TranslationDict.Values)
+				{
+					translationDictValue.OnTranslationCallback = null;
+				}
+				
+				keyValuePair.Value.TranslationDict.Clear();
+			}
+		
 			mStateDict.Clear();
 		}
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Attributed non-public members will be serialized

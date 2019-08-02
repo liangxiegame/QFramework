@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace QFramework
+namespace QF.Action
 {
     public interface IAPI
     {
@@ -12,7 +12,7 @@ namespace QFramework
 
         IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse);
 
-        IDisposable HttpDelete(string url, Dictionary<string, string> headers, Action onResponse);
+        IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse);
 
     }
 
@@ -40,7 +40,7 @@ namespace QFramework
             return mAPI.HttpPatch(url, headers,content, onResponse);
         }
 
-        public static IDisposable HttpDelete(string url, Dictionary<string, string> headers, Action onResponse)
+        public static IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse)
         {
             return mAPI.HttpDelete(url, headers, onResponse);
         }

@@ -27,7 +27,7 @@ using System;
 using System.Collections;
 using System.Net.Sockets;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Async disconnect operation

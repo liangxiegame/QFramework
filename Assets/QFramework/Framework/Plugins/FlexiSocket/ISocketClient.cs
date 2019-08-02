@@ -26,7 +26,7 @@
 using System.Collections;
 using System.Net;
 
-namespace QFramework
+namespace QF
 {
     /// <summary>
     /// Socket client
