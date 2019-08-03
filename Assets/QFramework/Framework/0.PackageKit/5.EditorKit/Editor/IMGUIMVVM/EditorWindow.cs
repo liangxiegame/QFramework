@@ -1,12 +1,10 @@
-
-using System;
 using System.Collections.Generic;
 
 namespace QF
 {
     using UnityEditor;
 
-    public class QEditorWindow : EditorWindow ,IOnGUIView
+    public abstract class QEditorWindow : EditorWindow ,IOnGUIView
     {
         public static T Create<T>(bool utility,string title = null) where T : QEditorWindow
         {
@@ -43,35 +41,34 @@ namespace QF
             mChildren.Clear();
         }
 
-        public virtual void OnOpen()
-        {
-            
-        }
-        public virtual void OnClose()
-        {
-            
-        }
-
-        private void OnEnable()
-        {
-            EditorApplication.update += OnUpdate;
-        }
+        public abstract void OnClose();
 
 
-        private void OnDisable()
+        public abstract void OnUpdate();
+
+        private void OnDestroy()
         {
-            EditorApplication.update -= OnUpdate;
+            OnClose();
         }
 
-        public virtual void OnUpdate()
-        {
-            
-        }
+        protected abstract void Init();
 
-        
+        private bool mInited = false;
+
         public virtual void OnGUI()
         {
-            if (Visible) mChildren.ForEach(childView => childView.OnGUI());
+            if (!mInited)
+            {
+                Init();
+                mInited = true;
+            }
+            
+            OnUpdate();
+
+            if (Visible)
+            {
+                mChildren.ForEach(childView => childView.OnGUI());
+            }
         }
 
         public IOnGUIView End()

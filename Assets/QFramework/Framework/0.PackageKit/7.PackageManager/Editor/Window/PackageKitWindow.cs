@@ -40,28 +40,14 @@ namespace QF.Editor
 				get { return Language.IsChinese ? "QFramework 设置" : "QFramework Settings"; }
 			}
 		}
-		
+
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
-			PackageApplication.Container = null;
-			
-			var window = PackageApplication.Container.Resolve<PackageKitWindow>();
-
-			if (window == null)
-			{
-				var packageKitWindow = Create<PackageKitWindow>(true);
-				packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-				packageKitWindow.position = new Rect(100, 100, 690, 500);
-				packageKitWindow.Init();
-				packageKitWindow.Show();
-				
-				PackageApplication.Container.RegisterInstance(packageKitWindow);
-			}
-			else
-			{
-				window.Show();
-			}
+			var packageKitWindow = Create<PackageKitWindow>(true);
+			packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
+			packageKitWindow.position = new Rect(100, 100, 690, 500);
+			packageKitWindow.Show();
 		}
 
 		private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
@@ -79,18 +65,25 @@ namespace QF.Editor
 
 		public List<IPackageKitView> mPackageKitViews = null;
 
-		private void Init()
+		protected override void Init()
 		{
+			var label = GUI.skin.label;
+			PackageApplication.Container = null;
+			
 			RemoveAllChidren();
 
 			mPackageKitViews = PackageApplication.Container
 				.ResolveAll<IPackageKitView>()
 				.OrderBy(view => view.RenderOrder)
 				.ToList();
+			
+			PackageApplication.Container.RegisterInstance(this);
+
 		}
 		
 		public override void OnGUI()
 		{
+			base.OnGUI();
 			mPackageKitViews.ForEach(view=>view.OnGUI());
 		}
 

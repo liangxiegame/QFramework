@@ -56,103 +56,110 @@ namespace QF
 			    };
 		    }
 
-		    ObservableWWW.Get("http://liangxiegame.com/api/packages/", headers).Subscribe(response =>
+		    var form = new WWWForm();
+		    form.AddField("username",User.Username.Value);
+		    form.AddField("password",User.Password.Value);
+		    
+		    ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list",form, headers).Subscribe(response =>
 		    {
-			    var responseJson = JArray.Parse(response);
-			    var packageInfosJson = responseJson;
+			    var responseJson = JObject.Parse(response);
 
-			    var packageDatas = new List<PackageData>();
-			    foreach (var packageInfo in packageInfosJson)
+			    if (responseJson["code"].Value<string>() == "1")
 			    {
-				    var name = packageInfo["name"].Value<string>();
+				    var packageInfosJson = responseJson["data"];
 
-				    var package = packageDatas.Find(packageData => packageData.Name == name);
-
-				    if (package == null)
+				    var packageDatas = new List<PackageData>();
+				    foreach (var packageInfo in packageInfosJson)
 				    {
-					    package = new PackageData()
+					    var name = packageInfo["name"].Value<string>();
+
+					    var package = packageDatas.Find(packageData => packageData.Name == name);
+
+					    if (package == null)
 					    {
-						    Name = name,
-					    };
+						    package = new PackageData()
+						    {
+							    Name = name,
+						    };
 
-					    packageDatas.Add(package);
+						    packageDatas.Add(package);
+					    }
+
+					    var id = packageInfo["id"].Value<string>();
+					    var version = packageInfo["version"].Value<string>();
+					    var url = packageInfo["downloadUrl"].Value<string>(); // download_url
+					    var installPath = packageInfo["installPath"].Value<string>();
+//					    var releaseNote = packageInfo["release_note"].Value<string>();
+					    var createAt = packageInfo["createAt"].Value<string>();
+					    var creator = packageInfo["username"].Value<string>();
+//					    var docUrl = packageInfo["doc_url"].Value<string>();
+					    var releaseItem = new ReleaseItem(version, "", creator, DateTime.Parse(createAt));
+//					    var accessRightName = packageInfo["access_right"].Value<string>();
+
+					    var packageType = PackageType.FrameworkModule;
+
+//					    switch (typeName)
+//					    {
+//						    case "fm":
+//							    packageType = PackageType.FrameworkModule;
+//							    break;
+//						    case "s":
+//							    packageType = PackageType.Shader;
+//							    break;
+//						    case "agt":
+//							    packageType = PackageType.AppOrGameDemoOrTemplate;
+//							    break;
+//						    case "p":
+//							    packageType = PackageType.Plugin;
+//							    break;
+//					    }
+
+					    var accessRight = PackageAccessRight.Public;
+
+//					    switch (accessRightName)
+//					    {
+//						    case "public":
+							    accessRight = PackageAccessRight.Public;
+//							    break;
+//						    case "private":
+//							    accessRight = PackageAccessRight.Private;
+//							    break;
+//
+//					    }
+
+					    package.PackageVersions.Add(new PackageVersion()
+					    {
+						    Id = id,
+						    Version = version,
+						    DownloadUrl = url,
+						    InstallPath = installPath,
+						    Type = packageType,
+						    AccessRight = accessRight,
+						    Readme = releaseItem,
+//						    DocUrl = docUrl,
+
+					    });
+
+					    package.readme.AddReleaseNote(releaseItem);
 				    }
 
-				    var id = packageInfo["id"].Value<string>();
-				    var version = packageInfo["version"].Value<string>();
-				    var url = packageInfo["file"].Value<string>(); // download_url
-				    var installPath = packageInfo["install_path"].Value<string>();
-				    var releaseNote = packageInfo["release_note"].Value<string>();
-				    var createAt = packageInfo["create_at"].Value<string>();
-				    var creator = packageInfo["creator"].Value<string>();
-				    var docUrl = packageInfo["doc_url"].Value<string>();
-				    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
-				    var typeName = packageInfo["type"].Value<string>();
-				    var accessRightName = packageInfo["access_right"].Value<string>();
-
-				    var packageType = PackageType.FrameworkModule;
-
-				    switch (typeName)
+				    packageDatas.ForEach(packageData =>
 				    {
-					    case "fm":
-						    packageType = PackageType.FrameworkModule;
-						    break;
-					    case "s":
-						    packageType = PackageType.Shader;
-						    break;
-					    case "agt":
-						    packageType = PackageType.AppOrGameDemoOrTemplate;
-						    break;
-					    case "p":
-						    packageType = PackageType.Plugin;
-						    break;
-				    }
-
-				    var accessRight = PackageAccessRight.Public;
-
-				    switch (accessRightName)
-				    {
-					    case "public":
-						    accessRight = PackageAccessRight.Public;
-						    break;
-					    case "private":
-						    accessRight = PackageAccessRight.Private;
-						    break;
-
-				    }
-
-				    package.PackageVersions.Add(new PackageVersion()
-				    {
-					    Id = id,
-					    Version = version,
-					    DownloadUrl = url,
-					    InstallPath = installPath,
-					    Type = packageType,
-					    AccessRight = accessRight,
-					    Readme = releaseItem,
-					    DocUrl = docUrl,
-
+					    packageData.PackageVersions.Sort((a, b) =>
+						    b.VersionNumber - a.VersionNumber);
+					    packageData.readme.items.Sort((a, b) =>
+						    b.VersionNumber - a.VersionNumber);
 				    });
 
-				    package.readme.AddReleaseNote(releaseItem);
+				    mOnGet.InvokeGracefully(packageDatas);
+
+				    new PackageInfosRequestCache()
+				    {
+					    PackageDatas = packageDatas
+				    }.Save();
+
+				    Finished = true;
 			    }
-
-			    packageDatas.ForEach(packageData =>
-			    {
-				    packageData.PackageVersions.Sort((a, b) =>
-					    b.VersionNumber - a.VersionNumber);
-				    packageData.readme.items.Sort((a, b) =>
-					    b.VersionNumber - a.VersionNumber);
-			    });
-
-			    mOnGet.InvokeGracefully(packageDatas);
-
-			    new PackageInfosRequestCache()
-			    {
-				    PackageDatas = packageDatas
-			    }.Save();
-
-			    Finished = true;
 		    }, e =>
 		    {
 			    mOnGet.InvokeGracefully(null);

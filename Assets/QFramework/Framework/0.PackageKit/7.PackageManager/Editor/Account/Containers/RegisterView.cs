@@ -13,12 +13,12 @@ namespace QF.Editor
                     this.Clear();
 
                     var usernameLine = new HorizontalLayout().AddTo(this);
-                    new EGO.Framework.LabelView("username:").AddTo(usernameLine);
+                    new LabelView("username:").AddTo(usernameLine);
                     new TextView("").AddTo(usernameLine);
 
                     var passwordLine = new HorizontalLayout().AddTo(this);
 
-                    new EGO.Framework.LabelView("password:").AddTo(passwordLine);
+                    new LabelView("password:").AddTo(passwordLine);
                     
                     new TextView("").PasswordMode().AddTo(passwordLine);
 

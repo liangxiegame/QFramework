@@ -123,7 +123,7 @@ namespace QF
         
         public string Name
         {
-            get { return InstallPath.GetLastDirName(); }
+            get { return InstallPath.IsNotNullAndEmpty() ? InstallPath.GetLastDirName() : ""; }
         }
         
         public string Version = "v0.0.0";

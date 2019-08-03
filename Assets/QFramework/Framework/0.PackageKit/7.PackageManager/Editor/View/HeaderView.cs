@@ -33,48 +33,48 @@ namespace QF.Editor
         {
             HorizontalStyle = "box";
             
-            new EGO.Framework.LabelView(LocaleText.PackageName)
+            new LabelView(LocaleText.PackageName)
                 .Width(150)
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(LocaleText.ServerVersion)
+            new LabelView(LocaleText.ServerVersion)
                 .Width(80)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(LocaleText.LocalVersion)
+            new LabelView(LocaleText.LocalVersion)
                 .Width(80)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(LocaleText.AccessRight)
+            new LabelView(LocaleText.AccessRight)
                 .Width(80)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
             
-            new EGO.Framework.LabelView(LocaleText.Doc)
+            new LabelView(LocaleText.Doc)
                 .Width(40)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
             
-            new EGO.Framework.LabelView(LocaleText.Action)
+            new LabelView(LocaleText.Action)
                 .Width(100)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(LocaleText.ReleaseNote)
+            new LabelView(LocaleText.ReleaseNote)
                 .Width(100)
                 .TextMiddleCenter()
                 .FontSize(12)

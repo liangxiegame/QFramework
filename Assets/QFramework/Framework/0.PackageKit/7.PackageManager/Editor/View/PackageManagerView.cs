@@ -137,27 +137,28 @@ namespace QF.Editor
 
         public void Init(IQFrameworkContainer container)
         {
-            PackageKitModel.Subject.StartWith(PackageKitModel.State)
+            PackageKitModel.Subject
+                .StartWith(PackageKitModel.State)
                 .Subscribe(state =>
                 {
-                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
-                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
+//                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
+//                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
 
                     mEGORootLayout = new VerticalLayout();
 
-                    var frameworkInfoLayout = new HorizontalLayout("box")
-                        .AddTo(mEGORootLayout);
+//                    var frameworkInfoLayout = new HorizontalLayout("box")
+//                        .AddTo(mEGORootLayout);
 
-                    new EGO.Framework.LabelView(frameworkVersion)
-                        .Width(150)
-                        .FontBold()
-                        .FontSize(12)
-                        .AddTo(frameworkInfoLayout);
+//                    new EGO.Framework.LabelView(frameworkVersion)
+//                        .Width(150)
+//                        .FontBold()
+//                        .FontSize(12)
+//                        .AddTo(frameworkInfoLayout);
 
-                    new ToggleView(LocaleText.VersionCheck, state.VersionCheck)
-                        .AddTo(frameworkInfoLayout)
-                        .Toggle
-                        .Bind(newValue => state.VersionCheck = newValue);
+//                    new ToggleView(LocaleText.VersionCheck, state.VersionCheck)
+//                        .AddTo(frameworkInfoLayout)
+//                        .Toggle
+//                        .Bind(newValue => state.VersionCheck = newValue);
 
                     new ToolbarView(ToolbarIndex)
                         .Menus(ToolbarNames.ToList())

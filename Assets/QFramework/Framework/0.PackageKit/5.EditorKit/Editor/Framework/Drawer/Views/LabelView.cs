@@ -1,7 +1,7 @@
-using UnityEditor;
+using EGO.Framework;
 using UnityEngine;
 
-namespace EGO.Framework
+namespace QF.Editor
 {
     public class LabelView : View
     {
@@ -10,7 +10,9 @@ namespace EGO.Framework
         public LabelView(string content)
         {
             Content = content;
+//            Style = new GUIStyle(GUI.skin.label);
         }
+
 
         protected override void OnGUI()
         {

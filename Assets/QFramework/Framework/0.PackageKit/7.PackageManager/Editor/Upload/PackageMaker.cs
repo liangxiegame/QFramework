@@ -25,22 +25,18 @@
 
 using System;
 using System.IO;
+using EGO.Framework;
+using QF.Editor;
 using QF.Extensions;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace QF.Editor
+namespace QF.PackageKit.Upload
 {
-	public class PackageMaker : EditorWindow
+	public class PackageMaker : QEditorWindow
 	{
-		private const byte STATE_GENERATE_INIT      = 0;
-		private const byte STATE_GENERATE_UPLOADING = 2;
-		private const byte STATE_GENERATE_COMPLETE  = 3;
-
-		private byte mGenerateState = STATE_GENERATE_INIT;
-
 		private string mUploadResult = "";
 
 		private PackageVersion mPackageVersion;
@@ -121,6 +117,120 @@ namespace QF.Editor
 			mInstance.Show();
 		}
 
+		private VerticalLayout RootLayout = null;
+
+		protected override void Init()
+		{
+			RootLayout = new VerticalLayout("box");
+			UploadModel.Subject
+				.StartWith(UploadModel.State)
+				.Subscribe(state =>
+				{
+					if (state.Progress == UploadProgress.STATE_GENERATE_INIT)
+					{
+						RootLayout.Clear();
+						
+						// 当前版本号
+						var versionLine = new HorizontalLayout().AddTo(RootLayout);
+						new LabelView("当前版本号").Width(100).AddTo(versionLine);
+						new LabelView(mPackageVersion.Version).Width(100).AddTo(versionLine);
+						
+						// 发布版本号 
+						var publishedVertionLine = new HorizontalLayout().AddTo(RootLayout);
+						new LabelView("发布版本号").Width(100).AddTo(publishedVertionLine);
+						new TextView(mVersionText).Width(100).AddTo(publishedVertionLine)
+							.Content.Bind(content=>mVersionText = content);
+
+
+						var typeLine = new HorizontalLayout().AddTo(RootLayout);
+						new LabelView("类型").Width(100).AddTo(typeLine);
+						
+						new EnumPopupView(mPackageVersion.Type).AddTo(typeLine)
+							.ValueProperty.Bind(value=>mPackageVersion.Type = (PackageType) value);
+						
+						
+						var accessRightLine = new HorizontalLayout().AddTo(RootLayout);
+
+						new LabelView("权限").Width(100).AddTo(accessRightLine);
+						
+						new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine)
+							.ValueProperty.Bind(v=>mPackageVersion.AccessRight = (PackageAccessRight) v);
+
+						new LabelView("发布说明:").Width(150).AddTo(RootLayout);
+
+						new TextAreaView(mReleaseNote).Width(250).Height(300).AddTo(RootLayout)
+							.Content.Bind(releaseNote => mReleaseNote = releaseNote);
+
+						var docLine = new HorizontalLayout().AddTo(RootLayout);
+
+						new LabelView("文档地址:").Width(52).AddTo(docLine);
+						new TextView(mPackageVersion.DocUrl).Width(150).AddTo(docLine)
+							.Content.Bind(value=>mPackageVersion.DocUrl = value);
+
+						new ButtonView("Paste", () =>
+						{
+							mPackageVersion.DocUrl = GUIUtility.systemCopyBuffer;
+
+						}).AddTo(docLine);
+
+
+						if (User.Logined)
+						{
+							new ButtonView("发布", () =>
+							{
+								User.Save();
+
+								if (mReleaseNote.Length < 2)
+								{
+									ShowErrorMsg("请输入版本修改说明");
+									return;
+								}
+
+								if (!IsVersionValide(mVersionText))
+								{
+									ShowErrorMsg("请输入正确的版本号");
+									return;
+								}
+
+								mPackageVersion.Version = mVersionText;
+								mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote, User.Username.Value,
+									DateTime.Now);
+
+								mPackageVersion.Save();
+
+								AssetDatabase.Refresh();
+
+								
+								UploadModel.Effects.Publish(mPackageVersion,false);
+							}).AddTo(RootLayout);
+
+							new ButtonView("发布并删除本地", () => { }).AddTo(RootLayout);
+						}
+					}
+					else
+					{
+						RootLayout.Clear();
+
+						new CustomView(() =>
+						{
+							EditorGUI.LabelField(new Rect(100, 200, 200, 200), state.NoticeMessage, EditorStyles.boldLabel);
+						}).AddTo(RootLayout);
+					}
+					
+					if (state.Progress == UploadProgress.STATE_GENERATE_COMPLETE)
+					{
+						if (EditorUtility.DisplayDialog("上传结果", mUploadResult, "OK"))
+						{
+							AssetDatabase.Refresh();
+
+							UploadModel.Dispatch("setProgress", UploadProgress.STATE_GENERATE_INIT);
+							Close();
+						}
+					}
+				});
+		}
+		
+		
 		private void OnEnable()
 		{
 			var selectObject = Selection.GetFiltered(typeof(Object), SelectionMode.Assets);
@@ -141,34 +251,18 @@ namespace QF.Editor
 			}
 
 			mPackageVersion = PackageVersion.Load(packageFolder);
-
-
-			EditorApplication.update += Update;
-
+			
 		}
 
-		private void OnDisable()
+		public override void OnUpdate()
 		{
-			EditorApplication.update -= Update;
+			UploadModel.Update();
 		}
 
-		private void Update()
+		public override void OnClose()
 		{
-			switch (mGenerateState)
-			{
-				case STATE_GENERATE_COMPLETE:
-
-					if (EditorUtility.DisplayDialog("上传结果", mUploadResult, "OK"))
-					{
-						AssetDatabase.Refresh();
-						mGenerateState = STATE_GENERATE_INIT;
-						Close();
-					}
-
-					break;
-			}
+			UploadModel.Dispose();
 		}
-
 
 		public static bool IsVersionValide(string version)
 		{
@@ -181,135 +275,16 @@ namespace QF.Editor
 			return t.Length == 3;
 		}
 
-		private void GotoComplete()
-		{
-			mGenerateState = STATE_GENERATE_COMPLETE;
-		}
-
-		private string noticeMessage = "";
-
-		private void DrawNotice()
-		{
-			EditorGUI.LabelField(new Rect(100, 200, 200, 200), noticeMessage, EditorStyles.boldLabel);
-		}
-
+		
 		private string mVersionText = string.Empty;
 
 		private string mReleaseNote = string.Empty;
 
-		
-
-		private void DrawInit()
+		public override void OnGUI()
 		{
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("当前版本号", GUILayout.Width(100));
-			GUILayout.Label(mPackageVersion.Version, GUILayout.Width(100));
-			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("发布版本号", GUILayout.Width(100));
-			mVersionText = GUILayout.TextField(mVersionText, GUILayout.Width(100));
-			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("类型", GUILayout.Width(100));
-
-			mPackageVersion.Type = (PackageType) EditorGUILayout.EnumPopup(mPackageVersion.Type);
-
-			GUILayout.EndHorizontal();
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("权限", GUILayout.Width(100));
-
-			mPackageVersion.AccessRight = (PackageAccessRight) EditorGUILayout.EnumPopup(mPackageVersion.AccessRight);
-			GUILayout.EndHorizontal();
-
-			GUILayout.Label("发布说明:", GUILayout.Width(150));
-			mReleaseNote = GUILayout.TextArea(mReleaseNote, GUILayout.Width(250), GUILayout.Height(300));
-
-			GUILayout.BeginHorizontal();
-			GUILayout.Label("文档地址:",GUILayout.Width(52));
-			mPackageVersion.DocUrl = GUILayout.TextField(mPackageVersion.DocUrl, GUILayout.Width(150));
-			if (GUILayout.Button("Paste"))
-			{
-				mPackageVersion.DocUrl = GUIUtility.systemCopyBuffer;
-			}
-			GUILayout.EndHorizontal();
-
-			if (User.Token.Value.IsNotNullAndEmpty())
-			{
-				var clicked = false;
-				var deleteLocal = false;
-
-				if (GUILayout.Button("发布"))
-				{
-					clicked = true;
-				}
-
-				if (GUILayout.Button("发布并删除本地"))
-				{
-					clicked = true;
-					deleteLocal = true;
-				}
-
-				if (clicked)
-				{
-					User.Save();
-
-					if (mReleaseNote.Length < 2)
-					{
-						ShowErrorMsg("请输入版本修改说明");
-						return;
-					}
-
-					if (!IsVersionValide(mVersionText))
-					{
-						ShowErrorMsg("请输入正确的版本号");
-						return;
-					}
-
-					mPackageVersion.Version = mVersionText;
-					mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote, User.Username.Value,
-						DateTime.Now);
-
-					mPackageVersion.Save();
-
-					AssetDatabase.Refresh();
-
-					noticeMessage = "插件导出中,请稍后...";
-
-					Observable.NextFrame().Subscribe(_ =>
-					{
-						noticeMessage = "插件上传中,请稍后...";
-						mUploadResult = null;
-						mGenerateState = STATE_GENERATE_UPLOADING;
-						UploadPackage.DoUpload(mPackageVersion, () =>
-						{
-							if (deleteLocal)
-							{
-								Directory.Delete(mPackageVersion.InstallPath, true);
-								AssetDatabase.Refresh();
-							}
-
-							mUploadResult = "上传成功";
-							GotoComplete();
-						});
-					});
-				}
-			}
-		}
-
-		public void OnGUI()
-		{
-			switch (mGenerateState)
-			{
-				case STATE_GENERATE_INIT:
-					DrawInit();
-					break;
-				default:
-					DrawNotice();
-					break;
-			}
+			base.OnGUI();
+			
+			RootLayout.DrawGUI();
 		}
 
 		private static void ShowErrorMsg(string content)

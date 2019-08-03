@@ -51,24 +51,24 @@ namespace QF.Editor
             
             new EGO.Framework.SpaceView(2).AddTo(this);
             
-            new EGO.Framework.LabelView(mPackageData.Name)
+            new LabelView(mPackageData.Name)
                 .FontBold()
                 .Width(150)
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(mPackageData.Version)
+            new LabelView(mPackageData.Version)
                 .TextMiddleCenter()
                 .Width(80)
                 .AddTo(this);
 
             var installedPackage = InstalledPackageVersions.FindVersionByName(mPackageData.Name);
 
-            new EGO.Framework.LabelView(installedPackage != null ? installedPackage.Version : " ")
+            new LabelView(installedPackage != null ? installedPackage.Version : " ")
                 .TextMiddleCenter()
                 .Width(80)
                 .AddTo(this);
 
-            new EGO.Framework.LabelView(mPackageData.AccessRight.ToString())
+            new LabelView(mPackageData.AccessRight.ToString())
                 .TextMiddleCenter()
                 .Width(80)
                 .AddTo(this);
