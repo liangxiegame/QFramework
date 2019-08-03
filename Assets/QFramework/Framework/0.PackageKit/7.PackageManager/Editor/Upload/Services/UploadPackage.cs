@@ -61,7 +61,7 @@ namespace QF.PackageKit.Upload
             form.AddBinaryData("file", file);
             form.AddField("version", packageVersion.Version);
 //            form.AddField("release_note", packageVersion.Readme.content);
-            form.AddField("installPath", packageVersion.InstallPath);
+            form.AddField("installPath", packageVersion.InstallPath);    
 //            form.AddField("access_right", packageVersion.AccessRight.ToString().ToLower());
             form.AddField("docUrl", packageVersion.DocUrl);
 

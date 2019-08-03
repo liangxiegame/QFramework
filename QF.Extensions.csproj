@@ -216,10 +216,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\12.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\12.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\12.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\12.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -292,26 +292,23 @@
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>D:/Workspace/QFramework/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
+    <Reference Include="QF.Log">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/Plugins/QF.Log.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/Plugins/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="ProtobufNet">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
     </Reference>
-    <Reference Include="QFramework.Log">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/QFramework.Log.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
     </Reference>
     <Reference Include="DOTweenEditor">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="QF.PackageKit">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/PackageKit/Editor/QF.PackageKit.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
