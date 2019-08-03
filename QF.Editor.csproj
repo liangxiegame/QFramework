@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{8F0F4D62-1361-49AD-45EA-BDDEFDC1315A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.Editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,97 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\DataBinding\Property.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Extensions\LayoutExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Extensions\SubWindowExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Extensions\ViewExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Extensions\WindowExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\ILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\IView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\Layout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\SubWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\View.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Interface\Window.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Layout\ExpandLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Layout\HorizontalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Layout\ScrollLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Layout\TreeNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Layout\VerticalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\StyleConfig.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\BoxView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\ButtonView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\ColorView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\CustomView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\EnumPopupView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\FlexibaleSpaceView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\ImageButtonView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\LabelView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\PopupView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\SpaceView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\TextAreaView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\TextView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\ToggleView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Drawer\Views\ToolbarView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\IModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Util\ColorUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\Util\EventDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Framework\ViewController\ViewController.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Button.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\AbstractLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\AbstractWidget.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Button.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Checkbox.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\DateTimePicker.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\DropdownBox.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\EventBinding.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\ExecuteAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\GUI.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\HorizontalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\ILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\IWidget.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Label.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\LayerPicker.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\LayoutButton.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\PropertyBinding.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\RootLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Spacer.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\TextBox.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Toggle.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Toolbar.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\Vector3Field.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\Editor\VerticalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\EditorView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\EditorWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\FlexibaleSpaceView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\GUIHorizontalView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\GUILabelView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\GUISpaceView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\HorizontalView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\IEditorView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\IGUIView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\IView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\ScrollView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\SpaceView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\VerticalView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\GUIButton.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\GUITextField.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\GUIView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\IOnGUIView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\LayoutButton.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\LayoutLabel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\LayoutVertical.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\IMGUIMVVM\View\OnGUIEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\RSG.Toolkit-1.0.0.0\Argument.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\RSG.Toolkit-1.0.0.0\ILogger.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\RSG.Toolkit-1.0.0.0\LinqExts.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\RSG.Toolkit-1.0.0.0\Reflection.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\RSG.Toolkit-1.0.0.0\ReflectionUtils.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\AssetLabelHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\EditorCoroutine.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\EditorGUIUtils.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\EditorUtils.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\MouseSelector.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\QF.Editor.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -324,6 +411,10 @@
     <ProjectReference Include="UniRx.csproj">
       <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
       <Name>UniRx</Name>
+    </ProjectReference>
+    <ProjectReference Include="QF.Extensions.csproj">
+      <Project>{53AD31DE-EC49-9592-6102-643A6901B933}</Project>
+      <Name>QF.Extensions</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

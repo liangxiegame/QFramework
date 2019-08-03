@@ -1,5 +1,3 @@
-using Invert.Common.UI;
-
 namespace EGO.Framework
 {
     public class ExpandLayout : Layout
@@ -21,13 +19,13 @@ namespace EGO.Framework
 
         protected override void OnGUI()
         {
-            if (GUIHelpers.DoToolbarEx(Label))
-            {
-                foreach (var child in Children)
-                {
-                    child.DrawGUI();
-                }
-            }
+//            if (GUIHelpers.DoToolbarEx(Label))
+//            {
+//                foreach (var child in Children)
+//                {
+//                    child.DrawGUI();
+//                }
+//            }
         }
 
         protected override void OnGUIEnd()

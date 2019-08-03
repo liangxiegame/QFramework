@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{C7ECEDE0-5611-45D2-03C9-76C867471DDD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.DVA</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\DvaModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\ModelDB.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\QF.DVA.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -324,6 +323,10 @@
     <ProjectReference Include="UniRx.csproj">
       <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
       <Name>UniRx</Name>
+    </ProjectReference>
+    <ProjectReference Include="QF.Redux.csproj">
+      <Project>{71F9C117-DB5C-360C-6A16-48AF1EFD2455}</Project>
+      <Name>QF.Redux</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

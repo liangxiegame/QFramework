@@ -1,0 +1,9 @@
+{
+    "name": "QF.DVA",
+    "references": [
+        "UniRx",
+        "QF.Redux"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

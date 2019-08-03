@@ -27,13 +27,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using EGO.Framework;
-using Invert.Common.UI;
 using QF.Extensions;
 using QF.PackageKit;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
-using HorizontalLayout = EGO.Framework.HorizontalLayout;
 using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QF.Editor
@@ -133,8 +131,7 @@ namespace QF.Editor
             get { return true; }
         }
 
-        private VerticalLayout mEGORootLayout = null;
-
+        private VerticalLayout mRootLayout = null;
         public void Init(IQFrameworkContainer container)
         {
             PackageKitModel.Subject
@@ -143,8 +140,16 @@ namespace QF.Editor
                 {
 //                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
 //                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
+                    
+                    mRootLayout = new VerticalLayout();
 
-                    mEGORootLayout = new VerticalLayout();
+                    var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
+
+                    
+                    var verticalLayout = new VerticalLayout("box");
+                    
+
+                    treeNode.Add2Spread(verticalLayout);
 
 //                    var frameworkInfoLayout = new HorizontalLayout("box")
 //                        .AddTo(mEGORootLayout);
@@ -162,15 +167,15 @@ namespace QF.Editor
 
                     new ToolbarView(ToolbarIndex)
                         .Menus(ToolbarNames.ToList())
-                        .AddTo(mEGORootLayout)
+                        .AddTo(verticalLayout)
                         .Index.Bind(newIndex => ToolbarIndex = newIndex);
 
 
                     new HeaderView()
-                        .AddTo(mEGORootLayout);
+                        .AddTo(verticalLayout);
 
                     var packageList = new VerticalLayout("box")
-                        .AddTo(mEGORootLayout);
+                        .AddTo(verticalLayout);
 
                     var scroll = new ScrollLayout()
                         .Height(240)
@@ -207,14 +212,7 @@ namespace QF.Editor
         {
             base.OnGUI();
 
-            if (GUIHelpers.DoToolbarEx(LocaleText.FrameworkPackages))
-            {
-                GUILayout.BeginVertical("box");
-
-                mEGORootLayout.DrawGUI();
-
-                GUILayout.EndVertical();
-            }
+            mRootLayout.DrawGUI();
         }
 
         public void OnDispose()

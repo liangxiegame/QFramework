@@ -31,9 +31,9 @@ namespace QF.Editor
 
         protected override void OnBegin()
         {
-            API.HttpDelete(DELETE_URL_TEMPLATE.FillFormat(mId),
-                new Dictionary<string, string> {{"Authorization", "Token " + User.Token.Value}},
-                Finish);
+//            API.HttpDelete(DELETE_URL_TEMPLATE.FillFormat(mId),
+//                new Dictionary<string, string> {{"Authorization", "Token " + User.Token.Value}},
+//                Finish);
         }
     }
 }

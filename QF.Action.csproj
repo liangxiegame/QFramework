@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{E49CBE96-45E0-7B42-01A1-D687CAE24CED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.Action</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\DelayAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\EventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\KeyEventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\NodeAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\NodeActionSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\OnlyBeginAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Action\UntilAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\ActionQueue.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\EventInjector.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Extensions\ActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Extensions\Editor\EditorChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Extensions\RepeatNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Extensions\SequenceNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Interface\IAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Interface\IActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Interface\IActionChainExtention.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Interface\IActionExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Node\INode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Node\RepeatNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Node\SequenceNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Node\SpawnNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\Node\TimelineNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\ProcessNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\SupportOther\DOTweenAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\SupportOther\UniRxAction.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\4.ActionKit\QF.Action.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -321,9 +343,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="QF.Pool.csproj">
+      <Project>{9CAA063B-9D0A-8E50-5C20-A732CBFC694A}</Project>
+      <Name>QF.Pool</Name>
+    </ProjectReference>
     <ProjectReference Include="UniRx.csproj">
       <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
       <Name>UniRx</Name>
+    </ProjectReference>
+    <ProjectReference Include="QF.Singleton.csproj">
+      <Project>{991D4C99-80A1-538A-EA79-F6301AA110CF}</Project>
+      <Name>QF.Singleton</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

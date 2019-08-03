@@ -1,0 +1,10 @@
+{
+    "name": "QF.Action",
+    "references": [
+        "QF.Pool",
+        "UniRx",
+        "QF.Singleton"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

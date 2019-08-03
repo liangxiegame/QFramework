@@ -49,17 +49,17 @@ namespace QF.Editor
 
         public void Init(IQFrameworkContainer container)
         {
-            var expendLayout = new ExpandLayout(LocaleText.UserInfo)
+            var expendLayout = new TreeNode(false,LocaleText.UserInfo)
                 .AddTo(this);
 
-            var verticalLyaout = new VerticalLayout("box")
-                .AddTo(expendLayout);
+            var verticalLyaout = new VerticalLayout("box");
+
+            expendLayout.Add2Spread(verticalLyaout);
 
             AccountModel.Subject
                 .StartWith(AccountModel.State)
                 .Subscribe(state =>
                 {
-                    Debug.Log(state.Logined);
                     verticalLyaout.Clear();
 
                     if (state.Logined)

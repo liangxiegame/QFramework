@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{650CD7B4-BD70-4976-1ED3-2904B7AF52F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.SimpleHelper</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\SimpleHelper\Language.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\SimpleHelper\Network.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\SimpleHelper\SerializeHelper.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\SimpleHelper\QF.SimpleHelper.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -319,12 +319,6 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
-      <Name>UniRx</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,15 @@
+{
+    "name": "QF.Package",
+    "references": [
+        "QF.Redux",
+        "UniRx",
+        "QF.Editor",
+        "QF.DVA",
+        "QF.Extensions",
+        "QF.Action",
+        "QF.IOC",
+        "QF.SimpleHelper"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

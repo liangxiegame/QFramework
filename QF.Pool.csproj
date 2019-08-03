@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{9CAA063B-9D0A-8E50-5C20-A732CBFC694A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.Pool</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Cache\SimpleObjectCache.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\ObjectFactory\CustomObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\ObjectFactory\DefaultObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\ObjectFactory\IObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\ObjectFactory\NonPublicObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Pool\IPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Pool\Pool.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Pool\SafeObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\Pool\SimpleObjectPool.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\2.Pool\QF.Pool.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -321,9 +328,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
-      <Name>UniRx</Name>
+    <ProjectReference Include="QF.Singleton.csproj">
+      <Project>{991D4C99-80A1-538A-EA79-F6301AA110CF}</Project>
+      <Name>QF.Singleton</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

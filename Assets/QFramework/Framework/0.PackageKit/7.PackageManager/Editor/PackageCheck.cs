@@ -50,7 +50,7 @@ namespace QF.Editor
 
 		static PackageCheck()
 		{
-			if (!EditorApplication.isPlayingOrWillChangePlaymode && NetworkUtil.IsReachable)
+			if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
 			{
 				PackageCheck packageCheck = new PackageCheck()
 				{
@@ -66,7 +66,7 @@ namespace QF.Editor
 		private void CustomUpdate()
 		{
 			// 添加网络判断
-			if (!NetworkUtil.IsReachable) return;
+			if (!Network.IsReachable) return;
 			
 			switch (mCheckStatus)
 			{
@@ -103,7 +103,7 @@ namespace QF.Editor
 
 		private void ProcessCompare()
 		{
-            if (NetworkUtil.IsReachable)
+            if (Network.IsReachable)
             {
                 EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
                 {

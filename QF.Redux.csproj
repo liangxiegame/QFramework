@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{53AD31DE-EC49-9592-6102-643A6901B933}</ProjectGuid>
+    <ProjectGuid>{71F9C117-DB5C-360C-6A16-48AF1EFD2455}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Extensions</AssemblyName>
+    <AssemblyName>QF.Redux</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,10 +216,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\DotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\JsonDotNetExtensions.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\UnityAPIExtensions.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\0.Extensions\QF.Extensions.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\DvaState.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\EntityStateElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IMiddleware.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IReducer.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IState.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IStateChanged.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IStore.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\IStoreAccessor.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\ListStateElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\ReducerBase.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\StateElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\Store.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\StructStateElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Core\UniduxSetting.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\IPageData.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\IPageEntity.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\ISceneConfig.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\PageDuck.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\PageEntity.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\PageState.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\SceneCategory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\SceneDuck.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\SceneState.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\SceneTransition\SceneUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\CloneUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\ColorSerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\DictionaryExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\EnumUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\EqualityUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\IListExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\ISerializeFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\JsonUtilSerializeFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\SingletonMonoBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\StateUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\StructUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\Vector2SerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\Vector3SerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\Util\Vector4SerializationSurrogate.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\Plugins\Unidux\Scripts\Runtime\QF.Redux.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
