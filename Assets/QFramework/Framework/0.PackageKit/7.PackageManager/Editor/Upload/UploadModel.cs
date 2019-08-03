@@ -32,13 +32,12 @@ namespace QF.PackageKit.Upload
         {
             public static void Publish(PackageVersion packageVersion,bool deleteLocal)
             {
-                UploadModel.Dispatch("setNotice", "插件导出中,请稍后...");
+                Dispatch("setNotice", "插件导出中,请稍后...");
 
                 Observable.NextFrame().Subscribe(_ =>
                 {
-                    UploadModel.Dispatch("setNotice", "插件上传中,请稍后...");
-                    UploadModel.Dispatch("setResult", null);
-                    UploadModel.Dispatch("setProgress", UploadProgress.STATE_GENERATE_UPLOADING);
+                    Dispatch("setNotice", "插件上传中,请稍后...");
+                    Dispatch("setProgress", UploadProgress.STATE_GENERATE_UPLOADING);
 						
                     UploadPackage.DoUpload(packageVersion, () =>
                     {
@@ -47,8 +46,8 @@ namespace QF.PackageKit.Upload
                             Directory.Delete(packageVersion.InstallPath, true);
                             AssetDatabase.Refresh();
                         }
-                        UploadModel.Dispatch("setResult","上传成功");
-                        UploadModel.Dispatch("setProgress", UploadProgress.STATE_GENERATE_COMPLETE);
+                        Dispatch("setResult","上传成功");
+                        Dispatch("setProgress", UploadProgress.STATE_GENERATE_COMPLETE);
                     });
                 });
             }

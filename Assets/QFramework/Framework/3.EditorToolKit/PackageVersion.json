@@ -1,0 +1,19 @@
+{
+  "Version": "v0.2.3",
+  "Type": 0,
+  "AccessRight": 1,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/3.EditorToolKit/",
+  "DocUrl": "http://liangxiegame.com",
+  "Readme": {
+    "version": "v0.2.3",
+    "content": "close mdle",
+    "author": "liangxie",
+    "date": "2019 年 04 月 13 日 21:21",
+    "VersionNumber": 203
+  },
+  "Id": null,
+  "Name": "3.EditorToolKit",
+  "VersionNumber": 203,
+  "FileName": "3.EditorToolKit_v0.2.3.unitypackage"
+}

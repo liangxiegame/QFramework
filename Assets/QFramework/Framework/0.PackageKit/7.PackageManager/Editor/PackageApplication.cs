@@ -180,7 +180,7 @@ namespace QF.Editor
 
 			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				if (assembly.FullName.StartsWith("QFramework") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
+				if (assembly.FullName.StartsWith("QF") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
 				{
 					CachedAssembly(assembly);
 				}

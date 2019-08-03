@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using JetBrains.Annotations;
 using QF;
 using UniRx;
 
@@ -15,13 +13,7 @@ namespace uFrame.Kernel
 
         public IObservable<TEvent> GetEvent<TEvent>()
         {
-            return eventsSubject.Where(p =>
-            {
-                return p is TEvent;
-            }).Select(delegate (object p)
-            {
-                return (TEvent)p;
-            });
+            return eventsSubject.Where(p => p is TEvent).Select(p => (TEvent) p);
         }
 
         public void Publish<TEvent>(TEvent evt)
@@ -133,12 +125,6 @@ namespace uFrame.Kernel
                 return ManagersById[eventId];
             return null;
         }
-        //public IEventManager GetEventManager(Type type)
-        //{
-        //    if (ManagersById.ContainsKey(eventId))
-        //        return ManagersById[eventId];
-        //    return null;
-        //}
 
         public IObservable<TEvent> GetEvent<TEvent>()
         {

@@ -10,7 +10,7 @@ namespace QF.Editor
         public LabelView(string content)
         {
             Content = content;
-//            Style = new GUIStyle(GUI.skin.label);
+            Style = new GUIStyle(GUI.skin.label);
         }
 
 

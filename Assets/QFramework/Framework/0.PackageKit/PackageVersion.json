@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.5",
+  "Version": "v0.0.8",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.PackageKit/",
   "DocUrl": "http://qf.lianxiegame.com",
   "Readme": {
-    "version": "v0.0.5",
-    "content": "refactor package maker",
+    "version": "v0.0.8",
+    "content": "upload ",
     "author": "liangxie",
-    "date": "2019 年 08 月 03 日 12:02",
-    "VersionNumber": 5
+    "date": "2019 年 08 月 03 日 15:18",
+    "VersionNumber": 8
   },
   "Id": null,
   "Name": "0.PackageKit",
-  "VersionNumber": 5,
-  "FileName": "0.PackageKit_v0.0.5.unitypackage"
+  "VersionNumber": 8,
+  "FileName": "0.PackageKit_v0.0.8.unitypackage"
 }

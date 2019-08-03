@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.24",
+  "Version": "v0.1.1",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.0.24",
-    "content": "suport localize to editor",
-    "author": "liangxiegame@163.com",
-    "date": "2019 年 07 月 14 日 16:55",
-    "VersionNumber": 24
+    "version": "v0.1.1",
+    "content": "mvp",
+    "author": "liangxie",
+    "date": "2019 年 08 月 03 日 12:55",
+    "VersionNumber": 101
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 24,
-  "FileName": "Framework_v0.0.24.unitypackage"
+  "VersionNumber": 101,
+  "FileName": "Framework_v0.1.1.unitypackage"
 }
