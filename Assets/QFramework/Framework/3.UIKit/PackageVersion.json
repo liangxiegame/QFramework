@@ -1,0 +1,19 @@
+{
+  "Version": "v0.5.3",
+  "Type": 0,
+  "AccessRight": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/2.UIKit/",
+  "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
+  "Readme": {
+    "version": "v0.5.3",
+    "content": "add 3d's bind",
+    "author": "liangxiegame@163.com",
+    "date": "2019 年 07 月 22 日 23:13",
+    "VersionNumber": 503
+  },
+  "Id": null,
+  "Name": "2.UIKit",
+  "VersionNumber": 503,
+  "FileName": "2.UIKit_v0.5.3.unitypackage"
+}

@@ -1,0 +1,8 @@
+{
+    "name": "HTTP",
+    "references": [
+        "UniRx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

@@ -1,0 +1,19 @@
+{
+  "Version": "v0.1.1",
+  "Type": 0,
+  "AccessRight": 1,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Framework/4.ScriptCollection/",
+  "DocUrl": "http://liangxiegame.com",
+  "Readme": {
+    "version": "v0.1.1",
+    "content": "close module",
+    "author": "liangxie",
+    "date": "2019 年 04 月 13 日 21:21",
+    "VersionNumber": 101
+  },
+  "Id": null,
+  "Name": "4.ScriptCollection",
+  "VersionNumber": 101,
+  "FileName": "4.ScriptCollection_v0.1.1.unitypackage"
+}

@@ -24,8 +24,6 @@ namespace QF.PackageKit
 
     public class PackageKitModel : DvaModel<PackageKitModel, State>
     {
-        private State _initialState;
-
         public static class Effects
         {
             public static void GetAllPackagesInfo()
@@ -57,7 +55,13 @@ namespace QF.PackageKit
 
         protected override State InitialState
         {
-            get { return new State(); }
+            get
+            {
+                return new State()
+                {
+                    PackageDatas = PackageInfosRequestCache.Get().PackageDatas
+                };
+            }
         }
     }
 }
