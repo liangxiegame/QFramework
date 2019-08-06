@@ -232,7 +232,6 @@
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Plugin\IPackageKitView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\ReadmeWindow.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Runtime\Login\GetTokenAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Runtime\Login\RegisterAction.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Runtime\Login\User.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Runtime\Util\DjangoPost.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\7.PackageManager\Editor\Upload\PackageMaker.cs" />
@@ -325,6 +324,18 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/Plugins/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>
@@ -375,6 +386,10 @@
     <ProjectReference Include="QF.IOC.csproj">
       <Project>{7ECDE41B-EC82-EDD1-D252-CCF0C6152B12}</Project>
       <Name>QF.IOC</Name>
+    </ProjectReference>
+    <ProjectReference Include="QF.SimpleHelper.csproj">
+      <Project>{650CD7B4-BD70-4976-1ED3-2904B7AF52F8}</Project>
+      <Name>QF.SimpleHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,3 +1,4 @@
+using System;
 using EGO.Framework;
 using UnityEngine;
 
@@ -10,7 +11,14 @@ namespace QF.Editor
         public LabelView(string content)
         {
             Content = content;
-            Style = new GUIStyle(GUI.skin.label);
+            try
+            {
+                Style = new GUIStyle(GUI.skin.label);
+            }
+            catch (Exception e)
+            {
+                
+            }
         }
 
 
