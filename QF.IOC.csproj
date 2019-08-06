@@ -217,8 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Attributes\QFrameworkEvent.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Attributes\QFrameworkEventDispatcher.cs" />
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Attributes\SystemQFrameworkEvent.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\DebugInfo.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\InjectAttribute.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\IQFrameworkContainer.cs" />

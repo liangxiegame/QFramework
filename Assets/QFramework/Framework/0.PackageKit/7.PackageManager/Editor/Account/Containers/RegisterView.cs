@@ -22,7 +22,10 @@ namespace QF.Editor
                     
                     new TextView("").PasswordMode().AddTo(passwordLine);
 
-                    new ButtonView("注册", () => { }).AddTo(this);
+                    new ButtonView("注册", () =>
+                    {
+                        
+                    }).AddTo(this);
                     new ButtonView("返回注册", () => { AccountModel.Dispatch("setLoginView", true); })
                         .AddTo(this);
                 });

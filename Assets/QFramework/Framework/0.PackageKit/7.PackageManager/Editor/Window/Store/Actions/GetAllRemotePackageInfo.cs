@@ -46,21 +46,27 @@ namespace QF
 
 	    protected override void OnBegin()
 	    {
-		    Dictionary<string, string> headers = null;
+		    UniRx.IObservable<string> www = null;
 
 		    if (User.Logined)
 		    {
-			    headers = new Dictionary<string, string>()
-			    {
-				    {"Authorization", "Token " + User.Token}
-			    };
-		    }
+			    Dictionary<string, string> headers = new Dictionary<string, string>();
+			    headers.Add("Authorization", "Token " + User.Token);
+			    
+			    var form = new WWWForm();
 
-		    var form = new WWWForm();
-		    form.AddField("username",User.Username.Value);
-		    form.AddField("password",User.Password.Value);
+			    form.AddField("username", User.Username.Value);
+			    form.AddField("password", User.Password.Value);
+
+			    www = ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list", form, headers);
+		    }
+		    else
+		    {
+			    www = ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list",new WWWForm());
+		    }
 		    
-		    ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list",form, headers).Subscribe(response =>
+		    
+		    www.Subscribe(response =>
 		    {
 			    var responseJson = JObject.Parse(response);
 

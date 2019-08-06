@@ -1,5 +1,6 @@
 using EGO.Framework;
 using UniRx;
+using UnityEngine;
 
 namespace QF.Editor
 {
@@ -33,7 +34,11 @@ namespace QF.Editor
                         AccountModel.Effects.Login(Username,Password);
                     }).AddTo(this);
 
-                    new ButtonView("注册", () => { AccountModel.Dispatch("setInLoginView", false); })
+                    new ButtonView("注册", () =>
+                        {
+                          Application.OpenURL("http://master.liangxiegame.com/user/register");  
+//                            AccountModel.Dispatch("setInLoginView", false);
+                        })
                         .AddTo(this);
                 });
         }
