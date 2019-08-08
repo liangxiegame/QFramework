@@ -218,6 +218,8 @@
   <ItemGroup>
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Attributes\QFrameworkEvent.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\DebugInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Event\EventAggregator.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\Event\IEventAggregator.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\InjectAttribute.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\IQFrameworkContainer.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\3.IOC\JSON.cs" />
@@ -335,6 +337,12 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

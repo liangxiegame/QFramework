@@ -152,7 +152,7 @@ namespace DG.Tweening
         /// <summary>Tweens a Outline's effectColor to the given value.
         /// Also stores the Outline as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
-        public static Tweener DOColor(this Outline target, Color endValue, float duration)
+        public static Tweener DOColor(this UnityEngine.UI.Outline target, Color endValue, float duration)
         {
             return DOTween.To(() => target.effectColor, x => target.effectColor = x, endValue, duration).SetTarget(target);
         }
@@ -160,7 +160,7 @@ namespace DG.Tweening
         /// <summary>Tweens a Outline's effectColor alpha to the given value.
         /// Also stores the Outline as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
-        public static Tweener DOFade(this Outline target, float endValue, float duration)
+        public static Tweener DOFade(this  UnityEngine.UI.Outline target, float endValue, float duration)
         {
             return DOTween.ToAlpha(() => target.effectColor, x => target.effectColor = x, endValue, duration)
                 .SetTarget(target);
@@ -169,7 +169,7 @@ namespace DG.Tweening
         /// <summary>Tweens a Outline's effectDistance to the given value.
         /// Also stores the Outline as the tween's target so it can be used for filtered operations</summary>
         /// <param name="endValue">The end value to reach</param><param name="duration">The duration of the tween</param>
-        public static Tweener DOScale(this Outline target, Vector2 endValue, float duration)
+        public static Tweener DOScale(this  UnityEngine.UI.Outline target, Vector2 endValue, float duration)
         {
             return DOTween.To(() => target.effectDistance, x => target.effectDistance = x, endValue, duration)
                 .SetTarget(target);

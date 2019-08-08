@@ -23,7 +23,7 @@ namespace QF.PackageKit.Upload
         public byte Progress = UploadProgress.STATE_GENERATE_INIT;
     }
     
-    public class UploadModel : DvaModel<UploadModel,State>
+    public class UploadModel : DvaModelEditor<UploadModel,State>
     {
         private string _ns = "upload";
         private State _initialState = new State();

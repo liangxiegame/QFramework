@@ -22,7 +22,7 @@ namespace QF.PackageKit
         }
     }
 
-    public class PackageKitModel : DvaModel<PackageKitModel, State>
+    public class PackageKitModel : DvaModelEditor<PackageKitModel, State>
     {
         public static class Effects
         {

@@ -26,21 +26,22 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using ButtonAttribute = UnityEngine.ButtonAttribute;
 
 namespace QFramework
 {
-    [CustomPropertyDrawer(typeof(ButtonAttribute), true)]
+    [CustomPropertyDrawer(typeof(UnityEngine.ButtonAttribute), true)]
     internal class ButtonAttributeDrawer : PropertyDrawer
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            ButtonAttribute attribute = (ButtonAttribute)this.attribute;
+            UnityEngine.ButtonAttribute attribute = (UnityEngine.ButtonAttribute) this.attribute;
             return attribute.height;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            ButtonAttribute attribute = (ButtonAttribute)this.attribute;
+            UnityEngine.ButtonAttribute attribute = (UnityEngine.ButtonAttribute) this.attribute;
             if (attribute.funcNames == null || attribute.funcNames.Length == 0)
             {
                 position = EditorGUI.IndentedRect(position);
@@ -60,7 +61,7 @@ namespace QFramework
 
             using (new EditorGUI.DisabledScope(disabled))
             {
-                float width = position.width/attribute.funcNames.Length;
+                float width = position.width / attribute.funcNames.Length;
                 position.width = width;
                 for (int i = 0; i < attribute.funcNames.Length; i++)
                 {
@@ -79,7 +80,7 @@ namespace QFramework
         private static void CalledFunc(Object target, string strFuncName)
         {
             MethodInfo methodInfo = target.GetType()
-                                          .GetMethod(strFuncName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                .GetMethod(strFuncName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (methodInfo == null)
             {
                 return;

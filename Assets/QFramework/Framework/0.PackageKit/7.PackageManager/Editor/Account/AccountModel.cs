@@ -12,7 +12,7 @@ namespace QF.Editor
         public bool Logined = false;
     }
 
-    public class AccountModel : DvaModel<AccountModel, State>
+    public class AccountModel : DvaModelEditor<AccountModel, State>
     {
         protected override string Namespace
         {

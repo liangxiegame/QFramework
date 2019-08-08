@@ -216,7 +216,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\DvaModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\DvaModelEditor.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\ModelDB.cs" />
     <None Include="Assets\QFramework\Framework\0.PackageKit\6.DVA\QF.DVA.asmdef" />
     <Reference Include="UnityEngine.UI">
