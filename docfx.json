@@ -4,7 +4,8 @@
       "src": [
         {
           "files": [
-            "QF.Extensions.csproj"
+            "QF.Extensions.csproj",
+            "QF.Singleton.csproj"
           ]
         }
       ],
