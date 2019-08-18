@@ -1,9 +1,0 @@
-{
-    "name": "QF.Editor",
-    "references": [
-        "UniRx",
-        "QF.Extensions"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

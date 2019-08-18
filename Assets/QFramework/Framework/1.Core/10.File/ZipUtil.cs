@@ -25,7 +25,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using ICSharpCode.SharpZipLib.Checksums;
+using ICSharpCode.SharpZipLib.Checksum;
 using QF;
 using QF.Extensions;
 

@@ -306,7 +306,6 @@
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\EditorGUIUtils.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\EditorUtils.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\Utils\MouseSelector.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\5.EditorKit\Editor\QF.Editor.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

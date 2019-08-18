@@ -101,7 +101,7 @@ namespace QF
 					    var creator = packageInfo["username"].Value<string>();
 //					    var docUrl = packageInfo["doc_url"].Value<string>();
 					    var releaseItem = new ReleaseItem(version, "", creator, DateTime.Parse(createAt));
-//					    var accessRightName = packageInfo["access_right"].Value<string>();
+					    var accessRightName = packageInfo["accessRight"].Value<string>();
 
 					    var packageType = PackageType.FrameworkModule;
 
@@ -123,16 +123,16 @@ namespace QF
 
 					    var accessRight = PackageAccessRight.Public;
 
-//					    switch (accessRightName)
-//					    {
-//						    case "public":
+//					    accessRightName.LogInfo();
+					    switch (accessRightName)
+					    {
+						    case "public":
 							    accessRight = PackageAccessRight.Public;
-//							    break;
-//						    case "private":
-//							    accessRight = PackageAccessRight.Private;
-//							    break;
-//
-//					    }
+							    break;
+						    case "private":
+							    accessRight = PackageAccessRight.Private;
+							    break;
+					    }
 
 					    package.PackageVersions.Add(new PackageVersion()
 					    {
