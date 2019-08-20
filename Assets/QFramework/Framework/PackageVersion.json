@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.10",
+  "Version": "v0.1.11",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.1.10",
-    "content": "support .net 4.x",
+    "version": "v0.1.11",
+    "content": "add simple event system",
     "author": "liangxie",
-    "date": "2019 年 08 月 13 日 17:11",
-    "VersionNumber": 110
+    "date": "2019 年 08 月 20 日 19:46",
+    "VersionNumber": 111
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 110,
-  "FileName": "Framework_v0.1.10.unitypackage"
+  "VersionNumber": 111,
+  "FileName": "Framework_v0.1.11.unitypackage"
 }
