@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.11",
+  "Version": "v0.1.13",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.1.11",
-    "content": "add simple event system",
+    "version": "v0.1.13",
+    "content": "统一 ctrl + e 面板的视图",
     "author": "liangxie",
-    "date": "2019 年 08 月 20 日 19:46",
-    "VersionNumber": 111
+    "date": "2019 年 08 月 28 日 22:31",
+    "VersionNumber": 113
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 111,
-  "FileName": "Framework_v0.1.11.unitypackage"
+  "VersionNumber": 113,
+  "FileName": "Framework_v0.1.13.unitypackage"
 }

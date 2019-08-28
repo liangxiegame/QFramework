@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.23",
+  "Version": "v0.0.25",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.PackageKit/",
   "DocUrl": "http://qf.lianxiegame.com",
   "Readme": {
-    "version": "v0.0.23",
-    "content": "add simple event system",
+    "version": "v0.0.25",
+    "content": "remove ego toggle's style",
     "author": "liangxie",
-    "date": "2019 年 08 月 20 日 19:45",
-    "VersionNumber": 23
+    "date": "2019 年 08 月 28 日 22:22",
+    "VersionNumber": 25
   },
   "Id": null,
   "Name": "0.PackageKit",
-  "VersionNumber": 23,
-  "FileName": "0.PackageKit_v0.0.23.unitypackage"
+  "VersionNumber": 25,
+  "FileName": "0.PackageKit_v0.0.25.unitypackage"
 }

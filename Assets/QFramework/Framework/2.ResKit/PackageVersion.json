@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.5",
+  "Version": "v0.1.6",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
-  "InstallPath": "Assets/QFramework/Framework/1.ResKit/",
+  "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.5",
-    "content": "fix ResLoader's bug",
-    "author": "liangxiegame@163.com",
-    "date": "2019 年 07 月 21 日 10:59",
-    "VersionNumber": 105
+    "version": "v0.1.6",
+    "content": "编辑界面添加多语言",
+    "author": "liangxie",
+    "date": "2019 年 08 月 28 日 22:26",
+    "VersionNumber": 106
   },
   "Id": null,
-  "Name": "1.ResKit",
-  "VersionNumber": 105,
-  "FileName": "1.ResKit_v0.1.5.unitypackage"
+  "Name": "2.ResKit",
+  "VersionNumber": 106,
+  "FileName": "2.ResKit_v0.1.6.unitypackage"
 }

@@ -1,41 +1,42 @@
-using UniRx;
 using UnityEngine;
+using UniRx;
 
-namespace QF.PackageKit.Example {
-    /// <summary>
-    /// 定义两个消息
-    /// </summary>
-    public class A { }
-
-    public class B {
-        public string Key;
+namespace QF.PackageKit.Example
+{
+    public class A
+    {
     }
 
-    public class EventExample : MonoBehaviour {
+    public class B
+    {
+    }
+
+    public class EventExample : MonoBehaviour
+    {
+        EventAggregator mEventDispatcher = new EventAggregator();
 
         // Use this for initialization
-        void Start () {
-            SimpleEventSystem.GetEvent<A> ()
-                .Subscribe (a => Log.I ("a message"))
-                .AddTo (this); // 可以与 MonoBehavour 绑定生命周期，即 MonoBehaviour 销毁时，自动取消订阅。
-
-            SimpleEventSystem.GetEvent<B> ()
-                .Subscribe (b => {
-                    if (b.Key == "say") {
-                        Log.I ("b message");
-                    }
-                });
+        void Start()
+        {
+            mEventDispatcher.GetEvent<A>()
+                .Subscribe(a => Log.I("a message"));
+            
+            mEventDispatcher.GetEvent<B>()
+                .Subscribe(b => Log.I("b message"));
         }
 
         // Update is called once per frame
-        void Update () {
-            if (Input.GetMouseButtonUp (0)) {
-                SimpleEventSystem.Publish (new A ());
-
+        void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                mEventDispatcher.Publish(new A());
+                
             }
 
-            if (Input.GetMouseButtonUp (1)) {
-                SimpleEventSystem.Publish (new B () { Key = "say" });
+            if (Input.GetMouseButtonUp(1))
+            {
+                mEventDispatcher.Publish(new B());
             }
         }
     }

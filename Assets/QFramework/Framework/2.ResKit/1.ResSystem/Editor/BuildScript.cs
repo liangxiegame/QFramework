@@ -69,7 +69,7 @@ namespace QF.Res
 
 		private static void GenerateVersionConfig()
 		{
-			if (ResKitEditorWindow.isEnableGenerateClass)
+			if (ResKitEditorWindow.EnableGenerateClass)
 			{
 				WriteClass();
 			}
