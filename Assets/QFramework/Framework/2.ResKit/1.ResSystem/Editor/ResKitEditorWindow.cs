@@ -167,9 +167,9 @@ namespace QF.Res {
 				}).AddTo (verticalLayout);
 
 				new ButtonView (LocaleText.Build, () => {
-					this.PushCommand (() => {
+					// this.PushCommand (() => {
 						BuildWithTarget (EditorUserBuildSettings.activeBuildTarget);
-					});
+					// });
 
 					// Close ();
 					return;

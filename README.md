@@ -73,9 +73,9 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ```
 
 ### 技术支持 Tech Support：
-* [文档 Document:http://doc.qframework.io](http://doc.qframework.io)
+* [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
 * **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
-* **QQ群:623597263 (群内有福利哦~)**
+* **QQ 群:623597263 **
 * **社区:http://community.qframework.io/**
 * [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
 
