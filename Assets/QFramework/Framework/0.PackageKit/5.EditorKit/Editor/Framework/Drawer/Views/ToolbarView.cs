@@ -11,7 +11,7 @@ namespace EGO.Framework
     {
         public ToolbarView(int defaultIndex = 0)
         {
-            Index.Value = 0;
+            Index.Value = defaultIndex;
             Index.Bind(index => MenuSelected[index].Invoke(MenuNames[index]));
         }
 

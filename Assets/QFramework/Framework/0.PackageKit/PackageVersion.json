@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.25",
+  "Version": "v0.0.27",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.PackageKit/",
   "DocUrl": "http://qf.lianxiegame.com",
   "Readme": {
-    "version": "v0.0.25",
-    "content": "remove ego toggle's style",
+    "version": "v0.0.27",
+    "content": "fix toolbar view default values error",
     "author": "liangxie",
-    "date": "2019 年 08 月 28 日 22:22",
-    "VersionNumber": 25
+    "date": "2019 年 09 月 03 日 23:53",
+    "VersionNumber": 27
   },
   "Id": null,
   "Name": "0.PackageKit",
-  "VersionNumber": 25,
-  "FileName": "0.PackageKit_v0.0.25.unitypackage"
+  "VersionNumber": 27,
+  "FileName": "0.PackageKit_v0.0.27.unitypackage"
 }

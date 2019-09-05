@@ -27,6 +27,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QF
 {
 	using System.IO;
@@ -175,6 +177,14 @@ namespace QF
 
 		public static T LoadJson<T>(string path) where T : class
 		{
+			if (path.Contains(Application.streamingAssetsPath))
+			{
+				using (var streamReader = new StreamReader(path))
+				{
+					return FromJson<T>(streamReader.ReadToEnd());
+				}
+			}
+			
 			return File.ReadAllText(path).FromJson<T>();
 		}
 

@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.14",
+  "Version": "v0.1.15",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.1.14",
-    "content": "fix res kit's error",
+    "version": "v0.1.15",
+    "content": "修复 SerializeHelper 支持 StreammingAssets 目录",
     "author": "liangxie",
-    "date": "2019 年 08 月 29 日 13:28",
-    "VersionNumber": 114
+    "date": "2019 年 09 月 05 日 18:38",
+    "VersionNumber": 115
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 114,
-  "FileName": "Framework_v0.1.14.unitypackage"
+  "VersionNumber": 115,
+  "FileName": "Framework_v0.1.15.unitypackage"
 }

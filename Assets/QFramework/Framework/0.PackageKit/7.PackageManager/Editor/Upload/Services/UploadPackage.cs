@@ -23,17 +23,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text.RegularExpressions;
 using QF.Editor;
 using QF.Extensions;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace QF.PackageKit.Upload
 {
@@ -59,27 +55,27 @@ namespace QF.PackageKit.Upload
             form.AddField("version", packageVersion.Version);
             form.AddBinaryData("file", file);
             form.AddField("version", packageVersion.Version);
-//            form.AddField("release_note", packageVersion.Readme.content);
+            form.AddField("releaseNote", packageVersion.Readme.content);
             form.AddField("installPath", packageVersion.InstallPath);    
             form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
             form.AddField("docUrl", packageVersion.DocUrl);
 
-//            if (packageVersion.Type == PackageType.FrameworkModule)
-//            {
-//                form.AddField("type", "fm");
-//            }
-//            else if (packageVersion.Type == PackageType.Shader)
-//            {
-//                form.AddField("type", "s");
-//            }
-//            else if (packageVersion.Type == PackageType.AppOrGameDemoOrTemplate)
-//            {
-//                form.AddField("type", "agt");
-//            }
-//            else if (packageVersion.Type == PackageType.Plugin)
-//            {
-//                form.AddField("type", "p");
-//            }
+            if (packageVersion.Type == PackageType.FrameworkModule)
+            {
+                form.AddField("type", "fm");
+            }
+            else if (packageVersion.Type == PackageType.Shader)
+            {
+                form.AddField("type", "s");
+            }
+            else if (packageVersion.Type == PackageType.AppOrGameDemoOrTemplate)
+            {
+                form.AddField("type", "agt");
+            }
+            else if (packageVersion.Type == PackageType.Plugin)
+            {
+                form.AddField("type", "p");
+            }
 
             Debug.Log(fullpath);
 

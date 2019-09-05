@@ -96,30 +96,31 @@ namespace QF
 					    var version = packageInfo["version"].Value<string>();
 					    var url = packageInfo["downloadUrl"].Value<string>(); // download_url
 					    var installPath = packageInfo["installPath"].Value<string>();
-//					    var releaseNote = packageInfo["release_note"].Value<string>();
+					    var releaseNote = packageInfo["releaseNote"].Value<string>();
 					    var createAt = packageInfo["createAt"].Value<string>();
 					    var creator = packageInfo["username"].Value<string>();
 //					    var docUrl = packageInfo["doc_url"].Value<string>();
-					    var releaseItem = new ReleaseItem(version, "", creator, DateTime.Parse(createAt));
+					    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
 					    var accessRightName = packageInfo["accessRight"].Value<string>();
+					    var typeName = packageInfo["type"].Value<string>();
 
 					    var packageType = PackageType.FrameworkModule;
 
-//					    switch (typeName)
-//					    {
-//						    case "fm":
-//							    packageType = PackageType.FrameworkModule;
-//							    break;
-//						    case "s":
-//							    packageType = PackageType.Shader;
-//							    break;
-//						    case "agt":
-//							    packageType = PackageType.AppOrGameDemoOrTemplate;
-//							    break;
-//						    case "p":
-//							    packageType = PackageType.Plugin;
-//							    break;
-//					    }
+					    switch (typeName)
+					    {
+						    case "fm":
+							    packageType = PackageType.FrameworkModule;
+							    break;
+						    case "s":
+							    packageType = PackageType.Shader;
+							    break;
+						    case "agt":
+							    packageType = PackageType.AppOrGameDemoOrTemplate;
+							    break;
+						    case "p":
+							    packageType = PackageType.Plugin;
+							    break;
+					    }
 
 					    var accessRight = PackageAccessRight.Public;
 
