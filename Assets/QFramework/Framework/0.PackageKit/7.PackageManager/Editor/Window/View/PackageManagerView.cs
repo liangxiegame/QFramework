@@ -85,7 +85,7 @@ namespace QF.Editor
         }
 
         private string[] mToolbarNamesLogined =
-            {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private"};
+            {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private","Master"};
 
         private string[] mToolbarNamesUnLogined = {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate"};
 
@@ -112,6 +112,8 @@ namespace QF.Editor
                 case 5:
                     return packageDatas.Where(packageData =>
                         packageData.AccessRight == PackageAccessRight.Private);
+                case 6:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Master);
                 default:
                     return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
             }

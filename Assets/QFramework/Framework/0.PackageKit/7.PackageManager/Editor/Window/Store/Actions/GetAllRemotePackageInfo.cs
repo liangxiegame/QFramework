@@ -120,6 +120,9 @@ namespace QF
 						    case "p":
 							    packageType = PackageType.Plugin;
 							    break;
+						    case "master":
+							    packageType = PackageType.Master;
+							    break;
 					    }
 
 					    var accessRight = PackageAccessRight.Public;

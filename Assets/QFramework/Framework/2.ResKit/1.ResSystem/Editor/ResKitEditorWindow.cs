@@ -88,7 +88,7 @@ namespace QF.Res {
 				set;
 			}
 
-			public int RenderOrder { get { return 0; } }
+			public int RenderOrder { get { return 5; } }
 
 			public bool Ignore { get { return false; } }
 

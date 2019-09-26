@@ -27,15 +27,15 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEngine;
 
 namespace QF
 {
 	using System.IO;
 	using System.Xml.Serialization;
-    using Newtonsoft.Json;
+	
+	// 为了防止进行 clrbidning
 
-    public static class SerializeHelper
+    public static partial class SerializeHelper
 	{
 		public static bool SerializeBinary(string path, object obj)
 		{
@@ -158,35 +158,6 @@ namespace QF
 			return null;
 		}
 
-		public static string ToJson<T>(this T obj) where T : class
-		{
-            return JsonConvert.SerializeObject(obj, Formatting.Indented);
-		}
-
-		public static T FromJson<T>(this string json) where T : class
-		{
-            return JsonConvert.DeserializeObject<T>(json);
-		}
-
-		public static string SaveJson<T>(this T obj, string path) where T : class
-		{
-			var jsonContent = obj.ToJson();
-			File.WriteAllText(path, jsonContent);
-			return jsonContent;
-		}
-
-		public static T LoadJson<T>(string path) where T : class
-		{
-			if (path.Contains(Application.streamingAssetsPath))
-			{
-				using (var streamReader = new StreamReader(path))
-				{
-					return FromJson<T>(streamReader.ReadToEnd());
-				}
-			}
-			
-			return File.ReadAllText(path).FromJson<T>();
-		}
 
 //		public static byte[] ToProtoBuff<T>(this T obj) where T : class
 //		{

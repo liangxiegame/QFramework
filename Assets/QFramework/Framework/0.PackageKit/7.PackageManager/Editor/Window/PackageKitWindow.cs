@@ -42,6 +42,7 @@ namespace QF.Editor
 		}
 
 		[MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
+		[MenuItem(FrameworkMenuItems.PackageKit, false, FrameworkMenuItemsPriorities.Preferences)]
 		private static void Open()
 		{
 			var packageKitWindow = Create<PackageKitWindow>(true);

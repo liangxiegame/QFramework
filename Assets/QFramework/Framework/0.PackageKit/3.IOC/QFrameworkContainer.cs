@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -114,6 +114,17 @@ namespace QF
                 }
             }
         }
+        
+	    /// <summary>
+	    /// Register a type mapping
+	    /// </summary>
+	    /// <typeparam name="TSource">The base type.</typeparam>
+	    /// <typeparam name="TTarget">The concrete type</typeparam>
+	    public void Register<TSource>(string name = null)
+	    {
+		    Mappings[typeof(TSource), name] = typeof(TSource);
+	    }
+
 
         /// <summary>
         /// Register a type mapping

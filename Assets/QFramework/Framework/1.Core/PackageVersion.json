@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.1",
+  "Version": "v0.0.2",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/1.Core/",
   "DocUrl": "https://liangxiegame.com",
   "Readme": {
-    "version": "v0.0.1",
-    "content": "remove serialize  helper\t\t\t",
+    "version": "v0.0.2",
+    "content": "support il kit",
     "author": "liangxie",
-    "date": "2019 年 09 月 05 日 17:34",
-    "VersionNumber": 1
+    "date": "2019 年 09 月 08 日 14:03",
+    "VersionNumber": 2
   },
   "Id": null,
   "Name": "1.Core",
-  "VersionNumber": 1,
-  "FileName": "1.Core_v0.0.1.unitypackage"
+  "VersionNumber": 2,
+  "FileName": "1.Core_v0.0.2.unitypackage"
 }

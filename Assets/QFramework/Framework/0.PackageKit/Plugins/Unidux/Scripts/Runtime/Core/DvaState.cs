@@ -1,4 +1,5 @@
 ﻿using System;
+using QF;
 using Unidux.Util;
 
 namespace Unidux
@@ -16,7 +17,7 @@ namespace Unidux
         public virtual object Clone()
         {
             // It's slow. So in case of requiring performance, override this deep clone method by your code.
-            return CloneUtil.MemoryClone(this);
+            return this;
         }
 
         public override bool Equals(object obj)

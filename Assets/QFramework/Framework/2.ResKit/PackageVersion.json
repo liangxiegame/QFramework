@@ -1,19 +1,19 @@
 {
-  "Version": "v0.1.7",
+  "Version": "v0.1.8",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/2.ResKit/",
   "DocUrl": "http://liangxiegame.com",
   "Readme": {
-    "version": "v0.1.7",
-    "content": "fix build ab's error",
+    "version": "v0.1.8",
+    "content": "调整 编辑器显示的顺序",
     "author": "liangxie",
-    "date": "2019 年 08 月 29 日 13:27",
-    "VersionNumber": 107
+    "date": "2019 年 09 月 03 日 23:50",
+    "VersionNumber": 108
   },
   "Id": null,
   "Name": "2.ResKit",
-  "VersionNumber": 107,
-  "FileName": "2.ResKit_v0.1.7.unitypackage"
+  "VersionNumber": 108,
+  "FileName": "2.ResKit_v0.1.8.unitypackage"
 }

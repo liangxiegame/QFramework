@@ -178,7 +178,7 @@ namespace QFramework
                         fullPrefabFolder.CreateDirIfNotExists();
 
                         var genereateFolder = fullPrefabFolder + "/" + gameObject.name + ".prefab";
-#if UNITY_2018_2_OR_NEWER
+#if UNITY_2018_3_OR_NEWER
                         PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject,
                             fullPrefabFolder + "/" + gameObject.name + ".prefab",
                             InteractionMode.AutomatedAction);

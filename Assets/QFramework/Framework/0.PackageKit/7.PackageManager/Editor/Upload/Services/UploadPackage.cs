@@ -49,14 +49,14 @@ namespace QF.PackageKit.Upload
             var file = File.ReadAllBytes(fullpath);
 
             var form = new WWWForm();
-            form.AddField("username",User.Username.Value);
-            form.AddField("password",User.Password.Value);
+            form.AddField("username", User.Username.Value);
+            form.AddField("password", User.Password.Value);
             form.AddField("name", packageVersion.Name);
             form.AddField("version", packageVersion.Version);
             form.AddBinaryData("file", file);
             form.AddField("version", packageVersion.Version);
             form.AddField("releaseNote", packageVersion.Readme.content);
-            form.AddField("installPath", packageVersion.InstallPath);    
+            form.AddField("installPath", packageVersion.InstallPath);
             form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
             form.AddField("docUrl", packageVersion.DocUrl);
 
@@ -75,6 +75,10 @@ namespace QF.PackageKit.Upload
             else if (packageVersion.Type == PackageType.Plugin)
             {
                 form.AddField("type", "p");
+            }
+            else if (packageVersion.Type == PackageType.Master)
+            {
+                form.AddField("type", "master");
             }
 
             Debug.Log(fullpath);

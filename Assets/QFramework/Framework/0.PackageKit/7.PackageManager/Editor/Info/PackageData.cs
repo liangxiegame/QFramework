@@ -107,6 +107,7 @@ namespace QF
         Plugin, // p
         AppOrGameDemoOrTemplate, //agt
         DocumentsOrTutorial, //doc
+        Master, // master
     }
 
     public enum PackageAccessRight
