@@ -1,19 +1,19 @@
 {
-  "Version": "v0.5.6",
+  "Version": "v0.5.7",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
   "DocUrl": "https://mp.weixin.qq.com/s/JZY-Z6lMpZpLS4Il04S7pw",
   "Readme": {
-    "version": "v0.5.6",
-    "content": "suppot 2018.2",
+    "version": "v0.5.7",
+    "content": "UI Kit 支持 Dropdown 的生成",
     "author": "liangxie",
-    "date": "2019 年 09 月 26 日 17:43",
-    "VersionNumber": 506
+    "date": "2019 年 10 月 11 日 18:21",
+    "VersionNumber": 507
   },
   "Id": null,
   "Name": "3.UIKit",
-  "VersionNumber": 506,
-  "FileName": "3.UIKit_v0.5.6.unitypackage"
+  "VersionNumber": 507,
+  "FileName": "3.UIKit_v0.5.7.unitypackage"
 }

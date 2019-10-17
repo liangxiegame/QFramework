@@ -11,12 +11,6 @@ namespace QF.GraphDesigner
             get { return Container.Resolve<IRepository>(); }
         }
 
-        public override void Initialize(QFrameworkContainer container)
-        {
-            base.Initialize(container);
-
-        }
-
         public override void Loaded(QFrameworkContainer container)
         {
             base.Loaded(container);

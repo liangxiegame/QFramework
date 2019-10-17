@@ -13,15 +13,14 @@ namespace QF.PackageKit.Example
 
     public class EventExample : MonoBehaviour
     {
-        EventAggregator mEventDispatcher = new EventAggregator();
 
         // Use this for initialization
         void Start()
         {
-            mEventDispatcher.GetEvent<A>()
+            SimpleEventSystem.GetEvent<A>()
                 .Subscribe(a => Log.I("a message"));
             
-            mEventDispatcher.GetEvent<B>()
+            SimpleEventSystem.GetEvent<B>()
                 .Subscribe(b => Log.I("b message"));
         }
 
@@ -30,13 +29,13 @@ namespace QF.PackageKit.Example
         {
             if (Input.GetMouseButtonUp(0))
             {
-                mEventDispatcher.Publish(new A());
+                SimpleEventSystem.Publish(new A());
                 
             }
 
             if (Input.GetMouseButtonUp(1))
             {
-                mEventDispatcher.Publish(new B());
+                SimpleEventSystem.Publish(new B());
             }
         }
     }

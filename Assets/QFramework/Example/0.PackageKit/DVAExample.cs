@@ -13,6 +13,9 @@ namespace QFramework.Example
     {
         void Start()
         {
+            // 初始化从服务器拉取数据
+            CounterModel.Effects.PullDataFromNetwork();
+            
             // Code Here
 
             CounterModel.Subject
@@ -36,10 +39,21 @@ namespace QFramework.Example
 
     public class CounterModel : DvaModel<CounterModel, CounterState>
     {
+        public static class Effects
+        {
+            public static void PullDataFromNetwork()
+            {
+                Observable.Timer(TimeSpan.FromSeconds(1.0f)).Subscribe(_ => { Dispatch("setCount", 100); });
+            }
+        }
+
         public override CounterState Reduce(CounterState state, DvaAction action)
         {
             switch (action.Type)
             {
+                case "setCount":
+                    state.Count = (int) action.Payload;
+                    break;
                 case "increase":
                     state.Count++;
                     break;

@@ -118,8 +118,8 @@ public class InspectorPlugin : DiagramPlugin
     {
      
         UpdateItems();
-        if (uFrameInspectorWindow.Instance != null)
-            uFrameInspectorWindow.Instance.Repaint();
+//        if (uFrameInspectorWindow.Instance != null)
+//            uFrameInspectorWindow.Instance.Repaint();
     }
     public virtual List<PropertyFieldViewModel> GetInspectorOptions(object obj)
     {
@@ -161,8 +161,8 @@ public class InspectorPlugin : DiagramPlugin
         Groups = Selected.SelectMany(x => GetInspectorOptions(x)).GroupBy(p=>p.DataObject.GetType().Name).ToArray();
         
 
-        if (uFrameInspectorWindow.Instance != null)
-            uFrameInspectorWindow.Instance.Repaint();
+//        if (uFrameInspectorWindow.Instance != null)
+//            uFrameInspectorWindow.Instance.Repaint();
     }
 
     public IGrouping<string, PropertyFieldViewModel>[] Groups { get; set; }
@@ -173,14 +173,14 @@ public class InspectorPlugin : DiagramPlugin
     public void RecordInserted(IDataRecord record)
     {
         UpdateItems(); 
-        if (uFrameInspectorWindow.Instance != null)
-            uFrameInspectorWindow.Instance.Repaint();
+//        if (uFrameInspectorWindow.Instance != null)
+//            uFrameInspectorWindow.Instance.Repaint();
     }
 
     public void RecordRemoved(IDataRecord record)
     {
-        UpdateItems(); if (uFrameInspectorWindow.Instance != null)
-            uFrameInspectorWindow.Instance.Repaint();
+//        UpdateItems(); if (uFrameInspectorWindow.Instance != null)
+//            uFrameInspectorWindow.Instance.Repaint();
     }
 
     public void SelectionChanged(GraphItemViewModel selected)
@@ -303,38 +303,38 @@ public class InspectorPlugin : DiagramPlugin
     }
     public void QueryToolbarCommands(ToolbarUI ui)
     {
-        var isInspectorWindowOpened = IsWindowOpen<uFrameInspectorWindow>();
-        var isIssuesWindowOpened = IsWindowOpen<uFrameIssuesWindow>();
-        ui.AddCommand(new ToolbarItem()
-        {
-            Title = "Inspector",
-            Checked = isInspectorWindowOpened,
-            Position = ToolbarPosition.BottomRight,
-            Command = new LambdaCommand("Show", () =>
-            {
-                var window = EditorWindow.GetWindow<uFrameInspectorWindow>();
-                window.title = "Inspector";
-                if (isInspectorWindowOpened)
-                {
-                    window.Close();
-                }
-            })
-        }); 
-        
-        ui.AddCommand(new ToolbarItem()
-        {
-            Title = "Issues",
-            Checked = isIssuesWindowOpened,
-            Position = ToolbarPosition.BottomRight,
-            Command = new LambdaCommand("Show", () =>
-            {
-                var window = EditorWindow.GetWindow<uFrameIssuesWindow>();
-                window.title = "Issues";
-                if (isIssuesWindowOpened)
-                {
-                    window.Close();
-                }
-            })
-        }); 
+//        var isInspectorWindowOpened = IsWindowOpen<uFrameInspectorWindow>();
+//        var isIssuesWindowOpened = IsWindowOpen<uFrameIssuesWindow>();
+//        ui.AddCommand(new ToolbarItem()
+//        {
+//            Title = "Inspector",
+//            Checked = isInspectorWindowOpened,
+//            Position = ToolbarPosition.BottomRight,
+//            Command = new LambdaCommand("Show", () =>
+//            {
+//                var window = EditorWindow.GetWindow<uFrameInspectorWindow>();
+//                window.title = "Inspector";
+//                if (isInspectorWindowOpened)
+//                {
+//                    window.Close();
+//                }
+//            })
+//        }); 
+//        
+//        ui.AddCommand(new ToolbarItem()
+//        {
+//            Title = "Issues",
+//            Checked = isIssuesWindowOpened,
+//            Position = ToolbarPosition.BottomRight,
+//            Command = new LambdaCommand("Show", () =>
+//            {
+//                var window = EditorWindow.GetWindow<uFrameIssuesWindow>();
+//                window.title = "Issues";
+//                if (isIssuesWindowOpened)
+//                {
+//                    window.Close();
+//                }
+//            })
+//        }); 
     }
 }

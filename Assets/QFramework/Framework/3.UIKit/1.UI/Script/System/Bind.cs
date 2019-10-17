@@ -46,6 +46,7 @@ namespace QFramework
                     if (GetComponent("TMPro.TMP_InputField")) return "TMPro.TMP_InputField";
 
                     // ugui bind
+                    if (GetComponent<Dropdown>()) return "UnityEngine.UI.Dropdown";
                     if (GetComponent<Button>()) return "UnityEngine.UI.Button";
                     if (GetComponent<Text>()) return "UnityEngine.UI.Text";
                     if (GetComponent<RawImage>()) return "UnityEngine.UI.RawImage";
