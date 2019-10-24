@@ -99,23 +99,23 @@ namespace QF.Editor
             switch (ToolbarIndex)
             {
                 case 0:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule).OrderBy(p=>p.Name);
                 case 1:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Plugin);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Plugin).OrderBy(p=>p.Name);
                 case 2:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent).OrderBy(p=>p.Name);
                 case 3:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Shader);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Shader).OrderBy(p=>p.Name);
                 case 4:
                     return packageDatas.Where(packageData =>
-                        packageData.Type == PackageType.AppOrGameDemoOrTemplate);
+                        packageData.Type == PackageType.AppOrGameDemoOrTemplate).OrderBy(p=>p.Name);
                 case 5:
                     return packageDatas.Where(packageData =>
-                        packageData.AccessRight == PackageAccessRight.Private);
+                        packageData.AccessRight == PackageAccessRight.Private).OrderBy(p=>p.Name);
                 case 6:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Master);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Master).OrderBy(p=>p.Name);
                 default:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule);
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule).OrderBy(p=>p.Name);
             }
         }
 

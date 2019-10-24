@@ -104,7 +104,7 @@ namespace QF
         {
             IEventManager eventManager;
 
-            if (!Managers.TryGetValue(evt.GetType(), out eventManager))
+            if (!Managers.TryGetValue(typeof(TEvent), out eventManager))
             {
                 // No listeners anyways
                 return;

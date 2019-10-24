@@ -1,19 +1,19 @@
 {
-  "Version": "v0.0.34",
+  "Version": "v0.0.35",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework/0.PackageKit/",
   "DocUrl": "http://qf.lianxiegame.com",
   "Readme": {
-    "version": "v0.0.34",
-    "content": "QFrameworkContainer 支持 单个类型注册",
+    "version": "v0.0.35",
+    "content": "包管理器支持排序",
     "author": "liangxie",
-    "date": "2019 年 09 月 20 日 22:03",
-    "VersionNumber": 34
+    "date": "2019 年 10 月 20 日 12:08",
+    "VersionNumber": 35
   },
   "Id": null,
   "Name": "0.PackageKit",
-  "VersionNumber": 34,
-  "FileName": "0.PackageKit_v0.0.34.unitypackage"
+  "VersionNumber": 35,
+  "FileName": "0.PackageKit_v0.0.35.unitypackage"
 }
