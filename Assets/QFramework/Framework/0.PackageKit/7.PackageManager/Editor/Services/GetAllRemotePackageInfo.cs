@@ -99,8 +99,7 @@ namespace QF
 					    var releaseNote = packageInfo["releaseNote"].Value<string>();
 					    var createAt = packageInfo["createAt"].Value<string>();
 					    var creator = packageInfo["username"].Value<string>();
-//					    var docUrl = packageInfo["doc_url"].Value<string>();
-					    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt));
+					    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt),id);
 					    var accessRightName = packageInfo["accessRight"].Value<string>();
 					    var typeName = packageInfo["type"].Value<string>();
 

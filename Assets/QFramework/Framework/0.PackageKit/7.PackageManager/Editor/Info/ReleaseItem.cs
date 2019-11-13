@@ -15,18 +15,20 @@ namespace QF
 
         }
 
-        public ReleaseItem(string version, string content, string author, DateTime date)
+        public ReleaseItem(string version, string content, string author, DateTime date,string packageId = "")
         {
             this.version = version;
             this.content = content;
             this.author = author;
             this.date = date.ToString("yyyy 年 MM 月 dd 日 HH:mm");
+            PackageId = packageId;
         }
 
         public string version = "";
         public string content = "";
         public string author  = "";
         public string date    = "";
+        public string PackageId { get; set; }
         
         
         public int VersionNumber

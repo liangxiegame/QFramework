@@ -27,7 +27,7 @@ namespace QF.Action
 			form.ForEach((k, v) => { wwwForm.AddField(k, v); });
 
 			return ObservableWWW.Post(url, wwwForm, headers)
-				.Subscribe(onResponse);
+				.Subscribe(onResponse, Log.E);
 		}
 
 		public IDisposable HttpPatch(string url, Dictionary<string, string> headers,

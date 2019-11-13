@@ -34,6 +34,11 @@ namespace QF.PackageKit
                     }
                 ));
             }
+
+            public static void DeletePacakge(string pacakgeId)
+            {
+                
+            }
         }
 
         public override State Reduce(State state, DvaAction action)

@@ -25,7 +25,6 @@
 
 using EGO.Framework;
 using UniRx;
-using UnityEngine;
 using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QF.Editor

@@ -23,6 +23,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using QF.Action;
+using QF.Editor;
+
 namespace QF
 {
     using UnityEditor;
@@ -38,13 +41,11 @@ namespace QF
         
         public static void Init(Readme readme,PackageVersion packageVersion)
         {
-
             var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, packageVersion.Name, true);
             readmeWin.mReadme = readme;
             readmeWin.mPackageVersion = packageVersion;
             readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 600, 300);
             readmeWin.Show();
-            
         }
 
         public void OnGUI()
@@ -62,6 +63,20 @@ namespace QF
                 GUILayout.Label("version: " + item.version, GUILayout.Width(130));
                 GUILayout.Label("author: " + item.author);
                 GUILayout.Label("date: " + item.date);
+
+                if (item.author == User.Username.Value)
+                {
+                    if (GUILayout.Button("删除"))
+                    {
+                        EditorActionKit.ExecuteNode(new DeletePackage(item.PackageId)
+                        {
+                            OnEndedCallback = () =>
+                            {
+                                mReadme.items.Remove(item);
+                            }
+                        });
+                    }
+                }
 
                 GUILayout.EndHorizontal();
                 GUILayout.Label(item.content);

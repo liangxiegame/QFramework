@@ -28,11 +28,16 @@ namespace QF.Action
         {
             return mAPI.HttpGet(url, headers, onResponse);
         }
+        
+        public static IDisposable HttpPost(string url, Dictionary<string, string> form, Action<string> onResponse)
+        {
+            return mAPI.HttpPost(url, new Dictionary<string, string>(), form, onResponse);
+        }
 
         public static IDisposable HttpPost(string url, Dictionary<string, string> headers,
             Dictionary<string, string> form, Action<string> onResponse)
         {
-            return mAPI.HttpPost(url, headers, form, onResponse);
+            return mAPI.HttpPost(url, headers ?? new Dictionary<string, string>(), form, onResponse);
         }
 
         public static IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse)

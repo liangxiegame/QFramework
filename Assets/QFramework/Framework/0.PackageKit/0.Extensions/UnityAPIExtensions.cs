@@ -1209,7 +1209,7 @@ namespace QF.Extensions
         /// <returns></returns>
         public static T GetRandomItem<T>(this List<T> list)
         {
-            return list[UnityEngine.Random.Range(0, list.Count - 1)];
+            return list[UnityEngine.Random.Range(0, list.Count)];
         }
 
 
