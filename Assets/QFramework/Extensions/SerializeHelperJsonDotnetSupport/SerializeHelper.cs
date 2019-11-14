@@ -69,35 +69,5 @@ namespace QFramework
 			
 			return File.ReadAllText(path).FromJson<T>();
 		}
-		
-
-//		public static byte[] ToProtoBuff<T>(this T obj) where T : class
-//		{
-//			using (MemoryStream ms = new MemoryStream())
-//			{
-//				ProtoBuf.Serializer.Serialize<T>(ms, obj);
-//				return ms.ToArray();
-//			}
-//		}
-//
-//		public static T FromProtoBuff<T>(this byte[] bytes) where T : class
-//		{
-//			if (bytes == null || bytes.Length == 0)
-//			{
-//				throw new System.ArgumentNullException("bytes");
-//			}
-//			T t = ProtoBuf.Serializer.Deserialize<T>(new MemoryStream(bytes));
-//			return t;
-//		}
-
-//		public static void SaveProtoBuff<T>(this T obj, string path) where T : class
-//		{
-//			File.WriteAllBytes(path, obj.ToProtoBuff<T>());
-//		}
-//
-//		public static T LoadProtoBuff<T>(string path) where T : class
-//		{
-//			return File.ReadAllBytes(path).FromProtoBuff<T>();
-//		}
 	}
 }

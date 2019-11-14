@@ -1,12 +1,12 @@
 
 
+using Newtonsoft.Json.Linq;
 using QFramework;
 #if UNITY_5_6_OR_NEWER
 using System;
 using System.Collections.Generic;
 using System.Text;
 using CI.HttpClient;
-using Newtonsoft.Json.Linq;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;

@@ -58,7 +58,7 @@ namespace QF
 
         public static FrameworkVersionInfo ParseLatest(string latestContent)
         {
-            return latestContent.FromJson<FrameworkVersionInfo>();
+            return JsonConvert.DeserializeObject<FrameworkVersionInfo>(latestContent);
         }
     }
 
