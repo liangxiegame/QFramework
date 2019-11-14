@@ -28,7 +28,9 @@
  ****************************************************************************/
 
 
-namespace QF
+using QF;
+
+namespace QFramework
 {
 	using System.IO;
 	using System.Xml.Serialization;

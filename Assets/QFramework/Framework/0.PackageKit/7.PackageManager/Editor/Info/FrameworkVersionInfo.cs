@@ -24,6 +24,8 @@
  ****************************************************************************/
 
 
+using QFramework;
+
 namespace QF
 {
     using Newtonsoft.Json;
