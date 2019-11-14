@@ -9,6 +9,7 @@ using UnityEngine;
 
 #endif
 
+// ActionKit 以後往可視化編程的方向發展
 namespace QFramework
 {
     /// <summary>
@@ -465,7 +466,7 @@ namespace QFramework
             }
         }
     }
-    
+
     public class RepeatNodeChain : ActionChain
     {
         protected override NodeAction mNode
@@ -476,11 +477,11 @@ namespace QFramework
         private RepeatNode mRepeatAction;
 
         private SequenceNode mSequenceNode;
-        
+
         public RepeatNodeChain(int repeatCount)
         {
             mSequenceNode = new SequenceNode();
-            mRepeatAction = new RepeatNode(mSequenceNode,repeatCount);
+            mRepeatAction = new RepeatNode(mSequenceNode, repeatCount);
         }
 
         public override IActionChain Append(IAction node)
@@ -504,7 +505,7 @@ namespace QFramework
             mSequenceNode = null;
         }
     }
-    
+
     /// <summary>
     /// 支持链式方法
     /// </summary>
@@ -536,8 +537,8 @@ namespace QFramework
             mSequenceNode = null;
         }
     }
-    
-    public class OnlyBeginAction : NodeAction,IPoolable,IPoolType
+
+    public class OnlyBeginAction : NodeAction, IPoolable, IPoolType
     {
         private Action<OnlyBeginAction> mBeginAction;
 
@@ -546,10 +547,10 @@ namespace QFramework
             var retSimpleAction = SafeObjectPool<OnlyBeginAction>.Instance.Allocate();
 
             retSimpleAction.mBeginAction = beginAction;
-			
+
             return retSimpleAction;
         }
-		
+
         public void OnRecycled()
         {
             mBeginAction = null;
@@ -564,13 +565,14 @@ namespace QFramework
         }
 
         public bool IsRecycled { get; set; }
+
         public void Recycle2Cache()
         {
             SafeObjectPool<OnlyBeginAction>.Instance.Recycle(this);
         }
     }
-    
-    
+
+
     /// <inheritdoc />
     /// <summary>
     /// like filter, add condition
@@ -604,13 +606,13 @@ namespace QFramework
 
         bool IPoolable.IsRecycled { get; set; }
     }
-    
+
     public interface INode
     {
         IAction CurrentExecutingNode { get; }
     }
-    
-    public class RepeatNode : NodeAction,INode
+
+    public class RepeatNode : NodeAction, INode
     {
         public RepeatNode(IAction node, int repeatCount)
         {
@@ -627,9 +629,9 @@ namespace QFramework
                 return node == null ? currentNode : node.CurrentExecutingNode;
             }
         }
-        
+
         private IAction mNode;
-        
+
         public int RepeatCount = 1;
 
         private int mCurRepeatCount = 0;
@@ -640,10 +642,11 @@ namespace QFramework
             {
                 mNode.Reset();
             }
+
             mCurRepeatCount = 0;
             Finished = false;
         }
-        
+
         protected override void OnExecute(float dt)
         {
             if (RepeatCount == -1)
@@ -652,6 +655,7 @@ namespace QFramework
                 {
                     mNode.Reset();
                 }
+
                 return;
             }
 
@@ -676,16 +680,16 @@ namespace QFramework
             }
         }
     }
-    
+
 
     /// <summary>
     /// 序列执行节点
     /// </summary>
-    public class SequenceNode : NodeAction ,INode
+    public class SequenceNode : NodeAction, INode
     {
         protected readonly List<IAction> mNodes         = new List<IAction>();
         protected readonly List<IAction> mExcutingNodes = new List<IAction>();
-		
+
         public int TotalCount
         {
             get { return mExcutingNodes.Count; }
@@ -739,7 +743,9 @@ namespace QFramework
             Finished = mExcutingNodes.Count == 0;
         }
 
-        protected virtual void OnCurrentActionFinished() {}
+        protected virtual void OnCurrentActionFinished()
+        {
+        }
 
         public SequenceNode(params IAction[] nodes)
         {
@@ -760,7 +766,7 @@ namespace QFramework
         protected override void OnDispose()
         {
             base.OnDispose();
-			
+
             if (null != mNodes)
             {
                 mNodes.ForEach(node => node.Dispose());
@@ -771,14 +777,14 @@ namespace QFramework
             {
                 mExcutingNodes.Clear();
             }
-        }	
+        }
     }
-    
-    	
+
+
     /// <summary>
     /// 并发执行的协程
     /// </summary>
-    public class SpawnNode :NodeAction 
+    public class SpawnNode : NodeAction
     {
         protected List<NodeAction> mNodes = new List<NodeAction>();
 
@@ -794,7 +800,7 @@ namespace QFramework
             {
                 mNodes[i].Finish();
             }
-            
+
             base.Finish();
         }
 
@@ -818,7 +824,7 @@ namespace QFramework
         public SpawnNode(params NodeAction[] nodes)
         {
             mNodes.AddRange(nodes);
-            
+
             foreach (var nodeAction in nodes)
             {
                 nodeAction.OnEndedCallback += IncreaseFinishCount;
@@ -847,7 +853,7 @@ namespace QFramework
             mNodes = null;
         }
     }
-    
+
     /// <summary>
     /// 时间轴执行节点
     /// </summary>
@@ -938,7 +944,7 @@ namespace QFramework
             TimelineQueue = null;
         }
     }
-    
+
     /// <summary>
     /// 启动执行节点
     /// </summary>
@@ -947,14 +953,14 @@ namespace QFramework
         protected string mTips = "Default";
 
         public virtual float Progress { get; set; }
-        
+
         public virtual string Tips
         {
             get { return mTips; }
             set { mTips = value; }
         }
     }
-    
+
     /// <summary>
     /// 事件注入,和 NodeSystem 配套使用
     /// </summary>
@@ -994,9 +1000,9 @@ namespace QFramework
                 (triggerConditionWithNewValue == null || triggerConditionWithNewValue(newValue)));
         }
     }
-    
+
     [MonoSingletonPath("[ActionKit]/ActionQueue")]
-    public class ActionQueue : MonoBehaviour,ISingleton
+    public class ActionQueue : MonoBehaviour, ISingleton
     {
         private List<IAction> mActions = new List<IAction>();
 
@@ -1054,7 +1060,5 @@ namespace QFramework
             }
         }
     }
-    
-
 #endif
 }
