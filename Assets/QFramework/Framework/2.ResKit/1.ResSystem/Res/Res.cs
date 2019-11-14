@@ -24,7 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.Extensions;
+
+using QFramework;
 using UnityEngine;
 
 namespace QF.Res

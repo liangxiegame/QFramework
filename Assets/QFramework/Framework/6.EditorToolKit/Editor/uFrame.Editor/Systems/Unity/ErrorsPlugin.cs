@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Invert.Data;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner.Unity
 {
@@ -12,8 +13,6 @@ namespace QF.GraphDesigner.Unity
     {
         public override void Initialize(QFrameworkContainer container)
         {
-            base.Initialize(container);
-
         }
     }
 }

@@ -27,7 +27,7 @@
 
 using ICSharpCode.SharpZipLib.Checksum;
 using QF;
-using QF.Extensions;
+
 
 namespace QFramework
 {

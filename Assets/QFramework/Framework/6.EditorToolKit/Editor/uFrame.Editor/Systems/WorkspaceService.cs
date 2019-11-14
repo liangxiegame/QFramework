@@ -6,6 +6,7 @@ using System.Text;
 using QF.GraphDesigner;
 using QF.GraphDesigner.Systems;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {
@@ -43,7 +44,6 @@ namespace QF.GraphDesigner
         public Workspace CurrentWorkspace { get; set; }
         public override void Loaded(QFrameworkContainer container)
         {
-            base.Loaded(container);
             if (CurrentWorkspace == null && InvertGraphEditor.Prefs != null)
             {
                 CurrentWorkspace = Workspaces.FirstOrDefault(p => p.Identifier == InvertGraphEditor.Prefs.GetString("LastLoadedWorkspace", string.Empty));

@@ -1,4 +1,4 @@
-using EGO.Framework;
+using QFramework;
 using UniRx;
 
 namespace QF.Editor

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {

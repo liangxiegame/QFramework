@@ -29,7 +29,7 @@ using System.CodeDom.Compiler;
 using Microsoft.CSharp;
 using System.Collections.Generic;
 using System.Linq;
-using QF.Extensions;
+using QFramework;
 
 namespace QF.Res
 {

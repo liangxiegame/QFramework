@@ -25,7 +25,7 @@
 //  ****************************************************************************/
 
 using System.Reflection;
-using QF.Extensions;
+
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;

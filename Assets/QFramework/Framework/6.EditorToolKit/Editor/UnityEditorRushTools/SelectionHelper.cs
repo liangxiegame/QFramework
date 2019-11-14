@@ -26,7 +26,7 @@
 
 using System.Diagnostics;
 using System.IO;
-using QF.Extensions;
+
 using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;

@@ -23,7 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using EGO.Framework;
+
+using QFramework;
 
 namespace QF.Editor
 {

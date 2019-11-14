@@ -7,6 +7,7 @@ using QF.GraphDesigner;
 using Invert.Data;
 using QF;
 using JetBrains.Annotations;
+using QFramework;
 
 namespace QF.GraphDesigner
 {

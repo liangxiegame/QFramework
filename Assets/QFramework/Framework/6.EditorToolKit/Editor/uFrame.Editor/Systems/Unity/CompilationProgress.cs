@@ -1,5 +1,6 @@
 using Invert.Data;
 using QF;
+using QFramework;
 using UnityEngine;
 
 namespace QF.GraphDesigner.Unity

@@ -1,5 +1,6 @@
 ﻿using System;
 using QF;
+using QFramework;
 
 
 namespace QF.GraphDesigner

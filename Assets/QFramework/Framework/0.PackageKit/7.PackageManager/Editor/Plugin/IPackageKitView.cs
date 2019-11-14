@@ -1,5 +1,7 @@
 
 
+using QFramework;
+
 namespace QF.Editor
 {
 	public interface IPackageKitView 

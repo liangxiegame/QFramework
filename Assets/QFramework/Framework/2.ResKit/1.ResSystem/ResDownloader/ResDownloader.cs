@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using QFramework;
+
 namespace QF.Res
 {
     using System.Collections.Generic;

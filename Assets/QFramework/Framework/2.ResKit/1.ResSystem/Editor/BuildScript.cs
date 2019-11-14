@@ -23,7 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.Extensions;
+
+using QFramework;
 
 namespace QF.Res
 {

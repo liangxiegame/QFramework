@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using EGO.Framework;
 using QF;
 using QF.Editor;
 
@@ -57,7 +56,7 @@ namespace QFramework {
 
             treeNode.Add2Spread (mRootLayout);
 
-            new EGO.Framework.SpaceView (6).AddTo (mRootLayout);
+            new SpaceView (6).AddTo (mRootLayout);
 
             // 命名空间
             var nameSpaceLayout = new HorizontalLayout ()
@@ -74,7 +73,7 @@ namespace QFramework {
                 .Content.Bind (content => mUiKitSettingData.Namespace = content);
 
             // UI 生成的目录
-            new EGO.Framework.SpaceView (6).AddTo (mRootLayout);
+            new SpaceView (6).AddTo (mRootLayout);
 
             var uiScriptGenerateDirLayout = new HorizontalLayout ()
                 .AddTo (mRootLayout);
@@ -89,7 +88,7 @@ namespace QFramework {
                 .AddTo (uiScriptGenerateDirLayout)
                 .Content.Bind (content => mUiKitSettingData.UIScriptDir = content);
 
-            new EGO.Framework.SpaceView (6).AddTo (mRootLayout);
+            new SpaceView (6).AddTo (mRootLayout);
 
             var uiPanelPrefabDir = new HorizontalLayout ()
                 .AddTo (mRootLayout);
@@ -104,7 +103,7 @@ namespace QFramework {
                 .AddTo (uiPanelPrefabDir)
                 .Content.Bind (content => mUiKitSettingData.UIPrefabDir = content);
 
-            new EGO.Framework.SpaceView (6).AddTo (mRootLayout);
+            new SpaceView (6).AddTo (mRootLayout);
 
             new ButtonView (LocaleText.Apply, () => { mUiKitSettingData.Save (); })
                 .AddTo (mRootLayout);

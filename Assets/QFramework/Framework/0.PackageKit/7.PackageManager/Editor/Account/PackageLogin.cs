@@ -23,9 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using EGO.Framework;
+using QFramework;
 using UniRx;
-using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QF.Editor
 {

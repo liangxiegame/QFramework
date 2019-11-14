@@ -1,6 +1,7 @@
 ﻿using System;
 using QF.GraphDesigner;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {
@@ -9,10 +10,6 @@ namespace QF.GraphDesigner
         public void Signal<TInterface>(Action<TInterface> invoke) where TInterface : class
         {
             InvertApplication.SignalEvent<TInterface>(invoke);
-        }
-        public override void Initialize(QFrameworkContainer container)
-        {
-            base.Initialize(container);
         }
 
         public void ListenFor<TEvents>() where TEvents : class

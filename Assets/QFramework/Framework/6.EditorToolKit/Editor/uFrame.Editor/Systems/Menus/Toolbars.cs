@@ -1,6 +1,7 @@
 using System;
 using QF.GraphDesigner;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {
@@ -8,8 +9,6 @@ namespace QF.GraphDesigner
     {
         public override void Initialize(QFrameworkContainer container)
         {
-            base.Initialize(container);
-            
         }
 
         public override void Loaded(QFrameworkContainer container)

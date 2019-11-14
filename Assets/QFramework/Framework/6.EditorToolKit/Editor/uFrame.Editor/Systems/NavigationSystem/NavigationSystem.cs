@@ -8,6 +8,7 @@ using QF.GraphDesigner;
 using Invert.Data;
 using QF.GraphDesigner.Unity;
 using QF;
+using QFramework;
 using UnityEditor;
 
 using UnityEngine;

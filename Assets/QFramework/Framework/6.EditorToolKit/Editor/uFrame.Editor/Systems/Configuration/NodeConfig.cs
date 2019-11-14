@@ -6,6 +6,7 @@ using System.Linq;
 using QF.GraphDesigner;
 using Invert.Data;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {
@@ -26,29 +27,6 @@ namespace QF.GraphDesigner
         //    return this;
         //}
 #if !SERVER
-        public NodeConfig<TNode> LoadDerived<TViewModel>(Action<NodeConfig<TNode>, Type> configure = null)
-        {
-            foreach (var item in InvertApplication.GetDerivedTypes<TNode>(false, false))
-            {
-
-                Container.RegisterRelation(item, typeof(ViewModel), typeof(TViewModel));
-
-                var config = new NodeConfig<TNode>(Container);
-                config.NodeType = item;
-                Container.RegisterInstance<NodeConfigBase>(config, item.Name);
-                config.Name = item.Name.Replace("Shell", "").Replace("Node", "");
-                //config.Tags.Add(config.Name);
-                if (configure != null)
-                {
-                    configure(config, item);
-                }
-                else
-                {
-                    HasSubNode(item);
-                }
-            }
-            return this;
-        }
 #endif
 
         

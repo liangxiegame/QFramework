@@ -28,7 +28,7 @@ using UnityEditor;
 
 using System.Collections.Generic;
 using System.IO;
-using QF.Extensions;
+
 using QFramework;
 
 namespace QF.Res

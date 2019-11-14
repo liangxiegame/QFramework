@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using QF.GraphDesigner;
 using QF;
+using QFramework;
 
 namespace QF.GraphDesigner
 {

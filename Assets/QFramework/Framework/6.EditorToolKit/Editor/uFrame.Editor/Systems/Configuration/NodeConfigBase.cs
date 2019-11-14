@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using QF.Json;
 using QF.GraphDesigner;
+using QFramework;
 
 
 namespace QF.GraphDesigner

@@ -25,7 +25,7 @@
 
 using DG.Tweening;
 using QF.Action;
-using QF.Extensions;
+
 using UnityEngine;
 
 namespace QFramework

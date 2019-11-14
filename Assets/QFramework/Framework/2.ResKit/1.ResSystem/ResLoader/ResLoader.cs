@@ -24,7 +24,8 @@
  ****************************************************************************/
 
 using System.Runtime.InteropServices;
-using QF.Extensions;
+
+using QFramework;
 using UniRx;
 
 namespace QF.Res

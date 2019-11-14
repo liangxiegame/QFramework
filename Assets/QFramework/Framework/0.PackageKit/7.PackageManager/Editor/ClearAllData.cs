@@ -44,6 +44,7 @@ namespace QF
         }
     }
 
+    
     public class ReopenProject
     {
         [MenuItem("QFramework/ReopenProject")]

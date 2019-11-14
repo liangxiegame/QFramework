@@ -25,6 +25,7 @@
 
 using QF.Action;
 using QF.Editor;
+using QFramework;
 
 namespace QF
 {

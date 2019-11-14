@@ -1,6 +1,4 @@
-using EGO.Framework;
 using QF;
-using QF.Editor;
 using UnityEditor;
 
 namespace QFramework
@@ -60,7 +58,7 @@ namespace QFramework
         {
             mRootLayout = new VerticalLayout("box");
 
-            new EGO.Framework.SpaceView()
+            new SpaceView()
                 .AddTo(mRootLayout);
 
             var markTypeLine = new HorizontalLayout()
@@ -81,7 +79,7 @@ namespace QFramework
                 OnRefresh();
             });
 
-            new EGO.Framework.SpaceView()
+            new SpaceView()
                 .AddTo(mRootLayout);
 
             new CustomView(() =>
@@ -107,7 +105,7 @@ namespace QFramework
 
             mComponentLine.AddTo(mRootLayout);
 
-            new EGO.Framework.SpaceView()
+            new SpaceView()
                 .AddTo(mRootLayout);
 
             var belongsTo = new HorizontalLayout()
@@ -147,14 +145,14 @@ namespace QFramework
 
             mClassnameLine.AddTo(mRootLayout);
 
-            new EGO.Framework.SpaceView()
+            new SpaceView()
                 .AddTo(mRootLayout);
 
             new LabelView(LocaleText.Comment)
                 .FontSize(12)
                 .AddTo(mRootLayout);
 
-            new EGO.Framework.SpaceView()
+            new SpaceView()
                 .AddTo(mRootLayout);
 
             new TextAreaView(mBindScript.Comment)

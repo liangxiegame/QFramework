@@ -12,11 +12,6 @@ namespace QF.GraphDesigner
 
         public string InspectorTip { get; set; }
 
-        public InspectorProperty(Type customDrawerType)
-        {
-            CustomDrawerType = customDrawerType;
-        }
-
         public InspectorProperty()
         {
             InspectorType = InspectorType.Auto;

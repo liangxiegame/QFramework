@@ -9,12 +9,6 @@ namespace Invert.Windows {
         private IPlatformDrawer _drawer;
         public Func<TData> DataSelector { get; set; }
 
-        public IPlatformDrawer PlatformDrawer
-        {
-            get { return _drawer ?? (_drawer = InvertApplication.Container.Resolve<IPlatformDrawer>()); }
-            set { _drawer = value; }
-        }
-
         public override void Draw()
         {
             Draw(DataSelector());

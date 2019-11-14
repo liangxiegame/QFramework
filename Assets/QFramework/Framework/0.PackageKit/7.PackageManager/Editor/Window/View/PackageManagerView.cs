@@ -26,13 +26,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using EGO.Framework;
-using QF.Extensions;
+
 using QF.PackageKit;
+using QFramework;
 using UniRx;
 using UnityEditor;
 using UnityEngine;
-using VerticalLayout = EGO.Framework.VerticalLayout;
 
 namespace QF.Editor
 {
@@ -183,7 +182,7 @@ namespace QF.Editor
                         .Height(240)
                         .AddTo(packageList);
 
-                    new EGO.Framework.SpaceView(2).AddTo(scroll);
+                    new SpaceView(2).AddTo(scroll);
 
                     mOnToolbarIndexChanged = () =>
                     {
@@ -191,14 +190,14 @@ namespace QF.Editor
 
                         foreach (var packageData in SelectedPackageType(state.PackageDatas))
                         {
-                            new EGO.Framework.SpaceView(2).AddTo(scroll);
+                            new SpaceView(2).AddTo(scroll);
                             new PackageView(packageData).AddTo(scroll);
                         }
                     };
 
                     foreach (var packageData in SelectedPackageType(state.PackageDatas))
                     {
-                        new EGO.Framework.SpaceView(2).AddTo(scroll);
+                        new SpaceView(2).AddTo(scroll);
                         new PackageView(packageData).AddTo(scroll);
                     }
                 });

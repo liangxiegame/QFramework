@@ -3,6 +3,7 @@ using System.Linq;
 using QF.GraphDesigner;
 using Invert.Data;
 using QF;
+using QFramework;
 
 public class GraphSystem : DiagramPlugin
     , IContextMenuQuery

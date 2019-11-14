@@ -27,14 +27,6 @@ namespace QF.GraphDesigner.Unity.Wizards
             set { _items = value; }
         }
         //[MenuItem("Window/uFrame/Databases")]
-        public static void Init()
-        {
-            var window = GetWindow<DatabaseListWindow>();
-
-            window.Repaint();
-            window.Show();
-
-        }
 
         void OnGUI()
         {

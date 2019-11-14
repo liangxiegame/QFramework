@@ -47,7 +47,7 @@ namespace QF.Editor
 		{
 			var packageKitWindow = Create<PackageKitWindow>(true);
 			packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-			packageKitWindow.position = new Rect(100, 100, 690, 500);
+			packageKitWindow.position = new Rect(100, 100, 690, 800);
 			packageKitWindow.Show();
 		}
 

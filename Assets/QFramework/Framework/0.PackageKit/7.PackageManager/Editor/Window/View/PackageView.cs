@@ -1,7 +1,6 @@
 using System.Linq;
-using EGO.Framework;
-using QF.Action;
-using QF.Extensions;
+
+using QFramework;
 using UnityEngine;
 
 namespace QF.Editor
@@ -49,7 +48,7 @@ namespace QF.Editor
         {
             Clear();
             
-            new EGO.Framework.SpaceView(2).AddTo(this);
+            new SpaceView(2).AddTo(this);
             
             new LabelView(mPackageData.Name)
                 .FontBold()
@@ -79,7 +78,7 @@ namespace QF.Editor
             }
             else
             {
-                new EGO.Framework.SpaceView(40).AddTo(this);
+                new SpaceView(40).AddTo(this);
             }
 
 
@@ -127,7 +126,7 @@ namespace QF.Editor
             }
             else if (installedPackage != null)
             {
-                new EGO.Framework.SpaceView(94).AddTo(this);
+                new SpaceView(94).AddTo(this);
             }
 
             new ButtonView(LocaleText.ReleaseNotes,

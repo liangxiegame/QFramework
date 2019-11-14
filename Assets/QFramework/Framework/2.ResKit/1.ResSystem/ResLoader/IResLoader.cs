@@ -3,6 +3,8 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
+using QFramework;
+
 namespace QF.Res
 {
     using System;

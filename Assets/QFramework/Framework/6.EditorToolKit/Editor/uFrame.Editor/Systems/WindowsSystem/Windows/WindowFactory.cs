@@ -1,6 +1,7 @@
 using System;
 using QF.GraphDesigner;
 using QF;
+using QFramework;
 using UnityEngine;
 
 namespace Invert.Windows

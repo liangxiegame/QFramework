@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Invert.Data;
 using QF.Json;
+using QFramework;
 using UnityEngine;
 
 namespace QF.GraphDesigner
@@ -57,7 +58,6 @@ namespace QF.GraphDesigner
 
         public override void Initialize(QFrameworkContainer container)
         {
-            base.Initialize(container);
             var path = DbRootPath;
             var dbDirectories = Directory.GetDirectories(path,"*.db",SearchOption.AllDirectories);
             foreach (var item in dbDirectories)
@@ -315,8 +315,6 @@ namespace QF.GraphDesigner
     {
         public override void Initialize(QFrameworkContainer container)
         {
-            base.Initialize(container);
-
         }
 
         public void QueryToolbarCommands(ToolbarUI ui)

@@ -25,9 +25,8 @@
 
 using System;
 using System.IO;
-using EGO.Framework;
-using QF.Editor;
-using QF.Extensions;
+
+using QFramework;
 using UniRx;
 using UnityEditor;
 using UnityEngine;

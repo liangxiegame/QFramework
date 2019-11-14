@@ -23,10 +23,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.Extensions;
+
+using QFramework;
 
 namespace QF.Res {
-	using EGO.Framework;
 	using QF.Editor;
 	using UnityEditor;
 	using UnityEngine;

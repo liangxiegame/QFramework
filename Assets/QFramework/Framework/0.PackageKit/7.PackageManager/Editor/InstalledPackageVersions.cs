@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using QF.Extensions;
+
+using QFramework;
 using UnityEditor;
 
 namespace QF

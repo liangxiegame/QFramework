@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 using QF.GraphDesigner;
-using QF.Extensions;
+
 using System.CodeDom;
 
 namespace QFramework

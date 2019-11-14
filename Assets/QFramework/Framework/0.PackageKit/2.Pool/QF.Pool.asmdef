@@ -1,8 +1,0 @@
-{
-    "name": "QF.Pool",
-    "references": [
-        "QF.Singleton"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

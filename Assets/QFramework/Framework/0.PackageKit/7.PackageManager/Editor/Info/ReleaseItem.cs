@@ -3,7 +3,8 @@
  ****************************************************************************/
 
 using System;
-using QF.Extensions;
+
+using QFramework;
 
 namespace QF
 {

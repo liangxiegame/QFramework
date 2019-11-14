@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using QFramework;
+
 namespace QF.Res
 {
     using UnityEngine;
     using System.Collections;
-    using Extensions;
 
     public enum InternalResNamePrefixType
     {

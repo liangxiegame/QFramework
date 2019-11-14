@@ -16,6 +16,7 @@ using QF.GraphDesigner.Unity.KoinoniaSystem.Events;
 using QF.GraphDesigner.Unity.KoinoniaSystem.Services;
 using QF.GraphDesigner.Unity.KoinoniaSystem.ViewModels;
 using QF;
+using QFramework;
 using UnityEditor;
 using UnityEngine;
 using MessageType = QF.GraphDesigner.Unity.WindowsPlugin.MessageType;
@@ -126,7 +127,6 @@ namespace QF.GraphDesigner.Unity.KoinoniaSystem
 
         public override void Initialize(QFrameworkContainer container)
         {
-            base.Initialize(container);
             var typeDatabase = new TypeDatabase(new JsonRepositoryFactory(Path.Combine(Application.dataPath, "../uFrame")));
             container.RegisterInstance<IRepository>(typeDatabase, "Settings");
             container.RegisterInstance<IDesctiptorsService>(new DescriptorsService(typeDatabase));

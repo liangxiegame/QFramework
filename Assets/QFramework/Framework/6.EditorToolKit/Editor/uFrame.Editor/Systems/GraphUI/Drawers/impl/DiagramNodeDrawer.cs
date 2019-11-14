@@ -4,6 +4,7 @@ using System.Linq;
 using QF.MVVM;
 using QF.GraphDesigner;
 using QF;
+using QFramework;
 using UnityEngine;
 
 namespace QF.GraphDesigner
