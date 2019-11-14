@@ -25,14 +25,14 @@
 
 using System;
 using System.Reflection;
+#if UNITY_5_6_OR_NEWER
 using UnityEngine;
 using Object = UnityEngine.Object;
+#endif
 
 namespace QFramework
 {
 
-#if UNITY_5_6_OR_NEWER
-#endif
 
 	public interface ISingleton
 	{
@@ -94,13 +94,6 @@ namespace QFramework
 		}
 	}
 	
-	
-
-	[Obsolete("弃用啦，建议用 Singleton")]
-	public abstract class QSingleton<T> : Singleton<T> where T : QSingleton<T>
-	{
-	}
-	
 	public static class SingletonProperty<T> where T : class, ISingleton
 	{
 		private static          T      mInstance;
@@ -128,17 +121,7 @@ namespace QFramework
 		}
 	}
 
-	[Obsolete("弃用啦，请使用 SingletonProperty")]
-	public static class QSingletonProperty<T> where T : class, ISingleton
-	{
-		public static T Instance
-		{
-			get { return SingletonProperty<T>.Instance; }
-		}
-	}
-
 #if UNITY_5_6_OR_NEWER
-
 	[Obsolete]
 	public class QMonoSingletonPath : MonoSingletonPath
 	{
@@ -359,15 +342,5 @@ namespace QFramework
 			mInstance = null;
 		}
 	}
-
-	[Obsolete("弃用啦，请使用 MonoSingletonProperty")]
-	public static class QMonoSingletonProperty<T> where T : MonoBehaviour, ISingleton
-	{
-		public static T Instance
-		{
-			get { return MonoSingletonProperty<T>.Instance; }
-		}
-	}
 #endif
-
 }
