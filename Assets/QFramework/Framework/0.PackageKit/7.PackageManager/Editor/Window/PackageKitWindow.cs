@@ -31,7 +31,7 @@ namespace QF.Editor
 	using UnityEngine;
 	using UnityEditor;
 
-	public class PackageKitWindow : QEditorWindow
+	public class PackageKitWindow : IMGUIEditorWindow
 	{
 		class LocaleText
 		{

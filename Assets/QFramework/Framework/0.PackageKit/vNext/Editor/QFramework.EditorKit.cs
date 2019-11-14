@@ -19,6 +19,73 @@ using UnityEngine;
 
 namespace QFramework
 {
+    public abstract class IMGUIEditorWindow : EditorWindow
+    {
+        public static T Create<T>(bool utility, string title = null) where T : IMGUIEditorWindow
+        {
+            return string.IsNullOrEmpty(title) ? GetWindow<T>(utility) : GetWindow<T>(utility, title);
+        }
+
+        private readonly List<IView> mChildren = new List<IView>();
+
+        private bool mVisible = true;
+
+        public bool Visible
+        {
+            get { return mVisible; }
+            set { mVisible = value; }
+        }
+
+        public void AddChild(IView childView)
+        {
+            mChildren.Add(childView);
+        }
+
+        public void RemoveChild(IView childView)
+        {
+            mChildren.Remove(childView);
+        }
+
+        public List<IView> Children
+        {
+            get { return mChildren; }
+        }
+
+        public void RemoveAllChidren()
+        {
+            mChildren.Clear();
+        }
+
+        public abstract void OnClose();
+
+
+        public abstract void OnUpdate();
+
+        private void OnDestroy()
+        {
+            OnClose();
+        }
+
+        protected abstract void Init();
+
+        private bool mInited = false;
+
+        public virtual void OnGUI()
+        {
+            if (!mInited)
+            {
+                Init();
+                mInited = true;
+            }
+
+            OnUpdate();
+
+            if (Visible)
+            {
+                mChildren.ForEach(childView => childView.DrawGUI());
+            }
+        }
+    }
     public class SubWindow : EditorWindow, ILayout
     {
         void IView.Hide()

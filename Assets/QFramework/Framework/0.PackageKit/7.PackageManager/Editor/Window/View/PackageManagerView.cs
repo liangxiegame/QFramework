@@ -35,7 +35,7 @@ using UnityEngine;
 
 namespace QF.Editor
 {
-    public class PackageManagerView : GUIView, IPackageKitView
+    public class PackageManagerView : IPackageKitView
     {
         private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
 
@@ -209,9 +209,8 @@ namespace QF.Editor
         }
 
 
-        public override void OnGUI()
+        public void OnGUI()
         {
-            base.OnGUI();
 
             mRootLayout.DrawGUI();
         }

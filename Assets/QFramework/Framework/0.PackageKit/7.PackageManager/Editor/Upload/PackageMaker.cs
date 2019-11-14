@@ -34,7 +34,7 @@ using Object = UnityEngine.Object;
 
 namespace QF.PackageKit.Upload
 {
-	public class PackageMaker : QEditorWindow
+	public class PackageMaker : IMGUIEditorWindow
 	{
 		private string mUploadResult = "";
 
