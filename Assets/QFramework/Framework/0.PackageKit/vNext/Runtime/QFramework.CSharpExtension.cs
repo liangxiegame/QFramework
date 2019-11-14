@@ -34,7 +34,6 @@ namespace QFramework
     using System.Text;
     
     #if UNITY_5_6_OR_NEWER
-    using QF;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -1758,12 +1757,6 @@ namespace QFramework
         public static T As<T>(this Object selfObj) where T : Object
         {
             return selfObj as T;
-        }
-
-        public static T LogInfo<T>(this T selfObj, string msgContent, params object[] args) where T : Object
-        {
-            Log.I(msgContent, args);
-            return selfObj;
         }
     }
 
