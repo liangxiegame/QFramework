@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System.Collections.Generic;
+using QFramework;
 
 namespace QF
 {

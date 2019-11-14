@@ -7,7 +7,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using QF;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;

@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
+using QFramework;
 #if UNITY_EDITOR
 using UnityEditor;
 

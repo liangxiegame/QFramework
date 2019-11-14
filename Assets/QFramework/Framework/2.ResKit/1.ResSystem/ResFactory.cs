@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using QFramework;
+
 namespace QF.Res
 {
     public static class ResFactory

@@ -1,20 +1,20 @@
 {
-  "Version": "v0.2.0",
+  "Version": "v0.3.0",
   "Type": 0,
   "AccessRight": 0,
   "DownloadUrl": null,
   "InstallPath": "Assets/QFramework/Framework",
   "DocUrl": "http://qfdoc.liangxiegame.com/",
   "Readme": {
-    "version": "v0.2.0",
-    "content": "变动很大、现在暂不稳定，不推荐更新",
+    "version": "v0.3.0",
+    "content": "不推荐更新",
     "author": "liangxie",
-    "date": "2019 年 11 月 14 日 23:34",
+    "date": "2019 年 11 月 15 日 01:36",
     "PackageId": "",
-    "VersionNumber": 200
+    "VersionNumber": 300
   },
   "Id": null,
   "Name": "Framework",
-  "VersionNumber": 200,
-  "FileName": "Framework_v0.2.0.unitypackage"
+  "VersionNumber": 300,
+  "FileName": "Framework_v0.3.0.unitypackage"
 }

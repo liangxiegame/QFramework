@@ -572,32 +572,4 @@ namespace QFramework
             }
         }
     }
-
-    public class TypeRelation
-    {
-        public Type From { get; set; }
-
-        public Type To { get; set; }
-
-        public Type Concrete { get; set; }
-
-        //public string Name { get; set; }
-    }
-
-    public class RegisteredInstance
-    {
-        public Type Base { get; set; }
-
-        public object Instance { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class TypeMapping
-    {
-        public Type From { get; set; }
-
-        public Type   To   { get; set; }
-        public string Name { get; set; }
-    }
 }
