@@ -133,13 +133,18 @@ namespace QF.Editor
         }
 
         private VerticalLayout mRootLayout = null;
+
+
         public void Init(IQFrameworkContainer container)
         {
             PackageKitModel.Subject
                 .StartWith(PackageKitModel.State)
-                .Subscribe(state =>
-                {
-//                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
+                .Subscribe(state => { OnRefresh(state); });
+        }
+
+        void OnRefresh(QF.PackageKit.State state)
+        {
+            //                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
 //                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
                     
                     mRootLayout = new VerticalLayout();
@@ -200,7 +205,6 @@ namespace QF.Editor
                         new SpaceView(2).AddTo(scroll);
                         new PackageView(packageData).AddTo(scroll);
                     }
-                });
         }
 
         public void OnUpdate()
