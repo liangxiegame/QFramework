@@ -18,6 +18,197 @@ namespace QFramework
 {
     using Dependencies.PackageKit;
 
+    /// <summary>
+    /// some net work util
+    /// </summary>
+    public static class Network
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>IP string</returns>
+        public static string GetAddressIP()
+        {
+            var AddressIP = "";
+#if !UNITY_WEBGL
+#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0 || UNITY_2018_1
+            AddressIP = UnityEngine.Network.player.ipAddress;
+#else
+            //获取本地的IP地址  
+            foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            {
+                if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
+                {
+                    AddressIP = _IPAddress.ToString();
+                }
+            }
+#endif
+#endif
+            
+#if UNITY_IPHONE
+            NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
+            foreach (NetworkInterface adapter in adapters)  
+            {  
+                if (adapter.Supports(NetworkInterfaceComponent.IPv4))  
+                {  
+                    UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;  
+                    if (uniCast.Count > 0)  
+                    {  
+                        foreach (UnicastIPAddressInformation uni in uniCast)  
+                        {  
+                            //得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4  
+                            if (uni.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                AddressIP = uni.Address.ToString();
+                            }
+                        }  
+                    }  
+                }  
+            }  
+#endif
+            return AddressIP;
+        }
+
+        public static bool IsReachable
+        {
+            get { return Application.internetReachability != NetworkReachability.NotReachable; }
+        }
+    }
+    
+    [InitializeOnLoad]
+	public class PackageCheck
+	{
+		enum CheckStatus
+		{
+			WAIT,
+			COMPARE,
+			NONE
+		}
+
+		private CheckStatus mCheckStatus;
+
+		private double mNextCheckTime = 0;
+
+		private double mCheckInterval = 60;
+
+
+		static PackageCheck()
+		{
+			if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
+			{
+				PackageCheck packageCheck = new PackageCheck()
+				{
+					mCheckStatus = CheckStatus.WAIT,
+					mNextCheckTime = EditorApplication.timeSinceStartup,
+				};
+
+				EditorApplication.update = packageCheck.CustomUpdate;
+
+			}
+		}
+
+		private void CustomUpdate()
+		{
+			// 添加网络判断
+			if (!Network.IsReachable) return;
+			
+			switch (mCheckStatus)
+			{
+				case CheckStatus.WAIT:
+					if (EditorApplication.timeSinceStartup >= mNextCheckTime)
+					{
+						mCheckStatus = CheckStatus.COMPARE;
+					}
+
+					break;
+
+				case CheckStatus.COMPARE:
+
+					ProcessCompare();
+
+					break;
+			}
+		}
+
+
+		private void GoToWait()
+		{
+			mCheckStatus = CheckStatus.WAIT;
+
+			mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
+		}
+
+		private bool ReCheckConfigDatas()
+		{
+			mCheckInterval = 60;
+
+			return true;
+		}
+
+		private void ProcessCompare()
+		{
+            if (Network.IsReachable)
+            {
+	            new PackageManagerServer().GetAllRemotePackageInfo((packageDatas) =>
+	            {
+		            if (packageDatas == null)
+		            {
+			            return;
+		            }
+
+		            if (new PackageManagerModel().VersionCheck)
+		            {
+			            CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
+		            }
+	            });
+            }
+			
+			ReCheckConfigDatas();
+			GoToWait();
+		}
+
+		private static bool CheckNewVersionDialog(List<PackageData> requestPackageDatas,List<PackageData> cachedPackageDatas)
+		{
+			foreach (var requestPackageData in requestPackageDatas)
+			{
+				var cachedPacakgeData =
+					cachedPackageDatas.Find(packageData => packageData.Name == requestPackageData.Name);
+
+				var installedPackageVersion = InstalledPackageVersions.Get()
+					.Find(packageVersion => packageVersion.Name == requestPackageData.Name);
+
+				if (installedPackageVersion == null)
+				{
+				}
+				else if (cachedPacakgeData == null &&
+				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
+				         cachedPacakgeData != null && requestPackageData.Installed &&
+				         requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
+				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
+				{
+
+					ShowDisplayDialog(requestPackageData.Name);
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+
+		private static void ShowDisplayDialog(string packageName)
+		{
+			var result = EditorUtility.DisplayDialog("PackageManager",
+				"{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)".FillFormat(packageName),
+				"前往查看", "稍后查看");
+
+			if (result)
+			{
+				EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
+			}
+		}
+	}
+    
     public static class User
     {
         public static Property<string> Username = new Property<string>(LoadString("username"));
@@ -124,12 +315,27 @@ namespace QFramework
             }
         }
 
+        [Serializable]
+        public class ResultPackage
+        {
+           public string id;
+           public string name;
+           public string version;
+           public string downloadUrl;
+           public string installPath;
+           public string releaseNote;
+           public string createAt;
+           public string username;
+           public string accessRight;
+           public string type;
+        }
+
         void OnResponse(ResponseType responseType, string response,Action<List<PackageData>> onResponse)
         {
             if (responseType == ResponseType.SUCCEED)
             {
-                var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<List<PackageData>>>(response);
-
+                var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response);
+                
                 if (responseJson.code == 1)
                 {
                     var packageInfosJson = responseJson.data;
@@ -137,9 +343,7 @@ namespace QFramework
                     var packageDatas = new List<PackageData>();
                     foreach (var packageInfo in packageInfosJson)
                     {
-                        var name = packageInfo.Name;
-                        
-                        
+                        var name = packageInfo.name;
 
                         var package = packageDatas.Find(packageData => packageData.Name == name);
 
@@ -153,83 +357,81 @@ namespace QFramework
                             packageDatas.Add(package);
                         }
 
-                        var id = packageInfo.Id;
-                        var version = packageInfo.Version;
-                        var url = packageInfo.DownloadUrl;
-                        var installPath = packageInfo.InstallPath;
-//                        var releaseNote = packageInfo["releaseNote"].Value<string>();
-//                        var createAt = packageInfo["createAt"].Value<string>();
-//                        var creator = packageInfo["username"].Value<string>();
-//                        var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
-//                        var accessRightName = packageInfo["accessRight"].Value<string>();
-//                        var typeName = packageInfo["type"].Value<string>();
-//
-//                        var packageType = PackageType.FrameworkModule;
-//
-//                        switch (typeName)
-//                        {
-//                            case "fm":
-//                                packageType = PackageType.FrameworkModule;
-//                                break;
-//                            case "s":
-//                                packageType = PackageType.Shader;
-//                                break;
-//                            case "agt":
-//                                packageType = PackageType.AppOrGameDemoOrTemplate;
-//                                break;
-//                            case "p":
-//                                packageType = PackageType.Plugin;
-//                                break;
-//                            case "master":
-//                                packageType = PackageType.Master;
-//                                break;
-//                        }
-//
-//                        var accessRight = PackageAccessRight.Public;
-//
-//                        switch (accessRightName)
-//                        {
-//                            case "public":
-//                                accessRight = PackageAccessRight.Public;
-//                                break;
-//                            case "private":
-//                                accessRight = PackageAccessRight.Private;
-//                                break;
-//                        }
-//
-//                        package.PackageVersions.Add(new PackageVersion()
-//                        {
-//                            Id = id,
-//                            Version = version,
-//                            DownloadUrl = url,
-//                            InstallPath = installPath,
-//                            Type = packageType,
-//                            AccessRight = accessRight,
-//                            Readme = releaseItem,
-//                        });
-//
-//                        package.readme.AddReleaseNote(releaseItem);
-                    }
-//
-//                    packageDatas.ForEach(packageData =>
-//                    {
-//                        packageData.PackageVersions.Sort((a, b) =>
-//                            b.VersionNumber - a.VersionNumber);
-//                        packageData.readme.items.Sort((a, b) =>
-//                            b.VersionNumber - a.VersionNumber);
-//                    });
-//
-//                    mOnGet.InvokeGracefully(packageDatas);
-//
-//                    new PackageInfosRequestCache()
-//                    {
-//                        PackageDatas = packageDatas
-//                    }.Save();
+                        var id = packageInfo.id;
+                        var version = packageInfo.version;
+                        var url = packageInfo.downloadUrl;
+                        var installPath = packageInfo.installPath;
+                        var releaseNote = packageInfo.releaseNote;
+                        var createAt = packageInfo.createAt;
+                        var creator = packageInfo.username;
+                        var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
+                        var accessRightName = packageInfo.accessRight;
+                        var typeName = packageInfo.type;
 
+                        var packageType = PackageType.FrameworkModule;
+
+                        switch (typeName)
+                        {
+                            case "fm":
+                                packageType = PackageType.FrameworkModule;
+                                break;
+                            case "s":
+                                packageType = PackageType.Shader;
+                                break;
+                            case "agt":
+                                packageType = PackageType.AppOrGameDemoOrTemplate;
+                                break;
+                            case "p":
+                                packageType = PackageType.Plugin;
+                                break;
+                            case "master":
+                                packageType = PackageType.Master;
+                                break;
+                        }
+
+                        var accessRight = PackageAccessRight.Public;
+
+                        switch (accessRightName)
+                        {
+                            case "public":
+                                accessRight = PackageAccessRight.Public;
+                                break;
+                            case "private":
+                                accessRight = PackageAccessRight.Private;
+                                break;
+                        }
+
+                        package.PackageVersions.Add(new PackageVersion()
+                        {
+                            Id = id,
+                            Version = version,
+                            DownloadUrl = url,
+                            InstallPath = installPath,
+                            Type = packageType,
+                            AccessRight = accessRight,
+                            Readme = releaseItem,
+                        });
+
+                        package.readme.AddReleaseNote(releaseItem);
+                    }
+
+                    packageDatas.ForEach(packageData =>
+                    {
+                        packageData.PackageVersions.Sort((a, b) =>
+                            b.VersionNumber - a.VersionNumber);
+                        packageData.readme.items.Sort((a, b) =>
+                            b.VersionNumber - a.VersionNumber);
+                    });
+                    
+                    onResponse(packageDatas);
+                    
+                    new PackageInfosRequestCache()
+                    {
+                        PackageDatas = packageDatas
+                    }.Save();
                 }
-                
-                onResponse(null);
             }
+            onResponse(null);
         }
     }
 
@@ -548,7 +750,7 @@ namespace QFramework
         public string Name = "";
 
         
-        public string Version
+        public string version
         {
             get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().Version; }
         }
@@ -591,7 +793,7 @@ namespace QFramework
         {
             get
             {
-                var numbersStr = Version.RemoveString("v").Split('.');
+                var numbersStr = version.RemoveString("v").Split('.');
 
                 var retNumber = numbersStr[2].ToInt();
                 retNumber += numbersStr[1].ToInt() * 100;
@@ -741,7 +943,7 @@ namespace QFramework
                 .Width(150)
                 .AddTo(this);
 
-            new LabelView(mPackageData.Version)
+            new LabelView(mPackageData.version)
                 .TextMiddleCenter()
                 .Width(80)
                 .AddTo(this);
@@ -1022,7 +1224,6 @@ namespace QFramework
 
         public void Execute()
         {
-            Debug.Log("Execute Start Up");
             Dependencies.PackageKit.TypeEventSystem.Send(new PackageManagerViewUpdate()
             {
                 PackageDatas = Model.PackageDatas,
@@ -1149,7 +1350,6 @@ namespace QFramework
 
         void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
         {
-            Debug.Log("Start Up");
             mRootLayout = new VerticalLayout();
 
             var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
@@ -1631,13 +1831,7 @@ namespace QFramework
         void SystemResetting();
         void SystemRestarted();
     }
-}
-
-
-namespace Dependencies.PackageKit
-{
-    using Object = UnityEngine.Object;
-
+    
     public class Language
     {
         public static bool IsChinese
@@ -1649,6 +1843,14 @@ namespace Dependencies.PackageKit
             }
         }
     }
+}
+
+
+namespace Dependencies.PackageKit
+{
+    using Object = UnityEngine.Object;
+
+
 
     public abstract class IMGUIEditorWindow : EditorWindow
     {
