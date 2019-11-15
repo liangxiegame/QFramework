@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.Action;
 using QF.Editor;
 using QFramework;
 
@@ -39,6 +38,7 @@ namespace QF
         private Vector2 mScrollPos = Vector2.zero;
 
         private PackageVersion mPackageVersion;
+        
         
         public static void Init(Readme readme,PackageVersion packageVersion)
         {
@@ -57,33 +57,39 @@ namespace QF
             
             mReadme.items.ForEach(item =>
             {
-                GUILayout.BeginHorizontal(EditorStyles.helpBox);
-                GUILayout.BeginVertical();
-                GUILayout.BeginHorizontal();
-
-                GUILayout.Label("version: " + item.version, GUILayout.Width(130));
-                GUILayout.Label("author: " + item.author);
-                GUILayout.Label("date: " + item.date);
-
-                if (item.author == User.Username.Value)
+                
+                new CustomView(() =>
                 {
-                    if (GUILayout.Button("删除"))
+                    GUILayout.BeginHorizontal(EditorStyles.helpBox);
+                    GUILayout.BeginVertical();
+                    GUILayout.BeginHorizontal();
+                    
+                    GUILayout.Label("version: " + item.version, GUILayout.Width(130));
+                    GUILayout.Label("author: " + item.author);
+                    GUILayout.Label("date: " + item.date);
+                    
+                    if (item.author == User.Username.Value)
                     {
-                        EditorActionKit.ExecuteNode(new DeletePackage(item.PackageId)
+                        if (GUILayout.Button("删除"))
                         {
-                            OnEndedCallback = () =>
+                            EditorActionKit.ExecuteNode(new DeletePackage(item.PackageId)
                             {
-                                mReadme.items.Remove(item);
-                            }
-                        });
+                                OnEndedCallback = () =>
+                                {
+                                    mReadme.items.Remove(item);
+                                }
+                            });
+                        }
                     }
-                }
+                    
+                    
+                    GUILayout.EndHorizontal();
+                    GUILayout.Label(item.content);
+                    GUILayout.EndVertical();
 
-                GUILayout.EndHorizontal();
-                GUILayout.Label(item.content);
-                GUILayout.EndVertical();
-
-                GUILayout.EndHorizontal();
+                    GUILayout.EndHorizontal();
+                    
+                }).DrawGUI();
             });
 
             GUILayout.EndScrollView();
