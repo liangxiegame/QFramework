@@ -15,8 +15,6 @@ namespace QF.Editor
 
         protected override void OnBegin()
         {
-            Debug.Log(mId);
-            
             var form = new WWWForm();
 
             form.AddField("username", User.Username.Value);

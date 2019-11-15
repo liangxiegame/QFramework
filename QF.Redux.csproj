@@ -327,6 +327,12 @@
     <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
       <HintPath>D:/Workspace/QFramework/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="QFramework.Log">
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/QFramework.Log.dll</HintPath>
+    </Reference>
     <Reference Include="ProtobufNet">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
     </Reference>
@@ -356,12 +362,6 @@
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="QFramework.Log">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/QFramework.Log.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

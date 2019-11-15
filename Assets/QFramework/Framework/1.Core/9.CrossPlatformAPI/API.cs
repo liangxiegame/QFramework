@@ -10,7 +10,6 @@ namespace QF.Action
         IDisposable HttpPost(string url, Dictionary<string, string> headers,
             Dictionary<string, string> form, Action<string> onResponse);
 
-        IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse);
 
         IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse);
 
@@ -39,11 +38,7 @@ namespace QF.Action
         {
             return mAPI.HttpPost(url, headers ?? new Dictionary<string, string>(), form, onResponse);
         }
-
-        public static IDisposable HttpPatch(string url, Dictionary<string, string> headers,Dictionary<string,string> content, Action<string> onResponse)
-        {
-            return mAPI.HttpPatch(url, headers,content, onResponse);
-        }
+        
 
         public static IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse)
         {

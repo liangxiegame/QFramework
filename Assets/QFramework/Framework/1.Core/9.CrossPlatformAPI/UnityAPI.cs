@@ -6,7 +6,6 @@ using QFramework;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using CI.HttpClient;
 using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -32,26 +31,7 @@ namespace QF.Action
 				.Subscribe(onResponse, Log.E);
 		}
 
-		public IDisposable HttpPatch(string url, Dictionary<string, string> headers,
-			Dictionary<string, string> contentDict, Action<string> onResponse)
-		{
-			var httpClient = new HttpClient();
 
-			if (headers.IsNotNull())
-			{
-				headers.ForEach((key, value) => { httpClient.Headers.Add(key, value); });
-			}
-
-			var jsonForm = new JObject();
-
-			contentDict.ForEach((key, value) => { jsonForm[key] = value; });
-
-			var content = new ByteArrayContent(Encoding.UTF8.GetBytes(jsonForm.ToString()), "application/json");
-
-			httpClient.Patch(new Uri(url), content, (responseContent) => { onResponse(responseContent.Data); });
-
-			return Disposable.Create(() => httpClient.Abort());
-		}
 
 		public IDisposable HttpDelete(string url, Dictionary<string, string> headers, System.Action onResponse)
 		{

@@ -104,18 +104,18 @@ namespace QF.Editor
 		{
             if (Network.IsReachable)
             {
-                EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
-                {
-                    if (packageDatas == null)
-                    {
-                        return;
-                    }
+	            new PackageManagerServer().GetAllRemotePackageInfo((packageDatas) =>
+	            {
+		            if (packageDatas == null)
+		            {
+			            return;
+		            }
 
-                    if (PackageKitModel.State.VersionCheck)
-                    {
-	                    CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
-                    }
-                }));
+		            if (new PackageManagerModel().VersionCheck)
+		            {
+			            CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
+		            }
+	            });
             }
 			
 			ReCheckConfigDatas();
