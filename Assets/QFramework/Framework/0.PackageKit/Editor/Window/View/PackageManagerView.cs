@@ -63,8 +63,6 @@ namespace QF.Editor
         public PackageManagerView()
         {
             InstalledPackageVersions.Reload();
-
-
             PackageKitModel.Effects.GetAllPackagesInfo();
         }
 
@@ -133,8 +131,7 @@ namespace QF.Editor
         }
 
         private VerticalLayout mRootLayout = null;
-
-
+        
         public void Init(IQFrameworkContainer container)
         {
             PackageKitModel.Subject
@@ -144,74 +141,54 @@ namespace QF.Editor
 
         void OnRefresh(QF.PackageKit.State state)
         {
-            //                    var frameworkData = PackageInfosRequestCache.Get().PackageDatas.Find(packageData => packageData.Name == "Framework");
-//                    var frameworkVersion = string.Format("QFramework:{0}", frameworkData.Version);
-                    
-                    mRootLayout = new VerticalLayout();
+            mRootLayout = new VerticalLayout();
 
-                    var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
+            var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
+            
+            var verticalLayout = new VerticalLayout("box");
+            
+            treeNode.Add2Spread(verticalLayout);
 
-                    
-                    var verticalLayout = new VerticalLayout("box");
-                    
-
-                    treeNode.Add2Spread(verticalLayout);
-
-//                    var frameworkInfoLayout = new HorizontalLayout("box")
-//                        .AddTo(mEGORootLayout);
-
-//                    new EGO.Framework.LabelView(frameworkVersion)
-//                        .Width(150)
-//                        .FontBold()
-//                        .FontSize(12)
-//                        .AddTo(frameworkInfoLayout);
-
-//                    new ToggleView(LocaleText.VersionCheck, state.VersionCheck)
-//                        .AddTo(frameworkInfoLayout)
-//                        .Toggle
-//                        .Bind(newValue => state.VersionCheck = newValue);
-
-                    new ToolbarView(ToolbarIndex)
-                        .Menus(ToolbarNames.ToList())
-                        .AddTo(verticalLayout)
-                        .Index.Bind(newIndex => ToolbarIndex = newIndex);
+            new ToolbarView(ToolbarIndex)
+                .Menus(ToolbarNames.ToList())
+                .AddTo(verticalLayout)
+                .Index.Bind(newIndex => ToolbarIndex = newIndex);
 
 
-                    new HeaderView()
-                        .AddTo(verticalLayout);
+            new HeaderView()
+                .AddTo(verticalLayout);
 
-                    var packageList = new VerticalLayout("box")
-                        .AddTo(verticalLayout);
+            var packageList = new VerticalLayout("box")
+                .AddTo(verticalLayout);
 
-                    var scroll = new ScrollLayout()
-                        .Height(240)
-                        .AddTo(packageList);
+            var scroll = new ScrollLayout()
+                .Height(240)
+                .AddTo(packageList);
 
+            new SpaceView(2).AddTo(scroll);
+
+            mOnToolbarIndexChanged = () =>
+            {
+                scroll.Clear();
+
+                foreach (var packageData in SelectedPackageType(state.PackageDatas))
+                {
                     new SpaceView(2).AddTo(scroll);
+                    new PackageView(packageData).AddTo(scroll);
+                }
+            };
 
-                    mOnToolbarIndexChanged = () =>
-                    {
-                        scroll.Clear();
-
-                        foreach (var packageData in SelectedPackageType(state.PackageDatas))
-                        {
-                            new SpaceView(2).AddTo(scroll);
-                            new PackageView(packageData).AddTo(scroll);
-                        }
-                    };
-
-                    foreach (var packageData in SelectedPackageType(state.PackageDatas))
-                    {
-                        new SpaceView(2).AddTo(scroll);
-                        new PackageView(packageData).AddTo(scroll);
-                    }
+            foreach (var packageData in SelectedPackageType(state.PackageDatas))
+            {
+                new SpaceView(2).AddTo(scroll);
+                new PackageView(packageData).AddTo(scroll);
+            }
         }
 
         public void OnUpdate()
         {
             PackageKitModel.Update();
         }
-
 
         public void OnGUI()
         {

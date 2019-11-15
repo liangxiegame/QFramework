@@ -17,7 +17,67 @@ using Debug = UnityEngine.Debug;
 namespace QFramework
 {
     using Dependencies.PackageKit;
-    
+
+    public enum ResponseType
+    {
+        SUCCEED,
+        EXCEPTION,
+        TIMEOUT,
+    }
+
+    public static class EditorHttp
+    {
+        public class EditorWWWExecuter
+        {
+            private WWW            mWWW;
+            private Action<ResponseType,string> mResponse;
+
+            public EditorWWWExecuter(WWW www, Action<ResponseType,string> response)
+            {
+                mWWW = www;
+                mResponse = response;
+                EditorApplication.update += Update;
+            }
+
+            void Update()
+            {
+                if (mWWW != null && mWWW.isDone)
+                {
+                    if (string.IsNullOrEmpty(mWWW.error))
+                    {
+                        mResponse(ResponseType.SUCCEED, mWWW.text);
+                    }
+                    else
+                    {
+                        mResponse(ResponseType.EXCEPTION, mWWW.error);
+                    }
+
+                    Dispose();
+                }
+            }
+
+            void Dispose()
+            {
+
+                mWWW.Dispose();
+                mWWW = null;
+
+                EditorApplication.update -= Update;
+            }
+        }
+
+
+        public static void Get(string url, Action<ResponseType,string> response)
+        {
+            new EditorWWWExecuter(new WWW(url), response);
+        }
+
+        public static void Post(string url, WWWForm form, Action<ResponseType,string> response)
+        {
+            new EditorWWWExecuter(new WWW(url,form), response);
+        }
+    }
+
     public static class FrameworkMenuItems
     {
         public const string Preferences = "QFramework/Preferences... %e";
@@ -524,6 +584,112 @@ namespace Dependencies.PackageKit
 
         public void Dispose()
         {
+        }
+    }
+    
+    public class TypeEventSystem
+    {
+        /// <summary>
+        /// 接口 只负责存储在字典中
+        /// </summary>
+        interface IRegisterations
+        {
+
+        }
+
+        /// <summary>
+        /// 多个注册
+        /// </summary>
+        class Registerations<T> : IRegisterations
+        {
+            /// <summary>
+            /// 不需要 List<Action<T>> 了
+            /// 因为委托本身就可以一对多注册
+            /// </summary>
+            public Action<T> OnReceives = obj => { };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private static Dictionary<Type, IRegisterations> mTypeEventDict = new Dictionary<Type, IRegisterations>();
+
+        /// <summary>
+        /// 注册事件
+        /// </summary>
+        /// <param name="onReceive"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Register<T>(System.Action<T> onReceive)
+        {
+            var type = typeof(T);
+
+            IRegisterations registerations = null;
+
+            if (mTypeEventDict.TryGetValue(type, out registerations))
+            {
+                var reg = registerations as Registerations<T>;
+                reg.OnReceives += onReceive;
+            }
+            else
+            {
+                var reg = new Registerations<T>();
+                reg.OnReceives += onReceive;
+                mTypeEventDict.Add(type, reg);
+            }
+        }
+
+        /// <summary>
+        /// 注销事件
+        /// </summary>
+        /// <param name="onReceive"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void UnRegister<T>(System.Action<T> onReceive)
+        {
+            var type = typeof(T);
+
+            IRegisterations registerations = null;
+
+            if (mTypeEventDict.TryGetValue(type, out registerations))
+            {
+                var reg = registerations as Registerations<T>;
+                reg.OnReceives -= onReceive;
+            }
+        }
+
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <param name="t"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Send<T>(T t)
+        {
+            var type = typeof(T);
+
+            IRegisterations registerations = null;
+
+            if (mTypeEventDict.TryGetValue(type, out registerations))
+            {
+                var reg = registerations as Registerations<T>;
+                reg.OnReceives(t);
+            }
+        }
+
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <param name="t"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Send<T>() where T : new()
+        {
+            var type = typeof(T);
+
+            IRegisterations registerations = null;
+
+            if (mTypeEventDict.TryGetValue(type, out registerations))
+            {
+                var reg = registerations as Registerations<T>;
+                reg.OnReceives(new T());
+            }
         }
     }
 

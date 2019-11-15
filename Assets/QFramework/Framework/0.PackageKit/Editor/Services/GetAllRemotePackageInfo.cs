@@ -24,20 +24,16 @@
  ****************************************************************************/
 
 using System.IO;
-using QF.Action;
 
 using UnityEngine;
 using System;
-using UniRx;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using QFramework;
 
 namespace QF
 {
-
-
-    public class GetAllRemotePackageInfo : NodeAction
+	public class GetAllRemotePackageInfo : NodeAction
     {
 	    private Action<List<PackageData>> mOnGet;
 
@@ -48,27 +44,24 @@ namespace QF
 
 	    protected override void OnBegin()
 	    {
-		    IObservable<string> www = null;
-
 		    if (User.Logined)
 		    {
-			    Dictionary<string, string> headers = new Dictionary<string, string>();
-			    headers.Add("Authorization", "Token " + User.Token);
-			    
 			    var form = new WWWForm();
 
 			    form.AddField("username", User.Username.Value);
 			    form.AddField("password", User.Password.Value);
 
-			    www = ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list", form, headers);
+			    EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", form, OnResponse);
 		    }
 		    else
 		    {
-			    www = ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/list",new WWWForm());
+			    EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", new WWWForm(), OnResponse);
 		    }
-		    
-		    
-		    www.Subscribe(response =>
+	    }
+
+	    void OnResponse(ResponseType responseType,string response)
+	    {
+		    if (responseType == ResponseType.SUCCEED)
 		    {
 			    var responseJson = JObject.Parse(response);
 
@@ -100,7 +93,7 @@ namespace QF
 					    var releaseNote = packageInfo["releaseNote"].Value<string>();
 					    var createAt = packageInfo["createAt"].Value<string>();
 					    var creator = packageInfo["username"].Value<string>();
-					    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt),id);
+					    var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
 					    var accessRightName = packageInfo["accessRight"].Value<string>();
 					    var typeName = packageInfo["type"].Value<string>();
 
@@ -127,7 +120,6 @@ namespace QF
 
 					    var accessRight = PackageAccessRight.Public;
 
-//					    accessRightName.LogInfo();
 					    switch (accessRightName)
 					    {
 						    case "public":
@@ -147,7 +139,6 @@ namespace QF
 						    Type = packageType,
 						    AccessRight = accessRight,
 						    Readme = releaseItem,
-//						    DocUrl = docUrl,
 
 					    });
 
@@ -171,11 +162,7 @@ namespace QF
 
 				    Finished = true;
 			    }
-		    }, e =>
-		    {
-			    mOnGet.InvokeGracefully(null);
-			    Log.E(e);
-		    });
+		    }
 	    }
     }
 

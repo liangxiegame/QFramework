@@ -24,8 +24,6 @@
  ****************************************************************************/
 
 using System.Collections.Generic;
-using QF.Action;
-
 using QF.PackageKit;
 using QFramework;
 using UnityEditor;
