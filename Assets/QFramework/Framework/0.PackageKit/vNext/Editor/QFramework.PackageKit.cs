@@ -18,6 +18,907 @@ namespace QFramework
 {
     using Dependencies.PackageKit;
 
+    public static class UploadPackage
+    {
+        private static string UPLOAD_URL
+        {
+            get { return "https://api.liangxiegame.com/qf/v4/package/add"; }
+        }
+
+        public static void DoUpload(PackageVersion packageVersion, System.Action succeed)
+        {
+            EditorUtility.DisplayProgressBar("插件上传", "打包中...", 0.1f);
+
+            var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
+            var fullpath = PackageManagerView.ExportPaths(fileName, packageVersion.InstallPath);
+            var file = File.ReadAllBytes(fullpath);
+
+            var form = new WWWForm();
+            form.AddField("username", User.Username.Value);
+            form.AddField("password", User.Password.Value);
+            form.AddField("name", packageVersion.Name);
+            form.AddField("version", packageVersion.Version);
+            form.AddBinaryData("file", file);
+            form.AddField("version", packageVersion.Version);
+            form.AddField("releaseNote", packageVersion.Readme.content);
+            form.AddField("installPath", packageVersion.InstallPath);
+            form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
+            form.AddField("docUrl", packageVersion.DocUrl);
+
+            if (packageVersion.Type == PackageType.FrameworkModule)
+            {
+                form.AddField("type", "fm");
+            }
+            else if (packageVersion.Type == PackageType.Shader)
+            {
+                form.AddField("type", "s");
+            }
+            else if (packageVersion.Type == PackageType.AppOrGameDemoOrTemplate)
+            {
+                form.AddField("type", "agt");
+            }
+            else if (packageVersion.Type == PackageType.Plugin)
+            {
+                form.AddField("type", "p");
+            }
+            else if (packageVersion.Type == PackageType.Master)
+            {
+                form.AddField("type", "master");
+            }
+
+            Debug.Log(fullpath);
+
+            EditorUtility.DisplayProgressBar("插件上传", "上传中...", 0.2f);
+
+
+            ObservableWWW.Post(UPLOAD_URL, form,
+                    new Dictionary<string, string> {{"Authorization", "Token " + User.Token.Value}})
+                .Subscribe(responseContent =>
+                {
+                    EditorUtility.ClearProgressBar();
+                    Debug.Log(responseContent);
+                    succeed.InvokeGracefully();
+                    File.Delete(fullpath);
+                }, e =>
+                {
+                    EditorUtility.ClearProgressBar();
+                    EditorUtility.DisplayDialog("插件上传", "上传失败!{0}".FillFormat(e.Message), "确定");
+                    File.Delete(fullpath);
+                });
+        }
+    }
+
+    public class ReadmeWindow : EditorWindow
+    {
+        private Readme mReadme;
+
+        private Vector2 mScrollPos = Vector2.zero;
+
+        private PackageVersion mPackageVersion;
+
+
+        public static void Init(Readme readme, PackageVersion packageVersion)
+        {
+            var readmeWin = (ReadmeWindow) GetWindow(typeof(ReadmeWindow), true, packageVersion.Name, true);
+            readmeWin.mReadme = readme;
+            readmeWin.mPackageVersion = packageVersion;
+            readmeWin.position = new Rect(Screen.width / 2, Screen.height / 2, 600, 300);
+            readmeWin.Show();
+        }
+
+        public void OnGUI()
+        {
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, true, true, GUILayout.Width(580), GUILayout.Height(300));
+
+            GUILayout.Label("类型:" + mPackageVersion.Type);
+
+            mReadme.items.ForEach(item =>
+            {
+                new CustomView(() =>
+                {
+                    GUILayout.BeginHorizontal(EditorStyles.helpBox);
+                    GUILayout.BeginVertical();
+                    GUILayout.BeginHorizontal();
+
+                    GUILayout.Label("version: " + item.version, GUILayout.Width(130));
+                    GUILayout.Label("author: " + item.author);
+                    GUILayout.Label("date: " + item.date);
+
+                    if (item.author == User.Username.Value)
+                    {
+                        if (GUILayout.Button("删除"))
+                        {
+                            EditorActionKit.ExecuteNode(new DeletePackage(item.PackageId)
+                            {
+                                OnEndedCallback = () => { mReadme.items.Remove(item); }
+                            });
+                        }
+                    }
+
+
+                    GUILayout.EndHorizontal();
+                    GUILayout.Label(item.content);
+                    GUILayout.EndVertical();
+
+                    GUILayout.EndHorizontal();
+                }).DrawGUI();
+            });
+
+            GUILayout.EndScrollView();
+        }
+    }
+
+    public class InstallPackage : NodeAction
+    {
+        private PackageData mRequestPackageData;
+
+        public InstallPackage(PackageData requestPackageData)
+        {
+            mRequestPackageData = requestPackageData;
+        }
+
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+
+            var tempFile = "Assets/" + mRequestPackageData.Name + ".unitypackage";
+
+            Debug.Log(mRequestPackageData.DownloadUrl + ">>>>>>:");
+
+            EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
+
+            var progressListener = new ScheduledNotifier<float>();
+
+            ObservableWWW.GetAndGetBytes(mRequestPackageData.DownloadUrl, null, progressListener)
+                .Subscribe(bytes =>
+                {
+                    File.WriteAllBytes(tempFile, bytes);
+
+                    EditorUtility.ClearProgressBar();
+
+                    AssetDatabase.ImportPackage(tempFile, false);
+
+                    File.Delete(tempFile);
+
+                    mRequestPackageData.SaveVersionFile();
+
+                    AssetDatabase.Refresh();
+
+                    Log.I("PackageManager:插件下载成功");
+
+                    InstalledPackageVersions.Reload();
+                }, e =>
+                {
+                    EditorUtility.ClearProgressBar();
+
+                    EditorUtility.DisplayDialog(mRequestPackageData.Name,
+                        "插件安装失败,请联系 liangxiegame@163.com 或者加入 QQ 群:623597263" + e.ToString() + ";", "OK");
+                });
+
+            progressListener.Subscribe(OnProgressChanged);
+        }
+
+        private void OnProgressChanged(float progress)
+        {
+            EditorUtility.DisplayProgressBar("插件更新",
+                "插件下载中 {0:P2}".FillFormat(progress), progress);
+        }
+    }
+
+    public class InstalledPackageVersions
+    {
+        private static List<PackageVersion> mPackageVersions = new List<PackageVersion>();
+
+        public static List<PackageVersion> Get()
+        {
+            if (mPackageVersions.Count == 0)
+            {
+                Reload();
+            }
+
+            return mPackageVersions;
+        }
+
+        public static void Reload()
+        {
+            mPackageVersions.Clear();
+
+            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
+                name => name.EndsWith("PackageVersion.json"));
+
+            versionFiles.ForEach(fileName =>
+            {
+                mPackageVersions.Add(SerializeHelper.LoadJson<PackageVersion>(fileName));
+            });
+        }
+
+        public static PackageVersion FindVersionByName(string name)
+        {
+            return Get().Find(installedPackageVersion => installedPackageVersion.Name == name);
+        }
+    }
+
+    [Serializable]
+    public class ReleaseItem
+    {
+        public ReleaseItem()
+        {
+        }
+
+        public ReleaseItem(string version, string content, string author, DateTime date, string packageId = "")
+        {
+            this.version = version;
+            this.content = content;
+            this.author = author;
+            this.date = date.ToString("yyyy 年 MM 月 dd 日 HH:mm");
+            PackageId = packageId;
+        }
+
+        public string version = "";
+        public string content = "";
+        public string author  = "";
+        public string date    = "";
+        public string PackageId { get; set; }
+
+
+        public int VersionNumber
+        {
+            get
+            {
+                if (version.IsNullOrEmpty())
+                {
+                    return 0;
+                }
+
+                var numbersStr = version.RemoveString("v").Split('.');
+
+                var retNumber = numbersStr[2].ToInt();
+                retNumber += numbersStr[1].ToInt() * 100;
+                retNumber += numbersStr[0].ToInt() * 10000;
+
+                return retNumber;
+            }
+        }
+    }
+
+    [Serializable]
+    public class Readme
+    {
+        public List<ReleaseItem> items;
+
+        public ReleaseItem GetItem(string version)
+        {
+            if (items == null || items.Count == 0)
+            {
+                return null;
+            }
+
+            return items.First(s => s.version == version);
+        }
+
+        public void AddReleaseNote(ReleaseItem pluginReadme)
+        {
+            if (items == null)
+            {
+                items = new List<ReleaseItem> {pluginReadme};
+            }
+            else
+            {
+                bool exist = false;
+                foreach (var item in items)
+                {
+                    if (item.version == pluginReadme.version)
+                    {
+                        item.content = pluginReadme.content;
+                        item.author = pluginReadme.author;
+                        exist = true;
+                        break;
+                    }
+                }
+
+                if (!exist)
+                {
+                    items.Add(pluginReadme);
+                }
+            }
+        }
+    }
+
+    [Serializable]
+    public class PackageData
+    {
+        public string Name = "";
+
+        public string Version
+        {
+            get { return PackageVersions.First().Version; }
+        }
+
+        public string DownloadUrl
+        {
+            get { return PackageVersions.First().DownloadUrl; }
+        }
+
+        public string InstallPath
+        {
+            get { return PackageVersions.First().InstallPath; }
+        }
+
+        public string DocUrl
+        {
+            get { return PackageVersions.First().DocUrl; }
+        }
+
+        public PackageType Type
+        {
+            get { return PackageVersions.First().Type; }
+        }
+
+        public PackageAccessRight AccessRight
+        {
+            get { return PackageVersions.First().AccessRight; }
+        }
+
+        public Readme readme;
+
+        public List<PackageVersion> PackageVersions = new List<PackageVersion>();
+
+        public PackageData()
+        {
+            readme = new Readme();
+        }
+
+        public int VersionNumber
+        {
+            get
+            {
+                var numbersStr = Version.RemoveString("v").Split('.');
+
+                var retNumber = numbersStr[2].ToInt();
+                retNumber += numbersStr[1].ToInt() * 100;
+                retNumber += numbersStr[0].ToInt() * 10000;
+                return retNumber;
+            }
+        }
+
+        public bool Installed
+        {
+            get { return Directory.Exists(InstallPath); }
+        }
+
+        public void SaveVersionFile()
+        {
+            PackageVersions.First().Save();
+        }
+    }
+
+    public enum PackageType
+    {
+        FrameworkModule, //fm
+        Shader, //s
+        UIKitComponent, //uc
+        Plugin, // p
+        AppOrGameDemoOrTemplate, //agt
+        DocumentsOrTutorial, //doc
+        Master, // master
+    }
+
+    public enum PackageAccessRight
+    {
+        Public,
+        Private
+    }
+
+    [Serializable]
+    public class PackageVersion
+    {
+        public string Id { get; set; }
+
+        public string Name
+        {
+            get { return InstallPath.IsNotNullAndEmpty() ? InstallPath.GetLastDirName() : ""; }
+        }
+
+        public string Version = "v0.0.0";
+
+        public PackageType Type;
+
+        public PackageAccessRight AccessRight;
+
+        public int VersionNumber
+        {
+            get
+            {
+                var numbersStr = Version.RemoveString("v").Split('.');
+
+                var retNumber = numbersStr[2].ToInt();
+                retNumber += numbersStr[1].ToInt() * 100;
+                retNumber += numbersStr[0].ToInt() * 10000;
+
+                return retNumber;
+            }
+        }
+
+        public string DownloadUrl;
+
+        public string InstallPath = "Assets/QFramework/Framework/";
+
+        public string FileName
+        {
+            get { return Name + "_" + Version + ".unitypackage"; }
+        }
+
+        public string DocUrl;
+
+        public ReleaseItem Readme = new ReleaseItem();
+
+        public void Save()
+        {
+            this.SaveJson(InstallPath.CreateDirIfNotExists() + "/PackageVersion.json");
+        }
+
+        public static PackageVersion Load(string filePath)
+        {
+            if (filePath.EndsWith("/"))
+            {
+                filePath += "PackageVersion.json";
+            }
+            else if (!filePath.EndsWith("PackageVersion.json"))
+            {
+                filePath += "/PackageVersion.json";
+            }
+
+            return SerializeHelper.LoadJson<PackageVersion>(filePath);
+        }
+    }
+
+    public class PackageView : HorizontalLayout
+    {
+        class LocaleText
+        {
+            public static string Doc
+            {
+                get { return Language.IsChinese ? "文档" : "Doc"; }
+            }
+
+            public static string Import
+            {
+                get { return Language.IsChinese ? "导入" : "Import"; }
+            }
+
+            public static string Update
+            {
+                get { return Language.IsChinese ? "更新" : "Update"; }
+            }
+
+            public static string Reimport
+            {
+                get { return Language.IsChinese ? "再次导入" : "Reimport"; }
+            }
+
+            public static string ReleaseNotes
+            {
+                get { return Language.IsChinese ? "版本说明" : "Release Notes"; }
+            }
+        }
+
+        private PackageData mPackageData;
+
+        public PackageView(PackageData packageData) : base(null)
+        {
+            this.mPackageData = packageData;
+
+            Refresh();
+        }
+
+        protected override void OnRefresh()
+        {
+            Clear();
+
+            new SpaceView(2).AddTo(this);
+
+            new LabelView(mPackageData.Name)
+                .FontBold()
+                .Width(150)
+                .AddTo(this);
+
+            new LabelView(mPackageData.Version)
+                .TextMiddleCenter()
+                .Width(80)
+                .AddTo(this);
+
+            var installedPackage = InstalledPackageVersions.FindVersionByName(mPackageData.Name);
+
+            new LabelView(installedPackage != null ? installedPackage.Version : " ")
+                .TextMiddleCenter()
+                .Width(80)
+                .AddTo(this);
+
+            new LabelView(mPackageData.AccessRight.ToString())
+                .TextMiddleCenter()
+                .Width(80)
+                .AddTo(this);
+
+            if (mPackageData.DocUrl.IsNotNullAndEmpty())
+            {
+                new ButtonView(LocaleText.Doc, () => { }).AddTo(this);
+            }
+            else
+            {
+                new SpaceView(40).AddTo(this);
+            }
+
+
+            if (installedPackage == null)
+            {
+                new ButtonView(LocaleText.Import, () =>
+                    {
+                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                    })
+                    .Width(90)
+                    .AddTo(this);
+            }
+
+            else if (installedPackage != null && mPackageData.VersionNumber > installedPackage.VersionNumber)
+            {
+                new ButtonView(LocaleText.Update, () =>
+                    {
+                        var path = Application.dataPath.Replace("Assets", mPackageData.InstallPath);
+
+                        path.DeleteDirIfExists();
+
+                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                    })
+                    .Width(90)
+                    .AddTo(this);
+            }
+            else if (installedPackage.IsNotNull() &&
+                     mPackageData.VersionNumber == installedPackage.VersionNumber)
+            {
+                new ButtonView(LocaleText.Reimport, () =>
+                    {
+                        var path = Application.dataPath.Replace("Assets", mPackageData.InstallPath);
+
+                        path.DeleteDirIfExists();
+
+                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                    })
+                    .Width(90)
+                    .AddTo(this);
+            }
+            else if (installedPackage != null)
+            {
+                new SpaceView(94).AddTo(this);
+            }
+
+            new ButtonView(LocaleText.ReleaseNotes,
+                    () => { ReadmeWindow.Init(mPackageData.readme, mPackageData.PackageVersions.First()); }).Width(100)
+                .AddTo(this);
+        }
+    }
+
+    public class HeaderView : HorizontalLayout
+    {
+        public HeaderView()
+        {
+            HorizontalStyle = "box";
+
+            new LabelView(LocaleText.PackageName)
+                .Width(150)
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.ServerVersion)
+                .Width(80)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.LocalVersion)
+                .Width(80)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.AccessRight)
+                .Width(80)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.Doc)
+                .Width(40)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.Action)
+                .Width(100)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+
+            new LabelView(LocaleText.ReleaseNote)
+                .Width(100)
+                .TextMiddleCenter()
+                .FontSize(12)
+                .FontBold()
+                .AddTo(this);
+        }
+
+        class LocaleText
+        {
+            public static string PackageName
+            {
+                get { return Language.IsChinese ? " 模块名" : " Package Name"; }
+            }
+
+            public static string ServerVersion
+            {
+                get { return Language.IsChinese ? "服务器版本" : "Server Version"; }
+            }
+
+            public static string LocalVersion
+            {
+                get { return Language.IsChinese ? "本地版本" : "Local Version"; }
+            }
+
+            public static string AccessRight
+            {
+                get { return Language.IsChinese ? "访问权限" : "Access Right"; }
+            }
+
+            public static string Doc
+            {
+                get { return Language.IsChinese ? "文档" : "Doc"; }
+            }
+
+            public static string Action
+            {
+                get { return Language.IsChinese ? "动作" : "Action"; }
+            }
+
+            public static string ReleaseNote
+            {
+                get { return Language.IsChinese ? "版本说明" : "ReleaseNote Note"; }
+            }
+        }
+    }
+
+    public interface IEditorCommand
+    {
+        void Execute();
+    }
+
+    public class PackageManagerApp
+    {
+        public IQFrameworkContainer Container = new QFrameworkContainer();
+
+        public void Init()
+        {
+            TypeEventSystem.Register<IEditorCommand>(OnCommandReceive);
+        }
+
+        void OnCommandReceive(IEditorCommand command)
+        {
+            Container.Inject(command);
+            command.Execute();
+        }
+
+        public void Dispose()
+        {
+            Dependencies.PackageKit.TypeEventSystem.UnRegister<IEditorCommand>(OnCommandReceive);
+
+            Container.Clear();
+            Container = null;
+        }
+    }
+
+    public class PackageManagerModel
+    {
+        
+    }
+
+    public class PackageManagerView : IPackageKitView
+    {
+        private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
+
+        public static string ExportPaths(string exportPackageName, params string[] paths)
+        {
+            if (Directory.Exists(paths[0]))
+            {
+                if (paths[0].EndsWith("/"))
+                {
+                    paths[0] = paths[0].Remove(paths[0].Length - 1);
+                }
+
+                var filePath = EXPORT_ROOT_DIR.CombinePath(exportPackageName);
+                AssetDatabase.ExportPackage(paths,
+                    filePath, ExportPackageOptions.Recurse);
+                AssetDatabase.Refresh();
+
+                return filePath;
+            }
+
+            return string.Empty;
+        }
+
+        
+        PackageManagerApp mPackageManagerApp = new PackageManagerApp();
+
+        public PackageManagerView()
+        {
+            InstalledPackageVersions.Reload();
+            PackageKitModel.Effects.GetAllPackagesInfo();
+        }
+
+        private Vector2 mScrollPos;
+
+
+        private System.Action mOnToolbarIndexChanged;
+
+        public int ToolbarIndex
+        {
+            get { return EditorPrefs.GetInt("PM_TOOLBAR_INDEX", 0); }
+            set
+            {
+                EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value);
+                mOnToolbarIndexChanged.InvokeGracefully();
+            }
+        }
+
+        private string[] mToolbarNamesLogined =
+            {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private", "Master"};
+
+        private string[] mToolbarNamesUnLogined = {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate"};
+
+        public string[] ToolbarNames
+        {
+            get { return User.Logined ? mToolbarNamesLogined : mToolbarNamesUnLogined; }
+        }
+
+        public IEnumerable<PackageData> SelectedPackageType(List<PackageData> packageDatas)
+        {
+            switch (ToolbarIndex)
+            {
+                case 0:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
+                        .OrderBy(p => p.Name);
+                case 1:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Plugin)
+                        .OrderBy(p => p.Name);
+                case 2:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent)
+                        .OrderBy(p => p.Name);
+                case 3:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Shader)
+                        .OrderBy(p => p.Name);
+                case 4:
+                    return packageDatas.Where(packageData =>
+                        packageData.Type == PackageType.AppOrGameDemoOrTemplate).OrderBy(p => p.Name);
+                case 5:
+                    return packageDatas.Where(packageData =>
+                        packageData.AccessRight == PackageAccessRight.Private).OrderBy(p => p.Name);
+                case 6:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.Master)
+                        .OrderBy(p => p.Name);
+                default:
+                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
+                        .OrderBy(p => p.Name);
+            }
+        }
+
+        public IQFrameworkContainer Container { get; set; }
+
+        public int RenderOrder
+        {
+            get { return 1; }
+        }
+
+        public bool Ignore { get; private set; }
+
+        public bool Enabled
+        {
+            get { return true; }
+        }
+
+        private VerticalLayout mRootLayout = null;
+
+        public void Init(IQFrameworkContainer container)
+        {
+            PackageKitModel.Subject
+                .StartWith(PackageKitModel.State)
+                .Subscribe(state => { OnRefresh(state); });
+        }
+
+        void OnRefresh(QF.PackageKit.State state)
+        {
+            mRootLayout = new VerticalLayout();
+
+            var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
+
+            var verticalLayout = new VerticalLayout("box");
+
+            treeNode.Add2Spread(verticalLayout);
+
+            new ToolbarView(ToolbarIndex)
+                .Menus(ToolbarNames.ToList())
+                .AddTo(verticalLayout)
+                .Index.Bind(newIndex => ToolbarIndex = newIndex);
+
+
+            new HeaderView()
+                .AddTo(verticalLayout);
+
+            var packageList = new VerticalLayout("box")
+                .AddTo(verticalLayout);
+
+            var scroll = new ScrollLayout()
+                .Height(240)
+                .AddTo(packageList);
+
+            new SpaceView(2).AddTo(scroll);
+
+            mOnToolbarIndexChanged = () =>
+            {
+                scroll.Clear();
+
+                foreach (var packageData in SelectedPackageType(state.PackageDatas))
+                {
+                    new SpaceView(2).AddTo(scroll);
+                    new PackageView(packageData).AddTo(scroll);
+                }
+            };
+
+            foreach (var packageData in SelectedPackageType(state.PackageDatas))
+            {
+                new SpaceView(2).AddTo(scroll);
+                new PackageView(packageData).AddTo(scroll);
+            }
+        }
+
+        public void OnUpdate()
+        {
+            PackageKitModel.Update();
+        }
+
+        public void OnGUI()
+        {
+            mRootLayout.DrawGUI();
+        }
+
+        public void OnDispose()
+        {
+            PackageKitModel.Dispose();
+            mPackageManagerApp.Dispose();
+        }
+
+
+        class LocaleText
+        {
+            public static string FrameworkPackages
+            {
+                get { return Language.IsChinese ? "框架模块" : "Framework Packages"; }
+            }
+
+            public static string VersionCheck
+            {
+                get { return Language.IsChinese ? "版本检测" : "Version Check"; }
+            }
+        }
+    }
+
     public enum ResponseType
     {
         SUCCEED,
@@ -29,10 +930,10 @@ namespace QFramework
     {
         public class EditorWWWExecuter
         {
-            private WWW            mWWW;
-            private Action<ResponseType,string> mResponse;
+            private WWW                          mWWW;
+            private Action<ResponseType, string> mResponse;
 
-            public EditorWWWExecuter(WWW www, Action<ResponseType,string> response)
+            public EditorWWWExecuter(WWW www, Action<ResponseType, string> response)
             {
                 mWWW = www;
                 mResponse = response;
@@ -58,7 +959,6 @@ namespace QFramework
 
             void Dispose()
             {
-
                 mWWW.Dispose();
                 mWWW = null;
 
@@ -67,14 +967,14 @@ namespace QFramework
         }
 
 
-        public static void Get(string url, Action<ResponseType,string> response)
+        public static void Get(string url, Action<ResponseType, string> response)
         {
             new EditorWWWExecuter(new WWW(url), response);
         }
 
-        public static void Post(string url, WWWForm form, Action<ResponseType,string> response)
+        public static void Post(string url, WWWForm form, Action<ResponseType, string> response)
         {
-            new EditorWWWExecuter(new WWW(url,form), response);
+            new EditorWWWExecuter(new WWW(url, form), response);
         }
     }
 
@@ -92,19 +992,20 @@ namespace QFramework
 
         public const int Feedback = 11;
     }
-    
-    public interface IPackageKitView 
+
+    public interface IPackageKitView
     {
         IQFrameworkContainer Container { get; set; }
+
         /// <summary>
         /// 1 after 0
         /// </summary>
-        int RenderOrder { get;}
-		
+        int RenderOrder { get; }
+
         bool Ignore { get; }
-		
-        bool Enabled { get;}
-		
+
+        bool Enabled { get; }
+
         void Init(IQFrameworkContainer container);
 
         void OnUpdate();
@@ -112,7 +1013,7 @@ namespace QFramework
 
         void OnDispose();
     }
-    
+
     public class PackageKitWindow : IMGUIEditorWindow
     {
         class LocaleText
@@ -143,7 +1044,7 @@ namespace QFramework
 
         public override void OnUpdate()
         {
-            mPackageKitViews.ForEach(view=>view.OnUpdate());
+            mPackageKitViews.ForEach(view => view.OnUpdate());
         }
 
         public List<IPackageKitView> mPackageKitViews = null;
@@ -152,287 +1053,284 @@ namespace QFramework
         {
             var label = GUI.skin.label;
             PackageApplication.Container = null;
-			
+
             RemoveAllChidren();
 
             mPackageKitViews = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
                 .OrderBy(view => view.RenderOrder)
                 .ToList();
-			
-            PackageApplication.Container.RegisterInstance(this);
 
+            PackageApplication.Container.RegisterInstance(this);
         }
-		
+
         public override void OnGUI()
         {
             base.OnGUI();
-            mPackageKitViews.ForEach(view=>view.OnGUI());
+            mPackageKitViews.ForEach(view => view.OnGUI());
         }
 
         public override void OnClose()
         {
-            mPackageKitViews.ForEach(view=>view.OnDispose());
-			
+            mPackageKitViews.ForEach(view => view.OnDispose());
+
             RemoveAllChidren();
         }
-    }	
-    
+    }
+
     public static class PackageApplication
-	{
-		public static  List<Assembly>                  CachedAssemblies { get; set; }
-		private static Dictionary<Type, IEventManager> mEventManagers;
+    {
+        public static  List<Assembly>                  CachedAssemblies { get; set; }
+        private static Dictionary<Type, IEventManager> mEventManagers;
 
-		private static Dictionary<Type, IEventManager> EventManagers
-		{
-			get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, IEventManager>()); }
-			set { mEventManagers = value; }
-		}
+        private static Dictionary<Type, IEventManager> EventManagers
+        {
+            get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, IEventManager>()); }
+            set { mEventManagers = value; }
+        }
 
-		private static QFrameworkContainer mContainer;
+        private static QFrameworkContainer mContainer;
 
-		public static QFrameworkContainer Container
-		{
-			get
-			{
-				if (mContainer != null) return mContainer;
-				mContainer = new QFrameworkContainer();
-				InitializeContainer(mContainer);
-				return mContainer;
-			}
-			set
-			{
-				mContainer = value;
-				if (mContainer == null)
-				{
-					IEventManager eventManager;
-					EventManagers.TryGetValue(typeof(ISystemResetEvents), out eventManager);
-					EventManagers.Clear();
-					var events = eventManager as EventManager<ISystemResetEvents>;
-					if (events != null)
-					{
-						events.Signal(_ => _.SystemResetting());
-					}
-				}
-			}
-		}
+        public static QFrameworkContainer Container
+        {
+            get
+            {
+                if (mContainer != null) return mContainer;
+                mContainer = new QFrameworkContainer();
+                InitializeContainer(mContainer);
+                return mContainer;
+            }
+            set
+            {
+                mContainer = value;
+                if (mContainer == null)
+                {
+                    IEventManager eventManager;
+                    EventManagers.TryGetValue(typeof(ISystemResetEvents), out eventManager);
+                    EventManagers.Clear();
+                    var events = eventManager as EventManager<ISystemResetEvents>;
+                    if (events != null)
+                    {
+                        events.Signal(_ => _.SystemResetting());
+                    }
+                }
+            }
+        }
 
-		public static IEnumerable<Type> GetDerivedTypes<T>(bool includeAbstract = false, bool includeBase = true)
-		{
-			var type = typeof(T);
-			if (includeBase)
-				yield return type;
-			if (includeAbstract)
-			{
-				foreach (var assembly in CachedAssemblies)
-				{
-					foreach (var t in assembly
-						.GetTypes()
-						.Where(x => type.IsAssignableFrom(x)))
-					{
-						yield return t;
-					}
-				}
-			}
-			else
-			{
-				var items = new List<Type>();
-				foreach (var assembly in CachedAssemblies)
-				{
-					try
-					{
-						items.AddRange(assembly.GetTypes()
-							.Where(x => type.IsAssignableFrom(x) && !x.IsAbstract));
-					}
-					catch (Exception ex)
-					{
-						Log.I(ex.Message);
+        public static IEnumerable<Type> GetDerivedTypes<T>(bool includeAbstract = false, bool includeBase = true)
+        {
+            var type = typeof(T);
+            if (includeBase)
+                yield return type;
+            if (includeAbstract)
+            {
+                foreach (var assembly in CachedAssemblies)
+                {
+                    foreach (var t in assembly
+                        .GetTypes()
+                        .Where(x => type.IsAssignableFrom(x)))
+                    {
+                        yield return t;
+                    }
+                }
+            }
+            else
+            {
+                var items = new List<Type>();
+                foreach (var assembly in CachedAssemblies)
+                {
+                    try
+                    {
+                        items.AddRange(assembly.GetTypes()
+                            .Where(x => type.IsAssignableFrom(x) && !x.IsAbstract));
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.I(ex.Message);
 //						InvertApplication.Log(ex.Message);
-					}
-				}
+                    }
+                }
 
-				foreach (var item in items)
-					yield return item;
-			}
-		}
+                foreach (var item in items)
+                    yield return item;
+            }
+        }
 
-		public static System.Action ListenFor(Type eventInterface, object listenerObject)
-		{
-			var listener = listenerObject;
+        public static System.Action ListenFor(Type eventInterface, object listenerObject)
+        {
+            var listener = listenerObject;
 
-			IEventManager manager;
-			if (!EventManagers.TryGetValue(eventInterface, out manager))
-			{
-				EventManagers.Add(eventInterface,
-					manager = (IEventManager) Activator.CreateInstance(
-						typeof(EventManager<>).MakeGenericType(eventInterface)));
-			}
+            IEventManager manager;
+            if (!EventManagers.TryGetValue(eventInterface, out manager))
+            {
+                EventManagers.Add(eventInterface,
+                    manager = (IEventManager) Activator.CreateInstance(
+                        typeof(EventManager<>).MakeGenericType(eventInterface)));
+            }
 
-			var m = manager;
+            var m = manager;
 
 
-			return m.AddListener(listener);
-		}
+            return m.AddListener(listener);
+        }
 
-		private static IPackageKitView[] mPlugins;
+        private static IPackageKitView[] mPlugins;
 
-		public static IPackageKitView[] Plugins
-		{
-			get { return mPlugins ?? (mPlugins = Container.ResolveAll<IPackageKitView>().ToArray()); }
-			set { mPlugins = value; }
-		}
+        public static IPackageKitView[] Plugins
+        {
+            get { return mPlugins ?? (mPlugins = Container.ResolveAll<IPackageKitView>().ToArray()); }
+            set { mPlugins = value; }
+        }
 
-		private static void InitializeContainer(IQFrameworkContainer container)
-		{
-			mPlugins = null;
-			container.RegisterInstance(container);
-			var pluginTypes = GetDerivedTypes<IPackageKitView>(false, false).ToArray();
+        private static void InitializeContainer(IQFrameworkContainer container)
+        {
+            mPlugins = null;
+            container.RegisterInstance(container);
+            var pluginTypes = GetDerivedTypes<IPackageKitView>(false, false).ToArray();
 //			// Load all plugins
-			foreach (var diagramPlugin in pluginTypes)
-			{
+            foreach (var diagramPlugin in pluginTypes)
+            {
 //				if (pluginTypes.Any(p => p.BaseType == diagramPlugin)) continue;
-				var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as IPackageKitView;
-				if (pluginInstance == null) continue;
-				container.RegisterInstance(pluginInstance, diagramPlugin.Name, false);
-				container.RegisterInstance(pluginInstance.GetType(), pluginInstance);
-				if (pluginInstance.Enabled)
-				{
-					foreach (var item in diagramPlugin.GetInterfaces())
-					{
-						ListenFor(item, pluginInstance);
-					}
-				}
-			}
+                var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as IPackageKitView;
+                if (pluginInstance == null) continue;
+                container.RegisterInstance(pluginInstance, diagramPlugin.Name, false);
+                container.RegisterInstance(pluginInstance.GetType(), pluginInstance);
+                if (pluginInstance.Enabled)
+                {
+                    foreach (var item in diagramPlugin.GetInterfaces())
+                    {
+                        ListenFor(item, pluginInstance);
+                    }
+                }
+            }
 
-			container.InjectAll();
+            container.InjectAll();
 
-			foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
-			{
-				if (diagramPlugin.Enabled)
-				{
-					var start = DateTime.Now;
-					diagramPlugin.Container = Container;
-					diagramPlugin.Init(Container);
-				}
-			}
+            foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
+            {
+                if (diagramPlugin.Enabled)
+                {
+                    var start = DateTime.Now;
+                    diagramPlugin.Container = Container;
+                    diagramPlugin.Init(Container);
+                }
+            }
 
-			foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
-			{
-
-				if (diagramPlugin.Enabled)
-				{
-					var start = DateTime.Now;
-					container.Inject(diagramPlugin);
+            foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
+            {
+                if (diagramPlugin.Enabled)
+                {
+                    var start = DateTime.Now;
+                    container.Inject(diagramPlugin);
 //					diagramPlugin.Loaded(Container);
 //					diagramPlugin.LoadTime = DateTime.Now.Subtract(start);
-				}
+                }
+            }
 
+            SignalEvent<ISystemResetEvents>(_ => _.SystemRestarted());
+        }
 
-			}
+        public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
+        {
+            IEventManager manager;
+            if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
+            {
+                EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
+            }
 
-			SignalEvent<ISystemResetEvents>(_ => _.SystemRestarted());
-		}
+            var m = manager as EventManager<TEvents>;
+            m.Signal(action);
+        }
 
-		public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
-		{
-			IEventManager manager;
-			if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
-			{
-				EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
-			}
-			var m = manager as EventManager<TEvents>;
-			m.Signal(action);
-		}
-		
-		static PackageApplication()
-		{
-			CachedAssemblies = new List<Assembly>
-			{
-				typeof(int).Assembly, typeof(List<>).Assembly
-			};
+        static PackageApplication()
+        {
+            CachedAssemblies = new List<Assembly>
+            {
+                typeof(int).Assembly, typeof(List<>).Assembly
+            };
 
-			foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
-			{
-				if (assembly.FullName.StartsWith("QF") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
-				{
-					CachedAssembly(assembly);
-				}
-			}
-		}
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                if (assembly.FullName.StartsWith("QF") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
+                {
+                    CachedAssembly(assembly);
+                }
+            }
+        }
 
-		public static void CachedAssembly(Assembly assembly)
-		{
-			if (CachedAssemblies.Contains(assembly)) return;
-			CachedAssemblies.Add(assembly);
-		}
-	}
+        public static void CachedAssembly(Assembly assembly)
+        {
+            if (CachedAssemblies.Contains(assembly)) return;
+            CachedAssemblies.Add(assembly);
+        }
+    }
 
-	public interface IEventManager
-	{
-		System.Action AddListener(object listener);
-		void Signal(Action<object> obj);
-	}
+    public interface IEventManager
+    {
+        System.Action AddListener(object listener);
+        void Signal(Action<object> obj);
+    }
 
-	public class EventManager<T> : IEventManager where T : class
-	{
-		private List<T> _listeners;
+    public class EventManager<T> : IEventManager where T : class
+    {
+        private List<T> _listeners;
 
-		public List<T> Listeners
-		{
-			get { return _listeners ?? (_listeners = new List<T>()); }
-			set { _listeners = value; }
-		}
+        public List<T> Listeners
+        {
+            get { return _listeners ?? (_listeners = new List<T>()); }
+            set { _listeners = value; }
+        }
 
-		public void Signal(Action<object> obj)
-		{
-			foreach (var item in Listeners)
-			{
-				var item1 = item;
-				obj(item1);
-			}
-		}
+        public void Signal(Action<object> obj)
+        {
+            foreach (var item in Listeners)
+            {
+                var item1 = item;
+                obj(item1);
+            }
+        }
 
-		public void Signal(Action<T> action)
-		{
-			foreach (var item in Listeners)
-			{
-				//InvertApplication.Log(typeof(T).Name + " was signaled on " + item.GetType().Name);
-				var item1 = item;
-				action(item1);
-			}
-		}
+        public void Signal(Action<T> action)
+        {
+            foreach (var item in Listeners)
+            {
+                //InvertApplication.Log(typeof(T).Name + " was signaled on " + item.GetType().Name);
+                var item1 = item;
+                action(item1);
+            }
+        }
 
-		public System.Action Subscribe(T listener)
-		{
-			if (!Listeners.Contains(listener))
-				Listeners.Add(listener);
+        public System.Action Subscribe(T listener)
+        {
+            if (!Listeners.Contains(listener))
+                Listeners.Add(listener);
 
-			return () => { Unsubscribe(listener); };
-		}
+            return () => { Unsubscribe(listener); };
+        }
 
-		private void Unsubscribe(T listener)
-		{
-			Listeners.Remove(listener);
-		}
+        private void Unsubscribe(T listener)
+        {
+            Listeners.Remove(listener);
+        }
 
-		public System.Action AddListener(object listener)
-		{
-			return Subscribe(listener as T);
-		}
-	}
+        public System.Action AddListener(object listener)
+        {
+            return Subscribe(listener as T);
+        }
+    }
 
-	public interface ISystemResetEvents
-	{
-		void SystemResetting();
-		void SystemRestarted();
-	}
+    public interface ISystemResetEvents
+    {
+        void SystemResetting();
+        void SystemRestarted();
+    }
 }
 
 
 namespace Dependencies.PackageKit
 {
     using Object = UnityEngine.Object;
-    
+
     public class Language
     {
         public static bool IsChinese
@@ -586,7 +1484,7 @@ namespace Dependencies.PackageKit
         {
         }
     }
-    
+
     public class TypeEventSystem
     {
         /// <summary>
@@ -594,7 +1492,6 @@ namespace Dependencies.PackageKit
         /// </summary>
         interface IRegisterations
         {
-
         }
 
         /// <summary>

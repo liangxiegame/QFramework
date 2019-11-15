@@ -25,23 +25,6 @@ namespace QF.PackageKit
 
     public class PackageKitModel : DvaModelEditor<PackageKitModel, State>
     {
-        public static class Effects
-        {
-            public static void GetAllPackagesInfo()
-            {
-                EditorActionKit.ExecuteNode(new GetAllRemotePackageInfo(packageDatas =>
-                    {
-                        Dispatch("setPackages", packageDatas);
-                    }
-                ));
-            }
-
-            public static void DeletePacakge(string pacakgeId)
-            {
-                
-            }
-        }
-
         public override State Reduce(State state, DvaAction action)
         {
             switch (action.Type)

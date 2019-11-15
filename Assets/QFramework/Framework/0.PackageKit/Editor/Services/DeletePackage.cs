@@ -1,7 +1,5 @@
 using Newtonsoft.Json.Linq;
-using QF.Action;
 using QFramework;
-using UniRx;
 using UnityEngine;
 
 namespace QF.Editor
@@ -25,18 +23,20 @@ namespace QF.Editor
             form.AddField("password", User.Password.Value);
             form.AddField("id", mId);
 
-            ObservableWWW.Post("https://api.liangxiegame.com/qf/v4/package/delete", form)
-                .Subscribe(response =>
+            EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (type, response) =>
+            {
+                if (type == ResponseType.SUCCEED)
                 {
                     var result = JObject.Parse(response);
 
                     if (result.Value<int>("code") == 1)
                     {
-                         Debug.Log("删除成功");
+                        Debug.Log("删除成功");
                     }
-                    
+
                     Finish();
-                });
+                }
+            });
         }
     }
 }
