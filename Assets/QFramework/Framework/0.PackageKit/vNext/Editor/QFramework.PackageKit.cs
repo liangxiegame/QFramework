@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using QFramework;
 using UnityEditor;
@@ -199,7 +198,7 @@ namespace QFramework
 		private static void ShowDisplayDialog(string packageName)
 		{
 			var result = EditorUtility.DisplayDialog("PackageManager",
-				"{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)".FillFormat(packageName),
+				string.Format("{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)",packageName),
 				"前往查看", "稍后查看");
 
 			if (result)
@@ -219,9 +218,9 @@ namespace QFramework
         {
             get
             {
-                return Token.Value.IsNotNullAndEmpty() &&
-                       Username.Value.IsNotNullAndEmpty() &&
-                       Password.Value.IsNotNullAndEmpty();
+                return !string.IsNullOrEmpty(Token.Value) &&
+                       !string.IsNullOrEmpty(Username.Value) &&
+                       !string.IsNullOrEmpty(Password.Value);
             }
         }
 
@@ -259,18 +258,20 @@ namespace QFramework
 
         void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse);
     }
+    
+    [Serializable]
+    public class QFrameworkServerResultFormat<T>
+    {
+        public int code;
+
+        public string msg;
+
+        public T data;
+    }
 
     public class PackageManagerServer : IPackageManagerServer
     {
-        [Serializable]
-        public class QFrameworkServerResultFormat<T>
-        {
-            public int code;
 
-            public string msg;
-
-            public T data;
-        }
 
         public void DeletePackage(string packageId, Action onResponse)
         {
@@ -280,11 +281,11 @@ namespace QFramework
             form.AddField("password", User.Password.Value);
             form.AddField("id", packageId);
 
-            EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (type, response) =>
+            EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (response) =>
             {
-                if (type == ResponseType.SUCCEED)
+                if (response.Type == ResponseType.SUCCEED)
                 {
-                    var result = JsonUtility.FromJson<QFrameworkServerResultFormat<object>>(response);
+                    var result = JsonUtility.FromJson<QFrameworkServerResultFormat<object>>(response.Text);
 
                     if (result.code == 1)
                     {
@@ -306,12 +307,12 @@ namespace QFramework
                 form.AddField("password", User.Password.Value);
 
                 EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", form,
-                    (type, s) => OnResponse(type, s, onResponse));
+                    (response) => OnResponse(response, onResponse));
             }
             else
             {
                 EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", new WWWForm(),
-                    (type, s) => OnResponse(type, s, onResponse));
+                    (response) => OnResponse(response, onResponse));
             }
         }
 
@@ -330,11 +331,11 @@ namespace QFramework
            public string type;
         }
 
-        void OnResponse(ResponseType responseType, string response,Action<List<PackageData>> onResponse)
+        void OnResponse(EditorHttpResponse response,Action<List<PackageData>> onResponse)
         {
-            if (responseType == ResponseType.SUCCEED)
+            if (response.Type == ResponseType.SUCCEED)
             {
-                var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response);
+                var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response.Text);
                 
                 if (responseJson.code == 1)
                 {
@@ -487,19 +488,23 @@ namespace QFramework
 
             EditorUtility.DisplayProgressBar("插件上传", "上传中...", 0.2f);
 
-            EditorHttp.Post(UPLOAD_URL, form, (type, responseContent) =>
+            EditorHttp.Post(UPLOAD_URL, form, (response) =>
             {
-                if (type == ResponseType.SUCCEED)
+                if (response.Type == ResponseType.SUCCEED)
                 {
                     EditorUtility.ClearProgressBar();
-                    Debug.Log(responseContent);
-                    succeed.InvokeGracefully();
+                    Debug.Log(response.Text);
+                    if (succeed != null)
+                    {
+                        succeed();
+                    }
+                    
                     File.Delete(fullpath);
                 }
                 else
                 {
                     EditorUtility.ClearProgressBar();
-                    EditorUtility.DisplayDialog("插件上传", "上传失败!{0}".FillFormat(responseContent), "确定");
+                    EditorUtility.DisplayDialog("插件上传", string.Format("上传失败!{0}",response.Error), "确定");
                     File.Delete(fullpath);
                 }
             });
@@ -546,13 +551,10 @@ namespace QFramework
                     {
                         if (GUILayout.Button("删除"))
                         {
-//                            EditorActionKit.ExecuteNode(new DeletePackage(item.PackageId)
-//                            {
-//                                OnEndedCallback = () => { mReadme.items.Remove(item); }
-//                            });
+                            new PackageManagerServer().DeletePackage(item.PackageId,
+                                () => { mReadme.items.Remove(item); });
                         }
                     }
-
 
                     GUILayout.EndHorizontal();
                     GUILayout.Label(item.content);
@@ -566,18 +568,10 @@ namespace QFramework
         }
     }
 
-    public class InstallPackage : NodeAction
+    public static class InstallPackage
     {
-        private PackageData mRequestPackageData;
-
-        public InstallPackage(PackageData requestPackageData)
+        public static void Do(PackageData mRequestPackageData)
         {
-            mRequestPackageData = requestPackageData;
-        }
-
-        protected override void OnBegin()
-        {
-            base.OnBegin();
 
             var tempFile = "Assets/" + mRequestPackageData.Name + ".unitypackage";
 
@@ -585,41 +579,40 @@ namespace QFramework
 
             EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
 
-//            var progressListener = new ScheduledNotifier<float>();
-//
-//            ObservableWWW.GetAndGetBytes(mRequestPackageData.DownloadUrl, null, progressListener)
-//                .Subscribe(bytes =>
-//                {
-//                    File.WriteAllBytes(tempFile, bytes);
-//
-//                    EditorUtility.ClearProgressBar();
-//
-//                    AssetDatabase.ImportPackage(tempFile, false);
-//
-//                    File.Delete(tempFile);
-//
-//                    mRequestPackageData.SaveVersionFile();
-//
-//                    AssetDatabase.Refresh();
-//
-//                    Log.I("PackageManager:插件下载成功");
-//
-//                    InstalledPackageVersions.Reload();
-//                }, e =>
-//                {
-//                    EditorUtility.ClearProgressBar();
-//
-//                    EditorUtility.DisplayDialog(mRequestPackageData.Name,
-//                        "插件安装失败,请联系 liangxiegame@163.com 或者加入 QQ 群:623597263" + e.ToString() + ";", "OK");
-//                });
+            EditorHttp.Download(mRequestPackageData.DownloadUrl, response =>
+            {
+                if (response.Type == ResponseType.SUCCEED)
+                {
+                    File.WriteAllBytes(tempFile, response.Bytes);
 
-//            progressListener.Subscribe(OnProgressChanged);
+                    EditorUtility.ClearProgressBar();
+
+                    AssetDatabase.ImportPackage(tempFile, false);
+
+                    File.Delete(tempFile);
+
+                    mRequestPackageData.SaveVersionFile();
+
+                    AssetDatabase.Refresh();
+
+                    Log.I("PackageManager:插件下载成功");
+
+                    InstalledPackageVersions.Reload();
+                }
+                else
+                {
+                    EditorUtility.ClearProgressBar();
+
+                    EditorUtility.DisplayDialog(mRequestPackageData.Name,
+                        "插件安装失败,请联系 liangxiegame@163.com 或者加入 QQ 群:623597263" + response.Error + ";", "OK");
+                }
+            }, OnProgressChanged);
         }
 
-        private void OnProgressChanged(float progress)
+        private static void OnProgressChanged(float progress)
         {
             EditorUtility.DisplayProgressBar("插件更新",
-                "插件下载中 {0:P2}".FillFormat(progress), progress);
+                string.Format("插件下载中 {0:P2}", progress), progress);
         }
     }
 
@@ -644,10 +637,11 @@ namespace QFramework
             var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
                 name => name.EndsWith("PackageVersion.json"));
 
-            versionFiles.ForEach(fileName =>
+            foreach (var fileName in versionFiles)
             {
-                mPackageVersions.Add(SerializeHelper.LoadJson<PackageVersion>(fileName));
-            });
+                var text = File.ReadAllText(fileName);
+                mPackageVersions.Add(JsonUtility.FromJson<PackageVersion>(text));
+            }
         }
 
         public static PackageVersion FindVersionByName(string name)
@@ -683,16 +677,16 @@ namespace QFramework
         {
             get
             {
-                if (version.IsNullOrEmpty())
+                if (string.IsNullOrEmpty(version))
                 {
                     return 0;
                 }
 
-                var numbersStr = version.RemoveString("v").Split('.');
+                var numbersStr = version.Replace("v", string.Empty).Split('.');
 
-                var retNumber = numbersStr[2].ToInt();
-                retNumber += numbersStr[1].ToInt() * 100;
-                retNumber += numbersStr[0].ToInt() * 10000;
+                var retNumber = numbersStr[2].ParseToInt();
+                retNumber += numbersStr[1].ParseToInt() * 100;
+                retNumber += numbersStr[0].ParseToInt() * 10000;
 
                 return retNumber;
             }
@@ -793,11 +787,11 @@ namespace QFramework
         {
             get
             {
-                var numbersStr = version.RemoveString("v").Split('.');
+                var numbersStr = version.Replace("v",string.Empty).Split('.');
 
-                var retNumber = numbersStr[2].ToInt();
-                retNumber += numbersStr[1].ToInt() * 100;
-                retNumber += numbersStr[0].ToInt() * 10000;
+                var retNumber = numbersStr[2].ParseToInt();
+                retNumber += numbersStr[1].ParseToInt() * 100;
+                retNumber += numbersStr[0].ParseToInt() * 10000;
                 return retNumber;
             }
         }
@@ -833,11 +827,21 @@ namespace QFramework
     [Serializable]
     public class PackageVersion
     {
-        public string Id { get; set; }
+        public string Id;
 
         public string Name
         {
-            get { return InstallPath.IsNotNullAndEmpty() ? InstallPath.GetLastDirName() : ""; }
+            get
+            {
+                if (!string.IsNullOrEmpty(InstallPath))
+                {
+                    var names = InstallPath.Split('/');
+
+                    return names[names.Length - 2];
+                }
+
+                return string.Empty;
+            }
         }
 
         public string Version = "v0.0.0";
@@ -850,11 +854,11 @@ namespace QFramework
         {
             get
             {
-                var numbersStr = Version.RemoveString("v").Split('.');
+                var numbersStr = Version.Replace("v",string.Empty).Split('.');
 
-                var retNumber = numbersStr[2].ToInt();
-                retNumber += numbersStr[1].ToInt() * 100;
-                retNumber += numbersStr[0].ToInt() * 10000;
+                var retNumber = numbersStr[2].ParseToInt();
+                retNumber += numbersStr[1].ParseToInt() * 100;
+                retNumber += numbersStr[0].ParseToInt() * 10000;
 
                 return retNumber;
             }
@@ -875,7 +879,14 @@ namespace QFramework
 
         public void Save()
         {
-            this.SaveJson(InstallPath.CreateDirIfNotExists() + "/PackageVersion.json");
+            var json = JsonUtility.ToJson(this);
+
+            if (!Directory.Exists(InstallPath))
+            {
+                Directory.CreateDirectory(InstallPath);
+            }
+
+            File.WriteAllText(InstallPath + "/PackageVersion.json", json);
         }
 
         public static PackageVersion Load(string filePath)
@@ -889,7 +900,22 @@ namespace QFramework
                 filePath += "/PackageVersion.json";
             }
 
-            return SerializeHelper.LoadJson<PackageVersion>(filePath);
+            return JsonUtility.FromJson<PackageVersion>(File.ReadAllText(filePath));
+        }
+    }
+
+    public static class PackageKitExtension
+    {
+        /// <summary>
+        /// 解析成数字类型
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="defaulValue"></param>
+        /// <returns></returns>
+        public static int ParseToInt(this string selfStr, int defaulValue = 0)
+        {
+            var retValue = defaulValue;
+            return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
         }
     }
 
@@ -960,7 +986,7 @@ namespace QFramework
                 .Width(80)
                 .AddTo(this);
 
-            if (mPackageData.DocUrl.IsNotNullAndEmpty())
+            if (!string.IsNullOrEmpty(mPackageData.DocUrl))
             {
                 new ButtonView(LocaleText.Doc, () => { }).AddTo(this);
             }
@@ -974,7 +1000,7 @@ namespace QFramework
             {
                 new ButtonView(LocaleText.Import, () =>
                     {
-                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+                        InstallPackage.Do(mPackageData);
 
                         PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     })
@@ -982,37 +1008,46 @@ namespace QFramework
                     .AddTo(this);
             }
 
-            else if (installedPackage != null && mPackageData.VersionNumber > installedPackage.VersionNumber)
+            else if (mPackageData.VersionNumber > installedPackage.VersionNumber)
             {
                 new ButtonView(LocaleText.Update, () =>
                     {
                         var path = Application.dataPath.Replace("Assets", mPackageData.InstallPath);
 
-                        path.DeleteDirIfExists();
+                        if (Directory.Exists(path))
+                        {
+                            Directory.Delete(path,true);
+                            AssetDatabase.Refresh();
 
-                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+                        }
+
+                        InstallPackage.Do(mPackageData);
 
                         PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     })
                     .Width(90)
                     .AddTo(this);
             }
-            else if (installedPackage.IsNotNull() &&
-                     mPackageData.VersionNumber == installedPackage.VersionNumber)
+            else if (mPackageData.VersionNumber == installedPackage.VersionNumber)
             {
                 new ButtonView(LocaleText.Reimport, () =>
                     {
                         var path = Application.dataPath.Replace("Assets", mPackageData.InstallPath);
 
-                        path.DeleteDirIfExists();
-
-                        EditorActionKit.ExecuteNode(new InstallPackage(mPackageData));
+                        if (Directory.Exists(path))
+                        {
+                            Directory.Delete(path,true);
+                            AssetDatabase.Refresh();
+                        }
+                        
+                        InstallPackage.Do(mPackageData);
+                        
                         PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     })
                     .Width(90)
                     .AddTo(this);
             }
-            else if (installedPackage != null)
+            else if (mPackageData.VersionNumber < installedPackage.VersionNumber)
             {
                 new SpaceView(94).AddTo(this);
             }
@@ -1162,6 +1197,7 @@ namespace QFramework
         }
     }
 
+    [Serializable]
     public class PackageInfosRequestCache
     {
         public List<PackageData> PackageDatas = new List<PackageData>();
@@ -1170,8 +1206,14 @@ namespace QFramework
         {
             get
             {
-                return (Application.dataPath + "/.qframework/PackageManager/").CreateDirIfNotExists() +
-                       "PackageInfosRequestCache.json";
+                var dirPath = Application.dataPath + "/.qframework/PackageManager/";
+
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
+
+                return dirPath + "PackageInfosRequestCache.json";
             }
         }
 
@@ -1179,7 +1221,7 @@ namespace QFramework
         {
             if (File.Exists(mFilePath))
             {
-                return SerializeHelper.LoadJson<PackageInfosRequestCache>(mFilePath);
+                return JsonUtility.FromJson<PackageInfosRequestCache>(File.ReadAllText(mFilePath));
             }
 
             return new PackageInfosRequestCache();
@@ -1187,7 +1229,7 @@ namespace QFramework
 
         public void Save()
         {
-            this.SaveJson(mFilePath);
+            File.WriteAllText(mFilePath, JsonUtility.ToJson(this));
         }
     }
 
@@ -1243,7 +1285,7 @@ namespace QFramework
 
     public class PackageManagerView : IPackageKitView
     {
-        private static readonly string EXPORT_ROOT_DIR = Application.dataPath.CombinePath("../");
+        private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath,"../");
 
         public static string ExportPaths(string exportPackageName, params string[] paths)
         {
@@ -1254,7 +1296,7 @@ namespace QFramework
                     paths[0] = paths[0].Remove(paths[0].Length - 1);
                 }
 
-                var filePath = EXPORT_ROOT_DIR.CombinePath(exportPackageName);
+                var filePath = Path.Combine(EXPORT_ROOT_DIR,exportPackageName);
                 AssetDatabase.ExportPackage(paths,
                     filePath, ExportPackageOptions.Recurse);
                 AssetDatabase.Refresh();
@@ -1279,7 +1321,11 @@ namespace QFramework
             set
             {
                 EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value);
-                mOnToolbarIndexChanged.InvokeGracefully();
+
+                if (mOnToolbarIndexChanged != null)
+                {
+                    mOnToolbarIndexChanged.Invoke();
+                }
             }
         }
 
@@ -1426,6 +1472,17 @@ namespace QFramework
         }
     }
 
+    public class EditorHttpResponse
+    {
+        public ResponseType Type;
+
+        public byte[] Bytes;
+
+        public string Text;
+
+        public string Error;
+    }
+    
     public enum ResponseType
     {
         SUCCEED,
@@ -1438,29 +1495,67 @@ namespace QFramework
         public class EditorWWWExecuter
         {
             private WWW                          mWWW;
-            private Action<ResponseType, string> mResponse;
+            private Action<EditorHttpResponse> mResponse;
+            private Action<float> mOnProgress;
+            private bool mDownloadMode;
 
-            public EditorWWWExecuter(WWW www, Action<ResponseType, string> response)
+            public EditorWWWExecuter(WWW www, Action<EditorHttpResponse> response,Action<float> onProgress = null,bool downloadMode = false)
             {
                 mWWW = www;
                 mResponse = response;
+                mOnProgress = onProgress;
+                mDownloadMode = downloadMode;
                 EditorApplication.update += Update;
             }
 
             void Update()
             {
+
+                
                 if (mWWW != null && mWWW.isDone)
                 {
                     if (string.IsNullOrEmpty(mWWW.error))
                     {
-                        mResponse(ResponseType.SUCCEED, mWWW.text);
+                        if (mDownloadMode)
+                        {
+                            if (mOnProgress != null)
+                            {
+                                mOnProgress(1.0f);
+                            }
+                            
+                            mResponse(new EditorHttpResponse()
+                            {
+                                Type = ResponseType.SUCCEED,
+                                Bytes = mWWW.bytes
+                            });
+                        }
+                        else
+                        {
+                            mResponse(new EditorHttpResponse()
+                            {
+                                Type = ResponseType.SUCCEED,
+                                Text = mWWW.text
+                            });
+                        }
                     }
                     else
                     {
-                        mResponse(ResponseType.EXCEPTION, mWWW.error);
+                        mResponse(new EditorHttpResponse()
+                        {
+                            Type =  ResponseType.EXCEPTION,
+                            Error = mWWW.error
+                        });
                     }
 
                     Dispose();
+                }
+                
+                if (mWWW != null && mDownloadMode)
+                {
+                    if (mOnProgress != null)
+                    {
+                        mOnProgress(mWWW.progress);
+                    }
                 }
             }
 
@@ -1472,16 +1567,21 @@ namespace QFramework
                 EditorApplication.update -= Update;
             }
         }
+        
 
-
-        public static void Get(string url, Action<ResponseType, string> response)
+        public static void Get(string url, Action<EditorHttpResponse> response)
         {
             new EditorWWWExecuter(new WWW(url), response);
         }
 
-        public static void Post(string url, WWWForm form, Action<ResponseType, string> response)
+        public static void Post(string url, WWWForm form, Action<EditorHttpResponse> response)
         {
             new EditorWWWExecuter(new WWW(url, form), response);
+        }
+        
+        public static void Download(string url, Action<EditorHttpResponse> response,Action<float> onProgress = null)
+        {
+            new EditorWWWExecuter(new WWW(url), response,onProgress,true);
         }
     }
 
@@ -2940,80 +3040,7 @@ namespace Dependencies.PackageKit
 
             return result;
         }
-
-        public static string GetStrMD5Value(string str)
-        {
-            MD5CryptoServiceProvider md5CSP = new MD5CryptoServiceProvider();
-            byte[] retVal = md5CSP.ComputeHash(Encoding.Default.GetBytes(str));
-            string retStr = "";
-
-            for (int i = 0; i < retVal.Length; i++)
-            {
-                retStr += retVal[i].ToString("x2");
-            }
-
-            return retStr;
-        }
-
-        public static List<Object> GetDirSubAssetsList(string dirAssetsPath, bool isRecursive = true,
-            string suffix = "", bool isLoadAll = false)
-        {
-            string dirABSPath = ABSPath2AssetsPath(dirAssetsPath);
-            Debug.Log(dirABSPath);
-            List<string> assetsABSPathList = dirABSPath.GetDirSubFilePathList(isRecursive, suffix);
-            List<Object> resultObjectList = new List<Object>();
-
-            for (int i = 0; i < assetsABSPathList.Count; ++i)
-            {
-                Debug.Log(assetsABSPathList[i]);
-                if (isLoadAll)
-                {
-                    Object[] objs = AssetDatabase.LoadAllAssetsAtPath(ABSPath2AssetsPath(assetsABSPathList[i]));
-                    resultObjectList.AddRange(objs);
-                }
-                else
-                {
-                    Object obj = AssetDatabase.LoadAssetAtPath<Object>(ABSPath2AssetsPath(assetsABSPathList[i]));
-                    resultObjectList.Add(obj);
-                }
-            }
-
-            return resultObjectList;
-        }
-
-        public static List<T> GetDirSubAssetsList<T>(string dirAssetsPath, bool isRecursive = true, string suffix = "",
-            bool isLoadAll = false) where T : Object
-        {
-            List<T> result = new List<T>();
-            List<Object> objectList = GetDirSubAssetsList(dirAssetsPath, isRecursive, suffix, isLoadAll);
-
-            for (int i = 0; i < objectList.Count; ++i)
-            {
-                if (objectList[i] is T)
-                {
-                    result.Add(objectList[i] as T);
-                }
-            }
-
-            return result;
-        }
-
-        public static string GetSelectedDirAssetsPath()
-        {
-            string path = string.Empty;
-
-            foreach (Object obj in Selection.GetFiltered(typeof(Object), SelectionMode.Assets))
-            {
-                path = AssetDatabase.GetAssetPath(obj);
-                if (!string.IsNullOrEmpty(path) && File.Exists(path))
-                {
-                    path = Path.GetDirectoryName(path);
-                    break;
-                }
-            }
-
-            return path;
-        }
+        
 
         public static string StringTrim(string str, params char[] trimer)
         {
@@ -3128,7 +3155,7 @@ namespace Dependencies.PackageKit
             foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
             {
                 path = AssetDatabase.GetAssetPath(obj);
-                if (path.IsNotNullAndEmpty() && File.Exists(path))
+                if (!string.IsNullOrEmpty(path) && File.Exists(path))
                 {
                 }
             }
@@ -3527,7 +3554,7 @@ namespace Dependencies.PackageKit
         }
     }
 
-    internal interface IQFrameworkContainer
+    public interface IQFrameworkContainer
     {
         /// <summary>
         /// Clears all type mappings and instances.
@@ -3635,7 +3662,7 @@ namespace Dependencies.PackageKit
     /// <summary>
     /// A ViewModel Container and a factory for Controllers and commands.
     /// </summary>
-    internal class QFrameworkContainer : IQFrameworkContainer
+    public class QFrameworkContainer : IQFrameworkContainer
     {
         private TypeInstanceCollection _instances;
         private TypeMappingCollection  _mappings;
@@ -3955,7 +3982,7 @@ namespace Dependencies.PackageKit
     }
 
     // http://stackoverflow.com/questions/1171812/multi-key-dictionary-in-c
-    internal class Tuple<T1, T2> //FUCKING Unity: struct is not supported in Mono
+    public class Tuple<T1, T2> //FUCKING Unity: struct is not supported in Mono
     {
         public readonly T1 Item1;
         public readonly T2 Item2;
@@ -4004,7 +4031,7 @@ namespace Dependencies.PackageKit
     }
 
     // Kanglai: Using Dictionary rather than List!
-    internal class TypeMappingCollection : Dictionary<Tuple<Type, string>, Type>
+    public class TypeMappingCollection : Dictionary<Tuple<Type, string>, Type>
     {
         public Type this[Type from, string name = null]
         {
@@ -4027,7 +4054,7 @@ namespace Dependencies.PackageKit
         }
     }
 
-    internal class TypeInstanceCollection : Dictionary<Tuple<Type, string>, object>
+    public class TypeInstanceCollection : Dictionary<Tuple<Type, string>, object>
     {
         public object this[Type from, string name = null]
         {
@@ -4050,7 +4077,7 @@ namespace Dependencies.PackageKit
         }
     }
 
-    internal class TypeRelationCollection : Dictionary<Tuple<Type, Type>, Type>
+    public class TypeRelationCollection : Dictionary<Tuple<Type, Type>, Type>
     {
         public Type this[Type from, Type to]
         {

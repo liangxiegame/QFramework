@@ -24,9 +24,9 @@
  ****************************************************************************/
 
 using System;
+using QFramework;
 using UniRx;
 using UnityEngine;
-using Newtonsoft.Json.Linq;
 
 
 namespace QF
@@ -36,6 +36,12 @@ namespace QF
         private static string URL
         {
             get { return "https://api.liangxiegame.com/qf/v4/token"; }
+        }
+
+        [Serializable]
+        public class ResultFormatData
+        {
+            public string token;
         }
 
         public static void DoGetToken(string username, string password, Action<string> onTokenGetted)
@@ -49,13 +55,13 @@ namespace QF
                 {
                     Debug.Log(response);
 
-                    var responseJson = JObject.Parse(response);
+                    var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<ResultFormatData>>(response);
 
-                    var code = responseJson["code"].Value<int>();
+                    var code = responseJson.code;
 
                     if (code == 1)
                     {
-                        var token = responseJson["data"]["token"].Value<string>();
+                        var token = responseJson.data.token;
                         onTokenGetted(token);
                     }
                 });

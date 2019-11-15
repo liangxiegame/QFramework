@@ -77,7 +77,8 @@ namespace QFramework
 				}
 			}
 
-			var frameworkConfigData = SerializeHelper.LoadJson<UIKitSettingData>(mConfigSavedDir + mConfigSavedFileName);
+			var frameworkConfigData =
+				JsonUtility.FromJson<UIKitSettingData>(File.ReadAllText(mConfigSavedDir + mConfigSavedFileName));
 
 			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
 			{
@@ -89,7 +90,7 @@ namespace QFramework
 
 		public void Save()
 		{
-			this.SaveJson(mConfigSavedDir + mConfigSavedFileName);
+			File.WriteAllText(mConfigSavedDir + mConfigSavedFileName,JsonUtility.ToJson(this));
 			AssetDatabase.Refresh();
 		}
 	}

@@ -23,8 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF;
-using QF.Editor;
 
 namespace QFramework {
     public class UIKitSettingView : VerticalLayout, IPackageKitView {

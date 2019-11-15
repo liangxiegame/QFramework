@@ -1024,49 +1024,6 @@ namespace QFramework
             return retStr;
         }
 
-        public static List<Object> GetDirSubAssetsList(string dirAssetsPath, bool isRecursive = true,
-            string suffix = "", bool isLoadAll = false)
-        {
-            string dirABSPath = ABSPath2AssetsPath(dirAssetsPath);
-            Debug.Log(dirABSPath);
-            List<string> assetsABSPathList = dirABSPath.GetDirSubFilePathList(isRecursive, suffix);
-            List<Object> resultObjectList = new List<Object>();
-
-            for (int i = 0; i < assetsABSPathList.Count; ++i)
-            {
-                Debug.Log(assetsABSPathList[i]);
-                if (isLoadAll)
-                {
-                    Object[] objs = AssetDatabase.LoadAllAssetsAtPath(ABSPath2AssetsPath(assetsABSPathList[i]));
-                    resultObjectList.AddRange(objs);
-                }
-                else
-                {
-                    Object obj = AssetDatabase.LoadAssetAtPath<Object>(ABSPath2AssetsPath(assetsABSPathList[i]));
-                    resultObjectList.Add(obj);
-                }
-            }
-
-            return resultObjectList;
-        }
-
-        public static List<T> GetDirSubAssetsList<T>(string dirAssetsPath, bool isRecursive = true, string suffix = "",
-            bool isLoadAll = false) where T : Object
-        {
-            List<T> result = new List<T>();
-            List<Object> objectList = GetDirSubAssetsList(dirAssetsPath, isRecursive, suffix, isLoadAll);
-
-            for (int i = 0; i < objectList.Count; ++i)
-            {
-                if (objectList[i] is T)
-                {
-                    result.Add(objectList[i] as T);
-                }
-            }
-
-            return result;
-        }
-
         public static string GetSelectedDirAssetsPath()
         {
             string path = string.Empty;
@@ -1197,7 +1154,7 @@ namespace QFramework
             foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
             {
                 path = AssetDatabase.GetAssetPath(obj);
-                if (path.IsNotNullAndEmpty() && File.Exists(path))
+                if (!string.IsNullOrEmpty(path) && File.Exists(path))
                 {
                 }
             }
