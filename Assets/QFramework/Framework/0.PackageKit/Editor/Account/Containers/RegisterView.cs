@@ -7,28 +7,21 @@ namespace QF.Editor
     {
         public RegisterView()
         {
-            AccountModel.Subject.StartWith(AccountModel.State)
-                .Subscribe(state =>
-                {
-                    this.Clear();
+            var usernameLine = new HorizontalLayout().AddTo(this);
+            new LabelView("username:").AddTo(usernameLine);
+            new TextView("").AddTo(usernameLine);
 
-                    var usernameLine = new HorizontalLayout().AddTo(this);
-                    new LabelView("username:").AddTo(usernameLine);
-                    new TextView("").AddTo(usernameLine);
+            var passwordLine = new HorizontalLayout().AddTo(this);
 
-                    var passwordLine = new HorizontalLayout().AddTo(this);
+            new LabelView("password:").AddTo(passwordLine);
 
-                    new LabelView("password:").AddTo(passwordLine);
-                    
-                    new TextView("").PasswordMode().AddTo(passwordLine);
+            new TextView("").PasswordMode().AddTo(passwordLine);
 
-                    new ButtonView("注册", () =>
-                    {
-                        
-                    }).AddTo(this);
-                    new ButtonView("返回注册", () => { AccountModel.Dispatch("setLoginView", true); })
-                        .AddTo(this);
-                });
+            new ButtonView("注册", () => { }).AddTo(this);
+            
+            
+            new ButtonView("返回注册", () => { TypeEventSystem.Send<IPackageLoginCommand>(new OpenRegisterView()); })
+                .AddTo(this);
         }
     }
 }

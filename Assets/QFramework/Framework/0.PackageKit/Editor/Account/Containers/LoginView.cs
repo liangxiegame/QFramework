@@ -11,36 +11,34 @@ namespace QF.Editor
 
         public LoginView()
         {
-            AccountModel.Subject
-                .StartWith(AccountModel.State)
-                .Subscribe(state =>
-                {
-                    this.Clear();
+            var usernameLine = new HorizontalLayout().AddTo(this);
+            new LabelView("username:").AddTo(usernameLine);
+            new TextView(Username)
+                .AddTo(usernameLine)
+                .Content.Bind(username => Username = username);
 
-                    var usernameLine = new HorizontalLayout().AddTo(this);
-                    new LabelView("username:").AddTo(usernameLine);
-                    new TextView(Username)
-                        .AddTo(usernameLine)
-                        .Content.Bind(username => Username = username);
+            var passwordLine = new HorizontalLayout().AddTo(this);
 
-                    var passwordLine = new HorizontalLayout().AddTo(this);
+            new LabelView("password:").AddTo(passwordLine);
+            new TextView("").PasswordMode().AddTo(passwordLine)
+                .Content.Bind(password => Password = password);
 
-                    new LabelView("password:").AddTo(passwordLine);
-                    new TextView("").PasswordMode().AddTo(passwordLine)
-                        .Content.Bind(password => Password = password);
-
-                    new ButtonView("登录", () =>
+            new ButtonView("登录",
+                    () =>
                     {
-                        AccountModel.Effects.Login(Username,Password);
-                    }).AddTo(this);
+                        this.PushCommand(() =>
+                            {
+                                TypeEventSystem.Send<IPackageLoginCommand>(new LoginCommand(Username, Password));
+                            });
+                    })
+                .AddTo(this);
 
-                    new ButtonView("注册", () =>
-                        {
-                          Application.OpenURL("http://master.liangxiegame.com/user/register");  
-//                            AccountModel.Dispatch("setInLoginView", false);
-                        })
-                        .AddTo(this);
-                });
+            new ButtonView("注册", () =>
+                {
+                    Application.OpenURL("http://master.liangxiegame.com/user/register");
+                })
+                .AddTo(this);
         }
+
     }
 }

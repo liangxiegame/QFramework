@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.Internal;
 
 namespace QFramework
 {

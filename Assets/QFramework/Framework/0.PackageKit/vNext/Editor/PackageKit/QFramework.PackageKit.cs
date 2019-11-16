@@ -254,10 +254,6 @@ namespace QFramework
     
     public class GetTokenAction
     {
-        private static string URL
-        {
-            get { return "https://api.liangxiegame.com/qf/v4/token"; }
-        }
 
         [Serializable]
         public class ResultFormatData
@@ -271,7 +267,7 @@ namespace QFramework
             form.AddField("username", username);
             form.AddField("password", password);
 
-            EditorHttp.Post(URL, form, response =>
+            EditorHttp.Post("https://api.liangxiegame.com/qf/v4/token", form, response =>
             {
                 if (response.Type == ResponseType.SUCCEED)
                 {
@@ -1718,6 +1714,8 @@ namespace QFramework
         {
             base.OnGUI();
             mPackageKitViews.ForEach(view => view.OnGUI());
+            
+            RenderEndCommandExecuter.ExecuteCommand();
         }
 
         public override void OnClose()
@@ -2342,29 +2340,18 @@ namespace QFramework
             OnInit();
         }
 
-        private Queue<Action> mPrivateCommands = new Queue<Action>();
 
-        private Queue<Action> mCommands
-        {
-            get { return mPrivateCommands; }
-        }
 
         public void PushCommand(Action command)
         {
-            Debug.Log("push command");
-
-            mCommands.Enqueue(command);
+            RenderEndCommandExecuter.PushCommand(command);
         }
 
         private void OnGUI()
         {
             ViewController.View.DrawGUI();
 
-            while (mCommands.Count > 0)
-            {
-                Debug.Log(mCommands.Count);
-                mCommands.Dequeue().Invoke();
-            }
+            RenderEndCommandExecuter.ExecuteCommand();
         }
 
         public void Dispose()
@@ -2377,6 +2364,29 @@ namespace QFramework
 
         protected abstract void OnInit();
         protected abstract void OnDispose();
+    }
+
+    public class RenderEndCommandExecuter
+    {
+        private static Queue<Action> mPrivateCommands = new Queue<Action>();
+
+        private static Queue<Action> mCommands
+        {
+            get { return mPrivateCommands; }
+        }
+        
+        public static void PushCommand(Action command)
+        {
+            mCommands.Enqueue(command);
+        }
+
+        public static void ExecuteCommand()
+        {
+            while (mCommands.Count > 0)
+            {
+                mCommands.Dequeue().Invoke();
+            }
+        }
     }
 
 
@@ -2625,7 +2635,7 @@ namespace QFramework
     {
         public static T PushCommand<T>(this T view, Action command) where T : IView
         {
-            Window.MainWindow.PushCommand(command);
+            RenderEndCommandExecuter.PushCommand(command);
             return view;
         }
     }
