@@ -15,8 +15,6 @@ namespace QFramework
 {
     public class PackageMaker : IMGUIEditorWindow
     {
-        private string mUploadResult = "";
-
         private PackageVersion mPackageVersion;
 
         private static void MakePackage()
@@ -173,7 +171,10 @@ namespace QFramework
 
                         AssetDatabase.Refresh();
 
-                        this.Publish();
+                        RenderEndCommandExecuter.PushCommand(() =>
+                        {
+                            Publish(mPackageVersion, false);
+                        });
                     }).AddTo(RootLayout);
 
                     new ButtonView("发布并删除本地", () => { }).AddTo(RootLayout);
@@ -192,7 +193,7 @@ namespace QFramework
 
             if (Progress == UploadProgress.STATE_GENERATE_COMPLETE)
             {
-                if (EditorUtility.DisplayDialog("上传结果", mUploadResult, "OK"))
+                if (EditorUtility.DisplayDialog("上传结果", UpdateResult, "OK"))
                 {
                     AssetDatabase.Refresh();
 
@@ -208,12 +209,7 @@ namespace QFramework
             public const byte STATE_GENERATE_UPLOADING = 2;
             public const byte STATE_GENERATE_COMPLETE  = 3;
         }
-
-        public void Publish()
-        {
-            Publish(mPackageVersion, false);
-        }
-
+        
         public string UpdateResult  = "";
         public string NoticeMessage = "";
         public byte   Progress      = UploadProgress.STATE_GENERATE_INIT;
@@ -237,6 +233,7 @@ namespace QFramework
                 OnRefresh();
             });
         }
+        
 
         private void OnEnable()
         {
@@ -262,6 +259,7 @@ namespace QFramework
         public override void OnUpdate()
         {
         }
+        
 
         public override void OnClose()
         {
@@ -288,6 +286,8 @@ namespace QFramework
             base.OnGUI();
 
             RootLayout.DrawGUI();
+            
+            RenderEndCommandExecuter.ExecuteCommand();
         }
 
         private static void ShowErrorMsg(string content)
