@@ -25,7 +25,6 @@ namespace QF.GraphDesigner.Unity.KoinoniaSystem
 {
 
     public class KoinoniaSystem : DiagramPlugin, 
-        IExecuteCommand<LoginCommand>, 
         IExecuteCommand<QueueRevisionForInstallCommand>,
         IExecuteCommand<QueueRevisionForUninstallCommand>,
         IExecuteCommand<PingServerCommand>,

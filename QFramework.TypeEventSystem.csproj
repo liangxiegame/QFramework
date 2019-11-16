@@ -216,8 +216,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\vNext\Runtime\TypeEventSystem\QFramework.TypeEventSystem.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\vNext\Runtime\TypeEventSystem\QFramework.TypeEventSystem.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\TypeEventSystem\QFramework.TypeEventSystem.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\TypeEventSystem\QFramework.TypeEventSystem.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

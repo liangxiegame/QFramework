@@ -5,8 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
-using System.Threading;
-using QFramework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -15,7 +13,576 @@ using Debug = UnityEngine.Debug;
 
 namespace QFramework
 {
-    using Dependencies.PackageKit;
+    public class PackageMaker : IMGUIEditorWindow
+    {
+        private string mUploadResult = "";
+
+        private PackageVersion mPackageVersion;
+
+        private static void MakePackage()
+        {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (!string.IsNullOrEmpty(path))
+            {
+                if (Directory.Exists(path))
+                {
+                    var installPath = string.Empty;
+
+                    if (path.EndsWith("/"))
+                    {
+                        installPath = path;
+                    }
+                    else
+                    {
+                        installPath = path + "/";
+                    }
+
+                    new PackageVersion
+                    {
+                        InstallPath = installPath,
+                        Version = "v0.0.0"
+                    }.Save();
+
+                    AssetDatabase.Refresh();
+                }
+            }
+        }
+
+        [MenuItem("Assets/@QPM - Publish Package", true)]
+        static bool ValiedateExportPackage()
+        {
+            return User.Logined;
+        }
+
+        [MenuItem("Assets/@QPM - Publish Package", priority = 2)]
+        public static void publishPackage()
+        {
+            if (Application.internetReachability == NetworkReachability.NotReachable)
+            {
+                EditorUtility.DisplayDialog("Package Manager", "请连接网络", "确定");
+                return;
+            }
+
+            var selectObject = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets);
+
+            if (selectObject == null || selectObject.Length > 1)
+            {
+                return;
+            }
+
+            if (!EditorUtility.IsPersistent(selectObject[0]))
+            {
+                return;
+            }
+
+            var path = AssetDatabase.GetAssetPath(selectObject[0]);
+
+            if (!Directory.Exists(path))
+            {
+                return;
+            }
+
+            var mInstance = (PackageMaker) GetWindow(typeof(PackageMaker), true);
+
+            mInstance.titleContent = new GUIContent(selectObject[0].name);
+
+            mInstance.position = new Rect(Screen.width / 2, Screen.height / 2, 258, 500);
+
+            mInstance.Show();
+        }
+
+        private VerticalLayout RootLayout = null;
+
+        protected override void Init()
+        {
+            RootLayout = new VerticalLayout("box");
+
+            OnRefresh();
+        }
+
+        public void OnRefresh()
+        {
+            if (Progress == UploadProgress.STATE_GENERATE_INIT)
+            {
+                RootLayout.Clear();
+
+                // 当前版本号
+                var versionLine = new HorizontalLayout().AddTo(RootLayout);
+                new LabelView("当前版本号").Width(100).AddTo(versionLine);
+                new LabelView(mPackageVersion.Version).Width(100).AddTo(versionLine);
+
+                // 发布版本号 
+                var publishedVertionLine = new HorizontalLayout().AddTo(RootLayout);
+                new LabelView("发布版本号").Width(100).AddTo(publishedVertionLine);
+                new TextView(mVersionText).Width(100).AddTo(publishedVertionLine)
+                    .Content.Bind(content => mVersionText = content);
+
+
+                var typeLine = new HorizontalLayout().AddTo(RootLayout);
+                new LabelView("类型").Width(100).AddTo(typeLine);
+
+                new EnumPopupView(mPackageVersion.Type).AddTo(typeLine)
+                    .ValueProperty.Bind(value => mPackageVersion.Type = (PackageType) value);
+
+
+                var accessRightLine = new HorizontalLayout().AddTo(RootLayout);
+
+                new LabelView("权限").Width(100).AddTo(accessRightLine);
+
+                new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine)
+                    .ValueProperty.Bind(v => mPackageVersion.AccessRight = (PackageAccessRight) v);
+
+                new LabelView("发布说明:").Width(150).AddTo(RootLayout);
+
+                new TextAreaView(mReleaseNote).Width(250).Height(300).AddTo(RootLayout)
+                    .Content.Bind(releaseNote => mReleaseNote = releaseNote);
+
+                var docLine = new HorizontalLayout().AddTo(RootLayout);
+
+                new LabelView("文档地址:").Width(52).AddTo(docLine);
+                new TextView(mPackageVersion.DocUrl).Width(150).AddTo(docLine)
+                    .Content.Bind(value => mPackageVersion.DocUrl = value);
+
+                new ButtonView("Paste", () => { mPackageVersion.DocUrl = GUIUtility.systemCopyBuffer; }).AddTo(
+                    docLine);
+
+
+                if (User.Logined)
+                {
+                    new ButtonView("发布", () =>
+                    {
+                        if (mReleaseNote.Length < 2)
+                        {
+                            ShowErrorMsg("请输入版本修改说明");
+                            return;
+                        }
+
+                        if (!IsVersionValide(mVersionText))
+                        {
+                            ShowErrorMsg("请输入正确的版本号");
+                            return;
+                        }
+
+                        mPackageVersion.Version = mVersionText;
+                        mPackageVersion.Readme = new ReleaseItem(mVersionText, mReleaseNote,
+                            User.Username.Value,
+                            DateTime.Now);
+
+                        mPackageVersion.Save();
+
+                        AssetDatabase.Refresh();
+
+                        this.Publish();
+                    }).AddTo(RootLayout);
+
+                    new ButtonView("发布并删除本地", () => { }).AddTo(RootLayout);
+                }
+            }
+            else
+            {
+                RootLayout.Clear();
+
+                new CustomView(() =>
+                {
+                    EditorGUI.LabelField(new Rect(100, 200, 200, 200), NoticeMessage,
+                        EditorStyles.boldLabel);
+                }).AddTo(RootLayout);
+            }
+
+            if (Progress == UploadProgress.STATE_GENERATE_COMPLETE)
+            {
+                if (EditorUtility.DisplayDialog("上传结果", mUploadResult, "OK"))
+                {
+                    AssetDatabase.Refresh();
+
+                    Progress = UploadProgress.STATE_GENERATE_INIT;
+                    Close();
+                }
+            }
+        }
+
+        public class UploadProgress
+        {
+            public const byte STATE_GENERATE_INIT      = 0;
+            public const byte STATE_GENERATE_UPLOADING = 2;
+            public const byte STATE_GENERATE_COMPLETE  = 3;
+        }
+
+        public void Publish()
+        {
+            Publish(mPackageVersion, false);
+        }
+
+        public string UpdateResult  = "";
+        public string NoticeMessage = "";
+        public byte   Progress      = UploadProgress.STATE_GENERATE_INIT;
+
+        public void Publish(PackageVersion packageVersion, bool deleteLocal)
+        {
+            NoticeMessage = "插件上传中,请稍后...";
+            Progress = UploadProgress.STATE_GENERATE_UPLOADING;
+
+            OnRefresh();
+            UploadPackage.DoUpload(packageVersion, () =>
+            {
+                if (deleteLocal)
+                {
+                    Directory.Delete(packageVersion.InstallPath, true);
+                    AssetDatabase.Refresh();
+                }
+
+                UpdateResult = "上传成功";
+                Progress = UploadProgress.STATE_GENERATE_COMPLETE;
+                OnRefresh();
+            });
+        }
+
+        private void OnEnable()
+        {
+            var selectObject = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets);
+
+            if (selectObject == null || selectObject.Length > 1)
+            {
+                return;
+            }
+
+            var packageFolder = AssetDatabase.GetAssetPath(selectObject[0]);
+
+            var files = Directory.GetFiles(packageFolder, "PackageVersion.json", SearchOption.TopDirectoryOnly);
+
+            if (files.Length <= 0)
+            {
+                MakePackage();
+            }
+
+            mPackageVersion = PackageVersion.Load(packageFolder);
+        }
+
+        public override void OnUpdate()
+        {
+        }
+
+        public override void OnClose()
+        {
+        }
+
+        public static bool IsVersionValide(string version)
+        {
+            if (version == null)
+            {
+                return false;
+            }
+
+            var t = version.Split('.');
+            return t.Length == 3;
+        }
+
+
+        private string mVersionText = string.Empty;
+
+        private string mReleaseNote = string.Empty;
+
+        public override void OnGUI()
+        {
+            base.OnGUI();
+
+            RootLayout.DrawGUI();
+        }
+
+        private static void ShowErrorMsg(string content)
+        {
+            EditorUtility.DisplayDialog("error", content, "OK");
+        }
+    }
+
+    public class PackageLoginViewUpdateEvent
+    {
+        public bool Logined     { get; set; }
+        public bool InLoginView { get; set; }
+    }
+
+    public interface IPackageLoginCommand
+    {
+        void Execute();
+    }
+
+    public class LoginOutCommand : IPackageLoginCommand
+    {
+        [Inject]
+        public PackageLoginModel Model { get; set; }
+
+        public void Execute()
+        {
+            User.Clear();
+
+            TypeEventSystem.Send(new PackageLoginViewUpdateEvent()
+            {
+                Logined = Model.Logined,
+                InLoginView = Model.InLoginView
+            });
+        }
+    }
+
+    public class OpenRegisterView : IPackageLoginCommand
+    {
+        [Inject]
+        public PackageLoginModel Model { get; set; }
+
+        public void Execute()
+        {
+            Model.InLoginView = false;
+
+            TypeEventSystem.Send(new PackageLoginViewUpdateEvent()
+            {
+                Logined = Model.Logined,
+                InLoginView = Model.InLoginView
+            });
+        }
+    }
+
+
+    public class LoginCommand : IPackageLoginCommand
+    {
+        private string mUsername { get; set; }
+        private string mPassword { get; set; }
+
+        [Inject]
+        public PackageLoginModel Model { get; set; }
+
+        public LoginCommand(string username, string password)
+        {
+            mUsername = username;
+            mPassword = password;
+        }
+
+        public void Execute()
+        {
+            GetTokenAction.DoGetToken(mUsername, mPassword, token =>
+            {
+                User.Username.Value = mUsername;
+                User.Password.Value = mPassword;
+                User.Token.Value = token;
+                User.Save();
+
+                TypeEventSystem.Send(new PackageLoginViewUpdateEvent()
+                {
+                    Logined = Model.Logined,
+                    InLoginView = Model.InLoginView
+                });
+            });
+        }
+    }
+
+    public interface IPackageLoginServer
+    {
+    }
+
+    public class PackageLoginServer
+    {
+        public void Login(string username, string password)
+        {
+        }
+    }
+
+    public class PackageLoginApp
+    {
+        private IQFrameworkContainer mContainer { get; set; }
+
+        public PackageLoginApp()
+        {
+            mContainer = new QFrameworkContainer();
+
+            mContainer.RegisterInstance(new PackageLoginModel());
+
+            mContainer.Register<IPackageLoginServer, PackageLoginServer>();
+
+            TypeEventSystem.Register<IPackageLoginCommand>(OnCommandExecute);
+        }
+
+        void OnCommandExecute(IPackageLoginCommand command)
+        {
+            mContainer.Inject(command);
+            command.Execute();
+        }
+
+        public void Dispose()
+        {
+            TypeEventSystem.UnRegister<IPackageLoginCommand>(OnCommandExecute);
+
+            mContainer.Clear();
+            mContainer = null;
+        }
+    }
+
+    public class PackageLoginModel
+    {
+        public bool InLoginView = true;
+
+        public bool Logined
+        {
+            get { return User.Logined; }
+        }
+    }
+
+    public class RegisterView : VerticalLayout
+    {
+        public RegisterView()
+        {
+            var usernameLine = new HorizontalLayout().AddTo(this);
+            new LabelView("username:").AddTo(usernameLine);
+            new TextView("").AddTo(usernameLine);
+
+            var passwordLine = new HorizontalLayout().AddTo(this);
+
+            new LabelView("password:").AddTo(passwordLine);
+
+            new TextView("").PasswordMode().AddTo(passwordLine);
+
+            new ButtonView("注册", () => { }).AddTo(this);
+
+
+            new ButtonView("返回注册", () => { TypeEventSystem.Send<IPackageLoginCommand>(new OpenRegisterView()); })
+                .AddTo(this);
+        }
+    }
+
+    public class PackageLoginStartUpCommand : IPackageLoginCommand
+    {
+        [Inject]
+        public PackageLoginModel Model { get; set; }
+
+
+        public void Execute()
+        {
+            TypeEventSystem.Send(new PackageLoginViewUpdateEvent()
+            {
+                InLoginView = Model.InLoginView,
+                Logined = Model.Logined
+            });
+        }
+    }
+
+
+    public class PackageLoginView : VerticalLayout, IPackageKitView
+    {
+        public IQFrameworkContainer Container { get; set; }
+
+        PackageLoginApp mPackageLoginApp = new PackageLoginApp();
+
+        public int RenderOrder
+        {
+            get { return 3; }
+        }
+
+        public bool Ignore { get; private set; }
+
+        public bool Enabled
+        {
+            get { return true; }
+        }
+
+        public void Init(IQFrameworkContainer container)
+        {
+            var expendLayout = new TreeNode(false, LocaleText.UserInfo)
+                .AddTo(this);
+
+            mRefreshLayout = new VerticalLayout("box");
+
+            expendLayout.Add2Spread(mRefreshLayout);
+
+            TypeEventSystem.Register<PackageLoginViewUpdateEvent>(OnRefresh);
+
+            TypeEventSystem.Send<IPackageLoginCommand>(new PackageLoginStartUpCommand());
+        }
+
+        private VerticalLayout mRefreshLayout;
+
+
+        void OnRefresh(PackageLoginViewUpdateEvent updateEvent)
+        {
+            mRefreshLayout.Clear();
+
+            if (updateEvent.Logined)
+            {
+                new ButtonView("注销",
+                    () =>
+                    {
+                        this.PushCommand(() => { TypeEventSystem.Send<IPackageLoginCommand>(new LoginOutCommand()); });
+                    }).AddTo(mRefreshLayout);
+            }
+            else
+            {
+                if (updateEvent.InLoginView)
+                {
+                    new LoginView().AddTo(mRefreshLayout);
+                }
+                else
+                {
+                    new RegisterView().AddTo(mRefreshLayout);
+                }
+            }
+        }
+
+        void IPackageKitView.OnUpdate()
+        {
+        }
+
+        public void OnGUI()
+        {
+            this.DrawGUI();
+        }
+
+
+        public class LocaleText
+        {
+            public static string UserInfo
+            {
+                get { return Language.IsChinese ? "用户信息" : "User Info"; }
+            }
+        }
+
+        public void OnDispose()
+        {
+            TypeEventSystem.UnRegister<PackageLoginViewUpdateEvent>(OnRefresh);
+            mPackageLoginApp.Dispose();
+            mPackageLoginApp = null;
+        }
+    }
+
+    public class LoginView : VerticalLayout
+    {
+        public string Username = "";
+        public string Password = "";
+
+        public LoginView()
+        {
+            var usernameLine = new HorizontalLayout().AddTo(this);
+            new LabelView("username:").AddTo(usernameLine);
+            new TextView(Username)
+                .AddTo(usernameLine)
+                .Content.Bind(username => Username = username);
+
+            var passwordLine = new HorizontalLayout().AddTo(this);
+
+            new LabelView("password:").AddTo(passwordLine);
+            new TextView("").PasswordMode().AddTo(passwordLine)
+                .Content.Bind(password => Password = password);
+
+            new ButtonView("登录",
+                    () =>
+                    {
+                        this.PushCommand(() =>
+                        {
+                            TypeEventSystem.Send<IPackageLoginCommand>(new LoginCommand(Username, Password));
+                        });
+                    })
+                .AddTo(this);
+
+            new ButtonView("注册", () => { Application.OpenURL("http://master.liangxiegame.com/user/register"); })
+                .AddTo(this);
+        }
+    }
 
     /// <summary>
     /// some net work util
@@ -43,7 +610,7 @@ namespace QFramework
             }
 #endif
 #endif
-            
+
 #if UNITY_IPHONE
             NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces(); ;  
             foreach (NetworkInterface adapter in adapters)  
@@ -63,7 +630,7 @@ namespace QFramework
                         }  
                     }  
                 }  
-            }  
+            }
 #endif
             return AddressIP;
         }
@@ -73,141 +640,140 @@ namespace QFramework
             get { return Application.internetReachability != NetworkReachability.NotReachable; }
         }
     }
-    
+
     [InitializeOnLoad]
-	public class PackageCheck
-	{
-		enum CheckStatus
-		{
-			WAIT,
-			COMPARE,
-			NONE
-		}
+    public class PackageCheck
+    {
+        enum CheckStatus
+        {
+            WAIT,
+            COMPARE,
+            NONE
+        }
 
-		private CheckStatus mCheckStatus;
+        private CheckStatus mCheckStatus;
 
-		private double mNextCheckTime = 0;
+        private double mNextCheckTime = 0;
 
-		private double mCheckInterval = 60;
-
-
-		static PackageCheck()
-		{
-			if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
-			{
-				PackageCheck packageCheck = new PackageCheck()
-				{
-					mCheckStatus = CheckStatus.WAIT,
-					mNextCheckTime = EditorApplication.timeSinceStartup,
-				};
-
-				EditorApplication.update = packageCheck.CustomUpdate;
-
-			}
-		}
-
-		private void CustomUpdate()
-		{
-			// 添加网络判断
-			if (!Network.IsReachable) return;
-			
-			switch (mCheckStatus)
-			{
-				case CheckStatus.WAIT:
-					if (EditorApplication.timeSinceStartup >= mNextCheckTime)
-					{
-						mCheckStatus = CheckStatus.COMPARE;
-					}
-
-					break;
-
-				case CheckStatus.COMPARE:
-
-					ProcessCompare();
-
-					break;
-			}
-		}
+        private double mCheckInterval = 60;
 
 
-		private void GoToWait()
-		{
-			mCheckStatus = CheckStatus.WAIT;
+        static PackageCheck()
+        {
+            if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
+            {
+                PackageCheck packageCheck = new PackageCheck()
+                {
+                    mCheckStatus = CheckStatus.WAIT,
+                    mNextCheckTime = EditorApplication.timeSinceStartup,
+                };
 
-			mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
-		}
+                EditorApplication.update = packageCheck.CustomUpdate;
+            }
+        }
 
-		private bool ReCheckConfigDatas()
-		{
-			mCheckInterval = 60;
+        private void CustomUpdate()
+        {
+            // 添加网络判断
+            if (!Network.IsReachable) return;
 
-			return true;
-		}
+            switch (mCheckStatus)
+            {
+                case CheckStatus.WAIT:
+                    if (EditorApplication.timeSinceStartup >= mNextCheckTime)
+                    {
+                        mCheckStatus = CheckStatus.COMPARE;
+                    }
 
-		private void ProcessCompare()
-		{
+                    break;
+
+                case CheckStatus.COMPARE:
+
+                    ProcessCompare();
+
+                    break;
+            }
+        }
+
+
+        private void GoToWait()
+        {
+            mCheckStatus = CheckStatus.WAIT;
+
+            mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
+        }
+
+        private bool ReCheckConfigDatas()
+        {
+            mCheckInterval = 60;
+
+            return true;
+        }
+
+        private void ProcessCompare()
+        {
             if (Network.IsReachable)
             {
-	            new PackageManagerServer().GetAllRemotePackageInfo((packageDatas) =>
-	            {
-		            if (packageDatas == null)
-		            {
-			            return;
-		            }
+                new PackageManagerServer().GetAllRemotePackageInfo((packageDatas) =>
+                {
+                    if (packageDatas == null)
+                    {
+                        return;
+                    }
 
-		            if (new PackageManagerModel().VersionCheck)
-		            {
-			            CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
-		            }
-	            });
+                    if (new PackageManagerModel().VersionCheck)
+                    {
+                        CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageDatas);
+                    }
+                });
             }
-			
-			ReCheckConfigDatas();
-			GoToWait();
-		}
 
-		private static bool CheckNewVersionDialog(List<PackageData> requestPackageDatas,List<PackageData> cachedPackageDatas)
-		{
-			foreach (var requestPackageData in requestPackageDatas)
-			{
-				var cachedPacakgeData =
-					cachedPackageDatas.Find(packageData => packageData.Name == requestPackageData.Name);
+            ReCheckConfigDatas();
+            GoToWait();
+        }
 
-				var installedPackageVersion = InstalledPackageVersions.Get()
-					.Find(packageVersion => packageVersion.Name == requestPackageData.Name);
+        private static bool CheckNewVersionDialog(List<PackageData> requestPackageDatas,
+            List<PackageData> cachedPackageDatas)
+        {
+            foreach (var requestPackageData in requestPackageDatas)
+            {
+                var cachedPacakgeData =
+                    cachedPackageDatas.Find(packageData => packageData.Name == requestPackageData.Name);
 
-				if (installedPackageVersion == null)
-				{
-				}
-				else if (cachedPacakgeData == null &&
-				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
-				         cachedPacakgeData != null && requestPackageData.Installed &&
-				         requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
-				         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
-				{
+                var installedPackageVersion = InstalledPackageVersions.Get()
+                    .Find(packageVersion => packageVersion.Name == requestPackageData.Name);
 
-					ShowDisplayDialog(requestPackageData.Name);
-					return false;
-				}
-			}
+                if (installedPackageVersion == null)
+                {
+                }
+                else if (cachedPacakgeData == null &&
+                         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
+                         cachedPacakgeData != null && requestPackageData.Installed &&
+                         requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
+                         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
+                {
+                    ShowDisplayDialog(requestPackageData.Name);
+                    return false;
+                }
+            }
 
-			return true;
-		}
+            return true;
+        }
 
 
-		private static void ShowDisplayDialog(string packageName)
-		{
-			var result = EditorUtility.DisplayDialog("PackageManager",
-				string.Format("{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)",packageName),
-				"前往查看", "稍后查看");
+        private static void ShowDisplayDialog(string packageName)
+        {
+            var result = EditorUtility.DisplayDialog("PackageManager",
+                string.Format("{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)", packageName),
+                "前往查看", "稍后查看");
 
-			if (result)
-			{
-				EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
-			}
-		}
-	}
-    
+            if (result)
+            {
+                EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
+            }
+        }
+    }
+
     public static class User
     {
         public static Property<string> Username = new Property<string>(LoadString("username"));
@@ -251,10 +817,9 @@ namespace QFramework
             return EditorPrefs.GetString(key, string.Empty);
         }
     }
-    
+
     public class GetTokenAction
     {
-
         [Serializable]
         public class ResultFormatData
         {
@@ -273,7 +838,8 @@ namespace QFramework
                 {
                     Debug.Log(response.Text);
 
-                    var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<ResultFormatData>>(response.Text);
+                    var responseJson =
+                        JsonUtility.FromJson<QFrameworkServerResultFormat<ResultFormatData>>(response.Text);
 
                     var code = responseJson.code;
 
@@ -297,7 +863,7 @@ namespace QFramework
 
         void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse);
     }
-    
+
     [Serializable]
     public class QFrameworkServerResultFormat<T>
     {
@@ -310,8 +876,6 @@ namespace QFramework
 
     public class PackageManagerServer : IPackageManagerServer
     {
-
-
         public void DeletePackage(string packageId, Action onResponse)
         {
             var form = new WWWForm();
@@ -358,24 +922,25 @@ namespace QFramework
         [Serializable]
         public class ResultPackage
         {
-           public string id;
-           public string name;
-           public string version;
-           public string downloadUrl;
-           public string installPath;
-           public string releaseNote;
-           public string createAt;
-           public string username;
-           public string accessRight;
-           public string type;
+            public string id;
+            public string name;
+            public string version;
+            public string downloadUrl;
+            public string installPath;
+            public string releaseNote;
+            public string createAt;
+            public string username;
+            public string accessRight;
+            public string type;
         }
 
-        void OnResponse(EditorHttpResponse response,Action<List<PackageData>> onResponse)
+        void OnResponse(EditorHttpResponse response, Action<List<PackageData>> onResponse)
         {
             if (response.Type == ResponseType.SUCCEED)
             {
-                var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response.Text);
-                
+                var responseJson =
+                    JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response.Text);
+
                 if (responseJson.code == 1)
                 {
                     var packageInfosJson = responseJson.data;
@@ -462,15 +1027,16 @@ namespace QFramework
                         packageData.readme.items.Sort((a, b) =>
                             b.VersionNumber - a.VersionNumber);
                     });
-                    
+
                     onResponse(packageDatas);
-                    
+
                     new PackageInfosRequestCache()
                     {
                         PackageDatas = packageDatas
                     }.Save();
                 }
             }
+
             onResponse(null);
         }
     }
@@ -537,13 +1103,13 @@ namespace QFramework
                     {
                         succeed();
                     }
-                    
+
                     File.Delete(fullpath);
                 }
                 else
                 {
                     EditorUtility.ClearProgressBar();
-                    EditorUtility.DisplayDialog("插件上传", string.Format("上传失败!{0}",response.Error), "确定");
+                    EditorUtility.DisplayDialog("插件上传", string.Format("上传失败!{0}", response.Error), "确定");
                     File.Delete(fullpath);
                 }
             });
@@ -611,7 +1177,6 @@ namespace QFramework
     {
         public static void Do(PackageData mRequestPackageData)
         {
-
             var tempFile = "Assets/" + mRequestPackageData.Name + ".unitypackage";
 
             Debug.Log(mRequestPackageData.DownloadUrl + ">>>>>>:");
@@ -779,10 +1344,10 @@ namespace QFramework
     public class PackageData
     {
         public string Id;
-        
+
         public string Name = "";
 
-        
+
         public string version
         {
             get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().Version; }
@@ -790,12 +1355,18 @@ namespace QFramework
 
         public string DownloadUrl
         {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DownloadUrl; }
+            get
+            {
+                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DownloadUrl;
+            }
         }
 
         public string InstallPath
         {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().InstallPath; }
+            get
+            {
+                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().InstallPath;
+            }
         }
 
         public string DocUrl
@@ -810,7 +1381,12 @@ namespace QFramework
 
         public PackageAccessRight AccessRight
         {
-            get { return PackageVersions.FirstOrDefault() == null ? PackageAccessRight.Public : PackageVersions.First().AccessRight; }
+            get
+            {
+                return PackageVersions.FirstOrDefault() == null
+                    ? PackageAccessRight.Public
+                    : PackageVersions.First().AccessRight;
+            }
         }
 
         public Readme readme;
@@ -826,7 +1402,7 @@ namespace QFramework
         {
             get
             {
-                var numbersStr = version.Replace("v",string.Empty).Split('.');
+                var numbersStr = version.Replace("v", string.Empty).Split('.');
 
                 var retNumber = numbersStr[2].ParseToInt();
                 retNumber += numbersStr[1].ParseToInt() * 100;
@@ -893,7 +1469,7 @@ namespace QFramework
         {
             get
             {
-                var numbersStr = Version.Replace("v",string.Empty).Split('.');
+                var numbersStr = Version.Replace("v", string.Empty).Split('.');
 
                 var retNumber = numbersStr[2].ParseToInt();
                 retNumber += numbersStr[1].ParseToInt() * 100;
@@ -1055,9 +1631,8 @@ namespace QFramework
 
                         if (Directory.Exists(path))
                         {
-                            Directory.Delete(path,true);
+                            Directory.Delete(path, true);
                             AssetDatabase.Refresh();
-
                         }
 
                         InstallPackage.Do(mPackageData);
@@ -1075,12 +1650,12 @@ namespace QFramework
 
                         if (Directory.Exists(path))
                         {
-                            Directory.Delete(path,true);
+                            Directory.Delete(path, true);
                             AssetDatabase.Refresh();
                         }
-                        
+
                         InstallPackage.Do(mPackageData);
-                        
+
                         PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     })
                     .Width(90)
@@ -1207,7 +1782,7 @@ namespace QFramework
 
             // 配置命令的执行
             TypeEventSystem.Register<IEditorStrangeMVCCommand>(OnCommandExecute);
-            
+
             InstalledPackageVersions.Reload();
 
             // 注册好 model
@@ -1324,7 +1899,7 @@ namespace QFramework
 
     public class PackageManagerView : IPackageKitView
     {
-        private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath,"../");
+        private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath, "../");
 
         public static string ExportPaths(string exportPackageName, params string[] paths)
         {
@@ -1335,7 +1910,7 @@ namespace QFramework
                     paths[0] = paths[0].Remove(paths[0].Length - 1);
                 }
 
-                var filePath = Path.Combine(EXPORT_ROOT_DIR,exportPackageName);
+                var filePath = Path.Combine(EXPORT_ROOT_DIR, exportPackageName);
                 AssetDatabase.ExportPackage(paths,
                     filePath, ExportPackageOptions.Recurse);
                 AssetDatabase.Refresh();
@@ -1521,7 +2096,7 @@ namespace QFramework
 
         public string Error;
     }
-    
+
     public enum ResponseType
     {
         SUCCEED,
@@ -1533,12 +2108,13 @@ namespace QFramework
     {
         public class EditorWWWExecuter
         {
-            private WWW                          mWWW;
+            private WWW                        mWWW;
             private Action<EditorHttpResponse> mResponse;
-            private Action<float> mOnProgress;
-            private bool mDownloadMode;
+            private Action<float>              mOnProgress;
+            private bool                       mDownloadMode;
 
-            public EditorWWWExecuter(WWW www, Action<EditorHttpResponse> response,Action<float> onProgress = null,bool downloadMode = false)
+            public EditorWWWExecuter(WWW www, Action<EditorHttpResponse> response, Action<float> onProgress = null,
+                bool downloadMode = false)
             {
                 mWWW = www;
                 mResponse = response;
@@ -1549,8 +2125,6 @@ namespace QFramework
 
             void Update()
             {
-
-                
                 if (mWWW != null && mWWW.isDone)
                 {
                     if (string.IsNullOrEmpty(mWWW.error))
@@ -1561,7 +2135,7 @@ namespace QFramework
                             {
                                 mOnProgress(1.0f);
                             }
-                            
+
                             mResponse(new EditorHttpResponse()
                             {
                                 Type = ResponseType.SUCCEED,
@@ -1581,14 +2155,14 @@ namespace QFramework
                     {
                         mResponse(new EditorHttpResponse()
                         {
-                            Type =  ResponseType.EXCEPTION,
+                            Type = ResponseType.EXCEPTION,
                             Error = mWWW.error
                         });
                     }
 
                     Dispose();
                 }
-                
+
                 if (mWWW != null && mDownloadMode)
                 {
                     if (mOnProgress != null)
@@ -1606,7 +2180,7 @@ namespace QFramework
                 EditorApplication.update -= Update;
             }
         }
-        
+
 
         public static void Get(string url, Action<EditorHttpResponse> response)
         {
@@ -1617,10 +2191,10 @@ namespace QFramework
         {
             new EditorWWWExecuter(new WWW(url, form), response);
         }
-        
-        public static void Download(string url, Action<EditorHttpResponse> response,Action<float> onProgress = null)
+
+        public static void Download(string url, Action<EditorHttpResponse> response, Action<float> onProgress = null)
         {
-            new EditorWWWExecuter(new WWW(url), response,onProgress,true);
+            new EditorWWWExecuter(new WWW(url), response, onProgress, true);
         }
     }
 
@@ -1714,7 +2288,7 @@ namespace QFramework
         {
             base.OnGUI();
             mPackageKitViews.ForEach(view => view.OnGUI());
-            
+
             RenderEndCommandExecuter.ExecuteCommand();
         }
 
@@ -1972,7 +2546,7 @@ namespace QFramework
         void SystemResetting();
         void SystemRestarted();
     }
-    
+
     public class Language
     {
         public static bool IsChinese
@@ -1984,7 +2558,7 @@ namespace QFramework
             }
         }
     }
-    
+
     public abstract class IMGUIEditorWindow : EditorWindow
     {
         public static T Create<T>(bool utility, string title = null) where T : IMGUIEditorWindow
@@ -2126,7 +2700,7 @@ namespace QFramework
         {
         }
     }
-    
+
 
     public abstract class View : IView
     {
@@ -2341,7 +2915,6 @@ namespace QFramework
         }
 
 
-
         public void PushCommand(Action command)
         {
             RenderEndCommandExecuter.PushCommand(command);
@@ -2374,7 +2947,7 @@ namespace QFramework
         {
             get { return mPrivateCommands; }
         }
-        
+
         public static void PushCommand(Action command)
         {
             mCommands.Enqueue(command);
@@ -2981,7 +3554,7 @@ namespace QFramework
 
             return result;
         }
-        
+
 
         public static string StringTrim(string str, params char[] trimer)
         {
@@ -3422,7 +3995,6 @@ namespace QFramework
 
         public abstract void SetUpView();
     }
-
 }
 
 

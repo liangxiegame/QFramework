@@ -216,8 +216,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\vNext\Runtime\IOC\QFramework.IOC.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\vNext\Runtime\IOC\QFramework.IOC.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\IOC\QFramework.IOC.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\IOC\QFramework.IOC.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>

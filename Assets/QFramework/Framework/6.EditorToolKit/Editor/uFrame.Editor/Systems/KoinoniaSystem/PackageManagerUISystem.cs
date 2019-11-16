@@ -325,11 +325,6 @@ namespace QF.GraphDesigner.Unity.KoinoniaSystem
             Password = GUILayout.TextField(Password ?? "");
             if (GUILayout.Button("Login"))
             {
-                InvertApplication.ExecuteInBackground(new LoginCommand()
-                {
-                    Username = Username,
-                    Password = Password
-                });
             }
             GUILayout.EndArea();
         }
