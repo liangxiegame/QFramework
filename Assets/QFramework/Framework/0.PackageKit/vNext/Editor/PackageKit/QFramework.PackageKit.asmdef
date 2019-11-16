@@ -1,0 +1,9 @@
+{
+    "name": "QFramework.PackageKit",
+    "references": [
+        "QFramework.IOC",
+        "QFramework.TypeEventSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

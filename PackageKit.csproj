@@ -20,11 +20,11 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{71F9C117-DB5C-360C-6A16-48AF1EFD2455}</ProjectGuid>
+    <ProjectGuid>{E03EC159-F308-ABD5-3AEC-E30A6422DEBC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Redux</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <AssemblyName>PackageKit</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
@@ -216,45 +216,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\DvaState.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\EntityStateElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IMiddleware.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IReducer.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IState.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IStateChanged.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IStore.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\IStoreAccessor.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\ListStateElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\ReducerBase.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\StateElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\Store.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\StructStateElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Core\UniduxSetting.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\IPageData.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\IPageEntity.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\ISceneConfig.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\PageDuck.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\PageEntity.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\PageState.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\SceneCategory.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\SceneDuck.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\SceneState.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\SceneTransition\SceneUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\CloneUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\ColorSerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\DictionaryExtension.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\EnumUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\EqualityUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\IListExtension.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\ISerializeFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\JsonUtilSerializeFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\SingletonMonoBehaviour.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\StateUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\StructUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\Vector2SerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\Vector3SerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\Util\Vector4SerializationSurrogate.cs" />
-    <None Include="Assets\QFramework\Framework\6.DVA\Unidux\Scripts\Runtime\QF.Redux.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\vNext\Editor\PackageKit\QFramework.EditorKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\vNext\Editor\PackageKit\QFramework.PackageKit.cs" />
+    <None Include="Assets\QFramework\Framework\0.PackageKit\vNext\Editor\PackageKit\QFramework.PackageKit.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
@@ -328,10 +292,10 @@
       <HintPath>D:/Workspace/QFramework/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
     </Reference>
     <Reference Include="QFramework.Log">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/1.Core/QFramework.Log.dll</HintPath>
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/QFramework.Log.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/1.Core/3rd/Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/0.PackageKit/vNext/3rd/3rd/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ProtobufNet">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
@@ -363,12 +327,6 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{AE3B5E9B-6DB5-B90B-73F0-BD097FE57879}</Project>
-      <Name>UniRx</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

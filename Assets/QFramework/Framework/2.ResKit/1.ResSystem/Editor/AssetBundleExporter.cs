@@ -50,17 +50,7 @@ namespace QF.Res
 		}
 
 #region 指定具体文件构建
-        public static void BuildAssetBundlesInSelectFolder()
-        {
-            var selectPath = EditorUtils.GetSelectedDirAssetsPath();//.CurrentSelectFolder;
-            if (selectPath == null)
-            {
-                Log.W("Not Select Any Folder!");
-                return;
-            }
 
-            BuildAssetBundlesInFolder(selectPath);
-        }
 
         private static void BuildAssetBundlesInFolder(string folderPath)
         {

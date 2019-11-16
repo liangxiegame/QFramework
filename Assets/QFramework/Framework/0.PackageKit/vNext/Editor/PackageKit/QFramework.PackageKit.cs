@@ -251,6 +251,49 @@ namespace QFramework
             return EditorPrefs.GetString(key, string.Empty);
         }
     }
+    
+    public class GetTokenAction
+    {
+        private static string URL
+        {
+            get { return "https://api.liangxiegame.com/qf/v4/token"; }
+        }
+
+        [Serializable]
+        public class ResultFormatData
+        {
+            public string token;
+        }
+
+        public static void DoGetToken(string username, string password, Action<string> onTokenGetted)
+        {
+            var form = new WWWForm();
+            form.AddField("username", username);
+            form.AddField("password", password);
+
+            EditorHttp.Post(URL, form, response =>
+            {
+                if (response.Type == ResponseType.SUCCEED)
+                {
+                    Debug.Log(response.Text);
+
+                    var responseJson = JsonUtility.FromJson<QFrameworkServerResultFormat<ResultFormatData>>(response.Text);
+
+                    var code = responseJson.code;
+
+                    if (code == 1)
+                    {
+                        var token = responseJson.data.token;
+                        onTokenGetted(token);
+                    }
+                }
+                else if (response.Type == ResponseType.EXCEPTION)
+                {
+                    Debug.LogError(response.Error);
+                }
+            });
+        }
+    }
 
     public interface IPackageManagerServer
     {
@@ -1167,7 +1210,7 @@ namespace QFramework
             Container.RegisterInstance<IQFrameworkContainer>(Container);
 
             // 配置命令的执行
-            Dependencies.PackageKit.TypeEventSystem.Register<IEditorStrangeMVCCommand>(OnCommandExecute);
+            TypeEventSystem.Register<IEditorStrangeMVCCommand>(OnCommandExecute);
             
             InstalledPackageVersions.Reload();
 
@@ -1190,7 +1233,7 @@ namespace QFramework
 
         public void Dispose()
         {
-            Dependencies.PackageKit.TypeEventSystem.UnRegister<IEditorStrangeMVCCommand>(OnCommandExecute);
+            TypeEventSystem.UnRegister<IEditorStrangeMVCCommand>(OnCommandExecute);
 
             Container.Clear();
             Container = null;
@@ -1266,7 +1309,7 @@ namespace QFramework
 
         public void Execute()
         {
-            Dependencies.PackageKit.TypeEventSystem.Send(new PackageManagerViewUpdate()
+            TypeEventSystem.Send(new PackageManagerViewUpdate()
             {
                 PackageDatas = Model.PackageDatas,
                 VersionCheck = Model.VersionCheck
@@ -1274,7 +1317,7 @@ namespace QFramework
 
             Server.GetAllRemotePackageInfo(list =>
             {
-                Dependencies.PackageKit.TypeEventSystem.Send(new PackageManagerViewUpdate()
+                TypeEventSystem.Send(new PackageManagerViewUpdate()
                 {
                     PackageDatas = PackageInfosRequestCache.Get().PackageDatas,
                     VersionCheck = Model.VersionCheck
@@ -1388,10 +1431,10 @@ namespace QFramework
 
         public void Init(IQFrameworkContainer container)
         {
-            Dependencies.PackageKit.TypeEventSystem.Register<PackageManagerViewUpdate>(OnRefresh);
+            TypeEventSystem.Register<PackageManagerViewUpdate>(OnRefresh);
 
             // 执行
-            Dependencies.PackageKit.TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
+            TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
         }
 
         void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
@@ -1451,7 +1494,7 @@ namespace QFramework
 
         public void OnDispose()
         {
-            Dependencies.PackageKit.TypeEventSystem.UnRegister<PackageManagerViewUpdate>(OnRefresh);
+            TypeEventSystem.UnRegister<PackageManagerViewUpdate>(OnRefresh);
 
             mPackageManagerApp.Dispose();
             mPackageManagerApp = null;
@@ -1943,15 +1986,7 @@ namespace QFramework
             }
         }
     }
-}
-
-
-namespace Dependencies.PackageKit
-{
-    using Object = UnityEngine.Object;
-
-
-
+    
     public abstract class IMGUIEditorWindow : EditorWindow
     {
         public static T Create<T>(bool utility, string title = null) where T : IMGUIEditorWindow
@@ -2093,111 +2128,7 @@ namespace Dependencies.PackageKit
         {
         }
     }
-
-    public class TypeEventSystem
-    {
-        /// <summary>
-        /// 接口 只负责存储在字典中
-        /// </summary>
-        interface IRegisterations
-        {
-        }
-
-        /// <summary>
-        /// 多个注册
-        /// </summary>
-        class Registerations<T> : IRegisterations
-        {
-            /// <summary>
-            /// 不需要 List<Action<T>> 了
-            /// 因为委托本身就可以一对多注册
-            /// </summary>
-            public Action<T> OnReceives = obj => { };
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private static Dictionary<Type, IRegisterations> mTypeEventDict = new Dictionary<Type, IRegisterations>();
-
-        /// <summary>
-        /// 注册事件
-        /// </summary>
-        /// <param name="onReceive"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void Register<T>(System.Action<T> onReceive)
-        {
-            var type = typeof(T);
-
-            IRegisterations registerations = null;
-
-            if (mTypeEventDict.TryGetValue(type, out registerations))
-            {
-                var reg = registerations as Registerations<T>;
-                reg.OnReceives += onReceive;
-            }
-            else
-            {
-                var reg = new Registerations<T>();
-                reg.OnReceives += onReceive;
-                mTypeEventDict.Add(type, reg);
-            }
-        }
-
-        /// <summary>
-        /// 注销事件
-        /// </summary>
-        /// <param name="onReceive"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void UnRegister<T>(System.Action<T> onReceive)
-        {
-            var type = typeof(T);
-
-            IRegisterations registerations = null;
-
-            if (mTypeEventDict.TryGetValue(type, out registerations))
-            {
-                var reg = registerations as Registerations<T>;
-                reg.OnReceives -= onReceive;
-            }
-        }
-
-        /// <summary>
-        /// 发送事件
-        /// </summary>
-        /// <param name="t"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void Send<T>(T t)
-        {
-            var type = typeof(T);
-
-            IRegisterations registerations = null;
-
-            if (mTypeEventDict.TryGetValue(type, out registerations))
-            {
-                var reg = registerations as Registerations<T>;
-                reg.OnReceives(t);
-            }
-        }
-
-        /// <summary>
-        /// 发送事件
-        /// </summary>
-        /// <param name="t"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void Send<T>() where T : new()
-        {
-            var type = typeof(T);
-
-            IRegisterations registerations = null;
-
-            if (mTypeEventDict.TryGetValue(type, out registerations))
-            {
-                var reg = registerations as Registerations<T>;
-                reg.OnReceives(new T());
-            }
-        }
-    }
+    
 
     public abstract class View : IView
     {
@@ -3090,60 +3021,6 @@ namespace Dependencies.PackageKit
 
             return false;
         }
-
-        public static void ClearAssetBundlesName()
-        {
-            int length = AssetDatabase.GetAllAssetBundleNames().Length;
-            string[] oldAssetBundleNames = new string[length];
-
-            for (int i = 0; i < length; i++)
-            {
-                oldAssetBundleNames[i] = AssetDatabase.GetAllAssetBundleNames()[i];
-            }
-
-            for (int j = 0; j < oldAssetBundleNames.Length; j++)
-            {
-                AssetDatabase.RemoveAssetBundleName(oldAssetBundleNames[j], true);
-            }
-
-            length = AssetDatabase.GetAllAssetBundleNames().Length;
-            AssetDatabase.SaveAssets();
-        }
-
-        public static bool SetAssetBundleName(string assetsPath, string bundleName)
-        {
-            AssetImporter ai = AssetImporter.GetAtPath(assetsPath);
-
-            if (ai != null)
-            {
-                ai.assetBundleName = bundleName + ".assetbundle";
-                return true;
-            }
-
-            return false;
-        }
-
-        public static void SafeRemoveAsset(string assetsPath)
-        {
-            Object obj = AssetDatabase.LoadAssetAtPath<Object>(assetsPath);
-
-            if (obj != null)
-            {
-                AssetDatabase.DeleteAsset(assetsPath);
-            }
-        }
-
-        public static void Abort(string errMsg)
-        {
-            Log.E("BatchMode Abort Exit " + errMsg);
-            Thread.CurrentThread.Abort();
-            Process.GetCurrentProcess().Kill();
-
-            Environment.ExitCode = 1;
-            Environment.Exit(1);
-
-            EditorApplication.Exit(1);
-        }
     }
 
     public static class MouseSelector
@@ -3536,450 +3413,13 @@ namespace Dependencies.PackageKit
         public abstract void SetUpView();
     }
 
-    /// <summary>
-    /// Used by the injection container to determine if a property or field should be injected.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    internal class InjectAttribute : Attribute
-    {
-        public InjectAttribute(string name)
-        {
-            Name = name;
-        }
-
-        public string Name { get; set; }
-
-        public InjectAttribute()
-        {
-        }
-    }
-
-    public interface IQFrameworkContainer
-    {
-        /// <summary>
-        /// Clears all type mappings and instances.
-        /// </summary>
-        void Clear();
-
-        /// <summary>
-        /// Injects registered types/mappings into an object
-        /// </summary>
-        /// <param name="obj"></param>
-        void Inject(object obj);
-
-        /// <summary>
-        /// Injects everything that is registered at once
-        /// </summary>
-        void InjectAll();
-
-        /// <summary>
-        /// Register a type mapping
-        /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
-        void Register<TSource, TTarget>(string name = null);
-
-        void RegisterRelation<TFor, TBase, TConcrete>();
-
-        /// <summary>
-        /// Register an instance of a type.
-        /// </summary>
-        /// <typeparam name="TBase"></typeparam>
-        /// <param name="default"></param>
-        /// <param name="injectNow"></param>
-        /// <returns></returns>
-        void RegisterInstance<TBase>(TBase @default, bool injectNow) where TBase : class;
-
-        /// <summary>
-        /// Register an instance of a type.
-        /// </summary>
-        /// <param name="type"></param>
-        /// <param name="default"></param>
-        /// <param name="injectNow"></param>
-        /// <returns></returns>
-        void RegisterInstance(Type type, object @default, bool injectNow);
-
-        /// <summary>
-        /// Register a named instance
-        /// </summary>
-        /// <param name="baseType">The type to register the instance for.</param>
-        /// <param name="name">The name for the instance to be resolved.</param>
-        /// <param name="instance">The instance that will be resolved be the name</param>
-        /// <param name="injectNow">Perform the injection immediately</param>
-        void RegisterInstance(Type baseType, object instance = null, string name = null, bool injectNow = true);
-
-        void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class;
-
-        void RegisterInstance<TBase>(TBase instance) where TBase : class;
-
-        /// <summary>
-        ///  If an instance of T exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <typeparam name="T">The type of instance to resolve</typeparam>
-        /// <returns>The/An instance of 'instanceType'</returns>
-        T Resolve<T>(string name = null, bool requireInstance = false, params object[] args) where T : class;
-
-        TBase ResolveRelation<TBase>(Type tfor, params object[] arg);
-
-        TBase ResolveRelation<TFor, TBase>(params object[] arg);
-
-        /// <summary>
-        /// Resolves all instances of TType or subclasses of TType.  Either named or not.
-        /// </summary>
-        /// <typeparam name="TType">The Type to resolve</typeparam>
-        /// <returns>List of objects.</returns>
-        IEnumerable<TType> ResolveAll<TType>();
-
-        //IEnumerable<object> ResolveAll(Type type);
-        void Register(Type source, Type target, string name = null);
-
-        /// <summary>
-        /// Resolves all instances of TType or subclasses of TType.  Either named or not.
-        /// </summary>
-        /// <typeparam name="TType">The Type to resolve</typeparam>
-        /// <returns>List of objects.</returns>
-        IEnumerable<object> ResolveAll(Type type);
-
-        TypeMappingCollection  Mappings             { get; set; }
-        TypeInstanceCollection Instances            { get; set; }
-        TypeRelationCollection RelationshipMappings { get; set; }
-
-        /// <summary>
-        /// If an instance of instanceType exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <param name="baseType">The type of instance to resolve</param>
-        /// <param name="name">The type of instance to resolve</param>
-        /// <param name="requireInstance">If true will return null if an instance isn't registered.</param>
-        /// <returns>The/An instance of 'instanceType'</returns>
-        object Resolve(Type baseType, string name = null, bool requireInstance = false,
-            params object[] constructorArgs);
-
-        object ResolveRelation(Type tfor, Type tbase, params object[] arg);
-        void RegisterRelation(Type tfor, Type tbase, Type tconcrete);
-        object CreateInstance(Type type, params object[] args);
-    }
-
-    /// <summary>
-    /// A ViewModel Container and a factory for Controllers and commands.
-    /// </summary>
-    public class QFrameworkContainer : IQFrameworkContainer
-    {
-        private TypeInstanceCollection _instances;
-        private TypeMappingCollection  _mappings;
+}
 
 
-        public TypeMappingCollection Mappings
-        {
-            get { return _mappings ?? (_mappings = new TypeMappingCollection()); }
-            set { _mappings = value; }
-        }
+namespace Dependencies.PackageKit
+{
+    using Object = UnityEngine.Object;
 
-        public TypeInstanceCollection Instances
-        {
-            get { return _instances ?? (_instances = new TypeInstanceCollection()); }
-            set { _instances = value; }
-        }
-
-        public TypeRelationCollection RelationshipMappings
-        {
-            get { return _relationshipMappings; }
-            set { _relationshipMappings = value; }
-        }
-
-        public IEnumerable<TType> ResolveAll<TType>()
-        {
-            foreach (var obj in ResolveAll(typeof(TType)))
-            {
-                yield return (TType) obj;
-            }
-        }
-
-        /// <summary>
-        /// Resolves all instances of TType or subclasses of TType.  Either named or not.
-        /// </summary>
-        /// <typeparam name="TType">The Type to resolve</typeparam>
-        /// <returns>List of objects.</returns>
-        public IEnumerable<object> ResolveAll(Type type)
-        {
-            foreach (KeyValuePair<Tuple<Type, string>, object> kv in Instances)
-            {
-                if (kv.Key.Item1 == type && !string.IsNullOrEmpty(kv.Key.Item2))
-                    yield return kv.Value;
-            }
-
-            foreach (KeyValuePair<Tuple<Type, string>, Type> kv in Mappings)
-            {
-                if (!string.IsNullOrEmpty(kv.Key.Item2))
-                {
-#if NETFX_CORE
-                    var condition = type.GetTypeInfo().IsSubclassOf(mapping.From);
-#else
-                    var condition = type.IsAssignableFrom(kv.Key.Item1);
-#endif
-                    if (condition)
-                    {
-                        var item = Activator.CreateInstance(kv.Value);
-                        Inject(item);
-                        yield return item;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Clears all type-mappings and instances.
-        /// </summary>
-        public void Clear()
-        {
-            Instances.Clear();
-            Mappings.Clear();
-            RelationshipMappings.Clear();
-        }
-
-        /// <summary>
-        /// Injects registered types/mappings into an object
-        /// </summary>
-        /// <param name="obj"></param>
-        public void Inject(object obj)
-        {
-            if (obj == null) return;
-#if !NETFX_CORE
-            var members = obj.GetType().GetMembers();
-#else
-            var members = obj.GetType().GetTypeInfo().DeclaredMembers;
-#endif
-            foreach (var memberInfo in members)
-            {
-                var injectAttribute =
-                    memberInfo.GetCustomAttributes(typeof(InjectAttribute), true).FirstOrDefault() as InjectAttribute;
-                if (injectAttribute != null)
-                {
-                    if (memberInfo is PropertyInfo)
-                    {
-                        var propertyInfo = memberInfo as PropertyInfo;
-                        propertyInfo.SetValue(obj, Resolve(propertyInfo.PropertyType, injectAttribute.Name), null);
-                    }
-                    else if (memberInfo is FieldInfo)
-                    {
-                        var fieldInfo = memberInfo as FieldInfo;
-                        fieldInfo.SetValue(obj, Resolve(fieldInfo.FieldType, injectAttribute.Name));
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Register a type mapping
-        /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
-        public void Register<TSource>(string name = null)
-        {
-            Mappings[typeof(TSource), name] = typeof(TSource);
-        }
-
-
-        /// <summary>
-        /// Register a type mapping
-        /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
-        public void Register<TSource, TTarget>(string name = null)
-        {
-            Mappings[typeof(TSource), name] = typeof(TTarget);
-        }
-
-        public void Register(Type source, Type target, string name = null)
-        {
-            Mappings[source, name] = target;
-        }
-
-        /// <summary>
-        /// Register a named instance
-        /// </summary>
-        /// <param name="baseType">The type to register the instance for.</param>        
-        /// <param name="instance">The instance that will be resolved be the name</param>
-        /// <param name="injectNow">Perform the injection immediately</param>
-        public void RegisterInstance(Type baseType, object instance = null, bool injectNow = true)
-        {
-            RegisterInstance(baseType, instance, null, injectNow);
-        }
-
-        /// <summary>
-        /// Register a named instance
-        /// </summary>
-        /// <param name="baseType">The type to register the instance for.</param>
-        /// <param name="name">The name for the instance to be resolved.</param>
-        /// <param name="instance">The instance that will be resolved be the name</param>
-        /// <param name="injectNow">Perform the injection immediately</param>
-        public virtual void RegisterInstance(Type baseType, object instance = null, string name = null,
-            bool injectNow = true)
-        {
-            Instances[baseType, name] = instance;
-            if (injectNow)
-            {
-                Inject(instance);
-            }
-        }
-
-        public void RegisterInstance<TBase>(TBase instance) where TBase : class
-        {
-            RegisterInstance<TBase>(instance, true);
-        }
-
-        public void RegisterInstance<TBase>(TBase instance, bool injectNow) where TBase : class
-        {
-            RegisterInstance<TBase>(instance, null, injectNow);
-        }
-
-        public void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class
-        {
-            RegisterInstance(typeof(TBase), instance, name, injectNow);
-        }
-
-        /// <summary>
-        ///  If an instance of T exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <typeparam name="T">The type of instance to resolve</typeparam>
-        /// <returns>The/An instance of 'instanceType'</returns>
-        public T Resolve<T>(string name = null, bool requireInstance = false, params object[] args) where T : class
-        {
-            return (T) Resolve(typeof(T), name, requireInstance, args);
-        }
-
-        /// <summary>
-        /// If an instance of instanceType exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <param name="baseType">The type of instance to resolve</param>
-        /// <param name="name">The type of instance to resolve</param>
-        /// <param name="requireInstance">If true will return null if an instance isn't registered.</param>
-        /// <param name="constructorArgs">The arguments to pass to the constructor if any.</param>
-        /// <returns>The/An instance of 'instanceType'</returns>
-        public object Resolve(Type baseType, string name = null, bool requireInstance = false,
-            params object[] constructorArgs)
-        {
-            // Look for an instance first
-            var item = Instances[baseType, name];
-            if (item != null)
-            {
-                return item;
-            }
-
-            if (requireInstance)
-                return null;
-            // Check if there is a mapping of the type
-            var namedMapping = Mappings[baseType, name];
-            if (namedMapping != null)
-            {
-                var obj = CreateInstance(namedMapping, constructorArgs);
-                //Inject(obj);
-                return obj;
-            }
-
-            return null;
-        }
-
-        public object CreateInstance(Type type, params object[] constructorArgs)
-        {
-            if (constructorArgs != null && constructorArgs.Length > 0)
-            {
-                //return Activator.CreateInstance(type,BindingFlags.Public | BindingFlags.Instance,Type.DefaultBinder, constructorArgs,CultureInfo.CurrentCulture);
-                var obj2 = Activator.CreateInstance(type, constructorArgs);
-                Inject(obj2);
-                return obj2;
-            }
-#if !NETFX_CORE
-            ConstructorInfo[] constructor = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
-#else
-        ConstructorInfo[] constructor = type.GetTypeInfo().DeclaredConstructors.ToArray();
-#endif
-
-            if (constructor.Length < 1)
-            {
-                var obj2 = Activator.CreateInstance(type);
-                Inject(obj2);
-                return obj2;
-            }
-
-            var maxParameters = constructor.First().GetParameters();
-
-            foreach (var c in constructor)
-            {
-                var parameters = c.GetParameters();
-                if (parameters.Length > maxParameters.Length)
-                {
-                    maxParameters = parameters;
-                }
-            }
-
-            var args = maxParameters.Select(p =>
-            {
-                if (p.ParameterType.IsArray)
-                {
-                    return ResolveAll(p.ParameterType);
-                }
-
-                return Resolve(p.ParameterType) ?? Resolve(p.ParameterType, p.Name);
-            }).ToArray();
-
-            var obj = Activator.CreateInstance(type, args);
-            Inject(obj);
-            return obj;
-        }
-
-        public TBase ResolveRelation<TBase>(Type tfor, params object[] args)
-        {
-            try
-            {
-                return (TBase) ResolveRelation(tfor, typeof(TBase), args);
-            }
-            catch (InvalidCastException castIssue)
-            {
-                throw new Exception(
-                    string.Format("Resolve Relation couldn't cast  to {0} from {1}", typeof(TBase).Name, tfor.Name),
-                    castIssue);
-            }
-        }
-
-        public void InjectAll()
-        {
-            foreach (object instance in Instances.Values)
-            {
-                Inject(instance);
-            }
-        }
-
-        private TypeRelationCollection _relationshipMappings = new TypeRelationCollection();
-
-        public void RegisterRelation<TFor, TBase, TConcrete>()
-        {
-            RelationshipMappings[typeof(TFor), typeof(TBase)] = typeof(TConcrete);
-        }
-
-        public void RegisterRelation(Type tfor, Type tbase, Type tconcrete)
-        {
-            RelationshipMappings[tfor, tbase] = tconcrete;
-        }
-
-        public object ResolveRelation(Type tfor, Type tbase, params object[] args)
-        {
-            var concreteType = RelationshipMappings[tfor, tbase];
-
-            if (concreteType == null)
-            {
-                return null;
-            }
-
-            var result = CreateInstance(concreteType, args);
-            //Inject(result);
-            return result;
-        }
-
-        public TBase ResolveRelation<TFor, TBase>(params object[] arg)
-        {
-            return (TBase) ResolveRelation(typeof(TFor), typeof(TBase), arg);
-        }
-    }
 
     // http://stackoverflow.com/questions/1171812/multi-key-dictionary-in-c
     public class Tuple<T1, T2> //FUCKING Unity: struct is not supported in Mono
