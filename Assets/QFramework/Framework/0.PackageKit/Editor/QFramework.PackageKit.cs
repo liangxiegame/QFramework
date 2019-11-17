@@ -884,6 +884,7 @@ namespace QFramework
             form.AddField("password", User.Password.Value);
             form.AddField("id", packageId);
 
+            
             EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (response) =>
             {
                 if (response.Type == ResponseType.SUCCEED)
@@ -943,6 +944,7 @@ namespace QFramework
 
                 if (responseJson.code == 1)
                 {
+                    
                     var packageInfosJson = responseJson.data;
 
                     var packageDatas = new List<PackageData>();
@@ -1147,7 +1149,7 @@ namespace QFramework
                     GUILayout.BeginHorizontal(EditorStyles.helpBox);
                     GUILayout.BeginVertical();
                     GUILayout.BeginHorizontal();
-
+                    
                     GUILayout.Label("version: " + item.version, GUILayout.Width(130));
                     GUILayout.Label("author: " + item.author);
                     GUILayout.Label("date: " + item.date);
@@ -1156,8 +1158,11 @@ namespace QFramework
                     {
                         if (GUILayout.Button("删除"))
                         {
+//                            RenderEndCommandExecuter.PushCommand(() =>
+//                            {
                             new PackageManagerServer().DeletePackage(item.PackageId,
                                 () => { mReadme.items.Remove(item); });
+//                            });
                         }
                     }
 
@@ -1199,7 +1204,7 @@ namespace QFramework
 
                     AssetDatabase.Refresh();
 
-                    Log.I("PackageManager:插件下载成功");
+                    Debug.Log("PackageManager:插件下载成功");
 
                     InstalledPackageVersions.Reload();
                 }
@@ -1274,7 +1279,7 @@ namespace QFramework
         public string content = "";
         public string author  = "";
         public string date    = "";
-        public string PackageId { get; set; }
+        public string PackageId = "";
 
 
         public int VersionNumber
@@ -2368,7 +2373,7 @@ namespace QFramework
                     }
                     catch (Exception ex)
                     {
-                        Log.I(ex.Message);
+                        Debug.Log(ex.Message);
 //						InvertApplication.Log(ex.Message);
                     }
                 }
@@ -3483,16 +3488,16 @@ namespace QFramework
             p.WaitForExit();
             p.Close();
 
-            Log.I(standardOutput);
+            Debug.Log(standardOutput);
             if (standardError.Length > 0)
             {
                 if (isThrowExcpetion)
                 {
-                    Log.E(standardError);
+                    Debug.LogError(standardError);
                     throw new Exception(standardError);
                 }
 
-                Log.I(standardError);
+                Debug.LogError(standardError);
             }
         }
 
