@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018.9 liangxie
+ * Copyright (c) 2017 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,18 +23,56 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-
-namespace QFramework
+namespace QF
 {
-    public abstract class UITransition : NodeAction,ITransition
-    {
-        public UIPanel FromPanel;
+	public class Platform
+	{
+		public static bool IsAndroid
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_ANDROID
+                retValue = true;    
+#endif
+				return retValue;
+			}
+		}
         
-        public Action InCompleted;
+		public static bool IsEditor
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_EDITOR
+				retValue = true;    
+#endif
+				return retValue;
+			}
+		}
         
-        public Action OutCompleted;
+		public static bool IsiOS
+		{
+			get
+			{
+				bool retValue = false;
+#if UNITY_IOS
+				retValue = true;    
+#endif
+				return retValue;
+			}
+		}
 
-        public abstract void Do(UITransitionPanel panel);
-    }
+        public static bool IsStandardAlone
+        {
+            get
+            {
+                bool retValue = false;
+#if UNITY_STANDALONE
+                retValue = true;
+#endif
+                return retValue;
+            }
+        }
+	}
 }

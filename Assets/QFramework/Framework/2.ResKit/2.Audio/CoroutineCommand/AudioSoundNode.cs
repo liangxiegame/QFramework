@@ -23,8 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.Action;
-
 using QFramework;
 
 namespace QF.Res

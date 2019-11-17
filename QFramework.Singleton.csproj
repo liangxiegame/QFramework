@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{7887117D-4E33-CF0E-5489-B5A324D4BAC8}</ProjectGuid>
+    <ProjectGuid>{C2A710F6-5676-A8AC-C293-365F316762D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework.IOC</AssemblyName>
+    <AssemblyName>QFramework.Singleton</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -216,8 +216,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\0.PackageKit\IOC\QFramework.IOC.cs" />
-    <None Include="Assets\QFramework\Framework\0.PackageKit\IOC\QFramework.IOC.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\1.Core\Singleton\QFramework.Singleton.cs" />
+    <None Include="Assets\QFramework\Framework\1.Core\Singleton\QFramework.Singleton.asmdef" />
     <Reference Include="UnityEngine.UI">
       <HintPath>C:/Program Files/Unity 2017.3.0p2/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
     </Reference>
