@@ -1455,9 +1455,9 @@ namespace QFramework
             {
                 if (!string.IsNullOrEmpty(InstallPath))
                 {
-                    var names = InstallPath.Split('/');
-
-                    return names[names.Length - 2];
+                    var name = InstallPath.Replace("\\", "/");
+                    var dirs = name.Split('/');
+                    return dirs[dirs.Length - 2];
                 }
 
                 return string.Empty;
@@ -1637,12 +1637,16 @@ namespace QFramework
                         if (Directory.Exists(path))
                         {
                             Directory.Delete(path, true);
-                            AssetDatabase.Refresh();
                         }
 
-                        InstallPackage.Do(mPackageData);
+                        this.PushCommand(() =>
+                        {
+                            AssetDatabase.Refresh();
 
-                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                            InstallPackage.Do(mPackageData);
+
+                            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                        });
                     })
                     .Width(90)
                     .AddTo(this);
@@ -1656,12 +1660,16 @@ namespace QFramework
                         if (Directory.Exists(path))
                         {
                             Directory.Delete(path, true);
-                            AssetDatabase.Refresh();
                         }
 
-                        InstallPackage.Do(mPackageData);
+                        this.PushCommand(() =>
+                        {
+                            AssetDatabase.Refresh();
 
-                        PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                            InstallPackage.Do(mPackageData);
+
+                            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+                        });
                     })
                     .Width(90)
                     .AddTo(this);
