@@ -38,11 +38,6 @@ namespace QFramework
 
         public GameObject LoadPanelPrefab(string panelName)
         {
-#if COCOS_SUPPORT
-            var retObj = mResLoader.LoadSync<GameObject>(string.Format("Resources/{0}", panelName));
-            if (null != retObj) return retObj;
-            #endif
-            
             return mResLoader.LoadSync<GameObject>(panelName);
         }
 

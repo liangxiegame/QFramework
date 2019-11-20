@@ -1,3 +1,6 @@
+
+using System.Net;
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -597,7 +600,7 @@ namespace QFramework
         {
             var AddressIP = "";
 #if !UNITY_WEBGL
-#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0 || UNITY_2018_1
+#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0 
             AddressIP = UnityEngine.Network.player.ipAddress;
 #else
             //获取本地的IP地址  
@@ -4135,3 +4138,4 @@ namespace Dependencies.PackageKit
         }
     }
 }
+#endif

@@ -1,6 +1,3 @@
-{
-    "name": "QFramework.Singleton",
-    "references": [],
-    "includePlatforms": [],
-    "excludePlatforms": []
+﻿{
+	"name": "QFramework.Singleton"
 }

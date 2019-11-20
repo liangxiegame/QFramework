@@ -245,7 +245,7 @@ namespace QF.Res
                 return mUUID4AssetData.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
             }
 
-            if (resSearchRule.OwnerBundle != null && mAssetDataMap != null)
+            if (resSearchRule.OwnerBundle == null && mAssetDataMap != null)
             {
                 return mAssetDataMap.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
             }

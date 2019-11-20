@@ -8,13 +8,14 @@ using System.Linq;
 #if UNITY_5_6_OR_NEWER
 using System.Collections;
 using UnityEngine;
+
 #endif
 
 // ActionKit 以後往可視化編程的方向發展
 namespace QFramework
 {
     using Dependencies.ActionKit;
-    
+
     /// <summary>
     /// 执行节点的基类
     /// </summary>
@@ -187,7 +188,7 @@ namespace QFramework
         public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent)
             where T : MonoBehaviour
         {
-            selfBehaviour.ExecuteNode(IActionChainExtention.DelayAction.Allocate(seconds, delayEvent));
+            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
         }
 
         public static IEnumerator Execute(this IAction selfNode)
@@ -286,7 +287,7 @@ namespace QFramework
     public class OnDestroyTrigger : MonoBehaviour
     {
         HashSet<IDisposable> mDisposables = new HashSet<IDisposable>();
-        
+
         public void AddDispose(IDisposable disposable)
         {
             if (!mDisposables.Contains(disposable))
@@ -294,7 +295,7 @@ namespace QFramework
                 mDisposables.Add(disposable);
             }
         }
-        
+
         private void OnDestroy()
         {
             if (Application.isPlaying)
@@ -369,141 +370,141 @@ namespace QFramework
         {
             return selfChain.Append(UntilAction.Allocate(condition));
         }
+    }
 
-        /// <inheritdoc />
+    /// <inheritdoc />
+    /// <summary>
+    /// 延时执行节点
+    /// </summary>
+    public class DelayAction : NodeAction, IPoolable
+    {
+        public float DelayTime;
+
+        public static DelayAction Allocate(float delayTime, System.Action onEndCallback = null)
+        {
+            var retNode = SafeObjectPool<DelayAction>.Instance.Allocate();
+            retNode.DelayTime = delayTime;
+            retNode.OnEndedCallback = onEndCallback;
+            return retNode;
+        }
+
+        public DelayAction()
+        {
+        }
+
+        public DelayAction(float delayTime)
+        {
+            DelayTime = delayTime;
+        }
+
+        private float mCurrentSeconds = 0.0f;
+
+        protected override void OnReset()
+        {
+            mCurrentSeconds = 0.0f;
+        }
+
+        protected override void OnExecute(float dt)
+        {
+            mCurrentSeconds += dt;
+            Finished = mCurrentSeconds >= DelayTime;
+        }
+
+        protected override void OnDispose()
+        {
+            SafeObjectPool<DelayAction>.Instance.Recycle(this);
+        }
+
+        public void OnRecycled()
+        {
+            DelayTime = 0.0f;
+            Reset();
+        }
+
+        public bool IsRecycled { get; set; }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    /// 延时执行节点
+    /// </summary>
+    public class EventAction : NodeAction, IPoolable
+    {
+        private System.Action mOnExecuteEvent;
+
         /// <summary>
-        /// 延时执行节点
+        /// TODO:这里填可变参数会有问题
         /// </summary>
-        public class DelayAction : NodeAction, IPoolable
+        /// <param name="onExecuteEvents"></param>
+        /// <returns></returns>
+        public static EventAction Allocate(params System.Action[] onExecuteEvents)
         {
-            public float DelayTime;
-
-            public static DelayAction Allocate(float delayTime, System.Action onEndCallback = null)
-            {
-                var retNode = SafeObjectPool<DelayAction>.Instance.Allocate();
-                retNode.DelayTime = delayTime;
-                retNode.OnEndedCallback = onEndCallback;
-                return retNode;
-            }
-
-            public DelayAction()
-            {
-            }
-
-            public DelayAction(float delayTime)
-            {
-                DelayTime = delayTime;
-            }
-
-            private float mCurrentSeconds = 0.0f;
-
-            protected override void OnReset()
-            {
-                mCurrentSeconds = 0.0f;
-            }
-
-            protected override void OnExecute(float dt)
-            {
-                mCurrentSeconds += dt;
-                Finished = mCurrentSeconds >= DelayTime;
-            }
-
-            protected override void OnDispose()
-            {
-                SafeObjectPool<DelayAction>.Instance.Recycle(this);
-            }
-
-            public void OnRecycled()
-            {
-                DelayTime = 0.0f;
-                Reset();
-            }
-
-            public bool IsRecycled { get; set; }
+            var retNode = SafeObjectPool<EventAction>.Instance.Allocate();
+            Array.ForEach(onExecuteEvents, onExecuteEvent => retNode.mOnExecuteEvent += onExecuteEvent);
+            return retNode;
         }
 
-        /// <inheritdoc />
         /// <summary>
-        /// 延时执行节点
+        /// finished
         /// </summary>
-        public class EventAction : NodeAction, IPoolable
+        protected override void OnExecute(float dt)
         {
-            private System.Action mOnExecuteEvent;
-
-            /// <summary>
-            /// TODO:这里填可变参数会有问题
-            /// </summary>
-            /// <param name="onExecuteEvents"></param>
-            /// <returns></returns>
-            public static EventAction Allocate(params System.Action[] onExecuteEvents)
+            if (mOnExecuteEvent != null)
             {
-                var retNode = SafeObjectPool<EventAction>.Instance.Allocate();
-                Array.ForEach(onExecuteEvents, onExecuteEvent => retNode.mOnExecuteEvent += onExecuteEvent);
-                return retNode;
+                mOnExecuteEvent.Invoke();
             }
 
-            /// <summary>
-            /// finished
-            /// </summary>
-            protected override void OnExecute(float dt)
-            {
-                if (mOnExecuteEvent != null)
-                {
-                    mOnExecuteEvent.Invoke();
-                }
-
-                Finished = true;
-            }
-
-            protected override void OnDispose()
-            {
-                SafeObjectPool<EventAction>.Instance.Recycle(this);
-            }
-
-            public void OnRecycled()
-            {
-                Reset();
-                mOnExecuteEvent = null;
-            }
-
-            public bool IsRecycled { get; set; }
+            Finished = true;
         }
 
-        public class NodeActionSystem
+        protected override void OnDispose()
         {
-            [RuntimeInitializeOnLoadMethod]
-            private static void InitNodeSystem()
-            {
-                // cache list			
-
-                // cache node
-                SafeObjectPool<DelayAction>.Instance.Init(50, 50);
-                SafeObjectPool<EventAction>.Instance.Init(50, 50);
-            }
+            SafeObjectPool<EventAction>.Instance.Recycle(this);
         }
 
-        public class KeyEventAction : EventAction
+        public void OnRecycled()
         {
-            private TimelineNode mTimelineNode;
-            private string       mKeyEventName;
+            Reset();
+            mOnExecuteEvent = null;
+        }
 
-            public KeyEventAction(string keyEventName, TimelineNode timelineNode)
-            {
-                mTimelineNode = timelineNode;
-                mKeyEventName = keyEventName;
-            }
+        public bool IsRecycled { get; set; }
+    }
 
-            protected override void OnExecute(float dt)
-            {
-                mTimelineNode.OnKeyEventsReceivedCallback(mKeyEventName);
-                Finished = true;
-            }
+    public class NodeActionSystem
+    {
+        [RuntimeInitializeOnLoadMethod]
+        private static void InitNodeSystem()
+        {
+            // cache list			
 
-            protected override void OnDispose()
-            {
-                mTimelineNode = null;
-                mKeyEventName = null;
-            }
+            // cache node
+            SafeObjectPool<DelayAction>.Instance.Init(50, 50);
+            SafeObjectPool<EventAction>.Instance.Init(50, 50);
+        }
+    }
+
+    public class KeyEventAction : EventAction
+    {
+        private TimelineNode mTimelineNode;
+        private string       mKeyEventName;
+
+        public KeyEventAction(string keyEventName, TimelineNode timelineNode)
+        {
+            mTimelineNode = timelineNode;
+            mKeyEventName = keyEventName;
+        }
+
+        protected override void OnExecute(float dt)
+        {
+            mTimelineNode.OnKeyEventsReceivedCallback(mKeyEventName);
+            Finished = true;
+        }
+
+        protected override void OnDispose()
+        {
+            mTimelineNode = null;
+            mKeyEventName = null;
         }
     }
 
@@ -1102,7 +1103,6 @@ namespace QFramework
 #endif
 }
 
-
 namespace Dependencies.ActionKit
 {
     using System;
@@ -1112,7 +1112,6 @@ namespace Dependencies.ActionKit
 
 #if UNITY_5_6_OR_NEWER
 #endif
-
     internal interface ISingleton
     {
         void OnSingletonInit();
@@ -1120,9 +1119,8 @@ namespace Dependencies.ActionKit
 
     internal abstract class Singleton<T> : ISingleton where T : Singleton<T>
     {
-        protected static T mInstance;
-
-        static object mLock = new object();
+        protected static T      mInstance;
+        static           object mLock = new object();
 
         public static T Instance
         {
@@ -1149,30 +1147,28 @@ namespace Dependencies.ActionKit
         {
         }
     }
-    
+
     internal static class SingletonCreator
     {
         public static T CreateSingleton<T>() where T : class, ISingleton
         {
-            // 获取私有构造函数
+// 获取私有构造函数
             var ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
-            
-            // 获取无参构造函数
-            var ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
 
+// 获取无参构造函数
+            var ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
             if (ctor == null)
             {
                 throw new Exception("Non-Public Constructor() not found! in " + typeof(T));
             }
 
-            // 通过构造函数，常见实例
+// 通过构造函数，常见实例
             var retInstance = ctor.Invoke(null) as T;
             retInstance.OnSingletonInit();
-
             return retInstance;
         }
     }
-	
+
     internal static class SingletonProperty<T> where T : class, ISingleton
     {
         private static          T      mInstance;
@@ -1199,12 +1195,7 @@ namespace Dependencies.ActionKit
             mInstance = null;
         }
     }
-
-    
-
-
 #if UNITY_5_6_OR_NEWER
-
     [AttributeUsage(AttributeTargets.Class)]
     internal class MonoSingletonPath : Attribute
     {
@@ -1275,10 +1266,8 @@ namespace Dependencies.ActionKit
         public static T CreateMonoSingleton<T>() where T : MonoBehaviour, ISingleton
         {
             T instance = null;
-
             if (!IsUnitTestMode && !Application.isPlaying) return instance;
             instance = Object.FindObjectOfType<T>();
-
             if (instance != null)
             {
                 instance.OnSingletonInit();
@@ -1346,7 +1335,6 @@ namespace Dependencies.ActionKit
             bool dontDestroy)
         {
             GameObject client = null;
-
             if (root == null)
             {
                 client = GameObject.Find(subPath[index]);
@@ -1417,15 +1405,10 @@ namespace Dependencies.ActionKit
             mInstance = null;
         }
     }
-
-
-
 #endif
-
     public interface IPool<T>
     {
         T Allocate();
-
         bool Recycle(T obj);
     }
 
@@ -1444,9 +1427,8 @@ namespace Dependencies.ActionKit
 
         #endregion
 
-        protected IObjectFactory<T> mFactory;
-
-        protected readonly Stack<T> mCacheStack = new Stack<T>();
+        protected          IObjectFactory<T> mFactory;
+        protected readonly Stack<T>          mCacheStack = new Stack<T>();
 
         /// <summary>
         /// default is 5
@@ -1524,7 +1506,6 @@ namespace Dependencies.ActionKit
         public void Init(int maxCount, int initCount)
         {
             MaxCacheCount = maxCount;
-
             if (maxCount > 0)
             {
                 initCount = Math.Min(maxCount, initCount);
@@ -1549,7 +1530,6 @@ namespace Dependencies.ActionKit
             set
             {
                 mMaxCount = value;
-
                 if (mCacheStack != null)
                 {
                     if (mMaxCount > 0)
@@ -1601,11 +1581,9 @@ namespace Dependencies.ActionKit
             t.IsRecycled = true;
             t.OnRecycled();
             mCacheStack.Push(t);
-
             return true;
         }
     }
-
 
     public interface IObjectFactory<T>
     {
@@ -1620,8 +1598,6 @@ namespace Dependencies.ActionKit
         }
     }
 
-   
-      
     internal class NonPublicObjectFactory<T> : IObjectFactory<T> where T : class
     {
         public T Create()
