@@ -100,6 +100,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 
 #### 参考 Reference:
+* [IFramework（OnClick）](https://github.com/OnClick9927/IFramework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
 * [Qarth: Framework For Game Develop With Unity3d](https://github.com/SnowCold/Qarth)
