@@ -54,8 +54,6 @@ namespace QF.GraphDesigner
             set {InvertGraphEditor.Prefs.SetString("CurrentDatabaseIdentifier",value); }
         }
 
-        
-
         public override void Initialize(QFrameworkContainer container)
         {
             var path = DbRootPath;
