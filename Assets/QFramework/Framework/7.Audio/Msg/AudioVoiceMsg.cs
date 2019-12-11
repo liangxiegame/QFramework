@@ -4,7 +4,7 @@
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 	using  System;
 	

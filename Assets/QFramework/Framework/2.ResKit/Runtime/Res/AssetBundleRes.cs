@@ -25,10 +25,7 @@
  ****************************************************************************/
 
 
-using Dependency.ResKit.Pool;
-using QFramework;
-
-namespace QF.Res
+namespace QFramework
 {
     using UnityEngine;
     using System.Collections;
@@ -41,7 +38,7 @@ namespace QF.Res
 
         public static AssetBundleRes Allocate(string name)
         {
-            var res = SafeObjectPool<AssetBundleRes>.Instance.Allocate();
+            var res = Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -177,7 +174,7 @@ namespace QF.Res
 
         public override void Recycle2Cache()
         {
-            SafeObjectPool<AssetBundleRes>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Recycle(this);
         }
 
         public override void OnRecycled()

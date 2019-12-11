@@ -25,10 +25,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependencies.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using UnityEngine;
     using System.Net;
@@ -43,8 +42,8 @@ namespace QF.Res
     public delegate void OnDownloadBegin(int totalLength);
 
     //http下载管理器
-    [MonoSingletonPath("[Singleton]/HttpDownloader")]
-    public class HttpDownloaderMgr : MonoSingleton<HttpDownloaderMgr>
+    [Dependencies.ResKit.Pool.MonoSingletonPath("[Singleton]/HttpDownloader")]
+    public class HttpDownloaderMgr : Dependencies.ResKit.Pool.MonoSingleton<HttpDownloaderMgr>
     {
         public static string TimeOutError = "Time-Out";
         enum DownloadEvent

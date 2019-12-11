@@ -1,8 +1,6 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using QF.GraphDesigner;
 using UnityEditor;
 using UnityEngine;
@@ -11,80 +9,7 @@ namespace Invert.Common.UI
 {
     public class GUIHelpers
     {
-        public static Texture2D GetEditorUFrameResource(string name, int width, int height)
-        {
-#if !ASSEMBLY
-            var asset = AssetDatabase.LoadAssetAtPath(@"Assets/uFrameComplete/uFrame/Editor/Resources/" + name, typeof(Texture2D)) as Texture2D;
-            if (asset != null)
-            {
-                //asset._Width = _Width;
-                //asset.height = height;
-                return asset;
-            }
-            return null;
-#else
-                return LoadDllResource(resourceName, _Width, height);
-#endif
-        }
-        public static Texture2D LoadDllResource(string resourceName, int width, int height)
-        {
-            // also lets you override dll resources locally for rapid iteration
-            Texture2D texture = (Texture2D)Resources.Load(resourceName);
-            if (texture != null)
-            {
-                Debug.Log("Loaded local resource: " + resourceName);
-                return texture;
-            }
-            // if unavailable, try assembly
-            Assembly myAssembly = Assembly.GetExecutingAssembly();
-            Stream myStream = myAssembly.GetManifestResourceStream("assemblypathhere" + resourceName + ".png");
-            texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-            texture.LoadImage(ReadToEnd(myStream));
-            if (texture == null)
-            {
-                Debug.LogError("Missing Dll resource: " + resourceName);
-            }
-            return texture;
-        }
         // loads a png resources from the dll
-        private static byte[] ReadToEnd(Stream stream)
-        {
-            long originalPosition = stream.Position;
-            stream.Position = 0;
-            try
-            {
-                var readBuffer = new byte[4096];
-                int totalBytesRead = 0;
-                int bytesRead;
-                while ((bytesRead = stream.Read(readBuffer, totalBytesRead, readBuffer.Length - totalBytesRead)) > 0)
-                {
-                    totalBytesRead += bytesRead;
-                    if (totalBytesRead == readBuffer.Length)
-                    {
-                        int nextByte = stream.ReadByte();
-                        if (nextByte != -1)
-                        {
-                            byte[] temp = new byte[readBuffer.Length * 2];
-                            Buffer.BlockCopy(readBuffer, 0, temp, 0, readBuffer.Length);
-                            Buffer.SetByte(temp, totalBytesRead, (byte)nextByte);
-                            readBuffer = temp;
-                            totalBytesRead++;
-                        }
-                    }
-                }
-                byte[] buffer = readBuffer;
-                if (readBuffer.Length != totalBytesRead)
-                {
-                    buffer = new byte[totalBytesRead];
-                    Buffer.BlockCopy(readBuffer, 0, buffer, 0, totalBytesRead);
-                }
-                return buffer;
-            }
-            finally
-            {
-                stream.Position = originalPosition;
-            }
-        }
         public static Rect GetRect(GUIStyle style, bool fullWidth = true, params GUILayoutOption[] options)
         {
             var rect = GUILayoutUtility.GetRect(GUIContent.none, style, options);

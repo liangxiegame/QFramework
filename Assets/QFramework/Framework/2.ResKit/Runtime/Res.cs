@@ -25,16 +25,15 @@
  ****************************************************************************/
 
 
-using Dependency.ResKit.Pool;
-using Dependency.ResKit.RefCount;
+
 using UnityEngine;
 
-namespace QF.Res
+namespace QFramework
 {
     using System;
     using System.Collections;
 
-    public class Res : SimpleRC, IRes, IPoolable
+    public class Res : Dependency.ResKit.RefCount.SimpleRC, IRes, Dependency.ResKit.Pool.IPoolable
     {
 #if UNITY_EDITOR
         private static int    mSimulateAssetBundleInEditor = -1;

@@ -3,9 +3,7 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-using System;
 using System.Collections.Generic;
-using QF;
 
 namespace QFramework
 {

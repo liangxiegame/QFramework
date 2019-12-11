@@ -24,10 +24,9 @@
  ****************************************************************************/
 
 using System.Runtime.InteropServices;
-using Dependency.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using System;
     using System.Collections.Generic;
@@ -35,7 +34,7 @@ namespace QF.Res
     using Object = UnityEngine.Object;
     
     
-    public class ResSearchRule : IPoolable,IPoolType
+    public class ResSearchRule : Dependency.ResKit.Pool.IPoolable,Dependency.ResKit.Pool.IPoolType
     {   
         public string AssetName { get;private set; }
 
@@ -47,7 +46,7 @@ namespace QF.Res
 
         public static ResSearchRule Allocate(string assetName,string ownerBundle = null,string typeName = null)
         {
-            var resSearchRule = SafeObjectPool<ResSearchRule>.Instance.Allocate();
+            var resSearchRule = Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Allocate();
                         
             resSearchRule.AssetName = assetName;
             resSearchRule.OwnerBundle = ownerBundle;
@@ -67,7 +66,7 @@ namespace QF.Res
         
         public void Recycle2Cache()
         {
-            SafeObjectPool<ResSearchRule>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Recycle(this);
         }
         
         public bool Match(IRes res)
@@ -90,7 +89,7 @@ namespace QF.Res
             return string.Format("AssetName:{0} BundleName:{1} TypeName:{2} Key:{3}", AssetName, OwnerBundle, TypeName,DictionaryKey);
         }
 
-        void IPoolable.OnRecycled()
+        void Dependency.ResKit.Pool.IPoolable.OnRecycled()
         {
             AssetName = null;
 
@@ -99,7 +98,7 @@ namespace QF.Res
             TypeName = null;
         }
 
-        bool IPoolable.IsRecycled { get; set; }
+        bool Dependency.ResKit.Pool.IPoolable.IsRecycled { get; set; }
 
 
     }
@@ -113,7 +112,7 @@ namespace QF.Res
         /// <returns></returns>
         public static ResLoader Allocate(IResLoaderStrategy strategy = null)
         {
-            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
+            var loader = Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Allocate();
             loader.SetStrategy(strategy);
             return loader;
         }
@@ -123,7 +122,7 @@ namespace QF.Res
         /// </summary>
         public void Recycle2Cache()
         {
-            SafeObjectPool<ResLoader>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Recycle(this);
         }
 
         /// <summary>
@@ -703,9 +702,9 @@ namespace QF.Res
             mCallbackRecordList.AddLast(new CallBackWrap(res, listener));
         }
 
-        bool IPoolable.IsRecycled { get; set; }
+        bool Dependency.ResKit.Pool.IPoolable.IsRecycled { get; set; }
 
-        void IPoolable.OnRecycled()
+        void Dependency.ResKit.Pool.IPoolable.OnRecycled()
         {
             ReleaseAllRes();
         }

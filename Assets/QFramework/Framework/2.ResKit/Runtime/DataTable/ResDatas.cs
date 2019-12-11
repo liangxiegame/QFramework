@@ -25,12 +25,11 @@
 
 using System;
 using System.Collections.Generic;
-using Dependencies.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
-    public class ResDatas : Singleton<ResDatas>
+    public class ResDatas : Dependencies.ResKit.Pool.Singleton<ResDatas>
     {
         public IList<AssetDataGroup> AllAssetDataGroups
         {

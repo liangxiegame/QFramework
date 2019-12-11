@@ -16,6 +16,8 @@ namespace QFramework
 {
     using Dependencies.ActionKit;
 
+    #region Engine
+    
     /// <summary>
     /// 执行节点的基类
     /// </summary>
@@ -164,6 +166,9 @@ namespace QFramework
         #endregion
     }
 
+    #endregion
+
+    #region Extension
     public interface IDisposeWhen : IDisposeEventRegister
     {
         IDisposeEventRegister DisposeWhen(Func<bool> condition);
@@ -176,7 +181,6 @@ namespace QFramework
         IDisposeEventRegister OnFinished(Action onFinishedEvent);
     }
 
-#if UNITY_5_6_OR_NEWER
     public static class IActionExtension
     {
         public static T ExecuteNode<T>(this T selBehaviour, IAction commandNode) where T : MonoBehaviour
@@ -283,6 +287,10 @@ namespace QFramework
 
         IDisposeWhen Begin();
     }
+    
+    #endregion
+    
+    #region Helper
 
     public class OnDestroyTrigger : MonoBehaviour
     {
@@ -311,66 +319,10 @@ namespace QFramework
         }
     }
 
-    public static partial class IActionChainExtention
-    {
-        public static IActionChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
-        {
-            var retNodeChain = new RepeatNodeChain(count) {Executer = selfbehaviour};
-            retNodeChain.AddTo(selfbehaviour);
-            return retNodeChain;
-        }
-
-        public static IActionChain Sequence<T>(this T selfbehaviour) where T : MonoBehaviour
-        {
-            var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
-            retNodeChain.AddTo(selfbehaviour);
-            return retNodeChain;
-        }
-
-        public static IActionChain OnlyBegin(this IActionChain selfChain, Action<OnlyBeginAction> onBegin)
-        {
-            return selfChain.Append(OnlyBeginAction.Allocate(onBegin));
-        }
-
-        public static IActionChain Delay(this IActionChain senfChain, float seconds)
-        {
-            return senfChain.Append(DelayAction.Allocate(seconds));
-        }
-
-        public static void AddTo(this IDisposable self, Component component)
-        {
-            var onDestroyTrigger = component.gameObject.GetComponent<OnDestroyTrigger>();
-
-            if (!onDestroyTrigger)
-            {
-                onDestroyTrigger = component.gameObject.AddComponent<OnDestroyTrigger>();
-            }
-
-            onDestroyTrigger.AddDispose(self);
-        }
-
-        /// <summary>
-        /// Same as Delayw
-        /// </summary>
-        /// <param name="senfChain"></param>
-        /// <param name="seconds"></param>
-        /// <returns></returns>
-        public static IActionChain Wait(this IActionChain senfChain, float seconds)
-        {
-            return senfChain.Append(DelayAction.Allocate(seconds));
-        }
-
-        public static IActionChain Event(this IActionChain selfChain, params System.Action[] onEvents)
-        {
-            return selfChain.Append(EventAction.Allocate(onEvents));
-        }
-
-
-        public static IActionChain Until(this IActionChain selfChain, Func<bool> condition)
-        {
-            return selfChain.Append(UntilAction.Allocate(condition));
-        }
-    }
+    #endregion
+    
+    
+    #region Actions
 
     /// <inheritdoc />
     /// <summary>
@@ -507,78 +459,7 @@ namespace QFramework
             mKeyEventName = null;
         }
     }
-
-    public class RepeatNodeChain : ActionChain
-    {
-        protected override NodeAction mNode
-        {
-            get { return mRepeatAction; }
-        }
-
-        private RepeatNode mRepeatAction;
-
-        private SequenceNode mSequenceNode;
-
-        public RepeatNodeChain(int repeatCount)
-        {
-            mSequenceNode = new SequenceNode();
-            mRepeatAction = new RepeatNode(mSequenceNode, repeatCount);
-        }
-
-        public override IActionChain Append(IAction node)
-        {
-            mSequenceNode.Append(node);
-            return this;
-        }
-
-        protected override void OnDispose()
-        {
-            base.OnDispose();
-
-            if (null != mRepeatAction)
-            {
-                mRepeatAction.Dispose();
-            }
-
-            mRepeatAction = null;
-
-            mSequenceNode.Dispose();
-            mSequenceNode = null;
-        }
-    }
-
-    /// <summary>
-    /// 支持链式方法
-    /// </summary>
-    public class SequenceNodeChain : ActionChain
-    {
-        protected override NodeAction mNode
-        {
-            get { return mSequenceNode; }
-        }
-
-        private SequenceNode mSequenceNode;
-
-        public SequenceNodeChain()
-        {
-            mSequenceNode = new SequenceNode();
-        }
-
-        public override IActionChain Append(IAction node)
-        {
-            mSequenceNode.Append(node);
-            return this;
-        }
-
-        protected override void OnDispose()
-        {
-            base.OnDispose();
-
-            mSequenceNode.Dispose();
-            mSequenceNode = null;
-        }
-    }
-
+    
     public class OnlyBeginAction : NodeAction, IPoolable, IPoolType
     {
         private Action<OnlyBeginAction> mBeginAction;
@@ -647,7 +528,12 @@ namespace QFramework
 
         bool IPoolable.IsRecycled { get; set; }
     }
-
+    
+    #endregion
+    
+    
+    #region Nodes
+    
     public interface INode
     {
         IAction CurrentExecutingNode { get; }
@@ -655,7 +541,7 @@ namespace QFramework
 
     public class RepeatNode : NodeAction, INode
     {
-        public RepeatNode(IAction node, int repeatCount)
+        public RepeatNode(IAction node, int repeatCount = -1)
         {
             RepeatCount = repeatCount;
             mNode = node;
@@ -950,7 +836,7 @@ namespace QFramework
             {
                 if (pair.Node.Execute(dt))
                 {
-                    Finished = TimelineQueue.Where(timetinePair => !timetinePair.Node.Finished).Count() == 0;
+                    Finished = TimelineQueue.Count(timelinePair => !timelinePair.Node.Finished) == 0;
                 }
             }
         }
@@ -1000,6 +886,145 @@ namespace QFramework
             set { mTips = value; }
         }
     }
+    
+    #endregion
+    
+    #region chain
+
+        public static partial class IActionChainExtention
+    {
+        public static IActionChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
+        {
+            var retNodeChain = new RepeatNodeChain(count) {Executer = selfbehaviour};
+            retNodeChain.AddTo(selfbehaviour);
+            return retNodeChain;
+        }
+
+        public static IActionChain Sequence<T>(this T selfbehaviour) where T : MonoBehaviour
+        {
+            var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
+            retNodeChain.AddTo(selfbehaviour);
+            return retNodeChain;
+        }
+
+        public static IActionChain OnlyBegin(this IActionChain selfChain, Action<OnlyBeginAction> onBegin)
+        {
+            return selfChain.Append(OnlyBeginAction.Allocate(onBegin));
+        }
+
+        public static IActionChain Delay(this IActionChain senfChain, float seconds)
+        {
+            return senfChain.Append(DelayAction.Allocate(seconds));
+        }
+
+        public static void AddTo(this IDisposable self, Component component)
+        {
+            var onDestroyTrigger = component.gameObject.GetComponent<OnDestroyTrigger>();
+
+            if (!onDestroyTrigger)
+            {
+                onDestroyTrigger = component.gameObject.AddComponent<OnDestroyTrigger>();
+            }
+
+            onDestroyTrigger.AddDispose(self);
+        }
+
+        /// <summary>
+        /// Same as Delayw
+        /// </summary>
+        /// <param name="senfChain"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public static IActionChain Wait(this IActionChain senfChain, float seconds)
+        {
+            return senfChain.Append(DelayAction.Allocate(seconds));
+        }
+
+        public static IActionChain Event(this IActionChain selfChain, params System.Action[] onEvents)
+        {
+            return selfChain.Append(EventAction.Allocate(onEvents));
+        }
+
+
+        public static IActionChain Until(this IActionChain selfChain, Func<bool> condition)
+        {
+            return selfChain.Append(UntilAction.Allocate(condition));
+        }
+    }
+
+    public class RepeatNodeChain : ActionChain
+    {
+        protected override NodeAction mNode
+        {
+            get { return mRepeatAction; }
+        }
+
+        private RepeatNode mRepeatAction;
+
+        private SequenceNode mSequenceNode;
+
+        public RepeatNodeChain(int repeatCount)
+        {
+            mSequenceNode = new SequenceNode();
+            mRepeatAction = new RepeatNode(mSequenceNode, repeatCount);
+        }
+
+        public override IActionChain Append(IAction node)
+        {
+            mSequenceNode.Append(node);
+            return this;
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+
+            if (null != mRepeatAction)
+            {
+                mRepeatAction.Dispose();
+            }
+
+            mRepeatAction = null;
+
+            mSequenceNode.Dispose();
+            mSequenceNode = null;
+        }
+    }
+
+    /// <summary>
+    /// 支持链式方法
+    /// </summary>
+    public class SequenceNodeChain : ActionChain
+    {
+        protected override NodeAction mNode
+        {
+            get { return mSequenceNode; }
+        }
+
+        private SequenceNode mSequenceNode;
+
+        public SequenceNodeChain()
+        {
+            mSequenceNode = new SequenceNode();
+        }
+
+        public override IActionChain Append(IAction node)
+        {
+            mSequenceNode.Append(node);
+            return this;
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+
+            mSequenceNode.Dispose();
+            mSequenceNode = null;
+        }
+    }
+    
+    #endregion
+
 
     /// <summary>
     /// 事件注入,和 NodeSystem 配套使用
@@ -1069,7 +1094,6 @@ namespace QFramework
             get { return MonoSingletonProperty<ActionQueue>.Instance; }
         }
     }
-#endif
 
 #if UNITY_EDITOR
     public static class EditorActionKit

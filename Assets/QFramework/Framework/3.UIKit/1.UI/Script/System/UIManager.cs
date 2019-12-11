@@ -25,9 +25,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF;
-
-
 namespace QFramework
 {
 	using UnityEngine;
@@ -267,9 +264,7 @@ namespace QFramework
 			}
 			else
 			{
-				var nameSplits = fullBehaviourName.Split('.');
-				retValue = nameSplits[nameSplits.Length - 1];
-				mFullname4UIBehaviourName.Add(fullBehaviourName, retValue);
+				retValue = typeof(T).Name;
 			}
 
 			return retValue;

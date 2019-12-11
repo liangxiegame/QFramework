@@ -3,14 +3,12 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-using Dependency.ResKit.Pool;
-using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using System;
         
-    public interface IResLoader : IPoolable,IPoolType
+    public interface IResLoader : Dependency.ResKit.Pool.IPoolable,Dependency.ResKit.Pool.IPoolType
     {
         void Add2Load(string assetName, Action<bool, IRes> listener, bool lastOrder = true);
         void Add2Load(string ownerBundleName, string assetName, Action<bool, IRes> listener, bool lastOrder = true);

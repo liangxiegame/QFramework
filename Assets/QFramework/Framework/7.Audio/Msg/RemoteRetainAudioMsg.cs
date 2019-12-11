@@ -25,7 +25,7 @@
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 	public class RemoveRetainAudioMsg : QMsg
 	{

@@ -24,10 +24,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependency.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using UnityEngine;
     using System.Collections;
@@ -46,7 +45,7 @@ namespace QF.Res
 
         public static ResourcesRes Allocate(string name, InternalResNamePrefixType prefixType)
         {
-            var res = SafeObjectPool<ResourcesRes>.Instance.Allocate();
+            var res = Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -150,7 +149,7 @@ namespace QF.Res
 
         public override void Recycle2Cache()
         {
-            SafeObjectPool<ResourcesRes>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Recycle(this);
         }
 
         protected override float CalculateProgress()

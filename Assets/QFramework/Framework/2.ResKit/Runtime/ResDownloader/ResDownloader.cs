@@ -24,10 +24,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependencies.Pool;
+using Dependencies.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using System.Collections.Generic;
 
@@ -56,7 +56,7 @@ namespace QF.Res
     /// <summary>
     /// 资源下载器
     /// </summary>
-    public class ResDownloader : Singleton<ResDownloader>
+    public class ResDownloader : Dependencies.ResKit.Pool.Singleton<ResDownloader>
     {
         private Dictionary<string, IDownloadTask> mAllDownloadTaskMap = new Dictionary<string, IDownloadTask>();
         private List<IDownloadTask> mWaitDownloadList = new List<IDownloadTask>();

@@ -5,7 +5,7 @@
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 		
 	/// <summary>

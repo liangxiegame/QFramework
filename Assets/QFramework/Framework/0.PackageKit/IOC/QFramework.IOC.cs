@@ -239,7 +239,8 @@ namespace QFramework
         {
             if (obj == null) return;
 #if !NETFX_CORE
-            var members = obj.GetType().GetMembers();
+            var members = obj.GetType()
+                .GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
 #else
             var members = obj.GetType().GetTypeInfo().DeclaredMembers;
 #endif

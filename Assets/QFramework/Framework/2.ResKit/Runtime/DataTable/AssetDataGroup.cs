@@ -30,7 +30,7 @@ using System.Collections.Generic;
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     public class AssetDataGroup
     {

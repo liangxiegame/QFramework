@@ -1,4 +1,3 @@
-
 using System.Net;
 #if UNITY_EDITOR
 using System;
@@ -174,10 +173,7 @@ namespace QFramework
 
                         AssetDatabase.Refresh();
 
-                        RenderEndCommandExecuter.PushCommand(() =>
-                        {
-                            Publish(mPackageVersion, false);
-                        });
+                        RenderEndCommandExecuter.PushCommand(() => { Publish(mPackageVersion, false); });
                     }).AddTo(RootLayout);
 
                     new ButtonView("发布并删除本地", () => { }).AddTo(RootLayout);
@@ -212,7 +208,7 @@ namespace QFramework
             public const byte STATE_GENERATE_UPLOADING = 2;
             public const byte STATE_GENERATE_COMPLETE  = 3;
         }
-        
+
         public string UpdateResult  = "";
         public string NoticeMessage = "";
         public byte   Progress      = UploadProgress.STATE_GENERATE_INIT;
@@ -236,7 +232,7 @@ namespace QFramework
                 OnRefresh();
             });
         }
-        
+
 
         private void OnEnable()
         {
@@ -262,7 +258,7 @@ namespace QFramework
         public override void OnUpdate()
         {
         }
-        
+
 
         public override void OnClose()
         {
@@ -289,7 +285,7 @@ namespace QFramework
             base.OnGUI();
 
             RootLayout.DrawGUI();
-            
+
             RenderEndCommandExecuter.ExecuteCommand();
         }
 
@@ -600,7 +596,7 @@ namespace QFramework
         {
             var AddressIP = "";
 #if !UNITY_WEBGL
-#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0 
+#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0
             AddressIP = UnityEngine.Network.player.ipAddress;
 #else
             //获取本地的IP地址  
@@ -865,6 +861,8 @@ namespace QFramework
         void DeletePackage(string packageId, Action onResponse);
 
         void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse);
+
+        void GetAllRemotePackageInfoV5(Action<List<PackageData>, List<string>> onResponse);
     }
 
     [Serializable]
@@ -887,7 +885,6 @@ namespace QFramework
             form.AddField("password", User.Password.Value);
             form.AddField("id", packageId);
 
-            
             EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (response) =>
             {
                 if (response.Type == ResponseType.SUCCEED)
@@ -923,6 +920,25 @@ namespace QFramework
             }
         }
 
+        public void GetAllRemotePackageInfoV5(Action<List<PackageData>, List<string>> onResponse)
+        {
+            if (User.Logined)
+            {
+                var form = new WWWForm();
+
+                form.AddField("username", User.Username.Value);
+                form.AddField("password", User.Password.Value);
+
+                EditorHttp.Post("https://api.liangxiegame.com/qf/v5/package/list", form,
+                    (response) => OnResponseV5(response, onResponse));
+            }
+            else
+            {
+                EditorHttp.Post("https://api.liangxiegame.com/qf/v5/package/list", new WWWForm(),
+                    (response) => OnResponseV5(response, onResponse));
+            }
+        }
+
         [Serializable]
         public class ResultPackage
         {
@@ -938,6 +954,123 @@ namespace QFramework
             public string type;
         }
 
+
+        [Serializable]
+        public class ListPackageResponseResult
+        {
+            public List<string> categories;
+        }
+        
+        void OnResponseV5(EditorHttpResponse response, Action<List<PackageData>,List<string>> onResponse)
+        {
+            if (response.Type == ResponseType.SUCCEED)
+            {
+                var responseJson =
+                    JsonUtility.FromJson<QFrameworkServerResultFormat<ListPackageResponseResult>>(response.Text);
+                
+                if (responseJson.code == 1)
+                {
+                    var listPackageResponseResult = responseJson.data;
+                    
+                    onResponse(null, listPackageResponseResult.categories);
+//
+//                    var packageDatas = new List<PackageData>();
+//                    foreach (var packageInfo in packageInfosJson)
+//                    {
+//                        var name = packageInfo.name;
+//
+//                        var package = packageDatas.Find(packageData => packageData.Name == name);
+//
+//                        if (package == null)
+//                        {
+//                            package = new PackageData()
+//                            {
+//                                Name = name,
+//                            };
+//
+//                            packageDatas.Add(package);
+//                        }
+//
+//                        var id = packageInfo.id;
+//                        var version = packageInfo.version;
+//                        var url = packageInfo.downloadUrl;
+//                        var installPath = packageInfo.installPath;
+//                        var releaseNote = packageInfo.releaseNote;
+//                        var createAt = packageInfo.createAt;
+//                        var creator = packageInfo.username;
+//                        var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
+//                        var accessRightName = packageInfo.accessRight;
+//                        var typeName = packageInfo.type;
+//
+//                        var packageType = PackageType.FrameworkModule;
+//
+//                        switch (typeName)
+//                        {
+//                            case "fm":
+//                                packageType = PackageType.FrameworkModule;
+//                                break;
+//                            case "s":
+//                                packageType = PackageType.Shader;
+//                                break;
+//                            case "agt":
+//                                packageType = PackageType.AppOrGameDemoOrTemplate;
+//                                break;
+//                            case "p":
+//                                packageType = PackageType.Plugin;
+//                                break;
+//                            case "master":
+//                                packageType = PackageType.Master;
+//                                break;
+//                        }
+//
+//                        var accessRight = PackageAccessRight.Public;
+//
+//                        switch (accessRightName)
+//                        {
+//                            case "public":
+//                                accessRight = PackageAccessRight.Public;
+//                                break;
+//                            case "private":
+//                                accessRight = PackageAccessRight.Private;
+//                                break;
+//                        }
+//
+//                        package.PackageVersions.Add(new PackageVersion()
+//                        {
+//                            Id = id,
+//                            Version = version,
+//                            DownloadUrl = url,
+//                            InstallPath = installPath,
+//                            Type = packageType,
+//                            AccessRight = accessRight,
+//                            Readme = releaseItem,
+//                        });
+//
+//                        package.readme.AddReleaseNote(releaseItem);
+//                    }
+//
+//                    packageDatas.ForEach(packageData =>
+//                    {
+//                        packageData.PackageVersions.Sort((a, b) =>
+//                            b.VersionNumber - a.VersionNumber);
+//                        packageData.readme.items.Sort((a, b) =>
+//                            b.VersionNumber - a.VersionNumber);
+//                    });
+//
+//                    onResponse(packageDatas);
+//
+//                    new PackageInfosRequestCache()
+//                    {
+//                        PackageDatas = packageDatas
+//                    }.Save();
+                }
+            }
+            else
+            {
+                onResponse(null, null);
+            }
+        }
+
         void OnResponse(EditorHttpResponse response, Action<List<PackageData>> onResponse)
         {
             if (response.Type == ResponseType.SUCCEED)
@@ -947,7 +1080,6 @@ namespace QFramework
 
                 if (responseJson.code == 1)
                 {
-                    
                     var packageInfosJson = responseJson.data;
 
                     var packageDatas = new List<PackageData>();
@@ -1041,8 +1173,10 @@ namespace QFramework
                     }.Save();
                 }
             }
-
-            onResponse(null);
+            else
+            {
+                onResponse(null);
+            }
         }
     }
 
@@ -1152,12 +1286,12 @@ namespace QFramework
                     GUILayout.BeginHorizontal(EditorStyles.helpBox);
                     GUILayout.BeginVertical();
                     GUILayout.BeginHorizontal();
-                    
+
                     GUILayout.Label("version: " + item.version, GUILayout.Width(130));
                     GUILayout.Label("author: " + item.author);
                     GUILayout.Label("date: " + item.date);
 
-                    if (item.author == User.Username.Value)
+                    if (item.author == User.Username.Value || User.Username.Value == "liangxie")
                     {
                         if (GUILayout.Button("删除"))
                         {
@@ -1278,10 +1412,10 @@ namespace QFramework
             PackageId = packageId;
         }
 
-        public string version = "";
-        public string content = "";
-        public string author  = "";
-        public string date    = "";
+        public string version   = "";
+        public string content   = "";
+        public string author    = "";
+        public string date      = "";
         public string PackageId = "";
 
 
@@ -1794,7 +1928,7 @@ namespace QFramework
         public PackageManagerApp()
         {
             // 注册好 自己的实例
-            Container.RegisterInstance<IQFrameworkContainer>(Container);
+            Container.RegisterInstance(Container);
 
             // 配置命令的执行
             TypeEventSystem.Register<IEditorStrangeMVCCommand>(OnCommandExecute);
@@ -1872,16 +2006,64 @@ namespace QFramework
 
         public List<PackageData> PackageDatas = new List<PackageData>();
 
+        public List<string> Categories = new List<string>()
+        {
+            "Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate"
+        };
+
+        public int CategoryIndex
+        {
+            get { return EditorPrefs.GetInt("PM_TOOLBAR_INDEX", 0); }
+            set { EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value); }
+        }
+
         public bool VersionCheck
         {
             get { return EditorPrefs.GetBool("QFRAMEWORK_VERSION_CHECK", true); }
             set { EditorPrefs.SetBool("QFRAMEWORK_VERSION_CHECK", value); }
         }
+
+
+        public IEnumerable<PackageData> SelectedPackageType
+        {
+            get
+            {
+                switch (CategoryIndex)
+                {
+                    case 0:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
+                            .OrderBy(p => p.Name);
+                    case 1:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.Plugin)
+                            .OrderBy(p => p.Name);
+                    case 2:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent)
+                            .OrderBy(p => p.Name);
+                    case 3:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.Shader)
+                            .OrderBy(p => p.Name);
+                    case 4:
+                        return PackageDatas.Where(packageData =>
+                            packageData.Type == PackageType.AppOrGameDemoOrTemplate).OrderBy(p => p.Name);
+                    case 5:
+                        return PackageDatas.Where(packageData =>
+                            packageData.AccessRight == PackageAccessRight.Private).OrderBy(p => p.Name);
+                    case 6:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.Master)
+                            .OrderBy(p => p.Name);
+                    default:
+                        return PackageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
+                            .OrderBy(p => p.Name);
+                }
+            }
+        }
     }
 
     public class PackageManagerViewUpdate
     {
-        public List<PackageData> PackageDatas { get; set; }
+        public IEnumerable<PackageData> PackageDatas { get; set; }
+        
+        public List<string> Categories { get; set; }
 
         public bool VersionCheck { get; set; }
     }
@@ -1898,16 +2080,63 @@ namespace QFramework
         {
             TypeEventSystem.Send(new PackageManagerViewUpdate()
             {
-                PackageDatas = Model.PackageDatas,
-                VersionCheck = Model.VersionCheck
+                PackageDatas = Model.SelectedPackageType,
+                VersionCheck = Model.VersionCheck,
+                Categories = Model.Categories
             });
 
             Server.GetAllRemotePackageInfo(list =>
             {
+                RenderEndCommandExecuter.PushCommand(() =>
+                {
+                    Model.PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
+                    
+                    TypeEventSystem.Send(new PackageManagerViewUpdate()
+                    {
+                        PackageDatas = Model.SelectedPackageType,
+                        VersionCheck = Model.VersionCheck,
+                        Categories = Model.Categories
+                    });
+                });
+            });
+            
+            
+            Server.GetAllRemotePackageInfoV5((list,categories) =>
+            {
+                RenderEndCommandExecuter.PushCommand(() =>
+                {
+                    Model.PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
+                    Model.Categories = categories;
+                    
+                    TypeEventSystem.Send(new PackageManagerViewUpdate()
+                    {
+                        PackageDatas = Model.SelectedPackageType,
+                        VersionCheck = Model.VersionCheck,
+                        Categories = categories
+                    });
+                });
+            });
+        }
+    }
+
+    public class PackageManagerSelectCategoryCommand : IEditorStrangeMVCCommand
+    {
+        public int CategoryIndex { get; set; }
+        
+        [Inject]
+        public PackageManagerModel Model { get; set; }
+        
+        public void Execute()
+        {
+            Model.CategoryIndex = CategoryIndex;
+            
+            RenderEndCommandExecuter.PushCommand(() =>
+            {
                 TypeEventSystem.Send(new PackageManagerViewUpdate()
                 {
-                    PackageDatas = PackageInfosRequestCache.Get().PackageDatas,
-                    VersionCheck = Model.VersionCheck
+                    PackageDatas = Model.SelectedPackageType,
+                    VersionCheck = Model.VersionCheck,
+                    Categories = Model.Categories
                 });
             });
         }
@@ -1942,64 +2171,6 @@ namespace QFramework
 
         private Vector2 mScrollPos;
 
-
-        private Action mOnToolbarIndexChanged;
-
-        public int ToolbarIndex
-        {
-            get { return EditorPrefs.GetInt("PM_TOOLBAR_INDEX", 0); }
-            set
-            {
-                EditorPrefs.SetInt("PM_TOOLBAR_INDEX", value);
-
-                if (mOnToolbarIndexChanged != null)
-                {
-                    mOnToolbarIndexChanged.Invoke();
-                }
-            }
-        }
-
-        private string[] mToolbarNamesLogined =
-            {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate", "Private", "Master"};
-
-        private string[] mToolbarNamesUnLogined = {"Framework", "Plugin", "UIKitComponent", "Shader", "AppOrTemplate"};
-
-        public string[] ToolbarNames
-        {
-            get { return User.Logined ? mToolbarNamesLogined : mToolbarNamesUnLogined; }
-        }
-
-        public IEnumerable<PackageData> SelectedPackageType(List<PackageData> packageDatas)
-        {
-            switch (ToolbarIndex)
-            {
-                case 0:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
-                        .OrderBy(p => p.Name);
-                case 1:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Plugin)
-                        .OrderBy(p => p.Name);
-                case 2:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.UIKitComponent)
-                        .OrderBy(p => p.Name);
-                case 3:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Shader)
-                        .OrderBy(p => p.Name);
-                case 4:
-                    return packageDatas.Where(packageData =>
-                        packageData.Type == PackageType.AppOrGameDemoOrTemplate).OrderBy(p => p.Name);
-                case 5:
-                    return packageDatas.Where(packageData =>
-                        packageData.AccessRight == PackageAccessRight.Private).OrderBy(p => p.Name);
-                case 6:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.Master)
-                        .OrderBy(p => p.Name);
-                default:
-                    return packageDatas.Where(packageData => packageData.Type == PackageType.FrameworkModule)
-                        .OrderBy(p => p.Name);
-            }
-        }
-
         public IQFrameworkContainer Container { get; set; }
 
         public int RenderOrder
@@ -2016,15 +2187,10 @@ namespace QFramework
 
         private VerticalLayout mRootLayout = new VerticalLayout();
 
+
+        private ToolbarView mCategoriesSelectorView = null;
+
         public void Init(IQFrameworkContainer container)
-        {
-            TypeEventSystem.Register<PackageManagerViewUpdate>(OnRefresh);
-
-            // 执行
-            TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
-        }
-
-        void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
         {
             mRootLayout = new VerticalLayout();
 
@@ -2034,11 +2200,16 @@ namespace QFramework
 
             treeNode.Add2Spread(verticalLayout);
 
-            new ToolbarView(ToolbarIndex)
-                .Menus(ToolbarNames.ToList())
-                .AddTo(verticalLayout)
-                .Index.Bind(newIndex => ToolbarIndex = newIndex);
-
+            mCategoriesSelectorView = new ToolbarView(0)
+                .AddTo(verticalLayout);
+            
+            mCategoriesSelectorView.Index.Bind(newIndex =>
+            {
+                TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerSelectCategoryCommand()
+                {
+                    CategoryIndex = newIndex
+                });
+            });
 
             new HeaderView()
                 .AddTo(verticalLayout);
@@ -2046,27 +2217,37 @@ namespace QFramework
             var packageList = new VerticalLayout("box")
                 .AddTo(verticalLayout);
 
-            var scroll = new ScrollLayout()
+            mScrollLayout = new ScrollLayout()
                 .Height(240)
                 .AddTo(packageList);
 
-            new SpaceView(2).AddTo(scroll);
+            TypeEventSystem.Register<PackageManagerViewUpdate>(OnRefresh);
 
-            mOnToolbarIndexChanged = () =>
+            // 执行
+            TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
+        }
+
+        private ScrollLayout mScrollLayout = null;
+
+        private void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
+        {
+            mScrollLayout.Clear();
+
+            mCategoriesSelectorView.Menus(viewUpdateEvent.Categories);
+            mCategoriesSelectorView.Index.Bind(newIndex =>
             {
-                scroll.Clear();
-
-                foreach (var packageData in SelectedPackageType(viewUpdateEvent.PackageDatas))
+                TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerSelectCategoryCommand()
                 {
-                    new SpaceView(2).AddTo(scroll);
-                    new PackageView(packageData).AddTo(scroll);
-                }
-            };
+                    CategoryIndex = newIndex
+                });
+            });
 
-            foreach (var packageData in SelectedPackageType(viewUpdateEvent.PackageDatas))
+            new SpaceView(2).AddTo(mScrollLayout);
+
+            foreach (var packageData in viewUpdateEvent.PackageDatas)
             {
-                new SpaceView(2).AddTo(scroll);
-                new PackageView(packageData).AddTo(scroll);
+                new SpaceView(2).AddTo(mScrollLayout);
+                new PackageView(packageData).AddTo(mScrollLayout);
             }
         }
 
@@ -2083,6 +2264,8 @@ namespace QFramework
         {
             TypeEventSystem.UnRegister<PackageManagerViewUpdate>(OnRefresh);
 
+            mScrollLayout = null;
+            mCategoriesSelectorView = null;
             mPackageManagerApp.Dispose();
             mPackageManagerApp = null;
         }
@@ -2266,7 +2449,7 @@ namespace QFramework
         {
             var packageKitWindow = Create<PackageKitWindow>(true);
             packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-            packageKitWindow.position = new Rect(100, 100, 690, 800);
+            packageKitWindow.position = new Rect( 100, 100, 690, 800);
             packageKitWindow.Show();
         }
 
@@ -2938,7 +3121,10 @@ namespace QFramework
 
         private void OnGUI()
         {
-            ViewController.View.DrawGUI();
+            if (ViewController != null)
+            {
+                ViewController.View.DrawGUI();
+            }
 
             RenderEndCommandExecuter.ExecuteCommand();
         }
@@ -3164,7 +3350,13 @@ namespace QFramework
 
         public void Clear()
         {
-            Children.Clear();
+            this.Children.ForEach(view =>
+            {
+                view.Parent = null;
+                view.Dispose();
+            });
+
+            this.Children.Clear();
         }
 
         public override void Refresh()
@@ -3436,6 +3628,23 @@ namespace QFramework
 
     public static class EditorUtils
     {
+        		public static string GetSelectedPathOrFallback()
+        		{
+        			var path = string.Empty;
+        
+        			foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+        			{
+        				path = AssetDatabase.GetAssetPath(obj);
+        				
+        				if (!string.IsNullOrEmpty(path) && File.Exists(path))
+        				{
+        					return path;
+        				}
+        			}
+        			
+        			return path;
+        		}
+        		
         public static void MarkCurrentSceneDirty()
         {
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());

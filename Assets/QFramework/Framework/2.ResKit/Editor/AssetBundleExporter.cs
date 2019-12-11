@@ -31,7 +31,7 @@ using System.IO;
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     public static class AssetBundleExporter
     {

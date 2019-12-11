@@ -66,7 +66,7 @@ using System.Reflection;
 
 namespace Dependency.ResKit.Pool
 {
-    using Dependencies.Pool;
+    using Dependencies.ResKit.Pool;
 
     public interface IPool<T>
     {
@@ -467,7 +467,7 @@ namespace Dependency.ResKit.Pool
 
 
 
-namespace Dependencies.Pool
+namespace Dependencies.ResKit.Pool
 {
     using System;
     using System.Reflection;

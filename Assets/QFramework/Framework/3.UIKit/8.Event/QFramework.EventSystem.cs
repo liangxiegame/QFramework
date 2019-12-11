@@ -10,7 +10,6 @@ namespace QFramework
 {
     using System;
     using System.Collections.Generic;
-    using Dependencies.EventSystem;
 
     #region 事件接口
 
@@ -18,7 +17,7 @@ namespace QFramework
 
     #endregion
 
-    public class QEventSystem : Singleton<QEventSystem>, IPoolable
+    public class QEventSystem : Dependencies.EventSystem.Singleton<QEventSystem>, Dependencies.EventSystem.IPoolable
     {
         //private bool mIsRecycled = false;
         private readonly Dictionary<int, ListenerWrap> mAllListenerMap = new Dictionary<int, ListenerWrap>(50);

@@ -23,9 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF;
-
-
 namespace QFramework
 {
 	using UnityEngine.Events;

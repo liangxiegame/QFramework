@@ -25,10 +25,8 @@
  ****************************************************************************/
 
 using Dependency.ResKit.Pool;
-using Dependency.ResKit.RefCount;
-using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using System;
 
@@ -49,7 +47,7 @@ namespace QF.Res
         public const short LocalImageRes = 5;
     }
 
-    public interface IRes : IRefCounter, IPoolType, IEnumeratorTask
+    public interface IRes : Dependency.ResKit.RefCount.IRefCounter, IPoolType, IEnumeratorTask
     {
         string AssetName { get; }
 

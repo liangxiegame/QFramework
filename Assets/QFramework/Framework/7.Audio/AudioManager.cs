@@ -28,12 +28,11 @@ using System;
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using UnityEngine.Events;
     using System.Collections.Generic;
     using UnityEngine;
-    using UniRx;
 
     #region 消息id定义
 
@@ -116,7 +115,7 @@ namespace QF.Res
         /// </summary>
         void ReadAudioSetting()
         {
-            SoundOn.Value = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
+            IsSoundOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
             IsMusicOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_MUSIC_ON, 1) == 1 ? true : false;
             IsVoiceOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_VOICE_ON, 1) == 1 ? true : false;
 
@@ -130,9 +129,9 @@ namespace QF.Res
         /// </summary>
         void SaveAudioSetting()
         {
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, SoundOn.Value == true ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, IsMusicOn == true ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, IsVoiceOn == true ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, IsSoundOn ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, IsMusicOn ? 1 : 0);
+            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, IsVoiceOn ? 1 : 0);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, SoundVolume);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_MUSIC_VOLUME, MusicVolume);
             PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_VOICE_VOLUME, VoiceVolume);
@@ -207,7 +206,7 @@ namespace QF.Res
             {
                 case (int) AudioEvent.SoundSwitch:
                     AudioMsgWithBool soundSwitchMsg = msg as AudioMsgWithBool;
-                    SoundOn.Value = soundSwitchMsg.on;
+                    IsSoundOn = soundSwitchMsg.on;
                     break;
                 case (int) AudioEvent.MusicSwitch:
                     AudioMsgWithBool musicSwitchMsg = msg as AudioMsgWithBool;
@@ -340,9 +339,6 @@ namespace QF.Res
         public static bool IsMusicOn { get; private set; }
 
         public static bool IsVoiceOn { get; private set; }
-
-
-        public BoolReactiveProperty SoundOn = new BoolReactiveProperty();
 
         [Obsolete("please use IsMusicOn")]
         public bool MusicOn
@@ -512,7 +508,7 @@ namespace QF.Res
         /// </summary>
         void PlaySound(AudioSoundMsg soundMsg)
         {
-            if (SoundOn.Value)
+            if (IsSoundOn)
             {
                 AudioUnit unit = SafeObjectPool<AudioUnit>.Instance.Allocate();
 

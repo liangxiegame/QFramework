@@ -23,13 +23,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF;
-
 
 namespace QFramework 
 {
 	using System;
-	using System.Collections.Generic;
 	
 	/// <summary>
 	/// manager基类

@@ -3,7 +3,8 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-using Dependencies.Pool;
+using Dependencies.ResKit.Pool;
+using UnityEngine;
 
 namespace QFramework
 {

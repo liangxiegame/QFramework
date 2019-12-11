@@ -3,8 +3,6 @@
  * Copyright (c) 2017 liangxie
 ****************************************************************************/
 
-using QF;
-
 namespace QFramework
 {
 	using System;

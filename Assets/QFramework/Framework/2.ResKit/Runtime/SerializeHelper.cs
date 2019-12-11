@@ -27,9 +27,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-using QF;
-
 namespace QFramework
 {
 	using System.IO;

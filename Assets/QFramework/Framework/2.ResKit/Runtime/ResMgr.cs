@@ -24,17 +24,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependencies.Pool;
-using Dependency.ResKit.Pool;
-using QFramework;
-
-namespace QF.Res
+namespace QFramework
 {
     using System.Collections.Generic;
     using UnityEngine;
     
-    [MonoSingletonPath("[Framework]/ResMgr")]
-    public class ResMgr : MonoSingleton<ResMgr>, IEnumeratorTaskMgr
+    [Dependencies.ResKit.Pool.MonoSingletonPath("[Framework]/ResMgr")]
+    public class ResMgr : Dependencies.ResKit.Pool.MonoSingleton<ResMgr>, IEnumeratorTaskMgr
     {
         #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
 
@@ -47,12 +43,12 @@ namespace QF.Res
             if (mResMgrInited) return;
             mResMgrInited = true;
             
-            SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
-            SafeObjectPool<AssetRes>.Instance.Init(40, 20);
-            SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
-            SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
-            SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
-            SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
+            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Init(40, 20);
 
             
             Instance.InitResMgr();
@@ -90,7 +86,7 @@ namespace QF.Res
             {
                 ResDatas.Instance.Reset();
                 var outResult = new List<string>();
-                FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
+                QFramework.FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
                 foreach (var outRes in outResult)
                 {
                     ResDatas.Instance.LoadFromFile(outRes);
@@ -129,7 +125,7 @@ namespace QF.Res
 
             if (!createNew)
             {
-                Log.I("createNew:{0}",createNew);
+                QFramework.Log.I("createNew:{0}",createNew);
                 return null;
             }
 
@@ -219,8 +215,8 @@ namespace QF.Res
 
                 GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
                 GUILayout.Label(string.Format("ResSearchRule:{0}",
-                    SafeObjectPool<ResSearchRule>.Instance.CurCount));
-                GUILayout.Label(string.Format("ResLoader:{0}", SafeObjectPool<ResLoader>.Instance.CurCount));
+                    Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.CurCount));
+                GUILayout.Label(string.Format("ResLoader:{0}",  Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.CurCount));
                 GUILayout.EndVertical();
             }
         }

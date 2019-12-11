@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QF.Res
+namespace QFramework
 {
         
     public class DefaultLoaderStrategy : IResLoaderStrategy

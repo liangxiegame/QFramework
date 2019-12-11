@@ -25,10 +25,9 @@
  ****************************************************************************/
 
 
-using Dependency.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 	using UnityEngine;
 	using System.Collections;
@@ -40,7 +39,7 @@ namespace QF.Res
 
 		public static AssetRes Allocate(string name, string onwerBundleName = null)
 		{
-			AssetRes res = SafeObjectPool<AssetRes>.Instance.Allocate();
+			AssetRes res = Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Allocate();
 			if (res != null)
 			{
 				res.AssetName = name;
@@ -247,7 +246,7 @@ namespace QF.Res
 
 		public override void Recycle2Cache()
 		{
-			SafeObjectPool<AssetRes>.Instance.Recycle(this);
+			Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Recycle(this);
 		}
 
 		protected override float CalculateProgress()

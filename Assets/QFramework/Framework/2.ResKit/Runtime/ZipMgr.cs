@@ -27,7 +27,7 @@
  ****************************************************************************/
 
 
-using Dependencies.Pool;
+using Dependencies.ResKit.Pool;
 
 namespace QFramework
 {

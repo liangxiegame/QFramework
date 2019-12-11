@@ -24,10 +24,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependency.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
     using System;
     using UnityEngine;
@@ -50,7 +49,7 @@ namespace QF.Res
 
         public static NetImageRes Allocate(string name)
         {
-            NetImageRes res = SafeObjectPool<NetImageRes>.Instance.Allocate();
+            NetImageRes res = Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -157,7 +156,7 @@ namespace QF.Res
 
         public override void Recycle2Cache()
         {
-            SafeObjectPool<NetImageRes>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Recycle(this);
         }
 
         public override void OnRecycled()

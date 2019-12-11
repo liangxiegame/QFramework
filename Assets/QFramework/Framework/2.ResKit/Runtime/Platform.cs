@@ -23,8 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QF
-{
+namespace QFramework
+{ 
 	public class Platform
 	{
 		public static bool IsAndroid

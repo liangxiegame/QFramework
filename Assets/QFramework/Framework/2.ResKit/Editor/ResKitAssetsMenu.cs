@@ -25,8 +25,9 @@
 
 using UnityEditor;
 using System.IO;
+using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 	[InitializeOnLoad]
 	public class ResKitAssetsMenu
@@ -65,7 +66,7 @@ namespace QF.Res
 
 		public static void OnSelectionChanged()
 		{
-			var path = GetSelectedPathOrFallback();
+			var path = EditorUtils.GetSelectedPathOrFallback();
 			if (!string.IsNullOrEmpty(path))
 			{
 				Menu.SetChecked(Mark_AssetBundle, Marked(path));
@@ -105,24 +106,10 @@ namespace QF.Res
 		[MenuItem(Mark_AssetBundle)]
 		public static void MarkPTABDir()
 		{
-			var path = GetSelectedPathOrFallback();
+			var path = EditorUtils.GetSelectedPathOrFallback();
 			MarkPTAB(path);
 		}
 
-		public static string GetSelectedPathOrFallback()
-		{
-			var path = string.Empty;
 
-			foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
-			{
-				path = AssetDatabase.GetAssetPath(obj);
-				if (!string.IsNullOrEmpty(path) && File.Exists(path))
-				{
-				}
-			}
-
-			//Debug.Log ("path ***** :"+path);
-			return path;
-		}
 	}
 }

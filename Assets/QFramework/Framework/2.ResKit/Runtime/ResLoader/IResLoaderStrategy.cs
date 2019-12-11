@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QF.Res
+namespace QFramework
 {
     //资源加载&释放策略
     public interface IResLoaderStrategy

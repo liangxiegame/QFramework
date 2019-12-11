@@ -293,15 +293,6 @@
     <Reference Include="QFramework.Log">
       <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/1.Core/Log/QFramework.Log.dll</HintPath>
     </Reference>
-    <Reference Include="ProtobufNet">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/ProtobufNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>D:/Workspace/QFramework/Assets/QFramework/Framework/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.Advertisements">
       <HintPath>C:/Users/liang/AppData/LocalLow/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.3/UnityEngine.Advertisements.dll</HintPath>
     </Reference>

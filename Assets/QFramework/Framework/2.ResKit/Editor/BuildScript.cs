@@ -26,7 +26,7 @@
 
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
 	using UnityEngine;
 	using UnityEditor;

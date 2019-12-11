@@ -24,17 +24,16 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependency.ResKit.Pool;
 using QFramework;
 
-namespace QF.Res
+namespace QFramework
 {
         
     public class SceneRes : AssetRes
     {
         public static SceneRes Allocate(string name)
         {
-            SceneRes res = SafeObjectPool<SceneRes>.Instance.Allocate();
+            SceneRes res = Dependency.ResKit.Pool.SafeObjectPool<SceneRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -96,7 +95,7 @@ namespace QF.Res
 
         public override void Recycle2Cache()
         {
-            SafeObjectPool<SceneRes>.Instance.Recycle(this);
+            Dependency.ResKit.Pool.SafeObjectPool<SceneRes>.Instance.Recycle(this);
         }
     }
 }

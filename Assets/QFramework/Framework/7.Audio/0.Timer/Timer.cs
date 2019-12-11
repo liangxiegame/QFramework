@@ -5,9 +5,7 @@
 ****************************************************************************/
 
 using System;
-using QF;
 using UnityEngine;
-
 
 namespace QFramework
 {
