@@ -79,6 +79,7 @@ namespace QFramework
 
 		void ISingleton.OnSingletonInit()
 		{
+
 		}
 
 		private static UIManager mInstance;

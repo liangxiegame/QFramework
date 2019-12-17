@@ -1,5 +1,5 @@
 using System.CodeDom;
-using QF.GraphDesigner;
+using QFramework.CodeGen;
 
 namespace QFramework
 {

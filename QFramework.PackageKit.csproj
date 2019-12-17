@@ -324,6 +324,10 @@
       <Project>{A0436DBD-E4AA-78EC-3CD6-AC5710121C22}</Project>
       <Name>QFramework.TypeEventSystem</Name>
     </ProjectReference>
+    <ProjectReference Include="QFramework.BindKit.csproj">
+      <Project>{DF483BD5-EFCF-646B-E129-7E9CCEB8B48F}</Project>
+      <Name>QFramework.BindKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

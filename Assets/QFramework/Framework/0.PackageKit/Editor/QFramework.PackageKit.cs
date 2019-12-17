@@ -1,4 +1,9 @@
 using System.Net;
+using BindKit.Binding;
+using BindKit.Binding.Binders;
+using BindKit.Binding.Builder;
+using BindKit.Binding.Contexts;
+using BindKit.Binding.Proxy.Targets;
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
@@ -7,9 +12,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
+using BindKit.ViewModels;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
@@ -549,37 +556,80 @@ namespace QFramework
         }
     }
 
+    public class LoginViewModel : ViewModelBase
+    {
+        private string mUsername = string.Empty;
+
+        public string Username
+        {
+            get { return mUsername; }
+            set
+            {
+                this.Set(ref mUsername, value, "Username"); 
+            }
+        }
+        
+        private string mPassword = string.Empty;
+        public string Password
+        {
+            get { return mPassword; }
+            set
+            {
+                this.Set(ref mPassword, value, "Password");
+            }
+        }
+
+        public void Login()
+        {
+            RenderEndCommandExecuter.PushCommand(() =>
+            {
+                TypeEventSystem.Send<IPackageLoginCommand>(new LoginCommand(Username, Password));
+            });
+        }
+    }
+
     public class LoginView : VerticalLayout
     {
-        public string Username = "";
-        public string Password = "";
+
+        public TextView mUsername = null;
+        public TextView mPassword = null;
+        public ButtonView mLoginBtn = null;
 
         public LoginView()
         {
+            
             var usernameLine = new HorizontalLayout().AddTo(this);
             new LabelView("username:").AddTo(usernameLine);
-            new TextView(Username)
-                .AddTo(usernameLine)
-                .Content.Bind(username => Username = username);
+            mUsername = new TextView("").AddTo(usernameLine);
 
             var passwordLine = new HorizontalLayout().AddTo(this);
-
             new LabelView("password:").AddTo(passwordLine);
-            new TextView("").PasswordMode().AddTo(passwordLine)
-                .Content.Bind(password => Password = password);
+            mPassword = new TextView("").PasswordMode().AddTo(passwordLine);
 
-            new ButtonView("登录",
-                    () =>
-                    {
-                        this.PushCommand(() =>
-                        {
-                            TypeEventSystem.Send<IPackageLoginCommand>(new LoginCommand(Username, Password));
-                        });
-                    })
+            var model = new LoginViewModel();
+
+            mLoginBtn = new ButtonView("登录")
                 .AddTo(this);
 
             new ButtonView("注册", () => { Application.OpenURL("http://master.liangxiegame.com/user/register"); })
                 .AddTo(this);
+
+
+            var bindingSet = BindKit.CreateBindingSet(this,model );
+
+            bindingSet.Bind(mUsername.Content)
+                .For(v => v.Value, v => v.OnValueChanged)
+                .To(vm => vm.Username);
+
+            bindingSet.Bind(mPassword.Content)
+                .For(v => v.Value, v => v.OnValueChanged)
+                .To(vm => vm.Password);
+
+            bindingSet.Bind(mLoginBtn)
+                .For(v=>v.OnClick)
+                .To(vm=>vm.Login);
+            
+            bindingSet.Build();
         }
     }
 
@@ -2142,6 +2192,12 @@ namespace QFramework
         }
     }
 
+
+    public class PackageManagerViewModel : ViewModelBase
+    {
+        
+    }
+    
     public class PackageManagerView : IPackageKitView
     {
         private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath, "../");
@@ -2192,13 +2248,15 @@ namespace QFramework
 
         public void Init(IQFrameworkContainer container)
         {
+// view
             mRootLayout = new VerticalLayout();
-
             var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
 
             var verticalLayout = new VerticalLayout("box");
 
             treeNode.Add2Spread(verticalLayout);
+            
+            var bindingSet = BindKit.CreateBindingSet(this, new PackageManagerView());
 
             mCategoriesSelectorView = new ToolbarView(0)
                 .AddTo(verticalLayout);
@@ -2232,6 +2290,7 @@ namespace QFramework
         private void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
         {
             mScrollLayout.Clear();
+            mCategoriesSelectorView.Index.UnBindAll();
 
             mCategoriesSelectorView.Menus(viewUpdateEvent.Categories);
             mCategoriesSelectorView.Index.Bind(newIndex =>
@@ -2468,19 +2527,24 @@ namespace QFramework
 
         public List<IPackageKitView> mPackageKitViews = null;
 
+        private int count = 0;
+        
         protected override void Init()
         {
             var label = GUI.skin.label;
+            
             PackageApplication.Container = null;
-
             RemoveAllChidren();
 
+            BindKit.Init();
+            
             mPackageKitViews = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
                 .OrderBy(view => view.RenderOrder)
                 .ToList();
 
             PackageApplication.Container.RegisterInstance(this);
+            
         }
 
         public override void OnGUI()
@@ -2496,6 +2560,8 @@ namespace QFramework
             mPackageKitViews.ForEach(view => view.OnDispose());
 
             RemoveAllChidren();
+            
+            BindKit.Clear();
         }
     }
 
@@ -2608,10 +2674,9 @@ namespace QFramework
             mPlugins = null;
             container.RegisterInstance(container);
             var pluginTypes = GetDerivedTypes<IPackageKitView>(false, false).ToArray();
-//			// Load all plugins
+
             foreach (var diagramPlugin in pluginTypes)
             {
-//				if (pluginTypes.Any(p => p.BaseType == diagramPlugin)) continue;
                 var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as IPackageKitView;
                 if (pluginInstance == null) continue;
                 container.RegisterInstance(pluginInstance, diagramPlugin.Name, false);
@@ -3594,57 +3659,55 @@ namespace QFramework
                     if (mSetter != null)
                     {
                         mSetter.Invoke(mValue);
+                        OnValueChanged.Invoke(mValue);
                     }
 
                     setted = true;
                 }
             }
         }
-
+        
         private T mValue;
-
-        /// <summary>
-        /// TODO:注销也要做下
-        /// </summary>
-        /// <param name="setter"></param>
+        
         public void Bind(Action<T> setter)
         {
             mSetter += setter;
-            mBindings.Add(setter);
         }
-
-        private List<Action<T>> mBindings = new List<Action<T>>();
 
         public void UnBindAll()
         {
-            foreach (var binding in mBindings)
-            {
-                mSetter -= binding;
-            }
+            mSetter = null;
         }
 
-        private event Action<T> mSetter;
+        private event Action<T> mSetter = t=>{};
+        public UnityEvent<T> OnValueChanged = new OnPropertyChangedEvent<T>();
+
+    }
+
+    public class OnPropertyChangedEvent<T> : UnityEvent<T>
+    {
+        
     }
 
     public static class EditorUtils
     {
-        		public static string GetSelectedPathOrFallback()
-        		{
-        			var path = string.Empty;
-        
-        			foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
-        			{
-        				path = AssetDatabase.GetAssetPath(obj);
-        				
-        				if (!string.IsNullOrEmpty(path) && File.Exists(path))
-        				{
-        					return path;
-        				}
-        			}
-        			
-        			return path;
-        		}
-        		
+        public static string GetSelectedPathOrFallback()
+        {
+            var path = string.Empty;
+
+            foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+            {
+                path = AssetDatabase.GetAssetPath(obj);
+
+                if (!string.IsNullOrEmpty(path) && File.Exists(path))
+                {
+                    return path;
+                }
+            }
+
+            return path;
+        }
+
         public static void MarkCurrentSceneDirty()
         {
             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
@@ -3882,22 +3945,27 @@ namespace QFramework
 
     public class ButtonView : View
     {
-        public ButtonView(string text, Action onClickEvent)
+        public ButtonView(string text = null, Action onClickEvent = null)
         {
             Text = text;
             OnClickEvent = onClickEvent;
-            //Style = new GUIStyle(GUI.skin.button);
         }
 
         public string Text { get; set; }
 
         public Action OnClickEvent { get; set; }
+        public UnityEvent OnClick = new UnityEvent();
 
         protected override void OnGUI()
         {
             if (GUILayout.Button(Text, GUI.skin.button, LayoutStyles))
             {
-                OnClickEvent.Invoke();
+                if (OnClickEvent != null)
+                {
+                    OnClickEvent.Invoke();
+                }
+
+                OnClick.Invoke();
             }
         }
     }
@@ -3989,7 +4057,6 @@ namespace QFramework
             }
         }
 
-
         protected override void OnGUI()
         {
             GUILayout.Label(Content, Style, LayoutStyles);
@@ -4054,9 +4121,11 @@ namespace QFramework
         {
             Content = new Property<string>(content);
             //Style = GUI.skin.textField;
+            
+            Content.Bind(_=>OnValueChanged.Invoke());
         }
 
-        public Property<string> Content { get; set; }
+        public Property<string> Content;
 
         protected override void OnGUI()
         {
@@ -4069,6 +4138,8 @@ namespace QFramework
                 Content.Value = EditorGUILayout.TextField(Content.Value, GUI.skin.textField, LayoutStyles);
             }
         }
+        
+        public UnityEvent OnValueChanged = new UnityEvent();
 
 
         private bool mPasswordMode = false;

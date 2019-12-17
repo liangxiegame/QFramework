@@ -166,13 +166,25 @@ namespace QFramework
 					AssetDatabase.Refresh ();
 				}).AddTo (verticalLayout);
 
-				new ButtonView (LocaleText.Build, () => {
-					// this.PushCommand (() => {
-						BuildWithTarget (EditorUserBuildSettings.activeBuildTarget);
-					// });
+				new ButtonView (LocaleText.Build, () =>
+				{
+					EditorWindow window = GetWindow<PackageKitWindow>();
 
-					// Close ();
-					return;
+					if (window)
+					{
+						window.Close();
+						window = null;
+					}
+
+					window = GetWindow<ResKitEditorWindow>();
+
+					if (window)
+					{
+						window.Close();
+						window = null;
+					}
+
+					BuildWithTarget (EditorUserBuildSettings.activeBuildTarget);
 				}).AddTo (verticalLayout);
 
 				new ButtonView (LocaleText.ForceClear, () => {

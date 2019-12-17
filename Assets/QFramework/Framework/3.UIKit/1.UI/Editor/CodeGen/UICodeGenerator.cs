@@ -26,7 +26,7 @@
 
 using System.Linq;
 
-using QF.GraphDesigner;
+using QFramework.CodeGen;
 
 namespace QFramework
 {

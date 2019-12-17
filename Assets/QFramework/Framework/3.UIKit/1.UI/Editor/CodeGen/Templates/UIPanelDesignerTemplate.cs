@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QF.GraphDesigner;
+using QFramework.CodeGen;
 
 using System.CodeDom;
 

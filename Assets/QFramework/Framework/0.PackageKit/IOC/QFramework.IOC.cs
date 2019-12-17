@@ -48,7 +48,7 @@ namespace QFramework
         }
     }
     
-    public interface IQFrameworkContainer
+    public interface IQFrameworkContainer : IDisposable
     {
         /// <summary>
         /// Clears all type mappings and instances.
@@ -105,6 +105,7 @@ namespace QFramework
         void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class;
 
         void RegisterInstance<TBase>(TBase instance) where TBase : class;
+        void UnRegisterInstance<TBase>() where TBase : class;
 
         /// <summary>
         ///  If an instance of T exist then it will return that instance otherwise it will create a new one based off mappings.
@@ -323,6 +324,15 @@ namespace QFramework
             RegisterInstance<TBase>(instance, true);
         }
 
+        public void UnRegisterInstance<TBase>() where TBase : class
+        {
+            var key = Instances.Keys.SingleOrDefault(k => k.Item1 == typeof(TBase));
+            if (key != null)
+            {
+                Instances.Remove(key);
+            }
+        }
+
         public void RegisterInstance<TBase>(TBase instance, bool injectNow) where TBase : class
         {
             RegisterInstance<TBase>(instance, null, injectNow);
@@ -475,6 +485,11 @@ namespace QFramework
         public TBase ResolveRelation<TFor, TBase>(params object[] arg)
         {
             return (TBase) ResolveRelation(typeof(TFor), typeof(TBase), arg);
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
     }
 

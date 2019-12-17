@@ -1,0 +1,8 @@
+{
+    "name": "QFramework.BindKit",
+    "references": [
+        "QFramework.IOC"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

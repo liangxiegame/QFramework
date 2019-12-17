@@ -2,8 +2,15 @@
     "name": "QFramework.PackageKit",
     "references": [
         "QFramework.IOC",
-        "QFramework.TypeEventSystem"
+        "QFramework.TypeEventSystem",
+        "QFramework.BindKit"
     ],
+    "optionalUnityReferences": [],
     "includePlatforms": [],
-    "excludePlatforms": []
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
 }
