@@ -27,7 +27,7 @@ using System.Reflection;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 #if UNITY_IOS || ENABLE_IL2CPP
-using Loxodon.Framework.Binding.Expressions;
+using BindKit.Binding.Expressions;
 #endif
 
 namespace BindKit.Binding.Paths

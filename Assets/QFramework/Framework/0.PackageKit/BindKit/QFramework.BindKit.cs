@@ -8,16 +8,20 @@
  * 支持对象映射类似 AutoMapper
  */
 
+using System.Collections.Generic;
 using BindKit.Binding;
 using BindKit.Binding.Binders;
 using BindKit.Binding.Builder;
 using BindKit.Binding.Contexts;
+using BindKit.ViewModels;
 
 namespace QFramework
 {
     public class BindKit
     {
         private static IQFrameworkContainer mContainer;
+        
+        public static Dictionary<object,BindingContext> BindingContexts = new Dictionary<object, BindingContext>();
         
         public static void Init(IQFrameworkContainer container = null)
         {
@@ -42,7 +46,23 @@ namespace QFramework
 
             var bindContext = new BindingContext(view, binder) {DataContext = viewModel};
 
+            BindingContexts.Add(view, bindContext);
+            
             return new BindingSet<TView, TViewModel>(bindContext, view);
+        }
+        
+        public static void ClearBindingSet<TView>(TView view) where TView : class
+        {
+            var bindingContext = BindingContexts[view];
+            
+            var viewModelBase = bindingContext.DataContext as ViewModelBase;
+
+            if (viewModelBase != null)
+            {
+                viewModelBase.Dispose();
+            }
+            
+            BindingContexts.Remove(view);
         }
 
         public static IQFrameworkContainer GetCotnainer()
@@ -52,6 +72,18 @@ namespace QFramework
 
         public static void Clear()
         {
+            foreach (var bindingContext in BindingContexts.Values)
+            {
+                var viewModelBase = bindingContext.DataContext as ViewModelBase;
+
+                if (viewModelBase != null)
+                {
+                    viewModelBase.Dispose();
+                }
+            }
+            
+            BindingContexts.Clear();
+            
             new BindingServiceBundle(mContainer)
                 .Stop();
         }

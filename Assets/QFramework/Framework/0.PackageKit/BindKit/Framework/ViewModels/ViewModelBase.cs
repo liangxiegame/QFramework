@@ -27,11 +27,14 @@ using System.Linq.Expressions;
 using Loxodon.Log;
 using System.ComponentModel;
 using BindKit.Observables;
+using QFramework;
 
 namespace BindKit.ViewModels
 {
     public abstract class ViewModelBase : ObservableObject, IViewModel
     {
+         
+        
         private static readonly ILog log = LogManager.GetLogger(typeof(ViewModelBase));
         
 

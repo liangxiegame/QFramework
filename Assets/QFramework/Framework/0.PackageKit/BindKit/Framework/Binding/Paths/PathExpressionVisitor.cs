@@ -27,10 +27,8 @@ using System.Reflection;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Linq;
-
-using Loxodon.Log;
 #if UNITY_IOS || ENABLE_IL2CPP
-using Loxodon.Framework.Binding.Expressions;
+using BindKit.Binding.Expressions;
 #endif
 
 namespace BindKit.Binding.Paths

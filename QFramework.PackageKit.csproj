@@ -216,6 +216,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Framework\DialogUtils.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Framework\EditorKit\LabelViewWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Framework\PackageApplication.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Command\IPackageLoginCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Command\OpenRegisterView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Command\PackageLoginStartUpCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Event\LoginSucceed.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Model\PackageKitLoginModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\PackageKitLoginApp.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Service\IPackageLoginService.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\Service\PacakgeLoginService.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\View\LoginView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\View\PackageKitLoginView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\View\RegisterView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\ViewModel\PacakgeKitLoginViewModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageMaker\View\PackageMakerView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageMaker\ViewModel\PackageMakerViewModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\Command\PackageManagerStartUpCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\Model\PackageManagerModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\PackageManagerApp.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\View\PackageManagerView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\View\PackageView.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\ViewModel\PackageManagerViewModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\ViewModel\PackageViewModel.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\QFramework.PackageKit.cs" />
     <None Include="Assets\QFramework\Framework\0.PackageKit\Editor\QFramework.PackageKit.asmdef" />
     <Reference Include="UnityEngine.UI">

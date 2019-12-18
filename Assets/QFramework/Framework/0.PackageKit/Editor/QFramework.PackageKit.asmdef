@@ -5,12 +5,8 @@
         "QFramework.TypeEventSystem",
         "QFramework.BindKit"
     ],
-    "optionalUnityReferences": [],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": []
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
 }
