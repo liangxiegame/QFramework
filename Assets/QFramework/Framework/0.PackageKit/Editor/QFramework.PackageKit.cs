@@ -33,7 +33,7 @@ namespace QFramework
             AddressIP = UnityEngine.Network.player.ipAddress;
 #else
             //获取本地的IP地址  
-            foreach (IPAddress _IPAddress in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+            foreach (System.Net.IPAddress _IPAddress in System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList)
             {
                 if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
                 {
@@ -571,81 +571,6 @@ namespace QFramework
             {
                 onResponse(null);
             }
-        }
-    }
-
-    public static class UploadPackage
-    {
-        private static string UPLOAD_URL
-        {
-            get { return "https://api.liangxiegame.com/qf/v4/package/add"; }
-        }
-
-        public static void DoUpload(PackageVersion packageVersion, System.Action succeed)
-        {
-            EditorUtility.DisplayProgressBar("插件上传", "打包中...", 0.1f);
-
-            var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
-            var fullpath = PackageManagerView.ExportPaths(fileName, packageVersion.InstallPath);
-            var file = File.ReadAllBytes(fullpath);
-
-            var form = new WWWForm();
-            form.AddField("username", User.Username.Value);
-            form.AddField("password", User.Password.Value);
-            form.AddField("name", packageVersion.Name);
-            form.AddField("version", packageVersion.Version);
-            form.AddBinaryData("file", file);
-            form.AddField("version", packageVersion.Version);
-            form.AddField("releaseNote", packageVersion.Readme.content);
-            form.AddField("installPath", packageVersion.InstallPath);
-            form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
-            form.AddField("docUrl", packageVersion.DocUrl);
-
-            if (packageVersion.Type == PackageType.FrameworkModule)
-            {
-                form.AddField("type", "fm");
-            }
-            else if (packageVersion.Type == PackageType.Shader)
-            {
-                form.AddField("type", "s");
-            }
-            else if (packageVersion.Type == PackageType.AppOrGameDemoOrTemplate)
-            {
-                form.AddField("type", "agt");
-            }
-            else if (packageVersion.Type == PackageType.Plugin)
-            {
-                form.AddField("type", "p");
-            }
-            else if (packageVersion.Type == PackageType.Master)
-            {
-                form.AddField("type", "master");
-            }
-
-            Debug.Log(fullpath);
-
-            EditorUtility.DisplayProgressBar("插件上传", "上传中...", 0.2f);
-
-            EditorHttp.Post(UPLOAD_URL, form, (response) =>
-            {
-                if (response.Type == ResponseType.SUCCEED)
-                {
-                    EditorUtility.ClearProgressBar();
-                    Debug.Log(response.Text);
-                    if (succeed != null)
-                    {
-                        succeed();
-                    }
-
-                    File.Delete(fullpath);
-                }
-                else
-                {
-                    EditorUtility.ClearProgressBar();
-                    EditorUtility.DisplayDialog("插件上传", string.Format("上传失败!{0}", response.Error), "确定");
-                    File.Delete(fullpath);
-                }
-            });
         }
     }
 

@@ -1,34 +1,9 @@
-using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 namespace QFramework.PackageKit
 {
   public class PackageManagerView : IPackageKitView
     {
-        private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath, "../");
-
-        public static string ExportPaths(string exportPackageName, params string[] paths)
-        {
-            if (Directory.Exists(paths[0]))
-            {
-                if (paths[0].EndsWith("/"))
-                {
-                    paths[0] = paths[0].Remove(paths[0].Length - 1);
-                }
-
-                var filePath = Path.Combine(EXPORT_ROOT_DIR, exportPackageName);
-                AssetDatabase.ExportPackage(paths,
-                    filePath, ExportPackageOptions.Recurse);
-                AssetDatabase.Refresh();
-
-                return filePath;
-            }
-
-            return string.Empty;
-        }
-
-
         PackageManagerApp mPackageManagerApp = new PackageManagerApp();
 
         private Vector2 mScrollPos;
@@ -63,7 +38,6 @@ namespace QFramework.PackageKit
             treeNode.Add2Spread(verticalLayout);
             
             
-
             mCategoriesSelectorView = new ToolbarView(0)
                 .AddTo(verticalLayout);
             
@@ -98,7 +72,6 @@ namespace QFramework.PackageKit
         private void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
         {
             mScrollLayout.Clear();
-            mCategoriesSelectorView.Index.UnBindAll();
 
             mCategoriesSelectorView.Menus(viewUpdateEvent.Categories);
             mCategoriesSelectorView.Index.Bind(newIndex =>

@@ -232,6 +232,7 @@
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\View\RegisterView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\ViewModel\LoginViewModel.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\Login\ViewModel\PacakgeKitLoginViewModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageMaker\Service\UploadPackage.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageMaker\View\PackageMakerView.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageMaker\ViewModel\PackageMakerViewModel.cs" />
     <Compile Include="Assets\QFramework\Framework\0.PackageKit\Editor\PackageManager\Command\PackageManagerStartUpCommand.cs" />
