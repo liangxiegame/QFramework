@@ -166,17 +166,10 @@ namespace QFramework.PackageKit
 
 
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).AddTo(uploadingView);
-            // new CustomView(() => Close()).AddTo(finishView);
-            
+
             bindingSet.Bind(notice.Content).For(v => v.Value).To(vm => vm.NoticeMessage);
 
             bindingSet.Bind(uploadingView).For(v => v.Visible).To(vm => vm.InUploadingView);
-
-
-
-            
-            // bindingSet.Bind(finishView).For(v => v.Visible).To(vm => vm.InFinishView);
-
 
             bindingSet.Build();
         }

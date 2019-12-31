@@ -39,8 +39,15 @@ namespace QFramework
 		[MenuItem("Assets/@UI Kit - Create UICode (alt+c) &c")]
 		public static void CreateUICode()
 		{
-			mScriptKitInfo = null;
 			var objs = Selection.GetFiltered(typeof(GameObject), SelectionMode.Assets | SelectionMode.TopLevel);
+			
+			DoCreateCode(objs);
+		}
+
+		public static void DoCreateCode(Object[] objs)
+		{
+			mScriptKitInfo = null;
+
 			var displayProgress = objs.Length > 1;
 			if (displayProgress) EditorUtility.DisplayProgressBar("", "Create UIPrefab Code...", 0);
 			for (var i = 0; i < objs.Length; i++)
@@ -53,6 +60,7 @@ namespace QFramework
 			AssetDatabase.Refresh();
 			if (displayProgress) EditorUtility.ClearProgressBar();
 		}
+		
 
 		private void CreateCode(GameObject obj, string uiPrefabPath)
 		{

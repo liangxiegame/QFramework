@@ -71,9 +71,8 @@ namespace QFramework
             scriptsFolder.CreateDirIfNotExists();
 
 
-            var panelCodeInfo = new PanelCodeInfo();
+            var panelCodeInfo = new PanelCodeInfo {GameObjectName = generateInfo.name};
 
-            panelCodeInfo.GameObjectName = generateInfo.name;
 
             // 搜索所有绑定
             BindCollector.SearchBinds(gameObject.transform, "", panelCodeInfo);

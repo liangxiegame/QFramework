@@ -495,7 +495,11 @@ namespace QFramework
                 }
 
                 mResList.Clear();
-                ResMgr.Instance.ClearOnUpdate();
+
+                if (Application.isPlaying)
+                {
+                    ResMgr.Instance.ClearOnUpdate();
+                }
             }
 
             RemoveAllCallbacks(true);

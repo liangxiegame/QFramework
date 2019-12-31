@@ -250,329 +250,6 @@ namespace QFramework
         }
     }
     
-    public interface IPackageManagerServer
-    {
-        void DeletePackage(string packageId, Action onResponse);
-
-        void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse);
-
-        void GetAllRemotePackageInfoV5(Action<List<PackageData>, List<string>> onResponse);
-    }
-
-    [Serializable]
-    public class QFrameworkServerResultFormat<T>
-    {
-        public int code;
-
-        public string msg;
-
-        public T data;
-    }
-
-    public class PackageManagerServer : IPackageManagerServer
-    {
-        public void DeletePackage(string packageId, Action onResponse)
-        {
-            var form = new WWWForm();
-
-            form.AddField("username", User.Username.Value);
-            form.AddField("password", User.Password.Value);
-            form.AddField("id", packageId);
-
-            EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/delete", form, (response) =>
-            {
-                if (response.Type == ResponseType.SUCCEED)
-                {
-                    var result = JsonUtility.FromJson<QFrameworkServerResultFormat<object>>(response.Text);
-
-                    if (result.code == 1)
-                    {
-                        Debug.Log("删除成功");
-
-                        onResponse();
-                    }
-                }
-            });
-        }
-
-        public void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse)
-        {
-            if (User.Logined)
-            {
-                var form = new WWWForm();
-
-                form.AddField("username", User.Username.Value);
-                form.AddField("password", User.Password.Value);
-
-                EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", form,
-                    (response) => OnResponse(response, onResponse));
-            }
-            else
-            {
-                EditorHttp.Post("https://api.liangxiegame.com/qf/v4/package/list", new WWWForm(),
-                    (response) => OnResponse(response, onResponse));
-            }
-        }
-
-        public void GetAllRemotePackageInfoV5(Action<List<PackageData>, List<string>> onResponse)
-        {
-            if (User.Logined)
-            {
-                var form = new WWWForm();
-
-                form.AddField("username", User.Username.Value);
-                form.AddField("password", User.Password.Value);
-
-                EditorHttp.Post("https://api.liangxiegame.com/qf/v5/package/list", form,
-                    (response) => OnResponseV5(response, onResponse));
-            }
-            else
-            {
-                EditorHttp.Post("https://api.liangxiegame.com/qf/v5/package/list", new WWWForm(),
-                    (response) => OnResponseV5(response, onResponse));
-            }
-        }
-
-        [Serializable]
-        public class ResultPackage
-        {
-            public string id;
-            public string name;
-            public string version;
-            public string downloadUrl;
-            public string installPath;
-            public string releaseNote;
-            public string createAt;
-            public string username;
-            public string accessRight;
-            public string type;
-        }
-
-
-        [Serializable]
-        public class ListPackageResponseResult
-        {
-            public List<string> categories;
-        }
-        
-        void OnResponseV5(EditorHttpResponse response, Action<List<PackageData>,List<string>> onResponse)
-        {
-            if (response.Type == ResponseType.SUCCEED)
-            {
-                var responseJson =
-                    JsonUtility.FromJson<QFrameworkServerResultFormat<ListPackageResponseResult>>(response.Text);
-                
-                if (responseJson.code == 1)
-                {
-                    var listPackageResponseResult = responseJson.data;
-                    
-                    onResponse(null, listPackageResponseResult.categories);
-//
-//                    var packageDatas = new List<PackageData>();
-//                    foreach (var packageInfo in packageInfosJson)
-//                    {
-//                        var name = packageInfo.name;
-//
-//                        var package = packageDatas.Find(packageData => packageData.Name == name);
-//
-//                        if (package == null)
-//                        {
-//                            package = new PackageData()
-//                            {
-//                                Name = name,
-//                            };
-//
-//                            packageDatas.Add(package);
-//                        }
-//
-//                        var id = packageInfo.id;
-//                        var version = packageInfo.version;
-//                        var url = packageInfo.downloadUrl;
-//                        var installPath = packageInfo.installPath;
-//                        var releaseNote = packageInfo.releaseNote;
-//                        var createAt = packageInfo.createAt;
-//                        var creator = packageInfo.username;
-//                        var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
-//                        var accessRightName = packageInfo.accessRight;
-//                        var typeName = packageInfo.type;
-//
-//                        var packageType = PackageType.FrameworkModule;
-//
-//                        switch (typeName)
-//                        {
-//                            case "fm":
-//                                packageType = PackageType.FrameworkModule;
-//                                break;
-//                            case "s":
-//                                packageType = PackageType.Shader;
-//                                break;
-//                            case "agt":
-//                                packageType = PackageType.AppOrGameDemoOrTemplate;
-//                                break;
-//                            case "p":
-//                                packageType = PackageType.Plugin;
-//                                break;
-//                            case "master":
-//                                packageType = PackageType.Master;
-//                                break;
-//                        }
-//
-//                        var accessRight = PackageAccessRight.Public;
-//
-//                        switch (accessRightName)
-//                        {
-//                            case "public":
-//                                accessRight = PackageAccessRight.Public;
-//                                break;
-//                            case "private":
-//                                accessRight = PackageAccessRight.Private;
-//                                break;
-//                        }
-//
-//                        package.PackageVersions.Add(new PackageVersion()
-//                        {
-//                            Id = id,
-//                            Version = version,
-//                            DownloadUrl = url,
-//                            InstallPath = installPath,
-//                            Type = packageType,
-//                            AccessRight = accessRight,
-//                            Readme = releaseItem,
-//                        });
-//
-//                        package.readme.AddReleaseNote(releaseItem);
-//                    }
-//
-//                    packageDatas.ForEach(packageData =>
-//                    {
-//                        packageData.PackageVersions.Sort((a, b) =>
-//                            b.VersionNumber - a.VersionNumber);
-//                        packageData.readme.items.Sort((a, b) =>
-//                            b.VersionNumber - a.VersionNumber);
-//                    });
-//
-//                    onResponse(packageDatas);
-//
-//                    new PackageInfosRequestCache()
-//                    {
-//                        PackageDatas = packageDatas
-//                    }.Save();
-                }
-            }
-            else
-            {
-                onResponse(null, null);
-            }
-        }
-
-        void OnResponse(EditorHttpResponse response, Action<List<PackageData>> onResponse)
-        {
-            if (response.Type == ResponseType.SUCCEED)
-            {
-                var responseJson =
-                    JsonUtility.FromJson<QFrameworkServerResultFormat<List<ResultPackage>>>(response.Text);
-
-                if (responseJson !=null && responseJson.code == 1)
-                {
-                    var packageInfosJson = responseJson.data;
-
-                    var packageDatas = new List<PackageData>();
-                    foreach (var packageInfo in packageInfosJson)
-                    {
-                        var name = packageInfo.name;
-
-                        var package = packageDatas.Find(packageData => packageData.Name == name);
-
-                        if (package == null)
-                        {
-                            package = new PackageData()
-                            {
-                                Name = name,
-                            };
-
-                            packageDatas.Add(package);
-                        }
-
-                        var id = packageInfo.id;
-                        var version = packageInfo.version;
-                        var url = packageInfo.downloadUrl;
-                        var installPath = packageInfo.installPath;
-                        var releaseNote = packageInfo.releaseNote;
-                        var createAt = packageInfo.createAt;
-                        var creator = packageInfo.username;
-                        var releaseItem = new ReleaseItem(version, releaseNote, creator, DateTime.Parse(createAt), id);
-                        var accessRightName = packageInfo.accessRight;
-                        var typeName = packageInfo.type;
-
-                        var packageType = PackageType.FrameworkModule;
-
-                        switch (typeName)
-                        {
-                            case "fm":
-                                packageType = PackageType.FrameworkModule;
-                                break;
-                            case "s":
-                                packageType = PackageType.Shader;
-                                break;
-                            case "agt":
-                                packageType = PackageType.AppOrGameDemoOrTemplate;
-                                break;
-                            case "p":
-                                packageType = PackageType.Plugin;
-                                break;
-                            case "master":
-                                packageType = PackageType.Master;
-                                break;
-                        }
-
-                        var accessRight = PackageAccessRight.Public;
-
-                        switch (accessRightName)
-                        {
-                            case "public":
-                                accessRight = PackageAccessRight.Public;
-                                break;
-                            case "private":
-                                accessRight = PackageAccessRight.Private;
-                                break;
-                        }
-
-                        package.PackageVersions.Add(new PackageVersion()
-                        {
-                            Id = id,
-                            Version = version,
-                            DownloadUrl = url,
-                            InstallPath = installPath,
-                            Type = packageType,
-                            AccessRight = accessRight,
-                            Readme = releaseItem,
-                        });
-
-                        package.readme.AddReleaseNote(releaseItem);
-                    }
-
-                    packageDatas.ForEach(packageData =>
-                    {
-                        packageData.PackageVersions.Sort((a, b) =>
-                            b.VersionNumber - a.VersionNumber);
-                        packageData.readme.items.Sort((a, b) =>
-                            b.VersionNumber - a.VersionNumber);
-                    });
-
-                    onResponse(packageDatas);
-
-                    new PackageInfosRequestCache()
-                    {
-                        PackageDatas = packageDatas
-                    }.Save();
-                }
-            }
-            else
-            {
-                onResponse(null);
-            }
-        }
-    }
 
     public class ReadmeWindow : EditorWindow
     {
@@ -715,285 +392,7 @@ namespace QFramework
         }
     }
 
-    [Serializable]
-    public class ReleaseItem
-    {
-        public ReleaseItem()
-        {
-        }
 
-        public ReleaseItem(string version, string content, string author, DateTime date, string packageId = "")
-        {
-            this.version = version;
-            this.content = content;
-            this.author = author;
-            this.date = date.ToString("yyyy 年 MM 月 dd 日 HH:mm");
-            PackageId = packageId;
-        }
-
-        public string version   = "";
-        public string content   = "";
-        public string author    = "";
-        public string date      = "";
-        public string PackageId = "";
-
-
-        public int VersionNumber
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(version))
-                {
-                    return 0;
-                }
-
-                var numbersStr = version.Replace("v", string.Empty).Split('.');
-
-                var retNumber = numbersStr[2].ParseToInt();
-                retNumber += numbersStr[1].ParseToInt() * 100;
-                retNumber += numbersStr[0].ParseToInt() * 10000;
-
-                return retNumber;
-            }
-        }
-    }
-
-    [Serializable]
-    public class Readme
-    {
-        public List<ReleaseItem> items;
-
-        public ReleaseItem GetItem(string version)
-        {
-            if (items == null || items.Count == 0)
-            {
-                return null;
-            }
-
-            return items.First(s => s.version == version);
-        }
-
-        public void AddReleaseNote(ReleaseItem pluginReadme)
-        {
-            if (items == null)
-            {
-                items = new List<ReleaseItem> {pluginReadme};
-            }
-            else
-            {
-                bool exist = false;
-                foreach (var item in items)
-                {
-                    if (item.version == pluginReadme.version)
-                    {
-                        item.content = pluginReadme.content;
-                        item.author = pluginReadme.author;
-                        exist = true;
-                        break;
-                    }
-                }
-
-                if (!exist)
-                {
-                    items.Add(pluginReadme);
-                }
-            }
-        }
-    }
-
-    [Serializable]
-    public class PackageData
-    {
-        public string Id;
-
-        public string Name = "";
-
-
-        public string version
-        {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().Version; }
-        }
-
-        public string DownloadUrl
-        {
-            get
-            {
-                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DownloadUrl;
-            }
-        }
-
-        public string InstallPath
-        {
-            get
-            {
-                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().InstallPath;
-            }
-        }
-
-        public string DocUrl
-        {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DocUrl; }
-        }
-
-        public PackageType Type
-        {
-            get { return PackageVersions.FirstOrDefault() == null ? PackageType.Master : PackageVersions.First().Type; }
-        }
-
-        public PackageAccessRight AccessRight
-        {
-            get
-            {
-                return PackageVersions.FirstOrDefault() == null
-                    ? PackageAccessRight.Public
-                    : PackageVersions.First().AccessRight;
-            }
-        }
-
-        public Readme readme;
-
-        public List<PackageVersion> PackageVersions = new List<PackageVersion>();
-
-        public PackageData()
-        {
-            readme = new Readme();
-        }
-
-        public int VersionNumber
-        {
-            get
-            {
-                var numbersStr = version.Replace("v", string.Empty).Split('.');
-
-                var retNumber = numbersStr[2].ParseToInt();
-                retNumber += numbersStr[1].ParseToInt() * 100;
-                retNumber += numbersStr[0].ParseToInt() * 10000;
-                return retNumber;
-            }
-        }
-
-        public bool Installed
-        {
-            get { return Directory.Exists(InstallPath); }
-        }
-
-        public void SaveVersionFile()
-        {
-            PackageVersions.First().Save();
-        }
-    }
-
-    public enum PackageType
-    {
-        FrameworkModule, //fm
-        Shader, //s
-        UIKitComponent, //uc
-        Plugin, // p
-        AppOrGameDemoOrTemplate, //agt
-        DocumentsOrTutorial, //doc
-        Master, // master
-    }
-
-    public enum PackageAccessRight
-    {
-        Public,
-        Private
-    }
-
-    [Serializable]
-    public class PackageVersion
-    {
-        public string Id;
-
-        public string Name
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(InstallPath))
-                {
-                    var name = InstallPath.Replace("\\", "/");
-                    var dirs = name.Split('/');
-                    return dirs[dirs.Length - 2];
-                }
-
-                return string.Empty;
-            }
-        }
-
-        public string Version = "v0.0.0";
-
-        public PackageType Type;
-
-        public PackageAccessRight AccessRight;
-
-        public int VersionNumber
-        {
-            get
-            {
-                var numbersStr = Version.Replace("v", string.Empty).Split('.');
-
-                var retNumber = numbersStr[2].ParseToInt();
-                retNumber += numbersStr[1].ParseToInt() * 100;
-                retNumber += numbersStr[0].ParseToInt() * 10000;
-
-                return retNumber;
-            }
-        }
-
-        public string DownloadUrl;
-
-        public string InstallPath = "Assets/QFramework/Framework/";
-
-        public string FileName
-        {
-            get { return Name + "_" + Version + ".unitypackage"; }
-        }
-
-        public string DocUrl;
-
-        public ReleaseItem Readme = new ReleaseItem();
-
-        public void Save()
-        {
-            var json = JsonUtility.ToJson(this);
-
-            if (!Directory.Exists(InstallPath))
-            {
-                Directory.CreateDirectory(InstallPath);
-            }
-
-            File.WriteAllText(InstallPath + "/PackageVersion.json", json);
-        }
-
-        public static PackageVersion Load(string filePath)
-        {
-            if (filePath.EndsWith("/"))
-            {
-                filePath += "PackageVersion.json";
-            }
-            else if (!filePath.EndsWith("PackageVersion.json"))
-            {
-                filePath += "/PackageVersion.json";
-            }
-
-            return JsonUtility.FromJson<PackageVersion>(File.ReadAllText(filePath));
-        }
-    }
-
-    public static class PackageKitExtension
-    {
-        /// <summary>
-        /// 解析成数字类型
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="defaulValue"></param>
-        /// <returns></returns>
-        public static int ParseToInt(this string selfStr, int defaulValue = 0)
-        {
-            var retValue = defaulValue;
-            return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
-        }
-    }
 
  
 
@@ -1174,117 +573,6 @@ namespace QFramework
 
   
 
-    public class EditorHttpResponse
-    {
-        public ResponseType Type;
-
-        public byte[] Bytes;
-
-        public string Text;
-
-        public string Error;
-    }
-
-    public enum ResponseType
-    {
-        SUCCEED,
-        EXCEPTION,
-        TIMEOUT,
-    }
-
-    public static class EditorHttp
-    {
-        public class EditorWWWExecuter
-        {
-            private WWW                        mWWW;
-            private Action<EditorHttpResponse> mResponse;
-            private Action<float>              mOnProgress;
-            private bool                       mDownloadMode;
-
-            public EditorWWWExecuter(WWW www, Action<EditorHttpResponse> response, Action<float> onProgress = null,
-                bool downloadMode = false)
-            {
-                mWWW = www;
-                mResponse = response;
-                mOnProgress = onProgress;
-                mDownloadMode = downloadMode;
-                EditorApplication.update += Update;
-            }
-
-            void Update()
-            {
-                if (mWWW != null && mWWW.isDone)
-                {
-                    if (string.IsNullOrEmpty(mWWW.error))
-                    {
-                        if (mDownloadMode)
-                        {
-                            if (mOnProgress != null)
-                            {
-                                mOnProgress(1.0f);
-                            }
-
-                            mResponse(new EditorHttpResponse()
-                            {
-                                Type = ResponseType.SUCCEED,
-                                Bytes = mWWW.bytes
-                            });
-                        }
-                        else
-                        {
-                            mResponse(new EditorHttpResponse()
-                            {
-                                Type = ResponseType.SUCCEED,
-                                Text = mWWW.text
-                            });
-                        }
-                    }
-                    else
-                    {
-                        mResponse(new EditorHttpResponse()
-                        {
-                            Type = ResponseType.EXCEPTION,
-                            Error = mWWW.error
-                        });
-                    }
-
-                    Dispose();
-                }
-
-                if (mWWW != null && mDownloadMode)
-                {
-                    if (mOnProgress != null)
-                    {
-                        mOnProgress(mWWW.progress);
-                    }
-                }
-            }
-
-            void Dispose()
-            {
-                mWWW.Dispose();
-                mWWW = null;
-
-                EditorApplication.update -= Update;
-            }
-        }
-
-
-        public static void Get(string url, Action<EditorHttpResponse> response)
-        {
-            new EditorWWWExecuter(new WWW(url), response);
-        }
-
-        public static void Post(string url, WWWForm form, Action<EditorHttpResponse> response)
-        {
-            new EditorWWWExecuter(new WWW(url, form), response);
-        }
-
-        public static void Download(string url, Action<EditorHttpResponse> response, Action<float> onProgress = null)
-        {
-            new EditorWWWExecuter(new WWW(url), response, onProgress, true);
-        }
-    }
 
     public static class FrameworkMenuItems
     {
@@ -1332,6 +620,8 @@ namespace QFramework
             }
         }
 
+        public static bool IsOpenening = false;
+
         [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
         [MenuItem(FrameworkMenuItems.PackageKit, false, FrameworkMenuItemsPriorities.Preferences)]
         private static void Open()
@@ -1340,6 +630,7 @@ namespace QFramework
             packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
             packageKitWindow.position = new Rect( 100, 100, 690, 800);
             packageKitWindow.Show();
+            IsOpenening = true;
         }
 
         private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
@@ -1358,23 +649,23 @@ namespace QFramework
         public List<IPackageKitView> mPackageKitViews = null;
 
         private int count = 0;
-        
+
         protected override void Init()
         {
             var label = GUI.skin.label;
-            
+
             PackageApplication.Container = null;
             RemoveAllChidren();
 
             BindKit.Init();
-            
+
             mPackageKitViews = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
                 .OrderBy(view => view.RenderOrder)
                 .ToList();
 
             PackageApplication.Container.RegisterInstance(this);
-            
+            PackageApplication.Container.RegisterInstance<EditorWindow>(this);
         }
 
         public override void OnGUI()
@@ -1387,11 +678,16 @@ namespace QFramework
 
         public override void OnClose()
         {
-            mPackageKitViews.ForEach(view => view.OnDispose());
+            if (mPackageKitViews != null)
+            {
+                mPackageKitViews.Where(view => view != null).ToList().ForEach(view => view.OnDispose());
+            }
 
             RemoveAllChidren();
             
             BindKit.Clear();
+
+            IsOpenening = false;
         }
     }
 
@@ -1584,10 +880,11 @@ namespace QFramework
         {
         }
 
-        public void AddChild(IView view)
+        public ILayout AddChild(IView view)
         {
             mChildren.Add(view);
             view.Parent = this;
+            return this;
         }
 
         public void RemoveChild(IView view)
@@ -2004,10 +1301,11 @@ namespace QFramework
     {
         protected List<IView> Children = new List<IView>();
 
-        public void AddChild(IView view)
+        public ILayout AddChild(IView view)
         {
             Children.Add(view);
             view.Parent = this;
+            return this;
         }
 
         public void RemoveChild(IView view)
@@ -2078,7 +1376,7 @@ namespace QFramework
 
     public interface ILayout : IView
     {
-        void AddChild(IView view);
+        ILayout AddChild(IView view);
 
         void RemoveChild(IView view);
 
@@ -2726,12 +2024,17 @@ namespace QFramework
 
     public class TextView : View
     {
-        public TextView(string content = "")
+        public TextView(string content = "", Action<string> onValueChanged = null)
         {
             Content = new Property<string>(content);
             //Style = GUI.skin.textField;
-            
-            Content.Bind(_=>OnValueChanged.Invoke());
+
+            Content.Bind(_ => OnValueChanged.Invoke());
+
+            if (onValueChanged != null)
+            {
+                Content.Bind(onValueChanged);
+            }
         }
 
         public Property<string> Content;

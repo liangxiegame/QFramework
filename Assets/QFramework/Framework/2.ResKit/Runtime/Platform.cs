@@ -74,5 +74,17 @@ namespace QFramework
                 return retValue;
             }
         }
+
+        public static bool IsWin
+        {
+	        get
+	        {
+		        bool retValue = false;
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+                retValue = true;
+#endif
+		        return retValue; 
+	        }
+        }
 	}
 }

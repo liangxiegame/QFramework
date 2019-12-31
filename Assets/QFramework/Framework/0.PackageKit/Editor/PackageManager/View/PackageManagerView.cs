@@ -74,6 +74,8 @@ namespace QFramework.PackageKit
             mScrollLayout.Clear();
 
             mCategoriesSelectorView.Menus(viewUpdateEvent.Categories);
+            mCategoriesSelectorView.Index.UnBindAll();
+
             mCategoriesSelectorView.Index.Bind(newIndex =>
             {
                 TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerSelectCategoryCommand()

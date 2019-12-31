@@ -25,6 +25,8 @@
  ****************************************************************************/
 
 
+using System.IO;
+
 namespace QFramework
 {
     using UnityEngine;

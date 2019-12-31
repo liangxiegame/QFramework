@@ -86,9 +86,21 @@ namespace QFramework
             {
                 ResDatas.Instance.Reset();
                 var outResult = new List<string>();
-                QFramework.FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
+                
+                // 未进行过热更
+                if (ResKit.LoadResFromStreammingAssetsPath)
+                {
+                    QFramework.FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
+                }
+                // 进行过热更
+                else
+                {
+                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, "asset_bindle_config.bin", outResult);
+                }
+                
                 foreach (var outRes in outResult)
                 {
+                    Debug.Log(outRes);
                     ResDatas.Instance.LoadFromFile(outRes);
                 }
             }

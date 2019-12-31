@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class CodeGenUtil
+    public static class CodeGenUtil
     {
         public static string PathToParent(Transform trans, string parentName)
         {
@@ -25,20 +25,39 @@ namespace QFramework
 
             return retValue.ToString();
         }
-        
-        
+
+        public static bool IsUIPanel(this Component component)
+        {
+            if (component.GetComponent<UIPanel>())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsViewController(this Component component)
+        {
+            if (component.GetComponent<ViewController>())
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public static string GetBindBelongs2(Bind bind)
         {
             var trans = bind.Transform;
             
             while (trans.parent != null)
             {
-                if (trans.parent.GetComponent<ViewController>())
+                if (trans.parent.IsViewController())
                 {
                     return trans.parent.name + "(" +  trans.parent.GetComponent<ViewController>().ScriptName  + ")";
                 }
                 
-                if (trans.parent.GetComponent<UIPanel>())
+                if (trans.parent.IsUIPanel())
                 {
                     return "UIPanel" + "(" +trans.parent.GetComponent<UIPanel>().name + ")";
                 }
@@ -56,16 +75,10 @@ namespace QFramework
             
             while (trans.parent != null)
             {
-                if (trans.parent.GetComponent<ViewController>())
+                if (trans.parent.IsViewController() || trans.parent.IsUIPanel())
                 {
                     return trans.parent.gameObject;
                 }
-                
-                if (trans.parent.GetComponent<UIPanel>())
-                {
-                    return trans.parent.gameObject;
-                }
-
 
                 trans = trans.parent;
             }

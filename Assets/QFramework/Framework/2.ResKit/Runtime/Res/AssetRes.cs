@@ -187,10 +187,15 @@ namespace QFramework
 
 				//确保加载过程中依赖资源不被释放:目前只有AssetRes需要处理该情况
 				HoldDependRes();
+				State = ResState.Loading;
+
+				// 模拟等一帧
+				yield return new WaitForEndOfFrame();
+				
+				UnHoldDependRes();
 
 				mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
 
-				UnHoldDependRes();
 			}
 			else
 #endif

@@ -80,7 +80,7 @@ namespace QFramework
 			return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
 		}
 
-		public static void MarkPTAB(string path)
+		public static void MarkAB(string path)
 		{
 			if (!string.IsNullOrEmpty(path))
 			{
@@ -107,7 +107,7 @@ namespace QFramework
 		public static void MarkPTABDir()
 		{
 			var path = EditorUtils.GetSelectedPathOrFallback();
-			MarkPTAB(path);
+			MarkAB(path);
 		}
 
 

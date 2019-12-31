@@ -40,6 +40,39 @@ namespace QFramework
     using Object = UnityEngine.Object;
     #endif
 
+
+    public static class BasicValueExtension
+    {
+        public static bool Is(this object selfObj, object value)
+        {
+            return selfObj == value;
+        }
+
+        public static bool Is<T>(this T selfObj, Func<T, bool> condition)
+        {
+            return condition(selfObj);
+        }
+        
+        
+        public static bool Do(this bool selfCondition, Action action)
+        {
+            if (selfCondition)
+            {
+                action();
+            }
+
+            return selfCondition;
+        }
+
+        public static bool Do(this bool selfCondition, Action<bool> action)
+        {
+            action(selfCondition);
+
+            return selfCondition;
+        }
+
+    }
+
     /// <summary>
     /// 通用的扩展，类的扩展
     /// </summary>
@@ -647,7 +680,7 @@ namespace QFramework
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string GetPathParentFolder(string path)
+        public static string GetPathParentFolder(this string path)
         {
             if (string.IsNullOrEmpty(path))
             {

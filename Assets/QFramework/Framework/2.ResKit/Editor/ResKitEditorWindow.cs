@@ -23,8 +23,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-using QFramework;
+using System.IO;
+using System.Linq;
+using QFramework.PackageKit;
 
 namespace QFramework 
 {
@@ -50,7 +51,9 @@ namespace QFramework
 		private void OnEnable () {
 
 			mResKitView = new ResKitView ();
-			mResKitView.Init (null);
+			var container = new QFrameworkContainer();
+			container.RegisterInstance<EditorWindow>(this);
+			mResKitView.Init (container);
 		}
 
 		ResKitView mResKitView = null;
@@ -74,6 +77,8 @@ namespace QFramework
 
 			GUILayout.EndVertical ();
 			GUILayout.Space (50);
+			
+			// RenderEndCommandExecuter.ExecuteCommand();
 		}
 
 		private static void BuildWithTarget (BuildTarget buildTarget) {
@@ -102,28 +107,27 @@ namespace QFramework
 			private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
 			public const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
 
-			public void Init (IQFrameworkContainer container) {
-				var expendLayout = new TreeNode (true, LocaleText.ResKit)
-					.AddTo (this);
+			public void Init(IQFrameworkContainer container)
+			{
+				var expendLayout = new TreeNode(true, LocaleText.ResKit)
+					.AddTo(this);
 
-				var verticalLayout = new VerticalLayout ("box");
-				expendLayout.Add2Spread (verticalLayout);
+				var verticalLayout = new VerticalLayout("box");
+				expendLayout.Add2Spread(verticalLayout);
 
-				// verticalLayout
+				var persistLine = new HorizontalLayout();
+				new LabelView("PersistantPath:").AddTo(persistLine).Width(100);
+				new TextView(Application.persistentDataPath).AddTo(persistLine);
+				persistLine.AddTo(verticalLayout);
 
-				var persistLine = new HorizontalLayout ();
-				new LabelView ("PersistantPath:").AddTo (persistLine).Width(100);
-				new TextView (Application.persistentDataPath).AddTo (persistLine);
-				persistLine.AddTo (verticalLayout);
+				new ButtonView(LocaleText.GoToPersistent,
+					() => { EditorUtility.RevealInFinder(Application.persistentDataPath); }).AddTo(verticalLayout);
 
-				new ButtonView (LocaleText.GoToPersistent, () => {
-					EditorUtility.RevealInFinder (Application.persistentDataPath);
-				}).AddTo (verticalLayout);
+				mResVersion = EditorPrefs.GetString(KEY_QAssetBundleBuilder_RESVERSION, "100");
+				mEnableGenerateClass = EditorPrefs.GetBool(KEY_AUTOGENERATE_CLASS, true);
 
-				mResVersion = EditorPrefs.GetString (KEY_QAssetBundleBuilder_RESVERSION, "100");
-				mEnableGenerateClass = EditorPrefs.GetBool (KEY_AUTOGENERATE_CLASS, true);
-
-				switch (EditorUserBuildSettings.activeBuildTarget) {
+				switch (EditorUserBuildSettings.activeBuildTarget)
+				{
 					case BuildTarget.WebGL:
 						mBuildTargetIndex = 3;
 						break;
@@ -138,59 +142,110 @@ namespace QFramework
 						break;
 				}
 
-				new ToolbarView (mBuildTargetIndex)
-					.AddMenu ("win/osx", (_) => { })
-					.AddMenu ("iOS", (_) => { })
-					.AddMenu ("Android", (_) => { })
-					.AddMenu ("WebGL", (_) => { })
-					.AddTo (verticalLayout);
+				new ToolbarView(mBuildTargetIndex)
+					.AddMenu("win/osx", (_) => { })
+					.AddMenu("iOS", (_) => { })
+					.AddMenu("Android", (_) => { })
+					.AddMenu("WebGL", (_) => { })
+					.AddTo(verticalLayout);
 
-				new ToggleView (LocaleText.AutoGenerateClass, mEnableGenerateClass)
-					.AddTo (verticalLayout)
-					.Toggle.Bind (v => mEnableGenerateClass = v);
+				new ToggleView(LocaleText.AutoGenerateClass, mEnableGenerateClass)
+					.AddTo(verticalLayout)
+					.Toggle.Bind(v => mEnableGenerateClass = v);
 
-				new ToggleView (LocaleText.SimulationMode, ResKitAssetsMenu.SimulateAssetBundleInEditor)
-					.AddTo (verticalLayout)
-					.Toggle.Bind (v => ResKitAssetsMenu.SimulateAssetBundleInEditor = v);
+				new ToggleView(LocaleText.SimulationMode, ResKitAssetsMenu.SimulateAssetBundleInEditor)
+					.AddTo(verticalLayout)
+					.Toggle.Bind(v => ResKitAssetsMenu.SimulateAssetBundleInEditor = v);
 
-				var resVersionLine = new HorizontalLayout ()
-					.AddTo (verticalLayout);
+				var resVersionLine = new HorizontalLayout()
+					.AddTo(verticalLayout);
 
-				new LabelView ("ResVesion:").AddTo (resVersionLine).Width(100);
+				new LabelView("ResVesion:").AddTo(resVersionLine).Width(100);
 
-				new TextView (mResVersion).AddTo (resVersionLine)
-					.Content.Bind (v => mResVersion = v);
+				new TextView(mResVersion).AddTo(resVersionLine)
+					.Content.Bind(v => mResVersion = v);
 
-				new ButtonView (LocaleText.GenerateClass, () => {
-					BuildScript.WriteClass ();
-					AssetDatabase.Refresh ();
-				}).AddTo (verticalLayout);
-
-				new ButtonView (LocaleText.Build, () =>
+				new ButtonView(LocaleText.GenerateClass, () =>
 				{
-					EditorWindow window = GetWindow<PackageKitWindow>();
+					BuildScript.WriteClass();
+					AssetDatabase.Refresh();
+				}).AddTo(verticalLayout);
 
-					if (window)
+				new ButtonView(LocaleText.Build, () =>
+				{
+					EditorLifecycle.PushCommand(() =>
 					{
-						window.Close();
-						window = null;
-					}
+						var window = container.Resolve<EditorWindow>();
 
-					window = GetWindow<ResKitEditorWindow>();
+						if (window)
+						{
+							window.Close();
+						}
 
-					if (window)
-					{
-						window.Close();
-						window = null;
-					}
+						BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
+					});
+				}).AddTo(verticalLayout);
 
-					BuildWithTarget (EditorUserBuildSettings.activeBuildTarget);
-				}).AddTo (verticalLayout);
+				new ButtonView(LocaleText.ForceClear, () => { ForceClear(); }).AddTo(verticalLayout);
 
-				new ButtonView (LocaleText.ForceClear, () => {
-					ForceClear ();
-				}).AddTo (verticalLayout);
+				verticalLayout.AddChild(new SpaceView(10));
+				verticalLayout.AddChild(new LabelView("已标记 AB 列表:").FontBold().FontSize(15));
+
+				mMarkedPathList = new VerticalLayout("box")
+					.AddTo(verticalLayout);
+
+				ReloadMarkedList();
+				
 			}
+
+			void ReloadMarkedList()
+			{
+				mMarkedPathList.Clear();
+
+				AssetDatabase.GetAllAssetBundleNames()
+					.SelectMany(n =>
+					{
+						var result = AssetDatabase.GetAssetPathsFromAssetBundle(n);
+
+						return result.Select(r =>
+							{
+								if (ResKitAssetsMenu.Marked(r))
+								{
+									return r;
+								}
+
+								if (ResKitAssetsMenu.Marked(r.GetPathParentFolder()))
+								{
+									return r.GetPathParentFolder();
+								}
+
+								return null;
+							}).Where(r => r != null)
+							.Distinct();
+
+					})
+					.ForEach(n => new HorizontalLayout()
+						.AddChild(new LabelView(n))
+						.AddChild(new ButtonView("选择", () =>
+							{
+								Selection.objects = new[]
+								{
+									AssetDatabase.LoadAssetAtPath<Object>(n)
+								};
+							}).Width(50))
+							.AddChild(new ButtonView("取消标记", () =>
+							{
+								ResKitAssetsMenu.MarkAB(n);
+
+								EditorLifecycle.PushCommand(() => { ReloadMarkedList(); });
+							}).Width(75))
+							.AddTo(mMarkedPathList)
+						);
+			}
+
+
+			private VerticalLayout mMarkedPathList = null;
+			
 
 			public void OnGUI () {
 				this.DrawGUI ();
@@ -213,7 +268,8 @@ namespace QFramework
 			}
 
 			public static string GoToPersistent {
-				get {
+				get
+				{
 					return Language.IsChinese ? "打开 Persistent 目录" : "Go To Persistance";
 				}
 			}

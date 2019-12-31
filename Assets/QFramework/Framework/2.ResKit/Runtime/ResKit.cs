@@ -23,10 +23,18 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
     public class ResKit
     {
+        public static bool LoadResFromStreammingAssetsPath
+        {
+            get { return PlayerPrefs.GetInt("LoadResFromStreammingAssetsPath", 1) == 1; }
+            set { PlayerPrefs.SetInt("LoadResFromStreammingAssetsPath", value ? 1 : 0); }
+        }
+        
         public static void Init()
         {
             ResMgr.Init();

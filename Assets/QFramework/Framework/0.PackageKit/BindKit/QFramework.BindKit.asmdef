@@ -3,6 +3,8 @@
     "references": [
         "QFramework.IOC"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": []
 }

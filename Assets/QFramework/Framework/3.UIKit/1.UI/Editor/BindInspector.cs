@@ -160,10 +160,28 @@ namespace QFramework
                 .AddTo(mRootLayout)
                 .Content.Bind(newValue => mBindScript.CustomComment = newValue);
 
-            new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(target as Bind),
-                    () => { CreateViewControllerCode.DoCreateCodeFromScene((target as Bind).gameObject); })
-                .Height(30)
-                .AddTo(mRootLayout);
+            var bind = target as Bind;
+            var rootGameObj = CodeGenUtil.GetBindBelongs2GameObject(bind);
+
+            if (rootGameObj.transform.IsUIPanel())
+            {
+                new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
+                        () =>
+                        {
+                            var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
+                            
+                            
+                            UICodeGenerator.DoCreateCode(new []{rootPrefabObj});
+                        })
+                    .Height(30)
+                    .AddTo(mRootLayout);                
+            } else if (rootGameObj.transform.IsViewController())
+            {
+                new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
+                        () => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })
+                    .Height(30)
+                    .AddTo(mRootLayout);
+            }
 
 
             OnRefresh();

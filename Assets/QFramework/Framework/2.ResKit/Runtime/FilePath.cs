@@ -70,7 +70,6 @@ namespace QFramework
 					#elif UNITY_STANDALONE_OSX && !UNITY_EDITOR
 					mStreamingAssetsPath = Application.streamingAssetsPath + "/";
 					#else
-					//mStreamingAssetsPath = GetParentDir(Application.dataPath, 1) + "/BuildRes/standalone/";
 					mStreamingAssetsPath = Application.streamingAssetsPath + "/";
 					#endif
 				}

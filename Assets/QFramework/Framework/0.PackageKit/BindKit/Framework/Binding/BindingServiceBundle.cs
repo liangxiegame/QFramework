@@ -97,6 +97,7 @@ namespace BindKit.Binding
 
         protected void OnStop(IQFrameworkContainer container)
         {
+            if (container == null) return;
             container.UnRegisterInstance<IBinder>();
             container.UnRegisterInstance<IBindingFactory>();
             container.UnRegisterInstance<IConverterRegistry>();

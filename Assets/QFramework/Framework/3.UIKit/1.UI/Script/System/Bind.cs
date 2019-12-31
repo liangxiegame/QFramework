@@ -35,6 +35,9 @@ namespace QFramework
             {
                 if (MarkType == BindType.DefaultUnityElement)
                 {
+                    if (GetComponent<ViewController>()) return GetComponent<ViewController>().GetType().FullName;
+
+                    
                     if (GetComponent("SkeletonAnimation")) return "SkeletonAnimation";
                     if (GetComponent<ScrollRect>()) return "UnityEngine.UI.ScrollRect";
                     if (GetComponent<InputField>()) return "UnityEngine.UI.InputField";
@@ -85,7 +88,6 @@ namespace QFramework
                     if (GetComponent("UISlider")) return "UISlider";
                     if (GetComponent("UITexture")) return "UITexture";
 
-                    if (GetComponent<ViewController>()) return GetComponent<ViewController>().GetType().FullName;
 
 
                     return "Transform";

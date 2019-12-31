@@ -12,6 +12,8 @@ namespace QFramework.PackageKit
         }
 
         public List<PackageData> PackageDatas = new List<PackageData>();
+        
+        public List<PackageRepository> Repositories = new List<PackageRepository>();
 
         public List<string> Categories = new List<string>()
         {
