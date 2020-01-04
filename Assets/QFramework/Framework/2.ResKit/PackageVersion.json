@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.7.12","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.7.12","content":"添加选择 已标记列表 功能","author":"liangxie","date":"2019 年 12 月 24 日 17:40","PackageId":""}}
+{"Id":"","Version":"v0.8.0","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.0","content":"添加 InitAsync API","author":"liangxie","date":"2020 年 01 月 04 日 16:52","PackageId":""}}

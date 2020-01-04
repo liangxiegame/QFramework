@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using QFramework;
 
@@ -179,6 +180,30 @@ namespace QFramework
 
             return null;
         }
+        
+        // public IEnumerator LoadFromFileAsync(string path)
+        // {
+        //     var stream = FileMgr.Instance.OpenReadStream(path);
+        //     
+        //     var data = SerializeHelper.DeserializeBinary(stream);
+        //
+        //     if (data == null)
+        //     {
+        //         Log.E("Failed Deserialize AssetDataTable:" + path);
+        //         yield break;
+        //     }
+        //
+        //     var sd = data as SerializeData;
+        //
+        //     if (sd == null)
+        //     {
+        //         Log.E("Failed Load AssetDataTable:" + path);
+        //         yield break;
+        //     }
+        //
+        //     Log.I("Load AssetConfig From File:" + path);
+        //     SetSerizlizeData(sd);
+        // }
 
         public void LoadFromFile(string path)
         {

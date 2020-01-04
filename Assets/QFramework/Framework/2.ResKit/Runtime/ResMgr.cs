@@ -24,6 +24,9 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections;
+
 namespace QFramework
 {
     using System.Collections.Generic;
@@ -54,6 +57,22 @@ namespace QFramework
             Instance.InitResMgr();
         }
 
+
+        public static IEnumerator InitAsync()
+        {
+            if (mResMgrInited) yield break;
+            mResMgrInited = true;
+
+            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);
+            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+
+            yield return Instance.InitResMgrAsync();
+        }
+
         #endregion
         
         public int Count
@@ -74,6 +93,41 @@ namespace QFramework
 
         #endregion
 
+        public IEnumerator InitResMgrAsync()
+        {
+#if UNITY_EDITOR
+            if (Res.SimulateAssetBundleInEditor)
+            {
+                EditorRuntimeAssetDataCollector.BuildDataTable();
+                yield return null;
+            }
+            else
+#endif
+            {
+                ResDatas.Instance.Reset();
+                var outResult = new List<string>();
+                
+                // 未进行过热更
+                if (ResKit.LoadResFromStreammingAssetsPath)
+                {
+                    outResult.Add(Application.streamingAssetsPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin");
+                }
+                // 进行过热更
+                else
+                {
+                    outResult.Add(Application.persistentDataPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin");
+                }
+                
+                foreach (var outRes in outResult)
+                {
+                    Debug.Log(outRes);
+                    ResDatas.Instance.LoadFromFile(outRes);
+                }
+            }
+
+            ResDatas.Instance.SwitchLanguage("cn");   
+        }
+        
 		public void InitResMgr()
         {   
 #if UNITY_EDITOR

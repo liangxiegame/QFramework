@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections;
 using UnityEngine;
 
 namespace QFramework
@@ -39,5 +40,11 @@ namespace QFramework
         {
             ResMgr.Init();
         }
+
+        public static IEnumerator InitAsync()
+        {
+            yield return ResMgr.InitAsync();
+        }
+
     }
 }
