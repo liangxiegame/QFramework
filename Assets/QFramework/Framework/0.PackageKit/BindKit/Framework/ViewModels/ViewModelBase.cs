@@ -33,8 +33,10 @@ namespace BindKit.ViewModels
 {
     public abstract class ViewModelBase : ObservableObject, IViewModel
     {
-         
-        
+        public virtual void OnInit()
+        {
+        }
+
         private static readonly ILog log = LogManager.GetLogger(typeof(ViewModelBase));
         
 

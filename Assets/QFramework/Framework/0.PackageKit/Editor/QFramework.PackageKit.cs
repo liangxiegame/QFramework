@@ -538,40 +538,9 @@ namespace QFramework
     public class PackageManagerViewUpdate
     {
         public IEnumerable<PackageData> PackageDatas { get; set; }
-        
-        public List<string> Categories { get; set; }
-
         public bool VersionCheck { get; set; }
     }
 
-   
-
-    public class PackageManagerSelectCategoryCommand : IEditorStrangeMVCCommand
-    {
-        public int CategoryIndex { get; set; }
-        
-        [Inject]
-        public PackageManagerModel Model { get; set; }
-        
-        public void Execute()
-        {
-            Model.CategoryIndex = CategoryIndex;
-            
-            RenderEndCommandExecuter.PushCommand(() =>
-            {
-                TypeEventSystem.Send(new PackageManagerViewUpdate()
-                {
-                    PackageDatas = Model.SelectedPackageType,
-                    VersionCheck = Model.VersionCheck,
-                    Categories = Model.Categories
-                });
-            });
-        }
-    }
-
-
-
-  
 
 
     public static class FrameworkMenuItems
@@ -1982,7 +1951,7 @@ namespace QFramework
             IndexProperty = new Property<int>(initValue);
             IndexProperty.Value = initValue;
 
-            Style = new GUIStyle(EditorStyles.popup);
+            // Style = new GUIStyle(EditorStyles.popup);
         }
 
         protected override void OnGUI()

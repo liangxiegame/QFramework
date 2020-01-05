@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.8.0","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.0","content":"添加 InitAsync API","author":"liangxie","date":"2020 年 01 月 04 日 16:52","PackageId":""}}
+{"Id":"","Version":"v0.8.2","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.2","content":"ResMgr 支持异步加载 ","author":"liangxie","date":"2020 年 01 月 05 日 05:17","PackageId":""}}

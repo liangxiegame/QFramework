@@ -188,7 +188,7 @@ namespace QFramework.PackageKit
     public enum PackageAccessRight
     {
         Public,
-        Private
+        Private,
     }
 
     [Serializable]

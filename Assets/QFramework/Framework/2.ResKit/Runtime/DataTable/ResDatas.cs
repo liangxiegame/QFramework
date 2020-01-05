@@ -26,7 +26,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using QFramework;
+using UnityEngine;
+using UnityEngine.Networking;
 
 namespace QFramework
 {
@@ -225,6 +229,42 @@ namespace QFramework
 
             Log.I("Load AssetConfig From File:" + path);
             SetSerizlizeData(sd);
+        }
+
+
+        public IEnumerator LoadFromFileAsync(string path)
+        {
+            using (var www = new WWW(path))
+            {
+                yield return www;
+
+                if (www.error != null)
+                {
+                    Log.E("Failed Deserialize AssetDataTable:" + path + " Error:" + www.error);
+                    yield break;
+                }
+
+                var stream = new MemoryStream(www.bytes);
+
+                var data = SerializeHelper.DeserializeBinary(stream);
+
+                if (data == null)
+                {
+                    Log.E("Failed Deserialize AssetDataTable:" + path);
+                    yield break;
+                }
+
+                var sd = data as SerializeData;
+
+                if (sd == null)
+                {
+                    Log.E("Failed Load AssetDataTable:" + path);
+                    yield break;
+                }
+
+                Log.I("Load AssetConfig From File:" + path);
+                SetSerizlizeData(sd);
+            }
         }
 
         public void Save(string outPath)

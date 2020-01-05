@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework.PackageKit
@@ -23,32 +24,71 @@ namespace QFramework.PackageKit
         }
 
         private VerticalLayout mRootLayout = new VerticalLayout();
-
-
+        
         private ToolbarView mCategoriesSelectorView = null;
+        private ToolbarView mAccessRightView = null;
 
+        public List<PackageData> PackageDatas
+        {
+            get { return null; }
+            set { OnRefresh(value); }
+        }
+
+        public List<string> Categories
+        {
+            get { return null; }
+            set { mCategoriesSelectorView.Menus(value); }
+        }
         public void Init(IQFrameworkContainer container)
         {
-// view
+            var bindingSet = BindKit.CreateBindingSet(this, new PackageManagerViewModel()
+                .InjectSelfWithContainer(mPackageManagerApp.Container)
+                .Init());
+
             mRootLayout = new VerticalLayout();
             var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
 
             var verticalLayout = new VerticalLayout("box");
 
             treeNode.Add2Spread(verticalLayout);
+
             
-            
-            mCategoriesSelectorView = new ToolbarView(0)
+            var searchView = new HorizontalLayout("box")
                 .AddTo(verticalLayout);
             
-            mCategoriesSelectorView.Index.Bind(newIndex =>
-            {
-                TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerSelectCategoryCommand()
-                {
-                    CategoryIndex = newIndex
-                });
-            });
+            searchView.AddChild(new LabelView("搜索:")
+                .FontBold()
+                .FontSize(12)
+                .Width(40));
 
+            searchView.AddChild(
+                new TextView().Height(20)
+                    .Do(search =>
+                    {
+                        bindingSet.Bind(search.Content)
+                            .For(v => v.OnValueChanged)
+                            .To(vm => vm.Search)
+                            .CommandParameter(search.Content);
+                    })
+            );
+
+            mAccessRightView = new ToolbarView()
+                .Menus(new List<string>(){"all",PackageAccessRight.Public.ToString(),PackageAccessRight.Private.ToString()})
+                .AddTo(verticalLayout)
+                .Do(self =>
+                {
+                    bindingSet.Bind(self.Index).For(v => v.Value, v => v.OnValueChanged)
+                        .To(vm => vm.AccessRightIndex);
+                });
+            
+            mCategoriesSelectorView = new ToolbarView()
+                .AddTo(verticalLayout)
+                .Do(self =>
+                {
+                    bindingSet.Bind(self.Index).For(v => v.Value, v => v.OnValueChanged)
+                        .To(vm => vm.CategoryIndex);
+                });
+            
             new HeaderView()
                 .AddTo(verticalLayout);
 
@@ -59,37 +99,30 @@ namespace QFramework.PackageKit
                 .Height(240)
                 .AddTo(packageList);
 
-            TypeEventSystem.Register<PackageManagerViewUpdate>(OnRefresh);
-
             // 执行
             TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
+
+            bindingSet.Bind().For((v) => v.PackageDatas)
+                .To(vm => vm.PackageDatas);
+
+            bindingSet.Bind().For(v => v.Categories)
+                .To(vm => vm.Categories);
             
-            var bindingSet = BindKit.CreateBindingSet(this, new PackageManagerViewModel());
+            bindingSet.Build();
         }
 
         private ScrollLayout mScrollLayout = null;
 
-        private void OnRefresh(PackageManagerViewUpdate viewUpdateEvent)
+        private void OnRefresh(List<PackageData> packageDatas)
         {
             mScrollLayout.Clear();
+            mScrollLayout.AddChild(new SpaceView(2));
 
-            mCategoriesSelectorView.Menus(viewUpdateEvent.Categories);
-            mCategoriesSelectorView.Index.UnBindAll();
-
-            mCategoriesSelectorView.Index.Bind(newIndex =>
+            foreach (var packageData in packageDatas)
             {
-                TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerSelectCategoryCommand()
-                {
-                    CategoryIndex = newIndex
-                });
-            });
-
-            new SpaceView(2).AddTo(mScrollLayout);
-
-            foreach (var packageData in viewUpdateEvent.PackageDatas)
-            {
-                new SpaceView(2).AddTo(mScrollLayout);
-                new PackageView(packageData).AddTo(mScrollLayout);
+                mScrollLayout
+                    .AddChild(new SpaceView(2))
+                    .AddChild(new PackageView(packageData));
             }
         }
 
@@ -104,8 +137,9 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
-            TypeEventSystem.UnRegister<PackageManagerViewUpdate>(OnRefresh);
 
+            BindKit.ClearBindingSet(this);
+            
             mScrollLayout = null;
             mCategoriesSelectorView = null;
             mPackageManagerApp.Dispose();

@@ -12,13 +12,6 @@ namespace QFramework.PackageKit
 
         public void Execute()
         {
-            TypeEventSystem.Send(new PackageManagerViewUpdate()
-            {
-                PackageDatas = Model.SelectedPackageType,
-                VersionCheck = Model.VersionCheck,
-                Categories = Model.Categories
-            });
-
             Server.GetAllRemotePackageInfo(list =>
             {
                 RenderEndCommandExecuter.PushCommand(() =>
@@ -29,7 +22,6 @@ namespace QFramework.PackageKit
                     {
                         PackageDatas = Model.SelectedPackageType,
                         VersionCheck = Model.VersionCheck,
-                        Categories = Model.Categories
                     });
                 });
             });
@@ -40,13 +32,11 @@ namespace QFramework.PackageKit
                 RenderEndCommandExecuter.PushCommand(() =>
                 {
                     Model.PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
-                    Model.Categories = categories;
                     
                     TypeEventSystem.Send(new PackageManagerViewUpdate()
                     {
                         PackageDatas = Model.SelectedPackageType,
                         VersionCheck = Model.VersionCheck,
-                        Categories = categories
                     });
                 });
             });

@@ -59,6 +59,7 @@ namespace QFramework
 			}
 		}
 
+
 		public static object DeserializeBinary(Stream stream)
 		{
 			if (stream == null)

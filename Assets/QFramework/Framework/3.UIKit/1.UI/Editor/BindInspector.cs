@@ -1,5 +1,7 @@
+using System.Linq;
 using QF;
 using UnityEditor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -50,7 +52,7 @@ namespace QFramework
             get { return target as Bind; }
         }
 
-        private VerticalLayout mRootLayout;
+        private VerticalLayout   mRootLayout;
         private HorizontalLayout mComponentLine;
         private HorizontalLayout mClassnameLine;
 
@@ -79,6 +81,7 @@ namespace QFramework
                 OnRefresh();
             });
 
+
             new SpaceView()
                 .AddTo(mRootLayout);
 
@@ -99,9 +102,22 @@ namespace QFramework
                 .FontSize(12)
                 .AddTo(mComponentLine);
 
-            new LabelView(mBindScript.ComponentName)
-                .FontSize(12)
-                .AddTo(mComponentLine);
+            var components = mBindScript.GetComponents<Component>();
+
+            var componentNames = components.Where(c => c.GetType() != typeof(Bind)).Select(c => c.GetType().FullName)
+                .ToArray();
+
+            var componentNameIndex = 0;
+
+            componentNameIndex = componentNames.ToList()
+                .FindIndex((componentName) => componentName.Contains(mBindScript.ComponentName));
+
+            mBindScript.ComponentName = componentNames[componentNameIndex];
+
+            new PopupView(componentNameIndex, componentNames)
+                .AddTo(mComponentLine)
+                .IndexProperty.Bind((index) => { mBindScript.ComponentName = componentNames[index]; });
+
 
             mComponentLine.AddTo(mRootLayout);
 
@@ -169,13 +185,14 @@ namespace QFramework
                         () =>
                         {
                             var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
-                            
-                            
-                            UICodeGenerator.DoCreateCode(new []{rootPrefabObj});
+
+
+                            UICodeGenerator.DoCreateCode(new[] {rootPrefabObj});
                         })
                     .Height(30)
-                    .AddTo(mRootLayout);                
-            } else if (rootGameObj.transform.IsViewController())
+                    .AddTo(mRootLayout);
+            }
+            else if (rootGameObj.transform.IsViewController())
             {
                 new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
                         () => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })

@@ -105,6 +105,7 @@ namespace QFramework
 #endif
             {
                 ResDatas.Instance.Reset();
+                
                 var outResult = new List<string>();
                 
                 // 未进行过热更
@@ -121,8 +122,10 @@ namespace QFramework
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    ResDatas.Instance.LoadFromFile(outRes);
+                    yield return ResDatas.Instance.LoadFromFileAsync(outRes);
                 }
+
+                yield return null;
             }
 
             ResDatas.Instance.SwitchLanguage("cn");   
