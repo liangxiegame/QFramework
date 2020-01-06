@@ -4,8 +4,6 @@
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 [![Coverage Status](https://coveralls.io/repos/github/liangxiegame/QFramework/badge.svg?branch=master)](https://coveralls.io/github/liangxiegame/QFramework?branch=master)
 
-我们团队做的每一件事情，都是为了给开发者带来更好的开发体验,提高效率，减少加班。我们尽心应该以不同的方式思考。我们挑战现状的方式是通过把我们的框架打磨得十分精美，原理简单，新手友好，但不失强大。我们只是在这个过程中做出了优雅的 QFramework。想了解下嘛？ 
-
 # QFramework 简介 Intro
   [QFramework](https://github.com/liangxiegame/QFramework) 是一套 **渐进式** 的 **快速开发** 框架。目标是作为无框架经验的公司、独立开发者、以及 Unity3D 初学者们的 **第一套框架**。框架内部积累了多个项目的在各个技术方向的解决方案。学习成本低，接入成本低，重构成本低，二次开发成本低，文档内容丰富(提供使用方式以及原理、开发文档)。github:https://github.com/liangxiegame/QFramework
 
@@ -75,8 +73,8 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 技术支持 Tech Support：
 * [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
 * **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
-* **QQ 群:623597263 **
-* **社区:http://community.qframework.io/**
+* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **：在 QQ 群内提问，会马航内得到回复。
+* **社区:https://liangxiegame.com/qf/intro/**
 * [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
 
 #### 下载地址 Download:
@@ -91,7 +89,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 运行环境
 * Unity 5.6.x ~ 2018.x
 
-### 包含项目 Include Projects:
+### 可选的包含项目 Include Projects:
 * [Catlib.Core](https://github.com/CatLib/Core)
 * [ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)
 * [StateManageEditor](https://github.com/827922094/StateManageEditor)

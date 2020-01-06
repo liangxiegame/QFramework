@@ -1,5 +1,4 @@
 using System.Linq;
-using QF;
 using UnityEditor;
 using UnityEngine;
 
@@ -102,24 +101,29 @@ namespace QFramework
                 .FontSize(12)
                 .AddTo(mComponentLine);
 
-            var components = mBindScript.GetComponents<Component>();
+            if (mBindScript.MarkType == BindType.DefaultUnityElement)
+            {
 
-            var componentNames = components.Where(c => c.GetType() != typeof(Bind)).Select(c => c.GetType().FullName)
-                .ToArray();
+                var components = mBindScript.GetComponents<Component>();
 
-            var componentNameIndex = 0;
+                var componentNames = components.Where(c => c.GetType() != typeof(Bind))
+                    .Select(c => c.GetType().FullName)
+                    .ToArray();
 
-            componentNameIndex = componentNames.ToList()
-                .FindIndex((componentName) => componentName.Contains(mBindScript.ComponentName));
+                var componentNameIndex = 0;
 
-            mBindScript.ComponentName = componentNames[componentNameIndex];
+                componentNameIndex = componentNames.ToList()
+                    .FindIndex((componentName) => componentName.Contains(mBindScript.ComponentName));
 
-            new PopupView(componentNameIndex, componentNames)
-                .AddTo(mComponentLine)
-                .IndexProperty.Bind((index) => { mBindScript.ComponentName = componentNames[index]; });
+                mBindScript.ComponentName = componentNames[componentNameIndex];
 
+                new PopupView(componentNameIndex, componentNames)
+                    .AddTo(mComponentLine)
+                    .IndexProperty.Bind((index) => { mBindScript.ComponentName = componentNames[index]; });
+            }
 
             mComponentLine.AddTo(mRootLayout);
+            
 
             new SpaceView()
                 .AddTo(mRootLayout);
