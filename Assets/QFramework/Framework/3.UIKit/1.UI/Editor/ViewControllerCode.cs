@@ -117,11 +117,11 @@ namespace QFramework
 
                 if (type == null)
                 {
-//                    Debug.Log("编译失败");
+                    Debug.Log("编译失败");
                     return;
                 }
 
-//                Debug.Log(type);
+                Debug.Log(type);
 
                 var gameObject = GameObject.Find(gameObjectName);
 
@@ -145,9 +145,11 @@ namespace QFramework
                 {
                     var name = bindInfo.Name;
 
+                    var componentName = bindInfo.BindScript.ComponentName.Split('.').Last();
+                    
                     serialiedScript.FindProperty(name).objectReferenceValue =
                         gameObject.transform.Find(bindInfo.PathToElement)
-                            .GetComponent(bindInfo.BindScript.ComponentName);
+                            .GetComponent(componentName);
                 }
 
 
