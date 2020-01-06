@@ -89,7 +89,7 @@ namespace QFramework.PackageKit
                         .To(vm => vm.CategoryIndex);
                 });
             
-            new HeaderView()
+            new PackageListHeaderView()
                 .AddTo(verticalLayout);
 
             var packageList = new VerticalLayout("box")

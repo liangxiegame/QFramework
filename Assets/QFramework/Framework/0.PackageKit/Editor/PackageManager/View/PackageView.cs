@@ -6,26 +6,17 @@ namespace QFramework.PackageKit
         {
             new SpaceView(2).AddTo(this);
 
-            new LabelView(packageData.Name).FontBold().Width(150).AddTo(this);
+            new LabelView(packageData.Name).FontBold().Width(200).AddTo(this);
 
             new LabelView(packageData.version).TextMiddleCenter().Width(80).AddTo(this);
 
             var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
 
-            new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(80)
+            new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
                 .AddTo(this);
 
-            new LabelView(packageData.AccessRight.ToString()).TextMiddleCenter().Width(80).AddTo(this);
+            new LabelView(packageData.AccessRight.ToString()).TextMiddleLeft().Width(50).AddTo(this);
 
-            if (!string.IsNullOrEmpty(packageData.DocUrl))
-            {
-                new ButtonView(LocaleText.Doc, () => { }).AddTo(this);
-            }
-            else
-            {
-                new SpaceView(40).AddTo(this);
-            }
-            
             // 数据绑定
             var bindingSet = BindKit.CreateBindingSet(this, new PackageViewModel());
             
@@ -56,11 +47,18 @@ namespace QFramework.PackageKit
                 new SpaceView(94).AddTo(this);
             }
             
-            bindingSet.Bind(new ButtonView(LocaleText.ReleaseNotes).AddTo(this))
+            bindingSet.Bind(new ButtonView(LocaleText.ReleaseNotes).Width(100)
+                    .AddTo(this))
                 .For(v => v.OnClick)
                 .To(vm => vm.OpenReadme)
                 .CommandParameter(packageData);
 
+            new LabelView(packageData.Author)
+                .TextMiddleLeft()
+                .FontBold().Width(100)
+                .AddTo(this);
+
+            
             bindingSet.Build();
         }
         

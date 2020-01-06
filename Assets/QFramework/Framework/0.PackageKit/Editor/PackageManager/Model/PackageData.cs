@@ -99,17 +99,23 @@ namespace QFramework.PackageKit
 
         public string Name = "";
 
+        private PackageVersion mLatestVersion
+        {
+            get { return PackageVersions.FirstOrDefault(); }
+        }
+        
+        
 
         public string version
         {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().Version; }
+            get { return mLatestVersion == null ? string.Empty : mLatestVersion.Version; }
         }
 
         public string DownloadUrl
         {
             get
             {
-                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DownloadUrl;
+                return mLatestVersion == null ? string.Empty : mLatestVersion.DownloadUrl;
             }
         }
 
@@ -117,18 +123,18 @@ namespace QFramework.PackageKit
         {
             get
             {
-                return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().InstallPath;
+                return mLatestVersion == null ? string.Empty : mLatestVersion.InstallPath;
             }
         }
 
         public string DocUrl
         {
-            get { return PackageVersions.FirstOrDefault() == null ? string.Empty : PackageVersions.First().DocUrl; }
+            get { return mLatestVersion == null ? string.Empty : mLatestVersion.DocUrl; }
         }
 
         public PackageType Type
         {
-            get { return PackageVersions.FirstOrDefault() == null ? PackageType.Master : PackageVersions.First().Type; }
+            get { return mLatestVersion == null ? PackageType.Master : mLatestVersion.Type; }
         }
 
         public PackageAccessRight AccessRight
@@ -138,6 +144,22 @@ namespace QFramework.PackageKit
                 return PackageVersions.FirstOrDefault() == null
                     ? PackageAccessRight.Public
                     : PackageVersions.First().AccessRight;
+            }
+        }
+
+
+        public string Author
+        {
+            get
+            {
+                try
+                {
+                    return readme.items.FirstOrDefault().author;
+                }
+                catch
+                {
+                    return "liangxie";
+                }
             }
         }
 

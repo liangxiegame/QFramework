@@ -191,8 +191,10 @@ namespace QFramework
 				verticalLayout.AddChild(new SpaceView(10));
 				verticalLayout.AddChild(new LabelView("已标记 AB 列表:").FontBold().FontSize(15));
 
+				
+				var scrollView = new ScrollLayout().AddTo(verticalLayout);
 				mMarkedPathList = new VerticalLayout("box")
-					.AddTo(verticalLayout);
+					.AddTo(scrollView);
 
 				ReloadMarkedList();
 				
