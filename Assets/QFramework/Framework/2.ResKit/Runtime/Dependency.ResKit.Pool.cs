@@ -596,7 +596,7 @@ namespace Dependencies.ResKit.Pool
 		{
 			get
 			{
-				if (mInstance == null)
+				if (mInstance == null && !mOnApplicationQuit)
 				{
 					mInstance = MonoSingletonCreator.CreateMonoSingleton<T>();
 				}
@@ -629,8 +629,17 @@ namespace Dependencies.ResKit.Pool
 			}
 		}
 
+		private static bool mOnApplicationQuit = false;
+
+		protected virtual void OnApplicationQuit()
+		{
+			if (mInstance == null) return;
+			Destroy(mInstance.gameObject);
+			mInstance = null;
+		}
 		protected virtual void OnDestroy()
 		{
+			mOnApplicationQuit = true;
 			mInstance = null;
 		}
 	}
