@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.8.5","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.5","content":"更新内部Singleton","author":"liangxie","date":"2020 年 01 月 07 日 17:01","PackageId":""}}
+{"Id":"","Version":"v0.8.6","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.6","content":"支持 Google 的  aab （AppBundle）","author":"liangxie","date":"2020 年 01 月 07 日 19:42","PackageId":""}}

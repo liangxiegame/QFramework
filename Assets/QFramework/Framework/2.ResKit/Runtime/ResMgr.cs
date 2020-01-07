@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Collections;
 
 namespace QFramework
@@ -106,16 +107,21 @@ namespace QFramework
                 ResDatas.Instance.Reset();
                 
                 var outResult = new List<string>();
-                
+                string pathPrefix = "";
+                #if UNITY_EDITOR || UNITY_IOS
+                    pathPrefix = "file://";
+                #endif
                 // 未进行过热更
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
-                    outResult.Add(Application.streamingAssetsPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin");
+                    string streamingPath = Application.streamingAssetsPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin";
+                    outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
-                    outResult.Add(Application.persistentDataPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin");
+                    string persistenPath = Application.persistentDataPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin";
+                    outResult.Add(pathPrefix + persistenPath);
                 }
                 
                 foreach (var outRes in outResult)

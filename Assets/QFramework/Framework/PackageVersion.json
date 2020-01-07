@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.8.20","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://qfdoc.liangxiegame.com/","Readme":{"version":"v0.8.20","content":"修复 单例造成的问题","author":"liangxie","date":"2020 年 01 月 07 日 17:01","PackageId":""}}
+{"Id":"","Version":"v0.8.21","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://qfdoc.liangxiegame.com/","Readme":{"version":"v0.8.21","content":"支持 Google 的 aab 模式（AppBundle）","author":"liangxie","date":"2020 年 01 月 07 日 19:42","PackageId":""}}
