@@ -187,17 +187,17 @@ namespace QFramework
 			}
 		}
 
-		private static bool mOnApplicationQuit = false;
+		protected static bool mOnApplicationQuit = false;
 
 		protected virtual void OnApplicationQuit()
 		{
+			mOnApplicationQuit = true;
 			if (mInstance == null) return;
 			Destroy(mInstance.gameObject);
 			mInstance = null;
 		}
 		protected virtual void OnDestroy()
 		{
-			mOnApplicationQuit = true;
 			mInstance = null;
 		}
 	}

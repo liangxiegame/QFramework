@@ -633,13 +633,13 @@ namespace Dependencies.ResKit.Pool
 
 		protected virtual void OnApplicationQuit()
 		{
+			mOnApplicationQuit = true;
 			if (mInstance == null) return;
 			Destroy(mInstance.gameObject);
 			mInstance = null;
 		}
 		protected virtual void OnDestroy()
 		{
-			mOnApplicationQuit = true;
 			mInstance = null;
 		}
 	}

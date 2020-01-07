@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.8.4","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.4","content":"修复 退出 Unity 时偶尔出现的报错问题","author":"liangxie","date":"2020 年 01 月 06 日 21:54","PackageId":""}}
+{"Id":"","Version":"v0.8.5","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://liangxiegame.com","Readme":{"version":"v0.8.5","content":"更新内部Singleton","author":"liangxie","date":"2020 年 01 月 07 日 17:01","PackageId":""}}
