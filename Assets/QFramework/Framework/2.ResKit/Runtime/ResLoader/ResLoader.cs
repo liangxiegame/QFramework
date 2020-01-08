@@ -496,7 +496,7 @@ namespace QFramework
 
                 mResList.Clear();
 
-                if (Application.isPlaying)
+                if (!ResMgr.IsApplicationQuit)
                 {
                     ResMgr.Instance.ClearOnUpdate();
                 }

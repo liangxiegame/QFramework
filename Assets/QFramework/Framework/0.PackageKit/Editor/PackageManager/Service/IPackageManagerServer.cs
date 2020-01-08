@@ -8,7 +8,6 @@ namespace QFramework.PackageKit
 
         void DeletePackage(string packageId, Action onResponse);
 
-        void GetAllRemotePackageInfo(Action<List<PackageData>> onResponse);
 
         void GetAllRemotePackageInfoV5(Action<List<PackageRepository>, List<string>> onResponse);
     }

@@ -28,17 +28,19 @@ namespace QFramework.PackageKit
         private ToolbarView mCategoriesSelectorView = null;
         private ToolbarView mAccessRightView = null;
 
-        public List<PackageData> PackageDatas
-        {
-            get { return null; }
-            set { OnRefresh(value); }
-        }
-
         public List<string> Categories
         {
             get { return null; }
             set { mCategoriesSelectorView.Menus(value); }
         }
+
+        public List<PackageRepository> PackageRepositories
+        {
+            get { return null; }
+            set { OnRefreshList(value); }
+        }
+        
+
         public void Init(IQFrameworkContainer container)
         {
             var bindingSet = BindKit.CreateBindingSet(this, new PackageManagerViewModel()
@@ -95,37 +97,34 @@ namespace QFramework.PackageKit
             var packageList = new VerticalLayout("box")
                 .AddTo(verticalLayout);
 
-            mScrollLayout = new ScrollLayout()
+            mRepositoryList = new ScrollLayout()
                 .Height(240)
                 .AddTo(packageList);
-
-            // 执行
-            TypeEventSystem.Send<IEditorStrangeMVCCommand>(new PackageManagerStartUpCommand());
-
-            bindingSet.Bind().For((v) => v.PackageDatas)
-                .To(vm => vm.PackageDatas);
 
             bindingSet.Bind().For(v => v.Categories)
                 .To(vm => vm.Categories);
             
+            bindingSet.Bind().For((v) => v.PackageRepositories)
+                .To(vm => vm.PackageRepositories);
+            
             bindingSet.Build();
         }
+        
+        private ScrollLayout mRepositoryList = null;
+        
 
-        private ScrollLayout mScrollLayout = null;
-
-        private void OnRefresh(List<PackageData> packageDatas)
+        private void OnRefreshList(List<PackageRepository> packageRepositories)
         {
-            mScrollLayout.Clear();
-            mScrollLayout.AddChild(new SpaceView(2));
+            mRepositoryList.Clear();
+            mRepositoryList.AddChild(new SpaceView(2));
 
-            foreach (var packageData in packageDatas)
+            foreach (var packageRepository in packageRepositories)
             {
-                mScrollLayout
+                mRepositoryList
                     .AddChild(new SpaceView(2))
-                    .AddChild(new PackageView(packageData));
+                    .AddChild(new PackageRepositoryView(packageRepository));
             }
         }
-
         public void OnUpdate()
         {
         }
@@ -137,10 +136,8 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
-
             BindKit.ClearBindingSet(this);
             
-            mScrollLayout = null;
             mCategoriesSelectorView = null;
             mPackageManagerApp.Dispose();
             mPackageManagerApp = null;

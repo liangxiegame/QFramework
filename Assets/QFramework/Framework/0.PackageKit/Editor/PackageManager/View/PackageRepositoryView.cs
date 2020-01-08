@@ -1,21 +1,21 @@
 namespace QFramework.PackageKit
 {
-    public class PackageView : HorizontalLayout
+    public class PackageRepositoryView : HorizontalLayout
     {
-        public PackageView(PackageData packageData)
+        public PackageRepositoryView(PackageRepository packageRepository)
         {
             new SpaceView(2).AddTo(this);
 
-            new LabelView(packageData.Name).FontBold().Width(200).AddTo(this);
+            new LabelView(packageRepository.name).FontBold().Width(200).AddTo(this);
 
-            new LabelView(packageData.version).TextMiddleCenter().Width(80).AddTo(this);
+            new LabelView(packageRepository.latestVersion).TextMiddleCenter().Width(80).AddTo(this);
 
-            var installedPackage = InstalledPackageVersions.FindVersionByName(packageData.Name);
+            var installedPackage = InstalledPackageVersions.FindVersionByName(packageRepository.name);
 
             new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
                 .AddTo(this);
 
-            new LabelView(packageData.AccessRight.ToString()).TextMiddleLeft().Width(50).AddTo(this);
+            new LabelView(packageRepository.accessRight).TextMiddleLeft().Width(50).AddTo(this);
 
             // 数据绑定
             var bindingSet = BindKit.CreateBindingSet(this, new PackageViewModel());
@@ -25,24 +25,24 @@ namespace QFramework.PackageKit
                 bindingSet.Bind(new ButtonView(LocaleText.Import).Width(90).AddTo(this))
                     .For(v => v.OnClick)
                     .To(vm => vm.Import)
-                    .CommandParameter(packageData);
+                    .CommandParameter(packageRepository);
             }
-            else if (packageData.VersionNumber > installedPackage.VersionNumber)
+            else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
             {
                 bindingSet.Bind(new ButtonView(LocaleText.Update).Width(90).AddTo(this))
                     .For(v => v.OnClick)
                     .To(vm => vm.Update)
-                    .CommandParameter(packageData);
+                    .CommandParameter(packageRepository);
             }
-            else if (packageData.VersionNumber == installedPackage.VersionNumber)
+            else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
             {
                 bindingSet.Bind(new ButtonView(LocaleText.Reimport).Width(90).AddTo(this))
                     .For(v => v.OnClick)
                     .To(vm => vm.Reimport)
-                    .CommandParameter(packageData);
+                    .CommandParameter(packageRepository);
 
             }
-            else if (packageData.VersionNumber < installedPackage.VersionNumber)
+            else if (packageRepository.VersionNumber < installedPackage.VersionNumber)
             {
                 new SpaceView(94).AddTo(this);
             }
@@ -50,10 +50,10 @@ namespace QFramework.PackageKit
             bindingSet.Bind(new ButtonView(LocaleText.ReleaseNotes).Width(100)
                     .AddTo(this))
                 .For(v => v.OnClick)
-                .To(vm => vm.OpenReadme)
-                .CommandParameter(packageData);
+                .To(vm => vm.OpenDetail)
+                .CommandParameter(packageRepository);
 
-            new LabelView(packageData.Author)
+            new LabelView(packageRepository.author)
                 .TextMiddleLeft()
                 .FontBold().Width(100)
                 .AddTo(this);
@@ -86,7 +86,7 @@ namespace QFramework.PackageKit
 
             public static string ReleaseNotes
             {
-                get { return Language.IsChinese ? "版本说明" : "Release Notes"; }
+                get { return Language.IsChinese ? "详情" : "Detail"; }
             }
         }
     }

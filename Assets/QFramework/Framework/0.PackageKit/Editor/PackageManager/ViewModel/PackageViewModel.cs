@@ -11,11 +11,11 @@ namespace QFramework.PackageKit
     {
 
         
-        public SimpleCommand<PackageData> Import
+        public SimpleCommand<PackageRepository> Import
         {
             get
             {
-                return new SimpleCommand<PackageData>(packageData =>
+                return new SimpleCommand<PackageRepository>(packageData =>
                 {
                     PackageApplication.Container.Resolve<PackageKitWindow>().Close();
                     
@@ -24,14 +24,14 @@ namespace QFramework.PackageKit
             }
         }
         
-        public SimpleCommand<PackageData> Update
+        public SimpleCommand<PackageRepository> Update
         {
             get
             {
-                return new SimpleCommand<PackageData>(packageData =>
+                return new SimpleCommand<PackageRepository>(packageData =>
                 {
 
-                    var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
+                    var path = Application.dataPath.Replace("Assets", packageData.installPath);
 
                     if (Directory.Exists(path))
                     {
@@ -51,13 +51,13 @@ namespace QFramework.PackageKit
             }
         }
         
-        public SimpleCommand<PackageData> Reimport
+        public SimpleCommand<PackageRepository> Reimport
         {
             get
             {
-                return new SimpleCommand<PackageData>(packageData =>
+                return new SimpleCommand<PackageRepository>(packageData =>
                 {
-                    var path = Application.dataPath.Replace("Assets", packageData.InstallPath);
+                    var path = Application.dataPath.Replace("Assets", packageData.installPath);
 
                     if (Directory.Exists(path))
                     {
@@ -83,6 +83,17 @@ namespace QFramework.PackageKit
                 return new SimpleCommand<PackageData>(packageData =>
                 {
                     ReadmeWindow.Init(packageData.readme, packageData.PackageVersions.First());
+                });
+            }
+        }
+        
+        public SimpleCommand<PackageRepository> OpenDetail
+        {
+            get
+            {
+                return new SimpleCommand<PackageRepository>(repository =>
+                {
+                    Application.OpenURL("https://liangxiegame.com/qf/package/detail/" + repository.id);
                 });
             }
         }

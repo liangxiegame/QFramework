@@ -631,6 +631,11 @@ namespace Dependencies.ResKit.Pool
 
 		private static bool mOnApplicationQuit = false;
 
+		public static bool IsApplicationQuit
+		{
+			get { return mOnApplicationQuit; }
+		}
+
 		protected virtual void OnApplicationQuit()
 		{
 			mOnApplicationQuit = true;

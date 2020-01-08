@@ -6,12 +6,6 @@ namespace QFramework.PackageKit
 {
     public class PackageManagerModel
     {
-        public PackageManagerModel()
-        {
-            PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
-        }
-
-        public List<PackageData> PackageDatas = new List<PackageData>();
 
         public List<PackageRepository> Repositories = new List<PackageRepository>();
 
@@ -22,9 +16,9 @@ namespace QFramework.PackageKit
         }
 
 
-        public IEnumerable<PackageData> SelectedPackageType
+        public IEnumerable<PackageRepository> SelectedPackageType
         {
-            get { return PackageDatas.OrderBy(p => p.Name); }
+            get { return Repositories.OrderBy(p => p.name); }
         }
     }
 }

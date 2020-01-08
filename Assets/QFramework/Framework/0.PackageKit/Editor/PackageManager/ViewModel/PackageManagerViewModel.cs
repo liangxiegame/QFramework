@@ -17,44 +17,36 @@ namespace QFramework.PackageKit
 
         void UpdateCategoriesFromModel()
         {
-            var categories = Model.PackageDatas.Select(p => p.Type.ToString()).Distinct().ToList();
+            var categories = Model.Repositories.Select(p => p.type).Distinct()
+                .Select(t=>PackageTypeHelper.TryGetFullName(t))
+                .ToList();
             categories.Insert(0, "all");
-            mCategories = categories;
+            Categories = categories;
         }
 
         public override void OnInit()
         {
-            mPackageDatas = Model.PackageDatas.OrderBy(p => p.Name).ToList();
+            PackageRepositories = Model.Repositories.OrderBy(p => p.name).ToList();
 
             UpdateCategoriesFromModel();
 
-            Server.GetAllRemotePackageInfo(list =>
-            {
-                Model.PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
-                PackageDatas = Model.PackageDatas.OrderBy(p => p.Name).ToList();
-                UpdateCategoriesFromModel();
-
-            });
-
             Server.GetAllRemotePackageInfoV5((list, categories) =>
             {
-                Model.PackageDatas = PackageInfosRequestCache.Get().PackageDatas;
-                PackageDatas = Model.PackageDatas.OrderBy(p => p.Name).ToList();
+                Model.Repositories = list.OrderBy(p=>p.name).ToList();
+                PackageRepositories = Model.Repositories;
                 UpdateCategoriesFromModel();
             });
         }
         
+        private List<PackageRepository> mPackageRepositories = new List<PackageRepository>();
 
-        private List<PackageData> mPackageDatas;
-
-        public List<PackageData> PackageDatas
+        public List<PackageRepository> PackageRepositories
         {
-            get { return mPackageDatas; }
-            set { this.Set(ref mPackageDatas, value, "PackageDatas"); }
+            get { return mPackageRepositories; }
+            set { this.Set(ref mPackageRepositories, value, "PackageRepositories"); }
         }
 
-
-        private List<string> mCategories;
+        private List<string> mCategories = new List<string>();
 
         public List<string> Categories
         {
@@ -89,18 +81,18 @@ namespace QFramework.PackageKit
         void OnSearch(string key)
         {
             mSearchKey = key.ToLower();
-            var packageDatas = Model
-                .PackageDatas
-                .Where(p => p.Name.ToLower().Contains(mSearchKey))
-                .Where(p=>CategoryIndex == 0 || p.Type.ToString() == Categories[CategoryIndex])
+            var repositories = Model
+                .Repositories
+                .Where(p => p.name.ToLower().Contains(mSearchKey))
+                .Where(p=>CategoryIndex == 0 || p.type.ToString() == Categories[CategoryIndex])
                 .Where(p=>AccessRightIndex == 0 || 
-                          AccessRightIndex == 1 && p.AccessRight == PackageAccessRight.Public ||
-                          AccessRightIndex == 2 && p.AccessRight == PackageAccessRight.Private
+                          AccessRightIndex == 1 && p.accessRight == "public" ||
+                          AccessRightIndex == 2 && p.accessRight == "private"
                 )
-                .OrderBy(p=>p.Name)
+                .OrderBy(p=>p.name)
                 .ToList();
                     
-            PackageDatas = packageDatas;
+            PackageRepositories = repositories;
         }
 
         public SimpleCommand<Property<string>> Search

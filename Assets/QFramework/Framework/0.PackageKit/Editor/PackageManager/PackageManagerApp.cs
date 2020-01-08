@@ -17,7 +17,7 @@ namespace QFramework.PackageKit
             // 注册好 model
             var model = new PackageManagerModel
             {
-                PackageDatas = PackageInfosRequestCache.Get().PackageDatas
+                Repositories = PackageInfosRequestCache.Get().PackageRepositories
             };
 
             Container.RegisterInstance(model);

@@ -14,6 +14,8 @@ namespace QFramework.PackageKit
         public PackageMakerViewModel(PackageVersion packageVersion)
         {
             mPackageVersion = packageVersion;
+
+            mReleaseNote = mPackageVersion.Readme.content;
         }
         
         public string Version
