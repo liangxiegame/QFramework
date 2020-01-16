@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+
 #if NET_2_0 || NET_2_0_SUBSET || (UNITY_EDITOR && UNITY_METRO  && !(NET_STANDARD_2_0 || NET_4_6)) 
 namespace System.Collections.Specialized
 {

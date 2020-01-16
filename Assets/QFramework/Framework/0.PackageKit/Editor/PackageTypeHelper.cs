@@ -9,7 +9,7 @@ namespace QFramework.PackageKit
             {"fm", "Framework"},
             {"p", "Plugin"},
             {"s", "Shader"},
-            {"agt", "Shader"},
+            {"agt", "Example/Demo"},
             {"master", "Master"},
         };
 

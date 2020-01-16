@@ -25,7 +25,6 @@ namespace QFramework.PackageKit
             form.AddField("name", packageVersion.Name);
             form.AddField("version", packageVersion.Version);
             form.AddBinaryData("file", file);
-            form.AddField("version", packageVersion.Version);
             form.AddField("releaseNote", packageVersion.Readme.content);
             form.AddField("installPath", packageVersion.InstallPath);
             form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
