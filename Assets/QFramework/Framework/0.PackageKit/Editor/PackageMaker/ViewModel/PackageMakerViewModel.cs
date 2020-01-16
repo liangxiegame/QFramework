@@ -17,7 +17,7 @@ namespace QFramework.PackageKit
 
             mReleaseNote = mPackageVersion.Readme.content;
         }
-        
+
         public string Version
         {
             get { return mPackageVersion.Version; }
@@ -44,7 +44,7 @@ namespace QFramework.PackageKit
             set { this.Set(ref mReleaseNote, value, "ReleaseNote"); }
         }
 
-        
+
         public Enum Type
         {
             get { return mPackageVersion.Type; }
@@ -54,7 +54,6 @@ namespace QFramework.PackageKit
                 mPackageVersion.Type = (PackageType) value;
             }
         }
-
 
         private string mDocUrl = "http://lianxiegame.com";
 
@@ -66,7 +65,7 @@ namespace QFramework.PackageKit
 
 
         private bool mInEditorView = true;
-        
+
         public bool InEditorView
         {
             get { return mInEditorView; }
@@ -80,7 +79,7 @@ namespace QFramework.PackageKit
             get { return mInUploadingView; }
             set { this.Set(ref mInUploadingView, value, "InUploadingView"); }
         }
-        
+
         private bool mInFinishView = false;
 
         public bool InFinishView
@@ -91,7 +90,7 @@ namespace QFramework.PackageKit
 
         public void Paste()
         {
-             DocUrl = GUIUtility.systemCopyBuffer; 
+            DocUrl = GUIUtility.systemCopyBuffer;
         }
 
         public SimpleCommand<PackageVersion> Publish
@@ -122,10 +121,7 @@ namespace QFramework.PackageKit
 
                     AssetDatabase.Refresh();
 
-                    RenderEndCommandExecuter.PushCommand(() =>
-                    {
-                        PublishPackage(version, false);
-                    });
+                    RenderEndCommandExecuter.PushCommand(() => { PublishPackage(version, false); });
                 }));
             }
         }
@@ -149,11 +145,11 @@ namespace QFramework.PackageKit
         public void PublishPackage(PackageVersion packageVersion, bool deleteLocal)
         {
             NoticeMessage = "插件上传中,请稍后...";
-            
+
             InUploadingView = true;
             InEditorView = false;
             InFinishView = false;
-            
+
             UploadPackage.DoUpload(packageVersion, () =>
             {
                 if (deleteLocal)
@@ -163,26 +159,21 @@ namespace QFramework.PackageKit
                 }
 
                 UpdateResult = "上传成功";
-                
+
                 InEditorView = false;
                 InUploadingView = false;
                 InFinishView = true;
-                
+
                 if (EditorUtility.DisplayDialog("上传结果", UpdateResult, "OK"))
                 {
-                    
+
                     AssetDatabase.Refresh();
 
                     Window.focusedWindow.Close();
-                    // InUploadingView = true;
-                    // InEditorView = false;
-                    // InFinishView = false;
                 }
-                
             });
         }
-        
-        
+
         public static bool IsVersionValide(string version)
         {
             if (version == null)

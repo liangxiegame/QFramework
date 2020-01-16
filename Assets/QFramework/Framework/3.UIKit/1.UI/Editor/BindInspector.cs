@@ -115,6 +115,11 @@ namespace QFramework
                 componentNameIndex = componentNames.ToList()
                     .FindIndex((componentName) => componentName.Contains(mBindScript.ComponentName));
 
+                if (componentNameIndex == -1 || componentNameIndex >= componentNames.Length)
+                {
+                    componentNameIndex = 0;
+                }
+                
                 mBindScript.ComponentName = componentNames[componentNameIndex];
 
                 new PopupView(componentNameIndex, componentNames)

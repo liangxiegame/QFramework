@@ -125,6 +125,15 @@ namespace QFramework
 
                 var gameObject = GameObject.Find(gameObjectName);
 
+                if (!gameObject)
+                {
+                    Debug.Log("上次的 View Controller 生成失败,找不到 GameObject:{0}".FillFormat(gameObjectName));
+
+                    Clear();
+                    return;
+                }
+                
+
                 var scriptComponent = gameObject.GetComponent(type);
 
                 if (!scriptComponent)
@@ -178,15 +187,9 @@ namespace QFramework
                     {
                         fullPrefabFolder.CreateDirIfNotExists();
 
-                        var genereateFolder = fullPrefabFolder + "/" + gameObject.name + ".prefab";
-#if UNITY_2018_3_OR_NEWER
-                        PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject,
-                            fullPrefabFolder + "/" + gameObject.name + ".prefab",
-                            InteractionMode.AutomatedAction);
-#else
-                        genereateFolder = prefabFolder + "/" + gameObject.name + ".prefab";
-                        PrefabUtility.CreatePrefab(genereateFolder, gameObject, ReplacePrefabOptions.ConnectToPrefab);
-#endif
+                        var genereateFolder = prefabFolder + "/" + gameObject.name + ".prefab";
+                        
+                        PrefabUtils.SaveAndConnect(genereateFolder,gameObject);
                     }
                 }
                 else
@@ -195,11 +198,16 @@ namespace QFramework
                     serialiedScript.ApplyModifiedPropertiesWithoutUndo();
                 }
 
-                EditorPrefs.DeleteKey("GENERATE_CLASS_NAME");
-                EditorPrefs.DeleteKey("GAME_OBJECT_NAME");
-                
+                Clear();
+
                 EditorUtils.MarkCurrentSceneDirty();
             }
+        }
+
+        static void Clear()
+        {
+            EditorPrefs.DeleteKey("GENERATE_CLASS_NAME");
+            EditorPrefs.DeleteKey("GAME_OBJECT_NAME");
         }
     }
 }

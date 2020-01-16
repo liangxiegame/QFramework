@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -94,8 +93,7 @@ namespace QFramework.PackageKit
             var editorView = new VerticalLayout().AddTo(RootLayout);
             var uploadingView = new VerticalLayout().AddTo(RootLayout);
             // var finishView = new VerticalLayout().AddTo(RootLayout);
-        
-            ;
+            
             // 当前版本号
             var versionLine = new HorizontalLayout().AddTo(editorView);
             new LabelView("当前版本号").Width(100).AddTo(versionLine);
@@ -116,24 +114,11 @@ namespace QFramework.PackageKit
             var accessRightLine = new HorizontalLayout().AddTo(editorView);
             new LabelView("权限").Width(100).AddTo(accessRightLine);
             var accessRight = new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine);
-            
-
 
             new LabelView("发布说明:").Width(150).AddTo(editorView);
 
             var releaseNote = new TextAreaView().Width(250).Height(300).AddTo(editorView);
-           
-
-            var docLine = new HorizontalLayout().AddTo(editorView);
-
-            new LabelView("文档地址:").Width(52).AddTo(docLine);
-            var docUrl = new TextView(mPackageVersion.DocUrl).Width(150).AddTo(docLine);
-
-
-
-            var pasteBtn = new ButtonView("Paste").AddTo(docLine);
-
-
+            
             var bindingSet = BindKit.CreateBindingSet(this, new PackageMakerViewModel(mPackageVersion));
             bindingSet.Bind(editorView).For(v => v.Visible).To(vm => vm.InEditorView);
             bindingSet.Bind(version.Content).For(v => v.Value, v => v.OnValueChanged)
@@ -148,10 +133,7 @@ namespace QFramework.PackageKit
             
             bindingSet.Bind(releaseNote.Content).For(v => v.Value, v => v.OnValueChanged)
                 .To(vm => vm.ReleaseNote);
-            bindingSet.Bind(docUrl.Content).For(v => v.Value, v => v.OnValueChanged)
-                .To(vm => vm.DocUrl);
-            bindingSet.Bind(pasteBtn).For(v => v.OnClick).To(vm => vm.Paste);
-            
+
             if (User.Logined)
             {
                 var publishBtn = new ButtonView("发布").AddTo(editorView);

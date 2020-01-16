@@ -24,6 +24,13 @@
  ****************************************************************************/
 
 
+using System.IO;
+using QFramework.PackageKit;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
 namespace QFramework {
     public class UIKitSettingView : VerticalLayout, IPackageKitView {
         private UIKitSettingData mUiKitSettingData;
@@ -46,65 +53,93 @@ namespace QFramework {
 
         private VerticalLayout mRootLayout = null;
 
-        public void Init (IQFrameworkContainer container) {
-            var treeNode = new TreeNode (false, LocaleText.UIKitSettings)
-                .AddTo (this);
+        public void Init(IQFrameworkContainer container)
+        {
+            var bindingSet = BindKit.CreateBindingSet(this, new UIKitSettingViewModel());
 
-            mRootLayout = new VerticalLayout ("box");
+            var treeNode = new TreeNode(false, LocaleText.UIKitSettings)
+                .AddTo(this);
 
-            treeNode.Add2Spread (mRootLayout);
+            mRootLayout = new VerticalLayout("box");
 
-            new SpaceView (6).AddTo (mRootLayout);
+            treeNode.Add2Spread(mRootLayout);
+
+
+            mRootLayout.AddChild(new SpaceView(6));
 
             // 命名空间
-            var nameSpaceLayout = new HorizontalLayout ()
-                .AddTo (mRootLayout);
+            var nameSpaceLayout = new HorizontalLayout()
+                .AddTo(mRootLayout);
 
-            new LabelView (LocaleText.Namespace)
-                .FontSize (12)
-                .FontBold ()
-                .Width (200)
-                .AddTo (nameSpaceLayout);
+            new LabelView(LocaleText.Namespace)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(nameSpaceLayout);
 
-            new TextView (mUiKitSettingData.Namespace)
-                .AddTo (nameSpaceLayout)
-                .Content.Bind (content => mUiKitSettingData.Namespace = content);
+            new TextView(mUiKitSettingData.Namespace)
+                .AddTo(nameSpaceLayout)
+                .Content.Bind(content => mUiKitSettingData.Namespace = content);
 
             // UI 生成的目录
-            new SpaceView (6).AddTo (mRootLayout);
+            new SpaceView(6)
+                .AddTo(mRootLayout);
 
-            var uiScriptGenerateDirLayout = new HorizontalLayout ()
-                .AddTo (mRootLayout);
+            var uiScriptGenerateDirLayout = new HorizontalLayout()
+                .AddTo(mRootLayout);
 
-            new LabelView (LocaleText.UIScriptGenerateDir)
-                .FontSize (12)
-                .FontBold ()
-                .Width (200)
-                .AddTo (uiScriptGenerateDirLayout);
+            new LabelView(LocaleText.UIScriptGenerateDir)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(uiScriptGenerateDirLayout);
 
-            new TextView (mUiKitSettingData.UIScriptDir)
-                .AddTo (uiScriptGenerateDirLayout)
-                .Content.Bind (content => mUiKitSettingData.UIScriptDir = content);
+            new TextView(mUiKitSettingData.UIScriptDir)
+                .AddTo(uiScriptGenerateDirLayout)
+                .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
 
-            new SpaceView (6).AddTo (mRootLayout);
+            new SpaceView(6).AddTo(mRootLayout);
 
-            var uiPanelPrefabDir = new HorizontalLayout ()
-                .AddTo (mRootLayout);
+            var uiPanelPrefabDir = new HorizontalLayout()
+                .AddTo(mRootLayout);
 
-            new LabelView (LocaleText.UIPanelPrefabDir)
-                .FontSize (12)
-                .FontBold ()
-                .Width (200)
-                .AddTo (uiPanelPrefabDir);
+            new LabelView(LocaleText.UIPanelPrefabDir)
+                .FontSize(12)
+                .FontBold()
+                .Width(200)
+                .AddTo(uiPanelPrefabDir);
 
-            new TextView (mUiKitSettingData.UIPrefabDir)
-                .AddTo (uiPanelPrefabDir)
-                .Content.Bind (content => mUiKitSettingData.UIPrefabDir = content);
+            new TextView(mUiKitSettingData.UIPrefabDir)
+                .AddTo(uiPanelPrefabDir)
+                .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
-            new SpaceView (6).AddTo (mRootLayout);
+            mRootLayout.AddChild(new SpaceView(6));
 
-            new ButtonView (LocaleText.Apply, () => { mUiKitSettingData.Save (); })
-                .AddTo (mRootLayout);
+            // 保存数据
+            new ButtonView(LocaleText.Apply, () => { mUiKitSettingData.Save(); })
+                .AddTo(mRootLayout);
+
+
+            new TextView()
+                .AddTo(mRootLayout)
+                .Do(text =>
+                {
+                    bindingSet
+                        .Bind(text.Content)
+                        .For(v => v.Value, v => v.OnValueChanged)
+                        .To(vm => vm.PanelNameToCreate);
+                });
+
+            // 创建 UI 界面 按钮的绑定
+            new ButtonView(LocaleText.CreateUIPanel)
+                .AddTo(mRootLayout)
+                .Do(btn =>
+                {
+                    bindingSet.Bind(btn).For(v => v.OnClick).To(vm => vm.OnCreateUIPanelClick);
+                    
+                });
+
+            bindingSet.Build();
         }
 
         public void OnUpdate () {
@@ -136,7 +171,12 @@ namespace QFramework {
             }
 
             public static string UIKitSettings {
-                get { return Language.IsChinese ? "UI Kit 设置" : "Ui Kit Settings"; }
+                get { return Language.IsChinese ? "UI Kit 设置" : "UI Kit Settings"; }
+            }
+
+            public static string CreateUIPanel
+            {
+                get { return Language.IsChinese ? "创建 UI Panel" : "Create UI Panel"; }
             }
         }
     }
