@@ -269,7 +269,7 @@ namespace QFramework
 			mAssetBundleArray = null;
 
 			var resSearchRule = ResSearchRule.Allocate(mAssetName, mOwnerBundleName);
-			var config = ResDatas.Instance.GetAssetData(resSearchRule);
+			var config = ResKit.ResDatas.GetAssetData(resSearchRule);
 			resSearchRule.Recycle2Cache();
 
 			if (config == null)
@@ -279,7 +279,7 @@ namespace QFramework
 			}
 
 			var assetBundleName =
-				ResDatas.Instance.GetAssetBundleName(config.AssetName, config.AssetBundleIndex, mOwnerBundleName);
+				ResKit.ResDatas.GetAssetBundleName(config.AssetName, config.AssetBundleIndex, mOwnerBundleName);
 
 			if (string.IsNullOrEmpty(assetBundleName))
 			{

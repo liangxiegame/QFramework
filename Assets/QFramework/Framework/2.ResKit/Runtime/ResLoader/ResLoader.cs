@@ -54,11 +54,11 @@ namespace QFramework
 
             if (resSearchRule.OwnerBundle != null)
             {
-                resSearchRule.DictionaryKey = assetName.ToLower();
+                resSearchRule.DictionaryKey = (ownerBundle + assetName).ToLower();
             }
             else
             {
-                resSearchRule.DictionaryKey = (ownerBundle + assetName).ToLower();
+                resSearchRule.DictionaryKey = assetName.ToLower();
             }
             
             return resSearchRule;

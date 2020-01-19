@@ -460,6 +460,24 @@ namespace QFramework
     /// </summary>
     public static class IOExtension
     {
+        
+        /// <summary>
+        /// 检测路径是否存在
+        /// </summary>
+        /// <param name="path"></param>
+        public static string CreateDirIfNotExists4FilePath(this string path)
+        { 
+            var direct = Path.GetDirectoryName(path);
+            
+            if (!Directory.Exists(direct))
+            {
+                Directory.CreateDirectory(direct);
+            }
+
+            return path;
+        }
+        
+        
         /// <summary>
         /// 创建新的文件夹,如果存在则不创建
         /// <code>

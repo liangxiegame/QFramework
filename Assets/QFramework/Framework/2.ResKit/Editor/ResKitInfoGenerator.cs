@@ -37,8 +37,8 @@ namespace QFramework
 	{
 		public static void WriteClass(TextWriter writer, string ns)
 		{
-			EditorRuntimeAssetDataCollector.BuildDataTable();
-			var allAssetDataGroups = ResDatas.Instance.AllAssetDataGroups;
+			var buildDataTable = EditorRuntimeAssetDataCollector.BuildDataTable();
+			var allAssetDataGroups = buildDataTable.AllAssetDataGroups;
 			
 			var assetBundleInfos = new List<AssetBundleInfo>();
 			

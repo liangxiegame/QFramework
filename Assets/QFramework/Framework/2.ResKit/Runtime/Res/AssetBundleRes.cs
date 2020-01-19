@@ -52,7 +52,7 @@ namespace QFramework
 
         private void InitAssetBundleName()
         {
-            mDependResList = ResDatas.Instance.GetAllDependenciesByUrl(AssetName);
+            mDependResList = ResKit.ResDatas.GetAllDependenciesByUrl(AssetName);
         }
 
         public AssetBundle AssetBundle

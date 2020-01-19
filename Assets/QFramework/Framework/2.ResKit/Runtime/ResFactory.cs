@@ -49,7 +49,7 @@ namespace QFramework
             }
             else
             {
-                var data = ResDatas.Instance.GetAssetData(resSearchRule);
+                var data = ResKit.ResDatas.GetAssetData(resSearchRule);
 
                 if (data == null)
                 {

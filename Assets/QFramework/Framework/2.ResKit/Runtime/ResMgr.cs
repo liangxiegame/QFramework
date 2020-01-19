@@ -31,13 +31,14 @@ namespace QFramework
 {
     using System.Collections.Generic;
     using UnityEngine;
-    
+
     [Dependencies.ResKit.Pool.MonoSingletonPath("[Framework]/ResMgr")]
     public class ResMgr : Dependencies.ResKit.Pool.MonoSingleton<ResMgr>, IEnumeratorTaskMgr
     {
         #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
 
         private static bool mResMgrInited = false;
+
         /// <summary>
         /// 初始化bin文件
         /// </summary>
@@ -45,15 +46,15 @@ namespace QFramework
         {
             if (mResMgrInited) return;
             mResMgrInited = true;
-            
+
             Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
             Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Init(40, 20);
             Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
             Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);            
+            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);
             Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Init(40, 20);
 
-            
+
             Instance.InitResMgr();
         }
 
@@ -74,19 +75,19 @@ namespace QFramework
         }
 
         #endregion
-        
+
         public int Count
         {
             get { return mResList.Count; }
         }
-        
+
         #region 字段
 
-        private readonly Dictionary<string, IRes> mResDictionary = new Dictionary<string, IRes>();
-        private readonly List<IRes> mResList = new List<IRes>();
-        [SerializeField] private int mCurrentCoroutineCount;
-        private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
-        private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
+        private readonly         Dictionary<string, IRes>    mResDictionary = new Dictionary<string, IRes>();
+        private readonly         List<IRes>                  mResList       = new List<IRes>();
+        [SerializeField] private int                         mCurrentCoroutineCount;
+        private                  int                         mMaxCoroutineCount    = 8; //最快协成大概在6到8之间
+        private                  LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
 
         //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
         private bool mIsResMapDirty;
@@ -98,76 +99,75 @@ namespace QFramework
 #if UNITY_EDITOR
             if (Res.SimulateAssetBundleInEditor)
             {
-                EditorRuntimeAssetDataCollector.BuildDataTable();
+                ResKit.ResDatas = EditorRuntimeAssetDataCollector.BuildDataTable();
                 yield return null;
             }
             else
 #endif
             {
-                ResDatas.Instance.Reset();
-                
+                ResKit.ResDatas.Reset();
+
                 var outResult = new List<string>();
                 string pathPrefix = "";
-                #if UNITY_EDITOR || UNITY_IOS
-                    pathPrefix = "file://";
-                #endif
+#if UNITY_EDITOR || UNITY_IOS
+                pathPrefix = "file://";
+#endif
                 // 未进行过热更
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
-                    string streamingPath = Application.streamingAssetsPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin";
+                    string streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
+                                           ResKitUtil.GetPlatformName() + "/" + ResKit.ResDatas.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
-                    string persistenPath = Application.persistentDataPath + "/AssetBundles/" + ResKitUtil.GetPlatformName() + "/asset_bindle_config.bin";
+                    string persistenPath = Application.persistentDataPath + "/AssetBundles/" +
+                                           ResKitUtil.GetPlatformName() + "/" + ResKit.ResDatas.FileName;
                     outResult.Add(pathPrefix + persistenPath);
                 }
-                
+
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    yield return ResDatas.Instance.LoadFromFileAsync(outRes);
+                    yield return ResKit.ResDatas.LoadFromFileAsync(outRes);
                 }
 
                 yield return null;
             }
-
-            ResDatas.Instance.SwitchLanguage("cn");   
         }
-        
-		public void InitResMgr()
-        {   
+
+        public void InitResMgr()
+        {
 #if UNITY_EDITOR
             if (Res.SimulateAssetBundleInEditor)
             {
-                EditorRuntimeAssetDataCollector.BuildDataTable();
+                ResKit.ResDatas = EditorRuntimeAssetDataCollector.BuildDataTable();
             }
             else
 #endif
             {
-                ResDatas.Instance.Reset();
+                ResKit.ResDatas.Reset();
+
                 var outResult = new List<string>();
-                
+
                 // 未进行过热更
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
-                    QFramework.FileMgr.Instance.GetFileInInner("asset_bindle_config.bin", outResult);
+                    FileMgr.Instance.GetFileInInner(ResKit.ResDatas.FileName, outResult);
                 }
                 // 进行过热更
                 else
                 {
-                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, "asset_bindle_config.bin", outResult);
+                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, ResKit.ResDatas.FileName, outResult);
                 }
-                
+
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    ResDatas.Instance.LoadFromFile(outRes);
+                    ResKit.ResDatas.LoadFromFile(outRes);
                 }
             }
-
-            ResDatas.Instance.SwitchLanguage("cn");
         }
 
         #region 属性
@@ -199,7 +199,7 @@ namespace QFramework
 
             if (!createNew)
             {
-                QFramework.Log.I("createNew:{0}",createNew);
+                QFramework.Log.I("createNew:{0}", createNew);
                 return null;
             }
 
@@ -213,6 +213,7 @@ namespace QFramework
                     mResList.Add(res);
                 }
             }
+
             return res;
         }
 
@@ -280,7 +281,7 @@ namespace QFramework
             if (Platform.IsEditor && Input.GetKey(KeyCode.F1))
             {
                 GUILayout.BeginVertical("box");
-                
+
                 GUILayout.Label("ResKit", new GUIStyle {fontSize = 30});
                 GUILayout.Space(10);
                 GUILayout.Label("ResInfo", new GUIStyle {fontSize = 20});
@@ -290,7 +291,8 @@ namespace QFramework
                 GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
                 GUILayout.Label(string.Format("ResSearchRule:{0}",
                     Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.CurCount));
-                GUILayout.Label(string.Format("ResLoader:{0}",  Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.CurCount));
+                GUILayout.Label(string.Format("ResLoader:{0}",
+                    Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.CurCount));
                 GUILayout.EndVertical();
             }
         }

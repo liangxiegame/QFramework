@@ -120,9 +120,19 @@ namespace QFramework
 			mCanvasScaler.referenceResolution = new UnityEngine.Vector2(width, height);
 		}
 
+		public Vector2 GetResolution()
+		{
+			return mCanvasScaler.referenceResolution;
+		}
+
 		public void SetMatchOnWidthOrHeight(float heightPercent)
 		{
 			mCanvasScaler.matchWidthOrHeight = heightPercent;
+		}
+
+		public float GetMatchOnWithOrHeight()
+		{
+			return mCanvasScaler.matchWidthOrHeight;
 		}
 
 		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData = null,
@@ -387,6 +397,16 @@ namespace QFramework
 		{
 			UIManager.Instance.SetResolution(width, height);
 			UIManager.Instance.SetMatchOnWidthOrHeight(matchOnWidthOrHeight);
+		}
+
+		public static Vector2 GetResolution()
+		{
+			return UIManager.Instance.GetResolution();
+		}
+
+		public static float GetMatchOrWidthOrHeight()
+		{
+			return UIManager.Instance.GetMatchOnWithOrHeight();
 		}
 
 		#region 高频率调用的 api 只能在 Mono 层使用

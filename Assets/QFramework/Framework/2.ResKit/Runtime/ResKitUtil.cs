@@ -61,10 +61,6 @@ namespace QFramework
         }
 
         //导出目录
-        public static string EDITOR_AB_EXPORT_ROOT_FOLDER
-        {
-            get { return "StreamingAssets/AssetBundles/" + RELATIVE_AB_ROOT_FOLDER; }
-        }
 
         /// <summary>
         /// AssetBundle存放路径
@@ -73,15 +69,7 @@ namespace QFramework
         {
             get { return "/AssetBundles/" + GetPlatformName() + "/"; }
         }
-
-        /// <summary>
-        /// AssetBundle 配置路径
-        /// </summary>
-        public static string EXPORT_ASSETBUNDLE_CONFIG_FILENAME
-        {
-            get { return "asset_bindle_config.bin"; }
-        }
-
+        
         #endregion
         
         public static string GetPlatformName()

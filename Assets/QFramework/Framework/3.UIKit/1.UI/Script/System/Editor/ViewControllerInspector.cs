@@ -52,6 +52,18 @@ namespace QFramework
                     () => { CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject); })
                 .Height(30)
                 .AddTo(mRootLayout);
+
+            if (mCodeGenerateInfo.ScriptsFolder.IsNullOrEmpty())
+            {
+                var setting = UIKitSettingData.Load();
+                mCodeGenerateInfo.ScriptsFolder = "Assets" + setting.DefaultViewControllerScriptDir;
+            }
+
+            if (mCodeGenerateInfo.PrefabFolder.IsNullOrEmpty())
+            {
+                var setting = UIKitSettingData.Load();
+                mCodeGenerateInfo.PrefabFolder = "Assets" + setting.DefaultViewControllerPrefabDir;
+            }
         }
 
         public override void OnInspectorGUI()

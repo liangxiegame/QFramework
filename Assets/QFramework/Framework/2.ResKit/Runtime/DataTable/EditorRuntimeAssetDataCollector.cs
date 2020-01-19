@@ -36,8 +36,9 @@ namespace QFramework
         public static ResDatas BuildDataTable()
         {
             Log.I("Start BuildAssetDataTable!");
-            var resDatas = ResDatas.Create();
-            ProcessAssetBundleRes(resDatas);
+            
+            var resDatas = new ResDatas();
+            AddABInfo2ResDatas(resDatas);
             return resDatas;
         }
 
@@ -58,7 +59,7 @@ namespace QFramework
             return assetPath.Substring(startIndex).ToLower();
         }
 
-        private static void ProcessAssetBundleRes(ResDatas table)
+        public static void AddABInfo2ResDatas(IResDatas resDatas)
         {
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
@@ -69,7 +70,7 @@ namespace QFramework
                 {
                     var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
                     AssetDataGroup group;
-                    var abIndex = table.AddAssetBundleName(abName, depends, out @group);
+                    var abIndex = resDatas.AddAssetBundleName(abName, depends, out @group);
                     if (abIndex < 0)
                     {
                         continue;

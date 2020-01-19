@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.3 liangxie
+ * Copyright (c) 2018.3 ~ 2020.1 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -27,20 +27,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using QFramework;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace QFramework
 {
-    public class ResDatas : Dependencies.ResKit.Pool.Singleton<ResDatas>
+    /// <summary>
+    /// 默认的 ResData 支持
+    /// </summary>
+    public class ResDatas:  /* Dependencies.ResKit.Pool.Singleton<ResDatas>, */IResDatas
     {
-        public IList<AssetDataGroup> AllAssetDataGroups
-        {
-            get { return mAllAssetDataGroup; }
-        }
-
         [Serializable]
         public class SerializeData
         {
@@ -52,44 +47,21 @@ namespace QFramework
                 set { mAssetDataGroup = value; }
             }
         }
-
-        private readonly List<AssetDataGroup> mActiveAssetDataGroup = new List<AssetDataGroup>();
-        private readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
-
-        public void SwitchLanguage(string key)
+        
+        public virtual string FileName
         {
-            mActiveAssetDataGroup.Clear();
-
-            var languageKey = string.Format("[{0}]", key);
-
-            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
-            {
-                var group = mAllAssetDataGroup[i];
-
-                if (!group.key.Contains("i18res"))
-                {
-                    mActiveAssetDataGroup.Add(group);
-                }
-                else if (group.key.Contains(languageKey))
-                {
-                    mActiveAssetDataGroup.Add(group);
-                }
-
-            }
-            Log.I("AssetDataTable Switch 2 Language:" + key);
-        }
-
-        public static ResDatas Create()
-        {
-            if (Instance != null)
-            {
-                Instance.Dispose();
-            }
-            
-            return Instance;
+            get { return "asset_bindle_config.bin"; }
         }
         
-        private ResDatas(){}
+        public IList<AssetDataGroup> AllAssetDataGroups
+        {
+            get { return mAllAssetDataGroup; }
+        }
+
+        protected readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
+        
+        
+        public ResDatas(){}
 
         public void Reset()
         {
@@ -99,7 +71,6 @@ namespace QFramework
             }
 
             mAllAssetDataGroup.Clear();
-            mActiveAssetDataGroup.Clear();
         }
 
         public int AddAssetBundleName(string name, string[] depends, out AssetDataGroup group)
@@ -132,10 +103,10 @@ namespace QFramework
 
         public string GetAssetBundleName(string assetName, int index,string onwerBundleName)
         {
-            for (var i = mActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {
                 string result;
-                if (!mActiveAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
+                if (!mAllAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
                 {
                     continue;
                 }
@@ -150,15 +121,16 @@ namespace QFramework
             Log.W(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
             return null;
         }
+        
 
         public string[] GetAllDependenciesByUrl(string url)
         {
 			var abName = ResKitUtil.AssetBundleUrl2Name(url);
             
-            for (var i = mActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {
                 string[] depends;
-                if (!mActiveAssetDataGroup[i].GetAssetBundleDepends(abName, out depends))
+                if (!mAllAssetDataGroup[i].GetAssetBundleDepends(abName, out depends))
                 {
                     continue;
                 }
@@ -172,9 +144,9 @@ namespace QFramework
 
         public AssetData GetAssetData(ResSearchRule resSearchRule)
         {
-            for (var i = mActiveAssetDataGroup.Count - 1; i >= 0; --i)
+            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {
-                var result = mActiveAssetDataGroup[i].GetAssetData(resSearchRule);
+                var result = mAllAssetDataGroup[i].GetAssetData(resSearchRule);
                 if (result == null)
                 {
                     continue;
@@ -184,32 +156,8 @@ namespace QFramework
 
             return null;
         }
-        
-        // public IEnumerator LoadFromFileAsync(string path)
-        // {
-        //     var stream = FileMgr.Instance.OpenReadStream(path);
-        //     
-        //     var data = SerializeHelper.DeserializeBinary(stream);
-        //
-        //     if (data == null)
-        //     {
-        //         Log.E("Failed Deserialize AssetDataTable:" + path);
-        //         yield break;
-        //     }
-        //
-        //     var sd = data as SerializeData;
-        //
-        //     if (sd == null)
-        //     {
-        //         Log.E("Failed Load AssetDataTable:" + path);
-        //         yield break;
-        //     }
-        //
-        //     Log.I("Load AssetConfig From File:" + path);
-        //     SetSerizlizeData(sd);
-        // }
 
-        public void LoadFromFile(string path)
+        public virtual void LoadFromFile(string path)
         {
 			var data = SerializeHelper.DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
 
@@ -232,7 +180,7 @@ namespace QFramework
         }
 
 
-        public IEnumerator LoadFromFileAsync(string path)
+        public virtual IEnumerator LoadFromFileAsync(string path)
         {
             using (var www = new WWW(path))
             {
@@ -267,7 +215,7 @@ namespace QFramework
             }
         }
 
-        public void Save(string outPath)
+        public virtual void Save(string outPath)
         {
             SerializeData sd = new SerializeData
             {
@@ -289,7 +237,7 @@ namespace QFramework
             }
         }
 
-        private void SetSerizlizeData(SerializeData data)
+        protected void SetSerizlizeData(SerializeData data)
         {
             if (data == null || data.AssetDataGroup == null)
             {

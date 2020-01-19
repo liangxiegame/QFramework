@@ -50,6 +50,10 @@ namespace QFramework
 
 		public string UIPrefabDir = "/Art/UIPrefab";
 
+		public string DefaultViewControllerScriptDir = "/Scripts/Game";
+		
+		public string DefaultViewControllerPrefabDir = "/Art/Prefab";
+		
 		public bool IsDefaultNamespace
 		{
 			get { return Namespace == "QFramework.Example"; }

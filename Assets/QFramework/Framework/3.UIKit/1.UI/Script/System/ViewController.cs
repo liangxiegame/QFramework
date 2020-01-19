@@ -7,13 +7,13 @@ namespace QFramework
         [HideInInspector] public string ScriptName;
         
         [HideInInspector]
-        public string ScriptsFolder = "Assets/Scripts";
+        public string ScriptsFolder = string.Empty;
 
         [HideInInspector]
         public bool GeneratePrefab = false;
         
         
         [HideInInspector]
-        public string PrefabFolder = "Assets/Prefabs";
+        public string PrefabFolder = string.Empty;
     }
 }

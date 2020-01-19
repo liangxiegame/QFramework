@@ -25,124 +25,24 @@
  ****************************************************************************/
 
 using UnityEditor;
-
-using System.Collections.Generic;
-using System.IO;
-
 using QFramework;
 
 namespace QFramework
 {
-    public static class AssetBundleExporter
-    {
+	public static class AssetBundleExporter
+	{
 		public static void BuildDataTable()
 		{
 			Log.I("Start BuildAssetDataTable!");
-			ResDatas table = ResDatas.Create();
+			ResDatas table = new ResDatas();
+			EditorRuntimeAssetDataCollector.AddABInfo2ResDatas(table);
 
-			ProcessAssetBundleRes(table);
-
-		    var filePath =
-		        (FilePath.StreamingAssetsPath + ResKitUtil.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
-		        ResKitUtil.EXPORT_ASSETBUNDLE_CONFIG_FILENAME;
+			var filePath =
+				(FilePath.StreamingAssetsPath + ResKitUtil.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
+				table.FileName;
+			
 			table.Save(filePath);
-			AssetDatabase.Refresh ();
+			AssetDatabase.Refresh();
 		}
-
-#region 指定具体文件构建
-
-
-        private static void BuildAssetBundlesInFolder(string folderPath)
-        {
-            if (folderPath == null)
-            {
-                Log.W("Folder Path Is Null.");
-                return;
-            }
-
-            Log.I("Start Build AssetBundle:" + folderPath);
-            var fullFolderPath = EditorUtils.AssetsPath2ABSPath(folderPath);//EditUtils.GetFullPath4AssetsPath(folderPath);
-            var assetBundleName = EditorUtils.AssetPath2ReltivePath(folderPath);// EditUtils.GetReltivePath4AssetPath(folderPath);
-            var filePaths = Directory.GetFiles(fullFolderPath);
-
-            AssetBundleBuild abb = new AssetBundleBuild();
-            abb.assetBundleName = assetBundleName;
-
-            List<string> fileNameList = new List<string>();
-
-            foreach (var filePath in filePaths)
-            {
-                if (!filePath.EndsWith(".meta"))
-                {
-                    continue;
-                }
-
-                var fileName = Path.GetFileName(filePath);
-                fileName = string.Format("{0}/{1}", folderPath, fileName);
-                fileNameList.Add(fileName);
-            }
-
-            if (fileNameList.Count <= 0)
-            {
-                Log.W("Not Find Asset In Folder:" + folderPath);
-                return;
-            }
-
-            abb.assetNames = fileNameList.ToArray();
-			BuildPipeline.BuildAssetBundles(ResKitUtil.EDITOR_AB_EXPORT_ROOT_FOLDER,
-                new[] { abb },
-                BuildAssetBundleOptions.ChunkBasedCompression,
-                BuildTarget.StandaloneWindows);
-        }
-
-#endregion
-
-#region 构建 AssetDataTable
-
-        private static string AssetPath2Name(string assetPath)
-        {
-            int startIndex = assetPath.LastIndexOf("/") + 1;
-            int endIndex = assetPath.LastIndexOf(".");
-
-            if (endIndex > 0)
-            {
-                int length = endIndex - startIndex;
-                return assetPath.Substring(startIndex, length).ToLower();
-            }
-
-            return assetPath.Substring(startIndex).ToLower();
-        }
-
-        private static void ProcessAssetBundleRes(ResDatas table)
-        {
-            AssetDataGroup group = null;
-
-            AssetDatabase.RemoveUnusedAssetBundleNames();
-
-            string[] abNames = AssetDatabase.GetAllAssetBundleNames();
-            if (abNames != null && abNames.Length > 0)
-            {
-                foreach (var abName in abNames)
-                {
-                    var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
-                    var abIndex = table.AddAssetBundleName(abName, depends, out @group);
-                    if (abIndex < 0)
-                    {
-                        continue;
-                    }
-
-                    var assets = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
-                    foreach (var cell in assets)
-                    {
-                        @group.AddAssetData(cell.EndsWith(".unity")
-                            ? new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex, abName)
-                            : new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex, abName));
-                    }
-                }
-            }
-
-        }
-#endregion
-
-    }
+	}
 }

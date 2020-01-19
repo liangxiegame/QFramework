@@ -31,7 +31,11 @@ namespace QFramework.PackageKit
         public List<string> Categories
         {
             get { return null; }
-            set { mCategoriesSelectorView.Menus(value); }
+            set
+            {
+                mCategoriesSelectorView.Menus(value); 
+                Container.Resolve<PackageKitWindow>().Repaint();
+            }
         }
 
         public List<PackageRepository> PackageRepositories
@@ -108,6 +112,7 @@ namespace QFramework.PackageKit
                 .To(vm => vm.PackageRepositories);
             
             bindingSet.Build();
+            
         }
         
         private ScrollLayout mRepositoryList = null;

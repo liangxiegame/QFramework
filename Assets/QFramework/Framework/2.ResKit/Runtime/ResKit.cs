@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -30,6 +31,37 @@ namespace QFramework
 {
     public class ResKit
     {
+        private static IResDatas mResDatas = null;
+        
+        /// <summary>
+        /// 默认
+        /// </summary>
+        private static Func<IResDatas> mResDataFactory = () =>  new ResDatas();
+
+        public static Func<IResDatas> ResDataFactory
+        {
+            set { mResDataFactory = value; }
+        }
+
+        /// <summary>
+        /// 获取自定义的 资源信息
+        /// </summary>
+        /// <returns></returns>
+        public static IResDatas ResDatas
+        {
+            get
+            {
+                if (mResDatas == null)
+                {
+                    mResDatas = mResDataFactory.Invoke();
+                }
+
+                return mResDatas;
+            }
+            set { mResDatas = value; }
+        }
+
+
         public static bool LoadResFromStreammingAssetsPath
         {
             get { return PlayerPrefs.GetInt("LoadResFromStreammingAssetsPath", 1) == 1; }
