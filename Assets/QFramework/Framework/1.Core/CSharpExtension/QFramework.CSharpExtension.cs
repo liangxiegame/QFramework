@@ -47,6 +47,8 @@ namespace QFramework
     {
         /// <summary>
         /// 是否相等
+        /// 
+        /// 示例：
         /// <code>
         /// if (this.Is(player))
         /// {
@@ -69,6 +71,8 @@ namespace QFramework
         
         /// <summary>
         /// 表达式成立 则执行 Action
+        /// 
+        /// 示例:
         /// <code>
         /// (1 == 1).Do(()=>Debug.Log("1 == 1");
         /// </code>
@@ -88,6 +92,8 @@ namespace QFramework
 
         /// <summary>
         /// 不管表达成不成立 都执行 Action，并把结果返回
+        /// 
+        /// 示例:
         /// <code>
         /// (1 == 1).Do((result)=>Debug.Log("1 == 1:" + result);
         /// </code>
@@ -111,6 +117,7 @@ namespace QFramework
     {
         /// <summary>
         /// 功能：判断是否为空
+        /// 
         /// 示例：
         /// <code>
         /// var simpleObject = new object();
@@ -159,6 +166,7 @@ namespace QFramework
 
         /// <summary>
         /// 功能：不为空则调用 Func
+        /// 
         /// 示例:
         /// <code>
         /// Func<int> func = ()=> 1;
@@ -179,6 +187,7 @@ namespace QFramework
 
         /// <summary>
         /// 功能：不为空则调用 Action
+        /// 
         /// 示例:
         /// <code>
         /// System.Action action = () => Log.I("action called");
@@ -200,6 +209,7 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用 Action<T>
+        /// 
         /// 示例:
         /// <code>
         /// System.Action<int> action = (number) => Log.I("action called" + number);
@@ -222,6 +232,8 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用 Action<T,K>
+        ///
+        /// 示例
         /// <code>
         /// System.Action<int,string> action = (number,name) => Log.I("action called" + number + name);
         /// action.InvokeGracefully(10,"qframework"); // if (action != null) action(10,"qframework");
@@ -242,6 +254,8 @@ namespace QFramework
 
         /// <summary>
         /// 不为空则调用委托
+        ///
+        /// 示例：
         /// <code>
         /// // delegate
         /// TestDelegate testDelegate = () => { };
@@ -266,8 +280,10 @@ namespace QFramework
 
     /// <summary>
     /// 泛型工具
+    /// 
     /// 实例：
     /// <code>
+    /// 示例：
     /// var typeName = GenericExtention.GetTypeName<string>();
     /// typeName.LogInfo(); // string
     /// </code>
