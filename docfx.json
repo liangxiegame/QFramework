@@ -4,7 +4,8 @@
       "src": [
         {
           "files": [
-            "QFramework.CSharpExtension.csproj"
+            "QFramework.CSharpExtension.csproj",
+            "QFramework.IOC.csproj"
           ]
         }
       ],
