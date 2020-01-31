@@ -1,12 +1,10 @@
-﻿using QF;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-
 
 namespace QFramework
 {
     [CustomEditor(typeof(ViewController), true)]
-    public class ViewControllerInspector : UnityEditor.Editor
+    public class ViewControllerInspector : Editor
     {
         class LocaleText
         {
@@ -100,8 +98,7 @@ namespace QFramework
             mCodeGenerateInfo.GeneratePrefab =
                 GUILayout.Toggle(mCodeGenerateInfo.GeneratePrefab, LocaleText.GeneratePrefab);
             GUILayout.EndHorizontal();
-
-
+            
             if (mCodeGenerateInfo.GeneratePrefab)
             {
                 GUILayout.BeginHorizontal();

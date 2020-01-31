@@ -859,6 +859,25 @@ namespace QFramework
     }
 
     /// <summary>
+    /// 程序集工具
+    /// </summary>
+    public class AssemblyUtil
+    {
+        /// <summary>
+        /// 获取 Assembly-CSharp 程序集
+        /// </summary>
+        public static Assembly DefaultCSharpAssembly
+        {
+            get
+            {
+                return AppDomain.CurrentDomain.GetAssemblies()
+                    .SingleOrDefault(a => a.GetName().Name == "Assembly-CSharp");
+            }
+        }
+    }
+    
+
+    /// <summary>
     /// Assembly 管理器
     /// </summary>
     public class AssemblyManager

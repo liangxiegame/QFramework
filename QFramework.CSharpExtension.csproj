@@ -299,6 +299,18 @@
     <Reference Include="QFramework.Log">
       <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Framework/1.Core/Log/QFramework.Log.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Extensions/DotweenExtensions/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Extensions/DotweenExtensions/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Extensions/Plugins/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/liangxie/Documents/Product/QFramework/Assets/QFramework/Extensions/JsonDotnetExtensions/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>

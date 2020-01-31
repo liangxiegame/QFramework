@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.8.30","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.8.30","content":"修复 ResKit 的搜索 bug","author":"liangxie","date":"2020 年 01 月 19 日 15:12","PackageId":""}}
+{"Id":"","Version":"v0.8.32","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.8.32","content":"添加一个 概率相关的 API","author":"liangxie","date":"2020 年 01 月 21 日 00:34","PackageId":""}}

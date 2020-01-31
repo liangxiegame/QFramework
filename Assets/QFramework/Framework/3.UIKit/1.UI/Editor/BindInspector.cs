@@ -188,7 +188,12 @@ namespace QFramework
             var bind = target as Bind;
             var rootGameObj = CodeGenUtil.GetBindBelongs2GameObject(bind);
 
-            if (rootGameObj.transform.IsUIPanel())
+
+            if (rootGameObj.transform.GetComponent("ILKitBehaviour")) 
+            {
+                
+            }
+            else if (rootGameObj.transform.IsUIPanel())
             {
                 new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
                         () =>
@@ -204,7 +209,10 @@ namespace QFramework
             else if (rootGameObj.transform.IsViewController())
             {
                 new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
-                        () => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })
+                        () =>
+                        {
+                            CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject);
+                        })
                     .Height(30)
                     .AddTo(mRootLayout);
             }

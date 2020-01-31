@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using QF;
 
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -92,20 +89,16 @@ namespace QFramework
         [DidReloadScripts]
         static void AddComponent2GameObject()
         {
-//            Debug.Log("DidReloadScripts");
             var generateClassName = EditorPrefs.GetString("GENERATE_CLASS_NAME");
             var gameObjectName = EditorPrefs.GetString("GAME_OBJECT_NAME");
-//            Debug.Log(generateClassName);
 
             if (string.IsNullOrEmpty(generateClassName))
             {
-//                Debug.Log("不继续操作");
                 EditorPrefs.DeleteKey("GENERATE_CLASS_NAME");
                 EditorPrefs.DeleteKey("GAME_OBJECT_NAME");
             }
             else
             {
-//                Debug.Log("继续操作");
 
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
