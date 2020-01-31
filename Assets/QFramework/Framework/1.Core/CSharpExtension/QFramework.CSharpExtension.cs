@@ -39,10 +39,24 @@ namespace QFramework
     using UnityEngine.UI;
     using Object = UnityEngine.Object;
     #endif
-
-
+    
+    /// <summary>
+    /// 一些基础类型的扩展
+    /// </summary>
     public static class BasicValueExtension
     {
+        /// <summary>
+        /// 是否相等
+        /// <code>
+        /// if (this.Is(player))
+        /// {
+        ///     ...
+        /// }
+        /// </code>
+        /// </summary>
+        /// <param name="selfObj"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static bool Is(this object selfObj, object value)
         {
             return selfObj == value;
@@ -53,7 +67,15 @@ namespace QFramework
             return condition(selfObj);
         }
         
-        
+        /// <summary>
+        /// 表达式成立 则执行 Action
+        /// <code>
+        /// (1 == 1).Do(()=>Debug.Log("1 == 1");
+        /// </code>
+        /// </summary>
+        /// <param name="selfCondition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public static bool Do(this bool selfCondition, Action action)
         {
             if (selfCondition)
@@ -64,6 +86,15 @@ namespace QFramework
             return selfCondition;
         }
 
+        /// <summary>
+        /// 不管表达成不成立 都执行 Action，并把结果返回
+        /// <code>
+        /// (1 == 1).Do((result)=>Debug.Log("1 == 1:" + result);
+        /// </code>
+        /// </summary>
+        /// <param name="selfCondition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
         public static bool Do(this bool selfCondition, Action<bool> action)
         {
             action(selfCondition);
@@ -885,84 +916,7 @@ namespace QFramework
             return DefaultCSharpAssembly.GetType(typeName);
         }
     }
-    
 
-    /// <summary>
-    /// Assembly 管理器
-    /// </summary>
-    public class AssemblyManager
-    {
-        /// <summary>
-        /// 编辑器默认的程序集Assembly-CSharp.dll
-        /// </summary>
-        private static Assembly defaultCSharpAssembly;
-
-#if UNITY_ANDROID
-        /// <summary>
-        /// 程序集缓存
-        /// </summary>
-        private static Dictionary<string, Assembly> assemblyCache = new Dictionary<string, Assembly>();
-#endif
-
-        /// <summary>
-        /// 获取编辑器默认的程序集Assembly-CSharp.dll
-        /// </summary>
-        public static Assembly DefaultCSharpAssembly
-        {
-            get
-            {
-                //如果已经找到，直接返回
-                if (defaultCSharpAssembly != null)
-                    return defaultCSharpAssembly;
-
-                //从当前加载的程序包中寻找，如果找到，则直接记录并返回
-                var assems = AppDomain.CurrentDomain.GetAssemblies();
-                foreach (var assem in assems)
-                {
-                    //所有本地代码都编译到Assembly-CSharp中
-                    if (assem.GetName().Name == "Assembly-CSharp")
-                    {
-                        //保存到列表并返回
-                        defaultCSharpAssembly = assem;
-                        break;
-                    }
-                }
-
-                return defaultCSharpAssembly;
-            }
-        }
-
-        /// <summary>
-        /// 获取Assembly
-        /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public static Assembly GetAssembly(string name)
-        {
-#if UNITY_ANDROID
-            if (!assemblyCache.ContainsKey(name))
-                return null;
-
-            return assemblyCache[name];
-#else
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
-            {
-
-                if (assembly.GetName().Name == name)
-                {
-                    return assembly;
-                }
-            }
-
-            return null;
-#endif
-        }
-
-        public static Type[] GetTypeList(string assemblyName)
-        {
-            return GetAssembly(assemblyName).GetTypes();
-        }
-    }
 
     /// <summary>
     /// 反射扩展
@@ -1138,34 +1092,6 @@ namespace QFramework
         {
             return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
         }
-    }
-
-    /// <summary>
-    /// 通过编写方法并且添加属性可以做到转换至String 如：
-    /// 
-    /// <example>
-    /// [ToString]
-    /// public static string ConvertToString(TestObj obj)
-    /// </example>
-    ///
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    public class ToString : Attribute
-    {
-    }
-
-    /// <summary>
-    /// 通过编写方法并且添加属性可以做到转换至String 如：
-    /// 
-    /// <example>
-    /// [FromString]
-    /// public static TestObj ConvertFromString(string str)
-    /// </example>
-    ///
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    public class FromString : Attribute
-    {
     }
 
     /// <summary>
