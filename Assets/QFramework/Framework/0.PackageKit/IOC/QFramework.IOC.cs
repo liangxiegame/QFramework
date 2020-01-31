@@ -48,35 +48,44 @@ namespace QFramework
         }
     }
     
+    /// <summary>
+    /// IOC 容器接口
+    /// </summary>
     public interface IQFrameworkContainer : IDisposable
     {
         /// <summary>
-        /// Clears all type mappings and instances.
+        /// 清除掉所有的已经注册的实例和类型
         /// </summary>
         void Clear();
 
         /// <summary>
-        /// Injects registered types/mappings into an object
+        /// 注入 已注册的 类型/映射 到一个对象中
         /// </summary>
         /// <param name="obj"></param>
         void Inject(object obj);
 
         /// <summary>
-        /// Injects everything that is registered at once
+        /// 注入一次所有已注册过的类型实例
         /// </summary>
         void InjectAll();
 
         /// <summary>
-        /// Register a type mapping
+        /// 注册依赖
         /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
+        /// <typeparam name="TSource">父类型（抽象类型）</typeparam>
+        /// <typeparam name="TTarget">子类型（具体类型）</typeparam>
         void Register<TSource, TTarget>(string name = null);
 
+        /// <summary>
+        /// 注册关系
+        /// </summary>
+        /// <typeparam name="TFor"></typeparam>
+        /// <typeparam name="TBase"></typeparam>
+        /// <typeparam name="TConcrete"></typeparam>
         void RegisterRelation<TFor, TBase, TConcrete>();
 
         /// <summary>
-        /// Register an instance of a type.
+        /// 为一个类型注册一个实例
         /// </summary>
         /// <typeparam name="TBase"></typeparam>
         /// <param name="default"></param>
@@ -85,7 +94,7 @@ namespace QFramework
         void RegisterInstance<TBase>(TBase @default, bool injectNow) where TBase : class;
 
         /// <summary>
-        /// Register an instance of a type.
+        /// 为一个类型注册一个示例
         /// </summary>
         /// <param name="type"></param>
         /// <param name="default"></param>

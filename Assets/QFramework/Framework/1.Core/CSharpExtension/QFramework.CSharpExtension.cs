@@ -509,7 +509,7 @@ namespace QFramework
     {
         
         /// <summary>
-        /// 检测路径是否存在
+        /// 检测路径是否存在，如果不存在则创建
         /// </summary>
         /// <param name="path"></param>
         public static string CreateDirIfNotExists4FilePath(this string path)
@@ -617,26 +617,6 @@ namespace QFramework
 
         #region 未经过测试
 
-        /// <summary>
-        /// 读取文本
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public static string ReadText(this string fileFullPath)
-        {
-            var result = string.Empty;
-
-            using (var fs = new FileStream(fileFullPath, FileMode.Open, FileAccess.Read))
-            {
-                using (var sr = new StreamReader(fs))
-                {
-                    result = sr.ReadToEnd();
-                }
-            }
-
-            return result;
-        }
-
 #if UNITY_EDITOR
         /// <summary>
         /// 打开文件夹
@@ -659,7 +639,7 @@ namespace QFramework
         /// <returns></returns>
         public static string GetDirectoryName(string fileName)
         {
-            fileName = IOExtension.MakePathStandard(fileName);
+            fileName = MakePathStandard(fileName);
             return fileName.Substring(0, fileName.LastIndexOf('/'));
         }
 
@@ -721,23 +701,6 @@ namespace QFramework
             {
                 Directory.CreateDirectory(path);
             }
-        }
-
-        /// <summary>
-        /// 结合目录
-        /// </summary>
-        /// <param name="paths"></param>
-        /// <returns></returns>
-        public static string Combine(params string[] paths)
-        {
-            string result = "";
-            foreach (string path in paths)
-            {
-                result = Path.Combine(result, path);
-            }
-
-            result = MakePathStandard(result);
-            return result;
         }
 
         /// <summary>
