@@ -1,7 +1,5 @@
 - name: 主页
   href: /
   homepage: index.md
-- name: QF 使用文档
-  href: articles/
 - name: API 文档
   href: api/
