@@ -874,6 +874,16 @@ namespace QFramework
                     .SingleOrDefault(a => a.GetName().Name == "Assembly-CSharp");
             }
         }
+        
+        /// <summary>
+        /// 获取默认的程序集中的类型
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        public static Type GetDefaultAssemblyType(string typeName)
+        {
+            return DefaultCSharpAssembly.GetType(typeName);
+        }
     }
     
 
@@ -947,18 +957,6 @@ namespace QFramework
             return null;
 #endif
         }
-
-
-        /// <summary>
-        /// 获取默认的程序集
-        /// </summary>
-        /// <param name="typeName"></param>
-        /// <returns></returns>
-        public static Type GetDefaultAssemblyType(string typeName)
-        {
-            return DefaultCSharpAssembly.GetType(typeName);
-        }
-
 
         public static Type[] GetTypeList(string assemblyName)
         {
