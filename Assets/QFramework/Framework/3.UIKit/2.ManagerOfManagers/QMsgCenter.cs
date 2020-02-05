@@ -31,6 +31,7 @@ namespace QFramework
 			DontDestroyOnLoad(this);
 		}
 
+
 		public void SendMsg(QMsg tmpMsg)
 		{
 			// Framework Msg
@@ -46,5 +47,7 @@ namespace QFramework
 
 			ForwardMsg(tmpMsg);
 		}
+		
+		partial void ForwardMsg(QMsg tmpMsg);
 	}
 }
