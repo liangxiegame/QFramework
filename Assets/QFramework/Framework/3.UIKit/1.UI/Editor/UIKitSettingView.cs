@@ -62,7 +62,7 @@ namespace QFramework
         {
             var bindingSet = BindKit.CreateBindingSet(this, new UIKitSettingViewModel());
 
-            var treeNode = new TreeNode(false, LocaleText.UIKitSettings)
+            var treeNode = new TreeNode(false, LocaleText.UIKitSettings,autosaveSpreadState:true)
                 .AddTo(this);
 
             mRootLayout = new VerticalLayout("box");

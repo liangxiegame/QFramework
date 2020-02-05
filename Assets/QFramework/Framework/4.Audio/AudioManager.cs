@@ -96,7 +96,7 @@ namespace QFramework
     /// <summary>
     /// TODO:目前,不支持本地化
     /// </summary>
-    [QMonoSingletonPath("[Audio]/AudioManager")]
+    [MonoSingletonPath("[Audio]/AudioManager")]
     public class AudioManager : QMgrBehaviour, ISingleton
     {
         #region Audio设置数据
@@ -403,7 +403,7 @@ namespace QFramework
         }
 
         public static void PlayMusic(string musicName, bool loop = true, System.Action onBeganCallback = null,
-            System.Action onEndCallback = null, bool allowMusicOff = true,float volume = 1.0f)
+            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = 1.0f)
         {
             var self = Instance;
             self.mCurMusicName = musicName;
@@ -455,20 +455,21 @@ namespace QFramework
             }
         }
 
-        public static AudioUnit PlaySound(string soundName, bool loop = false, Action<AudioUnit> callBack = null,
-            int customEventID = -1)
+        public static void PlaySound(string soundName, bool loop = false, Action<AudioUnit> callBack = null,
+            int customEventId = -1)
         {
+            if (!IsSoundOn) return;
+
             if (soundName.IsNullOrEmpty())
             {
-                return null;
+                Log.E("soundName 为空");
+                return;
             }
 
             var unit = SafeObjectPool<AudioUnit>.Instance.Allocate();
             unit.SetAudio(Instance.gameObject, soundName, loop);
             unit.SetOnFinishListener(callBack);
-            unit.customEventID = customEventID;
-
-            return unit;
+            unit.customEventID = customEventId;
         }
 
         /// <summary>
@@ -478,7 +479,7 @@ namespace QFramework
         {
             Instance.mMainUnit.Stop();
         }
-        
+
         public static void StopVoice()
         {
             if (Instance.mVoiceUnit.IsNotNull())
@@ -580,13 +581,13 @@ namespace QFramework
 
         void Example()
         {
-// 按钮点击音效
+            // 按钮点击音效
             SendMsg(new AudioSoundMsg("Sound.CLICK"));
 
-//播放背景音乐
+            //播放背景音乐
             SendMsg(new AudioMusicMsg("music", true));
 
-//停止播放音乐
+            //停止播放音乐
             SendMsg(new QMsg((ushort) AudioEvent.StopMusic));
 
             SendMsg(new AudioVoiceMsg("Sound.CLICK", delegate { }, delegate { }));
@@ -594,7 +595,7 @@ namespace QFramework
 
         #endregion
 
-//常驻内存不卸载音频资源
+        //常驻内存不卸载音频资源
         protected ResLoader mRetainResLoader;
 
         protected List<string> mRetainAudioNames;
@@ -637,7 +638,6 @@ namespace QFramework
         {
             PlayMusic(musicName, true);
         }
-        
 
         #endregion
     }

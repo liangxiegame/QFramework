@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.7.6","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/4.Audio/","DocUrl":"http://","Readme":{"version":"v0.7.6","content":"更新 PackageKit","author":"liangxie","date":"2019 年 12 月 18 日 18:46","PackageId":""}}
+{"Id":"","Version":"v0.7.7","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/4.Audio/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.7.7","content":"修复 SoundOn 失效的问题","author":"liangxie","date":"2020 年 02 月 05 日 16:34","PackageId":""}}

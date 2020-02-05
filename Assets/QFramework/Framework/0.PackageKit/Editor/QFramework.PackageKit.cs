@@ -1087,8 +1087,13 @@ namespace QFramework
 
         private VerticalLayout mSpreadView = new VerticalLayout();
 
-        public TreeNode(bool spread, string content, int indent = 0)
+        public TreeNode(bool spread, string content, int indent = 0,bool autosaveSpreadState = false)
         {
+            if (autosaveSpreadState)
+            {
+                spread = EditorPrefs.GetBool(content, spread);
+            }
+
             Content = content;
             Spread = new Property<bool>(spread);
 
@@ -1096,6 +1101,12 @@ namespace QFramework
 
             mFirstLine.AddTo(this);
             mFirstLine.AddChild(new SpaceView(indent));
+
+            if (autosaveSpreadState)
+            {
+                Spread.Bind(value => EditorPrefs.SetBool(content, value));
+            }
+
 
             new CustomView(() =>
             {

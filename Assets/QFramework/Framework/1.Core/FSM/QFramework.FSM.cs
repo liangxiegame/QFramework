@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-/// <summary>
+	/// <summary>
 	/// FSM
 	/// </summary>
 	public class FSM<TStateEnum,TEventEnum> : IDisposable

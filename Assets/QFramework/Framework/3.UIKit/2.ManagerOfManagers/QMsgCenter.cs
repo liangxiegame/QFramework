@@ -8,7 +8,7 @@ namespace QFramework
 {
 	using UnityEngine;
 
-	[QMonoSingletonPath("[Event]/QMsgCenter")]
+	[MonoSingletonPath("[Event]/QMsgCenter")]
 	public partial class QMsgCenter : MonoBehaviour, ISingleton
 	{
 		public static QMsgCenter Instance
@@ -44,7 +44,7 @@ namespace QFramework
 					return;
 			}
 
-			// ForwardMsg(tmpMsg);
+			ForwardMsg(tmpMsg);
 		}
 	}
 }

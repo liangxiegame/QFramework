@@ -428,6 +428,16 @@ namespace QFramework
 		{
 			UIManager.Instance.CloseUI<T>();
 		}
+		
+		internal static void ShowPanel<T>() where T : UIPanel
+		{
+			UIManager.Instance.ShowUI<T>();
+		}
+
+		internal static void HidePanel<T>() where T : UIPanel
+		{
+			UIManager.Instance.HideUI<T>();
+		}
 
 		public static void CloseAllPanel()
         {
@@ -466,6 +476,16 @@ namespace QFramework
 		public static void ClosePanel(string panelName)
 		{
 			UIManager.Instance.CloseUI(panelName);
+		}
+
+		public static void ShowPanel(string panelName)
+		{
+			UIManager.Instance.ShowUI(panelName);
+		}
+
+		public static void HidePanel(string panelName)
+		{
+			UIManager.Instance.HideUI(panelName);
 		}
 
 		#endregion

@@ -109,7 +109,7 @@ namespace QFramework
 
 			public void Init(IQFrameworkContainer container)
 			{
-				var expendLayout = new TreeNode(true, LocaleText.ResKit)
+				var expendLayout = new TreeNode(true, LocaleText.ResKit,autosaveSpreadState:true)
 					.AddTo(this);
 
 				var verticalLayout = new VerticalLayout("box");
