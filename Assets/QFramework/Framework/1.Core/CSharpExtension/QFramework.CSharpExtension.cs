@@ -1727,7 +1727,7 @@ namespace QFramework
 
         #endregion
 
-        public static T As<T>(this Object selfObj) where T : Object
+        public static T As<T>(this object selfObj) where T : class
         {
             return selfObj as T;
         }

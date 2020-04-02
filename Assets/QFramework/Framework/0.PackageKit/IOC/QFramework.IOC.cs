@@ -91,7 +91,7 @@ namespace QFramework
         /// <param name="default"></param>
         /// <param name="injectNow"></param>
         /// <returns></returns>
-        void RegisterInstance<TBase>(TBase @default, bool injectNow) where TBase : class;
+        void RegisterInstance<TBase>(TBase @default, bool injectNow);
 
         /// <summary>
         /// 为一个类型注册一个示例
@@ -111,10 +111,10 @@ namespace QFramework
         /// <param name="injectNow">Perform the injection immediately</param>
         void RegisterInstance(Type baseType, object instance = null, string name = null, bool injectNow = true);
 
-        void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class;
+        void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true);
 
-        void RegisterInstance<TBase>(TBase instance) where TBase : class;
-        void UnRegisterInstance<TBase>() where TBase : class;
+        void RegisterInstance<TBase>(TBase instance);
+        void UnRegisterInstance<TBase>();
 
         /// <summary>
         ///  If an instance of T exist then it will return that instance otherwise it will create a new one based off mappings.
@@ -328,12 +328,12 @@ namespace QFramework
             }
         }
 
-        public void RegisterInstance<TBase>(TBase instance) where TBase : class
+        public void RegisterInstance<TBase>(TBase instance)
         {
             RegisterInstance<TBase>(instance, true);
         }
 
-        public void UnRegisterInstance<TBase>() where TBase : class
+        public void UnRegisterInstance<TBase>()
         {
             var key = Instances.Keys.SingleOrDefault(k => k.Item1 == typeof(TBase));
             if (key != null)
@@ -342,12 +342,12 @@ namespace QFramework
             }
         }
 
-        public void RegisterInstance<TBase>(TBase instance, bool injectNow) where TBase : class
+        public void RegisterInstance<TBase>(TBase instance, bool injectNow)
         {
             RegisterInstance<TBase>(instance, null, injectNow);
         }
 
-        public void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class
+        public void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true)
         {
             RegisterInstance(typeof(TBase), instance, name, injectNow);
         }
