@@ -2705,7 +2705,15 @@
 				"$ref": "AAAAAAFF+h6SjaM2Hec="
 			},
 			"name": "v0.10.0 RoadMap",
-			"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录\n* AudioManager API 改进\n* UIKit 支持缓存加载"
+			"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录（完成）\n* AudioManager API 改进\n* UIKit 支持缓存加载"
+		},
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFyGDgwW6p4xmE=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model1"
 		}
 	],
 	"documentation": "## QFramework 代码文档\n\n此文档针对 QFramework 二次开发 以及 对 QFramework 原理感兴趣的 的童鞋编写\n\n\n## 目录结构\n\n* Extensions：Framework 的扩展组件、扩展库\n* Framework：Framework 本体代码\n* Scripting：脚本化相关内容（ILRuntime、Lua、可视化编程)\n* Shaders：各种可复用的 Shader 效果\n* Tools：各种使用工具（编辑器工具、App 等）",
