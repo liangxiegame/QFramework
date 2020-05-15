@@ -26,11 +26,8 @@
 
 using System;
 
-using QFramework;
-
 namespace QFramework
 {
-    using UnityEngine.Events;
     using System.Collections.Generic;
     using UnityEngine;
 
@@ -62,106 +59,23 @@ namespace QFramework
 
     #endregion
 
-    #region 消息体定义
-
-    public class AudioMsgWithBool : QMsg
-    {
-        public bool on;
-
-        public AudioMsgWithBool(ushort eventId, bool on) : base(eventId)
-        {
-            this.on = on;
-        }
-    }
-
-    public class AduioMsgPlayVoiceLoop : QMsg
-    {
-        public string VoiceName;
-        public UnityAction OnVoiceBeganCallback;
-        public UnityAction OnVoiceEndedCallback;
-    }
-
-    public class AudioMsgWithNode : QMsg
-    {
-        public IAction Node;
-
-        public AudioMsgWithNode(IAction node) : base((int) AudioEvent.PlayNode)
-        {
-            Node = node;
-        }
-    }
-
-    #endregion
-
     /// <summary>
     /// TODO:目前,不支持本地化
     /// </summary>
     [MonoSingletonPath("[Audio]/AudioManager")]
-    public class AudioManager : QMgrBehaviour, ISingleton
+    public partial class AudioManager : QMgrBehaviour, ISingleton
     {
-        #region Audio设置数据
-
-        // 用来存储的Key
-        const string KEY_AUDIO_MANAGER_SOUND_ON = "KEY_AUDIO_MANAGER_SOUND_ON";
-
-        const string KEY_AUDIO_MANAGER_MUSIC_ON = "KEY_AUDIO_MANAGER_MUSIC_ON";
-        const string KEY_AUDIO_MANAGER_VOICE_ON = "KEY_AUDIO_MANAGER_VOICE_ON";
-        const string KEY_AUDIO_MANAGER_VOICE_VOLUME = "KEY_AUDIO_MANAGER_VOICE_VOLUME";
-        const string KEY_AUDIO_MANAGER_SOUND_VOLUME = "KEY_AUDIO_MANAGER_SOUND_VOLUME";
-        const string KEY_AUDIO_MANAGER_MUSIC_VOLUME = "KEY_AUDIO_MANAGER_MUSIC_VOLUME";
-
-        /// <summary>
-        /// 读取音频数据
-        /// </summary>
-        void ReadAudioSetting()
-        {
-            IsSoundOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_SOUND_ON, 1) == 1 ? true : false;
-            IsMusicOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_MUSIC_ON, 1) == 1 ? true : false;
-            IsVoiceOn = PlayerPrefs.GetInt(KEY_AUDIO_MANAGER_VOICE_ON, 1) == 1 ? true : false;
-
-            SoundVolume = PlayerPrefs.GetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, 1.0f);
-            MusicVolume = PlayerPrefs.GetFloat(KEY_AUDIO_MANAGER_MUSIC_VOLUME, 1.0f);
-            VoiceVolume = PlayerPrefs.GetFloat(KEY_AUDIO_MANAGER_VOICE_VOLUME, 1.0f);
-        }
-
-        /// <summary>
-        /// 保存音频数据
-        /// </summary>
-        void SaveAudioSetting()
-        {
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_SOUND_ON, IsSoundOn ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_MUSIC_ON, IsMusicOn ? 1 : 0);
-            PlayerPrefs.SetInt(KEY_AUDIO_MANAGER_VOICE_ON, IsVoiceOn ? 1 : 0);
-            PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_SOUND_VOLUME, SoundVolume);
-            PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_MUSIC_VOLUME, MusicVolume);
-            PlayerPrefs.SetFloat(KEY_AUDIO_MANAGER_VOICE_VOLUME, VoiceVolume);
-        }
-
-        void OnApplicationQuit()
-        {
-            SaveAudioSetting();
-        }
-
-        void OnApplicationFocus(bool focus)
-        {
-            SaveAudioSetting();
-        }
-
-        void OnApplicationPause(bool pause)
-        {
-            SaveAudioSetting();
-        }
-
-        #endregion
-
+        
+        public AudioSettings Settings { get; private set; }
+        
         #region 消息处理
 
-        protected AudioUnit mMainUnit;
+        protected AudioUnit mMusicUnit;
         protected AudioUnit mVoiceUnit;
 
         public static AudioUnit MusicUnit
         {
-            get { return Instance.mMainUnit; }
+            get { return Instance.mMusicUnit; }
         }
 
         public static AudioUnit VoiceUnit
@@ -188,17 +102,16 @@ namespace QFramework
             );
 
             SafeObjectPool<AudioUnit>.Instance.Init(10, 1);
-            mMainUnit = AudioUnit.Allocate();
-            mMainUnit.usedCache = false;
+            mMusicUnit = AudioUnit.Allocate();
+            mMusicUnit.usedCache = false;
             mVoiceUnit = AudioUnit.Allocate();
             mVoiceUnit.usedCache = false;
 
             CheckAudioListener();
 
             gameObject.transform.position = Vector3.zero;
-
-// 读取存储
-            ReadAudioSetting();
+            
+            Settings = new AudioSettings();
         }
 
         public void Dispose()
@@ -228,7 +141,7 @@ namespace QFramework
 
                     break;
                 case (int) AudioEvent.PlayMusic:
-                    Debug.LogFormat("play music msg: {0}, is musicOn: ", AudioEvent.PlayMusic.ToString(), MusicOn);
+                    Debug.LogFormat("play music msg: {0}, is musicOn: ", AudioEvent.PlayMusic.ToString(), IsMusicOn);
                     PlayMusic(msg as AudioMusicMsg);
                     break;
                 case (int) AudioEvent.StopMusic:
@@ -246,7 +159,7 @@ namespace QFramework
                     StopVoice();
                     break;
                 case (int) AudioEvent.PlayNode:
-                    IAction msgPlayNode = (msg as AudioMsgWithNode).Node;
+                    var msgPlayNode = (msg as AudioMsgWithNode).Node;
                     StartCoroutine(msgPlayNode.Execute());
                     break;
                 case (int) AudioEvent.AddRetainAudio:
@@ -344,29 +257,6 @@ namespace QFramework
             StopMusic();
         }
 
-        public static bool IsSoundOn { get; private set; }
-
-        public static bool IsMusicOn { get; set; }
-
-        public static bool IsVoiceOn { get; private set; }
-
-        [Obsolete("please use IsMusicOn")]
-        public bool MusicOn
-        {
-            get { return IsMusicOn; }
-            private set { IsMusicOn = value; }
-        }
-
-        [Obsolete("please use IsVoiceOn")]
-        public bool VoiceOn
-        {
-            get { return IsVoiceOn; }
-            private set { IsVoiceOn = value; }
-        }
-
-        public float SoundVolume { get; private set; }
-        public float MusicVolume { get; private set; }
-        public float VoiceVolume { get; private set; }
 
         #endregion
 
@@ -381,7 +271,7 @@ namespace QFramework
         void PlayMusic(AudioMusicMsg musicMsg)
         {
 
-            if (!MusicOn && musicMsg.allowMusicOff)
+            if (!IsMusicOn && musicMsg.allowMusicOff)
             {
                 musicMsg.onMusicBeganCallback.InvokeGracefully();
 
@@ -393,27 +283,27 @@ namespace QFramework
 
 // TODO: 需要按照这个顺序去 之后查一下原因
 //需要先注册事件，然后再play
-            mMainUnit.SetOnStartListener(delegate(AudioUnit musicUnit)
+            mMusicUnit.SetOnStartListener(delegate(AudioUnit musicUnit)
             {
                 musicMsg.onMusicBeganCallback.InvokeGracefully();
 
 //调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                mMainUnit.SetOnStartListener(null);
+                mMusicUnit.SetOnStartListener(null);
             });
 
-            mMainUnit.SetAudio(gameObject, musicMsg.MusicName, musicMsg.Loop);
+            mMusicUnit.SetAudio(gameObject, musicMsg.MusicName, musicMsg.Loop);
 
-            mMainUnit.SetOnFinishListener(delegate(AudioUnit musicUnit)
+            mMusicUnit.SetOnFinishListener(delegate(AudioUnit musicUnit)
             {
                 musicMsg.onMusicEndedCallback.InvokeGracefully();
 
 //调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                mMainUnit.SetOnFinishListener(null);
+                mMusicUnit.SetOnFinishListener(null);
             });
         }
 
         public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
-            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = 1.0f)
+            Action onEndCallback = null, bool allowMusicOff = true, float volume = 1.0f)
         {
             var self = Instance;
             self.mCurMusicName = musicName;
@@ -429,23 +319,23 @@ namespace QFramework
 
 // TODO: 需要按照这个顺序去 之后查一下原因
 //需要先注册事件，然后再play
-            self.mMainUnit.SetOnStartListener(musicUnit =>
+            self.mMusicUnit.SetOnStartListener(musicUnit =>
             {
                 onBeganCallback.InvokeGracefully();
 
-                self.mMainUnit.SetVolume(volume);
+                self.mMusicUnit.SetVolume(volume);
 //调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                self.mMainUnit.SetOnStartListener(null);
+                self.mMusicUnit.SetOnStartListener(null);
             });
 
-            self.mMainUnit.SetAudio(self.gameObject, musicName, loop);
+            self.mMusicUnit.SetAudio(self.gameObject, musicName, loop);
 
-            self.mMainUnit.SetOnFinishListener(musicUnit =>
+            self.mMusicUnit.SetOnFinishListener(musicUnit =>
             {
                 onEndCallback.InvokeGracefully();
 
 //调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                self.mMainUnit.SetOnFinishListener(null);
+                self.mMusicUnit.SetOnFinishListener(null);
             });
         }
 
@@ -487,7 +377,7 @@ namespace QFramework
         /// </summary>
         public static void StopMusic()
         {
-            Instance.mMainUnit.Stop();
+            Instance.mMusicUnit.Stop();
         }
 
         public static void StopVoice()
@@ -500,17 +390,17 @@ namespace QFramework
 
         public static void PauseMusic()
         {
-            if (Instance.mMainUnit != null)
+            if (Instance.mMusicUnit != null)
             {
-                Instance.mMainUnit.Pause();
+                Instance.mMusicUnit.Pause();
             }
         }
 
         public static void ResumeMusic()
         {
-            if (Instance.mMainUnit != null)
+            if (Instance.mMusicUnit != null)
             {
-                Instance.mMainUnit.Resume();
+                Instance.mMusicUnit.Resume();
             }
         }
 
@@ -640,7 +530,7 @@ namespace QFramework
         }
 
         #endregion
-        
+
         #region 留给脚本绑定的 API
 
         public static void PlayMusic(string musicName)

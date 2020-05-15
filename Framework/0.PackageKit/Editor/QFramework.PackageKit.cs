@@ -1407,72 +1407,7 @@ namespace QFramework
         }
     }
 
-    [Serializable]
-    public class IntProperty : Property<int>
-    {
-        public int Value
-        {
-            get { return base.Value; }
-            set { base.Value = value; }
-        }
-    }
 
-
-    [Serializable]
-    public class Property<T>
-    {
-        public Property()
-        {
-        }
-
-        private bool setted = false;
-
-        public Property(T initValue)
-        {
-            mValue = initValue;
-        }
-
-        public T Value
-        {
-            get { return mValue; }
-            set
-            {
-                if (value == null || !value.Equals(mValue) || !setted)
-                {
-                    mValue = value;
-
-                    if (mSetter != null)
-                    {
-                        mSetter.Invoke(mValue);
-                        OnValueChanged.Invoke(mValue);
-                    }
-
-                    setted = true;
-                }
-            }
-        }
-        
-        private T mValue;
-        
-        public void Bind(Action<T> setter)
-        {
-            mSetter += setter;
-        }
-
-        public void UnBindAll()
-        {
-            mSetter = null;
-        }
-
-        private event Action<T> mSetter = t=>{};
-        public UnityEvent<T> OnValueChanged = new OnPropertyChangedEvent<T>();
-
-    }
-
-    public class OnPropertyChangedEvent<T> : UnityEvent<T>
-    {
-        
-    }
 
     public static class EditorUtils
     {
