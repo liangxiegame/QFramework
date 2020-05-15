@@ -1,4 +1,4 @@
-![](DocRes/QFramework-icon-0.1.0-512x128.png)
+![](./DocRes/QFramework-icon-0.1.0-512x128.png)
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
@@ -135,8 +135,3 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 结构图 (v0.0.13)
 
 ![](http://assets.processon.com/chart_image/5c1dd179e4b095ccfeeb6204.png)
-
-
-## QFramework 功能列表;
-
-![](https://ws1.sinaimg.cn/large/006qQBdDgy1fzhk7pvhkaj320i26i4cu.jpg)
