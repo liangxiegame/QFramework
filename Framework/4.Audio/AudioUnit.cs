@@ -1,8 +1,6 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2020.5 liangxie
 ****************************************************************************/
-
-using QFramework;
 
 namespace QFramework
 {
@@ -12,7 +10,7 @@ namespace QFramework
     public class AudioUnit : IPoolable, IPoolType
     {
         private ResLoader mLoader;
-        private AudioSource mSource;
+        private AudioSource mAudioSource;
         private string mName;
 
         private bool mIsLoop;
@@ -27,6 +25,11 @@ namespace QFramework
         private float mLeftDelayTime = -1;
         private int mPlayCount = 0;
         private int mCustomEventID;
+
+        public AudioSource AudioSource
+        {
+            get { return mAudioSource; }
+        }
 
         public int customEventID
         {
@@ -79,14 +82,16 @@ namespace QFramework
                 return;
             }
 
-            if (mSource == null)
+            if (mAudioSource == null)
             {
-                mSource = root.AddComponent<AudioSource>();
+                mAudioSource = root.AddComponent<AudioSource>();
             }
 
             //防止卸载后立马加载的情况
-            ResLoader preLoader = mLoader;
+            var preLoader = mLoader;
+            
             mLoader = null;
+            
             CleanResources();
 
             mLoader = ResLoader.Allocate();
@@ -131,7 +136,7 @@ namespace QFramework
 
             mIsPause = true;
 
-            mSource.Pause();
+            mAudioSource.Pause();
         }
 
         public void Resume()
@@ -148,14 +153,14 @@ namespace QFramework
 
             mIsPause = false;
 
-            mSource.Play();
+            mAudioSource.Play();
         }
 
         public void SetVolume(float volume)
         {
-            if (null != mSource)
+            if (null != mAudioSource)
             {
-                mSource.volume = volume;
+                mAudioSource.volume = volume;
             }
         }
 
@@ -181,15 +186,15 @@ namespace QFramework
 
         private void PlayAudioClip()
         {
-            if (mSource == null || mAudioClip == null)
+            if (mAudioSource == null || mAudioClip == null)
             {
                 Release();
                 return;
             }
 
-            mSource.clip = mAudioClip;
-            mSource.loop = mIsLoop;
-            mSource.volume = 1.0f;
+            mAudioSource.clip = mAudioClip;
+            mAudioSource.loop = mIsLoop;
+            mAudioSource.volume = 1.0f;
 
             int loopCount = 1;
             if (mIsLoop)
@@ -205,7 +210,7 @@ namespace QFramework
                 mOnStartListener(this);
             }
 
-            mSource.Play();
+            mAudioSource.Play();
         }
 
         private void OnResumeTimeTick(int repeatCount)
@@ -264,12 +269,12 @@ namespace QFramework
                 mTimeItem = null;
             }
 
-            if (mSource != null)
+            if (mAudioSource != null)
             {
-                if (mSource.clip == mAudioClip)
+                if (mAudioSource.clip == mAudioClip)
                 {
-                    mSource.Stop();
-                    mSource.clip = null;
+                    mAudioSource.Stop();
+                    mAudioSource.clip = null;
                 }
             }
 
@@ -291,10 +296,10 @@ namespace QFramework
         {
             if (!SafeObjectPool<AudioUnit>.Instance.Recycle(this))
             {
-                if (mSource != null)
+                if (mAudioSource != null)
                 {
-                    GameObject.Destroy(mSource);
-                    mSource = null;
+                    GameObject.Destroy(mAudioSource);
+                    mAudioSource = null;
                 }
             }
         }

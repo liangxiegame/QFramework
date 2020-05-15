@@ -76,7 +76,7 @@ namespace QFramework
 
     public class AduioMsgPlayVoiceLoop : QMsg
     {
-        public string      VoiceName;
+        public string VoiceName;
         public UnityAction OnVoiceBeganCallback;
         public UnityAction OnVoiceEndedCallback;
     }
@@ -101,11 +101,11 @@ namespace QFramework
     {
         #region Audio设置数据
 
-// 用来存储的Key
+        // 用来存储的Key
         const string KEY_AUDIO_MANAGER_SOUND_ON = "KEY_AUDIO_MANAGER_SOUND_ON";
 
-        const string KEY_AUDIO_MANAGER_MUSIC_ON     = "KEY_AUDIO_MANAGER_MUSIC_ON";
-        const string KEY_AUDIO_MANAGER_VOICE_ON     = "KEY_AUDIO_MANAGER_VOICE_ON";
+        const string KEY_AUDIO_MANAGER_MUSIC_ON = "KEY_AUDIO_MANAGER_MUSIC_ON";
+        const string KEY_AUDIO_MANAGER_VOICE_ON = "KEY_AUDIO_MANAGER_VOICE_ON";
         const string KEY_AUDIO_MANAGER_VOICE_VOLUME = "KEY_AUDIO_MANAGER_VOICE_VOLUME";
         const string KEY_AUDIO_MANAGER_SOUND_VOLUME = "KEY_AUDIO_MANAGER_SOUND_VOLUME";
         const string KEY_AUDIO_MANAGER_MUSIC_VOLUME = "KEY_AUDIO_MANAGER_MUSIC_VOLUME";
@@ -158,6 +158,16 @@ namespace QFramework
 
         protected AudioUnit mMainUnit;
         protected AudioUnit mVoiceUnit;
+
+        public static AudioUnit MusicUnit
+        {
+            get { return Instance.mMainUnit; }
+        }
+
+        public static AudioUnit VoiceUnit
+        {
+            get { return Instance.mVoiceUnit; }
+        }
 
         public void OnSingletonInit()
         {
@@ -336,7 +346,7 @@ namespace QFramework
 
         public static bool IsSoundOn { get; private set; }
 
-        public static bool IsMusicOn { get; private set; }
+        public static bool IsMusicOn { get; set; }
 
         public static bool IsVoiceOn { get; private set; }
 
@@ -402,7 +412,7 @@ namespace QFramework
             });
         }
 
-        public static void PlayMusic(string musicName, bool loop = true, System.Action onBeganCallback = null,
+        public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
             System.Action onEndCallback = null, bool allowMusicOff = true, float volume = 1.0f)
         {
             var self = Instance;
@@ -630,8 +640,7 @@ namespace QFramework
         }
 
         #endregion
-
-
+        
         #region 留给脚本绑定的 API
 
         public static void PlayMusic(string musicName)

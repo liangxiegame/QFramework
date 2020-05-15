@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.7.7","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/4.Audio/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.7.7","content":"修复 SoundOn 失效的问题","author":"liangxie","date":"2020 年 02 月 05 日 16:34","PackageId":""}}
+{"Id":"","Version":"v0.7.8","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/4.Audio/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.7.8","content":"PlayMusic 单元测试通过","author":"liangxie","date":"2020 年 05 月 15 日 20:48","PackageId":""}}
