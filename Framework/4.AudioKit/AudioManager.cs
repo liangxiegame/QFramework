@@ -142,14 +142,14 @@ namespace QFramework
                 }
                 else
                 {
-                    ForEachAllSounds(player => player.Stop());
+                    ForEachAllSound(player => player.Stop());
                 }
             }).AddTo(this);
 
 
             AudioKit.Settings.SoundVolume.Bind(soundVolume =>
             {
-                ForEachAllSounds(player => player.SetVolume(soundVolume));
+                ForEachAllSound(player => player.SetVolume(soundVolume));
             }).AddTo(this);
         }
 
@@ -157,15 +157,13 @@ namespace QFramework
             new Dictionary<string, List<AudioPlayer>>(30);
 
 
-        public void ForEachAllSounds(Action<AudioPlayer> operation)
+        public void ForEachAllSound(Action<AudioPlayer> operation)
         {
             foreach (var audioPlayer in mSoundPlayerInPlaying.SelectMany(keyValuePair => keyValuePair.Value))
             {
                 operation(audioPlayer);
             }
         }
-        
-        
 
         public void AddSoundPlayer2Pool(AudioPlayer audioPlayer)
         {
@@ -180,7 +178,7 @@ namespace QFramework
             }
         }
 
-        public void RemoveSoundPlayer2Pool(AudioPlayer audioPlayer)
+        public void RemoveSoundPlayerFromPool(AudioPlayer audioPlayer)
         {
             mSoundPlayerInPlaying[audioPlayer.Name].Remove(audioPlayer);
         }
@@ -349,7 +347,7 @@ namespace QFramework
         //常驻内存不卸载音频资源
         protected ResLoader mRetainResLoader;
 
-        protected List<string> mRetainAudioNames;
+        protected HashSet<string> mRetainAudioNames;
 
         /// <summary>
         /// 添加常驻音频资源，建议尽早添加，不要在用的时候再添加
@@ -359,7 +357,7 @@ namespace QFramework
             if (mRetainResLoader == null)
                 mRetainResLoader = ResLoader.Allocate();
             if (mRetainAudioNames == null)
-                mRetainAudioNames = new List<string>();
+                mRetainAudioNames = new HashSet<string>();
 
             if (!mRetainAudioNames.Contains(audioName))
             {
@@ -381,5 +379,10 @@ namespace QFramework
         }
 
         #endregion
+
+        public void ClearAllPlayingSound()
+        {
+            mSoundPlayerInPlaying.Clear();
+        }
     }
 }

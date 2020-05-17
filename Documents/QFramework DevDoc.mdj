@@ -284,7 +284,7 @@
 											"font": "Arial;13;0",
 											"left": 433,
 											"top": 268.5,
-											"width": 80.32568359375,
+											"width": 79.21197509765625,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFyF+UaEktZsZo="
@@ -2750,8 +2750,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -112,
-													"top": -48,
+													"left": -208,
+													"top": 32,
 													"height": 13
 												},
 												{
@@ -2761,9 +2761,9 @@
 														"$ref": "AAAAAAFyGGhpoa4Q95A="
 													},
 													"font": "Arial;13;1",
-													"left": 501,
-													"top": 263,
-													"width": 155.7080078125,
+													"left": 453,
+													"top": 303,
+													"width": 337.4541015625,
 													"height": 13,
 													"text": "AudioManager"
 												},
@@ -2775,8 +2775,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -112,
-													"top": -48,
+													"left": -208,
+													"top": 32,
 													"width": 90.39697265625,
 													"height": 13,
 													"text": "(from 4.Audio)"
@@ -2789,16 +2789,16 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -112,
-													"top": -48,
+													"left": -208,
+													"top": 32,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 496,
-											"top": 256,
-											"width": 165.7080078125,
+											"left": 448,
+											"top": 296,
+											"width": 347.4541015625,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFyGGhpoa4Rovw="
@@ -2833,11 +2833,10 @@
 														"$ref": "AAAAAAFyIYEAowFcu3I="
 													},
 													"font": "Arial;13;0",
-													"left": 501,
-													"top": 286,
-													"width": 155.7080078125,
+													"left": 453,
+													"top": 326,
+													"width": 337.4541015625,
 													"height": 13,
-													"underline": true,
 													"text": "+MusicPlayer: AudioPlayer",
 													"horizontalAlignment": 0
 												},
@@ -2851,19 +2850,71 @@
 														"$ref": "AAAAAAFyIioFrRDkNzw="
 													},
 													"font": "Arial;13;0",
-													"left": 501,
-													"top": 301,
-													"width": 155.7080078125,
+													"left": 453,
+													"top": 341,
+													"width": 337.4541015625,
 													"height": 13,
 													"text": "+VoicePlayer: AudioPlayer",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLAttributeView",
+													"_id": "AAAAAAFyI1Msi0kheTQ=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4VseE="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1MsbEkeSbs="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 356,
+													"width": 337.4541015625,
+													"height": 13,
+													"underline": true,
+													"text": "-mSoundPlayerInPlaying: Dictionary<string><List<string>>",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLAttributeView",
+													"_id": "AAAAAAFyI1qmfFGJhw0=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4VseE="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1qmY1GGUy0="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 371,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "#mRetainResLoader: ResLoader",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLAttributeView",
+													"_id": "AAAAAAFyI1rf41H9u9c=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4VseE="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1rfyVH6efs="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 386,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "#mRetainAudioNames: HashSet<string>",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 496,
-											"top": 281,
-											"width": 165.7080078125,
-											"height": 38
+											"left": 448,
+											"top": 321,
+											"width": 347.4541015625,
+											"height": 83
 										},
 										{
 											"_type": "UMLOperationCompartmentView",
@@ -2874,11 +2925,115 @@
 											"model": {
 												"$ref": "AAAAAAFyGGhpoK4NwsY="
 											},
+											"subViews": [
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1glCU60Fo0=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1gk7k6xb7g="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 409,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "+ForEachAllSound(Action_AudioPlayer): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1iCQVBMF2I=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1iCJ1BJz+U="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 424,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "+AddSoundPlayer2Pool(AudioPlayer): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1k2l1DctSs=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1k2fVDZ3eE="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 439,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "+RemoveSoundPlayerFromPool(AudioPlyer): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1qRm1FTzEs=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1qRflFQdq4="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 454,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "-AddRetainAudio(string): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1tYH1LQgYQ=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1tYBVLNda0="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 469,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "-RemoveRetainAudio(string): void",
+													"horizontalAlignment": 0
+												},
+												{
+													"_type": "UMLOperationView",
+													"_id": "AAAAAAFyI1ubfFP1LYQ=",
+													"_parent": {
+														"$ref": "AAAAAAFyGGhpoa4W/XA="
+													},
+													"model": {
+														"$ref": "AAAAAAFyI1ubY1PypvA="
+													},
+													"font": "Arial;13;0",
+													"left": 453,
+													"top": 484,
+													"width": 337.4541015625,
+													"height": 13,
+													"text": "+ClearAllPlayingSound(): void",
+													"horizontalAlignment": 0
+												}
+											],
 											"font": "Arial;13;0",
-											"left": 496,
-											"top": 319,
-											"width": 165.7080078125,
-											"height": 10
+											"left": 448,
+											"top": 404,
+											"width": 347.4541015625,
+											"height": 98
 										},
 										{
 											"_type": "UMLReceptionCompartmentView",
@@ -2891,8 +3046,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -56,
-											"top": -24,
+											"left": -104,
+											"top": 16,
 											"width": 10,
 											"height": 10
 										},
@@ -2907,19 +3062,18 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -56,
-											"top": -24,
+											"left": -104,
+											"top": 16,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 496,
-									"top": 256,
-									"width": 165.7080078125,
-									"height": 73,
-									"autoResize": true,
+									"left": 448,
+									"top": 296,
+									"width": 347.4541015625,
+									"height": 206,
 									"nameCompartment": {
 										"$ref": "AAAAAAFyGGhpoa4Q95A="
 									},
@@ -2964,8 +3118,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -64,
-													"top": -112,
+													"left": -240,
+													"top": -128,
 													"height": 13
 												},
 												{
@@ -2975,9 +3129,9 @@
 														"$ref": "AAAAAAFyIX4PoQDSAnI="
 													},
 													"font": "Arial;13;1",
-													"left": 117,
-													"top": 191,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 183,
+													"width": 347.953125,
 													"height": 13,
 													"text": "AudioKit"
 												},
@@ -2989,9 +3143,9 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -64,
-													"top": -112,
-													"width": 82.36083984375,
+													"left": -240,
+													"top": -128,
+													"width": 86.93092346191406,
 													"height": 13,
 													"text": "(from 4.Audio)"
 												},
@@ -3003,16 +3157,16 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -64,
-													"top": -112,
+													"left": -240,
+													"top": -128,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 184,
-											"width": 298.65966796875,
+											"left": 24,
+											"top": 176,
+											"width": 357.953125,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFyIX4PoQDTu7o="
@@ -3047,9 +3201,9 @@
 														"$ref": "AAAAAAFyIZ+R+AQvc+8="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 214,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 206,
+													"width": 347.953125,
 													"height": 13,
 													"underline": true,
 													"text": "+Settings: AudioSettings",
@@ -3065,9 +3219,9 @@
 														"$ref": "AAAAAAFyIiXG2QoGJFA="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 229,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 221,
+													"width": 347.953125,
 													"height": 13,
 													"underline": true,
 													"text": "+MusicPlayer: AudioPlayer",
@@ -3083,9 +3237,9 @@
 														"$ref": "AAAAAAFyIiYbBAp6KIM="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 244,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 236,
+													"width": 347.953125,
 													"height": 13,
 													"underline": true,
 													"text": "+VoicePlayer: AudioPlayer",
@@ -3093,9 +3247,9 @@
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 209,
-											"width": 298.65966796875,
+											"left": 24,
+											"top": 201,
+											"width": 357.953125,
 											"height": 53
 										},
 										{
@@ -3118,9 +3272,9 @@
 														"$ref": "AAAAAAFyIif6LwxnNQ0="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 267,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 259,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+PlayMusic(string, bool, bool, Action, Action): void",
 													"horizontalAlignment": 0
@@ -3135,9 +3289,9 @@
 														"$ref": "AAAAAAFyIif6wgyLDE4="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 282,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 274,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+StopMusic(): void",
 													"horizontalAlignment": 0
@@ -3152,9 +3306,9 @@
 														"$ref": "AAAAAAFyIiiOYw1pAJE="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 297,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 289,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+PauseMusic(): void",
 													"horizontalAlignment": 0
@@ -3169,9 +3323,9 @@
 														"$ref": "AAAAAAFyIiitAw20XO0="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 312,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 304,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+ResumeMusic(): void",
 													"horizontalAlignment": 0
@@ -3186,9 +3340,9 @@
 														"$ref": "AAAAAAFyIijzMQ3/LOs="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 327,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 319,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+PlayVoice(string, bool, Action, Action): void",
 													"horizontalAlignment": 0
@@ -3203,9 +3357,9 @@
 														"$ref": "AAAAAAFyIikwoQ5qmnc="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 342,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 334,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+StopVoice(): void",
 													"horizontalAlignment": 0
@@ -3220,9 +3374,9 @@
 														"$ref": "AAAAAAFyIilRIQ61Q/Q="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 357,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 349,
+													"width": 347.953125,
 													"height": 13,
 													"text": "+PauseVoice(): void",
 													"horizontalAlignment": 0
@@ -3237,18 +3391,18 @@
 														"$ref": "AAAAAAFyIilm5Q8AaeA="
 													},
 													"font": "Arial;13;0",
-													"left": 117,
-													"top": 372,
-													"width": 288.65966796875,
+													"left": 29,
+													"top": 364,
+													"width": 347.953125,
 													"height": 13,
-													"text": "+ResumeVoice(): void",
+													"text": "+PlaySound(string, bool, Action_AudioPlayer_): AudioPlayer",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 112,
-											"top": 262,
-											"width": 298.65966796875,
+											"left": 24,
+											"top": 254,
+											"width": 357.953125,
 											"height": 128
 										},
 										{
@@ -3262,8 +3416,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -32,
-											"top": -56,
+											"left": -120,
+											"top": -64,
 											"width": 10,
 											"height": 10
 										},
@@ -3278,17 +3432,17 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -32,
-											"top": -56,
+											"left": -120,
+											"top": -64,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 112,
-									"top": 184,
-									"width": 298.65966796875,
+									"left": 24,
+									"top": 176,
+									"width": 357.953125,
 									"height": 206,
 									"nameCompartment": {
 										"$ref": "AAAAAAFyIX4PoQDSAnI="
@@ -3334,8 +3488,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -784,
-													"top": -656,
+													"left": -752,
+													"top": -640,
 													"height": 13
 												},
 												{
@@ -3345,8 +3499,8 @@
 														"$ref": "AAAAAAFyIX487QD9iPo="
 													},
 													"font": "Arial;13;1",
-													"left": 469,
-													"top": 79,
+													"left": 485,
+													"top": 87,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "AudioSettings"
@@ -3359,9 +3513,9 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -784,
-													"top": -656,
-													"width": 82.36083984375,
+													"left": -752,
+													"top": -640,
+													"width": 86.93092346191406,
 													"height": 13,
 													"text": "(from 4.Audio)"
 												},
@@ -3373,15 +3527,15 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": -784,
-													"top": -656,
+													"left": -752,
+													"top": -640,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 464,
-											"top": 72,
+											"left": 480,
+											"top": 80,
 											"width": 253.8896484375,
 											"height": 25,
 											"stereotypeLabel": {
@@ -3417,8 +3571,8 @@
 														"$ref": "AAAAAAFyIX57wwEtRAk="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 102,
+													"left": 485,
+													"top": 110,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+IsSoundOn: PlayerPrefsBooleanProperty",
@@ -3434,8 +3588,8 @@
 														"$ref": "AAAAAAFyIX8WqQE2sIY="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 117,
+													"left": 485,
+													"top": 125,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+IsMusicOn: PlayerPrefsBooleanProperty",
@@ -3451,8 +3605,8 @@
 														"$ref": "AAAAAAFyIX9PfwE9Rww="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 132,
+													"left": 485,
+													"top": 140,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+IsVoiceOn: PlayerPrefsBooleanProperty",
@@ -3468,8 +3622,8 @@
 														"$ref": "AAAAAAFyIX+bDwFFjGE="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 147,
+													"left": 485,
+													"top": 155,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+SoundVolume: PlayerPrefsFloatProperty",
@@ -3485,8 +3639,8 @@
 														"$ref": "AAAAAAFyIX/IfQFMb9E="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 162,
+													"left": 485,
+													"top": 170,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+MusicVolume: PlayerPrefsFloatProperty",
@@ -3502,8 +3656,8 @@
 														"$ref": "AAAAAAFyIX/w4gFTjvw="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 177,
+													"left": 485,
+													"top": 185,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+VoiceVolume: PlayerPrefsFloatProperty",
@@ -3519,8 +3673,8 @@
 														"$ref": "AAAAAAFyIdaoCgfGcvw="
 													},
 													"font": "Arial;13;0",
-													"left": 469,
-													"top": 192,
+													"left": 485,
+													"top": 200,
 													"width": 243.8896484375,
 													"height": 13,
 													"text": "+IsOn: CustomProperty<bool>",
@@ -3528,8 +3682,8 @@
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 464,
-											"top": 97,
+											"left": 480,
+											"top": 105,
 											"width": 253.8896484375,
 											"height": 113
 										},
@@ -3543,8 +3697,8 @@
 												"$ref": "AAAAAAFyIX487QD6W+k="
 											},
 											"font": "Arial;13;0",
-											"left": 464,
-											"top": 210,
+											"left": 480,
+											"top": 218,
 											"width": 253.8896484375,
 											"height": 10
 										},
@@ -3559,8 +3713,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -392,
-											"top": -328,
+											"left": -376,
+											"top": -320,
 											"width": 10,
 											"height": 10
 										},
@@ -3575,16 +3729,16 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": -392,
-											"top": -328,
+											"left": -376,
+											"top": -320,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 464,
-									"top": 72,
+									"left": 480,
+									"top": 80,
 									"width": 253.8896484375,
 									"height": 148,
 									"autoResize": true,
@@ -3625,8 +3779,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 443,
-											"top": 217,
+											"left": 434,
+											"top": 215,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -3646,8 +3800,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 449,
-											"top": 231,
+											"left": 438,
+											"top": 229,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -3667,8 +3821,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 430,
-											"top": 190,
+											"left": 425,
+											"top": 186,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -3688,8 +3842,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 445,
-											"top": 217,
+											"left": 458,
+											"top": 208,
 											"height": 13,
 											"alpha": 0.5235987755982988,
 											"distance": 30,
@@ -3709,8 +3863,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 448,
-											"top": 230,
+											"left": 460,
+											"top": 221,
 											"height": 13,
 											"alpha": 0.7853981633974483,
 											"distance": 40,
@@ -3730,8 +3884,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 438,
-											"top": 190,
+											"left": 454,
+											"top": 180,
 											"height": 13,
 											"alpha": -0.5235987755982988,
 											"distance": 25,
@@ -3751,8 +3905,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 440,
-											"top": 219,
+											"left": 411,
+											"top": 222,
 											"height": 13,
 											"alpha": -0.5235987755982988,
 											"distance": 30,
@@ -3771,8 +3925,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 448,
-											"top": 230,
+											"left": 417,
+											"top": 234,
 											"height": 13,
 											"alpha": -0.7853981633974483,
 											"distance": 40,
@@ -3791,8 +3945,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 425,
-											"top": 195,
+											"left": 398,
+											"top": 197,
 											"height": 13,
 											"alpha": 0.5235987755982988,
 											"distance": 25,
@@ -3837,7 +3991,7 @@
 										"$ref": "AAAAAAFyIX487QD80HA="
 									},
 									"lineStyle": 1,
-									"points": "463:199;411:222",
+									"points": "479:192;382:222",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFyIYMstAGnRhI="
@@ -3901,8 +4055,8 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 432,
-													"top": -256,
+													"left": 656,
+													"top": -144,
 													"height": 13
 												},
 												{
@@ -3912,9 +4066,9 @@
 														"$ref": "AAAAAAFyIYN+QAKuMX8="
 													},
 													"font": "Arial;13;1",
-													"left": 765,
-													"top": 271,
-													"width": 80.57080078125,
+													"left": 877,
+													"top": 327,
+													"width": 81.37992858886719,
 													"height": 13,
 													"text": "AudioPlayer"
 												},
@@ -3926,9 +4080,9 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 432,
-													"top": -256,
-													"width": 82.36083984375,
+													"left": 656,
+													"top": -144,
+													"width": 86.93092346191406,
 													"height": 13,
 													"text": "(from 4.Audio)"
 												},
@@ -3940,16 +4094,16 @@
 													},
 													"visible": false,
 													"font": "Arial;13;0",
-													"left": 432,
-													"top": -256,
+													"left": 656,
+													"top": -144,
 													"height": 13,
 													"horizontalAlignment": 1
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 760,
-											"top": 264,
-											"width": 90.57080078125,
+											"left": 872,
+											"top": 320,
+											"width": 91.37992858886719,
 											"height": 25,
 											"stereotypeLabel": {
 												"$ref": "AAAAAAFyIYN+QAKvX4s="
@@ -3974,9 +4128,9 @@
 												"$ref": "AAAAAAFyIYN+QAKrfLM="
 											},
 											"font": "Arial;13;0",
-											"left": 760,
-											"top": 289,
-											"width": 90.57080078125,
+											"left": 872,
+											"top": 345,
+											"width": 91.37992858886719,
 											"height": 10
 										},
 										{
@@ -3999,18 +4153,18 @@
 														"$ref": "AAAAAAFyIifPnQuxDBg="
 													},
 													"font": "Arial;13;0",
-													"left": 765,
-													"top": 304,
-													"width": 80.57080078125,
+													"left": 877,
+													"top": 360,
+													"width": 81.37992858886719,
 													"height": 13,
 													"text": "+Operation1()",
 													"horizontalAlignment": 0
 												}
 											],
 											"font": "Arial;13;0",
-											"left": 760,
-											"top": 299,
-											"width": 90.57080078125,
+											"left": 872,
+											"top": 355,
+											"width": 91.37992858886719,
 											"height": 23
 										},
 										{
@@ -4024,8 +4178,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 216,
-											"top": -128,
+											"left": 328,
+											"top": -72,
 											"width": 10,
 											"height": 10
 										},
@@ -4040,17 +4194,17 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 216,
-											"top": -128,
+											"left": 328,
+											"top": -72,
 											"width": 10,
 											"height": 10
 										}
 									],
 									"font": "Arial;13;0",
 									"containerChangeable": true,
-									"left": 760,
-									"top": 264,
-									"width": 90.57080078125,
+									"left": 872,
+									"top": 320,
+									"width": 91.37992858886719,
 									"height": 58,
 									"nameCompartment": {
 										"$ref": "AAAAAAFyIYN+QAKuMX8="
@@ -4089,8 +4243,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 453,
-											"top": 268,
+											"left": 417,
+											"top": 318,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -4110,8 +4264,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 453,
-											"top": 253,
+											"left": 421,
+											"top": 304,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -4131,8 +4285,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 452,
-											"top": 297,
+											"left": 410,
+											"top": 347,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -4150,7 +4304,7 @@
 										"$ref": "AAAAAAFyIX4PoQDRYtQ="
 									},
 									"lineStyle": 1,
-									"points": "411:289;495:290",
+									"points": "382:330;447:348",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFyIaAJPwUB+xg="
@@ -4183,8 +4337,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 709,
-											"top": 301,
+											"left": 835,
+											"top": 370,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 15,
@@ -4204,8 +4358,8 @@
 											},
 											"visible": null,
 											"font": "Arial;13;0",
-											"left": 709,
-											"top": 316,
+											"left": 838,
+											"top": 385,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -4225,8 +4379,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 710,
-											"top": 271,
+											"left": 830,
+											"top": 341,
 											"height": 13,
 											"alpha": -1.5707963267948966,
 											"distance": 15,
@@ -4246,8 +4400,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 733,
-											"top": 300,
+											"left": 847,
+											"top": 369,
 											"height": 13,
 											"alpha": 0.5235987755982988,
 											"distance": 30,
@@ -4267,8 +4421,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 730,
-											"top": 314,
+											"left": 847,
+											"top": 382,
 											"height": 13,
 											"alpha": 0.7853981633974483,
 											"distance": 40,
@@ -4288,8 +4442,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 737,
-											"top": 273,
+											"left": 847,
+											"top": 341,
 											"height": 13,
 											"alpha": -0.5235987755982988,
 											"distance": 25,
@@ -4309,8 +4463,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 687,
-											"top": 300,
+											"left": 823,
+											"top": 373,
 											"height": 13,
 											"alpha": -0.5235987755982988,
 											"distance": 30,
@@ -4329,8 +4483,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 690,
-											"top": 314,
+											"left": 827,
+											"top": 386,
 											"height": 13,
 											"alpha": -0.7853981633974483,
 											"distance": 40,
@@ -4349,8 +4503,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 683,
-											"top": 273,
+											"left": 814,
+											"top": 347,
 											"height": 13,
 											"alpha": 0.5235987755982988,
 											"distance": 25,
@@ -4395,7 +4549,7 @@
 										"$ref": "AAAAAAFyIYN+QAKtdt8="
 									},
 									"lineStyle": 1,
-									"points": "759:292;662:292",
+									"points": "871:356;795:369",
 									"showVisibility": true,
 									"nameLabel": {
 										"$ref": "AAAAAAFyIaA/4gXN+c0="
@@ -4478,7 +4632,6 @@
 										"$ref": "AAAAAAFyGGhpoK4NwsY="
 									},
 									"name": "MusicPlayer",
-									"isStatic": true,
 									"type": {
 										"$ref": "AAAAAAFyIYN+QAKrfLM="
 									}
@@ -4493,6 +4646,199 @@
 									"type": {
 										"$ref": "AAAAAAFyIYN+QAKrfLM="
 									}
+								},
+								{
+									"_type": "UMLAttribute",
+									"_id": "AAAAAAFyI1MsbEkeSbs=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "mSoundPlayerInPlaying",
+									"visibility": "private",
+									"isStatic": true,
+									"type": "Dictionary<string><List<string>>"
+								},
+								{
+									"_type": "UMLAttribute",
+									"_id": "AAAAAAFyI1qmY1GGUy0=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "mRetainResLoader",
+									"visibility": "protected",
+									"type": "ResLoader"
+								},
+								{
+									"_type": "UMLAttribute",
+									"_id": "AAAAAAFyI1rfyVH6efs=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "mRetainAudioNames",
+									"visibility": "protected",
+									"type": "HashSet<string>"
+								}
+							],
+							"operations": [
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1gk7k6xb7g=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "ForEachAllSound",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1hHbU7Wo90=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1gk7k6xb7g="
+											},
+											"name": "Action_AudioPlayer"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1hg9U79ELQ=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1gk7k6xb7g="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1iCJ1BJz+U=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "AddSoundPlayer2Pool",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1i02FB7Ml4=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1iCJ1BJz+U="
+											},
+											"name": "AudioPlayer",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1i02FB81wc=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1iCJ1BJz+U="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1k2fVDZ3eE=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "RemoveSoundPlayerFromPool",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1le6FD+j7A=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1k2fVDZ3eE="
+											},
+											"name": "AudioPlyer",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1le6FD/pZE=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1k2fVDZ3eE="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1qRflFQdq4=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "AddRetainAudio",
+									"visibility": "private",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1s/hlKfQjc=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1qRflFQdq4="
+											},
+											"name": "string",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1s/hlKgwsM=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1qRflFQdq4="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1tYBVLNda0=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "RemoveRetainAudio",
+									"visibility": "private",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1tscFLyC4M=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1tYBVLNda0="
+											},
+											"name": "string",
+											"type": ""
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1tscFLzCvc=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1tYBVLNda0="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
+								},
+								{
+									"_type": "UMLOperation",
+									"_id": "AAAAAAFyI1ubY1PypvA=",
+									"_parent": {
+										"$ref": "AAAAAAFyGGhpoK4NwsY="
+									},
+									"name": "ClearAllPlayingSound",
+									"parameters": [
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1ydalQX33I=",
+											"_parent": {
+												"$ref": "AAAAAAFyI1ubY1PypvA="
+											},
+											"type": "void",
+											"direction": "return"
+										}
+									]
 								}
 							]
 						},
@@ -8319,7 +8665,7 @@
 													"font": "Arial;13;0",
 													"left": -64,
 													"top": -32,
-													"width": 82.36083984375,
+													"width": 86.93092346191406,
 													"height": 13,
 													"text": "(from 4.Audio)"
 												},
@@ -8504,9 +8850,9 @@
 												"$ref": "AAAAAAFyITQqb/rEuD8="
 											},
 											"font": "Arial;13;0",
-											"left": 411,
+											"left": 410,
 											"top": 190,
-											"width": 55.65625,
+											"width": 57.563934326171875,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -8613,7 +8959,7 @@
 													"font": "Arial;13;0",
 													"left": -1104,
 													"top": -624,
-													"width": 82.36083984375,
+													"width": 86.93092346191406,
 													"height": 13,
 													"text": "(from 4.Audio)"
 												},
@@ -8798,9 +9144,9 @@
 												"$ref": "AAAAAAFyITuLWPxQMII="
 											},
 											"font": "Arial;13;0",
-											"left": 187,
+											"left": 186,
 											"top": 145,
-											"width": 53.49169921875,
+											"width": 55.2369384765625,
 											"height": 13,
 											"alpha": 1.5707963267948966,
 											"distance": 30,
@@ -9458,7 +9804,7 @@
 									"_parent": {
 										"$ref": "AAAAAAFyIX4PoQDP0vg="
 									},
-									"name": "ResumeVoice",
+									"name": "PlaySound",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
@@ -9466,8 +9812,35 @@
 											"_parent": {
 												"$ref": "AAAAAAFyIilm5Q8AaeA="
 											},
-											"type": "void",
+											"type": {
+												"$ref": "AAAAAAFyIYN+QAKrfLM="
+											},
 											"direction": "return"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1YC30tGkFY=",
+											"_parent": {
+												"$ref": "AAAAAAFyIilm5Q8AaeA="
+											},
+											"name": "string"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1YC4EtHg+o=",
+											"_parent": {
+												"$ref": "AAAAAAFyIilm5Q8AaeA="
+											},
+											"name": "bool"
+										},
+										{
+											"_type": "UMLParameter",
+											"_id": "AAAAAAFyI1Zuekt1hSg=",
+											"_parent": {
+												"$ref": "AAAAAAFyIilm5Q8AaeA="
+											},
+											"name": "Action_AudioPlayer_",
+											"type": ""
 										}
 									]
 								}
@@ -9643,7 +10016,7 @@
 						"$ref": "AAAAAAFyGGeuya2TP7Q="
 					},
 					"name": "v0.10.x Plan",
-					"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录（完成）\n* AudioManager API 改进\n* UIKit 支持缓存加载\n\n\n## 单元测试覆盖\n* Audio\n* UIKit\n* ResKit（从 LXResKit 中搬移）\n* Core（Container 等）"
+					"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录（完成）\n* AudioManager API 改进\n* UIKit 支持缓存加载\n\n\n## 单元测试覆盖\n* Audio（完成）\n* UIKit\n* ResKit（从 LXResKit 中搬移）\n* Core（Container 等）"
 				},
 				{
 					"_type": "UMLModel",
@@ -9662,6 +10035,15 @@
 					},
 					"name": "v0.12.x Plan",
 					"documentation": "## v0.12.x 开发计划\n\n* "
+				},
+				{
+					"_type": "UMLModel",
+					"_id": "AAAAAAFyI12YUVQx45U=",
+					"_parent": {
+						"$ref": "AAAAAAFyGGeuya2TP7Q="
+					},
+					"name": "待完成工作",
+					"documentation": "* AudioPlayer 的单元测试覆盖\n* AudioPlayer 的类图\n* AudioManager 的消息部分的重构\n* AudioKit 相关的文档更新：https://liangxiegame.com/zhuanlan/content/detail/b35a149d-200e-4cf5-9618-95acb29ee376"
 				}
 			]
 		}

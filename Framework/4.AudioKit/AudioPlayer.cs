@@ -11,10 +11,7 @@ namespace QFramework
 
         public string Name
         {
-            get
-            {
-                return mName;
-            }
+            get { return mName; }
         }
 
         private bool mIsLoop;
@@ -206,8 +203,7 @@ namespace QFramework
                 loopCount = -1;
             }
 
-            mTimeItem = QFramework.Timer.Instance.Post2Scale(OnSoundPlayFinish, mAudioClip.length, loopCount);
-
+            mTimeItem = Timer.Instance.Post2Scale(OnSoundPlayFinish, mAudioClip.length, loopCount);
 
             if (null != mOnStartListener)
             {
