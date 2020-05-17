@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.9.5","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.9.5","content":"更新 Audio 模块 与 PackageKit 模块","author":"liangxie","date":"2020 年 05 月 15 日 22:47","PackageId":""}}
+{"Id":"","Version":"v0.10.3","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.3","content":"* AudioKit：Voice 相关的 API 重构","author":"liangxie","date":"2020 年 05 月 17 日 18:17","PackageId":""}}

@@ -22,7 +22,7 @@ namespace QFramework
         {
         }
 
-        private bool mSetted = false;
+        protected bool mSetted = false;
 
         public Property(T initValue)
         {
@@ -31,20 +31,39 @@ namespace QFramework
 
         public T Value
         {
-            get { return mValue; }
-            set
-            {
-                if (value != null && value.Equals(mValue) && mSetted) return;
+            get { return GetValue(); }
+            set { SetValue(value); }
+        }
 
+        protected virtual T GetValue()
+        {
+            return mValue;
+        }
+
+        protected virtual void SetValue(T value)
+        {
+            if (IsValueChanged(value))
+            {
                 mValue = value;
 
-                if (mSetter != null)
-                {
-                    mSetter.Invoke(mValue);
-                    OnValueChanged.Invoke(mValue);
-                }
+                DispatchValueChangeEvent();
 
                 mSetted = true;
+            }
+        }
+
+        protected virtual bool IsValueChanged(T value)
+        {
+            return value == null || !value.Equals(mValue) || !mSetted;
+        }
+
+
+        protected virtual void DispatchValueChangeEvent()
+        {
+            if (mSetter != null)
+            {
+                mSetter.Invoke(mValue);
+                OnValueChanged.Invoke(mValue);
             }
         }
 
@@ -97,7 +116,7 @@ namespace QFramework
             var initValue = PlayerPrefs.GetInt(saveKey, defaultValue ? 1 : 0) == 1;
 
             mValue = initValue;
-            
+
             this.Bind(value => PlayerPrefs.SetInt(saveKey, value ? 1 : 0));
         }
     }
@@ -109,11 +128,11 @@ namespace QFramework
             var initValue = PlayerPrefs.GetFloat(saveKey, defaultValue);
 
             mValue = initValue;
-            
+
             this.Bind(value => PlayerPrefs.SetFloat(saveKey, value));
         }
     }
-    
+
     public class PlayerPrefsIntProperty : Property<int>
     {
         public PlayerPrefsIntProperty(string saveKey, int defaultValue = 0)
@@ -121,7 +140,7 @@ namespace QFramework
             var initValue = PlayerPrefs.GetInt(saveKey, defaultValue);
 
             mValue = initValue;
-            
+
             this.Bind(value => PlayerPrefs.SetInt(saveKey, value));
         }
     }
@@ -133,8 +152,41 @@ namespace QFramework
             var initValue = PlayerPrefs.GetString(saveKey, defaultValue);
 
             mValue = initValue;
-            
+
             this.Bind(value => PlayerPrefs.SetString(saveKey, value));
+        }
+    }
+
+    public class CustomProperty<T> : Property<T>
+    {
+        private Func<T> mValueGetter = null;
+
+        private Action<T> mValueSetter = null;
+
+        public CustomProperty(Func<T> valueGetter, Action<T> valueSetter = null)
+        {
+            mValueGetter = valueGetter;
+            mValueSetter = valueSetter;
+        }
+        
+        protected override T GetValue()
+        {
+            mValue = mValueGetter.Invoke();
+            return mValue;
+        }
+
+        protected override void SetValue(T value)
+        {
+            if (IsValueChanged(value))
+            {
+                mValue = value;
+
+                DispatchValueChangeEvent();
+
+                mSetted = true;
+
+                if (mValueSetter != null) mValueSetter(value);
+            }
         }
     }
 }

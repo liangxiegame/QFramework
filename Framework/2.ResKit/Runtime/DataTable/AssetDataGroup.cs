@@ -275,7 +275,7 @@ namespace QFramework
 
                 try
                 {
-                    Log.E("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.AssetName,
+                    Log.W("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.AssetName,
                         mABUnitArray[old.AssetBundleIndex].abName, mABUnitArray[data.AssetBundleIndex].abName);
                 }
                 catch (Exception e)
@@ -294,7 +294,7 @@ namespace QFramework
                 AssetData old = GetAssetData(resSearchRule);
                 resSearchRule.Recycle2Cache();
 
-                Log.E("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
+                Log.W("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
                     mABUnitArray[old.AssetBundleIndex].abName, mABUnitArray[data.AssetBundleIndex].abName);
             }
             else

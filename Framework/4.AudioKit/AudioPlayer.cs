@@ -1,13 +1,9 @@
-﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2020.5 liangxie
-****************************************************************************/
+using System;
+using UnityEngine;
 
 namespace QFramework
 {
-    using System;
-    using UnityEngine;
-        
-    public class AudioUnit : IPoolable, IPoolType
+    public class AudioPlayer : IPoolable, IPoolType
     {
         private ResLoader mLoader;
         private AudioSource mAudioSource;
@@ -19,8 +15,8 @@ namespace QFramework
         private bool mUsedCache = true;
         private bool mIsCache = false;
 
-        private Action<AudioUnit> mOnStartListener;
-        private Action<AudioUnit> mOnFinishListener;
+        private Action<AudioPlayer> mOnStartListener;
+        private Action<AudioPlayer> mOnFinishListener;
         private bool mIsPause = false;
         private float mLeftDelayTime = -1;
         private int mPlayCount = 0;
@@ -37,17 +33,17 @@ namespace QFramework
             set { mCustomEventID = -1; }
         }
 
-        public static AudioUnit Allocate()
+        public static AudioPlayer Allocate()
         {
-            return SafeObjectPool<AudioUnit>.Instance.Allocate();
+            return SafeObjectPool<AudioPlayer>.Instance.Allocate();
         }
 
-        public void SetOnStartListener(Action<AudioUnit> l)
+        public void SetOnStartListener(Action<AudioPlayer> l)
         {
             mOnStartListener = l;
         }
 
-        public void SetOnFinishListener(Action<AudioUnit> l)
+        public void SetOnFinishListener(Action<AudioPlayer> l)
         {
             mOnFinishListener = l;
         }
@@ -89,9 +85,9 @@ namespace QFramework
 
             //防止卸载后立马加载的情况
             var preLoader = mLoader;
-            
+
             mLoader = null;
-            
+
             CleanResources();
 
             mLoader = ResLoader.Allocate();
@@ -294,7 +290,7 @@ namespace QFramework
 
         public void Recycle2Cache()
         {
-            if (!SafeObjectPool<AudioUnit>.Instance.Recycle(this))
+            if (!SafeObjectPool<AudioPlayer>.Instance.Recycle(this))
             {
                 if (mAudioSource != null)
                 {
