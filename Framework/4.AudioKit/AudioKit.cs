@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace QFramework
 {
@@ -94,7 +95,7 @@ namespace QFramework
             var audioMgr = AudioManager.Instance;
 
             audioMgr.CurrentVoiceName = voiceName;
-            
+
             if (!Settings.IsVoiceOn.Value)
             {
                 return;
@@ -117,7 +118,7 @@ namespace QFramework
                 VoicePlayer.SetOnFinishListener(null);
             });
         }
-        
+
         public static void PauseVoice()
         {
             VoicePlayer.Pause();
@@ -132,10 +133,34 @@ namespace QFramework
         {
             VoicePlayer.Stop();
         }
-        
-        public static void PlaySound(string soundName)
+
+
+        public static AudioPlayer PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
+            int customEventId = -1)
         {
-            AudioManager.PlaySound(soundName);
+            if (!Settings.IsSoundOn.Value) return null;
+
+            var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
+            
+            soundPlayer.SetAudio(AudioManager.Instance.gameObject, soundName, loop);
+            soundPlayer.SetVolume(Settings.SoundVolume.Value);
+            soundPlayer.SetOnFinishListener(soundUnit=>
+            {
+                callBack(soundUnit);
+                AudioManager.Instance.RemoveSoundPlayer2Pool(soundPlayer);
+            });
+            
+            
+            soundPlayer.customEventID = customEventId;
+
+            AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
+            return soundPlayer;
+        }
+
+
+        public static void StopAllSound()
+        {
+            AudioManager.Instance.ForEachAllSounds(player => player.Stop());
         }
     }
 }

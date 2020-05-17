@@ -196,6 +196,13 @@ namespace QFramework
         {
             AudioKit.StopVoice();
         }
+
+        [Obsolete("AudioManager.PlaySound() is depreacated,Please use AudioKit.PlaySound() instead", DeprecatedConfig.FORCE_DEPRECATED)]
+        public static void PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
+            int customEventId = -1)
+        {
+            AudioKit.PlaySound(soundName,loop,callBack,customEventId);
+        }
     }
 
     [Obsolete("AudioUnit is deprecated,Please use AudioPlayer instead", DeprecatedConfig.FORCE_DEPRECATED)]

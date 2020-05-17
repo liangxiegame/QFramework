@@ -9,6 +9,14 @@ namespace QFramework
         private AudioSource mAudioSource;
         private string mName;
 
+        public string Name
+        {
+            get
+            {
+                return mName;
+            }
+        }
+
         private bool mIsLoop;
         private AudioClip mAudioClip;
         private TimeItem mTimeItem;

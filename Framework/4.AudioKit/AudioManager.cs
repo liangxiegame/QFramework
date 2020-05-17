@@ -25,6 +25,7 @@
 ****************************************************************************/
 
 using System;
+using System.Linq;
 
 namespace QFramework
 {
@@ -132,6 +133,56 @@ namespace QFramework
                     VoicePlayer.Stop();
                 }
             }).AddTo(this);
+
+            AudioKit.Settings.IsSoundOn.Bind(soundOn =>
+            {
+                if (soundOn)
+                {
+
+                }
+                else
+                {
+                    ForEachAllSounds(player => player.Stop());
+                }
+            }).AddTo(this);
+
+
+            AudioKit.Settings.SoundVolume.Bind(soundVolume =>
+            {
+                ForEachAllSounds(player => player.SetVolume(soundVolume));
+            }).AddTo(this);
+        }
+
+        private static Dictionary<string, List<AudioPlayer>> mSoundPlayerInPlaying =
+            new Dictionary<string, List<AudioPlayer>>(30);
+
+
+        public void ForEachAllSounds(Action<AudioPlayer> operation)
+        {
+            foreach (var audioPlayer in mSoundPlayerInPlaying.SelectMany(keyValuePair => keyValuePair.Value))
+            {
+                operation(audioPlayer);
+            }
+        }
+        
+        
+
+        public void AddSoundPlayer2Pool(AudioPlayer audioPlayer)
+        {
+
+            if (mSoundPlayerInPlaying.ContainsKey(audioPlayer.Name))
+            {
+                mSoundPlayerInPlaying[audioPlayer.Name].Add(audioPlayer);
+            }
+            else
+            {
+                mSoundPlayerInPlaying.Add(audioPlayer.Name,new List<AudioPlayer> {audioPlayer});
+            }
+        }
+
+        public void RemoveSoundPlayer2Pool(AudioPlayer audioPlayer)
+        {
+            mSoundPlayerInPlaying[audioPlayer.Name].Remove(audioPlayer);
         }
 
         public override int ManagerId
@@ -228,23 +279,6 @@ namespace QFramework
         #region 内部实现
 
         int mCurSourceIndex;
-
-        public static void PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
-            int customEventId = -1)
-        {
-            if (!AudioKit.Settings.IsSoundOn.Value) return;
-
-            if (soundName.IsNullOrEmpty())
-            {
-                Log.E("soundName 为空");
-                return;
-            }
-
-            var unit = SafeObjectPool<AudioPlayer>.Instance.Allocate();
-            unit.SetAudio(Instance.gameObject, soundName, loop);
-            unit.SetOnFinishListener(callBack);
-            unit.customEventID = customEventId;
-        }
 
 
 
