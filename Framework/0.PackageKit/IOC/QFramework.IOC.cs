@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2019.11 liangxie
+ * Copyright (c) 2018 ~ 2020.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -36,6 +36,10 @@ namespace QFramework
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class InjectAttribute : Attribute
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         public InjectAttribute(string name)
         {
             Name = name;
@@ -43,6 +47,9 @@ namespace QFramework
 
         public string Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public InjectAttribute()
         {
         }
@@ -140,7 +147,6 @@ namespace QFramework
         /// <summary>
         /// Resolves all instances of TType or subclasses of TType.  Either named or not.
         /// </summary>
-        /// <typeparam name="TType">The Type to resolve</typeparam>
         /// <returns>List of objects.</returns>
         IEnumerable<object> ResolveAll(Type type);
 
@@ -202,7 +208,6 @@ namespace QFramework
         /// <summary>
         /// Resolves all instances of TType or subclasses of TType.  Either named or not.
         /// </summary>
-        /// <typeparam name="TType">The Type to resolve</typeparam>
         /// <returns>List of objects.</returns>
         public IEnumerable<object> ResolveAll(Type type)
         {
@@ -278,7 +283,6 @@ namespace QFramework
         /// Register a type mapping
         /// </summary>
         /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
         public void Register<TSource>(string name = null)
         {
             Mappings[typeof(TSource), name] = typeof(TSource);
