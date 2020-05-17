@@ -17,22 +17,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\QFramework.PureCSharp.xml</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>..\..\bin\Debug\QFramework.PureCSharp.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\QFramework.PureCSharp.xml</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>..\..\bin\Release\QFramework.PureCSharp.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -43,5 +43,7 @@
   <ItemGroup>
     <Compile Include="Framework\0.PackageKit\BindableProperty\QFramework.BindableProperty.cs" />
     <Compile Include="Framework\0.PackageKit\IOC\QFramework.IOC.cs" />
+    <Compile Include="Framework\0.PackageKit\TypeEventSystem\QFramework.TypeEventSystem.cs" />
+    <Compile Include="Framework\1.Core\CSharpExtension\QFramework.CSharpExtension.cs" />
   </ItemGroup>
 </Project>

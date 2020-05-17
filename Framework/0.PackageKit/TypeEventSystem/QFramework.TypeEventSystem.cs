@@ -44,7 +44,6 @@ namespace QFramework
         class Registerations<T> : IRegisterations
         {
             /// <summary>
-            /// 不需要 List<Action<T>> 了
             /// 因为委托本身就可以一对多注册
             /// </summary>
             public Action<T> OnReceives = obj => { };
@@ -118,7 +117,6 @@ namespace QFramework
         /// <summary>
         /// 发送事件
         /// </summary>
-        /// <param name="t"></param>
         /// <typeparam name="T"></typeparam>
         public static void Send<T>() where T : new()
         {
