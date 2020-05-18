@@ -144,7 +144,11 @@ namespace QFramework
             soundPlayer.SetVolume(Settings.SoundVolume.Value);
             soundPlayer.SetOnFinishListener(soundUnit =>
             {
-                callBack(soundUnit);
+                if (callBack != null)
+                {
+                    callBack(soundUnit);
+                }
+
                 AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
             });
 
