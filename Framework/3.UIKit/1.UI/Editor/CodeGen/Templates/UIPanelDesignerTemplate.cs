@@ -84,7 +84,19 @@ namespace QFramework
         }
 
         [GenerateProperty]
-        public string mData
+        public string Data
+        {
+            get
+            {
+                var dataTypeName = Ctx.Data.GameObjectName + "Data";
+                Ctx._("return mData");
+                Ctx.CurrentProperty.Type = dataTypeName.ToCodeReference();
+                return dataTypeName;
+            }
+        }
+
+        [GenerateProperty]
+        protected string mData
         {
             get
             {

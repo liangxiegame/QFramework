@@ -52,9 +52,9 @@ namespace QFramework
 		public string  PanelName;
 		public UILevel Level;
 	}
-
+	
 	public abstract class UIPanel : QMonoBehaviour, IPanel
-	{		
+	{
 		[SerializeField] private List<SubPanelInfo> mSubPanelInfos = new List<SubPanelInfo>();
 
 		public Transform Transform
@@ -62,23 +62,19 @@ namespace QFramework
 			get { return transform; }
 		}
 
-		public UIPanelInfo PanelInfo { get; set; }
+		UIKitConfig.IPanelLoader IPanel.Loader { get; set; }
 
-		private   IPanelLoader mPanelLoader  = null;
-		protected IUIData        mUIData;
-
-		public static UIPanel Load(string panelName, string assetBundleName = null)
+		public PanelInfo PanelInfo
 		{
-			var panelLoader = new DefaultPanelLoader();
-			var panelPrefab = assetBundleName.IsNullOrEmpty()
-				? panelLoader.LoadPanelPrefab(panelName)
-				: panelLoader.LoadPanelPrefab(assetBundleName, panelName);
-			var obj = Instantiate(panelPrefab);
-			var retScript = obj.GetComponent<UIPanel>();
-			retScript.mPanelLoader = panelLoader;
-			return retScript;
+			get { return Info; }
+			set { Info = value; }
 		}
 
+		public PanelInfo Info { get; set; }
+
+		public PanelState State { get; set; }
+
+		protected IUIData mUIData;
 
 		public override IManager Manager
 		{
@@ -100,28 +96,34 @@ namespace QFramework
 			OnInit(uiData);
 			InitUI(uiData);
 			RegisterUIEvent();
-			
-			mSubPanelInfos.ForEach(subPanelInfo => UIMgr.OpenPanel(subPanelInfo.PanelName, subPanelInfo.Level));
+
+			mSubPanelInfos.ForEach(subPanelInfo => UIKit.OpenPanel(subPanelInfo.PanelName, subPanelInfo.Level));
 
 		}
 
 		public void Open(IUIData uiData = null)
 		{
+			State = PanelState.Opening;
 			OnOpen(uiData);
 		}
 
+		public override void Hide()
+		{
+			State = PanelState.Hide;
+			base.Hide();
+		}
 
 
 		protected virtual void OnInit(IUIData uiData = null)
 		{
-			
+
 		}
-		
+
 		protected virtual void OnOpen(IUIData uiData = null)
 		{
-			
+
 		}
-	
+
 		/// <summary>
 		/// avoid override in child class
 		/// </summary>
@@ -138,30 +140,32 @@ namespace QFramework
 			PanelInfo.UIData = mUIData;
 			mOnClosed.InvokeGracefully();
 			mOnClosed = null;
-			
+			Hide();
+			State = PanelState.Closed;
 			OnClose();
-			
+
 			if (destroyed)
 			{
 				Destroy(gameObject);
 			}
 
-			mPanelLoader.Unload();
-			mPanelLoader = null;
-			mUIData = null;
+			this.As<IPanel>().Loader.Unload();
+			this.As<IPanel>().Loader = null;
 			
-			mSubPanelInfos.ForEach(subPanelInfo => UIMgr.ClosePanel(subPanelInfo.PanelName));
+			mUIData = null;
+
+			mSubPanelInfos.ForEach(subPanelInfo => UIKit.ClosePanel(subPanelInfo.PanelName));
 			mSubPanelInfos.Clear();
 		}
 
 		protected void CloseSelf()
 		{
-			UIManager.Instance.CloseUI(name);
+			UIKit.ClosePanel(name);
 		}
 
 		protected void Back()
 		{
-			UIManager.Instance.Back(name);
+			UIKit.Back(name);
 		}
 
 		/// <summary>
@@ -178,18 +182,17 @@ namespace QFramework
 
 
 		#region 不建议啊使用
+
+		[Obsolete("deprecated")]
 		protected virtual void InitUI(IUIData uiData = null)
 		{
 		}
-		
+
+		[Obsolete("deprecated")]
 		protected virtual void RegisterUIEvent()
 		{
 		}
+
 		#endregion
-	}
-	
-	[Obsolete("弃用啦")]
-	public abstract class QUIBehaviour : UIPanel
-	{
 	}
 }

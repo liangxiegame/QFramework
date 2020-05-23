@@ -2,16 +2,16 @@ using System;
 
 namespace QFramework
 {
-    public class DeprecatedConfig
+    public class AudioKitDeprecatedConfig
     {
-        public const bool FORCE_DEPRECATED = true;
+        public const bool FORCE_DEPRECATED = false;
     }
 
     public partial class AudioManager
     {
 
         [Obsolete("AudioManager.IsSoundOn is depreacated,Please use AudioKit.Settings.IsSoundOn.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static bool IsSoundOn
         {
             get { return AudioKit.Settings.IsSoundOn.Value; }
@@ -19,7 +19,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.IsMusicOn is depreacated,Please use AudioKit.Settings.IsMusicOn.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static bool IsMusicOn
         {
             get { return AudioKit.Settings.IsMusicOn.Value; }
@@ -27,7 +27,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.IsVoiceOn is depreacated,Please use AudioKit.Settings.IsVoiceOn.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static bool IsVoiceOn
         {
             get { return AudioKit.Settings.IsVoiceOn.Value; }
@@ -35,7 +35,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.SoundVolume is depreacated,Please use AudioKit.Settings.SoundVolume.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static float SoundVolume
         {
             get { return AudioKit.Settings.SoundVolume.Value; }
@@ -43,7 +43,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.SoundVolume is depreacated,Please use AudioKit.Settings.MusicVolume.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static float MusicVolume
         {
             get { return AudioKit.Settings.MusicVolume.Value; }
@@ -51,7 +51,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.VoiceVolume is depreacated,Please use AudioKit.Settings.VoiceVolume.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static float VoiceVolume
         {
             get { return AudioKit.Settings.VoiceVolume.Value; }
@@ -61,7 +61,7 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetSoundOn() is depreacated,Please use AudioKit.Settings.IsSoundOn.Value = true instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetSoundOn()
         {
             IsSoundOn = true;
@@ -69,7 +69,7 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetSoundOff() is depreacated,Please use AudioKit.Settings.IsSoundOn.Value = false instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetSoundOff()
         {
             IsSoundOn = false;
@@ -77,7 +77,7 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetVoiceOn() is depreacated,Please use AudioKit.Settings.IsVoiceOn.Value = true instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetVoiceOn()
         {
             IsVoiceOn = true;
@@ -85,14 +85,14 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetVoiceOff() is depreacated,Please use AudioKit.Settings.IsVoiceOn.Value = false instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetVoiceOff()
         {
             IsVoiceOn = false;
         }
 
         [Obsolete("AudioManager.IsOn is depreacated,Please use AudioKit.Settings.IsOn.Value instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static bool IsOn
         {
             get
@@ -103,7 +103,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.On() is depreacated,Please use AudioKit.Settings.IsOnValue = true instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void On()
         {
             AudioKit.Settings.IsSoundOn.Value = true;
@@ -112,7 +112,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.On() is depreacated,Please use AudioKit.Settings.IsOnValue = false instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void Off()
         {
             AudioKit.Settings.IsSoundOn.Value = false;
@@ -123,7 +123,7 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetMusicOn() is depreacated,Please use AudioKit.Settings.IsMusicOn.Value = true instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetMusicOn()
         {
             AudioKit.Settings.IsMusicOn.Value = true;
@@ -138,7 +138,7 @@ namespace QFramework
 
         [Obsolete(
             "AudioManager.SetMusicOff() is depreacated,Please use AudioKit.Settings.IsMusicOn.Value = false instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void SetMusicOff()
         {
             IsMusicOn = false;
@@ -146,14 +146,14 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.PlayMusic() is depreacated,Please use AudioKit.PlayMusic() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void PlayMusic(string musicName)
         {
             AudioKit.PlayMusic(musicName);
         }
 
         [Obsolete("AudioManager.PlayMusic() is depreacated,Please use AudioKit.PlayMusic() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
             Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
         {
@@ -161,7 +161,7 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.StopMusic() is depreacated,Please use AudioKit.StopMusic() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         /// <summary>
         /// 停止播放音乐
         /// </summary>
@@ -171,33 +171,33 @@ namespace QFramework
         }
 
         [Obsolete("AudioManager.PauseMusic() is depreacated,Please use AudioKit.PauseMusic() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void PauseMusic()
         {
             AudioKit.PauseMusic();
         }
 
         [Obsolete("AudioManager.ResumeMusic() is depreacated,Please use AudioKit.ResumeMusic() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void ResumeMusic()
         {
             AudioKit.ResumeMusic();
         }
         
         [Obsolete("AudioManager.PlayVoice() is depreacated,Please use AudioKit.PlayVoice() instead",
-            DeprecatedConfig.FORCE_DEPRECATED)]
+            AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void PlayVoice(string voiceName, bool loop = false,Action onBeganCallback = null,Action onEndedCallback = null)
         {
             AudioKit.PlayVoice(voiceName, loop, onBeganCallback, onEndedCallback);
         }
         
-        [Obsolete("AudioManager.StopVoice() is depreacated,Please use AudioKit.StopVoice() instead", DeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("AudioManager.StopVoice() is depreacated,Please use AudioKit.StopVoice() instead", AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void StopVoice()
         {
             AudioKit.StopVoice();
         }
 
-        [Obsolete("AudioManager.PlaySound() is depreacated,Please use AudioKit.PlaySound() instead", DeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("AudioManager.PlaySound() is depreacated,Please use AudioKit.PlaySound() instead", AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static void PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
             int customEventId = -1)
         {
@@ -205,7 +205,7 @@ namespace QFramework
         }
     }
 
-    [Obsolete("AudioUnit is deprecated,Please use AudioPlayer instead", DeprecatedConfig.FORCE_DEPRECATED)]
+    [Obsolete("AudioUnit is deprecated,Please use AudioPlayer instead", AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
     public class AudioUnit : AudioPlayer
     {
 

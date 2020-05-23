@@ -40,28 +40,29 @@ namespace QFramework
         public static bool InRect(this RectTransform selfRectTrans, Camera camera = null)
         {
             if (null == camera)
-                camera = UIManager.Instance.RootCanvas.worldCamera;
+                camera = UIKit.Root.Canvas.worldCamera;
  
             return RectTransformUtility.RectangleContainsScreenPoint(selfRectTrans, Input.mousePosition, camera);
         }
  
         public static Vector2 ToScreenPoint(this RectTransform selfRectTrans)
         {
-            return RectTransformUtility.WorldToScreenPoint(UIManager.Instance.RootCanvas.worldCamera, selfRectTrans.position);
+            return RectTransformUtility.WorldToScreenPoint(UIKit.Root.Canvas.worldCamera, selfRectTrans.position);
         }
  
         public static Vector2 ToScreenPoint(this RectTransform selfRectTrans, Vector2 worldPos)
         {
-            return RectTransformUtility.WorldToScreenPoint(UIManager.Instance.RootCanvas.worldCamera, worldPos);
+            return RectTransformUtility.WorldToScreenPoint(UIKit.Root.Canvas.worldCamera, worldPos);
         }
- 
-        public static bool InRootTransRect(this RectTransform selfRectTrans, RectTransform rootTrans, Camera camera = null)
+
+        public static bool InRootTransRect(this RectTransform selfRectTrans, RectTransform rootTrans,
+            Camera camera = null)
         {
             if (null == camera)
-                camera = UIManager.Instance.RootCanvas.worldCamera;
+                camera = UIKit.Root.Canvas.worldCamera;
             return RectTransformUtility.RectangleContainsScreenPoint(rootTrans, selfRectTrans.ToScreenPoint(), camera);
         }
- 
+
         public static Vector2 ConvertWorldPosToLocalPosInSelf(this RectTransform selfRectTrans, Vector2 worldPos)
         {
             var screenPos = RectTransformUtility.WorldToScreenPoint(QUICameraUtil.UICamera, worldPos);

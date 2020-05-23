@@ -28,11 +28,6 @@ namespace QFramework
 	using System.Linq;
 	using UnityEngine;
 	
-#if SLUA_SUPPORT
-	using SLua;
-
-	[CustomLuaClassAttribute]
-#endif
 	/// <summary>
 	/// 1.device detect
 	/// 2.resolution ratio calculte; Support QUIManager

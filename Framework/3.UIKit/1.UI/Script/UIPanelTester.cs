@@ -67,9 +67,9 @@ namespace QFramework
         {
             yield return new WaitForSeconds(0.2f);
 			
-            UIMgr.OpenPanel(PanelName, Level);
+            UIKit.OpenPanel(PanelName, Level);
 
-            mOtherPanels.ForEach(panelTesterInfo => { UIMgr.OpenPanel(panelTesterInfo.PanelName, panelTesterInfo.Level); });
+            mOtherPanels.ForEach(panelTesterInfo => { UIKit.OpenPanel(panelTesterInfo.PanelName, panelTesterInfo.Level); });
         }
     }
 }

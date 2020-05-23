@@ -86,20 +86,20 @@ namespace QFramework
 				processedMarks = new List<IBind>();
 			}
 
-			var uiMark = obj.GetComponent<IBind>();
+			var iBind = obj.GetComponent<IBind>();
 			var className = string.Empty;
 
-			if (uiMark != null)
+			if (iBind != null)
 			{
-				className = UIKitSettingData.GetProjectNamespace() + "." + uiMark.ComponentName;
+				className = UIKitSettingData.GetProjectNamespace() + "." + iBind.ComponentName;
 
 				// 这部分
-				if (uiMark.GetBindType() != BindType.DefaultUnityElement)
+				if (iBind.GetBindType() != BindType.DefaultUnityElement)
 				{
-					var ptuimark = obj.GetComponent<UIMark>();
-					if (ptuimark != null)
+					var bind = obj.GetComponent<Bind>();
+					if (bind != null)
 					{
-						Object.DestroyImmediate(ptuimark, true);
+						Object.DestroyImmediate(bind, true);
 					}
 				}
 			}

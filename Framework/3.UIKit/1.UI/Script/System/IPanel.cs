@@ -28,14 +28,25 @@ namespace QFramework
 {
 	using UnityEngine;
 
+	public enum PanelState
+	{
+		Opening = 0,
+		Hide = 1,
+		Closed = 2,
+	}
+	
 	/// <summary>
 	/// IUIPanel.
 	/// </summary>
-	public interface IPanel
+	public partial interface IPanel
 	{
 		Transform Transform { get; }
 		
-		UIPanelInfo PanelInfo { get; set; }
+		UIKitConfig.IPanelLoader Loader { get; set; }
+		
+		PanelInfo Info { get; set; }
+		
+		PanelState State { get; set; }
 
 		void Init(IUIData uiData = null);
 

@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 223938889282763000}
   - component: {fileID: 114574186442532806}
   - component: {fileID: 114009023594300624}
+  - component: {fileID: 114777690455613502}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -295,18 +296,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d659124b20746f581184834974f5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mBgTrans: {fileID: 224720822604420654}
-  mAnimationUnderTrans: {fileID: 224194804966871350}
-  mCommonTrans: {fileID: 224461212279137884}
-  mAnimationOnTrans: {fileID: 224756015771926046}
-  mPopUITrans: {fileID: 224400937574682716}
-  mConstTrans: {fileID: 224743632830504484}
-  mToastTrans: {fileID: 224337671467769200}
-  mForwardTrans: {fileID: 224172074708714874}
-  mUICamera: {fileID: 20000013668380898}
-  mCanvas: {fileID: 223938889282763000}
-  mCanvasScaler: {fileID: 114574186442532806}
-  mGraphicRaycaster: {fileID: 114009023594300624}
 --- !u!114 &114000013945856272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -373,6 +362,29 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114777690455613502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012438581554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed25d6ea65a745d1bdcdda68c7bd94db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BgTrans: {fileID: 224720822604420654}
+  AnimationUnderTrans: {fileID: 224194804966871350}
+  CommonTrans: {fileID: 224461212279137884}
+  AnimationOnTrans: {fileID: 224756015771926046}
+  PopUITrans: {fileID: 224400937574682716}
+  ConstTrans: {fileID: 224743632830504484}
+  ToastTrans: {fileID: 224337671467769200}
+  ForwardTrans: {fileID: 224172074708714874}
+  UICamera: {fileID: 20000013668380898}
+  Canvas: {fileID: 223938889282763000}
+  CanvasScaler: {fileID: 114574186442532806}
+  GraphicRaycaster: {fileID: 114009023594300624}
 --- !u!124 &124000013877703386
 Behaviour:
   m_ObjectHideFlags: 1

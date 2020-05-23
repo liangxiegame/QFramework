@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.7","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.7","content":"* AudioKit 修复一个空指针异常的问题","author":"liangxie","date":"2020 年 05 月 18 日 22:30","PackageId":""}}
+{"Id":"","Version":"v0.10.8","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.8","content":"* UIKit 覆盖核心的单元测试","author":"liangxie","date":"2020 年 05 月 23 日 23:14","PackageId":""}}

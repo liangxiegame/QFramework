@@ -1806,12 +1806,7 @@ namespace QFramework
             selfToggle.onValueChanged.AddListener(onValueChangedEvent);
         }
     }
-
-#if SLUA_SUPPORT
-    using SLua;
-    [CustomLuaClass]
-#endif
-
+    
     /// <summary>
     /// Transform's Extension
     /// </summary>

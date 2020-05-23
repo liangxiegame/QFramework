@@ -46,11 +46,17 @@ namespace QFramework
 			get { return this; }
 		}
 
+#if QFTOLUA
+		[LuaInterface.NoToLua]
+#endif
 		public void RegisterEvent<T>(T msgId,OnEvent process) where T:IConvertible
 		{
 			mEventSystem.Register (msgId, process);
 		}
 
+#if QFTOLUA
+		[LuaInterface.NoToLua]
+#endif
 		public void UnRegistEvent<T>(T msgEvent, OnEvent process) where T : IConvertible
 		{
 			mEventSystem.UnRegister(msgEvent, process);

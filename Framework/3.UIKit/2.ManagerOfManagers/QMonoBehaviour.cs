@@ -83,6 +83,9 @@ namespace QFramework
 			Manager.SendMsg(msg);
 		}
 
+#if QFTOLUA
+		[LuaInterface.NoToLua]
+#endif
         public virtual void SendEvent<T>(T eventId) where T : IConvertible
 		{
 			Manager.SendEvent(eventId);

@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2018.5 ~ 8  liangxie
+ * Copyright (c) 2018.5 ~ 2020.5  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,58 +25,16 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Linq;
+
 namespace QFramework
 {
-	using UnityEngine;
-	using System.Collections.Generic;
-	using UnityEngine.UI;
-	using System;
-
-#if SLUA_SUPPORT
-	using SLua;
-#endif
-	public enum UILevel
-	{
-		AlwayBottom = -3, //如果不想区分太复杂那最底层的UI请使用这个
-		Bg = -2, //背景层UI
-		AnimationUnderPage = -1, //动画层
-		Common = 0, //普通层UI
-		AnimationOnPage = 1, // 动画层
-		PopUI = 2, //弹出层UI
-		Guide = 3, //新手引导层
-		Const = 4, //持续存在层UI
-		Toast = 5, //对话框层UI
-		Forward = 6, //最高UI层用来放置UI特效和模型
-		AlwayTop = 7, //如果不想区分太复杂那最上层的UI请使用这个
-	}
-
-#if SLUA_SUPPORT
-	[CustomLuaClass]
-#endif
 	//// <summary>
 	/// <inheritdoc />
 	/// <![CDATA[The 'member' start tag on line 2 position 2 does not match the end tag of 'summary'. Line 3, position 3.]]>
-	[MonoSingletonPath("UIRoot")]
-	public class UIManager : QMgrBehaviour, ISingleton
+	[MonoSingletonPath("UIRoot/Manager")]
+	public partial class UIManager : QMgrBehaviour, ISingleton
 	{
-		private Dictionary<string, IPanel> mAllUI = new Dictionary<string, IPanel>();
-
-        [SerializeField] private Transform mBgTrans;
-		[SerializeField] private Transform mAnimationUnderTrans;
-		[SerializeField] private Transform mCommonTrans;
-		[SerializeField] private Transform mAnimationOnTrans;
-		[SerializeField] private Transform mPopUITrans;
-		[SerializeField] private Transform mConstTrans;
-		[SerializeField] private Transform mToastTrans;
-		[SerializeField] private Transform mForwardTrans;
-		
-		[SerializeField] private Camera mUICamera;
-		[SerializeField] private Canvas mCanvas;
-		[SerializeField] private CanvasScaler mCanvasScaler;
-		[SerializeField] private GraphicRaycaster mGraphicRaycaster;
-
-		public Stack<UIPanelInfo> mUIStack = new Stack<UIPanelInfo>(); 
-
 		void ISingleton.OnSingletonInit()
 		{
 
@@ -88,64 +46,25 @@ namespace QFramework
 		{
 			get
 			{
-				if (null == mInstance)
+				if (!mInstance)
 				{
-					mInstance = FindObjectOfType<UIManager>();
-				}
-
-				if (null == mInstance)
-				{
-					Instantiate(Resources.Load<GameObject>("UIRoot"));
 					mInstance = MonoSingletonProperty<UIManager>.Instance;
-					mInstance.name = "UIRoot";
-					DontDestroyOnLoad(mInstance);
 				}
 
 				return mInstance;
 			}
 		}
 
-		public Canvas RootCanvas
+		public IPanel OpenUI(PanelSearchKeys panelSearchKeys)
 		{
-			get { return mCanvas; }
-		}
+			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-		public Camera UICamera
-		{
-			get { return mUICamera; }
-		}
-
-		public void SetResolution(int width, int height)
-		{
-			mCanvasScaler.referenceResolution = new UnityEngine.Vector2(width, height);
-		}
-
-		public Vector2 GetResolution()
-		{
-			return mCanvasScaler.referenceResolution;
-		}
-
-		public void SetMatchOnWidthOrHeight(float heightPercent)
-		{
-			mCanvasScaler.matchWidthOrHeight = heightPercent;
-		}
-
-		public float GetMatchOnWithOrHeight()
-		{
-			return mCanvasScaler.matchWidthOrHeight;
-		}
-
-		public IPanel OpenUI(string uiBehaviourName, UILevel canvasLevel, IUIData uiData = null,
-			string assetBundleName = null)
-		{
-			IPanel retPanel = null;
-
-			if (!mAllUI.TryGetValue(uiBehaviourName, out retPanel))
+			if (retPanel == null)
 			{
-				retPanel = CreateUI(uiBehaviourName, canvasLevel, uiData, assetBundleName);
+				retPanel = CreateUI(panelSearchKeys);
 			}
 
-			retPanel.Open(uiData);
+			retPanel.Open(panelSearchKeys.UIData);
 			retPanel.Show();
 			return retPanel;
 		}
@@ -154,12 +73,13 @@ namespace QFramework
 		/// 显示UIBehaiviour
 		/// </summary>
 		/// <param name="uiBehaviourName"></param>
-		public void ShowUI(string uiBehaviourName)
+		public void ShowUI(PanelSearchKeys panelSearchKeys)
 		{
-			IPanel iuiPanel = null;
-			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
+			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+
+			if (retPanel != null)
 			{
-				iuiPanel.Show();
+				retPanel.Show();
 			}
 		}
 
@@ -167,12 +87,13 @@ namespace QFramework
 		/// 隐藏UI
 		/// </summary>
 		/// <param name="uiBehaviourName"></param>
-		public void HideUI(string uiBehaviourName)
+		public void HideUI(PanelSearchKeys panelSearchKeys)
 		{
-			IPanel iuiPanel = null;
-			if (mAllUI.TryGetValue(uiBehaviourName, out iuiPanel))
+			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+
+			if (retPanel != null)
 			{
-				iuiPanel.Hide();
+				retPanel.Hide();
 			}
 		}
 
@@ -181,12 +102,12 @@ namespace QFramework
 		/// </summary>
 		public void CloseAllUI()
 		{
-			foreach (var layer in mAllUI)
+			foreach (var layer in UIKit.Table)
 			{
-				Destroy(layer.Value.Transform.gameObject);
+				layer.Close();
 			}
 
-			mAllUI.Clear();
+			UIKit.Table.Clear();
 		}
 
 		/// <summary>
@@ -194,306 +115,73 @@ namespace QFramework
 		/// </summary>
 		public void HideAllUI()
 		{
-			mAllUI.ForEach(keyValuePair => keyValuePair.Value.Hide());
+			UIKit.Table.ForEach(dataItem => dataItem.Hide());
 		}
 
 		/// <summary>
 		/// 关闭并卸载UI
 		/// </summary>
 		/// <param name="behaviourName"></param>
-		public void CloseUI(string behaviourName)
+		public void CloseUI(PanelSearchKeys panelSearchKeys)
 		{
-			IPanel behaviour = null;
+			var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-			mAllUI.TryGetValue(behaviourName, out behaviour);
-
-			if ((behaviour as UIPanel))
+			if (panel as UIPanel)
 			{
-				behaviour.Close();
-				mAllUI.Remove(behaviourName);
-			}
-		}
-		
-		public void Push<T>() where T : UIPanel
-		{
-			Push(GetUI<T>());
-		}
-
-		public void Push(IPanel view)
-		{
-			if (view != null)
-			{
-				mUIStack.Push(view.PanelInfo);
-				view.Close();
-				mAllUI.Remove(view.Transform.name);
+				panel.Close();
+				UIKit.Table.Remove(panel);
 			}
 		}
 
-		public void Back(string currentPanelName)
+		public void RemoveUI(PanelSearchKeys panelSearchKeys)
 		{
-			var previousPanelInfo = mUIStack.Pop();
-			CloseUI(currentPanelName);
-			OpenUI(previousPanelInfo.PanelName, previousPanelInfo.Level, previousPanelInfo.UIData,
-				previousPanelInfo.AssetBundleName);
+			var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+
+			if (panel != null)
+			{
+				UIKit.Table.Remove(panel);
+			}
 		}
-		
 
 		/// <summary>
 		/// 获取UIBehaviour
 		/// </summary>
 		/// <param name="uiBehaviourName"></param>
 		/// <returns></returns>
-		public UIPanel GetUI(string uiBehaviourName)
+		public UIPanel GetUI(PanelSearchKeys panelSearchKeys)
 		{
-			IPanel retIuiPanel = null;
-			
-			if (mAllUI.TryGetValue(uiBehaviourName, out retIuiPanel))
-			{
-				return retIuiPanel as UIPanel;
-			}
-
-			return null;
+			return UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault() as UIPanel;
 		}
-		
+
 		public override int ManagerId
 		{
 			get { return QMgrID.UI; }
 		}
 
-		/// <summary>
-		/// 命名空间对应名字的缓存
-		/// </summary>
-		private Dictionary<string, string> mFullname4UIBehaviourName = new Dictionary<string, string>();
-
-		private string GetUIBehaviourName<T>()
+		public IPanel CreateUI(PanelSearchKeys panelSearchKeys)
 		{
-			var fullBehaviourName = typeof(T).ToString();
-			string retValue = null;
+			var panel = UIKit.Config.LoadPanel(panelSearchKeys);
 
-			if (mFullname4UIBehaviourName.TryGetValue(fullBehaviourName, out retValue))
-			{	
-			}
-			else
+			UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level, panel);
+
+			UIKit.Config.SetDefaultSizeOfPanel(panel);
+
+			panel.Transform.gameObject.name = panelSearchKeys.GameObjName ?? panelSearchKeys.PanelType.Name;
+
+			panel.Info = new PanelInfo()
 			{
-				retValue = typeof(T).Name;
-			}
+				AssetBundleName = panelSearchKeys.AssetBundleName,
+				Level = panelSearchKeys.Level,
+				GameObjName = panelSearchKeys.GameObjName,
+				PanelType = panelSearchKeys.PanelType,
+				UIData = panelSearchKeys.UIData
+			};
 
-			return retValue;
+			UIKit.Table.Add(panel);
+
+			panel.Init(panelSearchKeys.UIData);
+
+			return panel;
 		}
-
-		public IPanel CreateUI(string uiBehaviourName, UILevel level = UILevel.Common, IUIData uiData = null,
-			string assetBundleName = null)
-		{
-			IPanel ui;
-			
-			if (mAllUI.TryGetValue(uiBehaviourName, out ui))
-			{
-				return ui;
-			}
-
-			ui = UIPanel.Load(uiBehaviourName, assetBundleName);
-
-			switch (level)
-			{
-				case UILevel.Bg:
-					ui.Transform.SetParent(mBgTrans);
-					break;
-				case UILevel.AnimationUnderPage:
-					ui.Transform.SetParent(mAnimationUnderTrans);
-					break;
-				case UILevel.Common:
-					ui.Transform.SetParent(mCommonTrans);
-					break;
-				case UILevel.AnimationOnPage:
-					ui.Transform.SetParent(mAnimationOnTrans);
-					break;
-				case UILevel.PopUI:
-					ui.Transform.SetParent(mPopUITrans);
-					break;
-				case UILevel.Const:
-					ui.Transform.SetParent(mConstTrans);
-					break;
-				case UILevel.Toast:
-					ui.Transform.SetParent(mToastTrans);
-					break;
-				case UILevel.Forward:
-					ui.Transform.SetParent(mForwardTrans);
-					break;
-			}
-
-			var uiGoRectTrans = ui.Transform as RectTransform;
-
-			uiGoRectTrans.offsetMin = Vector2.zero;
-			uiGoRectTrans.offsetMax = Vector2.zero;
-			uiGoRectTrans.anchoredPosition3D = Vector3.zero;
-			uiGoRectTrans.anchorMin = Vector2.zero;
-			uiGoRectTrans.anchorMax = Vector2.one;
-
-			ui.Transform.LocalScaleIdentity();
-			ui.Transform.gameObject.name = uiBehaviourName;
-
-			ui.PanelInfo = new UIPanelInfo
-				{AssetBundleName = assetBundleName, Level = level, PanelName = uiBehaviourName};
-
-			mAllUI.Add(uiBehaviourName, ui);
-
-			ui.Init(uiData);
-
-			return ui;
-		}
-
-		#region UnityCSharp Generic Support
-
-		/// <summary>
-		/// Create&ShowUI
-		/// </summary>
-		public T OpenUI<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null, string assetBundleName = null,
-			string prefabName = null) where T : UIPanel
-		{
-			return OpenUI(prefabName ?? GetUIBehaviourName<T>(), canvasLevel, uiData, assetBundleName) as T;
-		}
-		
-		public void ShowUI<T>() where T : UIPanel
-		{
-			ShowUI(GetUIBehaviourName<T>());
-		}
-
-		public void HideUI<T>() where T : UIPanel
-		{
-			HideUI(GetUIBehaviourName<T>());
-		}
-
-		public void CloseUI<T>() where T : UIPanel
-		{
-			CloseUI(GetUIBehaviourName<T>());
-		}
-
-		public T GetUI<T>() where T : UIPanel
-		{
-			return GetUI(GetUIBehaviourName<T>()) as T;
-		}
-
-		#endregion
-	}
-
-	public static class UIMgr
-	{
-		public static void Push<T>() where T : UIPanel
-		{
-			UIManager.Instance.Push<T>();
-		}
-
-		public static void Push(UIPanel view)
-		{
-			UIManager.Instance.Push(view);
-		}
-		
-		public static Camera Camera
-		{
-			get { return UIManager.Instance.UICamera; }
-		}
-		
-		public static void SetResolution(int width, int height, float matchOnWidthOrHeight)
-		{
-			UIManager.Instance.SetResolution(width, height);
-			UIManager.Instance.SetMatchOnWidthOrHeight(matchOnWidthOrHeight);
-		}
-
-		public static Vector2 GetResolution()
-		{
-			return UIManager.Instance.GetResolution();
-		}
-
-		public static float GetMatchOrWidthOrHeight()
-		{
-			return UIManager.Instance.GetMatchOnWithOrHeight();
-		}
-
-		#region 高频率调用的 api 只能在 Mono 层使用
-
-		internal static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
-			string assetBundleName = null,
-			string prefabName = null) where T : UIPanel
-		{
-			return UIManager.Instance.OpenUI<T>(canvasLevel, uiData, assetBundleName, prefabName);
-		}
-		
-		internal static T OpenPanel<T>(IUIData uiData, string assetBundleName = null,
-			string prefabName = null) where T : UIPanel
-		{
-			return UIManager.Instance.OpenUI<T>(UILevel.Common, uiData, assetBundleName,prefabName);
-		}
-
-		internal static void ClosePanel<T>() where T : UIPanel
-		{
-			UIManager.Instance.CloseUI<T>();
-		}
-		
-		internal static void ShowPanel<T>() where T : UIPanel
-		{
-			UIManager.Instance.ShowUI<T>();
-		}
-
-		internal static void HidePanel<T>() where T : UIPanel
-		{
-			UIManager.Instance.HideUI<T>();
-		}
-
-		public static void CloseAllPanel()
-        {
-            UIManager.Instance.CloseAllUI();
-        }
-
-        public static void HideAllPanel()
-        {
-	        UIManager.Instance.HideAllUI();
-        }
-
-        internal static T GetPanel<T>() where T : UIPanel
-		{
-			return UIManager.Instance.GetUI<T>();
-		}
-
-		#endregion
-
-		#region 给脚本层用的 api
-
-		public static UIPanel GetPanel(string panelName)
-		{
-			return UIManager.Instance.GetUI(panelName);
-		}
-
-		public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
-		{
-			return UIManager.Instance.OpenUI(panelName, level, null, assetBundleName) as UIPanel;
-		}
-
-		public static UIPanel OpenPanel(string panelName)
-		{
-			return UIManager.Instance.OpenUI(panelName, UILevel.Common, null, null) as UIPanel;
-		}
-		
-		public static void ClosePanel(string panelName)
-		{
-			UIManager.Instance.CloseUI(panelName);
-		}
-
-		public static void ShowPanel(string panelName)
-		{
-			UIManager.Instance.ShowUI(panelName);
-		}
-
-		public static void HidePanel(string panelName)
-		{
-			UIManager.Instance.HideUI(panelName);
-		}
-
-		#endregion
-	}
-	
-	[Obsolete("弃用啦")]
-	public class QUIManager : UIManager
-	{
-			
 	}
 }
