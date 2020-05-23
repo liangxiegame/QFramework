@@ -7,7 +7,7 @@ namespace QFramework
     /// </summary>
     public class UIPanelStack
     {
-        public Stack<PanelInfo> mUIStack = new Stack<PanelInfo>();
+        private Stack<PanelInfo> mUIStack = new Stack<PanelInfo>();
 
         public void Push<T>() where T : UIPanel
         {

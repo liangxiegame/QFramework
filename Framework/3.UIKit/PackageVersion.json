@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.0","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/3.UIKit/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.0","content":"* 兼容旧的 API\n* 重构核心结构","author":"liangxie","date":"2020 年 05 月 23 日 23:14","PackageId":""}}
+{"Id":"","Version":"v0.10.1","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/3.UIKit/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.1","content":"删除一些不用的 API","author":"liangxie","date":"2020 年 05 月 23 日 23:52","PackageId":""}}

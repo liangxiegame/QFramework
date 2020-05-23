@@ -277,4 +277,31 @@ namespace QFramework
 	public abstract class QUIBehaviour : UIPanel
 	{
 	}
+	
+	
+	public partial class UIPanel
+	{
+		[Obsolete("PanelInfo is deprecated,Please use Info instead", AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
+
+		public PanelInfo PanelInfo
+		{
+			get { return Info; }
+			set { Info = value; }
+		}
+        
+		#region 不建议啊使用
+
+		[Obsolete("deprecated")]
+		protected virtual void InitUI(IUIData uiData = null)
+		{
+		}
+
+		[Obsolete("deprecated")]
+		protected virtual void RegisterUIEvent()
+		{
+		}
+
+		#endregion
+	}
+	
 }

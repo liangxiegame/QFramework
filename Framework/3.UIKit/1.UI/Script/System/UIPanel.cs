@@ -32,7 +32,6 @@ namespace QFramework
 {
 	using System;
 	using UnityEngine;
-	using System.Collections.Generic;
 
 	/// <summary>
 	/// 每个UIbehaviour对应的Data
@@ -45,30 +44,15 @@ namespace QFramework
 	{
 		protected UIPanel mPanel;
 	}
-
-	[Serializable]
-	public class SubPanelInfo
-	{
-		public string  PanelName;
-		public UILevel Level;
-	}
 	
-	public abstract class UIPanel : QMonoBehaviour, IPanel
+	public abstract partial class UIPanel : QMonoBehaviour, IPanel
 	{
-		[SerializeField] private List<SubPanelInfo> mSubPanelInfos = new List<SubPanelInfo>();
-
 		public Transform Transform
 		{
 			get { return transform; }
 		}
 
 		UIKitConfig.IPanelLoader IPanel.Loader { get; set; }
-
-		public PanelInfo PanelInfo
-		{
-			get { return Info; }
-			set { Info = value; }
-		}
 
 		public PanelInfo Info { get; set; }
 
@@ -96,9 +80,6 @@ namespace QFramework
 			OnInit(uiData);
 			InitUI(uiData);
 			RegisterUIEvent();
-
-			mSubPanelInfos.ForEach(subPanelInfo => UIKit.OpenPanel(subPanelInfo.PanelName, subPanelInfo.Level));
-
 		}
 
 		public void Open(IUIData uiData = null)
@@ -151,11 +132,8 @@ namespace QFramework
 
 			this.As<IPanel>().Loader.Unload();
 			this.As<IPanel>().Loader = null;
-			
-			mUIData = null;
 
-			mSubPanelInfos.ForEach(subPanelInfo => UIKit.ClosePanel(subPanelInfo.PanelName));
-			mSubPanelInfos.Clear();
+			mUIData = null;
 		}
 
 		protected void CloseSelf()
@@ -179,20 +157,5 @@ namespace QFramework
 		{
 			mOnClosed = onPanelClosed;
 		}
-
-
-		#region 不建议啊使用
-
-		[Obsolete("deprecated")]
-		protected virtual void InitUI(IUIData uiData = null)
-		{
-		}
-
-		[Obsolete("deprecated")]
-		protected virtual void RegisterUIEvent()
-		{
-		}
-
-		#endregion
 	}
 }
