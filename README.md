@@ -43,9 +43,9 @@ this.ExecuteNode(sequenceNode);
 var loader = ResLoader.Allocate();
 
 // load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("Resources/smobj");
+loader.LoadSync<GameObject>("resources://smobj");
 
-loader.LoadSync<Texture2D>("Resources/Bg");
+loader.LoadSync<Texture2D>("resources://Bg");
 
 // load by asset bundle's assetName
 loader.LoadSync<Texture2D>("HomeBg");
@@ -63,13 +63,13 @@ loader = null;
 
 ``` csharp
 // open a panel from assetBundle
-UIMgr.OpenPanel<UIMainPanel>();
+UIKit.OpenPanel<UIMainPanel>();
 
 // load a panel from specified Resources
-UIMgr.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
+UIKit.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
 
 // load a panel from specield assetName
-UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
+UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ```
 
 ### 技术支持 Tech Support：
@@ -89,7 +89,7 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
 ### 运行环境
-* Unity 5.6.x ~ 2018.x
+* Unity 5.6.x ~ 2020.x
 
 ### 可选的包含项目 Include Projects:
 * [Catlib.Core](https://github.com/CatLib/Core)
@@ -129,9 +129,4 @@ UIMgr.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [TinaX](https://github.com/yomunsam/TinaX): 开箱即用的 Unity 开发框架，支持 Lua。
 
 ### 代码规范完全遵循:
-
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
-
-### 结构图 (v0.0.13)
-
-![](http://assets.processon.com/chart_image/5c1dd179e4b095ccfeeb6204.png)
