@@ -19885,7 +19885,7 @@
 						"$ref": "AAAAAAFyGGeuya2TP7Q="
 					},
 					"name": "v0.10.x Plan",
-					"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录（完成）\n* AudioManager API 改进\n* UIKit 支持缓存加载\n\n\n## 单元测试覆盖\n* Audio（完成）\n* UIKit\n* ResKit（从 LXResKit 中搬移）\n* Core（Container 等）"
+					"documentation": "## v0.10.x 开发规划\n\n* 单元测试全覆盖（Framework 文件夹内)\n* UML 文档化全覆盖（Framework 文件夹内）\n* 仓储目录结构改成 QFramework/Framework 为根目录（完成）\n* AudioManager API 改进\n* UIKit 支持缓存加载\n\n\n## 单元测试覆盖\n* Audio（完成）\n* UIKit（完成)\n* ResKit（从 LXResKit 中搬移）\n* Core（Container 等）\n* PackageKit"
 				},
 				{
 					"_type": "UMLModel",
