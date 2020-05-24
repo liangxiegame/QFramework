@@ -43,7 +43,7 @@ namespace QFramework
 			#if (UNITY_ANDROID) && !UNITY_EDITOR
 			if (mZipFile == null)
 			{
-			mZipFile = new ZipFile(File.Open(Application.dataPath, FileMode.Open, FileAccess.Read));
+			mZipFile = new ZipFile(File.Open(UnityEngine.Application.dataPath, FileMode.Open, FileAccess.Read));
 			}
 			#endif
 		}
