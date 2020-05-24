@@ -26,14 +26,15 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 
 namespace QFramework
 {
     using System.Collections.Generic;
     using UnityEngine;
 
-    [Dependencies.ResKit.Pool.MonoSingletonPath("[Framework]/ResMgr")]
-    public class ResMgr : Dependencies.ResKit.Pool.MonoSingleton<ResMgr>, IEnumeratorTaskMgr
+    [MonoSingletonPath("[Framework]/ResMgr")]
+    public class ResMgr : MonoSingleton<ResMgr>, IEnumeratorTaskMgr
     {
         #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
 
@@ -47,12 +48,12 @@ namespace QFramework
             if (mResMgrInited) return;
             mResMgrInited = true;
 
-            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+            SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResSearchKeys>.Instance.Init(40, 20);
+            SafeObjectPool<ResLoader>.Instance.Init(40, 20);
 
 
             Instance.InitResMgr();
@@ -64,12 +65,12 @@ namespace QFramework
             if (mResMgrInited) yield break;
             mResMgrInited = true;
 
-            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Init(40, 20);
-            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Init(40, 20);
+            SafeObjectPool<AssetBundleRes>.Instance.Init(40, 20);
+            SafeObjectPool<AssetRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResourcesRes>.Instance.Init(40, 20);
+            SafeObjectPool<NetImageRes>.Instance.Init(40, 20);
+            SafeObjectPool<ResSearchKeys>.Instance.Init(40, 20);
+            SafeObjectPool<ResLoader>.Instance.Init(40, 20);
 
             yield return Instance.InitResMgrAsync();
         }
@@ -78,13 +79,13 @@ namespace QFramework
 
         public int Count
         {
-            get { return mResList.Count; }
+            get { return mTable.Count(); }
         }
 
         #region 字段
 
-        private readonly         Dictionary<string, IRes>    mResDictionary = new Dictionary<string, IRes>();
-        private readonly         List<IRes>                  mResList       = new List<IRes>();
+        private ResTable mTable = new ResTable();
+
         [SerializeField] private int                         mCurrentCoroutineCount;
         private                  int                         mMaxCoroutineCount    = 8; //最快协成大概在6到8之间
         private                  LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
@@ -189,10 +190,11 @@ namespace QFramework
         }
 
 
-        public IRes GetRes(ResSearchRule resSearchRule, bool createNew = false)
+        public IRes GetRes(ResSearchKeys resSearchKeys, bool createNew = false)
         {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(resSearchRule.DictionaryKey, out res))
+            IRes res = mTable.GetResBySearchKeys(resSearchKeys);
+
+            if (res != null)
             {
                 return res;
             }
@@ -203,40 +205,19 @@ namespace QFramework
                 return null;
             }
 
-            res = ResFactory.Create(resSearchRule);
+            res = ResFactory.Create(resSearchKeys);
 
             if (res != null)
             {
-                mResDictionary.Add(resSearchRule.DictionaryKey, res);
-                if (!mResList.Contains(res))
-                {
-                    mResList.Add(res);
-                }
+                mTable.Add(res);
             }
 
             return res;
         }
 
-        public R GetRes<R>(string assetName) where R : IRes
+        public T GetRes<T>(ResSearchKeys resSearchKeys) where T : class, IRes
         {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(assetName, out res))
-            {
-                return (R) res;
-            }
-
-            return default(R);
-        }
-
-        public R GetAsset<R>(string name) where R : Object
-        {
-            IRes res = null;
-            if (mResDictionary.TryGetValue(name, out res))
-            {
-                return res.Asset as R;
-            }
-
-            return null;
+            return mTable.GetResBySearchKeys(resSearchKeys) as T;
         }
 
         #endregion
@@ -260,16 +241,14 @@ namespace QFramework
 
             mIsResMapDirty = false;
 
-            for (var i = mResList.Count - 1; i >= 0; --i)
+            foreach (var res in mTable.ToArray())
             {
-                var res = mResList[i];
                 if (res.RefCount <= 0 && res.State != ResState.Loading)
                 {
                     if (res.ReleaseRes())
                     {
-                        mResList.RemoveAt(i);
-                        mResDictionary.Remove(res.AssetName);
-                        mResDictionary.Remove((res.OwnerBundleName + res.AssetName).ToLower());
+                        mTable.Remove(res);
+
                         res.Recycle2Cache();
                     }
                 }
@@ -285,14 +264,14 @@ namespace QFramework
                 GUILayout.Label("ResKit", new GUIStyle {fontSize = 30});
                 GUILayout.Space(10);
                 GUILayout.Label("ResInfo", new GUIStyle {fontSize = 20});
-                mResList.ForEach(res => { GUILayout.Label((res as Res).ToString()); });
+                mTable.ToList().ForEach(res => { GUILayout.Label((res as Res).ToString()); });
                 GUILayout.Space(10);
 
                 GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
                 GUILayout.Label(string.Format("ResSearchRule:{0}",
-                    Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.CurCount));
+                    SafeObjectPool<ResSearchKeys>.Instance.CurCount));
                 GUILayout.Label(string.Format("ResLoader:{0}",
-                    Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.CurCount));
+                    SafeObjectPool<ResLoader>.Instance.CurCount));
                 GUILayout.EndVertical();
             }
         }

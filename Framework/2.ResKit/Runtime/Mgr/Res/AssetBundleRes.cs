@@ -40,7 +40,7 @@ namespace QFramework
 
         public static AssetBundleRes Allocate(string name)
         {
-            var res = Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Allocate();
+            var res = SafeObjectPool<AssetBundleRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -176,7 +176,7 @@ namespace QFramework
 
         public override void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<AssetBundleRes>.Instance.Recycle(this);
+            SafeObjectPool<AssetBundleRes>.Instance.Recycle(this);
         }
 
         public override void OnRecycled()

@@ -1,6 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2018.7 liangxie
+ * Copyright (c) 2017 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,36 +23,36 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
-    using System;
     using UnityEngine;
     using System.Collections;
-    
-    public static class NetImageResUtil
+
+    public static class LocalImageResUtil
     {
-        public static string ToNetImageResName(this string selfHttpUrl)
+        public static string ToLocalImageResName(this string selfFilePath)
         {
-            return string.Format("NetImage:{0}", selfHttpUrl);
+            return string.Format("LocalImage:{0}", selfFilePath);
         }
     }
     
-    public class NetImageRes : Res, IDownloadTask
+    /// <summary>
+    /// 本地图片加载器
+    /// </summary>
+    public class LocalImageRes : Res, IDownloadTask
     {
-        private string mUrl;
+        private string mFullPath;
         private string mHashCode;
         private object mRawAsset;
-        private WWW mWWW;
+        private WWW mWWW = null;
 
-        public static NetImageRes Allocate(string name)
+        public static LocalImageRes Allocate(string name)
         {
-            NetImageRes res = Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Allocate();
+            LocalImageRes res = SafeObjectPool<LocalImageRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
-                res.SetUrl(name.Substring(9));
+                res.SetUrl(name.Substring(11));
             }
             return res;
         }
@@ -80,7 +79,7 @@ namespace QFramework
 
         public string Url
         {
-            get { return mUrl; }
+            get { return mFullPath; }
         }
 
         public int FileSize
@@ -89,14 +88,14 @@ namespace QFramework
         }
 
         public void SetUrl(string url)
-        {
+        {            
             if (string.IsNullOrEmpty(url))
             {
                 return;
             }
 
-            mUrl = url;
-            mHashCode = string.Format("Photo_{0}", mUrl.GetHashCode());
+            mFullPath = url;
+            mHashCode = string.Format("Photo_{0}", mFullPath.GetHashCode());
         }
 
         public override bool UnloadImage(bool flag)
@@ -156,7 +155,7 @@ namespace QFramework
 
         public override void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<NetImageRes>.Instance.Recycle(this);
+            SafeObjectPool<LocalImageRes>.Instance.Recycle(this);
         }
 
         public override void OnRecycled()
@@ -184,20 +183,25 @@ namespace QFramework
             }
 
             ResMgr.Instance.PushIEnumeratorTask(this);
-            //ResMgr.S.PostLoadTask(LoadImage());
         }
 
         //完全的WWW方式,Unity 帮助管理纹理缓存，并且效率貌似更高
+        // TODO:persistantPath 用 read
         public override IEnumerator DoLoadAsync(System.Action finishCallback)
         {
-            if (RefCount <= 0)
-            {
-                OnResLoadFaild();
-                finishCallback();
-                yield break;
-            }
+//            var imageBytes = File.ReadAllBytes(mFullPath);
 
-            WWW www = new WWW(mUrl);
+//            Texture2D loadTexture2D = new Texture2D(256, 256, TextureFormat.RGB24,false);
+//            loadTexture2D.LoadImage(imageBytes);
+            
+//            if (RefCount <= 0)
+//            {
+//                OnResLoadFaild();
+//                finishCallback();
+//                yield break;
+//            }
+
+            WWW www = new WWW("file://" + mFullPath);
 
             mWWW = www;
 
@@ -207,7 +211,7 @@ namespace QFramework
 
             if (www.error != null)
             {
-                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mUrl, www.error));
+                Log.E(string.Format("Res:{0}, WWW Errors:{1}", mFullPath, www.error));
                 OnResLoadFaild();
                 finishCallback();
                 yield break;
@@ -215,7 +219,7 @@ namespace QFramework
 
             if (!www.isDone)
             {
-                Log.E("NetImageRes WWW Not Done! Url:" + mUrl);
+                Log.E("LocalImageRes WWW Not Done! Url:" + mFullPath);
                 OnResLoadFaild();
                 finishCallback();
 
@@ -235,16 +239,11 @@ namespace QFramework
                 yield break;
             }
 
-            //TimeDebugger dt = new TimeDebugger("Tex");
-            //dt.Begin("LoadingTask");
-            //这里是同步的操作
             mAsset = www.texture;
-            //dt.End();
 
             www.Dispose();
             www = null;
 
-            //dt.Dump(-1);
 
             State = ResState.Ready;
 
@@ -260,5 +259,64 @@ namespace QFramework
 
             return mWWW.progress;
         }
+
+        /*
+        public IEnumerator StartIEnumeratorTask2(Action finishCallback)
+        {
+            if (refCount <= 0)
+            {
+                OnResLoadFaild();
+                finishCallback();
+                yield break;
+            }
+
+            WWW www = new WWW("file://" + LocalResPath);
+            yield return www;
+            if (www.error != null)
+            {
+                Log.E("WWW Error:" + www.error);
+                OnResLoadFaild();
+                finishCallback();
+                yield break;
+            }
+
+            if (!www.isDone)
+            {
+                Log.E("NetImageRes WWW Not Done! Url:" + m_Url);
+                OnResLoadFaild();
+                finishCallback();
+
+                www.Dispose();
+                www = null;
+
+                yield break;
+            }
+
+            if (refCount <= 0)
+            {
+                OnResLoadFaild();
+                finishCallback();
+
+                www.Dispose();
+                www = null;
+                yield break;
+            }
+
+            TimeDebugger dt = new TimeDebugger("Tex");
+            dt.Begin("LoadingTask");
+            Texture2D tex = www.texture;
+            tex.Compress(true);
+            dt.End();
+            dt.Dump(-1);
+
+            m_Asset = tex;
+            www.Dispose();
+            www = null;
+
+            resState = eResState.kReady;
+
+            finishCallback();
+        }
+        */
     }
 }

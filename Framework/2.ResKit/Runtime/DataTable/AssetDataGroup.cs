@@ -158,7 +158,8 @@ namespace QFramework
                 mABUnitArray = new List<ABUnit>();
             }
 
-            var resSearchRule = ResSearchRule.Allocate(name);
+            var resSearchRule = ResSearchKeys.Allocate();
+            resSearchRule.AssetName = name;
             AssetData config = GetAssetData(resSearchRule);
             resSearchRule.Recycle2Cache();
 
@@ -201,7 +202,8 @@ namespace QFramework
 
         public ABUnit GetABUnit(string assetName)
         {
-            var resSearchRule = ResSearchRule.Allocate(assetName);
+            var resSearchRule = ResSearchKeys.Allocate();
+            resSearchRule.AssetName = assetName;
             
             AssetData data = GetAssetData(resSearchRule);
             
@@ -236,18 +238,18 @@ namespace QFramework
             return true;
         }
 
-        public AssetData GetAssetData(ResSearchRule resSearchRule)
+        public AssetData GetAssetData(ResSearchKeys resSearchRule)
         {
             AssetData result = null;
 
             if (resSearchRule.OwnerBundle != null && mUUID4AssetData != null)
             {
-                return mUUID4AssetData.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
+                return mUUID4AssetData.TryGetValue(resSearchRule.OwnerBundle + resSearchRule.AssetName, out result) ? result : null;
             }
 
             if (resSearchRule.OwnerBundle == null && mAssetDataMap != null)
             {
-                return mAssetDataMap.TryGetValue(resSearchRule.DictionaryKey, out result) ? result : null;
+                return mAssetDataMap.TryGetValue(resSearchRule.AssetName, out result) ? result : null;
             }
 
             return result;
@@ -269,7 +271,8 @@ namespace QFramework
 
             if (mAssetDataMap.ContainsKey(key))
             {
-                var resSearchRule = ResSearchRule.Allocate(data.AssetName);
+                var resSearchRule = ResSearchKeys.Allocate();
+                resSearchRule.AssetName = data.AssetName;
                 var old = GetAssetData(resSearchRule);
                 resSearchRule.Recycle2Cache();
 
@@ -290,7 +293,10 @@ namespace QFramework
 
             if (mUUID4AssetData.ContainsKey(data.UUID))
             {
-                var resSearchRule = ResSearchRule.Allocate(data.AssetName, data.OwnerBundleName);
+                var resSearchRule = ResSearchKeys.Allocate();
+                resSearchRule.AssetName = data.AssetName;
+                resSearchRule.OwnerBundle = data.OwnerBundleName;
+                
                 AssetData old = GetAssetData(resSearchRule);
                 resSearchRule.Recycle2Cache();
 

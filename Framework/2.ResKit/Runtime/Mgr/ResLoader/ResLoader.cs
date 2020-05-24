@@ -23,9 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Runtime.InteropServices;
-using QFramework;
-
 namespace QFramework
 {
     using System;
@@ -34,39 +31,24 @@ namespace QFramework
     using Object = UnityEngine.Object;
     
     
-    public class ResSearchRule : Dependency.ResKit.Pool.IPoolable,Dependency.ResKit.Pool.IPoolType
+    public class ResSearchKeys : IPoolable,IPoolType
     {   
-        public string AssetName { get;private set; }
+        public string AssetName { get; set; }
 
-        public string OwnerBundle { get; private set; }
+        public string OwnerBundle { get;  set; }
 
-        public string TypeName { get; private set; }
-        
-        public string DictionaryKey { get; private set; }
+        public Type AssetType { get; set; }
 
-        public static ResSearchRule Allocate(string assetName,string ownerBundle = null,string typeName = null)
+        public static ResSearchKeys Allocate()
         {
-            var resSearchRule = Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Allocate();
-                        
-            resSearchRule.AssetName = assetName;
-            resSearchRule.OwnerBundle = ownerBundle;
-            resSearchRule.TypeName = typeName;
-
-            if (resSearchRule.OwnerBundle != null)
-            {
-                resSearchRule.DictionaryKey = (ownerBundle + assetName).ToLower();
-            }
-            else
-            {
-                resSearchRule.DictionaryKey = assetName.ToLower();
-            }
+            var resSearchRule = SafeObjectPool<ResSearchKeys>.Instance.Allocate();
             
             return resSearchRule;
         }
         
         public void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<ResSearchRule>.Instance.Recycle(this);
+            SafeObjectPool<ResSearchKeys>.Instance.Recycle(this);
         }
         
         public bool Match(IRes res)
@@ -86,21 +68,20 @@ namespace QFramework
 
         public override string ToString()
         {
-            return string.Format("AssetName:{0} BundleName:{1} TypeName:{2} Key:{3}", AssetName, OwnerBundle, TypeName,DictionaryKey);
+            return string.Format("AssetName:{0} BundleName:{1} TypeName:{2}", AssetName, OwnerBundle,
+                AssetType);
         }
 
-        void Dependency.ResKit.Pool.IPoolable.OnRecycled()
+        void IPoolable.OnRecycled()
         {
             AssetName = null;
 
             OwnerBundle = null;
 
-            TypeName = null;
+            AssetType = null;
         }
 
-        bool Dependency.ResKit.Pool.IPoolable.IsRecycled { get; set; }
-
-
+        bool IPoolable.IsRecycled { get; set; }
     }
 
     public class ResLoader : DisposableObject,IResLoader
@@ -112,7 +93,7 @@ namespace QFramework
         /// <returns></returns>
         public static ResLoader Allocate(IResLoaderStrategy strategy = null)
         {
-            var loader = Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Allocate();
+            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
             loader.SetStrategy(strategy);
             return loader;
         }
@@ -122,7 +103,7 @@ namespace QFramework
         /// </summary>
         public void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<ResLoader>.Instance.Recycle(this);
+            SafeObjectPool<ResLoader>.Instance.Recycle(this);
         }
 
         /// <summary>
@@ -134,9 +115,14 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
-            var resSearchRule = ResSearchRule.Allocate(assetName, ownerBundle, typeof(T).ToString());
-            var retAsset = DoLoadSync(resSearchRule);
-            resSearchRule.Recycle2Cache();
+            var resSearchKeys = ResSearchKeys.Allocate();
+            resSearchKeys.AssetName = assetName.ToLower();
+            resSearchKeys.OwnerBundle = string.IsNullOrEmpty(ownerBundle) ? null : ownerBundle.ToLower();
+            resSearchKeys.AssetType = typeof(T);
+
+            var retAsset = DoLoadSync(resSearchKeys);
+
+            resSearchKeys.Recycle2Cache();
             return retAsset as T;
         }
 
@@ -158,21 +144,22 @@ namespace QFramework
         /// <returns></returns>
         public Object LoadSync(string name)
         {
-            var resSearchRule = ResSearchRule.Allocate(name);
+            var resSearchRule = ResSearchKeys.Allocate();
+            resSearchRule.AssetName = name.ToLower();
             var retAsset = DoLoadSync(resSearchRule);
             resSearchRule.Recycle2Cache();
             return retAsset;
         }
 
-        private Object DoLoadSync(ResSearchRule resSearchRule)
+        private Object DoLoadSync(ResSearchKeys resSearchKeys)
         {
-            Add2Load(resSearchRule);
+            Add2Load(resSearchKeys);
             LoadSync();
 
-            var res = ResMgr.Instance.GetRes(resSearchRule, false);
+            var res = ResMgr.Instance.GetRes(resSearchKeys, false);
             if (res == null)
             {                
-                Log.E("Failed to Load Res:" + resSearchRule);                
+                Log.E("Failed to Load Res:" + resSearchKeys);                
                 return null;
             }
             
@@ -285,8 +272,12 @@ namespace QFramework
 
             for (var i = list.Count - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchRule.Allocate(list[i]);
+                var resSearchRule = ResSearchKeys.Allocate();
+
+                resSearchRule.AssetName = list[i];
+
                 Add2Load(resSearchRule);
+
                 resSearchRule.Recycle2Cache();
             }
         }
@@ -294,7 +285,8 @@ namespace QFramework
         public void Add2Load(string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchRule.Allocate(assetName);
+            var searchRule = ResSearchKeys.Allocate();
+            searchRule.AssetName = assetName;
             Add2Load(searchRule,listener,lastOrder);
             searchRule.Recycle2Cache();
         }
@@ -302,15 +294,19 @@ namespace QFramework
         public void Add2Load(string ownerBundle, string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchRule.Allocate(assetName, ownerBundle);
+            var searchRule = ResSearchKeys.Allocate();
+            
+            searchRule.AssetName = assetName;
+            searchRule.OwnerBundle = ownerBundle;
+            
             Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
 
-        private void Add2Load(ResSearchRule resSearchRule, Action<bool, IRes> listener = null,
+        private void Add2Load(ResSearchKeys resSearchKeys, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var res = FindResInArray(mResList, resSearchRule);
+            var res = FindResInArray(mResList, resSearchKeys);
             if (res != null)
             {
                 if (listener != null)
@@ -322,7 +318,7 @@ namespace QFramework
                 return;
             }
 
-            res = ResMgr.Instance.GetRes(resSearchRule, true);
+            res = ResMgr.Instance.GetRes(resSearchKeys, true);
 
             if (res == null)
             {
@@ -342,8 +338,12 @@ namespace QFramework
             {
                 foreach (var depend in depends)
                 {
-                    var searchRule = ResSearchRule.Allocate(depend);
+                    var searchRule = ResSearchKeys.Allocate();
+                    
+                    searchRule.AssetName = depend;
+                    
                     Add2Load(searchRule);
+                    
                     searchRule.Recycle2Cache();
                 }
             }
@@ -425,8 +425,9 @@ namespace QFramework
                 }
             }
 #endif
-            var resSearchRule = ResSearchRule.Allocate(resName);
-
+            var resSearchRule = ResSearchKeys.Allocate();
+            resSearchRule.AssetName = resName;
+            
             var res = ResMgr.Instance.GetRes(resSearchRule);
             resSearchRule.Recycle2Cache();
             
@@ -650,7 +651,8 @@ namespace QFramework
 
         private void AddRes2Array(IRes res, bool lastOrder)
         {
-            var searchRule = ResSearchRule.Allocate(res.AssetName);
+            var searchRule = ResSearchKeys.Allocate();
+            searchRule.AssetName = res.AssetName;
             //再次确保队列中没有它
             var oldRes = FindResInArray(mResList, searchRule);
             
@@ -678,7 +680,7 @@ namespace QFramework
             }
         }
 
-        private static IRes FindResInArray(List<IRes> list, ResSearchRule resSearchRule)
+        private static IRes FindResInArray(List<IRes> list, ResSearchKeys resSearchKeys)
         {
             if (list == null)
             {
@@ -687,7 +689,7 @@ namespace QFramework
 
             for (var i = list.Count - 1; i >= 0; --i)
             {
-                if (resSearchRule.Match(list[i]))
+                if (resSearchKeys.Match(list[i]))
                 {
                     return list[i];
                 }
@@ -706,9 +708,9 @@ namespace QFramework
             mCallbackRecordList.AddLast(new CallBackWrap(res, listener));
         }
 
-        bool Dependency.ResKit.Pool.IPoolable.IsRecycled { get; set; }
+        bool IPoolable.IsRecycled { get; set; }
 
-        void Dependency.ResKit.Pool.IPoolable.OnRecycled()
+        void IPoolable.OnRecycled()
         {
             ReleaseAllRes();
         }

@@ -1,3 +1,9 @@
-﻿{
-	"name": "QFramework.ActionKit"
+{
+    "name": "QFramework.ActionKit",
+    "references": [
+        "QFramework.Pool",
+        "QFramework.Singleton"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

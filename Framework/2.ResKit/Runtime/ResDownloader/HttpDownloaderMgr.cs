@@ -42,8 +42,8 @@ namespace QFramework
     public delegate void OnDownloadBegin(int totalLength);
 
     //http下载管理器
-    [Dependencies.ResKit.Pool.MonoSingletonPath("[Singleton]/HttpDownloader")]
-    public class HttpDownloaderMgr : Dependencies.ResKit.Pool.MonoSingleton<HttpDownloaderMgr>
+    [MonoSingletonPath("[Singleton]/HttpDownloader")]
+    public class HttpDownloaderMgr : MonoSingleton<HttpDownloaderMgr>
     {
         public static string TimeOutError = "Time-Out";
         enum DownloadEvent

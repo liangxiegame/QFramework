@@ -45,7 +45,7 @@ namespace QFramework
 
         public static ResourcesRes Allocate(string name, InternalResNamePrefixType prefixType)
         {
-            var res = Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Allocate();
+            var res = SafeObjectPool<ResourcesRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -149,7 +149,7 @@ namespace QFramework
 
         public override void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<ResourcesRes>.Instance.Recycle(this);
+            SafeObjectPool<ResourcesRes>.Instance.Recycle(this);
         }
 
         protected override float CalculateProgress()

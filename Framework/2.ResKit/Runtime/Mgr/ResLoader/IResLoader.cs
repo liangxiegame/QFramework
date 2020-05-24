@@ -8,7 +8,7 @@ namespace QFramework
 {
     using System;
         
-    public interface IResLoader : Dependency.ResKit.Pool.IPoolable,Dependency.ResKit.Pool.IPoolType
+    public interface IResLoader : IPoolable,IPoolType
     {
         void Add2Load(string assetName, Action<bool, IRes> listener, bool lastOrder = true);
         void Add2Load(string ownerBundleName, string assetName, Action<bool, IRes> listener, bool lastOrder = true);

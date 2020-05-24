@@ -1,3 +1,11 @@
-﻿{
-	"name": "QFramework.ResKit"
+{
+    "name": "QFramework.ResKit",
+    "references": [
+        "QFramework.Singleton",
+        "QFramework.RefCounter",
+        "QFramework.Pool",
+        "QFramework.DataStructure"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

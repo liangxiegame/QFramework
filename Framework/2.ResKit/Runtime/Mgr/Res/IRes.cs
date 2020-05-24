@@ -24,7 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using Dependency.ResKit.Pool;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -47,7 +48,9 @@ namespace QFramework
         public const short LocalImageRes = 5;
     }
 
-    public interface IRes : Dependency.ResKit.RefCount.IRefCounter, IPoolType, IEnumeratorTask
+
+
+    public interface IRes : IRefCounter, IPoolType, IEnumeratorTask
     {
         string AssetName { get; }
 
@@ -58,6 +61,7 @@ namespace QFramework
         UnityEngine.Object Asset { get; }
 
         float Progress { get; }
+        Type AssetType { get; set; }
 
         void RegisteResListener(Action<bool, IRes> listener);
         void UnRegisteResListener(Action<bool, IRes> listener);
@@ -76,5 +80,6 @@ namespace QFramework
 
         void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy);
         void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy);
+        bool MatchResSearchKeysWithoutName(ResSearchKeys resSearchKeys);
     }
 }

@@ -34,7 +34,7 @@ namespace QFramework
     /// <summary>
     /// 默认的 ResData 支持
     /// </summary>
-    public class ResDatas:  /* Dependencies.ResKit.Pool.Singleton<ResDatas>, */IResDatas
+    public class ResDatas: IResDatas
     {
         [Serializable]
         public class SerializeData
@@ -142,7 +142,7 @@ namespace QFramework
         }
         
 
-        public AssetData GetAssetData(ResSearchRule resSearchRule)
+        public AssetData GetAssetData(ResSearchKeys resSearchRule)
         {
             for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {

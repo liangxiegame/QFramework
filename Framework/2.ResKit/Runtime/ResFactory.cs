@@ -24,15 +24,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
     public static class ResFactory
     {
-        public static IRes Create(ResSearchRule resSearchRule)
+        public static IRes Create(ResSearchKeys resSearchKeys)
         {
-            var lowerAssetName = resSearchRule.AssetName.ToLower();
+            var lowerAssetName = resSearchKeys.AssetName.ToLower();
             
             short assetType = 0;
             if (lowerAssetName.StartsWith("resources/") || lowerAssetName.StartsWith("resources://"))
@@ -49,39 +47,39 @@ namespace QFramework
             }
             else
             {
-                var data = ResKit.ResDatas.GetAssetData(resSearchRule);
+                var data = ResKit.ResDatas.GetAssetData(resSearchKeys);
 
                 if (data == null)
                 {
-                    Log.E("Failed to Create Res. Not Find AssetData:" + resSearchRule);
+                    Log.E("Failed to Create Res. Not Find AssetData:" + resSearchKeys);
                     return null;
                 }
 
                 assetType = data.AssetType;
             }
 
-            return Create(resSearchRule, assetType);
+            return Create(resSearchKeys, assetType);
         }
 
-        public static IRes Create(ResSearchRule resSearchRule, short assetType)
+        public static IRes Create(ResSearchKeys resSearchKeys, short assetType)
         {
             switch (assetType)
             {
                 case ResType.AssetBundle:
-                    return AssetBundleRes.Allocate(resSearchRule.AssetName);
+                    return AssetBundleRes.Allocate(resSearchKeys.AssetName);
                 case ResType.ABAsset:
-                    return AssetRes.Allocate(resSearchRule.AssetName, resSearchRule.OwnerBundle);
+                    return AssetRes.Allocate(resSearchKeys.AssetName, resSearchKeys.OwnerBundle);
                 case ResType.ABScene:
-                    return SceneRes.Allocate(resSearchRule.AssetName);
+                    return SceneRes.Allocate(resSearchKeys.AssetName);
                 case ResType.Internal:
-                    return ResourcesRes.Allocate(resSearchRule.AssetName,
-                        resSearchRule.AssetName.StartsWith("resources://")
+                    return ResourcesRes.Allocate(resSearchKeys.AssetName,
+                        resSearchKeys.AssetName.StartsWith("resources://")
                             ? InternalResNamePrefixType.Url
                             : InternalResNamePrefixType.Folder);
                 case ResType.NetImageRes:
-                    return NetImageRes.Allocate(resSearchRule.AssetName);
+                    return NetImageRes.Allocate(resSearchKeys.AssetName);
                 case ResType.LocalImageRes:
-                    return LocalImageRes.Allocate(resSearchRule.AssetName);
+                    return LocalImageRes.Allocate(resSearchKeys.AssetName);
                 default:
                     Log.E("Invalid assetType :" + assetType);
                     return null;

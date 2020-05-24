@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 ~ 2020 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,8 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
         
@@ -33,7 +31,7 @@ namespace QFramework
     {
         public static SceneRes Allocate(string name)
         {
-            SceneRes res = Dependency.ResKit.Pool.SafeObjectPool<SceneRes>.Instance.Allocate();
+            SceneRes res = SafeObjectPool<SceneRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;
@@ -74,7 +72,13 @@ namespace QFramework
                 return false;
             }
 
-            var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
+            var resSearchKeys = ResSearchKeys.Allocate();
+
+            resSearchKeys.AssetName = AssetBundleName;
+
+            var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
+
+            resSearchKeys.Recycle2Cache();
 
             if (abR == null || abR.AssetBundle == null)
             {
@@ -95,7 +99,7 @@ namespace QFramework
 
         public override void Recycle2Cache()
         {
-            Dependency.ResKit.Pool.SafeObjectPool<SceneRes>.Instance.Recycle(this);
+            SafeObjectPool<SceneRes>.Instance.Recycle(this);
         }
     }
 }

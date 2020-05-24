@@ -125,6 +125,9 @@
 			return retPanel;
 		}
 
+		#if QFTOLUA
+		[LuaInterface.NoToLua]
+		#endif
 		public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
 		{
 			var panelSearchKeys = PanelSearchKeys.Allocate();

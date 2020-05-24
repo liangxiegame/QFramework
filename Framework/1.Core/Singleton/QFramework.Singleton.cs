@@ -196,9 +196,16 @@ namespace QFramework
 			Destroy(mInstance.gameObject);
 			mInstance = null;
 		}
+
 		protected virtual void OnDestroy()
 		{
 			mInstance = null;
+		}
+
+		public static bool IsApplicationQuit
+		{
+			get { return mOnApplicationQuit; }
+
 		}
 	}
 

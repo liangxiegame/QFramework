@@ -33,7 +33,7 @@ namespace QFramework
     using System;
     using System.Collections;
 
-    public class Res : Dependency.ResKit.RefCount.SimpleRC, IRes, Dependency.ResKit.Pool.IPoolable
+    public class Res : SimpleRC, IRes, IPoolable
     {
 #if UNITY_EDITOR
         private static int    mSimulateAssetBundleInEditor = -1;
@@ -85,6 +85,13 @@ namespace QFramework
         {
             get { return mOwnerBundleName; }
             set { mOwnerBundleName = value; }
+        }
+        
+        public Type AssetType { get; set; }
+        
+        public virtual bool MatchResSearchKeysWithoutName(ResSearchKeys resSearchKeys)
+        {
+            return resSearchKeys.AssetType == AssetType;
         }
 
         public float Progress
@@ -198,7 +205,8 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var resSearchRule = ResSearchKeys.Allocate();
+                resSearchRule.AssetName = depends[i];
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 
@@ -219,7 +227,8 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var resSearchRule = ResSearchKeys.Allocate();
+                resSearchRule.AssetName = depends[i];
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 
@@ -256,7 +265,8 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchRule.Allocate(depends[i]);
+                var resSearchRule = ResSearchKeys.Allocate();
+                resSearchRule.AssetName = depends[i];
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 

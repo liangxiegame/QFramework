@@ -25,8 +25,6 @@
  ****************************************************************************/
 
 
-using QFramework;
-
 namespace QFramework
 {
 	using UnityEngine;
@@ -39,7 +37,7 @@ namespace QFramework
 
 		public static AssetRes Allocate(string name, string onwerBundleName = null)
 		{
-			AssetRes res = Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Allocate();
+			AssetRes res = SafeObjectPool<AssetRes>.Instance.Allocate();
 			if (res != null)
 			{
 				res.AssetName = name;
@@ -93,7 +91,11 @@ namespace QFramework
 #if UNITY_EDITOR
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
-				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
+				var resSearchKeys = ResSearchKeys.Allocate();
+				resSearchKeys.AssetName = AssetBundleName;
+				
+				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
+				resSearchKeys.Recycle2Cache();
 
 				var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
@@ -112,8 +114,12 @@ namespace QFramework
 			else
 #endif
 			{
-				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
+				var resSearchKeys = ResSearchKeys.Allocate();
+				resSearchKeys.AssetName = AssetBundleName;
+				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
+				resSearchKeys.Recycle2Cache();
 
+				
 				if (abR == null || abR.AssetBundle == null)
 				{
 					Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
@@ -170,8 +176,10 @@ namespace QFramework
 
 			
             //Object obj = null;
-
-			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(AssetBundleName);
+            var resSearchKeys = ResSearchKeys.Allocate();
+            resSearchKeys.AssetName = AssetBundleName;
+			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
+			resSearchKeys.Recycle2Cache();
 
 #if UNITY_EDITOR
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
@@ -251,7 +259,7 @@ namespace QFramework
 
 		public override void Recycle2Cache()
 		{
-			Dependency.ResKit.Pool.SafeObjectPool<AssetRes>.Instance.Recycle(this);
+			SafeObjectPool<AssetRes>.Instance.Recycle(this);
 		}
 
 		protected override float CalculateProgress()
@@ -268,9 +276,14 @@ namespace QFramework
 		{
 			mAssetBundleArray = null;
 
-			var resSearchRule = ResSearchRule.Allocate(mAssetName, mOwnerBundleName);
-			var config = ResKit.ResDatas.GetAssetData(resSearchRule);
-			resSearchRule.Recycle2Cache();
+			var resSearchKeys = ResSearchKeys.Allocate();
+			
+			resSearchKeys.AssetName = mAssetName;
+			resSearchKeys.OwnerBundle = mOwnerBundleName;
+			
+			var config = ResKit.ResDatas.GetAssetData(resSearchKeys);
+			
+			resSearchKeys.Recycle2Cache();
 
 			if (config == null)
 			{
