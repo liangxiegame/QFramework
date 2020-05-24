@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.10","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.10","content":"* ResKit 引入 Table，覆盖一部分单元测试","author":"liangxie","date":"2020 年 05 月 24 日 23:47","PackageId":""}}
+{"Id":"","Version":"v0.10.11","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.11","content":"解决 ResKit 兼容问题","author":"liangxie","date":"2020 年 05 月 25 日 00:04","PackageId":""}}

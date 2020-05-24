@@ -142,7 +142,7 @@ namespace QFramework
         }
         
 
-        public AssetData GetAssetData(ResSearchKeys resSearchRule)
+        public AssetData  GetAssetData(ResSearchKeys resSearchRule)
         {
             for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {

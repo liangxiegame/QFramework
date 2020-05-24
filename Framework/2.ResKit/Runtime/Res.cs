@@ -205,8 +205,7 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchKeys.Allocate();
-                resSearchRule.AssetName = depends[i];
+                var resSearchRule = ResSearchKeys.Allocate(depends[i]);
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 
@@ -227,8 +226,7 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchKeys.Allocate();
-                resSearchRule.AssetName = depends[i];
+                var resSearchRule = ResSearchKeys.Allocate(depends[i]);
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 
@@ -265,8 +263,7 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchKeys.Allocate();
-                resSearchRule.AssetName = depends[i];
+                var resSearchRule = ResSearchKeys.Allocate(depends[i]);
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 

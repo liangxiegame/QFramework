@@ -72,10 +72,8 @@ namespace QFramework
                 return false;
             }
 
-            var resSearchKeys = ResSearchKeys.Allocate();
-
-            resSearchKeys.AssetName = AssetBundleName;
-
+            var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+            
             var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 
             resSearchKeys.Recycle2Cache();

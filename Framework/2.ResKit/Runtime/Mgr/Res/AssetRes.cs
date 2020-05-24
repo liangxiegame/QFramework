@@ -91,9 +91,8 @@ namespace QFramework
 #if UNITY_EDITOR
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
-				var resSearchKeys = ResSearchKeys.Allocate();
-				resSearchKeys.AssetName = AssetBundleName;
-				
+				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 				resSearchKeys.Recycle2Cache();
 
@@ -114,8 +113,7 @@ namespace QFramework
 			else
 #endif
 			{
-				var resSearchKeys = ResSearchKeys.Allocate();
-				resSearchKeys.AssetName = AssetBundleName;
+				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 				resSearchKeys.Recycle2Cache();
 
@@ -176,9 +174,8 @@ namespace QFramework
 
 			
             //Object obj = null;
-            var resSearchKeys = ResSearchKeys.Allocate();
-            resSearchKeys.AssetName = AssetBundleName;
-			var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
+            var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+            var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 			resSearchKeys.Recycle2Cache();
 
 #if UNITY_EDITOR
@@ -276,11 +273,8 @@ namespace QFramework
 		{
 			mAssetBundleArray = null;
 
-			var resSearchKeys = ResSearchKeys.Allocate();
-			
-			resSearchKeys.AssetName = mAssetName;
-			resSearchKeys.OwnerBundle = mOwnerBundleName;
-			
+			var resSearchKeys = ResSearchKeys.Allocate(mAssetName,mOwnerBundleName);
+
 			var config = ResKit.ResDatas.GetAssetData(resSearchKeys);
 			
 			resSearchKeys.Recycle2Cache();

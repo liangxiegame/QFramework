@@ -39,10 +39,12 @@ namespace QFramework
 
         public Type AssetType { get; set; }
 
-        public static ResSearchKeys Allocate()
+        public static ResSearchKeys Allocate(string assetName, string ownerBundleName = null, Type assetType = null)
         {
             var resSearchRule = SafeObjectPool<ResSearchKeys>.Instance.Allocate();
-            
+            resSearchRule.AssetName = assetName.ToLower();
+            resSearchRule.OwnerBundle = ownerBundleName == null ? null : ownerBundleName.ToLower();
+            resSearchRule.AssetType = assetType;
             return resSearchRule;
         }
         
@@ -115,10 +117,7 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
-            var resSearchKeys = ResSearchKeys.Allocate();
-            resSearchKeys.AssetName = assetName.ToLower();
-            resSearchKeys.OwnerBundle = string.IsNullOrEmpty(ownerBundle) ? null : ownerBundle.ToLower();
-            resSearchKeys.AssetType = typeof(T);
+            var resSearchKeys = ResSearchKeys.Allocate(assetName,ownerBundle,typeof(T));
 
             var retAsset = DoLoadSync(resSearchKeys);
 
@@ -144,8 +143,7 @@ namespace QFramework
         /// <returns></returns>
         public Object LoadSync(string name)
         {
-            var resSearchRule = ResSearchKeys.Allocate();
-            resSearchRule.AssetName = name.ToLower();
+            var resSearchRule = ResSearchKeys.Allocate(name);
             var retAsset = DoLoadSync(resSearchRule);
             resSearchRule.Recycle2Cache();
             return retAsset;
@@ -272,9 +270,7 @@ namespace QFramework
 
             for (var i = list.Count - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchKeys.Allocate();
-
-                resSearchRule.AssetName = list[i];
+                var resSearchRule = ResSearchKeys.Allocate(list[i]);
 
                 Add2Load(resSearchRule);
 
@@ -285,8 +281,7 @@ namespace QFramework
         public void Add2Load(string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchKeys.Allocate();
-            searchRule.AssetName = assetName;
+            var searchRule = ResSearchKeys.Allocate(assetName);
             Add2Load(searchRule,listener,lastOrder);
             searchRule.Recycle2Cache();
         }
@@ -294,11 +289,8 @@ namespace QFramework
         public void Add2Load(string ownerBundle, string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchKeys.Allocate();
-            
-            searchRule.AssetName = assetName;
-            searchRule.OwnerBundle = ownerBundle;
-            
+            var searchRule = ResSearchKeys.Allocate(assetName,ownerBundle);
+
             Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
@@ -338,9 +330,7 @@ namespace QFramework
             {
                 foreach (var depend in depends)
                 {
-                    var searchRule = ResSearchKeys.Allocate();
-                    
-                    searchRule.AssetName = depend;
+                    var searchRule = ResSearchKeys.Allocate(depend);
                     
                     Add2Load(searchRule);
                     
@@ -425,9 +415,8 @@ namespace QFramework
                 }
             }
 #endif
-            var resSearchRule = ResSearchKeys.Allocate();
-            resSearchRule.AssetName = resName;
-            
+            var resSearchRule = ResSearchKeys.Allocate(resName);
+
             var res = ResMgr.Instance.GetRes(resSearchRule);
             resSearchRule.Recycle2Cache();
             
@@ -651,8 +640,7 @@ namespace QFramework
 
         private void AddRes2Array(IRes res, bool lastOrder)
         {
-            var searchRule = ResSearchKeys.Allocate();
-            searchRule.AssetName = res.AssetName;
+            var searchRule = ResSearchKeys.Allocate(res.AssetName);
             //再次确保队列中没有它
             var oldRes = FindResInArray(mResList, searchRule);
             
