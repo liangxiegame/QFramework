@@ -124,29 +124,13 @@
 
 			return retPanel;
 		}
-
-		#if QFTOLUA
-		[LuaInterface.NoToLua]
-		#endif
+		
 		public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
 		{
 			var panelSearchKeys = PanelSearchKeys.Allocate();
 
 			panelSearchKeys.Level = level;
 			panelSearchKeys.AssetBundleName = assetBundleName;
-			panelSearchKeys.GameObjName = panelName;
-
-			var retPanel = UIManager.Instance.OpenUI(panelSearchKeys);
-
-			panelSearchKeys.Recycle2Cache();
-
-			return retPanel as UIPanel;
-		}
-
-		public static UIPanel OpenPanel(string panelName)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
-
 			panelSearchKeys.GameObjName = panelName;
 
 			var retPanel = UIManager.Instance.OpenUI(panelSearchKeys);

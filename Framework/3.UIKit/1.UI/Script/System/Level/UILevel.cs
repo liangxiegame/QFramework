@@ -17,6 +17,4 @@ namespace QFramework
         // 一个 Panel 就是一个 Canvas 的 Panel
         CanvasPanel = 100, // 
     }
-    
-    
 }

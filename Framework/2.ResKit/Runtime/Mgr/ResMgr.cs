@@ -201,7 +201,7 @@ namespace QFramework
 
             if (!createNew)
             {
-                QFramework.Log.I("createNew:{0}", createNew);
+                Log.I("createNew:{0}", createNew);
                 return null;
             }
 
@@ -217,7 +217,7 @@ namespace QFramework
 
         public T GetRes<T>(ResSearchKeys resSearchKeys) where T : class, IRes
         {
-            return mTable.GetResBySearchKeys(resSearchKeys) as T;
+            return GetRes(resSearchKeys) as T;
         }
 
         #endregion

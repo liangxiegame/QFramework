@@ -118,9 +118,9 @@ namespace QFramework
 				resSearchKeys.Recycle2Cache();
 
 				
-				if (abR == null || abR.AssetBundle == null)
+				if (abR == null || !abR.AssetBundle)
 				{
-					Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
+ 					Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + AssetBundleName);
 					return false;
 				}
 				
