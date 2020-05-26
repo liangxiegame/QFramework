@@ -41,12 +41,11 @@ namespace QFramework
         public static AssetBundleRes Allocate(string name)
         {
             var res = SafeObjectPool<AssetBundleRes>.Instance.Allocate();
-            if (res != null)
-            {
-                res.AssetName = name;
-                res.InitAssetBundleName();
-            }
 
+            res.AssetName = name;
+            res.AssetType = typeof(AssetBundle);
+            res.InitAssetBundleName();
+            
             return res;
         }
 

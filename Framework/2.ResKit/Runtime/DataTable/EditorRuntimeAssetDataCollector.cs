@@ -24,10 +24,9 @@
  ****************************************************************************/
 
 
-using QFramework;
 #if UNITY_EDITOR
 using UnityEditor;
-
+using UnityEngine;
 
 namespace QFramework
 {
@@ -36,7 +35,7 @@ namespace QFramework
         public static ResDatas BuildDataTable()
         {
             Log.I("Start BuildAssetDataTable!");
-            
+
             var resDatas = new ResDatas();
             AddABInfo2ResDatas(resDatas);
             return resDatas;
@@ -79,14 +78,21 @@ namespace QFramework
                     var assets = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
                     foreach (var cell in assets)
                     {
+                        var type = AssetDatabase.GetMainAssetTypeAtPath(cell);
+
+                        var code = type.ToCode();
+
+                        // Debug.Log(cell + ":" + code + ":" + type);
+
                         @group.AddAssetData(cell.EndsWith(".unity")
-                            ? new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex, abName)
-                            : new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex, abName));
+                            ? new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex, abName, code)
+                            : new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex, abName, code));
                     }
                 }
             }
         }
-#endregion
+
+        #endregion
     }
 }
 #endif

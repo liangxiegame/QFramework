@@ -5,28 +5,29 @@ namespace QFramework
 {
     public class ResTable : Table<IRes>
     {
-        public TableIndex<string, IRes> NameIndex = new TableIndex<string, IRes>(res => res.AssetName);
+        public TableIndex<string, IRes> NameIndex = new TableIndex<string, IRes>(res => res.AssetName.ToLower());
 
         public IRes GetResBySearchKeys(ResSearchKeys resSearchKeys)
         {
-            var assetName = resSearchKeys.AssetName.ToLower();
-            var ownerBundleName = string.IsNullOrEmpty(resSearchKeys.OwnerBundle) ? null :resSearchKeys.OwnerBundle.ToLower();
-            
+            var assetName = resSearchKeys.AssetName;
+
             var reses = NameIndex
-                .Get(assetName)
-                .Where(r => ownerBundleName == null ||
-                            r.OwnerBundleName == ownerBundleName);
+                .Get(assetName);
 
-            var retData = reses.FirstOrDefault(r => r.AssetType == resSearchKeys.AssetType);
 
-            if (retData == null)
+            if (resSearchKeys.AssetType != null)
             {
-                retData = reses.FirstOrDefault();
+                reses = reses.Where(res => res.AssetType == resSearchKeys.AssetType);
             }
 
-            return retData;
+            if (resSearchKeys.OwnerBundle != null)
+            {
+                reses = reses.Where(res => res.OwnerBundleName == resSearchKeys.OwnerBundle);
+            }
+
+            return reses.FirstOrDefault();
         }
-        
+
         protected override void OnAdd(IRes item)
         {
             NameIndex.Add(item);

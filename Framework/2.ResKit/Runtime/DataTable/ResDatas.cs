@@ -59,7 +59,8 @@ namespace QFramework
         }
 
         protected readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
-        
+
+        private AssetDataTable mAssetDataTable = null;
         
         public ResDatas(){}
 
@@ -71,6 +72,13 @@ namespace QFramework
             }
 
             mAllAssetDataGroup.Clear();
+
+            if (mAssetDataTable != null)
+            {
+                mAssetDataTable.Dispose();
+            }
+
+            mAssetDataTable = null;
         }
 
         public int AddAssetBundleName(string name, string[] depends, out AssetDataGroup group)
@@ -101,26 +109,26 @@ namespace QFramework
             return group.AddAssetBundleName(name, depends);
         }
 
-        public string GetAssetBundleName(string assetName, int index,string onwerBundleName)
-        {
-            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
-            {
-                string result;
-                if (!mAllAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
-                {
-                    continue;
-                }
-
-                if (!string.IsNullOrEmpty(onwerBundleName) && !result.Equals(onwerBundleName))
-                {
-                    continue;
-                }
-
-                return result;
-            }
-            Log.W(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
-            return null;
-        }
+        // public string GetAssetBundleName(string assetName, int index,string onwerBundleName)
+        // {
+        //     for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
+        //     {
+        //         string result;
+        //         if (!mAllAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
+        //         {
+        //             continue;
+        //         }
+        //
+        //         if (!string.IsNullOrEmpty(onwerBundleName) && !result.Equals(onwerBundleName))
+        //         {
+        //             continue;
+        //         }
+        //
+        //         return result;
+        //     }
+        //     Log.W(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
+        //     return null;
+        // }
         
 
         public string[] GetAllDependenciesByUrl(string url)
@@ -142,19 +150,22 @@ namespace QFramework
         }
         
 
-        public AssetData  GetAssetData(ResSearchKeys resSearchRule)
+        public AssetData  GetAssetData(ResSearchKeys resSearchKeys)
         {
-            for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
+            if (mAssetDataTable == null)
             {
-                var result = mAllAssetDataGroup[i].GetAssetData(resSearchRule);
-                if (result == null)
+                mAssetDataTable = new AssetDataTable();
+                
+                for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
                 {
-                    continue;
+                    foreach (var assetData in mAllAssetDataGroup[i].AssetDatas)
+                    {
+                        mAssetDataTable.Add(assetData);
+                    }
                 }
-                return result;
             }
 
-            return null;
+            return mAssetDataTable.GetAssetDataByResSearchKeys(resSearchKeys);
         }
 
         public virtual void LoadFromFile(string path)
@@ -247,6 +258,19 @@ namespace QFramework
             for (int i = data.AssetDataGroup.Length - 1; i >= 0; --i)
             {
                 mAllAssetDataGroup.Add(BuildAssetDataGroup(data.AssetDataGroup[i]));
+            }
+            
+            if (mAssetDataTable == null)
+            {
+                mAssetDataTable = new AssetDataTable();
+
+                foreach (var serializeData in data.AssetDataGroup)
+                {
+                    foreach (var assetData in serializeData.assetDataArray)
+                    {
+                        mAssetDataTable.Add(assetData);
+                    }
+                }
             }
         }
 

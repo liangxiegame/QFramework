@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -10,21 +11,36 @@ namespace QFramework
         public AssetData GetAssetDataByResSearchKeys(ResSearchKeys resSearchKeys)
         {
             var assetName = resSearchKeys.AssetName.ToLower();
-            var ownerBundleName = string.IsNullOrEmpty(resSearchKeys.OwnerBundle) ? null :resSearchKeys.OwnerBundle.ToLower();
-            
+
             var assetDatas = NameIndex
-                .Get(assetName)
-                .Where(r => ownerBundleName == null ||
-                            r.OwnerBundleName == ownerBundleName);
+                .Get(assetName);
 
-            // var retData = assetDatas.FirstOrDefault(r => r.Type == resSearchKeys.AssetType);
+            if (resSearchKeys.OwnerBundle != null)
+            {
+                assetDatas = assetDatas.Where(a => a.OwnerBundleName == resSearchKeys.OwnerBundle);
+            }
 
-            // if (retData == null)
-            // {
-               var retData = assetDatas.FirstOrDefault();
-            // }
+            if (resSearchKeys.AssetType != null)
+            {
+                var assetTypeCode = resSearchKeys.AssetType.ToCode();
 
-            return retData;
+                if (assetTypeCode == 0)
+                {
+                }
+                else
+                {
+                    var newAssetDatas = assetDatas.Where(a => a.AssetObjectTypeCode == assetTypeCode);
+
+                    // 有可能是从旧的 AssetBundle 中加载出来的资源
+                    if (newAssetDatas.Any())
+                    {
+                        assetDatas = newAssetDatas;
+                    }
+                }
+
+            }
+
+            return assetDatas.FirstOrDefault();
         }
 
         protected override void OnAdd(AssetData item)

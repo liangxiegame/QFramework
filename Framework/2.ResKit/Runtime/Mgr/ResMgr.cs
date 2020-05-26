@@ -192,7 +192,7 @@ namespace QFramework
 
         public IRes GetRes(ResSearchKeys resSearchKeys, bool createNew = false)
         {
-            IRes res = mTable.GetResBySearchKeys(resSearchKeys);
+            var res = mTable.GetResBySearchKeys(resSearchKeys);
 
             if (res != null)
             {

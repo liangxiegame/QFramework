@@ -35,25 +35,16 @@ namespace QFramework
 
     public class Res : SimpleRC, IRes, IPoolable
     {
+        
 #if UNITY_EDITOR
-        private static int    mSimulateAssetBundleInEditor = -1;
         const          string kSimulateAssetBundles        = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
 
-        // Flag to indicate if we want to simulate assetBundles in Editor without building them actually.
         public static bool SimulateAssetBundleInEditor
         {
-            get
-            {
-                if (mSimulateAssetBundleInEditor == -1)
-                {
-                    mSimulateAssetBundleInEditor = UnityEditor.EditorPrefs.GetBool(kSimulateAssetBundles, true) ? 1 : 0;
-                }
-
-                return mSimulateAssetBundleInEditor != 0;
-            }
+            get { return UnityEditor.EditorPrefs.GetBool(kSimulateAssetBundles, true); }
+            set { UnityEditor.EditorPrefs.SetBool(kSimulateAssetBundles, value); }
         }
 #endif
-
 
         protected string                 mAssetName;
         protected string                 mOwnerBundleName;
@@ -205,7 +196,7 @@ namespace QFramework
 
             for (var i = depends.Length - 1; i >= 0; --i)
             {
-                var resSearchRule = ResSearchKeys.Allocate(depends[i]);
+                var resSearchRule = ResSearchKeys.Allocate(depends[i],null,typeof(AssetBundle));
                 var res = ResMgr.Instance.GetRes(resSearchRule, false);
                 resSearchRule.Recycle2Cache();
                 

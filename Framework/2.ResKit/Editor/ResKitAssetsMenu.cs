@@ -34,28 +34,7 @@ namespace QFramework
 	{
 		public const   string AssetBundlesOutputPath       = "AssetBundles";
 		private static int    mSimulateAssetBundleInEditor = -1;
-		private const  string kSimulateAssetBundles        = "SimulateAssetBundles";
 
-		// Flag to indicate if we want to simulate assetBundles in Editor without building them actually.
-		public static bool SimulateAssetBundleInEditor
-		{
-			get
-			{
-				if (mSimulateAssetBundleInEditor == -1)
-					mSimulateAssetBundleInEditor = EditorPrefs.GetBool(kSimulateAssetBundles, true) ? 1 : 0;
-
-				return mSimulateAssetBundleInEditor != 0;
-			}
-			set
-			{
-				var newValue = value ? 1 : 0;
-				if (newValue != mSimulateAssetBundleInEditor)
-				{
-					mSimulateAssetBundleInEditor = newValue;
-					EditorPrefs.SetBool(kSimulateAssetBundles, value);
-				}
-			}
-		}
 
 		private const string Mark_AssetBundle   = "Assets/@ResKit - AssetBundle Mark";
 

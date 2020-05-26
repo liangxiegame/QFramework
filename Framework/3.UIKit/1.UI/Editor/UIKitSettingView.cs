@@ -23,13 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-using System.IO;
 using QFramework.PackageKit;
-using UnityEditor;
-using UnityEditor.SceneManagement;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
@@ -58,18 +52,19 @@ namespace QFramework
 
         private VerticalLayout mRootLayout = null;
 
+        private UIKitSettingViewModel mViewModel;
+        
         public void Init(IQFrameworkContainer container)
         {
-            var bindingSet = BindKit.CreateBindingSet(this, new UIKitSettingViewModel());
-
+            mViewModel = new UIKitSettingViewModel();
+            
             var treeNode = new TreeNode(false, LocaleText.UIKitSettings,autosaveSpreadState:true)
                 .AddTo(this);
 
             mRootLayout = new VerticalLayout("box");
 
             treeNode.Add2Spread(mRootLayout);
-
-
+            
             mRootLayout.AddChild(new SpaceView(6));
 
             // 命名空间
@@ -102,8 +97,7 @@ namespace QFramework
             new TextView(mUiKitSettingData.UIScriptDir)
                 .AddTo(uiScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
-
-
+            
             mRootLayout.AddChild(new SpaceView(6));
 
             var uiPanelPrefabDir = new HorizontalLayout()
@@ -120,7 +114,6 @@ namespace QFramework
                 .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
             mRootLayout.AddChild(new SpaceView(6));
-            
             
             // UI 生成的目录
             new SpaceView(6)
@@ -162,22 +155,17 @@ namespace QFramework
                 .AddTo(mRootLayout);
 
 
-            new TextView()
+            new TextView(mViewModel.PanelNameToCreate)
                 .AddTo(mRootLayout)
                 .Do(text =>
                 {
-                    bindingSet
-                        .Bind(text.Content)
-                        .For(v => v.Value, v => v.OnValueChanged)
-                        .To(vm => vm.PanelNameToCreate);
+                    text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt);
                 });
 
             // 创建 UI 界面 按钮的绑定
             new ButtonView(LocaleText.CreateUIPanel)
                 .AddTo(mRootLayout)
-                .Do(btn => { bindingSet.Bind(btn).For(v => v.OnClick).To(vm => vm.OnCreateUIPanelClick); });
-
-            bindingSet.Build();
+                .Do(btn => btn.OnClick.AddListener(() => { mViewModel.OnCreateUIPanelClick(); }));
         }
 
         public void OnUpdate()

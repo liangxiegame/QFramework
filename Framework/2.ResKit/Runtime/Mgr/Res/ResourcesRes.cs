@@ -87,8 +87,17 @@ namespace QFramework
 
             State = ResState.Loading;
 
-            mAsset = Resources.Load(mPath);
-
+            
+            if (AssetType != null)
+            {
+                mAsset = Resources.Load(mPath,AssetType);
+            }
+            else
+            {
+                mAsset = Resources.Load(mPath);
+            }
+            
+            
             if (mAsset == null)
             {
                 Log.E("Failed to Load Asset From Resources:" + mPath);
@@ -126,7 +135,16 @@ namespace QFramework
                 yield break;
             }
 
-            var resourceRequest = Resources.LoadAsync(mPath);
+            ResourceRequest resourceRequest = null;
+
+            if (AssetType != null)
+            {
+                resourceRequest = Resources.LoadAsync(mPath, AssetType);
+            }
+            else
+            {
+                resourceRequest = Resources.LoadAsync(mPath);
+            }
 
             mResourceRequest = resourceRequest;
             yield return resourceRequest;

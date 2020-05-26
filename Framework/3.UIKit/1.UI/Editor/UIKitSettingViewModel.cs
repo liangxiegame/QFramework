@@ -1,5 +1,4 @@
 using System.IO;
-using BindKit.Commands;
 using BindKit.ViewModels;
 using QFramework.PackageKit;
 using UnityEditor.SceneManagement;
@@ -16,80 +15,69 @@ namespace QFramework
         public string PanelNameToCreate
         {
             get { return mPanelNameToCreate; }
-            set { this.Set(ref mPanelNameToCreate, value, "PanelNameToCreate"); }
+            set { mPanelNameToCreate = value; }
         }
-
-
-        public SimpleCommand OnCreateUIPanelClick
+        
+        public void OnCreateUIPanelClick()
         {
-            get
+            var panelName = mPanelNameToCreate;
+
+            if (panelName.IsNotNullAndEmpty())
             {
-                return new SimpleCommand(() =>
+                var fullScenePath = "Assets/Scenes/TestUIPanels/".CreateDirIfNotExists()
+                    .Append("Test{0}.unity".FillFormat(panelName)).ToString();
+
+                var panelPrefabPath = "Assets/Art/UIPrefab/".CreateDirIfNotExists()
+                    .Append("{0}.prefab".FillFormat(panelName)).ToString();
+
+                if (File.Exists(panelPrefabPath))
                 {
-                    var panelName = mPanelNameToCreate;
+                    DialogUtils.ShowErrorMsg("UI 界面已存在:{0}".FillFormat(panelPrefabPath));
+                    return;
+                }
+                
+                if (File.Exists(fullScenePath))
+                {
+                    DialogUtils.ShowErrorMsg("测试场景已存在:{0}".FillFormat(fullScenePath));
+                    return;
+                }
+                
+                RenderEndCommandExecuter.PushCommand(() =>
+                {
+                    var currentScene = SceneManager.GetActiveScene();
+                    EditorSceneManager.SaveScene(currentScene);
 
-                    if (panelName.IsNotNullAndEmpty())
-                    {
-                        var fullScenePath = "Assets/Scenes/TestUIPanels/".CreateDirIfNotExists()
-                            .Append("Test{0}.unity".FillFormat(panelName)).ToString();
+                    var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+                    EditorSceneManager.SaveScene(scene, fullScenePath);
 
-                        var panelPrefabPath = "Assets/Art/UIPrefab/".CreateDirIfNotExists()
-                            .Append("{0}.prefab".FillFormat(panelName)).ToString();
+                    var uiroot = Resources.Load<GameObject>("UIRoot").Instantiate().Name("UIRoot");
 
-                        if (File.Exists(panelPrefabPath))
-                        {
-                            DialogUtils.ShowErrorMsg("UI 界面已存在:{0}".FillFormat(panelPrefabPath));
-                            return;
-                        }
+                    var designTransform = uiroot.transform.Find("Design");
 
+                    var gameObj = new GameObject(panelName);
+                    gameObj.transform.Parent(designTransform)
+                        .LocalScaleIdentity();
 
-                        if (File.Exists(fullScenePath))
-                        {
-                            DialogUtils.ShowErrorMsg("测试场景已存在:{0}".FillFormat(fullScenePath));
-                            return;
-                        }
+                    var rectTransform = gameObj.AddComponent<RectTransform>();
+                    rectTransform.offsetMin = Vector2.zero;
+                    rectTransform.offsetMax = Vector2.zero;
+                    rectTransform.anchoredPosition3D = Vector3.zero;
+                    rectTransform.anchorMin = Vector2.zero;
+                    rectTransform.anchorMax = Vector2.one;
 
+                    var prefab = PrefabUtils.SaveAndConnect(panelPrefabPath, gameObj);
 
-                        RenderEndCommandExecuter.PushCommand(() =>
-                        {
+                    EditorSceneManager.SaveScene(scene);
 
+                    // 标记 AssetBundle
+                    ResKitAssetsMenu.MarkAB(panelPrefabPath);
 
-                            var currentScene = SceneManager.GetActiveScene();
-                            EditorSceneManager.SaveScene(currentScene);
+                    var tester = new GameObject("Test{0}".FillFormat(panelName));
+                    var uiPanelTester = tester.AddComponent<UIPanelTester>();
+                    uiPanelTester.PanelName = panelName;
 
-                            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
-                            EditorSceneManager.SaveScene(scene, fullScenePath);
-
-                            var uiroot = Resources.Load<GameObject>("UIRoot").Instantiate().Name("UIRoot");
-
-                            var designTransform = uiroot.transform.Find("Design");
-
-                            var gameObj = new GameObject(panelName);
-                            gameObj.transform.Parent(designTransform)
-                                .LocalScaleIdentity();
-
-                            var rectTransform = gameObj.AddComponent<RectTransform>();
-                            rectTransform.offsetMin = Vector2.zero;
-                            rectTransform.offsetMax = Vector2.zero;
-                            rectTransform.anchoredPosition3D = Vector3.zero;
-                            rectTransform.anchorMin = Vector2.zero;
-                            rectTransform.anchorMax = Vector2.one;
-
-                            var prefab = PrefabUtils.SaveAndConnect(panelPrefabPath, gameObj);
-
-                            EditorSceneManager.SaveScene(scene);
-
-                            // 标记 AssetBundle
-                            ResKitAssetsMenu.MarkAB(panelPrefabPath);
-
-                            var tester = new GameObject("Test{0}".FillFormat(panelName));
-                            var uiPanelTester = tester.AddComponent<UIPanelTester>();
-                            uiPanelTester.PanelName = panelName;
-
-                            // 开始生成代码
-                            UICodeGenerator.DoCreateCode(new[] {prefab});
-                        });
-                    }
+                    // 开始生成代码
+                    UICodeGenerator.DoCreateCode(new[] {prefab});
                 });
             }
         }

@@ -24,8 +24,7 @@ namespace QFramework
             retScript.As<IPanel>().Loader = panelLoader;
 
             Debug.Log(retScript.As<IPanel>());
-            ;
-            
+
             return retScript;
         }
 

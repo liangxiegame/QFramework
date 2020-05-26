@@ -28,8 +28,6 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-using QFramework;
-
 namespace QFramework
 {
     public class AssetDataGroup

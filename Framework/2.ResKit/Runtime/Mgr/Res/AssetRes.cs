@@ -25,6 +25,8 @@
  ****************************************************************************/
 
 
+using System;
+
 namespace QFramework
 {
 	using UnityEngine;
@@ -35,13 +37,14 @@ namespace QFramework
 		protected string[]           mAssetBundleArray;
 		protected AssetBundleRequest mAssetBundleRequest;
 
-		public static AssetRes Allocate(string name, string onwerBundleName = null)
+		public static AssetRes Allocate(string name, string onwerBundleName, Type assetTypde)
 		{
-			AssetRes res = SafeObjectPool<AssetRes>.Instance.Allocate();
+			var res = SafeObjectPool<AssetRes>.Instance.Allocate();
 			if (res != null)
 			{
 				res.AssetName = name;
 				res.mOwnerBundleName = onwerBundleName;
+				res.AssetType = assetTypde;
 				res.InitAssetBundleName();
 			}
 
@@ -91,7 +94,7 @@ namespace QFramework
 #if UNITY_EDITOR
 			if (SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
-				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName,null,typeof(AssetBundle));
 
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 				resSearchKeys.Recycle2Cache();
@@ -108,12 +111,20 @@ namespace QFramework
 
 				State = ResState.Loading;
 
-				obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
+				if (AssetType != null)
+				{
+
+					obj = UnityEditor.AssetDatabase.LoadAssetAtPath(assetPaths[0],AssetType);
+				}
+				else
+				{
+					obj = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
+				}
 			}
 			else
 #endif
 			{
-				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName, null, typeof(AssetBundle));
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 				resSearchKeys.Recycle2Cache();
 
@@ -127,15 +138,22 @@ namespace QFramework
 				HoldDependRes();
 
 				State = ResState.Loading;
-				
-				obj = abR.AssetBundle.LoadAsset(mAssetName);
+
+				if (AssetType != null)
+				{
+					obj = abR.AssetBundle.LoadAsset(mAssetName,AssetType);
+				}
+				else
+				{
+					obj = abR.AssetBundle.LoadAsset(mAssetName);
+				}
 			}
 
 			UnHoldDependRes();
 
 			if (obj == null)
 			{
-				Log.E("Failed Load Asset:" + mAssetName);
+				Log.E("Failed Load Asset:" + mAssetName + ":" + AssetType + ":" + AssetBundleName);
 				OnResLoadFaild();
 				return false;
 			}
@@ -174,7 +192,7 @@ namespace QFramework
 
 			
             //Object obj = null;
-            var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName);
+            var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName,null,typeof(AssetBundle));
             var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 			resSearchKeys.Recycle2Cache();
 
@@ -199,7 +217,15 @@ namespace QFramework
 				
 				UnHoldDependRes();
 
-				mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
+				if (AssetType != null)
+				{
+
+					mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath(assetPaths[0],AssetType);
+				}
+				else
+				{
+					mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<Object>(assetPaths[0]);
+				}
 
 			}
 			else
@@ -218,11 +244,23 @@ namespace QFramework
 				HoldDependRes();
 
 				State = ResState.Loading;
-				
-				var abQ = abR.AssetBundle.LoadAssetAsync(mAssetName);
-				mAssetBundleRequest = abQ;
 
-				yield return abQ;
+				AssetBundleRequest abQ = null;
+				
+				if (AssetType != null)
+				{
+					abQ = abR.AssetBundle.LoadAssetAsync(mAssetName,AssetType);
+					mAssetBundleRequest = abQ;
+
+					yield return abQ;
+				}
+				else
+				{
+					abQ = abR.AssetBundle.LoadAssetAsync(mAssetName);
+					mAssetBundleRequest = abQ;
+
+					yield return abQ;
+				}
 
 				mAssetBundleRequest = null;
 
@@ -273,10 +311,10 @@ namespace QFramework
 		{
 			mAssetBundleArray = null;
 
-			var resSearchKeys = ResSearchKeys.Allocate(mAssetName,mOwnerBundleName);
+			var resSearchKeys = ResSearchKeys.Allocate(mAssetName,mOwnerBundleName,AssetType);
 
 			var config = ResKit.ResDatas.GetAssetData(resSearchKeys);
-			
+
 			resSearchKeys.Recycle2Cache();
 
 			if (config == null)
@@ -285,8 +323,7 @@ namespace QFramework
 				return;
 			}
 
-			var assetBundleName =
-				ResKit.ResDatas.GetAssetBundleName(config.AssetName, config.AssetBundleIndex, mOwnerBundleName);
+			var assetBundleName = config.OwnerBundleName;
 
 			if (string.IsNullOrEmpty(assetBundleName))
 			{
