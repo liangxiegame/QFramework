@@ -27,6 +27,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
 	using System.IO;
@@ -36,6 +38,37 @@ namespace QFramework
 
     public static partial class SerializeHelper
 	{
+		// 为了防止进行 clrbinding
+		public static string ToJson<T>(this T obj) where T : class
+		{
+			return Core.GetUtility<IJsonSerializeUtility>().SerializeJson(obj);
+		}
+
+		public static T FromJson<T>(this string json) where T : class
+		{
+			return Core.GetUtility<IJsonSerializeUtility>().DeserializeJson<T>(json);
+		}
+
+		public static string SaveJson<T>(this T obj, string path) where T : class
+		{
+			var jsonContent = obj.ToJson();
+			File.WriteAllText(path, jsonContent);
+			return jsonContent;
+		}
+
+		public static T LoadJson<T>(this string path) where T : class
+		{
+			if (path.Contains(Application.streamingAssetsPath))
+			{
+				using (var streamReader = new StreamReader(path))
+				{
+					return FromJson<T>(streamReader.ReadToEnd());
+				}
+			}
+			
+			return File.ReadAllText(path).FromJson<T>();
+		}
+		
 		public static bool SerializeBinary(string path, object obj)
 		{
 			if (string.IsNullOrEmpty(path))
@@ -157,35 +190,5 @@ namespace QFramework
 			Log.W("DeserializeBinary Failed:" + path);
 			return null;
 		}
-
-
-//		public static byte[] ToProtoBuff<T>(this T obj) where T : class
-//		{
-//			using (MemoryStream ms = new MemoryStream())
-//			{
-//				ProtoBuf.Serializer.Serialize<T>(ms, obj);
-//				return ms.ToArray();
-//			}
-//		}
-//
-//		public static T FromProtoBuff<T>(this byte[] bytes) where T : class
-//		{
-//			if (bytes == null || bytes.Length == 0)
-//			{
-//				throw new System.ArgumentNullException("bytes");
-//			}
-//			T t = ProtoBuf.Serializer.Deserialize<T>(new MemoryStream(bytes));
-//			return t;
-//		}
-
-//		public static void SaveProtoBuff<T>(this T obj, string path) where T : class
-//		{
-//			File.WriteAllBytes(path, obj.ToProtoBuff<T>());
-//		}
-//
-//		public static T LoadProtoBuff<T>(string path) where T : class
-//		{
-//			return File.ReadAllBytes(path).FromProtoBuff<T>();
-//		}
 	}
 }

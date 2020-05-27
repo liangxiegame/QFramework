@@ -7,7 +7,7 @@
         "QFramework.EventSystem",
         "QFramework.ResKit",
         "QFramework.CSharpExtension",
-        "QFramework.Framework"
+        "QFramework.Core"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

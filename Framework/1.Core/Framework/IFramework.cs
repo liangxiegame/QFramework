@@ -1,7 +1,11 @@
-// namespace QFramework
-// {
-//     public interface IFramework : IManager
-//     {
-//         // IQFrameworkContainer RootContainer { get; }
-//     }
-// }
+namespace QFramework
+{
+    public interface IFramework
+    {
+        IQFrameworkContainer FrameworkModuleContainer { get; }
+        
+        IQFrameworkContainer UtilityContainer { get; }
+        
+        
+    }
+}

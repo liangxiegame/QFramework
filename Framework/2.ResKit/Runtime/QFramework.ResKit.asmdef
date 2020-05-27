@@ -4,7 +4,9 @@
         "QFramework.Singleton",
         "QFramework.RefCounter",
         "QFramework.Pool",
-        "QFramework.DataStructure"
+        "QFramework.DataStructure",
+        "QFramework.Core",
+        "QFramework.Core.Serialize"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

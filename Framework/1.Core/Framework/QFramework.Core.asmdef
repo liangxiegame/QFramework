@@ -1,11 +1,12 @@
 {
-    "name": "QFramework.Framework",
+    "name": "QFramework.Core",
     "references": [
         "QFramework.TypeEventSystem",
         "QFramework.IOC",
         "QFramework.BindableProperty",
         "QFramework.Singleton",
-        "QFramework.DataStructure"
+        "QFramework.DataStructure",
+        "QFramework.Core.Serialize"
     ],
     "includePlatforms": [],
     "excludePlatforms": []
