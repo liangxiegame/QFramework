@@ -1,10 +1,21 @@
 using System;
+using UnityEngine;
 
 namespace QFramework
 {
     public class AudioKitDeprecatedConfig
     {
         public const bool FORCE_DEPRECATED = false;
+    }
+
+    public class AudioManagerMsgRegister
+    {
+        [RuntimeInitializeOnLoadMethod]
+        public static void Init()
+        {
+            // 注册事件
+            QMsgCenter.RegisterManagerFactory(QMgrID.Audio, () => AudioManager.Instance);
+        }
     }
 
     public partial class AudioManager

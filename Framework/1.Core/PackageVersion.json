@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.0","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/1.Core/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.0","content":"添加 Table","author":"liangxie","date":"2020 年 05 月 24 日 23:46","PackageId":""}}
+{"Id":"","Version":"v0.10.1","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/1.Core/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.1","content":"迁移 DataStructure 到 PackageKit","author":"liangxie","date":"2020 年 05 月 28 日 00:14","PackageId":""}}

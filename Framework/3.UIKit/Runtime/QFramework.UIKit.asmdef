@@ -1,0 +1,14 @@
+{
+    "name": "QFramework.UIKit",
+    "references": [
+        "QFramework.Singleton",
+        "QFramework.Pool",
+        "QFramework.DataStructure",
+        "QFramework.EventSystem",
+        "QFramework.ResKit",
+        "QFramework.CSharpExtension",
+        "QFramework.Framework"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

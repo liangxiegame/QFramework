@@ -38,7 +38,7 @@ namespace QFramework
 			EditorRuntimeAssetDataCollector.AddABInfo2ResDatas(table);
 
 			var filePath =
-				(FilePath.StreamingAssetsPath + ResKitUtil.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
+				(FilePath.StreamingAssetsPath + AssetBundleUtil.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
 				table.FileName;
 			
 			table.Save(filePath);

@@ -153,9 +153,9 @@ namespace QFramework
 					.AddTo(verticalLayout)
 					.Toggle.Bind(v => mEnableGenerateClass = v);
 
-				new ToggleView(LocaleText.SimulationMode, Res.SimulateAssetBundleInEditor)
+				new ToggleView(LocaleText.SimulationMode, AssetBundleUtil.SimulateAssetBundleInEditor)
 					.AddTo(verticalLayout)
-					.Toggle.Bind(v => Res.SimulateAssetBundleInEditor = v);
+					.Toggle.Bind(v => AssetBundleUtil.SimulateAssetBundleInEditor = v);
 
 				var resVersionLine = new HorizontalLayout()
 					.AddTo(verticalLayout);

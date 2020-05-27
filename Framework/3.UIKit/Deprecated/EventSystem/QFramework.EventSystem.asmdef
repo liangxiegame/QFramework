@@ -1,0 +1,9 @@
+{
+    "name": "QFramework.EventSystem",
+    "references": [
+        "QFramework.Singleton",
+        "QFramework.Pool"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

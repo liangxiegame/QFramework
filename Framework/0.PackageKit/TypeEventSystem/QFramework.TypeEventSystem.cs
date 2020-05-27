@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2019.11 liangxie
+ * Copyright (c) 2017 ~ 2020 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,7 +28,17 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-    public class TypeEventSystem
+    public interface ITypeEventSystem : IDisposable
+    {
+        void RegisterEvent<T>(Action<T> onReceive);
+        void UnRegisterEvent<T>(Action<T> onReceive);
+
+        void SendEvent<T>() where T : new();
+
+        void SendEvent<T>(T e);
+    }
+    
+    public class TypeEventSystem : ITypeEventSystem
     {
         /// <summary>
         /// 接口 只负责存储在字典中
@@ -48,11 +58,16 @@ namespace QFramework
             /// </summary>
             public Action<T> OnReceives = obj => { };
         }
-
+        
+        /// <summary>
+        /// 全局注册事件
+        /// </summary>
+        private static readonly ITypeEventSystem mGlobalEventSystem = new TypeEventSystem();
+        
         /// <summary>
         /// 
         /// </summary>
-        private static Dictionary<Type, IRegisterations> mTypeEventDict = new Dictionary<Type, IRegisterations>();
+        private Dictionary<Type, IRegisterations> mTypeEventDict = DictionaryPool<Type, IRegisterations>.Get();
 
         /// <summary>
         /// 注册事件
@@ -60,6 +75,41 @@ namespace QFramework
         /// <param name="onReceive"></param>
         /// <typeparam name="T"></typeparam>
         public static void Register<T>(System.Action<T> onReceive)
+        {
+            mGlobalEventSystem.RegisterEvent<T>(onReceive);
+        }
+
+        /// <summary>
+        /// 注销事件
+        /// </summary>
+        /// <param name="onReceive"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void UnRegister<T>(System.Action<T> onReceive)
+        {
+            mGlobalEventSystem.UnRegisterEvent<T>(onReceive);
+        }
+
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <param name="t"></param>
+        /// <typeparam name="T"></typeparam>
+        public static void Send<T>(T t)
+        {
+            mGlobalEventSystem.SendEvent<T>(t);
+        }
+
+        /// <summary>
+        /// 发送事件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void Send<T>() where T : new()
+        {
+            mGlobalEventSystem.SendEvent<T>();
+        }
+        
+
+        public void RegisterEvent<T>(Action<T> onReceive)
         {
             var type = typeof(T);
 
@@ -78,12 +128,7 @@ namespace QFramework
             }
         }
 
-        /// <summary>
-        /// 注销事件
-        /// </summary>
-        /// <param name="onReceive"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void UnRegister<T>(System.Action<T> onReceive)
+        public void UnRegisterEvent<T>(Action<T> onReceive)
         {
             var type = typeof(T);
 
@@ -96,29 +141,7 @@ namespace QFramework
             }
         }
 
-        /// <summary>
-        /// 发送事件
-        /// </summary>
-        /// <param name="t"></param>
-        /// <typeparam name="T"></typeparam>
-        public static void Send<T>(T t)
-        {
-            var type = typeof(T);
-
-            IRegisterations registerations = null;
-
-            if (mTypeEventDict.TryGetValue(type, out registerations))
-            {
-                var reg = registerations as Registerations<T>;
-                reg.OnReceives(t);
-            }
-        }
-
-        /// <summary>
-        /// 发送事件
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static void Send<T>() where T : new()
+        public void SendEvent<T>() where T : new()
         {
             var type = typeof(T);
 
@@ -129,6 +152,24 @@ namespace QFramework
                 var reg = registerations as Registerations<T>;
                 reg.OnReceives(new T());
             }
+        }
+
+        public void SendEvent<T>(T e)
+        {
+            var type = typeof(T);
+
+            IRegisterations registerations = null;
+
+            if (mTypeEventDict.TryGetValue(type, out registerations))
+            {
+                var reg = registerations as Registerations<T>;
+                reg.OnReceives(e);
+            }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

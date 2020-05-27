@@ -1,3 +1,8 @@
-﻿{
-	"name": "QFramework.TypeEventSystem"
+{
+    "name": "QFramework.TypeEventSystem",
+    "references": [
+        "QFramework.DataStructure"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

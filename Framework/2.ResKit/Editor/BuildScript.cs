@@ -88,11 +88,10 @@ namespace QFramework
 			AssetDatabase.Refresh();
 		}
 
-		private static readonly List<AssetBundleInfo> AssetBundleInfos = new List<AssetBundleInfo>();
 
 		private static string GetPlatformName()
 		{
-			return ResKitUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			return AssetBundleUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 		}
 	}
 }
