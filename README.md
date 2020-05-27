@@ -101,7 +101,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 #### 参考 Reference:
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
-* [IFramework（OnClick）](https://github.com/OnClick9927/IFramework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
 * [Qarth: Framework For Game Develop With Unity3d](https://github.com/SnowCold/Qarth)
@@ -127,6 +126,13 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 优秀的 Unity 库、框架
 - [xasset](https://github.com/xasset/xasset): xasset 致力于为 Unity 项目提供一套精简稳健的资源管理环境
 - [TinaX](https://github.com/yomunsam/TinaX): 开箱即用的 Unity 开发框架，支持 Lua。
-
+- [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
+- [ILRuntimeProject](https://gitee.com/davidch/ILRuntimeProject) 基于ILRuntime的热更新框架（定制）： 
+    1. Unity完整的资源热更流程（热更下载中断处理，资源校验，热更回退等） 
+    2. 基于ILRuntime的代码热更 
+    3. Jenkins部署自动打包热更 
+    4. 自动生成热更包及热更配置表 
+    5. ab包加密及资源解压 
+    6. Protobuf序列化
 ### 代码规范完全遵循:
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
