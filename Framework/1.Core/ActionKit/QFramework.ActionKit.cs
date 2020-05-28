@@ -14,6 +14,11 @@ using UnityEngine;
 // ActionKit 以後往可視化編程的方向發展
 namespace QFramework
 {
+
+
+    
+    
+    
     #region Engine
 
     /// <summary>
@@ -927,6 +932,8 @@ namespace QFramework
 
             onDestroyTrigger.AddDispose(self);
         }
+
+
 
         /// <summary>
         /// Same as Delayw

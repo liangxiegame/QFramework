@@ -202,6 +202,7 @@ namespace QFramework
 			mInstance = null;
 		}
 
+		
 		public static bool IsApplicationQuit
 		{
 			get { return mOnApplicationQuit; }

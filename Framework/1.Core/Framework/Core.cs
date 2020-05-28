@@ -56,5 +56,8 @@ namespace QFramework
 			var framework = mIntance;
 			(framework as Core).Call();
 		}
+		
+		
+		
 	}
 }

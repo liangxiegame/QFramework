@@ -24,7 +24,7 @@ namespace QFramework
 		/// <summary>
 		/// QFSM state.
 		/// </summary>
-		class FSMState<TName>
+		public class FSMState<TName>
 		{
 			public TName Name;
 

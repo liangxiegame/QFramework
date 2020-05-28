@@ -25,28 +25,42 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
     public interface ITypeEventSystem : IDisposable
     {
-        void RegisterEvent<T>(Action<T> onReceive);
+        IDisposable RegisterEvent<T>(Action<T> onReceive);
         void UnRegisterEvent<T>(Action<T> onReceive);
 
         void SendEvent<T>() where T : new();
 
         void SendEvent<T>(T e);
+        void Clear();
     }
+
     
+    public class TypeEventUnregister<T> : IDisposable
+    {
+        public Action<T> OnReceive; 
+            
+        public void Dispose()
+        {
+            TypeEventSystem.UnRegister(OnReceive);
+        }
+    }
+
     public class TypeEventSystem : ITypeEventSystem
     {
         /// <summary>
         /// 接口 只负责存储在字典中
         /// </summary>
-        interface IRegisterations
+        interface IRegisterations : IDisposable
         {
 
         }
+
 
         /// <summary>
         /// 多个注册
@@ -57,13 +71,18 @@ namespace QFramework
             /// 因为委托本身就可以一对多注册
             /// </summary>
             public Action<T> OnReceives = obj => { };
+
+            public void Dispose()
+            {
+                OnReceives = null;
+            }
         }
-        
+
         /// <summary>
         /// 全局注册事件
         /// </summary>
         private static readonly ITypeEventSystem mGlobalEventSystem = new TypeEventSystem();
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -74,9 +93,9 @@ namespace QFramework
         /// </summary>
         /// <param name="onReceive"></param>
         /// <typeparam name="T"></typeparam>
-        public static void Register<T>(System.Action<T> onReceive)
+        public static IDisposable Register<T>(System.Action<T> onReceive)
         {
-            mGlobalEventSystem.RegisterEvent<T>(onReceive);
+            return mGlobalEventSystem.RegisterEvent<T>(onReceive);
         }
 
         /// <summary>
@@ -107,9 +126,9 @@ namespace QFramework
         {
             mGlobalEventSystem.SendEvent<T>();
         }
-        
 
-        public void RegisterEvent<T>(Action<T> onReceive)
+
+        public IDisposable RegisterEvent<T>(Action<T> onReceive)
         {
             var type = typeof(T);
 
@@ -126,6 +145,8 @@ namespace QFramework
                 reg.OnReceives += onReceive;
                 mTypeEventDict.Add(type, reg);
             }
+
+            return new TypeEventUnregister<T> {OnReceive = onReceive};
         }
 
         public void UnRegisterEvent<T>(Action<T> onReceive)
@@ -167,9 +188,53 @@ namespace QFramework
             }
         }
 
+        public void Clear()
+        {
+            foreach (var keyValuePair in mTypeEventDict)
+            {
+                keyValuePair.Value.Dispose();
+            }
+            
+            mTypeEventDict.Clear();
+        }
+
         public void Dispose()
         {
-            
+
+        }
+    }
+
+    public interface IDisposableList : IDisposable
+    {
+        void Add(IDisposable disposable);
+    }
+
+    public class DisposableList : IDisposableList
+    {
+        List<IDisposable> mDisposableList = ListPool<IDisposable>.Get();
+
+        public void Add(IDisposable disposable)
+        {
+            mDisposableList.Add(disposable);
+        }
+
+        public void Dispose()
+        {
+            foreach (var disposable in mDisposableList)
+            {
+                disposable.Dispose();
+            }
+
+            mDisposableList.Release2Pool();
+            mDisposableList = null;
+        }
+    }
+
+    public static class DisposableExtensions
+    {
+        public static void AddTo(this IDisposable self, IDisposableList component)
+        {
+            component.Add(self);
         }
     }
 }

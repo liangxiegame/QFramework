@@ -2,7 +2,8 @@
     "name": "QFramework.ActionKit",
     "references": [
         "QFramework.Pool",
-        "QFramework.Singleton"
+        "QFramework.Singleton",
+        "QFramework.DataStructure"
     ],
     "includePlatforms": [],
     "excludePlatforms": []
