@@ -8,12 +8,11 @@ namespace QFramework
     {
         public Puppet()
         {
-            GameplayKit.RegisterPuppet(this);
         }
 
         public void Dispose()
         {
-            GameplayKit.UnregisterPuppet(this);
+
         }
 
         public Controller Controller { get; set; }

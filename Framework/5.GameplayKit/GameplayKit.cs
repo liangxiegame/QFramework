@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace QFramework
@@ -142,6 +141,10 @@ namespace QFramework
 			get { return mGameplayKit.mTimer.timeScale; }
 		}
 
+		private static QueueNode mQueueNode = new QueueNode();
+
+		private static AsyncNode mAsyncNode = new AsyncNode();
+
 		private void Update()
 		{
 			// RaiseTickPlayerInputManagers(tickArgs);
@@ -156,6 +159,8 @@ namespace QFramework
 				var delteTime = Time.DeltaTime;
 				mOnUpdateEvents(time, delteTime);
 				mControllerOnUpdateEvents(time, delteTime);
+				mQueueNode.Execute(delteTime);
+				mAsyncNode.Execute(delteTime);
 				Time.EndUpdate();
 			}
 		}
@@ -170,7 +175,6 @@ namespace QFramework
 				Time.EndFixedUpdate();
 			}
 		}
-
 
 		private Action<float, float> mControllerOnUpdateEvents = (time, dt) => { };
 
@@ -221,30 +225,7 @@ namespace QFramework
 
 		}
 
-		private static PuppetObjectTable mPuppetTable = new PuppetObjectTable();
-
-		public static IEnumerable<IPuppet> GetPuppets<T>() where T : IPuppet
-		{
-			return mPuppetTable.TypeIndex.Get(typeof(T));
-		}
-
-		public static T GetPuppet<T>() where T : IPuppet
-		{
-			return (T) mPuppetTable.TypeIndex.Get(typeof(T)).FirstOrDefault();
-		}
-
-
-		public static void RegisterPuppet(IPuppet monoPuppet)
-		{
-			mPuppetTable.Add(monoPuppet);
-		}
-
-		public static void UnregisterPuppet(IPuppet monoPuppet)
-		{
-			mPuppetTable.Remove(monoPuppet);
-		}
-
-		public static void RegisterController(Controller controller)
+		public static void RegisterController<T>(T controller) where T : Controller
 		{
 			mContainer.RegisterInstance(controller);
 		}
@@ -253,7 +234,7 @@ namespace QFramework
 		{
 			mContainer.RegisterInstance(new TController());
 		}
-		
+
 		public static T GetController<T>() where T : Controller
 		{
 			return mContainer.Resolve<T>();
@@ -271,39 +252,14 @@ namespace QFramework
 			get { return mOnApplicationQuit; }
 		}
 
-		public static void ExecuteCommand(GameplayKitAction action)
+		public static void PushAction(GameplayKitAction action)
 		{
-			action.Execute();
-		}
-	}
-
-	public class PuppetObjectTable : Table<IPuppet>
-	{
-		public TableIndex<Type, IPuppet> TypeIndex = new TableIndex<Type, IPuppet>(p => p.GetType());
-		
-		protected override void OnAdd(IPuppet item)
-		{
-			TypeIndex.Add(item);
+			mQueueNode.Enqueue(action);
 		}
 
-		protected override void OnRemove(IPuppet item)
+		public static void ExecuteAction(GameplayKitAction action)
 		{
-			TypeIndex.Remove(item);
-		}
-
-		protected override void OnClear()
-		{
-			TypeIndex.Clear();
-		}
-
-		public override IEnumerator<IPuppet> GetEnumerator()
-		{
-			return null;
-		}
-
-		protected override void OnDispose()
-		{
-			TypeIndex.Dispose();
+			mAsyncNode.Add(action);
 		}
 	}
 }

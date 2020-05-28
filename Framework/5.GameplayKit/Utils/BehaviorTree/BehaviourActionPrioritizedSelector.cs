@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace QFramework
+﻿namespace QFramework
 {
     public class BehaviourActionPrioritizedSelector : BehaviourAction
     {

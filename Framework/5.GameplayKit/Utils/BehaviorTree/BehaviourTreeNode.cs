@@ -1,6 +1,5 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using QFramework;
 
 namespace QFramework
 {
@@ -10,6 +9,7 @@ namespace QFramework
         private const int defaultChildCount = -1; //TJQ： unlimited count
         //-------------------------------------------------------------------
         private List<BehaviourTreeNode> _children;
+        
         private int _maxChildCount;
         //private TBTTreeNode _parent;
         //-------------------------------------------------------------------
@@ -27,7 +27,6 @@ namespace QFramework
         ~BehaviourTreeNode()
         {
             _children = null;
-            //_parent = null;
         }
         //-------------------------------------------------------------------
         public BehaviourTreeNode AddChild(BehaviourTreeNode node)
@@ -37,7 +36,6 @@ namespace QFramework
                 return this;
             }
             _children.Add(node);
-            //node._parent = this;
             return this;
         }
         

@@ -1,7 +1,7 @@
 namespace QFramework
 {
-    public abstract class GameplayKitAction
+    public abstract class GameplayKitAction : NodeAction
     {
-        public abstract void Execute();
+       
     }
 }
