@@ -63,16 +63,6 @@ namespace QFramework
             return res;
         }
 
-        public override void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnSyncLoadFinish(loader, this);
-        }
-
-        public override void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnAsyncLoadFinish(loader, this);
-        }
-
         public override bool LoadSync()
         {
             if (!CheckLoadAble())

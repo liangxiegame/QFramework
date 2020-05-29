@@ -26,7 +26,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace QFramework
 {
@@ -72,10 +71,7 @@ namespace QFramework
             new NetImageResCreator(),
             new LocalImageResCreator()
         };
-
     }
-
-
 
     public class NetImageResCreator : IResCreator
     {

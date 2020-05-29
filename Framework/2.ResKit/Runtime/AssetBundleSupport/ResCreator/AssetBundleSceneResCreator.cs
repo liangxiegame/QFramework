@@ -4,11 +4,11 @@ namespace QFramework
     {
         public bool Match(ResSearchKeys resSearchKeys)
         {
-            var assetData = ResKit.ResDatas.GetAssetData(resSearchKeys);
+            var assetData = ResKit.ResData.GetAssetData(resSearchKeys);
 
             if (assetData != null)
             {
-                return assetData.AssetType == ResType.ABScene;
+                return assetData.AssetType == ResLoadType.ABScene;
             }
 
             return false;

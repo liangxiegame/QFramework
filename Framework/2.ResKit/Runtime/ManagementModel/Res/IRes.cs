@@ -38,7 +38,7 @@ namespace QFramework
         Ready   = 2,
     }
 
-    public static class ResType
+    public static class ResLoadType
     {
         public const short AssetBundle   = 0;
         public const short ABAsset       = 1;
@@ -63,8 +63,8 @@ namespace QFramework
         float Progress { get; }
         Type AssetType { get; set; }
 
-        void RegisteResListener(Action<bool, IRes> listener);
-        void UnRegisteResListener(Action<bool, IRes> listener);
+        void RegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
+        void UnRegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
 
         bool UnloadImage(bool flag);
 
@@ -77,8 +77,6 @@ namespace QFramework
         bool IsDependResLoadFinish();
 
         bool ReleaseRes();
-
-        void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy);
-        void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy);
+        
     }
 }

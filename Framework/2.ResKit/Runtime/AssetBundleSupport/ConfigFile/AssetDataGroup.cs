@@ -169,7 +169,7 @@ namespace QFramework
 
             int index = mABUnitArray.Count - 1;
 
-            AddAssetData(new AssetData(name, ResType.AssetBundle, index,null));
+            AddAssetData(new AssetData(name, ResLoadType.AssetBundle, index,null));
 
             return index;
         }

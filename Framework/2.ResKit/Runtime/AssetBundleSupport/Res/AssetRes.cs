@@ -36,7 +36,14 @@ namespace QFramework
 	{
 		protected string[]           mAssetBundleArray;
 		protected AssetBundleRequest mAssetBundleRequest;
+		protected string                 mOwnerBundleName;
 
+		public override string OwnerBundleName
+		{
+			get { return mOwnerBundleName; }
+			set { mOwnerBundleName = value; }
+		}
+		
 		public static AssetRes Allocate(string name, string onwerBundleName, Type assetTypde)
 		{
 			var res = SafeObjectPool<AssetRes>.Instance.Allocate();
@@ -66,16 +73,6 @@ namespace QFramework
 
 		}
 
-		public override void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
-		{
-			strategy.OnSyncLoadFinish(loader, this);
-		}
-
-		public override void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy)
-		{
-			strategy.OnAsyncLoadFinish(loader, this);
-		}
-
 		public override bool LoadSync()
 		{
 			if (!CheckLoadAble())
@@ -92,7 +89,7 @@ namespace QFramework
 			Object obj = null;
 
 #if UNITY_EDITOR
-			if (AssetBundleUtil.SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (AssetBundleSettings.SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
 				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName,null,typeof(AssetBundle));
 
@@ -197,7 +194,7 @@ namespace QFramework
 			resSearchKeys.Recycle2Cache();
 
 #if UNITY_EDITOR
-			if (AssetBundleUtil.SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (AssetBundleSettings.SimulateAssetBundleInEditor && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
 				var assetPaths = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
@@ -313,7 +310,7 @@ namespace QFramework
 
 			var resSearchKeys = ResSearchKeys.Allocate(mAssetName,mOwnerBundleName,AssetType);
 
-			var config = ResKit.ResDatas.GetAssetData(resSearchKeys);
+			var config = ResKit.ResData.GetAssetData(resSearchKeys);
 
 			resSearchKeys.Recycle2Cache();
 

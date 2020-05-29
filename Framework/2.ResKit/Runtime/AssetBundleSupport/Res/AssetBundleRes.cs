@@ -49,7 +49,7 @@ namespace QFramework
 
         private void InitAssetBundleName()
         {
-            mDependResList = ResKit.ResDatas.GetAllDependenciesByUrl(AssetName);
+            mDependResList = ResKit.ResData.GetAllDependenciesByUrl(AssetName);
         }
 
         public AssetBundle AssetBundle
@@ -57,17 +57,7 @@ namespace QFramework
             get { return (AssetBundle) mAsset; }
             private set { mAsset = value; }
         }
-
-        public override void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnSyncLoadFinish(loader, this);
-        }
-
-        public override void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnAsyncLoadFinish(loader, this);
-        }
-
+        
         public override bool LoadSync()
         {
             if (!CheckLoadAble())
@@ -78,13 +68,13 @@ namespace QFramework
             State = ResState.Loading;
 
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
             }
             else
 #endif
             {
-                var url = AssetBundleUtil.AssetBundleName2Url(mAssetName);
+                var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
                 var bundle = AssetBundle.LoadFromFile(url);
 
                 mUnloadFlag = true;
@@ -127,14 +117,14 @@ namespace QFramework
             }
 
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
                 yield return null;
             }
             else
 #endif
             {
-                var url = AssetBundleUtil.AssetBundleName2Url(mAssetName);
+                var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
                 var abcR = AssetBundle.LoadFromFileAsync(url);
 
                 mAssetBundleCreateRequest = abcR;

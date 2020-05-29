@@ -91,7 +91,7 @@ namespace QFramework
 
 		private static string GetPlatformName()
 		{
-			return AssetBundleUtil.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			return AssetBundleSettings.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 		}
 	}
 }

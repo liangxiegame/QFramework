@@ -29,70 +29,6 @@ namespace QFramework
     using System.Collections.Generic;
     using UnityEngine;
     using Object = UnityEngine.Object;
-    
-    
-    public class ResSearchKeys : IPoolable,IPoolType
-    {   
-        public string AssetName { get; set; }
-
-        public string OwnerBundle { get;  set; }
-
-        public Type AssetType { get; set; }
-
-        public static ResSearchKeys Allocate(string assetName, string ownerBundleName = null, Type assetType = null)
-        {
-            var resSearchRule = SafeObjectPool<ResSearchKeys>.Instance.Allocate();
-            resSearchRule.AssetName = assetName.ToLower();
-            resSearchRule.OwnerBundle = ownerBundleName == null ? null : ownerBundleName.ToLower();
-            resSearchRule.AssetType = assetType;
-            return resSearchRule;
-        }
-        
-        public void Recycle2Cache()
-        {
-            SafeObjectPool<ResSearchKeys>.Instance.Recycle(this);
-        }
-
-        public bool Match(IRes res)
-        {
-            if (res.AssetName == AssetName)
-            {
-                var isMatch = true;
-
-                if (AssetType != null)
-                {
-                    isMatch = res.AssetType == AssetType;
-                }
-
-                if (OwnerBundle != null)
-                {
-                    isMatch = isMatch && res.OwnerBundleName == OwnerBundle;
-                }
-                 
-                return isMatch;
-            }
-            
-
-            return false;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("AssetName:{0} BundleName:{1} TypeName:{2}", AssetName, OwnerBundle,
-                AssetType);
-        }
-
-        void IPoolable.OnRecycled()
-        {
-            AssetName = null;
-
-            OwnerBundle = null;
-
-            AssetType = null;
-        }
-
-        bool IPoolable.IsRecycled { get; set; }
-    }
 
     public class ResLoader : DisposableObject,IResLoader
     {
@@ -101,11 +37,9 @@ namespace QFramework
         /// </summary>
         /// <param name="strategy">加载策略</param>
         /// <returns></returns>
-        public static ResLoader Allocate(IResLoaderStrategy strategy = null)
+        public static ResLoader Allocate()
         {
-            var loader = SafeObjectPool<ResLoader>.Instance.Allocate();
-            loader.SetStrategy(strategy);
-            return loader;
+            return  SafeObjectPool<ResLoader>.Instance.Allocate();
         }
 
         /// <summary>
@@ -126,9 +60,7 @@ namespace QFramework
         public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
             var resSearchKeys = ResSearchKeys.Allocate(assetName,ownerBundle,typeof(T));
-
             var retAsset = LoadResSync(resSearchKeys);
-
             resSearchKeys.Recycle2Cache();
             return retAsset.Asset as T;
         }
@@ -190,11 +122,8 @@ namespace QFramework
 
                 if (first.LoadSync())
                 {
-                    first.AcceptLoaderStrategySync(this, mStrategy);
                 }
             }
-
-            mStrategy.OnAllTaskFinish(this);
         }
 
 
@@ -211,7 +140,7 @@ namespace QFramework
 
             public void Release()
             {
-                mRes.UnRegisteResListener(mListener);
+                mRes.UnRegisteOnResLoadDoneEvent(mListener);
             }
 
             public bool IsRes(IRes res)
@@ -223,25 +152,11 @@ namespace QFramework
         private readonly List<IRes>         mResList      = new List<IRes>();
         private readonly LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
         private          Action             mListener;
-        private          IResLoaderStrategy mStrategy;
 
         private int  mLoadingCount;
 
         private        LinkedList<CallBackWrap> mCallbackRecordList;
-        private static DefaultLoaderStrategy    sDefaultStrategy;
-
-        public static IResLoaderStrategy defaultStrategy
-        {
-            get
-            {
-                if (sDefaultStrategy == null)
-                {
-                    sDefaultStrategy = new DefaultLoaderStrategy();
-                }
-
-                return sDefaultStrategy;
-            }
-        }
+        
 
         public float Progress
         {
@@ -269,7 +184,6 @@ namespace QFramework
 
         public ResLoader()
         {
-            SetStrategy(sDefaultStrategy);
         }
 
         public void Add2Load(List<string> list)
@@ -332,7 +246,7 @@ namespace QFramework
                 if (listener != null)
                 {
                     AddResListenerRecord(res, listener);
-                    res.RegisteResListener(listener);
+                    res.RegisteOnResLoadDoneEvent(listener);
                 }
 
                 return;
@@ -348,7 +262,7 @@ namespace QFramework
             if (listener != null)
             {
                 AddResListenerRecord(res, listener);
-                res.RegisteResListener(listener);
+                res.RegisteOnResLoadDoneEvent(listener);
             }
 
             //无论该资源是否加载完成，都需要添加对该资源依赖的引用
@@ -377,7 +291,7 @@ namespace QFramework
         public Sprite LoadSprite(string bundleName, string spriteName)
         {
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -399,7 +313,7 @@ namespace QFramework
         public Sprite LoadSprite(string spriteName)
         {
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -433,7 +347,7 @@ namespace QFramework
             }
 
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
                 if (mCachedSpriteDict.ContainsKey(resName))
                 {
@@ -464,7 +378,7 @@ namespace QFramework
 
             if (mResList.Remove(res))
             {
-                res.UnRegisteResListener(OnResLoadFinish);
+                res.UnRegisteOnResLoadDoneEvent(OnResLoadFinish);
                 res.Release();
                 ResMgr.Instance.ClearOnUpdate();
             }
@@ -486,7 +400,7 @@ namespace QFramework
         public void ReleaseAllRes()
         {
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
                 foreach (var spritePair in mCachedSpriteDict)
                 {
@@ -508,7 +422,7 @@ namespace QFramework
 
                 for (var i = mResList.Count - 1; i >= 0; --i)
                 {
-                    mResList[i].UnRegisteResListener(OnResLoadFinish);
+                    mResList[i].UnRegisteOnResLoadDoneEvent(OnResLoadFinish);
                     mResList[i].Release();
                 }
 
@@ -538,7 +452,7 @@ namespace QFramework
 
                         RemoveCallback(mResList[i], true);
 
-                        mResList[i].UnRegisteResListener(OnResLoadFinish);
+                        mResList[i].UnRegisteOnResLoadDoneEvent(OnResLoadFinish);
                         mResList[i].Release();
                         mResList.RemoveAt(i);
                     }
@@ -561,11 +475,7 @@ namespace QFramework
                 Log.I(res.AssetName);
             }
         }
-
-        private void SetStrategy(IResLoaderStrategy strategy)
-        {
-            mStrategy = strategy ?? defaultStrategy;
-        }
+        
 
         private void DoLoadAsync()
         {
@@ -594,7 +504,7 @@ namespace QFramework
 
                     if (res.State != ResState.Ready)
                     {
-                        res.RegisteResListener(OnResLoadFinish);
+                        res.RegisteOnResLoadDoneEvent(OnResLoadFinish);
                         res.LoadAsync();
                     }
                     else
@@ -651,7 +561,6 @@ namespace QFramework
         {
             --mLoadingCount;
 
-            res.AcceptLoaderStrategyAsync(this, mStrategy);
             DoLoadAsync();
             if (mLoadingCount == 0)
             {
@@ -661,14 +570,13 @@ namespace QFramework
                 {
                     mListener();
                 }
-
-                mStrategy.OnAllTaskFinish(this);
             }
         }
 
         private void AddRes2Array(IRes res, bool lastOrder)
         {
             var searchRule = ResSearchKeys.Allocate(res.AssetName,res.OwnerBundleName,res.AssetType);
+
             //再次确保队列中没有它
             var oldRes = FindResInArray(mResList, searchRule);
             

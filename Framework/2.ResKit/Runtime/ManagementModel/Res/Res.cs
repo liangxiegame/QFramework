@@ -24,8 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-
 using UnityEngine;
 
 namespace QFramework
@@ -37,10 +35,9 @@ namespace QFramework
     {
         
         protected string                 mAssetName;
-        protected string                 mOwnerBundleName;
         private   ResState               mResState = ResState.Waiting;
         protected UnityEngine.Object     mAsset;
-        private event Action<bool, IRes> mResListener;
+        private event Action<bool, IRes> mOnResLoadDoneEvent;
 
         public string AssetName
         {
@@ -57,24 +54,18 @@ namespace QFramework
                 mResState = value;
                 if (mResState == ResState.Ready)
                 {
-                    NotifyResEvent(true);
+                    NotifyResLoadDoneEvent(true);
                 }
             }
         }
 
-        public string OwnerBundleName
-        {
-            get { return mOwnerBundleName; }
-            set { mOwnerBundleName = value; }
-        }
-        
-        public Type AssetType { get; set; }
-        
-        public virtual bool MatchResSearchKeysWithoutName(ResSearchKeys resSearchKeys)
-        {
-            return resSearchKeys.AssetType == AssetType;
-        }
+        public virtual string OwnerBundleName { get; set; }
 
+        public Type AssetType { get; set; }
+
+        /// <summary>
+        /// 弃用
+        /// </summary>
         public float Progress
         {
             get
@@ -103,17 +94,9 @@ namespace QFramework
 
         public bool IsRecycled { get; set; }
 
-        public virtual void AcceptLoaderStrategySync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnSyncLoadFinish(loader, this);
-        }
 
-        public virtual void AcceptLoaderStrategyAsync(IResLoader loader, IResLoaderStrategy strategy)
-        {
-            strategy.OnAsyncLoadFinish(loader, this);
-        }
 
-        public void RegisteResListener(Action<bool, IRes> listener)
+        public void RegisteOnResLoadDoneEvent(Action<bool, IRes> listener)
         {
             if (listener == null)
             {
@@ -126,36 +109,36 @@ namespace QFramework
                 return;
             }
 
-            mResListener += listener;
+            mOnResLoadDoneEvent += listener;
         }
 
-        public void UnRegisteResListener(Action<bool, IRes> listener)
+        public void UnRegisteOnResLoadDoneEvent(Action<bool, IRes> listener)
         {
             if (listener == null)
             {
                 return;
             }
 
-            if (mResListener == null)
+            if (mOnResLoadDoneEvent == null)
             {
                 return;
             }
 
-            mResListener -= listener;
+            mOnResLoadDoneEvent -= listener;
         }
 
         protected void OnResLoadFaild()
         {
             mResState = ResState.Waiting;
-            NotifyResEvent(false);
+            NotifyResLoadDoneEvent(false);
         }
 
-        private void NotifyResEvent(bool result)
+        private void NotifyResLoadDoneEvent(bool result)
         {
-            if (mResListener != null)
+            if (mOnResLoadDoneEvent != null)
             {
-                mResListener(result, this);
-                mResListener = null;
+                mOnResLoadDoneEvent(result, this);
+                mOnResLoadDoneEvent = null;
             }
             
         }
@@ -279,7 +262,7 @@ namespace QFramework
             OnReleaseRes();
 
             mResState = ResState.Waiting;
-            mResListener = null;
+            mOnResLoadDoneEvent = null;
             return true;
         }
 
@@ -319,7 +302,7 @@ namespace QFramework
         public virtual void OnRecycled()
         {
             mAssetName = null;
-            mResListener = null;
+            mOnResLoadDoneEvent = null;
         }
 
         public virtual IEnumerator DoLoadAsync(Action finishCallback)

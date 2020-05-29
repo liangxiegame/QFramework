@@ -13,8 +13,7 @@ namespace QFramework
 
             var reses = NameIndex
                 .Get(assetName);
-
-
+            
             if (resSearchKeys.AssetType != null)
             {
                 reses = reses.Where(res => res.AssetType == resSearchKeys.AssetType);

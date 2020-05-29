@@ -1,4 +1,5 @@
 	
+using System;
 using System.IO;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -7,8 +8,47 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public class AssetBundleUtil
+    public class AssetBundleSettings
     {
+        private static IResDatas mAssetBundleConfigFile = null;
+        
+        /// <summary>
+        /// 默认
+        /// </summary>
+        private static Func<IResDatas> mAssetBundleConfigFileFactory = () =>  new ResDatas();
+
+        public static Func<IResDatas> AssetBundleConfigFileFactory
+        {
+            set { mAssetBundleConfigFileFactory = value; }
+        }
+
+        /// <summary>
+        /// 获取自定义的 资源信息
+        /// </summary>
+        /// <returns></returns>
+        public static IResDatas AssetBundleConfigFile
+        {
+            get
+            {
+                if (mAssetBundleConfigFile == null)
+                {
+                    mAssetBundleConfigFile = mAssetBundleConfigFileFactory.Invoke();
+                }
+
+                return mAssetBundleConfigFile;
+            }
+            set { mAssetBundleConfigFile = value; }
+        }
+
+
+        public static bool LoadAssetResFromStreammingAssetsPath
+        {
+            get { return PlayerPrefs.GetInt("LoadResFromStreammingAssetsPath", 1) == 1; }
+            set { PlayerPrefs.SetInt("LoadResFromStreammingAssetsPath", value ? 1 : 0); }
+        }
+        
+        
+        
 #if UNITY_EDITOR
         const string kSimulateAssetBundles = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
 

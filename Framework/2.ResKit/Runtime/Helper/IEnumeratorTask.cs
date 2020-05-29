@@ -32,8 +32,4 @@ namespace QFramework
     {
         IEnumerator DoLoadAsync(System.Action finishCallback);
     }
-
-    public interface IEnumeratorTaskMgr
-    {
-    }
 }

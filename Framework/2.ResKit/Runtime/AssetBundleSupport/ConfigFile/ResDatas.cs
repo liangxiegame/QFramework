@@ -31,6 +31,7 @@ using UnityEngine;
 
 namespace QFramework
 {
+
     /// <summary>
     /// 默认的 ResData 支持
     /// </summary>
@@ -109,31 +110,9 @@ namespace QFramework
             return group.AddAssetBundleName(name, depends);
         }
 
-        // public string GetAssetBundleName(string assetName, int index,string onwerBundleName)
-        // {
-        //     for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
-        //     {
-        //         string result;
-        //         if (!mAllAssetDataGroup[i].GetAssetBundleName(assetName, index, out result))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         if (!string.IsNullOrEmpty(onwerBundleName) && !result.Equals(onwerBundleName))
-        //         {
-        //             continue;
-        //         }
-        //
-        //         return result;
-        //     }
-        //     Log.W(string.Format("Failed GetAssetBundleName : {0} - Index:{1}", assetName, index));
-        //     return null;
-        // }
-        
-
         public string[] GetAllDependenciesByUrl(string url)
         {
-			var abName = AssetBundleUtil.AssetBundleUrl2Name(url);
+			var abName = AssetBundleSettings.AssetBundleUrl2Name(url);
             
             for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {

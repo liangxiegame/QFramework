@@ -7,22 +7,52 @@ namespace QFramework
     {
         public const bool FORCE_DEPRECATED = false;
     }
+
+    public partial class ResKit
+    {
+        [Obsolete("ResKit.ResDataFactory is depreacated,Please use AssetBundleSettings.AssetBundleConfigFileFactory instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        public static Func<IResDatas> ResDataFactory
+        {
+            set { AssetBundleSettings.AssetBundleConfigFileFactory = value; }
+        }
+
+        /// <summary>
+        /// 获取自定义的 资源信息
+        /// </summary>
+        /// <returns></returns>
+        [Obsolete("ResKit.ResData is depreacated,Please use AssetBundleSettings.AssetBundleConfigFile instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        public static IResDatas ResData
+        {
+            get
+            {
+                return AssetBundleSettings.AssetBundleConfigFile;
+            }
+            set { AssetBundleSettings.AssetBundleConfigFile = value; }
+        }
+
+        [Obsolete("ResKit.LoadResFromStreammingAssetsPath is depreacated,Please use AssetBundleSettings.LoadAssetResFromStreammingAssetsPath instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        public static bool LoadResFromStreammingAssetsPath
+        {
+            get { return AssetBundleSettings.LoadAssetResFromStreammingAssetsPath; }
+            set { AssetBundleSettings.LoadAssetResFromStreammingAssetsPath = value; }
+        }
+    }
     
     public static class ResKitUtil
     {
         #region AssetBundle 相关
 
         
-        [Obsolete("ResKitUtil.AssetBundleUrl2Name() is depreacated,Please use AssetBundleUtil.AssetBundleUrl2Name() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.AssetBundleUrl2Name() is depreacated,Please use AssetBundleSettings.AssetBundleUrl2Name() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static string AssetBundleUrl2Name(string url)
         {
-            return AssetBundleUtil.AssetBundleUrl2Name(url);
+            return AssetBundleSettings.AssetBundleUrl2Name(url);
         }
 
-        [Obsolete("ResKitUtil.AssetBundleName2Url() is depreacated,Please use AssetBundleUtil.AssetBundleName2Url() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.AssetBundleName2Url() is depreacated,Please use AssetBundleSettings.AssetBundleName2Url() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static string AssetBundleName2Url(string name)
         {
-            return AssetBundleUtil.AssetBundleName2Url(name);
+            return AssetBundleSettings.AssetBundleName2Url(name);
         }
 
         //导出目录
@@ -30,32 +60,32 @@ namespace QFramework
         /// <summary>
         /// AssetBundle存放路径
         /// </summary>
-        [Obsolete("ResKitUtil.RELATIVE_AB_ROOT_FOLDER is depreacated,Please use AssetBundleUtil.RELATIVE_AB_ROOT_FOLDER instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.RELATIVE_AB_ROOT_FOLDER is depreacated,Please use AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static string RELATIVE_AB_ROOT_FOLDER
         {
-            get { return AssetBundleUtil.RELATIVE_AB_ROOT_FOLDER; }
+            get { return AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER; }
         }
         
         #endregion
         
-        [Obsolete("ResKitUtil.GetPlatformName() is depreacated,Please use AssetBundleUtil.GetPlatformName() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.GetPlatformName() is depreacated,Please use AssetBundleSettings.GetPlatformName() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static string GetPlatformName()
         {
-            return AssetBundleUtil.GetPlatformName();
+            return AssetBundleSettings.GetPlatformName();
         }
 	
 #if UNITY_EDITOR
-        [Obsolete("ResKitUtil.GetPlatformForAssetBundles() is depreacated,Please use AssetBundleUtil.GetPlatformForAssetBundles() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.GetPlatformForAssetBundles() is depreacated,Please use AssetBundleSettings.GetPlatformForAssetBundles() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static string GetPlatformForAssetBundles(UnityEditor.BuildTarget target)
         {
-            return AssetBundleUtil.GetPlatformForAssetBundles(target);
+            return AssetBundleSettings.GetPlatformForAssetBundles(target);
         }
 #endif
         
-        [Obsolete("ResKitUtil.GetPlatformForAssetBundles() is depreacated,Please use AssetBundleUtil.GetPlatformForAssetBundles() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
+        [Obsolete("ResKitUtil.GetPlatformForAssetBundles() is depreacated,Please use AssetBundleSettings.GetPlatformForAssetBundles() instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         static string GetPlatformForAssetBundles(RuntimePlatform platform)
         {
-            return AssetBundleUtil.GetPlatformForAssetBundles(platform);
+            return AssetBundleSettings.GetPlatformForAssetBundles(platform);
         }
     }
 }

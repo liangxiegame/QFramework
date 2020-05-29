@@ -24,7 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
 using System.Collections;
 using System.Linq;
 
@@ -34,7 +33,7 @@ namespace QFramework
     using UnityEngine;
 
     [MonoSingletonPath("[Framework]/ResMgr")]
-    public class ResMgr : MonoSingleton<ResMgr>, IEnumeratorTaskMgr
+    public class ResMgr : MonoSingleton<ResMgr>
     {
         #region ID:RKRM001 Init v0.1.0 Unity5.5.1p4
 
@@ -98,15 +97,15 @@ namespace QFramework
         public IEnumerator InitResMgrAsync()
         {
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
-                ResKit.ResDatas = EditorRuntimeAssetDataCollector.BuildDataTable();
+                ResKit.ResData = EditorRuntimeAssetDataCollector.BuildDataTable();
                 yield return null;
             }
             else
 #endif
             {
-                ResKit.ResDatas.Reset();
+                ResKit.ResData.Reset();
 
                 var outResult = new List<string>();
                 string pathPrefix = "";
@@ -117,21 +116,21 @@ namespace QFramework
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
                     string streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
-                                           AssetBundleUtil.GetPlatformName() + "/" + ResKit.ResDatas.FileName;
+                                           AssetBundleSettings.GetPlatformName() + "/" + ResKit.ResData.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
                     string persistenPath = Application.persistentDataPath + "/AssetBundles/" +
-                                           AssetBundleUtil.GetPlatformName() + "/" + ResKit.ResDatas.FileName;
+                                           AssetBundleSettings.GetPlatformName() + "/" + ResKit.ResData.FileName;
                     outResult.Add(pathPrefix + persistenPath);
                 }
 
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    yield return ResKit.ResDatas.LoadFromFileAsync(outRes);
+                    yield return ResKit.ResData.LoadFromFileAsync(outRes);
                 }
 
                 yield return null;
@@ -141,32 +140,32 @@ namespace QFramework
         public void InitResMgr()
         {
 #if UNITY_EDITOR
-            if (AssetBundleUtil.SimulateAssetBundleInEditor)
+            if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
-                ResKit.ResDatas = EditorRuntimeAssetDataCollector.BuildDataTable();
+                ResKit.ResData = EditorRuntimeAssetDataCollector.BuildDataTable();
             }
             else
 #endif
             {
-                ResKit.ResDatas.Reset();
+                ResKit.ResData.Reset();
 
                 var outResult = new List<string>();
 
                 // 未进行过热更
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
-                    FileMgr.Instance.GetFileInInner(ResKit.ResDatas.FileName, outResult);
+                    FileMgr.Instance.GetFileInInner(ResKit.ResData.FileName, outResult);
                 }
                 // 进行过热更
                 else
                 {
-                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, ResKit.ResDatas.FileName, outResult);
+                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, ResKit.ResData.FileName, outResult);
                 }
 
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    ResKit.ResDatas.LoadFromFile(outRes);
+                    ResKit.ResData.LoadFromFile(outRes);
                 }
             }
         }
@@ -232,7 +231,7 @@ namespace QFramework
             }
         }
 
-        public void RemoveUnusedRes()
+        private void RemoveUnusedRes()
         {
             if (!mIsResMapDirty)
             {

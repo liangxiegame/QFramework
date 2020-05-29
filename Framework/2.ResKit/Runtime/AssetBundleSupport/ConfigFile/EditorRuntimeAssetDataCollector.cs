@@ -58,7 +58,7 @@ namespace QFramework
             return assetPath.Substring(startIndex).ToLower();
         }
 
-        public static void AddABInfo2ResDatas(IResDatas resDatas)
+        public static void AddABInfo2ResDatas(IResDatas assetBundleConfigFile)
         {
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
@@ -69,7 +69,7 @@ namespace QFramework
                 {
                     var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
                     AssetDataGroup group;
-                    var abIndex = resDatas.AddAssetBundleName(abName, depends, out @group);
+                    var abIndex = assetBundleConfigFile.AddAssetBundleName(abName, depends, out @group);
                     if (abIndex < 0)
                     {
                         continue;
@@ -85,8 +85,8 @@ namespace QFramework
                         // Debug.Log(cell + ":" + code + ":" + type);
 
                         @group.AddAssetData(cell.EndsWith(".unity")
-                            ? new AssetData(AssetPath2Name(cell), ResType.ABScene, abIndex, abName, code)
-                            : new AssetData(AssetPath2Name(cell), ResType.ABAsset, abIndex, abName, code));
+                            ? new AssetData(AssetPath2Name(cell), ResLoadType.ABScene, abIndex, abName, code)
+                            : new AssetData(AssetPath2Name(cell), ResLoadType.ABAsset, abIndex, abName, code));
                     }
                 }
             }
