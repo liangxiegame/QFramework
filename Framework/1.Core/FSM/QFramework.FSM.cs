@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace QFramework
 {
 	/// <summary>
-	/// FSM
+	/// FSM 基于枚举的状态机
 	/// </summary>
 	public class FSM<TStateEnum,TEventEnum> : IDisposable
 	{
@@ -19,7 +19,7 @@ namespace QFramework
 		/// <summary>
 		/// FSM onStateChagned.
 		/// </summary>
-		public delegate void FSMOnStateChagned(params object[] param);
+		public delegate void FSMOnStateChanged(params object[] param);
 
 		/// <summary>
 		/// QFSM state.
@@ -166,6 +166,7 @@ namespace QFramework
 
 	/// <summary>
 	/// QFSM lite.
+	/// 基于字符串的状态机
 	/// </summary>
 	public class QFSMLite
 	{

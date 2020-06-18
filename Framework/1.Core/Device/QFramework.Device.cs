@@ -23,6 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
 	using System.Linq;
@@ -33,6 +35,7 @@ namespace QFramework
 	/// 2.resolution ratio calculte; Support QUIManager
 	/// TODO:// add ResolutionManager Or Util
 	/// </summary>
+	[Obsolete]
 	public class DeviceUtil
 	{
 		/// <summary>
