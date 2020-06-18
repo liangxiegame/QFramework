@@ -2,10 +2,10 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
- /// <summary>
+    /// <summary>
     /// 序列执行节点
     /// </summary>
-    public class SequenceNode : NodeAction, INode
+    public class SequenceNode : NodeAction, INode,IResetable
     {
         protected List<IAction> mNodes = ListPool<IAction>.Get();
         protected List<IAction> mExcutingNodes = ListPool<IAction>.Get();
