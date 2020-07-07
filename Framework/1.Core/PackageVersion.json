@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.4","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/1.Core/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.4","content":"add devdoc","author":"liangxie","date":"2020 年 06 月 03 日 11:08","PackageId":""}}
+{"Id":"","Version":"v0.10.5","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/1.Core/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.5","content":"修复 ActionKit 造成的编译问题","author":"liangxie","date":"2020 年 07 月 07 日 11:48","PackageId":""}}

@@ -9,8 +9,10 @@ namespace QFramework
         public NodeActionEditorWrapper(NodeAction action)
         {
             mNodeAction = action;
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.update += Update;
             mNodeAction.OnEndedCallback += () => { UnityEditor.EditorApplication.update -= Update; };
+#endif
         }
 
         void Update()

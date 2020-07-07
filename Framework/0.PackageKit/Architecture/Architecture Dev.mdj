@@ -1,0 +1,43 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Architecture Dev",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFzHbJqLlLKqd4=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "前后端通用架构",
+			"ownedElements": [
+				{
+					"_type": "UMLUseCaseDiagram",
+					"_id": "AAAAAAFzHbLn5VLT4yU=",
+					"_parent": {
+						"$ref": "AAAAAAFzHbJqLlLKqd4="
+					},
+					"name": "UseCase"
+				},
+				{
+					"_type": "UMLPackageDiagram",
+					"_id": "AAAAAAFzHbVNXFRN4Dk=",
+					"_parent": {
+						"$ref": "AAAAAAFzHbJqLlLKqd4="
+					},
+					"name": "PackageDiagram1"
+				},
+				{
+					"_type": "UMLPackage",
+					"_id": "AAAAAAFzHbVlvVRQRvc=",
+					"_parent": {
+						"$ref": "AAAAAAFzHbJqLlLKqd4="
+					},
+					"name": "Package1"
+				}
+			]
+		}
+	],
+	"author": "liangxie",
+	"version": "v0.0.1"
+}
