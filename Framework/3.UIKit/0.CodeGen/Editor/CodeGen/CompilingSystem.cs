@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace QFramework.CodeGen
@@ -15,10 +16,11 @@ namespace QFramework.CodeGen
             {
                 Directory.CreateDirectory(directory);
             }
+
             try
             {
                 // Write the file
-                File.WriteAllText(fileInfo.FullName, codeFileGenerator.ToString());
+                File.WriteAllText(fileInfo.FullName, codeFileGenerator.ToString(), Encoding.UTF8);
             }
             catch (Exception ex)
             {

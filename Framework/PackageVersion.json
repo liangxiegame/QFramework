@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.20","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.20","content":"修复 ActionKit 造成的编译问题","author":"liangxie","date":"2020 年 07 月 07 日 11:49","PackageId":""}}
+{"Id":"","Version":"v0.10.21","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.21","content":"UIKit 生成 UTF8 格式的代码","author":"liangxie","date":"2020 年 07 月 23 日 12:00","PackageId":""}}
