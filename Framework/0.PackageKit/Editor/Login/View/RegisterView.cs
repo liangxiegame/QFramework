@@ -15,11 +15,9 @@ namespace QFramework.PackageKit
             new TextView("").PasswordMode().AddTo(passwordLine);
 
             new ButtonView("注册", () => { }).AddTo(this);
-
-
-            new ButtonView("返回注册", () => { TypeEventSystem.Send<IPackageLoginCommand>(new OpenRegisterView()); })
+            
+            new ButtonView("返回注册", () => { PackageKitLoginApp.Send(new OpenRegisterViewCommand()); })
                 .AddTo(this);
         }
-        
     }
 }

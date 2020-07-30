@@ -3,8 +3,8 @@
     "references": [
         "QFramework.IOC",
         "QFramework.TypeEventSystem",
-        "QFramework.BindKit",
-        "QFramework.BindableProperty"
+        "QFramework.BindableProperty",
+        "QFramework.Architecture"
     ],
     "includePlatforms": [
         "Editor"

@@ -14,11 +14,5 @@ namespace QFramework.PackageKit
             get { return EditorPrefs.GetBool("QFRAMEWORK_VERSION_CHECK", true); }
             set { EditorPrefs.SetBool("QFRAMEWORK_VERSION_CHECK", value); }
         }
-
-
-        public IEnumerable<PackageRepository> SelectedPackageType
-        {
-            get { return Repositories.OrderBy(p => p.name); }
-        }
     }
 }

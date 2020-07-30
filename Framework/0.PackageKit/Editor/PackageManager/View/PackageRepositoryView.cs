@@ -1,3 +1,5 @@
+using QFramework.PackageKit.Command;
+
 namespace QFramework.PackageKit
 {
     public class PackageRepositoryView : HorizontalLayout
@@ -16,50 +18,50 @@ namespace QFramework.PackageKit
                 .AddTo(this);
 
             new LabelView(packageRepository.accessRight).TextMiddleLeft().Width(50).AddTo(this);
-
-            // 数据绑定
-            var bindingSet = BindKit.CreateBindingSet(this, new PackageViewModel());
+            
             
             if (installedPackage == null)
             {
-                bindingSet.Bind(new ButtonView(LocaleText.Import).Width(90).AddTo(this))
-                    .For(v => v.OnClick)
-                    .To(vm => vm.Import)
-                    .CommandParameter(packageRepository);
+                new ButtonView(LocaleText.Import).Width(90).AddTo(this)
+                    .OnClick.AddListener(() =>
+                    {
+                        PackageManagerApp.Send(new ImportPackageCommand(packageRepository));
+                    });
             }
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
             {
-                bindingSet.Bind(new ButtonView(LocaleText.Update).Width(90).AddTo(this))
-                    .For(v => v.OnClick)
-                    .To(vm => vm.Update)
-                    .CommandParameter(packageRepository);
+                new ButtonView(LocaleText.Update).Width(90).AddTo(this)
+                    .OnClick.AddListener(() =>
+                    {
+                        PackageManagerApp.Send(new UpdatePackageCommand(packageRepository));
+                    });
             }
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
             {
-                bindingSet.Bind(new ButtonView(LocaleText.Reimport).Width(90).AddTo(this))
-                    .For(v => v.OnClick)
-                    .To(vm => vm.Reimport)
-                    .CommandParameter(packageRepository);
+                new ButtonView(LocaleText.Reimport).Width(90).AddTo(this)
+                    .OnClick.AddListener(() =>
+                    {
+                        PackageManagerApp.Send(new ReimportPackageCommand(packageRepository));
+                    });
 
             }
             else if (packageRepository.VersionNumber < installedPackage.VersionNumber)
             {
                 new SpaceView(94).AddTo(this);
             }
-            
-            bindingSet.Bind(new ButtonView(LocaleText.ReleaseNotes).Width(100)
-                    .AddTo(this))
-                .For(v => v.OnClick)
-                .To(vm => vm.OpenDetail)
-                .CommandParameter(packageRepository);
+
+            new ButtonView(LocaleText.ReleaseNotes)
+                .Width(100)
+                .AddTo(this)
+                .OnClick.AddListener(() =>
+                {
+                    PackageManagerApp.Send(new OpenDetailCommand(packageRepository));
+                });
 
             new LabelView(packageRepository.author)
                 .TextMiddleLeft()
                 .FontBold().Width(100)
                 .AddTo(this);
-
-            
-            bindingSet.Build();
         }
         
         class LocaleText

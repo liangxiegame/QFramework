@@ -1,7 +1,6 @@
 namespace QFramework.PackageKit
 {
-    public interface IPackageLoginCommand
+    public interface IPackageLoginCommand : ICommand
     {
-        void Execute();
     }
 }

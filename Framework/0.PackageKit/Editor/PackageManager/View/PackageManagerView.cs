@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using QFramework.PackageKit.Command;
+using QFramework.PackageKit.State;
 using UnityEngine;
 
 namespace QFramework.PackageKit
@@ -44,12 +46,14 @@ namespace QFramework.PackageKit
             set { OnRefreshList(value); }
         }
         
+        DisposableList mDisposableList = new DisposableList();
+
 
         public void Init(IQFrameworkContainer container)
         {
-            var bindingSet = BindKit.CreateBindingSet(this, new PackageManagerViewModel()
-                .InjectSelfWithContainer(mPackageManagerApp.Container)
-                .Init());
+            Container = container;
+            
+            PackageManagerApp.Send<PackageManagerInitCommand>();
 
             mRootLayout = new VerticalLayout();
             var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
@@ -57,11 +61,10 @@ namespace QFramework.PackageKit
             var verticalLayout = new VerticalLayout("box");
 
             treeNode.Add2Spread(verticalLayout);
-
             
             var searchView = new HorizontalLayout("box")
                 .AddTo(verticalLayout);
-            
+
             searchView.AddChild(new LabelView("搜索:")
                 .FontBold()
                 .FontSize(12)
@@ -71,30 +74,35 @@ namespace QFramework.PackageKit
                 new TextView().Height(20)
                     .Do(search =>
                     {
-                        bindingSet.Bind(search.Content)
-                            .For(v => v.OnValueChanged)
-                            .To(vm => vm.Search)
-                            .CommandParameter(search.Content);
+                        search.Content
+                            .Bind(key => { PackageManagerApp.Send(new SearchCommand(key)); }).AddTo(mDisposableList);
                     })
             );
 
             mAccessRightView = new ToolbarView()
-                .Menus(new List<string>(){"all",PackageAccessRight.Public.ToString(),PackageAccessRight.Private.ToString()})
+                .Menus(new List<string>()
+                    {"all", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
                 .AddTo(verticalLayout)
                 .Do(self =>
                 {
-                    bindingSet.Bind(self.Index).For(v => v.Value, v => v.OnValueChanged)
-                        .To(vm => vm.AccessRightIndex);
+                    self.Index.Bind(value =>
+                    {
+                        PackageManagerState.AccessRightIndex.Value = value;
+                        PackageManagerApp.Send(new SearchCommand(PackageManagerState.SearchKey.Value));
+                    }).AddTo(mDisposableList);
                 });
-            
+
             mCategoriesSelectorView = new ToolbarView()
                 .AddTo(verticalLayout)
                 .Do(self =>
                 {
-                    bindingSet.Bind(self.Index).For(v => v.Value, v => v.OnValueChanged)
-                        .To(vm => vm.CategoryIndex);
+                    self.Index.Bind(value =>
+                    {
+                        PackageManagerState.CategoryIndex.Value = value;
+                        PackageManagerApp.Send(new SearchCommand(PackageManagerState.SearchKey.Value));
+                    }).AddTo(mDisposableList);
                 });
-            
+
             new PackageListHeaderView()
                 .AddTo(verticalLayout);
 
@@ -105,16 +113,12 @@ namespace QFramework.PackageKit
                 .Height(240)
                 .AddTo(packageList);
 
-            bindingSet.Bind().For(v => v.Categories)
-                .To(vm => vm.Categories);
-            
-            bindingSet.Bind().For((v) => v.PackageRepositories)
-                .To(vm => vm.PackageRepositories);
-            
-            bindingSet.Build();
-            
+            PackageManagerState.Categories.Bind(value => { Categories = value; }).AddTo(mDisposableList);
+
+            PackageManagerState.PackageRepositories
+                .Bind(list => { this.PackageRepositories = list; }).AddTo(mDisposableList);
         }
-        
+
         private ScrollLayout mRepositoryList = null;
         
 
@@ -141,8 +145,8 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
-            BindKit.ClearBindingSet(this);
-            
+            mDisposableList.Dispose();
+            mDisposableList = null;
             mCategoriesSelectorView = null;
             mPackageManagerApp.Dispose();
             mPackageManagerApp = null;

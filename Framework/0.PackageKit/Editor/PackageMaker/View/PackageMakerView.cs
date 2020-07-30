@@ -7,8 +7,8 @@ namespace QFramework.PackageKit
     public class PackageMaker : IMGUIEditorWindow
     {
         private PackageVersion mPackageVersion;
-
-
+        
+        
         private static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -84,12 +84,16 @@ namespace QFramework.PackageKit
 
         private VerticalLayout RootLayout = null;
 
+        DisposableList mDisposableList = new DisposableList();
+        
+        PackageMakerApp mPackageMakerApp = new PackageMakerApp();
+
         protected override void Init()
         {
+            PackageMakerState.InitState();
+            
             RootLayout = new VerticalLayout("box");
-
-            BindKit.Init();
-
+            
             var editorView = new VerticalLayout().AddTo(RootLayout);
             var uploadingView = new VerticalLayout().AddTo(RootLayout);
             // var finishView = new VerticalLayout().AddTo(RootLayout);
@@ -119,45 +123,43 @@ namespace QFramework.PackageKit
 
             var releaseNote = new TextAreaView().Width(250).Height(300).AddTo(editorView);
             
-            var bindingSet = BindKit.CreateBindingSet(this, new PackageMakerViewModel(mPackageVersion));
-            bindingSet.Bind(editorView).For(v => v.Visible).To(vm => vm.InEditorView);
-            bindingSet.Bind(version.Content).For(v => v.Value, v => v.OnValueChanged)
-                .To(vm => vm.Version);
-            bindingSet.Bind(packageType.ValueProperty).For(v => v.Value, v => v.OnValueChanged)
-                .To(vm => vm.Type);
-
-            
-            bindingSet.Bind(accessRight.ValueProperty)
-                .For(v => v.Value, v => v.OnValueChanged)
-                .To(vm => vm.AccessRight);
-            
-            bindingSet.Bind(releaseNote.Content).For(v => v.Value, v => v.OnValueChanged)
-                .To(vm => vm.ReleaseNote);
+            PackageMakerState.InEditorView.BindWithInitialValue(value =>
+            {
+                editorView.Visible = value;
+            }).AddTo(mDisposableList);
 
             if (User.Logined)
             {
                 var publishBtn = new ButtonView("发布").AddTo(editorView);
-
-
-
+                
                 new ButtonView("发布并删除本地", () => { }).AddTo(editorView);
 
-                bindingSet.Bind(publishBtn).For(v => v.OnClick).To(vm => vm.Publish)
-                    .CommandParameter(mPackageVersion);
+                publishBtn.OnClick.AddListener(() =>
+                {
+                    mPackageVersion.Readme.content = releaseNote.Content.Value;
+                    mPackageVersion.AccessRight = (PackageAccessRight) accessRight.ValueProperty.Value;
+                    mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
+                    mPackageVersion.Version = version.Content.Value;
+                    
+                    PackageMakerApp.Send(new PublishPackageCommand(mPackageVersion));
+                });
             }
-
 
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).AddTo(uploadingView);
 
-            bindingSet.Bind(notice.Content).For(v => v.Value).To(vm => vm.NoticeMessage);
+            PackageMakerState.NoticeMessage
+                .BindWithInitialValue(value =>
+                {
+                    notice.Content.Value = value;
+                }).AddTo(mDisposableList);
 
-            bindingSet.Bind(uploadingView).For(v => v.Visible).To(vm => vm.InUploadingView);
-
-            bindingSet.Build();
+            PackageMakerState.InUploadingView.BindWithInitialValue(value =>
+            {
+                uploadingView.Visible = value;
+            }).AddTo(mDisposableList);
         }
 
-
-
+        
         private void OnEnable()
         {
             var selectObject = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets);
@@ -186,7 +188,11 @@ namespace QFramework.PackageKit
 
         public override void OnClose()
         {
-            BindKit.Clear();
+            mPackageMakerApp.Dispose();
+            mPackageMakerApp = null;
+            
+            mDisposableList.Dispose();
+            mDisposableList = null;
         }
 
 

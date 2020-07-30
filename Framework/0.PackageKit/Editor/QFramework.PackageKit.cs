@@ -1,7 +1,6 @@
 using QFramework.PackageKit;
 #if UNITY_EDITOR
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -390,17 +389,7 @@ namespace QFramework
             return Get().Find(installedPackageVersion => installedPackageVersion.Name == name);
         }
     }
-
-
-
- 
-
-   
-
-    public interface IEditorStrangeMVCCommand
-    {
-        void Execute();
-    }
+    
 
    
 
@@ -524,9 +513,7 @@ namespace QFramework
 
             PackageApplication.Container = null;
             RemoveAllChidren();
-
-            BindKit.Init();
-
+            
             mPackageKitViews = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
                 .OrderBy(view => view.RenderOrder)
@@ -553,8 +540,6 @@ namespace QFramework
 
             RemoveAllChidren();
             
-            BindKit.Clear();
-
             IsOpenening = false;
         }
     }
@@ -1251,6 +1236,15 @@ namespace QFramework
         void RemoveFromParent();
 
         void Refresh();
+    }
+    
+    public static class ViewExtensions
+    {
+        public static TView Do<TView>(this TView self, Action<TView> onDo) where TView : IView
+        {
+            onDo(self);
+            return self;
+        }
     }
 
     public interface ILayout : IView

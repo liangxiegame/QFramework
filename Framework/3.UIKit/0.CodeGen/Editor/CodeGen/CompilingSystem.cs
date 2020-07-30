@@ -16,7 +16,7 @@ namespace QFramework.CodeGen
             {
                 Directory.CreateDirectory(directory);
             }
-
+            
             try
             {
                 // Write the file

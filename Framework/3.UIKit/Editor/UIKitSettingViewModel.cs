@@ -1,5 +1,4 @@
 using System.IO;
-using BindKit.ViewModels;
 using QFramework.PackageKit;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -7,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
-    public class UIKitSettingViewModel : ViewModelBase
+    public class UIKitSettingViewModel
     {
 
         private string mPanelNameToCreate = "UIHomePanel";

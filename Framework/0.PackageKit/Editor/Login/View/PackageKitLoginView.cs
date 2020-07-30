@@ -1,10 +1,12 @@
+using QFramework.PackageKit.State;
+
 namespace QFramework.PackageKit
 {
    public class PackageLoginView : VerticalLayout, IPackageKitView
     {
         public IQFrameworkContainer Container { get; set; }
 
-        PackageLoginApp mPackageLoginApp = new PackageLoginApp();
+        PackageKitLoginApp mPackageKitLoginApp = new PackageKitLoginApp();
 
         public int RenderOrder
         {
@@ -17,6 +19,8 @@ namespace QFramework.PackageKit
         {
             get { return true; }
         }
+        
+        DisposableList mDisposableList = new DisposableList();
 
         public void Init(IQFrameworkContainer container)
         {
@@ -29,18 +33,35 @@ namespace QFramework.PackageKit
             
             var logoutBtn = new ButtonView("注销").AddTo(boxLayout);
 
-            var loginView = new LoginView().AddTo(boxLayout);
-            var registerView = new RegisterView().AddTo(boxLayout);
+            var loginView = new LoginView()
+                .Do(self=>self.Visible = PackageKitLoginState.LoginViewVisible.Value)
+                .AddTo(boxLayout);
+            
+            var registerView = new RegisterView()
+                .Do(self=>self.Visible = PackageKitLoginState.RegisterViewVisible.Value)
+                .AddTo(boxLayout);
 
+            PackageKitLoginState.Logined.Bind(value =>
+            {
+                logoutBtn.Visible = value;
+            }).AddTo(mDisposableList);
             
-            var bindingSet = BindKit.CreateBindingSet(this, new PacakgeKitLoginViewModel());
+            logoutBtn.OnClick.AddListener(() =>
+            {
+                PackageKitLoginApp.Send<LogoutCommand>();
+            });
             
-            bindingSet.Bind(logoutBtn).For(v => v.Visible).To(vm => vm.Logined).OneWay();
-            bindingSet.Bind(logoutBtn).For(v => v.OnClick).To(vm => vm.Logout);
-            bindingSet.Bind(loginView).For(v=>v.Visible).To(vm=>vm.LoginViewVisible).OneWay();
-            bindingSet.Bind(registerView).For(v => v.Visible).To(vm => vm.RegisterViewVisible).OneWay();
+            PackageKitLoginState.LoginViewVisible.Bind(value =>
+            {
+                loginView.Visible = value;
+            }).AddTo(mDisposableList);
             
-            bindingSet.Build();
+
+            PackageKitLoginState.RegisterViewVisible.Bind(value =>
+            {
+                registerView.Visible = value;
+            }).AddTo(mDisposableList);
+            
         }
         
 
@@ -64,8 +85,10 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
-            mPackageLoginApp.Dispose();
-            mPackageLoginApp = null;
+            mDisposableList.Dispose();
+            mDisposableList = null;
+            mPackageKitLoginApp.Dispose();
+            mPackageKitLoginApp = null;
         }
     }
 }

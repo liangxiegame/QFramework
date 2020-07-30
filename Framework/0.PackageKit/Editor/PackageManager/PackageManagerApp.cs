@@ -1,17 +1,11 @@
+using QFramework.PackageKit.Command;
+
 namespace QFramework.PackageKit
 {
-    public class PackageManagerApp
+    public class PackageManagerApp : AbstractApp<IPackageManagerCommand>
     {
-        public IQFrameworkContainer Container = new QFrameworkContainer();
-
-        public PackageManagerApp()
+        protected override void ConfigureService(IQFrameworkContainer container)
         {
-            // 注册好 自己的实例
-            Container.RegisterInstance(Container);
-
-            // 配置命令的执行
-            TypeEventSystem.Register<IEditorStrangeMVCCommand>(OnCommandExecute);
-
             InstalledPackageVersions.Reload();
 
             // 注册好 model
@@ -23,20 +17,6 @@ namespace QFramework.PackageKit
             Container.RegisterInstance(model);
 
             Container.Register<IPackageManagerServer, PackageManagerServer>();
-        }
-
-        void OnCommandExecute(IEditorStrangeMVCCommand command)
-        {
-            Container.Inject(command);
-            command.Execute();
-        }
-
-        public void Dispose()
-        {
-            TypeEventSystem.UnRegister<IEditorStrangeMVCCommand>(OnCommandExecute);
-
-            Container.Clear();
-            Container = null;
         }
     }
 }

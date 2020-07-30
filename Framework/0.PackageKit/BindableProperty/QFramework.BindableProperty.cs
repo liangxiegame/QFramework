@@ -115,6 +115,17 @@ namespace QFramework
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="onValueChanged"></param>
+        /// <returns></returns>
+        public IDisposable BindWithInitialValue(Action<T> onValueChanged)
+        {
+            onValueChanged.Invoke(mValue);
+            return Bind(onValueChanged);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void UnBindAll()
         {
             mSetter = null;

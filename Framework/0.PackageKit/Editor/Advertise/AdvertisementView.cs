@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace QFramework.PackageKit
+﻿namespace QFramework.PackageKit
 {
 	public class AdvertisementView : IPackageKitView
 	{
@@ -34,25 +32,15 @@ namespace QFramework.PackageKit
 
 
 			new AdvertisementItemView("官方文档：《QFramework 使用指南 2020》",
-					"https://liangxiegame.com/zhuanlan/list/f0510c91-a90e-44df-87d2-f2ab94268fd1")
+					"https://qframework.cn/doc")
 				.AddTo(verticalLayout);
 
 			new AdvertisementItemView("官方 qq 群：623597263",
 					"https://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce6")
 				.AddTo(verticalLayout);
 
-			new AdvertisementItemView("提问",
-					"https://liangxiegame.com/zhuanlan/content/detail/7aed2448-a0a7-4de3-968b-375b3f06abe8")
-				.AddTo(verticalLayout);
-
-
-			new AdvertisementItemView("提需求",
-					"https://liangxiegame.com/zhuanlan/content/detail/2a7cf754-e57c-4e9a-85a0-93b9226b1ad8")
-				.AddTo(verticalLayout);
-
-
-			new AdvertisementItemView("提 Bug",
-					"https://liangxiegame.com/zhuanlan/content/detail/1d45ba9e-12df-42c5-abc3-1312effb5cce")
+			new AdvertisementItemView("提问/提需求/提 Bug/社区",
+					"https://qframework.cn/community")
 				.AddTo(verticalLayout);
 
 			new AdvertisementItemView("github",

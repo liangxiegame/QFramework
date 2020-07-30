@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.21","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.21","content":"UIKit 生成 UTF8 格式的代码","author":"liangxie","date":"2020 年 07 月 23 日 12:00","PackageId":""}}
+{"Id":"","Version":"v0.10.22","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.22","content":"剥离掉对 BindKit 的依赖","author":"liangxie","date":"2020 年 07 月 30 日 22:16","PackageId":""}}
