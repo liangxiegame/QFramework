@@ -1,3 +1,5 @@
+using System;
+
 namespace QFramework
 {
     /// <inheritdoc />
@@ -7,12 +9,13 @@ namespace QFramework
     public class DelayAction : NodeAction, IPoolable,IResetable
     {
         public float DelayTime;
+        private Action onDelayFinish = () => { };
 
-        public static DelayAction Allocate(float delayTime, System.Action onEndCallback = null)
+        public static DelayAction Allocate(float delayTime, System.Action onDelayFinish = null)
         {
             var retNode = SafeObjectPool<DelayAction>.Instance.Allocate();
             retNode.DelayTime = delayTime;
-            retNode.OnEndedCallback = onEndCallback;
+            retNode.onDelayFinish = onDelayFinish;
             return retNode;
         }
 
@@ -36,6 +39,10 @@ namespace QFramework
         {
             mCurrentSeconds += dt;
             Finished = mCurrentSeconds >= DelayTime;
+            if (Finished)
+            {
+                onDelayFinish();
+            }
         }
 
         protected override void OnDispose()
@@ -45,6 +52,7 @@ namespace QFramework
 
         public void OnRecycled()
         {
+            onDelayFinish = null;
             DelayTime = 0.0f;
             Reset();
         }
