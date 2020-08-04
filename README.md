@@ -100,6 +100,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 
 #### 参考 Reference:
+* [MultyFramework](https://github.com/OnClick9927/MultyFramework)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
