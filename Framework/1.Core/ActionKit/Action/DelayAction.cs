@@ -9,7 +9,7 @@ namespace QFramework
     public class DelayAction : NodeAction, IPoolable,IResetable
     {
         public float DelayTime;
-        private Action onDelayFinish = () => { };
+        private Action onDelayFinish;
 
         public static DelayAction Allocate(float delayTime, System.Action onDelayFinish = null)
         {
@@ -39,7 +39,7 @@ namespace QFramework
         {
             mCurrentSeconds += dt;
             Finished = mCurrentSeconds >= DelayTime;
-            if (Finished)
+            if (Finished && onDelayFinish != null)
             {
                 onDelayFinish();
             }

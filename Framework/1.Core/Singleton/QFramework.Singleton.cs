@@ -32,8 +32,6 @@ using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-
-
 	public interface ISingleton
 	{
 		void OnSingletonInit();
