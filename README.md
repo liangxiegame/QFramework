@@ -92,16 +92,16 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * Unity 5.6.x ~ 2020.x
 
 ### 可选的包含项目 Include Projects:
-* [Catlib.Core](https://github.com/CatLib/Core)
-* [ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)
-* [StateManageEditor](https://github.com/827922094/StateManageEditor)
+* ~~[Catlib.Core](https://github.com/CatLib/Core)~~
+* ~~[ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)~~
+* ~~[StateManageEditor](https://github.com/827922094/StateManageEditor)~~
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
-* [UnityEditorMemo](https://github.com/charcolle/UnityEditorMemo)
 
 #### 参考 Reference:
 * [MultyFramework](https://github.com/OnClick9927/MultyFramework)
 * [IFramework_GUICanvas](https://github.com/OnClick9927/IFramework_GUICanvas)
+* [IFramework](https://github.com/OnClick9927/IFramework)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
