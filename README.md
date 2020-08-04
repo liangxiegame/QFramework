@@ -101,6 +101,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 #### 参考 Reference:
 * [MultyFramework](https://github.com/OnClick9927/MultyFramework)
+* [IFramework_GUICanvas](https://github.com/OnClick9927/IFramework_GUICanvas)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
 * [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
