@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.11.3","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.11.3","content":"add devdoc","author":"liangxie","date":"2020 年 06 月 03 日 11:09","PackageId":""}}
+{"Id":"","Version":"v0.11.4","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/2.ResKit/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.11.4","content":"改掉一些弃用的 API","author":"liangxie","date":"2020 年 08 月 08 日 10:47","PackageId":""}}

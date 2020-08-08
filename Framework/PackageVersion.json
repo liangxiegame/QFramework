@@ -1,1 +1,1 @@
-{"Id":"","Version":"v0.10.24","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.24","content":"修复 Delay 造成的空指针异常问题","author":"master2020","date":"2020 年 08 月 04 日 20:20","PackageId":""}}
+{"Id":"","Version":"v0.10.25","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.25","content":"添加 InstantiateWithParent 这个 API","author":"liangxie","date":"2020 年 08 月 09 日 00:48","PackageId":""}}

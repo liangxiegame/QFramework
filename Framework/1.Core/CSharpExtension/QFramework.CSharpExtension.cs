@@ -1655,10 +1655,15 @@ namespace QFramework
         {
             return Object.Instantiate(selfObj);
         }
+        
+        public static T InstantiateWithParent<T>(this T selfObj,Transform parent) where T: Object
+        {
+            return Object.Instantiate(selfObj,parent);
+        }
 
         #endregion
 
-        #region CEUO002 Instantiate
+        #region CEUO002 Name
 
         public static T Name<T>(this T selfObj, string name) where T : Object
         {

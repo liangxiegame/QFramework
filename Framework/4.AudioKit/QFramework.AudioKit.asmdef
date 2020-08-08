@@ -1,0 +1,22 @@
+{
+    "name": "QFramework.AudioKit",
+    "references": [
+        "QFramework.ActionKit",
+        "QFramework.Pool",
+        "QFramework.Singleton",
+        "QFramework.BindableProperty",
+        "QFramework.UIKit",
+        "QFramework.ResKit",
+        "QFramework.RefCounter",
+        "QFramework.EventSystem",
+        "QFramework.CSharpExtension"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

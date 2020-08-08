@@ -142,30 +142,30 @@ namespace QFramework
 #if UNITY_EDITOR
             if (AssetBundleSettings.SimulateAssetBundleInEditor)
             {
-                ResKit.ResData = EditorRuntimeAssetDataCollector.BuildDataTable();
+                AssetBundleSettings.AssetBundleConfigFile = EditorRuntimeAssetDataCollector.BuildDataTable();
             }
             else
 #endif
             {
-                ResKit.ResData.Reset();
+                AssetBundleSettings.AssetBundleConfigFile.Reset();
 
                 var outResult = new List<string>();
 
                 // 未进行过热更
                 if (ResKit.LoadResFromStreammingAssetsPath)
                 {
-                    FileMgr.Instance.GetFileInInner(ResKit.ResData.FileName, outResult);
+                    FileMgr.Instance.GetFileInInner(AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
                 }
                 // 进行过热更
                 else
                 {
-                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, ResKit.ResData.FileName, outResult);
+                    FilePath.GetFileInFolder(FilePath.PersistentDataPath, AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
                 }
 
                 foreach (var outRes in outResult)
                 {
                     Debug.Log(outRes);
-                    ResKit.ResData.LoadFromFile(outRes);
+                    AssetBundleSettings.AssetBundleConfigFile.LoadFromFile(outRes);
                 }
             }
         }
