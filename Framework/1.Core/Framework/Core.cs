@@ -2,12 +2,10 @@
 
 namespace QFramework
 {
-	/// <summary>
-	/// 给内部使用的框架主体
-	/// </summary>
-	[MonoSingletonPath("QFramework/Core")]
-	public class Core : MonoBehaviour, ISingleton, IFramework
+	public class Core : ISingleton, IFramework
 	{
+		private Core() { }
+		
 		/// <summary>
 		/// 框架层的底层模块
 		/// </summary>
@@ -20,7 +18,7 @@ namespace QFramework
 		
 		private static IFramework mIntance
 		{
-			get { return MonoSingletonProperty<Core>.Instance; }
+			get { return SingletonProperty<Core>.Instance; }
 		}
 
 		public static void RegisterUtility<TContract>(TContract utilityObject)
