@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework.PackageKit;
 
 namespace QFramework
 {
@@ -57,14 +56,11 @@ namespace QFramework
         public void Init(IQFrameworkContainer container)
         {
             mViewModel = new UIKitSettingViewModel();
-            
-            var treeNode = new TreeNode(false, LocaleText.UIKitSettings,autosaveSpreadState:true)
-                .AddTo(this);
 
-            mRootLayout = new VerticalLayout("box");
+            new LabelView(LocaleText.UIKitSettings).FontSize(12).AddTo(this);
 
-            treeNode.Add2Spread(mRootLayout);
-            
+            mRootLayout = new VerticalLayout("box").AddTo(this);
+
             mRootLayout.AddChild(new SpaceView(6));
 
             // 命名空间

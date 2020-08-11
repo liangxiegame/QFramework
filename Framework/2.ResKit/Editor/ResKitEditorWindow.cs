@@ -109,11 +109,9 @@ namespace QFramework
 
 			public void Init(IQFrameworkContainer container)
 			{
-				var expendLayout = new TreeNode(true, LocaleText.ResKit,autosaveSpreadState:true)
-					.AddTo(this);
-
-				var verticalLayout = new VerticalLayout("box");
-				expendLayout.Add2Spread(verticalLayout);
+				new LabelView(LocaleText.ResKit).FontSize(12).AddTo(this);
+				
+				var verticalLayout = new VerticalLayout("box").AddTo(this);
 
 				var persistLine = new HorizontalLayout();
 				new LabelView("PersistantPath:").AddTo(persistLine).Width(100);

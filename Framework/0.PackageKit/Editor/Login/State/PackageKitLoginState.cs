@@ -17,7 +17,7 @@
             () => !User.Logined && mInLoginView, (value) => mInLoginView = value
         );
 
-        private static bool mInLoginView;
+        private static bool mInLoginView = true;
 
         public static Property<bool> RegisterViewVisible = new CustomProperty<bool>(
             () => !User.Logined && !mInLoginView,

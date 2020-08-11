@@ -119,7 +119,7 @@ namespace QFramework
         /// <returns></returns>
         public IDisposable BindWithInitialValue(Action<T> onValueChanged)
         {
-            onValueChanged.Invoke(mValue);
+            onValueChanged.Invoke(GetValue());
             return Bind(onValueChanged);
         }
 
@@ -286,5 +286,7 @@ namespace QFramework
                 if (mValueSetter != null) mValueSetter(value);
             }
         }
+
+
     }
 }

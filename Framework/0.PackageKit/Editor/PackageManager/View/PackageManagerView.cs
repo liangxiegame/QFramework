@@ -56,12 +56,11 @@ namespace QFramework.PackageKit
             PackageManagerApp.Send<PackageManagerInitCommand>();
 
             mRootLayout = new VerticalLayout();
-            var treeNode = new TreeNode(true, LocaleText.FrameworkPackages).AddTo(mRootLayout);
-
-            var verticalLayout = new VerticalLayout("box");
-
-            treeNode.Add2Spread(verticalLayout);
             
+            new LabelView(LocaleText.FrameworkPackages).FontSize(12).AddTo(mRootLayout);
+            
+            var verticalLayout = new VerticalLayout("box").AddTo(mRootLayout);
+
             var searchView = new HorizontalLayout("box")
                 .AddTo(verticalLayout);
 
@@ -110,7 +109,7 @@ namespace QFramework.PackageKit
                 .AddTo(verticalLayout);
 
             mRepositoryList = new ScrollLayout()
-                .Height(240)
+                .Height(600)
                 .AddTo(packageList);
 
             PackageManagerState.Categories.Bind(value => { Categories = value; }).AddTo(mDisposableList);

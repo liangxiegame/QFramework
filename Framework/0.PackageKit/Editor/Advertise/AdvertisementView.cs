@@ -22,14 +22,10 @@
 		{
 			mRootLayout = new VerticalLayout();
 
-			var treeNode = new TreeNode(true, LocalText.TechSupport, autosaveSpreadState: true)
+			var verticalLayout = new VerticalLayout()
 				.AddTo(mRootLayout);
 
-
-			var verticalLayout = new VerticalLayout();
-
-			treeNode.Add2Spread(verticalLayout);
-
+			new LabelView("技术支持").FontBold().FontSize(12).AddTo(verticalLayout);
 
 			new AdvertisementItemView("官方文档：《QFramework 使用指南 2020》",
 					"https://qframework.cn/doc")

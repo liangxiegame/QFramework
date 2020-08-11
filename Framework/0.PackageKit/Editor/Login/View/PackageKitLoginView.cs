@@ -24,14 +24,14 @@ namespace QFramework.PackageKit
 
         public void Init(IQFrameworkContainer container)
         {
-            var expendLayout = new TreeNode(false, LocaleText.UserInfo)
-                .AddTo(this);
+            new LabelView("账户信息").FontSize(12).AddTo(this);
 
-            var boxLayout = new VerticalLayout("box");
+            var boxLayout = new VerticalLayout("box").AddTo(this);
 
-            expendLayout.Add2Spread(boxLayout);
             
-            var logoutBtn = new ButtonView("注销").AddTo(boxLayout);
+            var logoutBtn = new ButtonView("注销")
+                .Do(btn=>btn.Visible = PackageKitLoginState.Logined.Value)
+                .AddTo(boxLayout);
 
             var loginView = new LoginView()
                 .Do(self=>self.Visible = PackageKitLoginState.LoginViewVisible.Value)
