@@ -53,7 +53,7 @@ namespace QFramework
                     return mResLoader.LoadSync<GameObject>(panelSearchKeys.PanelType.Name);
                 }
                 
-                if (panelSearchKeys.AssetBundleName.IsNullOrEmpty())
+                if (panelSearchKeys.AssetBundleName.IsNotNullAndEmpty())
                 {
                     return mResLoader.LoadSync<GameObject>(panelSearchKeys.AssetBundleName, panelSearchKeys.GameObjName);
                 }

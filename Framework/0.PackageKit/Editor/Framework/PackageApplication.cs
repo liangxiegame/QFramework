@@ -102,11 +102,11 @@ namespace QFramework.PackageKit
             return m.AddListener(listener);
         }
 
-        private static IPackageKitView[] mPlugins;
+        private static QFramework.IPackageKitView[] mPlugins;
 
-        public static IPackageKitView[] Plugins
+        public static QFramework.IPackageKitView[] Plugins
         {
-            get { return mPlugins ?? (mPlugins = Container.ResolveAll<IPackageKitView>().ToArray()); }
+            get { return mPlugins ?? (mPlugins = Container.ResolveAll<QFramework.IPackageKitView>().ToArray()); }
             set { mPlugins = value; }
         }
 
@@ -114,11 +114,11 @@ namespace QFramework.PackageKit
         {
             mPlugins = null;
             container.RegisterInstance(container);
-            var pluginTypes = GetDerivedTypes<IPackageKitView>(false, false).ToArray();
+            var pluginTypes = GetDerivedTypes<QFramework.IPackageKitView>(false, false).ToArray();
 
             foreach (var diagramPlugin in pluginTypes)
             {
-                var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as IPackageKitView;
+                var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as QFramework.IPackageKitView;
                 if (pluginInstance == null) continue;
                 container.RegisterInstance(pluginInstance, diagramPlugin.Name, false);
                 container.RegisterInstance(pluginInstance.GetType(), pluginInstance);
@@ -133,7 +133,7 @@ namespace QFramework.PackageKit
 
             container.InjectAll();
 
-            foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
+            foreach (var diagramPlugin in Plugins.Where(p => !p.Ignore))
             {
                 if (diagramPlugin.Enabled)
                 {
@@ -143,7 +143,7 @@ namespace QFramework.PackageKit
                 }
             }
 
-            foreach (var diagramPlugin in Plugins.OrderBy(p => p.RenderOrder).Where(p => !p.Ignore))
+            foreach (var diagramPlugin in Plugins.Where(p => !p.Ignore))
             {
                 if (diagramPlugin.Enabled)
                 {

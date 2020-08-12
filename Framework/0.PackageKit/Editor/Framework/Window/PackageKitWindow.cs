@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace QFramework.PackageKit
 {
@@ -20,17 +22,16 @@ namespace QFramework.PackageKit
 
         class Styles
         {
-            public static GUIStyle box = "box"; 
-            public static GUIStyle in_title = new GUIStyle("IN Title") { fixedHeight = toolbarHeight + 5 };
+            public static GUIStyle box = "box";
+            public static GUIStyle in_title = new GUIStyle("IN Title") {fixedHeight = toolbarHeight + 5};
             public static GUIStyle toolbarSeachTextFieldPopup = "ToolbarSeachTextFieldPopup";
             public static GUIStyle searchCancelButton = "ToolbarSeachCancelButton";
             public static GUIStyle searchCancelButtonEmpty = "ToolbarSeachCancelButtonEmpty";
             public static GUIStyle foldout = "Foldout";
             public static GUIStyle toolbarDropDown = "ToolbarDropDown";
             public static GUIStyle selectionRect = "SelectionRect";
-
         }
-        
+
         [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
         [MenuItem(FrameworkMenuItems.PackageKit, false, FrameworkMenuItemsPriorities.Preferences)]
         private static void Open()
@@ -51,36 +52,59 @@ namespace QFramework.PackageKit
 
         public override void OnUpdate()
         {
-            mPackageKitViews.ForEach(view => view.OnUpdate());
+            mPackageKitViewRenderInfos.ForEach(view => view.Interface.OnUpdate());
         }
 
-        public List<IPackageKitView> mPackageKitViews = null;
+        public class PacakgeKitViewRenderInfo
+        {
+            public QFramework.IPackageKitView Interface { get; private set; }
+            public string DisplayName { get; private set; }
+
+            public int RenderOrder { get; private set; }
+
+            public PacakgeKitViewRenderInfo(QFramework.IPackageKitView @interface)
+            {
+                Interface = @interface;
+
+                var displayName = @interface.GetType().GetCustomAttributes(typeof(DisplayNameAttribute), false)
+                    .FirstOrDefault() as DisplayNameAttribute;
+                DisplayName = displayName != null ? displayName.DisplayName : @interface.GetType().Name;
+
+                var renderOrder = @interface.GetType()
+                    .GetCustomAttributes(typeof(PackageKitRenderOrderAttribute), false)
+                    .FirstOrDefault() as PackageKitRenderOrderAttribute;
+
+                RenderOrder = renderOrder != null ? renderOrder.Order : int.MaxValue;
+            }
+        }
+
+        [FormerlySerializedAs("mPackageKitViews")] public List<PacakgeKitViewRenderInfo> mPackageKitViewRenderInfos = null;
 
         private int count = 0;
 
         protected override void Init()
         {
             var label = GUI.skin.label;
-            
+
             PackageApplication.Container = null;
             RemoveAllChidren();
 
-            mPackageKitViews = PackageApplication.Container
+            mPackageKitViewRenderInfos = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
-                .OrderBy(view => view.RenderOrder)
+                .Select(view => new PacakgeKitViewRenderInfo(view))
+                .OrderBy(renderInfo => renderInfo.RenderOrder)
                 .ToList();
 
-            mSelectedView = mPackageKitViews.FirstOrDefault();
+            mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault();
 
             PackageApplication.Container.RegisterInstance(this);
             PackageApplication.Container.RegisterInstance<EditorWindow>(this);
-            
+
             // 创建双屏
             mSplitView = new VerticalSplitView
             {
                 fistPan = rect =>
                 {
-
                     GUILayout.BeginArea(rect);
                     GUILayout.BeginVertical();
                     GUILayout.Space(toolbarHeight);
@@ -94,58 +118,62 @@ namespace QFramework.PackageKit
                     GUILayout.BeginVertical();
                     GUILayout.Space(toolbarHeight);
                     GUILayout.EndVertical();
-                    
-                    if (mSelectedView != null)
+
+                    if (mSelectedViewRender != null)
                     {
-                        mSelectedView.OnGUI();
+                        mSelectedViewRender.Interface.OnGUI();
                     }
+
                     GUILayout.EndArea();
                 }
             };
         }
-        
+
         private VerticalSplitView mSplitView;
 
 
         public override void OnGUI()
         {
             base.OnGUI();
-            
+
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
             GUILayout.Label(DateTime.Now.ToLongTimeString(), Styles.selectionRect);
 
             GUILayout.EndHorizontal();
-            
+
             var r = GUILayoutUtility.GetLastRect();
             mSplitView.OnGUI(new Rect(new Vector2(0, r.yMax),
                 new Vector2(position.width, position.height - r.height)));
-            
+
             RenderEndCommandExecuter.ExecuteCommand();
         }
 
-        private IPackageKitView mSelectedView = null;
-          private void LeftSelectView(string search)
+        private PacakgeKitViewRenderInfo mSelectedViewRender = null;
+
+        private void LeftSelectView(string search)
         {
-            for (int i = 0; i < mPackageKitViews.Count; i++)
+            for (int i = 0; i < mPackageKitViewRenderInfos.Count; i++)
             {
-                var drawer = mPackageKitViews[i];
-               
+                var drawer = mPackageKitViewRenderInfos[i];
+
                 GUILayout.BeginHorizontal(Styles.in_title);
-                GUILayout.Label(drawer.GetType().Name.Replace("View",string.Empty));
+                GUILayout.Label(drawer.DisplayName);
                 GUILayout.FlexibleSpace();
                 // GUILayout.Label("v0.0.1");
                 GUILayout.EndHorizontal();
                 Rect rect = GUILayoutUtility.GetLastRect();
-                if (mSelectedView == drawer)
+                if (mSelectedViewRender == drawer)
                 {
                     GUI.Box(rect, "", Styles.selectionRect);
                 }
+
                 if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
                 {
-                    mSelectedView = drawer;
+                    mSelectedViewRender = drawer;
                     Event.current.Use();
                 }
+
                 GUILayout.Label("", Styles.in_title, GUILayout.Height(0));
             }
         }
@@ -153,9 +181,9 @@ namespace QFramework.PackageKit
 
         public override void OnClose()
         {
-            if (mPackageKitViews != null)
+            if (mPackageKitViewRenderInfos != null)
             {
-                mPackageKitViews.Where(view => view != null).ToList().ForEach(view => view.OnDispose());
+                mPackageKitViewRenderInfos.Where(view => view != null).ToList().ForEach(view => view.Interface.OnDispose());
             }
 
             RemoveAllChidren();

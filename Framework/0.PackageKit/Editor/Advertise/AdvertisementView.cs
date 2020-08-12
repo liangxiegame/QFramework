@@ -1,6 +1,10 @@
-﻿namespace QFramework.PackageKit
+﻿using System.ComponentModel;
+
+namespace QFramework.PackageKit
 {
-	public class AdvertisementView : IPackageKitView
+	[DisplayName("技术支持")]
+	[PackageKitRenderOrder(int.MinValue)]
+	public class AdvertisementView : QFramework.IPackageKitView
 	{
 		public IQFrameworkContainer Container { get; set; }
 

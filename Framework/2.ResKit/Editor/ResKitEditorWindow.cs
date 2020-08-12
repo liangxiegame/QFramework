@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
+using System.ComponentModel;
 using System.Linq;
 using QFramework.PackageKit;
 
@@ -87,14 +87,14 @@ namespace QFramework
 			BuildScript.BuildAssetBundles (buildTarget);
 		}
 
+		[DisplayName("ResKit 设置/编辑器")]
+		[PackageKitRenderOrder(2)]
 		public class ResKitView : VerticalLayout, IPackageKitView {
 			public IQFrameworkContainer Container {
 				get;
 				set;
 			}
-
-			public int RenderOrder { get { return 5; } }
-
+			
 			public bool Ignore { get { return false; } }
 
 			public bool Enabled { get { return true; } }

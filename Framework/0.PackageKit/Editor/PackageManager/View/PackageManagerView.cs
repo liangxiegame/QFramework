@@ -1,23 +1,21 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using QFramework.PackageKit.Command;
 using QFramework.PackageKit.State;
 using UnityEngine;
 
 namespace QFramework.PackageKit
 {
-  public class PackageManagerView : IPackageKitView
+    [DisplayName("PackageKit 插件管理")]
+    [PackageKitRenderOrder(1)]
+    public class PackageManagerView : QFramework.IPackageKitView
     {
         PackageManagerApp mPackageManagerApp = new PackageManagerApp();
 
         private Vector2 mScrollPos;
 
         public IQFrameworkContainer Container { get; set; }
-
-        public int RenderOrder
-        {
-            get { return 1; }
-        }
-
+        
         public bool Ignore { get; private set; }
 
         public bool Enabled
@@ -26,7 +24,7 @@ namespace QFramework.PackageKit
         }
 
         private VerticalLayout mRootLayout = new VerticalLayout();
-        
+
         private ToolbarView mCategoriesSelectorView = null;
         private ToolbarView mAccessRightView = null;
 
@@ -35,7 +33,7 @@ namespace QFramework.PackageKit
             get { return null; }
             set
             {
-                mCategoriesSelectorView.Menus(value); 
+                mCategoriesSelectorView.Menus(value);
                 Container.Resolve<PackageKitWindow>().Repaint();
             }
         }
@@ -45,20 +43,20 @@ namespace QFramework.PackageKit
             get { return null; }
             set { OnRefreshList(value); }
         }
-        
+
         DisposableList mDisposableList = new DisposableList();
 
 
         public void Init(IQFrameworkContainer container)
         {
             Container = container;
-            
+
             PackageManagerApp.Send<PackageManagerInitCommand>();
 
             mRootLayout = new VerticalLayout();
-            
+
             new LabelView(LocaleText.FrameworkPackages).FontSize(12).AddTo(mRootLayout);
-            
+
             var verticalLayout = new VerticalLayout("box").AddTo(mRootLayout);
 
             var searchView = new HorizontalLayout("box")
@@ -119,7 +117,7 @@ namespace QFramework.PackageKit
         }
 
         private ScrollLayout mRepositoryList = null;
-        
+
 
         private void OnRefreshList(List<PackageRepository> packageRepositories)
         {
@@ -133,6 +131,7 @@ namespace QFramework.PackageKit
                     .AddChild(new PackageRepositoryView(packageRepository));
             }
         }
+
         public void OnUpdate()
         {
         }

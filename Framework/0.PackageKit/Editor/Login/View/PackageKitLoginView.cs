@@ -1,17 +1,16 @@
+using System.ComponentModel;
 using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit
 {
-   public class PackageLoginView : VerticalLayout, IPackageKitView
+    [DisplayName("账户")]
+    [PackageKitRenderOrder(int.MaxValue)]
+   public class PackageKitLoginView : VerticalLayout, IPackageKitView
     {
         public IQFrameworkContainer Container { get; set; }
 
         PackageKitLoginApp mPackageKitLoginApp = new PackageKitLoginApp();
-
-        public int RenderOrder
-        {
-            get { return 3; }
-        }
+        
 
         public bool Ignore { get; private set; }
 
@@ -65,7 +64,7 @@ namespace QFramework.PackageKit
         }
         
 
-        void IPackageKitView.OnUpdate()
+        void QFramework.IPackageKitView.OnUpdate()
         {
         }
 

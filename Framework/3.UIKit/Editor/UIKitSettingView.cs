@@ -24,8 +24,12 @@
  ****************************************************************************/
 
 
+using System.ComponentModel;
+
 namespace QFramework
 {
+    [DisplayName("UIKit 设置")]
+    [PackageKitRenderOrder(3)]
     public class UIKitSettingView : VerticalLayout, IPackageKitView
     {
         private UIKitSettingData mUiKitSettingData;
