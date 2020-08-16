@@ -6,7 +6,8 @@
         "QFramework.BindableProperty",
         "QFramework.Singleton",
         "QFramework.DataStructure",
-        "QFramework.Core.Serialize"
+        "QFramework.Core.Serialize",
+        "QFramework.Architecture"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

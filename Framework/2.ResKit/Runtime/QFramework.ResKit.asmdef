@@ -6,7 +6,8 @@
         "QFramework.Pool",
         "QFramework.DataStructure",
         "QFramework.Core",
-        "QFramework.Core.Serialize"
+        "QFramework.Core.Serialize",
+        "QFramework.Architecture"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

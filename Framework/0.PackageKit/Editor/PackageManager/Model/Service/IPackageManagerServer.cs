@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QFramework.PackageKit
 {
-    public interface IPackageManagerServer
+    public interface IPackageManagerServer : IModel
     {
 
         void DeletePackage(string packageId, Action onResponse);

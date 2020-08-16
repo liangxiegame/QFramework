@@ -1,3 +1,6 @@
 {
-  "name": "QFramework.Core.Serialize"
+  "name": "QFramework.Core.Serialize",
+  "references": [
+    "QFramework.Architecture"
+  ]
 }

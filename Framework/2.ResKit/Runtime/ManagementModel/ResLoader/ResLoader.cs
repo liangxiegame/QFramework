@@ -32,6 +32,11 @@ namespace QFramework
 
     public class ResLoader : DisposableObject,IResLoader
     {
+        [Obsolete("请使用 ResLoader.Allocate() 获取 ResLoader 对象",true)]
+        public ResLoader()
+        {
+             
+        }
         /// <summary>
         /// ID:RKRL001 申请ResLoader对象 ResLoader.Allocate（IResLoaderStrategy strategy = null)
         /// </summary>
@@ -182,9 +187,6 @@ namespace QFramework
             }
         }
 
-        public ResLoader()
-        {
-        }
 
         public void Add2Load(List<string> list)
         {

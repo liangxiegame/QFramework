@@ -1,13 +1,22 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 
 namespace QFramework.PackageKit
 {
-    public class PackageManagerModel
+    public interface IPackageManagerModel : IModel
+    {
+        List<PackageRepository> Repositories { get; set; }
+    }
+
+    class PackageManagerModel : IPackageManagerModel
     {
 
-        public List<PackageRepository> Repositories = new List<PackageRepository>();
+        public PackageManagerModel()
+        {
+            Repositories = PackageInfosRequestCache.Get().PackageRepositories;
+        }
+        
+        public List<PackageRepository> Repositories { get; set; }
 
         public bool VersionCheck
         {

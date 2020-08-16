@@ -25,7 +25,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Import).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerApp.Send(new ImportPackageCommand(packageRepository));
+                        PackageManagerConfig.SendCommand(new ImportPackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
@@ -33,7 +33,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Update).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerApp.Send(new UpdatePackageCommand(packageRepository));
+                        PackageManagerConfig.SendCommand(new UpdatePackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
@@ -41,7 +41,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Reimport).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerApp.Send(new ReimportPackageCommand(packageRepository));
+                        PackageManagerConfig.SendCommand(new ReimportPackageCommand(packageRepository));
                     });
 
             }
@@ -55,7 +55,7 @@ namespace QFramework.PackageKit
                 .AddTo(this)
                 .OnClick.AddListener(() =>
                 {
-                    PackageManagerApp.Send(new OpenDetailCommand(packageRepository));
+                    PackageManagerConfig.SendCommand(new OpenDetailCommand(packageRepository));
                 });
 
             new LabelView(packageRepository.author)

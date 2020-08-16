@@ -7,8 +7,6 @@ namespace QFramework.PackageKit.Command
     {
         private readonly string mKey;
         
-        [Inject] public PackageManagerModel Model { get; set; }
-        
         public SearchCommand(string key)
         {
             mKey = key.ToLower();
@@ -16,11 +14,12 @@ namespace QFramework.PackageKit.Command
 
         public void Execute()
         {
+            var model = PackageManagerConfig.GetModel<IPackageManagerModel>();
             var categoryIndex = PackageManagerState.CategoryIndex.Value;
             var categories = PackageManagerState.Categories.Value;
             var accessRightIndex = PackageManagerState.AccessRightIndex.Value;
             
-            var repositories = Model
+            var repositories = model
                 .Repositories
                 .Where(p => p.name.ToLower().Contains(mKey))
                 .Where(p=>categoryIndex == 0 || p.type.ToString() == categories[categoryIndex])

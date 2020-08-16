@@ -5,11 +5,11 @@ namespace QFramework.PackageKit.Command
 {
     public class UpdateCategoriesFromModelCommand : IPackageManagerCommand
     {
-        [Inject] public PackageManagerModel Model { get; set; }
-        
         public void Execute()
         {
-            var categories = Model.Repositories.Select(p => p.type).Distinct()
+            var model = PackageManagerConfig.GetModel<IPackageManagerModel>();
+            
+            var categories = model.Repositories.Select(p => p.type).Distinct()
                 .Select(t => PackageTypeHelper.TryGetFullName(t))
                 .ToList();
             categories.Insert(0, "all");

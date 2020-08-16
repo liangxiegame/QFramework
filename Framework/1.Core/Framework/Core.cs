@@ -1,61 +1,33 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace QFramework
 {
-	public class Core : ISingleton, IFramework
+	public class Core :  AbstractArchitectureConfig<IFrameworkCommand,Core>
 	{
-		private Core() { }
-		
-		/// <summary>
-		/// 框架层的底层模块
-		/// </summary>
-		public IQFrameworkContainer FrameworkModuleContainer { get; private set; }
-
-		/// <summary>
-		/// 框架自带工具模块
-		/// </summary>
-		public IQFrameworkContainer UtilityContainer { get; private set; }
-		
-		private static IFramework mIntance
-		{
-			get { return SingletonProperty<Core>.Instance; }
-		}
-
-		public static void RegisterUtility<TContract>(TContract utilityObject)
-		{
-			mIntance.UtilityContainer.RegisterInstance<TContract>(utilityObject);
-		}
-		
-		public static void RegisterUtility<TContract, TImpl>() where TImpl : TContract, new()
-		{
-			mIntance.UtilityContainer.RegisterInstance<TContract>(new TImpl());
-		}
-
-		public static T GetUtility<T>() where T : class
-		{
-			return mIntance.UtilityContainer.Resolve<T>();
-		}
-
-		public void OnSingletonInit()
-		{
-			FrameworkModuleContainer = new QFrameworkContainer();
-			
-			UtilityContainer = new QFrameworkContainer();
-			UtilityContainer.RegisterInstance<IJsonSerializeUtility>(new DefaultJsonSerializeUtility());
-		}
-
-		void Call()
-		{
-		}
+		[Obsolete("不可以自行创建 Core 的实例")]
+		public Core() {}
 
 		[RuntimeInitializeOnLoadMethod]
 		static void InitOnLoad()
 		{
-			var framework = mIntance;
-			(framework as Core).Call();
+			var config = mConfig;
+			Debug.Log("QFramework Core Initialized:" + config);
 		}
-		
-		
-		
+
+		protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+		{
+			
+		}
+
+		protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+		{
+			
+		}
+
+		protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+		{
+			utilityLayer.RegisterInstance<IJsonSerializeUtility>(new DefaultJsonSerializeUtility());
+		}
 	}
 }
