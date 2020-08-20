@@ -291,12 +291,12 @@ namespace QFramework
         
 		#region 不建议啊使用
 
-		[Obsolete("deprecated")]
+		[Obsolete("deprecated",true)]
 		protected virtual void InitUI(IUIData uiData = null)
 		{
 		}
 
-		[Obsolete("deprecated")]
+		[Obsolete("deprecated",true)]
 		protected virtual void RegisterUIEvent()
 		{
 		}

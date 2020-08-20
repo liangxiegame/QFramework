@@ -7,9 +7,6 @@ namespace QFramework
     /// </summary>
     public class GameMode : IGameMode
     {
-        IQFrameworkContainer mContainer = new QFrameworkContainer();
-        
-        
         public GameState GameState { get; protected set; }
 
         public PlayerState PlayerState { get; protected set; }

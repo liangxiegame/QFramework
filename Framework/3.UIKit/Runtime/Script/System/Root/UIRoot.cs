@@ -20,9 +20,9 @@ namespace QFramework
         public CanvasScaler CanvasScaler;
         public GraphicRaycaster GraphicRaycaster;
 
-        private static UIRoot mInstance;
+        private new static UIRoot mInstance;
 
-        public static UIRoot Instance
+        public new static UIRoot Instance
         {
             get
             {
