@@ -310,7 +310,7 @@ namespace QFramework
 
 			var resSearchKeys = ResSearchKeys.Allocate(mAssetName,mOwnerBundleName,AssetType);
 
-			var config = ResKit.ResData.GetAssetData(resSearchKeys);
+			var config =  AssetBundleSettings.AssetBundleConfigFile.GetAssetData(resSearchKeys);
 
 			resSearchKeys.Recycle2Cache();
 

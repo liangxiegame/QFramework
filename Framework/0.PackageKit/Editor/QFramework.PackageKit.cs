@@ -1621,6 +1621,7 @@ namespace QFramework
             }
             catch (Exception e)
             {
+                Debug.LogWarning(e);
                 // ignored
             }
         }

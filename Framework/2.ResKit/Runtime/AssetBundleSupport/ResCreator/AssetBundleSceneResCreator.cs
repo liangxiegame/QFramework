@@ -4,7 +4,7 @@ namespace QFramework
     {
         public bool Match(ResSearchKeys resSearchKeys)
         {
-            var assetData = ResKit.ResData.GetAssetData(resSearchKeys);
+            var assetData =  AssetBundleSettings.AssetBundleConfigFile.GetAssetData(resSearchKeys);
 
             if (assetData != null)
             {

@@ -905,7 +905,7 @@ namespace QFramework
         public static void Example()
         {
             var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.ReflectionExtension");
-//            selfType.LogInfo();
+            selfType.LogInfo();
         }
 
         public static Assembly GetAssemblyCSharp()

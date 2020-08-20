@@ -5,7 +5,7 @@ namespace QFramework
 {
     public class ResKitDeprecatedConfig
     {
-        public const bool FORCE_DEPRECATED = false;
+        public const bool FORCE_DEPRECATED = true;
     }
 
     public partial class ResKit
