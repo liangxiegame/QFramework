@@ -1621,6 +1621,7 @@ namespace QFramework
             }
             catch (Exception e)
             {
+                // ignored
             }
         }
 
@@ -1675,6 +1676,7 @@ namespace QFramework
             }
             catch (Exception e)
             {
+                Debug.LogWarning(e.ToString());
             }
         }
 
@@ -1790,8 +1792,9 @@ namespace QFramework
             {
                 Style = new GUIStyle(GUI.skin.toggle);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
+                Debug.LogWarning(e.ToString());
             }
         }
 

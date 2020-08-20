@@ -85,13 +85,5 @@ namespace QFramework.CodeGen
         {
             Repository.Remove(this);
         }
-
-        public virtual void RecordRemoved(IDataRecord record)
-        {
-            if (record.Identifier == this.SourceIdentifier)
-            {
-                Repository.Remove(this);
-            }
-        }
     }
 }

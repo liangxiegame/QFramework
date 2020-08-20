@@ -10,8 +10,6 @@ namespace QFramework.CodeGen
 {
     public abstract class DiagramNodeViewModel : GraphItemViewModel
     {
-        private bool _isSelected = false;
-
         public IDiagramNode GraphItemObject
         {
             get { return DataObject as IDiagramNode; }

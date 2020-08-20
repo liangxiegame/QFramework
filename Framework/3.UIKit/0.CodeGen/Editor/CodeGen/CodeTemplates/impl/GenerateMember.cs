@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
+using UnityEngine;
 
 namespace QFramework.CodeGen
 {
@@ -39,6 +40,7 @@ namespace QFramework.CodeGen
                 }
                 catch (TemplateException ex)
                 {
+                    Debug.LogWarning(ex);
                     return ctx.Item.Name;
                 }
                 

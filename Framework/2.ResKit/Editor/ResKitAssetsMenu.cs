@@ -33,9 +33,6 @@ namespace QFramework
 	public class ResKitAssetsMenu
 	{
 		public const   string AssetBundlesOutputPath       = "AssetBundles";
-		private static int    mSimulateAssetBundleInEditor = -1;
-
-
 		private const string Mark_AssetBundle   = "Assets/@ResKit - AssetBundle Mark";
 
 		static ResKitAssetsMenu()

@@ -15,7 +15,7 @@ namespace QFramework.PackageKit
                 .AddTo(this);
         }
 
-        public class LocalText
+        class LocalText
         {
             public static string Open
             {

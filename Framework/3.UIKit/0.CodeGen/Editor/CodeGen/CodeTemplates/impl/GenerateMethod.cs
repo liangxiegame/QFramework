@@ -58,11 +58,10 @@ namespace QFramework.CodeGen
                 }
 
             }
-            var isOverried = false;
+
             if (!ctx.IsDesignerFile && ctx.CurrentMember.Attributes != MemberAttributes.Final && ctx.CurrentAttribute.Location == TemplateLocation.Both)
             {
                 ctx.CurrentMethod.Attributes |= MemberAttributes.Override;
-                isOverried = true;
             }
             if ((methodInfo.IsVirtual && !ctx.IsDesignerFile) || (methodInfo.IsOverride() && !methodInfo.GetBaseDefinition().IsAbstract && ctx.IsDesignerFile))
             {

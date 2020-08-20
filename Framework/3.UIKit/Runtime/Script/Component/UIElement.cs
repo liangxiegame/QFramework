@@ -39,11 +39,9 @@ namespace QFramework
         
         public abstract string ComponentName { get; }
 
-        private string mCustomComent;
-
         public string Comment
         {
-            get { return mCustomComent; }
+            get { return string.Empty; }
         }
 
         public Transform Transform

@@ -26,7 +26,6 @@ namespace QFramework.PackageKit
         private VerticalLayout mRootLayout = new VerticalLayout();
 
         private ToolbarView mCategoriesSelectorView = null;
-        private ToolbarView mAccessRightView = null;
 
         public List<string> Categories
         {
@@ -76,7 +75,7 @@ namespace QFramework.PackageKit
                     })
             );
 
-            mAccessRightView = new ToolbarView()
+            new ToolbarView()
                 .Menus(new List<string>()
                     {"all", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
                 .AddTo(verticalLayout)

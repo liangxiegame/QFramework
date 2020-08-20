@@ -213,22 +213,6 @@ namespace QFramework.CodeGen
             Namespace.Types.Add(Decleration);
 
             ProcessTemplate();
-            return; // Skip the stuff below for now
-
-            if (IsDesignerFile)
-            {
-                // base.Initialize(fileGenerator);
-
-                if (IsDesignerFile)
-                {
-                    InitializeDesignerFile();
-                }
-                else
-                {
-                    InitializeEditableFile();
-                }
-            }
-
         }
 
         public IClassTemplate Template

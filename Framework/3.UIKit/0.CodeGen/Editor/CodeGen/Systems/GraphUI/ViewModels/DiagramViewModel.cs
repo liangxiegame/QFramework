@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using QFramework.CodeGen;
 using Invert.Data;
@@ -128,14 +129,13 @@ namespace QFramework.CodeGen
 
 
             IsLoading = true;
-            var connectors = new List<ConnectorViewModel>();
             // var time = DateTime.Now;
             foreach (var item in items)
             {
                 
                 // Get the ViewModel for the data
                 //InvertApplication.Log("B-A" + DateTime.Now.Subtract(time).TotalSeconds.ToString());
-                var mapping = InvertApplication.Container.RelationshipMappings[item.GetType(), typeof(ViewModel)];
+                var mapping = InvertApplication.Container.RelationshipMappings[item.GetType(), typeof(INotifyPropertyChanged)];
                 if (mapping == null) continue;
                 var vm = Activator.CreateInstance(mapping, item, this) as GraphItemViewModel; 
                 //var vm = 
@@ -256,44 +256,6 @@ namespace QFramework.CodeGen
                     }
                 }
             }
-            var connectors = GraphItems.OfType<ConnectorViewModel>().ToArray();
-
-            foreach (var connection in CurrentRepository.All<ConnectionData>())
-            {
-
-                ConnectorViewModel startConnector = null;
-                ConnectorViewModel endConnector = null;
-
-                for (int i = 0; i < connectors.Length; i++)
-                {
-                    if (startConnector != null && endConnector != null) break;
-                    var p = connectors[i];
-   
-                }
-
-//                var startConnector = connectors.FirstOrDefault(p =>  p.Direction == ConnectorDirection.Output && p.Identifier == connection.OutputIdentifier);
-//                var endConnector = connectors.FirstOrDefault(p => p.Direction == ConnectorDirection.Input && p.Identifier == connection.InputIdentifier);
-
-
-                if (startConnector == null || endConnector == null) continue;
-
-                var vm = endConnector.ConnectorFor.DataObject as IDiagramNodeItem;
-
-
-                startConnector.HasConnections = true;
-                endConnector.HasConnections = true;
-                var connection1 = connection;
-                GraphItems.Add(new ConnectionViewModel(this)
-                {
-                    ConnectorA = endConnector,
-                    ConnectorB = startConnector,
-                    DataObject = connection,
-                    Remove = (a) =>
-                    {
-                        GraphData.RemoveConnection(a.ConnectorB.DataObject as IConnectable, a.ConnectorA.DataObject as IConnectable);
-                    }
-                });
-            }
         }
 
         public void ClearConnectors(List<ConnectorViewModel> connectors)
@@ -355,7 +317,7 @@ namespace QFramework.CodeGen
             }
             catch (Exception ex)
             {
-                InvertApplication.LogError(string.Format("Node is null on get color {0} : {1}", dataObject.Label, dataObject.Identifier));
+                InvertApplication.LogError(string.Format("Node is null on get color {0} : {1},{2}", dataObject.Label, dataObject.Identifier,ex));
             }
             return Color.white;
         }

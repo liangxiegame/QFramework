@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using QF;
 using QFramework;
+using UnityEngine;
 
 namespace QFramework.CodeGen
 {
@@ -97,6 +98,7 @@ namespace QFramework.CodeGen
                 }
                 catch (Exception ex)
                 {
+                    Debug.LogWarning(ex);
                     continue;
                 }
 

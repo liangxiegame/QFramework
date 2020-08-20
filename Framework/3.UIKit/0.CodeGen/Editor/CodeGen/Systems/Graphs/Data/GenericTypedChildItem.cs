@@ -70,7 +70,7 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
             var result = this.OutputTo<IClassTypeNode>();
             if (result == null)
             {
-                return this.Repository.AllOf<IClassTypeNode>().FirstOrDefault(p => p.Identifier == RelatedType) as IClassTypeNode;
+                return this.Repository.AllOf<IClassTypeNode>().FirstOrDefault(p => p.Identifier == RelatedType);
             }
             return result;
         }
@@ -124,14 +124,6 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
     public override void Remove(IDiagramNode diagramNode)
     {
 
-    }
-
-    public virtual void RecordRemoved(IDataRecord record)
-    {
-        if (RelatedType == record.Identifier)
-        {
-            RemoveType();
-        }
     }
 
     public virtual string MemberName { get { return this.Name; } }

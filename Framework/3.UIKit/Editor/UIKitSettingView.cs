@@ -175,7 +175,7 @@ namespace QFramework
 
         private bool ShowLabel2;
 
-        public void OnGUI()
+        void IPackageKitView.OnGUI()
         {
             this.DrawGUI();
         }

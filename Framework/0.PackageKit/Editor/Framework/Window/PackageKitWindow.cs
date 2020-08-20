@@ -78,9 +78,7 @@ namespace QFramework.PackageKit
             }
         }
 
-        [FormerlySerializedAs("mPackageKitViews")] public List<PacakgeKitViewRenderInfo> mPackageKitViewRenderInfos = null;
-
-        private int count = 0;
+        public List<PacakgeKitViewRenderInfo> mPackageKitViewRenderInfos = null;
 
         protected override void Init()
         {

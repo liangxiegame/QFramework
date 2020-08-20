@@ -101,8 +101,6 @@ namespace QFramework.CodeGen
         }
 
 
-        private List<string> _connectedGraphItemIds = new List<string>();
-
         [Browsable(false)]
         public NodeConfigBase Config
         {

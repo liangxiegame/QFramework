@@ -62,13 +62,13 @@ namespace QFramework.PackageKit
             }).AddTo(mDisposableList);
             
         }
-        
 
-        void QFramework.IPackageKitView.OnUpdate()
+        public void OnUpdate()
         {
+            
         }
 
-        public void OnGUI()
+        void IPackageKitView.OnGUI()
         {
             DrawGUI();
         }

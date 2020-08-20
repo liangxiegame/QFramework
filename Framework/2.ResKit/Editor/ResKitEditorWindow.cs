@@ -247,7 +247,7 @@ namespace QFramework
 			private VerticalLayout mMarkedPathList = null;
 			
 
-			public void OnGUI () {
+			void IPackageKitView.OnGUI () {
 				this.DrawGUI ();
 			}
 
