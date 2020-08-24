@@ -32,14 +32,14 @@ namespace QFramework
     using System.Text.RegularExpressions;
     using System.Reflection;
     using System.Text;
-    
-    #if UNITY_5_6_OR_NEWER
+#if UNITY_5_6_OR_NEWER
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
     using Object = UnityEngine.Object;
-    #endif
-    
+
+#endif
+
     /// <summary>
     /// 一些基础类型的扩展
     /// </summary>
@@ -68,7 +68,7 @@ namespace QFramework
         {
             return condition(selfObj);
         }
-        
+
         /// <summary>
         /// 表达式成立 则执行 Action
         /// 
@@ -107,7 +107,6 @@ namespace QFramework
 
             return selfCondition;
         }
-
     }
 
     /// <summary>
@@ -507,15 +506,14 @@ namespace QFramework
     /// </summary>
     public static class IOExtension
     {
-        
         /// <summary>
         /// 检测路径是否存在，如果不存在则创建
         /// </summary>
         /// <param name="path"></param>
         public static string CreateDirIfNotExists4FilePath(this string path)
-        { 
+        {
             var direct = Path.GetDirectoryName(path);
-            
+
             if (!Directory.Exists(direct))
             {
                 Directory.CreateDirectory(direct);
@@ -523,8 +521,8 @@ namespace QFramework
 
             return path;
         }
-        
-        
+
+
         /// <summary>
         /// 创建新的文件夹,如果存在则不创建
         /// <code>
@@ -884,7 +882,7 @@ namespace QFramework
                     .SingleOrDefault(a => a.GetName().Name == "Assembly-CSharp");
             }
         }
-        
+
         /// <summary>
         /// 获取默认的程序集中的类型
         /// </summary>
@@ -1326,10 +1324,10 @@ namespace QFramework
             return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
         }
     }
-    
-    
-    #if UNITY_5_6_OR_NEWER
-     public static class BehaviourExtension
+
+
+#if UNITY_5_6_OR_NEWER
+    public static class BehaviourExtension
     {
         public static void Example()
         {
@@ -1655,10 +1653,32 @@ namespace QFramework
         {
             return Object.Instantiate(selfObj);
         }
-        
-        public static T InstantiateWithParent<T>(this T selfObj,Transform parent) where T: Object
+
+        public static T Instantiate<T>(this T selfObj, Vector3 position, Quaternion rotation) where T : Object
         {
-            return Object.Instantiate(selfObj,parent);
+            return (T) Object.Instantiate((Object) selfObj, position, rotation);
+        }
+
+        public static T Instantiate<T>(
+            this T selfObj,
+            Vector3 position,
+            Quaternion rotation,
+            Transform parent)
+            where T : Object
+        {
+            return (T) Object.Instantiate((Object) selfObj, position, rotation, parent);
+        }
+
+
+        public static T InstantiateWithParent<T>(this T selfObj, Transform parent, bool worldPositionStays)
+            where T : Object
+        {
+            return (T) Object.Instantiate((Object) selfObj, parent, worldPositionStays);
+        }
+
+        public static T InstantiateWithParent<T>(this T selfObj, Transform parent) where T : Object
+        {
+            return Object.Instantiate(selfObj, parent, false);
         }
 
         #endregion
@@ -1811,7 +1831,7 @@ namespace QFramework
             selfToggle.onValueChanged.AddListener(onValueChangedEvent);
         }
     }
-    
+
     /// <summary>
     /// Transform's Extension
     /// </summary>
@@ -1936,7 +1956,6 @@ namespace QFramework
         {
             return selfComponent.transform.localPosition;
         }
-
 
 
         public static T LocalPosition<T>(this T selfComponent, float x, float y, float z) where T : Component
@@ -2528,5 +2547,5 @@ namespace QFramework
             return keys[finalKeyIndex];
         }
     }
-    #endif
+#endif
 }
