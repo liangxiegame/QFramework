@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -11,7 +12,7 @@ namespace QFramework
 		/// <param name="rootTrans"></param>
 		/// <param name="curTrans"></param>
 		/// <param name="transFullName"></param>
-		public static void SearchBinds(Transform curTrans, string transFullName,PanelCodeInfo panelCodeInfo = null, ElementCodeInfo parentElementCodeInfo = null)
+		public static void SearchBinds(Transform curTrans, string transFullName,PanelCodeInfo panelCodeInfo = null, ElementCodeInfo parentElementCodeInfo = null,Type leafPanelType = null)
 		{
 			foreach (Transform childTrans in curTrans)
 			{
@@ -54,6 +55,7 @@ namespace QFramework
 						}
 					}
 
+					
 
 					if (uiMark.GetBindType() != BindType.DefaultUnityElement)
 					{
@@ -75,11 +77,19 @@ namespace QFramework
 							parentElementCodeInfo.ElementCodeDatas.Add(elementCodeData);
 						}
 
+						
 						SearchBinds(childTrans, transFullName + childTrans.name + "/",panelCodeInfo, elementCodeData);
 					}
 					else
 					{
-						SearchBinds(childTrans, transFullName + childTrans.name + "/",panelCodeInfo, parentElementCodeInfo);
+						// 如果是标记的叶子节点则不再继续搜索
+						if (leafPanelType != null && uiMark.Transform.GetComponent(leafPanelType))
+						{
+							
+						} else {
+							SearchBinds(childTrans, transFullName + childTrans.name + "/", panelCodeInfo,
+								parentElementCodeInfo);
+						}
 					}
 				}
 				else

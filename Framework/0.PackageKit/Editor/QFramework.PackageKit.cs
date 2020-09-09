@@ -15,7 +15,6 @@ using Debug = UnityEngine.Debug;
 
 namespace QFramework
 {
-    
     /// <summary>
     /// some net work util
     /// </summary>
@@ -44,12 +43,14 @@ namespace QFramework
 #endif
 
 #if UNITY_IPHONE
-            System.Net.NetworkInformation.NetworkInterface[] adapters =  System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces(); ;  
+            System.Net.NetworkInformation.NetworkInterface[] adapters =
+ System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces(); ;  
             foreach (System.Net.NetworkInformation.NetworkInterface adapter in adapters)  
             {  
                 if (adapter.Supports( System.Net.NetworkInformation.NetworkInterfaceComponent.IPv4))  
                 {  
-                    System.Net.NetworkInformation.UnicastIPAddressInformationCollection uniCast = adapter.GetIPProperties().UnicastAddresses;  
+                    System.Net.NetworkInformation.UnicastIPAddressInformationCollection uniCast =
+ adapter.GetIPProperties().UnicastAddresses;  
                     if (uniCast.Count > 0)  
                     {  
                         foreach ( System.Net.NetworkInformation.UnicastIPAddressInformation uni in uniCast)  
@@ -146,7 +147,7 @@ namespace QFramework
         {
             if (Network.IsReachable)
             {
-                new PackageManagerServer().GetAllRemotePackageInfoV5((packageDatas,res) =>
+                new PackageManagerServer().GetAllRemotePackageInfoV5((packageDatas, res) =>
                 {
                     if (packageDatas == null)
                     {
@@ -210,7 +211,7 @@ namespace QFramework
     {
         public static Property<string> Username = new Property<string>(LoadString("username"));
         public static Property<string> Password = new Property<string>(LoadString("password"));
-        public static Property<string> Token    = new Property<string>(LoadString("token"));
+        public static Property<string> Token = new Property<string>(LoadString("token"));
 
         public static bool Logined
         {
@@ -249,7 +250,7 @@ namespace QFramework
             return EditorPrefs.GetString(key, string.Empty);
         }
     }
-    
+
 
     public class ReadmeWindow : EditorWindow
     {
@@ -332,7 +333,7 @@ namespace QFramework
                     AssetDatabase.ImportPackage(tempFile, false);
 
                     File.Delete(tempFile);
-                    
+
                     AssetDatabase.Refresh();
 
                     Debug.Log("PackageManager:插件下载成功");
@@ -389,9 +390,7 @@ namespace QFramework
             return Get().Find(installedPackageVersion => installedPackageVersion.Name == name);
         }
     }
-    
 
-   
 
     [Serializable]
     public class PackageInfosRequestCache
@@ -430,11 +429,10 @@ namespace QFramework
     }
 
 
-
     public static class FrameworkMenuItems
     {
         public const string Preferences = "QFramework/Preferences... %e";
-        public const string PackageKit  = "QFramework/PackageKit... %#e";
+        public const string PackageKit = "QFramework/PackageKit... %#e";
 
         public const string Feedback = "QFramework/Feedback";
     }
@@ -446,11 +444,6 @@ namespace QFramework
         public const int Feedback = 11;
     }
 
-   
-
-   
-
-   
 
     public interface IEventManager
     {
@@ -604,9 +597,9 @@ namespace QFramework
 
         ILayout IView.Parent { get; set; }
 
-        private GUIStyle mStyle = null;
+        private GUIStyleProperty mStyle = new GUIStyleProperty(()=>new GUIStyle());
 
-        public GUIStyle Style
+        public GUIStyleProperty Style
         {
             get { return mStyle; }
             set { mStyle = value; }
@@ -688,12 +681,12 @@ namespace QFramework
         protected GUILayoutOption[] LayoutStyles { get; private set; }
 
 
-        private GUIStyle mStyle = new GUIStyle();
+        protected GUIStyleProperty mStyleProperty = new GUIStyleProperty(() => new GUIStyle());
 
-        public GUIStyle Style
+        public GUIStyleProperty Style
         {
-            get { return mStyle; }
-            protected set { mStyle = value; }
+            get { return mStyleProperty; }
+            protected set { mStyleProperty = value; }
         }
 
         private Color mBackgroundColor = GUI.backgroundColor;
@@ -978,7 +971,7 @@ namespace QFramework
 
         private VerticalLayout mSpreadView = new VerticalLayout();
 
-        public TreeNode(bool spread, string content, int indent = 0,bool autosaveSpreadState = false)
+        public TreeNode(bool spread, string content, int indent = 0, bool autosaveSpreadState = false)
         {
             if (autosaveSpreadState)
             {
@@ -988,7 +981,7 @@ namespace QFramework
             Content = content;
             Spread = new Property<bool>(spread);
 
-            Style = new GUIStyle(EditorStyles.foldout);
+            Style = new GUIStyleProperty(() => EditorStyles.foldout);
 
             mFirstLine.AddTo(this);
             mFirstLine.AddChild(new SpaceView(indent));
@@ -999,10 +992,8 @@ namespace QFramework
             }
 
 
-            new CustomView(() =>
-            {
-                Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style);
-            }).AddTo(mFirstLine);
+            new CustomView(() => { Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style.Value); })
+                .AddTo(mFirstLine);
 
             new CustomView(() =>
             {
@@ -1131,7 +1122,7 @@ namespace QFramework
 
         ILayout Parent { get; set; }
 
-        GUIStyle Style { get; }
+        GUIStyleProperty Style { get; }
 
         Color BackgroundColor { get; set; }
 
@@ -1143,7 +1134,7 @@ namespace QFramework
 
         void Refresh();
     }
-    
+
     public static class ViewExtensions
     {
         public static TView Do<TView>(this TView self, Action<TView> onDo) where TView : IView
@@ -1239,31 +1230,31 @@ namespace QFramework
 
         public static T TextMiddleLeft<T>(this T view) where T : IView
         {
-            view.Style.alignment = TextAnchor.MiddleLeft;
+            view.Style.Set(style => style.alignment = TextAnchor.MiddleLeft);
             return view;
         }
 
         public static T TextMiddleRight<T>(this T view) where T : IView
         {
-            view.Style.alignment = TextAnchor.MiddleRight;
+            view.Style.Set(style => style.alignment = TextAnchor.MiddleRight);
             return view;
         }
 
         public static T TextLowerRight<T>(this T view) where T : IView
         {
-            view.Style.alignment = TextAnchor.LowerRight;
+            view.Style.Set(style => style.alignment = TextAnchor.LowerRight);
             return view;
         }
 
         public static T TextMiddleCenter<T>(this T view) where T : IView
         {
-            view.Style.alignment = TextAnchor.MiddleCenter;
+            view.Style.Set(style => style.alignment = TextAnchor.MiddleCenter);
             return view;
         }
 
         public static T TextLowerCenter<T>(this T view) where T : IView
         {
-            view.Style.alignment = TextAnchor.LowerCenter;
+            view.Style.Set(style => style.alignment = TextAnchor.LowerCenter);
             return view;
         }
 
@@ -1275,25 +1266,25 @@ namespace QFramework
 
         public static T FontColor<T>(this T view, Color color) where T : IView
         {
-            view.Style.normal.textColor = color;
+            view.Style.Set(style => style.normal.textColor = color);
             return view;
         }
 
         public static T FontBold<T>(this T view) where T : IView
         {
-            view.Style.fontStyle = FontStyle.Bold;
+            view.Style.Set(style => style.fontStyle = FontStyle.Bold);
             return view;
         }
 
         public static T FontNormal<T>(this T view) where T : IView
         {
-            view.Style.fontStyle = FontStyle.Normal;
+            view.Style.Set(style => style.fontStyle = FontStyle.Normal);
             return view;
         }
 
         public static T FontSize<T>(this T view, int fontSize) where T : IView
         {
-            view.Style.fontSize = fontSize;
+            view.Style.Set(style => style.fontSize = fontSize);
             return view;
         }
     }
@@ -1306,7 +1297,6 @@ namespace QFramework
             return view;
         }
     }
-
 
 
     public static class EditorUtils
@@ -1532,6 +1522,42 @@ namespace QFramework
         }
     }
 
+    public class GUIStyleProperty
+    {
+        private readonly Func<GUIStyle> mCreator;
+
+
+        private Action<GUIStyle> mOperations = (style) => { };
+
+        public GUIStyleProperty Set(Action<GUIStyle> operation)
+        {
+            mOperations += operation;
+            return this;
+        }
+
+        public GUIStyleProperty(Func<GUIStyle> creator)
+        {
+            mCreator = creator;
+        }
+
+        private GUIStyle mValue = null;
+
+        public GUIStyle Value
+        {
+            get
+            {
+                if (mValue == null)
+                {
+                    mValue = mCreator.Invoke();
+                    mOperations(mValue);
+                }
+
+                return mValue;
+            }
+            set { mValue = value; }
+        }
+    }
+
     public class BoxView : View
     {
         public string Text;
@@ -1613,23 +1639,13 @@ namespace QFramework
         {
             ValueProperty = new Property<Enum>(initValue);
             ValueProperty.Value = initValue;
-
-
-            try
-            {
-                Style = new GUIStyle(EditorStyles.popup);
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning(e);
-                // ignored
-            }
+            Style = new GUIStyleProperty(() => EditorStyles.popup);
         }
 
         protected override void OnGUI()
         {
             Enum enumType = ValueProperty.Value;
-            ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style, LayoutStyles);
+            ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style.Value, LayoutStyles);
         }
     }
 
@@ -1671,19 +1687,13 @@ namespace QFramework
         public LabelView(string content)
         {
             Content = content;
-            try
-            {
-                Style = new GUIStyle(GUI.skin.label);
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning(e.ToString());
-            }
+
+            mStyleProperty = new GUIStyleProperty(() => new GUIStyle(GUI.skin.label));
         }
 
         protected override void OnGUI()
         {
-            GUILayout.Label(Content, Style, LayoutStyles);
+            GUILayout.Label(Content, Style.Value, LayoutStyles);
         }
     }
 
@@ -1767,7 +1777,7 @@ namespace QFramework
                 Content.Value = EditorGUILayout.TextField(Content.Value, GUI.skin.textField, LayoutStyles);
             }
         }
-        
+
         public UnityEvent OnValueChanged = new UnityEvent();
 
 
@@ -1789,14 +1799,7 @@ namespace QFramework
             Text = text;
             Toggle = new Property<bool>(initValue);
 
-            try
-            {
-                Style = new GUIStyle(GUI.skin.toggle);
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning(e.ToString());
-            }
+            Style = new GUIStyleProperty(() => GUI.skin.toggle);
         }
 
         public Property<bool> Toggle { get; private set; }
