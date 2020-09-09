@@ -154,6 +154,14 @@ namespace QFramework
         {
             return null != selfObj;
         }
+
+        public static void DoIfNotNull<T>(this T selfObj, Action<T> action) where T : class
+        {
+            if (selfObj != null)
+            {
+                action(selfObj);
+            }
+        }
     }
 
     /// <summary>
