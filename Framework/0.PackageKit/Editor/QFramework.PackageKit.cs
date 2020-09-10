@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using QFramework.PackageKit.Model;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -20,54 +21,6 @@ namespace QFramework
     /// </summary>
     public static class Network
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>IP string</returns>
-        public static string GetAddressIP()
-        {
-            var AddressIP = "";
-#if !UNITY_WEBGL
-#if UNITY_3 || UNITY_4 || UNITY_5 || UNITY_2017 || UNITY_2018_0
-            AddressIP = UnityEngine.Network.player.ipAddress;
-#else
-            //获取本地的IP地址  
-            foreach (System.Net.IPAddress _IPAddress in System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList)
-            {
-                if (_IPAddress.AddressFamily.ToString() == "InterNetwork")
-                {
-                    AddressIP = _IPAddress.ToString();
-                }
-            }
-#endif
-#endif
-
-#if UNITY_IPHONE
-            System.Net.NetworkInformation.NetworkInterface[] adapters =
- System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces(); ;  
-            foreach (System.Net.NetworkInformation.NetworkInterface adapter in adapters)  
-            {  
-                if (adapter.Supports( System.Net.NetworkInformation.NetworkInterfaceComponent.IPv4))  
-                {  
-                    System.Net.NetworkInformation.UnicastIPAddressInformationCollection uniCast =
- adapter.GetIPProperties().UnicastAddresses;  
-                    if (uniCast.Count > 0)  
-                    {  
-                        foreach ( System.Net.NetworkInformation.UnicastIPAddressInformation uni in uniCast)  
-                        {  
-                            //得到IPv4的地址。 AddressFamily.InterNetwork指的是IPv4  
-                            if (uni.Address.AddressFamily ==  System.Net.Sockets.AddressFamily.InterNetwork)
-                            {
-                                AddressIP = uni.Address.ToString();
-                            }
-                        }  
-                    }  
-                }  
-            }
-#endif
-            return AddressIP;
-        }
-
         public static bool IsReachable
         {
             get { return Application.internetReachability != NetworkReachability.NotReachable; }
@@ -168,13 +121,13 @@ namespace QFramework
         private static bool CheckNewVersionDialog(List<PackageRepository> requestPackageDatas,
             List<PackageRepository> cachedPackageDatas)
         {
+            var installedPackageVersionsModel = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>();
             foreach (var requestPackageData in requestPackageDatas)
             {
                 var cachedPacakgeData =
                     cachedPackageDatas.Find(packageData => packageData.name == requestPackageData.name);
 
-                var installedPackageVersion = InstalledPackageVersions.Get()
-                    .Find(packageVersion => packageVersion.Name == requestPackageData.name);
+                var installedPackageVersion = installedPackageVersionsModel.GetByName(requestPackageData.name);
 
                 if (installedPackageVersion == null)
                 {
@@ -338,7 +291,9 @@ namespace QFramework
 
                     Debug.Log("PackageManager:插件下载成功");
 
-                    InstalledPackageVersions.Reload();
+                    
+                    PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>()
+                        .Reload();
                 }
                 else
                 {
@@ -354,40 +309,6 @@ namespace QFramework
         {
             EditorUtility.DisplayProgressBar("插件更新",
                 string.Format("插件下载中 {0:P2}", progress), progress);
-        }
-    }
-
-    public class InstalledPackageVersions
-    {
-        private static List<PackageVersion> mPackageVersions = new List<PackageVersion>();
-
-        public static List<PackageVersion> Get()
-        {
-            if (mPackageVersions.Count == 0)
-            {
-                Reload();
-            }
-
-            return mPackageVersions;
-        }
-
-        public static void Reload()
-        {
-            mPackageVersions.Clear();
-
-            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
-                name => name.EndsWith("PackageVersion.json"));
-
-            foreach (var fileName in versionFiles)
-            {
-                var text = File.ReadAllText(fileName);
-                mPackageVersions.Add(JsonUtility.FromJson<PackageVersion>(text));
-            }
-        }
-
-        public static PackageVersion FindVersionByName(string name)
-        {
-            return Get().Find(installedPackageVersion => installedPackageVersion.Name == name);
         }
     }
 
@@ -443,65 +364,10 @@ namespace QFramework
 
         public const int Feedback = 11;
     }
-
-
-    public interface IEventManager
-    {
-        System.Action AddListener(object listener);
-        void Signal(Action<object> obj);
-    }
-
-    public class EventManager<T> : IEventManager where T : class
-    {
-        private List<T> _listeners;
-
-        public List<T> Listeners
-        {
-            get { return _listeners ?? (_listeners = new List<T>()); }
-            set { _listeners = value; }
-        }
-
-        public void Signal(Action<object> obj)
-        {
-            foreach (var item in Listeners)
-            {
-                var item1 = item;
-                obj(item1);
-            }
-        }
-
-        public void Signal(Action<T> action)
-        {
-            foreach (var item in Listeners)
-            {
-                //InvertApplication.Log(typeof(T).Name + " was signaled on " + item.GetType().Name);
-                var item1 = item;
-                action(item1);
-            }
-        }
-
-        public System.Action Subscribe(T listener)
-        {
-            if (!Listeners.Contains(listener))
-                Listeners.Add(listener);
-
-            return () => { Unsubscribe(listener); };
-        }
-
-        private void Unsubscribe(T listener)
-        {
-            Listeners.Remove(listener);
-        }
-
-        public System.Action AddListener(object listener)
-        {
-            return Subscribe(listener as T);
-        }
-    }
+    
 
     public interface ISystemResetEvents
     {
-        void SystemResetting();
         void SystemRestarted();
     }
 

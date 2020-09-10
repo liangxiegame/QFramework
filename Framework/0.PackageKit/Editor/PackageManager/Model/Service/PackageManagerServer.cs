@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using QFramework.PackageKit.Model;
 using UnityEngine;
 
 namespace QFramework.PackageKit
@@ -94,11 +94,12 @@ namespace QFramework.PackageKit
                 if (responseJson.code == 1)
                 {
                     var listPackageResponseResult = responseJson.data;
-                    
-                    
+
+
+                    var packageTypeConfigModel = PackageKitArchitectureConfig.GetModel<IPackageTypeConfigModel>();
                     foreach (var packageRepository in listPackageResponseResult.repositories)
                     {
-                        packageRepository.type = PackageTypeHelper.TryGetFullName(packageRepository.type);
+                        packageRepository.type = packageTypeConfigModel.GetFullTypeName(packageRepository.type);
                     }
                     
                     new PackageInfosRequestCache()

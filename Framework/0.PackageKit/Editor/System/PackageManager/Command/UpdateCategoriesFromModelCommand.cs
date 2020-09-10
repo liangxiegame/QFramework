@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using QFramework.PackageKit.Model;
 using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
@@ -7,10 +8,11 @@ namespace QFramework.PackageKit.Command
     {
         public void Execute()
         {
-            var model = PackageManagerConfig.GetModel<IPackageManagerModel>();
-            
+            var model = PackageKitArchitectureConfig.GetModel<IPackageManagerModel>();
+
+            var packageTypeConfigModel = PackageKitArchitectureConfig.GetModel<IPackageTypeConfigModel>();
             var categories = model.Repositories.Select(p => p.type).Distinct()
-                .Select(t => PackageTypeHelper.TryGetFullName(t))
+                .Select(t => packageTypeConfigModel.GetFullTypeName(t))
                 .ToList();
             categories.Insert(0, "all");
             PackageManagerState.Categories.Value = categories;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using QFramework.PackageKit.Utility;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,13 +18,13 @@ namespace QFramework.PackageKit
         {
             if (mPackageVersion.Readme.content.Length < 2)
             {
-                DialogUtils.ShowErrorMsg("请输入版本修改说明");
+                PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入版本修改说明");
                 return;
             }
 
             if (!IsVersionValide(mPackageVersion.Version))
             {
-                DialogUtils.ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
+                PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
                 return;
             }
 

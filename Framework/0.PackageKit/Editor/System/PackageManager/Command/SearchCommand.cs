@@ -14,7 +14,7 @@ namespace QFramework.PackageKit.Command
 
         public void Execute()
         {
-            var model = PackageManagerConfig.GetModel<IPackageManagerModel>();
+            var model = PackageKitArchitectureConfig.GetModel<IPackageManagerModel>();
             var categoryIndex = PackageManagerState.CategoryIndex.Value;
             var categories = PackageManagerState.Categories.Value;
             var accessRightIndex = PackageManagerState.AccessRightIndex.Value;

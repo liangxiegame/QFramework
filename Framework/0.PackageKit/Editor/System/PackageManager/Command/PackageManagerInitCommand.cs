@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using QFramework.PackageKit.Model;
 using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
@@ -8,17 +9,19 @@ namespace QFramework.PackageKit.Command
 
         public void Execute()
         {
-            var model = PackageManagerConfig.GetModel<IPackageManagerModel>();
-            var server = PackageManagerConfig.GetModel<IPackageManagerServer>();
+            var model = PackageKitArchitectureConfig.GetModel<IPackageManagerModel>();
+            var server = PackageKitArchitectureConfig.GetModel<IPackageManagerServer>();
+            var installedPackageVersionsModel = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>();
+            installedPackageVersionsModel.Reload();
             
             PackageManagerState.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
-            PackageManagerConfig.SendCommand<UpdateCategoriesFromModelCommand>();
+            PackageKitArchitectureConfig.SendCommand<UpdateCategoriesFromModelCommand>();
             
             server.GetAllRemotePackageInfoV5((list, categories) =>
             {
                 model.Repositories = list.OrderBy(p=>p.name).ToList();
                 PackageManagerState.PackageRepositories.Value = model.Repositories;
-                PackageManagerConfig.SendCommand<UpdateCategoriesFromModelCommand>();
+                PackageKitArchitectureConfig.SendCommand<UpdateCategoriesFromModelCommand>();
             });
         }
     }

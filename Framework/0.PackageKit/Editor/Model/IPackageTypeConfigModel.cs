@@ -1,10 +1,16 @@
 using System.Collections.Generic;
 
-namespace QFramework.PackageKit
+namespace QFramework.PackageKit.Model
 {
-    public class PackageTypeHelper
+    public interface IPackageTypeConfigModel : IModel
     {
-        private static Dictionary<string, string> mTypeName2FullName = new Dictionary<string, string>()
+        string GetFullTypeName(string typeName);
+    }
+
+    public class PackageTypeConfigModel : IPackageTypeConfigModel
+    {
+        
+        private Dictionary<string, string> mTypeName2FullName = new Dictionary<string, string>()
         {
             {"fm", "Framework"},
             {"p", "Plugin"},
@@ -13,7 +19,7 @@ namespace QFramework.PackageKit
             {"master", "Master"},
         };
 
-        public static string TryGetFullName(string typeName)
+        public string GetFullTypeName(string typeName)
         {
             if (mTypeName2FullName.ContainsKey(typeName))
             {

@@ -6,18 +6,11 @@ using UnityEngine;
 
 namespace QFramework.PackageKit
 {
- public static class PackageApplication
+    public static class PackageApplication
     {
-        public static  List<Assembly>                  CachedAssemblies { get; set; }
-        private static Dictionary<Type, IEventManager> mEventManagers;
+        public static List<Assembly> CachedAssemblies { get; set; }
 
-        private static Dictionary<Type, IEventManager> EventManagers
-        {
-            get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, IEventManager>()); }
-            set { mEventManagers = value; }
-        }
-
-        private static QFrameworkContainer mContainer;
+        private static QFrameworkContainer mContainer = null;
 
         public static QFrameworkContainer Container
         {
@@ -28,21 +21,7 @@ namespace QFramework.PackageKit
                 InitializeContainer(mContainer);
                 return mContainer;
             }
-            set
-            {
-                mContainer = value;
-                if (mContainer == null)
-                {
-                    IEventManager eventManager;
-                    EventManagers.TryGetValue(typeof(ISystemResetEvents), out eventManager);
-                    EventManagers.Clear();
-                    var events = eventManager as EventManager<ISystemResetEvents>;
-                    if (events != null)
-                    {
-                        events.Signal(_ => _.SystemResetting());
-                    }
-                }
-            }
+            set { mContainer = value; }
         }
 
         public static IEnumerable<Type> GetDerivedTypes<T>(bool includeAbstract = false, bool includeBase = true)
@@ -75,7 +54,6 @@ namespace QFramework.PackageKit
                     catch (Exception ex)
                     {
                         Debug.Log(ex.Message);
-//						InvertApplication.Log(ex.Message);
                     }
                 }
 
@@ -84,89 +62,47 @@ namespace QFramework.PackageKit
             }
         }
 
-        public static System.Action ListenFor(Type eventInterface, object listenerObject)
+
+        private static IPackageKitView[] mViews;
+
+        public static IPackageKitView[] Views
         {
-            var listener = listenerObject;
-
-            IEventManager manager;
-            if (!EventManagers.TryGetValue(eventInterface, out manager))
-            {
-                EventManagers.Add(eventInterface,
-                    manager = (IEventManager) Activator.CreateInstance(
-                        typeof(EventManager<>).MakeGenericType(eventInterface)));
-            }
-
-            var m = manager;
-
-
-            return m.AddListener(listener);
-        }
-
-        private static QFramework.IPackageKitView[] mPlugins;
-
-        public static QFramework.IPackageKitView[] Plugins
-        {
-            get { return mPlugins ?? (mPlugins = Container.ResolveAll<QFramework.IPackageKitView>().ToArray()); }
-            set { mPlugins = value; }
+            get { return mViews ?? (mViews = Container.ResolveAll<IPackageKitView>().ToArray()); }
+            set { mViews = value; }
         }
 
         private static void InitializeContainer(IQFrameworkContainer container)
         {
-            mPlugins = null;
+            mViews = null;
             container.RegisterInstance(container);
-            var pluginTypes = GetDerivedTypes<QFramework.IPackageKitView>(false, false).ToArray();
+            var viewTypes = GetDerivedTypes<IPackageKitView>(false, false).ToArray();
 
-            foreach (var diagramPlugin in pluginTypes)
+            foreach (var view in viewTypes)
             {
-                var pluginInstance = Activator.CreateInstance((Type) diagramPlugin) as QFramework.IPackageKitView;
-                if (pluginInstance == null) continue;
-                container.RegisterInstance(pluginInstance, diagramPlugin.Name, false);
-                container.RegisterInstance(pluginInstance.GetType(), pluginInstance);
-                if (pluginInstance.Enabled)
-                {
-                    foreach (var item in diagramPlugin.GetInterfaces())
-                    {
-                        ListenFor(item, pluginInstance);
-                    }
-                }
+                var viewInstance = Activator.CreateInstance(view) as IPackageKitView;
+                if (viewInstance == null) continue;
+                container.RegisterInstance(viewInstance, view.Name, false);
+                container.RegisterInstance(viewInstance.GetType(), viewInstance);
             }
 
             container.InjectAll();
 
-            foreach (var diagramPlugin in Plugins.Where(p => !p.Ignore))
+            foreach (var view in Views.Where(p => !p.Ignore))
             {
-                if (diagramPlugin.Enabled)
+                if (view.Enabled)
                 {
-                    var start = DateTime.Now;
-                    diagramPlugin.Container = Container;
-                    diagramPlugin.Init(Container);
+                    view.Container = Container;
+                    view.Init(Container);
                 }
             }
 
-            foreach (var diagramPlugin in Plugins.Where(p => !p.Ignore))
+            foreach (var view in Views.Where(p => !p.Ignore))
             {
-                if (diagramPlugin.Enabled)
+                if (view.Enabled)
                 {
-                    var start = DateTime.Now;
-                    container.Inject(diagramPlugin);
-//					diagramPlugin.Loaded(Container);
-//					diagramPlugin.LoadTime = DateTime.Now.Subtract(start);
+                    container.Inject(view);
                 }
             }
-
-            SignalEvent<ISystemResetEvents>(_ => _.SystemRestarted());
-        }
-
-        public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
-        {
-            IEventManager manager;
-            if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
-            {
-                EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
-            }
-
-            var m = manager as EventManager<TEvents>;
-            m.Signal(action);
         }
 
         static PackageApplication()

@@ -1,4 +1,5 @@
 using QFramework.PackageKit.Command;
+using QFramework.PackageKit.Model;
 
 namespace QFramework.PackageKit
 {
@@ -12,7 +13,8 @@ namespace QFramework.PackageKit
 
             new LabelView(packageRepository.latestVersion).TextMiddleCenter().Width(80).AddTo(this);
 
-            var installedPackage = InstalledPackageVersions.FindVersionByName(packageRepository.name);
+            var installedPackage = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>()
+                .GetByName(packageRepository.name);
 
             new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
                 .AddTo(this);
@@ -25,7 +27,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Import).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerConfig.SendCommand(new ImportPackageCommand(packageRepository));
+                        PackageKitArchitectureConfig.SendCommand(new ImportPackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
@@ -33,7 +35,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Update).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerConfig.SendCommand(new UpdatePackageCommand(packageRepository));
+                        PackageKitArchitectureConfig.SendCommand(new UpdatePackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
@@ -41,7 +43,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Reimport).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageManagerConfig.SendCommand(new ReimportPackageCommand(packageRepository));
+                        PackageKitArchitectureConfig.SendCommand(new ReimportPackageCommand(packageRepository));
                     });
 
             }
@@ -55,7 +57,7 @@ namespace QFramework.PackageKit
                 .AddTo(this)
                 .OnClick.AddListener(() =>
                 {
-                    PackageManagerConfig.SendCommand(new OpenDetailCommand(packageRepository));
+                    PackageKitArchitectureConfig.SendCommand(new OpenDetailCommand(packageRepository));
                 });
 
             new LabelView(packageRepository.author)

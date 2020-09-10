@@ -10,7 +10,7 @@ namespace QFramework.PackageKit
     [PackageKitRenderOrder(1)]
     public class PackageManagerView : QFramework.IPackageKitView
     {
-        PackageManagerConfig mPackageManagerConfig = new PackageManagerConfig();
+        PackageKitArchitectureConfig mPackageManagerConfig = new PackageKitArchitectureConfig();
 
         private Vector2 mScrollPos;
 
@@ -50,7 +50,7 @@ namespace QFramework.PackageKit
         {
             Container = container;
 
-            PackageManagerConfig.SendCommand<PackageManagerInitCommand>();
+            PackageKitArchitectureConfig.SendCommand<PackageManagerInitCommand>();
 
             mRootLayout = new VerticalLayout();
 
@@ -71,7 +71,7 @@ namespace QFramework.PackageKit
                     .Do(search =>
                     {
                         search.Content
-                            .Bind(key => { PackageManagerConfig.SendCommand(new SearchCommand(key)); }).AddTo(mDisposableList);
+                            .Bind(key => { PackageKitArchitectureConfig.SendCommand(new SearchCommand(key)); }).AddTo(mDisposableList);
                     })
             );
 
@@ -84,7 +84,7 @@ namespace QFramework.PackageKit
                     self.Index.Bind(value =>
                     {
                         PackageManagerState.AccessRightIndex.Value = value;
-                        PackageManagerConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                        PackageKitArchitectureConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
                     }).AddTo(mDisposableList);
                 });
 
@@ -95,7 +95,7 @@ namespace QFramework.PackageKit
                     self.Index.Bind(value =>
                     {
                         PackageManagerState.CategoryIndex.Value = value;
-                        PackageManagerConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                        PackageKitArchitectureConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
                     }).AddTo(mDisposableList);
                 });
 
