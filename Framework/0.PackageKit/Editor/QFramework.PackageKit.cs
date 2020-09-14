@@ -363,12 +363,6 @@ namespace QFramework
 
         public const int Feedback = 11;
     }
-    
-
-    public interface ISystemResetEvents
-    {
-        void SystemRestarted();
-    }
 
     public class Language
     {
@@ -693,10 +687,7 @@ namespace QFramework
             return this;
         }
     }
-
-
-
-
+    
     public static class WindowExtension
     {
         public static T PushCommand<T>(this T view, Action command) where T : IMGUIView
@@ -978,10 +969,7 @@ namespace QFramework
             Color.Value = EditorGUILayout.ColorField(Color.Value, LayoutStyles);
         }
     }
-
-
-
-
+    
 
     public class EnumPopupView : View
     {
@@ -1000,33 +988,7 @@ namespace QFramework
             ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style.Value, LayoutStyles);
         }
     }
-
-
-
-    public class ImageButtonView : View
-    {
-        private Texture2D mTexture2D { get; set; }
-
-        private Action mOnClick { get; set; }
-
-        public ImageButtonView(string texturePath, Action onClick)
-        {
-            mTexture2D = Resources.Load<Texture2D>(texturePath);
-            mOnClick = onClick;
-
-            //Style = new GUIStyle(GUI.skin.button);
-        }
-
-        protected override void OnGUI()
-        {
-            if (GUILayout.Button(mTexture2D, LayoutStyles))
-            {
-                mOnClick.Invoke();
-            }
-        }
-    }
-
-
+    
 
     public class PopupView : View
     {
@@ -1049,63 +1011,6 @@ namespace QFramework
         }
     }
     
-
-    public class TextAreaView : View
-    {
-        public TextAreaView(string content = "")
-        {
-            Content = new Property<string>(content);
-            //Style = new GUIStyle(GUI.skin.textArea);
-        }
-
-        public Property<string> Content { get; set; }
-
-        protected override void OnGUI()
-        {
-            Content.Value = EditorGUILayout.TextArea(Content.Value, GUI.skin.textArea, LayoutStyles);
-        }
-    }
-
-    public class TextView : View
-    {
-        public TextView(string content = "", Action<string> onValueChanged = null)
-        {
-            Content = new Property<string>(content);
-            //Style = GUI.skin.textField;
-
-            Content.Bind(_ => OnValueChanged.Invoke());
-
-            if (onValueChanged != null)
-            {
-                Content.Bind(onValueChanged);
-            }
-        }
-
-        public Property<string> Content;
-
-        protected override void OnGUI()
-        {
-            if (mPasswordMode)
-            {
-                Content.Value = EditorGUILayout.PasswordField(Content.Value, GUI.skin.textField, LayoutStyles);
-            }
-            else
-            {
-                Content.Value = EditorGUILayout.TextField(Content.Value, GUI.skin.textField, LayoutStyles);
-            }
-        }
-
-        public UnityEvent OnValueChanged = new UnityEvent();
-
-
-        private bool mPasswordMode = false;
-
-        public TextView PasswordMode()
-        {
-            mPasswordMode = true;
-            return this;
-        }
-    }
 
     public abstract class IMGUIViewController
     {
