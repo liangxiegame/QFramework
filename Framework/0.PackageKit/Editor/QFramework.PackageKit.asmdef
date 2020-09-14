@@ -4,7 +4,8 @@
         "QFramework.IOC",
         "QFramework.TypeEventSystem",
         "QFramework.BindableProperty",
-        "QFramework.Architecture"
+        "QFramework.Architecture",
+        "QFramework.EasyIMGUI"
     ],
     "includePlatforms": [
         "Editor"

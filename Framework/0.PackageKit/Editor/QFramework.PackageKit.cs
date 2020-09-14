@@ -451,17 +451,17 @@ namespace QFramework
         }
     }
 
-    public class SubWindow : EditorWindow, ILayout
+    public class SubWindow : EditorWindow, IMGUILayout
     {
-        void IView.Hide()
+        void IMGUIView.Hide()
         {
         }
 
-        void IView.DrawGUI()
+        void IMGUIView.DrawGUI()
         {
         }
 
-        ILayout IView.Parent { get; set; }
+        IMGUILayout IMGUIView.Parent { get; set; }
 
         private GUIStyleProperty mStyle = new GUIStyleProperty(()=>new GUIStyle());
 
@@ -471,41 +471,41 @@ namespace QFramework
             set { mStyle = value; }
         }
 
-        Color IView.BackgroundColor { get; set; }
+        Color IMGUIView.BackgroundColor { get; set; }
 
 
-        private List<IView> mPrivateChildren = new List<IView>();
+        private List<IMGUIView> mPrivateChildren = new List<IMGUIView>();
 
-        private List<IView> mChildren
+        private List<IMGUIView> mChildren
         {
             get { return mPrivateChildren; }
             set { mPrivateChildren = value; }
         }
 
-        void IView.RefreshNextFrame()
+        void IMGUIView.RefreshNextFrame()
         {
         }
 
-        void IView.AddLayoutOption(GUILayoutOption option)
+        void IMGUIView.AddLayoutOption(GUILayoutOption option)
         {
         }
 
-        void IView.RemoveFromParent()
+        void IMGUIView.RemoveFromParent()
         {
         }
 
-        void IView.Refresh()
+        void IMGUIView.Refresh()
         {
         }
 
-        public ILayout AddChild(IView view)
+        public IMGUILayout AddChild(IMGUIView view)
         {
             mChildren.Add(view);
             view.Parent = this;
             return this;
         }
 
-        public void RemoveChild(IView view)
+        public void RemoveChild(IMGUIView view)
         {
             mChildren.Add(view);
             view.Parent = null;
@@ -522,135 +522,6 @@ namespace QFramework
         }
 
         public void Dispose()
-        {
-        }
-    }
-
-
-    public abstract class View : IView
-    {
-        private bool mVisible = true;
-
-        public bool Visible
-        {
-            get { return mVisible; }
-            set { mVisible = value; }
-        }
-
-        private List<GUILayoutOption> mprivateLayoutOptions = new List<GUILayoutOption>();
-
-        private List<GUILayoutOption> mLayoutOptions
-        {
-            get { return mprivateLayoutOptions; }
-        }
-
-        protected GUILayoutOption[] LayoutStyles { get; private set; }
-
-
-        protected GUIStyleProperty mStyleProperty = new GUIStyleProperty(() => new GUIStyle());
-
-        public GUIStyleProperty Style
-        {
-            get { return mStyleProperty; }
-            protected set { mStyleProperty = value; }
-        }
-
-        private Color mBackgroundColor = GUI.backgroundColor;
-
-        public Color BackgroundColor
-        {
-            get { return mBackgroundColor; }
-            set { mBackgroundColor = value; }
-        }
-
-        public void RefreshNextFrame()
-        {
-            this.PushCommand(Refresh);
-        }
-
-        public void AddLayoutOption(GUILayoutOption option)
-        {
-            mLayoutOptions.Add(option);
-        }
-
-        public void Show()
-        {
-            Visible = true;
-            OnShow();
-        }
-
-        protected virtual void OnShow()
-        {
-        }
-
-        public void Hide()
-        {
-            Visible = false;
-            OnHide();
-        }
-
-        protected virtual void OnHide()
-        {
-        }
-
-
-        private Color mPreviousBackgroundColor;
-
-        public void DrawGUI()
-        {
-            BeforeDraw();
-
-            if (Visible)
-            {
-                mPreviousBackgroundColor = GUI.backgroundColor;
-                GUI.backgroundColor = BackgroundColor;
-                OnGUI();
-                GUI.backgroundColor = mPreviousBackgroundColor;
-            }
-        }
-
-        private bool mBeforeDrawCalled = false;
-
-        void BeforeDraw()
-        {
-            if (!mBeforeDrawCalled)
-            {
-                OnBeforeDraw();
-
-                LayoutStyles = mLayoutOptions.ToArray();
-
-                mBeforeDrawCalled = true;
-            }
-        }
-
-        protected virtual void OnBeforeDraw()
-        {
-        }
-
-        public ILayout Parent { get; set; }
-
-        public void RemoveFromParent()
-        {
-            Parent.RemoveChild(this);
-        }
-
-        public virtual void Refresh()
-        {
-            OnRefresh();
-        }
-
-        protected virtual void OnRefresh()
-        {
-        }
-
-        protected abstract void OnGUI();
-
-        public void Dispose()
-        {
-            OnDisposed();
-        }
-
-        protected virtual void OnDisposed()
         {
         }
     }
@@ -924,18 +795,18 @@ namespace QFramework
         }
     }
 
-    public abstract class Layout : View, ILayout
+    public abstract class Layout : View, IMGUILayout
     {
-        protected List<IView> Children = new List<IView>();
+        protected List<IMGUIView> Children = new List<IMGUIView>();
 
-        public ILayout AddChild(IView view)
+        public IMGUILayout AddChild(IMGUIView view)
         {
             Children.Add(view);
             view.Parent = this;
             return this;
         }
 
-        public void RemoveChild(IView view)
+        public void RemoveChild(IMGUIView view)
         {
             this.PushCommand(() =>
             {
@@ -977,51 +848,12 @@ namespace QFramework
         protected abstract void OnGUIBegin();
         protected abstract void OnGUIEnd();
     }
+    
 
-    public interface IView : IDisposable
-    {
-        void Show();
-
-        void Hide();
-
-        void DrawGUI();
-
-        ILayout Parent { get; set; }
-
-        GUIStyleProperty Style { get; }
-
-        Color BackgroundColor { get; set; }
-
-        void RefreshNextFrame();
-
-        void AddLayoutOption(GUILayoutOption option);
-
-        void RemoveFromParent();
-
-        void Refresh();
-    }
-
-    public static class ViewExtensions
-    {
-        public static TView Do<TView>(this TView self, Action<TView> onDo) where TView : IView
-        {
-            onDo(self);
-            return self;
-        }
-    }
-
-    public interface ILayout : IView
-    {
-        ILayout AddChild(IView view);
-
-        void RemoveChild(IView view);
-
-        void Clear();
-    }
 
     public static class WindowExtension
     {
-        public static T PushCommand<T>(this T view, Action command) where T : IView
+        public static T PushCommand<T>(this T view, Action command) where T : IMGUIView
         {
             RenderEndCommandExecuter.PushCommand(command);
             return view;
@@ -1060,110 +892,6 @@ namespace QFramework
             return subWindow;
         }
     }
-
-    public static class ViewExtension
-    {
-        public static T Width<T>(this T view, float width) where T : IView
-        {
-            view.AddLayoutOption(GUILayout.Width(width));
-            return view;
-        }
-
-        public static T Height<T>(this T view, float height) where T : IView
-        {
-            view.AddLayoutOption(GUILayout.Height(height));
-            return view;
-        }
-
-        public static T MaxHeight<T>(this T view, float height) where T : IView
-        {
-            view.AddLayoutOption(GUILayout.MaxHeight(height));
-            return view;
-        }
-
-        public static T MinHeight<T>(this T view, float height) where T : IView
-        {
-            view.AddLayoutOption(GUILayout.MinHeight(height));
-            return view;
-        }
-
-        public static T ExpandHeight<T>(this T view) where T : IView
-        {
-            view.AddLayoutOption(GUILayout.ExpandHeight(true));
-            return view;
-        }
-
-
-        public static T TextMiddleLeft<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.alignment = TextAnchor.MiddleLeft);
-            return view;
-        }
-
-        public static T TextMiddleRight<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.alignment = TextAnchor.MiddleRight);
-            return view;
-        }
-
-        public static T TextLowerRight<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.alignment = TextAnchor.LowerRight);
-            return view;
-        }
-
-        public static T TextMiddleCenter<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.alignment = TextAnchor.MiddleCenter);
-            return view;
-        }
-
-        public static T TextLowerCenter<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.alignment = TextAnchor.LowerCenter);
-            return view;
-        }
-
-        public static T Color<T>(this T view, Color color) where T : IView
-        {
-            view.BackgroundColor = color;
-            return view;
-        }
-
-        public static T FontColor<T>(this T view, Color color) where T : IView
-        {
-            view.Style.Set(style => style.normal.textColor = color);
-            return view;
-        }
-
-        public static T FontBold<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.fontStyle = FontStyle.Bold);
-            return view;
-        }
-
-        public static T FontNormal<T>(this T view) where T : IView
-        {
-            view.Style.Set(style => style.fontStyle = FontStyle.Normal);
-            return view;
-        }
-
-        public static T FontSize<T>(this T view, int fontSize) where T : IView
-        {
-            view.Style.Set(style => style.fontSize = fontSize);
-            return view;
-        }
-    }
-
-    public static class LayoutExtension
-    {
-        public static T AddTo<T>(this T view, ILayout parent) where T : IView
-        {
-            parent.AddChild(view);
-            return view;
-        }
-    }
-
 
     public static class EditorUtils
     {
@@ -1385,42 +1113,6 @@ namespace QFramework
             }
 
             return path;
-        }
-    }
-
-    public class GUIStyleProperty
-    {
-        private readonly Func<GUIStyle> mCreator;
-
-
-        private Action<GUIStyle> mOperations = (style) => { };
-
-        public GUIStyleProperty Set(Action<GUIStyle> operation)
-        {
-            mOperations += operation;
-            return this;
-        }
-
-        public GUIStyleProperty(Func<GUIStyle> creator)
-        {
-            mCreator = creator;
-        }
-
-        private GUIStyle mValue = null;
-
-        public GUIStyle Value
-        {
-            get
-            {
-                if (mValue == null)
-                {
-                    mValue = mCreator.Invoke();
-                    mOperations(mValue);
-                }
-
-                return mValue;
-            }
-            set { mValue = value; }
         }
     }
 
