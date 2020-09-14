@@ -8,7 +8,7 @@ namespace QFramework.PackageKit
         {
             new LabelView(title).FontBold().AddTo(this);
 
-            new FlexibaleSpaceView().AddTo(this);
+            new FlexibleSpaceView().AddTo(this);
             
             new ButtonView(LocalText.Open, () => { Application.OpenURL(link); })
                 .Width(200)

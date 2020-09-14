@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using QFramework.PackageKit.Model;
 using UnityEditor;
@@ -622,80 +621,7 @@ namespace QFramework
             }
         }
     }
-
-
-    public class ExpandLayout : Layout
-    {
-        public ExpandLayout(string label)
-        {
-            Label = label;
-        }
-
-        public string Label { get; set; }
-
-
-        protected override void OnGUIBegin()
-        {
-        }
-
-
-        protected override void OnGUI()
-        {
-//            if (GUIHelpers.DoToolbarEx(Label))
-//            {
-//                foreach (var child in Children)
-//                {
-//                    child.DrawGUI();
-//                }
-//            }
-        }
-
-        protected override void OnGUIEnd()
-        {
-        }
-    }
-
-    public class HorizontalLayout : Layout
-    {
-        public string HorizontalStyle { get; set; }
-
-        public HorizontalLayout(string horizontalStyle = null)
-        {
-            HorizontalStyle = horizontalStyle;
-        }
-
-        protected override void OnGUIBegin()
-        {
-            if (string.IsNullOrEmpty(HorizontalStyle))
-            {
-                GUILayout.BeginHorizontal();
-            }
-            else
-            {
-                GUILayout.BeginHorizontal(HorizontalStyle);
-            }
-        }
-
-        protected override void OnGUIEnd()
-        {
-            GUILayout.EndHorizontal();
-        }
-    }
-
-    public class ScrollLayout : Layout
-    {
-        Vector2 mScrollPos = Vector2.zero;
-
-        protected override void OnGUIBegin()
-        {
-            mScrollPos = GUILayout.BeginScrollView(mScrollPos, LayoutStyles);
-        }
-
-        protected override void OnGUIEnd()
-        {
-            GUILayout.EndScrollView();
-        }
-    }
+    
 
     public class TreeNode : VerticalLayout
     {
@@ -768,87 +694,7 @@ namespace QFramework
         }
     }
 
-    public class VerticalLayout : Layout
-    {
-        public string VerticalStyle { get; set; }
 
-        public VerticalLayout(string verticalStyle = null)
-        {
-            VerticalStyle = verticalStyle;
-        }
-
-        protected override void OnGUIBegin()
-        {
-            if (string.IsNullOrEmpty(VerticalStyle))
-            {
-                GUILayout.BeginVertical(LayoutStyles);
-            }
-            else
-            {
-                GUILayout.BeginVertical(VerticalStyle, LayoutStyles);
-            }
-        }
-
-        protected override void OnGUIEnd()
-        {
-            GUILayout.EndVertical();
-        }
-    }
-
-    public abstract class Layout : View, IMGUILayout
-    {
-        protected List<IMGUIView> Children = new List<IMGUIView>();
-
-        public IMGUILayout AddChild(IMGUIView view)
-        {
-            Children.Add(view);
-            view.Parent = this;
-            return this;
-        }
-
-        public void RemoveChild(IMGUIView view)
-        {
-            this.PushCommand(() =>
-            {
-                Children.Remove(view);
-                view.Parent = null;
-            });
-
-            view.Dispose();
-        }
-
-        public void Clear()
-        {
-            this.Children.ForEach(view =>
-            {
-                view.Parent = null;
-                view.Dispose();
-            });
-
-            this.Children.Clear();
-        }
-
-        public override void Refresh()
-        {
-            Children.ForEach(view => view.Refresh());
-            base.Refresh();
-        }
-
-        protected override void OnGUI()
-        {
-            OnGUIBegin();
-            foreach (var child in Children)
-            {
-                child.DrawGUI();
-            }
-
-            OnGUIEnd();
-        }
-
-        protected abstract void OnGUIBegin();
-        protected abstract void OnGUIEnd();
-    }
-    
 
 
     public static class WindowExtension
@@ -1116,21 +962,7 @@ namespace QFramework
         }
     }
 
-    public class BoxView : View
-    {
-        public string Text;
 
-        public BoxView(string text)
-        {
-            Text = text;
-            //Style = new GUIStyle(GUI.skin.box);
-        }
-
-        protected override void OnGUI()
-        {
-            GUILayout.Box(Text, GUI.skin.box, LayoutStyles);
-        }
-    }
 
     public class ColorView : View
     {
@@ -1147,47 +979,9 @@ namespace QFramework
         }
     }
 
-    public class ButtonView : View
-    {
-        public ButtonView(string text = null, Action onClickEvent = null)
-        {
-            Text = text;
-            OnClickEvent = onClickEvent;
-        }
 
-        public string Text { get; set; }
 
-        public Action OnClickEvent { get; set; }
-        public UnityEvent OnClick = new UnityEvent();
 
-        protected override void OnGUI()
-        {
-            if (GUILayout.Button(Text, GUI.skin.button, LayoutStyles))
-            {
-                if (OnClickEvent != null)
-                {
-                    OnClickEvent.Invoke();
-                }
-
-                OnClick.Invoke();
-            }
-        }
-    }
-
-    public class CustomView : View
-    {
-        public CustomView(Action onGuiAction)
-        {
-            OnGUIAction = onGuiAction;
-        }
-
-        public Action OnGUIAction { get; set; }
-
-        protected override void OnGUI()
-        {
-            OnGUIAction.Invoke();
-        }
-    }
 
     public class EnumPopupView : View
     {
@@ -1207,13 +1001,7 @@ namespace QFramework
         }
     }
 
-    public class FlexibaleSpaceView : View
-    {
-        protected override void OnGUI()
-        {
-            GUILayout.FlexibleSpace();
-        }
-    }
+
 
     public class ImageButtonView : View
     {
@@ -1238,22 +1026,7 @@ namespace QFramework
         }
     }
 
-    public class LabelView : View
-    {
-        public string Content { get; set; }
 
-        public LabelView(string content)
-        {
-            Content = content;
-
-            mStyleProperty = new GUIStyleProperty(() => new GUIStyle(GUI.skin.label));
-        }
-
-        protected override void OnGUI()
-        {
-            GUILayout.Label(Content, Style.Value, LayoutStyles);
-        }
-    }
 
     public class PopupView : View
     {
@@ -1275,21 +1048,7 @@ namespace QFramework
             IndexProperty.Value = EditorGUILayout.Popup(IndexProperty.Value, MenuArray, LayoutStyles);
         }
     }
-
-    public class SpaceView : View
-    {
-        public int Pixel { get; set; }
-
-        public SpaceView(int pixel = 10)
-        {
-            Pixel = pixel;
-        }
-
-        protected override void OnGUI()
-        {
-            GUILayout.Space(Pixel);
-        }
-    }
+    
 
     public class TextAreaView : View
     {
@@ -1348,134 +1107,6 @@ namespace QFramework
         }
     }
 
-    public class ToggleView : View
-    {
-        public string Text { get; private set; }
-
-        public ToggleView(string text, bool initValue = false)
-        {
-            Text = text;
-            Toggle = new Property<bool>(initValue);
-
-            Style = new GUIStyleProperty(() => GUI.skin.toggle);
-        }
-
-        public Property<bool> Toggle { get; private set; }
-
-        protected override void OnGUI()
-        {
-            // Toggle.Value = GUILayout.Toggle(Toggle.Value, Text, Style, LayoutStyles);
-            Toggle.Value = GUILayout.Toggle(Toggle.Value, Text, LayoutStyles);
-        }
-    }
-
-    public class ToolbarView : View
-    {
-        public ToolbarView(int defaultIndex = 0)
-        {
-            Index.Value = defaultIndex;
-            Index.Bind(index => MenuSelected[index].Invoke(MenuNames[index]));
-        }
-
-
-        public ToolbarView Menus(List<string> menuNames)
-        {
-            this.MenuNames = menuNames;
-            // empty
-            this.MenuSelected = MenuNames.Select(menuName => new Action<string>((str => { }))).ToList();
-            return this;
-        }
-
-        public ToolbarView AddMenu(string name, Action<string> onMenuSelected)
-        {
-            MenuNames.Add(name);
-            MenuSelected.Add(onMenuSelected);
-            return this;
-        }
-
-        List<string> MenuNames = new List<string>();
-
-        List<Action<string>> MenuSelected = new List<Action<string>>();
-
-        public Property<int> Index = new Property<int>(0);
-
-        protected override void OnGUI()
-        {
-            Index.Value = GUILayout.Toolbar(Index.Value, MenuNames.ToArray(), GUI.skin.button, LayoutStyles);
-        }
-    }
-
-    public static class EventDispatcher
-    {
-        private static Dictionary<int, Action<object>> mRegisteredEvents = new Dictionary<int, Action<object>>();
-
-        public static void Register<T>(T key, Action<object> onEvent) where T : IConvertible
-        {
-            int intKey = key.ToInt32(null);
-
-            Action<object> registerdEvent;
-            if (!mRegisteredEvents.TryGetValue(intKey, out registerdEvent))
-            {
-                registerdEvent = (_) => { };
-                registerdEvent += onEvent;
-                mRegisteredEvents.Add(intKey, registerdEvent);
-            }
-            else
-            {
-                mRegisteredEvents[intKey] += onEvent;
-            }
-        }
-
-        public static void UnRegister<T>(T key, Action<object> onEvent) where T : IConvertible
-        {
-            int intKey = key.ToInt32(null);
-
-            Action<object> registerdEvent;
-            if (!mRegisteredEvents.TryGetValue(intKey, out registerdEvent))
-            {
-            }
-            else
-            {
-                registerdEvent -= onEvent;
-            }
-        }
-
-        public static void UnRegisterAll<T>(T key) where T : IConvertible
-        {
-            int intKey = key.ToInt32(null);
-            mRegisteredEvents.Remove(intKey);
-        }
-
-        public static void Send<T>(T key, object arg = null) where T : IConvertible
-        {
-            int intKey = key.ToInt32(null);
-
-            Action<object> registeredEvent;
-            if (mRegisteredEvents.TryGetValue(intKey, out registeredEvent))
-            {
-                registeredEvent.Invoke(arg);
-            }
-        }
-    }
-
-    public static class ColorUtil
-    {
-        public static string ToText(this Color color)
-        {
-            return string.Format("{0}@{1}@{2}@{3}", color.r, color.g, color.b, color.a);
-        }
-
-        public static Color ToColor(this string colorText)
-        {
-            var channels = colorText.Split('@');
-            return new Color(
-                float.Parse(channels[0]),
-                float.Parse(channels[1]),
-                float.Parse(channels[2]),
-                float.Parse(channels[3]));
-        }
-    }
-
     public abstract class IMGUIViewController
     {
         public VerticalLayout View = new VerticalLayout();
@@ -1485,128 +1116,4 @@ namespace QFramework
 }
 
 
-namespace Dependencies.PackageKit
-{
-    using Object = UnityEngine.Object;
-
-
-    // http://stackoverflow.com/questions/1171812/multi-key-dictionary-in-c
-    public class Tuple<T1, T2> //FUCKING Unity: struct is not supported in Mono
-    {
-        public readonly T1 Item1;
-        public readonly T2 Item2;
-
-        public Tuple(T1 item1, T2 item2)
-        {
-            Item1 = item1;
-            Item2 = item2;
-        }
-
-        public override bool Equals(object obj)
-        {
-            Tuple<T1, T2> p = obj as Tuple<T1, T2>;
-            if (obj == null) return false;
-
-            if (Item1 == null)
-            {
-                if (p.Item1 != null) return false;
-            }
-            else
-            {
-                if (p.Item1 == null || !Item1.Equals(p.Item1)) return false;
-            }
-
-            if (Item2 == null)
-            {
-                if (p.Item2 != null) return false;
-            }
-            else
-            {
-                if (p.Item2 == null || !Item2.Equals(p.Item2)) return false;
-            }
-
-            return true;
-        }
-
-        public override int GetHashCode()
-        {
-            int hash = 0;
-            if (Item1 != null)
-                hash ^= Item1.GetHashCode();
-            if (Item2 != null)
-                hash ^= Item2.GetHashCode();
-            return hash;
-        }
-    }
-
-    // Kanglai: Using Dictionary rather than List!
-    public class TypeMappingCollection : Dictionary<Tuple<Type, string>, Type>
-    {
-        public Type this[Type from, string name = null]
-        {
-            get
-            {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                Type mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
-            }
-            set
-            {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                this[key] = value;
-            }
-        }
-    }
-
-    public class TypeInstanceCollection : Dictionary<Tuple<Type, string>, object>
-    {
-        public object this[Type from, string name = null]
-        {
-            get
-            {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                object mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
-            }
-            set
-            {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                this[key] = value;
-            }
-        }
-    }
-
-    public class TypeRelationCollection : Dictionary<Tuple<Type, Type>, Type>
-    {
-        public Type this[Type from, Type to]
-        {
-            get
-            {
-                Tuple<Type, Type> key = new Tuple<Type, Type>(from, to);
-                Type mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
-            }
-            set
-            {
-                Tuple<Type, Type> key = new Tuple<Type, Type>(from, to);
-                this[key] = value;
-            }
-        }
-    }
-}
 #endif
