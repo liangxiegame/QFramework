@@ -2248,7 +2248,19 @@ namespace QFramework
 
         #region CETR010 Destroy All Child
 
+        [Obsolete("弃用啦 请使用 DestroyChildren")]
         public static T DestroyAllChild<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.DestroyChildren();
+        }
+
+        [Obsolete("弃用啦 请使用 DestroyChildren")]
+        public static GameObject DestroyAllChild(this GameObject selfGameObj)
+        {
+            return selfGameObj.DestroyChildren();
+        }
+
+        public static T DestroyChildren<T>(this T selfComponent) where T : Component
         {
             var childCount = selfComponent.transform.childCount;
 
@@ -2260,7 +2272,7 @@ namespace QFramework
             return selfComponent;
         }
 
-        public static GameObject DestroyAllChild(this GameObject selfGameObj)
+        public static GameObject DestroyChildren(this GameObject selfGameObj)
         {
             var childCount = selfGameObj.transform.childCount;
 
