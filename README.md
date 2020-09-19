@@ -11,7 +11,7 @@
 
 [码云国内镜像仓:https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
 
-## Stargazers over time
+## Star 趋势（如果项目有帮到您欢迎点赞）
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
