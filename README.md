@@ -134,6 +134,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
     2. 基于ILRuntime的代码热更 
     3. 自动生成热更包及热更配置表 
     4. ab包加密及资源解压 
+- [JEngine](https://github.com/JasonXuDeveloper/JEngine) JEngine is a streamlined and easy-to-use framework designed for Unity Programmers.
 
 ### 代码规范完全遵循:
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
