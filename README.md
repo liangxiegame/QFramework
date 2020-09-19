@@ -129,11 +129,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [xasset](https://github.com/xasset/xasset): xasset 致力于为 Unity 项目提供一套精简稳健的资源管理环境
 - [TinaX](https://github.com/yomunsam/TinaX): 开箱即用的 Unity 开发框架，支持 Lua。
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
-- [ILRuntimeProject](https://gitee.com/davidch/ILRuntimeProject) 基于ILRuntime的热更新框架（定制）： 
-    1. Unity完整的资源热更流程（热更下载中断处理，资源校验，热更回退等） 
-    2. 基于ILRuntime的代码热更 
-    3. 自动生成热更包及热更配置表 
-    4. ab包加密及资源解压 
 - [JEngine](https://github.com/JasonXuDeveloper/JEngine) JEngine is a streamlined and easy-to-use framework designed for Unity Programmers.
 
 ### 代码规范完全遵循:
