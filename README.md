@@ -11,6 +11,10 @@
 
 [码云国内镜像仓:https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
 
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
+
 
 #### 快速开始 QuickStart:
 
