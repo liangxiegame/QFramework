@@ -29,5 +29,10 @@ namespace QFramework
 		{
 			utilityLayer.RegisterInstance<IJsonSerializeUtility>(new DefaultJsonSerializeUtility());
 		}
+
+		protected override void OnLaunch()
+		{
+			
+		}
 	}
 }

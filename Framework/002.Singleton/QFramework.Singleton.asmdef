@@ -1,0 +1,8 @@
+﻿{
+	"name": "QFramework.Singleton",
+	"references": [
+		"QFramework.Factory"
+	],
+	"includePlatforms": [],
+	"excludePlatforms": []
+}

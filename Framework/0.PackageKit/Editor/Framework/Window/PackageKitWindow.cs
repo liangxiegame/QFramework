@@ -34,7 +34,7 @@ namespace QFramework.PackageKit
 
         [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
         [MenuItem(FrameworkMenuItems.PackageKit, false, FrameworkMenuItemsPriorities.Preferences)]
-        private static void Open()
+        public static void Open()
         {
             var packageKitWindow = Create<PackageKitWindow>(true);
             packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);

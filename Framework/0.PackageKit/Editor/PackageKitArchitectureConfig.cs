@@ -29,5 +29,9 @@ namespace QFramework.PackageKit
             // 弹框注册
             utilityLayer.RegisterInstance<IEditorDialogUtility>(new EditorDialogUtility());
         }
+
+        protected override void OnLaunch()
+        {
+        }
     }
 }

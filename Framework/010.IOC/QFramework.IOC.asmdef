@@ -1,0 +1,8 @@
+{
+    "name": "QFramework.IOC",
+    "references": [
+        "QFramework.Factory"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

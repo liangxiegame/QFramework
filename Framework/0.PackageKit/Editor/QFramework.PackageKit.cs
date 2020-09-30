@@ -661,7 +661,7 @@ namespace QFramework
             }).AddTo(this);
         }
 
-        public TreeNode Add2FirstLine(IView view)
+        public TreeNode Add2FirstLine(IMGUIView view)
         {
             view.AddTo(mFirstLine);
             return this;
@@ -681,7 +681,7 @@ namespace QFramework
             return this;
         }
 
-        public TreeNode Add2Spread(IView view)
+        public TreeNode Add2Spread(IMGUIView view)
         {
             view.AddTo(mSpreadView);
             return this;
