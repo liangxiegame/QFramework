@@ -6,16 +6,6 @@ namespace QFramework
     [MonoSingletonPath("UIRoot")]
     public class UIRoot : MonoSingleton<UIRoot>
     {
-        public Transform BgTrans;
-        public Transform AnimationUnderTrans;
-        public Transform CommonTrans;
-        public Transform AnimationOnTrans;
-        public Transform PopUITrans;
-        public Transform ConstTrans;
-        public Transform ToastTrans;
-        public Transform ForwardTrans;
-        public Transform CanvasPanelTrans;
-
         public Camera UICamera;
         public Canvas Canvas;
         public CanvasScaler CanvasScaler;
@@ -27,12 +17,12 @@ namespace QFramework
         {
             get
             {
-                if (null == mInstance)
+                if (!mInstance)
                 {
                     mInstance = FindObjectOfType<UIRoot>();
                 }
 
-                if (null == mInstance)
+                if (!mInstance)
                 {
                     Instantiate(Resources.Load<GameObject>("UIRoot"));
                     mInstance = MonoSingletonProperty<UIRoot>.Instance;
@@ -66,38 +56,24 @@ namespace QFramework
             return CanvasScaler.matchWidthOrHeight;
         }
 
+        void MakeSureCanvas(UILevel level,IPanel panel)
+        {
+            var canvas = panel.Transform.GetComponent<Canvas>();
+
+            if (!canvas)
+            {
+                canvas = panel.Transform.gameObject.AddComponent<Canvas>();
+                canvas.overrideSorting = true;
+                canvas.sortingOrder = (int) level;
+                
+                panel.Transform.gameObject.AddComponent<GraphicRaycaster>();
+            }
+        }
+        
         public void SetLevelOfPanel(UILevel level, IPanel panel)
         {
-            switch (level)
-            {
-                case UILevel.Bg:
-                    panel.Transform.SetParent(BgTrans);
-                    break;
-                case UILevel.AnimationUnderPage:
-                    panel.Transform.SetParent(AnimationUnderTrans);
-                    break;
-                case UILevel.Common:
-                    panel.Transform.SetParent(CommonTrans);
-                    break;
-                case UILevel.AnimationOnPage:
-                    panel.Transform.SetParent(AnimationOnTrans);
-                    break;
-                case UILevel.PopUI:
-                    panel.Transform.SetParent(PopUITrans);
-                    break;
-                case UILevel.Const:
-                    panel.Transform.SetParent(ConstTrans);
-                    break;
-                case UILevel.Toast:
-                    panel.Transform.SetParent(ToastTrans);
-                    break;
-                case UILevel.Forward:
-                    panel.Transform.SetParent(ForwardTrans);
-                    break;
-                case UILevel.CanvasPanel:
-                    panel.Transform.SetParent(CanvasPanelTrans);
-                    break;
-            }
+            panel.Transform.SetParent(transform);
+            MakeSureCanvas(level, panel);
         }
     }
 }
