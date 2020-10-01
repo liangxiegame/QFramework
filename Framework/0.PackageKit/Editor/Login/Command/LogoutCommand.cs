@@ -2,9 +2,9 @@
 
 namespace QFramework.PackageKit
 {
-    public class LogoutCommand : IPackageLoginCommand
+    public class LogoutCommand : Command<PackageKitLoginApp>
     {
-        public void Execute()
+        public override void Execute()
         {
             User.Clear();
 

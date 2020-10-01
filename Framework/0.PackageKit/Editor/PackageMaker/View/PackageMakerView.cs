@@ -9,6 +9,7 @@ namespace QFramework.PackageKit
         private PackageVersion mPackageVersion;
         
         
+        ControllerNode<PackageMakerApp> mControllerNode = ControllerNode<PackageMakerApp>.Allocate();
         private static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -86,7 +87,6 @@ namespace QFramework.PackageKit
 
         DisposableList mDisposableList = new DisposableList();
         
-        PackageMakerApp mPackageMakerApp = new PackageMakerApp();
 
         protected override void Init()
         {
@@ -141,7 +141,7 @@ namespace QFramework.PackageKit
                     mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
                     mPackageVersion.Version = version.Content.Value;
                     
-                    PackageMakerApp.Send(new PublishPackageCommand(mPackageVersion));
+                    mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
                 });
             }
 
@@ -188,9 +188,8 @@ namespace QFramework.PackageKit
 
         public override void OnClose()
         {
-            mPackageMakerApp.Dispose();
-            mPackageMakerApp = null;
-            
+            mControllerNode = null;
+
             mDisposableList.Dispose();
             mDisposableList = null;
         }

@@ -2,6 +2,8 @@ namespace QFramework.PackageKit
 {
     public class RegisterView : VerticalLayout
     {
+        ControllerNode<PackageKitLoginApp> mControllerNode = ControllerNode<PackageKitLoginApp>.Allocate();
+        
         public RegisterView()
         {
             var usernameLine = new HorizontalLayout().AddTo(this);
@@ -16,8 +18,13 @@ namespace QFramework.PackageKit
 
             new ButtonView("注册", () => { }).AddTo(this);
             
-            new ButtonView("返回注册", () => { PackageKitLoginApp.Send(new OpenRegisterViewCommand()); })
+            new ButtonView("返回注册", () => { mControllerNode.SendCommand(new OpenRegisterViewCommand()); })
                 .AddTo(this);
+        }
+
+        protected override void OnDisposed()
+        {
+            mControllerNode = null;
         }
     }
 }

@@ -3,10 +3,9 @@ using UnityEngine;
 
 namespace QFramework
 {
-	public class Core :  AbstractArchitectureConfig<IFrameworkCommand,Core>
+	public class Core :  ArchitectureConfig<Core>
 	{
-		[Obsolete("不可以自行创建 Core 的实例")]
-		public Core() {}
+
 
 		[RuntimeInitializeOnLoadMethod]
 		static void InitOnLoad()

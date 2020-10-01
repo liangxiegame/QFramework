@@ -42,6 +42,7 @@ namespace QFramework
 
         private double mCheckInterval = 60;
 
+        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();     
 
         static PackageCheck()
         {
@@ -117,10 +118,10 @@ namespace QFramework
             GoToWait();
         }
 
-        private static bool CheckNewVersionDialog(List<PackageRepository> requestPackageDatas,
+        private bool CheckNewVersionDialog(List<PackageRepository> requestPackageDatas,
             List<PackageRepository> cachedPackageDatas)
         {
-            var installedPackageVersionsModel = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>();
+            var installedPackageVersionsModel = mControllerNode.GetModel<IInstalledPackageVersionsConfigModel>();
             foreach (var requestPackageData in requestPackageDatas)
             {
                 var cachedPacakgeData =
@@ -156,6 +157,11 @@ namespace QFramework
             {
                 EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
             }
+        }
+
+        ~PackageCheck()
+        {
+            mControllerNode = null;
         }
     }
 
@@ -264,17 +270,30 @@ namespace QFramework
         }
     }
 
-    public static class InstallPackage
+    public class InstallPackage : Command<PackageKitArchitectureConfig>
     {
-        public static void Do(PackageRepository requestPackageData)
-        {
-            var tempFile = "Assets/" + requestPackageData.name + ".unitypackage";
+        private readonly PackageRepository mRequestPackageData;
 
-            Debug.Log(requestPackageData.latestDownloadUrl + ">>>>>>:");
+        private void OnProgressChanged(float progress)
+        {
+            EditorUtility.DisplayProgressBar("插件更新",
+                string.Format("插件下载中 {0:P2}", progress), progress);
+        }
+
+        public InstallPackage(PackageRepository requestPackageData)
+        {
+            mRequestPackageData = requestPackageData;
+        }
+
+        public override void Execute()
+        {
+            var tempFile = "Assets/" + mRequestPackageData.name + ".unitypackage";
+
+            Debug.Log(mRequestPackageData.latestDownloadUrl + ">>>>>>:");
 
             EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
 
-            EditorHttp.Download(requestPackageData.latestDownloadUrl, response =>
+            EditorHttp.Download(mRequestPackageData.latestDownloadUrl, response =>
             {
                 if (response.Type == ResponseType.SUCCEED)
                 {
@@ -291,23 +310,17 @@ namespace QFramework
                     Debug.Log("PackageManager:插件下载成功");
 
                     
-                    PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>()
+                    this.GetModel<IInstalledPackageVersionsConfigModel>()
                         .Reload();
                 }
                 else
                 {
                     EditorUtility.ClearProgressBar();
 
-                    EditorUtility.DisplayDialog(requestPackageData.name,
+                    EditorUtility.DisplayDialog(mRequestPackageData.name,
                         "插件安装失败,请联系 liangxiegame@163.com 或者加入 QQ 群:623597263" + response.Error + ";", "OK");
                 }
             }, OnProgressChanged);
-        }
-
-        private static void OnProgressChanged(float progress)
-        {
-            EditorUtility.DisplayProgressBar("插件更新",
-                string.Format("插件下载中 {0:P2}", progress), progress);
         }
     }
 

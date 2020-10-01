@@ -2,9 +2,9 @@
 
 namespace QFramework.PackageKit
 {
-    public class OpenRegisterWebsiteCommand : IPackageLoginCommand
+    public class OpenRegisterWebsiteCommand : Command<PackageKitLoginApp>
     {
-        public void Execute()
+        public override void Execute()
         {
             Application.OpenURL("https://qframework.cn/user/register");
         }

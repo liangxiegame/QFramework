@@ -4,16 +4,16 @@ using UnityEngine;
 
 namespace QFramework.PackageKit.Command
 {
-    public class UpdatePackageCommand : IPackageManagerCommand
+    public class UpdatePackageCommand : Command<PackageKitArchitectureConfig>
     {
         public UpdatePackageCommand(PackageRepository packageRepository)
         {
             mPackageRepository = packageRepository;
         }
-        
+
         private readonly PackageRepository mPackageRepository;
-        
-        public void Execute()
+
+        public override void Execute()
         {
             var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
 
@@ -25,10 +25,10 @@ namespace QFramework.PackageKit.Command
             RenderEndCommandExecuter.PushCommand(() =>
             {
                 AssetDatabase.Refresh();
-                        
+
                 PackageApplication.Container.Resolve<PackageKitWindow>().Close();
 
-                InstallPackage.Do(mPackageRepository);
+                SendCommand(new InstallPackage(mPackageRepository));
             });
         }
     }

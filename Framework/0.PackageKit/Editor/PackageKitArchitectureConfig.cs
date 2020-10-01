@@ -3,12 +3,10 @@ using QFramework.PackageKit.Utility;
 
 namespace QFramework.PackageKit
 {
-    public interface IPackageKitCommand : ICommand
+    public class PackageKitArchitectureConfig : ArchitectureConfig<PackageKitArchitectureConfig>
     {
-    }
-
-    public class PackageKitArchitectureConfig : AbstractArchitectureConfig<IPackageKitCommand, PackageKitArchitectureConfig>
-    {
+        private PackageKitArchitectureConfig(){}
+        
         protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
         {
         }

@@ -2,7 +2,7 @@
 
 namespace QFramework.PackageKit
 {
-    public class LoginCommand : IPackageLoginCommand
+    public class LoginCommand : Command<PackageKitLoginApp>
     {
         private readonly string mUsername;
         private readonly string mPassword;
@@ -16,7 +16,7 @@ namespace QFramework.PackageKit
         [Inject]
         public IPackageLoginService Service { get; set; }
         
-        public void Execute()
+        public override void Execute()
         {
             Service.DoGetToken(mUsername, mPassword, token =>
             {

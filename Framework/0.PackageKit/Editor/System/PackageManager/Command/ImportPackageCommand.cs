@@ -1,6 +1,6 @@
 ﻿namespace QFramework.PackageKit.Command
 {
-    public class ImportPackageCommand : IPackageManagerCommand
+    public class ImportPackageCommand : Command<PackageKitArchitectureConfig>
     {
         private readonly PackageRepository mPackageRepository;
 
@@ -8,12 +8,12 @@
         {
             mPackageRepository = packageRepository;
         }
-        
-        public void Execute()
+
+        public override void Execute()
         {
             PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-                    
-            InstallPackage.Do(mPackageRepository);
+
+            SendCommand(new InstallPackage(mPackageRepository));
         }
     }
 }

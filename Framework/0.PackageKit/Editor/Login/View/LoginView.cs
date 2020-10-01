@@ -2,6 +2,8 @@ namespace QFramework.PackageKit
 {
     public class LoginView : VerticalLayout
     {
+        ControllerNode<PackageKitLoginApp> mController = ControllerNode<PackageKitLoginApp>.Allocate();
+        
         public LoginView()
         {
             var usernameLine = new HorizontalLayout().AddTo(this);
@@ -17,17 +19,19 @@ namespace QFramework.PackageKit
 
             loginBtn.OnClick.AddListener(() =>
             {
-                PackageKitLoginApp.Send(new LoginCommand(username.Content.Value,password.Content.Value));
+                mController.SendCommand(new LoginCommand(username.Content.Value,password.Content.Value));
             });
 
             registerBtn.OnClick.AddListener(() =>
             {
-                PackageKitLoginApp.Send<OpenRegisterWebsiteCommand>();
+                mController.SendCommand<OpenRegisterWebsiteCommand>();
             });
         }
 
         protected override void OnDisposed()
         {
+            mController.Recycle2Cache();
+            mController = null;
         }
     }
 }

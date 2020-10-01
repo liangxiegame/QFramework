@@ -10,7 +10,7 @@ namespace QFramework.PackageKit
     [PackageKitRenderOrder(1)]
     public class PackageManagerView : QFramework.IPackageKitView
     {
-        PackageKitArchitectureConfig mPackageManagerConfig = new PackageKitArchitectureConfig();
+        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();
 
         private Vector2 mScrollPos;
 
@@ -50,7 +50,7 @@ namespace QFramework.PackageKit
         {
             Container = container;
 
-            PackageKitArchitectureConfig.SendCommand<PackageManagerInitCommand>();
+            mControllerNode.SendCommand<PackageManagerInitCommand>();
 
             mRootLayout = new VerticalLayout();
 
@@ -71,7 +71,7 @@ namespace QFramework.PackageKit
                     .Do(search =>
                     {
                         search.Content
-                            .Bind(key => { PackageKitArchitectureConfig.SendCommand(new SearchCommand(key)); }).AddTo(mDisposableList);
+                            .Bind(key => { mControllerNode.SendCommand(new SearchCommand(key)); }).AddTo(mDisposableList);
                     })
             );
 
@@ -84,7 +84,7 @@ namespace QFramework.PackageKit
                     self.Index.Bind(value =>
                     {
                         PackageManagerState.AccessRightIndex.Value = value;
-                        PackageKitArchitectureConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                        mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
                     }).AddTo(mDisposableList);
                 });
 
@@ -95,7 +95,7 @@ namespace QFramework.PackageKit
                     self.Index.Bind(value =>
                     {
                         PackageManagerState.CategoryIndex.Value = value;
-                        PackageKitArchitectureConfig.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                        mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
                     }).AddTo(mDisposableList);
                 });
 
@@ -142,11 +142,12 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
+            mControllerNode.Recycle2Cache();
+            mControllerNode = null;
+            
             mDisposableList.Dispose();
             mDisposableList = null;
             mCategoriesSelectorView = null;
-            mPackageManagerConfig.Dispose();
-            mPackageManagerConfig = null;
         }
 
 

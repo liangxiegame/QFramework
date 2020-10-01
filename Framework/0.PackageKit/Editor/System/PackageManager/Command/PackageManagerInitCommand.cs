@@ -4,24 +4,24 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
 {
-    public class PackageManagerInitCommand : IPackageManagerCommand
+    public class PackageManagerInitCommand : Command<PackageKitArchitectureConfig>
     {
 
-        public void Execute()
+        public override void Execute()
         {
-            var model = PackageKitArchitectureConfig.GetModel<IPackageManagerModel>();
-            var server = PackageKitArchitectureConfig.GetModel<IPackageManagerServer>();
-            var installedPackageVersionsModel = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>();
+            var model = GetModel<IPackageManagerModel>();
+            var server = GetModel<IPackageManagerServer>();
+            var installedPackageVersionsModel = GetModel<IInstalledPackageVersionsConfigModel>();
             installedPackageVersionsModel.Reload();
             
             PackageManagerState.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
-            PackageKitArchitectureConfig.SendCommand<UpdateCategoriesFromModelCommand>();
+            SendCommand<UpdateCategoriesFromModelCommand>();
             
             server.GetAllRemotePackageInfoV5((list, categories) =>
             {
                 model.Repositories = list.OrderBy(p=>p.name).ToList();
                 PackageManagerState.PackageRepositories.Value = model.Repositories;
-                PackageKitArchitectureConfig.SendCommand<UpdateCategoriesFromModelCommand>();
+                SendCommand<UpdateCategoriesFromModelCommand>();
             });
         }
     }

@@ -9,8 +9,7 @@ namespace QFramework.PackageKit
     {
         public IQFrameworkContainer Container { get; set; }
 
-        PackageKitLoginApp mPackageKitLoginApp = new PackageKitLoginApp();
-        
+        ControllerNode<PackageKitLoginApp> mControllerNode = ControllerNode<PackageKitLoginApp>.Allocate();
 
         public bool Ignore { get; private set; }
 
@@ -45,10 +44,7 @@ namespace QFramework.PackageKit
                 logoutBtn.Visible = value;
             }).AddTo(mDisposableList);
             
-            logoutBtn.OnClick.AddListener(() =>
-            {
-                PackageKitLoginApp.Send<LogoutCommand>();
-            });
+            logoutBtn.OnClick.AddListener(mControllerNode.SendCommand<LogoutCommand>);
             
             PackageKitLoginState.LoginViewVisible.Bind(value =>
             {
@@ -84,10 +80,11 @@ namespace QFramework.PackageKit
 
         public void OnDispose()
         {
+            mControllerNode.Recycle2Cache();
+            mControllerNode = null;
+            
             mDisposableList.Dispose();
             mDisposableList = null;
-            mPackageKitLoginApp.Dispose();
-            mPackageKitLoginApp = null;
         }
     }
 }

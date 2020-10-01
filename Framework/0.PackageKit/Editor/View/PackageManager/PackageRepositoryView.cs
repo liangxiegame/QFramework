@@ -5,6 +5,7 @@ namespace QFramework.PackageKit
 {
     public class PackageRepositoryView : HorizontalLayout
     {
+        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();
         public PackageRepositoryView(PackageRepository packageRepository)
         {
             new SpaceView(2).AddTo(this);
@@ -13,7 +14,7 @@ namespace QFramework.PackageKit
 
             new LabelView(packageRepository.latestVersion).TextMiddleCenter().Width(80).AddTo(this);
 
-            var installedPackage = PackageKitArchitectureConfig.GetModel<IInstalledPackageVersionsConfigModel>()
+            var installedPackage = mControllerNode.GetModel<IInstalledPackageVersionsConfigModel>()
                 .GetByName(packageRepository.name);
 
             new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
@@ -27,7 +28,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Import).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageKitArchitectureConfig.SendCommand(new ImportPackageCommand(packageRepository));
+                        mControllerNode.SendCommand(new ImportPackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
@@ -35,7 +36,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Update).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageKitArchitectureConfig.SendCommand(new UpdatePackageCommand(packageRepository));
+                        mControllerNode.SendCommand(new UpdatePackageCommand(packageRepository));
                     });
             }
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
@@ -43,7 +44,7 @@ namespace QFramework.PackageKit
                 new ButtonView(LocaleText.Reimport).Width(90).AddTo(this)
                     .OnClick.AddListener(() =>
                     {
-                        PackageKitArchitectureConfig.SendCommand(new ReimportPackageCommand(packageRepository));
+                        mControllerNode.SendCommand(new ReimportPackageCommand(packageRepository));
                     });
 
             }
@@ -57,7 +58,7 @@ namespace QFramework.PackageKit
                 .AddTo(this)
                 .OnClick.AddListener(() =>
                 {
-                    PackageKitArchitectureConfig.SendCommand(new OpenDetailCommand(packageRepository));
+                    mControllerNode.SendCommand(new OpenDetailCommand(packageRepository));
                 });
 
             new LabelView(packageRepository.author)
@@ -65,7 +66,13 @@ namespace QFramework.PackageKit
                 .FontBold().Width(100)
                 .AddTo(this);
         }
-        
+
+        protected override void OnDisposed()
+        {
+            mControllerNode.Recycle2Cache();
+            mControllerNode = null;
+        }
+
         class LocaleText
         {
             public static string Doc

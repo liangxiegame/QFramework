@@ -1,8 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2019.11 liangxie
+ * Copyright (c) 2017 ~ 2020.10 liangxie
  * 
- * http://qframework.io
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +70,7 @@ namespace QFramework
         {
         }
     }
-
+    
     public static class SingletonCreator
     {
         public static T CreateSingleton<T>() where T : class, ISingleton

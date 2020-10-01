@@ -8,14 +8,13 @@ namespace QFramework.PackageKit
         List<PackageRepository> Repositories { get; set; }
     }
 
-    class PackageManagerModel : IPackageManagerModel
+    class PackageManagerModel : Model<PackageKitArchitectureConfig>, IPackageManagerModel
     {
-
         public PackageManagerModel()
         {
             Repositories = PackageInfosRequestCache.Get().PackageRepositories;
         }
-        
+
         public List<PackageRepository> Repositories { get; set; }
 
         public bool VersionCheck

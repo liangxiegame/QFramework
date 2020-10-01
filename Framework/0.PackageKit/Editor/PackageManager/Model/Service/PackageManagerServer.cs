@@ -16,7 +16,7 @@ namespace QFramework.PackageKit
         public T data;
     }
 
-    public class PackageManagerServer : IPackageManagerServer
+    public class PackageManagerServer : Model<PackageKitArchitectureConfig>, IPackageManagerServer
     {
         public void DeletePackage(string packageId, Action onResponse)
         {
@@ -96,7 +96,7 @@ namespace QFramework.PackageKit
                     var listPackageResponseResult = responseJson.data;
 
 
-                    var packageTypeConfigModel = PackageKitArchitectureConfig.GetModel<IPackageTypeConfigModel>();
+                    var packageTypeConfigModel = GetModel<IPackageTypeConfigModel>();
                     foreach (var packageRepository in listPackageResponseResult.repositories)
                     {
                         packageRepository.type = packageTypeConfigModel.GetFullTypeName(packageRepository.type);

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QFramework.PackageKit.Command
 {
-    public class ReimportPackageCommand : IPackageManagerCommand
+    public class ReimportPackageCommand : Command<PackageKitArchitectureConfig>
     {
         private readonly PackageRepository mPackageRepository;
 
@@ -13,7 +13,7 @@ namespace QFramework.PackageKit.Command
             this.mPackageRepository = mPackageRepository;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
 
@@ -28,7 +28,7 @@ namespace QFramework.PackageKit.Command
 
                 PackageApplication.Container.Resolve<PackageKitWindow>().Close();
 
-                InstallPackage.Do(mPackageRepository);
+                SendCommand(new InstallPackage(mPackageRepository));
             });
         }
     }

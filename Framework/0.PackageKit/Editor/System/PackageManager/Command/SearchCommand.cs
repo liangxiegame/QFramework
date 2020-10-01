@@ -3,7 +3,7 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
 {
-    public class SearchCommand : IPackageManagerCommand
+    public class SearchCommand : Command<PackageKitArchitectureConfig>
     {
         private readonly string mKey;
         
@@ -12,9 +12,9 @@ namespace QFramework.PackageKit.Command
             mKey = key.ToLower();
         }
 
-        public void Execute()
+        public override void Execute()
         {
-            var model = PackageKitArchitectureConfig.GetModel<IPackageManagerModel>();
+            var model = GetModel<IPackageManagerModel>();
             var categoryIndex = PackageManagerState.CategoryIndex.Value;
             var categories = PackageManagerState.Categories.Value;
             var accessRightIndex = PackageManagerState.AccessRightIndex.Value;

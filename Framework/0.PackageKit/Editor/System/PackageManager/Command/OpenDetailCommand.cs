@@ -2,7 +2,7 @@
 
 namespace QFramework.PackageKit.Command
 {
-    public class OpenDetailCommand : IPackageManagerCommand
+    public class OpenDetailCommand : Command<PackageKitArchitectureConfig>
     {
         private readonly PackageRepository mPackageRepository;
 
@@ -11,7 +11,7 @@ namespace QFramework.PackageKit.Command
             mPackageRepository = packageRepository;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             Application.OpenURL("https://qframework.cn/package/detail/" + mPackageRepository.id);
         }

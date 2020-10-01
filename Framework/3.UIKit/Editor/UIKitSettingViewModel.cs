@@ -20,6 +20,8 @@ namespace QFramework
         
         public void OnCreateUIPanelClick()
         {
+            var controllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();
+
             var panelName = mPanelNameToCreate;
 
             if (panelName.IsNotNullAndEmpty())
@@ -32,14 +34,14 @@ namespace QFramework
 
                 if (File.Exists(panelPrefabPath))
                 {
-                    PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>()
+                    SingletonProperty<PackageKitArchitectureConfig>.Instance.GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("UI 界面已存在:{0}".FillFormat(panelPrefabPath));
                     return;
                 }
                 
                 if (File.Exists(fullScenePath))
                 {
-                    PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>()
+                    SingletonProperty<PackageKitArchitectureConfig>.Instance.GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("测试场景已存在:{0}".FillFormat(fullScenePath));
                     return;
                 }
@@ -82,6 +84,9 @@ namespace QFramework
                     UICodeGenerator.DoCreateCode(new[] {prefab});
                 });
             }
+            
+            controllerNode.Recycle2Cache();
+            controllerNode = null;
         }
     }
 }

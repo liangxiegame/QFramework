@@ -6,25 +6,28 @@ using UnityEngine;
 
 namespace QFramework.PackageKit
 {
-    public class PublishPackageCommand : IPackageMakerCommand
+    public class PublishPackageCommand : Command<PackageMakerApp>
     {
         private PackageVersion mPackageVersion;
+
         public PublishPackageCommand(PackageVersion packageVersion)
         {
             mPackageVersion = packageVersion;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             if (mPackageVersion.Readme.content.Length < 2)
             {
-                PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入版本修改说明");
+                GetConfig<PackageKitArchitectureConfig>()
+                    .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入版本修改说明");
                 return;
             }
 
             if (!IsVersionValide(mPackageVersion.Version))
             {
-                PackageKitArchitectureConfig.GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
+                GetConfig<PackageKitArchitectureConfig>()
+                    .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
                 return;
             }
 
@@ -38,12 +41,9 @@ namespace QFramework.PackageKit
 
             AssetDatabase.Refresh();
 
-            RenderEndCommandExecuter.PushCommand(() =>
-            {
-                PublishPackage(mPackageVersion, false);
-            });
+            RenderEndCommandExecuter.PushCommand(() => { PublishPackage(mPackageVersion, false); });
         }
-        
+
         public void PublishPackage(PackageVersion packageVersion, bool deleteLocal)
         {
             PackageMakerState.NoticeMessage.Value = "插件上传中,请稍后...";
@@ -61,20 +61,20 @@ namespace QFramework.PackageKit
                 }
 
                 PackageMakerState.UpdateResult.Value = "上传成功";
-                
+
                 PackageMakerState.InEditorView.Value = false;
                 PackageMakerState.InUploadingView.Value = false;
                 PackageMakerState.InFinishView.Value = true;
 
                 if (EditorUtility.DisplayDialog("上传结果", PackageMakerState.UpdateResult.Value, "OK"))
                 {
-
                     AssetDatabase.Refresh();
 
                     EditorWindow.focusedWindow.Close();
                 }
             });
         }
+
         public static bool IsVersionValide(string version)
         {
             if (version == null)

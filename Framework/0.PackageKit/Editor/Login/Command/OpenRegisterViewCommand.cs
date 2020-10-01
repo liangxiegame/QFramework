@@ -3,9 +3,9 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit
 {
-    public class OpenRegisterViewCommand : IPackageLoginCommand
+    public class OpenRegisterViewCommand : Command<PackageKitLoginApp>
     {
-        public void Execute()
+        public override void Execute()
         {
             PackageKitLoginState.InLoginView.Value = false;
         }

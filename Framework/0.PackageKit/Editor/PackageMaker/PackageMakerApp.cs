@@ -1,10 +1,22 @@
 ﻿namespace QFramework.PackageKit
 {
-    public class PackageMakerApp : AbstractApp<IPackageMakerCommand>
+    public class PackageMakerApp : ArchitectureConfig<PackageMakerApp>
     {
-        protected override void ConfigureService(IQFrameworkContainer container)
+        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
         {
             
+        }
+
+        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        {
+        }
+
+        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        {
+        }
+
+        protected override void OnLaunch()
+        {
         }
     }
 }
