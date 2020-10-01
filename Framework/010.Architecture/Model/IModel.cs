@@ -4,16 +4,21 @@ namespace QFramework
     {
     }
 
-    public class Model<TConfig> : IModel where TConfig: Architecture<TConfig>
+    public class Model<TConfig> : IModel where TConfig : Architecture<TConfig>
     {
+        IArchitecture mConfig
+        {
+            get { return SingletonProperty<TConfig>.Instance; }
+        }
+
         public T GetUtility<T>() where T : class, IUtility
         {
-            return SingletonProperty<TConfig>.Instance.GetUtility<T>();
+            return mConfig.GetUtility<T>();
         }
 
         public T GetModel<T>() where T : class, IModel
         {
-            return SingletonProperty<TConfig>.Instance.GetModel<T>();
+            return mConfig.GetModel<T>();
         }
     }
 }

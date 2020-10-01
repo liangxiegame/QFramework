@@ -1,9 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 imagicbell
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 7 liangxie
- *
- * TODO: 这个应该写成扩展关键字方式的
+ * Copyright (c) 2017 ~ 2020.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -36,17 +34,28 @@ namespace QFramework
 	
 	// 为了防止进行 clrbidning
 
-    public static partial class SerializeHelper
+    public static class SerializeHelper
 	{
+		public static IQFrameworkContainer SerializeContainer = new QFrameworkContainer();
+
+		
+		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+		static void Init()
+		{
+			// 默认注入 Unity 官方的序列化器
+			SerializeContainer.RegisterInstance<IJsonSerializer>(new DefaultJsonSerializer());
+		}
+		
+		
 		// 为了防止进行 clrbinding
 		public static string ToJson<T>(this T obj) where T : class
 		{
-			return SingletonProperty<Core>.Instance.GetUtility<IJsonSerializer>().SerializeJson(obj);
+			return SerializeContainer.Resolve<IJsonSerializer>().SerializeJson(obj);
 		}
 
 		public static T FromJson<T>(this string json) where T : class
 		{
-			return  SingletonProperty<Core>.Instance.GetUtility<IJsonSerializer>().DeserializeJson<T>(json);
+			return SerializeContainer.Resolve<IJsonSerializer>().DeserializeJson<T>(json);
 		}
 
 		public static string SaveJson<T>(this T obj, string path) where T : class
@@ -69,81 +78,6 @@ namespace QFramework
 			return File.ReadAllText(path).FromJson<T>();
 		}
 		
-		public static bool SerializeBinary(string path, object obj)
-		{
-			if (string.IsNullOrEmpty(path))
-			{
-				Log.W("SerializeBinary Without Valid Path.");
-				return false;
-			}
-
-			if (obj == null)
-			{
-				Log.W("SerializeBinary obj is Null.");
-				return false;
-			}
-
-			using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-			{
-				System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf =
-					new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				bf.Serialize(fs, obj);
-				return true;
-			}
-		}
-
-
-		public static object DeserializeBinary(Stream stream)
-		{
-			if (stream == null)
-			{
-				Log.W("DeserializeBinary Failed!");
-				return null;
-			}
-
-			using (stream)
-			{
-				System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf =
-					new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				var data = bf.Deserialize(stream);
-
-				// TODO:这里没风险嘛?
-				return data;
-			}
-		}
-
-		public static object DeserializeBinary(string path)
-		{
-			if (string.IsNullOrEmpty(path))
-			{
-				Log.W("DeserializeBinary Without Valid Path.");
-				return null;
-			}
-
-			FileInfo fileInfo = new FileInfo(path);
-
-			if (!fileInfo.Exists)
-			{
-				Log.W("DeserializeBinary File Not Exit.");
-				return null;
-			}
-
-			using (FileStream fs = fileInfo.OpenRead())
-			{
-				System.Runtime.Serialization.Formatters.Binary.BinaryFormatter bf =
-					new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-				object data = bf.Deserialize(fs);
-
-				if (data != null)
-				{
-					return data;
-				}
-			}
-
-			Log.W("DeserializeBinary Failed:" + path);
-			return null;
-		}
-
 		public static bool SerializeXML(string path, object obj)
 		{
 			if (string.IsNullOrEmpty(path))

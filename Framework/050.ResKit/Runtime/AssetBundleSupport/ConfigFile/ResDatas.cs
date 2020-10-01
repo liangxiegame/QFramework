@@ -31,11 +31,10 @@ using UnityEngine;
 
 namespace QFramework
 {
-
     /// <summary>
     /// 默认的 ResData 支持
     /// </summary>
-    public class ResDatas: IResDatas
+    public class ResDatas : IResDatas
     {
         [Serializable]
         public class SerializeData
@@ -48,12 +47,12 @@ namespace QFramework
                 set { mAssetDataGroup = value; }
             }
         }
-        
+
         public virtual string FileName
         {
             get { return "asset_bindle_config.bin"; }
         }
-        
+
         public IList<AssetDataGroup> AllAssetDataGroups
         {
             get { return mAllAssetDataGroup; }
@@ -62,8 +61,10 @@ namespace QFramework
         protected readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
 
         private AssetDataTable mAssetDataTable = null;
-        
-        public ResDatas(){}
+
+        public ResDatas()
+        {
+        }
 
         public void Reset()
         {
@@ -112,8 +113,8 @@ namespace QFramework
 
         public string[] GetAllDependenciesByUrl(string url)
         {
-			var abName = AssetBundleSettings.AssetBundleUrl2Name(url);
-            
+            var abName = AssetBundleSettings.AssetBundleUrl2Name(url);
+
             for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
             {
                 string[] depends;
@@ -127,14 +128,14 @@ namespace QFramework
 
             return null;
         }
-        
 
-        public AssetData  GetAssetData(ResSearchKeys resSearchKeys)
+
+        public AssetData GetAssetData(ResSearchKeys resSearchKeys)
         {
             if (mAssetDataTable == null)
             {
                 mAssetDataTable = new AssetDataTable();
-                
+
                 for (var i = mAllAssetDataGroup.Count - 1; i >= 0; --i)
                 {
                     foreach (var assetData in mAllAssetDataGroup[i].AssetDatas)
@@ -149,7 +150,8 @@ namespace QFramework
 
         public virtual void LoadFromFile(string path)
         {
-			var data = SerializeHelper.DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
+            var data = ResKit.Interface.GetUtility<IBinarySerializer>()
+                .DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
 
             if (data == null)
             {
@@ -184,7 +186,8 @@ namespace QFramework
 
                 var stream = new MemoryStream(www.bytes);
 
-                var data = SerializeHelper.DeserializeBinary(stream);
+                var data = ResKit.Interface.GetUtility<IBinarySerializer>()
+                    .DeserializeBinary(stream);
 
                 if (data == null)
                 {
@@ -217,7 +220,8 @@ namespace QFramework
                 sd.AssetDataGroup[i] = mAllAssetDataGroup[i].GetSerializeData();
             }
 
-            if (SerializeHelper.SerializeBinary(outPath, sd))
+            if (ResKit.Interface.GetUtility<IBinarySerializer>()
+                .SerializeBinary(outPath, sd))
             {
                 Log.I("Success Save AssetDataTable:" + outPath);
             }
@@ -238,7 +242,7 @@ namespace QFramework
             {
                 mAllAssetDataGroup.Add(BuildAssetDataGroup(data.AssetDataGroup[i]));
             }
-            
+
             if (mAssetDataTable == null)
             {
                 mAssetDataTable = new AssetDataTable();
@@ -299,6 +303,5 @@ namespace QFramework
 
             return key;
         }
-
     }
 }

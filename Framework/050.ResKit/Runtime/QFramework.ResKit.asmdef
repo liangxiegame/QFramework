@@ -6,7 +6,9 @@
         "QFramework.Pool",
         "QFramework.DataStructure",
         "QFramework.Architecture",
-        "QFramework.JsonSerialize"
+        "QFramework.JsonSerialize",
+        "QFramework.IOC",
+        "QFramework.BinarySerializer"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

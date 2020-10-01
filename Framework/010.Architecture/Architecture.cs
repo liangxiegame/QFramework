@@ -3,71 +3,80 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-    public interface IArchitectureConfig : ISingleton, IDisposable
+    public interface IArchitecture : ISingleton, IDisposable,
+        ICanGetUtility,
+        ICanGetModel,
+        ICanRegisterSystem,
+        ICanRegisterModel,
+        ICanRegisterUtility,
+        ICanSendEvent
     {
     }
 
-    public abstract class Architecture<TConfig> : IArchitectureConfig
+    public abstract class Architecture<TConfig> : IArchitecture
         where TConfig : Architecture<TConfig>
     {
         protected Architecture()
         {
         }
 
-        protected static Architecture<TConfig> mConfig
+        public static IArchitecture Interface
         {
             get { return SingletonProperty<TConfig>.Instance; }
         }
 
         public T GetSystem<T>() where T : class, ISystem
         {
-            return mSystemLayer.Resolve<T>();
+            return mContainer.Resolve<T>();
         }
 
-        public static void RegisterSystem<T>(T system) where T : class, ISystem
+        public void RegisterSystem<T>(T system) where T : class, ISystem
         {
-            mConfig.mSystemLayer.RegisterInstance<T>(system);
+            mContainer.RegisterInstance(system);
         }
 
-        public static void RegisterModel<T>(T model) where T : class, IModel
+        public void RegisterModel<T>(T model) where T : class, IModel
         {
-            mConfig.mModelLayer.RegisterInstance<T>(model);
+            mContainer.RegisterInstance(model);
         }
 
         public T GetUtility<T>() where T : class, IUtility
         {
-            return mConfig.mUtilityLayer.Resolve<T>();
+            return mContainer.Resolve<T>();
         }
 
-        public static void RegisterUtility<T>(T utility) where T : class, IUtility
+        public void RegisterUtility<T>(T utility) where T : class, IUtility
         {
-            mConfig.mUtilityLayer.RegisterInstance<T>(utility);
+            mContainer.RegisterInstance<T>(utility);
         }
 
+        private readonly IQFrameworkContainer mContainer = new QFrameworkContainer();
 
-        private IQFrameworkContainer mSystemLayer = new QFrameworkContainer();
-        private IQFrameworkContainer mModelLayer = new QFrameworkContainer();
-        private IQFrameworkContainer mUtilityLayer = new QFrameworkContainer();
-
-        protected ITypeEventSystem mEventSystem = new TypeEventSystem();
+        protected readonly ITypeEventSystem mEventSystem = new TypeEventSystem();
 
         public T GetModel<T>() where T : class, IModel
         {
-            return mModelLayer.Resolve<T>();
+            return mContainer.Resolve<T>();
+        }
+        
+        public void SendEvent<T>() where T : new()
+        {
+            mEventSystem.SendEvent<T>();
+        }
+        
+        public void SendEvent<T>(T @event)
+        {
+            mEventSystem.SendEvent<T>(@event);
         }
 
-        public static void SendEvent<T>() where T : new()
-        {
-            mConfig.mEventSystem.SendEvent<T>();
-        }
 
         public void OnSingletonInit()
         {
             // 注册命令模式
             RegisterCommand();
-            OnUtilityConfig(mUtilityLayer);
-            OnModelConfig(mModelLayer);
-            OnSystemConfig(mSystemLayer);
+            OnUtilityConfig(mContainer);
+            OnModelConfig(mContainer);
+            OnSystemConfig(mContainer);
             OnLaunch();
         }
 
@@ -106,9 +115,7 @@ namespace QFramework
         public void Dispose()
         {
             OnDispose();
-            if (mSystemLayer != null) mSystemLayer.Dispose();
-            if (mModelLayer != null) mModelLayer.Dispose();
-            if (mUtilityLayer != null) mUtilityLayer.Dispose();
+            if (mContainer != null) mContainer.Dispose();
             if (mEventSystem != null) mEventSystem.Dispose();
         }
 
@@ -117,10 +124,7 @@ namespace QFramework
         }
 
 
-        public void SendEvent<T>(T @event)
-        {
-            mEventSystem.SendEvent<T>(@event);
-        }
+
 
         public IDisposable RegisterEvent<T>(Action<T> onEvent)
         {
@@ -133,8 +137,6 @@ namespace QFramework
         where TCommand : class, ICommand
         where TConfig : Architecture<TCommand, TConfig>
     {
-
-
         public override void SendCommand<T>()
         {
             mEventSystem.SendEvent<TCommand>(new T() as TCommand);

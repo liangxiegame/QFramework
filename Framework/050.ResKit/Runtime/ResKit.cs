@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2019.1 liangxie
+ * Copyright (c) 2019.1 ~ 2020.10 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -27,8 +27,10 @@ using System.Collections;
 
 namespace QFramework
 {
-    public partial class ResKit
+    public partial class ResKit : Architecture<ResKit>
     {
+        private ResKit() {}
+        
         public static void Init()
         {
             ResMgr.Init();
@@ -39,5 +41,22 @@ namespace QFramework
             yield return ResMgr.InitAsync();
         }
 
+        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        {
+            
+        }
+
+        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        {
+        }
+
+        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        {
+            RegisterUtility<IBinarySerializer>(new BinarySerializer());
+        }
+
+        protected override void OnLaunch()
+        {
+        }
     }
 }

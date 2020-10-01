@@ -26,5 +26,15 @@ namespace QFramework
         {
             SingletonProperty<TConfig>.Instance.SendCommand(command);
         }
+
+        public void SendEvent<T>() where T : new()
+        {
+            SingletonProperty<TConfig>.Instance.SendEvent<T>();
+        }
+
+        public void SendEvent<T>(T t)
+        {
+            SingletonProperty<TConfig>.Instance.SendEvent<T>(t);
+        }
     }
 }
