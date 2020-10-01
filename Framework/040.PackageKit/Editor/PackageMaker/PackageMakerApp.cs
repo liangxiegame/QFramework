@@ -2,6 +2,8 @@
 {
     public class PackageMakerApp : Architecture<PackageMakerApp>
     {
+        private PackageMakerApp() {}
+        
         protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
         {
             

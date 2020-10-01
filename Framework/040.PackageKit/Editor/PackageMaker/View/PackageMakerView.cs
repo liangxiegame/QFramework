@@ -132,7 +132,7 @@ namespace QFramework.PackageKit
             {
                 var publishBtn = new ButtonView("发布").AddTo(editorView);
                 
-                new ButtonView("发布并删除本地", () => { }).AddTo(editorView);
+                // new ButtonView("发布并删除本地", () => { }).AddTo(editorView);
 
                 publishBtn.OnClick.AddListener(() =>
                 {

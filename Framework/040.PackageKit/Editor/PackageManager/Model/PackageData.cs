@@ -268,7 +268,7 @@ namespace QFramework.PackageKit
 
         public void Save()
         {
-            var json = JsonUtility.ToJson(this);
+            var json = JsonUtility.ToJson(this,true);
 
             if (!Directory.Exists(InstallPath))
             {
