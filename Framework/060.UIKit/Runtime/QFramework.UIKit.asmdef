@@ -1,13 +1,12 @@
 {
-    "name": "QFramework.ResKit",
+    "name": "QFramework.UIKit",
     "references": [
         "QFramework.Singleton",
-        "QFramework.RefCounter",
         "QFramework.Pool",
         "QFramework.DataStructure",
-        "QFramework.Core",
-        "QFramework.Architecture",
-        "QFramework.JsonSerialize"
+        "QFramework.EventSystem",
+        "QFramework.ResKit",
+        "QFramework.CSharpExtension"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

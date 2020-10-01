@@ -829,6 +829,27 @@ namespace QFramework
     }
 
     /// <summary>
+    /// 简单的概率计算
+    /// </summary>
+    public static class ProbilityHelper
+    {
+        public static T RandomValueFrom<T>(params T[] values)
+        {
+            return values[UnityEngine.Random.Range(0, values.Length)];
+        }
+
+        /// <summary>
+        /// percent probability
+        /// </summary>
+        /// <param name="percent"> 0 ~ 100 </param>
+        /// <returns></returns>
+        public static bool PercentProbability(int percent)
+        {
+            return UnityEngine.Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
+        }
+    }
+    
+    /// <summary>
     /// 面向对象扩展（继承、封装、多态)
     /// </summary>
     public static class OOPExtension
@@ -2569,4 +2590,6 @@ namespace QFramework
         }
     }
 #endif
+    
+
 }
