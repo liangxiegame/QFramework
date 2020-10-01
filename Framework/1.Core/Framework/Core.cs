@@ -5,7 +5,7 @@ namespace QFramework
 {
 	public class Core :  Architecture<Core>
 	{
-
+		private Core() {}
 
 		[RuntimeInitializeOnLoadMethod]
 		static void InitOnLoad()
