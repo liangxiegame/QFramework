@@ -7,14 +7,14 @@ namespace QFramework
     {
     }
 
-    public abstract class ArchitectureConfig<TConfig> : IArchitectureConfig
-        where TConfig : ArchitectureConfig<TConfig>
+    public abstract class Architecture<TConfig> : IArchitectureConfig
+        where TConfig : Architecture<TConfig>
     {
-        protected ArchitectureConfig()
+        protected Architecture()
         {
         }
 
-        protected static ArchitectureConfig<TConfig> mConfig
+        protected static Architecture<TConfig> mConfig
         {
             get { return SingletonProperty<TConfig>.Instance; }
         }
@@ -128,10 +128,10 @@ namespace QFramework
         }
     }
 
-    public abstract class ArchitectureConfig<TCommand, TConfig> :
-        ArchitectureConfig<TConfig>
+    public abstract class Architecture<TCommand, TConfig> :
+        Architecture<TConfig>
         where TCommand : class, ICommand
-        where TConfig : ArchitectureConfig<TCommand, TConfig>
+        where TConfig : Architecture<TCommand, TConfig>
     {
 
 

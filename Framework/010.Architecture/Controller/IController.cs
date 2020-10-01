@@ -7,7 +7,7 @@ namespace QFramework
         
     }
     
-    public class ControllerNode<TConfig> : AbstractPool<ControllerNode<TConfig>>, IController where TConfig : ArchitectureConfig<TConfig>
+    public class ControllerNode<TConfig> : AbstractPool<ControllerNode<TConfig>>, IController where TConfig : Architecture<TConfig>
     {
         [Obsolete("请使用 ControllerNode.Allocate() 来获取对象",true)]
         public ControllerNode(){}

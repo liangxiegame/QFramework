@@ -3,7 +3,7 @@ using QFramework.PackageKit.Utility;
 
 namespace QFramework.PackageKit
 {
-    public class PackageKit : ArchitectureConfig<PackageKit>
+    public class PackageKit : Architecture<PackageKit>
     {
         private PackageKit(){}
         

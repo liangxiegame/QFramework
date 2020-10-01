@@ -4,7 +4,7 @@ namespace QFramework
     {
     }
 
-    public class Model<TConfig> : IModel where TConfig: ArchitectureConfig<TConfig>
+    public class Model<TConfig> : IModel where TConfig: Architecture<TConfig>
     {
         public T GetUtility<T>() where T : class, IUtility
         {

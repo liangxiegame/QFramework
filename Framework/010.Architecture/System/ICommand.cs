@@ -7,7 +7,7 @@ namespace QFramework
         void Execute();
     }
 
-    public abstract class Command<TConfig> : ICommand where TConfig : ArchitectureConfig<TConfig>
+    public abstract class Command<TConfig> : ICommand where TConfig : Architecture<TConfig>
     {
         public abstract void Execute();
         public T GetModel<T>() where T : class, IModel

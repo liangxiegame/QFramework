@@ -1,6 +1,6 @@
 ﻿namespace QFramework.PackageKit
 {
-    public class PackageMakerApp : ArchitectureConfig<PackageMakerApp>
+    public class PackageMakerApp : Architecture<PackageMakerApp>
     {
         protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
         {

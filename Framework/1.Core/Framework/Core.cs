@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-	public class Core :  ArchitectureConfig<Core>
+	public class Core :  Architecture<Core>
 	{
 
 

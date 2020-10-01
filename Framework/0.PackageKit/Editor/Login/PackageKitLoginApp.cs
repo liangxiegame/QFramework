@@ -1,6 +1,6 @@
 namespace QFramework.PackageKit
 {
-    public class PackageKitLoginApp : ArchitectureConfig<PackageKitLoginApp>
+    public class PackageKitLoginApp : Architecture<PackageKitLoginApp>
     {
         protected PackageKitLoginApp() {}
         

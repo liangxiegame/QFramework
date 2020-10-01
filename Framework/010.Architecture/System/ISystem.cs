@@ -5,7 +5,7 @@ namespace QFramework
 
     }
 
-    public class System<TConfig> : ISystem where TConfig : ArchitectureConfig<TConfig>, new()
+    public class System<TConfig> : ISystem where TConfig : Architecture<TConfig>, new()
     {
         public T GetModel<T>() where T : class, IModel
         {

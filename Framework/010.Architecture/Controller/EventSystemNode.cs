@@ -2,7 +2,7 @@ using System;
 
 namespace QFramework
 {
-    public class EventSystemNode<TConfig> : AbstractPool<EventSystemNode<TConfig>> where TConfig : ArchitectureConfig<TConfig>,ICanSendEvent
+    public class EventSystemNode<TConfig> : AbstractPool<EventSystemNode<TConfig>> where TConfig : Architecture<TConfig>,ICanSendEvent
     {
         [Obsolete("请通过 EventSystemNode.Allocate() 来获取对象",true)]
         public EventSystemNode() {}
