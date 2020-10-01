@@ -14,6 +14,7 @@ namespace QFramework
         public Transform ConstTrans;
         public Transform ToastTrans;
         public Transform ForwardTrans;
+        public Transform CanvasPanelTrans;
 
         public Camera UICamera;
         public Canvas Canvas;
@@ -70,28 +71,31 @@ namespace QFramework
             switch (level)
             {
                 case UILevel.Bg:
-                    panel.Transform.SetParent(UIKit.Root.BgTrans);
+                    panel.Transform.SetParent(BgTrans);
                     break;
                 case UILevel.AnimationUnderPage:
-                    panel.Transform.SetParent(UIKit.Root.AnimationUnderTrans);
+                    panel.Transform.SetParent(AnimationUnderTrans);
                     break;
                 case UILevel.Common:
-                    panel.Transform.SetParent(UIKit.Root.CommonTrans);
+                    panel.Transform.SetParent(CommonTrans);
                     break;
                 case UILevel.AnimationOnPage:
-                    panel.Transform.SetParent(UIKit.Root.AnimationOnTrans);
+                    panel.Transform.SetParent(AnimationOnTrans);
                     break;
                 case UILevel.PopUI:
-                    panel.Transform.SetParent(UIKit.Root.PopUITrans);
+                    panel.Transform.SetParent(PopUITrans);
                     break;
                 case UILevel.Const:
-                    panel.Transform.SetParent(UIKit.Root.ConstTrans);
+                    panel.Transform.SetParent(ConstTrans);
                     break;
                 case UILevel.Toast:
-                    panel.Transform.SetParent(UIKit.Root.ToastTrans);
+                    panel.Transform.SetParent(ToastTrans);
                     break;
                 case UILevel.Forward:
-                    panel.Transform.SetParent(UIKit.Root.ForwardTrans);
+                    panel.Transform.SetParent(ForwardTrans);
+                    break;
+                case UILevel.CanvasPanel:
+                    panel.Transform.SetParent(CanvasPanelTrans);
                     break;
             }
         }

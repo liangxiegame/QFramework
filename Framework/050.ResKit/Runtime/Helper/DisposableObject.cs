@@ -53,7 +53,7 @@ namespace QFramework
         {
         }
 
-        private void Dispose(Boolean disposing)
+        private void Dispose(bool disposing)
         {
             if (mDisposed)
             {
