@@ -1,6 +1,6 @@
 namespace QFramework
 {
-    public interface IJsonSerializeUtility : IUtility
+    public interface IJsonSerializer : IUtility
     {
         string SerializeJson<T>(T obj) where T : class;
 

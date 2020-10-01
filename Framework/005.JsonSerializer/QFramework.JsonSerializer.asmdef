@@ -1,5 +1,5 @@
 {
-  "name": "QFramework.Core.Serialize",
+  "name": "QFramework.JsonSerialize",
   "references": [
     "QFramework.Architecture"
   ]

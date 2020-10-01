@@ -26,7 +26,7 @@ namespace QFramework
 
 		protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
 		{
-			utilityLayer.RegisterInstance<IJsonSerializeUtility>(new DefaultJsonSerializeUtility());
+			utilityLayer.RegisterInstance<IJsonSerializer>(new DefaultJsonSerializer());
 		}
 
 		protected override void OnLaunch()

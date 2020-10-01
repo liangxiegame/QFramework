@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class DefaultJsonSerializeUtility : IJsonSerializeUtility
+    public class DefaultJsonSerializer : IJsonSerializer
     {
         public string SerializeJson<T>(T obj) where T : class
         {

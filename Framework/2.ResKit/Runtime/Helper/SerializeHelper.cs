@@ -41,12 +41,12 @@ namespace QFramework
 		// 为了防止进行 clrbinding
 		public static string ToJson<T>(this T obj) where T : class
 		{
-			return SingletonProperty<Core>.Instance.GetUtility<IJsonSerializeUtility>().SerializeJson(obj);
+			return SingletonProperty<Core>.Instance.GetUtility<IJsonSerializer>().SerializeJson(obj);
 		}
 
 		public static T FromJson<T>(this string json) where T : class
 		{
-			return  SingletonProperty<Core>.Instance.GetUtility<IJsonSerializeUtility>().DeserializeJson<T>(json);
+			return  SingletonProperty<Core>.Instance.GetUtility<IJsonSerializer>().DeserializeJson<T>(json);
 		}
 
 		public static string SaveJson<T>(this T obj, string path) where T : class
