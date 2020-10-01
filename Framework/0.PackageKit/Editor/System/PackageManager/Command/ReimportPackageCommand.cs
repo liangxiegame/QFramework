@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QFramework.PackageKit.Command
 {
-    public class ReimportPackageCommand : Command<PackageKitArchitectureConfig>
+    public class ReimportPackageCommand : Command<PackageKit>
     {
         private readonly PackageRepository mPackageRepository;
 

@@ -10,7 +10,7 @@ namespace QFramework.PackageKit
     [PackageKitRenderOrder(1)]
     public class PackageManagerView : QFramework.IPackageKitView
     {
-        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();
+        ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
 
         private Vector2 mScrollPos;
 

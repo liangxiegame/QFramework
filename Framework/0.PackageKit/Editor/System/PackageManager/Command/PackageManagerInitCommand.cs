@@ -4,7 +4,7 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
 {
-    public class PackageManagerInitCommand : Command<PackageKitArchitectureConfig>
+    public class PackageManagerInitCommand : Command<PackageKit>
     {
 
         public override void Execute()

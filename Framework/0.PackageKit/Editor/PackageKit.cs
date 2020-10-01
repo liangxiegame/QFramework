@@ -3,9 +3,9 @@ using QFramework.PackageKit.Utility;
 
 namespace QFramework.PackageKit
 {
-    public class PackageKitArchitectureConfig : ArchitectureConfig<PackageKitArchitectureConfig>
+    public class PackageKit : ArchitectureConfig<PackageKit>
     {
-        private PackageKitArchitectureConfig(){}
+        private PackageKit(){}
         
         protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
         {

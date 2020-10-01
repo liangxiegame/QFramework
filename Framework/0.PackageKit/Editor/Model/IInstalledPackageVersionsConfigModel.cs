@@ -15,7 +15,7 @@ namespace QFramework.PackageKit.Model
         PackageVersion GetByName(string name);
     }
 
-    public class InstalledPackageVersionsConfigModel : Model<PackageKitArchitectureConfig>, IInstalledPackageVersionsConfigModel
+    public class InstalledPackageVersionsConfigModel : Model<PackageKit>, IInstalledPackageVersionsConfigModel
     {
 
 

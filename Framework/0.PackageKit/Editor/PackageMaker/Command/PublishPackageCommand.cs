@@ -19,14 +19,14 @@ namespace QFramework.PackageKit
         {
             if (mPackageVersion.Readme.content.Length < 2)
             {
-                GetConfig<PackageKitArchitectureConfig>()
+                GetConfig<PackageKit>()
                     .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入版本修改说明");
                 return;
             }
 
             if (!IsVersionValide(mPackageVersion.Version))
             {
-                GetConfig<PackageKitArchitectureConfig>()
+                GetConfig<PackageKit>()
                     .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
                 return;
             }

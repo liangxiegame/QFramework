@@ -4,7 +4,7 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
 {
-    public class UpdateCategoriesFromModelCommand : Command<PackageKitArchitectureConfig>
+    public class UpdateCategoriesFromModelCommand : Command<PackageKit>
     {
         public override void Execute()
         {

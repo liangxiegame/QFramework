@@ -1,6 +1,6 @@
 ﻿namespace QFramework.PackageKit.Command
 {
-    public class ImportPackageCommand : Command<PackageKitArchitectureConfig>
+    public class ImportPackageCommand : Command<PackageKit>
     {
         private readonly PackageRepository mPackageRepository;
 

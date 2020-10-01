@@ -5,7 +5,7 @@ namespace QFramework.PackageKit
 {
     public class PackageRepositoryView : HorizontalLayout
     {
-        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();
+        ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
         public PackageRepositoryView(PackageRepository packageRepository)
         {
             new SpaceView(2).AddTo(this);

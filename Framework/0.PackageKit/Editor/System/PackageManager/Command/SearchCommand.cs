@@ -3,7 +3,7 @@ using QFramework.PackageKit.State;
 
 namespace QFramework.PackageKit.Command
 {
-    public class SearchCommand : Command<PackageKitArchitectureConfig>
+    public class SearchCommand : Command<PackageKit>
     {
         private readonly string mKey;
         

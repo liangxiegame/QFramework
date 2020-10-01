@@ -2,7 +2,7 @@
 
 namespace QFramework.PackageKit.Command
 {
-    public class OpenDetailCommand : Command<PackageKitArchitectureConfig>
+    public class OpenDetailCommand : Command<PackageKit>
     {
         private readonly PackageRepository mPackageRepository;
 

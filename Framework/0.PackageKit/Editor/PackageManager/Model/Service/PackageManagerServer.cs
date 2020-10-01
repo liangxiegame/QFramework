@@ -16,7 +16,7 @@ namespace QFramework.PackageKit
         public T data;
     }
 
-    public class PackageManagerServer : Model<PackageKitArchitectureConfig>, IPackageManagerServer
+    public class PackageManagerServer : Model<PackageKit>, IPackageManagerServer
     {
         public void DeletePackage(string packageId, Action onResponse)
         {

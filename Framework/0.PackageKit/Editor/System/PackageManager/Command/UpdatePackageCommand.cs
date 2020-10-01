@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace QFramework.PackageKit.Command
 {
-    public class UpdatePackageCommand : Command<PackageKitArchitectureConfig>
+    public class UpdatePackageCommand : Command<PackageKit>
     {
         public UpdatePackageCommand(PackageRepository packageRepository)
         {

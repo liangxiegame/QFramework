@@ -42,7 +42,7 @@ namespace QFramework
 
         private double mCheckInterval = 60;
 
-        ControllerNode<PackageKitArchitectureConfig> mControllerNode = ControllerNode<PackageKitArchitectureConfig>.Allocate();     
+        ControllerNode<PackageKit.PackageKit> mControllerNode = ControllerNode<PackageKit.PackageKit>.Allocate();     
 
         static PackageCheck()
         {
@@ -270,7 +270,7 @@ namespace QFramework
         }
     }
 
-    public class InstallPackage : Command<PackageKitArchitectureConfig>
+    public class InstallPackage : Command<PackageKit.PackageKit>
     {
         private readonly PackageRepository mRequestPackageData;
 
