@@ -2,15 +2,6 @@
 {
     public static class GraphDataExtensions
     {
-        //public static IEnumerable<IDiagramNode> FilterItems(this IGraphData designerData, INodeRepository repository)
-        //{
-        //    return designerData.CurrentFilter.FilterItems(repository);
-        //}
-
-
-
-    
-
         public static IDiagramNode RelatedNode(this ITypedItem item)
         {
             var gt = item as GenericTypedChildItem;
@@ -21,8 +12,5 @@
             
             return item.Repository.GetById<IDiagramNode>(item.RelatedType);
         }
-
-       
-
     }
 }

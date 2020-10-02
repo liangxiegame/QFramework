@@ -5,9 +5,9 @@ namespace Invert.Data
     
     public interface IDataRecord : IValueItem
     {
-        IRepository Repository { get; set; }
+        IRepository Repository { get; }
         
-        bool Changed { get; set; }
+        bool Changed { set; }
     }
 
     public interface IDataHeirarchy : IDataRecord

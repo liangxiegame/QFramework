@@ -151,7 +151,6 @@ namespace QFramework.CodeGen
         private Type _nodeType;
 
         private List<GraphItemConfiguration> _graphItemConfigurations;
-        // private List<Func<OutputGenerator>> _outputGenerators;
 
 
         public IQFrameworkContainer Container { get; set; }

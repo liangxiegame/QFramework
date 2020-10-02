@@ -8,9 +8,7 @@ namespace QFramework.CodeGen
 {
     public static class InvertApplication
     {
-        private static QFrameworkContainer _container;
-        private static Dictionary<Type, IEventManager> _eventManagers;
-        private static List<Assembly> _typeAssemblies;
+        private static IQFrameworkContainer mContainer;
 
         public static List<Assembly> CachedAssemblies { get; set; }
 
@@ -30,29 +28,14 @@ namespace QFramework.CodeGen
             }
         }
 
-        public static QFrameworkContainer Container
+        public static IQFrameworkContainer Container
         {
             get
             {
-                if (_container != null) return _container;
-                _container = new QFrameworkContainer();
-                InitializeContainer(_container);
-                return _container;
-            }
-            set
-            {
-                _container = value;
-                if (_container == null)
-                {
-                    IEventManager eventManager;
-                    EventManagers.TryGetValue(typeof (ISystemResetEvents), out eventManager);
-                    EventManagers.Clear();
-                    var events = eventManager as EventManager<ISystemResetEvents>;
-                    if (events != null)
-                    {
-                        events.Signal(_=>_.SystemResetting());
-                    }
-                }
+                if (mContainer != null) return mContainer;
+                mContainer = new QFrameworkContainer();
+                InitializeContainer(mContainer);
+                return mContainer;
             }
         }
 
@@ -103,30 +86,8 @@ namespace QFramework.CodeGen
             container.RegisterInstance(container);
 
             container.InjectAll();
-            
-            SignalEvent<ISystemResetEvents>(_=>_.SystemRestarted());
         }
-
-        private static Dictionary<Type, IEventManager> EventManagers
-        {
-            get { return _eventManagers ?? (_eventManagers = new Dictionary<Type, IEventManager>()); }
-            set { _eventManagers = value; }
-        }
-
-        /// <summary>
-        /// Signals and event to all listeners
-        /// </summary>
-        /// <typeparam name="TEvents">The lambda that invokes the action.</typeparam>
-        public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
-        {
-            IEventManager manager;
-            if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
-            {
-                EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
-            }
-            var m = manager as EventManager<TEvents>;
-            m.Signal(action);
-        }
+        
 
         public static IEnumerable<KeyValuePair<PropertyInfo, TAttribute>> GetPropertiesWithAttributeByType<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
         {
