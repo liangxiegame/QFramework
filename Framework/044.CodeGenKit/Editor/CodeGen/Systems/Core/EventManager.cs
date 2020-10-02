@@ -13,14 +13,6 @@ namespace QFramework.CodeGen
             set { _listeners = value; }
         }
 
-        public void Signal(Action<object> obj)
-        {
-            foreach (var item in Listeners)
-            {
-                var item1 = item;
-                obj(item1);
-            }
-        }
         public void Signal(Action<T> action)
         {
             foreach (var item in Listeners)
@@ -29,19 +21,6 @@ namespace QFramework.CodeGen
                 var item1 = item;
                 action(item1);
             }
-        }
-
-        public System.Action Subscribe(T listener)
-        {
-            if (!Listeners.Contains(listener))
-                Listeners.Add(listener);
-
-            return () => { Unsubscribe(listener); };
-        }
-
-        private void Unsubscribe(T listener)
-        {
-            Listeners.Remove(listener);
         }
     }
 }

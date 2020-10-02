@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace QFramework.CodeGen
 {
-   
     public class NodeGeneratorConfig<TNode> : NodeGeneratorConfigBase
         where TNode : GenericNode
     {

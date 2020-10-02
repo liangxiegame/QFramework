@@ -9,9 +9,9 @@ namespace QFramework.CodeGen
     {
 
 
-        public static NodeConfig<TNode> GetNodeConfig<TNode>(this IQFrameworkContainer container) where TNode : GenericNode, IConnectable
+        public static NodeConfig GetNodeConfig<TNode>(this IQFrameworkContainer container) where TNode : GenericNode, IConnectable
         {
-            var config = GetNodeConfig(container, typeof(TNode)) as NodeConfig<TNode>;
+            var config = GetNodeConfig(container, typeof(TNode)) as NodeConfig;
 
             return config;
         }
@@ -22,7 +22,7 @@ namespace QFramework.CodeGen
             var config = container.Resolve<NodeConfigBase>(nodeType.Name);    
             if (config == null)
             {
-                var nodeconfigType = typeof (NodeConfig<>).MakeGenericType(nodeType);
+                var nodeconfigType = typeof (NodeConfig).MakeGenericType(nodeType);
                 var nodeConfig = Activator.CreateInstance(nodeconfigType,container) as NodeConfigBase;
                 nodeConfig.NodeType = nodeType;
                 container.RegisterInstance(nodeConfig, nodeType.Name);

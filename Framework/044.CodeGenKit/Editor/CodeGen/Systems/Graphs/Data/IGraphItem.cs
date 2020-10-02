@@ -7,10 +7,6 @@ namespace QFramework.CodeGen
 {
     public interface IGraphItem : IItem, IDataRecord
     {
-        string Label { get; }
-        bool IsValid { get; }
-
-
     }
 
      

@@ -2,22 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using QF;
-using QFramework;
 using UnityEngine;
 
 namespace QFramework.CodeGen
 {
     public static class InvertApplication
     {
-        public static IDebugLogger Logger
-        {
-            get { return _logger ?? (_logger = new DefaultLogger()); }
-            set { _logger = value; }
-        }
-
         private static QFrameworkContainer _container;
-        private static IDebugLogger _logger;
         private static Dictionary<Type, IEventManager> _eventManagers;
         private static List<Assembly> _typeAssemblies;
 
@@ -136,19 +127,6 @@ namespace QFramework.CodeGen
             var m = manager as EventManager<TEvents>;
             m.Signal(action);
         }
-        
-        public static void Log(string s)
-        {
-#if DEBUG
-            Logger.Log(s);
-            //Debug.Log(s);
-#endif
-        }
-
-        public static IEnumerable<KeyValuePair<PropertyInfo, TAttribute>> GetPropertiesWithAttribute<TAttribute>(this object obj) where TAttribute : Attribute
-        {
-            return GetPropertiesWithAttributeByType<TAttribute>(obj.GetType());
-        }
 
         public static IEnumerable<KeyValuePair<PropertyInfo, TAttribute>> GetPropertiesWithAttributeByType<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
         {
@@ -159,54 +137,17 @@ namespace QFramework.CodeGen
                 yield return new KeyValuePair<PropertyInfo, TAttribute>(source, (TAttribute)attribute);
             }
         }
-        public static IEnumerable<KeyValuePair<ConstructorInfo, TAttribute>> GetConstructorsWithAttribute<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
-        {
-            foreach (var source in type.GetConstructors(flags))
-            {
-                var attribute = source.GetCustomAttributes(typeof(TAttribute), true).OfType<TAttribute>().FirstOrDefault();
-                if (attribute == null) continue;
-                yield return new KeyValuePair<ConstructorInfo, TAttribute>(source, (TAttribute)attribute);
-            }
-        }
+
         public static IEnumerable<KeyValuePair<MethodInfo, TAttribute>> GetMethodsWithAttribute<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
         {
             foreach (var source in type.GetMethods(flags))
             {
                 var attribute = source.GetCustomAttributes(typeof(TAttribute), true).OfType<TAttribute>().FirstOrDefault();
                 if (attribute == null) continue;
-                yield return new KeyValuePair<MethodInfo, TAttribute>(source, (TAttribute)attribute);
+                yield return new KeyValuePair<MethodInfo, TAttribute>(source, attribute);
             }
-        }
-        public static IEnumerable<KeyValuePair<FieldInfo, TAttribute>> GetFieldsWithAttribute<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
-        {
-            foreach (var source in type.GetFields(flags))
-            {
-                var attribute = source.GetCustomAttributes(typeof(TAttribute), true).OfType<TAttribute>().FirstOrDefault();
-                if (attribute == null) continue;
-                yield return new KeyValuePair<FieldInfo, TAttribute>(source, (TAttribute)attribute);
-            }
-        }
-        public static IEnumerable<KeyValuePair<EventInfo, TAttribute>> GetEventsWithAttribute<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
-        {
-            foreach (var source in type.GetEvents(flags))
-            {
-                var attribute = source.GetCustomAttributes(typeof(TAttribute), true).OfType<TAttribute>().FirstOrDefault();
-                if (attribute == null) continue;
-                yield return new KeyValuePair<EventInfo, TAttribute>(source, (TAttribute)attribute);
-            }
-        } 
-        public static IEnumerable<PropertyInfo> GetPropertiesByAttribute<TAttribute>(this object obj) where TAttribute : Attribute
-        {
-            return GetPropertiesByAttribute<TAttribute>(obj.GetType());
         }
 
-        public static IEnumerable<PropertyInfo> GetPropertiesByAttribute<TAttribute>(this Type type) where TAttribute : Attribute
-        {
-            return type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(property => property.GetCustomAttributes(typeof(TAttribute), true).Length > 0);
-        }
-
-        
 
         public static Type GetGenericParameter(this Type type)
         {
@@ -220,11 +161,6 @@ namespace QFramework.CodeGen
                 t = t.BaseType;
             }
             return null;
-        }
-
-        public static void LogError(string format)
-        {
-            Logger.Log(format);
         }
 
         public static void CachedAssembly(Assembly assembly)

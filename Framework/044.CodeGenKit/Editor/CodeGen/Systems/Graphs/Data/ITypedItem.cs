@@ -4,6 +4,5 @@ namespace QFramework.CodeGen
     {
         string RelatedType { get; set; }
         string RelatedTypeName { get; }
-        void RemoveType();
     }
 }

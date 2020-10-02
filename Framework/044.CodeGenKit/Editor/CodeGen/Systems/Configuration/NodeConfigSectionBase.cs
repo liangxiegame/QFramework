@@ -16,8 +16,6 @@ namespace QFramework.CodeGen
             get { return _allowAdding; }
             set { _allowAdding = value; }
         }
-        public bool AllowMultipleInputs { get; set; }
-        public bool AllowMutlipleOutputs { get; set; }
 
         public bool IsEditable
         {
@@ -39,7 +37,6 @@ namespace QFramework.CodeGen
         public Func<IDiagramNodeItem, IDiagramNodeItem, bool> OutputValidator { get; set; }
 
         public bool HasPredefinedOptions { get; set; }
-        public Action<IDiagramNodeItem> OnAdd { get; set; }
         public Type AddCommandType { get; set; }
     }
 }

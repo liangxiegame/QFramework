@@ -9,18 +9,9 @@ namespace QFramework.CodeGen
 {
     public abstract class NodeConfigBase : GraphItemConfiguration
     {
-        public bool AllowMultipleInputs { get; set; }
-        public bool AllowMultipleOutputs { get; set; }
-
         protected NodeConfigBase(IQFrameworkContainer container)
         {
             Container = container;
-        }
-
-        public string Name
-        {
-            get { return _name ?? NodeType.Name; }
-            set { _name = value; }
         }
 
         public Type NodeType
@@ -42,7 +33,6 @@ namespace QFramework.CodeGen
 
         private void LoadByRefelection()
         {
-
             AllAttributes = NodeType.GetPropertiesWithAttributeByType<GraphItemAttribute>().ToArray();
             foreach (var item in AllAttributes)
             {
@@ -54,7 +44,7 @@ namespace QFramework.CodeGen
                         ReferenceType = typeof(GraphItemConfiguration),
                         SourceType = typeof(GraphItemConfiguration),
                         IsInput = false,
-                        IsOutput =  false,
+                        IsOutput = false,
                         OrderIndex = proxy.OrderIndex,
                         Visibility = proxy.Visibility,
                         ConfigSelector =
@@ -73,9 +63,7 @@ namespace QFramework.CodeGen
                     var result = CreateSectionConfiguration(property1, section1);
                     result.OrderIndex = section.OrderIndex;
                     GraphItemConfigurations.Add(result);
-
                 }
-
             }
         }
 
@@ -96,13 +84,15 @@ namespace QFramework.CodeGen
                 sectionConfig.AllowDuplicates = referenceSection.AllowDuplicates;
                 sectionConfig.AllowAdding = !referenceSection.Automatic;
                 sectionConfig.ReferenceType = referenceSection.ReferenceType ??
-                                              sectionConfig.SourceType.GetGenericParameter() ?? property.PropertyType.GetGenericParameter();
+                                              sectionConfig.SourceType.GetGenericParameter() ??
+                                              property.PropertyType.GetGenericParameter();
                 sectionConfig.IsEditable = referenceSection.Editable;
                 sectionConfig.HasPredefinedOptions = referenceSection.HasPredefinedOptions;
-                
+
                 if (sectionConfig.ReferenceType == null)
                 {
-                    throw new Exception(string.Format("Reference Section on property {0} doesn't have a valid ReferenceType.", property.Name));
+                    throw new Exception(string.Format(
+                        "Reference Section on property {0} doesn't have a valid ReferenceType.", property.Name));
                 }
 
                 //sectionConfig.GenericSelector = (node) =>
@@ -110,85 +100,60 @@ namespace QFramework.CodeGen
 
                 //};
             }
+
             if (sectionConfig.IsProxy || referenceSection == null)
             {
-
                 var property1 = property;
-                
+
                 if (sectionConfig.IsProxy)
-                sectionConfig.AllowAdding = false;
+                    sectionConfig.AllowAdding = false;
 
                 sectionConfig.GenericSelector = (node) =>
                 {
                     var enumerator = property1.GetValue(node, null) as IEnumerable;
                     if (enumerator == null) return null;
                     return enumerator.Cast<IGraphItem>();
-
                 };
             }
             else if (referenceSection != null)
             {
-              
-
                 var possibleSelectorProperty = NodeType.GetProperty("Possible" + property.Name);
                 if (possibleSelectorProperty != null)
                 {
-                    
-                
                     sectionConfig.GenericSelector = (node) =>
                     {
                         var propertyN = NodeType.GetProperty("Possible" + property.Name);
                         var enumerator = propertyN.GetValue(node, null) as IEnumerable;
-                        
+
                         if (enumerator == null) return null;
                         return enumerator.OfType<IGraphItem>();
-
                     };
                 }
                 else
                 {
                     sectionConfig.GenericSelector = (node) =>
                     {
-                        return node.Repository.AllOf<IGraphItem>().Where(p => referenceSection.ReferenceType.IsAssignableFrom(p.GetType()));
+                        return node.Repository.AllOf<IGraphItem>().Where(p =>
+                            referenceSection.ReferenceType.IsInstanceOfType(p));
                     };
-
                 }
-
             }
+
             return sectionConfig;
         }
 
         public KeyValuePair<PropertyInfo, GraphItemAttribute>[] AllAttributes { get; set; }
 
-        public PropertyInfo[] SerializedProperties { get; set; }
         private string _name;
-
-
 
 
         private List<string> _tags;
         private Type _nodeType;
+
         private List<GraphItemConfiguration> _graphItemConfigurations;
-       // private List<Func<OutputGenerator>> _outputGenerators;
+        // private List<Func<OutputGenerator>> _outputGenerators;
 
 
-       public IQFrameworkContainer Container { get; set; }
-
-        public abstract bool IsValid(GenericNode node);
-
-        //public List<Func<OutputGenerator>> OutputGenerators
-        //{
-        //    get { return _outputGenerators ?? (_outputGenerators = new List<Func<OutputGenerator>>()); }
-        //    set { _outputGenerators = value; }
-        //}
-
-        //public void AddOutputGenerator(Func<OutputGenerator> action)
-        //{
-        //    OutputGenerators.Add(action);
-        //}
-
-        public abstract NodeColor GetColor(IGraphItem obj);
+        public IQFrameworkContainer Container { get; set; }
     }
-
-
 }

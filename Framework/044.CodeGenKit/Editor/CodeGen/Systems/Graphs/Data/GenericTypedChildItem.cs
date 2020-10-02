@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using QFramework.CodeGen;
 using Invert.Data;
 
-public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, IMemberInfo, ITypedItem
+public class GenericTypedChildItem : ITypedItem
 {
     protected string _type = string.Empty;
 
@@ -16,11 +15,6 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
 
             return InvertApplication.FindType(RelatedType) ?? InvertApplication.FindTypeByName(RelatedType) ;
         }
-    }
-
-    public string NameAsChangedMethod
-    {
-        get { return string.Format("{0}Changed", Name); }
     }
 
     public string RelatedType
@@ -65,73 +59,17 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
         }
     }
 
-    public bool AllowEmptyRelatedType
+
+    public string Identifier { get; set; }
+    public IRepository Repository { get; set; }
+    public bool Changed { get; set; }
+    public string Name { get; set; }
+    public string Namespace { get; private set; }
+    public string NodeId { get; set; }
+    public void NodeRemoved(IDiagramNode nodeData)
     {
-        get { return false; }
+        
     }
 
-    public string FieldName
-    {
-        get
-        {
-            return string.Format("_{0}Property", Name);
-        }
-    }
-
-    public string ViewFieldName
-    {
-        get
-        {
-            return string.Format("_{0}", Name);
-        }
-    }
-
-
-    public void RemoveType()
-    {
-        this.RelatedType = typeof(string).FullName;
-    }
-
-
-
-    public IDiagramNode TypeNode()
-    {
-        return this.RelatedNode();
-    }
-
-
-    public override string FullLabel
-    {
-        get { return Name; }
-    }
-
-    public override string Label
-    {
-        get { return Name; }
-    }
-
-    public override void Remove(IDiagramNode diagramNode)
-    {
-
-    }
-
-    public virtual string MemberName { get { return this.Name; } }
-    public virtual ITypeInfo MemberType
-    {
-        get
-        {
-            var relatedNode = this.RelatedTypeNode as ITypeInfo;
-            if (relatedNode != null)
-            {
-                return relatedNode;
-            }
-            return new SystemTypeInfo(Type ?? InvertApplication.FindTypeByName(RelatedType));
-        }
-     
-    }
-
-    public virtual IEnumerable<Attribute> GetAttributes()
-    {
-        yield break;
-    }
+    public int Order { get; set; }
 }

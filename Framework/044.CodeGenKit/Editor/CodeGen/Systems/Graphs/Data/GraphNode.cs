@@ -1,11 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 using System.Text.RegularExpressions;
-using QFramework.CodeGen;
 using Invert.Data;
 using UnityEngine;
 namespace QFramework.CodeGen
@@ -14,12 +11,8 @@ namespace QFramework.CodeGen
     /// <summary>
     /// The base data class for all diagram nodes.
     /// </summary>
-    public abstract class GraphNode : IDiagramNode, IGraphFilter, IDataRecordRemoved, ITreeItem
+    public abstract class GraphNode : IDiagramNode, ITreeItem
     {
-        public virtual IEnumerable<FilterItem> FilterLocations
-        {
-            get { return Repository.All<FilterItem>().Where(p => p.NodeId == this.Identifier); }
-        }
         public int Order
         {
             get { return _order; }
@@ -29,94 +22,11 @@ namespace QFramework.CodeGen
             }
         }
 
-        public virtual IFilterItem FilterLocation
-        {
-            get { return FilterLocations.FirstOrDefault(); }
-        }
 
-        public virtual IGraphFilter Filter
-        {
-            get
-            {
-                var fl = FilterLocation;
-                if (fl == null) return null;
-                return fl.Filter;
-            }
-        }
-    
-        
         public override string ToString()
         {
             return Name;
         }
-        
-        public virtual bool AllowInputs
-        {
-            get { return true; }
-        }
-
-        public virtual bool AllowOutputs
-        {
-            get { return true; }
-        }
-
-        public virtual string InputDescription { get { return null; } }
-        public virtual string OutputDescription { get { return null; } }
-
-        public virtual bool AllowMultipleInputs
-        {
-            get { return true; }
-        }
-
-        public virtual bool AllowMultipleOutputs
-        {
-            get { return true; }
-        }
-        public virtual NodeConfigBase NodeConfig
-        {
-            get
-            {
-                return _nodeConfig ?? (
-                  _nodeConfig = InvertApplication.Container.GetNodeConfig(GetType()) as NodeConfigBase);
-            }
-        }
-
-        public virtual void OnConnectionApplied(IConnectable output, IConnectable input)
-        {
-
-        }
-
-        public virtual bool CanOutputTo(IConnectable input)
-        {
-
-            return true;
-        }
-
-        public virtual bool CanInputFrom(IConnectable output)
-        {
-            return true;
-        }
-
-        public virtual void OnOutputConnectionRemoved(IConnectable input)
-        {
-
-        }
-
-        public virtual void OnInputConnectionRemoved(IConnectable output)
-        {
-
-        }
-
-        public virtual void OnConnectedToInput(IConnectable input)
-        {
-
-        }
-
-        public virtual void OnConnectedFromOutput(IConnectable output)
-        {
-
-        }
-
 
 
         private IGraphData _data;
@@ -127,8 +37,6 @@ namespace QFramework.CodeGen
         private string _identifier;
 
         private bool _isCollapsed;
-
-        private Vector2 _location = new Vector2(45f, 45f);
 
         private string _name;
 
@@ -173,38 +81,6 @@ namespace QFramework.CodeGen
         }
 
 
-        [Browsable(false)]
-        public virtual bool IsValid
-        {
-            get { return Validate().Count < 1; }
-        }
-
-        /// <summary>
-        /// Gets a list of errors about this node or its children
-        /// </summary>
-        /// <returns></returns>
-        public List<ErrorInfo> Validate()
-        {
-            var list = new List<ErrorInfo>();
-            Validate(list);
-            return list;
-        }
-
-        /// <summary>
-        /// Validates this node decorating a list of errors
-        /// </summary>
-        /// <param name="errors"></param>
-        public virtual void Validate(List<ErrorInfo> errors)
-        {
-            
-       
-            //foreach (var child in this.PersistedItems)
-            //{
-            //    child.Validate(errors);
-            //}
-
-        }
-
         /// <summary>
         /// The items that should be persisted with this diagram node.
         /// </summary>
@@ -214,29 +90,6 @@ namespace QFramework.CodeGen
             {
                 return Repository.AllOf<IDiagramNodeItem>().Where(p => p.NodeId == this.Identifier).OrderBy(p=>p.Order);
             }
-            set
-            {
-
-            }
-        }
-        [Browsable(false)]
-        public virtual IEnumerable<IGraphItem> GraphItems
-        {
-            get { return PersistedItems.OfType<IGraphItem>(); }
-        }
-        [Browsable(false)]
-        public Type CurrentType
-        {
-            get
-            {
-                return InvertApplication.FindType(FullName);
-            }
-        }
-
-        [Browsable(false)]
-        public Vector2 DefaultLocation
-        {
-            get { return _location; }
         }
 
         public string GraphId
@@ -251,7 +104,7 @@ namespace QFramework.CodeGen
         /// <summary>
         /// Gets the diagram file that this node belongs to
         /// </summary>
-        public virtual IGraphData Graph
+        public IGraphData Graph
         {
             get
             {
@@ -268,35 +121,7 @@ namespace QFramework.CodeGen
                 _graph = value;
             }
         }
-        [Obsolete]
-        public bool Dirty { get; set; }
 
-
-        //[Browsable(false)]
-        //public FlagsDictionary Flags
-        //{
-        //    get { return _flags ?? (_flags = new FlagsDictionary()); }
-        //    set { _flags = value; }
-        //}
-        [Browsable(false)]
-        public string FullLabel { get { return Name; } }
-        //[InspectorProperty]
-        public virtual string FullName
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Namespace))
-                    return string.Format("{0}.{1}", Namespace, Name);
-
-                return Name;
-            }
-            set { }
-        }
-
-  
-        public Rect HeaderPosition { get; set; }
-
-        public string Highlighter { get { return null; } }
 
         public IRepository Repository { get; set; }
 
@@ -308,59 +133,8 @@ namespace QFramework.CodeGen
 
         public bool Changed { get; set; }
 
-        public virtual IEnumerable<string> ForeignKeys
-        {
-            get { yield return GraphId; }
-        }
-
-
-        public virtual bool ImportedOnly
-        {
-            get { return true; }
-        }
-
-        public bool IsExplorerCollapsed { get; set; }
-
-        public virtual string InfoLabel
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-  
-        public bool IsEditing { get; set; }
-
-        public bool IsExternal
-        {
-            get
-            {
-                return Repository.AllOf<IDiagramNode>().All(p => p.Identifier != Identifier);
-            }
-        }
 
         public bool IsNewNode { get; set; }
-
-        public bool IsSelectable { get { return true; } }
-
-        public bool IsSelected
-        {
-            get { return _isSelected; }
-            set
-            {
-                //this.Changed("IsSelected", _isSelected, value);
-                _isSelected = value;
-                this.Changed = true;
-            }
-        }
-
-        public virtual IEnumerable<IDiagramNodeItem> DisplayedItems
-        {
-            get { return PersistedItems; }
-        }
-
-        public abstract string Label { get; }
 
         public virtual string Name
         {
@@ -377,61 +151,6 @@ namespace QFramework.CodeGen
                 if (value == null) return;
                 this.Changed("Name", ref  _name, Regex.Replace(value, "[^a-zA-Z0-9_.]+", ""));
             }
-        }
-
-        public virtual bool UseStraightLines
-        {
-            get { return false; }
-        }
-
-        public virtual IEnumerable<IDiagramNode> FilterNodes
-        {
-            get
-            {
-                foreach (var item in this.Repository.All<FilterItem>().Where(p => p.FilterId == Identifier))
-                {
-                    var node = item.Node;
-                    if (node == null)
-                    {
-                        this.Repository.Remove(item);
-                        InvertApplication.Log(string.Format("Filter item node is null {0}, Cleaning..", item.NodeId));
-                        continue;
-                    }
-                    //if (item == null) continue;
-                    yield return node;
-                }
-            }
-        }
-
-        public virtual  IEnumerable<IFilterItem> FilterItems
-        {
-            get
-            {
-                if (!FilterExtensions.AllowedFilterNodes.ContainsKey(GetType())) yield break;
-                var found = false;
-                foreach (FilterItem p in Repository.All<FilterItem>())
-                {
-                    if (p.FilterId == Identifier && p.NodeId == Identifier)
-                    {
-                        found = true;
-                    }
-                    if (p.FilterId == Identifier) yield return p;
-
-                }
-                if (!found && FilterExtensions.AllowedFilterNodes.ContainsKey(GetType()))
-                {
-                    var filterItem = new FilterItem();
-                    filterItem.FilterId = Identifier;
-                    filterItem.NodeId = Identifier;
-                    Repository.Add(filterItem);
-                    yield return filterItem;
-                }
-            }
-        }
-
-        public virtual bool AllowExternalNodes
-        {
-            get { return true; }
         }
 
         //[InspectorProperty]
@@ -452,7 +171,7 @@ namespace QFramework.CodeGen
         {
             get
             {
-                return this.Identifier;
+                return Identifier;
             }
             set
             {
@@ -460,52 +179,10 @@ namespace QFramework.CodeGen
             }
         }
 
-        [Browsable(false)]
-        public virtual GraphNode Node
-        {
-            get
-            {
-                return this;
-            }
-            set
-            {
-            }
-        }
-
-        public virtual string OldName
-        {
-            get;
-            set;
-        }
-
-
-        [Browsable(false)]
-        public virtual string SubTitle { get { return string.Empty; } }
-        [Browsable(false)]
-        public virtual string Title { get { return Name; } }
 
         protected GraphNode()
         {
             IsNewNode = true;
-        }
-
-        public virtual void BeginEditing()
-        {
-
-            OldName = Name;
-            IsEditing = true;
-        }
-
-
-        public virtual bool EndEditing()
-        {
-            IsEditing = false;
-            return true;
-        }
-
-        public virtual void NodeAddedInFilter(IDiagramNode newNodeData)
-        {
-
         }
 
 
@@ -517,87 +194,6 @@ namespace QFramework.CodeGen
                     item.NodeRemoved(nodeData);
             }
             this[nodeData.Identifier] = false;
-        }
-
-
-        public virtual void RemoveFromDiagram()
-        {
-            //Data.RefactorCount--;
-        }
-
-
-        public void Rename(IDiagramNode data, string name)
-        {
-            Rename(name);
-        }
-
-        public virtual void Rename(string newName)
-        {
-            Name = newName;
-        }
-
-
-
-        public void RemoveItem(IDiagramNodeItem item)
-        {
-
-        }
-        
-        public virtual string RelatedType
-        {
-            get { return this.Identifier; }
-            set
-            {
-
-            }
-        }
-        
-        public virtual string RelatedTypeName
-        {
-            get { return this.Name; }
-            set { throw new NotImplementedException(); }
-        }
-
-        public void RemoveType()
-        {
-
-        }
-
-        public string AssemblyQualifiedName { get; set; }
-
-
-
-        public ErrorInfo[] Errors { get; set; }
-
-        public virtual void RecordRemoved(IDataRecord record)
-        {
-            if (record.Identifier == GraphId)
-                Repository.Remove(this);
-
-        }
-
-        public IItem ParentItem
-        {
-            get { return this.Graph; }
-        }
-
-        public IEnumerable<IItem> Children
-        {
-            get { return FilterItems.Select(p=>p.Node).OfType<IItem>().Except(new []{this}); }
-        }
-
-        public virtual bool Expanded
-        {
-            get { return _expanded; }
-            set
-            {
-                this.Changed("Expanded", ref _expanded, value);
-            }
-        }
-
-        public IEnumerable<IDataRecord> ChildRecords
-        {
-	        get { return this.GraphItems.OfType<IDataRecord>(); }
         }
     }
 }
