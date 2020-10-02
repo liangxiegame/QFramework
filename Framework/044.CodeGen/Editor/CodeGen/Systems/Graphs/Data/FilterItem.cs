@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Invert.Data;
-using QF.Json;
 using UnityEngine;
 
 namespace QFramework.CodeGen
@@ -13,7 +12,6 @@ namespace QFramework.CodeGen
         private Vector2 _position;
         public IRepository Repository { get; set; }
 
-        [JsonProperty]
         public string Identifier { get; set; }
 
         public bool Changed { get; set; }
@@ -25,7 +23,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        [JsonProperty]
         public bool Collapsed
         {
             get { return _collapsed; }
@@ -35,7 +32,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        [JsonProperty, KeyProperty]
         public string NodeId
         {
             get { return _nodeId; }
@@ -44,7 +40,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        [JsonProperty, KeyProperty]
         public string FilterId
         {
             get { return _filterId; }
@@ -68,7 +63,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        [JsonProperty]
         public Vector2 Position
         {
             get { return _position; }

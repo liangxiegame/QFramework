@@ -7,8 +7,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using QFramework.CodeGen;
 using Invert.Data;
-using QF.Json;
-using QF;
 using UnityEngine;
 namespace QFramework.CodeGen
 {
@@ -22,7 +20,6 @@ namespace QFramework.CodeGen
         {
             get { return Repository.All<FilterItem>().Where(p => p.NodeId == this.Identifier); }
         }
-        [JsonProperty]
         public int Order
         {
             get { return _order; }
@@ -46,92 +43,13 @@ namespace QFramework.CodeGen
                 return fl.Filter;
             }
         }
-        public virtual TType InputFrom<TType>()
-        {
-            return this.InputsFrom<TType>().FirstOrDefault();
-        }
-
-        public virtual IEnumerable<TType> InputsFrom<TType>()
-        {
-            var filterItem = this as IFilterItem;
-            if (filterItem != null)
-            {
-                foreach (var item in Inputs)
-                {
-                    var outId = item.OutputIdentifier;
-                    var output = filterItem.Filter.AllGraphItems().FirstOrDefault(p => p is TType && p.Identifier == outId);
-
-                    if (output != null)
-                    {
-                        yield return (TType)output;
-                    }
-                }
-            }
-
-            foreach (var item in Inputs.Select(p => p.GetOutput(this as IConnectableProvider)).OfType<TType>())
-                yield return item;
-        }
-
-        public virtual IEnumerable<TType> OutputsTo<TType>()
-        {
-            var filterItem = this as IFilterItem;
-            if (filterItem != null)
-            {
-                foreach (var item in Outputs)
-                {
-                    var inputIdentifier = item.InputIdentifier;
-                    var input = filterItem.Filter.AllGraphItems().FirstOrDefault(p => p is TType && p.Identifier == inputIdentifier);
-
-                    if (input != null)
-                    {
-                        yield return (TType)input;
-                    }
-                }
-            }
-
-            foreach (var item in Outputs.Select(p => p.GetInput(this as IConnectableProvider)).OfType<TType>())
-                yield return item;
-        }
-
-        public virtual TType OutputTo<TType>()
-        {
-            return this.OutputsTo<TType>().FirstOrDefault();
-        }
-
+    
+        
         public override string ToString()
         {
             return Name;
         }
-
-        public IEnumerable<ConnectionData> Inputs
-        {
-            get
-            {
-                foreach (var connectionData in Repository.All<ConnectionData>())
-                {
-                    if (connectionData.InputIdentifier == this.Identifier)
-                    {
-                        yield return connectionData;
-                    }
-                }
-            }
-        }
-
-        public IEnumerable<ConnectionData> Outputs
-        {
-            get
-            {
-
-                foreach (var connectionData in Repository.All<ConnectionData>())
-                {
-                    if (connectionData.OutputIdentifier == this.Identifier)
-                    {
-                        yield return connectionData;
-                    }
-                }
-            }
-        }
-
+        
         public virtual bool AllowInputs
         {
             get { return true; }
@@ -170,19 +88,12 @@ namespace QFramework.CodeGen
 
         public virtual bool CanOutputTo(IConnectable input)
         {
-            if (!AllowMultipleOutputs && this.Outputs.Any())
-            {
-                return false;
-            }
+
             return true;
         }
 
         public virtual bool CanInputFrom(IConnectable output)
         {
-            if (!AllowMultipleInputs && this.Inputs.Any())
-            {
-                return false;
-            }
             return true;
         }
 
@@ -328,7 +239,6 @@ namespace QFramework.CodeGen
             get { return _location; }
         }
 
-        [JsonProperty, KeyProperty]
         public string GraphId
         {
             get { return _graphId; }
@@ -655,15 +565,7 @@ namespace QFramework.CodeGen
 
         public string AssemblyQualifiedName { get; set; }
 
-        public CodeTypeReference GetFieldType()
-        {
-            return new CodeTypeReference(this.Name);
-        }
 
-        public CodeTypeReference GetPropertyType()
-        {
-            return new CodeTypeReference(this.Name);
-        }
 
         public ErrorInfo[] Errors { get; set; }
 
@@ -684,7 +586,6 @@ namespace QFramework.CodeGen
             get { return FilterItems.Select(p=>p.Node).OfType<IItem>().Except(new []{this}); }
         }
 
-        [JsonProperty]
         public virtual bool Expanded
         {
             get { return _expanded; }

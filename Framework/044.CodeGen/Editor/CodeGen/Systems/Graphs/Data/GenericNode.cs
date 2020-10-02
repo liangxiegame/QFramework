@@ -1,12 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
-using QF.Json;
-using QF;
-using UnityEngine;
 
 namespace QFramework.CodeGen
 {
@@ -120,7 +115,6 @@ namespace QFramework.CodeGen
             get { return Config.Name; }
         }
 
-        [JsonProperty]
         public override string Name
         {
             get { return base.Name; }

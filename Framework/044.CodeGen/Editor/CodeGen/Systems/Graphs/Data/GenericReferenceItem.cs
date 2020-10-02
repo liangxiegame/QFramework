@@ -1,7 +1,5 @@
 ﻿using System.ComponentModel;
 using Invert.Data;
-using QF.Json;
-using QF;
 
 namespace QFramework.CodeGen
 {
@@ -32,7 +30,6 @@ namespace QFramework.CodeGen
                 
             }
         }
-        [JsonProperty]
         public string SourceIdentifier
         {
             get { return _sourceIdentifier; }

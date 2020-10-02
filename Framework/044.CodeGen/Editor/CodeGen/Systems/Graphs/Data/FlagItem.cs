@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Invert.Data;
-using QF.Json;
-using QF;
 
 namespace QFramework.CodeGen
 {
@@ -18,7 +16,6 @@ namespace QFramework.CodeGen
             get { yield return ParentIdentifier; }
         }
 
-        [JsonProperty, KeyProperty]
         public string ParentIdentifier
         {
             get { return _parentIdentifier; }
@@ -29,7 +26,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        [JsonProperty, KeyProperty]
         public string Name
         {
             get { return _name; }
@@ -37,16 +33,6 @@ namespace QFramework.CodeGen
             {
                 _name = value;
                 Changed = true;
-            }
-        }
-
-
-
-        public void RecordRemoved(IDataRecord record)
-        {
-            if (record.Identifier == ParentIdentifier)
-            {
-                Repository.Remove(this);
             }
         }
     }

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Invert.Data;
-using QF;
-using QF.Json;
 using UnityEngine;
 
 public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
@@ -111,7 +109,6 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
 
     public virtual bool IsSelectable { get { return true; } }
 
-    [JsonProperty, KeyProperty]
     public string NodeId
     {
         get { return _nodeId; }
@@ -121,7 +118,6 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
         }
     }
 
-    [JsonProperty]
     public int Order
     {
         get { return _order; }
@@ -156,7 +152,6 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
 
     public bool Precompiled { get; set; }
     
-    [JsonProperty]
     public virtual string Name
     {
         get { return _name; }
@@ -297,35 +292,7 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
             return node.Graph;
         }
     }
-
-    public IEnumerable<ConnectionData> Inputs
-    {
-        get
-        {
-            foreach (var connectionData in Repository.All<ConnectionData>())
-            {
-                if (connectionData.InputIdentifier == this.Identifier)
-                {
-                    yield return connectionData;
-                }
-            }
-        }
-    }
-
-    public IEnumerable<ConnectionData> Outputs
-    {
-        get
-        {
-            foreach (var connectionData in Repository.All<ConnectionData>())
-            {
-                if (connectionData.OutputIdentifier == this.Identifier)
-                {
-                    yield return connectionData;
-                }
-            }
-        }
-    }
-
+    
     public virtual bool AllowInputs
     {
         get { return true; }
@@ -346,6 +313,17 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
         get { return null; }
     }
 
+    public bool CanOutputTo(IConnectable input)
+    {
+        return true;
+
+    }
+
+    public bool CanInputFrom(IConnectable output)
+    {
+        return true;
+    }
+
     public virtual bool AllowMultipleInputs
     {
         get { return true; }
@@ -361,23 +339,7 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
         get { return Color.white; }
     }
 
-    public virtual bool CanOutputTo(IConnectable input)
-    {
-        if (!AllowMultipleOutputs && this.Outputs.Any())
-        {
-            return false;
-        }
-        return true;
-    }
 
-    public virtual bool CanInputFrom(IConnectable output)
-    {
-        if (!AllowMultipleInputs && this.Inputs.Any())
-        {
-            return false;
-        }
-        return true;
-    }
 
     public virtual void OnOutputConnectionRemoved(IConnectable input)
     {
@@ -397,25 +359,6 @@ public abstract class DiagramNodeItem : IDiagramNodeItem, IDataRecordRemoved
     public virtual void OnConnectedFromOutput(IConnectable output)
     {
 
-    }
-    public virtual TType InputFrom<TType>()
-    {
-        return Inputs.Select(p => p.GetOutput(this.Node as IConnectableProvider)).OfType<TType>().FirstOrDefault();
-    }
-
-    public virtual IEnumerable<TType> InputsFrom<TType>()
-    {
-        return Inputs.Select(p => p.GetOutput(this.Node as IConnectableProvider)).OfType<TType>();
-    }
-
-    public virtual IEnumerable<TType> OutputsTo<TType>()
-    {
-        return Outputs.Select(p => p.GetInput(this.Node as IConnectableProvider)).OfType<TType>();
-    }
-
-    public virtual TType OutputTo<TType>()
-    {
-        return Outputs.Select(p => p.GetInput(this.Node as IConnectableProvider)).OfType<TType>().FirstOrDefault();
     }
 
     public virtual void RecordRemoved(IDataRecord record)

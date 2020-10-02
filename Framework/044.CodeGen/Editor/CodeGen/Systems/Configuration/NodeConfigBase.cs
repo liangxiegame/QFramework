@@ -3,9 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using QF.Json;
-using QFramework.CodeGen;
-using QFramework;
 
 
 namespace QFramework.CodeGen
@@ -80,8 +77,6 @@ namespace QFramework.CodeGen
                 }
 
             }
-
-            SerializedProperties = NodeType.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p=>p.GetCustomAttributes(typeof(JsonProperty), true).Any()).ToArray();
         }
 
         private GraphItemConfiguration CreateSectionConfiguration(PropertyInfo property, Section section)

@@ -33,7 +33,7 @@ namespace QFramework.CodeGen
         {
             get
             {
-                return this.InputsFrom<GenericInheritableNode>().FirstOrDefault(p => p.GetType() == this.GetType());
+                return null;
             }
             set { throw new System.NotImplementedException(); }
         }

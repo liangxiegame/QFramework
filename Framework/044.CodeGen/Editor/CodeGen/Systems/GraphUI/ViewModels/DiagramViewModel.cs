@@ -13,7 +13,7 @@ namespace QFramework.CodeGen
     public class DiagramViewModel : ViewModel, IDataRecordInserted, IDataRecordRemoved, IDataRecordPropertyChanged
     {
         private List<GraphItemViewModel> _graphItems = new List<GraphItemViewModel>();
-    
+
 
         private InspectorViewModel _inspectorViewModel;
         private GraphDesignerNavigationViewModel _navigationViewModel;
@@ -29,6 +29,7 @@ namespace QFramework.CodeGen
                     {
                         yield return child;
                     }
+
                     yield return item;
                 }
             }
@@ -39,7 +40,8 @@ namespace QFramework.CodeGen
         {
             get
             {
-                return GraphItems.OfType<DiagramNodeViewModel>().SelectMany(p => p.ContentItems).Where(p => p.IsSelected);
+                return GraphItems.OfType<DiagramNodeViewModel>().SelectMany(p => p.ContentItems)
+                    .Where(p => p.IsSelected);
             }
         }
 
@@ -50,10 +52,8 @@ namespace QFramework.CodeGen
 
         public DiagramViewModel(IGraphData diagram)
         {
-
             if (diagram == null) throw new Exception("Diagram not found");
             CurrentRepository = diagram.Repository;
-
         }
 
         public Dictionary<string, IFilterItem> FilterItems { get; set; }
@@ -107,8 +107,6 @@ namespace QFramework.CodeGen
 
             //}
             //}
-
-
         }
 
         public IEnumerator AddGraphItems(IEnumerable<IDiagramNode> items)
@@ -121,32 +119,32 @@ namespace QFramework.CodeGen
                     item.Repository.Remove(item);
                     continue;
                 }
+
                 dictionary.Add(item.NodeId, item);
             }
 
             FilterItems = dictionary;
 
 
-
             IsLoading = true;
             // var time = DateTime.Now;
             foreach (var item in items)
             {
-                
                 // Get the ViewModel for the data
                 //InvertApplication.Log("B-A" + DateTime.Now.Subtract(time).TotalSeconds.ToString());
-                var mapping = InvertApplication.Container.RelationshipMappings[item.GetType(), typeof(INotifyPropertyChanged)];
+                var mapping =
+                    InvertApplication.Container.RelationshipMappings[item.GetType(), typeof(INotifyPropertyChanged)];
                 if (mapping == null) continue;
-                var vm = Activator.CreateInstance(mapping, item, this) as GraphItemViewModel; 
+                var vm = Activator.CreateInstance(mapping, item, this) as GraphItemViewModel;
                 //var vm = 
                 //    InvertApplication.Container.ResolveRelation<ViewModel>(item.GetType(), item, this) as
                 //        GraphItemViewModel;
                 //InvertApplication.Log("B-B" + DateTime.Now.Subtract(time).TotalSeconds.ToString());
                 if (vm == null)
                 {
-
                     continue;
                 }
+
                 vm.DiagramViewModel = this;
                 GraphItems.Add(vm);
                 //// Clear the connections on the view-model
@@ -154,21 +152,23 @@ namespace QFramework.CodeGen
                 //vm.GetConnectors(vm.Connectors);
                 //connectors.AddRange(vm.Connectors);
                 yield return new TaskProgress(string.Format("Loading..."), 95f);
-            } 
+            }
+
             IsLoading = false;
             RefreshConnectors();
             //AddConnectors(connectors);
-            InvertApplication.SignalEvent<IGraphLoaded>(_=>_.GraphLoaded());
+            InvertApplication.SignalEvent<IGraphLoaded>(_ => _.GraphLoaded());
             yield break;
         }
+
         public InspectorViewModel InspectorViewModel
         {
             get
             {
                 return _inspectorViewModel ?? (_inspectorViewModel = new InspectorViewModel()
-                    {
-                        DiagramViewModel = this
-                    });
+                {
+                    DiagramViewModel = this
+                });
             }
             set { _inspectorViewModel = value; }
         }
@@ -178,9 +178,9 @@ namespace QFramework.CodeGen
             get
             {
                 return _navigationViewModel ?? (_navigationViewModel = new GraphDesignerNavigationViewModel()
-                    {
-                        DiagramViewModel = this
-                    });
+                {
+                    DiagramViewModel = this
+                });
             }
             set { _navigationViewModel = value; }
         }
@@ -206,15 +206,7 @@ namespace QFramework.CodeGen
         //    }
         //    AddConnectors(connectors);
         //}
-        
-        public void AddConnectors(List<ConnectorViewModel> connectors)
-        {
-            foreach (var item in connectors)
-            {
-                item.DiagramViewModel = this;
-                GraphItems.Add(item);
-            }
-        }
+
         public void RefreshConnectors()
         {
             if (IsLoading) return;
@@ -224,8 +216,10 @@ namespace QFramework.CodeGen
 
             var strategies = InvertGraphEditor.ConnectionStrategies;
 
-            var outputs = GraphItems.OfType<ConnectorViewModel>().Where(p=>p.Direction == ConnectorDirection.Output).ToArray();
-            var inputs = GraphItems.OfType<ConnectorViewModel>().Where(p => p.Direction != ConnectorDirection.Output).ToArray();
+            var outputs = GraphItems.OfType<ConnectorViewModel>().Where(p => p.Direction == ConnectorDirection.Output)
+                .ToArray();
+            var inputs = GraphItems.OfType<ConnectorViewModel>().Where(p => p.Direction != ConnectorDirection.Output)
+                .ToArray();
 
             foreach (var output in outputs)
             {
@@ -245,7 +239,7 @@ namespace QFramework.CodeGen
                                 ConnectorA = output,
                                 ConnectorB = input,
                                 Color = strategy.ConnectionColor,
-                                DataObject = output.DataObject, 
+                                DataObject = output.DataObject,
                                 Remove = (a) =>
                                 {
                                     //a.Remove(a);
@@ -258,125 +252,12 @@ namespace QFramework.CodeGen
             }
         }
 
-        public void ClearConnectors(List<ConnectorViewModel> connectors)
-        {
-            foreach (var item in connectors) GraphItems.Remove(item);
-            var items = GraphItems.OfType<ConnectionViewModel>()
-                .Where(p => connectors.Contains(p.ConnectorA) || connectors.Contains(p.ConnectorB)).ToArray();
-            foreach (var item in items)
-            {
-                GraphItems.Remove(item);
-            }
-            connectors.Clear();
-
-        }
-        public Color GetColor(IGraphItem dataObject)
-        {
-            try
-            {
-                var item = dataObject as IDiagramNodeItem;
-                if (item != null)
-                {
-                    var node = item.Node as GenericNode;
-                    if (node != null)
-                    {
-                        var color = node.Config.GetColor(node);
-                        switch (color)
-                        {
-                            case NodeColor.Black:
-                                return Color.black;
-                            case NodeColor.Blue:
-                                return new Color(0.25f, 0.25f, 0.65f);
-                            case NodeColor.DarkDarkGray:
-                                return new Color(0.25f, 0.25f, 0.25f);
-                            case NodeColor.DarkGray:
-                                return new Color(0.45f, 0.45f, 0.45f);
-                            case NodeColor.Gray:
-                                return new Color(0.65f, 0.65f, 0.65f);
-                            case NodeColor.Green:
-                                return new Color(0.00f, 1f, 0f);
-                            case NodeColor.LightGray:
-                                return new Color(0.75f, 0.75f, 0.75f);
-                            case NodeColor.Orange:
-                                return new Color(0.059f, 0.98f, 0.314f);
-                            case NodeColor.Pink:
-                                return new Color(0.059f, 0.965f, 0.608f);
-                            case NodeColor.Purple:
-                                return new Color(0.02f, 0.318f, 0.659f);
-                            case NodeColor.Red:
-                                return new Color(1f, 0f, 0f);
-                            case NodeColor.Yellow:
-                                return new Color(1f, 0.8f, 0f);
-                            case NodeColor.YellowGreen:
-                                return new Color(0.604f, 0.804f, 0.196f);
-
-                        }
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                InvertApplication.LogError(string.Format("Node is null on get color {0} : {1},{2}", dataObject.Label, dataObject.Identifier,ex));
-            }
-            return Color.white;
-        }
         public IDiagramNode[] CurrentNodes { get; set; }
 
         public List<GraphItemViewModel> GraphItems
         {
             get { return _graphItems; }
             set { _graphItems = value; }
-        }
-
-        public int RefactorCount
-        {
-            get { return GraphData.RefactorCount; }
-        }
-
-        public string Title
-        {
-            get { return GraphData.CurrentFilter.Name; }
-        }
-
-        public bool HasErrors
-        {
-            get { return GraphData.Errors; }
-        }
-
-        public Exception Errors
-        {
-            get { return GraphData.Error; }
-        }
-
-        public bool NeedsUpgrade
-        {
-            get
-            {
-                return false;
-                //return string.IsNullOrEmpty(DiagramData.Version) || (Convert.ToDouble(DiagramData.Version) < uFrameVersionProcessor.CURRENT_VERSION_NUMBER && uFrameVersionProcessor.REQUIRE_UPGRADE);
-            }
-        }
-
-        public void Navigate()
-        {
-            
-        }
-
-        public void Save()
-        {
-            CurrentRepository.Commit();
-        }
-
-        public void MarkDirty()
-        {
-            CurrentRepository.MarkDirty(GraphData);
-        }
-
-        public void RecordUndo(string title)
-        {
-            // TODO 2.0 Record Undo??
-            //CurrentRepository.RecordUndo(GraphData, title);
         }
 
         public void DeselectAll()
@@ -396,8 +277,8 @@ namespace QFramework.CodeGen
                         ivm.EndEditing();
                         break;
                     }
-
                 }
+
                 var nvm = item as DiagramNodeViewModel;
                 if (nvm != null)
                 {
@@ -406,7 +287,6 @@ namespace QFramework.CodeGen
                         nvm.EndEditing();
                         break;
                     }
-
                 }
 
 
@@ -431,7 +311,6 @@ namespace QFramework.CodeGen
             var items = SelectedNodeItems.OfType<ItemViewModel>().Where(p => p.IsEditing).ToArray();
             if (items.Length > 0)
             {
-
             }
 
             DeselectAll();
@@ -472,8 +351,6 @@ namespace QFramework.CodeGen
         //}
 
 
-
-
         public FilterItem AddNode(IDiagramNode newNodeData, Vector2 position)
         {
             newNodeData.GraphId = GraphData.Identifier;
@@ -487,30 +364,22 @@ namespace QFramework.CodeGen
         }
 
         public bool IsLoading { get; set; }
-        
+
 
         public void RecordInserted(IDataRecord record)
         {
-
-            if (record is ConnectionData)
+            var filterItem = record as IFilterItem;
+            if (filterItem != null)
             {
-                RefreshConnectors();
-            }
-            else
-            {
-                var filterItem = record as IFilterItem;
-                if (filterItem != null)
+                if (filterItem.FilterId == GraphData.CurrentFilter.Identifier)
                 {
-                    if (filterItem.FilterId == GraphData.CurrentFilter.Identifier)
+                    var e = AddGraphItems(new[] {filterItem.Node});
+                    while (e.MoveNext())
                     {
-                        var e = AddGraphItems(new[] { filterItem.Node });
-                        while (e.MoveNext())
-                        {
-
-                        }
                     }
                 }
             }
+
 
             for (int index = 0; index < GraphItems.Count; index++)
             {
@@ -523,16 +392,16 @@ namespace QFramework.CodeGen
         {
             if (record == GraphData)
             {
-                
                 return;
             }
+
             List<GraphItemViewModel> removeList = new List<GraphItemViewModel>();
             var filterItem = record as FilterItem;
             if (filterItem != null)
             {
                 var node = filterItem.Node;
                 if (node != null)
-                { 
+                {
                     foreach (var item in GraphItems)
                     {
                         if (item.DataObject == node)
@@ -541,8 +410,8 @@ namespace QFramework.CodeGen
                             removeList.AddRange(item.Connectors.OfType<GraphItemViewModel>());
                         }
                     }
-                    
                 }
+
                 if (FilterItems.ContainsKey(filterItem.NodeId))
                 {
                     FilterItems.Remove(filterItem.NodeId);
@@ -550,7 +419,6 @@ namespace QFramework.CodeGen
             }
             else
             {
-               
                 for (int index = 0; index < GraphItems.Count; index++)
                 {
                     var item = GraphItems[index];
@@ -559,16 +427,15 @@ namespace QFramework.CodeGen
                         removeList.Add(item);
                         removeList.AddRange(item.Connectors.OfType<GraphItemViewModel>());
                     }
+
                     item.RecordRemoved(record);
                 }
-
-            
             }
+
             foreach (var remove in removeList)
                 GraphItems.Remove(remove);
-          if (removeList.Count > 0)
-            RefreshConnectors();
-         
+            if (removeList.Count > 0)
+                RefreshConnectors();
         }
 
         public void PropertyChanged(IDataRecord record, string name, object previousValue, object nextValue)

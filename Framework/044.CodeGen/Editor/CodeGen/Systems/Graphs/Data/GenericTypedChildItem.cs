@@ -1,12 +1,8 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using QFramework.CodeGen;
 using Invert.Data;
-using QF;
-using QF.Json;
-
 
 public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, IMemberInfo, ITypedItem
 {
@@ -27,7 +23,6 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
         get { return string.Format("{0}Changed", Name); }
     }
 
-    [JsonProperty]
     public string RelatedType
     {
         get { return _type; }
@@ -67,12 +62,8 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
         get
         {
 
-            var result = this.OutputTo<IClassTypeNode>();
-            if (result == null)
-            {
-                return this.Repository.AllOf<IClassTypeNode>().FirstOrDefault(p => p.Identifier == RelatedType);
-            }
-            return result;
+            IClassTypeNode result = null;
+            return this.Repository.AllOf<IClassTypeNode>().FirstOrDefault(p => p.Identifier == RelatedType);
         }
     }
 
