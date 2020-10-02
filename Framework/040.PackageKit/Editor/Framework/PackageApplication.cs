@@ -10,9 +10,9 @@ namespace QFramework.PackageKit
     {
         public static List<Assembly> CachedAssemblies { get; set; }
 
-        private static QFrameworkContainer mContainer = null;
+        private static IQFrameworkContainer mContainer = null;
 
-        public static QFrameworkContainer Container
+        public static IQFrameworkContainer Container
         {
             get
             {
@@ -21,6 +21,7 @@ namespace QFramework.PackageKit
                 InitializeContainer(mContainer);
                 return mContainer;
             }
+            set { mContainer = value; }
         }
 
         public static IEnumerable<Type> GetDerivedTypes<T>(bool includeAbstract = false, bool includeBase = true)

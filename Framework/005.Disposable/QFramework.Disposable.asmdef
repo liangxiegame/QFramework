@@ -1,7 +1,7 @@
 {
-    "name": "QFramework.Pool",
+    "name": "QFramework.Disposable",
     "references": [
-        "QFramework.Singleton"
+        "QFramework.Pool"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

@@ -6,7 +6,9 @@
         "QFramework.BindableProperty",
         "QFramework.Architecture",
         "QFramework.EasyIMGUI",
-        "QFramework.Singleton"
+        "QFramework.Singleton",
+        "QFramework.Table",
+        "QFramework.Disposable"
     ],
     "includePlatforms": [
         "Editor"

@@ -26,10 +26,53 @@
 
 using System;
 using System.Reflection;
-using UnityEngine;
 
 namespace QFramework
 {
+    public interface IObjectFactory<T>
+    {
+        T Create();
+    }
+
+    public class DefaultObjectFactory<T> : IObjectFactory<T> where T : new()
+    {
+        public T Create()
+        {
+            return new T();
+        }
+    }
+
+    public class CustomObjectFactory<T> : IObjectFactory<T>
+    {
+        public CustomObjectFactory(Func<T> factoryMethod)
+        {
+            mFactoryMethod = factoryMethod;
+        }
+
+        protected Func<T> mFactoryMethod;
+
+        public T Create()
+        {
+            return mFactoryMethod();
+        }
+    }
+
+    public class NonPublicObjectFactory<T> : IObjectFactory<T> where T : class
+    {
+        public T Create()
+        {
+            var ctors = typeof(T).GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic);
+            var ctor = Array.Find(ctors, c => c.GetParameters().Length == 0);
+
+            if (ctor == null)
+            {
+                throw new Exception("Non-Public Constructor() not found! in " + typeof(T));
+            }
+
+            return ctor.Invoke(null) as T;
+        }
+    }
+
     public class ObjectFactory
     {
         public static object Create(Type type, params object[] constructorArgs)

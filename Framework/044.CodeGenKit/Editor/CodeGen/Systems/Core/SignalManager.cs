@@ -5,12 +5,12 @@ namespace QFramework.CodeGen
 {
     public class SignalManager<T> : ISignalManager where T : class
     {
-        private List<T> _listeners;
+        private List<T> mListeners;
 
         public List<T> Listeners
         {
-            get { return _listeners ?? (_listeners = new List<T>()); }
-            set { _listeners = value; }
+            get { return mListeners ?? (mListeners = new List<T>()); }
+            set { mListeners = value; }
         }
 
         public void Signal(Action<object> obj)
@@ -21,6 +21,7 @@ namespace QFramework.CodeGen
                 obj(item1);
             }
         }
+
         public void Signal(Action<T> action)
         {
             foreach (var item in Listeners)
@@ -31,12 +32,12 @@ namespace QFramework.CodeGen
             }
         }
 
-        public Action Subscribe(T listener)
+        public IDisposable Subscribe(T listener)
         {
             if (!Listeners.Contains(listener))
                 Listeners.Add(listener);
 
-            return () => { Unsubscribe(listener); };
+            return new CustomDisposable(() => { Unsubscribe(listener); });
         }
 
         private void Unsubscribe(T listener)

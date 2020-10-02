@@ -3,7 +3,8 @@
     "references": [
         "QFramework.Pool",
         "QFramework.Singleton",
-        "QFramework.DataStructure"
+        "QFramework.Disposable",
+        "QFramework.Table"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

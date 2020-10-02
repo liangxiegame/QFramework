@@ -4,6 +4,7 @@
 		"QFramework.IOC",
 		"QFramework.TypeEventSystem",
 		"QFramework.BindableProperty",
-		"QFramework.Singleton"
+		"QFramework.Singleton",
+		"QFramework.Disposable"
 	]
 }

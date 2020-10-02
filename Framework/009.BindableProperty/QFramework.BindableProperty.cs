@@ -162,31 +162,7 @@ namespace QFramework
     }
 #endif
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CustomDisposable : IDisposable
-    {
-        private Action mOnDispose = null;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="onDispose"></param>
-        public CustomDisposable(Action onDispose)
-        {
-            mOnDispose = onDispose;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Dispose()
-        {
-            mOnDispose.Invoke();
-            mOnDispose = null;
-        }
-    }
+ 
 
 #if UNITY_5_6_OR_NEWER
     public class PlayerPrefsBooleanProperty : Property<bool>
