@@ -8,7 +8,8 @@
         "QFramework.Architecture",
         "QFramework.JsonSerialize",
         "QFramework.IOC",
-        "QFramework.BinarySerializer"
+        "QFramework.BinarySerializer",
+        "QFramework.Zip"
     ],
     "includePlatforms": [],
     "excludePlatforms": []
