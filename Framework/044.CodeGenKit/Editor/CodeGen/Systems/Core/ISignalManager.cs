@@ -1,6 +1,6 @@
 namespace QFramework.CodeGen
 {
-    public interface ITreeItem : IItem
+    public interface ISignalManager
     {
     }
 }

@@ -21,7 +21,6 @@ namespace QFramework.PackageKit
                 InitializeContainer(mContainer);
                 return mContainer;
             }
-            set { mContainer = value; }
         }
 
         public static IEnumerable<Type> GetDerivedTypes<T>(bool includeAbstract = false, bool includeBase = true)
@@ -31,14 +30,11 @@ namespace QFramework.PackageKit
                 yield return type;
             if (includeAbstract)
             {
-                foreach (var assembly in CachedAssemblies)
+                foreach (var t in CachedAssemblies.SelectMany(assembly => assembly
+                    .GetTypes()
+                    .Where(x => type.IsAssignableFrom(x))))
                 {
-                    foreach (var t in assembly
-                        .GetTypes()
-                        .Where(x => type.IsAssignableFrom(x)))
-                    {
-                        yield return t;
-                    }
+                    yield return t;
                 }
             }
             else

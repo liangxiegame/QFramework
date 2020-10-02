@@ -11,7 +11,7 @@ namespace QFramework.CodeGen
     /// <summary>
     /// The base data class for all diagram nodes.
     /// </summary>
-    public abstract class GraphNode : IDiagramNode, ITreeItem
+    public abstract class GraphNode : IDiagramNode
     {
         public int Order
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QFramework.CodeGen
 {
-    public class EventManager<T> : IEventManager where T : class
+    public class SignalManager<T> : ISignalManager where T : class
     {
         private List<T> _listeners;
 
@@ -31,7 +31,7 @@ namespace QFramework.CodeGen
             }
         }
 
-        public System.Action Subscribe(T listener)
+        public Action Subscribe(T listener)
         {
             if (!Listeners.Contains(listener))
                 Listeners.Add(listener);

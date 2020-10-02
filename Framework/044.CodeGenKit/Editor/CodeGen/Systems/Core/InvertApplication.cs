@@ -9,7 +9,7 @@ namespace QFramework.CodeGen
     public static class InvertApplication
     {
         private static QFrameworkContainer mContainer;
-        private static Dictionary<Type, IEventManager> mEventManagers;
+        private static Dictionary<Type, ISignalManager> mEventManagers;
         private static List<Assembly> mTypeAssemblies;
 
         public static List<Assembly> CachedAssemblies { get; set; }
@@ -90,9 +90,9 @@ namespace QFramework.CodeGen
             container.InjectAll();
         }
 
-        private static Dictionary<Type, IEventManager> EventManagers
+        private static Dictionary<Type, ISignalManager> EventManagers
         {
-            get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, IEventManager>()); }
+            get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, ISignalManager>()); }
             set { mEventManagers = value; }
         }
 
@@ -102,12 +102,12 @@ namespace QFramework.CodeGen
         /// <typeparam name="TEvents">The lambda that invokes the action.</typeparam>
         public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
         {
-            IEventManager manager;
+            ISignalManager manager;
             if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
             {
-                EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
+                EventManagers.Add(typeof(TEvents), manager = new SignalManager<TEvents>());
             }
-            var m = manager as EventManager<TEvents>;
+            var m = manager as SignalManager<TEvents>;
             m.Signal(action);
         }
 
