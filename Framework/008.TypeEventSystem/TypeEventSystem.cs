@@ -25,35 +25,23 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace QFramework
 {
-    public interface ITypeEventSystem : IDisposable
-    {
-        IDisposable RegisterEvent<T>(Action<T> onReceive);
-        void UnRegisterEvent<T>(Action<T> onReceive);
 
-        void SendEvent<T>() where T : new();
-
-        void SendEvent<T>(T e);
-        
-        void Clear();
-    }
-
-    
-    public class TypeEventUnregister<T> : IDisposable
-    {
-        public Action<T> OnReceive; 
-            
-        public void Dispose()
-        {
-            TypeEventSystem.UnRegister(OnReceive);
-        }
-    }
 
     public class TypeEventSystem : ITypeEventSystem
     {
+        public class TypeEventUnregister<T> : IDisposable
+        {
+            public Action<T> OnReceive; 
+            
+            public void Dispose()
+            {
+                TypeEventSystem.UnRegister(OnReceive);
+            }
+        }
+        
         /// <summary>
         /// 接口 只负责存储在字典中
         /// </summary>
@@ -202,40 +190,6 @@ namespace QFramework
         public void Dispose()
         {
 
-        }
-    }
-
-    public interface IDisposableList : IDisposable
-    {
-        void Add(IDisposable disposable);
-    }
-
-    public class DisposableList : IDisposableList
-    {
-        List<IDisposable> mDisposableList = ListPool<IDisposable>.Get();
-
-        public void Add(IDisposable disposable)
-        {
-            mDisposableList.Add(disposable);
-        }
-
-        public void Dispose()
-        {
-            foreach (var disposable in mDisposableList)
-            {
-                disposable.Dispose();
-            }
-
-            mDisposableList.Release2Pool();
-            mDisposableList = null;
-        }
-    }
-
-    public static class DisposableExtensions
-    {
-        public static void AddTo(this IDisposable self, IDisposableList component)
-        {
-            component.Add(self);
         }
     }
 }
