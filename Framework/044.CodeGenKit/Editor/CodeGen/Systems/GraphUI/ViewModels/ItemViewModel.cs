@@ -70,22 +70,6 @@ namespace QFramework.CodeGen
         //    }
         //}
 
-        public override ConnectorViewModel InputConnector
-        {
-            get
-            {
-
-                return base.InputConnector;
-            }
-        }
-
-        public override ConnectorViewModel OutputConnector
-        {
-            get
-            {
-                return base.OutputConnector;
-            }
-        }
 
         public virtual bool IsEditable
         {

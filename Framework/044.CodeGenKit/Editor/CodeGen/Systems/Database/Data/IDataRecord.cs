@@ -3,11 +3,7 @@ using System.Collections.Generic;
 
 namespace Invert.Data
 {
-    public class KeyProperty : Attribute
-    {
-        
-    }
-
+    
     public interface IDataRecord : IValueItem
     {
         IRepository Repository { get; set; }

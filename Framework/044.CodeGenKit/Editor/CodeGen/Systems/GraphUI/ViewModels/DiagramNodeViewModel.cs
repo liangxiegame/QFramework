@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using QFramework.CodeGen;
@@ -94,50 +93,7 @@ namespace QFramework.CodeGen
         }
 
         public bool IsExternal { get; set; }
-        public string TagsString
-        {
-            get { return string.Join(" | ", Tags.ToArray()); }
-        }
-        public virtual Type ExportGraphType
-        {
-            get { return null; }
-        }
 
-        public override ConnectorViewModel InputConnector
-        {
-            get
-            {
-                if (!HasInputs)
-                {
-                    return null;
-                }
-                return base.InputConnector;
-            }
-        }
-
-        public override ConnectorViewModel OutputConnector
-        {
-            get
-            {
-                if (!HasOutputs)
-                    return null;
-                return base.OutputConnector;
-            }
-        }
-
-        public virtual bool HasInputs
-        {
-            get { return true; }
-        }
-        public virtual bool HasOutputs
-        {
-            get { return true; }
-        }
-        protected override ConnectorViewModel CreateInputConnector()
-        {
-
-            return base.CreateInputConnector();
-        }
 
         protected DiagramNodeViewModel()
         {
@@ -158,13 +114,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        public virtual NodeColor Color
-        {
-            get
-            {
-                return NodeColor.LightGray;
-            }
-        }
         //public bool Dirty { get; set; }
         public override bool IsSelected
         {
@@ -180,38 +129,7 @@ namespace QFramework.CodeGen
             }
         }
 
-        public override void GetConnectors(List<ConnectorViewModel> list)
-        {
-            // base.GetConnectors(list);
 
-            foreach (var item in ContentItems)
-            {
-
-                item.GetConnectors(list);
-                if (IsCollapsed)
-                {
-                    if (item.InputConnector != null)
-                    {
-                        item.InputConnector.Disabled = true;
-                        item.InputConnector.ConnectorFor = this;
-                    }
-
-                    if (item.OutputConnector != null)
-                    {
-                        item.OutputConnector.Disabled = true;
-                        item.OutputConnector.ConnectorFor = this;
-                    }
-                }
-            }
-
-            if (InputConnector != null)
-                list.Add(InputConnector);
-            if (OutputConnector != null)
-                list.Add(OutputConnector);
-
-
-
-        }
 
 
         public virtual bool IsCollapsed
@@ -237,27 +155,12 @@ namespace QFramework.CodeGen
             }
         }
 
-        public virtual bool ShowSubtitle { get { return false; } }
-
-        public virtual float HeaderSize
-        {
-            get
-            {
-                return 27;
-            }
-        }
-
         public virtual bool AllowCollapsing
         {
             get { return ContentItems.Count > 0; }
         }
-        
 
-        protected virtual void CreateContent()
-        {
 
-        }
-        public bool IsLocal { get; set; }
         public bool IsEditing
         {
             get { return GraphItemObject.IsEditing; }
@@ -267,24 +170,6 @@ namespace QFramework.CodeGen
                     EndEditing();
                 GraphItemObject.IsEditing = value;
 
-            }
-        }
-
-        public string FullLabel
-        {
-            get { return GraphItemObject.FullLabel; }
-        }
-
-        public IEnumerable<IDiagramNodeItem> Items
-        {
-            get { return GraphItemObject.DisplayedItems; }
-        }
-
-        public virtual string SubTitle
-        {
-            get
-            {
-                return GraphItemObject.SubTitle;
             }
         }
 

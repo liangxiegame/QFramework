@@ -11,23 +11,10 @@ namespace QFramework.CodeGen
     /// </summary>
     public static class InvertGraphEditor
     {
-        private static IConnectionStrategy[] mConnectionStrategies;
-
-
         private static QFrameworkContainer mTypesContainer;
 
         private static IQFrameworkContainer mUiContainer;
-
-
-        public static IConnectionStrategy[] ConnectionStrategies
-        {
-            get
-            {
-                return mConnectionStrategies ??
-                       (mConnectionStrategies = Container.ResolveAll<IConnectionStrategy>().ToArray());
-            }
-            set { mConnectionStrategies = value; }
-        }
+        
 
         public static IQFrameworkContainer Container
         {

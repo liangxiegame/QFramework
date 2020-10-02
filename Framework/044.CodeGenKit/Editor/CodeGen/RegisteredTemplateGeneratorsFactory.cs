@@ -8,12 +8,12 @@ namespace QFramework.CodeGen
 {
     public class RegisteredTemplateGeneratorsFactory : DesignerGeneratorFactory<IDataRecord>
     {
-        private static Dictionary<Type, List<Type>> _registeredTemplates = new Dictionary<Type, List<Type>>();
+        private static Dictionary<Type, List<Type>> mRegisteredTemplates = new Dictionary<Type, List<Type>>();
 
         protected static Dictionary<Type, List<Type>> RegisteredTemplates
         {
-            get { return _registeredTemplates; }
-            set { _registeredTemplates = value; }
+            get { return mRegisteredTemplates; }
+            set { mRegisteredTemplates = value; }
         }
 
         public static void RegisterTemplate<TFor, TTemplate>()

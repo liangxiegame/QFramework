@@ -61,8 +61,6 @@ public class GenericTypedChildItem : GenericNodeChildItem, IDataRecordRemoved, I
     {
         get
         {
-
-            IClassTypeNode result = null;
             return this.Repository.AllOf<IClassTypeNode>().FirstOrDefault(p => p.Identifier == RelatedType);
         }
     }

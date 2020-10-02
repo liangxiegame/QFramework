@@ -35,7 +35,6 @@ namespace QFramework.CodeGen
         }
 
         private bool _isSelected = false;
-        private List<ConnectorViewModel> _connectors;
         private readonly List<GraphItemViewModel> _contentItems = new List<GraphItemViewModel>();
 
         public const string IsSelectedProperty = "IsSelected";
@@ -119,12 +118,6 @@ namespace QFramework.CodeGen
             }
         }
 
-        public List<ConnectorViewModel> Connectors
-        {
-            get { return _connectors ?? (_connectors = new List<ConnectorViewModel>()); }
-            set { _connectors = value; }
-        }
-
         public List<GraphItemViewModel> ContentItems
         {
             get { return _contentItems; }
@@ -133,40 +126,12 @@ namespace QFramework.CodeGen
 
         public virtual Type InputConnectorType { get; set; }
         public virtual Type OutputConnectorType { get; set; }
-        
-        private ConnectorViewModel _inputConnector;
-        public virtual ConnectorViewModel InputConnector
-        {
-            get
-            {
-                if (DataObject == null) return null;
-                var connectable = DataObject as IConnectable;
-                if (connectable != null && !connectable.AllowInputs) 
-                    return null;
-                return _inputConnector ?? (_inputConnector = CreateInputConnector());
-            }
-            set { throw new NotImplementedException(); }
-        }
+
 
         public bool DisableInputs { get; set; }
         public bool DisableOutputs { get; set; }
-        protected virtual ConnectorViewModel CreateInputConnector()
-        {
-            if (DisableInputs) return null;
-            return new ConnectorViewModel()
-            {
-                DataObject = DataObject,
-                Direction = ConnectorDirection.Input,
-                ConnectorFor = this,
-                DiagramViewModel = DiagramViewModel,
-                ConnectorForType = InputConnectorType ?? DataObject.GetType(),
-                Side = ConnectorSide.Left,
-                SidePercentage = 0.5f,
-                //Validator = InputValidator
-            };
-        }
 
-        private ConnectorViewModel _outputConnector;
+
         private Rect _bounds;
         private Rect _connectorBounds;
         private Func<IDiagramNodeItem, IDiagramNodeItem, bool> _inputValidator;
@@ -175,34 +140,8 @@ namespace QFramework.CodeGen
         private bool _showHelp;
         private bool _isDirty;
 
-        public virtual ConnectorViewModel OutputConnector
-        {
-            get
-            {
-                if (DataObject == null) return null;
-                var connectable = DataObject as IConnectable;
-                if (connectable != null && !connectable.AllowOutputs)
-                    return null;
-                return _outputConnector ?? (_outputConnector = CreateOutputConnector());
-            }
-            set { throw new NotImplementedException(); }
-        }
 
-        protected virtual ConnectorViewModel CreateOutputConnector()
-        {
-            if (DisableOutputs) return null;
-            return new ConnectorViewModel()
-            {
-                DataObject = DataObject,
-                Direction = ConnectorDirection.Output,
-                ConnectorFor = this,
-                DiagramViewModel = DiagramViewModel,
-                ConnectorForType = OutputConnectorType ?? DataObject.GetType(),
-                Side = ConnectorSide.Right,
-                SidePercentage = 0.5f,
-                //Validator = OutputValidator
-            };
-        }
+
 
         /// <summary>
         /// This is the bounds used to calculate the position of connectors.  Since it is a struct
@@ -237,17 +176,6 @@ namespace QFramework.CodeGen
         public int Row { get; set; }
 
         
-        public virtual void GetConnectors(List<ConnectorViewModel> list)
-        {
-            if (InputConnector != null)
-                list.Add(InputConnector);
-            if (OutputConnector != null)
-                list.Add(OutputConnector);
-            
-            foreach (var item in ContentItems)
-            {
-                item.GetConnectors(list);
-            }
-        }
+
     }
 }
