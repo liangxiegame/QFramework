@@ -8,7 +8,9 @@ namespace QFramework.CodeGen
 {
     public static class InvertApplication
     {
-        private static IQFrameworkContainer mContainer;
+        private static QFrameworkContainer mContainer;
+        private static Dictionary<Type, IEventManager> mEventManagers;
+        private static List<Assembly> mTypeAssemblies;
 
         public static List<Assembly> CachedAssemblies { get; set; }
 
@@ -28,7 +30,7 @@ namespace QFramework.CodeGen
             }
         }
 
-        public static IQFrameworkContainer Container
+        public static QFrameworkContainer Container
         {
             get
             {
@@ -87,7 +89,27 @@ namespace QFramework.CodeGen
 
             container.InjectAll();
         }
-        
+
+        private static Dictionary<Type, IEventManager> EventManagers
+        {
+            get { return mEventManagers ?? (mEventManagers = new Dictionary<Type, IEventManager>()); }
+            set { mEventManagers = value; }
+        }
+
+        /// <summary>
+        /// Signals and event to all listeners
+        /// </summary>
+        /// <typeparam name="TEvents">The lambda that invokes the action.</typeparam>
+        public static void SignalEvent<TEvents>(Action<TEvents> action) where TEvents : class
+        {
+            IEventManager manager;
+            if (!EventManagers.TryGetValue(typeof(TEvents), out manager))
+            {
+                EventManagers.Add(typeof(TEvents), manager = new EventManager<TEvents>());
+            }
+            var m = manager as EventManager<TEvents>;
+            m.Signal(action);
+        }
 
         public static IEnumerable<KeyValuePair<PropertyInfo, TAttribute>> GetPropertiesWithAttributeByType<TAttribute>(this Type type, BindingFlags flags = BindingFlags.Public | BindingFlags.Instance) where TAttribute : Attribute
         {
