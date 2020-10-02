@@ -154,7 +154,8 @@ namespace QFramework
                 // 未进行过热更
                 if (AssetBundleSettings.LoadAssetResFromStreammingAssetsPath)
                 {
-                    FileMgr.Instance.GetFileInInner(AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
+                    ResKit.Interface.GetUtility<IZipFileHelper>()
+                        .GetFileInInner(AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
                 }
                 // 进行过热更
                 else

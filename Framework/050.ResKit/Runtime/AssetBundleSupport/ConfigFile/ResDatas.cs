@@ -150,8 +150,11 @@ namespace QFramework
 
         public virtual void LoadFromFile(string path)
         {
-            var data = ResKit.Interface.GetUtility<IBinarySerializer>()
-                .DeserializeBinary(FileMgr.Instance.OpenReadStream(path));
+            var binarySerializer = ResKit.Interface.GetUtility<IBinarySerializer>();
+            var zipFileHelper = ResKit.Interface.GetUtility<IZipFileHelper>();
+
+            var data = binarySerializer
+                .DeserializeBinary(zipFileHelper.OpenReadStream(path));
 
             if (data == null)
             {

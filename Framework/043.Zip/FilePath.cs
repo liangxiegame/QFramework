@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Linq;
 
 
@@ -158,7 +159,7 @@ namespace QFramework
 
 			var dir = new DirectoryInfo(dirName);
 
-			if (null != dir.Parent && dir.Attributes.ToString().IndexOf("System") > -1)
+			if (null != dir.Parent && dir.Attributes.ToString().IndexOf("System", StringComparison.Ordinal) > -1)
 			{
 				return;
 			}
