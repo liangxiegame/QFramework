@@ -1,3 +1,5 @@
+#if UNITY_5_6_OR_NEWER
+
 using System;
 using UnityEngine;
 
@@ -66,3 +68,5 @@ public static partial class IActionChainExtention
         }
     }
 }
+
+#endif

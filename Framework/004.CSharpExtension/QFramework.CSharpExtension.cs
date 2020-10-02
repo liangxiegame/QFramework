@@ -33,6 +33,7 @@ namespace QFramework
     using System.Text.RegularExpressions;
     using System.Reflection;
     using System.Text;
+
 #if UNITY_5_6_OR_NEWER
     using UnityEngine;
     using UnityEngine.Events;
@@ -639,6 +640,7 @@ namespace QFramework
         }
 #endif
 
+
         /// <summary>
         /// 获取文件夹名
         /// </summary>
@@ -827,7 +829,7 @@ namespace QFramework
 
         #endregion
     }
-
+#if UNITY_5_6_OR_NEWER
     /// <summary>
     /// 简单的概率计算
     /// </summary>
@@ -848,7 +850,7 @@ namespace QFramework
             return UnityEngine.Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
         }
     }
-    
+#endif
     /// <summary>
     /// 面向对象扩展（继承、封装、多态)
     /// </summary>
@@ -932,8 +934,8 @@ namespace QFramework
     {
         public static void Example()
         {
-            var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.ReflectionExtension");
-            selfType.LogInfo();
+            // var selfType = ReflectionExtension.GetAssemblyCSharp().GetType("QFramework.ReflectionExtension");
+            // selfType.LogInfo();
         }
 
         public static Assembly GetAssemblyCSharp()
@@ -2590,6 +2592,4 @@ namespace QFramework
         }
     }
 #endif
-    
-
 }

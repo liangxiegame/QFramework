@@ -1,3 +1,4 @@
+#if UNITY_5_6_OR_NEWER
 using System;
 using UnityEngine;
 
@@ -73,3 +74,4 @@ namespace QFramework
         }
     }
 }
+#endif

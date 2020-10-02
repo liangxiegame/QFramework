@@ -1,3 +1,5 @@
+#if UNITY_5_6_OR_NEWER
+
 using System.Collections;
 using UnityEngine;
 
@@ -28,3 +30,5 @@ namespace QFramework
         }
     }
 }
+
+#endif

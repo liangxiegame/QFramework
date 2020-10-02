@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 
 namespace QFramework
@@ -25,3 +27,4 @@ namespace QFramework
         }
     }
 }
+#endif

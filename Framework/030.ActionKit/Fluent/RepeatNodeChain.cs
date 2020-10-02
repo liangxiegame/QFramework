@@ -1,3 +1,5 @@
+#if UNITY_5_6_OR_NEWER
+
 namespace QFramework
 {
     public class RepeatNodeChain : ActionChain
@@ -39,3 +41,4 @@ namespace QFramework
         }
     }
 }
+#endif
