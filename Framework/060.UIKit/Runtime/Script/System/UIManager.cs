@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2018.5 ~ 2020.5  liangxie
+ * Copyright (c) 2017 ~ 2020.10  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,12 +26,11 @@
  ****************************************************************************/
 
 using System.Linq;
+using UnityEngine;
 
 namespace QFramework
 {
-	//// <summary>
-	/// <inheritdoc />
-	/// <![CDATA[The 'member' start tag on line 2 position 2 does not match the end tag of 'summary'. Line 3, position 3.]]>
+
 	[MonoSingletonPath("UIRoot/Manager")]
 	public partial class UIManager : QMgrBehaviour, ISingleton
 	{
@@ -48,6 +47,8 @@ namespace QFramework
 			{
 				if (!mInstance)
 				{
+					var uiRoot = UIRoot.Instance;
+					Debug.Log("currentUIRoot:" + uiRoot);
 					mInstance = MonoSingletonProperty<UIManager>.Instance;
 				}
 
