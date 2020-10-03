@@ -1,0 +1,11 @@
+{
+    "name": "QFramework.ManagerOfManagers",
+    "references": [
+        "QFramework.Pool",
+        "QFramework.EventSystem",
+        "QFramework.Singleton",
+        "QFramework.CSharpExtension"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

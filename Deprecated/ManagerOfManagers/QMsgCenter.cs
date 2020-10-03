@@ -52,11 +52,9 @@ namespace QFramework
 			ForwardMsg(tmpMsg);
 		}
 
-		static Dictionary<int, Func<QMgrBehaviour>> mRegisteredManagers = new Dictionary<int, Func<QMgrBehaviour>>()
-		{
-			{QMgrID.UI, () => UIManager.Instance}
-		};
-
+		private static Dictionary<int, Func<QMgrBehaviour>> mRegisteredManagers =
+			new Dictionary<int, Func<QMgrBehaviour>>();
+		
 		public static void RegisterManagerFactory(int mgrId, Func<QMgrBehaviour> managerFactory)
 		{
 			if (mRegisteredManagers.ContainsKey(mgrId))

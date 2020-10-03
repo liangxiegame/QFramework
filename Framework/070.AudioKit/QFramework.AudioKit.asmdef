@@ -9,7 +9,8 @@
         "QFramework.ResKit",
         "QFramework.RefCounter",
         "QFramework.EventSystem",
-        "QFramework.CSharpExtension"
+        "QFramework.CSharpExtension",
+        "QFramework.ManagerOfManagers"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [],

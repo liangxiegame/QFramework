@@ -6,7 +6,8 @@
         "QFramework.EventSystem",
         "QFramework.ResKit",
         "QFramework.CSharpExtension",
-        "QFramework.Table"
+        "QFramework.Table",
+        "QFramework.ManagerOfManagers"
     ],
     "includePlatforms": [],
     "excludePlatforms": []
