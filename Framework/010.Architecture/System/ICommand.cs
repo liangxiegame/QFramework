@@ -2,7 +2,8 @@
 
 namespace QFramework
 {
-    public interface ICommand : ICanGetModel,ICanGetSystem,ICanGetUtility,ICanSendEvent,ICanSendCommand,ICanGetConfig
+    public interface ICommand : ICanGetModel, ICanGetSystem, ICanGetUtility, ICanSendEvent, ICanSendCommand,
+        ICanGetConfig
     {
         void Execute();
     }
@@ -10,6 +11,7 @@ namespace QFramework
     public abstract class Command<TConfig> : ICommand where TConfig : Architecture<TConfig>
     {
         public abstract void Execute();
+
         public T GetModel<T>() where T : class, IModel
         {
             return SingletonProperty<TConfig>.Instance.GetModel<T>();
