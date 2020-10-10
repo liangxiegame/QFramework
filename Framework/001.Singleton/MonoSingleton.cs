@@ -24,6 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+#if UNITY_5_6_OR_NEWER
+
 using UnityEngine;
 
 namespace QFramework
@@ -91,3 +93,4 @@ namespace QFramework
     }
 
 }
+#endif

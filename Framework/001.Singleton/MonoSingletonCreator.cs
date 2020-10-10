@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+#if UNITY_5_6_OR_NEWER
 using System.Reflection;
 using UnityEngine;
 
@@ -147,3 +148,4 @@ namespace QFramework
         }
     }
 }
+#endif
