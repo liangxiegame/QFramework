@@ -21,7 +21,7 @@ namespace QFramework
                 writer.WriteLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
             }
 
-            writer.WriteLine("namespace {0}".FillFormat(scriptNamespace.IsTrimNotNullAndEmpty()
+            writer.WriteLine("namespace {0}".FillFormat(scriptNamespace.IsTrimNullOrEmpty()
                 ? uiKitSettingData.Namespace
                 : scriptNamespace));
             writer.WriteLine("{");
@@ -66,7 +66,7 @@ namespace QFramework
                 writer.WriteLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
             }
 
-            writer.WriteLine("namespace {0}".FillFormat(scriptNamespace.IsTrimNotNullAndEmpty()
+            writer.WriteLine("namespace {0}".FillFormat(scriptNamespace.IsTrimNullOrEmpty()
                 ? uiKitSettingData.Namespace
                 : scriptNamespace));
             writer.WriteLine("{");

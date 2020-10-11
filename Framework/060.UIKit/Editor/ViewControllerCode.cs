@@ -82,7 +82,7 @@ namespace QFramework
                 uikitSettingData);
 
             EditorPrefs.SetString("GENERATE_CLASS_NAME", generateInfo.ScriptName);
-            EditorPrefs.SetString("GENERATE_NAMESPACE", generateInfo.Namespace.IsTrimNotNullAndEmpty() ? uikitSettingData.Namespace : generateInfo.Namespace);
+            EditorPrefs.SetString("GENERATE_NAMESPACE", generateInfo.Namespace.IsTrimNullOrEmpty() ? uikitSettingData.Namespace : generateInfo.Namespace);
             EditorPrefs.SetString("GAME_OBJECT_NAME", gameObject.name);
             AssetDatabase.Refresh();
         }

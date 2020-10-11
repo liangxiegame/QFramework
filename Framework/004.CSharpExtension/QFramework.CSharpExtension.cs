@@ -1147,6 +1147,11 @@ namespace QFramework
             return selfStr != null && !string.IsNullOrEmpty(selfStr.Trim());
         }
 
+        public static bool IsTrimNullOrEmpty(this string selfStr)
+        {
+            return selfStr == null || string.IsNullOrEmpty(selfStr.Trim());
+        }
+
         /// <summary>
         /// 缓存
         /// </summary>

@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.2.2",
+    "Version": "v0.2.3",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/004.CSharpExtension/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.2.2",
-        "content": "提高 IsTrimNullOrEmpty 的安全性",
+        "version": "v0.2.3",
+        "content": "添加 IsTrimNullOrEmpty",
         "author": "liangxie",
-        "date": "2020 年 10 月 12 日 00:02",
+        "date": "2020 年 10 月 12 日 00:10",
         "PackageId": ""
     }
 }

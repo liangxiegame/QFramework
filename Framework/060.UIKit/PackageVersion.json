@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.10.17",
+    "Version": "v0.10.18",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/060.UIKit/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.17",
-        "content": "改善 ViewController 的使用体验",
+        "version": "v0.10.18",
+        "content": "使用 IsTrimNullOrEmpty",
         "author": "liangxie",
-        "date": "2020 年 10 月 12 日 00:02",
+        "date": "2020 年 10 月 12 日 00:11",
         "PackageId": ""
     }
 }
