@@ -1144,7 +1144,7 @@ namespace QFramework
         /// <returns></returns>
         public static bool IsTrimNotNullAndEmpty(this string selfStr)
         {
-            return !string.IsNullOrEmpty(selfStr.Trim());
+            return selfStr != null && !string.IsNullOrEmpty(selfStr.Trim());
         }
 
         /// <summary>

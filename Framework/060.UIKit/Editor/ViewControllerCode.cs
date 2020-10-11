@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
@@ -76,11 +75,14 @@ namespace QFramework
 
             var uikitSettingData = UIKitSettingData.Load();
 
-            ViewControllerTemplate.Write(generateInfo.ScriptName, scriptsFolder, uikitSettingData);
-            ViewControllerDesignerTemplate.Write(generateInfo.ScriptName, scriptsFolder, panelCodeInfo,
+            ViewControllerTemplate.Write(generateInfo.ScriptName, scriptsFolder, generateInfo.Namespace,
+                uikitSettingData);
+            ViewControllerDesignerTemplate.Write(generateInfo.ScriptName, scriptsFolder, generateInfo.Namespace,
+                panelCodeInfo,
                 uikitSettingData);
 
             EditorPrefs.SetString("GENERATE_CLASS_NAME", generateInfo.ScriptName);
+            EditorPrefs.SetString("GENERATE_NAMESPACE", generateInfo.Namespace.IsTrimNotNullAndEmpty() ? uikitSettingData.Namespace : generateInfo.Namespace);
             EditorPrefs.SetString("GAME_OBJECT_NAME", gameObject.name);
             AssetDatabase.Refresh();
         }
@@ -91,6 +93,7 @@ namespace QFramework
         {
             var generateClassName = EditorPrefs.GetString("GENERATE_CLASS_NAME");
             var gameObjectName = EditorPrefs.GetString("GAME_OBJECT_NAME");
+            var generateNamespace = EditorPrefs.GetString("GENERATE_NAMESPACE");
 
             if (string.IsNullOrEmpty(generateClassName))
             {
@@ -99,12 +102,11 @@ namespace QFramework
             }
             else
             {
-
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
                 var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
 
-                var typeName = UIKitSettingData.Load().Namespace + "." + generateClassName;
+                var typeName = generateNamespace + "." + generateClassName;
 
                 var type = defaultAssembly.GetType(typeName);
 
@@ -125,7 +127,7 @@ namespace QFramework
                     Clear();
                     return;
                 }
-                
+
 
                 var scriptComponent = gameObject.GetComponent(type);
 
@@ -148,7 +150,7 @@ namespace QFramework
                     var name = bindInfo.Name;
 
                     var componentName = bindInfo.BindScript.ComponentName.Split('.').Last();
-                    
+
                     serialiedScript.FindProperty(name).objectReferenceValue =
                         gameObject.transform.Find(bindInfo.PathToElement)
                             .GetComponent(componentName);
@@ -163,6 +165,7 @@ namespace QFramework
                     serialiedScript.FindProperty("PrefabFolder").stringValue = codeGenerateInfo.PrefabFolder;
                     serialiedScript.FindProperty("GeneratePrefab").boolValue = codeGenerateInfo.GeneratePrefab;
                     serialiedScript.FindProperty("ScriptName").stringValue = codeGenerateInfo.ScriptName;
+                    serialiedScript.FindProperty("Namespace").stringValue = codeGenerateInfo.Namespace;
 
                     var generatePrefab = codeGenerateInfo.GeneratePrefab;
                     var prefabFolder = codeGenerateInfo.PrefabFolder;
@@ -181,8 +184,8 @@ namespace QFramework
                         fullPrefabFolder.CreateDirIfNotExists();
 
                         var genereateFolder = prefabFolder + "/" + gameObject.name + ".prefab";
-                        
-                        PrefabUtils.SaveAndConnect(genereateFolder,gameObject);
+
+                        PrefabUtils.SaveAndConnect(genereateFolder, gameObject);
                     }
                 }
                 else
