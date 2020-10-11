@@ -1,15 +1,29 @@
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
 namespace QFramework.PackageKit
 {
-    public class PackageMaker : IMGUIEditorWindow
+    public class PackageMakerEditor : IMGUIEditorWindow
     {
         private PackageVersion mPackageVersion;
+
+
+        ControllerNode<PackageMaker> mControllerNode = ControllerNode<PackageMaker>.Allocate();
+
+        static string MakeInstallPath()
+        {
+            var path = MouseSelector.GetSelectedPathOrFallback();
+
+            if (path.EndsWith("/"))
+            {
+                return path;
+            }
+
+            return  path + "/";
+        }
         
-        
-        ControllerNode<PackageMakerApp> mControllerNode = ControllerNode<PackageMakerApp>.Allocate();
         private static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -18,16 +32,7 @@ namespace QFramework.PackageKit
             {
                 if (Directory.Exists(path))
                 {
-                    var installPath = string.Empty;
-
-                    if (path.EndsWith("/"))
-                    {
-                        installPath = path;
-                    }
-                    else
-                    {
-                        installPath = path + "/";
-                    }
+                    var installPath = MakeInstallPath();
 
                     new PackageVersion
                     {
@@ -74,47 +79,54 @@ namespace QFramework.PackageKit
                 return;
             }
 
-            var mInstance = (PackageMaker) GetWindow(typeof(PackageMaker), true);
+            var window = (PackageMakerEditor) GetWindow(typeof(PackageMakerEditor), true);
 
-            mInstance.titleContent = new GUIContent(selectObject[0].name);
+            window.titleContent = new GUIContent(selectObject[0].name);
 
-            mInstance.position = new Rect(Screen.width / 2, Screen.height / 2, 258, 500);
+            window.position = new Rect(Screen.width / 2, Screen.height / 2, 258, 500);
 
-            mInstance.Show();
+            window.Show();
         }
 
         private VerticalLayout RootLayout = null;
 
         DisposableList mDisposableList = new DisposableList();
-        
+
+        private string mPublishVersion = null;
 
         protected override void Init()
         {
             PackageMakerState.InitState();
-            
+
             RootLayout = new VerticalLayout("box");
-            
+
             var editorView = new VerticalLayout().AddTo(RootLayout);
             var uploadingView = new VerticalLayout().AddTo(RootLayout);
             // var finishView = new VerticalLayout().AddTo(RootLayout);
-            
+
             // 当前版本号
             var versionLine = new HorizontalLayout().AddTo(editorView);
             new LabelView("当前版本号").Width(100).AddTo(versionLine);
             new LabelView(mPackageVersion.Version).Width(100).AddTo(versionLine);
-            
-            // 发布版本号 
-            var publishedVertionLine = new HorizontalLayout().AddTo(editorView);
-            new LabelView("发布版本号").Width(100).AddTo(publishedVertionLine);
 
-            var version = new TextView().Width(100).AddTo(publishedVertionLine);
+            // 发布版本号 
+            var publishedVersionLine = new HorizontalLayout().AddTo(editorView);
             
+            new LabelView("发布版本号")
+                .Width(100)
+                .AddTo(publishedVersionLine);
+            
+            new TextView(mPublishVersion)
+                .Width(100)
+                .AddTo(publishedVersionLine)
+                .Content.Bind(v=>mPublishVersion = v);
+
             // 类型
             var typeLine = new HorizontalLayout().AddTo(editorView);
             new LabelView("类型").Width(100).AddTo(typeLine);
 
             var packageType = new EnumPopupView(mPackageVersion.Type).AddTo(typeLine);
-            
+
             var accessRightLine = new HorizontalLayout().AddTo(editorView);
             new LabelView("权限").Width(100).AddTo(accessRightLine);
             var accessRight = new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine);
@@ -122,47 +134,36 @@ namespace QFramework.PackageKit
             new LabelView("发布说明:").Width(150).AddTo(editorView);
 
             var releaseNote = new TextAreaView().Width(250).Height(300).AddTo(editorView);
-            
-            PackageMakerState.InEditorView.BindWithInitialValue(value =>
-            {
-                editorView.Visible = value;
-            }).AddTo(mDisposableList);
+
+            PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })
+                .AddTo(mDisposableList);
 
             if (User.Logined)
             {
-                var publishBtn = new ButtonView("发布").AddTo(editorView);
-                
-                // new ButtonView("发布并删除本地", () => { }).AddTo(editorView);
-
-                publishBtn.OnClick.AddListener(() =>
+                new ButtonView("发布", () =>
                 {
                     mPackageVersion.Readme.content = releaseNote.Content.Value;
                     mPackageVersion.AccessRight = (PackageAccessRight) accessRight.ValueProperty.Value;
                     mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
-                    mPackageVersion.Version = version.Content.Value;
-                    
+                    mPackageVersion.Version = mPublishVersion;
+
                     mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
-                });
+                }).AddTo(editorView);
             }
 
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).AddTo(uploadingView);
 
             PackageMakerState.NoticeMessage
-                .BindWithInitialValue(value =>
-                {
-                    notice.Content.Value = value;
-                }).AddTo(mDisposableList);
+                .BindWithInitialValue(value => { notice.Content.Value = value; }).AddTo(mDisposableList);
 
-            PackageMakerState.InUploadingView.BindWithInitialValue(value =>
-            {
-                uploadingView.Visible = value;
-            }).AddTo(mDisposableList);
+            PackageMakerState.InUploadingView.BindWithInitialValue(value => { uploadingView.Visible = value; })
+                .AddTo(mDisposableList);
         }
 
-        
+
         private void OnEnable()
         {
-            var selectObject = Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets);
+            var selectObject = Selection.GetFiltered(typeof(Object), SelectionMode.Assets);
 
             if (selectObject == null || selectObject.Length > 1)
             {
@@ -179,6 +180,16 @@ namespace QFramework.PackageKit
             }
 
             mPackageVersion = PackageVersion.Load(packageFolder);
+
+            mPackageVersion.InstallPath = MakeInstallPath();
+            
+            mPublishVersion = mPackageVersion.Version;
+
+            var versionNumbers = mPublishVersion.Split('.');
+            var lastVersionNumber = int.Parse(versionNumbers.Last());
+            lastVersionNumber++;
+            versionNumbers[versionNumbers.Length - 1] = lastVersionNumber.ToString();
+            mPublishVersion = string.Join(".", versionNumbers);
         }
 
         public override void OnUpdate()

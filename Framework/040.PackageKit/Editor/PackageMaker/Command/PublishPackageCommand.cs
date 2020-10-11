@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace QFramework.PackageKit
 {
-    public class PublishPackageCommand : Command<PackageMakerApp>
+    public class PublishPackageCommand : Command<PackageMaker>
     {
         private PackageVersion mPackageVersion;
 
