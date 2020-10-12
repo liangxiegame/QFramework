@@ -1,1 +1,16 @@
-{"Id":"","Version":"v0.10.6","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/4.AudioKit/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.6","content":"支持 AssemblyDefinition","author":"liangxie","date":"2020 年 08 月 07 日 05:16","PackageId":""}}
+{
+    "Id": "",
+    "Version": "v0.10.7",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/070.AudioKit/",
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.10.7",
+        "content": "初次提交",
+        "author": "liangxie",
+        "date": "2020 年 10 月 12 日 09:14",
+        "PackageId": ""
+    }
+}
