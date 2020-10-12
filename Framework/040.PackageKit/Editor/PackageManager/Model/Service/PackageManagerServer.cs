@@ -90,6 +90,13 @@ namespace QFramework.PackageKit
             {
                 var responseJson =
                     JsonUtility.FromJson<QFrameworkServerResultFormat<ListPackageResponseResult>>(response.Text);
+
+
+                if (responseJson == null)
+                {
+                    onResponse(null, null);
+                    return;
+                }
                 
                 if (responseJson.code == 1)
                 {
