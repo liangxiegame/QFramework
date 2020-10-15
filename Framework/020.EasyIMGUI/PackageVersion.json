@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.1.0",
+    "Version": "v0.1.1",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/020.EasyIMGUI/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.1.0",
-        "content": "初次提交",
+        "version": "v0.1.1",
+        "content": "IMGUI 系统使用 Architecture",
         "author": "liangxie",
-        "date": "2020 年 10 月 09 日 17:08",
+        "date": "2020 年 10 月 15 日 23:16",
         "PackageId": ""
     }
 }

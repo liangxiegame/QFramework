@@ -3,7 +3,7 @@ namespace QFramework.PackageKit
     public class RegisterView : VerticalLayout
     {
         ControllerNode<PackageKitLoginApp> mControllerNode = ControllerNode<PackageKitLoginApp>.Allocate();
-        
+
         public RegisterView()
         {
             var usernameLine = new HorizontalLayout().AddTo(this);
@@ -16,9 +16,14 @@ namespace QFramework.PackageKit
 
             new TextView("").PasswordMode().AddTo(passwordLine);
 
-            new ButtonView("注册", () => { }).AddTo(this);
-            
-            new ButtonView("返回注册", () => { mControllerNode.SendCommand(new OpenRegisterViewCommand()); })
+            EasyIMGUI.Button()
+                .Label("注册")
+                .OnClick(() => { })
+                .AddTo(this);
+
+            EasyIMGUI.Button()
+                .Label("返回注册")
+                .OnClick(() => { mControllerNode.SendCommand(new OpenRegisterViewCommand()); })
                 .AddTo(this);
         }
 

@@ -1,33 +1,37 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace QFramework
 {
-    public class ButtonView : View
+    public interface IButton : IMGUIView,
+        IHasLabel<IButton>,
+        ICanClick<IButton>
     {
-        public ButtonView(string text = null, Action onClickEvent = null)
-        {
-            Text = text;
-            OnClickEvent = onClickEvent;
-        }
+    }
 
-        public string Text { get; set; }
-
-        public Action OnClickEvent { get; set; }
-        public UnityEvent OnClick = new UnityEvent();
+    internal class ButtonView : View, IButton
+    {
+        private string mLabelText = string.Empty;
+        private Action mOnClick = () => { };
 
         protected override void OnGUI()
         {
-            if (GUILayout.Button(Text, GUI.skin.button, LayoutStyles))
+            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
             {
-                if (OnClickEvent != null)
-                {
-                    OnClickEvent.Invoke();
-                }
-
-                OnClick.Invoke();
+                mOnClick.Invoke();
             }
+        }
+
+        public IButton Label(string labelText)
+        {
+            mLabelText = labelText;
+            return this;
+        }
+
+        public IButton OnClick(Action action)
+        {
+            mOnClick = action;
+            return this;
         }
     }
 }

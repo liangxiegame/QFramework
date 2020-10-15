@@ -10,7 +10,9 @@ namespace QFramework.PackageKit
 
             new FlexibleSpaceView().AddTo(this);
             
-            new ButtonView(LocalText.Open, () => { Application.OpenURL(link); })
+            EasyIMGUI.Button()
+                .Label(LocalText.Open)
+                .OnClick(() => { Application.OpenURL(link); })
                 .Width(200)
                 .AddTo(this);
         }

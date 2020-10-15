@@ -40,7 +40,7 @@ namespace QFramework
             {
                 get { return Language.IsChinese ? "命名空间:" : "Namespace :"; }
             }
-            
+
             public static string ScriptName
             {
                 get { return Language.IsChinese ? "生成脚本名:" : "Script name:"; }
@@ -79,8 +79,12 @@ namespace QFramework
         {
             mRootLayout = new VerticalLayout();
 
-            new ButtonView(LocaleText.Generate,
-                    () => { CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject); })
+            EasyIMGUI.Button()
+                .Label(LocaleText.Generate)
+                .OnClick(() =>
+                {
+                    CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject);
+                })
                 .Height(30)
                 .AddTo(mRootLayout);
 
@@ -95,7 +99,7 @@ namespace QFramework
                 var setting = UIKitSettingData.Load();
                 mCodeGenerateInfo.PrefabFolder = "Assets" + setting.DefaultViewControllerPrefabDir;
             }
-            
+
             if (mCodeGenerateInfo.ScriptName.IsNullOrEmpty())
             {
                 mCodeGenerateInfo.ScriptName = mCodeGenerateInfo.name;
@@ -119,7 +123,7 @@ namespace QFramework
                 fontStyle = FontStyle.Bold,
                 fontSize = 15
             });
-            
+
             GUILayout.BeginHorizontal();
             GUILayout.Label(LocaleText.Namespace, GUILayout.Width(150));
             mCodeGenerateInfo.Namespace = EditorGUILayout.TextArea(mCodeGenerateInfo.Namespace);
@@ -132,11 +136,11 @@ namespace QFramework
 
             GUILayout.BeginHorizontal();
             GUILayout.Label(LocaleText.ScriptsFolder, GUILayout.Width(150));
-            mCodeGenerateInfo.ScriptsFolder = EditorGUILayout.TextArea(mCodeGenerateInfo.ScriptsFolder, GUILayout.Height(30));
+            mCodeGenerateInfo.ScriptsFolder =
+                EditorGUILayout.TextArea(mCodeGenerateInfo.ScriptsFolder, GUILayout.Height(30));
 
             GUILayout.EndHorizontal();
 
-          
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("请将要生成脚本的文件夹拖到下边区域 或 自行填写目录到上一栏中");
@@ -163,13 +167,13 @@ namespace QFramework
                     }
                 }
             }
-            
+
 
             GUILayout.BeginHorizontal();
             mCodeGenerateInfo.GeneratePrefab =
                 GUILayout.Toggle(mCodeGenerateInfo.GeneratePrefab, LocaleText.GeneratePrefab);
             GUILayout.EndHorizontal();
-            
+
             if (mCodeGenerateInfo.GeneratePrefab)
             {
                 GUILayout.BeginHorizontal();
@@ -178,7 +182,7 @@ namespace QFramework
                     GUILayout.TextArea(mCodeGenerateInfo.PrefabFolder, GUILayout.Height(30));
                 GUILayout.EndHorizontal();
             }
-            
+
             var fileFullPath = mCodeGenerateInfo.ScriptsFolder + "/" + mCodeGenerateInfo.ScriptName + ".cs";
             if (File.Exists(mCodeGenerateInfo.ScriptsFolder + "/" + mCodeGenerateInfo.ScriptName + ".cs"))
             {
@@ -193,7 +197,7 @@ namespace QFramework
                     Selection.objects = new Object[] {scriptObject};
                 }
             }
-            
+
             mRootLayout.DrawGUI();
 
             GUILayout.EndVertical();

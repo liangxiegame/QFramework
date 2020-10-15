@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright 2019.1 liangxie
+ * Copyright 2019.1 ~ 2020.10 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -56,7 +56,7 @@ namespace QFramework
         private VerticalLayout mRootLayout = null;
 
         private UIKitSettingViewModel mViewModel;
-        
+
         public void Init(IQFrameworkContainer container)
         {
             mViewModel = new UIKitSettingViewModel();
@@ -97,7 +97,7 @@ namespace QFramework
             new TextView(mUiKitSettingData.UIScriptDir)
                 .AddTo(uiScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
-            
+
             mRootLayout.AddChild(new SpaceView(6));
 
             var uiPanelPrefabDir = new HorizontalLayout()
@@ -114,7 +114,7 @@ namespace QFramework
                 .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
             mRootLayout.AddChild(new SpaceView(6));
-            
+
             // UI 生成的目录
             new SpaceView(6)
                 .AddTo(mRootLayout);
@@ -151,26 +151,24 @@ namespace QFramework
             mRootLayout.AddChild(new SpaceView(6));
 
             // 保存数据
-            new ButtonView(LocaleText.Apply, () => { mUiKitSettingData.Save(); })
+            EasyIMGUI.Button()
+                .Label(LocaleText.Apply)
+                .OnClick(() => { mUiKitSettingData.Save(); })
                 .AddTo(mRootLayout);
-
 
             new TextView(mViewModel.PanelNameToCreate)
                 .AddTo(mRootLayout)
-                .Do(text =>
-                {
-                    text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt);
-                });
+                .Do(text => { text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt); });
 
             // 创建 UI 界面 按钮的绑定
-            new ButtonView(LocaleText.CreateUIPanel)
+            EasyIMGUI.Button()
+                .Label(LocaleText.CreateUIPanel)
                 .AddTo(mRootLayout)
-                .Do(btn => btn.OnClick.AddListener(() => { mViewModel.OnCreateUIPanelClick(); }));
+                .Do(btn => btn.OnClick(() => { mViewModel.OnCreateUIPanelClick(); }));
         }
 
         public void OnUpdate()
         {
-
         }
 
         private bool ShowLabel2;
@@ -203,10 +201,7 @@ namespace QFramework
 
             public static string ViewControllerScriptGenerateDir
             {
-                get
-                {
-                    return Language.IsChinese ? " ViewController 脚本生成路径:" : " Default ViewController Generate Dir:";
-                }
+                get { return Language.IsChinese ? " ViewController 脚本生成路径:" : " Default ViewController Generate Dir:"; }
             }
 
             public static string ViewControllerPrefabGenerateDir

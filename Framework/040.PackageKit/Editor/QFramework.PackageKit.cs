@@ -42,7 +42,7 @@ namespace QFramework
 
         private double mCheckInterval = 60;
 
-        ControllerNode<PackageKit.PackageKit> mControllerNode = ControllerNode<PackageKit.PackageKit>.Allocate();     
+        ControllerNode<PackageKit.PackageKit> mControllerNode = ControllerNode<PackageKit.PackageKit>.Allocate();
 
         static PackageCheck()
         {
@@ -309,7 +309,7 @@ namespace QFramework
 
                     Debug.Log("PackageManager:插件下载成功");
 
-                    
+
                     this.GetModel<IInstalledPackageVersionsConfigModel>()
                         .Reload();
                 }
@@ -459,9 +459,7 @@ namespace QFramework
 
     public class SubWindow : EditorWindow, IMGUILayout
     {
-        void IMGUIView.Hide()
-        {
-        }
+        public bool Visible { get; set; }
 
         void IMGUIView.DrawGUI()
         {
@@ -469,7 +467,7 @@ namespace QFramework
 
         IMGUILayout IMGUIView.Parent { get; set; }
 
-        private GUIStyleProperty mStyle = new GUIStyleProperty(()=>new GUIStyle());
+        private GUIStyleProperty mStyle = new GUIStyleProperty(() => new GUIStyle());
 
         public GUIStyleProperty Style
         {
@@ -628,7 +626,7 @@ namespace QFramework
             }
         }
     }
-    
+
 
     public class TreeNode : VerticalLayout
     {
@@ -700,7 +698,7 @@ namespace QFramework
             return this;
         }
     }
-    
+
     public static class WindowExtension
     {
         public static T PushCommand<T>(this T view, Action command) where T : IMGUIView
@@ -967,7 +965,6 @@ namespace QFramework
     }
 
 
-
     public class ColorView : View
     {
         public ColorView(Color color)
@@ -982,7 +979,7 @@ namespace QFramework
             Color.Value = EditorGUILayout.ColorField(Color.Value, LayoutStyles);
         }
     }
-    
+
 
     public class EnumPopupView : View
     {
@@ -1001,7 +998,7 @@ namespace QFramework
             ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style.Value, LayoutStyles);
         }
     }
-    
+
 
     public class PopupView : View
     {
@@ -1023,7 +1020,7 @@ namespace QFramework
             IndexProperty.Value = EditorGUILayout.Popup(IndexProperty.Value, MenuArray, LayoutStyles);
         }
     }
-    
+
 
     public abstract class IMGUIViewController
     {

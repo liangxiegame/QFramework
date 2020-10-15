@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.11.11",
+    "Version": "v0.11.12",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/050.ResKit/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.11",
-        "content": "初次提交",
+        "version": "v0.11.12",
+        "content": "使用新的 IMGUI.Button",
         "author": "liangxie",
-        "date": "2020 年 10 月 12 日 09:09",
+        "date": "2020 年 10 月 15 日 23:18",
         "PackageId": ""
     }
 }

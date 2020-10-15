@@ -51,7 +51,7 @@ namespace QFramework
             get { return target as Bind; }
         }
 
-        private VerticalLayout   mRootLayout;
+        private VerticalLayout mRootLayout;
         private HorizontalLayout mComponentLine;
         private HorizontalLayout mClassnameLine;
 
@@ -103,7 +103,6 @@ namespace QFramework
 
             if (mBindScript.MarkType == BindType.DefaultUnityElement)
             {
-
                 var components = mBindScript.GetComponents<Component>();
 
                 var componentNames = components.Where(c => c.GetType() != typeof(Bind))
@@ -119,7 +118,7 @@ namespace QFramework
                 {
                     componentNameIndex = 0;
                 }
-                
+
                 mBindScript.ComponentName = componentNames[componentNameIndex];
 
                 new PopupView(componentNameIndex, componentNames)
@@ -128,7 +127,7 @@ namespace QFramework
             }
 
             mComponentLine.AddTo(mRootLayout);
-            
+
 
             new SpaceView()
                 .AddTo(mRootLayout);
@@ -147,7 +146,9 @@ namespace QFramework
                 .AddTo(belongsTo);
 
 
-            new ButtonView(LocaleText.Select, () =>
+            EasyIMGUI.Button()
+                .Label(LocaleText.Select)
+                .OnClick(() =>
                 {
                     Selection.objects = new[]
                     {
@@ -189,30 +190,26 @@ namespace QFramework
             var rootGameObj = CodeGenUtil.GetBindBelongs2GameObject(bind);
 
 
-            if (rootGameObj.transform.GetComponent("ILKitBehaviour")) 
+            if (rootGameObj.transform.GetComponent("ILKitBehaviour"))
             {
-                
             }
             else if (rootGameObj.transform.IsUIPanel())
             {
-                new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
-                        () =>
-                        {
-                            var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
-
-
-                            UICodeGenerator.DoCreateCode(new[] {rootPrefabObj});
-                        })
+                EasyIMGUI.Button()
+                    .Label(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
+                    .OnClick(() =>
+                    {
+                        var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
+                        UICodeGenerator.DoCreateCode(new[] {rootPrefabObj});
+                    })
                     .Height(30)
                     .AddTo(mRootLayout);
             }
             else if (rootGameObj.transform.IsViewController())
             {
-                new ButtonView(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind),
-                        () =>
-                        {
-                            CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject);
-                        })
+                EasyIMGUI.Button()
+                    .Label(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
+                    .OnClick(() => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })
                     .Height(30)
                     .AddTo(mRootLayout);
             }

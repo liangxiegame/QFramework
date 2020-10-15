@@ -1,6 +1,9 @@
 ﻿{
-	"name": "QFramework.EasyIMGUI",
-	"references": [
-		"QFramework.BindableProperty"
-	]
+  "name": "QFramework.EasyIMGUI",
+  "references": [
+    "QFramework.Singleton",
+    "QFramework.BindableProperty",
+    "QFramework.Architecture",
+    "QFramework.IOC"
+  ]
 }

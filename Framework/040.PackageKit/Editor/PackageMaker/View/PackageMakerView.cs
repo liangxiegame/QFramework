@@ -21,9 +21,9 @@ namespace QFramework.PackageKit
                 return path;
             }
 
-            return  path + "/";
+            return path + "/";
         }
-        
+
         private static void MakePackage()
         {
             var path = MouseSelector.GetSelectedPathOrFallback();
@@ -111,15 +111,15 @@ namespace QFramework.PackageKit
 
             // 发布版本号 
             var publishedVersionLine = new HorizontalLayout().AddTo(editorView);
-            
+
             new LabelView("发布版本号")
                 .Width(100)
                 .AddTo(publishedVersionLine);
-            
+
             new TextView(mPublishVersion)
                 .Width(100)
                 .AddTo(publishedVersionLine)
-                .Content.Bind(v=>mPublishVersion = v);
+                .Content.Bind(v => mPublishVersion = v);
 
             // 类型
             var typeLine = new HorizontalLayout().AddTo(editorView);
@@ -133,22 +133,25 @@ namespace QFramework.PackageKit
 
             new LabelView("发布说明:").Width(150).AddTo(editorView);
 
-            var releaseNote = new TextAreaView().Width(250).Height(300).AddTo(editorView);
+            var releaseNote = new TextAreaView().Width(245)
+                .AddTo(editorView);
 
             PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })
                 .AddTo(mDisposableList);
 
             if (User.Logined)
             {
-                new ButtonView("发布", () =>
-                {
-                    mPackageVersion.Readme.content = releaseNote.Content.Value;
-                    mPackageVersion.AccessRight = (PackageAccessRight) accessRight.ValueProperty.Value;
-                    mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
-                    mPackageVersion.Version = mPublishVersion;
-
-                    mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
-                }).AddTo(editorView);
+                EasyIMGUI.Button()
+                    .Label("发布")
+                    .OnClick(() =>
+                    {
+                        mPackageVersion.Readme.content = releaseNote.Content.Value;
+                        mPackageVersion.AccessRight = (PackageAccessRight) accessRight.ValueProperty.Value;
+                        mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
+                        mPackageVersion.Version = mPublishVersion;
+                        mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
+                        
+                    }).AddTo(editorView);
             }
 
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).AddTo(uploadingView);
@@ -182,7 +185,7 @@ namespace QFramework.PackageKit
             mPackageVersion = PackageVersion.Load(packageFolder);
 
             mPackageVersion.InstallPath = MakeInstallPath();
-            
+
             mPublishVersion = mPackageVersion.Version;
 
             var versionNumbers = mPublishVersion.Split('.');

@@ -6,6 +6,7 @@ namespace QFramework.PackageKit
     public class PackageRepositoryView : HorizontalLayout
     {
         ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
+
         public PackageRepositoryView(PackageRepository packageRepository)
         {
             new SpaceView(2).AddTo(this);
@@ -21,45 +22,43 @@ namespace QFramework.PackageKit
                 .AddTo(this);
 
             new LabelView(packageRepository.accessRight).TextMiddleLeft().Width(50).AddTo(this);
-            
-            
+
+
             if (installedPackage == null)
             {
-                new ButtonView(LocaleText.Import).Width(90).AddTo(this)
-                    .OnClick.AddListener(() =>
-                    {
-                        mControllerNode.SendCommand(new ImportPackageCommand(packageRepository));
-                    });
+                EasyIMGUI.Button()
+                    .Label(LocaleText.Import)
+                    .Width(90)
+                    .AddTo(this)
+                    .OnClick(() => { mControllerNode.SendCommand(new ImportPackageCommand(packageRepository)); });
             }
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
             {
-                new ButtonView(LocaleText.Update).Width(90).AddTo(this)
-                    .OnClick.AddListener(() =>
-                    {
-                        mControllerNode.SendCommand(new UpdatePackageCommand(packageRepository));
-                    });
+                EasyIMGUI.Button()
+                    .Label(LocaleText.Update)
+                    .Width(90)
+                    .OnClick(() => { mControllerNode.SendCommand(new UpdatePackageCommand(packageRepository)); })
+                    .AddTo(this);
             }
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
             {
-                new ButtonView(LocaleText.Reimport).Width(90).AddTo(this)
-                    .OnClick.AddListener(() =>
-                    {
-                        mControllerNode.SendCommand(new ReimportPackageCommand(packageRepository));
-                    });
-
+                EasyIMGUI.Button()
+                    .Label(LocaleText.Reimport)
+                    .Width(90)
+                    .OnClick(() => { mControllerNode.SendCommand(new ReimportPackageCommand(packageRepository)); })
+                    .AddTo(this);
             }
             else if (packageRepository.VersionNumber < installedPackage.VersionNumber)
             {
                 new SpaceView(94).AddTo(this);
             }
 
-            new ButtonView(LocaleText.ReleaseNotes)
+            EasyIMGUI.Button()
+                .Label(LocaleText.ReleaseNotes)
+                .OnClick(() => { mControllerNode.SendCommand(new OpenDetailCommand(packageRepository)); })
                 .Width(100)
-                .AddTo(this)
-                .OnClick.AddListener(() =>
-                {
-                    mControllerNode.SendCommand(new OpenDetailCommand(packageRepository));
-                });
+                .AddTo(this);
+
 
             new LabelView(packageRepository.author)
                 .TextMiddleLeft()
