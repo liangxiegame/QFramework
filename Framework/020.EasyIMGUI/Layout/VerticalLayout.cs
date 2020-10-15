@@ -2,7 +2,12 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class VerticalLayout : Layout
+    public interface IVerticalLayout : IMGUILayout
+    {
+    
+    }
+    
+    public class VerticalLayout : Layout,IVerticalLayout
     {
         public string VerticalStyle { get; set; }
 

@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.1.1",
+    "Version": "v0.1.2",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/020.EasyIMGUI/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.1.1",
-        "content": "IMGUI 系统使用 Architecture",
+        "version": "v0.1.2",
+        "content": "重构 Label、Space、FlexiableSpace",
         "author": "liangxie",
-        "date": "2020 年 10 月 15 日 23:16",
+        "date": "2020 年 10 月 16 日 00:07",
         "PackageId": ""
     }
 }

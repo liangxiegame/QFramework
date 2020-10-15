@@ -652,7 +652,7 @@ namespace QFramework
             Style = new GUIStyleProperty(() => EditorStyles.foldout);
 
             mFirstLine.AddTo(this);
-            mFirstLine.AddChild(new SpaceView(indent));
+            mFirstLine.AddChild(EasyIMGUI.Space().Pixel(indent));
 
             if (autosaveSpreadState)
             {

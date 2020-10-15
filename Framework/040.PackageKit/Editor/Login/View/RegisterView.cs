@@ -6,23 +6,24 @@ namespace QFramework.PackageKit
 
         public RegisterView()
         {
-            var usernameLine = new HorizontalLayout().AddTo(this);
-            new LabelView("username:").AddTo(usernameLine);
+            var usernameLine = new HorizontalLayout().AddTo(this); 
+            
+            EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
             new TextView("").AddTo(usernameLine);
 
             var passwordLine = new HorizontalLayout().AddTo(this);
 
-            new LabelView("password:").AddTo(passwordLine);
+            EasyIMGUI.Label().Text("password:").AddTo(passwordLine);
 
             new TextView("").PasswordMode().AddTo(passwordLine);
 
             EasyIMGUI.Button()
-                .Label("注册")
+                .Text("注册")
                 .OnClick(() => { })
                 .AddTo(this);
 
             EasyIMGUI.Button()
-                .Label("返回注册")
+                .Text("返回注册")
                 .OnClick(() => { mControllerNode.SendCommand(new OpenRegisterViewCommand()); })
                 .AddTo(this);
         }

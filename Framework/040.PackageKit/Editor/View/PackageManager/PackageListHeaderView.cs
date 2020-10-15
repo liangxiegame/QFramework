@@ -6,27 +6,31 @@ namespace QFramework.PackageKit
         {
             HorizontalStyle = "box";
 
-            new LabelView(LocaleText.PackageName)
+            EasyIMGUI.Label()
+                .Text(LocaleText.PackageName)
                 .Width(200)
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new LabelView(LocaleText.ServerVersion)
+            EasyIMGUI.Label()
+                .Text(LocaleText.ServerVersion)
                 .Width(80)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new LabelView(LocaleText.LocalVersion)
+            EasyIMGUI.Label()
+                .Text(LocaleText.LocalVersion)
                 .Width(80)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new LabelView(LocaleText.AccessRight)
+            EasyIMGUI.Label()
+                .Text(LocaleText.AccessRight)
                 .Width(50)
                 .TextMiddleCenter()
                 .FontSize(12)
@@ -40,21 +44,22 @@ namespace QFramework.PackageKit
             //     .FontBold()
             //     .AddTo(this);
 
-            new LabelView(LocaleText.Action)
+            EasyIMGUI.Label()
+                .Text(LocaleText.Action)
                 .Width(100)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
 
-            new LabelView(LocaleText.ReleaseNote)
+            EasyIMGUI.Label().Text(LocaleText.ReleaseNote)
                 .Width(100)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
                 .AddTo(this);
             
-            new LabelView(LocaleText.AuthorName)
+            EasyIMGUI.Label().Text(LocaleText.AuthorName)
                 .Width(140)
                 .TextMiddleCenter()
                 .FontSize(12)

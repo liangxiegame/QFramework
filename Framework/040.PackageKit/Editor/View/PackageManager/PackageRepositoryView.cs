@@ -9,25 +9,25 @@ namespace QFramework.PackageKit
 
         public PackageRepositoryView(PackageRepository packageRepository)
         {
-            new SpaceView(2).AddTo(this);
+            EasyIMGUI.Space().Pixel(2).AddTo(this);
 
-            new LabelView(packageRepository.name).FontBold().Width(200).AddTo(this);
+            EasyIMGUI.Label().Text(packageRepository.name).FontBold().Width(200).AddTo(this);
 
-            new LabelView(packageRepository.latestVersion).TextMiddleCenter().Width(80).AddTo(this);
+            EasyIMGUI.Label().Text(packageRepository.latestVersion).TextMiddleCenter().Width(80).AddTo(this);
 
             var installedPackage = mControllerNode.GetModel<IInstalledPackageVersionsConfigModel>()
                 .GetByName(packageRepository.name);
 
-            new LabelView(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
+            EasyIMGUI.Label().Text(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
                 .AddTo(this);
 
-            new LabelView(packageRepository.accessRight).TextMiddleLeft().Width(50).AddTo(this);
+            EasyIMGUI.Label().Text(packageRepository.accessRight).TextMiddleLeft().Width(50).AddTo(this);
 
 
             if (installedPackage == null)
             {
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Import)
+                    .Text(LocaleText.Import)
                     .Width(90)
                     .AddTo(this)
                     .OnClick(() => { mControllerNode.SendCommand(new ImportPackageCommand(packageRepository)); });
@@ -35,7 +35,7 @@ namespace QFramework.PackageKit
             else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
             {
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Update)
+                    .Text(LocaleText.Update)
                     .Width(90)
                     .OnClick(() => { mControllerNode.SendCommand(new UpdatePackageCommand(packageRepository)); })
                     .AddTo(this);
@@ -43,24 +43,24 @@ namespace QFramework.PackageKit
             else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
             {
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Reimport)
+                    .Text(LocaleText.Reimport)
                     .Width(90)
                     .OnClick(() => { mControllerNode.SendCommand(new ReimportPackageCommand(packageRepository)); })
                     .AddTo(this);
             }
             else if (packageRepository.VersionNumber < installedPackage.VersionNumber)
             {
-                new SpaceView(94).AddTo(this);
+                EasyIMGUI.Space().Pixel(94).AddTo(this);
             }
 
             EasyIMGUI.Button()
-                .Label(LocaleText.ReleaseNotes)
+                .Text(LocaleText.ReleaseNotes)
                 .OnClick(() => { mControllerNode.SendCommand(new OpenDetailCommand(packageRepository)); })
                 .Width(100)
                 .AddTo(this);
 
 
-            new LabelView(packageRepository.author)
+            EasyIMGUI.Label().Text(packageRepository.author)
                 .TextMiddleLeft()
                 .FontBold().Width(100)
                 .AddTo(this);

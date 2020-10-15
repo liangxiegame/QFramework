@@ -80,7 +80,7 @@ namespace QFramework
             mRootLayout = new VerticalLayout();
 
             EasyIMGUI.Button()
-                .Label(LocaleText.Generate)
+                .Text(LocaleText.Generate)
                 .OnClick(() =>
                 {
                     CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject);

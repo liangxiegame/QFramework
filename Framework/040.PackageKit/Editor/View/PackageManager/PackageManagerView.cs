@@ -54,14 +54,14 @@ namespace QFramework.PackageKit
 
             mRootLayout = new VerticalLayout();
 
-            new LabelView(LocaleText.FrameworkPackages).FontSize(12).AddTo(mRootLayout);
+            EasyIMGUI.Label().Text(LocaleText.FrameworkPackages).FontSize(12).AddTo(mRootLayout);
 
             var verticalLayout = new VerticalLayout("box").AddTo(mRootLayout);
 
             var searchView = new HorizontalLayout("box")
                 .AddTo(verticalLayout);
 
-            searchView.AddChild(new LabelView("搜索:")
+            searchView.AddChild(EasyIMGUI.Label().Text("搜索:")
                 .FontBold()
                 .FontSize(12)
                 .Width(40));
@@ -121,12 +121,12 @@ namespace QFramework.PackageKit
         private void OnRefreshList(List<PackageRepository> packageRepositories)
         {
             mRepositoryList.Clear();
-            mRepositoryList.AddChild(new SpaceView(2));
+            mRepositoryList.AddChild(EasyIMGUI.Space().Pixel(2));
 
             foreach (var packageRepository in packageRepositories)
             {
                 mRepositoryList
-                    .AddChild(new SpaceView(2))
+                    .AddChild(EasyIMGUI.Space().Pixel(2))
                     .AddChild(new PackageRepositoryView(packageRepository));
             }
         }

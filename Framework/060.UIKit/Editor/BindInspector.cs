@@ -59,13 +59,13 @@ namespace QFramework
         {
             mRootLayout = new VerticalLayout("box");
 
-            new SpaceView()
+            EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
             var markTypeLine = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.MarkType)
+            EasyIMGUI.Label().Text(LocaleText.MarkType)
                 .FontSize(12)
                 .Width(60)
                 .AddTo(markTypeLine);
@@ -81,7 +81,7 @@ namespace QFramework
             });
 
 
-            new SpaceView()
+            EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
             new CustomView(() =>
@@ -96,7 +96,7 @@ namespace QFramework
 
             mComponentLine = new HorizontalLayout();
 
-            new LabelView(LocaleText.Type)
+            EasyIMGUI.Label().Text(LocaleText.Type)
                 .Width(60)
                 .FontSize(12)
                 .AddTo(mComponentLine);
@@ -127,27 +127,26 @@ namespace QFramework
             }
 
             mComponentLine.AddTo(mRootLayout);
-
-
-            new SpaceView()
+            
+            EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
             var belongsTo = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.BelongsTo)
+            EasyIMGUI.Label().Text(LocaleText.BelongsTo)
                 .Width(60)
                 .FontSize(12)
                 .AddTo(belongsTo);
 
-            new LabelView(CodeGenUtil.GetBindBelongs2(target as Bind))
+            EasyIMGUI.Label().Text(CodeGenUtil.GetBindBelongs2(target as Bind))
                 .Width(200)
                 .FontSize(12)
                 .AddTo(belongsTo);
 
 
             EasyIMGUI.Button()
-                .Label(LocaleText.Select)
+                .Text(LocaleText.Select)
                 .OnClick(() =>
                 {
                     Selection.objects = new[]
@@ -160,7 +159,7 @@ namespace QFramework
 
             mClassnameLine = new HorizontalLayout();
 
-            new LabelView(LocaleText.ClassName)
+            EasyIMGUI.Label().Text(LocaleText.ClassName)
                 .Width(60)
                 .FontSize(12)
                 .AddTo(mClassnameLine);
@@ -171,14 +170,14 @@ namespace QFramework
 
             mClassnameLine.AddTo(mRootLayout);
 
-            new SpaceView()
+            EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.Comment)
+            EasyIMGUI.Label().Text(LocaleText.Comment)
                 .FontSize(12)
                 .AddTo(mRootLayout);
 
-            new SpaceView()
+            EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
             new TextAreaView(mBindScript.Comment)
@@ -196,7 +195,7 @@ namespace QFramework
             else if (rootGameObj.transform.IsUIPanel())
             {
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
+                    .Text(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
                     .OnClick(() =>
                     {
                         var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
@@ -208,7 +207,7 @@ namespace QFramework
             else if (rootGameObj.transform.IsViewController())
             {
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
+                    .Text(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
                     .OnClick(() => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })
                     .Height(30)
                     .AddTo(mRootLayout);

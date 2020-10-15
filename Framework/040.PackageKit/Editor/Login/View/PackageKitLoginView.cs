@@ -22,11 +22,11 @@ namespace QFramework.PackageKit
 
         public void Init(IQFrameworkContainer container)
         {
-            new LabelView("账户信息").FontSize(12).AddTo(this);
+            EasyIMGUI.Label().Text("账户信息").FontSize(12).AddTo(this);
 
             var boxLayout = new VerticalLayout("box").AddTo(this);
             
-            var logoutBtn = EasyIMGUI.Button().Label("注销")
+            var logoutBtn = EasyIMGUI.Button().Text("注销")
                 .Visible(PackageKitLoginState.Logined.Value)
                 .AddTo(boxLayout);
 

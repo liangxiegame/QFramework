@@ -28,8 +28,7 @@ namespace QFramework.PackageKit
 
 			var verticalLayout = new VerticalLayout()
 				.AddTo(mRootLayout);
-
-			new LabelView("技术支持").FontBold().FontSize(12).AddTo(verticalLayout);
+			EasyIMGUI.Label().Text("技术支持").FontBold().FontSize(12).AddTo(verticalLayout);
 
 			new AdvertisementItemView("官方文档：《QFramework 使用指南 2020》",
 					"https://qframework.cn/doc")

@@ -4,12 +4,12 @@ using UnityEngine;
 namespace QFramework
 {
     public interface IButton : IMGUIView,
-        IHasLabel<IButton>,
+        IHasText<IButton>,
         ICanClick<IButton>
     {
     }
 
-    internal class ButtonView : View, IButton
+    internal class Button : View, IButton
     {
         private string mLabelText = string.Empty;
         private Action mOnClick = () => { };
@@ -22,7 +22,7 @@ namespace QFramework
             }
         }
 
-        public IButton Label(string labelText)
+        public IButton Text(string labelText)
         {
             mLabelText = labelText;
             return this;

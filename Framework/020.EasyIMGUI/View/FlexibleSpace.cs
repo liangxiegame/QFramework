@@ -2,7 +2,11 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class FlexibleSpaceView : View
+    public interface IFlexibleSpace : IMGUIView
+    {
+    }
+
+    internal class FlexibleSpace : View, IFlexibleSpace
     {
         protected override void OnGUI()
         {

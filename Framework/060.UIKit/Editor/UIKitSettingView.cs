@@ -61,17 +61,17 @@ namespace QFramework
         {
             mViewModel = new UIKitSettingViewModel();
 
-            new LabelView(LocaleText.UIKitSettings).FontSize(12).AddTo(this);
+            EasyIMGUI.Label().Text(LocaleText.UIKitSettings).FontSize(12).AddTo(this);
 
             mRootLayout = new VerticalLayout("box").AddTo(this);
 
-            mRootLayout.AddChild(new SpaceView(6));
+            mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             // 命名空间
             var nameSpaceLayout = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.Namespace)
+            EasyIMGUI.Label().Text(LocaleText.Namespace)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
@@ -82,13 +82,13 @@ namespace QFramework
                 .Content.Bind(content => mUiKitSettingData.Namespace = content);
 
             // UI 生成的目录
-            new SpaceView(6)
+            EasyIMGUI.Space().Pixel(6)
                 .AddTo(mRootLayout);
 
             var uiScriptGenerateDirLayout = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.UIScriptGenerateDir)
+            EasyIMGUI.Label().Text(LocaleText.UIScriptGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
@@ -98,12 +98,12 @@ namespace QFramework
                 .AddTo(uiScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
 
-            mRootLayout.AddChild(new SpaceView(6));
+            mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             var uiPanelPrefabDir = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.UIPanelPrefabDir)
+            EasyIMGUI.Label().Text(LocaleText.UIPanelPrefabDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
@@ -113,16 +113,16 @@ namespace QFramework
                 .AddTo(uiPanelPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
-            mRootLayout.AddChild(new SpaceView(6));
+            mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             // UI 生成的目录
-            new SpaceView(6)
+            EasyIMGUI.Space().Pixel(6)
                 .AddTo(mRootLayout);
 
             var viewControllerScriptGenerateDirLayout = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.ViewControllerScriptGenerateDir)
+            EasyIMGUI.Label().Text(LocaleText.ViewControllerScriptGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
@@ -133,12 +133,12 @@ namespace QFramework
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerScriptDir = content);
 
 
-            mRootLayout.AddChild(new SpaceView(6));
+            mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             var viewControllerPrefabDir = new HorizontalLayout()
                 .AddTo(mRootLayout);
 
-            new LabelView(LocaleText.ViewControllerPrefabGenerateDir)
+            EasyIMGUI.Label().Text(LocaleText.ViewControllerPrefabGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(220)
@@ -148,11 +148,11 @@ namespace QFramework
                 .AddTo(viewControllerPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerPrefabDir = content);
 
-            mRootLayout.AddChild(new SpaceView(6));
+            mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             // 保存数据
             EasyIMGUI.Button()
-                .Label(LocaleText.Apply)
+                .Text(LocaleText.Apply)
                 .OnClick(() => { mUiKitSettingData.Save(); })
                 .AddTo(mRootLayout);
 
@@ -162,7 +162,7 @@ namespace QFramework
 
             // 创建 UI 界面 按钮的绑定
             EasyIMGUI.Button()
-                .Label(LocaleText.CreateUIPanel)
+                .Text(LocaleText.CreateUIPanel)
                 .AddTo(mRootLayout)
                 .Do(btn => btn.OnClick(() => { mViewModel.OnCreateUIPanelClick(); }));
         }

@@ -4,7 +4,22 @@ namespace QFramework
     {
         public static IButton Button()
         {
-            return new ButtonView();
+            return new Button();
+        }
+
+        public static ILabel Label()
+        {
+            return new Label();
+        }
+
+        public static ISpace Space()
+        {
+            return new Space();
+        }
+
+        public static IFlexibleSpace FlexibleSpace()
+        {
+            return new FlexibleSpace();
         }
         
         private EasyIMGUI()

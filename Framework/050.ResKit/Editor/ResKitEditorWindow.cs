@@ -118,17 +118,17 @@ namespace QFramework
 
             public void Init(IQFrameworkContainer container)
             {
-                new LabelView(LocaleText.ResKit).FontSize(12).AddTo(this);
+                EasyIMGUI.Label().Text(LocaleText.ResKit).FontSize(12).AddTo(this);
 
                 var verticalLayout = new VerticalLayout("box").AddTo(this);
 
                 var persistLine = new HorizontalLayout();
-                new LabelView("PersistantPath:").AddTo(persistLine).Width(100);
+                EasyIMGUI.Label().Text("PersistantPath:").AddTo(persistLine).Width(100);
                 new TextView(Application.persistentDataPath).AddTo(persistLine);
                 persistLine.AddTo(verticalLayout);
 
                 EasyIMGUI.Button()
-                    .Label(LocaleText.GoToPersistent)
+                    .Text(LocaleText.GoToPersistent)
                     .OnClick(() => { EditorUtility.RevealInFinder(Application.persistentDataPath); })
                     .AddTo(verticalLayout);
 
@@ -169,13 +169,13 @@ namespace QFramework
                 var resVersionLine = new HorizontalLayout()
                     .AddTo(verticalLayout);
 
-                new LabelView("ResVesion:").AddTo(resVersionLine).Width(100);
+                EasyIMGUI.Label().Text("ResVesion:").AddTo(resVersionLine).Width(100);
 
                 new TextView(mResVersion).AddTo(resVersionLine)
                     .Content.Bind(v => mResVersion = v);
 
                 EasyIMGUI.Button()
-                    .Label(LocaleText.GenerateClass)
+                    .Text(LocaleText.GenerateClass)
                     .OnClick(() =>
                     {
                         BuildScript.WriteClass();
@@ -183,7 +183,7 @@ namespace QFramework
                     }).AddTo(verticalLayout);
 
                 EasyIMGUI.Button()
-                    .Label(LocaleText.Build)
+                    .Text(LocaleText.Build)
                     .OnClick(() =>
                     {
                         EditorLifecycle.PushCommand(() =>
@@ -200,12 +200,12 @@ namespace QFramework
                     }).AddTo(verticalLayout);
 
                 EasyIMGUI.Button()
-                    .Label(LocaleText.ForceClear)
+                    .Text(LocaleText.ForceClear)
                     .OnClick(() => { ForceClear(); })
                     .AddTo(verticalLayout);
 
-                verticalLayout.AddChild(new SpaceView(10));
-                verticalLayout.AddChild(new LabelView("已标记 AB 列表:").FontBold().FontSize(15));
+                verticalLayout.AddChild(EasyIMGUI.Space().Pixel(10));
+                verticalLayout.AddChild(EasyIMGUI.Label().Text("已标记 AB 列表:").FontBold().FontSize(15));
 
 
                 var scrollView = new ScrollLayout().AddTo(verticalLayout);
@@ -241,9 +241,9 @@ namespace QFramework
                             .Distinct();
                     })
                     .ForEach(n => new HorizontalLayout()
-                        .AddChild(new LabelView(n))
+                        .AddChild(EasyIMGUI.Label().Text(n))
                         .AddChild(EasyIMGUI.Button()
-                            .Label("选择")
+                            .Text("选择")
                             .OnClick(() =>
                             {
                                 Selection.objects = new[]
@@ -252,7 +252,7 @@ namespace QFramework
                                 };
                             }).Width(50))
                         .AddChild(EasyIMGUI.Button()
-                            .Label("取消标记")
+                            .Text("取消标记")
                             .OnClick(() =>
                             {
                                 ResKitAssetsMenu.MarkAB(n);

@@ -4,14 +4,17 @@ namespace QFramework.PackageKit
 {
     public class AdvertisementItemView : HorizontalLayout
     {
-        public AdvertisementItemView(string title,string link) : base("box")
+        public AdvertisementItemView(string title, string link) : base("box")
         {
-            new LabelView(title).FontBold().AddTo(this);
-
-            new FlexibleSpaceView().AddTo(this);
+            EasyIMGUI.Label()
+                .Text(title)
+                .FontBold()
+                .AddTo(this);
             
+            EasyIMGUI.FlexibleSpace().AddTo(this);
+
             EasyIMGUI.Button()
-                .Label(LocalText.Open)
+                .Text(LocalText.Open)
                 .OnClick(() => { Application.OpenURL(link); })
                 .Width(200)
                 .AddTo(this);

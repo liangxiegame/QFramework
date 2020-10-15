@@ -106,13 +106,13 @@ namespace QFramework.PackageKit
 
             // 当前版本号
             var versionLine = new HorizontalLayout().AddTo(editorView);
-            new LabelView("当前版本号").Width(100).AddTo(versionLine);
-            new LabelView(mPackageVersion.Version).Width(100).AddTo(versionLine);
+            EasyIMGUI.Label().Text("当前版本号").Width(100).AddTo(versionLine);
+            EasyIMGUI.Label().Text(mPackageVersion.Version).Width(100).AddTo(versionLine);
 
             // 发布版本号 
             var publishedVersionLine = new HorizontalLayout().AddTo(editorView);
 
-            new LabelView("发布版本号")
+            EasyIMGUI.Label().Text("发布版本号")
                 .Width(100)
                 .AddTo(publishedVersionLine);
 
@@ -123,15 +123,15 @@ namespace QFramework.PackageKit
 
             // 类型
             var typeLine = new HorizontalLayout().AddTo(editorView);
-            new LabelView("类型").Width(100).AddTo(typeLine);
+            EasyIMGUI.Label().Text("类型").Width(100).AddTo(typeLine);
 
             var packageType = new EnumPopupView(mPackageVersion.Type).AddTo(typeLine);
 
             var accessRightLine = new HorizontalLayout().AddTo(editorView);
-            new LabelView("权限").Width(100).AddTo(accessRightLine);
+            EasyIMGUI.Label().Text("权限").Width(100).AddTo(accessRightLine);
             var accessRight = new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine);
 
-            new LabelView("发布说明:").Width(150).AddTo(editorView);
+            EasyIMGUI.Label().Text("发布说明:").Width(150).AddTo(editorView);
 
             var releaseNote = new TextAreaView().Width(245)
                 .AddTo(editorView);
@@ -142,7 +142,7 @@ namespace QFramework.PackageKit
             if (User.Logined)
             {
                 EasyIMGUI.Button()
-                    .Label("发布")
+                    .Text("发布")
                     .OnClick(() =>
                     {
                         mPackageVersion.Readme.content = releaseNote.Content.Value;
