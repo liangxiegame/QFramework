@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.1.2",
+    "Version": "v0.1.3",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/020.EasyIMGUI/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.1.2",
-        "content": "重构 Label、Space、FlexiableSpace",
+        "version": "v0.1.3",
+        "content": "重构 TextField 和 TextArea",
         "author": "liangxie",
-        "date": "2020 年 10 月 16 日 00:07",
+        "date": "2020 年 10 月 17 日 00:53",
         "PackageId": ""
     }
 }

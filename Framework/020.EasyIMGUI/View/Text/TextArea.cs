@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2020.10 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,16 +24,34 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-    internal static class SingletonCreator
+    public interface ITextArea : IMGUIView, IHasText<ITextArea>
     {
-        public static T CreateSingleton<T>() where T : class, ISingleton
-        {
-            var instance = ObjectFactory.CreateNonPublicConstructorObject<T>();
-            instance.OnSingletonInit();
-            return instance;
-        }
+        Property<string> Content { get; }
     }
 
+    internal class TextArea : View, ITextArea
+    {
+        public TextArea()
+        {
+            Content = new Property<string>(string.Empty);
+            mStyleProperty = new GUIStyleProperty(() => GUI.skin.textArea);
+        }
+
+        public Property<string> Content { get; private set; }
+
+        protected override void OnGUI()
+        {
+            Content.Value = CrossPlatformGUILayout.TextArea(Content.Value, mStyleProperty.Value, LayoutStyles);
+        }
+
+        public ITextArea Text(string labelText)
+        {
+            Content.Value = labelText;
+            return this;
+        }
+    }
 }

@@ -77,7 +77,7 @@ namespace QFramework
                 .Width(200)
                 .AddTo(nameSpaceLayout);
 
-            new TextView(mUiKitSettingData.Namespace)
+            EasyIMGUI.TextField().Text(mUiKitSettingData.Namespace)
                 .AddTo(nameSpaceLayout)
                 .Content.Bind(content => mUiKitSettingData.Namespace = content);
 
@@ -94,7 +94,7 @@ namespace QFramework
                 .Width(200)
                 .AddTo(uiScriptGenerateDirLayout);
 
-            new TextView(mUiKitSettingData.UIScriptDir)
+            EasyIMGUI.TextField().Text(mUiKitSettingData.UIScriptDir)
                 .AddTo(uiScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
 
@@ -109,7 +109,7 @@ namespace QFramework
                 .Width(200)
                 .AddTo(uiPanelPrefabDir);
 
-            new TextView(mUiKitSettingData.UIPrefabDir)
+            EasyIMGUI.TextField().Text(mUiKitSettingData.UIPrefabDir)
                 .AddTo(uiPanelPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
@@ -128,7 +128,7 @@ namespace QFramework
                 .Width(200)
                 .AddTo(viewControllerScriptGenerateDirLayout);
 
-            new TextView(mUiKitSettingData.DefaultViewControllerScriptDir)
+            EasyIMGUI.TextField().Text(mUiKitSettingData.DefaultViewControllerScriptDir)
                 .AddTo(viewControllerScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerScriptDir = content);
 
@@ -144,7 +144,7 @@ namespace QFramework
                 .Width(220)
                 .AddTo(viewControllerPrefabDir);
 
-            new TextView(mUiKitSettingData.DefaultViewControllerPrefabDir)
+            EasyIMGUI.TextField().Text(mUiKitSettingData.DefaultViewControllerPrefabDir)
                 .AddTo(viewControllerPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerPrefabDir = content);
 
@@ -156,7 +156,7 @@ namespace QFramework
                 .OnClick(() => { mUiKitSettingData.Save(); })
                 .AddTo(mRootLayout);
 
-            new TextView(mViewModel.PanelNameToCreate)
+            EasyIMGUI.TextField().Text(mViewModel.PanelNameToCreate)
                 .AddTo(mRootLayout)
                 .Do(text => { text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt); });
 

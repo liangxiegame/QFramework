@@ -127,7 +127,7 @@ namespace QFramework
             }
 
             mComponentLine.AddTo(mRootLayout);
-            
+
             EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
@@ -164,7 +164,7 @@ namespace QFramework
                 .FontSize(12)
                 .AddTo(mClassnameLine);
 
-            new TextView(mBindScript.CustomComponentName)
+            EasyIMGUI.TextField().Text(mBindScript.CustomComponentName)
                 .AddTo(mClassnameLine)
                 .Content.Bind(newValue => { mBindScript.CustomComponentName = newValue; });
 
@@ -180,7 +180,8 @@ namespace QFramework
             EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
-            new TextAreaView(mBindScript.Comment)
+            EasyIMGUI.TextArea()
+                .Text(mBindScript.Comment)
                 .Height(100)
                 .AddTo(mRootLayout)
                 .Content.Bind(newValue => mBindScript.CustomComment = newValue);

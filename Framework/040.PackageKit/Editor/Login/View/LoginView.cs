@@ -4,22 +4,23 @@ namespace QFramework.PackageKit
     {
         ControllerNode<PackageKitLoginApp> mController = ControllerNode<PackageKitLoginApp>.Allocate();
 
+
         public LoginView()
         {
             var usernameLine = new HorizontalLayout().AddTo(this);
             EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
-            var username = new TextView("").AddTo(usernameLine);
+
+            var username = EasyIMGUI.TextField()
+                .AddTo(usernameLine);
 
             var passwordLine = new HorizontalLayout().AddTo(this);
             EasyIMGUI.Label().Text("password:").AddTo(passwordLine);
-            var password = new TextView("").PasswordMode().AddTo(passwordLine);
+            var password = EasyIMGUI.TextField().PasswordMode().AddTo(passwordLine);
 
             EasyIMGUI.Button()
                 .Text("登录")
-                .OnClick(() =>
-                {
-                    mController.SendCommand(new LoginCommand(username.Content.Value, password.Content.Value));
-                }).AddTo(this);
+                .OnClick(() => { mController.SendCommand(new LoginCommand(username.Content.Value, password.Content.Value)); })
+                .AddTo(this);
 
             EasyIMGUI.Button()
                 .Text("注册")

@@ -116,7 +116,8 @@ namespace QFramework.PackageKit
                 .Width(100)
                 .AddTo(publishedVersionLine);
 
-            new TextView(mPublishVersion)
+            EasyIMGUI.TextField()
+                .Text(mPublishVersion)
                 .Width(100)
                 .AddTo(publishedVersionLine)
                 .Content.Bind(v => mPublishVersion = v);
@@ -133,7 +134,7 @@ namespace QFramework.PackageKit
 
             EasyIMGUI.Label().Text("发布说明:").Width(150).AddTo(editorView);
 
-            var releaseNote = new TextAreaView().Width(245)
+            var releaseNote = EasyIMGUI.TextArea().Width(245)
                 .AddTo(editorView);
 
             PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })

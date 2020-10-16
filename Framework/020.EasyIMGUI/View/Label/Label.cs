@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2020.10 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,16 +24,33 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-    internal static class SingletonCreator
+    public interface ILabel : IMGUIView,IHasText<ILabel>
     {
-        public static T CreateSingleton<T>() where T : class, ISingleton
+    
+    }
+    
+    internal class Label : View,ILabel
+    {
+        public string Content { get; set; }
+
+        public Label()
         {
-            var instance = ObjectFactory.CreateNonPublicConstructorObject<T>();
-            instance.OnSingletonInit();
-            return instance;
+            mStyleProperty = new GUIStyleProperty(() => new GUIStyle(GUI.skin.label));
+        }
+
+        protected override void OnGUI()
+        {
+            GUILayout.Label(Content, Style.Value, LayoutStyles);
+        }
+
+        public ILabel Text(string labelText)
+        {
+            Content = labelText;
+            return this;
         }
     }
-
 }

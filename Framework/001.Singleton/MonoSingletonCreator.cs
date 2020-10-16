@@ -30,7 +30,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-  public static class MonoSingletonCreator
+    internal static class MonoSingletonCreator
     {
         public static bool IsUnitTestMode { get; set; }
 

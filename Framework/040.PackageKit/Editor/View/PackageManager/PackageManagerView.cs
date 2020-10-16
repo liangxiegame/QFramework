@@ -15,7 +15,7 @@ namespace QFramework.PackageKit
         private Vector2 mScrollPos;
 
         public IQFrameworkContainer Container { get; set; }
-        
+
         public bool Ignore { get; private set; }
 
         public bool Enabled
@@ -67,11 +67,13 @@ namespace QFramework.PackageKit
                 .Width(40));
 
             searchView.AddChild(
-                new TextView().Height(20)
+                EasyIMGUI.TextField()
+                    .Height(20)
                     .Do(search =>
                     {
                         search.Content
-                            .Bind(key => { mControllerNode.SendCommand(new SearchCommand(key)); }).AddTo(mDisposableList);
+                            .Bind(key => { mControllerNode.SendCommand(new SearchCommand(key)); })
+                            .AddTo(mDisposableList);
                     })
             );
 
@@ -144,7 +146,7 @@ namespace QFramework.PackageKit
         {
             mControllerNode.Recycle2Cache();
             mControllerNode = null;
-            
+
             mDisposableList.Dispose();
             mDisposableList = null;
             mCategoriesSelectorView = null;

@@ -1,3 +1,5 @@
+using DG.Tweening.Core.Easing;
+
 namespace QFramework.PackageKit
 {
     public class RegisterView : VerticalLayout
@@ -9,13 +11,13 @@ namespace QFramework.PackageKit
             var usernameLine = new HorizontalLayout().AddTo(this); 
             
             EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
-            new TextView("").AddTo(usernameLine);
+            EasyIMGUI.TextField().AddTo(usernameLine);
 
             var passwordLine = new HorizontalLayout().AddTo(this);
 
             EasyIMGUI.Label().Text("password:").AddTo(passwordLine);
 
-            new TextView("").PasswordMode().AddTo(passwordLine);
+            EasyIMGUI.TextField().PasswordMode().AddTo(passwordLine);
 
             EasyIMGUI.Button()
                 .Text("注册")

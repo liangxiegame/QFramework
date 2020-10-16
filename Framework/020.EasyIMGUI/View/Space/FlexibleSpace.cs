@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2020.10 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,16 +24,19 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-    internal static class SingletonCreator
+    public interface IFlexibleSpace : IMGUIView
     {
-        public static T CreateSingleton<T>() where T : class, ISingleton
-        {
-            var instance = ObjectFactory.CreateNonPublicConstructorObject<T>();
-            instance.OnSingletonInit();
-            return instance;
-        }
     }
 
+    internal class FlexibleSpace : View, IFlexibleSpace
+    {
+        protected override void OnGUI()
+        {
+            GUILayout.FlexibleSpace();
+        }
+    }
 }

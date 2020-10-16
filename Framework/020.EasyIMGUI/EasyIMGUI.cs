@@ -21,6 +21,16 @@ namespace QFramework
         {
             return new FlexibleSpace();
         }
+
+        public static ITextField TextField()
+        {
+            return new TextField();
+        }
+
+        public static ITextArea TextArea()
+        {
+            return new TextArea();
+        }
         
         private EasyIMGUI()
         {

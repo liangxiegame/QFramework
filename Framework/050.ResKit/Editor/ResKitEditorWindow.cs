@@ -124,7 +124,7 @@ namespace QFramework
 
                 var persistLine = new HorizontalLayout();
                 EasyIMGUI.Label().Text("PersistantPath:").AddTo(persistLine).Width(100);
-                new TextView(Application.persistentDataPath).AddTo(persistLine);
+                EasyIMGUI.TextField().Text(Application.persistentDataPath).AddTo(persistLine);
                 persistLine.AddTo(verticalLayout);
 
                 EasyIMGUI.Button()
@@ -171,7 +171,7 @@ namespace QFramework
 
                 EasyIMGUI.Label().Text("ResVesion:").AddTo(resVersionLine).Width(100);
 
-                new TextView(mResVersion).AddTo(resVersionLine)
+                EasyIMGUI.TextField().Text(mResVersion).AddTo(resVersionLine)
                     .Content.Bind(v => mResVersion = v);
 
                 EasyIMGUI.Button()
