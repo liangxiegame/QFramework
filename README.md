@@ -139,6 +139,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
 
 ### ShowCase（商业案例）
-|  [谐音梗挑战](https://www.taptap.com/app/201075)   |   |
-|  ----  | ----  |
-| ![](./Documents/Res/ShowCase/谐音梗挑战.png)  |  |
+|  <center>[谐音梗挑战](https://www.taptap.com/app/201075)</center>   |  
+|  ----  | 
+| ![](./Documents/Res/ShowCase/谐音梗挑战.png)  | 
