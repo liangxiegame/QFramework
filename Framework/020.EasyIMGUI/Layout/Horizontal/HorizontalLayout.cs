@@ -24,38 +24,42 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 
 namespace QFramework
 {
-    public class CrossPlatformGUILayout
+    public interface IHorizontalLayout : IMGUILayout
     {
-        public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.PasswordField(value, style, options);
-#endif
-            return GUILayout.PasswordField(value, '*', style, options);
-        }
-
-        public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextField(value, style, options);
-#endif
-            return GUILayout.TextField(value, style, options);
-        }
-
-        public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextArea(value, style, options);
-#endif
-            return GUILayout.TextArea(value, style, options);
-        }       
-        
+        IHorizontalLayout Box();
     }
+
+    public class HorizontalLayout : Layout,IHorizontalLayout
+    {
+        public string HorizontalStyle { get; set; }
+        
+
+        protected override void OnGUIBegin()
+        {
+            if (string.IsNullOrEmpty(HorizontalStyle))
+            {
+                GUILayout.BeginHorizontal();
+            }
+            else
+            {
+                GUILayout.BeginHorizontal(HorizontalStyle);
+            }
+        }
+
+        protected override void OnGUIEnd()
+        {
+            GUILayout.EndHorizontal();
+        }
+
+        public IHorizontalLayout Box()
+        {
+            HorizontalStyle = "box";
+            return this;
+        }
+    }
+
 }

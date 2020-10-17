@@ -151,20 +151,25 @@ namespace QFramework
                         break;
                 }
 
-                new ToolbarView(mBuildTargetIndex)
-                    .AddMenu("win/osx", (_) => { })
-                    .AddMenu("iOS", (_) => { })
-                    .AddMenu("Android", (_) => { })
-                    .AddMenu("WebGL", (_) => { })
+                EasyIMGUI.Toolbar()
+                    .AddMenu("win/osx")
+                    .AddMenu("iOS")
+                    .AddMenu("Android")
+                    .AddMenu("WebGL")
+                    .Index(mBuildTargetIndex)
                     .AddTo(verticalLayout);
 
-                new ToggleView(LocaleText.AutoGenerateClass, mEnableGenerateClass)
+                EasyIMGUI.Toggle()
+                    .Text(LocaleText.AutoGenerateClass)
+                    .IsOn(mEnableGenerateClass)
                     .AddTo(verticalLayout)
-                    .Toggle.Bind(v => mEnableGenerateClass = v);
+                    .ValueProperty.Bind(v => mEnableGenerateClass = v);
 
-                new ToggleView(LocaleText.SimulationMode, AssetBundleSettings.SimulateAssetBundleInEditor)
+                EasyIMGUI.Toggle()
+                    .Text(LocaleText.SimulationMode)
+                    .IsOn(AssetBundleSettings.SimulateAssetBundleInEditor)
                     .AddTo(verticalLayout)
-                    .Toggle.Bind(v => AssetBundleSettings.SimulateAssetBundleInEditor = v);
+                    .ValueProperty.Bind(v => AssetBundleSettings.SimulateAssetBundleInEditor = v);
 
                 var resVersionLine = new HorizontalLayout()
                     .AddTo(verticalLayout);
@@ -208,7 +213,7 @@ namespace QFramework
                 verticalLayout.AddChild(EasyIMGUI.Label().Text("已标记 AB 列表:").FontBold().FontSize(15));
 
 
-                var scrollView = new ScrollLayout().AddTo(verticalLayout);
+                var scrollView = EasyIMGUI.Scroll().AddTo(verticalLayout);
                 mMarkedPathList = new VerticalLayout("box")
                     .AddTo(scrollView);
 

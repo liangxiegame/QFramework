@@ -31,15 +31,28 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ToolbarView : View
+    public interface IToolbar : IMGUIView
     {
-        public ToolbarView(int defaultIndex = 0)
+        IToolbar Menus(List<string> menuNames);
+        IToolbar AddMenu(string name, Action<string> onMenuSelected = null);
+        
+        Property<int> IndexProperty { get; }
+
+        IToolbar Index(int index);
+    }
+
+    internal class ToolbarView : View, IToolbar
+    {
+        public ToolbarView()
         {
-            Index.Value = defaultIndex;
-            Index.Bind(index => MenuSelected[index].Invoke(MenuNames[index]));
+            IndexProperty = new Property<int>(0);
+            
+            IndexProperty.Bind(index => MenuSelected[index].Invoke(MenuNames[index]));
+            
+            Style = new GUIStyleProperty(() => GUI.skin.button);
         }
 
-        public ToolbarView Menus(List<string> menuNames)
+        public IToolbar Menus(List<string> menuNames)
         {
             this.MenuNames = menuNames;
             // empty
@@ -47,10 +60,18 @@ namespace QFramework
             return this;
         }
 
-        public ToolbarView AddMenu(string name, Action<string> onMenuSelected)
+        public IToolbar AddMenu(string name, Action<string> onMenuSelected = null)
         {
             MenuNames.Add(name);
-            MenuSelected.Add(onMenuSelected);
+            if (onMenuSelected == null)
+            {
+                MenuSelected.Add((item) => { });
+            }
+            else
+            {
+                MenuSelected.Add(onMenuSelected);
+            }
+
             return this;
         }
 
@@ -58,11 +79,16 @@ namespace QFramework
 
         List<Action<string>> MenuSelected = new List<Action<string>>();
 
-        public Property<int> Index = new Property<int>(0);
+        public Property<int> IndexProperty { get; private set; }
+        public IToolbar Index(int index)
+        {
+            IndexProperty.Value = index;
+            return this;
+        }
 
         protected override void OnGUI()
         {
-            Index.Value = GUILayout.Toolbar(Index.Value, MenuNames.ToArray(), GUI.skin.button, LayoutStyles);
+            IndexProperty.Value = GUILayout.Toolbar(IndexProperty.Value, MenuNames.ToArray(), Style.Value, LayoutStyles);
         }
     }
 }

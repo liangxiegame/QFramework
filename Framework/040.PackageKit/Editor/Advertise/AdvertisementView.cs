@@ -20,13 +20,13 @@ namespace QFramework.PackageKit
 			get { return true; }
 		}
 
-		private VerticalLayout mRootLayout = null;
+		private IVerticalLayout mRootLayout = null;
 
 		public void Init(IQFrameworkContainer container)
 		{
-			mRootLayout = new VerticalLayout();
+			mRootLayout = EasyIMGUI.Vertical();
 
-			var verticalLayout = new VerticalLayout()
+			var verticalLayout =  EasyIMGUI.Vertical()
 				.AddTo(mRootLayout);
 			EasyIMGUI.Label().Text("技术支持").FontBold().FontSize(12).AddTo(verticalLayout);
 

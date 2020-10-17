@@ -24,38 +24,27 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 
 namespace QFramework
 {
-    public class CrossPlatformGUILayout
+    public interface IScrollLayout : IMGUILayout
     {
-        public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.PasswordField(value, style, options);
-#endif
-            return GUILayout.PasswordField(value, '*', style, options);
-        }
-
-        public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextField(value, style, options);
-#endif
-            return GUILayout.TextField(value, style, options);
-        }
-
-        public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextArea(value, style, options);
-#endif
-            return GUILayout.TextArea(value, style, options);
-        }       
         
+    }
+    
+    internal class ScrollLayout : Layout,IScrollLayout
+    {
+        Vector2 mScrollPos = Vector2.zero;
+
+        protected override void OnGUIBegin()
+        {
+            mScrollPos = GUILayout.BeginScrollView(mScrollPos, LayoutStyles);
+        }
+
+        protected override void OnGUIEnd()
+        {
+            GUILayout.EndScrollView();
+        }
     }
 }

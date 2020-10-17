@@ -24,38 +24,28 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
-using UnityEngine;
+using System;
 
 namespace QFramework
 {
-    public class CrossPlatformGUILayout
+    public interface ICustom : IMGUIView
     {
-        public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
+        ICustom OnGUI(Action onGUI);
+    }
+    
+    internal class CustomView : View,ICustom
+    {
+        private Action mOnGUIAction { get; set; }
+
+        protected override void OnGUI()
         {
-#if UNITY_EDITOR
-            return EditorGUILayout.PasswordField(value, style, options);
-#endif
-            return GUILayout.PasswordField(value, '*', style, options);
+            mOnGUIAction.Invoke();
         }
 
-        public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
+        public ICustom OnGUI(Action onGUI)
         {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextField(value, style, options);
-#endif
-            return GUILayout.TextField(value, style, options);
+            mOnGUIAction = onGUI;
+            return this;
         }
-
-        public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
-        {
-#if UNITY_EDITOR
-            return EditorGUILayout.TextArea(value, style, options);
-#endif
-            return GUILayout.TextArea(value, style, options);
-        }       
-        
     }
 }

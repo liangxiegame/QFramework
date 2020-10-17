@@ -84,7 +84,7 @@ namespace QFramework
             EasyIMGUI.Space()
                 .AddTo(mRootLayout);
 
-            new CustomView(() =>
+            EasyIMGUI.Custom().OnGUI(() =>
             {
                 if (mBindScript.CustomComponentName == null ||
                     string.IsNullOrEmpty(mBindScript.CustomComponentName.Trim()))

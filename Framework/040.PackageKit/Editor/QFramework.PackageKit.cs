@@ -236,7 +236,9 @@ namespace QFramework
 
             mReadme.items.ForEach(item =>
             {
-                new CustomView(() =>
+                EasyIMGUI
+                    .Custom()
+                    .OnGUI(() =>
                 {
                     GUILayout.BeginHorizontal(EditorStyles.helpBox);
                     GUILayout.BeginVertical();
@@ -660,10 +662,10 @@ namespace QFramework
             }
 
 
-            new CustomView(() => { Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style.Value); })
+            EasyIMGUI.Custom().OnGUI(() => { Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style.Value); })
                 .AddTo(mFirstLine);
 
-            new CustomView(() =>
+            EasyIMGUI.Custom().OnGUI(() =>
             {
                 if (Spread.Value)
                 {

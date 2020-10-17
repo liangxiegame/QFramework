@@ -31,7 +31,38 @@ namespace QFramework
         {
             return new TextArea();
         }
+
+        public static ICustom Custom()
+        {
+            return new CustomView();
+        }
+
+        public static IToggle Toggle()
+        {
+            return new Toggle();
+        }
+
+        public static IToolbar Toolbar()
+        {
+            return new ToolbarView();
+        }
+
+        public static IVerticalLayout Vertical()
+        {
+            return new VerticalLayout();
+        }
         
+        public static IHorizontalLayout Horizontal()
+        {
+            return new HorizontalLayout();
+        }
+
+        public static IScrollLayout Scroll()
+        {
+            return new ScrollLayout();
+        }
+
+
         private EasyIMGUI()
         {
         }

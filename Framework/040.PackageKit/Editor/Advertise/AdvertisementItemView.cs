@@ -4,8 +4,10 @@ namespace QFramework.PackageKit
 {
     public class AdvertisementItemView : HorizontalLayout
     {
-        public AdvertisementItemView(string title, string link) : base("box")
+        public AdvertisementItemView(string title, string link)
         {
+            Box();
+            
             EasyIMGUI.Label()
                 .Text(title)
                 .FontBold()

@@ -25,7 +25,7 @@ namespace QFramework.PackageKit
 
         private VerticalLayout mRootLayout = new VerticalLayout();
 
-        private ToolbarView mCategoriesSelectorView = null;
+        private IToolbar mCategoriesSelectorView = null;
 
         public List<string> Categories
         {
@@ -58,7 +58,9 @@ namespace QFramework.PackageKit
 
             var verticalLayout = new VerticalLayout("box").AddTo(mRootLayout);
 
-            var searchView = new HorizontalLayout("box")
+            var searchView = EasyIMGUI
+                .Horizontal()
+                .Box()
                 .AddTo(verticalLayout);
 
             searchView.AddChild(EasyIMGUI.Label().Text("搜索:")
@@ -77,24 +79,24 @@ namespace QFramework.PackageKit
                     })
             );
 
-            new ToolbarView()
+            EasyIMGUI.Toolbar()
                 .Menus(new List<string>()
                     {"all", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
                 .AddTo(verticalLayout)
                 .Do(self =>
                 {
-                    self.Index.Bind(value =>
+                    self.IndexProperty.Bind(value =>
                     {
                         PackageManagerState.AccessRightIndex.Value = value;
                         mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
                     }).AddTo(mDisposableList);
                 });
 
-            mCategoriesSelectorView = new ToolbarView()
+            mCategoriesSelectorView = EasyIMGUI.Toolbar()
                 .AddTo(verticalLayout)
                 .Do(self =>
                 {
-                    self.Index.Bind(value =>
+                    self.IndexProperty.Bind(value =>
                     {
                         PackageManagerState.CategoryIndex.Value = value;
                         mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
@@ -107,7 +109,7 @@ namespace QFramework.PackageKit
             var packageList = new VerticalLayout("box")
                 .AddTo(verticalLayout);
 
-            mRepositoryList = new ScrollLayout()
+            mRepositoryList = EasyIMGUI.Scroll()
                 .Height(600)
                 .AddTo(packageList);
 
@@ -117,7 +119,7 @@ namespace QFramework.PackageKit
                 .Bind(list => { this.PackageRepositories = list; }).AddTo(mDisposableList);
         }
 
-        private ScrollLayout mRepositoryList = null;
+        private IScrollLayout mRepositoryList = null;
 
 
         private void OnRefreshList(List<PackageRepository> packageRepositories)

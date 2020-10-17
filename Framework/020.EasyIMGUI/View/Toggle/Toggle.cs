@@ -28,25 +28,40 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ToggleView : View
+    public interface IToggle : IMGUIView,IHasText<IToggle>
     {
-        public string Text { get; private set; }
+        Property<bool> ValueProperty { get; }
 
-        public ToggleView(string text, bool initValue = false)
+        IToggle IsOn(bool isOn);
+    }
+    
+    internal class Toggle : View,IToggle
+    {
+        private string mText { get; set; }
+
+        public Toggle()
         {
-            Text = text;
-            Toggle = new Property<bool>(initValue);
+            ValueProperty = new Property<bool>(false);
 
             Style = new GUIStyleProperty(() => GUI.skin.toggle);
         }
 
-        public Property<bool> Toggle { get; private set; }
+        public Property<bool> ValueProperty { get; private set; }
+        public IToggle IsOn(bool isOn)
+        {
+            ValueProperty.Value = isOn;
+            return this;
+        }
 
         protected override void OnGUI()
         {
-            // Toggle.Value = GUILayout.Toggle(Toggle.Value, Text, Style, LayoutStyles);
-            Toggle.Value = GUILayout.Toggle(Toggle.Value, Text, LayoutStyles);
+            ValueProperty.Value = GUILayout.Toggle(ValueProperty.Value, mText ?? string.Empty, Style.Value, LayoutStyles);
+        }
+
+        public IToggle Text(string text)
+        {
+            mText = text;
+            return this;
         }
     }
-
 }

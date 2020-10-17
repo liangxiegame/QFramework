@@ -24,22 +24,49 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
+using UnityEngine;
 
 namespace QFramework
 {
-    public class CustomView : View
+    public interface IVerticalLayout : IMGUILayout
     {
-        public CustomView(Action onGuiAction)
+        IVerticalLayout Box();
+    }
+    
+    public class VerticalLayout : Layout,IVerticalLayout
+    {
+        public VerticalLayout(){}
+        
+        public string VerticalStyle { get; set; }
+
+        public VerticalLayout(string verticalStyle = null)
         {
-            OnGUIAction = onGuiAction;
+            VerticalStyle = verticalStyle;
         }
 
-        public Action OnGUIAction { get; set; }
-
-        protected override void OnGUI()
+        protected override void OnGUIBegin()
         {
-            OnGUIAction.Invoke();
+            if (string.IsNullOrEmpty(VerticalStyle))
+            {
+                GUILayout.BeginVertical(LayoutStyles);
+            }
+            else
+            {
+                GUILayout.BeginVertical(VerticalStyle, LayoutStyles);
+            }
+        }
+
+        protected override void OnGUIEnd()
+        {
+            GUILayout.EndVertical();
+        }
+
+        public IVerticalLayout Box()
+        {
+            VerticalStyle = "box";
+            return this;
         }
     }
+    
+
 }
