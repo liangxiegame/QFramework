@@ -252,12 +252,12 @@ namespace QFramework
 			get { return mOnApplicationQuit; }
 		}
 
-		public static void PushAction(Gameplay actionKitAction)
+		public static void PushAction(Action actionKitAction)
 		{
 			mQueue.Enqueue(actionKitAction);
 		}
 
-		public static void ExecuteAction(Gameplay actionKitAction)
+		public static void ExecuteAction(Action actionKitAction)
 		{
 			mAsync.Add(actionKitAction);
 		}
