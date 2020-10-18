@@ -149,9 +149,9 @@ namespace QFramework
 		/// </summary>
 		protected abstract void OnClose();
 
-		private Action mOnClosed;
+		private System.Action mOnClosed;
 
-		public void OnClosed(Action onPanelClosed)
+		public void OnClosed(System.Action onPanelClosed)
 		{
 			mOnClosed = onPanelClosed;
 		}

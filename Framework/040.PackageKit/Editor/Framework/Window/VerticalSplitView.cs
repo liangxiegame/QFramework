@@ -23,8 +23,8 @@ namespace QFramework.PackageKit
         private SplitType _splitType = SplitType.Vertical;
         private float _split = 200;
         public Action<Rect> fistPan, secondPan;
-        public event Action onBeginResize;
-        public event Action onEndResize;
+        public event System.Action onBeginResize;
+        public event System.Action onEndResize;
 
         public bool dragging
         {

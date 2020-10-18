@@ -23,8 +23,8 @@ namespace QFramework
         /// <param name="loop"></param>
         /// <param name="allowMusicOff"></param>
         /// <param name="volume"></param>
-        public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
-            Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
+        public static void PlayMusic(string musicName, bool loop = true, System.Action onBeganCallback = null,
+            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
         {
             var audioMgr = AudioManager.Instance;
             audioMgr.CurrentMusicName = musicName;
@@ -88,8 +88,8 @@ namespace QFramework
             get { return AudioManager.Instance.VoicePlayer; }
         }
 
-        public static void PlayVoice(string voiceName, bool loop = false, Action onBeganCallback = null,
-            Action onEndedCallback = null)
+        public static void PlayVoice(string voiceName, bool loop = false, System.Action onBeganCallback = null,
+            System.Action onEndedCallback = null)
         {
             var audioMgr = AudioManager.Instance;
 

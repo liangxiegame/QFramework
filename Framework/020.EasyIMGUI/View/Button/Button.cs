@@ -45,6 +45,7 @@ namespace QFramework
             if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
             {
                 mOnClick.Invoke();
+                GUIUtility.ExitGUI();
             }
         }
 

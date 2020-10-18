@@ -4,7 +4,12 @@
         "QFramework.Pool",
         "QFramework.Singleton",
         "QFramework.Disposable",
-        "QFramework.Table"
+        "QFramework.Table",
+        "QFramework.Architecture",
+        "QFramework.IOC",
+        "QFramework.EasyIMGUI",
+        "QFramework.BindableProperty",
+        "QFramework.CSharpExtension"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

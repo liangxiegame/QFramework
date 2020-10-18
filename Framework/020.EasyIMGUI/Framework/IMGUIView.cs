@@ -23,7 +23,4 @@ namespace QFramework
 
         void Refresh();
     }
-    
-    [Obsolete("use imguiview instead")]
-    public interface IView : IMGUIView{}
 }

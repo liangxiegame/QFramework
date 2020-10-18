@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.10.22",
+    "Version": "v0.10.23",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/060.UIKit/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.22",
-        "content": "更新 EasyIMGUI",
+        "version": "v0.10.23",
+        "content": "添加对 ActionKit 的支持",
         "author": "liangxie",
-        "date": "2020 年 10 月 17 日 10:00",
+        "date": "2020 年 10 月 18 日 20:20",
         "PackageId": ""
     }
 }

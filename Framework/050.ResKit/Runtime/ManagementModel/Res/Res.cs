@@ -305,7 +305,7 @@ namespace QFramework
             mOnResLoadDoneEvent = null;
         }
 
-        public virtual IEnumerator DoLoadAsync(Action finishCallback)
+        public virtual IEnumerator DoLoadAsync(System.Action finishCallback)
         {
             finishCallback();
             yield break;

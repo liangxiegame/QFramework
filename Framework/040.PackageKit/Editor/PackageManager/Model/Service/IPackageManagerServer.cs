@@ -6,7 +6,7 @@ namespace QFramework.PackageKit
     public interface IPackageManagerServer : IModel
     {
 
-        void DeletePackage(string packageId, Action onResponse);
+        void DeletePackage(string packageId, System.Action onResponse);
 
 
         void GetAllRemotePackageInfoV5(Action<List<PackageRepository>, List<string>> onResponse);

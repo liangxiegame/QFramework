@@ -9,7 +9,8 @@
         "QFramework.JsonSerialize",
         "QFramework.IOC",
         "QFramework.BinarySerializer",
-        "QFramework.Zip"
+        "QFramework.Zip",
+        "QFramework.ActionKit"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

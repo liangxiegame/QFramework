@@ -9,7 +9,7 @@ namespace QFramework.TimeExtend
     {
         static List<Timer> timers = new List<Timer>();
         private Action<float> UpdateEvent;
-        private Action EndEvent;
+        private System.Action EndEvent;
         /// <summary>
         /// 用户设定的定时时长
         /// </summary>
@@ -337,7 +337,7 @@ namespace QFramework.TimeExtend
         /// 删除用户指定的计时触发器
         /// </summary>
         /// <param name="completedEvent">指定的完成事件(直接赋值匿名函数无效)</param>
-        public static void DelTimer(Action completedEvent)
+        public static void DelTimer(System.Action completedEvent)
         {
             Timer timer = timers.Find((v) => { return v.EndEvent == completedEvent; });
             if (null != timer)
@@ -380,7 +380,7 @@ namespace QFramework.TimeExtend
         #endregion
 
         #region-------------AddEvent-------------------
-        public void AddEvent(Action completedEvent)
+        public void AddEvent(System.Action completedEvent)
         {
             if (null==EndEvent)
             {
@@ -520,7 +520,7 @@ namespace QFramework.TimeExtend
         /// <param name="timer"></param>
         /// <param name="completedEvent"></param>
         /// <returns></returns>
-        public static Timer OnCompleted(this Timer timer ,Action completedEvent)
+        public static Timer OnCompleted(this Timer timer ,System.Action completedEvent)
         {
             if (null==timer)
             {

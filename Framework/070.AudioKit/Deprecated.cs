@@ -165,8 +165,8 @@ namespace QFramework
 
         [Obsolete("AudioManager.PlayMusic() is depreacated,Please use AudioKit.PlayMusic() instead",
             AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
-        public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
-            Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
+        public static void PlayMusic(string musicName, bool loop = true, System.Action onBeganCallback = null,
+            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
         {
             AudioKit.PlayMusic(musicName, loop, onBeganCallback, onEndCallback, allowMusicOff, volume);
         }
@@ -197,7 +197,7 @@ namespace QFramework
         
         [Obsolete("AudioManager.PlayVoice() is depreacated,Please use AudioKit.PlayVoice() instead",
             AudioKitDeprecatedConfig.FORCE_DEPRECATED)]
-        public static void PlayVoice(string voiceName, bool loop = false,Action onBeganCallback = null,Action onEndedCallback = null)
+        public static void PlayVoice(string voiceName, bool loop = false,System.Action onBeganCallback = null,System.Action onEndedCallback = null)
         {
             AudioKit.PlayVoice(voiceName, loop, onBeganCallback, onEndedCallback);
         }

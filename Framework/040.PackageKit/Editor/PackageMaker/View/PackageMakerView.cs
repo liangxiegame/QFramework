@@ -151,7 +151,6 @@ namespace QFramework.PackageKit
                         mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
                         mPackageVersion.Version = mPublishVersion;
                         mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
-                        
                     }).AddTo(editorView);
             }
 

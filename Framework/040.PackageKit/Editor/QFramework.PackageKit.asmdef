@@ -8,7 +8,8 @@
         "QFramework.EasyIMGUI",
         "QFramework.Singleton",
         "QFramework.Table",
-        "QFramework.Disposable"
+        "QFramework.Disposable",
+        "QFramework.ActionKit"
     ],
     "includePlatforms": [
         "Editor"

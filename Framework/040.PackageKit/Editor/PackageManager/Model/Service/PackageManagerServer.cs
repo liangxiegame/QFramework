@@ -18,7 +18,7 @@ namespace QFramework.PackageKit
 
     public class PackageManagerServer : Model<PackageKit>, IPackageManagerServer
     {
-        public void DeletePackage(string packageId, Action onResponse)
+        public void DeletePackage(string packageId, System.Action onResponse)
         {
             var form = new WWWForm();
 

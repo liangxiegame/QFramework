@@ -16,14 +16,14 @@ namespace QFramework.PackageKit
             ExecuteCommand();
         }
         
-        private static Queue<Action> mPrivateCommands = new Queue<Action>();
+        private static Queue<System.Action> mPrivateCommands = new Queue<System.Action>();
 
-        private static Queue<Action> mCommands
+        private static Queue<System.Action> mCommands
         {
             get { return mPrivateCommands; }
         }
 
-        public static void PushCommand(Action command)
+        public static void PushCommand(System.Action command)
         {
             mCommands.Enqueue(command);
         }

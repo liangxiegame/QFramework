@@ -156,7 +156,7 @@ namespace QFramework
 
         private readonly List<IRes>         mResList      = new List<IRes>();
         private readonly LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
-        private          Action             mListener;
+        private          System.Action             mListener;
 
         private int  mLoadingCount;
 
@@ -334,7 +334,7 @@ namespace QFramework
         }
 
 
-        public void LoadAsync(Action listener = null)
+        public void LoadAsync(System.Action listener = null)
         {
             mListener = listener;
             DoLoadAsync();

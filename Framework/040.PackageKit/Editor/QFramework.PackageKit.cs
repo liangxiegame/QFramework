@@ -391,74 +391,6 @@ namespace QFramework
         }
     }
 
-    public abstract class IMGUIEditorWindow : EditorWindow
-    {
-        public static T Create<T>(bool utility, string title = null) where T : IMGUIEditorWindow
-        {
-            return string.IsNullOrEmpty(title) ? GetWindow<T>(utility) : GetWindow<T>(utility, title);
-        }
-
-        private readonly List<IView> mChildren = new List<IView>();
-
-        private bool mVisible = true;
-
-        public bool Visible
-        {
-            get { return mVisible; }
-            set { mVisible = value; }
-        }
-
-        public void AddChild(IView childView)
-        {
-            mChildren.Add(childView);
-        }
-
-        public void RemoveChild(IView childView)
-        {
-            mChildren.Remove(childView);
-        }
-
-        public List<IView> Children
-        {
-            get { return mChildren; }
-        }
-
-        public void RemoveAllChidren()
-        {
-            mChildren.Clear();
-        }
-
-        public abstract void OnClose();
-
-
-        public abstract void OnUpdate();
-
-        private void OnDestroy()
-        {
-            OnClose();
-        }
-
-        protected abstract void Init();
-
-        private bool mInited = false;
-
-        public virtual void OnGUI()
-        {
-            if (!mInited)
-            {
-                Init();
-                mInited = true;
-            }
-
-            OnUpdate();
-
-            if (Visible)
-            {
-                mChildren.ForEach(childView => childView.DrawGUI());
-            }
-        }
-    }
-
     public class SubWindow : EditorWindow, IMGUILayout
     {
         public bool Visible { get; set; }
@@ -579,7 +511,7 @@ namespace QFramework
         }
 
 
-        public void PushCommand(Action command)
+        public void PushCommand(System.Action command)
         {
             RenderEndCommandExecuter.PushCommand(command);
         }
@@ -608,14 +540,14 @@ namespace QFramework
 
     public class RenderEndCommandExecuter
     {
-        private static Queue<Action> mPrivateCommands = new Queue<Action>();
+        private static Queue<System.Action> mPrivateCommands = new Queue<System.Action>();
 
-        private static Queue<Action> mCommands
+        private static Queue<System.Action> mCommands
         {
             get { return mPrivateCommands; }
         }
 
-        public static void PushCommand(Action command)
+        public static void PushCommand(System.Action command)
         {
             mCommands.Enqueue(command);
         }
@@ -630,80 +562,11 @@ namespace QFramework
     }
 
 
-    public class TreeNode : VerticalLayout
-    {
-        public Property<bool> Spread = null;
-
-        public string Content;
-
-
-        HorizontalLayout mFirstLine = new HorizontalLayout();
-
-        private VerticalLayout mSpreadView = new VerticalLayout();
-
-        public TreeNode(bool spread, string content, int indent = 0, bool autosaveSpreadState = false)
-        {
-            if (autosaveSpreadState)
-            {
-                spread = EditorPrefs.GetBool(content, spread);
-            }
-
-            Content = content;
-            Spread = new Property<bool>(spread);
-
-            Style = new GUIStyleProperty(() => EditorStyles.foldout);
-
-            mFirstLine.AddTo(this);
-            mFirstLine.AddChild(EasyIMGUI.Space().Pixel(indent));
-
-            if (autosaveSpreadState)
-            {
-                Spread.Bind(value => EditorPrefs.SetBool(content, value));
-            }
-
-
-            EasyIMGUI.Custom().OnGUI(() => { Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style.Value); })
-                .AddTo(mFirstLine);
-
-            EasyIMGUI.Custom().OnGUI(() =>
-            {
-                if (Spread.Value)
-                {
-                    mSpreadView.DrawGUI();
-                }
-            }).AddTo(this);
-        }
-
-        public TreeNode Add2FirstLine(IMGUIView view)
-        {
-            view.AddTo(mFirstLine);
-            return this;
-        }
-
-        public TreeNode FirstLineBox()
-        {
-            mFirstLine.HorizontalStyle = "box";
-
-            return this;
-        }
-
-        public TreeNode SpreadBox()
-        {
-            mSpreadView.VerticalStyle = "box";
-
-            return this;
-        }
-
-        public TreeNode Add2Spread(IMGUIView view)
-        {
-            view.AddTo(mSpreadView);
-            return this;
-        }
-    }
+   
 
     public static class WindowExtension
     {
-        public static T PushCommand<T>(this T view, Action command) where T : IMGUIView
+        public static T PushCommand<T>(this T view, System.Action command) where T : IMGUIView
         {
             RenderEndCommandExecuter.PushCommand(command);
             return view;

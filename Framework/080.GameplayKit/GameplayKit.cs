@@ -64,12 +64,12 @@ namespace QFramework
 			mObjects.Remove(obj);
 		}
 
-		public static void StartGame(Action onStartDone = null)
+		public static void StartGame(System.Action onStartDone = null)
 		{
 			mGameplayKit.StartCoroutine(mGameplayKit.DoStartGame(onStartDone));
 		}
 
-		IEnumerator DoStartGame(Action onStartDone = null)
+		IEnumerator DoStartGame(System.Action onStartDone = null)
 		{
 			yield return null;
 
@@ -88,7 +88,7 @@ namespace QFramework
 			}
 		}
 
-		public static void StopGame(Action onStopDone = null)
+		public static void StopGame(System.Action onStopDone = null)
 		{
 			mGameplayKit.Time.Stop();
 
@@ -103,7 +103,7 @@ namespace QFramework
 			mObjects.Clear();
 		}
 
-		IEnumerator DoStopGame(Action onStopDone)
+		IEnumerator DoStopGame(System.Action onStopDone)
 		{
 			yield return null;
 
@@ -141,9 +141,9 @@ namespace QFramework
 			get { return mGameplayKit.mTimer.timeScale; }
 		}
 
-		private static QueueNode mQueueNode = new QueueNode();
+		private static Queue mQueue = new Queue();
 
-		private static AsyncNode mAsyncNode = new AsyncNode();
+		private static Async mAsync = new Async();
 
 		private void Update()
 		{
@@ -159,8 +159,8 @@ namespace QFramework
 				var delteTime = Time.DeltaTime;
 				mOnUpdateEvents(time, delteTime);
 				mControllerOnUpdateEvents(time, delteTime);
-				mQueueNode.Execute(delteTime);
-				mAsyncNode.Execute(delteTime);
+				mQueue.Execute(delteTime);
+				mAsync.Execute(delteTime);
 				Time.EndUpdate();
 			}
 		}
@@ -252,14 +252,14 @@ namespace QFramework
 			get { return mOnApplicationQuit; }
 		}
 
-		public static void PushAction(GameplayKitAction action)
+		public static void PushAction(Gameplay actionKitAction)
 		{
-			mQueueNode.Enqueue(action);
+			mQueue.Enqueue(actionKitAction);
 		}
 
-		public static void ExecuteAction(GameplayKitAction action)
+		public static void ExecuteAction(Gameplay actionKitAction)
 		{
-			mAsyncNode.Add(action);
+			mAsync.Add(actionKitAction);
 		}
 	}
 }
