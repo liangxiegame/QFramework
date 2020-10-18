@@ -23,12 +23,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
-	using System;
-	
 	public class AudioSound : Action
 	{
 		public string SoundName;

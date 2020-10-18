@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.0.9",
+    "Version": "v0.0.10",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/080.GameplayKit/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.0.9",
-        "content": "重构一下名字",
+        "version": "v0.0.10",
+        "content": "删除掉代码（未来不再维护）",
         "author": "liangxie",
-        "date": "2020 年 10 月 18 日 22:25",
+        "date": "2020 年 10 月 18 日 23:23",
         "PackageId": ""
     }
 }
