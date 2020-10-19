@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.24",
+    "Version": "v0.10.25",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.24",
-        "content": "兼容 新的 PackageKit",
+        "version": "v0.10.25",
+        "content": "更新 PackageKit",
         "author": "liangxie",
-        "date": "2020 年 10 月 19 日 22:53",
+        "date": "2020 年 10 月 19 日 23:52",
         "PackageId": ""
     }
 }

@@ -31,6 +31,7 @@ using UnityEngine;
 namespace QFramework
 {
     [DisplayName("PackageKit 插件管理")]
+    [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(1)]
     public class PackageManagerView : QFramework.IPackageKitView
     {
@@ -176,6 +177,15 @@ namespace QFramework
             mDisposableList.Dispose();
             mDisposableList = null;
             mCategoriesSelectorView = null;
+        }
+
+        public void OnShow()
+        {
+            
+        }
+
+        public void OnHide()
+        {
         }
 
 

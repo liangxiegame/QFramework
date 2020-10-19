@@ -75,19 +75,17 @@ namespace QFramework
             Application.OpenURL(URL_FEEDBACK);
         }
 
-        public override void OnUpdate()
-        {
-            mPackageKitViewRenderInfos.ForEach(view => view.Interface.OnUpdate());
-        }
 
-        public class PacakgeKitViewRenderInfo
+        public class PackageKitViewRenderInfo
         {
-            public QFramework.IPackageKitView Interface { get; private set; }
+            public IPackageKitView Interface { get; private set; }
             public string DisplayName { get; private set; }
+
+            public string GroupName { get; set; }
 
             public int RenderOrder { get; private set; }
 
-            public PacakgeKitViewRenderInfo(QFramework.IPackageKitView @interface)
+            public PackageKitViewRenderInfo(QFramework.IPackageKitView @interface)
             {
                 Interface = @interface;
 
@@ -100,25 +98,36 @@ namespace QFramework
                     .FirstOrDefault() as PackageKitRenderOrderAttribute;
 
                 RenderOrder = renderOrder != null ? renderOrder.Order : int.MaxValue;
+
+                var group = @interface.GetType()
+                    .GetCustomAttributes(typeof(PackageKitGroupAttribute), false)
+                    .FirstOrDefault() as PackageKitGroupAttribute;
+
+                GroupName = group != null
+                    ? group.GroupName
+                    : "未分组";
             }
         }
 
-        public List<PacakgeKitViewRenderInfo> mPackageKitViewRenderInfos = null;
+        public Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>> mPackageKitViewRenderInfos = null;
 
         protected override void Init()
         {
-            var label = GUI.skin.label;
-
             PackageApplication.Container = null;
             RemoveAllChidren();
 
             mPackageKitViewRenderInfos = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
-                .Select(view => new PacakgeKitViewRenderInfo(view))
-                .OrderBy(renderInfo => renderInfo.RenderOrder)
-                .ToList();
+                .Select(view => new PackageKitViewRenderInfo(view))
+                .GroupBy(renderInfo => renderInfo.GroupName)
+                .Select(g => new KeyValuePair<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>>(
+                    new MutableTuple<string, bool>(g.Key, true),
+                    g.OrderBy(renderInfo => renderInfo.RenderOrder).ToList()))
+                .ToDictionary(p => p.Key, p => p.Value);
 
-            mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault();
+
+            mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
+            mSelectedViewRender.Interface.OnShow();
 
             PackageApplication.Container.RegisterInstance(this);
             PackageApplication.Container.RegisterInstance<EditorWindow>(this);
@@ -172,32 +181,48 @@ namespace QFramework
             RenderEndCommandExecuter.ExecuteCommand();
         }
 
-        private PacakgeKitViewRenderInfo mSelectedViewRender = null;
+        private PackageKitViewRenderInfo mSelectedViewRender = null;
 
         private void LeftSelectView(string search)
         {
-            for (int i = 0; i < mPackageKitViewRenderInfos.Count; i++)
+            foreach (var packageKitViewRenderInfo in mPackageKitViewRenderInfos.OrderBy(kv => kv.Key.Item1))
             {
-                var drawer = mPackageKitViewRenderInfos[i];
-
-                GUILayout.BeginHorizontal(Styles.in_title);
-                GUILayout.Label(drawer.DisplayName);
-                GUILayout.FlexibleSpace();
-                // GUILayout.Label("v0.0.1");
-                GUILayout.EndHorizontal();
-                Rect rect = GUILayoutUtility.GetLastRect();
-                if (mSelectedViewRender == drawer)
+                GUILayout.BeginVertical("box");
+                if (EditorGUILayout.Foldout(packageKitViewRenderInfo.Key.Item2, packageKitViewRenderInfo.Key.Item1,
+                    true))
                 {
-                    GUI.Box(rect, "", Styles.selectionRect);
-                }
+                    GUILayout.EndVertical();
 
-                if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
+                    packageKitViewRenderInfo.Key.Item2 = true;
+
+                    foreach (var drawer in packageKitViewRenderInfo.Value)
+                    {
+                        GUILayout.BeginVertical();
+                        GUILayout.BeginHorizontal("box");
+                        GUILayout.Label(drawer.DisplayName);
+                        GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
+                        GUILayout.EndHorizontal();
+                        var rect = GUILayoutUtility.GetLastRect();
+
+                        if (mSelectedViewRender == drawer)
+                        {
+                            GUI.Box(rect, "", Styles.selectionRect);
+                        }
+
+                        if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
+                        {
+                            mSelectedViewRender.Interface.OnHide();
+                            mSelectedViewRender = drawer;
+                            mSelectedViewRender.Interface.OnShow();
+                            Event.current.Use();
+                        }
+                    }
+                }
+                else
                 {
-                    mSelectedViewRender = drawer;
-                    Event.current.Use();
+                    packageKitViewRenderInfo.Key.Item2 = false;
                 }
-
-                GUILayout.Label("", Styles.in_title, GUILayout.Height(0));
             }
         }
 
@@ -206,10 +231,15 @@ namespace QFramework
         {
             if (mPackageKitViewRenderInfos != null)
             {
-                mPackageKitViewRenderInfos.Where(view => view != null).ToList().ForEach(view => view.Interface.OnDispose());
+                mPackageKitViewRenderInfos.SelectMany(r => r.Value).Where(view => view != null).ToList()
+                    .ForEach(view => view.Interface.OnDispose());
             }
 
             RemoveAllChidren();
+        }
+
+        public override void OnUpdate()
+        {
         }
     }
 }

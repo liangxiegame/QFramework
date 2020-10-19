@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.32",
+    "Version": "v0.11.33",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.32",
-        "content": "集成了 UnityMarkdownViewer",
+        "version": "v0.11.33",
+        "content": "PackageKit 添加分组说明",
         "author": "liangxie",
-        "date": "2020 年 10 月 19 日 23:21",
+        "date": "2020 年 10 月 19 日 23:51",
         "PackageId": ""
     }
 }

@@ -30,6 +30,7 @@ namespace QFramework
 {
     [DisplayName("UIKit 设置")]
     [PackageKitRenderOrder(3)]
+    [PackageKitGroup("QFramework")]
     public class UIKitSettingView : VerticalLayout, IPackageKitView
     {
         private UIKitSettingData mUiKitSettingData;
@@ -180,6 +181,16 @@ namespace QFramework
 
         public void OnDispose()
         {
+        }
+
+        public void OnShow()
+        {
+            
+        }
+
+        public void OnHide()
+        {
+            
         }
 
         class LocaleText

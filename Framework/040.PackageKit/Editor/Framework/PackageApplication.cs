@@ -110,21 +110,15 @@ namespace QFramework
 
             container.InjectAll();
 
-            foreach (var view in Views.Where(p => !p.Ignore))
+            foreach (var view in Views)
             {
-                if (view.Enabled)
-                {
-                    view.Container = Container;
-                    view.Init(Container);
-                }
+                view.Container = Container;
+                view.Init(Container);
             }
 
-            foreach (var view in Views.Where(p => !p.Ignore))
+            foreach (var view in Views)
             {
-                if (view.Enabled)
-                {
-                    container.Inject(view);
-                }
+                container.Inject(view);
             }
         }
 

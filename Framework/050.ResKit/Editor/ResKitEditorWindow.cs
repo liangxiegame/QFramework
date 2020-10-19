@@ -93,6 +93,7 @@ namespace QFramework
         }
 
         [DisplayName("ResKit 设置/编辑器")]
+        [PackageKitGroup("QFramework")]
         [PackageKitRenderOrder(2)]
         public class ResKitView : VerticalLayout, IPackageKitView
         {
@@ -281,6 +282,16 @@ namespace QFramework
             {
                 EditorPrefs.SetBool(KEY_AUTOGENERATE_CLASS, mEnableGenerateClass);
                 EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
+            }
+
+            public void OnShow()
+            {
+                
+            }
+
+            public void OnHide()
+            {
+                
             }
 
             public void OnUpdate()

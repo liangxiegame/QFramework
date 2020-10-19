@@ -29,6 +29,7 @@ using System.ComponentModel;
 namespace QFramework
 {
     [DisplayName("账户")]
+    [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(int.MaxValue)]
     public class PackageKitLoginView : VerticalLayout, IPackageKitView
     {
@@ -100,6 +101,15 @@ namespace QFramework
 
             mDisposableList.Dispose();
             mDisposableList = null;
+        }
+
+        public void OnShow()
+        {
+            
+        }
+
+        public void OnHide()
+        {
         }
     }
 }
