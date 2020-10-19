@@ -1,14 +1,45 @@
+/****************************************************************************
+ * Copyright (c) 2018 ~ 2020.10 liangxie
+ * 
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using QFramework.TreeView;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public class PackageMakerEditor : IMGUIEditorWindow
     {
         private PackageVersion mPackageVersion;
 
+        private AssetTree _assetTree;
+        private AssetTreeIMGUI _assetTreeGUI;
+        private Vector2 _scrollPosition;
 
         ControllerNode<PackageMaker> mControllerNode = ControllerNode<PackageMaker>.Allocate();
 
@@ -37,7 +68,12 @@ namespace QFramework.PackageKit
                     new PackageVersion
                     {
                         InstallPath = installPath,
-                        Version = "v0.0.0"
+                        Version = "v0.0.0",
+                        IncludeFileOrFolders = new List<string>()
+                        {
+                            // 去掉最后一个元素
+                            installPath.Remove(installPath.Length - 1)
+                        }
                     }.Save();
 
                     AssetDatabase.Refresh();
@@ -88,6 +124,7 @@ namespace QFramework.PackageKit
             window.Show();
         }
 
+
         private VerticalLayout RootLayout = null;
 
         DisposableList mDisposableList = new DisposableList();
@@ -97,12 +134,28 @@ namespace QFramework.PackageKit
         protected override void Init()
         {
             PackageMakerState.InitState();
+            
+            var hashSet = new HashSet<string>();
+
+            foreach (var packageIncludeFileOrFolder in mPackageVersion.IncludeFileOrFolders)
+            {
+                hashSet.Add(packageIncludeFileOrFolder);
+            }
+
+            _assetTree = new AssetTree();
+            _assetTreeGUI = new AssetTreeIMGUI(_assetTree.Root);
+
+            var guids = AssetDatabase.FindAssets(string.Empty);
+            int i = 0, l = guids.Length;
+            for (; i < l; ++i)
+            {
+                _assetTree.AddAsset(guids[i], hashSet);
+            }
 
             RootLayout = new VerticalLayout("box");
 
             var editorView = new VerticalLayout().AddTo(RootLayout);
             var uploadingView = new VerticalLayout().AddTo(RootLayout);
-            // var finishView = new VerticalLayout().AddTo(RootLayout);
 
             // 当前版本号
             var versionLine = new HorizontalLayout().AddTo(editorView);
@@ -137,6 +190,20 @@ namespace QFramework.PackageKit
             var releaseNote = EasyIMGUI.TextArea().Width(245)
                 .AddTo(editorView);
 
+            // 文件选择部分
+            EasyIMGUI.Label().Text("插件目录: " + mPackageVersion.InstallPath)
+                .AddTo(editorView);
+
+            EasyIMGUI.Custom().OnGUI(() =>
+            {
+                _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+
+                _assetTreeGUI.DrawTreeLayout();
+
+                EditorGUILayout.EndScrollView();
+            }).AddTo(editorView);
+
+
             PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })
                 .AddTo(mDisposableList);
 
@@ -146,6 +213,19 @@ namespace QFramework.PackageKit
                     .Text("发布")
                     .OnClick(() =>
                     {
+                        var includedPaths = new List<string>();
+                        _assetTree.Root.Traverse(data =>
+                        {
+                            if (data != null && data.isSelected)
+                            {
+                                includedPaths.Add(data.fullPath);
+                                return false;
+                            }
+
+                            return true;
+                        });
+
+                        mPackageVersion.IncludeFileOrFolders = includedPaths;
                         mPackageVersion.Readme.content = releaseNote.Content.Value;
                         mPackageVersion.AccessRight = (PackageAccessRight) accessRight.ValueProperty.Value;
                         mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
@@ -183,7 +263,6 @@ namespace QFramework.PackageKit
             }
 
             mPackageVersion = PackageVersion.Load(packageFolder);
-
             mPackageVersion.InstallPath = MakeInstallPath();
 
             mPublishVersion = mPackageVersion.Version;

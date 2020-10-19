@@ -1,6 +1,6 @@
 using DG.Tweening.Core.Easing;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public class RegisterView : VerticalLayout
     {

@@ -1,4 +1,4 @@
-﻿namespace QFramework.PackageKit
+﻿namespace QFramework
 {
     public class PackageMakerState
     {

@@ -1,10 +1,11 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     [Serializable]
     public class ReleaseItem
@@ -256,11 +257,8 @@ namespace QFramework.PackageKit
         public string DownloadUrl;
 
         public string InstallPath = "Assets/QFramework/Framework/";
-
-        public string FileName
-        {
-            get { return Name + "_" + Version + ".unitypackage"; }
-        }
+        
+        public List<string> IncludeFileOrFolders = new List<string>();
 
         public string DocUrl;
 

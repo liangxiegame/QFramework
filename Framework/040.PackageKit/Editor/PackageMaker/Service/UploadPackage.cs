@@ -2,7 +2,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
  public static class UploadPackage
     {
@@ -16,7 +16,7 @@ namespace QFramework.PackageKit
             EditorUtility.DisplayProgressBar("插件上传", "打包中...", 0.1f);
 
             var fileName = packageVersion.Name + "_" + packageVersion.Version + ".unitypackage";
-            var fullpath = ExportPaths(fileName, packageVersion.InstallPath);
+            var fullpath = ExportPaths(fileName, packageVersion.IncludeFileOrFolders.ToArray());
             var file = File.ReadAllBytes(fullpath);
 
             var form = new WWWForm();
@@ -81,22 +81,11 @@ namespace QFramework.PackageKit
 
         public static string ExportPaths(string exportPackageName, params string[] paths)
         {
-            if (Directory.Exists(paths[0]))
-            {
-                if (paths[0].EndsWith("/"))
-                {
-                    paths[0] = paths[0].Remove(paths[0].Length - 1);
-                }
+            var filePath = Path.Combine(EXPORT_ROOT_DIR, exportPackageName);
 
-                var filePath = Path.Combine(EXPORT_ROOT_DIR, exportPackageName);
-                AssetDatabase.ExportPackage(paths,
-                    filePath, ExportPackageOptions.Recurse);
-                AssetDatabase.Refresh();
-
-                return filePath;
-            }
-
-            return string.Empty;
+            AssetDatabase.ExportPackage(paths, filePath, ExportPackageOptions.Recurse);
+            AssetDatabase.Refresh();
+            return filePath;
         }
     }
 }

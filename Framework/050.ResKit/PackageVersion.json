@@ -1,16 +1,19 @@
 {
     "Id": "",
-    "Version": "v0.11.16",
+    "Version": "v0.11.17",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/050.ResKit/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/050.ResKit"
+    ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.16",
-        "content": "添加对 ActionKit 的支持",
+        "version": "v0.11.17",
+        "content": "支持依赖的加载",
         "author": "liangxie",
-        "date": "2020 年 10 月 18 日 20:20",
+        "date": "2020 年 10 月 19 日 22:52",
         "PackageId": ""
     }
 }

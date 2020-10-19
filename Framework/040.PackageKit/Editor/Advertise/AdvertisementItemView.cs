@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public class AdvertisementItemView : HorizontalLayout
     {

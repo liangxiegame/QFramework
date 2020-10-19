@@ -1,16 +1,19 @@
 {
     "Id": "",
-    "Version": "v0.11.29",
+    "Version": "v0.11.32",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/040.PackageKit/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/040.PackageKit"
+    ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.29",
-        "content": "删除掉 TreeNode",
+        "version": "v0.11.32",
+        "content": "集成了 UnityMarkdownViewer",
         "author": "liangxie",
-        "date": "2020 年 10 月 18 日 20:27",
+        "date": "2020 年 10 月 19 日 23:21",
         "PackageId": ""
     }
 }

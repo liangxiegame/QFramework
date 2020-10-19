@@ -1,6 +1,6 @@
 using System;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public interface IPackageLoginService
     {

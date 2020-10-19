@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public interface IPackageManagerServer : IModel
     {

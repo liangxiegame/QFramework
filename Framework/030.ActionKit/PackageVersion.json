@@ -1,16 +1,16 @@
 {
     "Id": "",
-    "Version": "v0.0.13",
+    "Version": "v0.0.14",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/030.ActionKit/",
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.0.13",
-        "content": "添加一个 BehaviourTree 的简易实现",
+        "version": "v0.0.14",
+        "content": "修复不能打包的问题",
         "author": "liangxie",
-        "date": "2020 年 10 月 18 日 23:26",
+        "date": "2020 年 10 月 19 日 22:13",
         "PackageId": ""
     }
 }

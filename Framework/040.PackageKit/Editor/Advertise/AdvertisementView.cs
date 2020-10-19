@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
 	[DisplayName("技术支持")]
 	[PackageKitRenderOrder(int.MinValue)]

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 
-namespace QFramework.PackageKit
+namespace QFramework
 {
     public interface IPackageManagerModel : IModel
     {

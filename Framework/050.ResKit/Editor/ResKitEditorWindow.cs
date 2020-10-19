@@ -25,7 +25,7 @@
 
 using System.ComponentModel;
 using System.Linq;
-using QFramework.PackageKit;
+using QFramework;
 
 namespace QFramework
 {

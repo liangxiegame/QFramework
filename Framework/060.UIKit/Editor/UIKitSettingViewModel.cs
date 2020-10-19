@@ -1,6 +1,4 @@
 using System.IO;
-using QFramework.PackageKit;
-using QFramework.PackageKit.Utility;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,7 +18,7 @@ namespace QFramework
         
         public void OnCreateUIPanelClick()
         {
-            var controllerNode = ControllerNode<PackageKit.PackageKit>.Allocate();
+            var controllerNode = ControllerNode<PackageKit>.Allocate();
 
             var panelName = mPanelNameToCreate;
 
@@ -34,14 +32,14 @@ namespace QFramework
 
                 if (File.Exists(panelPrefabPath))
                 {
-                    SingletonProperty<PackageKit.PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
+                    SingletonProperty<PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("UI 界面已存在:{0}".FillFormat(panelPrefabPath));
                     return;
                 }
                 
                 if (File.Exists(fullScenePath))
                 {
-                    SingletonProperty<PackageKit.PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
+                    SingletonProperty<PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("测试场景已存在:{0}".FillFormat(fullScenePath));
                     return;
                 }
