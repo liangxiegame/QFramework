@@ -1,0 +1,39 @@
+{
+    "Id": "",
+    "Version": "v1.0.0",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/1.Core/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/1.Core",
+        "Assets/QFramework/Framework/000.Factory",
+        "Assets/QFramework/Framework/001.Singleton",
+        "Assets/QFramework/Framework/002.Pool",
+        "Assets/QFramework/Framework/003.Table",
+        "Assets/QFramework/Framework/004.CSharpExtension",
+        "Assets/QFramework/Framework/005.Disposable",
+        "Assets/QFramework/Framework/006.Log",
+        "Assets/QFramework/Framework/007.IOC",
+        "Assets/QFramework/Framework/008.TypeEventSystem",
+        "Assets/QFramework/Framework/009.BindableProperty",
+        "Assets/QFramework/Framework/010.Architecture",
+        "Assets/QFramework/Framework/020.EasyIMGUI",
+        "Assets/QFramework/Framework/021.EasyForm",
+        "Assets/QFramework/Framework/030.ActionKit",
+        "Assets/QFramework/Framework/031.JsonSerializer",
+        "Assets/QFramework/Framework/040.PackageKit",
+        "Assets/QFramework/Framework/041.RefCounter",
+        "Assets/QFramework/Framework/042.BinarySerializer",
+        "Assets/QFramework/Framework/043.Zip",
+        "Assets/QFramework/Framework/044.CodeGenKit"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v1.0.0",
+        "content": "最终版本的 Core",
+        "author": "liangxie",
+        "date": "2020 年 10 月 20 日 16:59",
+        "PackageId": ""
+    }
+}

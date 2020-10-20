@@ -41,13 +41,6 @@ namespace QFramework
 
         public IQFrameworkContainer Container { get; set; }
 
-        public bool Ignore { get; private set; }
-
-        public bool Enabled
-        {
-            get { return true; }
-        }
-
         private VerticalLayout mRootLayout = new VerticalLayout();
 
         private IToolbar mCategoriesSelectorView = null;
