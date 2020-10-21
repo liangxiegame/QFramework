@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v1.0.0",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/004.CSharpExtension/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/004.CSharpExtension"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v1.0.0",
+        "content": "release",
+        "author": "liangxie",
+        "date": "2020 年 10 月 21 日 21:53",
+        "PackageId": ""
+    }
+}

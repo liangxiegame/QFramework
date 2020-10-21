@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.0.2",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/000.Factory/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/000.Factory"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.0.2",
+        "content": "release",
+        "author": "liangxie",
+        "date": "2020 年 10 月 21 日 21:51",
+        "PackageId": ""
+    }
+}

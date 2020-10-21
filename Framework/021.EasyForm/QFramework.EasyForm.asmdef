@@ -1,9 +1,0 @@
-{
-  "name": "QFramework.EasyForm",
-  "references": [
-    "QFramework.Architecture",
-    "QFramework.EasyIMGUI",
-    "QFramework.IOC",
-    "QFramework.Singleton"
-  ]
-}

@@ -1,1 +1,28 @@
-{"Id":"","Version":"v0.10.37","Type":0,"AccessRight":0,"DownloadUrl":"","InstallPath":"Assets/QFramework/Framework/","DocUrl":"http://lianxiegame.com","Readme":{"version":"v0.10.37","content":"add doifnotnull api","author":"liangxie","date":"2020 年 09 月 09 日 21:39","PackageId":""}}
+{
+    "Id": "",
+    "Version": "v0.10.38",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/0.PackageKit",
+        "Assets/QFramework/Framework/1.Core",
+        "Assets/QFramework/Framework/2.ResKit",
+        "Assets/QFramework/Framework/3.UIKit",
+        "Assets/QFramework/Framework/4.AudioKit",
+        "Assets/QFramework/Framework/Framework.mdj",
+        "Assets/QFramework/Framework/MutiFrameworkSupport.zip",
+        "Assets/QFramework/Framework/PackageVersion.json",
+        "Assets/QFramework/Framework/README.md",
+        "Assets/QFramework/Framework/version.json"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.10.38",
+        "content": "调整目录结构",
+        "author": "liangxie",
+        "date": "2020 年 10 月 21 日 22:44",
+        "PackageId": ""
+    }
+}

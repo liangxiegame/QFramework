@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.10.26",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/3.UIKit/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/3.UIKit"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.10.26",
+        "content": "调整目录结构",
+        "author": "liangxie",
+        "date": "2020 年 10 月 21 日 22:44",
+        "PackageId": ""
+    }
+}
