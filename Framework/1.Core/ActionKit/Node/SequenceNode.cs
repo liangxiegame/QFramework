@@ -32,7 +32,7 @@ namespace QFramework
     /// 序列执行节点
     /// </summary>
     [OnlyUsedByCode]
-    public class Sequence : Action, INode,IResetable
+    public class SequenceNode : Action, INode,IResetable
     {
         protected List<IAction> mNodes = ListPool<IAction>.Get();
         protected List<IAction> mExcutingNodes = ListPool<IAction>.Get();
@@ -93,7 +93,7 @@ namespace QFramework
         {
         }
 
-        public Sequence(params IAction[] nodes)
+        public SequenceNode(params IAction[] nodes)
         {
             foreach (var node in nodes)
             {
@@ -102,7 +102,7 @@ namespace QFramework
             }
         }
 
-        public Sequence Append(IAction appendedNode)
+        public SequenceNode Append(IAction appendedNode)
         {
             mNodes.Add(appendedNode);
             mExcutingNodes.Add(appendedNode);

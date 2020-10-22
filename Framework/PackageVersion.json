@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.38",
+    "Version": "v0.10.39",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.38",
-        "content": "调整目录结构",
+        "version": "v0.10.39",
+        "content": "ActionKit 增加可视化编程",
         "author": "liangxie",
-        "date": "2020 年 10 月 21 日 22:44",
+        "date": "2020 年 10 月 22 日 09:18",
         "PackageId": ""
     }
 }

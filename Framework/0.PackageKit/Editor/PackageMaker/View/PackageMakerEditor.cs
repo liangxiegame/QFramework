@@ -134,8 +134,13 @@ namespace QFramework
         protected override void Init()
         {
             PackageMakerState.InitState();
-            
+
             var hashSet = new HashSet<string>();
+
+            if (mPackageVersion.IncludeFileOrFolders.Count == 0 && mPackageVersion.InstallPath.EndsWith("/"))
+            {
+                hashSet.Add(mPackageVersion.InstallPath.Remove(mPackageVersion.InstallPath.Length - 1));
+            }
 
             foreach (var packageIncludeFileOrFolder in mPackageVersion.IncludeFileOrFolders)
             {

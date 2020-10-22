@@ -35,19 +35,19 @@ namespace QFramework
     {
         protected override Action mNode
         {
-            get { return mSequence; }
+            get { return mSequenceNode; }
         }
 
-        private Sequence mSequence;
+        private SequenceNode mSequenceNode;
 
         public SequenceNodeChain()
         {
-            mSequence = new Sequence();
+            mSequenceNode = new SequenceNode();
         }
 
         public override IActionChain Append(IAction node)
         {
-            mSequence.Append(node);
+            mSequenceNode.Append(node);
             return this;
         }
 
@@ -55,8 +55,8 @@ namespace QFramework
         {
             base.OnDispose();
 
-            mSequence.Dispose();
-            mSequence = null;
+            mSequenceNode.Dispose();
+            mSequenceNode = null;
         }
     }
 }

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.1",
+    "Version": "v0.13.2",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.1",
-        "content": "调整目录结构",
+        "version": "v0.13.2",
+        "content": "发布时 显示旧版本的文件选择",
         "author": "liangxie",
-        "date": "2020 年 10 月 21 日 22:42",
+        "date": "2020 年 10 月 21 日 23:57",
         "PackageId": ""
     }
 }

@@ -24,80 +24,81 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
+
 namespace QFramework
 {
-    public interface IResetable
-    {
-        void Reset();
-    }
-    
+    /// <summary>
+    /// 并发执行的协程
+    /// </summary>
     [OnlyUsedByCode]
-    public class Repeat : Action, INode
+    public class SpawnNode : Action
     {
-        public Repeat(IAction node, int repeatCount = -1)
-        {
-            RepeatCount = repeatCount;
-            mNode = node;
-        }
-
-        public IAction CurrentExecutingNode
-        {
-            get
-            {
-                var currentNode = mNode;
-                var node = currentNode as INode;
-                return node == null ? currentNode : node.CurrentExecutingNode;
-            }
-        }
-
-        private IAction mNode;
-
-        public int RepeatCount = 1;
-
-        private int mCurRepeatCount = 0;
+        protected List<Action> mNodes = ListPool<Action>.Get();
 
         protected override void OnReset()
         {
-            if (null != mNode)
+            mNodes.ForEach(node => node.Reset());
+            mFinishCount = 0;
+        }
+
+        public override void Finish()
+        {
+            for (var i = mNodes.Count - 1; i >= 0; i--)
             {
-                mNode.Reset();
+                mNodes[i].Finish();
             }
 
-            mCurRepeatCount = 0;
-            Finished = false;
+            base.Finish();
         }
 
         protected override void OnExecute(float dt)
         {
-            if (RepeatCount == -1)
+            for (var i = mNodes.Count - 1; i >= 0; i--)
             {
-                if (mNode.Execute(dt))
-                {
-                    mNode.Reset();
-                }
-
-                return;
+                var node = mNodes[i];
+                if (!node.Finished && node.Execute(dt))
+                    Finished = mNodes.Count == mFinishCount;
             }
+        }
 
-            if (mNode.Execute(dt))
+        private int mFinishCount = 0;
+
+        private void IncreaseFinishCount()
+        {
+            mFinishCount++;
+        }
+
+        public SpawnNode(params Action[] nodes)
+        {
+            mNodes.AddRange(nodes);
+
+            foreach (var nodeAction in nodes)
             {
-                mNode.Reset();
-                mCurRepeatCount++;
+                nodeAction.OnEndedCallback += IncreaseFinishCount;
             }
+        }
 
-            if (mCurRepeatCount == RepeatCount)
+        public void Add(params Action[] nodes)
+        {
+            mNodes.AddRange(nodes);
+
+            foreach (var nodeAction in nodes)
             {
-                Finished = true;
+                nodeAction.OnEndedCallback += IncreaseFinishCount;
             }
         }
 
         protected override void OnDispose()
         {
-            if (null != mNode)
+            foreach (var node in mNodes)
             {
-                mNode.Dispose();
-                mNode = null;
+                node.OnEndedCallback -= IncreaseFinishCount;
+                node.Dispose();
             }
+
+            mNodes.Release2Pool();
+            mNodes = null;
         }
     }
 }
