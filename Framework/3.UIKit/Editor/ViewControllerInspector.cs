@@ -84,6 +84,7 @@ namespace QFramework
                 .OnClick(() =>
                 {
                     CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject);
+                    GUIUtility.ExitGUI();
                 })
                 .Height(30)
                 .AddTo(mRootLayout);
