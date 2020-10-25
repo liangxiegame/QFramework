@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.39",
+    "Version": "v0.10.40",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.39",
-        "content": "ActionKit 增加可视化编程",
+        "version": "v0.10.40",
+        "content": "修复 EndGUILayout 的问题",
         "author": "liangxie",
-        "date": "2020 年 10 月 22 日 09:18",
+        "date": "2020 年 10 月 25 日 14:53",
         "PackageId": ""
     }
 }

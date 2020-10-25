@@ -29,7 +29,8 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ActionKitEvent : MonoBehaviour
+
+    public class ActionKitEvent : MonoBehaviour , ISerializationCallbackReceiver
     {
         [SerializeField]
         public List<ActionData> ActionsDatas = new List<ActionData>();
@@ -46,6 +47,19 @@ namespace QFramework
             }
 
             sequence.Begin();
+        }
+
+        [SerializeField]
+        public List<Action> Actions = new List<Action>();
+        
+        public void OnBeforeSerialize()
+        {
+            
+        }
+
+        public void OnAfterDeserialize()
+        {
+            
         }
     }
 }

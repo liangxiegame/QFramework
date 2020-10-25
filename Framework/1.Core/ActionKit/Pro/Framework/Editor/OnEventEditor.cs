@@ -51,6 +51,8 @@ namespace QFramework
 
         public override void OnInspectorGUI()
         {
+            base.OnInspectorGUI();
+            
             for (var i = 0; i < mOnStart.ActionsDatas.Count; i++)
             {
                 GUILayout.BeginVertical("box");

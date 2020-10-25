@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.2",
+    "Version": "v0.13.3",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.2",
-        "content": "发布时 显示旧版本的文件选择",
+        "version": "v0.13.3",
+        "content": "修复 EndGUILayout 的问题",
         "author": "liangxie",
-        "date": "2020 年 10 月 21 日 23:57",
+        "date": "2020 年 10 月 25 日 14:52",
         "PackageId": ""
     }
 }
