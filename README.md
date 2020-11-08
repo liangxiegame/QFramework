@@ -20,6 +20,39 @@
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
+#### 快速图解:
+
+**1.ViewController和Bind的基本使用 自动生成脚本**
+
+![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/1.ViewController和Bind的基本使用自动生成脚本.gif) 
+
+自动生成的脚本如下：
+
+![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/1.相关脚本.jpg) 
+
+**2.ViewController和ViewController的嵌套使用**
+
+![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/2.ViewController和ViewController的嵌套使用.gif) 
+
+自动生成的脚本如下：
+
+![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/2.相关脚本.jpg) 
+
+**3.自动生成Prefab**
+
+![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/3.自动生成Prefab.gif) 
+
+**4.使用UIKit创建Prefab和脚本**
+
+![](./Documents/Res/Gif/2.UIKit/1.使用UIKit创建Prefab和脚本.gif) 
+
+自动生成的脚本如下：
+
+![](./Documents/Res/Gif/2.UIKit/1.相关脚本.jpg) 
+
+**5.使用UIKit子控件UIElement**
+
+![](./Documents/Res/Gif/2.UIKit/2.使用UIKit子控件UIElement.gif) 
 
 #### 快速开始 QuickStart:
 
