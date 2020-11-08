@@ -32,9 +32,9 @@ namespace QFramework
 {
     public class NodeActionEditorWrapper
     {
-        private Action mAction;
+        private ActionKitAction mAction;
 
-        public NodeActionEditorWrapper(Action action)
+        public NodeActionEditorWrapper(ActionKitAction action)
         {
             mAction = action;
 #if UNITY_EDITOR

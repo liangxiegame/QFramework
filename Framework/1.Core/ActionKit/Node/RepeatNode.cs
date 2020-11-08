@@ -32,7 +32,7 @@ namespace QFramework
     }
     
     [OnlyUsedByCode]
-    public class RepeatNode : Action, INode
+    public class RepeatNode : ActionKitAction, INode
     {
         public RepeatNode(IAction node, int repeatCount = -1)
         {

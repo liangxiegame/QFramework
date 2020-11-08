@@ -30,11 +30,11 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public abstract class ActionChain : Action, IActionChain, IDisposeWhen
+    public abstract class ActionChain : ActionKitAction, IActionChain, IDisposeWhen
     {
         public MonoBehaviour Executer { get; set; }
 
-        protected abstract Action mNode { get; }
+        protected abstract ActionKitAction mNode { get; }
 
         public abstract IActionChain Append(IAction node);
 

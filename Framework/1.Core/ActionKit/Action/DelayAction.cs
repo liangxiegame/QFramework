@@ -36,7 +36,7 @@ namespace QFramework
     /// </summary>
     [Serializable]
     [ActionGroup("ActionKit")]
-    public class DelayAction : Action, IPoolable, IResetable
+    public class DelayAction : ActionKitAction, IPoolable, IResetable
     {
 
         [SerializeField]

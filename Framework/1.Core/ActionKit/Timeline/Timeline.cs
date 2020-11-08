@@ -33,7 +33,7 @@ namespace QFramework
   /// <summary>
     /// 时间轴执行节点
     /// </summary>
-    public class Timeline : Action
+    public class Timeline : ActionKitAction
     {
         private float mCurTime = 0;
 

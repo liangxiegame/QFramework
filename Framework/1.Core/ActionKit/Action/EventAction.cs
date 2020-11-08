@@ -33,7 +33,7 @@ namespace QFramework
     /// 延时执行节点
     /// </summary>
     [OnlyUsedByCode]
-    public class EventAction : Action, IPoolable
+    public class EventAction : ActionKitAction, IPoolable
     {
         private System.Action mOnExecuteEvent;
 

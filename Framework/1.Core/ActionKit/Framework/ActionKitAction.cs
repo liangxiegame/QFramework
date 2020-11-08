@@ -29,7 +29,7 @@ using System;
 namespace QFramework
 {
     [Serializable]
-    public abstract class Action : IAction
+    public abstract class ActionKitAction : IAction
     {
         public System.Action OnBeganCallback = null;
         public System.Action OnEndedCallback = null;

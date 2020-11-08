@@ -25,7 +25,7 @@
 
 namespace QFramework
 {
-	public class AudioSound : Action
+	public class AudioSound : ActionKitAction
 	{
 		public string SoundName;
 

@@ -29,7 +29,7 @@ namespace QFramework
 {
     public class EditorActionKit : ActionKit
     {
-        public static void ExecuteNode(Action action)
+        public static void ExecuteNode(ActionKitAction action)
         {
             new NodeActionEditorWrapper(action);
         }

@@ -30,7 +30,7 @@ namespace QFramework
 {
     using System;
 
-    public class AudioVoice : Action
+    public class AudioVoice : ActionKitAction
     {
         public string VoiceName;
 

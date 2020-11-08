@@ -29,7 +29,7 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class AsyncNode : Action
+    public class AsyncNode : ActionKitAction
     {
         public HashSet<IAction> mActions = new HashSet<IAction>();
         

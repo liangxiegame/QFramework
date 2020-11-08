@@ -32,9 +32,9 @@ namespace QFramework
     /// 并发执行的协程
     /// </summary>
     [OnlyUsedByCode]
-    public class SpawnNode : Action
+    public class SpawnNode : ActionKitAction
     {
-        protected List<Action> mNodes = ListPool<Action>.Get();
+        protected List<ActionKitAction> mNodes = ListPool<ActionKitAction>.Get();
 
         protected override void OnReset()
         {
@@ -69,7 +69,7 @@ namespace QFramework
             mFinishCount++;
         }
 
-        public SpawnNode(params Action[] nodes)
+        public SpawnNode(params ActionKitAction[] nodes)
         {
             mNodes.AddRange(nodes);
 
@@ -79,7 +79,7 @@ namespace QFramework
             }
         }
 
-        public void Add(params Action[] nodes)
+        public void Add(params ActionKitAction[] nodes)
         {
             mNodes.AddRange(nodes);
 

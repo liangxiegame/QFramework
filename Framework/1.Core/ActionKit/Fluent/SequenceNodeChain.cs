@@ -33,7 +33,7 @@ namespace QFramework
     /// </summary>
     public class SequenceNodeChain : ActionChain
     {
-        protected override Action mNode
+        protected override ActionKitAction mNode
         {
             get { return mSequenceNode; }
         }

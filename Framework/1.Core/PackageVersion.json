@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.17",
+    "Version": "v0.10.18",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.17",
-        "content": "Async=>AsyncNode",
+        "version": "v0.10.18",
+        "content": "Action=>ActionKitAction",
         "author": "liangxie",
-        "date": "2020 年 10 月 22 日 09:17",
+        "date": "2020 年 11 月 08 日 15:38",
         "PackageId": ""
     }
 }

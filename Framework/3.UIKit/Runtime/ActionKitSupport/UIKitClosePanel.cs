@@ -29,7 +29,7 @@ using UnityEngine;
 namespace QFramework
 {
     [ActionGroup("UIKit")]
-    public class UIKitClosePanel : Action
+    public class UIKitClosePanel : ActionKitAction
     {
         [SerializeField] public string PanelName;
         

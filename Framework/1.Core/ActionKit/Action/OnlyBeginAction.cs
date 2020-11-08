@@ -29,7 +29,7 @@ using System;
 namespace QFramework
 {
     [OnlyUsedByCode]
-    public class OnlyBeginAction : Action, IPoolable, IPoolType
+    public class OnlyBeginAction : ActionKitAction, IPoolable, IPoolType
     {
         private Action<OnlyBeginAction> mBeginAction;
 

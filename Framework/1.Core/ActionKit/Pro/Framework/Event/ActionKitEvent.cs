@@ -50,7 +50,7 @@ namespace QFramework
         }
 
         [SerializeField]
-        public List<Action> Actions = new List<Action>();
+        public List<ActionKitAction> Actions = new List<ActionKitAction>();
         
         public void OnBeforeSerialize()
         {

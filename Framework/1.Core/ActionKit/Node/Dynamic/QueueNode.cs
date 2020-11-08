@@ -28,7 +28,7 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-    public class QueueNode : Action
+    public class QueueNode : ActionKitAction
     {
         private Queue<IAction> mQueue = new Queue<IAction>(20);
 

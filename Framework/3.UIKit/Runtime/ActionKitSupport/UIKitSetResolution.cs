@@ -29,7 +29,7 @@ using UnityEngine;
 namespace QFramework
 {
     [ActionGroup("UIKit")]
-    public class UIKitSetResolution : Action
+    public class UIKitSetResolution : ActionKitAction
     {
         [SerializeField] public int Width = 1280;
         [SerializeField] public int Height = 720;

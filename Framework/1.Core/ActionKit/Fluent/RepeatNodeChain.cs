@@ -30,7 +30,7 @@ namespace QFramework
 {
     public class RepeatNodeChain : ActionChain
     {
-        protected override Action mNode
+        protected override ActionKitAction mNode
         {
             get { return mRepeatNodeAction; }
         }

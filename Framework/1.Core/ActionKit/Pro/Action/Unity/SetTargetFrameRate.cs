@@ -29,7 +29,7 @@ using UnityEngine;
 namespace QFramework
 {
     [ActionGroup("Unity")]
-    public class SetTargetFrameRate : Action
+    public class SetTargetFrameRate : ActionKitAction
     {
         [SerializeField] public int FPS = 30;
         

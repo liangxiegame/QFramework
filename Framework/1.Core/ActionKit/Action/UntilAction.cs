@@ -33,7 +33,7 @@ namespace QFramework
     /// like filter, add condition
     /// </summary>
     [OnlyUsedByCode]
-    public class UntilAction : Action, IPoolable
+    public class UntilAction : ActionKitAction, IPoolable
     {
         private Func<bool> mCondition;
 
