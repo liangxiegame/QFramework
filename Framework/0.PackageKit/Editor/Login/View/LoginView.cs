@@ -4,14 +4,11 @@ namespace QFramework
     {
         ControllerNode<PackageKitLoginApp> mController = ControllerNode<PackageKitLoginApp>.Allocate();
 
-
         public LoginView()
         {
             var usernameLine = new HorizontalLayout().AddTo(this);
             EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
-
-            var username = EasyIMGUI.TextField()
-                .AddTo(usernameLine);
+            var username = EasyIMGUI.TextField().AddTo(usernameLine);
 
             var passwordLine = new HorizontalLayout().AddTo(this);
             EasyIMGUI.Label().Text("password:").AddTo(passwordLine);

@@ -29,7 +29,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class PacakgeLoginService : IPackageLoginService
+    public class PacakgeLoginService : Model<PackageKitLoginApp>,IPackageLoginService
     {
         [Serializable]
         public class ResultFormatData
@@ -42,6 +42,7 @@ namespace QFramework
             var form = new WWWForm();
             form.AddField("username", username);
             form.AddField("password", password);
+            Debug.Log("username" +username+"--"+ "password" +password);
 
             EditorHttp.Post("https://api.liangxiegame.com/qf/v4/token", form, response =>
             {

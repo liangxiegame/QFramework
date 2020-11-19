@@ -23,6 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
+using UnityEngine;
 
 namespace QFramework
 {
@@ -42,6 +43,9 @@ namespace QFramework
         
         public override void Execute()
         {
+            Service = this.GetModel<IPackageLoginService>();
+
+            Debug.Log("Service:"+ Service);
             Service.DoGetToken(mUsername, mPassword, token =>
             {
                 User.Username.Value = mUsername;

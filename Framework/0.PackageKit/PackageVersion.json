@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.3",
+    "Version": "v0.13.4",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.3",
-        "content": "修复 EndGUILayout 的问题",
-        "author": "liangxie",
-        "date": "2020 年 10 月 25 日 14:52",
+        "version": "v0.13.4",
+        "content": "修复登录问题",
+        "author": "NightWater",
+        "date": "2020 年 11 月 19 日 17:37",
         "PackageId": ""
     }
 }
