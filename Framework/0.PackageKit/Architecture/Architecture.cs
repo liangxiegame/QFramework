@@ -132,22 +132,6 @@ namespace QFramework
         }
     }
 
-    public abstract class Architecture<TCommand, TConfig> :
-        Architecture<TConfig>
-        where TCommand : class, ICommand
-        where TConfig : Architecture<TCommand, TConfig>
-    {
-        public override void SendCommand<T>()
-        {
-            mEventSystem.SendEvent<TCommand>(new T() as TCommand);
-        }
-
-        public override void SendCommand(ICommand command)
-        {
-            mEventSystem.SendEvent<ICommand>(command);
-        }
-    }
-
     public abstract class AbstractPool<T> where T : AbstractPool<T>, new()
     {
         private static Stack<T> mPool = new Stack<T>(10);

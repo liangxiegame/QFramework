@@ -18,6 +18,7 @@ namespace QFramework
         void UnRegisterAll()
         {
             mDisposableList.Dispose(); 
+            mDisposableList = new DisposableList();
         }
 
         protected override void OnRecycle()

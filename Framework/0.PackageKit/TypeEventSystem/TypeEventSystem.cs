@@ -28,26 +28,24 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-
-
     public class TypeEventSystem : ITypeEventSystem
     {
         public class TypeEventUnregister<T> : IDisposable
         {
-            public Action<T> OnReceive; 
-            
+            public Action<T> OnReceive;
+            public ITypeEventSystem TypeEventSystem;
+
             public void Dispose()
             {
-                TypeEventSystem.UnRegister(OnReceive);
+                TypeEventSystem.UnRegisterEvent<T>(OnReceive);
             }
         }
-        
+
         /// <summary>
         /// 接口 只负责存储在字典中
         /// </summary>
         interface IRegisterations : IDisposable
         {
-
         }
 
 
@@ -135,8 +133,9 @@ namespace QFramework
                 mTypeEventDict.Add(type, reg);
             }
 
-            return new TypeEventUnregister<T> {OnReceive = onReceive};
+            return new TypeEventUnregister<T> {OnReceive = onReceive, TypeEventSystem = this};
         }
+
 
         public void UnRegisterEvent<T>(Action<T> onReceive)
         {
@@ -183,13 +182,12 @@ namespace QFramework
             {
                 keyValuePair.Value.Dispose();
             }
-            
+
             mTypeEventDict.Clear();
         }
 
         public void Dispose()
         {
-
         }
     }
 }

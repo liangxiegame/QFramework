@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.41",
+    "Version": "v0.10.42",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.41",
-        "content": "Action=>ActionKitAction",
+        "version": "v0.10.42",
+        "content": "修复 EventSystemNode 不能注销事件的问题",
         "author": "liangxie",
-        "date": "2020 年 11 月 08 日 15:38",
+        "date": "2020 年 11 月 24 日 23:08",
         "PackageId": ""
     }
 }
