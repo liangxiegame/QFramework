@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,11 @@ namespace QFramework
         public CanvasScaler CanvasScaler;
         public GraphicRaycaster GraphicRaycaster;
 
+        public RectTransform Bg;
+        public RectTransform Common;
+        public RectTransform PopUI;
+        public RectTransform CanvasPanel;
+        
         private new static UIRoot mInstance;
 
         public new static UIRoot Instance
@@ -55,25 +61,32 @@ namespace QFramework
         {
             return CanvasScaler.matchWidthOrHeight;
         }
-
-        void MakeSureCanvas(UILevel level,IPanel panel)
-        {
-            var canvas = panel.Transform.GetComponent<Canvas>();
-
-            if (!canvas)
-            {
-                canvas = panel.Transform.gameObject.AddComponent<Canvas>();
-                canvas.overrideSorting = true;
-                canvas.sortingOrder = (int) level;
-                
-                panel.Transform.gameObject.AddComponent<GraphicRaycaster>();
-            }
-        }
+        
         
         public void SetLevelOfPanel(UILevel level, IPanel panel)
         {
-            panel.Transform.SetParent(transform);
-            MakeSureCanvas(level, panel);
+
+            var canvas = panel.Transform.GetComponent<Canvas>();
+
+            if (canvas)
+            {
+                panel.Transform.SetParent(CanvasPanel);
+            }
+            else
+            {
+                switch (level)
+                {
+                    case UILevel.Bg:
+                        panel.Transform.SetParent(Bg);
+                        break;
+                    case UILevel.Common:
+                        panel.Transform.SetParent(Common);
+                        break;
+                    case UILevel.PopUI:
+                        panel.Transform.SetParent(PopUI);
+                        break;
+                }
+            }
         }
     }
 }

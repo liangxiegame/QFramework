@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.42",
+    "Version": "v0.10.43",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.42",
-        "content": "修复 EventSystemNode 不能注销事件的问题",
+        "version": "v0.10.43",
+        "content": "UIRoot 兼容旧版本",
         "author": "liangxie",
-        "date": "2020 年 11 月 24 日 23:08",
+        "date": "2020 年 11 月 28 日 21:57",
         "PackageId": ""
     }
 }
