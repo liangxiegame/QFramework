@@ -11,9 +11,9 @@
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
         "version": "v0.13.5",
-        "content": "修复 EventSystemNode 不能注销的问题",
+        "content": "再次更新",
         "author": "liangxie",
-        "date": "2020 年 11 月 24 日 23:08",
+        "date": "2020 年 12 月 01 日 10:38",
         "PackageId": ""
     }
 }
