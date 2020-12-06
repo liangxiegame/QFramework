@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.18",
+    "Version": "v0.10.19",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.18",
-        "content": "Action=>ActionKitAction",
+        "version": "v0.10.19",
+        "content": "更新 CSharpExtensions",
         "author": "liangxie",
-        "date": "2020 年 11 月 08 日 15:38",
+        "date": "2020 年 12 月 06 日 18:44",
         "PackageId": ""
     }
 }
