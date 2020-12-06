@@ -28,6 +28,10 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
+    /// <summary>
+    /// 对象池
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class Pool<T> : IPool<T>
     {
         #region ICountObserverable
@@ -43,6 +47,9 @@ namespace QFramework
         
         protected IObjectFactory<T> mFactory;
 
+        /// <summary>
+        /// 存储相关数据的栈
+        /// </summary>
         protected readonly Stack<T> mCacheStack = new Stack<T>();
 
         /// <summary>
