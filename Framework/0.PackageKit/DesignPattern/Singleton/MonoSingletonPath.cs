@@ -28,8 +28,11 @@ using System;
 
 namespace QFramework
 {
+    /// <summary>
+    /// MonoSingleton路径
+    /// </summary>
 #if UNITY_5_6_OR_NEWER
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class)] //这个特性只能标记在Class上
     public class MonoSingletonPath : Attribute
     {
         private string mPathInHierarchy;
