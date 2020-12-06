@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.6",
+    "Version": "v0.13.7",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.6",
-        "content": "象总：添加了一些注释到 DataStructure 里",
+        "version": "v0.13.7",
+        "content": "增加一部分代码注释",
         "author": "liangxie",
-        "date": "2020 年 12 月 06 日 18:43",
+        "date": "2020 年 12 月 06 日 18:47",
         "PackageId": ""
     }
 }
