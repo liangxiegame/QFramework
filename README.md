@@ -168,6 +168,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [~~@imagicbell~~](https://github.com/imagicbell)
 
 ### 优秀的 Unity 库、框架
+- [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [xasset](https://github.com/xasset/xasset): xasset 致力于为 Unity 项目提供一套精简稳健的资源管理环境
 - [TinaX](https://github.com/yomunsam/TinaX): 开箱即用的 Unity 开发框架，支持 Lua。
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
