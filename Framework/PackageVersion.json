@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.45",
+    "Version": "v0.10.46",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.45",
-        "content": "增加一部分代码注释",
+        "version": "v0.10.46",
+        "content": "添加 ChangeState 2 ActionKitFSM",
         "author": "liangxie",
-        "date": "2020 年 12 月 06 日 18:47",
+        "date": "2020 年 12 月 16 日 10:34",
         "PackageId": ""
     }
 }

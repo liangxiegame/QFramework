@@ -82,6 +82,13 @@ namespace QFramework
 
             return false;
         }
+        
+        public void ChangeState<TState>()
+        {
+            CurrentState.Exit();
+            CurrentState = mStates[typeof(TState)];
+            CurrentState.Enter();
+        }
 
         public void StartState<T>()
         {
