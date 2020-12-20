@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.46",
+    "Version": "v0.10.47",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.46",
-        "content": "添加 ChangeState 2 ActionKitFSM",
+        "version": "v0.10.47",
+        "content": "PackageKit 支持快捷键打开 和 关闭",
         "author": "liangxie",
-        "date": "2020 年 12 月 16 日 10:34",
+        "date": "2020 年 12 月 20 日 16:34",
         "PackageId": ""
     }
 }

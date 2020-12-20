@@ -39,6 +39,22 @@ namespace QFramework
 
         private readonly List<IMGUIView> mChildren = new List<IMGUIView>();
 
+        public bool Openning { get; set; }
+
+
+
+        public void Open()
+        {
+            Openning = true;
+            Show();
+        }
+
+        public new void Close()
+        {
+            Openning = false;
+            base.Close();
+        }
+        
         private bool mVisible = true;
 
         public bool Visible

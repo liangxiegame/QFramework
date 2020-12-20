@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.7",
+    "Version": "v0.13.8",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.7",
-        "content": "增加一部分代码注释",
+        "version": "v0.13.8",
+        "content": "PackageKit 支持快捷键打开 和 关闭",
         "author": "liangxie",
-        "date": "2020 年 12 月 06 日 18:47",
+        "date": "2020 年 12 月 20 日 16:33",
         "PackageId": ""
     }
 }

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2020.10 ~ 12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -59,12 +59,20 @@ namespace QFramework
 
         [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
         [MenuItem(FrameworkMenuItems.PackageKit, false, FrameworkMenuItemsPriorities.Preferences)]
-        public static void Open()
+        public static void OpenWindow()
         {
             var packageKitWindow = Create<PackageKitWindow>(true);
-            packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-            packageKitWindow.position = new Rect(50, 100, 1000, 800);
-            packageKitWindow.Show();
+
+            if (packageKitWindow.Openning)
+            {
+                packageKitWindow.Close();
+            }
+            else
+            {
+                packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
+                packageKitWindow.position = new Rect(50, 100, 1000, 800);
+                packageKitWindow.Open();
+            }
         }
 
         private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
@@ -111,6 +119,12 @@ namespace QFramework
 
         public Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>> mPackageKitViewRenderInfos = null;
 
+        public string SelectedDisplayName
+        {
+            get { return EditorPrefs.GetString("QF_SELECTED_DISPLAY_NAME", string.Empty); }
+            set { EditorPrefs.SetString("QF_SELECTED_DISPLAY_NAME", value); }
+        }
+
         protected override void Init()
         {
             PackageApplication.Container = null;
@@ -125,8 +139,18 @@ namespace QFramework
                     g.OrderBy(renderInfo => renderInfo.RenderOrder).ToList()))
                 .ToDictionary(p => p.Key, p => p.Value);
 
+            if (string.IsNullOrEmpty(SelectedDisplayName))
+            {
+                mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
+            }
+            else
+            {
+                mSelectedViewRender = mPackageKitViewRenderInfos
+                                          .SelectMany(p => p.Value)
+                                          .FirstOrDefault(p => p.DisplayName == SelectedDisplayName) ??
+                                      mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
+            }
 
-            mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
             mSelectedViewRender.Interface.OnShow();
 
             PackageApplication.Container.RegisterInstance(this);
@@ -215,6 +239,7 @@ namespace QFramework
                             mSelectedViewRender.Interface.OnHide();
                             mSelectedViewRender = drawer;
                             mSelectedViewRender.Interface.OnShow();
+                            SelectedDisplayName = mSelectedViewRender.DisplayName;
                             Event.current.Use();
                         }
                     }
