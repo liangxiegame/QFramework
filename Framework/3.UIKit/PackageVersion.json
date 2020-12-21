@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.10.27",
+    "Version": "v0.10.28",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.10.27",
-        "content": "再次更新",
+        "version": "v0.10.28",
+        "content": "更新 Architecture",
         "author": "liangxie",
-        "date": "2020 年 12 月 01 日 11:26",
+        "date": "2020 年 12 月 21 日 18:45",
         "PackageId": ""
     }
 }

@@ -32,19 +32,19 @@ namespace QFramework
     {
         public override void Execute()
         {
-            var model = GetModel<IPackageManagerModel>();
-            var server = GetModel<IPackageManagerServer>();
-            var installedPackageVersionsModel = GetModel<ILocalPackageVersionModel>();
+            var model = this.GetModel<IPackageManagerModel>();
+            var server = this.GetModel<IPackageManagerServer>();
+            var installedPackageVersionsModel = this.GetModel<ILocalPackageVersionModel>();
             installedPackageVersionsModel.Reload();
             
             PackageManagerState.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
-            SendCommand<UpdateCategoriesFromModelCommand>();
+            this.SendCommand<UpdateCategoriesFromModelCommand>();
             
             server.GetAllRemotePackageInfoV5((list, categories) =>
             {
                 model.Repositories = list.OrderBy(p=>p.name).ToList();
                 PackageManagerState.PackageRepositories.Value = model.Repositories;
-                SendCommand<UpdateCategoriesFromModelCommand>();
+                this.SendCommand<UpdateCategoriesFromModelCommand>();
             });
         }
     }

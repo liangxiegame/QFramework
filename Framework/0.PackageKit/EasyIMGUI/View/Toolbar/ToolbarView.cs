@@ -47,7 +47,13 @@ namespace QFramework
         {
             IndexProperty = new Property<int>(0);
             
-            IndexProperty.Bind(index => MenuSelected[index].Invoke(MenuNames[index]));
+            IndexProperty.Bind(index =>
+            {
+                if (MenuSelected.Count > index)
+                {
+                    MenuSelected[index].Invoke(MenuNames[index]);
+                }
+            });
             
             Style = new GUIStyleProperty(() => GUI.skin.button);
         }

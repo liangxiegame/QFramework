@@ -32,14 +32,14 @@ namespace QFramework
 
                 if (File.Exists(panelPrefabPath))
                 {
-                    SingletonProperty<PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
+                    (SingletonProperty<PackageKit>.Instance as IArchitecture).GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("UI 界面已存在:{0}".FillFormat(panelPrefabPath));
                     return;
                 }
                 
                 if (File.Exists(fullScenePath))
                 {
-                    SingletonProperty<PackageKit>.Instance.GetUtility<IEditorDialogUtility>()
+                    (SingletonProperty<PackageKit>.Instance as IArchitecture).GetUtility<IEditorDialogUtility>()
                         .ShowErrorMsg("测试场景已存在:{0}".FillFormat(fullScenePath));
                     return;
                 }

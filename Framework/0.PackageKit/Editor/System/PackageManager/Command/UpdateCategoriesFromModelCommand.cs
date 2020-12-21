@@ -32,9 +32,9 @@ namespace QFramework
     {
         public override void Execute()
         {
-            var model = GetModel<IPackageManagerModel>();
+            var model = this.GetModel<IPackageManagerModel>();
 
-            var packageTypeConfigModel = GetModel<IPackageTypeConfigModel>();
+            var packageTypeConfigModel = this.GetModel<IPackageTypeConfigModel>();
             var categories = model.Repositories.Select(p => p.type).Distinct()
                 .Select(t => packageTypeConfigModel.GetFullTypeName(t))
                 .ToList();

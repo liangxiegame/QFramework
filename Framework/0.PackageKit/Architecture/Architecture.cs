@@ -1,16 +1,53 @@
+/****************************************************************************
+ * Copyright (c) 2018 ~ 2020.12 liangxie
+ * 
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
 using System;
 using System.Collections.Generic;
 
 namespace QFramework
 {
-    public interface IArchitecture : ISingleton, IDisposable,
-        ICanGetUtility,
-        ICanGetModel,
-        ICanRegisterSystem,
-        ICanRegisterModel,
-        ICanRegisterUtility,
-        ICanSendEvent
+    public interface IArchitecture : ISingleton, IDisposable
     {
+        T GetModel<T>() where T : class, IModel;
+        T GetSystem<T>() where T : class, ISystem;
+
+        T GetUtility<T>() where T : class, IUtility;
+        IDisposable RegisterEvent<T>(Action<T> onEvent);
+
+        void RegisterModel<T>(T model) where T : class, IModel;
+
+        void RegisterUtility<T>(T utility) where T : class, IUtility;
+        void SendCommand<T>() where T : ICommand, new();
+
+        void SendCommand(ICommand command);
+
+        void SendEvent<T>() where T : new();
+        void SendEvent<T>(T t);
+
+        void RegisterSystem<T>(T system) where T : class, ISystem;
     }
 
     public abstract class Architecture<TConfig> : IArchitecture
@@ -25,7 +62,7 @@ namespace QFramework
             get { return SingletonProperty<TConfig>.Instance; }
         }
 
-        public T GetSystem<T>() where T : class, ISystem
+        T IArchitecture.GetSystem<T>()
         {
             return mContainer.Resolve<T>();
         }
@@ -35,17 +72,17 @@ namespace QFramework
             mContainer.RegisterInstance(system);
         }
 
-        public void RegisterModel<T>(T model) where T : class, IModel
+        void IArchitecture.RegisterModel<T>(T model)
         {
             mContainer.RegisterInstance(model);
         }
 
-        public T GetUtility<T>() where T : class, IUtility
+        T IArchitecture.GetUtility<T>()
         {
             return mContainer.Resolve<T>();
         }
 
-        public void RegisterUtility<T>(T utility) where T : class, IUtility
+        void IArchitecture.RegisterUtility<T>(T utility)
         {
             mContainer.RegisterInstance<T>(utility);
         }
@@ -54,17 +91,17 @@ namespace QFramework
 
         protected readonly ITypeEventSystem mEventSystem = new TypeEventSystem();
 
-        public T GetModel<T>() where T : class, IModel
+        T IArchitecture.GetModel<T>()
         {
             return mContainer.Resolve<T>();
         }
-        
-        public void SendEvent<T>() where T : new()
+
+        void IArchitecture.SendEvent<T>()
         {
             mEventSystem.SendEvent<T>();
         }
-        
-        public void SendEvent<T>(T @event)
+
+        void IArchitecture.SendEvent<T>(T @event)
         {
             mEventSystem.SendEvent<T>(@event);
         }
@@ -95,12 +132,12 @@ namespace QFramework
             mEventSystem.RegisterEvent<ICommand>(OnCommandExecute);
         }
 
-        public virtual void SendCommand<T>() where T : ICommand, new()
+        void IArchitecture.SendCommand<T>()
         {
             mEventSystem.SendEvent<ICommand>(new T());
         }
 
-        public virtual void SendCommand(ICommand command)
+        void IArchitecture.SendCommand(ICommand command)
         {
             mEventSystem.SendEvent<ICommand>(command);
         }
@@ -123,10 +160,7 @@ namespace QFramework
         {
         }
 
-
-
-
-        public IDisposable RegisterEvent<T>(Action<T> onEvent)
+        IDisposable IArchitecture.RegisterEvent<T>(Action<T> onEvent)
         {
             return mEventSystem.RegisterEvent<T>(onEvent);
         }

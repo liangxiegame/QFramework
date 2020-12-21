@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2020.12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -26,20 +26,9 @@
 
 namespace QFramework
 {
-    public class ImportPackageCommand : Command<PackageKit>
+    public static class Deprecated
     {
-        private readonly PackageRepository mPackageRepository;
-
-        public ImportPackageCommand(PackageRepository packageRepository)
-        {
-            mPackageRepository = packageRepository;
-        }
-
-        public override void Execute()
-        {
-            PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-
-            this.SendCommand(new InstallPackage(mPackageRepository));
-        }
+        public const bool REMOVED_IN_V0_11_00 = false;
+        public const bool REMOVED_IN_v0_12_00 = false;
     }
 }

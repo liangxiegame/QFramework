@@ -52,8 +52,8 @@ namespace QFramework
 
         protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
         {
-            RegisterUtility<IBinarySerializer>(new BinarySerializer());
-            RegisterUtility<IZipFileHelper>(new ZipFileHelper());
+            utilityLayer.RegisterInstance<IBinarySerializer>(new BinarySerializer());
+            utilityLayer.RegisterInstance<IZipFileHelper>(new ZipFileHelper());
         }
 
         protected override void OnLaunch()

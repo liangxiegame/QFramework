@@ -128,7 +128,7 @@ namespace QFramework
                     var listPackageResponseResult = responseJson.data;
 
 
-                    var packageTypeConfigModel = GetModel<IPackageTypeConfigModel>();
+                    var packageTypeConfigModel = this.GetModel<IPackageTypeConfigModel>();
                     foreach (var packageRepository in listPackageResponseResult.repositories)
                     {
                         packageRepository.type = packageTypeConfigModel.GetFullTypeName(packageRepository.type);

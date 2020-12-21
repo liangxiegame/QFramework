@@ -54,7 +54,7 @@ namespace QFramework
 
                 PackageApplication.Container.Resolve<PackageKitWindow>().Close();
 
-                SendCommand(new InstallPackage(mPackageRepository));
+                this.SendCommand(new InstallPackage(mPackageRepository));
             });
         }
     }

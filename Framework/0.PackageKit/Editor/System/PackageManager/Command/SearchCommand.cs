@@ -39,7 +39,7 @@ namespace QFramework
 
         public override void Execute()
         {
-            var model = GetModel<IPackageManagerModel>();
+            var model = this.GetModel<IPackageManagerModel>();
             var categoryIndex = PackageManagerState.CategoryIndex.Value;
             var categories = PackageManagerState.Categories.Value;
             var accessRightIndex = PackageManagerState.AccessRightIndex.Value;
