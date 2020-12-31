@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,45 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    public class RepeatNodeChain : ActionChain
     {
-    }
-
-    internal class IMGUIButton : View, IButton
-    {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        protected override ActionKitAction mNode
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
+            get { return mRepeatNodeAction; }
+        }
+
+        private RepeatNode mRepeatNodeAction;
+
+        private SequenceNode mSequenceNode;
+
+        public RepeatNodeChain(int repeatCount)
+        {
+            mSequenceNode = new SequenceNode();
+            mRepeatNodeAction = new RepeatNode(mSequenceNode, repeatCount);
+        }
+
+        public override IActionChain Append(IAction node)
+        {
+            mSequenceNode.Append(node);
+            return this;
+        }
+
+        protected override void OnDispose()
+        {
+            base.OnDispose();
+
+            if (null != mRepeatNodeAction)
             {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
+                mRepeatNodeAction.Dispose();
             }
-        }
 
-        public IButton Text(string labelText)
-        {
-            mLabelText = labelText;
-            return this;
-        }
+            mRepeatNodeAction = null;
 
-        public IButton OnClick(Action action)
-        {
-            mOnClick = action;
-            return this;
+            mSequenceNode.Dispose();
+            mSequenceNode = null;
         }
     }
 }

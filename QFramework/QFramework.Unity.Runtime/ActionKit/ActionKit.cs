@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,40 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    public class ActionKit : Architecture<ActionKit>
     {
-    }
-
-    internal class IMGUIButton : View, IButton
-    {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        [RuntimeInitializeOnLoadMethod]
+        private static void InitNodeSystem()
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
-            {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
-            }
+            // cache list			
+
+            // cache node
+            SafeObjectPool<DelayAction>.Instance.Init(50, 50);
+            SafeObjectPool<EventAction>.Instance.Init(50, 50);
+        }
+        
+        protected ActionKit() {}
+
+        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        {
+            
         }
 
-        public IButton Text(string labelText)
+        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
         {
-            mLabelText = labelText;
-            return this;
         }
 
-        public IButton OnClick(Action action)
+        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
         {
-            mOnClick = action;
-            return this;
+            utilityLayer.RegisterInstance<IActionExecutor>(new MonoExecutor());
+        }
+
+        protected override void OnLaunch()
+        {
         }
     }
 }

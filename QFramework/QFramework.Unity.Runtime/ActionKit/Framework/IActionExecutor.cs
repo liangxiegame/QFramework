@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,18 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using UnityEngine;
-
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    public interface IActionExecutor : IUtility
     {
+        void ExecuteAction(IAction action);
     }
 
-    internal class IMGUIButton : View, IButton
+    public class MonoExecutor : IActionExecutor
     {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        public void ExecuteAction(IAction action)
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
-            {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
-            }
-        }
-
-        public IButton Text(string labelText)
-        {
-            mLabelText = labelText;
-            return this;
-        }
-
-        public IButton OnClick(Action action)
-        {
-            mOnClick = action;
-            return this;
+            
         }
     }
 }

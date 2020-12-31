@@ -1,11 +1,7 @@
 {
     "name": "QFramework.ResKit",
     "references": [
-        "QFramework.RefCounter",
-        "QFramework.JsonSerialize",
-        "QFramework.BinarySerializer",
-        "QFramework.Zip",
-        "QFramework.ActionKit"
+        "QFramework.Zip"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

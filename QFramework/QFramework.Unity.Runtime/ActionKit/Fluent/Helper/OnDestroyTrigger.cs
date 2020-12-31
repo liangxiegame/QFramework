@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,37 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    public class OnDestroyTrigger : MonoBehaviour
     {
-    }
+        HashSet<IDisposable> mDisposables = new HashSet<IDisposable>();
 
-    internal class IMGUIButton : View, IButton
-    {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        public void AddDispose(IDisposable disposable)
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
+            if (!mDisposables.Contains(disposable))
             {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
+                mDisposables.Add(disposable);
             }
         }
 
-        public IButton Text(string labelText)
+        private void OnDestroy()
         {
-            mLabelText = labelText;
-            return this;
-        }
+            if (Application.isPlaying)
+            {
+                foreach (var disposable in mDisposables)
+                {
+                    disposable.Dispose();
+                }
 
-        public IButton OnClick(Action action)
-        {
-            mOnClick = action;
-            return this;
+                mDisposables.Clear();
+                mDisposables = null;
+            }
         }
     }
 }

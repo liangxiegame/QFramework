@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2020.10 ~ 12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,42 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
-    {
-    }
 
-    internal class IMGUIButton : View, IButton
+    public class ActionKitEvent : MonoBehaviour , ISerializationCallbackReceiver
     {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
+        [SerializeField]
+        public List<ActionData> ActionsDatas = new List<ActionData>();
 
-        protected override void OnGUI()
+        public void Execute()
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
+            var sequence = this.Sequence();
+            
+            foreach (var t in ActionsDatas)
             {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
+                var type = ActionTypeDB.GetTypeByFullName(t.ActionName);
+                var action = JsonUtility.FromJson(t.AcitonData, type) as IAction;
+                sequence.Append(action);
             }
+
+            sequence.Begin();
         }
 
-        public IButton Text(string labelText)
+        [SerializeField]
+        public List<ActionKitAction> Actions = new List<ActionKitAction>();
+        
+        public void OnBeforeSerialize()
         {
-            mLabelText = labelText;
-            return this;
+            
         }
 
-        public IButton OnClick(Action action)
+        public void OnAfterDeserialize()
         {
-            mOnClick = action;
-            return this;
+            
         }
     }
 }

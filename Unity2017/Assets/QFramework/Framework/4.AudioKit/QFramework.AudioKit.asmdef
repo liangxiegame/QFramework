@@ -1,10 +1,8 @@
 {
     "name": "QFramework.AudioKit",
     "references": [
-        "QFramework.ActionKit",
         "QFramework.UIKit",
         "QFramework.ResKit",
-        "QFramework.RefCounter",
         "QFramework.EventSystem",
         "QFramework.ManagerOfManagers"
     ],

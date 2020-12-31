@@ -3,8 +3,7 @@
     "references": [
         "QFramework.EventSystem",
         "QFramework.ResKit",
-        "QFramework.ManagerOfManagers",
-        "QFramework.ActionKit"
+        "QFramework.ManagerOfManagers"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

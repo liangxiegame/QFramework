@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,34 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
+
+using System.Collections;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    public static class IActionExtension
     {
-    }
-
-    internal class IMGUIButton : View, IButton
-    {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        public static T ExecuteNode<T>(this T selBehaviour, IAction commandNode) where T : MonoBehaviour
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
+            selBehaviour.StartCoroutine(commandNode.Execute());
+            return selBehaviour;
+        }
+
+        public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent)
+            where T : MonoBehaviour
+        {
+            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
+        }
+
+        public static IEnumerator Execute(this IAction selfNode)
+        {
+            if (selfNode.Finished) selfNode.Reset();
+
+            while (!selfNode.Execute(Time.deltaTime))
             {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
+                yield return null;
             }
-        }
-
-        public IButton Text(string labelText)
-        {
-            mLabelText = labelText;
-            return this;
-        }
-
-        public IButton OnClick(Action action)
-        {
-            mOnClick = action;
-            return this;
         }
     }
 }

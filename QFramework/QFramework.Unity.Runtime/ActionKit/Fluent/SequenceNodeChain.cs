@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,41 +24,38 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using UnityEngine;
 
 namespace QFramework
 {
-    public interface IButton : IMGUIView,
-        IHasText<IButton>,
-        ICanClick<IButton>
+    /// <summary>
+    /// 支持链式方法
+    /// </summary>
+    public class SequenceNodeChain : ActionChain
     {
-    }
-
-    internal class IMGUIButton : View, IButton
-    {
-        private string mLabelText = string.Empty;
-        private Action mOnClick = () => { };
-
-        protected override void OnGUI()
+        protected override ActionKitAction mNode
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
-            {
-                mOnClick.Invoke();
-                // GUIUtility.ExitGUI();
-            }
+            get { return mSequenceNode; }
         }
 
-        public IButton Text(string labelText)
+        private SequenceNode mSequenceNode;
+
+        public SequenceNodeChain()
         {
-            mLabelText = labelText;
+            mSequenceNode = new SequenceNode();
+        }
+
+        public override IActionChain Append(IAction node)
+        {
+            mSequenceNode.Append(node);
             return this;
         }
 
-        public IButton OnClick(Action action)
+        protected override void OnDispose()
         {
-            mOnClick = action;
-            return this;
+            base.OnDispose();
+
+            mSequenceNode.Dispose();
+            mSequenceNode = null;
         }
     }
 }

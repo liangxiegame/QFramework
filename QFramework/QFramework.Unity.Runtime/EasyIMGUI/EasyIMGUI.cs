@@ -32,7 +32,7 @@ namespace QFramework
     {
         public static IButton Button()
         {
-            return new Button();
+            return new IMGUIButton();
         }
 
         public static ILabel Label()

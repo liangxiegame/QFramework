@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.9",
+    "Version": "v0.11.10",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -19,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.9",
-        "content": "PackageKit => dll",
+        "version": "v0.11.10",
+        "content": "ActionKit => dll",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 00:22",
+        "date": "2021 年 01 月 01 日 00:51",
         "PackageId": ""
     }
 }
