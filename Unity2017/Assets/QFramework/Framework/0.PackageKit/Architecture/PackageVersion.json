@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.1.1",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/0.PackageKit/Architecture/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/0.PackageKit/Architecture"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.1.1",
+        "content": "底层架构更新，使用更优雅的实现",
+        "author": "liangxie",
+        "date": "2020 年 12 月 21 日 18:35",
+        "PackageId": ""
+    }
+}

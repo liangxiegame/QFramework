@@ -1,0 +1,16 @@
+{
+    "Id": "",
+    "Version": "v0.0.1",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/031.JsonSerializer/",
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.0.1",
+        "content": "初次提交",
+        "author": "liangxie",
+        "date": "2020 年 10 月 12 日 09:07",
+        "PackageId": ""
+    }
+}

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.NetStandard21", "PlatformSupport\QFramework.NetStandard21.csproj", "{4C72234F-1E09-4A11-9A99-D5EA517D153F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Unity.Runtime", "QFramework\QFramework.Unity.Runtime\QFramework.Unity.Runtime.csproj", "{97CC697F-630C-4834-9136-6A39C5F0261E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{4C72234F-1E09-4A11-9A99-D5EA517D153F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C72234F-1E09-4A11-9A99-D5EA517D153F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C72234F-1E09-4A11-9A99-D5EA517D153F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97CC697F-630C-4834-9136-6A39C5F0261E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97CC697F-630C-4834-9136-6A39C5F0261E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97CC697F-630C-4834-9136-6A39C5F0261E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97CC697F-630C-4834-9136-6A39C5F0261E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

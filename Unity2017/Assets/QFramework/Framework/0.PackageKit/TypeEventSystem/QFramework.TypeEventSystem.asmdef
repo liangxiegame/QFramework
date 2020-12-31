@@ -1,0 +1,9 @@
+{
+    "name": "QFramework.TypeEventSystem",
+    "references": [
+        "QFramework.Table",
+        "QFramework.Pool"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

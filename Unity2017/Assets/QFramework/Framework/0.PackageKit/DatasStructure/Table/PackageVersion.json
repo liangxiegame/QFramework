@@ -1,0 +1,22 @@
+{
+    "Id": "",
+    "Version": "v1.0.0",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/003.Table/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/000.Factory",
+        "Assets/QFramework/Framework/001.Singleton",
+        "Assets/QFramework/Framework/002.Pool",
+        "Assets/QFramework/Framework/003.Table"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v1.0.0",
+        "content": "release",
+        "author": "liangxie",
+        "date": "2020 年 10 月 21 日 21:53",
+        "PackageId": ""
+    }
+}

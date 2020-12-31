@@ -1,0 +1,8 @@
+{
+    "name": "QFramework.Disposable",
+    "references": [
+        "QFramework.Pool"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

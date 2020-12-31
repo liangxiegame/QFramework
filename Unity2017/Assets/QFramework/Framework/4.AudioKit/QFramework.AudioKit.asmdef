@@ -1,0 +1,16 @@
+{
+    "name": "QFramework.AudioKit",
+    "references": [
+        "QFramework.ActionKit",
+        "QFramework.Pool",
+        "QFramework.BindableProperty",
+        "QFramework.UIKit",
+        "QFramework.ResKit",
+        "QFramework.RefCounter",
+        "QFramework.EventSystem",
+        "QFramework.CSharpExtension",
+        "QFramework.ManagerOfManagers"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

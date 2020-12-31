@@ -1,0 +1,15 @@
+{
+    "name": "QFramework.ActionKit",
+    "references": [
+        "QFramework.Pool",
+        "QFramework.Disposable",
+        "QFramework.Table",
+        "QFramework.Architecture",
+        "QFramework.IOC",
+        "QFramework.BindableProperty",
+        "QFramework.CSharpExtension",
+        "QFramework.EasyIMGUI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

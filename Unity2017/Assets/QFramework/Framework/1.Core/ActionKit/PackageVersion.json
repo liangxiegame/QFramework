@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.0.16",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/1.Core/ActionKit/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/1.Core/ActionKit"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.0.16",
+        "content": "ChangeState",
+        "author": "liangxie",
+        "date": "2020 年 12 月 16 日 10:33",
+        "PackageId": ""
+    }
+}

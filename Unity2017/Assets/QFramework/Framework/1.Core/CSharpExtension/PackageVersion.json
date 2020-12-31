@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.3.0",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/1.Core/CSharpExtension/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/1.Core/CSharpExtension"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.3.0",
+        "content": "添加 Material Extensions",
+        "author": "liangxie",
+        "date": "2020 年 12 月 06 日 15:54",
+        "PackageId": ""
+    }
+}

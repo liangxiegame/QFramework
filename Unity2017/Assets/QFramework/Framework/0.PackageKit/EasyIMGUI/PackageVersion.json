@@ -1,0 +1,16 @@
+{
+    "Id": "",
+    "Version": "v0.2.6",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/020.EasyIMGUI/",
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.2.6",
+        "content": "添加 TreeView",
+        "author": "liangxie",
+        "date": "2020 年 10 月 19 日 22:12",
+        "PackageId": ""
+    }
+}

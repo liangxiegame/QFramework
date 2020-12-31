@@ -1,0 +1,11 @@
+{
+    "name": "QFramework.Architecture",
+    "references": [
+        "QFramework.IOC",
+        "QFramework.TypeEventSystem",
+        "QFramework.BindableProperty",
+        "QFramework.Disposable"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}

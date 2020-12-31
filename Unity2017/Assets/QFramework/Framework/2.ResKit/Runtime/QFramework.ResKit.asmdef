@@ -1,0 +1,16 @@
+{
+    "name": "QFramework.ResKit",
+    "references": [
+        "QFramework.RefCounter",
+        "QFramework.Pool",
+        "QFramework.Table",
+        "QFramework.Architecture",
+        "QFramework.JsonSerialize",
+        "QFramework.IOC",
+        "QFramework.BinarySerializer",
+        "QFramework.Zip",
+        "QFramework.ActionKit"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
