@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.12",
+    "Version": "v0.11.13",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.12",
-        "content": "Core => dll",
+        "version": "v0.11.13",
+        "content": "fix webgl compile error",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 01:05",
+        "date": "2021 年 01 月 01 日 01:16",
         "PackageId": ""
     }
 }

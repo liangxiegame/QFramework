@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEditor;
+// using UnityEditor;
 using UnityEngine;
 
 namespace QFramework
@@ -33,41 +33,41 @@ namespace QFramework
     {
         public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            if (Application.isPlaying)
-            {
-                return GUILayout.PasswordField(value, '*', style, options);
-            }
-            else
-            {
+            return GUILayout.PasswordField(value, '*', style, options);
 
-                return EditorGUILayout.PasswordField(value, style, options);
-
-            }
+            // if (Application.isPlaying)
+            // {
+            // }
+            // else
+            // {
+            //
+            //     return EditorGUILayout.PasswordField(value, style, options);
+            // }
         }
 
         public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            if (Application.isPlaying)
-            {
+            // if (Application.isPlaying)
+            // {
                 return GUILayout.TextField(value, style, options);
-            }
-            else
-            {
-                return EditorGUILayout.TextField(value, style, options);
-            }
+            // }
+            // else
+            // {
+            //     return EditorGUILayout.TextField(value, style, options);
+            // }
         }
 
         public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            if (Application.isPlaying)
-            {
+            // if (Application.isPlaying)
+            // {
                 return GUILayout.TextArea(value, style, options);
-
-            }
-            else
-            {
-                return EditorGUILayout.TextArea(value, style, options);
-            }
+            //
+            // }
+            // else
+            // {
+            //     return EditorGUILayout.TextArea(value, style, options);
+            // }
         }
     }
 }

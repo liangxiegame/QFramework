@@ -188,19 +188,14 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="ActionKit\Timeline\Timeline.cs.meta" />
       <Content Include="BinarySerializer\BinarySerializer.cs.meta" />
       <Content Include="BinarySerializer\IBinarySerializer.cs.meta" />
       <Content Include="BinarySerializer\PackageVersion.json" />
       <Content Include="BinarySerializer\PackageVersion.json.meta" />
       <Content Include="BinarySerializer\QFramework.BinarySerializer.asmdef" />
       <Content Include="BinarySerializer\QFramework.BinarySerializer.asmdef.meta" />
-      <Content Include="EasyIMGUI\EasyIMGUI.cs.meta" />
-      <Content Include="EasyIMGUI\Editor.meta" />
-      <Content Include="EasyIMGUI\Extensions.meta" />
       <Content Include="EasyIMGUI\Extensions\LayoutExtenion.cs.meta" />
       <Content Include="EasyIMGUI\Extensions\ViewExtension.cs.meta" />
-      <Content Include="EasyIMGUI\Framework.meta" />
       <Content Include="EasyIMGUI\Framework\Feature.meta" />
       <Content Include="EasyIMGUI\Framework\Feature\ICanClick.cs.meta" />
       <Content Include="EasyIMGUI\Framework\Feature\IHasText.cs.meta" />
@@ -208,42 +203,21 @@
       <Content Include="EasyIMGUI\Framework\IMGUIView.cs.meta" />
       <Content Include="EasyIMGUI\Framework\Layout.cs.meta" />
       <Content Include="EasyIMGUI\Framework\View.cs.meta" />
-      <Content Include="EasyIMGUI\GUIStyleProperty.cs.meta" />
-      <Content Include="EasyIMGUI\Layout.meta" />
       <Content Include="EasyIMGUI\Layout\Horizontal.meta" />
       <Content Include="EasyIMGUI\Layout\Horizontal\HorizontalLayout.cs.meta" />
       <Content Include="EasyIMGUI\Layout\Scroll.meta" />
       <Content Include="EasyIMGUI\Layout\Scroll\ScrollLayout.cs.meta" />
       <Content Include="EasyIMGUI\Layout\Vertical.meta" />
       <Content Include="EasyIMGUI\Layout\Vertical\VerticalLayout.cs.meta" />
-      <Content Include="EasyIMGUI\PackageVersion.json" />
-      <Content Include="EasyIMGUI\PackageVersion.json.meta" />
-      <Content Include="EasyIMGUI\QFramework.EasyIMGUI.asmdef" />
-      <Content Include="EasyIMGUI\QFramework.EasyIMGUI.asmdef.meta" />
-      <Content Include="EasyIMGUI\Utility.meta" />
       <Content Include="EasyIMGUI\Utility\CrossPlatformGUILayout.cs.meta" />
-      <Content Include="EasyIMGUI\View.meta" />
-      <Content Include="EasyIMGUI\View\BoxView.cs.meta" />
-      <Content Include="EasyIMGUI\View\Button.meta" />
       <Content Include="EasyIMGUI\View\Button\Button.cs.meta" />
-      <Content Include="EasyIMGUI\View\CustomView.meta" />
       <Content Include="EasyIMGUI\View\CustomView\CustomView.cs.meta" />
-      <Content Include="EasyIMGUI\View\ImageButtonView.cs.meta" />
-      <Content Include="EasyIMGUI\View\Label.meta" />
       <Content Include="EasyIMGUI\View\Label\Label.cs.meta" />
-      <Content Include="EasyIMGUI\View\Space.meta" />
       <Content Include="EasyIMGUI\View\Space\FlexibleSpace.cs.meta" />
       <Content Include="EasyIMGUI\View\Space\Space.cs.meta" />
-      <Content Include="EasyIMGUI\View\Text.meta" />
       <Content Include="EasyIMGUI\View\Text\TextArea.cs.meta" />
       <Content Include="EasyIMGUI\View\Text\TextField.cs.meta" />
-      <Content Include="EasyIMGUI\View\Toggle.meta" />
-      <Content Include="EasyIMGUI\View\Toggle\Toggle.cs.meta" />
-      <Content Include="EasyIMGUI\View\Toolbar.meta" />
       <Content Include="EasyIMGUI\View\Toolbar\ToolbarView.cs.meta" />
-      <Content Include="RefCounter\QFramework.RefCounter.asmdef" />
-      <Content Include="RefCounter\QFramework.RefCounter.asmdef.meta" />
-      <Content Include="RefCounter\QFramework.RefCounter.cs.meta" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
