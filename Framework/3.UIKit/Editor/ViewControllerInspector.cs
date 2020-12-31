@@ -83,11 +83,11 @@ namespace QFramework
                 .Text(LocaleText.Generate)
                 .OnClick(() =>
                 {
-                    CreateViewControllerCode.DoCreateCodeFromScene((target as ViewController).gameObject);
+                    CreateViewControllerCode.DoCreateCodeFromScene(((ViewController) target).gameObject);
                     GUIUtility.ExitGUI();
                 })
                 .Height(30)
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             if (mCodeGenerateInfo.ScriptsFolder.IsNullOrEmpty())
             {

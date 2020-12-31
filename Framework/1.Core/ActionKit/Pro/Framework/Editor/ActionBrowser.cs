@@ -61,7 +61,7 @@ namespace QFramework
 
         protected override void Init()
         {
-            AddChild(EasyIMGUI.TextField().Do(t =>
+            AddChild(EasyIMGUI.TextField().Self(t =>
             {
                 t.Content.Bind(c =>
                 {
@@ -93,7 +93,7 @@ namespace QFramework
                     treeNode.Add2Spread(EasyIMGUI.Button()
                         .OnClick(() => { mOnTypeClick(actionType); })
                         .Text(type.Name)
-                        .Do(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
+                        .Self(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
                 }
 
                 this.AddChild(treeNode);

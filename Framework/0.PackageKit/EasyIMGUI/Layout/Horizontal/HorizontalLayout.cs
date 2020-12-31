@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using UnityEngine;
 
 namespace QFramework

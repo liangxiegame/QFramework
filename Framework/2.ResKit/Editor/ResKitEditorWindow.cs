@@ -119,19 +119,19 @@ namespace QFramework
 
             public void Init(IQFrameworkContainer container)
             {
-                EasyIMGUI.Label().Text(LocaleText.ResKit).FontSize(12).AddTo(this);
+                EasyIMGUI.Label().Text(LocaleText.ResKit).FontSize(12).Parent(this);
 
-                var verticalLayout = new VerticalLayout("box").AddTo(this);
+                var verticalLayout = new VerticalLayout("box").Parent(this);
 
-                var persistLine = new HorizontalLayout();
-                EasyIMGUI.Label().Text("PersistantPath:").AddTo(persistLine).Width(100);
-                EasyIMGUI.TextField().Text(Application.persistentDataPath).AddTo(persistLine);
-                persistLine.AddTo(verticalLayout);
+                var persistLine = EasyIMGUI.Horizontal();
+                EasyIMGUI.Label().Text("PersistantPath:").Parent(persistLine).Width(100);
+                EasyIMGUI.TextField().Text(Application.persistentDataPath).Parent(persistLine);
+                persistLine.Parent(verticalLayout);
 
                 EasyIMGUI.Button()
                     .Text(LocaleText.GoToPersistent)
                     .OnClick(() => { EditorUtility.RevealInFinder(Application.persistentDataPath); })
-                    .AddTo(verticalLayout);
+                    .Parent(verticalLayout);
 
                 mResVersion = EditorPrefs.GetString(KEY_QAssetBundleBuilder_RESVERSION, "100");
                 mEnableGenerateClass = EditorPrefs.GetBool(KEY_AUTOGENERATE_CLASS, true);
@@ -158,26 +158,26 @@ namespace QFramework
                     .AddMenu("Android")
                     .AddMenu("WebGL")
                     .Index(mBuildTargetIndex)
-                    .AddTo(verticalLayout);
+                    .Parent(verticalLayout);
 
                 EasyIMGUI.Toggle()
                     .Text(LocaleText.AutoGenerateClass)
                     .IsOn(mEnableGenerateClass)
-                    .AddTo(verticalLayout)
+                    .Parent(verticalLayout)
                     .ValueProperty.Bind(v => mEnableGenerateClass = v);
 
                 EasyIMGUI.Toggle()
                     .Text(LocaleText.SimulationMode)
                     .IsOn(AssetBundleSettings.SimulateAssetBundleInEditor)
-                    .AddTo(verticalLayout)
+                    .Parent(verticalLayout)
                     .ValueProperty.Bind(v => AssetBundleSettings.SimulateAssetBundleInEditor = v);
 
                 var resVersionLine = new HorizontalLayout()
-                    .AddTo(verticalLayout);
+                    .Parent(verticalLayout);
 
-                EasyIMGUI.Label().Text("ResVesion:").AddTo(resVersionLine).Width(100);
+                EasyIMGUI.Label().Text("ResVesion:").Parent(resVersionLine).Width(100);
 
-                EasyIMGUI.TextField().Text(mResVersion).AddTo(resVersionLine)
+                EasyIMGUI.TextField().Text(mResVersion).Parent(resVersionLine)
                     .Content.Bind(v => mResVersion = v);
 
                 EasyIMGUI.Button()
@@ -186,7 +186,7 @@ namespace QFramework
                     {
                         BuildScript.WriteClass();
                         AssetDatabase.Refresh();
-                    }).AddTo(verticalLayout);
+                    }).Parent(verticalLayout);
 
                 EasyIMGUI.Button()
                     .Text(LocaleText.Build)
@@ -203,20 +203,20 @@ namespace QFramework
 
                             BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
                         });
-                    }).AddTo(verticalLayout);
+                    }).Parent(verticalLayout);
 
                 EasyIMGUI.Button()
                     .Text(LocaleText.ForceClear)
                     .OnClick(() => { ForceClear(); })
-                    .AddTo(verticalLayout);
+                    .Parent(verticalLayout);
 
                 verticalLayout.AddChild(EasyIMGUI.Space().Pixel(10));
                 verticalLayout.AddChild(EasyIMGUI.Label().Text("已标记 AB 列表:").FontBold().FontSize(15));
 
 
-                var scrollView = EasyIMGUI.Scroll().AddTo(verticalLayout);
+                var scrollView = EasyIMGUI.Scroll().Parent(verticalLayout);
                 mMarkedPathList = new VerticalLayout("box")
-                    .AddTo(scrollView);
+                    .Parent(scrollView);
 
                 ReloadMarkedList();
             }
@@ -265,7 +265,7 @@ namespace QFramework
 
                                 EditorLifecycle.PushCommand(() => { ReloadMarkedList(); });
                             }).Width(75))
-                        .AddTo(mMarkedPathList)
+                        .Parent(mMarkedPathList)
                     );
             }
 
@@ -284,12 +284,12 @@ namespace QFramework
                 EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
             }
 
-            public void OnShow()
+            public new void OnShow()
             {
                 
             }
 
-            public void OnHide()
+            public new void OnHide()
             {
                 
             }

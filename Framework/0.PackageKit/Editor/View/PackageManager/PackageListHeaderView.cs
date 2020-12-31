@@ -37,7 +37,7 @@ namespace QFramework
                 .Width(200)
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Label()
                 .Text(LocaleText.ServerVersion)
@@ -45,7 +45,7 @@ namespace QFramework
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Label()
                 .Text(LocaleText.LocalVersion)
@@ -53,7 +53,7 @@ namespace QFramework
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Label()
                 .Text(LocaleText.AccessRight)
@@ -61,7 +61,7 @@ namespace QFramework
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
 
             // new LabelView(LocaleText.Doc)
             //     .Width(40)
@@ -76,21 +76,21 @@ namespace QFramework
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Label().Text(LocaleText.ReleaseNote)
                 .Width(100)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
             
             EasyIMGUI.Label().Text(LocaleText.AuthorName)
                 .Width(140)
                 .TextMiddleCenter()
                 .FontSize(12)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
         }
 
         class LocaleText

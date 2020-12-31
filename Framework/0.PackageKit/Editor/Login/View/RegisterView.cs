@@ -32,26 +32,26 @@ namespace QFramework
 
         public RegisterView()
         {
-            var usernameLine = new HorizontalLayout().AddTo(this); 
+            var usernameLine =  EasyIMGUI.Horizontal().Parent(this); 
             
-            EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
-            EasyIMGUI.TextField().AddTo(usernameLine);
+            EasyIMGUI.Label().Text("username:").Parent(usernameLine);
+            EasyIMGUI.TextField().Parent(usernameLine);
 
-            var passwordLine = new HorizontalLayout().AddTo(this);
+            var passwordLine = new HorizontalLayout().Parent(this);
 
-            EasyIMGUI.Label().Text("password:").AddTo(passwordLine);
+            EasyIMGUI.Label().Text("password:").Parent(passwordLine);
 
-            EasyIMGUI.TextField().PasswordMode().AddTo(passwordLine);
+            EasyIMGUI.TextField().PasswordMode().Parent(passwordLine);
 
             EasyIMGUI.Button()
                 .Text("注册")
                 .OnClick(() => { })
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Button()
                 .Text("返回注册")
                 .OnClick(() => { mControllerNode.SendCommand(new OpenRegisterViewCommand()); })
-                .AddTo(this);
+                .Parent(this);
         }
 
         protected override void OnDisposed()

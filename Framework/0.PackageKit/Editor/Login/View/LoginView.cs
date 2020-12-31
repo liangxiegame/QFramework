@@ -6,23 +6,23 @@ namespace QFramework
 
         public LoginView()
         {
-            var usernameLine = new HorizontalLayout().AddTo(this);
-            EasyIMGUI.Label().Text("username:").AddTo(usernameLine);
-            var username = EasyIMGUI.TextField().AddTo(usernameLine);
+            var usernameLine = EasyIMGUI.Horizontal().Parent(this);
+            EasyIMGUI.Label().Text("username:").Parent(usernameLine);
+            var username = EasyIMGUI.TextField().Parent(usernameLine);
 
-            var passwordLine = new HorizontalLayout().AddTo(this);
-            EasyIMGUI.Label().Text("password:").AddTo(passwordLine);
-            var password = EasyIMGUI.TextField().PasswordMode().AddTo(passwordLine);
+            var passwordLine = EasyIMGUI.Horizontal().Parent(this);
+            EasyIMGUI.Label().Text("password:").Parent(passwordLine);
+            var password = EasyIMGUI.TextField().PasswordMode().Parent(passwordLine);
 
             EasyIMGUI.Button()
                 .Text("登录")
                 .OnClick(() => { mController.SendCommand(new LoginCommand(username.Content.Value, password.Content.Value)); })
-                .AddTo(this);
+                .Parent(this);
 
             EasyIMGUI.Button()
                 .Text("注册")
                 .OnClick(() => { mController.SendCommand<OpenRegisterWebsiteCommand>(); })
-                .AddTo(this);
+                .Parent(this);
         }
 
         protected override void OnDisposed()

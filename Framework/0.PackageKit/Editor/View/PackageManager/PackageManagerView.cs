@@ -72,14 +72,14 @@ namespace QFramework
 
             mRootLayout = new VerticalLayout();
 
-            EasyIMGUI.Label().Text(LocaleText.FrameworkPackages).FontSize(12).AddTo(mRootLayout);
+            EasyIMGUI.Label().Text(LocaleText.FrameworkPackages).FontSize(12).Parent(mRootLayout);
 
-            var verticalLayout = new VerticalLayout("box").AddTo(mRootLayout);
+            var verticalLayout = new VerticalLayout("box").Parent(mRootLayout);
 
             var searchView = EasyIMGUI
                 .Horizontal()
                 .Box()
-                .AddTo(verticalLayout);
+                .Parent(verticalLayout);
 
             searchView.AddChild(EasyIMGUI.Label().Text("搜索:")
                 .FontBold()
@@ -89,7 +89,7 @@ namespace QFramework
             searchView.AddChild(
                 EasyIMGUI.TextField()
                     .Height(20)
-                    .Do(search =>
+                    .Self(search =>
                     {
                         search.Content
                             .Bind(key => { mControllerNode.SendCommand(new SearchCommand(key)); })
@@ -100,8 +100,8 @@ namespace QFramework
             EasyIMGUI.Toolbar()
                 .Menus(new List<string>()
                     {"all", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
-                .AddTo(verticalLayout)
-                .Do(self =>
+                .Parent(verticalLayout)
+                .Self(self =>
                 {
                     self.IndexProperty.Bind(value =>
                     {
@@ -111,8 +111,8 @@ namespace QFramework
                 });
 
             mCategoriesSelectorView = EasyIMGUI.Toolbar()
-                .AddTo(verticalLayout)
-                .Do(self =>
+                .Parent(verticalLayout)
+                .Self(self =>
                 {
                     self.IndexProperty.Bind(value =>
                     {
@@ -122,14 +122,14 @@ namespace QFramework
                 });
 
             new PackageListHeaderView()
-                .AddTo(verticalLayout);
+                .Parent(verticalLayout);
 
             var packageList = new VerticalLayout("box")
-                .AddTo(verticalLayout);
+                .Parent(verticalLayout);
 
             mRepositoryList = EasyIMGUI.Scroll()
                 .Height(600)
-                .AddTo(packageList);
+                .Parent(packageList);
 
             PackageManagerState.Categories.Bind(value => { Categories = value; }).AddTo(mDisposableList);
 

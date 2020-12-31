@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2018 ~ 2020.12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -37,7 +37,6 @@ namespace QFramework
     {
         private int mPixel = 10;
         
-
         protected override void OnGUI()
         {
             GUILayout.Space(mPixel);

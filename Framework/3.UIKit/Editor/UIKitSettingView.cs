@@ -26,6 +26,7 @@
 
 using System.ComponentModel;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
     [DisplayName("UIKit 设置")]
@@ -54,7 +55,7 @@ namespace QFramework
             get { return true; }
         }
 
-        private VerticalLayout mRootLayout = null;
+        private IVerticalLayout mRootLayout = null;
 
         private UIKitSettingViewModel mViewModel;
 
@@ -62,91 +63,91 @@ namespace QFramework
         {
             mViewModel = new UIKitSettingViewModel();
 
-            EasyIMGUI.Label().Text(LocaleText.UIKitSettings).FontSize(12).AddTo(this);
+            EasyIMGUI.Label().Text(LocaleText.UIKitSettings).FontSize(12).Parent(this);
 
-            mRootLayout = new VerticalLayout("box").AddTo(this);
+            mRootLayout = EasyIMGUI.Vertical().Box().Parent(this);
 
             mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             // 命名空间
             var nameSpaceLayout = new HorizontalLayout()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.Namespace)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
-                .AddTo(nameSpaceLayout);
+                .Parent(nameSpaceLayout);
 
             EasyIMGUI.TextField().Text(mUiKitSettingData.Namespace)
-                .AddTo(nameSpaceLayout)
+                .Parent(nameSpaceLayout)
                 .Content.Bind(content => mUiKitSettingData.Namespace = content);
 
             // UI 生成的目录
             EasyIMGUI.Space().Pixel(6)
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             var uiScriptGenerateDirLayout = new HorizontalLayout()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.UIScriptGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
-                .AddTo(uiScriptGenerateDirLayout);
+                .Parent(uiScriptGenerateDirLayout);
 
             EasyIMGUI.TextField().Text(mUiKitSettingData.UIScriptDir)
-                .AddTo(uiScriptGenerateDirLayout)
+                .Parent(uiScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.UIScriptDir = content);
 
             mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             var uiPanelPrefabDir = new HorizontalLayout()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.UIPanelPrefabDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
-                .AddTo(uiPanelPrefabDir);
+                .Parent(uiPanelPrefabDir);
 
             EasyIMGUI.TextField().Text(mUiKitSettingData.UIPrefabDir)
-                .AddTo(uiPanelPrefabDir)
+                .Parent(uiPanelPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.UIPrefabDir = content);
 
             mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             // UI 生成的目录
             EasyIMGUI.Space().Pixel(6)
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             var viewControllerScriptGenerateDirLayout = new HorizontalLayout()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.ViewControllerScriptGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(200)
-                .AddTo(viewControllerScriptGenerateDirLayout);
+                .Parent(viewControllerScriptGenerateDirLayout);
 
             EasyIMGUI.TextField().Text(mUiKitSettingData.DefaultViewControllerScriptDir)
-                .AddTo(viewControllerScriptGenerateDirLayout)
+                .Parent(viewControllerScriptGenerateDirLayout)
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerScriptDir = content);
 
 
             mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
 
             var viewControllerPrefabDir = new HorizontalLayout()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.ViewControllerPrefabGenerateDir)
                 .FontSize(12)
                 .FontBold()
                 .Width(220)
-                .AddTo(viewControllerPrefabDir);
+                .Parent(viewControllerPrefabDir);
 
             EasyIMGUI.TextField().Text(mUiKitSettingData.DefaultViewControllerPrefabDir)
-                .AddTo(viewControllerPrefabDir)
+                .Parent(viewControllerPrefabDir)
                 .Content.Bind(content => mUiKitSettingData.DefaultViewControllerPrefabDir = content);
 
             mRootLayout.AddChild(EasyIMGUI.Space().Pixel(6));
@@ -155,24 +156,24 @@ namespace QFramework
             EasyIMGUI.Button()
                 .Text(LocaleText.Apply)
                 .OnClick(() => { mUiKitSettingData.Save(); })
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.TextField().Text(mViewModel.PanelNameToCreate)
-                .AddTo(mRootLayout)
-                .Do(text => { text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt); });
+                .Parent(mRootLayout)
+                .Self(text => { text.Content.Bind(txt => mViewModel.PanelNameToCreate = txt); });
 
             // 创建 UI 界面 按钮的绑定
             EasyIMGUI.Button()
                 .Text(LocaleText.CreateUIPanel)
-                .AddTo(mRootLayout)
-                .Do(btn => btn.OnClick(() => { mViewModel.OnCreateUIPanelClick(); }));
+                .Parent(mRootLayout)
+                .Self(btn => btn.OnClick(() => { mViewModel.OnCreateUIPanelClick(); }));
         }
 
         public void OnUpdate()
         {
         }
 
-        private bool ShowLabel2;
+        private bool mShowLabel2;
 
         void IPackageKitView.OnGUI()
         {
@@ -183,12 +184,12 @@ namespace QFramework
         {
         }
 
-        public void OnShow()
+        public new void OnShow()
         {
             
         }
 
-        public void OnHide()
+        public new void OnHide()
         {
             
         }

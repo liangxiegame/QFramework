@@ -48,21 +48,21 @@ namespace QFramework
 
         public void Init(IQFrameworkContainer container)
         {
-            EasyIMGUI.Label().Text("账户信息").FontSize(12).AddTo(this);
+            EasyIMGUI.Label().Text("账户信息").FontSize(12).Parent(this);
 
-            var boxLayout = new VerticalLayout("box").AddTo(this);
+            var boxLayout = new VerticalLayout("box").Parent(this);
             
             var logoutBtn = EasyIMGUI.Button().Text("注销")
                 .Visible(PackageKitLoginState.Logined.Value)
-                .AddTo(boxLayout);
+                .Parent(boxLayout);
 
             var loginView = new LoginView()
-                .Do(self => self.Visible = PackageKitLoginState.LoginViewVisible.Value)
-                .AddTo(boxLayout);
+                .Self(self => self.Visible = PackageKitLoginState.LoginViewVisible.Value)
+                .Parent(boxLayout);
 
             var registerView = new RegisterView()
-                .Do(self => self.Visible = PackageKitLoginState.RegisterViewVisible.Value)
-                .AddTo(boxLayout);
+                .Self(self => self.Visible = PackageKitLoginState.RegisterViewVisible.Value)
+                .Parent(boxLayout);
 
             PackageKitLoginState.Logined.Bind(value => { logoutBtn.Visible = value; }).AddTo(mDisposableList);
 
@@ -103,12 +103,12 @@ namespace QFramework
             mDisposableList = null;
         }
 
-        public void OnShow()
+        public new void OnShow()
         {
             
         }
 
-        public void OnHide()
+        public new void OnHide()
         {
         }
     }

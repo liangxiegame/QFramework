@@ -159,45 +159,45 @@ namespace QFramework
 
             RootLayout = new VerticalLayout("box");
 
-            var editorView = new VerticalLayout().AddTo(RootLayout);
-            var uploadingView = new VerticalLayout().AddTo(RootLayout);
+            var editorView = EasyIMGUI.Vertical().Parent(RootLayout);
+            var uploadingView = new VerticalLayout().Parent(RootLayout);
 
             // 当前版本号
-            var versionLine = new HorizontalLayout().AddTo(editorView);
-            EasyIMGUI.Label().Text("当前版本号").Width(100).AddTo(versionLine);
-            EasyIMGUI.Label().Text(mPackageVersion.Version).Width(100).AddTo(versionLine);
+            var versionLine = EasyIMGUI.Horizontal().Parent(editorView);
+            EasyIMGUI.Label().Text("当前版本号").Width(100).Parent(versionLine);
+            EasyIMGUI.Label().Text(mPackageVersion.Version).Width(100).Parent(versionLine);
 
             // 发布版本号 
-            var publishedVersionLine = new HorizontalLayout().AddTo(editorView);
+            var publishedVersionLine = new HorizontalLayout().Parent(editorView);
 
             EasyIMGUI.Label().Text("发布版本号")
                 .Width(100)
-                .AddTo(publishedVersionLine);
+                .Parent(publishedVersionLine);
 
             EasyIMGUI.TextField()
                 .Text(mPublishVersion)
                 .Width(100)
-                .AddTo(publishedVersionLine)
+                .Parent(publishedVersionLine)
                 .Content.Bind(v => mPublishVersion = v);
 
             // 类型
-            var typeLine = new HorizontalLayout().AddTo(editorView);
-            EasyIMGUI.Label().Text("类型").Width(100).AddTo(typeLine);
+            var typeLine = EasyIMGUI.Horizontal().Parent(editorView);
+            EasyIMGUI.Label().Text("类型").Width(100).Parent(typeLine);
 
-            var packageType = new EnumPopupView(mPackageVersion.Type).AddTo(typeLine);
+            var packageType = new EnumPopupView(mPackageVersion.Type).Parent(typeLine);
 
-            var accessRightLine = new HorizontalLayout().AddTo(editorView);
-            EasyIMGUI.Label().Text("权限").Width(100).AddTo(accessRightLine);
-            var accessRight = new EnumPopupView(mPackageVersion.AccessRight).AddTo(accessRightLine);
+            var accessRightLine = EasyIMGUI.Horizontal().Parent(editorView);
+            EasyIMGUI.Label().Text("权限").Width(100).Parent(accessRightLine);
+            var accessRight = new EnumPopupView(mPackageVersion.AccessRight).Parent(accessRightLine);
 
-            EasyIMGUI.Label().Text("发布说明:").Width(150).AddTo(editorView);
+            EasyIMGUI.Label().Text("发布说明:").Width(150).Parent(editorView);
 
             var releaseNote = EasyIMGUI.TextArea().Width(245)
-                .AddTo(editorView);
+                .Parent(editorView);
 
             // 文件选择部分
             EasyIMGUI.Label().Text("插件目录: " + mPackageVersion.InstallPath)
-                .AddTo(editorView);
+                .Parent(editorView);
 
             EasyIMGUI.Custom().OnGUI(() =>
             {
@@ -206,7 +206,7 @@ namespace QFramework
                 _assetTreeGUI.DrawTreeLayout();
 
                 EditorGUILayout.EndScrollView();
-            }).AddTo(editorView);
+            }).Parent(editorView);
 
 
             PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })
@@ -236,10 +236,10 @@ namespace QFramework
                         mPackageVersion.Type = (PackageType) packageType.ValueProperty.Value;
                         mPackageVersion.Version = mPublishVersion;
                         mControllerNode.SendCommand(new PublishPackageCommand(mPackageVersion));
-                    }).AddTo(editorView);
+                    }).Parent(editorView);
             }
 
-            var notice = new LabelViewWithRect("", 100, 200, 200, 200).AddTo(uploadingView);
+            var notice = new LabelViewWithRect("", 100, 200, 200, 200).Parent(uploadingView);
 
             PackageMakerState.NoticeMessage
                 .BindWithInitialValue(value => { notice.Content.Value = value; }).AddTo(mDisposableList);

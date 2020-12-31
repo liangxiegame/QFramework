@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.20",
+    "Version": "v0.11.21",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.20",
-        "content": "更新 Architecture",
+        "version": "v0.11.21",
+        "content": "Do=>Self   AddTo=>Parent",
         "author": "liangxie",
-        "date": "2020 年 12 月 21 日 18:45",
+        "date": "2020 年 12 月 31 日 22:01",
         "PackageId": ""
     }
 }

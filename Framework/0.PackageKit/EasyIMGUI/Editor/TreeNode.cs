@@ -36,7 +36,7 @@ namespace QFramework
         public string Content;
 
 
-        HorizontalLayout mFirstLine = new HorizontalLayout();
+        private readonly IHorizontalLayout mFirstLine = EasyIMGUI.Horizontal();
 
         private VerticalLayout mSpreadView = new VerticalLayout();
 
@@ -52,7 +52,7 @@ namespace QFramework
 
             Style = new GUIStyleProperty(() => EditorStyles.foldout);
 
-            mFirstLine.AddTo(this);
+            mFirstLine.Parent(this);
             mFirstLine.AddChild(EasyIMGUI.Space().Pixel(indent));
 
             if (autosaveSpreadState)
@@ -62,7 +62,7 @@ namespace QFramework
 
 
             EasyIMGUI.Custom().OnGUI(() => { Spread.Value = EditorGUILayout.Foldout(Spread.Value, Content, true, Style.Value); })
-                .AddTo(mFirstLine);
+                .Parent(mFirstLine);
 
             EasyIMGUI.Custom().OnGUI(() =>
             {
@@ -70,18 +70,18 @@ namespace QFramework
                 {
                     mSpreadView.DrawGUI();
                 }
-            }).AddTo(this);
+            }).Parent(this);
         }
 
         public TreeNode Add2FirstLine(IMGUIView view)
         {
-            view.AddTo(mFirstLine);
+            view.Parent(mFirstLine);
             return this;
         }
 
         public TreeNode FirstLineBox()
         {
-            mFirstLine.HorizontalStyle = "box";
+            mFirstLine.Box();
 
             return this;
         }
@@ -95,7 +95,7 @@ namespace QFramework
 
         public TreeNode Add2Spread(IMGUIView view)
         {
-            view.AddTo(mSpreadView);
+            view.Parent(mSpreadView);
             return this;
         }
     }

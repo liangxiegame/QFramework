@@ -52,7 +52,7 @@ namespace QFramework
         }
 
         private VerticalLayout mRootLayout;
-        private HorizontalLayout mComponentLine;
+        private IHorizontalLayout mComponentLine;
         private HorizontalLayout mClassnameLine;
 
         private void OnEnable()
@@ -60,18 +60,18 @@ namespace QFramework
             mRootLayout = new VerticalLayout("box");
 
             EasyIMGUI.Space()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
-            var markTypeLine = new HorizontalLayout()
-                .AddTo(mRootLayout);
+            var markTypeLine = EasyIMGUI.Horizontal()
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.MarkType)
                 .FontSize(12)
                 .Width(60)
-                .AddTo(markTypeLine);
+                .Parent(markTypeLine);
 
             var enumPopupView = new EnumPopupView(mBindScript.MarkType)
-                .AddTo(markTypeLine);
+                .Parent(markTypeLine);
 
             enumPopupView.ValueProperty.Bind(newValue =>
             {
@@ -82,7 +82,7 @@ namespace QFramework
 
 
             EasyIMGUI.Space()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Custom().OnGUI(() =>
             {
@@ -91,15 +91,15 @@ namespace QFramework
                 {
                     mBindScript.CustomComponentName = mBindScript.name;
                 }
-            }).AddTo(mRootLayout);
+            }).Parent(mRootLayout);
 
 
-            mComponentLine = new HorizontalLayout();
+            mComponentLine = EasyIMGUI.Horizontal();
 
             EasyIMGUI.Label().Text(LocaleText.Type)
                 .Width(60)
                 .FontSize(12)
-                .AddTo(mComponentLine);
+                .Parent(mComponentLine);
 
             if (mBindScript.MarkType == BindType.DefaultUnityElement)
             {
@@ -122,68 +122,68 @@ namespace QFramework
                 mBindScript.ComponentName = componentNames[componentNameIndex];
 
                 new PopupView(componentNameIndex, componentNames)
-                    .AddTo(mComponentLine)
+                    .Parent(mComponentLine)
                     .IndexProperty.Bind((index) => { mBindScript.ComponentName = componentNames[index]; });
             }
 
-            mComponentLine.AddTo(mRootLayout);
+            mComponentLine.Parent(mRootLayout);
 
             EasyIMGUI.Space()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
-            var belongsTo = new HorizontalLayout()
-                .AddTo(mRootLayout);
+            var belongsTo = EasyIMGUI.Horizontal()
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.BelongsTo)
                 .Width(60)
                 .FontSize(12)
-                .AddTo(belongsTo);
+                .Parent(belongsTo);
 
             EasyIMGUI.Label().Text(CodeGenUtil.GetBindBelongs2(target as Bind))
                 .Width(200)
                 .FontSize(12)
-                .AddTo(belongsTo);
+                .Parent(belongsTo);
 
 
             EasyIMGUI.Button()
                 .Text(LocaleText.Select)
                 .OnClick(() =>
                 {
-                    Selection.objects = new[]
+                    Selection.objects = new Object[]
                     {
                         CodeGenUtil.GetBindBelongs2GameObject(target as Bind)
                     };
                 })
                 .Width(60)
-                .AddTo(belongsTo);
+                .Parent(belongsTo);
 
             mClassnameLine = new HorizontalLayout();
 
             EasyIMGUI.Label().Text(LocaleText.ClassName)
                 .Width(60)
                 .FontSize(12)
-                .AddTo(mClassnameLine);
+                .Parent(mClassnameLine);
 
             EasyIMGUI.TextField().Text(mBindScript.CustomComponentName)
-                .AddTo(mClassnameLine)
+                .Parent(mClassnameLine)
                 .Content.Bind(newValue => { mBindScript.CustomComponentName = newValue; });
 
-            mClassnameLine.AddTo(mRootLayout);
+            mClassnameLine.Parent(mRootLayout);
 
             EasyIMGUI.Space()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Label().Text(LocaleText.Comment)
                 .FontSize(12)
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.Space()
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
 
             EasyIMGUI.TextArea()
                 .Text(mBindScript.Comment)
                 .Height(100)
-                .AddTo(mRootLayout)
+                .Parent(mRootLayout)
                 .Content.Bind(newValue => mBindScript.CustomComment = newValue);
 
             var bind = target as Bind;
@@ -203,7 +203,7 @@ namespace QFramework
                         UICodeGenerator.DoCreateCode(new[] {rootPrefabObj});
                     })
                     .Height(30)
-                    .AddTo(mRootLayout);
+                    .Parent(mRootLayout);
             }
             else if (rootGameObj.transform.IsViewController())
             {
@@ -211,7 +211,7 @@ namespace QFramework
                     .Text(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
                     .OnClick(() => { CreateViewControllerCode.DoCreateCodeFromScene(bind.gameObject); })
                     .Height(30)
-                    .AddTo(mRootLayout);
+                    .Parent(mRootLayout);
             }
 
 
@@ -222,13 +222,13 @@ namespace QFramework
         {
             if (mBindScript.MarkType == BindType.DefaultUnityElement)
             {
-                mComponentLine.Show();
-                mClassnameLine.Hide();
+                mComponentLine.Visible = true;
+                mClassnameLine.Visible = false;
             }
             else
             {
-                mClassnameLine.Show();
-                mComponentLine.Hide();
+                mClassnameLine.Visible = true;
+                mComponentLine.Visible = false;
             }
         }
 

@@ -11,15 +11,15 @@ namespace QFramework
             EasyIMGUI.Label()
                 .Text(title)
                 .FontBold()
-                .AddTo(this);
+                .Parent(this);
             
-            EasyIMGUI.FlexibleSpace().AddTo(this);
+            EasyIMGUI.FlexibleSpace().Parent(this);
 
             EasyIMGUI.Button()
                 .Text(LocalText.Open)
                 .OnClick(() => { Application.OpenURL(link); })
                 .Width(200)
-                .AddTo(this);
+                .Parent(this);
         }
 
         class LocalText

@@ -201,7 +201,7 @@ namespace MG.GIF
 
         private void ReadControlBlock(BinaryReader r)
         {
-            var blockSize = r.ReadByte();
+            r.ReadByte();
 
             var flags = r.ReadByte();
 
