@@ -1,6 +1,6 @@
-﻿{
-	"name": "QFramework.BindableProperty",
-	"references": [
-		"QFramework.Disposable"
-	]
+{
+    "name": "QFramework.BindableProperty",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

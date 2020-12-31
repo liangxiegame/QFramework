@@ -1,8 +1,6 @@
 {
     "name": "QFramework.EventSystem",
-    "references": [
-        "QFramework.Pool"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": []
 }

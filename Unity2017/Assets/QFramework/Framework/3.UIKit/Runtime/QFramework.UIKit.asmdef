@@ -1,7 +1,6 @@
 {
     "name": "QFramework.UIKit",
     "references": [
-        "QFramework.Pool",
         "QFramework.EventSystem",
         "QFramework.ResKit",
         "QFramework.CSharpExtension",

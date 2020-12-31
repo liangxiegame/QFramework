@@ -46,11 +46,24 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Disposable\CustomDisposable.cs" />
+        <Compile Include="Disposable\DisposableList.cs" />
+        <Compile Include="Disposable\IDisposableList.cs" />
+        <Compile Include="Disposable\IDisposableListExtension.cs" />
         <Compile Include="Factory\CustomObjectFactory.cs" />
         <Compile Include="Factory\DefaultObjectFactory.cs" />
         <Compile Include="Factory\IObjectFactory.cs" />
         <Compile Include="Factory\NonPublicObjectFactory.cs" />
         <Compile Include="Factory\ObjectFactory.cs" />
+        <Compile Include="Pool\DictionaryPool.cs" />
+        <Compile Include="Pool\IPool.cs" />
+        <Compile Include="Pool\IPoolable.cs" />
+        <Compile Include="Pool\IPoolType.cs" />
+        <Compile Include="Pool\ListPool.cs" />
+        <Compile Include="Pool\NonPublicObjectPool.cs" />
+        <Compile Include="Pool\Pool.cs" />
+        <Compile Include="Pool\SafeObjectPool.cs" />
+        <Compile Include="Pool\SimpleObjectPool.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Singleton\ISingleton.cs" />
         <Compile Include="Singleton\MonoSingleton.cs" />

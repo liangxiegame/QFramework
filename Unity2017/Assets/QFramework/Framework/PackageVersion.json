@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.1",
+    "Version": "v0.11.2",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.1",
-        "content": "Singleton=>dll",
+        "version": "v0.11.2",
+        "content": "Pool & Disposable => dll",
         "author": "liangxie",
-        "date": "2020 年 12 月 31 日 23:06",
+        "date": "2020 年 12 月 31 日 23:14",
         "PackageId": ""
     }
 }
