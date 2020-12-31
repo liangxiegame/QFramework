@@ -35,11 +35,11 @@ namespace QFramework
         IToggle IsOn(bool isOn);
     }
     
-    internal class Toggle : View,IToggle
+    internal class IMGUIToggle : View,IToggle
     {
         private string mText { get; set; }
 
-        public Toggle()
+        public IMGUIToggle()
         {
             ValueProperty = new Property<bool>(false);
 

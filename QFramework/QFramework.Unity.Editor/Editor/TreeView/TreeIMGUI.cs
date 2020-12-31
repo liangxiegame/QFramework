@@ -1,4 +1,3 @@
-#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -100,4 +99,3 @@ namespace QFramework.TreeView
         bool isExpanded { get; set; }
     }
 }
-#endif

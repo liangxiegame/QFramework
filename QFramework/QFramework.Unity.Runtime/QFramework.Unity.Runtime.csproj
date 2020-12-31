@@ -41,7 +41,11 @@
           <Private>True</Private>
         </Reference>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\..\packages\Unity3D.SDK.2017.4.40.1\lib\UnityEngine.dll</HintPath>
+          <HintPath>..\..\packages\Unity3D.UnityEngine.2018.3.5.1\lib\UnityEngine.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\packages\Unity3D.UnityEngine.UI.2018.3.5.1\lib\UnityEngine.UI.dll</HintPath>
           <Private>True</Private>
         </Reference>
     </ItemGroup>
@@ -67,10 +71,36 @@
         <Compile Include="Architecture\System\ISystem.cs" />
         <Compile Include="Architecture\Utility\IUtility.cs" />
         <Compile Include="BindableProperty\QFramework.BindableProperty.cs" />
+        <Compile Include="CSharpExtension\QFramework.CSharpExtension.cs" />
         <Compile Include="Disposable\CustomDisposable.cs" />
         <Compile Include="Disposable\DisposableList.cs" />
         <Compile Include="Disposable\IDisposableList.cs" />
         <Compile Include="Disposable\IDisposableListExtension.cs" />
+        <Compile Include="EasyIMGUI\EasyIMGUI.cs" />
+        <Compile Include="EasyIMGUI\Extensions\LayoutExtenion.cs" />
+        <Compile Include="EasyIMGUI\Extensions\ViewExtension.cs" />
+        <Compile Include="EasyIMGUI\Framework\Feature\ICanClick.cs" />
+        <Compile Include="EasyIMGUI\Framework\Feature\IHasText.cs" />
+        <Compile Include="EasyIMGUI\Framework\IMGUILayout.cs" />
+        <Compile Include="EasyIMGUI\Framework\IMGUIView.cs" />
+        <Compile Include="EasyIMGUI\Framework\Layout.cs" />
+        <Compile Include="EasyIMGUI\Framework\View.cs" />
+        <Compile Include="EasyIMGUI\GUIStyleProperty.cs" />
+        <Compile Include="EasyIMGUI\Layout\Horizontal\HorizontalLayout.cs" />
+        <Compile Include="EasyIMGUI\Layout\Scroll\ScrollLayout.cs" />
+        <Compile Include="EasyIMGUI\Layout\Vertical\VerticalLayout.cs" />
+        <Compile Include="EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
+        <Compile Include="EasyIMGUI\View\BoxView.cs" />
+        <Compile Include="EasyIMGUI\View\Button\Button.cs" />
+        <Compile Include="EasyIMGUI\View\CustomView\CustomView.cs" />
+        <Compile Include="EasyIMGUI\View\ImageButtonView.cs" />
+        <Compile Include="EasyIMGUI\View\Label\Label.cs" />
+        <Compile Include="EasyIMGUI\View\Space\FlexibleSpace.cs" />
+        <Compile Include="EasyIMGUI\View\Space\Space.cs" />
+        <Compile Include="EasyIMGUI\View\Text\TextArea.cs" />
+        <Compile Include="EasyIMGUI\View\Text\TextField.cs" />
+        <Compile Include="EasyIMGUI\View\Toggle\Toggle.cs" />
+        <Compile Include="EasyIMGUI\View\Toolbar\ToolbarView.cs" />
         <Compile Include="Factory\CustomObjectFactory.cs" />
         <Compile Include="Factory\DefaultObjectFactory.cs" />
         <Compile Include="Factory\IObjectFactory.cs" />
@@ -102,6 +132,54 @@
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="EasyIMGUI\EasyIMGUI.cs.meta" />
+      <Content Include="EasyIMGUI\Editor.meta" />
+      <Content Include="EasyIMGUI\Extensions.meta" />
+      <Content Include="EasyIMGUI\Extensions\LayoutExtenion.cs.meta" />
+      <Content Include="EasyIMGUI\Extensions\ViewExtension.cs.meta" />
+      <Content Include="EasyIMGUI\Framework.meta" />
+      <Content Include="EasyIMGUI\Framework\Feature.meta" />
+      <Content Include="EasyIMGUI\Framework\Feature\ICanClick.cs.meta" />
+      <Content Include="EasyIMGUI\Framework\Feature\IHasText.cs.meta" />
+      <Content Include="EasyIMGUI\Framework\IMGUILayout.cs.meta" />
+      <Content Include="EasyIMGUI\Framework\IMGUIView.cs.meta" />
+      <Content Include="EasyIMGUI\Framework\Layout.cs.meta" />
+      <Content Include="EasyIMGUI\Framework\View.cs.meta" />
+      <Content Include="EasyIMGUI\GUIStyleProperty.cs.meta" />
+      <Content Include="EasyIMGUI\Layout.meta" />
+      <Content Include="EasyIMGUI\Layout\Horizontal.meta" />
+      <Content Include="EasyIMGUI\Layout\Horizontal\HorizontalLayout.cs.meta" />
+      <Content Include="EasyIMGUI\Layout\Scroll.meta" />
+      <Content Include="EasyIMGUI\Layout\Scroll\ScrollLayout.cs.meta" />
+      <Content Include="EasyIMGUI\Layout\Vertical.meta" />
+      <Content Include="EasyIMGUI\Layout\Vertical\VerticalLayout.cs.meta" />
+      <Content Include="EasyIMGUI\PackageVersion.json" />
+      <Content Include="EasyIMGUI\PackageVersion.json.meta" />
+      <Content Include="EasyIMGUI\QFramework.EasyIMGUI.asmdef" />
+      <Content Include="EasyIMGUI\QFramework.EasyIMGUI.asmdef.meta" />
+      <Content Include="EasyIMGUI\Utility.meta" />
+      <Content Include="EasyIMGUI\Utility\CrossPlatformGUILayout.cs.meta" />
+      <Content Include="EasyIMGUI\View.meta" />
+      <Content Include="EasyIMGUI\View\BoxView.cs.meta" />
+      <Content Include="EasyIMGUI\View\Button.meta" />
+      <Content Include="EasyIMGUI\View\Button\Button.cs.meta" />
+      <Content Include="EasyIMGUI\View\CustomView.meta" />
+      <Content Include="EasyIMGUI\View\CustomView\CustomView.cs.meta" />
+      <Content Include="EasyIMGUI\View\ImageButtonView.cs.meta" />
+      <Content Include="EasyIMGUI\View\Label.meta" />
+      <Content Include="EasyIMGUI\View\Label\Label.cs.meta" />
+      <Content Include="EasyIMGUI\View\Space.meta" />
+      <Content Include="EasyIMGUI\View\Space\FlexibleSpace.cs.meta" />
+      <Content Include="EasyIMGUI\View\Space\Space.cs.meta" />
+      <Content Include="EasyIMGUI\View\Text.meta" />
+      <Content Include="EasyIMGUI\View\Text\TextArea.cs.meta" />
+      <Content Include="EasyIMGUI\View\Text\TextField.cs.meta" />
+      <Content Include="EasyIMGUI\View\Toggle.meta" />
+      <Content Include="EasyIMGUI\View\Toggle\Toggle.cs.meta" />
+      <Content Include="EasyIMGUI\View\Toolbar.meta" />
+      <Content Include="EasyIMGUI\View\Toolbar\ToolbarView.cs.meta" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

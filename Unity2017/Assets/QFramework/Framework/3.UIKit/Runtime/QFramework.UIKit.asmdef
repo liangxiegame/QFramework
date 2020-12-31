@@ -3,7 +3,6 @@
     "references": [
         "QFramework.EventSystem",
         "QFramework.ResKit",
-        "QFramework.CSharpExtension",
         "QFramework.ManagerOfManagers",
         "QFramework.ActionKit"
     ],

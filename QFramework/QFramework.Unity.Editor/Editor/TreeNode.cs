@@ -24,7 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
 using UnityEditor;
 
 namespace QFramework
@@ -100,4 +99,3 @@ namespace QFramework
         }
     }
 }
-#endif

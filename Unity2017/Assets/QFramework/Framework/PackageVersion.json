@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.7",
+    "Version": "v0.11.8",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.7",
-        "content": "Architecture => dll",
+        "version": "v0.11.8",
+        "content": "CSharpExtensions & EasyIMGUI => dll",
         "author": "liangxie",
-        "date": "2020 年 12 月 31 日 23:51",
+        "date": "2021 年 01 月 01 日 00:12",
         "PackageId": ""
     }
 }

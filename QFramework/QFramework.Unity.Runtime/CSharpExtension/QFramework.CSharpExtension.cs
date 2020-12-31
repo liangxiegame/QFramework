@@ -34,13 +34,11 @@ namespace QFramework
     using System.Reflection;
     using System.Text;
 
-#if UNITY_5_6_OR_NEWER
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
     using Object = UnityEngine.Object;
 
-#endif
 
     /// <summary>
     /// 一些基础类型的扩展
@@ -625,7 +623,6 @@ namespace QFramework
 
         #region 未经过测试
 
-#if UNITY_EDITOR
         /// <summary>
         /// 打开文件夹
         /// </summary>
@@ -638,7 +635,6 @@ namespace QFramework
             System.Diagnostics.Process.Start("explorer.exe", path);
 #endif
         }
-#endif
 
 
         /// <summary>
@@ -829,7 +825,6 @@ namespace QFramework
 
         #endregion
     }
-#if UNITY_5_6_OR_NEWER
     /// <summary>
     /// 简单的概率计算
     /// </summary>
@@ -850,7 +845,6 @@ namespace QFramework
             return UnityEngine.Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
         }
     }
-#endif
     /// <summary>
     /// 面向对象扩展（继承、封装、多态)
     /// </summary>
@@ -1363,7 +1357,6 @@ namespace QFramework
     }
 
 
-#if UNITY_5_6_OR_NEWER
     public static class BehaviourExtension
     {
         public static void Example()
@@ -2616,5 +2609,4 @@ namespace QFramework
             self.renderQueue = 3000;
         }
     }
-#endif
 }

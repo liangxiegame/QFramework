@@ -1,8 +1,7 @@
 {
     "name": "QFramework.PackageKit",
     "references": [
-        "QFramework.ActionKit",
-        "QFramework.EasyIMGUI"
+        "QFramework.ActionKit"
     ],
     "includePlatforms": [
         "Editor"

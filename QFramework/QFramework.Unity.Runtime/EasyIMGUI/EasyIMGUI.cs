@@ -67,7 +67,7 @@ namespace QFramework
 
         public static IToggle Toggle()
         {
-            return new Toggle();
+            return new IMGUIToggle();
         }
 
         public static IToolbar Toolbar()

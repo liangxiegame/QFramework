@@ -1,8 +1,7 @@
 {
     "name": "QFramework.ManagerOfManagers",
     "references": [
-        "QFramework.EventSystem",
-        "QFramework.CSharpExtension"
+        "QFramework.EventSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

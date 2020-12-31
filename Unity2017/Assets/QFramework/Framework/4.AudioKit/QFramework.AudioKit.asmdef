@@ -6,7 +6,6 @@
         "QFramework.ResKit",
         "QFramework.RefCounter",
         "QFramework.EventSystem",
-        "QFramework.CSharpExtension",
         "QFramework.ManagerOfManagers"
     ],
     "includePlatforms": [],
