@@ -1,6 +1,6 @@
 {
-  "name": "QFramework.JsonSerialize",
-  "references": [
-    "QFramework.Architecture"
-  ]
+    "name": "QFramework.JsonSerialize",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

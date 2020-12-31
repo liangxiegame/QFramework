@@ -1,6 +1,6 @@
 {
-  "name": "QFramework.BinarySerializer",
-  "references": [
-    "QFramework.Architecture"
-  ]
+    "name": "QFramework.BinarySerializer",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": []
 }

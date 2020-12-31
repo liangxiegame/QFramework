@@ -46,6 +46,26 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Architecture\Architecture.cs" />
+        <Compile Include="Architecture\Controller\Deprecated.cs" />
+        <Compile Include="Architecture\Controller\IController.cs" />
+        <Compile Include="Architecture\Model\IData.cs" />
+        <Compile Include="Architecture\Model\IModel.cs" />
+        <Compile Include="Architecture\Rule\IBelongToArchitecture.cs" />
+        <Compile Include="Architecture\Rule\ICanGetConfig.cs" />
+        <Compile Include="Architecture\Rule\ICanGetModel.cs" />
+        <Compile Include="Architecture\Rule\ICanGetSystem.cs" />
+        <Compile Include="Architecture\Rule\ICanGetUtility.cs" />
+        <Compile Include="Architecture\Rule\ICanRegisterEvent.cs" />
+        <Compile Include="Architecture\Rule\ICanRegisterModel.cs" />
+        <Compile Include="Architecture\Rule\ICanRegisterSystem.cs" />
+        <Compile Include="Architecture\Rule\ICanRegisterUtility.cs" />
+        <Compile Include="Architecture\Rule\ICanSendCommand.cs" />
+        <Compile Include="Architecture\Rule\ICanSendEvent.cs" />
+        <Compile Include="Architecture\System\ICommand.cs" />
+        <Compile Include="Architecture\System\IQuery.cs" />
+        <Compile Include="Architecture\System\ISystem.cs" />
+        <Compile Include="Architecture\Utility\IUtility.cs" />
         <Compile Include="BindableProperty\QFramework.BindableProperty.cs" />
         <Compile Include="Disposable\CustomDisposable.cs" />
         <Compile Include="Disposable\DisposableList.cs" />

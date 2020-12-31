@@ -2,7 +2,6 @@
     "name": "QFramework.ResKit",
     "references": [
         "QFramework.RefCounter",
-        "QFramework.Architecture",
         "QFramework.JsonSerialize",
         "QFramework.BinarySerializer",
         "QFramework.Zip",
