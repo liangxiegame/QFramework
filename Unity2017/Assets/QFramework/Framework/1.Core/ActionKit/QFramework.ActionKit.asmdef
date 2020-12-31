@@ -3,7 +3,6 @@
     "references": [
         "QFramework.Architecture",
         "QFramework.IOC",
-        "QFramework.BindableProperty",
         "QFramework.CSharpExtension",
         "QFramework.EasyIMGUI"
     ],

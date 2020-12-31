@@ -46,6 +46,7 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="BindableProperty\QFramework.BindableProperty.cs" />
         <Compile Include="Disposable\CustomDisposable.cs" />
         <Compile Include="Disposable\DisposableList.cs" />
         <Compile Include="Disposable\IDisposableList.cs" />

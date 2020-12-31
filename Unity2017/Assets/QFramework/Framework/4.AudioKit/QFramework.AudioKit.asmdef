@@ -2,7 +2,6 @@
     "name": "QFramework.AudioKit",
     "references": [
         "QFramework.ActionKit",
-        "QFramework.BindableProperty",
         "QFramework.UIKit",
         "QFramework.ResKit",
         "QFramework.RefCounter",
