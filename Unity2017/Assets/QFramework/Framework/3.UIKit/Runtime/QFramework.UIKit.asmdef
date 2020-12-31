@@ -4,7 +4,6 @@
         "QFramework.EventSystem",
         "QFramework.ResKit",
         "QFramework.CSharpExtension",
-        "QFramework.Table",
         "QFramework.ManagerOfManagers",
         "QFramework.ActionKit"
     ],

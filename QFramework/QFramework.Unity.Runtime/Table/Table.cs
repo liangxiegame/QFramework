@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+﻿/****************************************************************************
+ * Copyright (c) 2020.10 ~ 12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -27,6 +24,11 @@ using System.Collections.Generic;
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
 	public abstract class Table<TDataItem> : IEnumerable<TDataItem>, IDisposable

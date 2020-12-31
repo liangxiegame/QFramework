@@ -6,8 +6,7 @@
         "QFramework.BindableProperty",
         "QFramework.Architecture",
         "QFramework.ActionKit",
-        "QFramework.EasyIMGUI",
-        "QFramework.Table"
+        "QFramework.EasyIMGUI"
     ],
     "includePlatforms": [
         "Editor"

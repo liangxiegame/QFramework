@@ -1,7 +1,6 @@
 {
     "name": "QFramework.ActionKit",
     "references": [
-        "QFramework.Table",
         "QFramework.Architecture",
         "QFramework.IOC",
         "QFramework.BindableProperty",

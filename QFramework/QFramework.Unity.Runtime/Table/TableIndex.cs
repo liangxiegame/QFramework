@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2020.10 ~ 12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
     public class TableIndex<TKeyType, TDataItem>: IDisposable

@@ -2,7 +2,6 @@
     "name": "QFramework.ResKit",
     "references": [
         "QFramework.RefCounter",
-        "QFramework.Table",
         "QFramework.Architecture",
         "QFramework.JsonSerialize",
         "QFramework.IOC",

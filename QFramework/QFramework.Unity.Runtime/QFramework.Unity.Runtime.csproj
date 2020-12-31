@@ -73,6 +73,8 @@
         <Compile Include="Singleton\Singleton.cs" />
         <Compile Include="Singleton\SingletonCreator.cs" />
         <Compile Include="Singleton\SingletonProperty.cs" />
+        <Compile Include="Table\Table.cs" />
+        <Compile Include="Table\TableIndex.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
