@@ -1,16 +1,14 @@
 {
     "Id": "",
-    "Version": "v0.11.11",
+    "Version": "v0.11.12",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
-        "Assets/QFramework/Framework/1.Core",
         "Assets/QFramework/Framework/2.ResKit",
         "Assets/QFramework/Framework/3.UIKit",
         "Assets/QFramework/Framework/4.AudioKit",
-        "Assets/QFramework/Framework/Framework.mdj",
         "Assets/QFramework/Framework/MutiFrameworkSupport.zip",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
@@ -19,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.11",
-        "content": "fix ActionQueue cannot find error",
+        "version": "v0.11.12",
+        "content": "Core => dll",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 00:54",
+        "date": "2021 年 01 月 01 日 01:05",
         "PackageId": ""
     }
 }

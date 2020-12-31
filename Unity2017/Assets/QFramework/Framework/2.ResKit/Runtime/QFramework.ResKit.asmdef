@@ -1,8 +1,0 @@
-{
-    "name": "QFramework.ResKit",
-    "references": [
-        "QFramework.Zip"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

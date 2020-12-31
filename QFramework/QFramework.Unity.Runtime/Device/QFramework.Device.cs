@@ -187,11 +187,14 @@ namespace QFramework
 
 		public static int GetDeviceID()
 		{
-#if UNITY_EDITOR || UNITY_IOS
-			return (int) UnityEngine.iOS.Device.generation;
-#else 
-			return -100;
-#endif
+			if (Application.platform == RuntimePlatform.IPhonePlayer || IsEditor())
+			{
+				return (int) UnityEngine.iOS.Device.generation;
+			}
+			else
+			{
+				return -100;
+			}
 		}
 
 		public static bool IsIPad()

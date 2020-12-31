@@ -120,6 +120,7 @@
         <Compile Include="BinarySerializer\IBinarySerializer.cs" />
         <Compile Include="BindableProperty\QFramework.BindableProperty.cs" />
         <Compile Include="CSharpExtension\QFramework.CSharpExtension.cs" />
+        <Compile Include="Device\QFramework.Device.cs" />
         <Compile Include="Disposable\CustomDisposable.cs" />
         <Compile Include="Disposable\DisposableList.cs" />
         <Compile Include="Disposable\IDisposableList.cs" />
@@ -240,9 +241,6 @@
       <Content Include="EasyIMGUI\View\Toggle\Toggle.cs.meta" />
       <Content Include="EasyIMGUI\View\Toolbar.meta" />
       <Content Include="EasyIMGUI\View\Toolbar\ToolbarView.cs.meta" />
-      <Content Include="FSM\QFramework.FSM.asmdef" />
-      <Content Include="FSM\QFramework.FSM.asmdef.meta" />
-      <Content Include="FSM\QFramework.FSM.cs.meta" />
       <Content Include="RefCounter\QFramework.RefCounter.asmdef" />
       <Content Include="RefCounter\QFramework.RefCounter.asmdef.meta" />
       <Content Include="RefCounter\QFramework.RefCounter.cs.meta" />
