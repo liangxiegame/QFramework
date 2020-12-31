@@ -1,7 +1,6 @@
 {
     "name": "QFramework.PackageKit",
     "references": [
-        "QFramework.IOC",
         "QFramework.Architecture",
         "QFramework.ActionKit",
         "QFramework.EasyIMGUI"

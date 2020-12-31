@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.5 liangxie
+ * Copyright (c) 2018 ~ 2020.12 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -28,6 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
     /// <summary>

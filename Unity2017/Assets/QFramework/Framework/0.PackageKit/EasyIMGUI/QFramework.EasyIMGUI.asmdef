@@ -1,8 +1,7 @@
 {
     "name": "QFramework.EasyIMGUI",
     "references": [
-        "QFramework.Architecture",
-        "QFramework.IOC"
+        "QFramework.Architecture"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

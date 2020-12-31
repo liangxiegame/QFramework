@@ -2,7 +2,6 @@
     "name": "QFramework.ActionKit",
     "references": [
         "QFramework.Architecture",
-        "QFramework.IOC",
         "QFramework.CSharpExtension",
         "QFramework.EasyIMGUI"
     ],

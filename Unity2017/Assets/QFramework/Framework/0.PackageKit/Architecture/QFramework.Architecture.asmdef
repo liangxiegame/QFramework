@@ -1,8 +1,6 @@
 {
     "name": "QFramework.Architecture",
-    "references": [
-        "QFramework.IOC"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": []
 }

@@ -56,6 +56,7 @@
         <Compile Include="Factory\IObjectFactory.cs" />
         <Compile Include="Factory\NonPublicObjectFactory.cs" />
         <Compile Include="Factory\ObjectFactory.cs" />
+        <Compile Include="IOC\QFramework.IOC.cs" />
         <Compile Include="Pool\DictionaryPool.cs" />
         <Compile Include="Pool\IPool.cs" />
         <Compile Include="Pool\IPoolable.cs" />
