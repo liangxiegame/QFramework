@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.4",
+    "Version": "v0.11.5",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.4",
-        "content": "BindableProperty => dll",
+        "version": "v0.11.5",
+        "content": "TypeEventSystem => dll",
         "author": "liangxie",
-        "date": "2020 年 12 月 31 日 23:32",
+        "date": "2020 年 12 月 31 日 23:40",
         "PackageId": ""
     }
 }

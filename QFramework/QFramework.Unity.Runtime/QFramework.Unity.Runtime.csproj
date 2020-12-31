@@ -76,6 +76,8 @@
         <Compile Include="Singleton\SingletonProperty.cs" />
         <Compile Include="Table\Table.cs" />
         <Compile Include="Table\TableIndex.cs" />
+        <Compile Include="TypeEventSystem\ITypeEventSystem.cs" />
+        <Compile Include="TypeEventSystem\TypeEventSystem.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />

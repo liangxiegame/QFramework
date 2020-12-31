@@ -1,8 +1,7 @@
 {
     "name": "QFramework.Architecture",
     "references": [
-        "QFramework.IOC",
-        "QFramework.TypeEventSystem"
+        "QFramework.IOC"
     ],
     "includePlatforms": [],
     "excludePlatforms": []

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2020 liangxie
+ * Copyright (c) 2017 ~ 2020.12 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Generic;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
     public class TypeEventSystem : ITypeEventSystem
