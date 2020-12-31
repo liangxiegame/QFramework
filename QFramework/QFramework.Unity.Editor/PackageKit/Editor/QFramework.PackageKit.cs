@@ -24,7 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -917,6 +916,3 @@ namespace QFramework
         public abstract void SetUpView();
     }
 }
-
-
-#endif

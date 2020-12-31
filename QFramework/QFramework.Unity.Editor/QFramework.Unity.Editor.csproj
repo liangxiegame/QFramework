@@ -32,6 +32,10 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Markdig, Version=0.18.3.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\packages\Markdig.0.18.3\lib\net35\Markdig.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -46,13 +50,111 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Editor\IMGUIEditorWindow.cs" />
-        <Compile Include="Editor\IMGUIInspectorEditor.cs" />
-        <Compile Include="Editor\TreeNode.cs" />
-        <Compile Include="Editor\TreeView\AssetTree.cs" />
-        <Compile Include="Editor\TreeView\AssetTreeIMGUI.cs" />
-        <Compile Include="Editor\TreeView\TreeIMGUI.cs" />
-        <Compile Include="Editor\TreeView\TreeView.cs" />
+        <Compile Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs" />
+        <Compile Include="PackageKit\Editor\Advertise\AdvertisementView.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Attributes\PackageKitRenderOrderAttribute.cs" />
+        <Compile Include="PackageKit\Editor\Framework\EditorHttp.cs" />
+        <Compile Include="PackageKit\Editor\Framework\EditorKit\LabelViewWithRect.cs" />
+        <Compile Include="PackageKit\Editor\Framework\EditorKit\ReorderableList.cs" />
+        <Compile Include="PackageKit\Editor\Framework\EditorLifecycle.cs" />
+        <Compile Include="PackageKit\Editor\Framework\EditorStorage.cs" />
+        <Compile Include="PackageKit\Editor\Framework\PackageApplication.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Window\AnchorType.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Window\IPackageKitView.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Window\PackageKitWindow.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Window\RectExtensions.cs" />
+        <Compile Include="PackageKit\Editor\Framework\Window\VerticalSplitView.cs" />
+        <Compile Include="PackageKit\Editor\Login\Command\LoginCommand.cs" />
+        <Compile Include="PackageKit\Editor\Login\Command\LogoutCommand.cs" />
+        <Compile Include="PackageKit\Editor\Login\Command\OpenRegisterViewCommand.cs" />
+        <Compile Include="PackageKit\Editor\Login\Command\OpenRegisterWebsiteCommand.cs" />
+        <Compile Include="PackageKit\Editor\Login\PackageKitLoginApp.cs" />
+        <Compile Include="PackageKit\Editor\Login\Service\IPackageLoginService.cs" />
+        <Compile Include="PackageKit\Editor\Login\Service\PacakgeLoginService.cs" />
+        <Compile Include="PackageKit\Editor\Login\State\PackageKitLoginState.cs" />
+        <Compile Include="PackageKit\Editor\Login\View\LoginView.cs" />
+        <Compile Include="PackageKit\Editor\Login\View\PackageKitLoginView.cs" />
+        <Compile Include="PackageKit\Editor\Login\View\RegisterView.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\Block.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockContainer.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockContent.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockLine.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockSpace.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\Content.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\ContentImage.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\ContentText.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\Context.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\IActions.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\IBuilder.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\Layout.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\LayoutBuilder.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\Style.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Layout\StyleConverter.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownAsset.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownEditor.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownEditorAsset.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownHandleImages.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownHandleNavigate.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownHistory.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownImporter.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownMenus.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownPreferences.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownUtils.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\MarkdownViewer.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\mgGif\Decoder.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\mgGif\ImageList.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockCode.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockHeading.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockHtml.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockList.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockParagraph.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockQuote.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockThematicBreak.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineAutoLink.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineCode.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineDelimiter.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineEmphasis.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineHtml.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineHtmlEntity.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLineBreak.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLink.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLiteral.cs" />
+        <Compile Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererMarkdown.cs" />
+        <Compile Include="PackageKit\Editor\Model\ILocalPackageVersionModel.cs" />
+        <Compile Include="PackageKit\Editor\Model\IPackageTypeConfigModel.cs" />
+        <Compile Include="PackageKit\Editor\PackageKit.cs" />
+        <Compile Include="PackageKit\Editor\PackageMaker\Command\PublishPackageCommand.cs" />
+        <Compile Include="PackageKit\Editor\PackageMaker\PackageMaker.cs" />
+        <Compile Include="PackageKit\Editor\PackageMaker\Service\UploadPackage.cs" />
+        <Compile Include="PackageKit\Editor\PackageMaker\State\PackageMakerState.cs" />
+        <Compile Include="PackageKit\Editor\PackageMaker\View\PackageMakerEditor.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\Model\PackageData.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\Model\PackageManagerModel.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\Model\PackageRepository.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\Model\Service\IPackageManagerServer.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\Model\Service\PackageManagerServer.cs" />
+        <Compile Include="PackageKit\Editor\PackageManager\State\PackageManagerState.cs" />
+        <Compile Include="PackageKit\Editor\QFramework.PackageKit.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\ImportPackageCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\OpenDetailCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\PackageManagerInitCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\ReimportPackageCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\SearchCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\UpdateCategoriesFromModelCommand.cs" />
+        <Compile Include="PackageKit\Editor\System\PackageManager\Command\UpdatePackageCommand.cs" />
+        <Compile Include="PackageKit\Editor\Utility\IEditorDialogUtility.cs" />
+        <Compile Include="PackageKit\Editor\Utility\MutableTuple.cs" />
+        <Compile Include="PackageKit\Editor\View\PackageManager\PackageListHeaderView.cs" />
+        <Compile Include="PackageKit\Editor\View\PackageManager\PackageManagerView.cs" />
+        <Compile Include="PackageKit\Editor\View\PackageManager\PackageRepositoryView.cs" />
+        <Compile Include="EasyIMGUI\IMGUIEditorWindow.cs" />
+        <Compile Include="EasyIMGUI\IMGUIInspectorEditor.cs" />
+        <Compile Include="EasyIMGUI\TreeNode.cs" />
+        <Compile Include="EasyIMGUI\TreeView\AssetTree.cs" />
+        <Compile Include="EasyIMGUI\TreeView\AssetTreeIMGUI.cs" />
+        <Compile Include="EasyIMGUI\TreeView\TreeIMGUI.cs" />
+        <Compile Include="EasyIMGUI\TreeView\TreeView.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
@@ -64,7 +166,167 @@
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
+    <ItemGroup>
+      <Content Include="PackageKit\.DS_Store" />
+      <Content Include="PackageKit\Editor.meta" />
+      <Content Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs.meta" />
+      <Content Include="PackageKit\Editor\Advertise\AdvertisementView.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Attributes.meta" />
+      <Content Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Attributes\PackageKitRenderOrderAttribute.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorHttp.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorKit.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorKit\LabelViewWithRect.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorKit\ReorderableList.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorLifecycle.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\EditorStorage.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\PackageApplication.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window\AnchorType.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window\IPackageKitView.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window\PackageKitWindow.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window\RectExtensions.cs.meta" />
+      <Content Include="PackageKit\Editor\Framework\Window\VerticalSplitView.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Command.meta" />
+      <Content Include="PackageKit\Editor\Login\Command\LoginCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Command\LogoutCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Command\OpenRegisterViewCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Command\OpenRegisterWebsiteCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\PackageKitLoginApp.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Service.meta" />
+      <Content Include="PackageKit\Editor\Login\Service\IPackageLoginService.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\Service\PacakgeLoginService.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\State.meta" />
+      <Content Include="PackageKit\Editor\Login\State\PackageKitLoginState.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\View.meta" />
+      <Content Include="PackageKit\Editor\Login\View\LoginView.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\View\PackageKitLoginView.cs.meta" />
+      <Content Include="PackageKit\Editor\Login\View\RegisterView.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\Block.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockContainer.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockContent.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockLine.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\BlockSpace.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\Content.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\ContentImage.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\ContentText.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\Context.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\IActions.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\IBuilder.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\Layout.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\LayoutBuilder.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\Style.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Layout\StyleConverter.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownAsset.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownEditor.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownEditorAsset.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownHandleImages.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownHandleNavigate.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownHistory.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownImporter.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownMenus.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownPreferences.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownUtils.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\MarkdownViewer.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\mgGif.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\mgGif\Decoder.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\mgGif\ImageList.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockCode.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockHeading.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockHtml.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockList.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockParagraph.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockQuote.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererBlockThematicBreak.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineAutoLink.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineCode.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineDelimiter.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineEmphasis.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineHtml.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineHtmlEntity.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLineBreak.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLink.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererInlineLiteral.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Scripts\Renderer\RendererMarkdown.cs.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\black.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\black.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\blockcode.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\blockcode.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\blockquote.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\blockquote.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\border.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\border.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_back.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_back.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_file.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_file.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_forward.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_forward.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_placeholder.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_placeholder.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_raw.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\btn_raw.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\highlight.png" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\highlight.png.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\MarkdownViewerSkin.guiskin" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\MarkdownViewerSkin.guiskin.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceCodePro-Light.otf" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceCodePro-Light.otf.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceCodePro-Regular.otf" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceCodePro-Regular.otf.meta" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceSansPro-Light.otf" />
+      <Content Include="PackageKit\Editor\Markdown\Skin\SourceSansPro-Light.otf.meta" />
+      <Content Include="PackageKit\Editor\Model\ILocalPackageVersionModel.cs.meta" />
+      <Content Include="PackageKit\Editor\Model\IPackageTypeConfigModel.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\Command.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\Command\PublishPackageCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\PackageMaker.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\Service.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\Service\UploadPackage.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\State.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\State\PackageMakerState.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\View.meta" />
+      <Content Include="PackageKit\Editor\PackageMaker\View\PackageMakerEditor.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\PackageData.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\PackageManagerModel.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\PackageRepository.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\Service.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\Service\IPackageManagerServer.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\Model\Service\PackageManagerServer.cs.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\State.meta" />
+      <Content Include="PackageKit\Editor\PackageManager\State\PackageManagerState.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\ImportPackageCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\OpenDetailCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\PackageManagerInitCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\ReimportPackageCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\SearchCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\UpdateCategoriesFromModelCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\System\PackageManager\Command\UpdatePackageCommand.cs.meta" />
+      <Content Include="PackageKit\Editor\Utility\IEditorDialogUtility.cs.meta" />
+      <Content Include="PackageKit\Editor\Utility\MutableTuple.cs.meta" />
+      <Content Include="PackageKit\Editor\View\PackageManager\PackageListHeaderView.cs.meta" />
+      <Content Include="PackageKit\Editor\View\PackageManager\PackageManagerView.cs.meta" />
+      <Content Include="PackageKit\Editor\View\PackageManager\PackageRepositoryView.cs.meta" />
+      <Content Include="PackageKit\PackageVersion.json" />
+      <Content Include="PackageKit\PackageVersion.json.meta" />
+    </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <Import Project="..\..\packages\jnm2.ReferenceAssemblies.net35.1.0.1\build\jnm2.ReferenceAssemblies.net35.targets" Condition="Exists('..\..\packages\jnm2.ReferenceAssemblies.net35.1.0.1\build\jnm2.ReferenceAssemblies.net35.targets')" />
+    <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+      <PropertyGroup>
+        <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+      </PropertyGroup>
+      <Error Condition="!Exists('..\..\packages\jnm2.ReferenceAssemblies.net35.1.0.1\build\jnm2.ReferenceAssemblies.net35.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\jnm2.ReferenceAssemblies.net35.1.0.1\build\jnm2.ReferenceAssemblies.net35.targets'))" />
+      <Error Condition="!Exists('..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets'))" />
+    </Target>
+    <Import Project="..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets" Condition="Exists('..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net20.1.0.0\build\Microsoft.NETFramework.ReferenceAssemblies.net20.targets')" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

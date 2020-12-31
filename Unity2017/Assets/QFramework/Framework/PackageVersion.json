@@ -1,12 +1,11 @@
 {
     "Id": "",
-    "Version": "v0.11.8",
+    "Version": "v0.11.9",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
-        "Assets/QFramework/Framework/0.PackageKit",
         "Assets/QFramework/Framework/1.Core",
         "Assets/QFramework/Framework/2.ResKit",
         "Assets/QFramework/Framework/3.UIKit",
@@ -20,10 +19,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.8",
-        "content": "CSharpExtensions & EasyIMGUI => dll",
+        "version": "v0.11.9",
+        "content": "PackageKit => dll",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 00:12",
+        "date": "2021 年 01 月 01 日 00:22",
         "PackageId": ""
     }
 }
