@@ -2,9 +2,7 @@
 using System;
 using System.IO;
 using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
 
 namespace QFramework
 {
@@ -49,39 +47,30 @@ namespace QFramework
         
         
         
-#if UNITY_EDITOR
-        const string kSimulateAssetBundles = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
-
-        public static bool SimulateAssetBundleInEditor
-        {
-            get { return UnityEditor.EditorPrefs.GetBool(kSimulateAssetBundles, true); }
-            set { UnityEditor.EditorPrefs.SetBool(kSimulateAssetBundles, value); }
-        }
-#endif
-
+        
         #region AssetBundle 相关
 
         public static string AssetBundleUrl2Name(string url)
         {
             string retName = null;
-            string parren = FilePath.StreamingAssetsPath + "AssetBundles/" + GetPlatformName() + "/";
+            string parren = FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/";
             retName = url.Replace(parren, "");
 
-            parren = FilePath.PersistentDataPath + "AssetBundles/" + GetPlatformName() + "/";
+            parren = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/";
             retName = retName.Replace(parren, "");
             return retName;
         }
 
         public static string AssetBundleName2Url(string name)
         {
-            string retUrl = FilePath.PersistentDataPath + "AssetBundles/" + GetPlatformName() + "/" + name;
+            string retUrl = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/" + name;
 
             if (File.Exists(retUrl))
             {
                 return retUrl;
             }
 
-            return FilePath.StreamingAssetsPath + "AssetBundles/" + GetPlatformName() + "/" + name;
+            return FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/" + name;
         }
 
         //导出目录
@@ -91,54 +80,14 @@ namespace QFramework
         /// </summary>
         public static string RELATIVE_AB_ROOT_FOLDER
         {
-            get { return "/AssetBundles/" + GetPlatformName() + "/"; }
+            get { return "/AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/"; }
         }
 
         #endregion
 
-        public static string GetPlatformName()
-        {
-#if UNITY_EDITOR
-            return GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
-#else
-			return GetPlatformForAssetBundles(Application.platform);
-#endif
-        }
 
-#if UNITY_EDITOR
-        public static string GetPlatformForAssetBundles(BuildTarget target)
-        {
-            switch (target)
-            {
-                case BuildTarget.Android:
-                    return "Android";
-                case BuildTarget.iOS:
-                    return "iOS";
-                case BuildTarget.WebGL:
-                    return "WebGL";
-                case BuildTarget.StandaloneWindows:
-                case BuildTarget.StandaloneWindows64:
-                    return "Windows";
-                case BuildTarget.StandaloneLinux:
-                case BuildTarget.StandaloneLinux64:
-                case BuildTarget.StandaloneLinuxUniversal:
-                    return "Linux";
-#if !UNITY_2017_3_OR_NEWER
-			case BuildTarget.StandaloneOSXIntel:
-			case BuildTarget.StandaloneOSXIntel64:
-#elif UNITY_5
-			case BuildTarget.StandaloneOSXUniversal:
-#else
-                case BuildTarget.StandaloneOSX:
-#endif
-                    return "OSX";
-                // Add more build targets for your own.
-                // If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
-                default:
-                    return null;
-            }
-        }
-#endif
+
+
 
         public static string GetPlatformForAssetBundles(RuntimePlatform platform)
         {

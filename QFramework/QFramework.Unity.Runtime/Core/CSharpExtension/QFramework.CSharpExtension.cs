@@ -1873,7 +1873,7 @@ namespace QFramework
             var transform = selfScript.transform;
 
             transform
-                .Parent(null)
+                // .Parent(null)
                 .LocalIdentity()
                 .LocalPositionIdentity()
                 .LocalRotationIdentity()
@@ -1902,7 +1902,7 @@ namespace QFramework
                 .SiblingIndex(0);
 
             selfScript
-                .Parent(null)
+                // .Parent(null)
                 .LocalIdentity()
                 .LocalPositionIdentity()
                 .LocalRotationIdentity()
