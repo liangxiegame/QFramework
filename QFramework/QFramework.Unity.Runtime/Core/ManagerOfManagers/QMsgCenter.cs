@@ -1,5 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 xiaojun
+ * Copyright (c) 2017 ~2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,12 +24,72 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
+using System;
+using System.Collections.Generic;
+
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
-    {
-        string SerializeJson<T>(T obj) where T : class;
+	using UnityEngine;
 
-        T DeserializeJson<T>(string json) where T : class;
-    }
+	[MonoSingletonPath("[Event]/QMsgCenter")]
+	public partial class QMsgCenter : MonoBehaviour, ISingleton
+	{
+		public static QMsgCenter Instance
+		{
+			get { return MonoSingletonProperty<QMsgCenter>.Instance; }
+		}
+
+		public void OnSingletonInit()
+		{
+
+		}
+
+		public void Dispose()
+		{
+			mRegisteredManagers.Clear();
+			
+			MonoSingletonProperty<QMsgCenter>.Dispose();
+		}
+
+		void Awake()
+		{
+			DontDestroyOnLoad(this);
+		}
+
+
+		public void SendMsg(IMsg tmpMsg)
+		{
+
+			foreach (var manager in mRegisteredManagers)
+			{
+				if (manager.Key == tmpMsg.ManagerID)
+				{
+					manager.Value().SendMsg(tmpMsg);
+					return;
+				}
+			}
+
+			ForwardMsg(tmpMsg as QMsg);
+		}
+
+		private static Dictionary<int, Func<QMgrBehaviour>> mRegisteredManagers =
+			new Dictionary<int, Func<QMgrBehaviour>>();
+		
+		public static void RegisterManagerFactory(int mgrId, Func<QMgrBehaviour> managerFactory)
+		{
+			if (mRegisteredManagers.ContainsKey(mgrId))
+			{
+				mRegisteredManagers[mgrId] = managerFactory;
+			}
+			else
+			{
+				mRegisteredManagers.Add(mgrId, managerFactory);
+			}
+		}
+
+
+		partial void ForwardMsg(QMsg tmpMsg);
+	}
 }

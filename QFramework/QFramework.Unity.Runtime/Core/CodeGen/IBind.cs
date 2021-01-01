@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,10 +25,23 @@
 
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
-    {
-        string SerializeJson<T>(T obj) where T : class;
+    using UnityEngine;
 
-        T DeserializeJson<T>(string json) where T : class;
+    public enum BindType
+    {
+        DefaultUnityElement,
+        Element,
+        Component
+    }
+    
+    public interface IBind
+    {
+        string ComponentName { get; }
+        
+        string Comment { get; }
+
+        Transform Transform { get; }
+
+        BindType GetBindType();
     }
 }

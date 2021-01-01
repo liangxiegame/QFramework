@@ -1,8 +1,0 @@
-{
-    "name": "QFramework.ManagerOfManagers",
-    "references": [
-        "QFramework.EventSystem"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}

@@ -1,9 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,10 +25,33 @@
 
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
-    {
-        string SerializeJson<T>(T obj) where T : class;
+    using UnityEngine;
+    using UnityEditor;
+    using System.IO;
 
-        T DeserializeJson<T>(string json) where T : class;
+    public class ClearAllData
+    {   
+        [MenuItem("QFramework/ClearAllData")]
+        private static void Clear()
+        {
+            PlayerPrefs.DeleteAll();
+            Directory.Delete(Application.persistentDataPath, true);
+            // quit the game
+            if (EditorApplication.isPlaying)
+            {
+                EditorApplication.isPlaying = false;
+            }            
+        }
+    }
+
+    
+    public class ReopenProject
+    {
+        [MenuItem("QFramework/ReopenProject")]
+        private static void Reopen()
+        {
+            EditorApplication.OpenProject(Path.Combine(Application.dataPath,"../"));
+
+        }
     }
 }

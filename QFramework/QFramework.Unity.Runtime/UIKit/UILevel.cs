@@ -1,9 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2020.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,12 +23,34 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    
+    public enum UILevel
     {
-        string SerializeJson<T>(T obj) where T : class;
+        [Obsolete]
+        AlwayBottom = -3, //如果不想区分太复杂那最底层的UI请使用这个
+        Bg = -2, //背景层UI
+        [Obsolete]
+        AnimationUnderPage = -1, //动画层
+        Common = 0, //普通层UI
+        [Obsolete]
+        AnimationOnPage = 1, // 动画层
+        PopUI = 2, //弹出层UI
+        [Obsolete]
+        Guide = 3, //新手引导层
+        [Obsolete]
+        Const = 4, //持续存在层UI
+        [Obsolete]
+        Toast = 5, //对话框层UI
+        [Obsolete]
+        Forward = 6, //最高UI层用来放置UI特效和模型
+        [Obsolete]
+        AlwayTop = 7, //如果不想区分太复杂那最上层的UI请使用这个
 
-        T DeserializeJson<T>(string json) where T : class;
+        // 一个 Panel 就是一个 Canvas 的 Panel
+        CanvasPanel = 100, // 
     }
 }

@@ -120,6 +120,9 @@
         <Compile Include="Core\BinarySerializer\BinarySerializer.cs" />
         <Compile Include="Core\BinarySerializer\IBinarySerializer.cs" />
         <Compile Include="Core\BindableProperty\QFramework.BindableProperty.cs" />
+        <Compile Include="Core\CodeGen\AbstractBind.cs" />
+        <Compile Include="Core\CodeGen\IBind.cs" />
+        <Compile Include="Core\CodeGen\ViewController.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
         <Compile Include="Core\Device\QFramework.Device.cs" />
         <Compile Include="Core\Disposable\CustomDisposable.cs" />
@@ -151,6 +154,7 @@
         <Compile Include="Core\EasyIMGUI\View\Text\TextField.cs" />
         <Compile Include="Core\EasyIMGUI\View\Toggle\Toggle.cs" />
         <Compile Include="Core\EasyIMGUI\View\Toolbar\ToolbarView.cs" />
+        <Compile Include="Core\EnumEventSystem\EnumEventSystem.cs" />
         <Compile Include="Core\Factory\CustomObjectFactory.cs" />
         <Compile Include="Core\Factory\DefaultObjectFactory.cs" />
         <Compile Include="Core\Factory\IObjectFactory.cs" />
@@ -160,6 +164,13 @@
         <Compile Include="Core\IOC\QFramework.IOC.cs" />
         <Compile Include="Core\JsonSerializer\DefaultJsonSerializer.cs" />
         <Compile Include="Core\JsonSerializer\IJsonSerializer.cs" />
+        <Compile Include="Core\ManagerOfManagers\IManager.cs" />
+        <Compile Include="Core\ManagerOfManagers\IMsg.cs" />
+        <Compile Include="Core\ManagerOfManagers\MsgSpan.cs" />
+        <Compile Include="Core\ManagerOfManagers\QMgrBehaviour.cs" />
+        <Compile Include="Core\ManagerOfManagers\QMgrID.cs" />
+        <Compile Include="Core\ManagerOfManagers\QMonoBehaviour.cs" />
+        <Compile Include="Core\ManagerOfManagers\QMsgCenter.cs" />
         <Compile Include="Core\Pool\DictionaryPool.cs" />
         <Compile Include="Core\Pool\IPool.cs" />
         <Compile Include="Core\Pool\IPoolable.cs" />
@@ -183,6 +194,7 @@
         <Compile Include="Core\TypeEventSystem\ITypeEventSystem.cs" />
         <Compile Include="Core\TypeEventSystem\TypeEventSystem.cs" />
         <Compile Include="FromUnityToDll.cs" />
+        <Compile Include="IPanel.cs" />
         <Compile Include="ISettingFromUnity.cs" />
         <Compile Include="Log.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
@@ -218,6 +230,17 @@
         <Compile Include="ResKit\ResourcesSupport\ResourcesRes.cs" />
         <Compile Include="ResKit\ResourcesSupport\ResourcesResCreator.cs" />
         <Compile Include="ResKit\ResSearchKeys.cs" />
+        <Compile Include="UIKit\Deprecated.cs" />
+        <Compile Include="UIKit\PanelInfo.cs" />
+        <Compile Include="UIKit\PanelSearchKeys.cs" />
+        <Compile Include="UIKit\UIKit.cs" />
+        <Compile Include="UIKit\UIKitConfig.cs" />
+        <Compile Include="UIKit\UILevel.cs" />
+        <Compile Include="UIKit\UIManager.cs" />
+        <Compile Include="UIKit\UIPanel.cs" />
+        <Compile Include="UIKit\UIPanelStack.cs" />
+        <Compile Include="UIKit\UIPanelTable.cs" />
+        <Compile Include="UIKit\UIRoot.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
@@ -247,9 +270,6 @@
       <Content Include="Core\EasyIMGUI\View\Text\TextArea.cs.meta" />
       <Content Include="Core\EasyIMGUI\View\Text\TextField.cs.meta" />
       <Content Include="Core\EasyIMGUI\View\Toolbar\ToolbarView.cs.meta" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Core" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

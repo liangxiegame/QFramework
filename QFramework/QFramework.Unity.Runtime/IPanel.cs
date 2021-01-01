@@ -1,9 +1,10 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 xiaojun
+ * Copyright (c) 2017 ~ 2021.1  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,12 +24,38 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-namespace QFramework
+namespace QFramework 
 {
-    public interface IJsonSerializer : IUtility
-    {
-        string SerializeJson<T>(T obj) where T : class;
+    using UnityEngine;
 
-        T DeserializeJson<T>(string json) where T : class;
+    public enum PanelState
+    {
+        Opening = 0,
+        Hide = 1,
+        Closed = 2,
+    }
+	
+    /// <summary>
+    /// IUIPanel.
+    /// </summary>
+    public partial interface IPanel
+    {
+        Transform Transform { get; }
+		
+        UIKitConfig.IPanelLoader Loader { get; set; }
+		
+        PanelInfo Info { get; set; }
+		
+        PanelState State { get; set; }
+
+        void Init(IUIData uiData = null);
+
+        void Open(IUIData uiData = null);
+
+        void Show();
+
+        void Hide();
+		
+        void Close(bool destroy = true);
     }
 }

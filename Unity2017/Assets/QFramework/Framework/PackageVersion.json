@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.17",
+    "Version": "v0.11.18",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,15 +11,17 @@
         "Assets/QFramework/Framework/MutiFrameworkSupport.zip",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
+        "Assets/QFramework/Framework/QMsgSpan.cs",
         "Assets/QFramework/Framework/README.md",
+        "Assets/QFramework/Framework/Resources",
         "Assets/QFramework/Framework/version.json"
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.17",
-        "content": "修复一下 ResKit 打包的问题",
+        "version": "v0.11.18",
+        "content": "一部分 UIKit => dll",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 13:01",
+        "date": "2021 年 01 月 01 日 21:09",
         "PackageId": ""
     }
 }

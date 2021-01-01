@@ -1,9 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2020.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,12 +23,48 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    public class PanelSearchKeys : IPoolType, IPoolable
     {
-        string SerializeJson<T>(T obj) where T : class;
+        public Type PanelType;
 
-        T DeserializeJson<T>(string json) where T : class;
+        public string AssetBundleName;
+
+        public string GameObjName;
+
+        public UILevel Level = UILevel.Common;
+
+        public IUIData UIData;
+
+
+        public void OnRecycled()
+        {
+            PanelType = null;
+            AssetBundleName = null;
+            GameObjName = null;
+            UIData = null;
+        }
+
+        public bool IsRecycled { get; set; }
+
+
+        public override string ToString()
+        {
+            return "PanelSearchKeys PanelType:{0} AssetBundleName:{1} GameObjName:{2} Level:{3} UIData:{4}".FillFormat(PanelType, AssetBundleName, GameObjName, Level,
+                UIData);
+        }
+
+        public static PanelSearchKeys Allocate()
+        {
+            return SafeObjectPool<PanelSearchKeys>.Instance.Allocate();
+        }
+
+        public void Recycle2Cache()
+        {
+            SafeObjectPool<PanelSearchKeys>.Instance.Recycle(this);
+        }
     }
 }

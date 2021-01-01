@@ -1,9 +1,10 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 xiaojun
+ * Copyright (c) 2017 ~ 2021.1  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,12 +24,21 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    public class ViewController : MonoBehaviour
     {
-        string SerializeJson<T>(T obj) where T : class;
+        [HideInInspector] public string Namespace = string.Empty;
 
-        T DeserializeJson<T>(string json) where T : class;
+        [HideInInspector] public string ScriptName;
+
+        [HideInInspector] public string ScriptsFolder = string.Empty;
+
+        [HideInInspector] public bool GeneratePrefab = false;
+
+
+        [HideInInspector] public string PrefabFolder = string.Empty;
     }
 }

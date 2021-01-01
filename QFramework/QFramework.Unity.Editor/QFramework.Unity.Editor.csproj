@@ -52,6 +52,7 @@
         <Compile Include="ActionKit\EditorActionKit.cs" />
         <Compile Include="ActionKit\EditorExecutor.cs" />
         <Compile Include="ActionKit\OnEventEditor.cs" />
+        <Compile Include="ClearAllData.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementView.cs" />
         <Compile Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs" />
@@ -118,6 +119,7 @@
         <Compile Include="ResKit\ResKitAssetsMenu.cs" />
         <Compile Include="ResKit\ResKitEditorWindow.cs" />
         <Compile Include="ResKit\ResKitInfoGenerator.cs" />
+        <Compile Include="UIKit\UIKitSetttingData.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\QFramework.Unity.Runtime\QFramework.Unity.Runtime.csproj">

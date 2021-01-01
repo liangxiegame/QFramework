@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,10 +25,16 @@
 
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    public abstract class QMgrID
     {
-        string SerializeJson<T>(T obj) where T : class;
-
-        T DeserializeJson<T>(string json) where T : class;
+        public const int Framework = 0;
+        public const int UI = Framework + QMsgSpan.Count; // 3000
+        public const int Audio = UI + QMsgSpan.Count; // 6000
+        public const int Network = Audio + QMsgSpan.Count;
+        public const int UIFilter = Network + QMsgSpan.Count;
+        public const int Game = UIFilter + QMsgSpan.Count;
+        public const int PCConnectMobile = Game + QMsgSpan.Count;
+        public const int FrameworkEnded = PCConnectMobile + QMsgSpan.Count;
+        public const int FrameworkMsgModuleCount = 7;
     }
 }

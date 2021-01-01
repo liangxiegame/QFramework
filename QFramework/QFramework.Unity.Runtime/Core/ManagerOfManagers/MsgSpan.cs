@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,10 +25,8 @@
 
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    public class QMsgSpan
     {
-        string SerializeJson<T>(T obj) where T : class;
-
-        T DeserializeJson<T>(string json) where T : class;
+        public const int Count = 3000;
     }
 }

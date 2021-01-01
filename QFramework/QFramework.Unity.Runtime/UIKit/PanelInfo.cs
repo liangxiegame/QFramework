@@ -1,9 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2018.7 ~ 2020.5 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -23,12 +23,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
+    public class PanelInfo
     {
-        string SerializeJson<T>(T obj) where T : class;
+        public IUIData UIData;
 
-        T DeserializeJson<T>(string json) where T : class;
+        public UILevel Level = UILevel.Common;
+
+        public string AssetBundleName;
+
+        public string GameObjName;
+        
+        public Type PanelType;
     }
 }

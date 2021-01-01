@@ -1,9 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2018.7 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -25,10 +25,21 @@
 
 namespace QFramework
 {
-    public interface IJsonSerializer : IUtility
-    {
-        string SerializeJson<T>(T obj) where T : class;
+    using System;
 
-        T DeserializeJson<T>(string json) where T : class;
+    /// <summary>
+    /// Support Manager of Manager
+    /// </summary>
+    public interface IManager 
+    {
+        void Init();
+
+        void RegisterEvent<T>(T msgId, OnEvent process) where T : IConvertible;
+
+        void UnRegisterEvent<T>(T msgEvent, OnEvent process) where T : IConvertible;
+
+        void SendEvent<T>(T eventId) where T : IConvertible;
+
+        void SendMsg(IMsg msg);
     }
 }
