@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Unity.Runtime", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Unity.Editor", "QFramework\QFramework.Unity.Editor\QFramework.Unity.Editor.csproj", "{DB3F61A9-DA28-4814-9E8D-9C72ED846A3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Unity.Testing", "QFramework\QFramework.Unity.Testing\QFramework.Unity.Testing.csproj", "{CF6B1B06-BAE9-4D3D-AA42-AC0C368F104C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DB3F61A9-DA28-4814-9E8D-9C72ED846A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB3F61A9-DA28-4814-9E8D-9C72ED846A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB3F61A9-DA28-4814-9E8D-9C72ED846A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF6B1B06-BAE9-4D3D-AA42-AC0C368F104C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF6B1B06-BAE9-4D3D-AA42-AC0C368F104C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF6B1B06-BAE9-4D3D-AA42-AC0C368F104C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF6B1B06-BAE9-4D3D-AA42-AC0C368F104C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

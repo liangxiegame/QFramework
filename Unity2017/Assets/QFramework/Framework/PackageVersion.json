@@ -1,12 +1,11 @@
 {
     "Id": "",
-    "Version": "v0.11.13",
+    "Version": "v0.11.17",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
-        "Assets/QFramework/Framework/2.ResKit",
         "Assets/QFramework/Framework/3.UIKit",
         "Assets/QFramework/Framework/4.AudioKit",
         "Assets/QFramework/Framework/MutiFrameworkSupport.zip",
@@ -17,10 +16,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.13",
-        "content": "fix webgl compile error",
+        "version": "v0.11.17",
+        "content": "修复一下 ResKit 打包的问题",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 01:16",
+        "date": "2021 年 01 月 01 日 13:01",
         "PackageId": ""
     }
 }

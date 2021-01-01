@@ -11,6 +11,7 @@
         <AssemblyName>QFramework.Unity.Editor</AssemblyName>
         <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>4</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -112,6 +113,11 @@
         <Compile Include="EasyIMGUI\TreeView\TreeIMGUI.cs" />
         <Compile Include="EasyIMGUI\TreeView\TreeView.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="ResKit\AssetBundleExporter.cs" />
+        <Compile Include="ResKit\BuildScript.cs" />
+        <Compile Include="ResKit\ResKitAssetsMenu.cs" />
+        <Compile Include="ResKit\ResKitEditorWindow.cs" />
+        <Compile Include="ResKit\ResKitInfoGenerator.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\QFramework.Unity.Runtime\QFramework.Unity.Runtime.csproj">

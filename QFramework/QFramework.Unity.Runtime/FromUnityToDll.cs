@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2019.1 liangxie
+ * Copyright (c) 2020.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,59 +23,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace QFramework
 {
-    using System;
-
-    public enum ResState
+    /// <summary>
+    /// 运行时的一些设置
+    /// </summary>
+    public class FromUnityToDll
     {
-        Waiting = 0,
-        Loading = 1,
-        Ready   = 2,
-    }
-
-    public static class ResLoadType
-    {
-        public const short AssetBundle   = 0;
-        public const short ABAsset       = 1;
-        public const short ABScene       = 2;
-        public const short Internal      = 3;
-        public const short NetImageRes   = 4;
-        public const short LocalImageRes = 5;
-    }
-
-
-
-    public interface IRes : IRefCounter, IPoolType, IEnumeratorTask
-    {
-        string AssetName { get; }
-
-        string OwnerBundleName { get; }
-
-        ResState State { get; }
-
-        UnityEngine.Object Asset { get; }
-
-        float Progress { get; }
-        Type AssetType { get; set; }
-
-        void RegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
-        void UnRegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
-
-        bool UnloadImage(bool flag);
-
-        bool LoadSync();
-
-        void LoadAsync();
-
-        string[] GetDependResList();
-
-        bool IsDependResLoadFinish();
-
-        bool ReleaseRes();
-        
+        public static ISettingFromUnity Setting { get; set; }
     }
 }

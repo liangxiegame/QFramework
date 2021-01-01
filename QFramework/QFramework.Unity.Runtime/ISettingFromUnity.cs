@@ -1,6 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2019.1 liangxie
+ * Copyright (c) 2020.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,59 +23,56 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-    using System;
-
-    public enum ResState
+    public interface ISettingFromUnity
     {
-        Waiting = 0,
-        Loading = 1,
-        Ready   = 2,
-    }
+        bool SimulationMode { get; set; }
+        string PathPrefix { get; }
 
-    public static class ResLoadType
-    {
-        public const short AssetBundle   = 0;
-        public const short ABAsset       = 1;
-        public const short ABScene       = 2;
-        public const short Internal      = 3;
-        public const short NetImageRes   = 4;
-        public const short LocalImageRes = 5;
-    }
+        // 外部目录  
+        string PersistentDataPath { get; }
 
+        // 内部目录
+        string StreamingAssetsPath { get; }
 
+        // 外部资源目录
+        string PersistentDataPath4Res { get; }
 
-    public interface IRes : IRefCounter, IPoolType, IEnumeratorTask
-    {
-        string AssetName { get; }
+        // 外部头像缓存目录
+        string PersistentDataPath4Photo { get; }
 
-        string OwnerBundleName { get; }
+        // 资源路径，优先返回外存资源路径
+        string GetResPathInPersistentOrStream(string relativePath);
 
-        ResState State { get; }
+        // 上一级目录
+        string GetParentDir(string dir, int floor = 1);
 
-        UnityEngine.Object Asset { get; }
+        void GetFileInFolder(string dirName, string fileName, List<string> outResult);
 
-        float Progress { get; }
-        Type AssetType { get; set; }
+        bool IsAndroid { get; }
 
-        void RegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
-        void UnRegisteOnResLoadDoneEvent(Action<bool, IRes> listener);
+        bool IsEditor { get; }
 
-        bool UnloadImage(bool flag);
+        bool IsiOS { get; }
 
-        bool LoadSync();
+        bool IsStandardAlone { get; }
 
-        void LoadAsync();
+        bool IsWin { get; }
 
-        string[] GetDependResList();
+        ResDatas BuildEditorDataTable();
 
-        bool IsDependResLoadFinish();
-
-        bool ReleaseRes();
+        string AssetPath2Name(string assetPath);
         
+        void AddABInfo2ResDatas(IResDatas assetBundleConfigFile);
+
+        string GetPlatformName();
+        string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName);
+        Object LoadAssetAtPath(string assetPath, Type assetType);
+        T LoadAssetAtPath<T>(string assetPath) where T : Object;
     }
 }

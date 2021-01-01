@@ -31,11 +31,7 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace QFramework
 {
-    public interface IZipFileHelper : IUtility
-    {
-        void GetFileInInner(string fileName, List<string> outResult);
-        Stream OpenReadStream(string path);
-    }
+
 
     public class ZipFileHelper : IZipFileHelper
     {
@@ -50,8 +46,8 @@ namespace QFramework
 
         public ZipFileHelper()
         {
-            mSearchDirList.Add(FilePath.PersistentDataPath4Res);
-            mStreamingAssetsPath = FilePath.StreamingAssetsPath;
+            mSearchDirList.Add(FromUnityToDll.Setting.PersistentDataPath4Res);
+            mStreamingAssetsPath = FromUnityToDll.Setting.StreamingAssetsPath;
 #if (UNITY_ANDROID) && !UNITY_EDITOR
 			if (mZipFile == null)
 			{
@@ -74,7 +70,7 @@ namespace QFramework
 
         public void InitStreamingAssetPath()
         {
-            mStreamingAssetsPath = FilePath.StreamingAssetsPath;
+            mStreamingAssetsPath = FromUnityToDll.Setting.StreamingAssetsPath;
         }
 
         //在包内查找是否有改资源
@@ -155,7 +151,7 @@ namespace QFramework
 			GetFileInZip(mZipFile, fileName, outResult);
 			return;
 #endif
-            FilePath.GetFileInFolder(FilePath.StreamingAssetsPath, fileName, outResult);
+            FromUnityToDll.Setting.GetFileInFolder(FromUnityToDll.Setting.StreamingAssetsPath, fileName, outResult);
         }
 
         public byte[] ReadSync(string fileRelativePath)
