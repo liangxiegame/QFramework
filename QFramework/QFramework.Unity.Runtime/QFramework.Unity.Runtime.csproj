@@ -230,6 +230,9 @@
         <Compile Include="ResKit\ResourcesSupport\ResourcesRes.cs" />
         <Compile Include="ResKit\ResourcesSupport\ResourcesResCreator.cs" />
         <Compile Include="ResKit\ResSearchKeys.cs" />
+        <Compile Include="UIKit\ActionKitSupport\UIKitClosePanel.cs" />
+        <Compile Include="UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
+        <Compile Include="UIKit\ActionKitSupport\UIKitSetResolution.cs" />
         <Compile Include="UIKit\Deprecated.cs" />
         <Compile Include="UIKit\PanelInfo.cs" />
         <Compile Include="UIKit\PanelSearchKeys.cs" />
