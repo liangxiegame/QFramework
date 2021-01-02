@@ -24,9 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Linq;
-using QFramework.CodeGen;
-
 namespace QFramework
 {
 	using UnityEngine;
@@ -112,19 +109,7 @@ namespace QFramework
 			{
 				if (File.Exists(strFilePath) == false)
 				{
-					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelDataTemplate>();
-					RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelTemplate>();
-					
-					var factory = new RegisteredTemplateGeneratorsFactory();
-					
-					var generators = factory.CreateGenerators(new UIGraph(), panelCodeInfo);
-									
-					CompilingSystem.GenerateFile(new FileInfo(strFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
-					{
-						Generators = generators.ToArray()
-					});
-
-					RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeInfo>();
+					UIPanelTemplate.Write(behaviourName,strFilePath,UIKitSettingData.Load().Namespace,UIKitSettingData.Load());
 				}
 			}
 
@@ -149,18 +134,7 @@ namespace QFramework
 			}
 			else
 			{
-				RegisteredTemplateGeneratorsFactory.RegisterTemplate<PanelCodeInfo,UIPanelDesignerTemplate>();
-
-				var factory = new RegisteredTemplateGeneratorsFactory();
-					
-				var generators = factory.CreateGenerators(new UIGraph(), panelCodeInfo);
-									
-				CompilingSystem.GenerateFile(new FileInfo(generateFilePath),new CodeFileGenerator(UIKitSettingData.GetProjectNamespace())
-				{
-					Generators = generators.ToArray()
-				});
-				
-				RegisteredTemplateGeneratorsFactory.UnRegisterTemplate<PanelCodeInfo>();
+				UIPanelDesignerTemplate.Write(behaviourName,dir,UIKitSettingData.GetProjectNamespace(),panelCodeInfo,UIKitSettingData.Load());
 			}
 
 			foreach (var elementCodeData in panelCodeInfo.ElementCodeDatas)

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.18",
+    "Version": "v0.11.19",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -18,10 +18,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.18",
-        "content": "一部分 UIKit => dll",
+        "version": "v0.11.19",
+        "content": "CodeGenKit => dll",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 21:09",
+        "date": "2021 年 01 月 02 日 12:30",
         "PackageId": ""
     }
 }

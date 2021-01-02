@@ -1,63 +1,90 @@
-using System.CodeDom;
-using QFramework.CodeGen;
+/****************************************************************************
+ * Copyright (c) 2019.1 ~ 2021.1 liangxie
+ * 
+ * http://qframework.io
+ * https://github.com/liangxiegame/QFramework
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
 
 namespace QFramework
 {
-    [TemplateClass(TemplateLocation.DesignerFile)]
-    [RequiresNamespace("UnityEngine")]
-    [RequiresNamespace("UnityEngine.UI")]
-    [AsPartial]
-    public class UIPanelTemplate : IClassTemplate<PanelCodeInfo>, ITemplateCustomFilename
+    using System.IO;
+
+    public class UIPanelTemplate
     {
-        public string OutputPath { get; private set; }
-
-        public bool CanGenerate
+        public static void Write(string name, string srcFilePath, string scriptNamespace,
+            UIKitSettingData uiKitSettingData)
         {
-            get { return true; }
+            var scriptFile = srcFilePath;
+
+            if (File.Exists(scriptFile))
+            {
+                return;
+            }
+
+            var writer = File.CreateText(scriptFile);
+
+            var codeWriter = new FileCodeWriter(writer);
+
+
+            var rootCode = new RootCode()
+                .Using("UnityEngine")
+                .Using("UnityEngine.UI")
+                .Using("QFramework")
+                .EmptyLine()
+                .Namespace(scriptNamespace, nsScope =>
+                {
+                    nsScope.Class(name + "Data", "UIPanelData", false, false, classScope => { });
+
+                    nsScope.Class(name, "UIPanel", true, false, classScope =>
+                    {
+                        classScope.CustomScope("protected override void ProcessMsg(int eventId, QMsg msg)", false,
+                            (function) => { function.Custom("throw new System.NotImplementedException();"); });
+
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnInit(IUIData uiData = null)", false,
+                            function =>
+                            {
+                                function.Custom("mData = uiData as {0} ?? new {0}()".FillFormat(name + "Data;"));
+                                function.Custom("// please add init code here");
+                            });
+
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnOpen(IUIData uiData = null)", false,
+                            function => { });
+
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnShow()", false,
+                            function => { });
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnHide()", false,
+                            function => { });
+
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnClose()", false,
+                            function => { });
+                    });
+                });
+
+            rootCode.Gen(codeWriter);
+            codeWriter.Dispose();
         }
-
-        public void TemplateSetup()
-        {
-            Ctx.SetBaseType(typeof(UIPanel));
-            Ctx.CurrentDeclaration.Name = Ctx.Data.GameObjectName;
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void ProcessMsg(int eventId, QMsg msg)
-        {
-            Ctx._("throw new System.NotImplementedException ()");
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void OnInit(IUIData uiData = null)
-        {
-            Ctx._("mData = uiData as {0} ?? new {0}()",Ctx.Data.GameObjectName + "Data");
-            Ctx._comment("please add init code here");
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void OnOpen(IUIData uiData = null)
-        {
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void OnShow()
-        {
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void OnHide()
-        {
-        }
-
-        [GenerateMethod, AsOverride]
-        protected void OnClose()
-        {
-        }
-
-
-        public TemplateContext<PanelCodeInfo> Ctx { get; set; }
-
-        public string Filename { get; private set; }
     }
 }

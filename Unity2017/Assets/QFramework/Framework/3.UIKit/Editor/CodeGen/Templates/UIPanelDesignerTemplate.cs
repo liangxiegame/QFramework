@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2019.1 liangxie
+ * Copyright (c) 2019.1 ~ 2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -24,95 +24,96 @@
  ****************************************************************************/
 
 using System;
-using QFramework.CodeGen;
-
-using System.CodeDom;
+using System.IO;
 
 namespace QFramework
 {
-    [TemplateClass(TemplateLocation.DesignerFile)]
-    [RequiresNamespace("UnityEngine")]
-    [RequiresNamespace("UnityEngine.UI")]
-    [AsPartial]
-    public class UIPanelDesignerTemplate : IClassTemplate<PanelCodeInfo>,ITemplateCustomFilename
+    public class UIPanelDesignerTemplate
     {
-        public string OutputPath  { get; private set; }
-        public bool   CanGenerate
+        public static void Write(string name, string scriptsFolder, string scriptNamespace, PanelCodeInfo panelCodeInfo,
+            UIKitSettingData uiKitSettingData)
         {
-            get { return true; }
-        }
+            var scriptFile = scriptsFolder + "/{0}.Designer.cs".FillFormat(name);
 
-        public void TemplateSetup()
-        {
-            Ctx.CurrentDeclaration.BaseTypes.Clear();
-            Ctx.CurrentDeclaration.Name = Ctx.Data.GameObjectName;
+            var writer = File.CreateText(scriptFile);
 
-            var dataTypeName = Ctx.Data.GameObjectName + "Data";
-
-            var nameField = new CodeMemberField(typeof(string), "NAME")
-            {
-                Attributes = MemberAttributes.Const | MemberAttributes.Public,
-                InitExpression = Ctx.Data.GameObjectName.ToCodeSnippetExpression()
-            };
-
-            Ctx.CurrentDeclaration.Comments.Add(
-                new CodeCommentStatement("Generate Id:{0}".FillFormat(Guid.NewGuid().ToString())));
-            
-            Ctx.CurrentDeclaration.Members.Add(nameField);
-
-            Ctx.Data.BindInfos.ForEach(info =>
-            {
-                var field = Ctx.CurrentDeclaration._public_(info.BindScript.ComponentName, info.Name);
-
-                if (info.BindScript.Comment.IsNotNullAndEmpty())
+            var root = new RootCode()
+                .Using("System")
+                .Using("UnityEngine")
+                .Using("UnityEngine.UI")
+                .Using("QFramework")
+                .EmptyLine()
+                .Namespace(scriptNamespace.IsTrimNullOrEmpty()
+                    ? uiKitSettingData.Namespace
+                    : scriptNamespace, ns =>
                 {
-                    field.Comments.Add(new CodeCommentStatement(info.BindScript.Comment));
-                }
+                    ns.Custom("// Generate Id:{0}".FillFormat(Guid.NewGuid().ToString()));
+                    ns.Class(name, null, true, false, (classScope) =>
+                    {
+                        classScope.Custom("public const string Name = \"" + name + "\";");
+                        classScope.EmptyLine();
 
-                field.CustomAttributes.Add(new CodeAttributeDeclaration("SerializeField".ToCodeReference()));
-            });
+                        foreach (var bindInfo in panelCodeInfo.BindInfos)
+                        {
+                            if (bindInfo.BindScript.Comment.IsNotNullAndEmpty())
+                            {
+                                classScope.Custom("/// <summary>");
+                                classScope.Custom("/// " + bindInfo.BindScript.Comment);
+                                classScope.Custom("/// </summary>");
+                            }
 
-            var data = Ctx.CurrentDeclaration._private_(dataTypeName, "mPrivateData");
-            data.InitExpression = new CodeSnippetExpression("null");
+                            classScope.Custom("[SerializeField]");
+                            classScope.Custom("public " + bindInfo.BindScript.ComponentName + " " + bindInfo.Name +
+                                              ";");
+                        }
+
+                        classScope.EmptyLine();
+                        classScope.Custom("private " + name + "Data mPrivateData = null;");
+
+                        classScope.EmptyLine();
+
+                        classScope.CustomScope("protected override void ClearUIComponents()", false, (function) =>
+                        {
+                            foreach (var bindInfo in panelCodeInfo.BindInfos)
+                            {
+                                function.Custom(bindInfo.Name + " = null;");
+                            }
+
+                            function.EmptyLine();
+                            function.Custom("mData = null;");
+                        });
+
+                        classScope.EmptyLine();
+
+                        classScope.CustomScope("public " + name + "Data Data", false,
+                            (property) =>
+                            {
+                                property.CustomScope("get", false, (getter) => { getter.Custom("return mData;"); });
+                            });
+
+                        classScope.EmptyLine();
+
+
+                        classScope.CustomScope(name + "Data mData", false, (property) =>
+                        {
+                            property.CustomScope("get", false,
+                                (getter) =>
+                                {
+                                    getter.Custom("return mPrivateData ?? (mPrivateData = new " + name + "Data());");
+                                });
+
+                            property.CustomScope("set", false, (setter) =>
+                            {
+                                setter.Custom("mUIData = value;");
+                                setter.Custom("mPrivateData = value;");
+                            });
+                        });
+                    });
+                });
+
+            var codeWriter = new FileCodeWriter(writer);
+            root.Gen(codeWriter);
+            codeWriter.Dispose();
         }
-
-        [GenerateMethod, AsOverride]
-        protected void ClearUIComponents()
-        {
-            Ctx.Data.BindInfos.ForEach(info => { Ctx._("{0} = null", info.Name); });
-            Ctx._("mData = null");
-        }
-
-        [GenerateProperty]
-        public string Data
-        {
-            get
-            {
-                var dataTypeName = Ctx.Data.GameObjectName + "Data";
-                Ctx._("return mData");
-                Ctx.CurrentProperty.Type = dataTypeName.ToCodeReference();
-                return dataTypeName;
-            }
-        }
-
-        [GenerateProperty]
-        protected string mData
-        {
-            get
-            {
-                var dataTypeName = Ctx.Data.GameObjectName + "Data";
-                Ctx._("return mPrivateData ?? (mPrivateData = new {0}())",dataTypeName);
-                Ctx.CurrentProperty.Type = dataTypeName.ToCodeReference();
-                return dataTypeName;
-            }
-            set
-            {
-                Ctx._("mUIData = value");
-                Ctx._("mPrivateData = value");
-            }
-        }
-        public TemplateContext<PanelCodeInfo> Ctx { get; set; }
-        
-        public string Filename { get; private set; }
     }
 }
