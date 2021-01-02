@@ -1,6 +1,0 @@
-﻿{
-	"name": "QFramework.BindableProperty",
-	"references": [
-		"QFramework.Disposable"
-	]
-}

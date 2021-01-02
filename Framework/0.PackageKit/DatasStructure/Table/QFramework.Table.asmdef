@@ -1,6 +1,0 @@
-﻿{
-	"name": "QFramework.Table",
-	"references": [
-		"QFramework.Pool"
-	]
-}

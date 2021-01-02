@@ -57,9 +57,13 @@ namespace QFramework
                 case BuildTarget.StandaloneWindows:
                 case BuildTarget.StandaloneWindows64:
                     return "Windows";
+#if !UNITY_2019_2_OR_NEWER
                 case BuildTarget.StandaloneLinux:
+#endif
                 case BuildTarget.StandaloneLinux64:
+#if !UNITY_2019_2_OR_NEWER
                 case BuildTarget.StandaloneLinuxUniversal:
+#endif
                     return "Linux";
 #if !UNITY_2017_3_OR_NEWER
 			case BuildTarget.StandaloneOSXIntel:

@@ -1,6 +1,0 @@
-{
-  "name": "QFramework.Zip",
-  "references": [
-    "QFramework.Architecture"
-  ]
-}
