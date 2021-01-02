@@ -129,19 +129,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLiteral.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererMarkdown.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\UIKitHierarchyMenu.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableCellEditor.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableLayoutEditor.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableLayoutWizard.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableRowEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\Localization\XmlLocalizationEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlAssetPostprocessor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlConfigurationEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutEditorUtilities.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutMenuItems.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutWizard.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlPluginProcessor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlSchemaProcessor.cs" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
