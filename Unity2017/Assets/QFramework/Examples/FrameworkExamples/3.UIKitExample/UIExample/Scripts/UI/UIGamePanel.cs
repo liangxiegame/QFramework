@@ -33,11 +33,21 @@ namespace QFramework.Example
 
 	public partial class UIGamePanel : UIPanel
 	{
+		protected override void OnInit(IUIData uiData = null)
+		{
+			mData = uiData as UIGamePanelData;
+			gameText.text = "Hello,You are in Section {0}".FillFormat(mData.SectionNo);
+			
+			backBtn.onClick.AddListener(() =>
+			{
+				UIKit.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
+				CloseSelf();
+			});
+		}
 
 		protected override void InitUI(IUIData uiData = null)
 		{
-			// mData = uiData as UIGamePanelData;
-			// gameText.text = "Hello,You are in Section {0}".FillFormat(mData.SectionNo);
+			
 		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
@@ -45,14 +55,7 @@ namespace QFramework.Example
 			throw new System.NotImplementedException();
 		}
 
-		protected override void RegisterUIEvent()
-		{
-			// backBtn.onClick.AddListener(() =>
-			// {
-			// 	UIKit.OpenPanel<UISectionPanel>(UILevel.Common, prefabName: "Resources/UISectionPanel");
-			// 	CloseSelf();
-			// });
-		}
+
 		
 		protected override void OnClose()
 		{

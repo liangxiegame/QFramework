@@ -1,0 +1,16 @@
+{
+    "Id": "",
+    "Version": "v0.4.4",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Tests/FrameworkTests/",
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.4.4",
+        "content": "去掉 Deprecated 的 API",
+        "author": "liangxie",
+        "date": "2020 年 10 月 16 日 00:31",
+        "PackageId": ""
+    }
+}
