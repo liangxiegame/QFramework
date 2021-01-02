@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace QFramework
@@ -74,5 +75,8 @@ namespace QFramework
         string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName);
         Object LoadAssetAtPath(string assetPath, Type assetType);
         T LoadAssetAtPath<T>(string assetPath) where T : Object;
+        string PasswordField(string value, GUIStyle style, GUILayoutOption[] options);
+        string TextField(string value, GUIStyle style, GUILayoutOption[] options);
+        string TextArea(string value, GUIStyle style, GUILayoutOption[] options);
     }
 }

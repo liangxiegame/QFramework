@@ -33,41 +33,17 @@ namespace QFramework
     {
         public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            return GUILayout.PasswordField(value, '*', style, options);
-
-            // if (Application.isPlaying)
-            // {
-            // }
-            // else
-            // {
-            //
-            //     return EditorGUILayout.PasswordField(value, style, options);
-            // }
+            return FromUnityToDll.Setting.PasswordField(value,  style, options);
         }
 
         public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            // if (Application.isPlaying)
-            // {
-                return GUILayout.TextField(value, style, options);
-            // }
-            // else
-            // {
-            //     return EditorGUILayout.TextField(value, style, options);
-            // }
+            return FromUnityToDll.Setting.TextField(value,  style, options);
         }
 
         public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
         {
-            // if (Application.isPlaying)
-            // {
-                return GUILayout.TextArea(value, style, options);
-            //
-            // }
-            // else
-            // {
-            //     return EditorGUILayout.TextArea(value, style, options);
-            // }
+            return FromUnityToDll.Setting.TextArea(value, style, options);
         }
     }
 }

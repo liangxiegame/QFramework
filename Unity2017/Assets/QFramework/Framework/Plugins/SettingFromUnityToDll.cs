@@ -115,11 +115,40 @@ namespace QFramework
 #endif
         }
 
+        public string PasswordField(string value, GUIStyle style, GUILayoutOption[] options)
+        {
+#if UNITY_EDITOR
+            return EditorGUILayout.PasswordField(value, style, options);
+#else
+            return GUILayout.PasswordField(value, '*', style, options);
+#endif
+        }
+
+        public string TextField(string value, GUIStyle style, GUILayoutOption[] options)
+        {
+#if UNITY_EDITOR
+
+            return EditorGUILayout.TextField(value, style, options);
+#else
+            return GUILayout.TextField(value, style, options);
+#endif
+        }
+
+        public string TextArea(string value, GUIStyle style, GUILayoutOption[] options)
+        {
+#if UNITY_EDITOR
+
+            return EditorGUILayout.TextArea(value, style, options);
+#else
+            return GUILayout.TextArea(value, style, options);
+#endif
+        }
+
         public ResDatas BuildEditorDataTable()
         {
             Log.I("Start BuildAssetDataTable!");
-
             var resDatas = new ResDatas();
+
             AddABInfo2ResDatas(resDatas);
             return resDatas;
         }
@@ -130,8 +159,8 @@ namespace QFramework
         public string AssetPath2Name(string assetPath)
         {
             var startIndex = assetPath.LastIndexOf("/") + 1;
-            var endIndex = assetPath.LastIndexOf(".");
 
+            var endIndex = assetPath.LastIndexOf(".");
             if (endIndex > 0)
             {
                 var length = endIndex - startIndex;
@@ -326,7 +355,6 @@ namespace QFramework
         public string GetResPathInPersistentOrStream(string relativePath)
         {
             string resPersistentPath = string.Format("{0}{1}", PersistentDataPath4Res, relativePath);
-
             if (File.Exists(resPersistentPath))
             {
                 return resPersistentPath;
@@ -337,7 +365,7 @@ namespace QFramework
             }
         }
 
-        // 上一级目录
+// 上一级目录
         public string GetParentDir(string dir, int floor = 1)
         {
             string subDir = dir;
@@ -386,7 +414,6 @@ namespace QFramework
 #endif
             }
         }
-
 #if UNITY_EDITOR
         const string kSimulateAssetBundles = "SimulateAssetBundles"; //此处跟editor中保持统一，不能随意更改
 
@@ -408,8 +435,6 @@ namespace QFramework
              set {  }
          }
 #endif
-
-
         static SettingFromUnityDll()
         {
 #if UNITY_EDITOR
