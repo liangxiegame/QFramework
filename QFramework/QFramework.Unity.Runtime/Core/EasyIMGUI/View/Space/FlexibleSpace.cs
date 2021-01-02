@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IFlexibleSpace : IMGUIView
+    public interface IFlexibleSpace : IMGUIView, IXMLToObjectConverter
     {
     }
 
@@ -37,6 +38,21 @@ namespace QFramework
         protected override void OnGUI()
         {
             GUILayout.FlexibleSpace();
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var flexibleSpace = EasyIMGUI.FlexibleSpace();
+
+            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            {
+                if (childNodeAttribute.Name == "Id")
+                {
+                    flexibleSpace.Id = childNodeAttribute.Value;
+                }
+            }
+
+            return flexibleSpace as T;
         }
     }
 }

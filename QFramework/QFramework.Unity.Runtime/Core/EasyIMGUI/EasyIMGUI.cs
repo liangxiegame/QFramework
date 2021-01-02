@@ -90,6 +90,11 @@ namespace QFramework
             return new ScrollLayout();
         }
 
+        public static IXMLView XMLView()
+        {
+            return new XMLView();
+        }
+
 
         private EasyIMGUI()
         {
@@ -109,6 +114,8 @@ namespace QFramework
 
         protected override void OnLaunch()
         {
+            XMLKit.Interface.GetSystem<IXMLToObjectConvertSystem>()
+                .AddModule("EasyIMGUI", new EasyIMGUIXMLModule());
         }
     }
 }

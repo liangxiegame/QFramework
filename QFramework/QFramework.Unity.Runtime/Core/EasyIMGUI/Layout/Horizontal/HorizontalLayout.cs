@@ -24,20 +24,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IHorizontalLayout : IMGUILayout
+    public interface IHorizontalLayout : IMGUILayout, IXMLToObjectConverter
     {
         IHorizontalLayout Box();
     }
 
-    public class HorizontalLayout : Layout,IHorizontalLayout
+    public class HorizontalLayout : Layout, IHorizontalLayout
     {
         public string HorizontalStyle { get; set; }
-        
+
 
         protected override void OnGUIBegin()
         {
@@ -61,6 +61,20 @@ namespace QFramework
             HorizontalStyle = "box";
             return this;
         }
-    }
 
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var horizontal = EasyIMGUI.Horizontal();
+
+            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            {
+                if (childNodeAttribute.Name == "Id")
+                {
+                    horizontal.Id = childNodeAttribute.Value;
+                }
+            }
+
+            return horizontal as T;
+        }
+    }
 }

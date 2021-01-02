@@ -191,6 +191,8 @@
         <Compile Include="Core\EasyIMGUI\View\Text\TextField.cs" />
         <Compile Include="Core\EasyIMGUI\View\Toggle\Toggle.cs" />
         <Compile Include="Core\EasyIMGUI\View\Toolbar\ToolbarView.cs" />
+        <Compile Include="Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
+        <Compile Include="Core\EasyIMGUI\XML\XMLView.cs" />
         <Compile Include="Core\EnumEventSystem\EnumEventSystem.cs" />
         <Compile Include="Core\Factory\CustomObjectFactory.cs" />
         <Compile Include="Core\Factory\DefaultObjectFactory.cs" />
@@ -230,6 +232,10 @@
         <Compile Include="Core\Table\TableIndex.cs" />
         <Compile Include="Core\TypeEventSystem\ITypeEventSystem.cs" />
         <Compile Include="Core\TypeEventSystem\TypeEventSystem.cs" />
+        <Compile Include="Core\XML\IConvertModule.cs" />
+        <Compile Include="Core\XML\IXMLToObjectConverter.cs" />
+        <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
+        <Compile Include="Core\XML\XMLKit.cs" />
         <Compile Include="FromUnityToDll.cs" />
         <Compile Include="IPanel.cs" />
         <Compile Include="ISettingFromUnity.cs" />
@@ -295,21 +301,7 @@
       <Content Include="Core\EasyIMGUI\Framework\IMGUIView.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\Layout.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\View.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Horizontal.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Horizontal\HorizontalLayout.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Scroll.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Scroll\ScrollLayout.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Vertical.meta" />
-      <Content Include="Core\EasyIMGUI\Layout\Vertical\VerticalLayout.cs.meta" />
       <Content Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Button\Button.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\CustomView\CustomView.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Label\Label.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Space\FlexibleSpace.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Space\Space.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Text\TextArea.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Text\TextField.cs.meta" />
-      <Content Include="Core\EasyIMGUI\View\Toolbar\ToolbarView.cs.meta" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

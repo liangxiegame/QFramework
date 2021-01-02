@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2021.1 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface ITextArea : IMGUIView, IHasText<ITextArea>
+    public interface ITextArea : IMGUIView, IHasText<ITextArea>, IXMLToObjectConverter
     {
         Property<string> Content { get; }
     }
@@ -52,6 +53,25 @@ namespace QFramework
         {
             Content.Value = labelText;
             return this;
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var textArea = EasyIMGUI.TextArea();
+
+            foreach (XmlAttribute nodeAttribute in node.Attributes)
+            {
+                if (nodeAttribute.Name == "Id")
+                {
+                    textArea.Id = nodeAttribute.Value;
+                }
+                else if (nodeAttribute.Name == "Text")
+                {
+                    textArea.Text(nodeAttribute.Value);
+                }
+            }
+
+            return textArea as T;
         }
     }
 }

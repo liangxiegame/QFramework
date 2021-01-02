@@ -4,22 +4,22 @@ namespace QFramework
 {
     public class AdvertisementItemView : HorizontalLayout
     {
+        private readonly IXMLView mView = EasyIMGUI.XMLView();
+        
         public AdvertisementItemView(string title, string link)
         {
             Box();
             
-            EasyIMGUI.Label()
-                .Text(title)
-                .FontBold()
-                .Parent(this);
-            
-            EasyIMGUI.FlexibleSpace().Parent(this);
+            AddChild(mView.LoadXML(Application.dataPath + "/QFramework/Framework/Plugins/PackageKit/SupportItem.xml"));
 
-            EasyIMGUI.Button()
+            mView.GetById<ILabel>("title").Text(title);
+
+            mView.GetById<IButton>("linkBtn")
                 .Text(LocalText.Open)
-                .OnClick(() => { Application.OpenURL(link); })
-                .Width(200)
-                .Parent(this);
+                .OnClick(() =>
+                {
+                    Application.OpenURL(link);
+                });
         }
 
         class LocalText

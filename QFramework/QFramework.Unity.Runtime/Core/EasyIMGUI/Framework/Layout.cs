@@ -52,7 +52,7 @@ namespace QFramework
             OnGUIEnd();
         }
 
-        protected abstract void OnGUIBegin();
-        protected abstract void OnGUIEnd();
+        protected virtual void OnGUIBegin(){}
+        protected virtual void OnGUIEnd(){}
     }
 }

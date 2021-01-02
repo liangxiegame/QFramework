@@ -1,10 +1,9 @@
-﻿/****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2021.1  liangxie
  * 
- * https://qframework.cn
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://gitee.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,57 +23,29 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.ComponentModel;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace QFramework
 {
-	[DisplayName("技术支持")]
-	[PackageKitGroup("QFramework")]
-	[PackageKitRenderOrder(int.MinValue)]
-	public class AdvertisementView : IPackageKitView
-	{
-		public IQFrameworkContainer Container { get; set; }
-		
-		private IXMLView mView = null;
+    public interface IXMLToObjectConvertSystem : ISystem
+    {
+        IConvertModule GetConvertModule(string moduleName);
+        void AddModule(string key, IConvertModule module);
+    }
 
-		public void Init(IQFrameworkContainer container)
-		{
-			mView = EasyIMGUI.XMLView();
+    internal class XMLToObjectConvertSystem : System<XMLKit>,IXMLToObjectConvertSystem
+    {
+        private Dictionary<string, IConvertModule> mModules =
+            new Dictionary<string,IConvertModule>();
+        
+        public IConvertModule GetConvertModule(string moduleName)
+        {
+            return mModules[moduleName];
+        }
 
-			mView.LoadXML(Application.dataPath + "/QFramework/Framework/Plugins/PackageKit/Support.xml");
-		}
-
-		public void OnUpdate()
-		{
-
-		}
-
-		public void OnGUI()
-		{
-			mView.DrawGUI();
-		}
-
-		public void OnDispose()
-		{
-			mView.Dispose();
-		}
-
-		public void OnShow()
-		{
-			
-		}
-
-		public void OnHide()
-		{
-		}
-
-		public class LocalText
-		{
-			public static string TechSupport
-			{
-				get { return Language.IsChinese ? "技术支持" : "Tech Support"; }
-			}
-		}
-	}
+        public void AddModule(string key, IConvertModule module)
+        {
+            mModules.Add(key,module);
+        }
+    }
 }

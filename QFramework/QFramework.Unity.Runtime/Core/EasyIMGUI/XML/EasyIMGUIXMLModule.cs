@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2021.1 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,43 +24,44 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Xml;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace QFramework
 {
-    public interface IScrollLayout : IMGUILayout,IXMLToObjectConverter
+    // ReSharper disable once InconsistentNaming
+    public class EasyIMGUIXMLModule : IConvertModule
     {
+        private Dictionary<string, IXMLToObjectConverter> mConverters = new Dictionary<string, IXMLToObjectConverter>();
         
-    }
-    
-    internal class ScrollLayout : Layout,IScrollLayout
-    {
-        Vector2 mScrollPos = Vector2.zero;
-
-        protected override void OnGUIBegin()
+        public EasyIMGUIXMLModule()
         {
-            mScrollPos = GUILayout.BeginScrollView(mScrollPos, LayoutStyles);
+            mConverters.Add("IButton", new IMGUIButton());
+            mConverters.Add("ILabel", new Label());
+            mConverters.Add("IFlexibleSpace", new FlexibleSpace());
+            mConverters.Add("IHorizontal", new HorizontalLayout());
+            mConverters.Add("IVertical", new VerticalLayout());
+            mConverters.Add("ICustom", new CustomView());
+            mConverters.Add("ISpace", new Space());
+            mConverters.Add("ITextField", new TextField());
+            mConverters.Add("ITextArea", new TextArea());
         }
 
-        protected override void OnGUIEnd()
+        public IXMLToObjectConverter GetConverter(string name)
         {
-            GUILayout.EndScrollView();
+            return mConverters[name];
         }
 
-        public T Convert<T>(XmlNode node) where T : class
+        public void RegisterConverter(string name, IXMLToObjectConverter converter)
         {
-            var scroll = EasyIMGUI.Scroll();
-
-            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            if (mConverters.ContainsKey(name))
             {
-                if (childNodeAttribute.Name == "Id")
-                {
-                    scroll.Id = childNodeAttribute.Value;
-                }
-            }
+                mConverters[name] = converter;
 
-            return scroll as T;
+            }
+            else
+            {
+                mConverters.Add(name, converter);
+            }
         }
     }
 }

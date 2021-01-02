@@ -25,10 +25,11 @@
  ****************************************************************************/
 
 using System;
+using System.Xml;
 
 namespace QFramework
 {
-    public interface ICustom : IMGUIView
+    public interface ICustom : IMGUIView,IXMLToObjectConverter
     {
         ICustom OnGUI(Action onGUI);
     }
@@ -46,6 +47,21 @@ namespace QFramework
         {
             mOnGUIAction = onGUI;
             return this;
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var custom = EasyIMGUI.Custom();
+
+            foreach (XmlAttribute nodeAttribute in node.Attributes)
+            {
+                if (nodeAttribute.Name == "Id")
+                {
+                    custom.Id = nodeAttribute.Value;
+                }
+            }
+            
+            return custom as T;
         }
     }
 }

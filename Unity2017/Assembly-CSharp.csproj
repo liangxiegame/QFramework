@@ -236,6 +236,8 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\UIKit\UIMark.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\ZipFileHelper.cs" />
     <Compile Include="Assets\QFramework\Framework\QMsgSpan.cs" />
+    <None Include="Assets\QFramework\Framework\Plugins\PackageKit\Support.xml" />
+    <None Include="Assets\QFramework\Framework\Plugins\PackageKit\SupportItem.xml" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>

@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface ITextField : IMGUIView, IHasText<ITextField>
+    public interface ITextField : IMGUIView, IHasText<ITextField>,IXMLToObjectConverter
     {
         Property<string> Content { get; }
 
@@ -72,5 +73,25 @@ namespace QFramework
             Content.Value = labelText;
             return this;
         }
+        
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var textArea = EasyIMGUI.TextField();
+
+            foreach (XmlAttribute nodeAttribute in node.Attributes)
+            {
+                if (nodeAttribute.Name == "Id")
+                {
+                    textArea.Id = nodeAttribute.Value;
+                }
+                else if (nodeAttribute.Name == "Text")
+                {
+                    textArea.Text(nodeAttribute.Value);
+                }
+            }
+
+            return textArea as T;
+        }
     }
+    
 }

@@ -159,8 +159,6 @@
       <Content Include="CodeGen\CodeGen\.DS_Store" />
       <Content Include="PackageKit\.DS_Store" />
       <Content Include="PackageKit\Editor.meta" />
-      <Content Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs.meta" />
-      <Content Include="PackageKit\Editor\Advertise\AdvertisementView.cs.meta" />
       <Content Include="PackageKit\Editor\Framework\Attributes.meta" />
       <Content Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs.meta" />
       <Content Include="PackageKit\Editor\Framework\Attributes\PackageKitRenderOrderAttribute.cs.meta" />

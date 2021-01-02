@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface ILabel : IMGUIView,IHasText<ILabel>
+    public interface ILabel : IMGUIView,IHasText<ILabel>,IXMLToObjectConverter
     {
     
     }
@@ -51,6 +52,33 @@ namespace QFramework
         {
             Content = labelText;
             return this;
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var label = EasyIMGUI.Label();
+
+            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            {
+                if (childNodeAttribute.Name == "Id")
+                {
+                    label.Id = childNodeAttribute.Value;
+                }
+                else if (childNodeAttribute.Name == "Text")
+                {
+                    label.Text(childNodeAttribute.Value);
+                }
+                else if (childNodeAttribute.Name == "FontBold")
+                {
+                    label.FontBold();
+                }
+                else if (childNodeAttribute.Name == "FontSize")
+                {
+                    label.FontSize(int.Parse(childNodeAttribute.Value));
+                }
+            }
+
+            return label as T;
         }
     }
 }

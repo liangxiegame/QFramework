@@ -25,13 +25,15 @@
  ****************************************************************************/
 
 using System;
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
     public interface IButton : IMGUIView,
         IHasText<IButton>,
-        ICanClick<IButton>
+        ICanClick<IButton>,
+        IXMLToObjectConverter
     {
     }
 
@@ -59,6 +61,29 @@ namespace QFramework
         {
             mOnClick = action;
             return this;
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var button = EasyIMGUI.Button();
+
+            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            {
+                if (childNodeAttribute.Name == "Id")
+                {
+                    button.Id = childNodeAttribute.Value;
+                }
+                else if (childNodeAttribute.Name == "Text")
+                {
+                    button.Text(childNodeAttribute.Value);
+                }
+                else if (childNodeAttribute.Name == "Width")
+                {
+                    button.Width(int.Parse(childNodeAttribute.Value));
+                }
+            }
+
+            return button as T;
         }
     }
 }

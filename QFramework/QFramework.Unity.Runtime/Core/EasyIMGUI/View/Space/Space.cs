@@ -24,11 +24,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
+using System.Xml.Serialization;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface ISpace : IMGUIView
+    public interface ISpace : IMGUIView,IXMLToObjectConverter
     {
         ISpace Pixel(int pixel);
     }
@@ -46,6 +48,25 @@ namespace QFramework
         {
             mPixel = pixel;
             return this;
+        }
+
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var space = EasyIMGUI.Space();
+            
+            foreach (XmlAttribute nodeAttribute in node.Attributes)
+            {
+                if (nodeAttribute.Name == "Id")
+                {
+                    space.Id = nodeAttribute.Value;
+                } 
+                else if (nodeAttribute.Name == "Pixel")
+                {
+                    space.Pixel(int.Parse(nodeAttribute.Value));
+                }
+            }
+
+            return space as T;
         }
     }
 }

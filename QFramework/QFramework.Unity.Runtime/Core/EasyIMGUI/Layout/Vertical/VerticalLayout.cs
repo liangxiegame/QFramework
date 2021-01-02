@@ -24,11 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface IVerticalLayout : IMGUILayout
+    public interface IVerticalLayout : IMGUILayout,IXMLToObjectConverter
     {
         IVerticalLayout Box();
     }
@@ -66,7 +67,21 @@ namespace QFramework
             VerticalStyle = "box";
             return this;
         }
-    }
-    
+        
+        
+        public T Convert<T>(XmlNode node) where T : class
+        {
+            var scroll = EasyIMGUI.Vertical();
 
+            foreach (XmlAttribute childNodeAttribute in node.Attributes)
+            {
+                if (childNodeAttribute.Name == "Id")
+                {
+                    scroll.Id = childNodeAttribute.Value;
+                }
+            }
+
+            return scroll as T;
+        }
+    }
 }

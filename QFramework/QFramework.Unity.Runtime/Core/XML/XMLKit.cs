@@ -1,10 +1,9 @@
-﻿/****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2021.1  liangxie
  * 
- * https://qframework.cn
+ * http://qframework.io
  * https://github.com/liangxiegame/QFramework
- * https://gitee.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -24,57 +23,27 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.ComponentModel;
-using UnityEngine;
-
 namespace QFramework
 {
-	[DisplayName("技术支持")]
-	[PackageKitGroup("QFramework")]
-	[PackageKitRenderOrder(int.MinValue)]
-	public class AdvertisementView : IPackageKitView
-	{
-		public IQFrameworkContainer Container { get; set; }
-		
-		private IXMLView mView = null;
+    public class XMLKit : Architecture<XMLKit>
+    {
+        private XMLKit(){}
+        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        {
+            systemLayer.RegisterInstance<IXMLToObjectConvertSystem>(new XMLToObjectConvertSystem());
+        }
 
-		public void Init(IQFrameworkContainer container)
-		{
-			mView = EasyIMGUI.XMLView();
+        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        {
+        }
 
-			mView.LoadXML(Application.dataPath + "/QFramework/Framework/Plugins/PackageKit/Support.xml");
-		}
+        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        {
+        }
 
-		public void OnUpdate()
-		{
-
-		}
-
-		public void OnGUI()
-		{
-			mView.DrawGUI();
-		}
-
-		public void OnDispose()
-		{
-			mView.Dispose();
-		}
-
-		public void OnShow()
-		{
-			
-		}
-
-		public void OnHide()
-		{
-		}
-
-		public class LocalText
-		{
-			public static string TechSupport
-			{
-				get { return Language.IsChinese ? "技术支持" : "Tech Support"; }
-			}
-		}
-	}
+        protected override void OnLaunch()
+        {
+            
+        }
+    }
 }

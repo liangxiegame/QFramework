@@ -8,6 +8,8 @@ namespace QFramework
     {
         private bool mVisible = true;
 
+        public string Id { get; set; }
+
         public bool Visible
         {
             get { return mVisible; }

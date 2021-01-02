@@ -32,6 +32,7 @@ namespace QFramework
 {
     public interface IMGUIView : IDisposable
     {
+        string Id { get; set; }
         bool Visible { get; set; }
 
         void DrawGUI();

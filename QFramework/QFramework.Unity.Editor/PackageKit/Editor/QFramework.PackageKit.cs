@@ -415,6 +415,7 @@ namespace QFramework
 
     public class SubWindow : EditorWindow, IMGUILayout
     {
+        public string Id { get; set; }
         public bool Visible { get; set; }
 
         void IMGUIView.DrawGUI()
