@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.24",
+    "Version": "v0.11.25",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -16,10 +16,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.24",
-        "content": "XML 引擎实现",
+        "version": "v0.11.25",
+        "content": "fix bind's error",
         "author": "liangxie",
-        "date": "2021 年 01 月 02 日 22:14",
+        "date": "2021 年 01 月 02 日 23:07",
         "PackageId": ""
     }
 }

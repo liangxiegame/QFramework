@@ -130,7 +130,7 @@ namespace QFramework
             {
                 var components = mBindScript.GetComponents<Component>();
 
-                var componentNames = components.Where(c => c is AbstractBind)
+                var componentNames = components.Where(c => !(c is AbstractBind))
                     .Select(c => c.GetType().FullName)
                     .ToArray();
 

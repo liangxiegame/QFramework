@@ -1,0 +1,6 @@
+Note:
+----------------
+
+The Prefabs used for TableLayout are stored in 
+
+Assets/UI/TableLayout/Resources/Prefabs/TableLayout
