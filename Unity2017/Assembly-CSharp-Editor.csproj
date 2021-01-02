@@ -82,28 +82,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\QFramework\Examples\FrameworkExamples\2.ResKitExample\Tests\Editor\ResKitTests.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\BindInspector.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\BindCollector.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Data\ElementCodeData.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Data\MarkedObjInfo.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Data\PanelCodeData.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\IBaseTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\ILRuntimePanelCodeTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\UIElementCodeTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\UIPanelDesignerTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\UIPanelTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Templates\ViewControllerTemplate.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\UICodeGenerator.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\UISerializer.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\CodeGen\Util.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\PrefabUtils.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\UICreateService.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\UIEditorWindow.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\UIKitHierarchyMenu.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\UIKitSettingView.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\UIKitSettingViewModel.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\ViewControllerCode.cs" />
-    <Compile Include="Assets\QFramework\Framework\3.UIKit\Editor\ViewControllerInspector.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Block.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockContainer.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockContent.cs" />
@@ -149,6 +127,7 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLink.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLiteral.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererMarkdown.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\UIKitHierarchyMenu.cs" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
