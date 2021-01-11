@@ -151,6 +151,98 @@
     <Compile Include="Assets\QFramework\Examples\FrameworkExamples\3.UIKitExample\UIExample\UIKitExample_LoadFromResources\Scripts\UI\UISomePanelFromResources.Designer.cs" />
     <Compile Include="Assets\QFramework\Examples\FrameworkExamples\3.UIKitExample\UIExample\UIKitExample_LoadFromResources\Scripts\UIKitExample_LoadFromResoruces.cs" />
     <Compile Include="Assets\QFramework\Examples\FrameworkExamples\4.AudioKitExample\AudioExample.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModuleAudio.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModulePhysics.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModuleSprite.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModuleUI.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\DOTween\Modules\DOTweenModuleUtils.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncConnect.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncDisconnect.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncIOOperation.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncReceive.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncSend.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\AsyncSocketOperation.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiMemberIgnoreAttribute.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiMemberIncludeAttribute.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiMemberOrderAttribute.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiSerializableAttribute.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiSerializationLayout.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiSerializationOptions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiSerializer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\FlexiSocket.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\IActionListener.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\IFlexiSerializer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\IProtocol.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\ISocketClient.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\ISocketClientToken.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\ISocketServer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\MessageStructure.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\FlexiSocket\SocketDelegate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\ListItemDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\ListReducer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\ListRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\ListState.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\List\Scripts\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\IObservableExtension.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\Middlewares.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\MiddlewaresBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\MiddlewaresReducer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Middlewares\Scripts\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\MultipleState\Friend.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\MultipleState\MultipleStateRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\MultipleState\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\MultipleState\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\Page.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PagePopButton.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PagePushButton.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PageReducer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PageStackRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PageTitleRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\PageWatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\Scene.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\SceneConfig.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\SceneDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\SceneReducer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\SceneWatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SceneTransition\Scripts\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SimpleHttp\Scripts\SimpleHttpDuck.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SimpleHttp\Scripts\SimpleHttpGetDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SimpleHttp\Scripts\SimpleHttpRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SimpleHttp\Scripts\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\SimpleHttp\Scripts\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Dispatcher\TodoDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Dispatcher\TodoFilterButtonDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Dispatcher\TodoToggleDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Renderer\BaseListRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Renderer\ICellRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Renderer\TodoCellRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Renderer\TodoFilterButtonRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Renderer\TodoListRenderer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\State.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Todo.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\TodoDuck.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\TodoVisibilityDuck.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\Unidux.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Examples\Todo\Scripts\VisibilityFilter.cs" />
+    <Compile Include="Assets\QFramework\Extensions\ActionKitDOTweenAction\ActionKitDOTweenAction.cs" />
+    <Compile Include="Assets\QFramework\Extensions\DVA\DvaModelEditor.cs" />
+    <Compile Include="Assets\QFramework\Extensions\DVA\ModelDB.cs" />
+    <Compile Include="Assets\QFramework\Extensions\SerializeHelper4JsonDotnet\JsonDotNetExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\SerializeHelper4JsonDotnet\JsonDotnetSerializer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\SerializeHelper4JsonDotnet\SerializeHelper.cs" />
+    <Compile Include="Assets\QFramework\Extensions\SimpleEventSystem\QFramework.SimpleEventSystem.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\Extensions\UITransition.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\FadeInOut.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\FadeOut.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\ITransition.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\Scripts\UI\UITransitionPanel.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\Scripts\UI\UITransitionPanelComponents.cs" />
+    <Compile Include="Assets\QFramework\Extensions\UIKitTransition\UITransition.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\ICSharpCode.SharpZipLib\BZip2\BZip2.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\ICSharpCode.SharpZipLib\BZip2\BZip2Constants.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\ICSharpCode.SharpZipLib\BZip2\BZip2Exception.cs" />
@@ -351,7 +443,11 @@
     <None Include="Assets\UI\XmlLayout\Examples\Resources\Xml\Shop.xml" />
     <None Include="Assets\QFramework\Framework\Plugins\PackageKit\Support.xml" />
     <None Include="Assets\QFramework\Framework\Plugins\PackageKit\SupportItem.xml" />
+    <None Include="Assets\QFramework\Extensions\3rd\JsonDotNet\link.xml" />
+    <None Include="Assets\QFramework\Framework\Plugins\link.xml" />
+    <None Include="Assets\QFramework\Extensions\3rd\DOTween\readme.txt" />
     <None Include="Assets\UI\XmlLayout\Tags\Resources\XmlLayout Prefabs\TableLayout\Note.txt" />
+    <None Include="Assets\QFramework\Extensions\3rd\UniRx\ReadMe.txt" />
     <None Include="Assets\UI\XmlLayout\Examples\Resources\Xml\ElementList.xml" />
     <None Include="Assets\UI\XmlLayout\Examples\Resources\Xml\OptionsMenu.xml" />
     <None Include="Assets\UI\XmlLayout\Examples\Resources\Xml\ShopStyles.xml" />
@@ -532,6 +628,15 @@
     <Reference Include="QFramework.Unity.Runtime">
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Framework/Plugins/QFramework.Unity.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/ProtobufNet/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.Analytics">
       <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.cn/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll</HintPath>
     </Reference>
@@ -541,6 +646,16 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.cn/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{39AE5D9F-0228-5A62-3A95-ED15ACD5507B}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
+    <ProjectReference Include="QF.Redux.csproj">
+      <Project>{3ECDC09D-32AF-C822-671C-852D08F1BB2A}</Project>
+      <Name>QF.Redux</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -26,9 +26,9 @@
 
 namespace QFramework
 {
-    public interface ISystem : ICanGetModel, ICanGetSystem, ICanGetUtility, ICanSendEvent, ICanSendCommand
+    public interface ISystem : ICanGetModel, ICanGetSystem, ICanGetUtility, ICanSendEvent, ICanSendCommand,
+        ICanRegisterEvent
     {
-
     }
 
     public class System<TConfig> : ISystem where TConfig : Architecture<TConfig>

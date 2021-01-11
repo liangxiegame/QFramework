@@ -62,7 +62,7 @@ namespace QFramework
                         classScope.CustomScope("protected override void OnInit(IUIData uiData = null)", false,
                             function =>
                             {
-                                function.Custom("mData = uiData as {0} ?? new {0}()".FillFormat(name + "Data;"));
+                                function.Custom("mData = uiData as {0} ?? new {0}();".FillFormat(name + "Data"));
                                 function.Custom("// please add init code here");
                             });
 

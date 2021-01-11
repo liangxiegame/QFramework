@@ -25,6 +25,8 @@
  ****************************************************************************/
 
 
+using UnityEngine.Networking;
+
 namespace QFramework
 {
     using UnityEngine;
@@ -34,7 +36,7 @@ namespace QFramework
     {
         private bool                     mUnloadFlag = true;
         private string[]                 mDependResList;
-        private AssetBundleCreateRequest mAssetBundleCreateRequest;
+        private AsyncOperation mAssetBundleCreateRequest;
 
         public static AssetBundleRes Allocate(string name)
         {
@@ -122,21 +124,49 @@ namespace QFramework
             else
             {
                 var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
-                var abcR = AssetBundle.LoadFromFileAsync(url);
 
-                mAssetBundleCreateRequest = abcR;
-                yield return abcR;
-                mAssetBundleCreateRequest = null;
-
-                if (!abcR.isDone)
+                if (FromUnityToDll.Setting.IsWebGL)
                 {
-                    Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
-                    OnResLoadFaild();
-                    finishCallback();
-                    yield break;
-                }
+                    var abcR = UnityWebRequestAssetBundle.GetAssetBundle(url);
+                    var request = abcR.SendWebRequest();
+                    
+                    mAssetBundleCreateRequest = request;
+                    yield return request;
+                    mAssetBundleCreateRequest = null;
 
-                AssetBundle = abcR.assetBundle;
+                    if (!request.isDone)
+                    {
+                        Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
+                        OnResLoadFaild();
+                        finishCallback();
+                        yield break;
+                    }
+                    
+                    var ab = DownloadHandlerAssetBundle.GetContent(abcR);
+
+                    AssetBundle = ab;
+                    
+                    // 销毁
+                    abcR.Dispose();
+                }
+                else
+                {
+                    var abcR = AssetBundle.LoadFromFileAsync(url);
+
+                    mAssetBundleCreateRequest = abcR;
+                    yield return abcR;
+                    mAssetBundleCreateRequest = null;
+
+                    if (!abcR.isDone)
+                    {
+                        Log.E("AssetBundleCreateRequest Not Done! Path:" + mAssetName);
+                        OnResLoadFaild();
+                        finishCallback();
+                        yield break;
+                    }
+
+                    AssetBundle = abcR.assetBundle;
+                }
             }
 
             State = ResState.Ready;

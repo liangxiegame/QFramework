@@ -71,6 +71,27 @@ namespace QFramework
             set { mIsCache = value; }
         }
 
+        public void SetAudioExt( GameObject root, AudioClip clip, string name, bool loop)
+        {
+            if (clip == null || mName == name)
+            {
+                return;
+            }
+
+            if (mAudioSource == null)
+            {
+                mAudioSource = root.AddComponent<AudioSource>();
+            }
+
+            CleanResources();
+
+            mIsLoop = loop;
+            mName = name;
+
+            mAudioClip = clip;
+            PlayAudioClip();
+        }
+        
         public void SetAudio(GameObject root, string name, bool loop)
         {
             if (string.IsNullOrEmpty(name))

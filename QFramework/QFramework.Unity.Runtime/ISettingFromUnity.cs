@@ -64,6 +64,8 @@ namespace QFramework
         bool IsStandardAlone { get; }
 
         bool IsWin { get; }
+        
+        bool IsWebGL { get; }
 
         ResDatas BuildEditorDataTable();
 

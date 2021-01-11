@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2021.1 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -26,6 +26,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using UnityEngine;
 
 namespace QFramework
@@ -41,7 +42,7 @@ namespace QFramework
 
         public IQFrameworkContainer Container { get; set; }
 
-        private VerticalLayout mRootLayout = new VerticalLayout();
+        private IVerticalLayout mRootLayout = new VerticalLayout();
 
         private IToolbar mCategoriesSelectorView = null;
 
@@ -70,7 +71,7 @@ namespace QFramework
 
             mControllerNode.SendCommand<PackageManagerInitCommand>();
 
-            mRootLayout = new VerticalLayout();
+            mRootLayout = EasyIMGUI.Vertical();
 
             EasyIMGUI.Label().Text(LocaleText.FrameworkPackages).FontSize(12).Parent(mRootLayout);
 
@@ -145,7 +146,29 @@ namespace QFramework
             mRepositoryList.Clear();
             mRepositoryList.AddChild(EasyIMGUI.Space().Pixel(2));
 
-            foreach (var packageRepository in packageRepositories)
+            var localPackageVersion = mControllerNode.GetModel<ILocalPackageVersionModel>();
+
+            foreach (var packageRepository in packageRepositories.OrderByDescending(p =>
+            {
+                var installedVersion = localPackageVersion.GetByName(p.name);
+
+                if (installedVersion == null)
+                {
+                    return -1;
+                }
+                else if (installedVersion.VersionNumber < p.VersionNumber)
+                {
+                    return 2;
+                }
+                else if (installedVersion.VersionNumber == p.VersionNumber)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }).ThenBy(p => p.name))
             {
                 mRepositoryList
                     .AddChild(EasyIMGUI.Space().Pixel(2))
@@ -174,7 +197,6 @@ namespace QFramework
 
         public void OnShow()
         {
-            
         }
 
         public void OnHide()

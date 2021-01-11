@@ -161,7 +161,6 @@
         <Compile Include="Core\CodeGen\Writer\FileCodeWriter.cs" />
         <Compile Include="Core\CodeGen\Writer\ICodeWriter.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
-        <Compile Include="Core\Device\QFramework.Device.cs" />
         <Compile Include="Core\Disposable\CustomDisposable.cs" />
         <Compile Include="Core\Disposable\DisposableList.cs" />
         <Compile Include="Core\Disposable\IDisposableList.cs" />

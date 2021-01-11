@@ -20,10 +20,10 @@
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace>
     </RootNamespace>
-    <ProjectGuid>{83546381-7DD4-A9AA-2350-043BA1042C0E}</ProjectGuid>
+    <ProjectGuid>{3ECDC09D-32AF-C822-671C-852D08F1BB2A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
+    <AssemblyName>QF.Redux</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>Assets</BaseDirectory>
@@ -81,67 +81,45 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Examples\FrameworkExamples\2.ResKitExample\Tests\Editor\ResKitTests.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\EditorReload.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Block.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockContainer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockContent.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockLine.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockSpace.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Content.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\ContentImage.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\ContentText.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Context.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\IActions.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\IBuilder.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Layout.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\LayoutBuilder.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Style.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\StyleConverter.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownAsset.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownEditor.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownEditorAsset.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownHandleImages.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownHandleNavigate.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownHistory.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownImporter.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownMenus.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownPreferences.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownUtils.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\MarkdownViewer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\mgGif\Decoder.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\mgGif\ImageList.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockCode.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockHeading.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockHtml.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockList.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockParagraph.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockQuote.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererBlockThematicBreak.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineAutoLink.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineCode.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineDelimiter.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineEmphasis.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineHtml.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineHtmlEntity.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLineBreak.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLink.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererInlineLiteral.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\RendererMarkdown.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Editor\UIKitHierarchyMenu.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableCellEditor.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableLayoutEditor.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableLayoutWizard.cs" />
-    <Compile Include="Assets\UI\TableLayout\Editor\TableRowEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\Localization\XmlLocalizationEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlAssetPostprocessor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlConfigurationEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutEditor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutEditorUtilities.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutMenuItems.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlLayoutWizard.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlPluginProcessor.cs" />
-    <Compile Include="Assets\UI\XmlLayout\Editor\XmlSchemaProcessor.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\DvaState.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\EntityStateElement.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IMiddleware.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IReducer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IState.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStateChanged.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStore.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStoreAccessor.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\ListStateElement.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\ReducerBase.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\StateElement.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\Store.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\StructStateElement.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\UniduxSetting.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\IPageData.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\IPageEntity.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\ISceneConfig.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageDuck.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageEntity.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageState.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneCategory.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneDuck.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneState.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\CloneUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\ColorSerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\DictionaryExtension.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\EnumUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\EqualityUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\IListExtension.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\ISerializeFactory.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\JsonUtilSerializeFactory.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\SingletonMonoBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\StateUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\StructUtil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector2SerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector3SerializationSurrogate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector4SerializationSurrogate.cs" />
+    <None Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\QF.Redux.asmdef" />
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
@@ -397,25 +375,11 @@
     <Reference Include="UnityEngine.StandardEvents">
       <HintPath>/Users/liangxie/Library/Unity/cache/packages/packages.unity.cn/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>/Applications/Unity/Hub/Editor/2017.4.40c1/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{4EBCDE7D-1748-2E4D-7704-13496F9F7063}</Project>
-      <Name>Assembly-CSharp</Name>
-    </ProjectReference>
     <ProjectReference Include="UniRx.csproj">
       <Project>{39AE5D9F-0228-5A62-3A95-ED15ACD5507B}</Project>
       <Name>UniRx</Name>
-    </ProjectReference>
-    <ProjectReference Include="QF.Redux.csproj">
-      <Project>{3ECDC09D-32AF-C822-671C-852D08F1BB2A}</Project>
-      <Name>QF.Redux</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

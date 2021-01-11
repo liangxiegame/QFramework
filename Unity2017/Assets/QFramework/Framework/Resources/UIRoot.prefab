@@ -282,11 +282,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1541209231283126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d659124b20746f581184834974f5f6, type: 3}
+  m_Script: {fileID: -726460193, guid: 834400df8638d4231bb51d781f431e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mReceiveMsgOnlyObjActive: 1
-  mPrivateEventIds: []
 --- !u!114 &114574186442532806
 MonoBehaviour:
   m_ObjectHideFlags: 1

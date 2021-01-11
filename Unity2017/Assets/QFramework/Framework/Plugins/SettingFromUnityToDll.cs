@@ -270,6 +270,11 @@ namespace QFramework
             }
         }
 
+        public bool IsWebGL
+        {
+            get { return Application.platform == RuntimePlatform.WebGLPlayer; }
+        }
+
         private static string mPersistentDataPath;
         private static string mStreamingAssetsPath;
         private static string mPersistentDataPath4Res;
@@ -448,7 +453,7 @@ namespace QFramework
 #if UNITY_EDITOR
         [InitializeOnLoadMethod]
 #endif
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnLoad()
         {
             FromUnityToDll.Setting = new SettingFromUnityDll();
