@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.39",
+    "Version": "v0.11.44",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -16,10 +16,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.39",
-        "content": "Awake 做 ResKit.Init 初始化支持",
+        "version": "v0.11.44",
+        "content": "ActionKit 可视化部分 支持 2020.1",
         "author": "liangxie",
-        "date": "2021 年 01 月 10 日 01:27",
+        "date": "2021 年 01 月 15 日 00:08",
         "PackageId": ""
     }
 }

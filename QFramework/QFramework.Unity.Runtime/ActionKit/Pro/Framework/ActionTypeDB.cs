@@ -27,6 +27,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -53,14 +55,26 @@ namespace QFramework
         {
             return MakeSureDB()[fullName];
         }
-        
-        
+
+
         static void Search()
         {
-            // 准备所有的 Action
-            mDB = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes())
-                .Where(t => !t.IsAbstract && typeof(IAction).IsAssignableFrom(t))
+            var actionType = typeof(IAction);
+
+            mDB = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a =>
+                {
+                    try
+                    {
+                        return a.GetTypes();
+                    }
+                    catch (Exception _)
+                    {
+                        return new Type[] { };
+                    }
+                })
+                .Where(t => !t.IsAbstract && actionType.IsAssignableFrom(t))
                 .ToDictionary(t => t.FullName);
+
         }
     }
 }
