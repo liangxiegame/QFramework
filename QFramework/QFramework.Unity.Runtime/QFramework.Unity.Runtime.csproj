@@ -169,27 +169,29 @@
         <Compile Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\ViewExtension.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\ICanClick.cs" />
+        <Compile Include="Core\EasyIMGUI\Framework\Feature\IHasRect.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\IHasText.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\IMGUILayout.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\IMGUIView.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Layout.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\View.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Scroll\ScrollLayout.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Vertical\VerticalLayout.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\BoxView.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Button\Button.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\CustomView\CustomView.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\ImageButtonView.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Label\Label.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Space\FlexibleSpace.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Space\Space.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Text\TextArea.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Text\TextField.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Toggle\Toggle.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\View\Toolbar\ToolbarView.cs" />
         <Compile Include="Core\EasyIMGUI\GUIStyleProperty.cs" />
-        <Compile Include="Core\EasyIMGUI\Layout\Horizontal\HorizontalLayout.cs" />
-        <Compile Include="Core\EasyIMGUI\Layout\Scroll\ScrollLayout.cs" />
-        <Compile Include="Core\EasyIMGUI\Layout\Vertical\VerticalLayout.cs" />
+        <Compile Include="Core\EasyIMGUI\GUIWithRect\LabelWithRect.cs" />
         <Compile Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
-        <Compile Include="Core\EasyIMGUI\View\BoxView.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Button\Button.cs" />
-        <Compile Include="Core\EasyIMGUI\View\CustomView\CustomView.cs" />
-        <Compile Include="Core\EasyIMGUI\View\ImageButtonView.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Label\Label.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Space\FlexibleSpace.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Space\Space.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Text\TextArea.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Text\TextField.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Toggle\Toggle.cs" />
-        <Compile Include="Core\EasyIMGUI\View\Toolbar\ToolbarView.cs" />
         <Compile Include="Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
         <Compile Include="Core\EasyIMGUI\XML\XMLView.cs" />
         <Compile Include="Core\EnumEventSystem\EnumEventSystem.cs" />
@@ -294,13 +296,14 @@
       <Content Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs.meta" />
       <Content Include="Core\EasyIMGUI\Extensions\ViewExtension.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\Feature.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\Feature\ICanClick.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\Feature\IHasText.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\IMGUILayout.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\IMGUIView.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\Layout.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\View.cs.meta" />
       <Content Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs.meta" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Core\EasyIMGUI\GUILayout" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,29 @@
+﻿<Properties StartupConfiguration="{1F948192-A102-406D-B52B-F2F534975C3F}|Default">
+  <MonoDevelop.Ide.ItemProperties.QFramework.Net35.Console PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/Microsoft.Common.CurrentVersion.targets">
+    <Files>
+      <File FileName="../../../../../Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/bin/MSBuild/Current/bin/Microsoft.Common.CurrentVersion.targets" Line="2143" Column="5" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="QFramework" expanded="True" selected="True">
+            <Node name="QFramework.Net35.Console" expanded="True" />
+            <Node name="QFramework.NetStandard21" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+            </Node>
+            <Node name="QFramework.Unity.Editor" expanded="True" />
+            <Node name="QFramework.Unity.Runtime" expanded="True" />
+            <Node name="QFramework.Unity.Testing" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

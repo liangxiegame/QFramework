@@ -95,6 +95,11 @@ namespace QFramework
             return new XMLView();
         }
 
+        public static ILabelWithRect LabelWithRect()
+        {
+            return new LabelWithRect();
+        }
+
 
         private EasyIMGUI()
         {

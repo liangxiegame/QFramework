@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.44",
+    "Version": "v0.11.45",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -16,10 +16,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.44",
-        "content": "ActionKit 可视化部分 支持 2020.1",
+        "version": "v0.11.45",
+        "content": "EasyIMGUI 增加 LabelWithRect API",
         "author": "liangxie",
-        "date": "2021 年 01 月 15 日 00:08",
+        "date": "2021 年 01 月 24 日 15:45",
         "PackageId": ""
     }
 }
