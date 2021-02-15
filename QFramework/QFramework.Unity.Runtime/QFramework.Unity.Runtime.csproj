@@ -12,6 +12,7 @@
         <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <LangVersion>4</LangVersion>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -90,9 +91,11 @@
         <Compile Include="ActionKit\Node\RepeatNode.cs" />
         <Compile Include="ActionKit\Node\SequenceNode.cs" />
         <Compile Include="ActionKit\Node\SpawnNode.cs" />
+        <Compile Include="ActionKit\Pro\Action\Unity\InstantiateGameObject.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\SetTargetFrameRate.cs" />
         <Compile Include="ActionKit\Pro\Event\OnButtonClick.cs" />
         <Compile Include="ActionKit\Pro\Event\OnStart.cs" />
+        <Compile Include="ActionKit\Pro\Event\OnTriggerEnter2D.cs" />
         <Compile Include="ActionKit\Pro\Framework\ActionTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
         <Compile Include="ActionKit\QFramework.ActionKit.FSM.cs" />
@@ -164,7 +167,7 @@
         <Compile Include="Core\Disposable\CustomDisposable.cs" />
         <Compile Include="Core\Disposable\DisposableList.cs" />
         <Compile Include="Core\Disposable\IDisposableList.cs" />
-        <Compile Include="Core\Disposable\IDisposableListExtension.cs" />
+        <Compile Include="Core\Disposable\IDisposableExtension.cs" />
         <Compile Include="Core\EasyIMGUI\EasyIMGUI.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\ViewExtension.cs" />

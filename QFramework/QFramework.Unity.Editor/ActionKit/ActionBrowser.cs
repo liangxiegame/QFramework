@@ -75,6 +75,8 @@ namespace QFramework
                 });
             }));
 
+            var scroll = EasyIMGUI.Scroll();
+
             foreach (var group in ActionTypeDB.GetAll()
                 .Where(t => t.GetFirstAttribute<OnlyUsedByCodeAttribute>(false) == null).GroupBy(t =>
                 {
@@ -95,8 +97,10 @@ namespace QFramework
                         .Self(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
                 }
 
-                this.AddChild(treeNode);
+                scroll.AddChild(treeNode);
             }
+            
+            this.AddChild(scroll);
         }
     }
 }

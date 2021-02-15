@@ -48,7 +48,7 @@ namespace QFramework
 
         public static LocalImageRes Allocate(string name)
         {
-            LocalImageRes res = SafeObjectPool<LocalImageRes>.Instance.Allocate();
+            var res = SafeObjectPool<LocalImageRes>.Instance.Allocate();
             if (res != null)
             {
                 res.AssetName = name;

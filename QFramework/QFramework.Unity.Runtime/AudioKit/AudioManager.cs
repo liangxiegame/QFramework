@@ -275,8 +275,7 @@ namespace QFramework
         #endregion
 
         #region 内部实现
-
-        int mCurSourceIndex;
+        
 
 
 

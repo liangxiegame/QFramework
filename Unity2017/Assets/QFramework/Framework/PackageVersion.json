@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.45",
+    "Version": "v0.11.47",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -16,10 +16,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.45",
-        "content": "EasyIMGUI 增加 LabelWithRect API",
+        "version": "v0.11.47",
+        "content": "添加 DisposeWhenGameObjectDestroyed 扩展",
         "author": "liangxie",
-        "date": "2021 年 01 月 24 日 15:45",
+        "date": "2021 年 02 月 15 日 15:02",
         "PackageId": ""
     }
 }

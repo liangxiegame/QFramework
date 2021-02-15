@@ -44,10 +44,6 @@ namespace QFramework
             mOnStart = target as ActionKitEvent;
         }
 
-        private void OnDisable()
-        {
-        }
-
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
