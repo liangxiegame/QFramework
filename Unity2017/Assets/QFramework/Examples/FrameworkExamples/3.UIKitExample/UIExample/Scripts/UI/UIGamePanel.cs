@@ -45,10 +45,6 @@ namespace QFramework.Example
 			});
 		}
 
-		protected override void InitUI(IUIData uiData = null)
-		{
-			
-		}
 
 		protected override void ProcessMsg(int eventId, QMsg msg)
 		{

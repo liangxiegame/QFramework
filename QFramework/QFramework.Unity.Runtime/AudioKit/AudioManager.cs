@@ -100,9 +100,11 @@ namespace QFramework
 
             gameObject.transform.position = Vector3.zero;
 
-            AudioKit.Settings.MusicVolume.Bind(volume => { MusicPlayer.SetVolume(volume); }).AddTo(this);
+            AudioKit.Settings.MusicVolume.Bind(volume => { MusicPlayer.SetVolume(volume); })
+                .DisposeWhenGameObjectDestroyed(this);
 
-            AudioKit.Settings.VoiceVolume.Bind(volume => { VoicePlayer.SetVolume(volume); }).AddTo(this);
+            AudioKit.Settings.VoiceVolume.Bind(volume => { VoicePlayer.SetVolume(volume); })
+                .DisposeWhenGameObjectDestroyed(this);
 
             AudioKit.Settings.IsMusicOn.Bind(musicOn =>
             {
@@ -117,7 +119,7 @@ namespace QFramework
                 {
                     MusicPlayer.Stop();
                 }
-            }).AddTo(this);
+            }).DisposeWhenGameObjectDestroyed(this);
 
             AudioKit.Settings.IsVoiceOn.Bind(voiceOn =>
             {
@@ -132,25 +134,24 @@ namespace QFramework
                 {
                     VoicePlayer.Stop();
                 }
-            }).AddTo(this);
+            }).DisposeWhenGameObjectDestroyed(this);
 
             AudioKit.Settings.IsSoundOn.Bind(soundOn =>
             {
                 if (soundOn)
                 {
-
                 }
                 else
                 {
                     ForEachAllSound(player => player.Stop());
                 }
-            }).AddTo(this);
+            }).DisposeWhenGameObjectDestroyed(this);
 
 
             AudioKit.Settings.SoundVolume.Bind(soundVolume =>
             {
                 ForEachAllSound(player => player.SetVolume(soundVolume));
-            }).AddTo(this);
+            }).DisposeWhenGameObjectDestroyed(this);
         }
 
         private static Dictionary<string, List<AudioPlayer>> mSoundPlayerInPlaying =
@@ -167,14 +168,13 @@ namespace QFramework
 
         public void AddSoundPlayer2Pool(AudioPlayer audioPlayer)
         {
-
             if (mSoundPlayerInPlaying.ContainsKey(audioPlayer.Name))
             {
                 mSoundPlayerInPlaying[audioPlayer.Name].Add(audioPlayer);
             }
             else
             {
-                mSoundPlayerInPlaying.Add(audioPlayer.Name,new List<AudioPlayer> {audioPlayer});
+                mSoundPlayerInPlaying.Add(audioPlayer.Name, new List<AudioPlayer> {audioPlayer});
             }
         }
 
@@ -275,9 +275,6 @@ namespace QFramework
         #endregion
 
         #region 内部实现
-        
-
-
 
         /// <summary>
         /// 播放音效

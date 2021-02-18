@@ -28,21 +28,24 @@
 using System;
 using UnityEngine;
 
+
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
-public static partial class IActionChainExtention
+    // ReSharper disable once CheckNamespace
+    public static partial class IActionChainExtention
     {
         public static IActionChain Repeat<T>(this T selfbehaviour, int count = -1) where T : MonoBehaviour
         {
             var retNodeChain = new RepeatNodeChain(count) {Executer = selfbehaviour};
-            retNodeChain.AddTo(selfbehaviour);
+            retNodeChain.DisposeWhenGameObjectDestroyed(selfbehaviour);
             return retNodeChain;
         }
 
         public static IActionChain Sequence<T>(this T selfbehaviour) where T : MonoBehaviour
         {
             var retNodeChain = new SequenceNodeChain {Executer = selfbehaviour};
-            retNodeChain.AddTo(selfbehaviour);
+            retNodeChain.DisposeWhenGameObjectDestroyed(selfbehaviour);
             return retNodeChain;
         }
 
@@ -56,19 +59,11 @@ public static partial class IActionChainExtention
             return senfChain.Append(DelayAction.Allocate(seconds));
         }
 
+        [Obsolete("已弃用，请使用 DisposeWhenGameObjectDestroyed()")]
         public static void AddTo(this IDisposable self, Component component)
         {
-            var onDestroyTrigger = component.gameObject.GetComponent<OnDestroyTrigger>();
-
-            if (!onDestroyTrigger)
-            {
-                onDestroyTrigger = component.gameObject.AddComponent<OnDestroyTrigger>();
-            }
-
-            onDestroyTrigger.AddDispose(self);
+            self.DisposeWhenGameObjectDestroyed(component);
         }
-
-
 
         /// <summary>
         /// Same as Delayw
@@ -93,4 +88,3 @@ public static partial class IActionChainExtention
         }
     }
 }
-
