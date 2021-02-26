@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-// using UniRx;
+using UniRx;
 using UnityEngine;
 
 namespace QFramework
@@ -11,15 +11,15 @@ namespace QFramework
 		{
 			protected override void OnBegin()
 			{
-				// ObservableWWW.Get("http://sikiedu.com")
-				// 	.Subscribe(text =>
-				// 	{
-				// 		text.LogInfo();
-				// 		Finish();
-				// 	}, e =>
-				// 	{
-				// 		e.LogException();
-				// 	});
+				ObservableWWW.Get("http://sikiedu.com")
+					.Subscribe(text =>
+					{
+						text.LogInfo();
+						Finish();
+					}, e =>
+					{
+						e.LogException();
+					});
 			}
 		}
 		

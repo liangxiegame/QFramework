@@ -1,4 +1,4 @@
-// using DG.Tweening;
+using DG.Tweening;
 using UnityEngine;
 
 namespace QFramework
@@ -10,14 +10,14 @@ namespace QFramework
 		{
 			this.ExecuteNode(OnlyBeginAction.Allocate(nodeAction =>
 			{
-				// this.transform.DOLocalMove(new Vector3(5, 5), 0.5f).OnComplete(() => { nodeAction.Finish(); });
+				this.transform.DOLocalMove(new Vector3(5, 5), 0.5f).OnComplete(() => { nodeAction.Finish(); });
 			}));
 
 			this.Sequence()
 				.Delay(1.0f)
 				.OnlyBegin(action =>
 				{
-					// this.transform.DOLocalMove(new Vector3(-5, -5), 0.5f).OnComplete(() => { action.Finish(); });
+					this.transform.DOLocalMove(new Vector3(-5, -5), 0.5f).OnComplete(() => { action.Finish(); });
 				})
 				.Begin();
 		}

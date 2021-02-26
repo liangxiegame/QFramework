@@ -28,7 +28,7 @@ using UnityEngine.UI;
 namespace QFramework
 {
 	using UnityEngine;
-	// using UniRx;
+	using UniRx;
 
 	public class SequenceNodeExample : MonoBehaviour
 	{
@@ -61,13 +61,13 @@ namespace QFramework
 			
 		}
 
-		private SequenceNode mSequenceNode3 = new SequenceNode(
+		private SequenceNode mSequenceNodeNode3 = new SequenceNode(
 			DelayAction.Allocate(3.0f),
 			EventAction.Allocate(() => { Log.I("Sequence3 延时 3.0f"); }));
 
 		private void Update()
 		{
-			if (mSequenceNode3 != null && !mSequenceNode3.Finished && mSequenceNode3.Execute(Time.deltaTime))
+			if (mSequenceNodeNode3 != null && !mSequenceNodeNode3.Finished && mSequenceNodeNode3.Execute(Time.deltaTime))
 			{
 				Log.I("SequenceNode3 执行完成");
 			}
@@ -75,8 +75,8 @@ namespace QFramework
 
 		private void OnDestroy()
 		{
-			mSequenceNode3.Dispose();
-			mSequenceNode3 = null;
+			mSequenceNodeNode3.Dispose();
+			mSequenceNodeNode3 = null;
 		}
 	}
 }

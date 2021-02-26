@@ -2,7 +2,7 @@
 
 namespace QFramework.Example.ActionKit
 {
-	public class NodeActionLifetimeAction : ActionKitAction
+	public class ActionLifetimeAction : ActionKitAction
 	{
 		protected override void OnReset()
 		{
@@ -52,7 +52,7 @@ namespace QFramework.Example.ActionKit
 
 		void Start()
 		{
-			var lifetimeAction = new NodeActionLifetimeAction();
+			var lifetimeAction = new ActionLifetimeAction();
 			
 			this.Repeat(1)
 				.Append(lifetimeAction)

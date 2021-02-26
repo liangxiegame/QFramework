@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.9.6",
+    "Version": "v0.9.7",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,10 +10,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.9.6",
-        "content": "兼容 v0.11.x",
+        "version": "v0.9.7",
+        "content": "修复 ActionKit 的兼容问题",
         "author": "liangxie",
-        "date": "2021 年 01 月 01 日 22:05",
+        "date": "2021 年 02 月 26 日 10:49",
         "PackageId": ""
     }
 }
