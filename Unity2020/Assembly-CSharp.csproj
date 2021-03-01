@@ -207,6 +207,7 @@
      <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\5.WWWAction\WWWActionExample.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\ICSharpCode.SharpZipLib\Checksum\BZip2Crc.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\ICSharpCode.SharpZipLib\BZip2\BZip2InputStream.cs" />
+     <Compile Include="Assets\WebGLTest\WebGLTest.cs" />
      <None Include="Assets\QFramework\Framework\Plugins\link.xml" />
      <None Include="Assets\QFramework\Framework\Plugins\PackageKit\Support.xml" />
      <None Include="Assets\QFramework\Framework\Plugins\PackageKit\SupportItem.xml" />

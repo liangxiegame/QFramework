@@ -29,3 +29,7 @@ PackageInfosRequestCache.json
 Unity2020/Library
 Unity2020/Logs
 Unity2020/Temp
+Unity2020/AssetBundles
+Unity2020/Assets/StreamingAssets/AssetBundles
+AssetBundles.meta
+Unity2020/Builds
