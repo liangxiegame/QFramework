@@ -81,7 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Examples\FrameworkExamples\2.ResKitExample\Tests\Editor\ResKitTests.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\Tests\Editor\ResKitTests.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\EditorReload.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\Block.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Layout\BlockContainer.cs" />
