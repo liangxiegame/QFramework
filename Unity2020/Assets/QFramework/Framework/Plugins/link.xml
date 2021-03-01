@@ -1,0 +1,3 @@
+<linker>
+	<assembly fullname="QFramework.Unity.Runtime" preserve="all" />
+</linker>
