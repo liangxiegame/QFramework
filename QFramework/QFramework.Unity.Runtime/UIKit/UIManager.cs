@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 xiaojun
  * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ~ 2020.10  liangxie
+ * Copyright (c) 2017 ~ 2021.3  liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -30,159 +30,155 @@ using UnityEngine;
 
 namespace QFramework
 {
+    [MonoSingletonPath("UIRoot/Manager")]
+    public partial class UIManager : QMgrBehaviour, ISingleton
+    {
+        void ISingleton.OnSingletonInit()
+        {
+        }
 
-	[MonoSingletonPath("UIRoot/Manager")]
-	public partial class UIManager : QMgrBehaviour, ISingleton
-	{
-		void ISingleton.OnSingletonInit()
-		{
+        private static UIManager mInstance;
 
-		}
+        public static UIManager Instance
+        {
+            get
+            {
+                if (!mInstance)
+                {
+                    var uiRoot = UIRoot.Instance;
+                    Debug.Log("currentUIRoot:" + uiRoot);
+                    mInstance = MonoSingletonProperty<UIManager>.Instance;
+                }
 
-		private static UIManager mInstance;
+                return mInstance;
+            }
+        }
 
-		public static UIManager Instance
-		{
-			get
-			{
-				if (!mInstance)
-				{
-					var uiRoot = UIRoot.Instance;
-					Debug.Log("currentUIRoot:" + uiRoot);
-					mInstance = MonoSingletonProperty<UIManager>.Instance;
-				}
+        public IPanel OpenUI(PanelSearchKeys panelSearchKeys)
+        {
+            var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-				return mInstance;
-			}
-		}
+            if (retPanel == null)
+            {
+                retPanel = CreateUI(panelSearchKeys);
+            }
 
-		public IPanel OpenUI(PanelSearchKeys panelSearchKeys)
-		{
-			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+            retPanel.Open(panelSearchKeys.UIData);
+            retPanel.Show();
+            return retPanel;
+        }
 
-			if (retPanel == null)
-			{
-				retPanel = CreateUI(panelSearchKeys);
-			}
+        /// <summary>
+        /// 显示UIBehaiviour
+        /// </summary>
+        /// <param name="uiBehaviourName"></param>
+        public void ShowUI(PanelSearchKeys panelSearchKeys)
+        {
+            var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-			retPanel.Open(panelSearchKeys.UIData);
-			retPanel.Show();
-			return retPanel;
-		}
+            if (retPanel != null)
+            {
+                retPanel.Show();
+            }
+        }
 
-		/// <summary>
-		/// 显示UIBehaiviour
-		/// </summary>
-		/// <param name="uiBehaviourName"></param>
-		public void ShowUI(PanelSearchKeys panelSearchKeys)
-		{
-			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+        /// <summary>
+        /// 隐藏UI
+        /// </summary>
+        /// <param name="uiBehaviourName"></param>
+        public void HideUI(PanelSearchKeys panelSearchKeys)
+        {
+            var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-			if (retPanel != null)
-			{
-				retPanel.Show();
-			}
-		}
+            if (retPanel != null)
+            {
+                retPanel.Hide();
+            }
+        }
 
-		/// <summary>
-		/// 隐藏UI
-		/// </summary>
-		/// <param name="uiBehaviourName"></param>
-		public void HideUI(PanelSearchKeys panelSearchKeys)
-		{
-			var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+        /// <summary>
+        /// 删除所有UI层
+        /// </summary>
+        public void CloseAllUI()
+        {
+            foreach (var layer in UIKit.Table)
+            {
+                layer.Close();
+                layer.Info.Recycle2Cache();
+                layer.Info = null;
+            }
 
-			if (retPanel != null)
-			{
-				retPanel.Hide();
-			}
-		}
+            UIKit.Table.Clear();
+        }
 
-		/// <summary>
-		/// 删除所有UI层
-		/// </summary>
-		public void CloseAllUI()
-		{
-			foreach (var layer in UIKit.Table)
-			{
-				layer.Close();
-			}
+        /// <summary>
+        /// 隐藏所有 UI
+        /// </summary>
+        public void HideAllUI()
+        {
+            UIKit.Table.ForEach(dataItem => dataItem.Hide());
+        }
 
-			UIKit.Table.Clear();
-		}
+        /// <summary>
+        /// 关闭并卸载UI
+        /// </summary>
+        /// <param name="behaviourName"></param>
+        public void CloseUI(PanelSearchKeys panelSearchKeys)
+        {
+            var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-		/// <summary>
-		/// 隐藏所有 UI
-		/// </summary>
-		public void HideAllUI()
-		{
-			UIKit.Table.ForEach(dataItem => dataItem.Hide());
-		}
+            if (panel as UIPanel)
+            {
+                panel.Close();
+                UIKit.Table.Remove(panel);
+                panel.Info.Recycle2Cache();
+                panel.Info = null;
+            }
+        }
 
-		/// <summary>
-		/// 关闭并卸载UI
-		/// </summary>
-		/// <param name="behaviourName"></param>
-		public void CloseUI(PanelSearchKeys panelSearchKeys)
-		{
-			var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+        public void RemoveUI(PanelSearchKeys panelSearchKeys)
+        {
+            var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-			if (panel as UIPanel)
-			{
-				panel.Close();
-				UIKit.Table.Remove(panel);
-			}
-		}
+            if (panel != null)
+            {
+                UIKit.Table.Remove(panel);
+            }
+        }
 
-		public void RemoveUI(PanelSearchKeys panelSearchKeys)
-		{
-			var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+        /// <summary>
+        /// 获取UIBehaviour
+        /// </summary>
+        /// <param name="uiBehaviourName"></param>
+        /// <returns></returns>
+        public UIPanel GetUI(PanelSearchKeys panelSearchKeys)
+        {
+            return UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault() as UIPanel;
+        }
 
-			if (panel != null)
-			{
-				UIKit.Table.Remove(panel);
-			}
-		}
+        public override int ManagerId
+        {
+            get { return QMgrID.UI; }
+        }
 
-		/// <summary>
-		/// 获取UIBehaviour
-		/// </summary>
-		/// <param name="uiBehaviourName"></param>
-		/// <returns></returns>
-		public UIPanel GetUI(PanelSearchKeys panelSearchKeys)
-		{
-			return UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault() as UIPanel;
-		}
+        public IPanel CreateUI(PanelSearchKeys panelSearchKeys)
+        {
+            var panel = UIKit.Config.LoadPanel(panelSearchKeys);
 
-		public override int ManagerId
-		{
-			get { return QMgrID.UI; }
-		}
+            UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level, panel);
 
-		public IPanel CreateUI(PanelSearchKeys panelSearchKeys)
-		{
-			var panel = UIKit.Config.LoadPanel(panelSearchKeys);
+            UIKit.Config.SetDefaultSizeOfPanel(panel);
 
-			UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level, panel);
+            panel.Transform.gameObject.name = panelSearchKeys.GameObjName ?? panelSearchKeys.PanelType.Name;
 
-			UIKit.Config.SetDefaultSizeOfPanel(panel);
+            panel.Info = PanelInfo.Allocate(panelSearchKeys.GameObjName, panelSearchKeys.Level, panelSearchKeys.UIData,
+                panelSearchKeys.PanelType, panelSearchKeys.AssetBundleName);
+            
+            UIKit.Table.Add(panel);
 
-			panel.Transform.gameObject.name = panelSearchKeys.GameObjName ?? panelSearchKeys.PanelType.Name;
+            panel.Init(panelSearchKeys.UIData);
 
-			panel.Info = new PanelInfo()
-			{
-				AssetBundleName = panelSearchKeys.AssetBundleName,
-				Level = panelSearchKeys.Level,
-				GameObjName = panelSearchKeys.GameObjName,
-				PanelType = panelSearchKeys.PanelType,
-				UIData = panelSearchKeys.UIData
-			};
-
-			UIKit.Table.Add(panel);
-
-			panel.Init(panelSearchKeys.UIData);
-
-			return panel;
-		}
-	}
+            return panel;
+        }
+    }
 }

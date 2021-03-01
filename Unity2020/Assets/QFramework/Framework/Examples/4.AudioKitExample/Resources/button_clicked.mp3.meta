@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: ddfb8638e52651449a526d3974200d95
+timeCreated: 1580889759
+licenseType: Free
 AudioImporter:
   externalObjects: {}
   serializedVersion: 6
@@ -18,5 +20,5 @@ AudioImporter:
   ambisonic: 0
   3D: 1
   userData: 
-  assetBundleName: button_clicked_mp3
+  assetBundleName: 
   assetBundleVariant: 
