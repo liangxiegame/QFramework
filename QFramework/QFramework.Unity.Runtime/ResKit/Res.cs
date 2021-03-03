@@ -271,14 +271,7 @@ namespace QFramework
             //如果Image 直接释放了，这里会直接变成NULL
             if (mAsset != null)
             {
-                if (mAsset is GameObject)
-                {
-
-                }
-                else
-                {
-                    Resources.UnloadAsset(mAsset);
-                }
+                ResUnloadHelper.UnloadRes(mAsset);
 
                 mAsset = null;
             }

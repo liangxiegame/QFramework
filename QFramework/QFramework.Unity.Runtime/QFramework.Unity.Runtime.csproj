@@ -99,6 +99,7 @@
         <Compile Include="ActionKit\Pro\Framework\ActionTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
         <Compile Include="ActionKit\QFramework.ActionKit.FSM.cs" />
+        <Compile Include="ActionKit\Timeline\KeyEventAction.cs" />
         <Compile Include="ActionKit\Timeline\Timeline.cs" />
         <Compile Include="AudioKit\0.Timer\BinaryHeap.cs" />
         <Compile Include="AudioKit\0.Timer\IBinaryHeapElement.cs" />
@@ -163,7 +164,9 @@
         <Compile Include="Core\CodeGen\ViewController.cs" />
         <Compile Include="Core\CodeGen\Writer\FileCodeWriter.cs" />
         <Compile Include="Core\CodeGen\Writer\ICodeWriter.cs" />
+        <Compile Include="Core\CSharpExtension\MaterialExtensions.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
+        <Compile Include="Core\CSharpExtension\TextureExtensions.cs" />
         <Compile Include="Core\Disposable\CustomDisposable.cs" />
         <Compile Include="Core\Disposable\DisposableList.cs" />
         <Compile Include="Core\Disposable\IDisposableList.cs" />
@@ -277,6 +280,7 @@
         <Compile Include="ResKit\ResourcesSupport\ResourcesRes.cs" />
         <Compile Include="ResKit\ResourcesSupport\ResourcesResCreator.cs" />
         <Compile Include="ResKit\ResSearchKeys.cs" />
+        <Compile Include="ResKit\ResUnloadHelper.cs" />
         <Compile Include="UIKit\ActionKitSupport\UIKitClosePanel.cs" />
         <Compile Include="UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
         <Compile Include="UIKit\ActionKitSupport\UIKitSetResolution.cs" />

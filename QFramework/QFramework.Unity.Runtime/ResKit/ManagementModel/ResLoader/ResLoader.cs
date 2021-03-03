@@ -30,13 +30,13 @@ namespace QFramework
     using UnityEngine;
     using Object = UnityEngine.Object;
 
-    public class ResLoader : DisposableObject,IResLoader
+    public class ResLoader : DisposableObject, IResLoader
     {
-        [Obsolete("请使用 ResLoader.Allocate() 获取 ResLoader 对象",true)]
+        [Obsolete("请使用 ResLoader.Allocate() 获取 ResLoader 对象", true)]
         public ResLoader()
         {
-             
         }
+
         /// <summary>
         /// ID:RKRL001 申请ResLoader对象 ResLoader.Allocate（IResLoaderStrategy strategy = null)
         /// </summary>
@@ -44,7 +44,7 @@ namespace QFramework
         /// <returns></returns>
         public static ResLoader Allocate()
         {
-            return  SafeObjectPool<ResLoader>.Instance.Allocate();
+            return SafeObjectPool<ResLoader>.Instance.Allocate();
         }
 
         /// <summary>
@@ -52,7 +52,34 @@ namespace QFramework
         /// </summary>
         public void Recycle2Cache()
         {
+            if (mObject2Unload != null)
+            {
+                foreach (var o in mObject2Unload)
+                {
+                    if (o)
+                    {
+                        ResUnloadHelper.DestroyObject(o);
+                    }
+                }
+
+                mObject2Unload.Clear();
+
+                mObject2Unload = null;
+            }
+
             SafeObjectPool<ResLoader>.Instance.Recycle(this);
+        }
+
+        private List<Object> mObject2Unload;
+
+        public void AddObjectForDestroyWhenRecycle2Cache(Object obj)
+        {
+            if (mObject2Unload == null)
+            {
+                mObject2Unload = new List<Object>();
+            }
+
+            mObject2Unload.Add(obj);
         }
 
         /// <summary>
@@ -64,7 +91,7 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
-            var resSearchKeys = ResSearchKeys.Allocate(assetName,ownerBundle,typeof(T));
+            var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
             return retAsset.Asset as T;
@@ -83,7 +110,7 @@ namespace QFramework
             resSearchKeys.Recycle2Cache();
             return retAsset.Asset as T;
         }
-        
+
 
         /// <summary>
         /// ID:RKRL003 只通过资源名字进行同步加载,
@@ -105,10 +132,11 @@ namespace QFramework
 
             var res = ResMgr.Instance.GetRes(resSearchKeys, false);
             if (res == null)
-            {                
-                Log.E("Failed to Load Res:" + resSearchKeys);                
+            {
+                Log.E("Failed to Load Res:" + resSearchKeys);
                 return null;
             }
+
             return res;
         }
 
@@ -135,7 +163,7 @@ namespace QFramework
         class CallBackWrap
         {
             private readonly Action<bool, IRes> mListener;
-            private readonly IRes               mRes;
+            private readonly IRes mRes;
 
             public CallBackWrap(IRes r, Action<bool, IRes> l)
             {
@@ -154,14 +182,14 @@ namespace QFramework
             }
         }
 
-        private readonly List<IRes>         mResList      = new List<IRes>();
-        private readonly LinkedList<IRes>   mWaitLoadList = new LinkedList<IRes>();
-        private          System.Action             mListener;
+        private readonly List<IRes> mResList = new List<IRes>();
+        private readonly LinkedList<IRes> mWaitLoadList = new LinkedList<IRes>();
+        private System.Action mListener;
 
-        private int  mLoadingCount;
+        private int mLoadingCount;
 
-        private        LinkedList<CallBackWrap> mCallbackRecordList;
-        
+        private LinkedList<CallBackWrap> mCallbackRecordList;
+
 
         public float Progress
         {
@@ -209,15 +237,15 @@ namespace QFramework
             bool lastOrder = true)
         {
             var searchRule = ResSearchKeys.Allocate(assetName);
-            Add2Load(searchRule,listener,lastOrder);
+            Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
-        
+
         public void Add2Load<T>(string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchKeys.Allocate(assetName,null,typeof(T));
-            Add2Load(searchRule,listener,lastOrder);
+            var searchRule = ResSearchKeys.Allocate(assetName, null, typeof(T));
+            Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
 
@@ -225,20 +253,20 @@ namespace QFramework
         public void Add2Load(string ownerBundle, string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchKeys.Allocate(assetName,ownerBundle);
+            var searchRule = ResSearchKeys.Allocate(assetName, ownerBundle);
 
             Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
-        
+
         public void Add2Load<T>(string ownerBundle, string assetName, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
-            var searchRule = ResSearchKeys.Allocate(assetName,ownerBundle,typeof(T));
+            var searchRule = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
             Add2Load(searchRule, listener, lastOrder);
             searchRule.Recycle2Cache();
         }
-        
+
         private void Add2Load(ResSearchKeys resSearchKeys, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
@@ -274,10 +302,10 @@ namespace QFramework
             {
                 foreach (var depend in depends)
                 {
-                    var searchRule = ResSearchKeys.Allocate(depend,null,typeof(AssetBundle));
-                    
+                    var searchRule = ResSearchKeys.Allocate(depend, null, typeof(AssetBundle));
+
                     Add2Load(searchRule);
-                    
+
                     searchRule.Recycle2Cache();
                 }
             }
@@ -286,13 +314,11 @@ namespace QFramework
         }
 
 
-
         private readonly Dictionary<string, Sprite> mCachedSpriteDict = new Dictionary<string, Sprite>();
 
 
         public Sprite LoadSprite(string bundleName, string spriteName)
         {
-
             if (FromUnityToDll.Setting.SimulationMode)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
@@ -340,7 +366,6 @@ namespace QFramework
 
         public void ReleaseRes(string resName)
         {
-            
             if (string.IsNullOrEmpty(resName))
             {
                 return;
@@ -360,7 +385,7 @@ namespace QFramework
 
             var res = ResMgr.Instance.GetRes(resSearchRule);
             resSearchRule.Recycle2Cache();
-            
+
             if (res == null)
             {
                 return;
@@ -472,7 +497,7 @@ namespace QFramework
                 Log.I(res.AssetName);
             }
         }
-        
+
 
         private void DoLoadAsync()
         {
@@ -572,11 +597,11 @@ namespace QFramework
 
         private void AddRes2Array(IRes res, bool lastOrder)
         {
-            var searchRule = ResSearchKeys.Allocate(res.AssetName,res.OwnerBundleName,res.AssetType);
+            var searchRule = ResSearchKeys.Allocate(res.AssetName, res.OwnerBundleName, res.AssetType);
 
             //再次确保队列中没有它
             var oldRes = FindResInArray(mResList, searchRule);
-            
+
             searchRule.Recycle2Cache();
 
             if (oldRes != null)

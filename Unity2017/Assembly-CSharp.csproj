@@ -185,6 +185,7 @@
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\4.DotweenAction\DotweenActionExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\5.WWWAction\WWWActionExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\6.TimerDemo\TimerExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\7.Timeline\TimelineExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\Action\ActionLifetimeExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\Action\DelayExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\ActionKitExample\Action\EventActionExample.cs" />
@@ -208,7 +209,6 @@
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\3.MonoSingletonProperty\MonoSingletonProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\4.MonoSingletonPath\MonoSingletonPath.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\Audio\AudioTest.cs" />
-    <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ExampleExample\ResKitExampleMain.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ImageLoaderExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\Pool\CallPool.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\RefCounter\RefCounterExample.cs" />
@@ -217,6 +217,8 @@
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ResKit\LoadSceneExample\LoadSceneExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ResKit\ResKitExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ResKit\ResourcesExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ResLoaderRelateUnloadAsset\ResLoaderRelateUnloadAssetExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\SceneExample\ResKitExampleMain.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\SpriteAtlas\TestSpriteAtlas.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\ManagerOfManagersExample\Enemy.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\ManagerOfManagersExample\EnemyEvent.cs" />
