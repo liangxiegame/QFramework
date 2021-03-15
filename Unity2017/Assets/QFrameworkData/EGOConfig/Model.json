@@ -1,0 +1,52 @@
+{
+  "User": {
+    "IsLogin": false,
+    "CurrentAccount": null,
+    "UserUSN": 0
+  },
+  "Todos": [
+    {
+      "Id": "60b8aeba-7b53-4ce2-89a3-3220c1d277f8",
+      "Content": "1231",
+      "CreateAt": "2021-03-12T16:51:12.516437+08:00",
+      "FinishedAt": "0001-01-01T00:00:00",
+      "StartTime": "0001-01-01T00:00:00",
+      "State": {
+        "OnValueChanged": {},
+        "Value": 0
+      },
+      "Priority": {
+        "OnValueChanged": {},
+        "Value": 4
+      },
+      "Children": [],
+      "Category": {
+        "Id": "00000000-0000-0000-0000-000000000000",
+        "Name": "123",
+        "Color": "FF0000"
+      },
+      "Hide": false
+    }
+  ],
+  "Categories": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Name": "123",
+      "Color": "FF0000"
+    },
+    {
+      "Id": "00000000-0000-0000-0000-000000000000",
+      "Name": "111",
+      "Color": "00FF00"
+    }
+  ],
+  "Notes": [],
+  "Products": [
+    {
+      "Name": "123",
+      "Description": "3123",
+      "Features": [],
+      "Versions": []
+    }
+  ]
+}

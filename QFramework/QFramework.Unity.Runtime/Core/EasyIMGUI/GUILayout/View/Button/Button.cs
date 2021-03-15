@@ -32,9 +32,12 @@ namespace QFramework
 {
     public interface IButton : IMGUIView,
         IHasText<IButton>,
+        IHasTextGetter<IButton>,
         ICanClick<IButton>,
         IXMLToObjectConverter
     {
+        
+        
     }
 
     internal class IMGUIButton : View, IButton
@@ -44,7 +47,7 @@ namespace QFramework
 
         protected override void OnGUI()
         {
-            if (GUILayout.Button(mLabelText, GUI.skin.button, LayoutStyles))
+            if (GUILayout.Button(mTextGetter == null ? mLabelText : mTextGetter(), GUI.skin.button, LayoutStyles))
             {
                 mOnClick.Invoke();
                 // GUIUtility.ExitGUI();
@@ -56,6 +59,7 @@ namespace QFramework
             mLabelText = labelText;
             return this;
         }
+        
 
         public IButton OnClick(Action action)
         {
@@ -84,6 +88,14 @@ namespace QFramework
             }
 
             return button as T;
+        }
+
+
+        private Func<string> mTextGetter;
+        public IButton TextGetter(Func<string> textGetter)
+        {
+            mTextGetter = textGetter;
+            return this;
         }
     }
 }

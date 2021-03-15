@@ -12,15 +12,17 @@ namespace QFramework
 
         public bool Visible
         {
-            get { return mVisible; }
+            get { return VisibleCondition == null ? mVisible : VisibleCondition(); }
             set { mVisible = value; }
         }
 
-        private List<GUILayoutOption> mprivateLayoutOptions = new List<GUILayoutOption>();
+        public Func<bool> VisibleCondition { get; set; }
+
+        private readonly List<GUILayoutOption> mPrivateLayoutOptions = new List<GUILayoutOption>();
 
         private List<GUILayoutOption> mLayoutOptions
         {
-            get { return mprivateLayoutOptions; }
+            get { return mPrivateLayoutOptions; }
         }
 
         protected GUILayoutOption[] LayoutStyles { get; private set; }

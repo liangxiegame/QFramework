@@ -44,6 +44,7 @@ namespace QFramework
         protected override void OnGUI()
         {
             OnGUIBegin();
+            
             foreach (var child in Children)
             {
                 child.DrawGUI();

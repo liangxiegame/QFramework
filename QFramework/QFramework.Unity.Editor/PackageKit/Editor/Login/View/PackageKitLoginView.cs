@@ -64,16 +64,16 @@ namespace QFramework
                 .Self(self => self.Visible = PackageKitLoginState.RegisterViewVisible.Value)
                 .Parent(boxLayout);
 
-            PackageKitLoginState.Logined.Bind(value => { logoutBtn.Visible = value; }).AddTo(mDisposableList);
+            PackageKitLoginState.Logined.Bind(value => { logoutBtn.Visible = value; }).AddToDisposeList(mDisposableList);
 
             
             logoutBtn.OnClick(mControllerNode.SendCommand<LogoutCommand>);
 
-            PackageKitLoginState.LoginViewVisible.Bind(value => { loginView.Visible = value; }).AddTo(mDisposableList);
+            PackageKitLoginState.LoginViewVisible.Bind(value => { loginView.Visible = value; }).AddToDisposeList(mDisposableList);
 
 
             PackageKitLoginState.RegisterViewVisible.Bind(value => { registerView.Visible = value; })
-                .AddTo(mDisposableList);
+                .AddToDisposeList(mDisposableList);
         }
 
         public void OnUpdate()

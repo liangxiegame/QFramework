@@ -30,9 +30,10 @@ namespace QFramework
     {
     }
 
+    // ReSharper disable once InconsistentNaming
     public static class ICanGetSystemExtensions
     {
-        public static T GetSystem<T>(this ICanGetConfig self) where T : class, ISystem
+        public static T GetSystem<T>(this ICanGetSystem self) where T : class, ISystem
         {
             return self.Architecture.GetSystem<T>();
         }

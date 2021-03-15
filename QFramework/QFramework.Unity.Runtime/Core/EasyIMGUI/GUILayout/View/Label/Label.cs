@@ -24,17 +24,17 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Xml;
 using UnityEngine;
 
 namespace QFramework
 {
-    public interface ILabel : IMGUIView,IHasText<ILabel>,IXMLToObjectConverter
+    public interface ILabel : IMGUIView, IHasText<ILabel>, IHasTextGetter<ILabel>, IXMLToObjectConverter
     {
-    
     }
-    
-    internal class Label : View,ILabel
+
+    internal class Label : View, ILabel
     {
         public string Content { get; set; }
 
@@ -45,7 +45,7 @@ namespace QFramework
 
         protected override void OnGUI()
         {
-            GUILayout.Label(Content, Style.Value, LayoutStyles);
+            GUILayout.Label(mTextGetter == null ? Content : mTextGetter(), Style.Value, LayoutStyles);
         }
 
         public ILabel Text(string labelText)
@@ -53,6 +53,14 @@ namespace QFramework
             Content = labelText;
             return this;
         }
+
+        public ILabel TextGetter(Func<string> textGetter)
+        {
+            mTextGetter = textGetter;
+            return this;
+        }
+
+        private Func<string> mTextGetter;
 
         public T Convert<T>(XmlNode node) where T : class
         {

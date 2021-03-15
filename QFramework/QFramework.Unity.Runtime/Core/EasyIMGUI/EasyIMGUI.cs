@@ -30,16 +30,17 @@ namespace QFramework
     // ReSharper disable once ClassNeverInstantiated.Global
     public sealed class EasyIMGUI : Architecture<EasyIMGUI>
     {
-        public static IButton Button()
-        {
-            return new IMGUIButton();
-        }
-
         public static ILabel Label()
         {
             return new Label();
         }
 
+        
+        public static IButton Button()
+        {
+            return new IMGUIButton();
+        }
+        
         public static ISpace Space()
         {
             return new Space();
@@ -70,6 +71,11 @@ namespace QFramework
             return new IMGUIToggle();
         }
 
+        public static IBox Box()
+        {
+            return new BoxView();
+        }
+        
         public static IToolbar Toolbar()
         {
             return new ToolbarView();
@@ -90,6 +96,12 @@ namespace QFramework
             return new ScrollLayout();
         }
 
+        public static IAreaLayout Area()
+        {
+            return new AreaLayout();
+        }
+        
+
         public static IXMLView XMLView()
         {
             return new XMLView();
@@ -100,6 +112,12 @@ namespace QFramework
             return new LabelWithRect();
         }
 
+        public static IBoxWithRect BoxWithRect()
+        {
+            return new BoxWithRect();
+        }
+        
+        
 
         private EasyIMGUI()
         {

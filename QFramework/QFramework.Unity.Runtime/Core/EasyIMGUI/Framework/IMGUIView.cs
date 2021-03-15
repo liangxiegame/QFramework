@@ -34,6 +34,8 @@ namespace QFramework
     {
         string Id { get; set; }
         bool Visible { get; set; }
+        
+        Func<bool> VisibleCondition { get; set; }
 
         void DrawGUI();
 

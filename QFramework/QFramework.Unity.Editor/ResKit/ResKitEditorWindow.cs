@@ -138,6 +138,9 @@ namespace QFramework
 
                 switch (EditorUserBuildSettings.activeBuildTarget)
                 {
+                    case BuildTarget.WSAPlayer:
+                        mBuildTargetIndex = 4;
+                        break;
                     case BuildTarget.WebGL:
                         mBuildTargetIndex = 3;
                         break;
@@ -153,10 +156,11 @@ namespace QFramework
                 }
 
                 EasyIMGUI.Toolbar()
-                    .AddMenu("win/osx")
+                    .AddMenu("Windows/MacOS")
                     .AddMenu("iOS")
                     .AddMenu("Android")
                     .AddMenu("WebGL")
+                    .AddMenu("WSAPlayer")
                     .Index(mBuildTargetIndex)
                     .Parent(verticalLayout);
 

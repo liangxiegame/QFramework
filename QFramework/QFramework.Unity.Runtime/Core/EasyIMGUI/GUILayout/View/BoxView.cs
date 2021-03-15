@@ -28,19 +28,33 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class BoxView : View
+    public interface IBox : IMGUIView, IHasText<IBox>
     {
-        public string Text;
+    }
 
-        public BoxView(string text)
+    public class BoxView : View, IBox
+    {
+        public BoxView()
         {
-            Text = text;
-            //Style = new GUIStyle(GUI.skin.box);
+            mStyleProperty = new GUIStyleProperty(() =>
+            {
+                // Box 的颜色保持和文本的颜色一致
+                var boxStyle = new GUIStyle(GUI.skin.box) {normal = {textColor = GUI.skin.label.normal.textColor}};
+                return boxStyle;
+            });
         }
 
         protected override void OnGUI()
         {
-            GUILayout.Box(Text, GUI.skin.box, LayoutStyles);
+            GUILayout.Box(mText, mStyleProperty.Value, LayoutStyles);
+        }
+
+        private string mText = string.Empty;
+
+        public IBox Text(string labelText)
+        {
+            mText = labelText;
+            return this;
         }
     }
 }

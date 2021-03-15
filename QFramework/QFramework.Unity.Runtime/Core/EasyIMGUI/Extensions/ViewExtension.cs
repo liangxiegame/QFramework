@@ -140,5 +140,11 @@ namespace QFramework
             view.Visible = visible;
             return view;
         }
+
+        public static T WithVisibleCondition<T>(this T view, Func<bool> visibleCondition) where T : IMGUIView
+        {
+            view.VisibleCondition = visibleCondition;
+            return view;
+        }
     }
 }

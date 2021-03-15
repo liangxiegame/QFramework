@@ -1,4 +1,3 @@
-	
 using System;
 using System.IO;
 using UnityEngine;
@@ -9,11 +8,11 @@ namespace QFramework
     public class AssetBundleSettings
     {
         private static IResDatas mAssetBundleConfigFile = null;
-        
+
         /// <summary>
         /// 默认
         /// </summary>
-        private static Func<IResDatas> mAssetBundleConfigFileFactory = () =>  new ResDatas();
+        private static Func<IResDatas> mAssetBundleConfigFileFactory = () => new ResDatas();
 
         public static Func<IResDatas> AssetBundleConfigFileFactory
         {
@@ -44,33 +43,35 @@ namespace QFramework
             get { return PlayerPrefs.GetInt("LoadResFromStreammingAssetsPath", 1) == 1; }
             set { PlayerPrefs.SetInt("LoadResFromStreammingAssetsPath", value ? 1 : 0); }
         }
-        
-        
-        
-        
+
+
         #region AssetBundle 相关
 
         public static string AssetBundleUrl2Name(string url)
         {
             string retName = null;
-            string parren = FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/";
+            string parren = FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
+                            FromUnityToDll.Setting.GetPlatformName() + "/";
             retName = url.Replace(parren, "");
 
-            parren = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/";
+            parren = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
+                     FromUnityToDll.Setting.GetPlatformName() + "/";
             retName = retName.Replace(parren, "");
             return retName;
         }
 
         public static string AssetBundleName2Url(string name)
         {
-            string retUrl = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/" + name;
+            string retUrl = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
+                            FromUnityToDll.Setting.GetPlatformName() + "/" + name;
 
             if (File.Exists(retUrl))
             {
                 return retUrl;
             }
 
-            return FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/" + name;
+            return FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
+                   FromUnityToDll.Setting.GetPlatformName() + "/" + name;
         }
 
         //导出目录
@@ -86,15 +87,16 @@ namespace QFramework
         #endregion
 
 
-
-
-
         public static string GetPlatformForAssetBundles(RuntimePlatform platform)
         {
             switch (platform)
             {
                 case RuntimePlatform.Android:
                     return "Android";
+                case RuntimePlatform.WSAPlayerARM:
+                case RuntimePlatform.WSAPlayerX64:
+                case RuntimePlatform.WSAPlayerX86:
+                    return "WSAPlayer";
                 case RuntimePlatform.IPhonePlayer:
                     return "iOS";
                 case RuntimePlatform.WebGLPlayer:

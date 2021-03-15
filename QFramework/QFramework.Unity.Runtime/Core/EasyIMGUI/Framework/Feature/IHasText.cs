@@ -25,6 +25,9 @@
  ****************************************************************************/
 
 // ReSharper disable once CheckNamespace
+
+using System;
+
 namespace QFramework
 {
     public interface IHasText<T>

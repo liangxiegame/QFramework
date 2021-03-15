@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2019.1 liangxie
+ * Copyright (c) 2017 ~ 2021.3 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -11,9 +11,9 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  * 
- * The above copyright notice and this permission notice shall be included in
+ * The above copyright notice and this permission notice       shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *            
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -23,8 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
-using QFramework;
 
 namespace QFramework
 {
@@ -91,40 +89,7 @@ namespace QFramework
 
 		private static string GetPlatformName()
 		{
-			return GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
-		}
-		
-		public static string GetPlatformForAssetBundles(BuildTarget target)
-		{
-			switch (target)
-			{
-				case BuildTarget.Android:
-					return "Android";
-				case BuildTarget.iOS:
-					return "iOS";
-				case BuildTarget.WebGL:
-					return "WebGL";
-				case BuildTarget.StandaloneWindows:
-				case BuildTarget.StandaloneWindows64:
-					return "Windows";
-				case BuildTarget.StandaloneLinux:
-				case BuildTarget.StandaloneLinux64:
-				case BuildTarget.StandaloneLinuxUniversal:
-					return "Linux";
-#if !UNITY_2017_3_OR_NEWER
-				case BuildTarget.StandaloneOSXIntel:
-				case BuildTarget.StandaloneOSXIntel64:
-#elif UNITY_5
-			case BuildTarget.StandaloneOSXUniversal:
-#else
-                case BuildTarget.StandaloneOSX:
-#endif
-					return "OSX";
-				// Add more build targets for your own.
-				// If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
-				default:
-					return null;
-			}
+			return FromUnityToDll.Setting.GetPlatformName();
 		}
 	}
 }

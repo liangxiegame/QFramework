@@ -176,11 +176,13 @@
         <Compile Include="Core\EasyIMGUI\Extensions\ViewExtension.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\ICanClick.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\IHasRect.cs" />
+        <Compile Include="Core\EasyIMGUI\Framework\Feature\IHasTextGetter.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\IHasText.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\IMGUILayout.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\IMGUIView.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Layout.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\View.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Area\AreaLayout.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Scroll\ScrollLayout.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Vertical\VerticalLayout.cs" />
@@ -196,6 +198,7 @@
         <Compile Include="Core\EasyIMGUI\GUILayout\View\Toggle\Toggle.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\View\Toolbar\ToolbarView.cs" />
         <Compile Include="Core\EasyIMGUI\GUIStyleProperty.cs" />
+        <Compile Include="Core\EasyIMGUI\GUIWithRect\BoxWithRect.cs" />
         <Compile Include="Core\EasyIMGUI\GUIWithRect\LabelWithRect.cs" />
         <Compile Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
         <Compile Include="Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
@@ -300,17 +303,7 @@
       <None Include="packages.config" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Extensions\ViewExtension.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\Feature.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\IMGUILayout.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\IMGUIView.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Framework\Layout.cs.meta" />
       <Content Include="Core\EasyIMGUI\Framework\View.cs.meta" />
-      <Content Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs.meta" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Core\EasyIMGUI\GUILayout" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

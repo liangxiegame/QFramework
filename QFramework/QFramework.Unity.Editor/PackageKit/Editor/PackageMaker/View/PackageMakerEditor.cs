@@ -210,7 +210,7 @@ namespace QFramework
 
 
             PackageMakerState.InEditorView.BindWithInitialValue(value => { editorView.Visible = value; })
-                .AddTo(mDisposableList);
+                .AddToDisposeList(mDisposableList);
 
             if (User.Logined)
             {
@@ -242,10 +242,10 @@ namespace QFramework
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).Parent(uploadingView);
 
             PackageMakerState.NoticeMessage
-                .BindWithInitialValue(value => { notice.Content.Value = value; }).AddTo(mDisposableList);
+                .BindWithInitialValue(value => { notice.Content.Value = value; }).AddToDisposeList(mDisposableList);
 
             PackageMakerState.InUploadingView.BindWithInitialValue(value => { uploadingView.Visible = value; })
-                .AddTo(mDisposableList);
+                .AddToDisposeList(mDisposableList);
         }
 
 

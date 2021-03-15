@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2021.3 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,103 +24,117 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
-    public class PackageRepositoryView : HorizontalLayout
+    public enum PackageRepositoryActionState
     {
-        ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
+        Uninstall,
+        HasNewVersion,
+        Installed,
+    }
 
+    public class PackageRepositoryView : HorizontalLayout, IController
+    {
         public PackageRepositoryView(PackageRepository packageRepository)
         {
-            EasyIMGUI.Space().Pixel(2).Parent(this);
+            // EasyIMGUI.Label()
+            //     .Text(installedPackage != null ? installedPackage.Version : " ")
+            //     .TextMiddleCenter()
+            //     .Width(PackageListHeaderView.LocalVersionWidth)
+            //     .Parent(this);
+            //
+            //
+            // var actionState = PackageRepositoryActionState.Uninstall;
+            //
+            //
+            // if (installedPackage == null)
+            // {
+            //     actionState = PackageRepositoryActionState.Uninstall;
+            //
+            //     new BoxView(LocaleText.Uninstall)
+            //         .TextMiddleCenter()
+            //         .Width(PackageListHeaderView.ActionStateWidth)
+            //         .Parent(this)
+            //         .FontColor(Color.white)
+            //         .BackgroundColor = Color.black;
+            // }
+            // else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
+            // {
+            //     actionState = PackageRepositoryActionState.HasNewVersion;
+            //
+            //     new BoxView(LocaleText.HasNewVersion)
+            //         .TextMiddleCenter()
+            //         .Width(PackageListHeaderView.ActionStateWidth)
+            //         .Parent(this)
+            //         .FontColor(Color.white)
+            //         .BackgroundColor = Color.yellow;
+            // }
+            // else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
+            // {
+            //     actionState = PackageRepositoryActionState.Installed;
+            //
+            //     new BoxView(LocaleText.Installed)
+            //         .TextMiddleCenter()
+            //         .Width(PackageListHeaderView.ActionStateWidth)
+            //         .Parent(this)
+            //         .FontColor(Color.white)
+            //         .BackgroundColor = Color.green;
+            // }
+            //
+            // EasyIMGUI.Label()
+            //     .Text(packageRepository.accessRight)
+            //     .TextMiddleCenter()
+            //     .Width(PackageListHeaderView.AccessRightWidth)
+            //     .Parent(this);
+            //
+            // EasyIMGUI.Label()
+            //     .Text(packageRepository.author)
+            //     .TextMiddleCenter()
+            //     .FontBold().Width(PackageListHeaderView.AuthorWidth)
+            //     .Parent(this);
+            //
+            //
+            // EasyIMGUI.Button()
+            //     .Text(LocaleText.Action)
+            //     .Width(PackageListHeaderView.ActionWidth)
+            //     .Parent(this)
+            //     .OnClick(() =>
+            //     {
+            //         var menuView = GenericMenuView.Create();
+            //
+            //         if (actionState == PackageRepositoryActionState.Uninstall)
+            //         {
+            //             menuView.AddMenu(LocaleText.Import,
+            //                 () => {
+            // this.SendCommand(new ImportPackageCommand(packageRepository)); });
+            //         }
+            //         else if (actionState == PackageRepositoryActionState.HasNewVersion)
+            //         {
+            //             menuView.AddMenu(LocaleText.Update,
+            //                 () => { this.SendCommand(new UpdatePackageCommand(packageRepository)); });
+            //         }
+            //         else if (actionState == PackageRepositoryActionState.Installed)
+            //         {
+            //             menuView.AddMenu(LocaleText.Reimport,
+            //                 () => { this.SendCommand(new ReimportPackageCommand(packageRepository)); });
+            //         }
+            //
 
-            EasyIMGUI.Label().Text(packageRepository.name).FontBold().Width(200).Parent(this);
-
-            EasyIMGUI.Label().Text(packageRepository.latestVersion).TextMiddleCenter().Width(80).Parent(this);
-
-            var installedPackage = mControllerNode.GetModel<ILocalPackageVersionModel>()
-                .GetByName(packageRepository.name);
-
-            EasyIMGUI.Label().Text(installedPackage != null ? installedPackage.Version : " ").TextMiddleCenter().Width(100)
-                .Parent(this);
-
-            EasyIMGUI.Label().Text(packageRepository.accessRight).TextMiddleLeft().Width(50).Parent(this);
-
-
-            if (installedPackage == null)
-            {
-                EasyIMGUI.Button()
-                    .Text(LocaleText.Import)
-                    .Width(90)
-                    .Parent(this)
-                    .OnClick(() => { mControllerNode.SendCommand(new ImportPackageCommand(packageRepository)); });
-            }
-            else if (packageRepository.VersionNumber > installedPackage.VersionNumber)
-            {
-                EasyIMGUI.Button()
-                    .Text(LocaleText.Update)
-                    .Width(90)
-                    .OnClick(() => { mControllerNode.SendCommand(new UpdatePackageCommand(packageRepository)); })
-                    .Parent(this);
-            }
-            else if (packageRepository.VersionNumber == installedPackage.VersionNumber)
-            {
-                EasyIMGUI.Button()
-                    .Text(LocaleText.Reimport)
-                    .Width(90)
-                    .OnClick(() => { mControllerNode.SendCommand(new ReimportPackageCommand(packageRepository)); })
-                    .Parent(this);
-            }
-            else if (packageRepository.VersionNumber < installedPackage.VersionNumber)
-            {
-                EasyIMGUI.Space().Pixel(94).Parent(this);
-            }
-
-            EasyIMGUI.Button()
-                .Text(LocaleText.ReleaseNotes)
-                .OnClick(() => { mControllerNode.SendCommand(new OpenDetailCommand(packageRepository)); })
-                .Width(100)
-                .Parent(this);
-
-
-            EasyIMGUI.Label().Text(packageRepository.author)
-                .TextMiddleLeft()
-                .FontBold().Width(100)
-                .Parent(this);
+            //
+            //         menuView.Show();
+            //     });
         }
 
         protected override void OnDisposed()
         {
-            mControllerNode.Recycle2Cache();
-            mControllerNode = null;
         }
+        
 
-        class LocaleText
+        public IArchitecture Architecture
         {
-            public static string Doc
-            {
-                get { return Language.IsChinese ? "文档" : "Doc"; }
-            }
-
-            public static string Import
-            {
-                get { return Language.IsChinese ? "导入" : "Import"; }
-            }
-
-            public static string Update
-            {
-                get { return Language.IsChinese ? "更新" : "Update"; }
-            }
-
-            public static string Reimport
-            {
-                get { return Language.IsChinese ? "再次导入" : "Reimport"; }
-            }
-
-            public static string ReleaseNotes
-            {
-                get { return Language.IsChinese ? "详情" : "Detail"; }
-            }
+            get { return PackageKit.Interface; }
         }
     }
 }

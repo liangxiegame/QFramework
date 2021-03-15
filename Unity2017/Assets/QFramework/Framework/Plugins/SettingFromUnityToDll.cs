@@ -50,6 +50,8 @@ namespace QFramework
             {
                 case BuildTarget.Android:
                     return "Android";
+                case BuildTarget.WSAPlayer:
+                    return "WSAPlayer";
                 case BuildTarget.iOS:
                     return "iOS";
                 case BuildTarget.WebGL:

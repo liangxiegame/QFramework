@@ -30,6 +30,7 @@ namespace QFramework
     {
     }
 
+    // ReSharper disable once InconsistentNaming
     public static class ICanGetModelExtensions
     {
         public static T GetModel<T>(this ICanGetModel self)  where T : class, IModel

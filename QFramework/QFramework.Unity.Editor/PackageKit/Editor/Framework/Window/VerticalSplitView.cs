@@ -39,18 +39,34 @@ namespace QFramework
         /// 纵向
         /// </summary>
         Vertical,
+
         /// <summary>
         /// 横向
         /// </summary>
         Horizontal
     }
+
     public class VerticalSplitView
     {
-        private SplitType _splitType = SplitType.Vertical;
-        private float _split = 200;
+        public VerticalSplitView()
+        {
+            mBoxWithRect = EasyIMGUI.BoxWithRect();
+        }
+        private SplitType mSplitType = SplitType.Vertical;
+
+        private float mSplit = 200;
+
+        public float Split
+        {
+            get { return mSplit; }
+            set { mSplit = value; }
+        }
+
         public Action<Rect> fistPan, secondPan;
         public event System.Action onBeginResize;
         public event System.Action onEndResize;
+
+        private IBoxWithRect mBoxWithRect;
 
         public bool dragging
         {
@@ -82,8 +98,8 @@ namespace QFramework
 
         public void OnGUI(Rect position)
         {
-            var rs = position.Split(_splitType, _split, 4);
-            var mid = position.SplitRect(_splitType, _split, 4);
+            var rs = position.Split(mSplitType, mSplit, 4);
+            var mid = position.SplitRect(mSplitType, mSplit, 4);
             if (fistPan != null)
             {
                 fistPan(rs[0]);
@@ -94,11 +110,12 @@ namespace QFramework
                 secondPan(rs[1]);
             }
 
-            GUI.Box(mid, "");
+            mBoxWithRect.Rect(mid).DrawGUI();
+            
             Event e = Event.current;
             if (mid.Contains(e.mousePosition))
             {
-                if (_splitType == SplitType.Vertical)
+                if (mSplitType == SplitType.Vertical)
                     EditorGUIUtility.AddCursorRect(mid, MouseCursor.ResizeHorizontal);
                 else
                     EditorGUIUtility.AddCursorRect(mid, MouseCursor.ResizeVertical);
@@ -116,17 +133,17 @@ namespace QFramework
                 case EventType.MouseDrag:
                     if (dragging)
                     {
-                        switch (_splitType)
+                        switch (mSplitType)
                         {
                             case SplitType.Vertical:
-                                _split += Event.current.delta.x;
+                                mSplit += Event.current.delta.x;
                                 break;
                             case SplitType.Horizontal:
-                                _split += Event.current.delta.y;
+                                mSplit += Event.current.delta.y;
                                 break;
                         }
 
-                        _split = Mathf.Clamp(_split, 100, position.width - 100);
+                        mSplit = Mathf.Clamp(mSplit, 100, position.width - 100);
                     }
 
                     break;

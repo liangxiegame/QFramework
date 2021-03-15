@@ -48,144 +48,144 @@ namespace QFramework
         }
     }
 
-    [InitializeOnLoad]
-    public class PackageCheck
-    {
-        enum CheckStatus
-        {
-            WAIT,
-            COMPARE,
-            NONE
-        }
-
-        private CheckStatus mCheckStatus;
-
-        private double mNextCheckTime = 0;
-
-        private double mCheckInterval = 60;
-
-        ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
-
-        static PackageCheck()
-        {
-            if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
-            {
-                PackageCheck packageCheck = new PackageCheck()
-                {
-                    mCheckStatus = CheckStatus.WAIT,
-                    mNextCheckTime = EditorApplication.timeSinceStartup,
-                };
-
-                EditorApplication.update = packageCheck.CustomUpdate;
-            }
-        }
-
-        private void CustomUpdate()
-        {
-            // 添加网络判断
-            if (!Network.IsReachable) return;
-
-            switch (mCheckStatus)
-            {
-                case CheckStatus.WAIT:
-                    if (EditorApplication.timeSinceStartup >= mNextCheckTime)
-                    {
-                        mCheckStatus = CheckStatus.COMPARE;
-                    }
-
-                    break;
-
-                case CheckStatus.COMPARE:
-
-                    ProcessCompare();
-
-                    break;
-            }
-        }
-
-
-        private void GoToWait()
-        {
-            mCheckStatus = CheckStatus.WAIT;
-
-            mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
-        }
-
-        private bool ReCheckConfigDatas()
-        {
-            mCheckInterval = 60;
-
-            return true;
-        }
-
-        private void ProcessCompare()
-        {
-            if (Network.IsReachable)
-            {
-                new PackageManagerServer().GetAllRemotePackageInfoV5((packageDatas, res) =>
-                {
-                    if (packageDatas == null)
-                    {
-                        return;
-                    }
-
-                    if (new PackageManagerModel().VersionCheck)
-                    {
-                        CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageRepositories);
-                    }
-                });
-            }
-
-            ReCheckConfigDatas();
-            GoToWait();
-        }
-
-        private bool CheckNewVersionDialog(List<PackageRepository> requestPackageDatas,
-            List<PackageRepository> cachedPackageDatas)
-        {
-            var installedPackageVersionsModel = mControllerNode.GetModel<ILocalPackageVersionModel>();
-            foreach (var requestPackageData in requestPackageDatas)
-            {
-                var cachedPacakgeData =
-                    cachedPackageDatas.Find(packageData => packageData.name == requestPackageData.name);
-
-                var installedPackageVersion = installedPackageVersionsModel.GetByName(requestPackageData.name);
-
-                if (installedPackageVersion == null)
-                {
-                }
-                else if (cachedPacakgeData == null &&
-                         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
-                         cachedPacakgeData != null && requestPackageData.Installed &&
-                         requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
-                         requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
-                {
-                    ShowDisplayDialog(requestPackageData.name);
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-
-        private static void ShowDisplayDialog(string packageName)
-        {
-            var result = EditorUtility.DisplayDialog("PackageManager",
-                string.Format("{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)", packageName),
-                "前往查看", "稍后查看");
-
-            if (result)
-            {
-                EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
-            }
-        }
-
-        ~PackageCheck()
-        {
-            mControllerNode = null;
-        }
-    }
+    // [InitializeOnLoad]
+    // public class PackageCheck
+    // {
+    //     enum CheckStatus
+    //     {
+    //         WAIT,
+    //         COMPARE,
+    //         NONE
+    //     }
+    //
+    //     private CheckStatus mCheckStatus;
+    //
+    //     private double mNextCheckTime = 0;
+    //
+    //     private double mCheckInterval = 60;
+    //
+    //     ControllerNode<PackageKit> mControllerNode = ControllerNode<PackageKit>.Allocate();
+    //
+    //     static PackageCheck()
+    //     {
+    //         if (!EditorApplication.isPlayingOrWillChangePlaymode && Network.IsReachable)
+    //         {
+    //             PackageCheck packageCheck = new PackageCheck()
+    //             {
+    //                 mCheckStatus = CheckStatus.WAIT,
+    //                 mNextCheckTime = EditorApplication.timeSinceStartup,
+    //             };
+    //
+    //             EditorApplication.update = packageCheck.CustomUpdate;
+    //         }
+    //     }
+    //
+    //     private void CustomUpdate()
+    //     {
+    //         // 添加网络判断
+    //         if (!Network.IsReachable) return;
+    //
+    //         switch (mCheckStatus)
+    //         {
+    //             case CheckStatus.WAIT:
+    //                 if (EditorApplication.timeSinceStartup >= mNextCheckTime)
+    //                 {
+    //                     mCheckStatus = CheckStatus.COMPARE;
+    //                 }
+    //
+    //                 break;
+    //
+    //             case CheckStatus.COMPARE:
+    //
+    //                 ProcessCompare();
+    //
+    //                 break;
+    //         }
+    //     }
+    //
+    //
+    //     private void GoToWait()
+    //     {
+    //         mCheckStatus = CheckStatus.WAIT;
+    //
+    //         mNextCheckTime = EditorApplication.timeSinceStartup + mCheckInterval;
+    //     }
+    //
+    //     private bool ReCheckConfigDatas()
+    //     {
+    //         mCheckInterval = 60;
+    //
+    //         return true;
+    //     }
+    //
+    //     private void ProcessCompare()
+    //     {
+    //         if (Network.IsReachable)
+    //         {
+    //             new PackageManagerServer().GetAllRemotePackageInfoV5((packageDatas, res) =>
+    //             {
+    //                 if (packageDatas == null)
+    //                 {
+    //                     return;
+    //                 }
+    //
+    //                 if (new PackageManagerModel().VersionCheck)
+    //                 {
+    //                     CheckNewVersionDialog(packageDatas, PackageInfosRequestCache.Get().PackageRepositories);
+    //                 }
+    //             });
+    //         }
+    //
+    //         ReCheckConfigDatas();
+    //         GoToWait();
+    //     }
+    //
+    //     private bool CheckNewVersionDialog(List<PackageRepository> requestPackageDatas,
+    //         List<PackageRepository> cachedPackageDatas)
+    //     {
+    //         var installedPackageVersionsModel = mControllerNode.GetModel<ILocalPackageVersionModel>();
+    //         foreach (var requestPackageData in requestPackageDatas)
+    //         {
+    //             var cachedPacakgeData =
+    //                 cachedPackageDatas.Find(packageData => packageData.name == requestPackageData.name);
+    //
+    //             var installedPackageVersion = installedPackageVersionsModel.GetByName(requestPackageData.name);
+    //
+    //             if (installedPackageVersion == null)
+    //             {
+    //             }
+    //             else if (cachedPacakgeData == null &&
+    //                      requestPackageData.VersionNumber > installedPackageVersion.VersionNumber ||
+    //                      cachedPacakgeData != null && requestPackageData.Installed &&
+    //                      requestPackageData.VersionNumber > cachedPacakgeData.VersionNumber &&
+    //                      requestPackageData.VersionNumber > installedPackageVersion.VersionNumber)
+    //             {
+    //                 ShowDisplayDialog(requestPackageData.name);
+    //                 return false;
+    //             }
+    //         }
+    //
+    //         return true;
+    //     }
+    //
+    //
+    //     private static void ShowDisplayDialog(string packageName)
+    //     {
+    //         var result = EditorUtility.DisplayDialog("PackageManager",
+    //             string.Format("{0} 有新版本更新,请前往查看(如需不再提示请点击前往查看，并取消勾选 Version Check)", packageName),
+    //             "前往查看", "稍后查看");
+    //
+    //         if (result)
+    //         {
+    //             EditorApplication.ExecuteMenuItem(FrameworkMenuItems.Preferences);
+    //         }
+    //     }
+    //
+    //     ~PackageCheck()
+    //     {
+    //         mControllerNode = null;
+    //     }
+    // }
 
     public static class User
     {
@@ -417,6 +417,8 @@ namespace QFramework
     {
         public string Id { get; set; }
         public bool Visible { get; set; }
+        
+        public Func<bool> VisibleCondition { get; set; }
 
         void IMGUIView.DrawGUI()
         {

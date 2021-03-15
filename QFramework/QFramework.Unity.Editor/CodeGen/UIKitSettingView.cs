@@ -172,8 +172,7 @@ namespace QFramework
         public void OnUpdate()
         {
         }
-
-        private bool mShowLabel2;
+        
 
         void IPackageKitView.OnGUI()
         {

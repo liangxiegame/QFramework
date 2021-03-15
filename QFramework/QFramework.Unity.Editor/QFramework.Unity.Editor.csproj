@@ -33,6 +33,9 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="Markdig, Version=0.15.7.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\..\Unity2017\Assets\QFramework\Framework\Plugins\Editor\Markdown\Scripts\Renderer\Markdig.dll</HintPath>
+        </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
@@ -78,6 +81,52 @@
         <Compile Include="CodeGen\UIKitSettingViewModel.cs" />
         <Compile Include="CodeGen\ViewControllerCode.cs" />
         <Compile Include="CodeGen\ViewControllerInspector.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\Block.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\BlockContainer.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\BlockContent.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\BlockLine.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\BlockSpace.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\Content.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\ContentImage.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\ContentText.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\Context.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\IActions.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\IBuilder.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\Layout.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\LayoutBuilder.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Layout\StyleConverter.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownAsset.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownEditor.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownEditorAsset.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownHandleImages.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownHandleNavigate.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownHistory.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownImporter.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownMenus.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownPreferences.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownUtils.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\MarkdownViewer.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\mgGif\Decoder.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\mgGif\ImageList.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockCode.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockHeading.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockHtml.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockList.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockParagraph.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockQuote.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererBlockThematicBreak.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineAutoLink.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineCode.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineDelimiter.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineEmphasis.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineHtml.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineHtmlEntity.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineLineBreak.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineLink.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererInlineLiteral.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Renderer\RendererMarkdown.cs" />
+        <Compile Include="EasyIMGUI\MarkdownView\Style.cs" />
+        <Compile Include="EasyIMGUI\View\GenericMenuView.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementView.cs" />
         <Compile Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs" />
@@ -128,7 +177,7 @@
         <Compile Include="PackageKit\Editor\System\PackageManager\Command\UpdatePackageCommand.cs" />
         <Compile Include="PackageKit\Editor\Utility\IEditorDialogUtility.cs" />
         <Compile Include="PackageKit\Editor\Utility\MutableTuple.cs" />
-        <Compile Include="PackageKit\Editor\View\PackageManager\PackageListHeaderView.cs" />
+        <Compile Include="PackageKit\Editor\Utility\UrlHelper.cs" />
         <Compile Include="PackageKit\Editor\View\PackageManager\PackageManagerView.cs" />
         <Compile Include="PackageKit\Editor\View\PackageManager\PackageRepositoryView.cs" />
         <Compile Include="EasyIMGUI\IMGUIEditorWindow.cs" />

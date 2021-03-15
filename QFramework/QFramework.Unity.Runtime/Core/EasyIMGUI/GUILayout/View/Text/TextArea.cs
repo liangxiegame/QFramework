@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using System.Xml;
 using UnityEngine;
 
@@ -54,6 +55,8 @@ namespace QFramework
             Content.Value = labelText;
             return this;
         }
+
+
 
         public T Convert<T>(XmlNode node) where T : class
         {

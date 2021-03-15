@@ -51,12 +51,6 @@ namespace QFramework
         public virtual void Finish()
         {
             Finished = true;
-            if (OnEndedCallback != null)
-            {
-                OnEndedCallback.Invoke();
-            }
-
-            OnEnd();
         }
 
         public void Break()
@@ -107,7 +101,12 @@ namespace QFramework
 
             if (Finished)
             {
-                Finish();
+                if (OnEndedCallback != null)
+                {
+                    OnEndedCallback.Invoke();
+                }
+
+                OnEnd();
             }
 
             return Finished || mDisposed;

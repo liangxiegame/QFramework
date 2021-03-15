@@ -48,7 +48,6 @@ namespace QFramework
         class Styles
         {
             public static GUIStyle box = "box";
-            public static GUIStyle in_title = new GUIStyle("IN Title") {fixedHeight = toolbarHeight + 5};
             public static GUIStyle toolbarSeachTextFieldPopup = "ToolbarSeachTextFieldPopup";
             public static GUIStyle searchCancelButton = "ToolbarSeachCancelButton";
             public static GUIStyle searchCancelButtonEmpty = "ToolbarSeachCancelButtonEmpty";
@@ -193,9 +192,6 @@ namespace QFramework
             base.OnGUI();
 
             GUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-            GUILayout.Label(DateTime.Now.ToLongTimeString(), Styles.selectionRect);
-
             GUILayout.EndHorizontal();
 
             var r = GUILayoutUtility.GetLastRect();
@@ -256,7 +252,9 @@ namespace QFramework
         {
             if (mPackageKitViewRenderInfos != null)
             {
-                mPackageKitViewRenderInfos.SelectMany(r => r.Value).Where(view => view != null).ToList()
+                mPackageKitViewRenderInfos.SelectMany(r => r.Value)
+                    .Where(view => view != null)
+                    .ToList()
                     .ForEach(view => view.Interface.OnDispose());
             }
 
