@@ -219,9 +219,9 @@ namespace QFramework
                     {
                         GUILayout.BeginVertical();
                         GUILayout.BeginHorizontal("box");
+                        GUILayout.Space(20);
                         GUILayout.Label(drawer.DisplayName);
                         GUILayout.FlexibleSpace();
-                        GUILayout.EndHorizontal();
                         GUILayout.EndHorizontal();
                         var rect = GUILayoutUtility.GetLastRect();
 
@@ -238,11 +238,13 @@ namespace QFramework
                             SelectedDisplayName = mSelectedViewRender.DisplayName;
                             Event.current.Use();
                         }
+                        GUILayout.EndHorizontal();
                     }
                 }
                 else
                 {
                     packageKitViewRenderInfo.Key.Item2 = false;
+                    GUILayout.EndVertical();
                 }
             }
         }

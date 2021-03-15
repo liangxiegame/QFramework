@@ -193,8 +193,8 @@ namespace QFramework
 
             // var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
             var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
-                 "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
-                //"Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownSkinQS.guiskin");
+                 // "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
+                "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownSkinQS.guiskin");
 
 
             mMarkdownViewer = new MarkdownViewer(skin, string.Empty, "");
