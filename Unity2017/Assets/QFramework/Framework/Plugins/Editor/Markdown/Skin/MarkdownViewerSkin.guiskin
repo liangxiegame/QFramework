@@ -3,9 +3,8 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 1
@@ -753,9 +752,9 @@ MonoBehaviour:
   m_horizontalScrollbar:
     m_Name: horizontalscrollbar
     m_Normal:
-      m_Background: {fileID: 11008, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
     m_Hover:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
@@ -1021,13 +1020,13 @@ MonoBehaviour:
   m_verticalScrollbar:
     m_Name: verticalscrollbar
     m_Normal:
-      m_Background: {fileID: 11020, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0.5808823, g: 0.5808823, b: 0.5808823, a: 0.341}
     m_Hover:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0.8602941, g: 0.8602941, b: 0.8602941, a: 0.316}
     m_Active:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
@@ -1088,7 +1087,7 @@ MonoBehaviour:
   m_verticalScrollbarThumb:
     m_Name: verticalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11019, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:

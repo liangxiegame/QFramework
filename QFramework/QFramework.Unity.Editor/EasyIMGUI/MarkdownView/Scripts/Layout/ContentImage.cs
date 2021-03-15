@@ -26,11 +26,11 @@ namespace MG.MDV
 
             var size = context.CalcSize(Payload);
 
-            var offset = 230;
+            var offset = 0;
             if ((leftWidth -  offset) < size.x)
             {
                 var aspect =  size.y / size.x;
-                Location.size = new Vector2(leftWidth -  offset, leftWidth -  offset * aspect);
+                Location.size = new Vector2(leftWidth -  offset, (leftWidth -  offset) * aspect);
             }
             else
             {

@@ -256,7 +256,7 @@ namespace QFramework
                         {
                             mMarkdownViewer.UpdateText(mSelectedPackageRepository.description);
                             var lastRect = GUILayoutUtility.GetLastRect();
-                            mMarkdownViewer.DrawWithRect(new Rect(lastRect.x,lastRect.y + lastRect.height,mRightRect.width,mRightRect.height - lastRect.y - lastRect.height));
+                            mMarkdownViewer.DrawWithRect(new Rect(lastRect.x,lastRect.y + lastRect.height,mRightRect.width - 210,mRightRect.height - lastRect.y - lastRect.height));
                             // mMarkdownViewer.Draw();
                         }))
                     )
