@@ -45,6 +45,7 @@ namespace QFramework
         public void Open()
         {
             Openning = true;
+            EditorApplication.update += OnUpdate;
             Show();
         }
 
@@ -89,6 +90,7 @@ namespace QFramework
 
         private void OnDestroy()
         {
+            EditorApplication.update -= OnUpdate;
             OnClose();
         }
 
@@ -103,9 +105,7 @@ namespace QFramework
                 Init();
                 mInited = true;
             }
-
-            OnUpdate();
-
+            
             if (Visible)
             {
                 mChildren.ForEach(childView => childView.DrawGUI());

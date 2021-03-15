@@ -40,7 +40,7 @@ namespace MG.MDV
             return null;
         }
 
-        public override void Arrange( Context context, Vector2 pos, float maxWidth )
+        public override void Arrange(Context context, Vector2 pos, float maxWidth, float leftWidth)
         {
             Rect.position = new Vector2( pos.x + Indent, pos.y );
             Rect.width = maxWidth - Indent - context.IndentSize;
@@ -60,7 +60,7 @@ namespace MG.MDV
 
             foreach( var block in mBlocks )
             {
-                block.Arrange( context, pos, maxWidth );
+                block.Arrange( context, pos, maxWidth,leftWidth );
                 pos.y += block.Rect.height;
             }
 

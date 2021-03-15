@@ -10,7 +10,7 @@ namespace MG.MDV
         public Block    Parent  = null;
         public float    Indent  = 0.0f;
 
-        public abstract void Arrange( Context context, Vector2 anchor, float maxWidth );
+        public abstract void Arrange( Context context, Vector2 anchor, float maxWidth, float leftWidth);
         public abstract void Draw( Context context );
 
         public Block( float indent )

@@ -54,6 +54,8 @@ namespace QFramework
 
         DisposableList mDisposableList = new DisposableList();
 
+        private MarkdownViewer mMarkdownViewer;
+        
         private PackageKitWindow mPackageKitWindow;
 
         private IMGUILayout mLeftLayout = null;
@@ -189,11 +191,13 @@ namespace QFramework
                     )
                 );
 
+            // var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
             var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
-                "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
+                 "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
+                //"Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownSkinQS.guiskin");
 
 
-            var markdownViewer = new MarkdownViewer(skin, string.Empty, "");
+            mMarkdownViewer = new MarkdownViewer(skin, string.Empty, "");
             // 右侧
             mRightLayout = EasyIMGUI.Vertical()
                 .AddChild(EasyIMGUI.Area().WithRectGetter(() => mRightRect)
@@ -250,8 +254,10 @@ namespace QFramework
                         // 描述内容
                         .AddChild(EasyIMGUI.Custom().OnGUI(() =>
                         {
-                            markdownViewer.UpdateText(mSelectedPackageRepository.description);
-                            markdownViewer.Draw();
+                            mMarkdownViewer.UpdateText(mSelectedPackageRepository.description);
+                            var lastRect = GUILayoutUtility.GetLastRect();
+                            mMarkdownViewer.DrawWithRect(new Rect(lastRect.x,lastRect.y + lastRect.height,mRightRect.width,mRightRect.height - lastRect.y - lastRect.height));
+                            // mMarkdownViewer.Draw();
                         }))
                     )
                 );
@@ -327,6 +333,10 @@ namespace QFramework
 
         public void OnUpdate()
         {
+            if (mMarkdownViewer != null &&  mMarkdownViewer.Update())
+            {
+               mPackageKitWindow.Repaint();
+            }
         }
 
         public void OnGUI()
@@ -351,6 +361,8 @@ namespace QFramework
 
             mRightLayout.Dispose();
             mRightLayout = null;
+            
+            mMarkdownViewer = null;
         }
 
         public void OnShow()

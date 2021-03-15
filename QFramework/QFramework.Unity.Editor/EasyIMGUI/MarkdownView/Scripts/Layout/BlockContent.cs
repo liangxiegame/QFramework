@@ -22,7 +22,7 @@ namespace MG.MDV
             mPrefix = content;
         }
 
-        public override void Arrange( Context context, Vector2 pos, float maxWidth )
+        public override void Arrange( Context context, Vector2 pos, float maxWidth,float leftWidth )
         {
             var origin = pos;
 
@@ -48,7 +48,7 @@ namespace MG.MDV
                 return;
             }
 
-            mContent.ForEach( c => c.Update( context ) );
+            mContent.ForEach( c => c.Update( context,leftWidth ) );
 
             var rowWidth   = mContent[0].Width;
             var rowHeight  = mContent[0].Height;

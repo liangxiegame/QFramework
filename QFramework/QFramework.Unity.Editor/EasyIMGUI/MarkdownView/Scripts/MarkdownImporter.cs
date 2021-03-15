@@ -1,11 +1,12 @@
 ﻿#if UNITY_2018_1_OR_NEWER
 
 using UnityEngine;
-using UnityEditor.Experimental.AssetImporters;
-using System.IO;
-#if UNITY_2020_1_OR_NEWER
+#if UNITY_2020_2_OR_NEWER
 using UnityEditor.AssetImporters;
+#else
+using UnityEditor.Experimental.AssetImporters;
 #endif
+using System.IO;
 
 namespace MG.MDV
 {

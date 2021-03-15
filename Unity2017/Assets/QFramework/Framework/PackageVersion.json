@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.67",
+    "Version": "v0.11.69",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.67",
-        "content": "优化 PackageKit 面板",
+        "version": "v0.11.69",
+        "content": "PackageKit 图片的大小做了调整",
         "author": "liangxie",
-        "date": "2021 年 03 月 15 日 19:02",
+        "date": "2021 年 03 月 15 日 22:51",
         "PackageId": ""
     }
 }

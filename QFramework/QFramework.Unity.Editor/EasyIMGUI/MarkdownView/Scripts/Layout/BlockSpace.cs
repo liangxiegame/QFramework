@@ -14,7 +14,7 @@ namespace MG.MDV
         {
         }
 
-        public override void Arrange( Context context, Vector2 pos, float maxWidth )
+        public override void Arrange( Context context, Vector2 pos, float maxWidth,float leftWidth )
         {
             Rect.position = pos;
             Rect.width = 1.0f;

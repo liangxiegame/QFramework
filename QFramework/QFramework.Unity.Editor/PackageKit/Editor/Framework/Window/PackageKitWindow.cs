@@ -263,6 +263,10 @@ namespace QFramework
 
         public override void OnUpdate()
         {
+            if (mSelectedViewRender != null)
+            {
+                mSelectedViewRender.Interface.OnUpdate();
+            }
         }
     }
 }

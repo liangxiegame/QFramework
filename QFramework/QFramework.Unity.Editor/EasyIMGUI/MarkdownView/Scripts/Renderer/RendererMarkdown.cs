@@ -3,7 +3,6 @@
 using Markdig.Renderers;
 using Markdig.Syntax;
 using Markdig.Syntax.Inlines;
-using QFramework;
 
 namespace MG.MDV
 {
@@ -14,7 +13,7 @@ namespace MG.MDV
     public class RendererMarkdown : RendererBase
     {
         internal LayoutBuilder  Layout;
-        internal MarkdownStyle          Style   = new MarkdownStyle();
+        internal Style          Style   = new Style();
         internal string         ToolTip = null;
         internal string         Link
         {

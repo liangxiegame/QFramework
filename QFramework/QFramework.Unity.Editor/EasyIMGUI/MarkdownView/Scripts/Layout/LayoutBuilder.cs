@@ -1,7 +1,6 @@
 ﻿////////////////////////////////////////////////////////////////////////////////
 
 using System.Text;
-using QFramework;
 using UnityEngine;
 
 namespace MG.MDV
@@ -11,7 +10,7 @@ namespace MG.MDV
         ////////////////////////////////////////////////////////////////////////////////
         // IMarkdownInterface
 
-        public void Text( string text, MarkdownStyle style, string link, string tooltip )
+        public void Text( string text, Style style, string link, string tooltip )
         {
             if( mCurrentContent == null )
             {
@@ -135,7 +134,7 @@ namespace MG.MDV
             }
         }
 
-        public void Prefix( string text, MarkdownStyle style )
+        public void Prefix( string text, Style style )
         {
             mContext.Apply( style );
 
@@ -177,7 +176,7 @@ namespace MG.MDV
 
         Context         mContext;
 
-        MarkdownStyle           mStyle;
+        Style           mStyle;
         string          mLink;
         string          mTooltip;
         StringBuilder   mWord;
@@ -209,7 +208,7 @@ namespace MG.MDV
         {
             mContext          = context;
 
-            mStyle            = new MarkdownStyle();
+            mStyle            = new Style();
             mLink             = null;
             mTooltip          = null;
             mWord             = new StringBuilder( 1024 );

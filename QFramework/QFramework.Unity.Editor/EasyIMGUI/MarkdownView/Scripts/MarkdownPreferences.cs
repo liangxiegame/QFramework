@@ -8,15 +8,18 @@ namespace MG.MDV
 {
     public static class Preferences
     {
-        private static readonly string KeyJIRA = "MG/MDV/JIRA";
-        private static readonly string KeyHTML = "MG/MDV/HTML";
+        private static readonly string KeyJIRA     = "MG/MDV/JIRA";
+        private static readonly string KeyHTML     = "MG/MDV/HTML";
+        private static readonly string KeyDarkSkin = "MG/MDV/DarkSkin";
 
         private static string mJIRA        = string.Empty;
         private static bool   mStripHTML   = true;
         private static bool   mPrefsLoaded = false;
+        private static bool   mDarkSkin    = EditorGUIUtility.isProSkin ;
 
-        public static string JIRA      { get { LoadPrefs(); return mJIRA; } }
-        public static bool   StripHTML { get { LoadPrefs(); return mStripHTML; } }
+        public static string JIRA       { get { LoadPrefs(); return mJIRA; } }
+        public static bool   StripHTML  { get { LoadPrefs(); return mStripHTML; } }
+        public static bool   DarkSkin   { get { LoadPrefs(); return mDarkSkin; } }
 
         private static void LoadPrefs()
         {
@@ -24,6 +27,7 @@ namespace MG.MDV
             {
                 mJIRA        = EditorPrefs.GetString( KeyJIRA, "" );
                 mStripHTML   = EditorPrefs.GetBool( KeyHTML, true );
+                mDarkSkin    = EditorPrefs.GetBool( KeyDarkSkin, EditorGUIUtility.isProSkin );
                 mPrefsLoaded = true;
             }
         }
@@ -59,6 +63,7 @@ namespace MG.MDV
 
             mJIRA      = EditorGUILayout.TextField( "JIRA URL", mJIRA );
             mStripHTML = EditorGUILayout.Toggle( "Strip HTML", mStripHTML );
+            mDarkSkin  = EditorGUILayout.Toggle( "Dark Skin", mDarkSkin );
 
             EditorGUI.EndChangeCheck();
 

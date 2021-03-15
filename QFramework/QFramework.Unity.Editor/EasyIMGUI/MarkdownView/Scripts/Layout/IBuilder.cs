@@ -1,12 +1,10 @@
 ﻿////////////////////////////////////////////////////////////////////////////////
 
-using QFramework;
-
 namespace MG.MDV
 {
     public interface IBuilder
     {
-        void Text( string text, MarkdownStyle style, string link, string tooltip );
+        void Text( string text, Style style, string link, string tooltip );
         void Image( string url, string alt, string tooltip );
 
         void NewLine();
@@ -15,7 +13,7 @@ namespace MG.MDV
 
         void Indent();
         void Outdent();
-        void Prefix( string text, MarkdownStyle style );
+        void Prefix( string text, Style style );
 
         void StartBlock( bool quote );
         void EndBlock();

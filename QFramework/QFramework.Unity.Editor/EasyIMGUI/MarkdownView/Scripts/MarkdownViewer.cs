@@ -7,6 +7,8 @@ namespace MG.MDV
 {
     public class MarkdownViewer
     {
+        public static readonly Vector2 Margin = new Vector2( 6.0f, 4.0f );
+
         private GUISkin         mSkin            = null;
         private string          mText            = string.Empty;
         private string          mCurrentPath     = string.Empty;
@@ -27,7 +29,7 @@ namespace MG.MDV
                 mText = value;
                 UpdateDocument(mText);
             }
-                
+            
         }
         
         public MarkdownViewer( GUISkin skin, string path, string content )
@@ -167,61 +169,13 @@ namespace MG.MDV
                 }
                 else
                 {
-                    DrawMarkdown( rectContent );
+                    DrawMarkdown( rectContent,rectContainer.width );
                 }
             }
 
             DrawToolbar( rectContainer, hasScrollbar ? scrollWidth + padRight : padRight );
         }
 
-        public void DrawWithoutSkin()
-        {
-            // GUI.skin    = mSkin;
-            GUI.enabled = true;
-
-            // content rect
-
-            var rectContainer = GetEditorRect();
-
-
-            // clear background
-
-            var rectFullScreen = new Rect( 0.0f, rectContainer.yMin - 4.0f, Screen.width, Screen.height );
-            GUI.DrawTexture( rectFullScreen, EditorGUIUtility.whiteTexture, ScaleMode.StretchToFill, false );
-
-            // scroll window
-
-            var padLeft     = 8.0f;
-            var padRight    = 4.0f;
-            var padHoriz    = padLeft + padRight;
-            var scrollWidth = GUI.skin.verticalScrollbar.fixedWidth;
-            var minWidth    = rectContainer.width - scrollWidth - padHoriz;
-            var maxHeight   = ContentHeight( minWidth );
-
-            var hasScrollbar =  maxHeight >= rectContainer.height;
-            var contentWidth = hasScrollbar ? minWidth : rectContainer.width - padHoriz;
-            var rectContent  = new Rect( -padLeft, 0.0f, contentWidth, maxHeight );
-
-            // draw content
-
-            using( var scroll = new GUI.ScrollViewScope( rectContainer, mScrollPos, rectContent ) )
-            {
-                mScrollPos = scroll.scrollPosition;
-
-                if( mRaw )
-                {
-                    rectContent.width = minWidth - GUI.skin.button.fixedWidth;
-                    DrawRaw( rectContent );
-                }
-                else
-                {
-                    DrawMarkdown( rectContent );
-                }
-            }
-
-            DrawToolbar( rectContainer, hasScrollbar ? scrollWidth + padRight : padRight );
-        }
-        
         //------------------------------------------------------------------------------
 
         float ContentHeight( float width )
@@ -275,7 +229,7 @@ namespace MG.MDV
 
         //------------------------------------------------------------------------------
 
-        void DrawMarkdown( Rect rect )
+        void DrawMarkdown(Rect rect, float leftWidth)
         {
             switch( Event.current.type )
             {
@@ -290,13 +244,61 @@ namespace MG.MDV
                     break;
 
                 case EventType.Layout:
-                    mLayout.Arrange( rect.width );
+                    mLayout.Arrange( rect.width,leftWidth );
                     break;
 
                 default:
                     mLayout.Draw();
                     break;
             }
+        }
+
+        public void DrawWithRect(Rect rect)
+        {
+            GUI.skin    = mSkin;
+            GUI.enabled = true;
+
+            // content rect
+
+            var rectContainer = rect;
+
+
+            // clear background
+
+            var rectFullScreen = new Rect( 0.0f, rectContainer.yMin - 4.0f, Screen.width, Screen.height );
+            GUI.DrawTexture( rectFullScreen, EditorGUIUtility.whiteTexture, ScaleMode.StretchToFill, false );
+
+            // scroll window
+
+            var padLeft     = 8.0f;
+            var padRight    = 4.0f;
+            var padHoriz    = padLeft + padRight;
+            var scrollWidth = GUI.skin.verticalScrollbar.fixedWidth;
+            var minWidth    = rectContainer.width - scrollWidth - padHoriz;
+            var maxHeight   = ContentHeight( minWidth );
+
+            var hasScrollbar =  maxHeight >= rectContainer.height;
+            var contentWidth = hasScrollbar ? minWidth : rectContainer.width - padHoriz;
+            var rectContent  = new Rect( -padLeft, 0.0f, contentWidth, maxHeight );
+
+            // draw content
+
+            using( var scroll = new GUI.ScrollViewScope( rectContainer, mScrollPos, rectContent ) )
+            {
+                mScrollPos = scroll.scrollPosition;
+
+                if( mRaw )
+                {
+                    rectContent.width = minWidth - GUI.skin.button.fixedWidth;
+                    DrawRaw( rectContent );
+                }
+                else
+                {
+                    DrawMarkdown( rectContent,rectContainer.width );
+                }
+            }
+
+           // DrawToolbar( rectContainer, hasScrollbar ? scrollWidth + padRight : padRight );
         }
     }
 }
