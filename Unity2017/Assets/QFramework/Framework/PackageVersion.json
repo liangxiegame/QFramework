@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.72",
+    "Version": "v0.11.73",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.72",
-        "content": "调整 PackageKit 侧边栏的缩进",
+        "version": "v0.11.73",
+        "content": "分类功能完成",
         "author": "liangxie",
-        "date": "2021 年 03 月 15 日 23:29",
+        "date": "2021 年 03 月 16 日 13:40",
         "PackageId": ""
     }
 }

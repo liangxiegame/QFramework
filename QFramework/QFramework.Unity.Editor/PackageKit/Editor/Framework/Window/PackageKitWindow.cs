@@ -74,7 +74,7 @@ namespace QFramework
             }
         }
 
-        private const string URL_FEEDBACK = "http://feathub.com/liangxiegame/QFramework";
+        private const string URL_FEEDBACK = "https://qframework.cn/community";
 
         [MenuItem(FrameworkMenuItems.Feedback, false, FrameworkMenuItemsPriorities.Feedback)]
         private static void Feedback()

@@ -38,7 +38,7 @@ namespace QFramework
             var categories = model.Repositories.Select(p => p.type).Distinct()
                 .Select(t => packageTypeConfigModel.GetFullTypeName(t))
                 .ToList();
-            categories.Insert(0, "all");
+            categories.Insert(0, "All");
             PackageManagerState.Categories.Value = categories;
         }
     }

@@ -22,7 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  ****************************************************************************/
- 
+
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -146,9 +146,10 @@ namespace QFramework
 
                 mBindScript.ComponentName = componentNames[componentNameIndex];
 
-                new PopupView(componentNameIndex, componentNames)
-                    .Parent(mComponentLine)
-                    .IndexProperty.Bind((index) => { mBindScript.ComponentName = componentNames[index]; });
+                PopupView.Create()
+                    .WithIndexAndMenus(componentNameIndex, componentNames)
+                    .OnIndexChanged(index => { mBindScript.ComponentName = componentNames[index]; })
+                    .Parent(mComponentLine);
             }
 
             mComponentLine.Parent(mRootLayout);

@@ -24,45 +24,74 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 namespace QFramework
 {
-    public interface IGenericMenu
+    public interface IPopup : IMGUIView
     {
-        
+        IPopup WithIndexAndMenus(int index, params string[] menus);
+
+        IPopup OnIndexChanged(Action<int> indexChanged);
+
+        IPopup ToolbarStyle();
+
+        Property<int> IndexProperty { get; }
+        IPopup Menus(List<string> value);
     }
-    
-    public class GenericMenuView : IGenericMenu
+
+    public class PopupView : View, IPopup
     {
-        protected GenericMenuView()
+        protected PopupView()
         {
-            
+            mStyleProperty = new GUIStyleProperty(() => EditorStyles.popup);
         }
 
-        public static GenericMenuView Create()
+        public static IPopup Create()
         {
-            return new GenericMenuView();
+            return new PopupView();
         }
-        
-        private GenericMenu mMenu = new GenericMenu();
-        
-        public GenericMenuView Separator()
+
+        private Property<int> mIndexProperty = new Property<int>(0);
+
+        public Property<int> IndexProperty
         {
-            mMenu.AddSeparator(string.Empty);
+            get { return mIndexProperty; }
+        }
+
+        public IPopup Menus(List<string> menus)
+        {
+            mMenus = menus.ToArray();
             return this;
         }
 
-        public GenericMenuView AddMenu(string menuPath, GenericMenu.MenuFunction click)
+        private string[] mMenus = { };
+
+        protected override void OnGUI()
         {
-            mMenu.AddItem(new GUIContent(menuPath), false, click);
+            IndexProperty.Value =
+                EditorGUILayout.Popup(IndexProperty.Value, mMenus, mStyleProperty.Value, LayoutStyles);
+        }
+
+        public IPopup WithIndexAndMenus(int index, params string[] menus)
+        {
+            IndexProperty.Value = index;
+            mMenus = menus;
             return this;
         }
 
-        public void Show()
+        public IPopup OnIndexChanged(Action<int> indexChanged)
         {
-            mMenu.ShowAsContext();
+            IndexProperty.Bind(indexChanged);
+            return this;
+        }
+
+        public IPopup ToolbarStyle()
+        {
+            mStyleProperty = new GUIStyleProperty(() => EditorStyles.toolbarPopup);
+            return this;
         }
     }
 }

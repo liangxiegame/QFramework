@@ -40,22 +40,13 @@ namespace QFramework
     {
         public IQFrameworkContainer Container { get; set; }
 
-        private IToolbar mCategoriesSelectorView = null;
+        private IPopup mCategoriesSelectorView = null;
 
-        public List<string> Categories
-        {
-            get { return null; }
-            set
-            {
-                mCategoriesSelectorView.Menus(value);
-                Container.Resolve<PackageKitWindow>().Repaint();
-            }
-        }
 
         DisposableList mDisposableList = new DisposableList();
 
         private MarkdownViewer mMarkdownViewer;
-        
+
         private PackageKitWindow mPackageKitWindow;
 
         private IMGUILayout mLeftLayout = null;
@@ -90,6 +81,35 @@ namespace QFramework
                                     .AddToDisposeList(mDisposableList);
                             })
                         )
+                    )
+
+                    // 权限
+                    .AddChild(EasyIMGUI.Toolbar()
+                        .Menus(new List<string>()
+                            {"All", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
+                        .Self(self =>
+                        {
+                            self.IndexProperty.Bind(value =>
+                            {
+                                PackageManagerState.AccessRightIndex.Value = value;
+                                this.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                            }).AddToDisposeList(mDisposableList);
+                        }))
+                    // 分类
+                    .AddChild(
+                        EasyIMGUI.Horizontal()
+                            .AddChild(PopupView.Create()
+                                .ToolbarStyle()
+                                .Self(self =>
+                                {
+                                    self.IndexProperty.Bind(value =>
+                                    {
+                                        PackageManagerState.CategoryIndex.Value = value;
+                                        this.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
+                                    }).AddToDisposeList(mDisposableList);
+
+                                    mCategoriesSelectorView = self;
+                                }))
                     )
                     .AddChild(EasyIMGUI.Scroll()
                         .AddChild(EasyIMGUI.Custom().OnGUI(() =>
@@ -193,7 +213,7 @@ namespace QFramework
 
             // var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
             var skin = AssetDatabase.LoadAssetAtPath<GUISkin>(
-                 // "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
+                // "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownViewerSkin.guiskin");
                 "Assets/QFramework/Framework/Plugins/Editor/Markdown/Skin/MarkdownSkinQS.guiskin");
 
 
@@ -256,7 +276,8 @@ namespace QFramework
                         {
                             mMarkdownViewer.UpdateText(mSelectedPackageRepository.description);
                             var lastRect = GUILayoutUtility.GetLastRect();
-                            mMarkdownViewer.DrawWithRect(new Rect(lastRect.x,lastRect.y + lastRect.height,mRightRect.width - 210,mRightRect.height - lastRect.y - lastRect.height));
+                            mMarkdownViewer.DrawWithRect(new Rect(lastRect.x, lastRect.y + lastRect.height,
+                                mRightRect.width - 210, mRightRect.height - lastRect.y - lastRect.height));
                             // mMarkdownViewer.Draw();
                         }))
                     )
@@ -267,44 +288,12 @@ namespace QFramework
             this.SendCommand<PackageManagerInitCommand>();
 
 
-            //  EasyIMGUI.Label().Text(LocaleText.FrameworkPackages).FontSize(12).Parent(mRootLayout);
-            //  var verticalLayout = new VerticalLayout("box").Parent(mRootLayout);
+            PackageManagerState.Categories.Bind(value =>
+            {
+                mCategoriesSelectorView.Menus(value);
+                Container.Resolve<PackageKitWindow>().Repaint();
+            }).AddToDisposeList(mDisposableList);
 
-            // EasyIMGUI.Toolbar()
-            //     .Menus(new List<string>()
-            //         {"all", PackageAccessRight.Public.ToString(), PackageAccessRight.Private.ToString()})
-            //     .Parent(verticalLayout)
-            //     .Self(self =>
-            //     {
-            //         self.IndexProperty.Bind(value =>
-            //         {
-            //             PackageManagerState.AccessRightIndex.Value = value;
-            //             mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
-            //         }).AddToDisposeList(mDisposableList);
-            //     });
-            //
-            // mCategoriesSelectorView = EasyIMGUI.Toolbar()
-            //     .Parent(verticalLayout)
-            //     .Self(self =>
-            //     {
-            //         self.IndexProperty.Bind(value =>
-            //         {
-            //             PackageManagerState.CategoryIndex.Value = value;
-            //             mControllerNode.SendCommand(new SearchCommand(PackageManagerState.SearchKey.Value));
-            //         }).AddToDisposeList(mDisposableList);
-            //     });
-
-            // var packageList = new VerticalLayout("box")
-            //    .Parent(verticalLayout);
-
-            //mRepositoryList = EasyIMGUI.Scroll()
-            //    .Height(mPackageKitWindow.position.height - 100)
-            //    .Parent(packageList);
-
-            // PackageManagerState.Categories.Bind(value => { Categories = value; }).AddTo(mDisposableList);
-            //
-            //PackageManagerState.PackageRepositories
-            //  .Bind(OnRefreshList).AddToDisposeList(mDisposableList);
 
             // 创建双屏
             mSplitView = mSplitView = new VerticalSplitView
@@ -333,9 +322,9 @@ namespace QFramework
 
         public void OnUpdate()
         {
-            if (mMarkdownViewer != null &&  mMarkdownViewer.Update())
+            if (mMarkdownViewer != null && mMarkdownViewer.Update())
             {
-               mPackageKitWindow.Repaint();
+                mPackageKitWindow.Repaint();
             }
         }
 
@@ -361,7 +350,7 @@ namespace QFramework
 
             mRightLayout.Dispose();
             mRightLayout = null;
-            
+
             mMarkdownViewer = null;
         }
 
@@ -386,11 +375,6 @@ namespace QFramework
                 get { return Language.IsChinese ? "版本检测" : "Version Check"; }
             }
 
-            public static string Action
-            {
-                get { return "..."; }
-            }
-
             public static string Import
             {
                 get { return Language.IsChinese ? "导入" : "Import"; }
@@ -404,21 +388,6 @@ namespace QFramework
             public static string Reimport
             {
                 get { return Language.IsChinese ? "再次导入" : "Reimport"; }
-            }
-
-            public static string Uninstall
-            {
-                get { return Language.IsChinese ? "未安装" : "Uninstall"; }
-            }
-
-            public static string Installed
-            {
-                get { return Language.IsChinese ? "已安装" : "Installed"; }
-            }
-
-            public static string HasNewVersion
-            {
-                get { return Language.IsChinese ? "有新版本" : "HasNewVersion"; }
             }
         }
 

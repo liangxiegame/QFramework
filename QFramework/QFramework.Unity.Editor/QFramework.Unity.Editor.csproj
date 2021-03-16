@@ -126,6 +126,7 @@
         <Compile Include="EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineLiteral.cs" />
         <Compile Include="EasyIMGUI\MarkdownView\Scripts\Renderer\RendererMarkdown.cs" />
         <Compile Include="EasyIMGUI\View\GenericMenuView.cs" />
+        <Compile Include="EasyIMGUI\View\PopupView.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementItemView.cs" />
         <Compile Include="PackageKit\Editor\Advertise\AdvertisementView.cs" />
         <Compile Include="PackageKit\Editor\Framework\Attributes\PackageKitGroupAttribute.cs" />

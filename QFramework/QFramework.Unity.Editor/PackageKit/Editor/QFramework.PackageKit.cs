@@ -261,33 +261,33 @@ namespace QFramework
                 EasyIMGUI
                     .Custom()
                     .OnGUI(() =>
-                {
-                    GUILayout.BeginHorizontal(EditorStyles.helpBox);
-                    GUILayout.BeginVertical();
-                    GUILayout.BeginHorizontal();
-
-                    GUILayout.Label("version: " + item.version, GUILayout.Width(130));
-                    GUILayout.Label("author: " + item.author);
-                    GUILayout.Label("date: " + item.date);
-
-                    if (item.author == User.Username.Value || User.Username.Value == "liangxie")
                     {
-                        if (GUILayout.Button("删除"))
+                        GUILayout.BeginHorizontal(EditorStyles.helpBox);
+                        GUILayout.BeginVertical();
+                        GUILayout.BeginHorizontal();
+
+                        GUILayout.Label("version: " + item.version, GUILayout.Width(130));
+                        GUILayout.Label("author: " + item.author);
+                        GUILayout.Label("date: " + item.date);
+
+                        if (item.author == User.Username.Value || User.Username.Value == "liangxie")
                         {
+                            if (GUILayout.Button("删除"))
+                            {
 //                            RenderEndCommandExecuter.PushCommand(() =>
 //                            {
-                            new PackageManagerServer().DeletePackage(item.PackageId,
-                                () => { mReadme.items.Remove(item); });
+                                new PackageManagerServer().DeletePackage(item.PackageId,
+                                    () => { mReadme.items.Remove(item); });
 //                            });
+                            }
                         }
-                    }
 
-                    GUILayout.EndHorizontal();
-                    GUILayout.Label(item.content);
-                    GUILayout.EndVertical();
+                        GUILayout.EndHorizontal();
+                        GUILayout.Label(item.content);
+                        GUILayout.EndVertical();
 
-                    GUILayout.EndHorizontal();
-                }).DrawGUI();
+                        GUILayout.EndHorizontal();
+                    }).DrawGUI();
             });
 
             GUILayout.EndScrollView();
@@ -417,7 +417,7 @@ namespace QFramework
     {
         public string Id { get; set; }
         public bool Visible { get; set; }
-        
+
         public Func<bool> VisibleCondition { get; set; }
 
         void IMGUIView.DrawGUI()
@@ -586,8 +586,6 @@ namespace QFramework
         }
     }
 
-
-   
 
     public static class WindowExtension
     {
@@ -886,28 +884,6 @@ namespace QFramework
         {
             Enum enumType = ValueProperty.Value;
             ValueProperty.Value = EditorGUILayout.EnumPopup(enumType, Style.Value, LayoutStyles);
-        }
-    }
-
-
-    public class PopupView : View
-    {
-        public Property<int> IndexProperty { get; private set; }
-
-        public string[] MenuArray { get; private set; }
-
-        public PopupView(int initValue, string[] menuArray)
-        {
-            MenuArray = menuArray;
-            IndexProperty = new Property<int>(initValue);
-            IndexProperty.Value = initValue;
-
-            // Style = new GUIStyle(EditorStyles.popup);
-        }
-
-        protected override void OnGUI()
-        {
-            IndexProperty.Value = EditorGUILayout.Popup(IndexProperty.Value, MenuArray, LayoutStyles);
         }
     }
 
