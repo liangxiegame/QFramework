@@ -95,7 +95,7 @@ namespace QFramework
 
         public IRes Create(ResSearchKeys resSearchKeys)
         {
-            return NetImageRes.Allocate(resSearchKeys.AssetName);
+            return LocalImageRes.Allocate(resSearchKeys.AssetName);
         }
     }
 }
