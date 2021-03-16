@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.74",
+    "Version": "v0.11.75",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.74",
-        "content": "增加 Roadmap & 修复 LocalImage 的一个 bug",
+        "version": "v0.11.75",
+        "content": "更新 Roadmap 增加 UnityPackageManager 支持",
         "author": "liangxie",
-        "date": "2021 年 03 月 16 日 16:01",
+        "date": "2021 年 03 月 16 日 16:12",
         "PackageId": ""
     }
 }

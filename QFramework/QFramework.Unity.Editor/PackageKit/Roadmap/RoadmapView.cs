@@ -42,6 +42,7 @@ namespace QFramework
             EasyIMGUI.Vertical().Box()
                 .AddChild(EasyIMGUI.Label().Text("将来也许").FontBold())
                 .AddChild(EasyIMGUI.Label().Text("* sLua、toLua、xLua、ILRuntime 支持"))
+                .AddChild(EasyIMGUI.Label().Text("* UnityPackageManager 支持"))
                 .AddChild(EasyIMGUI.Label().Text("v0.12.x").FontBold())
                 .AddChild(EasyIMGUI.Label().Text("* 插件平台的插件整理"))
                 .AddChild(EasyIMGUI.Label().Text("* Example 示例整理"))
