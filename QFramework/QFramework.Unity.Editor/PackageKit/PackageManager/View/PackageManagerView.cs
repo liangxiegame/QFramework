@@ -249,6 +249,10 @@ namespace QFramework
                         .AddChild(EasyIMGUI.Label()
                             .TextGetter(() => "作者:" + mSelectedPackageRepository.author)
                             .FontSize(15))
+                        // 权限
+                        .AddChild(EasyIMGUI.Label()
+                            .TextGetter(() => "权限:" + mSelectedPackageRepository.accessRight)
+                            .FontSize(15))
                         // 主页
                         .AddChild(
                             EasyIMGUI.Horizontal()
