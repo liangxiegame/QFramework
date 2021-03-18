@@ -84,13 +84,7 @@ namespace QFramework
 
             // RenderEndCommandExecuter.ExecuteCommand();
         }
-
-        private static void BuildWithTarget(BuildTarget buildTarget)
-        {
-            AssetDatabase.RemoveUnusedAssetBundleNames();
-            AssetDatabase.Refresh();
-            BuildScript.BuildAssetBundles(buildTarget);
-        }
+        
 
         [DisplayName("ResKit 设置/编辑器")]
         [PackageKitGroup("QFramework")]
@@ -205,7 +199,7 @@ namespace QFramework
                                 window.Close();
                             }
 
-                            BuildWithTarget(EditorUserBuildSettings.activeBuildTarget);
+                            ResKitEditorAPI.BuildAssetBundles();
                         });
                     }).Parent(verticalLayout);
 

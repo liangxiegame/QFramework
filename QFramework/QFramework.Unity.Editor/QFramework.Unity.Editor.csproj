@@ -192,6 +192,7 @@
         <Compile Include="ResKit\AssetBundleExporter.cs" />
         <Compile Include="ResKit\BuildScript.cs" />
         <Compile Include="ResKit\ResKitAssetsMenu.cs" />
+        <Compile Include="ResKit\ResKitEditorAPI.cs" />
         <Compile Include="ResKit\ResKitEditorWindow.cs" />
         <Compile Include="ResKit\ResKitInfoGenerator.cs" />
         <Compile Include="UIKit\UIKitSetttingData.cs" />
