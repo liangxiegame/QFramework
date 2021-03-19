@@ -34,14 +34,6 @@ namespace QFramework
 
     public class ResKitEditorWindow : EditorWindow
     {
-        public static void ForceClear()
-        {
-            ResKitAssetsMenu.AssetBundlesOutputPath.DeleteDirIfExists();
-            (Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
-
-            AssetDatabase.Refresh();
-        }
-
         [MenuItem("QFramework/Res Kit %#r")]
         public static void ExecuteAssetBundle()
         {
@@ -84,7 +76,7 @@ namespace QFramework
 
             // RenderEndCommandExecuter.ExecuteCommand();
         }
-        
+
 
         [DisplayName("ResKit 设置/编辑器")]
         [PackageKitGroup("QFramework")]
@@ -166,9 +158,9 @@ namespace QFramework
 
                 EasyIMGUI.Toggle()
                     .Text(LocaleText.SimulationMode)
-                    .IsOn(FromUnityToDll.Setting.SimulationMode)
+                    .IsOn(ResKitEditorAPI.SimulationMode)
                     .Parent(verticalLayout)
-                    .ValueProperty.Bind(v => FromUnityToDll.Setting.SimulationMode = v);
+                    .ValueProperty.Bind(v => ResKitEditorAPI.SimulationMode = v);
 
                 var resVersionLine = new HorizontalLayout()
                     .Parent(verticalLayout);
@@ -205,7 +197,7 @@ namespace QFramework
 
                 EasyIMGUI.Button()
                     .Text(LocaleText.ForceClear)
-                    .OnClick(() => { ForceClear(); })
+                    .OnClick(() => { ResKitEditorAPI.ForceClearAssetBundles(); })
                     .Parent(verticalLayout);
 
                 verticalLayout.AddChild(EasyIMGUI.Space().Pixel(10));
@@ -284,17 +276,14 @@ namespace QFramework
 
             public new void OnShow()
             {
-                
             }
 
             public new void OnHide()
             {
-                
             }
 
             public void OnUpdate()
             {
-                
             }
         }
 

@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 using UnityEditor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -34,6 +35,20 @@ namespace QFramework
             AssetDatabase.RemoveUnusedAssetBundleNames();
             AssetDatabase.Refresh();
             BuildScript.BuildAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+        }
+
+        public static bool SimulationMode
+        {
+            get { return FromUnityToDll.Setting.SimulationMode; }
+            set { FromUnityToDll.Setting.SimulationMode = value; }
+        }
+
+        public static void ForceClearAssetBundles()
+        {
+            ResKitAssetsMenu.AssetBundlesOutputPath.DeleteDirIfExists();
+            (Application.streamingAssetsPath + "/AssetBundles").DeleteDirIfExists();
+
+            AssetDatabase.Refresh();
         }
     }
 }
