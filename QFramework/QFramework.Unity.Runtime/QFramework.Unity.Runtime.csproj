@@ -86,6 +86,10 @@
         <Compile Include="ActionKit\Framework\IActionData.cs" />
         <Compile Include="ActionKit\Framework\IActionExecutor.cs" />
         <Compile Include="ActionKit\Framework\INode.cs" />
+        <Compile Include="ActionKit\FSM\ActionKitFSM.cs" />
+        <Compile Include="ActionKit\FSM\ActionKitFSMState.cs" />
+        <Compile Include="ActionKit\FSM\ActionKitFSMTransition.cs" />
+        <Compile Include="ActionKit\FSM\ActionKitFSMTransitionTable.cs" />
         <Compile Include="ActionKit\Node\Dynamic\AsyncNode.cs" />
         <Compile Include="ActionKit\Node\Dynamic\QueueNode.cs" />
         <Compile Include="ActionKit\Node\RepeatNode.cs" />
@@ -98,7 +102,6 @@
         <Compile Include="ActionKit\Pro\Event\OnTriggerEnter2D.cs" />
         <Compile Include="ActionKit\Pro\Framework\ActionTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
-        <Compile Include="ActionKit\QFramework.ActionKit.FSM.cs" />
         <Compile Include="ActionKit\Timeline\KeyEventAction.cs" />
         <Compile Include="ActionKit\Timeline\Timeline.cs" />
         <Compile Include="AudioKit\0.Timer\BinaryHeap.cs" />

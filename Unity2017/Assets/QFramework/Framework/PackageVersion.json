@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.78",
+    "Version": "v0.11.89",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.78",
-        "content": "ResKitEditorAPI 新增 ForceClearAssetBundles 和 SimulationMode 这两个 API",
+        "version": "v0.11.89",
+        "content": "FSM HandleEvent ChangeState 增加",
         "author": "liangxie",
-        "date": "2021 年 03 月 19 日 21:54",
+        "date": "2021 年 03 月 20 日 22:39",
         "PackageId": ""
     }
 }
