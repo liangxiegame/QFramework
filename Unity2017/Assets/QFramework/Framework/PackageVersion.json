@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.89",
+    "Version": "v0.11.90",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.89",
-        "content": "FSM HandleEvent ChangeState 增加",
+        "version": "v0.11.90",
+        "content": "1. InputField 增加回车提交功能(OnEnterSubmit)\n2. GetOrAddComponent 支持 Component 对象",
         "author": "liangxie",
-        "date": "2021 年 03 月 20 日 22:39",
+        "date": "2021 年 04 月 05 日 09:09",
         "PackageId": ""
     }
 }

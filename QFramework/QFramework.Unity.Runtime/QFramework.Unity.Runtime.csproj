@@ -167,6 +167,7 @@
         <Compile Include="Core\CodeGen\ViewController.cs" />
         <Compile Include="Core\CodeGen\Writer\FileCodeWriter.cs" />
         <Compile Include="Core\CodeGen\Writer\ICodeWriter.cs" />
+        <Compile Include="Core\CSharpExtension\GameObjectExtension.cs" />
         <Compile Include="Core\CSharpExtension\MaterialExtensions.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
         <Compile Include="Core\CSharpExtension\TextureExtensions.cs" />
@@ -291,6 +292,7 @@
         <Compile Include="UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
         <Compile Include="UIKit\ActionKitSupport\UIKitSetResolution.cs" />
         <Compile Include="UIKit\Deprecated.cs" />
+        <Compile Include="UIKit\Helper\InputFieldEnterSubmitTrigger.cs" />
         <Compile Include="UIKit\PanelInfo.cs" />
         <Compile Include="UIKit\PanelSearchKeys.cs" />
         <Compile Include="UIKit\UIKit.cs" />
