@@ -199,6 +199,8 @@
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\CSharpExtensionExample\ExtensionExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\CSharpExtensionExample\GameObjectExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\CSharpExtensionExample\TransformExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\Event\TypeEventSystemExample\1.Usage\TypeEventSystemExample.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\Event\TypeEventSystemExample\2.InterfaceMode\InterfaceModeExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\IOCExample\InjectExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\IOCExample\IOCFrameworkExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\IOCExample\MainContainer.cs" />
@@ -210,7 +212,6 @@
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\2.SingletonProperty\SingletonProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\3.MonoSingletonProperty\MonoSingletonProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\4.MonoSingletonPath\MonoSingletonPath.cs" />
-    <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\TypeEventSystemExample\TypeEventSystemExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\0.BasicUsage\ResKitExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\1.LoadAssetBundleResExample\AssetBundleResExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\10.CustomResExample\CustomResExample.cs" />
@@ -221,7 +222,6 @@
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\7.LoadSceneExample\ResKitExampleMain.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\8.NetImageExample\ImageLoaderExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\8.NetImageExample\NetImageExample.cs" />
-    <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\ResourcesExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\ManagerOfManagersExample\Enemy.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\ManagerOfManagersExample\EnemyEvent.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\ManagerOfManagersExample\EnemyManager.cs" />

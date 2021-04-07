@@ -155,11 +155,11 @@ namespace QFramework
         {
             var type = typeof(T);
 
-            IRegisterations registerations = null;
+            IRegisterations registrations = null;
 
-            if (mTypeEventDict.TryGetValue(type, out registerations))
+            if (mTypeEventDict.TryGetValue(type, out registrations))
             {
-                var reg = registerations as Registerations<T>;
+                var reg = registrations as Registerations<T>;
                 reg.OnReceives(new T());
             }
         }
@@ -168,11 +168,11 @@ namespace QFramework
         {
             var type = typeof(T);
 
-            IRegisterations registerations = null;
+            IRegisterations registrations = null;
 
-            if (mTypeEventDict.TryGetValue(type, out registerations))
+            if (mTypeEventDict.TryGetValue(type, out registrations))
             {
-                var reg = registerations as Registerations<T>;
+                var reg = registrations as Registerations<T>;
                 reg.OnReceives(e);
             }
         }

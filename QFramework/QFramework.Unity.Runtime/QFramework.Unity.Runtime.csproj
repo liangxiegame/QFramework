@@ -71,7 +71,6 @@
         <Compile Include="ActionKit\Fluent\ActionChain.cs" />
         <Compile Include="ActionKit\Fluent\Helper\ActionQueue.cs" />
         <Compile Include="ActionKit\Fluent\Helper\EventInjector.cs" />
-        <Compile Include="ActionKit\Fluent\Helper\OnDestroyTrigger.cs" />
         <Compile Include="ActionKit\Fluent\IActionChain.cs" />
         <Compile Include="ActionKit\Fluent\IActionChainExtension.cs" />
         <Compile Include="ActionKit\Fluent\IActionExtensions.cs" />
@@ -175,6 +174,8 @@
         <Compile Include="Core\Disposable\DisposableList.cs" />
         <Compile Include="Core\Disposable\IDisposableList.cs" />
         <Compile Include="Core\Disposable\IDisposableExtension.cs" />
+        <Compile Include="Core\Disposable\Trigger\OnDestroyDisposeTrigger.cs" />
+        <Compile Include="Core\Disposable\Trigger\OnDisableDisposeTrigger.cs" />
         <Compile Include="Core\EasyIMGUI\EasyIMGUI.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\ViewExtension.cs" />
@@ -207,7 +208,10 @@
         <Compile Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
         <Compile Include="Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
         <Compile Include="Core\EasyIMGUI\XML\XMLView.cs" />
-        <Compile Include="Core\EnumEventSystem\EnumEventSystem.cs" />
+        <Compile Include="Core\Event\EnumEventSystem\EnumEventSystem.cs" />
+        <Compile Include="Core\Event\TypeEventSystem\IOnEvent.cs" />
+        <Compile Include="Core\Event\TypeEventSystem\ITypeEventSystem.cs" />
+        <Compile Include="Core\Event\TypeEventSystem\TypeEventSystem.cs" />
         <Compile Include="Core\Factory\CustomObjectFactory.cs" />
         <Compile Include="Core\Factory\DefaultObjectFactory.cs" />
         <Compile Include="Core\Factory\IObjectFactory.cs" />
@@ -244,8 +248,6 @@
         <Compile Include="Core\Singleton\SingletonProperty.cs" />
         <Compile Include="Core\Table\Table.cs" />
         <Compile Include="Core\Table\TableIndex.cs" />
-        <Compile Include="Core\TypeEventSystem\ITypeEventSystem.cs" />
-        <Compile Include="Core\TypeEventSystem\TypeEventSystem.cs" />
         <Compile Include="Core\XML\IConvertModule.cs" />
         <Compile Include="Core\XML\IXMLToObjectConverter.cs" />
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />

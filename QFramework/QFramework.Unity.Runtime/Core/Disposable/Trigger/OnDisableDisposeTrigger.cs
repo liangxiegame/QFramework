@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,14 +24,13 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public class OnDestroyTrigger : MonoBehaviour
+    public class OnDisableDisposeTrigger : MonoBehaviour
     {
         HashSet<IDisposable> mDisposables = new HashSet<IDisposable>();
 
@@ -43,7 +42,7 @@ namespace QFramework
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             if (Application.isPlaying)
             {

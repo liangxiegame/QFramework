@@ -58,7 +58,7 @@ namespace QFramework
         /// <param name="gameObject"></param>
         public static void DisposeWhenGameObjectDestroyed(this IDisposable self, GameObject gameObject)
         {
-            gameObject.GetOrAddComponent<OnDestroyTrigger>()
+            gameObject.GetOrAddComponent<OnDestroyDisposeTrigger>()
                 .AddDispose(self);
         }
 
@@ -69,7 +69,30 @@ namespace QFramework
         /// <param name="component"></param>
         public static void DisposeWhenGameObjectDestroyed(this IDisposable self, Component component)
         {
-            component.gameObject.GetOrAddComponent<OnDestroyTrigger>()
+            component.gameObject.GetOrAddComponent<OnDestroyDisposeTrigger>()
+                .AddDispose(self);
+        }
+        
+        
+        /// <summary>
+        /// 与 GameObject 绑定销毁
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="gameObject"></param>
+        public static void DisposeWhenGameObjectDisabled(this IDisposable self, GameObject gameObject)
+        {
+            gameObject.GetOrAddComponent<OnDisableDisposeTrigger>()
+                .AddDispose(self);
+        }
+
+        /// <summary>
+        /// 与 GameObject 绑定销毁
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="component"></param>
+        public static void DisposeWhenGameObjectDisabled(this IDisposable self, Component component)
+        {
+            component.gameObject.GetOrAddComponent<OnDisableDisposeTrigger>()
                 .AddDispose(self);
         }
     }

@@ -1,8 +1,9 @@
-﻿/****************************************************************************
- * Copyright (c) 2018.5 liangxie
+/****************************************************************************
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
- * http://liangxiegame.com
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,21 +24,37 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace QFramework.Example
+namespace QFramework
 {
-	public class ResourcesExample : MonoBehaviour
-	{
-		private void Start()
-		{
-//			Resources.Load<Texture2D>();
-		}
+    public class OnDestroyDisposeTrigger : MonoBehaviour
+    {
+        HashSet<IDisposable> mDisposables = new HashSet<IDisposable>();
 
-		// Update is called once per frame
-		void Update()
-		{
+        public void AddDispose(IDisposable disposable)
+        {
+            if (!mDisposables.Contains(disposable))
+            {
+                mDisposables.Add(disposable);
+            }
+        }
 
-		}
-	}
+        private void OnDestroy()
+        {
+            if (Application.isPlaying)
+            {
+                foreach (var disposable in mDisposables)
+                {
+                    disposable.Dispose();
+                }
+
+                mDisposables.Clear();
+                mDisposables = null;
+            }
+        }
+    }
 }
