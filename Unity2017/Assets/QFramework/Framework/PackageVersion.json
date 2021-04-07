@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.93",
+    "Version": "v0.11.94",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.93",
-        "content": "TypeEventSystem 增加 IOnEvent API",
+        "version": "v0.11.94",
+        "content": "增加 PersistentMonoSingleton 和 示例",
         "author": "liangxie",
-        "date": "2021 年 04 月 07 日 14:50",
+        "date": "2021 年 04 月 07 日 16:29",
         "PackageId": ""
     }
 }

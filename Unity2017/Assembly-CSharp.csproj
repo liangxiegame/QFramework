@@ -212,6 +212,7 @@
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\2.SingletonProperty\SingletonProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\3.MonoSingletonProperty\MonoSingletonProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\4.MonoSingletonPath\MonoSingletonPath.cs" />
+    <Compile Include="Assets\QFramework\Framework\Examples\1.CoreExample\SingletonExample\5.PersistentMonoSingleton\PersistentMonoSingletonExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\0.BasicUsage\ResKitExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\1.LoadAssetBundleResExample\AssetBundleResExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\2.ResKitExample\10.CustomResExample\CustomResExample.cs" />
