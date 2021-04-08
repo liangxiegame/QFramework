@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.94",
+    "Version": "v0.11.95",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.94",
-        "content": "增加 PersistentMonoSingleton 和 示例",
+        "version": "v0.11.95",
+        "content": "增加 ReplacementMonoSingleton 以及示例",
         "author": "liangxie",
-        "date": "2021 年 04 月 07 日 16:29",
+        "date": "2021 年 04 月 08 日 22:07",
         "PackageId": ""
     }
 }

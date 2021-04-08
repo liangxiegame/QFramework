@@ -244,6 +244,7 @@
         <Compile Include="Core\Singleton\MonoSingletonPath.cs" />
         <Compile Include="Core\Singleton\MonoSingletonProperty.cs" />
         <Compile Include="Core\Singleton\PersistentMonoSingleton.cs" />
+        <Compile Include="Core\Singleton\ReplacementMonoSingleton.cs" />
         <Compile Include="Core\Singleton\Singleton.cs" />
         <Compile Include="Core\Singleton\SingletonCreator.cs" />
         <Compile Include="Core\Singleton\SingletonProperty.cs" />
