@@ -145,6 +145,7 @@
         <Compile Include="Core\Architecture\System\IQuery.cs" />
         <Compile Include="Core\Architecture\System\ISystem.cs" />
         <Compile Include="Core\Architecture\Utility\IUtility.cs" />
+        <Compile Include="Core\Attribute\ReadOnlyAttribute.cs" />
         <Compile Include="Core\BinarySerializer\BinarySerializer.cs" />
         <Compile Include="Core\BinarySerializer\IBinarySerializer.cs" />
         <Compile Include="Core\BindableProperty\QFramework.BindableProperty.cs" />
@@ -238,6 +239,8 @@
         <Compile Include="Core\Pool\SafeObjectPool.cs" />
         <Compile Include="Core\Pool\SimpleObjectPool.cs" />
         <Compile Include="Core\RefCounter\QFramework.RefCounter.cs" />
+        <Compile Include="Core\Reorderable\ReorderableArray.cs" />
+        <Compile Include="Core\Reorderable\ReorderableAttribute.cs" />
         <Compile Include="Core\Singleton\ISingleton.cs" />
         <Compile Include="Core\Singleton\MonoSingleton.cs" />
         <Compile Include="Core\Singleton\MonoSingletonCreator.cs" />
@@ -255,6 +258,11 @@
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
         <Compile Include="Core\XML\XMLKit.cs" />
         <Compile Include="FromUnityToDll.cs" />
+        <Compile Include="GameplayKit\AI\AbstractAIBrain.cs" />
+        <Compile Include="GameplayKit\AI\AIAction.cs" />
+        <Compile Include="GameplayKit\AI\AIDecision.cs" />
+        <Compile Include="GameplayKit\AI\AIState.cs" />
+        <Compile Include="GameplayKit\AI\AITransition.cs" />
         <Compile Include="IPanel.cs" />
         <Compile Include="ISettingFromUnity.cs" />
         <Compile Include="Log.cs" />

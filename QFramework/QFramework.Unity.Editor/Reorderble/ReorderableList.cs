@@ -1,9 +1,7 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2017 Chris Foulston
  * 
- * https://qframework.cn
- * https://github.com/liangxiegame/QFramework
- * https://gitee.com/liangxiegame/QFramework
+ * https://github.com/cfoulston/Unity-Reorderable-List
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
