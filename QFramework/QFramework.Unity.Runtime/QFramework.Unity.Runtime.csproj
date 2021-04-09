@@ -258,7 +258,7 @@
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
         <Compile Include="Core\XML\XMLKit.cs" />
         <Compile Include="FromUnityToDll.cs" />
-        <Compile Include="GameplayKit\AI\AbstractAIBrain.cs" />
+        <Compile Include="GameplayKit\AI\AIBrain.cs" />
         <Compile Include="GameplayKit\AI\AIAction.cs" />
         <Compile Include="GameplayKit\AI\AIDecision.cs" />
         <Compile Include="GameplayKit\AI\AIState.cs" />

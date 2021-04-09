@@ -33,14 +33,14 @@ namespace QFramework
     public abstract class AIAction : MonoBehaviour
     {
         public abstract void PerformAction();
-        protected AbstractAIBrain mBrain;
+        protected AIBrain mBrain;
 
         /// <summary>
         /// On Start we trigger our init method
         /// </summary>
         protected virtual void Start()
         {
-            mBrain = this.gameObject.GetComponent<AbstractAIBrain>();
+            mBrain = this.gameObject.GetComponent<AIBrain>();
             Initialization();
         }
 

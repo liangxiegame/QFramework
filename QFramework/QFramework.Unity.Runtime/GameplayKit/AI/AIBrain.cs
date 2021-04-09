@@ -28,7 +28,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public abstract class AbstractAIBrain : MonoBehaviour
+    public class AIBrain : MonoBehaviour
     {
           /// the collection of states
         public List<AIState> States;

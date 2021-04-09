@@ -55,13 +55,13 @@ namespace QFramework
         /// a list of transitions to evaluate to exit this state
         public List<AITransition> Transitions;*/
 
-        protected AbstractAIBrain mBrain;
+        protected AIBrain mBrain;
 
         /// <summary>
         /// Sets this state's brain to the one specified in parameters
         /// </summary>
         /// <param name="brain"></param>
-        public virtual void SetBrain(AbstractAIBrain brain)
+        public virtual void SetBrain(AIBrain brain)
         {
             mBrain = brain;
         }

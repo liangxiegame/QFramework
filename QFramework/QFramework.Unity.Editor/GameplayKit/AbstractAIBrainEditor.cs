@@ -28,7 +28,7 @@ using UnityEditor;
 namespace QFramework
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(AbstractAIBrain), true)]
+    [CustomEditor(typeof(AIBrain), true)]
     public class AbstractAIBrainEditor : Editor
     {
         protected ReorderableList mList;
@@ -57,7 +57,7 @@ namespace QFramework
             EditorGUILayout.PropertyField(mTarget);
             serializedObject.ApplyModifiedProperties();
 
-            AbstractAIBrain brain = (AbstractAIBrain) target;
+            AIBrain brain = (AIBrain) target;
             if (brain.CurrentState != null)
             {
                 EditorGUILayout.Space();

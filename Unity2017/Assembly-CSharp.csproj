@@ -250,7 +250,6 @@
     <Compile Include="Assets\QFramework\Framework\Examples\3.UIKitExample\UIExample\UIKitExample_LoadFromResources\Scripts\UIKitExample_LoadFromResoruces.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\4.AudioKitExample\Audio\AudioTest.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\4.AudioKitExample\AudioExample.cs" />
-    <Compile Include="Assets\QFramework\Framework\Examples\5.GameplayKitExample\AIExample\AIExample.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\5.GameplayKitExample\AIExample\CubeRotationAction.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\5.GameplayKitExample\AIExample\MouseDownDecision.cs" />
     <Compile Include="Assets\QFramework\Framework\Examples\5.GameplayKitExample\AIExample\MouseUpDecision.cs" />

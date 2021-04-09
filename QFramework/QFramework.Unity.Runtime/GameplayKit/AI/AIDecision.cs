@@ -36,14 +36,14 @@ namespace QFramework
         /// Decide will be performed every frame while the Brain is in a state this Decision is in. Should return true or false, which will then determine the transition's outcome.
         public abstract bool Decide();
 
-        protected AbstractAIBrain mBrain;
+        protected AIBrain mBrain;
 
         /// <summary>
         /// On Start we initialize our Decision
         /// </summary>
         protected virtual void Start()
         {
-            mBrain = this.gameObject.GetComponent<AbstractAIBrain>();
+            mBrain = this.gameObject.GetComponent<AIBrain>();
             Initialization();
         }
         
