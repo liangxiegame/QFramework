@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2019.1 ~ 2020.10 liangxie
+ * Copyright (c) 2019.1 ~ 2021.4 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -58,7 +58,5 @@ namespace QFramework
         protected override void OnLaunch()
         {
         }
-
-        public static bool SimulationMode;
     }
 }
