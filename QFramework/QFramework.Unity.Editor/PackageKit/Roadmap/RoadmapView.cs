@@ -44,6 +44,7 @@ namespace QFramework
                 .AddChild(EasyIMGUI.Label().Text("* sLua、toLua、xLua、ILRuntime 支持"))
                 .AddChild(EasyIMGUI.Label().Text("* UnityPackageManager 支持"))
                 .AddChild(EasyIMGUI.Label().Text("* ResKit 支持自定义目录方案"))
+                .AddChild(EasyIMGUI.Label().Text("* UIKit 支持多个 Canvas Root 和 摄像机方案"))
                 .AddChild(EasyIMGUI.Label().Text("v0.12.x").FontBold())
                 .AddChild(EasyIMGUI.Label().Text("* 插件平台的插件整理"))
                 .AddChild(EasyIMGUI.Label().Text("* Example 示例整理"))
