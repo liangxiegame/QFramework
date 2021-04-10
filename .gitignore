@@ -24,7 +24,6 @@ Editor.meta
 Unity2017/Assets/Plugins/Editor/JetBrains
 JetBrains.meta
 packages
-Unity2017/Assets/UI
 PackageInfosRequestCache.json
 Unity2020/Library
 Unity2020/Logs
@@ -33,3 +32,5 @@ Unity2020/AssetBundles
 Unity2020/Assets/StreamingAssets/AssetBundles
 AssetBundles.meta
 Unity2020/Builds
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp.csproj
