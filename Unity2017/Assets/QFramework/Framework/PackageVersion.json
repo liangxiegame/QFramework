@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.97",
+    "Version": "v0.11.98",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.97",
-        "content": "AbstractAIBrain=>AIBrain",
+        "version": "v0.11.98",
+        "content": "增加 EnumStateMachine 及示例",
         "author": "liangxie",
-        "date": "2021 年 04 月 09 日 12:43",
+        "date": "2021 年 04 月 13 日 09:05",
         "PackageId": ""
     }
 }

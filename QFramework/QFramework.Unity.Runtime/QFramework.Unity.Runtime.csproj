@@ -89,6 +89,7 @@
         <Compile Include="ActionKit\FSM\ActionKitFSMState.cs" />
         <Compile Include="ActionKit\FSM\ActionKitFSMTransition.cs" />
         <Compile Include="ActionKit\FSM\ActionKitFSMTransitionTable.cs" />
+        <Compile Include="ActionKit\FSM\EnumStateMachine.cs" />
         <Compile Include="ActionKit\Node\Dynamic\AsyncNode.cs" />
         <Compile Include="ActionKit\Node\Dynamic\QueueNode.cs" />
         <Compile Include="ActionKit\Node\RepeatNode.cs" />
