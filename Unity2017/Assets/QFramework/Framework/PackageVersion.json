@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.98",
+    "Version": "v0.11.99",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.98",
-        "content": "增加 EnumStateMachine 及示例",
+        "version": "v0.11.99",
+        "content": "ReplacementMonoSingleton => ReplaceableMonoSingleton",
         "author": "liangxie",
-        "date": "2021 年 04 月 13 日 09:05",
+        "date": "2021 年 04 月 14 日 13:33",
         "PackageId": ""
     }
 }

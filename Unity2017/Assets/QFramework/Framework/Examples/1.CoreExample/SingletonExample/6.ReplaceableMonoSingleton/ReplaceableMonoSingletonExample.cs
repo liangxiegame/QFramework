@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace QFramework.Example
 {
-	public class ReplacementMonoSingletonExample : MonoBehaviour
+	public class ReplaceableMonoSingletonExample : MonoBehaviour
 	{
 		// Use this for initialization
 		IEnumerator Start()
@@ -25,7 +25,7 @@ namespace QFramework.Example
 		}
 
 
-		public class GameManager : ReplacementSingleton<GameManager>
+		public class GameManager : ReplaceableMonoSingleton<GameManager>
 		{
 
 		}

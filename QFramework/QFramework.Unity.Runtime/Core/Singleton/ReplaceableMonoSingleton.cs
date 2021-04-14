@@ -32,7 +32,7 @@ namespace QFramework
     /// 如果跳转到新的场景里已经有了实例，则删除已有示例，再创建新的实例
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ReplacementSingleton<T> : MonoBehaviour where T : Component
+    public class ReplaceableMonoSingleton<T> : MonoBehaviour where T : Component
     {
         protected static T mInstance;
         public float InitializationTime;
@@ -80,7 +80,7 @@ namespace QFramework
                 if (searched != this)
                 {
                     // if we find another object of the same type (not this), and if it's older than our current object, we destroy it.
-                    if (searched.GetComponent<ReplacementSingleton<T>>().InitializationTime < InitializationTime)
+                    if (searched.GetComponent<ReplaceableMonoSingleton<T>>().InitializationTime < InitializationTime)
                     {
                         Destroy(searched.gameObject);
                     }
