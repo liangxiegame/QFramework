@@ -32,7 +32,7 @@ namespace QFramework
 
     public class ActionKitEvent : MonoBehaviour , ISerializationCallbackReceiver
     {
-        [SerializeField]
+        [HideInInspector]
         public List<ActionData> ActionsDatas = new List<ActionData>();
 
         public void Execute()

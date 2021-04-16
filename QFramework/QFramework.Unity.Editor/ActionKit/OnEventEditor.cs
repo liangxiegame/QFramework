@@ -26,6 +26,7 @@
 
 
 using System;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -127,12 +128,10 @@ namespace QFramework
                                     .MarkSceneDirty(SceneManager.GetActiveScene());
                             }
                         }
-                        else
+                        else if (fieldInfo.FieldType == typeof(string) || fieldInfo.FieldType == typeof(float) || fieldInfo.FieldType == typeof(int))
                         {
                             var oldValue = fieldInfo.GetValue(obj).ToString();
-
                             var value = GUILayout.TextField(oldValue);
-
 
                             if (oldValue != value)
                             {
@@ -147,11 +146,26 @@ namespace QFramework
                                 else if (fieldInfo.FieldType == typeof(int))
                                 {
                                     fieldInfo.SetValue(obj, int.Parse(value));
-                                }
+                                } 
 
                                 mOnStart.ActionsDatas[i].AcitonData = JsonUtility.ToJson(obj);
 
-                                UnityEditor.EditorUtility.SetDirty(target);
+                                EditorUtility.SetDirty(target);
+                                UnityEditor.SceneManagement.EditorSceneManager
+                                    .MarkSceneDirty(SceneManager.GetActiveScene());
+                            }
+                        } else if (fieldInfo.FieldType == typeof(bool))
+                        {
+                            var oldValue = bool.Parse(fieldInfo.GetValue(obj).ToString());
+                            var value = GUILayout.Toggle(oldValue,"");
+
+                            if (oldValue != value)
+                            {
+                                fieldInfo.SetValue(obj, value);
+
+                                mOnStart.ActionsDatas[i].AcitonData = JsonUtility.ToJson(obj);
+
+                                EditorUtility.SetDirty(target);
                                 UnityEditor.SceneManagement.EditorSceneManager
                                     .MarkSceneDirty(SceneManager.GetActiveScene());
                             }

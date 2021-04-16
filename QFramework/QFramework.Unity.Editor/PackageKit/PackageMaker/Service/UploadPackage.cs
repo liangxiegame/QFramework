@@ -51,7 +51,7 @@ namespace QFramework
                 form.AddField("type", "master");
             }
 
-            Debug.Log(fullpath);
+            Log.I(fullpath);
 
             EditorUtility.DisplayProgressBar("插件上传", "上传中...", 0.2f);
 
@@ -60,7 +60,7 @@ namespace QFramework
                 if (response.Type == ResponseType.SUCCEED)
                 {
                     EditorUtility.ClearProgressBar();
-                    Debug.Log(response.Text);
+                    Log.I(response.Text);
                     if (succeed != null)
                     {
                         succeed();

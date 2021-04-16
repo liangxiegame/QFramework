@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.99",
+    "Version": "v0.11.103",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.99",
-        "content": "ReplacementMonoSingleton => ReplaceableMonoSingleton",
+        "version": "v0.11.103",
+        "content": "dll 内的所有 Debug.Log 都改成 Log.I",
         "author": "liangxie",
-        "date": "2021 年 04 月 14 日 13:33",
+        "date": "2021 年 04 月 16 日 14:36",
         "PackageId": ""
     }
 }

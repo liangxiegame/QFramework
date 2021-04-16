@@ -45,7 +45,7 @@ namespace QFramework
         {
             Service = this.GetModel<IPackageLoginService>();
 
-            Debug.Log("Service:"+ Service);
+            Log.I("Service:"+ Service);
             Service.DoGetToken(mUsername, mPassword, token =>
             {
                 User.Username.Value = mUsername;

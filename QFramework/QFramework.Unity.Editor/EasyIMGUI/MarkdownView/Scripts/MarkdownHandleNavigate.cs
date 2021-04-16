@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using QFramework;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace MG.MDV
                 }
                 else
                 {
-                    Debug.LogWarning( string.Format( "Unable to find section header {0}", url ) );
+                    Log.W( string.Format( "Unable to find section header {0}", url ) );
                 }
 
                 return;
@@ -64,7 +65,7 @@ namespace MG.MDV
             }
             else
             {
-                Debug.LogError( string.Format( "Could not find asset {0}", newPath ) );
+                Log.E( string.Format( "Could not find asset {0}", newPath ) );
             }
         }
     }

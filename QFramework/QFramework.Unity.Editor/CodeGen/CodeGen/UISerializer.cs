@@ -37,7 +37,7 @@ namespace QFramework
 			    return;
 
 		    EditorPrefs.DeleteKey("AutoGenUIPrefabPath");
-		    Debug.Log(">>>>>>>SerializeUIPrefab: " + pathStr);
+		    Log.I(">>>>>>>SerializeUIPrefab: " + pathStr);
 
 		    var assembly = ReflectionExtension.GetAssemblyCSharp();
 
@@ -53,7 +53,7 @@ namespace QFramework
 			    // uibehaviour
 			    if (displayProgress)
 				    EditorUtility.DisplayProgressBar("", "Serialize UIPrefab..." + uiPrefab.name, (float) (i + 1) / paths.Length);
-			    Debug.Log(">>>>>>>Success Serialize UIPrefab: " + uiPrefab.name);
+			    Log.I(">>>>>>>Success Serialize UIPrefab: " + uiPrefab.name);
 		    }
 
 		    AssetDatabase.SaveAssets();
@@ -67,7 +67,7 @@ namespace QFramework
 			    // uibehaviour
 			    if (displayProgress)
 				    EditorUtility.DisplayProgressBar("", "Serialize UIPrefab..." + uiPrefab.name, (float) (i + 1) / paths.Length);
-			    Debug.Log(">>>>>>>Success Serialize UIPrefab: " + uiPrefab.name);
+			    Log.I(">>>>>>>Success Serialize UIPrefab: " + uiPrefab.name);
 		    }
 
 		    AssetDatabase.SaveAssets();

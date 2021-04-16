@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using QFramework;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -162,7 +163,7 @@ namespace MG.MDV
             if( req.Request.isHttpError )
 #endif
             {
-                Debug.LogError( string.Format( "HTTP Error: {0} - {1} {2}", req.URL, req.Request.responseCode, req.Request.error ) );
+                Log.E( string.Format( "HTTP Error: {0} - {1} {2}", req.URL, req.Request.responseCode, req.Request.error ) );
                 mTextureCache[ req.URL ] = null;
             }
 #if UNITY_2020_2_OR_NEWER
@@ -171,7 +172,7 @@ namespace MG.MDV
             else if( req.Request.isNetworkError )
 #endif
             {
-                Debug.LogError( string.Format( "Network Error: {0} - {1}", req.URL, req.Request.error ) );
+               Log.E( string.Format( "Network Error: {0} - {1}", req.URL, req.Request.error ) );
                 mTextureCache[ req.URL ] = null;
             }
             else if( req.IsGif )

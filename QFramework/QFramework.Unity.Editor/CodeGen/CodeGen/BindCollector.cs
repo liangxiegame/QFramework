@@ -34,7 +34,7 @@ namespace QFramework
 						}
 						else
 						{
-							Debug.LogError("Repeat key: " + childTrans.name);
+							Log.E("Repeat key: " + childTrans.name);
 						}
 					}
 					else
@@ -51,7 +51,7 @@ namespace QFramework
 						}
 						else
 						{
-							Debug.LogError("Repeat key: " + childTrans.name);
+							Log.E("Repeat key: " + childTrans.name);
 						}
 					}
 

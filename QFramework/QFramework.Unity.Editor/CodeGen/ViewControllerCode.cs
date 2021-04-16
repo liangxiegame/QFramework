@@ -15,7 +15,7 @@ namespace QFramework
 
             if (!gameObject)
             {
-                Debug.LogWarning("需要选择 GameObject");
+                Log.W("需要选择 GameObject");
                 return;
             }
 
@@ -39,7 +39,7 @@ namespace QFramework
         {
             if (!gameObject)
             {
-                Debug.LogWarning("需要选择 GameObject");
+                Log.W("需要选择 GameObject");
                 return;
             }
 
@@ -53,7 +53,7 @@ namespace QFramework
                 }
             }
 
-            Debug.Log("Create Code");
+            Log.I("Create Code");
 
             var generateInfo = gameObject.GetComponent<ViewController>();
 
@@ -112,17 +112,17 @@ namespace QFramework
 
                 if (type == null)
                 {
-                    Debug.Log("编译失败");
+                   Log.I("编译失败");
                     return;
                 }
 
-                Debug.Log(type);
+               Log.I(type);
 
                 var gameObject = GameObject.Find(gameObjectName);
 
                 if (!gameObject)
                 {
-                    Debug.Log("上次的 View Controller 生成失败,找不到 GameObject:{0}".FillFormat(gameObjectName));
+                    Log.I("上次的 View Controller 生成失败,找不到 GameObject:{0}".FillFormat(gameObjectName));
 
                     Clear();
                     return;

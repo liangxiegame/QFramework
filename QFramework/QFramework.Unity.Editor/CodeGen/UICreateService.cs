@@ -209,7 +209,7 @@ namespace QFramework
         {
             string dirPath = Application.dataPath + "/QFrameworkData/UI/Resources";
             string filePath = "Assets/QFrameworkData/UI/Resources/UIRoot.prefab";
-            Debug.Log(dirPath);
+            Log.I(dirPath);
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
             PrefabUtility.CreatePrefab(filePath, UIManagerGo, ReplacePrefabOptions.ConnectToPrefab);

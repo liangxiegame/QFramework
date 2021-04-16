@@ -59,7 +59,7 @@ namespace QFramework
 
                     if (result.code == 1)
                     {
-                        Debug.Log("删除成功");
+                        Log.I("删除成功");
 
                         onResponse();
                     }

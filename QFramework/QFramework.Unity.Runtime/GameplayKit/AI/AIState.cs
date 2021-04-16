@@ -125,7 +125,7 @@ namespace QFramework
                 }
                 else
                 {
-                    Debug.LogError("An action in " + mBrain.gameObject.name + " is null.");
+                    Log.E("An action in " + mBrain.gameObject.name + " is null.");
                 }
             }
         }

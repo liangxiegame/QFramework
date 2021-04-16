@@ -38,7 +38,7 @@ namespace QFramework
         public static void ExecuteAssetBundle()
         {
             var window = (ResKitEditorWindow) GetWindow(typeof(ResKitEditorWindow), true);
-            Debug.Log(Screen.width + " screen width*****");
+            QFramework.Log.I(Screen.width + " screen width*****");
             window.position = new Rect(100, 100, 600, 400);
             window.Show();
         }

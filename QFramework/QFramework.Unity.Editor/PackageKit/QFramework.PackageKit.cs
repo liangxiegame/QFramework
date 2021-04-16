@@ -313,7 +313,7 @@ namespace QFramework
         {
             var tempFile = "Assets/" + mRequestPackageData.name + ".unitypackage";
 
-            Debug.Log(mRequestPackageData.latestDownloadUrl + ">>>>>>:");
+            Log.I(mRequestPackageData.latestDownloadUrl + ">>>>>>:");
 
             EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
 
@@ -331,7 +331,7 @@ namespace QFramework
 
                     AssetDatabase.Refresh();
 
-                    Debug.Log("PackageManager:插件下载成功");
+                    Log.I("PackageManager:插件下载成功");
 
 
                     this.GetModel<ILocalPackageVersionModel>()
@@ -667,8 +667,8 @@ namespace QFramework
         public static string ABSPath2AssetsPath(string absPath)
         {
             string assetRootPath = Path.GetFullPath(Application.dataPath);
-            Debug.Log(assetRootPath);
-            Debug.Log(Path.GetFullPath(absPath));
+            Log.I(assetRootPath);
+            Log.I(Path.GetFullPath(absPath));
             return "Assets" + Path.GetFullPath(absPath).Substring(assetRootPath.Length).Replace("\\", "/");
         }
 
@@ -711,16 +711,16 @@ namespace QFramework
             p.WaitForExit();
             p.Close();
 
-            Debug.Log(standardOutput);
+            Log.I(standardOutput);
             if (standardError.Length > 0)
             {
                 if (isThrowExcpetion)
                 {
-                    Debug.LogError(standardError);
+                    Log.E(standardError);
                     throw new Exception(standardError);
                 }
 
-                Debug.LogError(standardError);
+                Log.E(standardError);
             }
         }
 

@@ -1386,7 +1386,7 @@ namespace QFramework
         public static void Example()
         {
             var screenshotTexture2D = Camera.main.CaptureCamera(new Rect(0, 0, Screen.width, Screen.height));
-            Debug.Log(screenshotTexture2D.width);
+            Log.I(screenshotTexture2D.width);
         }
 
         public static Texture2D CaptureCamera(this Camera camera, Rect rect)
@@ -1414,7 +1414,7 @@ namespace QFramework
         public static void Example()
         {
             var color = "#C5563CFF".HtmlStringToColor();
-            Debug.Log(color);
+            Log.I(color);
         }
 
         /// <summary>
@@ -1502,9 +1502,9 @@ namespace QFramework
                 .DestroySelfAfterDelayGracefully(1.0f);
 
             gameObject
-                .ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+                .ApplySelfTo(selfObj => Log.I(selfObj.name))
                 .Name("TestObj")
-                .ApplySelfTo(selfObj => Debug.Log(selfObj.name))
+                .ApplySelfTo(selfObj => Log.I(selfObj.name))
                 .Name("ExtensionExample")
                 .DontDestroyOnLoad();
         }
@@ -2260,7 +2260,7 @@ namespace QFramework
         {
             if (predicate(tfParent))
             {
-                Debug.Log("Hit " + tfParent.name);
+                Log.I("Hit " + tfParent.name);
                 return tfParent;
             }
 
@@ -2397,7 +2397,7 @@ namespace QFramework
                 currentSum = nextSum;
             }
 
-            Debug.LogError("权值范围计算错误！");
+            Log.E("权值范围计算错误！");
             return -1;
         }
 

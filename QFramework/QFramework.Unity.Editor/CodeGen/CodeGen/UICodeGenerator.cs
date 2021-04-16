@@ -77,7 +77,7 @@ namespace QFramework
 
 				var panelCodeInfo = new PanelCodeInfo();
 
-				Debug.Log(clone.name);
+				Log.I(clone.name);
 				panelCodeInfo.GameObjectName = clone.name.Replace("(clone)", string.Empty);
 				BindCollector.SearchBinds(clone.transform, "",panelCodeInfo);
 				CreateUIPanelCode(obj, uiPrefabPath,panelCodeInfo);
@@ -114,7 +114,7 @@ namespace QFramework
 			}
 
 			CreateUIPanelDesignerCode(behaviourName, strFilePath,panelCodeInfo);
-			Debug.Log(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
+			Log.I(">>>>>>>Success Create UIPrefab Code: " + behaviourName);
 		}
 		
 		private void CreateUIPanelDesignerCode(string behaviourName, string uiUIPanelfilePath,PanelCodeInfo panelCodeInfo)

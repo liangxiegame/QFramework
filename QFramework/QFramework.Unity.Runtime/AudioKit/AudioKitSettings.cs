@@ -30,7 +30,7 @@ namespace QFramework
                 () => IsSoundOn.Value && IsMusicOn.Value && IsVoiceOn.Value,
                 isOn =>
                 {
-                    Debug.Log(isOn);
+                    Log.I(isOn);
                     IsSoundOn.Value = isOn;
                     IsMusicOn.Value = isOn;
                     IsVoiceOn.Value = isOn;

@@ -42,13 +42,13 @@ namespace QFramework
             var form = new WWWForm();
             form.AddField("username", username);
             form.AddField("password", password);
-            Debug.Log("username" +username+"--"+ "password" +password);
+            Log.I("username" +username+"--"+ "password" +password);
 
             EditorHttp.Post("https://api.liangxiegame.com/qf/v4/token", form, response =>
             {
                 if (response.Type == ResponseType.SUCCEED)
                 {
-                    Debug.Log(response.Text);
+                    Log.I(response.Text);
 
                     var responseJson =
                         JsonUtility.FromJson<QFrameworkServerResultFormat<ResultFormatData>>(response.Text);
@@ -63,7 +63,7 @@ namespace QFramework
                 }
                 else if (response.Type == ResponseType.EXCEPTION)
                 {
-                    Debug.LogError(response.Error);
+                    Log.E(response.Error);
                 }
             });
         }

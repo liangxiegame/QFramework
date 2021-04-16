@@ -76,7 +76,7 @@ namespace QFramework
                     }
                     catch (Exception ex)
                     {
-                        Debug.Log(ex.Message);
+                        Log.I(ex.Message);
                     }
                 }
 

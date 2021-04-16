@@ -46,7 +46,7 @@ namespace QFramework
                 if (!mInstance)
                 {
                     var uiRoot = UIRoot.Instance;
-                    Debug.Log("currentUIRoot:" + uiRoot);
+                    Log.I("currentUIRoot:" + uiRoot);
                     mInstance = MonoSingletonProperty<UIManager>.Instance;
                 }
 

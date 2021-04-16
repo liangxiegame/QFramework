@@ -93,7 +93,7 @@ namespace QFramework.TimeExtend
             cachedTime = CurrentTime;
             if (timers.Exists((v) => { return v._flag == flag; }))
             {
-                if (showLog) Debug.LogWarningFormat("【TimerTrigger（容错）】:存在相同的标识符【{0}】！", flag);
+                if (showLog) Log.W("【TimerTrigger（容错）】:存在相同的标识符【{0}】！", flag);
             }
             _flag = string.IsNullOrEmpty(flag) ? GetHashCode().ToString() : flag;//设置辨识标志符
         }
@@ -105,7 +105,7 @@ namespace QFramework.TimeExtend
         {
             if (_isFinish)
             {
-                if (showLog) Debug.LogWarning("【TimerTrigger（容错）】:计时已经结束！");
+                if (showLog) Log.W("【TimerTrigger（容错）】:计时已经结束！");
             }
             else
             {
@@ -119,7 +119,7 @@ namespace QFramework.TimeExtend
         {
             if (_isFinish)
             {
-                if (showLog) Debug.LogWarning("【TimerTrigger（容错）】:计时已经结束！");
+                if (showLog) Log.W("【TimerTrigger（容错）】:计时已经结束！");
             }
             else
             {
@@ -130,7 +130,7 @@ namespace QFramework.TimeExtend
                 }
                 else
                 {
-                    if (showLog) Debug.LogWarning("【TimerTrigger（容错）】:计时并未处于暂停状态！");
+                    if (showLog) Log.W("【TimerTrigger（容错）】:计时并未处于暂停状态！");
                 }
             }
         }
@@ -251,7 +251,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---Flag【" + flag + "】。");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---Flag【" + flag + "】。");
             }
         }
         /// <summary>
@@ -266,7 +266,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
             }
         }
         /// <summary>
@@ -282,7 +282,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---Flag【" + flag + "】。");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---Flag【" + flag + "】。");
             }
         }
         /// <summary>
@@ -297,7 +297,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
             }
         }
         #endregion
@@ -315,7 +315,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
             }
         }
         /// <summary>
@@ -330,7 +330,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:此定时器已完成触发或无此定时器！");
             }
         }
         /// <summary>
@@ -346,7 +346,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---方法名：【" + completedEvent.Method.Name + "】。");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---方法名：【" + completedEvent.Method.Name + "】。");
             }
         }
         /// <summary>
@@ -362,7 +362,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---方法名：【" + updateEvent.Method.Name + "】。");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已完成触发或无此定时器！---方法名：【" + updateEvent.Method.Name + "】。");
             }
         }
 
@@ -422,24 +422,24 @@ namespace QFramework.TimeExtend
         {
             if (_isFinish)
             {
-                if (showLog) Debug.LogWarning("【TimerTrigger（容错）】:计时已经结束！");
+                if (showLog) Log.W("【TimerTrigger（容错）】:计时已经结束！");
             }
             else
             {
                 if (endTime == _time)
                 {
-                    if (showLog) Debug.Log("【TimerTrigger（容错）】:时间已被设置，请勿重复操作！");
+                    if (showLog) Log.I("【TimerTrigger（容错）】:时间已被设置，请勿重复操作！");
                 }
                 else
                 {
                     if (endTime < 0)
                     {
-                        if (showLog) Debug.Log("【TimerTrigger（容错）】:时间不支持负数，已自动取正！");
+                        if (showLog) Log.I("【TimerTrigger（容错）】:时间不支持负数，已自动取正！");
                         endTime = Mathf.Abs(endTime);
                     }
                     if (endTime < timePassed)//如果用户设置时间已错失
                     {
-                        if (showLog) Debug.Log(string.Format("【TimerTrigger（容错）】:时间设置过短【passed:set=>{0}:{1}】,事件提前触发！", timePassed, endTime));
+                        if (showLog) Log.I("【TimerTrigger（容错）】:时间设置过短【passed:set=>{0}:{1}】,事件提前触发！", timePassed, endTime);
                     }
                     _time = endTime;
                 }
@@ -458,7 +458,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已失效,设置Loop Fail！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已失效,设置Loop Fail！");
             }
             return this;
         }
@@ -475,7 +475,7 @@ namespace QFramework.TimeExtend
             }
             else
             {
-                if (showLog) Debug.Log("【TimerTrigger（容错）】:定时器已失效，设置IgnoreTimescale Fail！");
+                if (showLog) Log.I("【TimerTrigger（容错）】:定时器已失效，设置IgnoreTimescale Fail！");
             }
             return this;
         }

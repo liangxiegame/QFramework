@@ -125,7 +125,7 @@ namespace QFramework
 
                 foreach (var outRes in outResult)
                 {
-                    Debug.Log(outRes);
+                    Log.I(outRes);
                     yield return AssetBundleSettings.AssetBundleConfigFile.LoadFromFileAsync(outRes);
                 }
 
@@ -159,7 +159,7 @@ namespace QFramework
 
                 foreach (var outRes in outResult)
                 {
-                    Debug.Log(outRes);
+                    Log.I(outRes);
                     AssetBundleSettings.AssetBundleConfigFile.LoadFromFile(outRes);
                 }
             }
