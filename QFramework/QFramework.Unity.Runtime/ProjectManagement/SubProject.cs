@@ -1,10 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2021.3 liangxie
+ * Copyright (c) 2021.4 liqngxie
  * 
- * https://qframework.cn
+ * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
- * https://gitee.com/liangxiegame/QFramework
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -28,22 +27,15 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public static class MaterialExtensions
+    /// <summary>
+    /// 子项目管理
+    /// </summary>
+    [CreateAssetMenu]
+    public class SubProject : ScriptableObject
     {
         /// <summary>
-        /// 参考资料: https://blog.csdn.net/qiminixi/article/details/78402505
+        /// 命名空间
         /// </summary>
-        /// <param name="self"></param>
-        public static void SetStandardMaterialToTransparentMode(this Material self)
-        {
-            self.SetFloat("_Mode", 3);
-            self.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            self.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            self.SetInt("_ZWrite", 0);
-            self.DisableKeyword("_ALPHATEST_ON");
-            self.EnableKeyword("_ALPHABLEND_ON");
-            self.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            self.renderQueue = 3000;
-        }
+        public string Namespace;
     }
 }

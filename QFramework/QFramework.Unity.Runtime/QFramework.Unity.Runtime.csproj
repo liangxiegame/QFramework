@@ -168,8 +168,9 @@
         <Compile Include="Core\CodeGen\ViewController.cs" />
         <Compile Include="Core\CodeGen\Writer\FileCodeWriter.cs" />
         <Compile Include="Core\CodeGen\Writer\ICodeWriter.cs" />
+        <Compile Include="Core\CSharpExtension\AnimatorExtension.cs" />
         <Compile Include="Core\CSharpExtension\GameObjectExtension.cs" />
-        <Compile Include="Core\CSharpExtension\MaterialExtensions.cs" />
+        <Compile Include="Core\CSharpExtension\MaterialExtension.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
         <Compile Include="Core\CSharpExtension\TextureExtensions.cs" />
         <Compile Include="Core\Disposable\CustomDisposable.cs" />
@@ -268,6 +269,7 @@
         <Compile Include="GameplayKit\AI\AITransition.cs" />
         <Compile Include="IPanel.cs" />
         <Compile Include="Log.cs" />
+        <Compile Include="ProjectManagement\SubProject.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="ResKit\ActionKitSupport\ResKitInit.cs" />
         <Compile Include="ResKit\AssetBundleSupport\AssetBundleSettings.cs" />

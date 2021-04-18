@@ -189,6 +189,7 @@
         <Compile Include="PackageKit\Utility\IEditorDialogUtility.cs" />
         <Compile Include="PackageKit\Utility\MutableTuple.cs" />
         <Compile Include="PackageKit\Utility\UrlHelper.cs" />
+        <Compile Include="ProjectManagement\SubProjectEditor.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Reorderble\ReorderableDrawer.cs" />
         <Compile Include="Reorderble\ReorderableList.cs" />
