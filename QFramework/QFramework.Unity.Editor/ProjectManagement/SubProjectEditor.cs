@@ -6,5 +6,11 @@ namespace QFramework
     public class SubProjectEditor : Editor
     {
         
+        public void BuildAB()
+        {
+            
+        }
+        
+        
     }
 }

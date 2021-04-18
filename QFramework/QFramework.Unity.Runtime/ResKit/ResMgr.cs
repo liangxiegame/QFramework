@@ -297,5 +297,11 @@ namespace QFramework
 
         #endregion
 
+        private static List<string> mSubProjectNames = new List<string>();
+        
+        public static void AddSubProject(string projectName)
+        {
+            mSubProjectNames.Add(projectName);
+        }
     }
 }

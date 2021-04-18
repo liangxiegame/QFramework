@@ -31,10 +31,17 @@ namespace QFramework
     {
         private ResKit() {}
         
+        public static void AddSubProject(string projectName)
+        {
+            ResMgr.AddSubProject(projectName);
+        }
+        
         public static void Init()
         {
             ResMgr.Init();
         }
+
+
 
         public static IEnumerator InitAsync()
         {

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2019.8 liangxie
+ * Copyright (c) 2017 ~ 2021.4 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,7 +25,6 @@
 
 using System.ComponentModel;
 using System.Linq;
-using QFramework;
 
 namespace QFramework
 {
@@ -197,11 +196,13 @@ namespace QFramework
 
                 EasyIMGUI.Button()
                     .Text(LocaleText.ForceClear)
-                    .OnClick(() => { ResKitEditorAPI.ForceClearAssetBundles(); })
+                    .OnClick(ResKitEditorAPI.ForceClearAssetBundles)
                     .Parent(verticalLayout);
 
                 verticalLayout.AddChild(EasyIMGUI.Space().Pixel(10));
-                verticalLayout.AddChild(EasyIMGUI.Label().Text("已标记 AB 列表:").FontBold().FontSize(15));
+                verticalLayout.AddChild(EasyIMGUI.Label().Text(LocaleText.MarkedAB).FontBold().FontSize(15));
+                
+                
 
 
                 var scrollView = EasyIMGUI.Scroll().Parent(verticalLayout);
@@ -214,7 +215,7 @@ namespace QFramework
             void ReloadMarkedList()
             {
                 mMarkedPathList.Clear();
-
+                
                 AssetDatabase.GetAllAssetBundleNames()
                     .SelectMany(n =>
                     {
@@ -239,7 +240,7 @@ namespace QFramework
                     .ForEach(n => new HorizontalLayout()
                         .AddChild(EasyIMGUI.Label().Text(n))
                         .AddChild(EasyIMGUI.Button()
-                            .Text("选择")
+                            .Text(LocaleText.Select)
                             .OnClick(() =>
                             {
                                 Selection.objects = new[]
@@ -248,7 +249,7 @@ namespace QFramework
                                 };
                             }).Width(50))
                         .AddChild(EasyIMGUI.Button()
-                            .Text("取消标记")
+                            .Text(LocaleText.CancelMark)
                             .OnClick(() =>
                             {
                                 ResKitAssetsMenu.MarkAB(n);
@@ -326,6 +327,36 @@ namespace QFramework
                     return Language.IsChinese
                         ? "模拟模式（勾选后每当资源修改时无需再打 AB 包，开发阶段建议勾选，打真机包时取消勾选并打一次 AB 包）"
                         : "Simulation Mode";
+                }
+            }
+
+            public static string CancelMark
+            {
+                get
+                {
+                    return Language.IsChinese
+                        ? "取消标记"
+                        : "Cancel Mark";
+                }
+            }
+
+            public static string Select
+            {
+                get
+                {
+                    return Language.IsChinese
+                        ? "选择"
+                        : "Select";
+                }
+            }
+
+            public static string MarkedAB
+            {
+                get
+                {
+                    return Language.IsChinese
+                        ? "已标记的 AB"
+                        : "Marked AB";
                 }
             }
         }
