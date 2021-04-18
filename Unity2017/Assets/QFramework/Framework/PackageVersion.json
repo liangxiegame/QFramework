@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.105",
+    "Version": "v0.11.106",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.105",
-        "content": "fix",
+        "version": "v0.11.106",
+        "content": "紧急 fix",
         "author": "liangxie",
-        "date": "2021 年 04 月 18 日 16:07",
+        "date": "2021 年 04 月 18 日 22:51",
         "PackageId": ""
     }
 }

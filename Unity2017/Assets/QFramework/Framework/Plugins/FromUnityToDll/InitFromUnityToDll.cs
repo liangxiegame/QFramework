@@ -40,18 +40,24 @@ namespace QFramework
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnLoad()
         {
-            FromUnityToDll.Setting = new SettingFromUnityToDll();
 
+            Create();
+            
             // 注册 Zip 工具
             ResKit.Interface.RegisterUtility<IZipFileHelper>(new ZipFileHelper());
+        }
+
+        static void Create()
+        {
+            FromUnityToDll.Setting = new SettingFromUnityToDll();
+            FromUnityToDll.Platform = new PlatformFromUnityToDll();
         }
 
 #if UNITY_EDITOR
         [DidReloadScripts]
         public static void OnReload()
         {
-            FromUnityToDll.Setting = new SettingFromUnityToDll();
-            FromUnityToDll.Platform = new PlatformFromUnityToDll();
+            Create();
         }
 #endif
         
