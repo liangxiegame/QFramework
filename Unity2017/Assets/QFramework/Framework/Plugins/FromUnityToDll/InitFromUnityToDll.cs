@@ -51,6 +51,7 @@ namespace QFramework
         public static void OnReload()
         {
             FromUnityToDll.Setting = new SettingFromUnityToDll();
+            FromUnityToDll.Platform = new PlatformFromUnityToDll();
         }
 #endif
         

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.104",
+    "Version": "v0.11.105",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.104",
-        "content": "Animator 增加同步扩展工具",
+        "version": "v0.11.105",
+        "content": "fix",
         "author": "liangxie",
-        "date": "2021 年 04 月 18 日 15:34",
+        "date": "2021 年 04 月 18 日 16:07",
         "PackageId": ""
     }
 }
