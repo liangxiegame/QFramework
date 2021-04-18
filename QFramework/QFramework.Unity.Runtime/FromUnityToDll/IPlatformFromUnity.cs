@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.1 liangxie
+ * Copyright (c) 2021.4 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,38 +23,10 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Object = UnityEngine.Object;
-
 namespace QFramework
 {
-    public interface ISettingFromUnity
+    public interface IPlatformFromUnity
     {
-        bool SimulationMode { get; set; }
-        string PathPrefix { get; }
-
-        // 外部目录  
-        string PersistentDataPath { get; }
-
-        // 内部目录
-        string StreamingAssetsPath { get; }
-
-        // 外部资源目录
-        string PersistentDataPath4Res { get; }
-
-        // 外部头像缓存目录
-        string PersistentDataPath4Photo { get; }
-
-        // 资源路径，优先返回外存资源路径
-        string GetResPathInPersistentOrStream(string relativePath);
-
-        // 上一级目录
-        string GetParentDir(string dir, int floor = 1);
-
-        void GetFileInFolder(string dirName, string fileName, List<string> outResult);
-
         bool IsAndroid { get; }
 
         bool IsEditor { get; }
@@ -66,19 +38,5 @@ namespace QFramework
         bool IsWin { get; }
         
         bool IsWebGL { get; }
-
-        ResDatas BuildEditorDataTable();
-
-        string AssetPath2Name(string assetPath);
-        
-        void AddABInfo2ResDatas(IResDatas assetBundleConfigFile);
-
-        string GetPlatformName();
-        string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName);
-        Object LoadAssetAtPath(string assetPath, Type assetType);
-        T LoadAssetAtPath<T>(string assetPath) where T : Object;
-        string PasswordField(string value, GUIStyle style, GUILayoutOption[] options);
-        string TextField(string value, GUIStyle style, GUILayoutOption[] options);
-        string TextArea(string value, GUIStyle style, GUILayoutOption[] options);
     }
 }

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2021.1 liangxie
+ * Copyright (c) 2021.1 ~ 4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,9 +24,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-#if UNITY_EDITOR
-using UnityEditor.Callbacks;
-#endif
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +38,7 @@ namespace QFramework
 {
     [ExecuteInEditMode]
     // ReSharper disable once RequiredBaseTypesIsNotInherited
-    public class SettingFromUnityDll : ISettingFromUnity
+    public class SettingFromUnityToDll : ISettingFromUnity
     {
 #if UNITY_EDITOR
         public static string GetPlatformForAssetBundles(BuildTarget target)
@@ -212,70 +209,7 @@ namespace QFramework
 
         #endregion
 
-        public bool IsAndroid
-        {
-            get
-            {
-                bool retValue = false;
-#if UNITY_ANDROID
-                retValue = true;
-#endif
-                return retValue;
-            }
-        }
-
-        public bool IsEditor
-        {
-            get
-            {
-                bool retValue = false;
-#if UNITY_EDITOR
-                retValue = true;
-#endif
-                return retValue;
-            }
-        }
-
-        public bool IsiOS
-        {
-            get
-            {
-                bool retValue = false;
-#if UNITY_IOS
-				retValue = true;
-#endif
-                return retValue;
-            }
-        }
-
-        public bool IsStandardAlone
-        {
-            get
-            {
-                bool retValue = false;
-#if UNITY_STANDALONE
-                retValue = true;
-#endif
-                return retValue;
-            }
-        }
-
-        public bool IsWin
-        {
-            get
-            {
-                bool retValue = false;
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-                retValue = true;
-#endif
-                return retValue;
-            }
-        }
-
-        public bool IsWebGL
-        {
-            get { return Application.platform == RuntimePlatform.WebGLPlayer; }
-        }
+    
 
         private static string mPersistentDataPath;
         private static string mStreamingAssetsPath;
@@ -433,12 +367,6 @@ namespace QFramework
             get { return UnityEditor.EditorPrefs.GetBool(kSimulateAssetBundles, true); }
             set { UnityEditor.EditorPrefs.SetBool(kSimulateAssetBundles, value); }
         }
-
-        [DidReloadScripts]
-        static void OnReload()
-        {
-            FromUnityToDll.Setting = new SettingFromUnityDll();
-        }
 #else
          public bool SimulationMode
          {
@@ -446,22 +374,5 @@ namespace QFramework
              set {  }
          }
 #endif
-        static SettingFromUnityDll()
-        {
-#if UNITY_EDITOR
-            OnReload();
-#endif
-        }
-#if UNITY_EDITOR
-        [InitializeOnLoadMethod]
-#endif
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        static void OnLoad()
-        {
-            FromUnityToDll.Setting = new SettingFromUnityDll();
-
-            // 注册 Zip 工具
-            ResKit.Interface.RegisterUtility<IZipFileHelper>(new ZipFileHelper());
-        }
     }
 }

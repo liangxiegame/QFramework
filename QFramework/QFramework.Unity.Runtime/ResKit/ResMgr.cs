@@ -251,7 +251,7 @@ namespace QFramework
 
         private void OnGUI()
         {
-            if (Platform.IsEditor && Input.GetKey(KeyCode.F1))
+            if (FromUnityToDll.Platform.IsEditor && Input.GetKey(KeyCode.F1))
             {
                 GUILayout.BeginVertical("box");
 

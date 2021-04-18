@@ -31,5 +31,7 @@ namespace QFramework
     public class FromUnityToDll
     {
         public static ISettingFromUnity Setting { get; set; }
+        
+        public static IPlatformFromUnity Platform { get; set; }
     }
 }

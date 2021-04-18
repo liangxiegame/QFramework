@@ -125,7 +125,7 @@ namespace QFramework
             {
                 var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
 
-                if (FromUnityToDll.Setting.IsWebGL)
+                if (FromUnityToDll.Platform.IsWebGL)
                 {
                     var abcR = UnityWebRequestAssetBundle.GetAssetBundle(url);
                     var request = abcR.SendWebRequest();

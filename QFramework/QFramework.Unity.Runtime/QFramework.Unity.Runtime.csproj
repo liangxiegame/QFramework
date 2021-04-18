@@ -258,14 +258,15 @@
         <Compile Include="Core\XML\IXMLToObjectConverter.cs" />
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
         <Compile Include="Core\XML\XMLKit.cs" />
-        <Compile Include="FromUnityToDll.cs" />
+        <Compile Include="FromUnityToDll\FromUnityToDll.cs" />
+        <Compile Include="FromUnityToDll\IPlatformFromUnity.cs" />
+        <Compile Include="FromUnityToDll\ISettingFromUnity.cs" />
         <Compile Include="GameplayKit\AI\AIBrain.cs" />
         <Compile Include="GameplayKit\AI\AIAction.cs" />
         <Compile Include="GameplayKit\AI\AIDecision.cs" />
         <Compile Include="GameplayKit\AI\AIState.cs" />
         <Compile Include="GameplayKit\AI\AITransition.cs" />
         <Compile Include="IPanel.cs" />
-        <Compile Include="ISettingFromUnity.cs" />
         <Compile Include="Log.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="ResKit\ActionKitSupport\ResKitInit.cs" />
@@ -283,7 +284,6 @@
         <Compile Include="ResKit\AssetBundleSupport\Res\AssetRes.cs" />
         <Compile Include="ResKit\Deprecated.cs" />
         <Compile Include="ResKit\Helper\DisposableObject.cs" />
-        <Compile Include="ResKit\Helper\Platform.cs" />
         <Compile Include="ResKit\IEnumeratorTask.cs" />
         <Compile Include="ResKit\IRes.cs" />
         <Compile Include="ResKit\IZipFIleHelper.cs" />
