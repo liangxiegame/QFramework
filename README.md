@@ -12,9 +12,9 @@
 [码云国内镜像仓:https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
 
 ### ShowCase（商业案例）
-|  [谐音梗挑战](https://www.taptap.com/app/201075)   |  
-|  :-:  | 
-| ![](./Documents/Res/ShowCase/谐音梗挑战.png)  | 
+| [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
+| :-------------------------------------------------------: | :---------------------------------------------: |
+|        ![](./Documents/Res/ShowCase/鬼山之下.png)         |  ![](./Documents/Res/ShowCase/谐音梗挑战.png)   |
 
 ## Star 趋势（如果项目有帮到您欢迎点赞）
 
@@ -134,9 +134,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * Unity 5.6.x ~ 2020.x
 
 ### 可选的包含项目 Include Projects:
-* ~~[Catlib.Core](https://github.com/CatLib/Core)~~
-* ~~[ActionSequenceSystem](https://github.com/karsion/ActionSequenceSystem)~~
-* ~~[StateManageEditor](https://github.com/827922094/StateManageEditor)~~
 * [UniRx](https://github.com/neuecc/UniRx)
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 
@@ -163,9 +160,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [@SilenceT](https://github.com/SilenceT)
 - [@liangxie](https://github.com/liangxieq)
 
-- [~~@dtknowlove~~](https://github.com/dtknowlove)
-- [~~@huibinye~~](https://github.com/HUIBINYE)
-- [~~@imagicbell~~](https://github.com/imagicbell)
 
 ### 优秀的 Unity 库、框架
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
