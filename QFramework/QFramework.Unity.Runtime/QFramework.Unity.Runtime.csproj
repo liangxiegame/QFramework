@@ -260,6 +260,7 @@
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
         <Compile Include="Core\XML\XMLKit.cs" />
         <Compile Include="FromUnityToDll\FromUnityToDll.cs" />
+        <Compile Include="FromUnityToDll\IInputFromUnity.cs" />
         <Compile Include="FromUnityToDll\IPlatformFromUnity.cs" />
         <Compile Include="FromUnityToDll\ISettingFromUnity.cs" />
         <Compile Include="GameplayKit\AI\AIBrain.cs" />

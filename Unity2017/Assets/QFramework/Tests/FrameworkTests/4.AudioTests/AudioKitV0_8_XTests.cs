@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -252,3 +253,4 @@ namespace QFramework.Tests
 		}
 	}
 }
+#endif

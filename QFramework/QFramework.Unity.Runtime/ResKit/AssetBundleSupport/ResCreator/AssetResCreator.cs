@@ -10,6 +10,16 @@ namespace QFramework
             {
                 return assetData.AssetType == ResLoadType.ABAsset;
             }
+            
+            foreach (var subProjectAssetBundleConfigFile in AssetBundleSettings.SubProjectAssetBundleConfigFiles)
+            {
+                assetData = subProjectAssetBundleConfigFile.GetAssetData(resSearchKeys);
+                
+                if (assetData != null)
+                {
+                    return assetData.AssetType == ResLoadType.ABAsset;
+                }
+            }
 
             return false;
         }

@@ -1,0 +1,35 @@
+ManifestFileVersion: 0
+CRC: 2874462445
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: battlescene_unity
+      Dependencies: {}
+    Info_1:
+      Name: sceneres_unity
+      Dependencies: {}
+    Info_2:
+      Name: testimage_png
+      Dependencies: {}
+    Info_3:
+      Name: assetobj_prefab
+      Dependencies: {}
+    Info_4:
+      Name: spriteatlas_spriteatlas
+      Dependencies: {}
+    Info_5:
+      Name: soundfile
+      Dependencies: {}
+    Info_6:
+      Name: uikittestpanel_prefab
+      Dependencies: {}
+    Info_7:
+      Name: coin_get1_prefab
+      Dependencies:
+        Dependency_0: coin_get1_mp3
+    Info_8:
+      Name: coin_get1_mp3
+      Dependencies: {}
+    Info_9:
+      Name: textureexample1_png
+      Dependencies: {}

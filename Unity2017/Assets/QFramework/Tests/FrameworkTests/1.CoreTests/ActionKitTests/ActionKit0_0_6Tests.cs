@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿#if UNITY_EDITOR
+using System.Collections;
 using System.Diagnostics;
 using NUnit.Framework;
 using UnityEngine;
@@ -153,3 +154,4 @@ namespace QFramework.Tests
         }
     }
 }
+#endif

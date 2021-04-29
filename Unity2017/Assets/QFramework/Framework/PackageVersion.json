@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.106",
+    "Version": "v0.11.107",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.106",
-        "content": "紧急 fix",
+        "version": "v0.11.107",
+        "content": "尝试支持 New Input System",
         "author": "liangxie",
-        "date": "2021 年 04 月 18 日 22:51",
+        "date": "2021 年 04 月 29 日 12:42",
         "PackageId": ""
     }
 }

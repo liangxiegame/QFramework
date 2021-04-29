@@ -4,8 +4,6 @@ namespace QFramework
 {
     public interface IResDatas
     {
-        string FileName { get; }
-
         /// <summary>
         /// 获取依赖
         /// </summary>

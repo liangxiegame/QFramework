@@ -195,6 +195,7 @@
         <Compile Include="Reorderble\ReorderableList.cs" />
         <Compile Include="ResKit\AssetBundleExporter.cs" />
         <Compile Include="ResKit\BuildScript.cs" />
+        <Compile Include="ResKit\Build\SubProjectData.cs" />
         <Compile Include="ResKit\ResKitAssetsMenu.cs" />
         <Compile Include="ResKit\ResKitEditorAPI.cs" />
         <Compile Include="ResKit\ResKitEditorWindow.cs" />

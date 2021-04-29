@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2269745541
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1553be005b16b6a48dfe39faffc92934
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/QFramework/Tests/FrameworkTests/2.ResKitTests/coin_get1.mp3
+Dependencies: []

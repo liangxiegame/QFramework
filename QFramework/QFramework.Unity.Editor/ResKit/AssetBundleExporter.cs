@@ -25,21 +25,20 @@
  ****************************************************************************/
 
 using UnityEditor;
-using QFramework;
 
 namespace QFramework
 {
 	public static class AssetBundleExporter
 	{
-		public static void BuildDataTable()
+		public static void BuildDataTable(string[] abNames = null,string outputPath = null)
 		{
-			Log.I("Start BuildAssetDataTable!");
-			ResDatas table = new ResDatas();
-			FromUnityToDll.Setting.AddABInfo2ResDatas(table);
+			Log.I("Start Default BuildAssetDataTable!");
+			var table = new ResDatas();
+			FromUnityToDll.Setting.AddABInfo2ResDatas(table,abNames);
 
 			var filePath =
-				(FromUnityToDll.Setting.StreamingAssetsPath + AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists() +
-				table.FileName;
+				(outputPath ?? (FromUnityToDll.Setting.StreamingAssetsPath + AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER)).CreateDirIfNotExists() +
+				ResDatas.FileName;
 			
 			table.Save(filePath);
 			AssetDatabase.Refresh();

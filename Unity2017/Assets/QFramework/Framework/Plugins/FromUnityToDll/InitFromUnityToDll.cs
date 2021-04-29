@@ -51,6 +51,7 @@ namespace QFramework
         {
             FromUnityToDll.Setting = new SettingFromUnityToDll();
             FromUnityToDll.Platform = new PlatformFromUnityToDll();
+            FromUnityToDll.Input = new InputFromUnityToDll();
         }
 
 #if UNITY_EDITOR

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.1 liangxie
+ * Copyright (c) 2021.1 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -33,5 +33,7 @@ namespace QFramework
         public static ISettingFromUnity Setting { get; set; }
         
         public static IPlatformFromUnity Platform { get; set; }
+        
+        public static IInputFromUnity Input { get; set; }
     }
 }

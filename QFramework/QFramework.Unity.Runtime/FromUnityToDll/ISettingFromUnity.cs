@@ -59,8 +59,6 @@ namespace QFramework
 
         string AssetPath2Name(string assetPath);
         
-        void AddABInfo2ResDatas(IResDatas assetBundleConfigFile);
-
         string GetPlatformName();
         string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName);
         Object LoadAssetAtPath(string assetPath, Type assetType);
@@ -68,5 +66,6 @@ namespace QFramework
         string PasswordField(string value, GUIStyle style, GUILayoutOption[] options);
         string TextField(string value, GUIStyle style, GUILayoutOption[] options);
         string TextArea(string value, GUIStyle style, GUILayoutOption[] options);
+        void AddABInfo2ResDatas(IResDatas assetBundleConfigFile, string[] abNames=null);
     }
 }

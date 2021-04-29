@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿#if UNITY_EDITOR
+using NUnit.Framework;
 using TravelStory;
 
 namespace QFramework.Tests
@@ -174,3 +175,4 @@ namespace QFramework.Tests
 		}
 	}
 }
+#endif

@@ -33,8 +33,8 @@ namespace QFramework
         [Obsolete("ResKit.LoadResFromStreammingAssetsPath is depreacated,Please use AssetBundleSettings.LoadAssetResFromStreammingAssetsPath instead", ResKitDeprecatedConfig.FORCE_DEPRECATED)]
         public static bool LoadResFromStreammingAssetsPath
         {
-            get { return AssetBundleSettings.LoadAssetResFromStreammingAssetsPath; }
-            set { AssetBundleSettings.LoadAssetResFromStreammingAssetsPath = value; }
+            get { return AssetBundleSettings.LoadAssetResFromStreamingAssetsPath; }
+            set { AssetBundleSettings.LoadAssetResFromStreamingAssetsPath = value; }
         }
     }
     

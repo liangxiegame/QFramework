@@ -85,9 +85,9 @@ namespace QFramework
 
         private ResTable mTable = new ResTable();
 
-        [SerializeField] private int                         mCurrentCoroutineCount;
-        private                  int                         mMaxCoroutineCount    = 8; //最快协成大概在6到8之间
-        private                  LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
+        [SerializeField] private int mCurrentCoroutineCount;
+        private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
+        private LinkedList<IEnumeratorTask> mIEnumeratorTaskStack = new LinkedList<IEnumeratorTask>();
 
         //Res 在ResMgr中 删除的问题，ResMgr定时收集列表中的Res然后删除
         private bool mIsResMapDirty;
@@ -107,20 +107,21 @@ namespace QFramework
 
                 var outResult = new List<string>();
 
-                string pathPrefix = FromUnityToDll.Setting.PathPrefix;
+                var pathPrefix = FromUnityToDll.Setting.PathPrefix;
+
                 // 未进行过热更
-                if (AssetBundleSettings.LoadAssetResFromStreammingAssetsPath)
+                if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
-                    string streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
-                                           FromUnityToDll.Setting.GetPlatformName() + "/" +  AssetBundleSettings.AssetBundleConfigFile.FileName;
+                    var streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
+                                        FromUnityToDll.Setting.GetPlatformName() + "/" + ResDatas.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
-                    string persistenPath = Application.persistentDataPath + "/AssetBundles/" +
-                                           FromUnityToDll.Setting.GetPlatformName() + "/" +  AssetBundleSettings.AssetBundleConfigFile.FileName;
-                    outResult.Add(pathPrefix + persistenPath);
+                    var persistentPath = Application.persistentDataPath + "/AssetBundles/" +
+                                         FromUnityToDll.Setting.GetPlatformName() + "/" + ResDatas.FileName;
+                    outResult.Add(pathPrefix + persistentPath);
                 }
 
                 foreach (var outRes in outResult)
@@ -146,15 +147,16 @@ namespace QFramework
                 var outResult = new List<string>();
 
                 // 未进行过热更
-                if (AssetBundleSettings.LoadAssetResFromStreammingAssetsPath)
+                if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
                     ResKit.Interface.GetUtility<IZipFileHelper>()
-                        .GetFileInInner(AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
+                        .GetFileInInner(ResDatas.FileName, outResult);
                 }
                 // 进行过热更
                 else
                 {
-                    FromUnityToDll.Setting.GetFileInFolder(FromUnityToDll.Setting.PersistentDataPath, AssetBundleSettings.AssetBundleConfigFile.FileName, outResult);
+                    FromUnityToDll.Setting.GetFileInFolder(FromUnityToDll.Setting.PersistentDataPath, ResDatas.FileName,
+                        outResult);
                 }
 
                 foreach (var outRes in outResult)
@@ -251,7 +253,7 @@ namespace QFramework
 
         private void OnGUI()
         {
-            if (FromUnityToDll.Platform.IsEditor && Input.GetKey(KeyCode.F1))
+            if (FromUnityToDll.Platform.IsEditor && FromUnityToDll.Input.ShowResKitDebugInfo)
             {
                 GUILayout.BeginVertical("box");
 
@@ -298,10 +300,16 @@ namespace QFramework
         #endregion
 
         private static List<string> mSubProjectNames = new List<string>();
-        
+
         public static void AddSubProject(string projectName)
         {
             mSubProjectNames.Add(projectName);
+        }
+
+        public static IEnumerator AddSubProjectAsync(string projectName)
+        {
+
+            yield return null;
         }
     }
 }

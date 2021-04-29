@@ -151,11 +151,9 @@ namespace QFramework
         {
             Log.I("Start BuildAssetDataTable!");
             var resDatas = new ResDatas();
-
             AddABInfo2ResDatas(resDatas);
             return resDatas;
         }
-
 
         #region 构建 AssetDataTable
 
@@ -173,43 +171,39 @@ namespace QFramework
             return assetPath.Substring(startIndex).ToLower();
         }
 
-        public void AddABInfo2ResDatas(IResDatas assetBundleConfigFile)
+        #endregion
+
+        public void AddABInfo2ResDatas(IResDatas assetBundleConfigFile,string[] abNames = null)
         {
 #if UNITY_EDITOR
             AssetDatabase.RemoveUnusedAssetBundleNames();
 
-            var abNames = AssetDatabase.GetAllAssetBundleNames();
-            if (abNames != null && abNames.Length > 0)
+            var assetBundleNames = abNames ?? AssetDatabase.GetAllAssetBundleNames();
+            foreach (var abName in assetBundleNames)
             {
-                foreach (var abName in abNames)
+                var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
+                AssetDataGroup group;
+                var abIndex = assetBundleConfigFile.AddAssetBundleName(abName, depends, out @group);
+                if (abIndex < 0)
                 {
-                    var depends = AssetDatabase.GetAssetBundleDependencies(abName, false);
-                    AssetDataGroup group;
-                    var abIndex = assetBundleConfigFile.AddAssetBundleName(abName, depends, out @group);
-                    if (abIndex < 0)
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    var assets = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
-                    foreach (var cell in assets)
-                    {
-                        var type = AssetDatabase.GetMainAssetTypeAtPath(cell);
+                var assets = AssetDatabase.GetAssetPathsFromAssetBundle(abName);
+                foreach (var cell in assets)
+                {
+                    var type = AssetDatabase.GetMainAssetTypeAtPath(cell);
 
-                        var code = type.ToCode();
+                    var code = type.ToCode();
 
-                        @group.AddAssetData(cell.EndsWith(".unity")
-                            ? new AssetData(AssetPath2Name(cell), ResLoadType.ABScene, abIndex, abName, code)
-                            : new AssetData(AssetPath2Name(cell), ResLoadType.ABAsset, abIndex, abName, code));
-                    }
+                    @group.AddAssetData(cell.EndsWith(".unity")
+                        ? new AssetData(AssetPath2Name(cell), ResLoadType.ABScene, abIndex, abName, code)
+                        : new AssetData(AssetPath2Name(cell), ResLoadType.ABAsset, abIndex, abName, code));
                 }
             }
 #endif
         }
 
-        #endregion
-
-    
 
         private static string mPersistentDataPath;
         private static string mStreamingAssetsPath;

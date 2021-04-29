@@ -1,7 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEditor;
 
 namespace QFramework
 {
@@ -37,11 +37,12 @@ namespace QFramework
             set { mAssetBundleConfigFile = value; }
         }
 
-
-        public static bool LoadAssetResFromStreammingAssetsPath
+        public static List<IResDatas> SubProjectAssetBundleConfigFiles = new List<IResDatas>();
+        
+        public static bool LoadAssetResFromStreamingAssetsPath
         {
-            get { return PlayerPrefs.GetInt("LoadResFromStreammingAssetsPath", 1) == 1; }
-            set { PlayerPrefs.SetInt("LoadResFromStreammingAssetsPath", value ? 1 : 0); }
+            get { return PlayerPrefs.GetInt("LoadResFromStreamingAssetsPath", 1) == 1; }
+            set { PlayerPrefs.SetInt("LoadResFromStreamingAssetsPath", value ? 1 : 0); }
         }
 
 

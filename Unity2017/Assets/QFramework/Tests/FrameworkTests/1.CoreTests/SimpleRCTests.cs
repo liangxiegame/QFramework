@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using NUnit.Framework;
 
 namespace QFramework.Tests
@@ -76,3 +77,4 @@ namespace QFramework.Tests
         }
     }
 }
+#endif

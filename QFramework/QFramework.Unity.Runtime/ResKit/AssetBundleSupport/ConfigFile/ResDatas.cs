@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.3 ~ 2020.1 liangxie
+ * Copyright (c) 2018.3 ~ 2021.4 liangxie
  * 
  * http://liangxiegame.com
  * https://github.com/liangxiegame/QFramework
@@ -34,7 +34,7 @@ namespace QFramework
     /// <summary>
     /// 默认的 ResData 支持
     /// </summary>
-    public class ResDatas : IResDatas
+    public sealed class ResDatas : IResDatas
     {
         [Serializable]
         public class SerializeData
@@ -48,23 +48,19 @@ namespace QFramework
             }
         }
 
-        public virtual string FileName
-        {
-            get { return "asset_bindle_config.bin"; }
-        }
+        /// <summary>
+        /// 如果是以前的命名错误版本，大家可以通过设置 ResDatas.FileName = "asset_bindle_config.bin" 来兼容以前的代码; 
+        /// </summary>
+        public static string FileName = "asset_bundle_config.bin";
 
         public IList<AssetDataGroup> AllAssetDataGroups
         {
             get { return mAllAssetDataGroup; }
         }
 
-        protected readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
+        private readonly List<AssetDataGroup> mAllAssetDataGroup = new List<AssetDataGroup>();
 
         private AssetDataTable mAssetDataTable = null;
-
-        public ResDatas()
-        {
-        }
 
         public void Reset()
         {
@@ -148,7 +144,7 @@ namespace QFramework
             return mAssetDataTable.GetAssetDataByResSearchKeys(resSearchKeys);
         }
 
-        public virtual void LoadFromFile(string path)
+        public void LoadFromFile(string path)
         {
             var binarySerializer = ResKit.Interface.GetUtility<IBinarySerializer>();
             var zipFileHelper = ResKit.Interface.GetUtility<IZipFileHelper>();
@@ -171,11 +167,11 @@ namespace QFramework
             }
 
             Log.I("Load AssetConfig From File:" + path);
-            SetSerizlizeData(sd);
+            SetSerializeData(sd);
         }
 
 
-        public virtual IEnumerator LoadFromFileAsync(string path)
+        public IEnumerator LoadFromFileAsync(string path)
         {
             using (var www = new WWW(path))
             {
@@ -207,13 +203,13 @@ namespace QFramework
                 }
 
                 Log.I("Load AssetConfig From File:" + path);
-                SetSerizlizeData(sd);
+                SetSerializeData(sd);
             }
         }
 
-        public virtual void Save(string outPath)
+        public void Save(string outPath)
         {
-            SerializeData sd = new SerializeData
+            var sd = new SerializeData
             {
                 AssetDataGroup = new AssetDataGroup.SerializeData[mAllAssetDataGroup.Count]
             };
@@ -234,7 +230,7 @@ namespace QFramework
             }
         }
 
-        protected void SetSerizlizeData(SerializeData data)
+        private void SetSerializeData(SerializeData data)
         {
             if (data == null || data.AssetDataGroup == null)
             {
@@ -280,29 +276,14 @@ namespace QFramework
 
         private static string GetKeyFromABName(string name)
         {
-            int pIndex = name.IndexOf('/');
+            var pIndex = name.IndexOf('/');
 
             if (pIndex < 0)
             {
                 return name;
             }
 
-            string key = name.Substring(0, pIndex);
-
-            if (name.Contains("i18res"))
-            {
-                int i18Start = name.IndexOf("i18res") + 7;
-                name = name.Substring(i18Start);
-                pIndex = name.IndexOf('/');
-                if (pIndex < 0)
-                {
-                    Log.W("Not Valid AB Path:" + name);
-                    return null;
-                }
-
-                string language = string.Format("[{0}]", name.Substring(0, pIndex));
-                key = string.Format("{0}-i18res-{1}", key, language);
-            }
+            var key = name.Substring(0, pIndex);
 
             return key;
         }
