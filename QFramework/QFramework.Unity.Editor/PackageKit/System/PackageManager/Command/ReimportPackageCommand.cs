@@ -48,7 +48,7 @@ namespace QFramework
                 Directory.Delete(path, true);
             }
 
-            RenderEndCommandExecuter.PushCommand(() =>
+            RenderEndCommandExecutor.PushCommand(() =>
             {
                 AssetDatabase.Refresh();
 

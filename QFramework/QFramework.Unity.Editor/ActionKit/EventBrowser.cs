@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 ~ 2021.4 liangxie
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -30,18 +30,18 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class ActionBrowser : EasyEditorWindow
+    public class EventBrowser : EasyEditorWindow
     {
         public static void Open(Action<Type> onTypeClick)
         {
-            Create<ActionBrowser>(true)
+            Create<EventBrowser>(true)
                 .OnTypeClick(onTypeClick)
                 .Show();
         }
 
         private Action<Type> mOnTypeClick;
 
-        private ActionBrowser OnTypeClick(Action<Type> onTypeClick)
+        private EventBrowser OnTypeClick(Action<Type> onTypeClick)
         {
             mOnTypeClick = onTypeClick;
             Close();
@@ -78,7 +78,7 @@ namespace QFramework
 
             var scroll = EasyIMGUI.Scroll();
 
-            foreach (var group in ActionTypeDB.GetAll()
+            foreach (var group in EventTypeDB.GetAll()
                 .Where(t => t.GetFirstAttribute<OnlyUsedByCodeAttribute>(false) == null).GroupBy(t =>
                 {
                     var attribute = t.GetFirstAttribute<ActionGroupAttribute>(false);

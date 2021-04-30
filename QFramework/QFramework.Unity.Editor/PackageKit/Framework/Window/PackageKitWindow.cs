@@ -33,7 +33,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class PackageKitWindow : IMGUIEditorWindow
+    public class PackageKitWindow : EasyEditorWindow
     {
         class LocaleText
         {
@@ -127,7 +127,7 @@ namespace QFramework
         protected override void Init()
         {
             PackageApplication.Container = null;
-            RemoveAllChidren();
+            RemoveAllChildren();
 
             mPackageKitViewRenderInfos = PackageApplication.Container
                 .ResolveAll<IPackageKitView>()
@@ -198,7 +198,7 @@ namespace QFramework
             mSplitView.OnGUI(new Rect(new Vector2(0, r.yMax),
                 new Vector2(position.width, position.height - r.height)));
 
-            RenderEndCommandExecuter.ExecuteCommand();
+            RenderEndCommandExecutor.ExecuteCommand();
         }
 
         private PackageKitViewRenderInfo mSelectedViewRender = null;
@@ -260,7 +260,7 @@ namespace QFramework
                     .ForEach(view => view.Interface.OnDispose());
             }
 
-            RemoveAllChidren();
+            RemoveAllChildren();
         }
 
         public override void OnUpdate()

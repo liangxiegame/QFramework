@@ -56,8 +56,12 @@
     <ItemGroup>
         <Compile Include="ActionKit\ActionBrowser.cs" />
         <Compile Include="ActionKit\ActionKitEditorWrapper.cs" />
+        <Compile Include="ActionKit\ActionKitVisualEventEditor.cs" />
+        <Compile Include="ActionKit\ActionKitFlowEditor.cs" />
+        <Compile Include="ActionKit\ActionKitVisualActionEditror.cs" />
         <Compile Include="ActionKit\EditorActionKit.cs" />
         <Compile Include="ActionKit\EditorExecutor.cs" />
+        <Compile Include="ActionKit\EventBrowser.cs" />
         <Compile Include="ActionKit\OnEventEditor.cs" />
         <Compile Include="Attribute\ReadOnlyAttributeDrawer.cs" />
         <Compile Include="ClearAllData.cs" />
@@ -132,7 +136,7 @@
         <Compile Include="PackageKit\Advertise\AdvertisementItemView.cs" />
         <Compile Include="PackageKit\Advertise\AdvertisementView.cs" />
         <Compile Include="EasyIMGUI\IMGUIEditorWindow.cs" />
-        <Compile Include="EasyIMGUI\IMGUIInspectorEditor.cs" />
+        <Compile Include="EasyIMGUI\EasyInspectorEditor.cs" />
         <Compile Include="EasyIMGUI\TreeNode.cs" />
         <Compile Include="EasyIMGUI\TreeView\AssetTree.cs" />
         <Compile Include="EasyIMGUI\TreeView\AssetTreeIMGUI.cs" />

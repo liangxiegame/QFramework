@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2018 ~ 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,38 +24,21 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
 using UnityEditor;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
-    public class UpdatePackageCommand : Command<PackageKit>
+    public class EasyInspectorEditor : Editor,IMGUILayoutRoot
     {
-        public UpdatePackageCommand(PackageRepository packageRepository)
+        VerticalLayout IMGUILayoutRoot.Layout { get; set; }
+        RenderEndCommandExecutor IMGUILayoutRoot.RenderEndCommandExecutor { get; set; }
+        
+       protected void Save()
         {
-            mPackageRepository = packageRepository;
-        }
-
-        private readonly PackageRepository mPackageRepository;
-
-        public override void Execute()
-        {
-            var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
-
-            if (Directory.Exists(path))
-            {
-                Directory.Delete(path, true);
-            }
-
-            RenderEndCommandExecutor.PushCommand(() =>
-            {
-                AssetDatabase.Refresh();
-
-                PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-
-                this.SendCommand(new InstallPackage(mPackageRepository));
-            });
+            EditorUtility.SetDirty(target);
+            UnityEditor.SceneManagement.EditorSceneManager
+                .MarkSceneDirty(SceneManager.GetActiveScene());
         }
     }
 }

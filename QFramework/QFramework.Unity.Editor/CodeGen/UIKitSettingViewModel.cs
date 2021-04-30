@@ -44,7 +44,7 @@ namespace QFramework
                     return;
                 }
                 
-                RenderEndCommandExecuter.PushCommand(() =>
+                RenderEndCommandExecutor.PushCommand(() =>
                 {
                     var currentScene = SceneManager.GetActiveScene();
                     EditorSceneManager.SaveScene(currentScene);

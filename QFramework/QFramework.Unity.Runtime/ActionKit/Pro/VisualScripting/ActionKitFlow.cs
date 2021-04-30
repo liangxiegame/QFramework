@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,38 +24,14 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public class UpdatePackageCommand : Command<PackageKit>
+    public class ActionKitFlow : MonoBehaviour
     {
-        public UpdatePackageCommand(PackageRepository packageRepository)
-        {
-            mPackageRepository = packageRepository;
-        }
-
-        private readonly PackageRepository mPackageRepository;
-
-        public override void Execute()
-        {
-            var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
-
-            if (Directory.Exists(path))
-            {
-                Directory.Delete(path, true);
-            }
-
-            RenderEndCommandExecutor.PushCommand(() =>
-            {
-                AssetDatabase.Refresh();
-
-                PackageApplication.Container.Resolve<PackageKitWindow>().Close();
-
-                this.SendCommand(new InstallPackage(mPackageRepository));
-            });
-        }
+        [HideInInspector]
+        public List<ActionKitVisualEvent> Events;
     }
 }

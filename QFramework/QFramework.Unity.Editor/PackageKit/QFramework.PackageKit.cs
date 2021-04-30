@@ -538,7 +538,7 @@ namespace QFramework
 
         public void PushCommand(System.Action command)
         {
-            RenderEndCommandExecuter.PushCommand(command);
+            RenderEndCommandExecutor.PushCommand(command);
         }
 
         private void OnGUI()
@@ -548,7 +548,7 @@ namespace QFramework
                 ViewController.View.DrawGUI();
             }
 
-            RenderEndCommandExecuter.ExecuteCommand();
+            RenderEndCommandExecutor.ExecuteCommand();
         }
 
         public void Dispose()
@@ -563,35 +563,14 @@ namespace QFramework
         protected abstract void OnDispose();
     }
 
-    public class RenderEndCommandExecuter
-    {
-        private static Queue<System.Action> mPrivateCommands = new Queue<System.Action>();
 
-        private static Queue<System.Action> mCommands
-        {
-            get { return mPrivateCommands; }
-        }
-
-        public static void PushCommand(System.Action command)
-        {
-            mCommands.Enqueue(command);
-        }
-
-        public static void ExecuteCommand()
-        {
-            while (mCommands.Count > 0)
-            {
-                mCommands.Dequeue().Invoke();
-            }
-        }
-    }
 
 
     public static class WindowExtension
     {
         public static T PushCommand<T>(this T view, System.Action command) where T : IMGUIView
         {
-            RenderEndCommandExecuter.PushCommand(command);
+            RenderEndCommandExecutor.PushCommand(command);
             return view;
         }
     }

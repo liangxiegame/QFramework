@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.107",
+    "Version": "v0.11.108",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.107",
-        "content": "尝试支持 New Input System",
+        "version": "v0.11.108",
+        "content": "ActionKit 增加快速可视化编程支持",
         "author": "liangxie",
-        "date": "2021 年 04 月 29 日 12:42",
+        "date": "2021 年 04 月 30 日 16:55",
         "PackageId": ""
     }
 }

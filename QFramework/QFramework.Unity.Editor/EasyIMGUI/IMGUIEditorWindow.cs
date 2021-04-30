@@ -24,24 +24,20 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Collections.Generic;
+using System;
 using UnityEditor;
 
 namespace QFramework
 {
-    public abstract class IMGUIEditorWindow : EditorWindow
+
+    public abstract class EasyEditorWindow : EditorWindow,IMGUILayoutRoot
     {
-        public static T Create<T>(bool utility, string title = null) where T : IMGUIEditorWindow
+        public static T Create<T>(bool utility, string title = null) where T : EasyEditorWindow
         {
             return string.IsNullOrEmpty(title) ? GetWindow<T>(utility) : GetWindow<T>(utility, title);
         }
-
-        private readonly List<IMGUIView> mChildren = new List<IMGUIView>();
-
         public bool Openning { get; set; }
-
-
-
+        
         public void Open()
         {
             Openning = true;
@@ -55,32 +51,10 @@ namespace QFramework
             base.Close();
         }
         
-        private bool mVisible = true;
 
-        public bool Visible
+        public void RemoveAllChildren()
         {
-            get { return mVisible; }
-            set { mVisible = value; }
-        }
-
-        public void AddChild(IMGUIView childView)
-        {
-            mChildren.Add(childView);
-        }
-
-        public void RemoveChild(IMGUIView childView)
-        {
-            mChildren.Remove(childView);
-        }
-
-        public List<IMGUIView> Children
-        {
-            get { return mChildren; }
-        }
-
-        public void RemoveAllChidren()
-        {
-            mChildren.Clear();
+            this.GetLayout().Clear();
         }
 
         public abstract void OnClose();
@@ -106,10 +80,16 @@ namespace QFramework
                 mInited = true;
             }
             
-            if (Visible)
-            {
-                mChildren.ForEach(childView => childView.DrawGUI());
-            }
+            this.GetLayout().DrawGUI();
         }
+        
+        VerticalLayout IMGUILayoutRoot.Layout { get; set; }
+        RenderEndCommandExecutor IMGUILayoutRoot.RenderEndCommandExecutor { get; set; }
     }
+    
+    [Obsolete("已经弃用，请使用 EasyEditorWindow",true)]
+    public abstract class IMGUIEditorWindow : EasyEditorWindow {}
+    
+     
+    
 }

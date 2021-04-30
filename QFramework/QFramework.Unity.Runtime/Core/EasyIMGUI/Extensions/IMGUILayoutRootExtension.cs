@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,38 +24,52 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
-using UnityEditor;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace QFramework
 {
-    public class UpdatePackageCommand : Command<PackageKit>
+    public static class IMGUILayoutRootExtension 
     {
-        public UpdatePackageCommand(PackageRepository packageRepository)
+
+        public static IMGUILayout GetLayout(this IMGUILayoutRoot self)
         {
-            mPackageRepository = packageRepository;
-        }
-
-        private readonly PackageRepository mPackageRepository;
-
-        public override void Execute()
-        {
-            var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
-
-            if (Directory.Exists(path))
+            if (self.Layout == null)
             {
-                Directory.Delete(path, true);
+                self.Layout = new VerticalLayout();
             }
 
-            RenderEndCommandExecutor.PushCommand(() =>
+            return self.Layout;
+        }
+
+        public static void AddChild(this IMGUILayoutRoot self, IMGUIView child)
+        {
+            self.GetLayout().AddChild(child);
+        }
+
+        public static void RemoveChild(this IMGUILayoutRoot self, IMGUIView child)
+        {
+            self.GetLayout().RemoveChild(child);
+        }
+
+
+        public static RenderEndCommandExecutor GetCommandExecutor(this IMGUILayoutRoot self)
+        {
+            if (self.RenderEndCommandExecutor == null)
             {
-                AssetDatabase.Refresh();
+                self.RenderEndCommandExecutor = new RenderEndCommandExecutor();
+            }
 
-                PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+            return self.RenderEndCommandExecutor;
+        }
+        public static void PushRenderEndCommand(this IMGUILayoutRoot self, Action command)
+        {
+            self.GetCommandExecutor().Push(command);
+        }
 
-                this.SendCommand(new InstallPackage(mPackageRepository));
-            });
+        public static void ExecuteRenderEndCommand(this IMGUILayoutRoot self)
+        {
+            self.GetCommandExecutor().Execute();
         }
     }
 }

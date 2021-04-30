@@ -162,7 +162,7 @@ namespace QFramework
                                         {
                                             if (GUILayout.Button(LocaleText.Import))
                                             {
-                                                RenderEndCommandExecuter.PushCommand(() =>
+                                                RenderEndCommandExecutor.PushCommand(() =>
                                                 {
                                                     this.SendCommand(new ImportPackageCommand(p));
                                                 });
@@ -172,7 +172,7 @@ namespace QFramework
                                         {
                                             if (GUILayout.Button(LocaleText.Update))
                                             {
-                                                RenderEndCommandExecuter.PushCommand(() =>
+                                                RenderEndCommandExecutor.PushCommand(() =>
                                                 {
                                                     this.SendCommand(new UpdatePackageCommand(p));
                                                 });
@@ -182,7 +182,7 @@ namespace QFramework
                                         {
                                             if (GUILayout.Button(LocaleText.Reimport))
                                             {
-                                                RenderEndCommandExecuter.PushCommand(() =>
+                                                RenderEndCommandExecutor.PushCommand(() =>
                                                 {
                                                     this.SendCommand(new ReimportPackageCommand(p));
                                                 });

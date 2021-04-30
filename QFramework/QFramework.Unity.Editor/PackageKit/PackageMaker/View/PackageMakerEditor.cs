@@ -33,7 +33,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class PackageMakerEditor : IMGUIEditorWindow
+    public class PackageMakerEditor : EasyEditorWindow
     {
         private PackageVersion mPackageVersion;
 
@@ -299,7 +299,7 @@ namespace QFramework
 
             RootLayout.DrawGUI();
 
-            RenderEndCommandExecuter.ExecuteCommand();
+            RenderEndCommandExecutor.ExecuteCommand();
         }
     }
 }

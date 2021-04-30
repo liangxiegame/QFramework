@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,18 +24,12 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEngine;
-using UnityEngine.UI;
-
 namespace QFramework
 {
-    [RequireComponent(typeof(Button))]
-    public class OnButtonClick : ActionKitEvent
+    public interface IMGUILayoutRoot
     {
-        private void Awake()
-        {
-            GetComponent<Button>()
-                .onClick.AddListener(Execute);
-        }
+        VerticalLayout Layout { get; set; }
+        
+        RenderEndCommandExecutor RenderEndCommandExecutor { get; set; }
     }
 }

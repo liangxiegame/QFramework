@@ -65,7 +65,7 @@ namespace QFramework
 
             AssetDatabase.Refresh();
 
-            RenderEndCommandExecuter.PushCommand(() => { PublishPackage(mPackageVersion, false); });
+            RenderEndCommandExecutor.PushCommand(() => { PublishPackage(mPackageVersion, false); });
         }
 
         public void PublishPackage(PackageVersion packageVersion, bool deleteLocal)

@@ -59,7 +59,7 @@ namespace QFramework
 
         static void Search()
         {
-            var actionType = typeof(IAction);
+            var actionType = typeof(ActionKitVisualAction);
 
             mDB = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a =>
                 {

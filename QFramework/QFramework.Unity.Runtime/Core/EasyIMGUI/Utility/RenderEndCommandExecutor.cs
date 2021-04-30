@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,13 +24,44 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
+
 namespace QFramework
 {
-    public class OnStart : ActionKitEvent
+    public class RenderEndCommandExecutor
     {
-        void Start()
+        // 全局的
+        private static RenderEndCommandExecutor mGlobal = new RenderEndCommandExecutor();
+        
+        private  Queue<System.Action> mPrivateCommands = new Queue<System.Action>();
+
+        private  Queue<System.Action> mCommands
         {
-            Execute();
+            get { return mPrivateCommands; }
+        }
+
+        public static void PushCommand(System.Action command)
+        {
+            mGlobal.Push(command);
+        }
+
+        public static void ExecuteCommand()
+        {
+
+            mGlobal.Execute();
+        }
+        
+        public void Push(System.Action command)
+        {
+            mCommands.Enqueue(command);
+        }
+
+        public void Execute()
+        {
+            while (mCommands.Count > 0)
+            {
+                mCommands.Dequeue().Invoke();
+            }
         }
     }
 }

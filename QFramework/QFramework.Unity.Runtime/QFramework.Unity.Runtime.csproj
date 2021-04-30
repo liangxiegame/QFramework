@@ -96,12 +96,20 @@
         <Compile Include="ActionKit\Node\SequenceNode.cs" />
         <Compile Include="ActionKit\Node\SpawnNode.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\InstantiateGameObject.cs" />
+        <Compile Include="ActionKit\Pro\Action\Unity\LogInfo.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\SetTargetFrameRate.cs" />
-        <Compile Include="ActionKit\Pro\Event\OnButtonClick.cs" />
-        <Compile Include="ActionKit\Pro\Event\OnStart.cs" />
+        <Compile Include="ActionKit\Pro\Event\MonoBehaviour\OnStart.cs" />
         <Compile Include="ActionKit\Pro\Event\OnTriggerEnter2D.cs" />
+        <Compile Include="ActionKit\Pro\Event\UGUI\OnButtonClick.cs" />
         <Compile Include="ActionKit\Pro\Framework\ActionTypeDB.cs" />
+        <Compile Include="ActionKit\Pro\Framework\EventTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitFlow.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitStateMachine.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitVisualAction.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitVisualEvent.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitVisualState.cs" />
+        <Compile Include="ActionKit\Pro\VisualScripting\ActionKitVisualTrigger.cs" />
         <Compile Include="ActionKit\Timeline\KeyEventAction.cs" />
         <Compile Include="ActionKit\Timeline\Timeline.cs" />
         <Compile Include="AudioKit\0.Timer\BinaryHeap.cs" />
@@ -180,6 +188,7 @@
         <Compile Include="Core\Disposable\Trigger\OnDestroyDisposeTrigger.cs" />
         <Compile Include="Core\Disposable\Trigger\OnDisableDisposeTrigger.cs" />
         <Compile Include="Core\EasyIMGUI\EasyIMGUI.cs" />
+        <Compile Include="Core\EasyIMGUI\Extensions\IMGUILayoutRootExtension.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\LayoutExtenion.cs" />
         <Compile Include="Core\EasyIMGUI\Extensions\ViewExtension.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Feature\ICanClick.cs" />
@@ -190,6 +199,7 @@
         <Compile Include="Core\EasyIMGUI\Framework\IMGUIView.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\Layout.cs" />
         <Compile Include="Core\EasyIMGUI\Framework\View.cs" />
+        <Compile Include="Core\EasyIMGUI\GUILayout\IMGUILayoutRoot.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Area\AreaLayout.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
         <Compile Include="Core\EasyIMGUI\GUILayout\Layout\Scroll\ScrollLayout.cs" />
@@ -209,6 +219,7 @@
         <Compile Include="Core\EasyIMGUI\GUIWithRect\BoxWithRect.cs" />
         <Compile Include="Core\EasyIMGUI\GUIWithRect\LabelWithRect.cs" />
         <Compile Include="Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
+        <Compile Include="Core\EasyIMGUI\Utility\RenderEndCommandExecutor.cs" />
         <Compile Include="Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
         <Compile Include="Core\EasyIMGUI\XML\XMLView.cs" />
         <Compile Include="Core\Event\EnumEventSystem\EnumEventSystem.cs" />

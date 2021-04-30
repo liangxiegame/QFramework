@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2020.10 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,11 +24,19 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace QFramework
 {
-    public class IMGUIInspectorEditor : Editor
+    [ActionGroup("UGUI")]
+    [RequireComponent(typeof(Button))]
+    public class OnButtonClick : ActionKitVisualEvent
     {
+        private void Awake()
+        {
+            GetComponent<Button>()
+                .onClick.AddListener(Execute);
+        }
     }
 }

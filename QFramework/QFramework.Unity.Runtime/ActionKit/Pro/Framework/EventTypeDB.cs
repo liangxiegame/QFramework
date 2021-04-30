@@ -1,5 +1,5 @@
-﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+/****************************************************************************
+ * Copyright (c) 2020.10 ~ 12 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,38 +24,51 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.IO;
-using UnityEditor;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QFramework
 {
-    public class UpdatePackageCommand : Command<PackageKit>
+    public class EventTypeDB
     {
-        public UpdatePackageCommand(PackageRepository packageRepository)
+        private static List<Type> mDB = null;
+
+        static List<Type> MakeSureDB()
         {
-            mPackageRepository = packageRepository;
-        }
-
-        private readonly PackageRepository mPackageRepository;
-
-        public override void Execute()
-        {
-            var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
-
-            if (Directory.Exists(path))
+            if (mDB == null)
             {
-                Directory.Delete(path, true);
+                Search();
             }
 
-            RenderEndCommandExecutor.PushCommand(() =>
-            {
-                AssetDatabase.Refresh();
+            return mDB;
+        }
 
-                PackageApplication.Container.Resolve<PackageKitWindow>().Close();
+        public static IEnumerable<Type> GetAll()
+        {
+            return MakeSureDB();
+        }
 
-                this.SendCommand(new InstallPackage(mPackageRepository));
-            });
+
+
+
+        static void Search()
+        {
+            var actionType = typeof(ActionKitVisualEvent);
+
+            mDB = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a =>
+                {
+                    try
+                    {
+                        return a.GetTypes();
+                    }
+                    catch (Exception _)
+                    {
+                        return new Type[] { };
+                    }
+                })
+                .Where(t => !t.IsAbstract && actionType.IsAssignableFrom(t))
+                .ToList();
         }
     }
 }
