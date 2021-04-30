@@ -7,20 +7,24 @@ namespace QFramework
     [CustomEditor(typeof(ActionKitVisualAction),true)]
     public class ActionKitVisualActionEditor : EasyInspectorEditor
     {
-        private bool mFoldOut = false;
+        private bool mFoldOut = true;
         public Action OnDeleteAction;
-        
+        public Action OnUpButtonDraw;
+        public Action OnDownButtonDraw;
+
         public override void OnInspectorGUI()
         {
 
-            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal("box");
             GUILayout.Space(10);
             EditorGUILayout.BeginVertical();
 
             EditorGUILayout.BeginHorizontal();
             mFoldOut = EditorGUILayout.Foldout(mFoldOut, target.GetType().Name);
             GUILayout.FlexibleSpace();
-            
+
+            OnUpButtonDraw();
+            OnDownButtonDraw();
             if (GUILayout.Button("-"))
             {
                 OnDeleteAction.InvokeGracefully();

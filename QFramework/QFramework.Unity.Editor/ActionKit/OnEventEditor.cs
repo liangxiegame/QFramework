@@ -34,9 +34,8 @@ using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
-
-    [UnityEditor.CustomEditor(typeof(ActionKitEvent),true)]
-    public class ActionKitEventEditor : UnityEditor.Editor
+    [UnityEditor.CustomEditor(typeof(ActionKitEvent), true)]
+    public class ActionKitEventEditor : EasyInspectorEditor
     {
         private ActionKitEvent mOnStart = null;
 
@@ -48,7 +47,7 @@ namespace QFramework
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            
+
             for (var i = 0; i < mOnStart.ActionsDatas.Count; i++)
             {
                 GUILayout.BeginVertical("box");
@@ -63,33 +62,25 @@ namespace QFramework
 
                 if (i != 0 && GUILayout.Button("Up", GUILayout.Width(40)))
                 {
-                    var previousActionData =  mOnStart.ActionsDatas[i - 1];
+                    var previousActionData = mOnStart.ActionsDatas[i - 1];
                     mOnStart.ActionsDatas[i - 1] = mOnStart.ActionsDatas[i];
                     mOnStart.ActionsDatas[i] = previousActionData;
-                    
-                    UnityEditor.EditorUtility.SetDirty(target);
-                    UnityEditor.SceneManagement.EditorSceneManager
-                        .MarkSceneDirty(SceneManager.GetActiveScene());
 
-                    GUIUtility.ExitGUI();
+                    Save();
                     break;
                 }
-                
+
                 if (i != mOnStart.ActionsDatas.Count - 1 && GUILayout.Button("Down", GUILayout.Width(40)))
                 {
-                    var nextActionData =  mOnStart.ActionsDatas[i + 1];
+                    var nextActionData = mOnStart.ActionsDatas[i + 1];
                     mOnStart.ActionsDatas[i + 1] = mOnStart.ActionsDatas[i];
                     mOnStart.ActionsDatas[i] = nextActionData;
-                    
 
-                    EditorUtility.SetDirty(target);
-                    UnityEditor.SceneManagement.EditorSceneManager
-                        .MarkSceneDirty(SceneManager.GetActiveScene());
 
-                    GUIUtility.ExitGUI();
+                    Save();
                     break;
                 }
-                
+
                 if (GUILayout.Button("-", GUILayout.Width(20)))
                 {
                     mOnStart.ActionsDatas.RemoveAt(i);
@@ -115,20 +106,21 @@ namespace QFramework
 
                         if (fieldInfo.FieldType.IsEnum)
                         {
-                            var oldValue = (Enum)fieldInfo.GetValue(obj);
+                            var oldValue = (Enum) fieldInfo.GetValue(obj);
 
                             var value = UnityEditor.EditorGUILayout.EnumPopup(oldValue);
 
                             if (!Equals(oldValue, value))
                             {
                                 fieldInfo.SetValue(obj, value);
-                                
+
                                 UnityEditor.EditorUtility.SetDirty(target);
                                 UnityEditor.SceneManagement.EditorSceneManager
                                     .MarkSceneDirty(SceneManager.GetActiveScene());
                             }
                         }
-                        else if (fieldInfo.FieldType == typeof(string) || fieldInfo.FieldType == typeof(float) || fieldInfo.FieldType == typeof(int))
+                        else if (fieldInfo.FieldType == typeof(string) || fieldInfo.FieldType == typeof(float) ||
+                                 fieldInfo.FieldType == typeof(int))
                         {
                             var oldValue = fieldInfo.GetValue(obj).ToString();
                             var value = GUILayout.TextField(oldValue);
@@ -146,7 +138,7 @@ namespace QFramework
                                 else if (fieldInfo.FieldType == typeof(int))
                                 {
                                     fieldInfo.SetValue(obj, int.Parse(value));
-                                } 
+                                }
 
                                 mOnStart.ActionsDatas[i].AcitonData = JsonUtility.ToJson(obj);
 
@@ -154,10 +146,11 @@ namespace QFramework
                                 UnityEditor.SceneManagement.EditorSceneManager
                                     .MarkSceneDirty(SceneManager.GetActiveScene());
                             }
-                        } else if (fieldInfo.FieldType == typeof(bool))
+                        }
+                        else if (fieldInfo.FieldType == typeof(bool))
                         {
                             var oldValue = bool.Parse(fieldInfo.GetValue(obj).ToString());
-                            var value = GUILayout.Toggle(oldValue,"");
+                            var value = GUILayout.Toggle(oldValue, "");
 
                             if (oldValue != value)
                             {

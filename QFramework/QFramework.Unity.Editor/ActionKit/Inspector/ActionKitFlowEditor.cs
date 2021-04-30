@@ -121,18 +121,12 @@ namespace QFramework
             base.OnInspectorGUI();
 
             this.GetLayout().DrawGUI();
-            
-            EditorGUILayout.BeginVertical("Box");
-            
+
             foreach (var actionKitVisualEventEditor in Editors)
             {
-                
                 actionKitVisualEventEditor.OnInspectorGUI();
             }
-            
-            EditorGUILayout.EndVertical();
-            
-            
+
             this.ExecuteRenderEndCommand();
         }
     }

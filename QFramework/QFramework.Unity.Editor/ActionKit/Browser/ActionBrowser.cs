@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2021.4 liangxie
+ * Copyright (c) 2020.10 ~ 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -30,21 +30,20 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class EventBrowser : EasyEditorWindow
+    public class ActionBrowser : EasyEditorWindow
     {
         public static void Open(Action<Type> onTypeClick)
         {
-            Create<EventBrowser>(true)
+            Create<ActionBrowser>(true)
                 .OnTypeClick(onTypeClick)
                 .Show();
         }
 
         private Action<Type> mOnTypeClick;
 
-        private EventBrowser OnTypeClick(Action<Type> onTypeClick)
+        private ActionBrowser OnTypeClick(Action<Type> onTypeClick)
         {
             mOnTypeClick = onTypeClick;
-            Close();
             return this;
         }
 
@@ -78,7 +77,7 @@ namespace QFramework
 
             var scroll = EasyIMGUI.Scroll();
 
-            foreach (var group in EventTypeDB.GetAll()
+            foreach (var group in ActionTypeDB.GetAll()
                 .Where(t => t.GetFirstAttribute<OnlyUsedByCodeAttribute>(false) == null).GroupBy(t =>
                 {
                     var attribute = t.GetFirstAttribute<ActionGroupAttribute>(false);
@@ -93,7 +92,11 @@ namespace QFramework
                 {
                     var actionType = type;
                     treeNode.Add2Spread(EasyIMGUI.Button()
-                        .OnClick(() => { mOnTypeClick(actionType); })
+                        .OnClick(() =>
+                        {
+                            mOnTypeClick(actionType);
+                            Close();
+                        })
                         .Text(type.Name)
                         .Self(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
                 }

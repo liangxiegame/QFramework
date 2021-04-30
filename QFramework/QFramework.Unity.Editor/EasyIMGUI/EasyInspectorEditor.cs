@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace QFramework
@@ -39,6 +40,7 @@ namespace QFramework
             EditorUtility.SetDirty(target);
             UnityEditor.SceneManagement.EditorSceneManager
                 .MarkSceneDirty(SceneManager.GetActiveScene());
+            GUIUtility.ExitGUI();
         }
     }
 }

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.108",
+    "Version": "v0.11.112",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.108",
-        "content": "ActionKit 增加快速可视化编程支持",
+        "version": "v0.11.112",
+        "content": "找回删除的文件",
         "author": "liangxie",
-        "date": "2021 年 04 月 30 日 16:55",
+        "date": "2021 年 04 月 30 日 21:43",
         "PackageId": ""
     }
 }

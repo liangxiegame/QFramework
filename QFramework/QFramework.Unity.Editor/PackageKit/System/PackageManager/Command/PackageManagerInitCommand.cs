@@ -25,6 +25,8 @@
  ****************************************************************************/
 
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -42,9 +44,16 @@ namespace QFramework
             
             server.GetAllRemotePackageInfoV5((list, categories) =>
             {
-                model.Repositories = list.OrderBy(p=>p.name).ToList();
-                PackageManagerState.PackageRepositories.Value = model.Repositories;
-                this.SendCommand<UpdateCategoriesFromModelCommand>();
+                if (list != null && categories != null)
+                {
+                    model.Repositories = list.OrderBy(p => p.name).ToList();
+                    PackageManagerState.PackageRepositories.Value = model.Repositories;
+                    this.SendCommand<UpdateCategoriesFromModelCommand>();
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("服务器请求失败", "请检查网络或排查问题", "确定");
+                }
             });
         }
     }

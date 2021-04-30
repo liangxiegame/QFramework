@@ -51,6 +51,7 @@ namespace QFramework
             return MakeSureDB().Values;
         }
 
+        [Obsolete("这个以后要迭代掉")]
         public static Type GetTypeByFullName(string fullName)
         {
             return MakeSureDB()[fullName];

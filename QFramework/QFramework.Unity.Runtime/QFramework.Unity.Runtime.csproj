@@ -95,6 +95,7 @@
         <Compile Include="ActionKit\Node\RepeatNode.cs" />
         <Compile Include="ActionKit\Node\SequenceNode.cs" />
         <Compile Include="ActionKit\Node\SpawnNode.cs" />
+        <Compile Include="ActionKit\Pro\Action\MonoBehaviour\CallUnityEvent.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\InstantiateGameObject.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\LogInfo.cs" />
         <Compile Include="ActionKit\Pro\Action\Unity\SetTargetFrameRate.cs" />
