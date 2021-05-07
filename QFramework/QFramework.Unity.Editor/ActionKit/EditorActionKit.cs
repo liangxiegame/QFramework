@@ -33,9 +33,9 @@ namespace QFramework
             new NodeActionEditorWrapper(action);
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
-            utilityLayer.RegisterInstance<IActionExecutor>(new EditorExecutor());
+            RegisterUtility<IActionExecutor>(new EditorExecutor());
         }
     }
 }

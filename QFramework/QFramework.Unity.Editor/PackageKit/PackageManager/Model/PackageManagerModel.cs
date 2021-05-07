@@ -8,7 +8,7 @@ namespace QFramework
         List<PackageRepository> Repositories { get; set; }
     }
 
-    class PackageManagerModel : Model<PackageKit>, IPackageManagerModel
+    class PackageManagerModel : AbstractModel, IPackageManagerModel
     {
         public PackageManagerModel()
         {

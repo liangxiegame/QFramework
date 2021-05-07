@@ -37,7 +37,7 @@ namespace QFramework
     {
         public static IDisposable RegisterEvent<T>(this ICanRegisterEvent self,Action<T> onEvent)
         {
-            return self.Architecture.RegisterEvent(onEvent);
+            return self.GetArchitecture().RegisterEvent(onEvent);
         }
     }
 }

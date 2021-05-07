@@ -34,7 +34,7 @@ namespace QFramework
     {
         public static void RegisterSystem<T>(this ICanRegisterSystem self, T system) where T : class, ISystem
         {
-            self.Architecture.RegisterSystem<T>(system);
+            self.GetArchitecture().RegisterSystem<T>(system);
         }
     }
 }

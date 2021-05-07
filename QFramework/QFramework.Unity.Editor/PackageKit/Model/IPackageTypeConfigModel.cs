@@ -33,7 +33,7 @@ namespace QFramework
         string GetFullTypeName(string typeName);
     }
 
-    public class PackageTypeConfigModel : Model<PackageKit>, IPackageTypeConfigModel
+    public class PackageTypeConfigModel : AbstractModel, IPackageTypeConfigModel
     {
         
         private Dictionary<string, string> mTypeName2FullName = new Dictionary<string, string>()

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -26,26 +26,29 @@
 
 namespace QFramework
 {
-    public interface IModel : ICanGetUtility, ICanGetModel,ICanSendEvent
+    public interface IModel : ICanGetUtility, ICanGetModel,ICanSendEvent,ICanSetArchitecture
     {
+        void Init();
     }
 
-    public class Model<TConfig> : IModel where TConfig : Architecture<TConfig>
+    public abstract class AbstractModel : IModel
     {
-        IArchitecture mConfig
+        private IArchitecture mArchitecture = null;
+
+
+
+        public virtual void Init()
         {
-            get { return SingletonProperty<TConfig>.Instance; }
         }
 
-        public T GetUtility<T>() where T : class, IUtility
+        public IArchitecture GetArchitecture()
         {
-            return mConfig.GetUtility<T>();
+            return mArchitecture;
         }
-        
 
-        IArchitecture IBelongToArchitecture.Architecture
+        public void SetArchitecture(IArchitecture architecture)
         {
-            get { return SingletonProperty<TConfig>.Instance; }
+            mArchitecture = architecture;
         }
     }
 }

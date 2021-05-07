@@ -29,7 +29,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class PacakgeLoginService : Model<PackageKitLoginApp>,IPackageLoginService
+    public class PacakgeLoginService : AbstractModel,IPackageLoginService
     {
         [Serializable]
         public class ResultFormatData

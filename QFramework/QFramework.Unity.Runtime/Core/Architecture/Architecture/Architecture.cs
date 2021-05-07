@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.12 liangxie
+ * Copyright (c) 2018 ~ 2021.4 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -37,6 +37,7 @@ namespace QFramework
         T GetUtility<T>() where T : class, IUtility;
         IDisposable RegisterEvent<T>(Action<T> onEvent);
 
+        void RegisterSystem<T>(T system) where T : class, ISystem;
         void RegisterModel<T>(T model) where T : class, IModel;
 
         void RegisterUtility<T>(T utility) where T : class, IUtility;
@@ -46,8 +47,6 @@ namespace QFramework
 
         void SendEvent<T>() where T : new();
         void SendEvent<T>(T t);
-
-        void RegisterSystem<T>(T system) where T : class, ISystem;
     }
 
     public abstract class Architecture<TConfig> : IArchitecture
@@ -70,11 +69,15 @@ namespace QFramework
         public void RegisterSystem<T>(T system) where T : class, ISystem
         {
             mContainer.RegisterInstance(system);
+            mSystemsCache.Add(system);
+            system.SetArchitecture(this);
         }
 
-        void IArchitecture.RegisterModel<T>(T model)
+        public void RegisterModel<T>(T model) where T : class, IModel
         {
             mContainer.RegisterInstance(model);
+            mModelsCache.Add(model);
+            model.SetArchitecture(this);
         }
 
         T IArchitecture.GetUtility<T>()
@@ -82,7 +85,7 @@ namespace QFramework
             return mContainer.Resolve<T>();
         }
 
-        void IArchitecture.RegisterUtility<T>(T utility)
+        public void RegisterUtility<T>(T utility) where T : class,IUtility
         {
             mContainer.RegisterInstance<T>(utility);
         }
@@ -111,9 +114,21 @@ namespace QFramework
         {
             // 注册命令模式
             RegisterCommand();
-            OnUtilityConfig(mContainer);
-            OnModelConfig(mContainer);
-            OnSystemConfig(mContainer);
+            OnUtilityConfig();
+            OnModelConfig();
+
+            foreach (var model in mModelsCache)
+            {
+                model.Init();
+            }
+            
+            OnSystemConfig();
+
+            foreach (var system in mSystemsCache)
+            {
+                system.Init();
+            }
+
             OnLaunch();
         }
 
@@ -142,10 +157,14 @@ namespace QFramework
             mEventSystem.SendEvent<ICommand>(command);
         }
 
+        private List<IModel> mModelsCache = new List<IModel>();
 
-        protected abstract void OnSystemConfig(IQFrameworkContainer systemLayer);
-        protected abstract void OnModelConfig(IQFrameworkContainer modelLayer);
-        protected abstract void OnUtilityConfig(IQFrameworkContainer utilityLayer);
+        private List<ISystem> mSystemsCache = new List<ISystem>();
+
+        protected abstract void OnSystemConfig();
+
+        protected abstract void OnModelConfig();
+        protected abstract void OnUtilityConfig();
 
         protected abstract void OnLaunch();
 

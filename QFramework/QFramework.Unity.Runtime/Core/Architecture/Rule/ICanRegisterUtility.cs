@@ -34,7 +34,7 @@ namespace QFramework
     {
         public static void RegisterUtility<T>(this ICanRegisterUtility self, T utility) where T : class, IUtility
         {
-            self.Architecture.RegisterUtility<T>(utility);
+            self.GetArchitecture().RegisterUtility<T>(utility);
         }
     }
     

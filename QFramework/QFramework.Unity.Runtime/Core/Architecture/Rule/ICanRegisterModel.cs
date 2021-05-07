@@ -34,7 +34,7 @@ namespace QFramework
     {
         public static void RegisterModel<T>(this ICanRegisterModel self, T model) where T : class, IModel
         {
-            self.Architecture.RegisterModel<T>(model);
+            self.GetArchitecture().RegisterModel<T>(model);
         }
     }
 }

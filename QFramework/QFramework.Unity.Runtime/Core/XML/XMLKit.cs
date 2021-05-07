@@ -28,16 +28,16 @@ namespace QFramework
     public class XMLKit : Architecture<XMLKit>
     {
         private XMLKit(){}
-        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        protected override void OnSystemConfig()
         {
-            systemLayer.RegisterInstance<IXMLToObjectConvertSystem>(new XMLToObjectConvertSystem());
+            RegisterSystem<IXMLToObjectConvertSystem>(new XMLToObjectConvertSystem());
         }
 
-        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        protected override void OnModelConfig()
         {
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
         }
 

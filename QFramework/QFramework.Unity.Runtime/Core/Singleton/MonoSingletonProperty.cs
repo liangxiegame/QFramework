@@ -43,7 +43,7 @@ namespace QFramework
             {
                 if (null == mInstance)
                 {
-                    mInstance = MonoSingletonCreator.CreateMonoSingleton<T>();
+                    mInstance = SingletonCreator.CreateMonoSingleton<T>();
                 }
 
                 return mInstance;
@@ -52,7 +52,7 @@ namespace QFramework
 
         public static void Dispose()
         {
-            if (MonoSingletonCreator.IsUnitTestMode)
+            if (SingletonCreator.IsUnitTestMode)
             {
                 Object.DestroyImmediate(mInstance.gameObject);
             }

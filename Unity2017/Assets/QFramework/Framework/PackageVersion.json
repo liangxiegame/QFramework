@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.112",
+    "Version": "v0.11.119",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.112",
-        "content": "找回删除的文件",
+        "version": "v0.11.119",
+        "content": "注释掉 UnityArchitecture",
         "author": "liangxie",
-        "date": "2021 年 04 月 30 日 21:43",
+        "date": "2021 年 05 月 08 日 00:57",
         "PackageId": ""
     }
 }

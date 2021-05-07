@@ -35,12 +35,12 @@ namespace QFramework
     {
         public static void SendCommand<T>(this ICanSendCommand self) where T : ICommand, new()
         {
-            self.Architecture.SendCommand<T>();
+            self.GetArchitecture().SendCommand<T>();
         }
 
         public static void SendCommand(this ICanSendCommand self,ICommand command)
         {
-            self.Architecture.SendCommand(command);
+            self.GetArchitecture().SendCommand(command);
         }
     }
 }

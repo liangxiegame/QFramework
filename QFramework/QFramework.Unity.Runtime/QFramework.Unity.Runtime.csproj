@@ -135,7 +135,8 @@
         <Compile Include="AudioKit\Msg\AudioSoundMsg.cs" />
         <Compile Include="AudioKit\Msg\AudioVoiceMsg.cs" />
         <Compile Include="AudioKit\Msg\RemoteRetainAudioMsg.cs" />
-        <Compile Include="Core\Architecture\Architecture.cs" />
+        <Compile Include="Core\Architecture\Architecture\Architecture.cs" />
+        <Compile Include="Core\Architecture\Architecture\UnityArchitecture.cs" />
         <Compile Include="Core\Architecture\Controller\Deprecated.cs" />
         <Compile Include="Core\Architecture\Controller\IController.cs" />
         <Compile Include="Core\Architecture\Model\IData.cs" />
@@ -151,6 +152,7 @@
         <Compile Include="Core\Architecture\Rule\ICanRegisterUtility.cs" />
         <Compile Include="Core\Architecture\Rule\ICanSendCommand.cs" />
         <Compile Include="Core\Architecture\Rule\ICanSendEvent.cs" />
+        <Compile Include="Core\Architecture\Rule\ICanSetArchitecture.cs" />
         <Compile Include="Core\Architecture\System\ICommand.cs" />
         <Compile Include="Core\Architecture\System\IQuery.cs" />
         <Compile Include="Core\Architecture\System\ISystem.cs" />
@@ -257,7 +259,6 @@
         <Compile Include="Core\Reorderable\ReorderableAttribute.cs" />
         <Compile Include="Core\Singleton\ISingleton.cs" />
         <Compile Include="Core\Singleton\MonoSingleton.cs" />
-        <Compile Include="Core\Singleton\MonoSingletonCreator.cs" />
         <Compile Include="Core\Singleton\MonoSingletonPath.cs" />
         <Compile Include="Core\Singleton\MonoSingletonProperty.cs" />
         <Compile Include="Core\Singleton\PersistentMonoSingleton.cs" />

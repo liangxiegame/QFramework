@@ -28,6 +28,6 @@ namespace QFramework
 {
     public interface IBelongToArchitecture
     {
-        IArchitecture Architecture { get; }
+        IArchitecture GetArchitecture();
     }
 }

@@ -34,7 +34,7 @@ namespace QFramework
         void Execute();
     }
 
-    public abstract class Command<TConfig> : ICommand where TConfig : Architecture<TConfig>
+    public abstract class Command<TConfig> : ICommand where TConfig : class, IArchitecture
     {
         public abstract void Execute();
         
@@ -43,9 +43,9 @@ namespace QFramework
         {
             return SingletonProperty<T>.Instance;
         }
-        IArchitecture IBelongToArchitecture.Architecture
+        IArchitecture IBelongToArchitecture.GetArchitecture()
         {
-            get { return SingletonProperty<TConfig>.Instance; }
+            return SingletonProperty<TConfig>.Instance;
         }
     }
 

@@ -34,7 +34,7 @@ namespace QFramework
     {
         public static T GetUtility<T>(this ICanGetUtility self) where T : class, IUtility
         {
-            return self.Architecture.GetUtility<T>();
+            return self.GetArchitecture().GetUtility<T>();
         }
     }
 }

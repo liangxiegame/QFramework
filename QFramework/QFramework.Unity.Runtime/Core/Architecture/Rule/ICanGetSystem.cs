@@ -35,7 +35,7 @@ namespace QFramework
     {
         public static T GetSystem<T>(this ICanGetSystem self) where T : class, ISystem
         {
-            return self.Architecture.GetSystem<T>();
+            return self.GetArchitecture().GetSystem<T>();
         }
     }
 }

@@ -123,15 +123,15 @@ namespace QFramework
         {
         }
 
-        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        protected override void OnSystemConfig()
         {
         }
 
-        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        protected override void OnModelConfig()
         {
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
         }
 

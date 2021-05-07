@@ -4,17 +4,17 @@ namespace QFramework
     {
         protected PackageKitLoginApp() {}
         
-        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        protected override void OnSystemConfig()
         {
             
         }
 
-        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        protected override void OnModelConfig()
         {
-            modelLayer.RegisterInstance<IPackageLoginService>(new PacakgeLoginService());
+            RegisterModel<IPackageLoginService>(new PacakgeLoginService());
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
 
         }

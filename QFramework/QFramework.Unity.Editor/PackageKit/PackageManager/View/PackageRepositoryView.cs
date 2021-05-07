@@ -132,9 +132,9 @@ namespace QFramework
         }
         
 
-        public IArchitecture Architecture
+        public IArchitecture GetArchitecture()
         {
-            get { return PackageKit.Interface; }
+            return PackageKit.Interface;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace QFramework
     }
 
     public class ControllerNode<TConfig> : AbstractPool<ControllerNode<TConfig>>, IController
-        where TConfig : Architecture<TConfig>
+        where TConfig : class, IArchitecture
     {
         [Obsolete("请使用 ControllerNode.Allocate() 来获取对象", true)]
         public ControllerNode()
@@ -45,19 +45,19 @@ namespace QFramework
         }
         
 
-        IArchitecture IBelongToArchitecture.Architecture
+        IArchitecture IBelongToArchitecture.GetArchitecture()
         {
-            get { return SingletonProperty<TConfig>.Instance; }
+            return SingletonProperty<TConfig>.Instance;
         }
     }
     
     public class ViewController<TConfig> : MonoBehaviour, IController
-        where TConfig : Architecture<TConfig>
+        where TConfig : class, IArchitecture
     {
 
-        IArchitecture IBelongToArchitecture.Architecture
+        IArchitecture IBelongToArchitecture.GetArchitecture()
         {
-            get { return SingletonProperty<TConfig>.Instance; }
+            return SingletonProperty<TConfig>.Instance; 
         }
     }
 }

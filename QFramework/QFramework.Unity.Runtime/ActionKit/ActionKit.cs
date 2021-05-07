@@ -42,18 +42,18 @@ namespace QFramework
         
         protected ActionKit() {}
 
-        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        protected override void OnSystemConfig()
         {
             
         }
 
-        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        protected override void OnModelConfig()
         {
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
-            utilityLayer.RegisterInstance<IActionExecutor>(new MonoExecutor());
+            RegisterUtility<IActionExecutor>(new MonoExecutor());
         }
 
         protected override void OnLaunch()

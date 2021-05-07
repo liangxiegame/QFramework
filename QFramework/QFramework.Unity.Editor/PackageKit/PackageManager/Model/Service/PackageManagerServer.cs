@@ -41,7 +41,7 @@ namespace QFramework
         public T data;
     }
 
-    public class PackageManagerServer : Model<PackageKit>, IPackageManagerServer
+    public class PackageManagerServer : AbstractModel, IPackageManagerServer
     {
         public void DeletePackage(string packageId, System.Action onResponse)
         {

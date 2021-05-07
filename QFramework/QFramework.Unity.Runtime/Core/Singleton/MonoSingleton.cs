@@ -50,7 +50,7 @@ namespace QFramework
             {
                 if (mInstance == null && !mOnApplicationQuit)
                 {
-                    mInstance = MonoSingletonCreator.CreateMonoSingleton<T>();
+                    mInstance = SingletonCreator.CreateMonoSingleton<T>();
                 }
 
                 return mInstance;
@@ -69,7 +69,7 @@ namespace QFramework
         /// </summary>
         public virtual void Dispose()
         {
-            if (MonoSingletonCreator.IsUnitTestMode)
+            if (SingletonCreator.IsUnitTestMode)
             {
                 var curTrans = transform;
                 do

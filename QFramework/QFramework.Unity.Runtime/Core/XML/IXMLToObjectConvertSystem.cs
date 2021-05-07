@@ -33,7 +33,7 @@ namespace QFramework
         void AddModule(string key, IConvertModule module);
     }
 
-    internal class XMLToObjectConvertSystem : System<XMLKit>,IXMLToObjectConvertSystem
+    internal class XMLToObjectConvertSystem : AbstractSystem,IXMLToObjectConvertSystem
     {
         private Dictionary<string, IConvertModule> mModules =
             new Dictionary<string,IConvertModule>();

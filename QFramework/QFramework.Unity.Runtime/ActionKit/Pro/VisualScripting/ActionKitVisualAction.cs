@@ -130,5 +130,11 @@ namespace QFramework
         }
 
         #endregion
+
+
+        public void ExecuteByCall()
+        {
+            this.ExecuteNode(this);
+        }
     }
 }

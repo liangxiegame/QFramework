@@ -35,7 +35,7 @@ namespace QFramework
     {
         public static T GetModel<T>(this ICanGetModel self)  where T : class, IModel
         {
-            return self.Architecture.GetModel<T>();
+            return self.GetArchitecture().GetModel<T>();
         }
     }
 }

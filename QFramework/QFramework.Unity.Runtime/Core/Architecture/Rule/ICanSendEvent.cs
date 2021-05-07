@@ -35,12 +35,12 @@ namespace QFramework
     {
         public static void SendEvent<T>(this ICanSendEvent self) where T : new()
         {
-            self.Architecture.SendEvent<T>();
+            self.GetArchitecture().SendEvent<T>();
         }
 
         public static void SendEvent<T>(this ICanSendEvent self,T t)
         {
-            self.Architecture.SendEvent<T>(t);
+            self.GetArchitecture().SendEvent<T>(t);
         }
     }
 }

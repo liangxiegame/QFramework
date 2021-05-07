@@ -73,7 +73,7 @@ namespace QFramework
         }
     }
 
-    public class LocalPackageVersionModel : Model<PackageKit>, ILocalPackageVersionModel
+    public class LocalPackageVersionModel : AbstractModel, ILocalPackageVersionModel
     {
         public InstalledPackageVersionTable PackageVersionsTable { get; private set; }
 

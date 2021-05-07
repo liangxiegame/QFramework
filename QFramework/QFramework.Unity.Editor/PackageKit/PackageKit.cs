@@ -30,25 +30,25 @@ namespace QFramework
     {
         private PackageKit(){}
         
-        protected override void OnSystemConfig(IQFrameworkContainer systemLayer)
+        protected override void OnSystemConfig()
         {
         }
 
-        protected override void OnModelConfig(IQFrameworkContainer modelLayer)
+        protected override void OnModelConfig()
         {
             // 包类型
-            modelLayer.RegisterInstance<IPackageTypeConfigModel>(new PackageTypeConfigModel());
+            RegisterModel<IPackageTypeConfigModel>(new PackageTypeConfigModel());
             
             // 已安装类型
-            modelLayer.RegisterInstance<ILocalPackageVersionModel>(new LocalPackageVersionModel());
-            modelLayer.RegisterInstance<IPackageManagerModel>(new PackageManagerModel());
-            modelLayer.RegisterInstance<IPackageManagerServer>(new PackageManagerServer());
+            RegisterModel<ILocalPackageVersionModel>(new LocalPackageVersionModel());
+            RegisterModel<IPackageManagerModel>(new PackageManagerModel());
+            RegisterModel<IPackageManagerServer>(new PackageManagerServer());
         }
 
-        protected override void OnUtilityConfig(IQFrameworkContainer utilityLayer)
+        protected override void OnUtilityConfig()
         {
             // 弹框注册
-            utilityLayer.RegisterInstance<IEditorDialogUtility>(new EditorDialogUtility());
+            RegisterUtility<IEditorDialogUtility>(new EditorDialogUtility());
         }
 
         protected override void OnLaunch()
