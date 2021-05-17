@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.119",
+    "Version": "v0.11.120",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.119",
-        "content": "注释掉 UnityArchitecture",
+        "version": "v0.11.120",
+        "content": "Architecture 的内核事件使用结构体",
         "author": "liangxie",
-        "date": "2021 年 05 月 08 日 00:57",
+        "date": "2021 年 05 月 08 日 01:10",
         "PackageId": ""
     }
 }

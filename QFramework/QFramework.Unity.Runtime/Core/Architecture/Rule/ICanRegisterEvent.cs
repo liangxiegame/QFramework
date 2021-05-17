@@ -35,7 +35,7 @@ namespace QFramework
 
     public static class ICanRegisterEventExtensions
     {
-        public static IDisposable RegisterEvent<T>(this ICanRegisterEvent self,Action<T> onEvent)
+        public static IDisposable RegisterEvent<T>(this ICanRegisterEvent self,Action<T> onEvent) where T : struct
         {
             return self.GetArchitecture().RegisterEvent(onEvent);
         }

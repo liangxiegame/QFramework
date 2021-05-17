@@ -35,7 +35,7 @@ namespace QFramework
         T GetSystem<T>() where T : class, ISystem;
 
         T GetUtility<T>() where T : class, IUtility;
-        IDisposable RegisterEvent<T>(Action<T> onEvent);
+        IDisposable RegisterEvent<T>(Action<T> onEvent) where T : struct;
 
         void RegisterSystem<T>(T system) where T : class, ISystem;
         void RegisterModel<T>(T model) where T : class, IModel;
@@ -45,8 +45,8 @@ namespace QFramework
 
         void SendCommand(ICommand command);
 
-        void SendEvent<T>() where T : new();
-        void SendEvent<T>(T t);
+        void SendEvent<T>() where T : struct;
+        void SendEvent<T>(T t) where T : struct;
     }
 
     public abstract class Architecture<TConfig> : IArchitecture

@@ -136,7 +136,6 @@
         <Compile Include="AudioKit\Msg\AudioVoiceMsg.cs" />
         <Compile Include="AudioKit\Msg\RemoteRetainAudioMsg.cs" />
         <Compile Include="Core\Architecture\Architecture\Architecture.cs" />
-        <Compile Include="Core\Architecture\Architecture\UnityArchitecture.cs" />
         <Compile Include="Core\Architecture\Controller\Deprecated.cs" />
         <Compile Include="Core\Architecture\Controller\IController.cs" />
         <Compile Include="Core\Architecture\Model\IData.cs" />

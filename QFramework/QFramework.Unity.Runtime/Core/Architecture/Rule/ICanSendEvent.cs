@@ -33,12 +33,12 @@ namespace QFramework
 
     public static class ICanSendEventExtensions
     {
-        public static void SendEvent<T>(this ICanSendEvent self) where T : new()
+        public static void SendEvent<T>(this ICanSendEvent self) where T : struct
         {
             self.GetArchitecture().SendEvent<T>();
         }
 
-        public static void SendEvent<T>(this ICanSendEvent self,T t)
+        public static void SendEvent<T>(this ICanSendEvent self,T t) where T : struct
         {
             self.GetArchitecture().SendEvent<T>(t);
         }
