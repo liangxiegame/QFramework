@@ -65,6 +65,7 @@ namespace QFramework
             if (States.Count > 0)
             {
                 CurrentState = States[0];
+                CurrentState.EnterState();
             }            
         }
 

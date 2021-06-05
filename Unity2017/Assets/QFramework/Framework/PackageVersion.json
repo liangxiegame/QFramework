@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.120",
+    "Version": "v0.11.121",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.120",
-        "content": "Architecture 的内核事件使用结构体",
+        "version": "v0.11.121",
+        "content": "AIBrain 的第一个状态机调用 EnterState",
         "author": "liangxie",
-        "date": "2021 年 05 月 08 日 01:10",
+        "date": "2021 年 06 月 05 日 12:53",
         "PackageId": ""
     }
 }
