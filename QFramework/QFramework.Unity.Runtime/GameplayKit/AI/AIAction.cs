@@ -38,7 +38,7 @@ namespace QFramework
         /// <summary>
         /// On Start we trigger our init method
         /// </summary>
-        protected virtual void Start()
+        protected virtual void Awake()
         {
             mBrain = this.gameObject.GetComponent<AIBrain>();
             Initialization();
