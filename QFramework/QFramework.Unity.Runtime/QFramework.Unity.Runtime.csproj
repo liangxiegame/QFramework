@@ -57,6 +57,11 @@
         <Compile Include="ActionKit\Action\EventAction.cs" />
         <Compile Include="ActionKit\Action\OnlyBeginAction.cs" />
         <Compile Include="ActionKit\Action\UntilAction.cs" />
+        <Compile Include="ActionKit\AI\AIAction.cs" />
+        <Compile Include="ActionKit\AI\AIBrain.cs" />
+        <Compile Include="ActionKit\AI\AIDecision.cs" />
+        <Compile Include="ActionKit\AI\AIState.cs" />
+        <Compile Include="ActionKit\AI\AITransition.cs" />
         <Compile Include="ActionKit\BehaviorTree\BehaviourAction.cs" />
         <Compile Include="ActionKit\BehaviorTree\BehaviourActionLeaf.cs" />
         <Compile Include="ActionKit\BehaviorTree\BehaviourActionLoop.cs" />
@@ -102,6 +107,8 @@
         <Compile Include="ActionKit\Pro\Event\MonoBehaviour\OnStart.cs" />
         <Compile Include="ActionKit\Pro\Event\OnTriggerEnter2D.cs" />
         <Compile Include="ActionKit\Pro\Event\UGUI\OnButtonClick.cs" />
+        <Compile Include="ActionKit\Pro\Event\UGUI\OnPointerEnterEvent.cs" />
+        <Compile Include="ActionKit\Pro\Event\UGUI\OnSelectEvent.cs" />
         <Compile Include="ActionKit\Pro\Framework\ActionTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\EventTypeDB.cs" />
         <Compile Include="ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
@@ -275,11 +282,6 @@
         <Compile Include="FromUnityToDll\IInputFromUnity.cs" />
         <Compile Include="FromUnityToDll\IPlatformFromUnity.cs" />
         <Compile Include="FromUnityToDll\ISettingFromUnity.cs" />
-        <Compile Include="GameplayKit\AI\AIBrain.cs" />
-        <Compile Include="GameplayKit\AI\AIAction.cs" />
-        <Compile Include="GameplayKit\AI\AIDecision.cs" />
-        <Compile Include="GameplayKit\AI\AIState.cs" />
-        <Compile Include="GameplayKit\AI\AITransition.cs" />
         <Compile Include="IPanel.cs" />
         <Compile Include="Log.cs" />
         <Compile Include="ProjectManagement\SubProject.cs" />

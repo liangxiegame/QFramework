@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.122",
+    "Version": "v0.11.125",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.122",
-        "content": "AIAction 在 Awake 时调用 Initialization",
+        "version": "v0.11.125",
+        "content": "ActionKitPro 使用 Sequence",
         "author": "liangxie",
-        "date": "2021 年 06 月 06 日 16:52",
+        "date": "2021 年 06 月 11 日 23:47",
         "PackageId": ""
     }
 }

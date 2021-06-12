@@ -14,10 +14,10 @@ namespace QFramework
 
         public IEnumerable<IPanel> GetPanelsByPanelSearchKeys(PanelSearchKeys panelSearchKeys)
         {
-            if (panelSearchKeys.PanelType.IsNotNull() && panelSearchKeys.GameObjName.IsNotNullAndEmpty())
+            if (panelSearchKeys.PanelType.IsNotNull() && (panelSearchKeys.GameObjName.IsNotNullAndEmpty() || panelSearchKeys.GameObject))
             {
                 return TypeIndex.Get(panelSearchKeys.PanelType)
-                    .Where(p => p.Transform.name == panelSearchKeys.GameObjName);
+                    .Where(p => p.Transform.name == panelSearchKeys.GameObjName || p.Transform.gameObject == panelSearchKeys.GameObject);
             }
 
             if (panelSearchKeys.PanelType.IsNotNull())

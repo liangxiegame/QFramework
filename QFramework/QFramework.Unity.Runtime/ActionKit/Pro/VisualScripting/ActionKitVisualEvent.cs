@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,18 +9,22 @@ namespace QFramework
         [HideInInspector]
         public List<ActionKitVisualAction> Acitons;
 
+        private SequenceNode mSequenceNode;
         public void Execute()
         {
             if (Acitons != null && Acitons.Count != 0)
             {
-                var sequenceNode = new SequenceNode();
-                
-                foreach (var actionKitVisualAction in Acitons)
+                if (mSequenceNode == null)
                 {
-                    sequenceNode.Append(actionKitVisualAction);
+                    mSequenceNode = new SequenceNode();
+
+                    foreach (var actionKitVisualAction in Acitons)
+                    {
+                        mSequenceNode.Append(actionKitVisualAction);
+                    }
                 }
-                
-                this.ExecuteNode(sequenceNode);
+
+                this.ExecuteNode(mSequenceNode);
             }
         }
     }
