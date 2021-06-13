@@ -22,9 +22,10 @@ namespace QFramework
             EditorGUILayout.BeginHorizontal();
             mFoldOut = EditorGUILayout.Foldout(mFoldOut, target.GetType().Name);
             GUILayout.FlexibleSpace();
-
-            OnUpButtonDraw();
-            OnDownButtonDraw();
+            
+            OnUpButtonDraw.InvokeGracefully();
+            OnDownButtonDraw.InvokeGracefully();
+            
             if (GUILayout.Button("-"))
             {
                 OnDeleteAction.InvokeGracefully();
