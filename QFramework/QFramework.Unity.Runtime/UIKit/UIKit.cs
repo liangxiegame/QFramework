@@ -90,7 +90,6 @@ namespace QFramework
 
 		public static void CloseAllPanel()
 		{
-
 			UIManager.Instance.CloseAllUI();
 		}
 

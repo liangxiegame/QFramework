@@ -417,7 +417,7 @@ MonoBehaviour:
   m_window:
     m_Name: window
     m_Normal:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: d3c262e12fc42f04c8ed40e9899aae8a, type: 3}
       m_ScaledBackgrounds: []
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
@@ -752,9 +752,9 @@ MonoBehaviour:
   m_horizontalScrollbar:
     m_Name: horizontalscrollbar
     m_Normal:
-      m_Background: {fileID: 11008, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 0}
     m_Hover:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
@@ -1020,13 +1020,13 @@ MonoBehaviour:
   m_verticalScrollbar:
     m_Name: verticalscrollbar
     m_Normal:
-      m_Background: {fileID: 11020, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0.5808823, g: 0.5808823, b: 0.5808823, a: 0.341}
     m_Hover:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0.8602941, g: 0.8602941, b: 0.8602941, a: 0.316}
     m_Active:
       m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
@@ -1087,7 +1087,7 @@ MonoBehaviour:
   m_verticalScrollbarThumb:
     m_Name: verticalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11019, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_ScaledBackgrounds: []
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
