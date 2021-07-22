@@ -323,7 +323,7 @@ MonoBehaviour:
   GraphicRaycaster: {fileID: 114009023594300624}
   Bg: {fileID: 224541553065129386}
   Common: {fileID: 224382408647199654}
-  PopUI: {fileID: 224720355990569190}
+  PopUI: {fileID: 224990554141452176}
   CanvasPanel: {fileID: 224720355990569190}
 --- !u!114 &114879015659689406
 MonoBehaviour:
