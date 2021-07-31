@@ -53,11 +53,7 @@ namespace QFramework
         {
             return selfChain.Append(OnlyBeginAction.Allocate(onBegin));
         }
-
-        public static IActionChain Delay(this IActionChain senfChain, float seconds)
-        {
-            return senfChain.Append(DelayAction.Allocate(seconds));
-        }
+        
 
         [Obsolete("已弃用，请使用 DisposeWhenGameObjectDestroyed()")]
         public static void AddTo(this IDisposable self, Component component)

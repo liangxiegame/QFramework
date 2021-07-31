@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.127",
+    "Version": "v0.11.128",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "http://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.127",
-        "content": "修复 UIRoot 的 PopUI 挂错层级问题",
+        "version": "v0.11.128",
+        "content": "增加 DelayFrame 和 NextFrame（青岛-京产肠饭）",
         "author": "liangxie",
-        "date": "2021 年 07 月 22 日 19:08",
+        "date": "2021 年 07 月 31 日 12:42",
         "PackageId": ""
     }
 }

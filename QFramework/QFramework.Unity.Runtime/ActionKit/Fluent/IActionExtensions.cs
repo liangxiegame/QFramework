@@ -37,13 +37,8 @@ namespace QFramework
             selBehaviour.StartCoroutine(commandNode.Execute());
             return selBehaviour;
         }
-
-        public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent)
-            where T : MonoBehaviour
-        {
-            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
-        }
-
+        
+        
         public static IEnumerator Execute(this IAction selfNode)
         {
             if (selfNode.Finished) selfNode.Reset();

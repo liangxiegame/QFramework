@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2021.7 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -29,28 +29,25 @@ using UnityEngine;
 
 namespace QFramework
 {
-
     /// <inheritdoc />
     /// <summary>
-    /// 延时执行节点
+    /// 安枕执行节点
     /// </summary>
     [Serializable]
     [ActionGroup("ActionKit")]
-    public class DelayAction : ActionKitAction, IPoolable, IResetable
+    public class DelayFrameAction : ActionKitAction, IPoolable, IResetable
     {
+        [SerializeField] public int FrameCount;
 
-        [SerializeField]
-        public float DelayTime;
-        
-        public System.Action OnDelayFinish { get; set; }
+        public System.Action OnDelayFrameFinish { get; set; }
 
         public float CurrentSeconds { get; set; }
 
-        public static DelayAction Allocate(float delayTime, System.Action onDelayFinish = null)
+        public static DelayFrameAction Allocate(int frameCount, System.Action onDelayFrameFinish = null)
         {
-            var retNode = SafeObjectPool<DelayAction>.Instance.Allocate();
-            retNode.DelayTime = delayTime;
-            retNode.OnDelayFinish = onDelayFinish;
+            var retNode = SafeObjectPool<DelayFrameAction>.Instance.Allocate();
+            retNode.FrameCount = frameCount;
+            retNode.OnDelayFrameFinish = onDelayFrameFinish;
             retNode.CurrentSeconds = 0.0f;
             return retNode;
         }
@@ -60,44 +57,63 @@ namespace QFramework
             CurrentSeconds = 0.0f;
         }
 
+        private int StartFrame;
+
+        protected override void OnBegin()
+        {
+            base.OnBegin();
+
+            StartFrame = Time.frameCount;
+        }
+
         protected override void OnExecute(float dt)
         {
-            CurrentSeconds += dt;
-            Finished = CurrentSeconds >= DelayTime;
-            if (Finished && OnDelayFinish != null)
+            Finished = Time.frameCount - StartFrame >= FrameCount;
+            
+            if (Finished && OnDelayFrameFinish != null)
             {
-                OnDelayFinish();
+                OnDelayFrameFinish();
             }
+
         }
 
         protected override void OnDispose()
         {
-            SafeObjectPool<DelayAction>.Instance.Recycle(this);
+            SafeObjectPool<DelayFrameAction>.Instance.Recycle(this);
         }
 
         public void OnRecycled()
         {
-            OnDelayFinish = null;
-            DelayTime = 0.0f;
+            OnDelayFrameFinish = null;
+            FrameCount = 0;
             Reset();
         }
 
         public bool IsRecycled { get; set; }
     }
 
-    public static class DelayActionExtensions
+    public static class DelayFrameActionExtensions
     {
-        public static void Delay<T>(this T selfBehaviour, float seconds, System.Action delayEvent)
+        public static void DelayFrame<T>(this T selfBehaviour, int frameCount, System.Action delayFrameEvent)
             where T : MonoBehaviour
         {
-            selfBehaviour.ExecuteNode(DelayAction.Allocate(seconds, delayEvent));
+            selfBehaviour.ExecuteNode(DelayFrameAction.Allocate(frameCount, delayFrameEvent));
         }
         
-        public static IActionChain Delay(this IActionChain selfChain, float seconds)
+        public static void NextFrame<T>(this T selfBehaviour, System.Action nextFrameEvent)
+            where T : MonoBehaviour
         {
-            return selfChain.Append(DelayAction.Allocate(seconds));
+            selfBehaviour.ExecuteNode(DelayFrameAction.Allocate(1, nextFrameEvent));
+        }
+        
+        public static IActionChain DelayFrame(this IActionChain selfChain, int frameCount)
+        {
+            return selfChain.Append(DelayFrameAction.Allocate(frameCount));
+        }
+        
+        public static IActionChain NextFrame(this IActionChain selfChain)
+        {
+            return selfChain.Append(DelayFrameAction.Allocate(1));
         }
     }
-    
-    
 }

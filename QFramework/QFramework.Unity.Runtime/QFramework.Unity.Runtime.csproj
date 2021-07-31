@@ -54,6 +54,7 @@
     <ItemGroup>
         <Compile Include="ActionKit\ActionKit.cs" />
         <Compile Include="ActionKit\Action\DelayAction.cs" />
+        <Compile Include="ActionKit\Action\DelayFrameAction.cs" />
         <Compile Include="ActionKit\Action\EventAction.cs" />
         <Compile Include="ActionKit\Action\OnlyBeginAction.cs" />
         <Compile Include="ActionKit\Action\UntilAction.cs" />
