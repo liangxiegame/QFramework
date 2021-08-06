@@ -26,9 +26,9 @@
 
 namespace QFramework
 {
-    public class LogoutCommand : Command<PackageKitLoginApp>
+    public class LogoutCommand : AbstractCommand
     {
-        public override void Execute()
+        protected override void OnExecute()
         {
             User.Clear();
 

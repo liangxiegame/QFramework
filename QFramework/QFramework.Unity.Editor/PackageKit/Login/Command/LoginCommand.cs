@@ -27,7 +27,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class LoginCommand : Command<PackageKitLoginApp>
+    public class LoginCommand : AbstractCommand
     {
         private readonly string mUsername;
         private readonly string mPassword;
@@ -41,7 +41,7 @@ namespace QFramework
         [Inject]
         public IPackageLoginService Service { get; set; }
         
-        public override void Execute()
+        protected override void OnExecute()
         {
             Service = this.GetModel<IPackageLoginService>();
 

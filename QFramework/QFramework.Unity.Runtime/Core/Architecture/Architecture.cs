@@ -139,6 +139,7 @@ namespace QFramework
 
         protected virtual void OnCommandExecute(ICommand command)
         {
+            command.SetArchitecture(this);
             command.Execute();
         }
 

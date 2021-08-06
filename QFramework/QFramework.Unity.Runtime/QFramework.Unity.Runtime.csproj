@@ -143,13 +143,12 @@
         <Compile Include="AudioKit\Msg\AudioSoundMsg.cs" />
         <Compile Include="AudioKit\Msg\AudioVoiceMsg.cs" />
         <Compile Include="AudioKit\Msg\RemoteRetainAudioMsg.cs" />
-        <Compile Include="Core\Architecture\Architecture\Architecture.cs" />
+        <Compile Include="Core\Architecture\Architecture.cs" />
         <Compile Include="Core\Architecture\Controller\Deprecated.cs" />
         <Compile Include="Core\Architecture\Controller\IController.cs" />
         <Compile Include="Core\Architecture\Model\IData.cs" />
         <Compile Include="Core\Architecture\Model\IModel.cs" />
         <Compile Include="Core\Architecture\Rule\IBelongToArchitecture.cs" />
-        <Compile Include="Core\Architecture\Rule\ICanGetConfig.cs" />
         <Compile Include="Core\Architecture\Rule\ICanGetModel.cs" />
         <Compile Include="Core\Architecture\Rule\ICanGetSystem.cs" />
         <Compile Include="Core\Architecture\Rule\ICanGetUtility.cs" />
@@ -340,6 +339,9 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Core\EasyIMGUI\Framework\View.cs.meta" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Core\Architecture\Architecture" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

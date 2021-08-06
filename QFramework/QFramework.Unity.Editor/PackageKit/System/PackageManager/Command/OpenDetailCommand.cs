@@ -28,7 +28,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class OpenDetailCommand : Command<PackageKit>
+    public class OpenDetailCommand : AbstractCommand
     {
         private readonly PackageRepository mPackageRepository;
 
@@ -37,7 +37,7 @@ namespace QFramework
             mPackageRepository = packageRepository;
         }
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             Application.OpenURL("https://qframework.cn/package/detail/" + mPackageRepository.id);
         }

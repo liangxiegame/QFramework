@@ -30,9 +30,9 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class PackageManagerInitCommand : Command<PackageKit>
+    public class PackageManagerInitCommand : AbstractCommand
     {
-        public override void Execute()
+        protected override void OnExecute()
         {
             var model = this.GetModel<IPackageManagerModel>();
             var server = this.GetModel<IPackageManagerServer>();

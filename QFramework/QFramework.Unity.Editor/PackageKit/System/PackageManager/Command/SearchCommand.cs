@@ -28,7 +28,7 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class SearchCommand : Command<PackageKit>
+    public class SearchCommand : AbstractCommand
     {
         private readonly string mKey;
         
@@ -37,7 +37,7 @@ namespace QFramework
             mKey = key.ToLower();
         }
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             var model = this.GetModel<IPackageManagerModel>();
             var categoryIndex = PackageManagerState.CategoryIndex.Value;

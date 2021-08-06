@@ -28,29 +28,29 @@ using System.Collections;
 
 namespace QFramework
 {
-    public interface ICommand : ICanGetModel, ICanGetSystem, ICanGetUtility, ICanSendEvent, ICanSendCommand,
-        ICanGetConfig
+    public interface ICommand : IBelongToArchitecture,ICanGetModel, ICanGetSystem, ICanGetUtility, ICanSendEvent, ICanSendCommand,ICanSetArchitecture
     {
         void Execute();
     }
-
-    public abstract class Command<TConfig> : ICommand where TConfig : class, IArchitecture
+    
+    public abstract class AbstractCommand : ICommand
     {
-        public abstract void Execute();
-        
-
-        public T GetConfig<T>() where T : class, IArchitecture
-        {
-            return SingletonProperty<T>.Instance;
-        }
+        private IArchitecture mArchitecture;
         IArchitecture IBelongToArchitecture.GetArchitecture()
         {
-            return SingletonProperty<TConfig>.Instance;
+            return mArchitecture;
         }
-    }
 
-    public interface IAsyncCommand
-    {
-        IEnumerable Execute();
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture)
+        {
+            mArchitecture = architecture;
+        }
+
+        void ICommand.Execute()
+        {
+            OnExecute();
+        }
+
+        protected abstract void OnExecute();
     }
 }

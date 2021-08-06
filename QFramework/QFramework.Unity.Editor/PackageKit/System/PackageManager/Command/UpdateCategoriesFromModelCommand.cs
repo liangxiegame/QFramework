@@ -28,9 +28,9 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class UpdateCategoriesFromModelCommand : Command<PackageKit>
+    public class UpdateCategoriesFromModelCommand : AbstractCommand
     {
-        public override void Execute()
+        protected override void OnExecute()
         {
             var model = this.GetModel<IPackageManagerModel>();
 

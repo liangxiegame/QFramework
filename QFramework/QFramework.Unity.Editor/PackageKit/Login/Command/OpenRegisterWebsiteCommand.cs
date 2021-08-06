@@ -28,9 +28,9 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class OpenRegisterWebsiteCommand : Command<PackageKitLoginApp>
+    public class OpenRegisterWebsiteCommand : AbstractCommand
     {
-        public override void Execute()
+        protected override void OnExecute()
         {
             Application.OpenURL("https://qframework.cn/user/register");
         }

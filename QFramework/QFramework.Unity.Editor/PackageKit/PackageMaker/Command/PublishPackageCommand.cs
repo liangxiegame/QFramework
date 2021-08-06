@@ -30,7 +30,7 @@ using UnityEditor;
 
 namespace QFramework
 {
-    public class PublishPackageCommand : Command<PackageMaker>
+    public class PublishPackageCommand : AbstractCommand
     {
         private readonly PackageVersion mPackageVersion;
 
@@ -39,23 +39,23 @@ namespace QFramework
             mPackageVersion = packageVersion;
         }
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             if (mPackageVersion.Readme.content.Length < 2)
             {
-                (GetConfig<PackageKit>() as IArchitecture)
+                PackageKit.Interface
                     .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入版本修改说明");
                 return;
             }
 
             if (!IsVersionValide(mPackageVersion.Version))
             {
-                (GetConfig<PackageKit>() as IArchitecture)
+                PackageKit.Interface
                     .GetUtility<IEditorDialogUtility>().ShowErrorMsg("请输入正确的版本号 格式:vX.Y.Z");
                 return;
             }
 
-            mPackageVersion.DocUrl = "http://lianxiegame.com";
+            mPackageVersion.DocUrl = "https://lianxiegame.com";
 
             mPackageVersion.Readme = new ReleaseItem(mPackageVersion.Version, mPackageVersion.Readme.content,
                 User.Username.Value,

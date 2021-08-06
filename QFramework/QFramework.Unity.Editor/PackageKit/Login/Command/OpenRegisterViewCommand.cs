@@ -26,9 +26,9 @@
 
 namespace QFramework
 {
-    public class OpenRegisterViewCommand : Command<PackageKitLoginApp>
+    public class OpenRegisterViewCommand : AbstractCommand
     {
-        public override void Execute()
+        protected override void OnExecute()
         {
             PackageKitLoginState.InLoginView.Value = false;
         }

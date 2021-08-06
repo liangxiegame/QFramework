@@ -30,7 +30,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class UpdatePackageCommand : Command<PackageKit>
+    public class UpdatePackageCommand : AbstractCommand
     {
         public UpdatePackageCommand(PackageRepository packageRepository)
         {
@@ -39,7 +39,7 @@ namespace QFramework
 
         private readonly PackageRepository mPackageRepository;
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
 

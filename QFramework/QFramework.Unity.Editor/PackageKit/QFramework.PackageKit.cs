@@ -294,7 +294,7 @@ namespace QFramework
         }
     }
 
-    public class InstallPackage : Command<PackageKit>
+    public class InstallPackage : AbstractCommand
     {
         private readonly PackageRepository mRequestPackageData;
 
@@ -309,7 +309,7 @@ namespace QFramework
             mRequestPackageData = requestPackageData;
         }
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             var tempFile = "Assets/" + mRequestPackageData.name + ".unitypackage";
 

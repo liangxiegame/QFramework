@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxie
+ * Copyright (c) 2020.10 ~ 2021.8 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -30,16 +30,16 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ReimportPackageCommand : Command<PackageKit>
+    public class ReimportPackageCommand : AbstractCommand
     {
         private readonly PackageRepository mPackageRepository;
 
-        public ReimportPackageCommand(PackageRepository mPackageRepository)
+        public ReimportPackageCommand(PackageRepository packageRepository)
         {
-            this.mPackageRepository = mPackageRepository;
+            this.mPackageRepository = packageRepository;
         }
 
-        public override void Execute()
+        protected override void OnExecute()
         {
             var path = Application.dataPath.Replace("Assets", mPackageRepository.installPath);
 
