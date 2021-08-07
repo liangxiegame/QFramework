@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.11.129",
+    "Version": "v0.11.130",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -17,10 +17,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.11.129",
-        "content": "QFramework System Design Architecture 与 决定版架构同步",
+        "version": "v0.11.130",
+        "content": "AudioKit.SoundVolume 失效问题修复",
         "author": "liangxie",
-        "date": "2021 年 08 月 06 日 18:56",
+        "date": "2021 年 08 月 07 日 22:48",
         "PackageId": ""
     }
 }

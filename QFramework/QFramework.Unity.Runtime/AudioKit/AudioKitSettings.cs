@@ -42,6 +42,8 @@ namespace QFramework
             MusicVolume = new PlayerPrefsFloatProperty(KEY_AUDIO_MANAGER_VOICE_VOLUME, 1.0f);
 
             VoiceVolume = new PlayerPrefsFloatProperty(KEY_AUDIO_MANAGER_MUSIC_VOLUME, 1.0f);
+
+
         }
 
         public PlayerPrefsBooleanProperty IsSoundOn { get; private set; }

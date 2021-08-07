@@ -33,7 +33,7 @@ namespace QFramework
         /// <summary>
         /// 音频相关的设置
         /// </summary>
-        public readonly static AudioKitSettings Settings = new AudioKitSettings();
+        public static readonly AudioKitSettings Settings = new AudioKitSettings();
 
         public static AudioPlayer MusicPlayer
         {
@@ -85,12 +85,12 @@ namespace QFramework
 
             MusicPlayer.SetAudio(audioMgr.gameObject, musicName, loop);
 
-            MusicPlayer.SetOnFinishListener(musicUnit =>
+            MusicPlayer.SetOnFinishListener(player =>
             {
                 onEndCallback.InvokeGracefully();
 
                 // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                MusicPlayer.SetOnFinishListener(null);
+                player.SetOnFinishListener(null);
             });
         }
 
@@ -127,10 +127,13 @@ namespace QFramework
             }
 
 
-            VoicePlayer.SetOnStartListener(musicUnit =>
+            VoicePlayer.SetOnStartListener(player =>
             {
                 onBeganCallback.InvokeGracefully();
-
+                
+                player.SetVolume(Settings.VoiceVolume.Value);
+                
+                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
                 VoicePlayer.SetOnStartListener(null);
             });
 
@@ -166,8 +169,12 @@ namespace QFramework
 
             var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
 
+            soundPlayer.SetOnStartListener(player =>
+            {
+                player.SetVolume(Settings.SoundVolume.Value);
+                soundPlayer.SetOnStartListener(null);
+            });
             soundPlayer.SetAudio(AudioManager.Instance.gameObject, soundName, loop);
-            soundPlayer.SetVolume(Settings.SoundVolume.Value);
             soundPlayer.SetOnFinishListener(soundUnit =>
             {
                 if (callBack != null)
