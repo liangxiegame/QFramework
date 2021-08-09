@@ -186,7 +186,10 @@
         <Compile Include="Core\CodeGen\Writer\FileCodeWriter.cs" />
         <Compile Include="Core\CodeGen\Writer\ICodeWriter.cs" />
         <Compile Include="Core\CSharpExtension\AnimatorExtension.cs" />
+        <Compile Include="Core\CSharpExtension\CSharpObjectExtension.cs" />
+        <Compile Include="Core\CSharpExtension\DelegateExtension.cs" />
         <Compile Include="Core\CSharpExtension\GameObjectExtension.cs" />
+        <Compile Include="Core\CSharpExtension\LayerMaskExtension.cs" />
         <Compile Include="Core\CSharpExtension\MaterialExtension.cs" />
         <Compile Include="Core\CSharpExtension\QFramework.CSharpExtension.cs" />
         <Compile Include="Core\CSharpExtension\TextureExtensions.cs" />
@@ -274,6 +277,7 @@
         <Compile Include="Core\Singleton\SingletonProperty.cs" />
         <Compile Include="Core\Table\Table.cs" />
         <Compile Include="Core\Table\TableIndex.cs" />
+        <Compile Include="Core\Utility\LayerMaskUtility.cs" />
         <Compile Include="Core\XML\IConvertModule.cs" />
         <Compile Include="Core\XML\IXMLToObjectConverter.cs" />
         <Compile Include="Core\XML\IXMLToObjectConvertSystem.cs" />
@@ -339,9 +343,6 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Core\EasyIMGUI\Framework\View.cs.meta" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Core\Architecture\Architecture" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

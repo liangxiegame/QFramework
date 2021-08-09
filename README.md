@@ -7,9 +7,41 @@
 # QFramework 简介 Intro
   [QFramework](https://github.com/liangxiegame/QFramework) 是一套 **渐进式** 的 **快速开发** 框架。目标是作为无框架经验的公司、独立开发者、以及 Unity3D 初学者们的 **第一套框架**。框架内部积累了多个项目的在各个技术方向的解决方案。学习成本低，接入成本低，重构成本低，二次开发成本低，文档内容丰富(提供使用方式以及原理、开发文档)、插件丰富。github:https://github.com/liangxiegame/QFramework
 
-  [QFramework](https://github.com/liangxiegame/QFramework) is a **Progressive** and **RAD** framework.Goal is become indie developer and fresh man's **The First Framework**。It's include many project's tech solution.Easy 2 Learn,Easy 2 Install,Easy 2 Refactor,Easy 2 Modify,Feature Packed documents and plugins. github:https://github.com/liangxiegame/QFramework
+
 
 [码云国内镜像仓:https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+
+
+
+## 功能列表
+
+| 模块名称  | 包含功能                  | 描述                                                         |
+| --------- | ------------------------- | ------------------------------------------------------------ |
+| Core      | Architecture              | 一套全栈通用的系统设计架构，QF 的本身是用这套架构设计，同时这套架构可以应用与项目开发，为 QF 的主要提供架构，QF 的文档系统（React）、QF 的插件系统（.Net Core）均用此架构开发。 |
+|           | CodeGen                   | 代码生成库，一套链式代码生成模板。                           |
+|           | Singleton                 | 一套单例模板工具                                             |
+|           | IOC                       | 依赖注入/控制反转容器                                        |
+|           | Event                     | 事件机制实现，包含枚举事件 和 类型事件                       |
+|           | Pool                      | 各种对象池提供，包含 List、Dictionary 对象池                 |
+|           | FSM                       | 一套基于类型的状态机实现                                     |
+|           | Disposable                | 销毁模式 和 对应扩展方法实现                                 |
+|           | Factory                   | 对象的创建模式封装                                           |
+|           | RefCounter                | 引用计数器实现                                               |
+|           | CSharpExtensions          | 大量的方便易用的扩展实现                                     |
+|           | Table                     | 可以建立索引的表格数据结构实现                               |
+|           | EasyIMGUI                 | 方便易用的、面向对象的（组合模式）的 IMGUI（OnGUI）绘制库    |
+|           | Utility                   | 各种静态方法封装                                             |
+|           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
+| ActionKit | 之后写                    |                                                              |
+| ResKit    | 之后写                    |                                                              |
+| UIKit     | 之后写                    |                                                              |
+| AudioKit  | 之后写                    |                                                              |
+
+
+
+
+
+
 
 ### ShowCase（商业案例）
 | [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
@@ -19,6 +51,8 @@
 ## Star 趋势（如果项目有帮到您欢迎点赞）
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
+
+
 
 #### 快速图解:
 

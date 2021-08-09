@@ -177,6 +177,16 @@ namespace QFramework
             return selfComponent;
         }
 
+        public static bool IsInLayerMask(this GameObject selfObj, LayerMask layerMask)
+        {
+            return LayerMaskUtility.IsInLayerMask(selfObj, layerMask);
+        }
+        
+        public static bool IsInLayerMask<T>(this T selfComponent, LayerMask layerMask) where T : Component
+        {
+            return LayerMaskUtility.IsInLayerMask(selfComponent.gameObject, layerMask);
+        }
+
         #endregion
 
         #region CEGO007 Component
