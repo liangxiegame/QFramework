@@ -34,3 +34,13 @@ AssetBundles.meta
 Unity2020/Builds
 Assembly-CSharp-Editor.csproj
 Assembly-CSharp.csproj
+Unity2018Test/.vs
+Unity2018Test/AssetBundles
+Unity2018Test/Library
+Unity2018Test/Logs
+Unity2020Test/.vs
+Unity2020Test/AssetBundles
+Unity2020Test/Builds
+Unity2020Test/Library
+Unity2020Test/Logs
+Unity2020Test/.vsconfig

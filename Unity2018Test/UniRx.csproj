@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>4</LangVersion>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <_TargetFrameworkDirectories>non_empty_path_generated_by_rider_editor_plugin</_TargetFrameworkDirectories>
+    <_FullFrameworkReferenceAssemblyPaths>non_empty_path_generated_by_rider_editor_plugin</_FullFrameworkReferenceAssemblyPaths>
+    <DisableHandlePackageFileConflicts>true</DisableHandlePackageFileConflicts>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectGuid>{39AE5D9F-0228-5A62-3A95-ED15ACD5507B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>UniRx</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>.</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2018_4_36;UNITY_2018_4;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;NET_LEGACY;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Asynchronous\WebRequestExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\BooleanDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\CancellationDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\CompositeDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\DictionaryDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\Disposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\DisposableExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\ICancelable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\MultipleAssignmentDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\RefCountDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\ScheduledDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\SerialDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\SingleAssignmentDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Disposables\StableCompositeDisposable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\EventPattern.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\AscynLock.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\CancellableTaskCompletionSource.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\ExceptionExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\ImmutableList.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\ListObserver.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\MicroCoroutine.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\PriorityQueue.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\PromiseHelper.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\ScheduledItem.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\ThreadSafeQueueWorker.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\InternalUtil\UnityEqualityComparer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Notification.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Notifiers\BooleanNotifier.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Notifiers\CountNotifier.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Notifiers\MessageBroker.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Notifiers\ScheduledNotifier.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Aggregate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Awaiter.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Binding.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Blocking.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Concatenate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Concurrency.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Conversions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Creation.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.ErrorHandling.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Events.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.FromAsync.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Joins.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Paging.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observable.Time.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Observer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Aggregate.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Amb.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\AsObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\AsSingleUnitObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\AsUnitObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Buffer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Cast.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Catch.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\CombineLatest.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Concat.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ContinueWith.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Create.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\DefaultIfEmpty.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Defer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Delay.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\DelaySubscription.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Dematerialize.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Distinct.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\DistinctUntilChanged.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Do.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Empty.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Finally.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\First.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ForEachAsync.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\FromEvent.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\GroupBy.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\IgnoreElements.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Last.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Materialize.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Merge.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Never.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ObserveOn.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\OfType.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\OperatorObservableBase.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\OperatorObserverBase.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\PairWise.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Range.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\RefCount.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Repeat.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\RepeatSafe.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Return.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Sample.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Scan.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Select.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SelectMany.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SelectWhere.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Single.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Skip.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SkipUntil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SkipWhile.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Start.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\StartWith.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SubscribeOn.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Switch.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Synchronize.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\SynchronizedObserver.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Take.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\TakeLast.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\TakeUntil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\TakeWhile.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Throttle.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ThrottleFirst.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Throw.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\TimeInterval.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Timeout.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Timer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Timestamp.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ToArray.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ToList.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ToObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Wait.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\WhenAll.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Where.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\WhereSelect.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\WithLatestFrom.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\Zip.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Operators\ZipLatest.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Pair.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Schedulers\CurrentThreadScheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Schedulers\ImmediateScheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Schedulers\IScheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Schedulers\Scheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Schedulers\ThreadPoolScheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\AsyncSubject.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\BehaviorSubject.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\ConnectableObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\ISubject.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\ReplaySubject.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\Subject.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Subjects\SubjectExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\IObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\IObserver.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\IOptimizedObservable.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\IProgress.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\Tuple.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\System\Unit.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Tasks\TaskObservableExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\TimeInterval.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\Timestamped.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\AsyncOperationExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\CancellationToken.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\CoroutineAsyncBridge.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\LogEntry.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\LogEntryExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\Logger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\ObservableDebugExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\ObservableLogger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Diagnostics\UnityDebugSink.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\FrameInterval.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\InspectableReactiveProperty.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\InspectorDisplayDrawer.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\LifetimeDisposableExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\MainThreadDispatcher.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\MainThreadScheduler.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Observable.Unity.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ObservableWWW.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ObserveExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\BatchFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\DelayFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\DelayFrameSubscription.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\FrameInterval.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\FrameTimeInterval.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\FromCoroutine.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\RepeatUntil.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\SampleFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\SubscribeOnMainThread.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\ThrottleFirstFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\ThrottleFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Operators\TimeoutFrame.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ReactiveCollection.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ReactiveCommand.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ReactiveDictionary.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ReactiveProperty.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\ScenePlaybackDetector.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Toolkit\ObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableAnimatorTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableBeginDragTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCancelTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCanvasGroupChangedTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCollision2DTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableCollisionTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDeselectTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDestroyTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDragTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableDropTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEnableTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEndDragTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableEventTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableFixedUpdateTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableInitializePotentialDragTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableJointTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableLateUpdateTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableMouseTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableMoveTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableParticleTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerClickTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerDownTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerEnterTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerExitTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservablePointerUpTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableRectTransformTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableScrollTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableSelectTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableStateMachineTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableSubmitTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTransformChangedTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTrigger2DTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerBase.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerExtensions.Component.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableTriggerTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateSelectedTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableUpdateTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\Triggers\ObservableVisibleTrigger.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\UnityEventExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\UnityGraphicExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\UnityUIComponentExtensions.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityEngineBridge\YieldInstructionCache.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
+    <Compile Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
+    <None Include="Assets\QFramework\Extensions\3rd\UniRx\Scripts\UniRx.asmdef" />
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.BaselibModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.BaselibModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.FileSystemHttpModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.FileSystemHttpModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTrackingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StyleSheetsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TimelineModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TimelineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Locator">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/Unity.Locator.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Timeline">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Timeline">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GoogleAudioSpatializer">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GoogleAudioSpatializer">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Framework/Plugins/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/ProtobufNet/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript.Lang">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

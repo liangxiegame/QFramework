@@ -1,0 +1,17 @@
+ManifestFileVersion: 0
+CRC: 2384601593
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d112e0ad1283590364f9e699f15346d0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a2ca7bdbd1871f7131daf57de908e0c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/QFramework/Framework/Examples/4.AudioKitExample/Resources/button_clicked.mp3
+Dependencies: []

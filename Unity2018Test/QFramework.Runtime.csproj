@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LangVersion>4</LangVersion>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <_TargetFrameworkDirectories>non_empty_path_generated_by_rider_editor_plugin</_TargetFrameworkDirectories>
+    <_FullFrameworkReferenceAssemblyPaths>non_empty_path_generated_by_rider_editor_plugin</_FullFrameworkReferenceAssemblyPaths>
+    <DisableHandlePackageFileConflicts>true</DisableHandlePackageFileConflicts>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace>
+    </RootNamespace>
+    <ProjectGuid>{2AEF31BB-F085-1E6A-CB2B-3AF5097CC77A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <AssemblyName>QFramework.Runtime</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <BaseDirectory>.</BaseDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_4_OR_NEWER;UNITY_2018_4_36;UNITY_2018_4;UNITY_2018;PLATFORM_ARCH_64;UNITY_64;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_DUCK_TYPING;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;RENDER_SOFTWARE_CURSOR;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_STANDALONE_OSX;PLATFORM_STANDALONE;UNITY_STANDALONE_OSX;UNITY_STANDALONE;ENABLE_SUBSTANCE;ENABLE_GAMECENTER;ENABLE_RUNTIME_GI;ENABLE_MOVIES;ENABLE_NETWORK;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;ENABLE_CLUSTER_SYNC;ENABLE_CLUSTERINPUT;ENABLE_VR;ENABLE_AR;ENABLE_SPATIALTRACKING;ENABLE_WEBSOCKET_HOST;ENABLE_MONO;NET_2_0_SUBSET;NET_LEGACY;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_OSX;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Temp\bin\Release\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>0169</NoWarn>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoConfig>true</NoConfig>
+    <NoStdLib>true</NoStdLib>
+    <AddAdditionalExplicitAssemblyReferences>false</AddAdditionalExplicitAssemblyReferences>
+    <ImplicitlyExpandNETStandardFacades>false</ImplicitlyExpandNETStandardFacades>
+    <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\DelayAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\DelayFrameAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\EventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\OnlyBeginAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\UntilAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\ActionKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIBrain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIDecision.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AITransition.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionLeaf.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionLoop.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionNonPrioritizedSelector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionParallel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionPrioritizedSelector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionSequence.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourPrecondition.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourTreeConst.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourTreeData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourTreeNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\ActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\Helper\ActionQueue.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\Helper\EventInjector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\IActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\IActionChainExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\IActionExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\IDisposeEventRegister.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\IDisposeWhen.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\RepeatNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\SequenceNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\ActionKitAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\Attribute\ActionGroupAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\Attribute\OnlyUsedByCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\IAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\IActionData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\IActionExecutor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Framework\INode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\FSM\ActionKitFSM.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\FSM\ActionKitFSMState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\FSM\ActionKitFSMTransition.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\FSM\ActionKitFSMTransitionTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\FSM\EnumStateMachine.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Node\Dynamic\AsyncNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Node\Dynamic\QueueNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Node\RepeatNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Node\SequenceNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Node\SpawnNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Action\MonoBehaviour\CallUnityEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Action\Unity\InstantiateGameObject.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Action\Unity\LogInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Action\Unity\SetTargetFrameRate.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\MonoBehaviour\OnStart.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\OnTriggerEnter2D.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\UGUI\OnButtonClick.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\UGUI\OnPointerEnterEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\UGUI\OnSelectEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Framework\ActionTypeDB.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Framework\Event\ActionKitEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Framework\EventTypeDB.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitFlow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitStateMachine.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Timeline\KeyEventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Timeline\Timeline.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\BinaryHeap.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\IBinaryHeapElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimeItem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\Timer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimerHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimerManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimeUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\ActionKitAction\AudioSound.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\ActionKitAction\AudioVoice.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioKitSettings.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioPlayer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Deprecated.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AddRetainAudioMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AduioMsgPlayVoiceLoop.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMsgWithBool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMsgWithNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMusicMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioSoundMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioVoiceMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\RemoteRetainAudioMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Architecture.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Controller\Deprecated.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Controller\IController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Model\IData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Model\IModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\IBelongToArchitecture.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanGetModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanGetSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanGetUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanRegisterEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanRegisterModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanRegisterSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanRegisterUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanSendCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanSendEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Rule\ICanSetArchitecture.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\System\ICommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\System\IQuery.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\System\ISystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Utility\IUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Attribute\ReadOnlyAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\BinarySerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\IBinarySerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BindableProperty\QFramework.BindableProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\AbstractBind.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Framework\CodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Framework\ICode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Framework\ICodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Language\ClassCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Language\CustomCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Language\CustomCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Language\NamespaceCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Language\UsingCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\RootCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Symbol\CloseBraceCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Symbol\EmptyLineCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Symbol\OpenBraceCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\IBind.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\ICodeTemplate.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\ViewController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Writer\FileCodeWriter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Writer\ICodeWriter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\AnimatorExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\CSharpObjectExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\DelegateExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\GameObjectExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\LayerMaskExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\MaterialExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\QFramework.CSharpExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CSharpExtension\TextureExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\CustomDisposable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\DisposableList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\IDisposableExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\IDisposableList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\Trigger\OnDestroyDisposeTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\Trigger\OnDisableDisposeTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\EasyIMGUI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Extensions\IMGUILayoutRootExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Extensions\LayoutExtenion.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Extensions\ViewExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\Feature\ICanClick.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\Feature\IHasRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\Feature\IHasText.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\Feature\IHasTextGetter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\IMGUILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\IMGUIView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\Layout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Framework\View.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\IMGUILayoutRoot.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\Layout\Area\AreaLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\Layout\Scroll\ScrollLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\Layout\Vertical\VerticalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\BoxView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Button\Button.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\CustomView\CustomView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\ImageButtonView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Label\Label.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Space\FlexibleSpace.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Space\Space.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Text\TextArea.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Text\TextField.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Toggle\Toggle.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\Toolbar\ToolbarView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUIStyleProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUIWithRect\BoxWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUIWithRect\LabelWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\Utility\RenderEndCommandExecutor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\XML\XMLView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\EnumEventSystem\EnumEventSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\TypeEventSystem\IOnEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\TypeEventSystem\ITypeEventSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\TypeEventSystem\TypeEventSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\CustomObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\DefaultObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\IObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\NonPublicObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\ObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\FSM\QFramework.FSM.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\IOC\QFramework.IOC.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\JsonSerializer\DefaultJsonSerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\JsonSerializer\IJsonSerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\IManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\IMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\MsgSpan.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMgrBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMgrID.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMonoBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMsgCenter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\DictionaryPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPoolable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPoolType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\ListPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\Pool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\SafeObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\SimpleObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\RefCounter\QFramework.RefCounter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Reorderable\ReorderableArray.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Reorderable\ReorderableAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\ISingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingletonPath.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\PersistentMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\ReplaceableMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\Singleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\SingletonCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\SingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Table\Table.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Table\TableIndex.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Utility\LayerMaskUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\IConvertModule.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\IXMLToObjectConverter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\IXMLToObjectConvertSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\XMLKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\FromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\IInputFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\IPlatformFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\ISettingFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\IPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Log.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ProjectManagement\SubProject.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ActionKitSupport\ResKitInit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\AssetBundleSettings.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\AssetData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\AssetDataGroup.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\AssetDataTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\IResDatas.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\ResDatas.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\Res\AssetBundleRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\Res\AssetBundleSceneRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\Res\AssetRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ResCreator\AssetBundleResCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ResCreator\AssetBundleSceneResCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ResCreator\AssetResCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Helper\DisposableObject.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\IEnumeratorTask.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\IRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\IZipFIleHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\IResCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\Res\LocalImageRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\Res\NetImageRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\ResFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\ResLoader\IResLoader.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\ResLoader\ResLoader.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ManagementModel\ResTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Res.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResMgr.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResourcesSupport\ResourcesRes.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResourcesSupport\ResourcesResCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResSearchKeys.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResUnloadHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitClosePanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitSetResolution.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Deprecated.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Helper\InputFieldEnterSubmitTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelSearchKeys.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKitConfig.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UILevel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanelStack.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanelTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIRoot.cs" />
+    <None Include="Assets\QFramework\Framework\Plugins\Runtime\QFramework.Runtime.asmdef" />
+    <Reference Include="UnityEngine.AIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ARModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ARModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AccessibilityModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AssetBundleModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.BaselibModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.BaselibModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClothModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClothModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterInputModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ClusterRendererModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CrashReportingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.DirectorModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.DirectorModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.FileSystemHttpModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.FileSystemHttpModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GameCenterModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GameCenterModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GridModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.GridModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HotReloadModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.HotReloadModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.InputModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.LocalizationModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.LocalizationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceReportingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Physics2DModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.Physics2DModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ProfilerModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ProfilerModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SharedInternalsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTrackingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteMaskModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpriteShapeModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StreamingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StreamingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.StyleSheetsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SubstanceModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.SubstanceModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TLSModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TLSModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TerrainPhysicsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextCoreModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextCoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TilemapModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TilemapModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TimelineModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.TimelineModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIElementsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UIElementsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UNETModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UNETModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UmbraModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UmbraModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityAnalyticsModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityConnectModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityTestProtocolModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityTestProtocolModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAssetBundleModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAssetBundleModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VFXModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VFXModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VRModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VehiclesModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VehiclesModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VideoModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.VideoModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.WindModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.WindModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.XRModule">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Locator">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/Unity.Locator.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.UI">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/Editor/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.TestRunner">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/Editor/UnityEditor.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Timeline">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Timeline">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Timeline/Editor/UnityEditor.Timeline.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Networking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/Networking/Editor/UnityEditor.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.GoogleAudioSpatializer">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityGoogleAudioSpatializer/Editor/UnityEditor.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.GoogleAudioSpatializer">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.SpatialTracking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/Editor/UnityEditor.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.SpatialTracking">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.VR">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Graphs">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.OSXStandalone.Extensions">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="JetBrains.Rider.Unity.Editor.Plugin.Repacked">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll</HintPath>
+    </Reference>
+    <Reference Include="Markdig">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Framework/Plugins/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ProtobufNet">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/ProtobufNet/ProtobufNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Assets/QFramework/Extensions/3rd/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.Advertisements">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Tracker">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.Editor">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2017/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityScript.Lang">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/UnityScript.Lang.dll</HintPath>
+    </Reference>
+    <Reference Include="Boo.Lang">
+      <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/Boo.Lang.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
