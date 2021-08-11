@@ -1,24 +1,22 @@
 {
     "Id": "",
-    "Version": "v0.12.0",
+    "Version": "v0.13.3",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
         "Assets/QFramework/Framework/Examples",
-        "Assets/QFramework/Framework/MutiFrameworkSupport.zip",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
-        "Assets/QFramework/Framework/README.md",
-        "Assets/QFramework/Framework/version.json"
+        "Assets/QFramework/Framework/README.md"
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.12.0",
-        "content": "v0.12.0 项目内包含源码 & 最低兼容到 2018.4LTS",
+        "version": "v0.13.3",
+        "content": "修复版本比较问题",
         "author": "liangxie",
-        "date": "2021 年 08 月 10 日 23:03",
+        "date": "2021 年 08 月 11 日 10:22",
         "PackageId": ""
     }
 }

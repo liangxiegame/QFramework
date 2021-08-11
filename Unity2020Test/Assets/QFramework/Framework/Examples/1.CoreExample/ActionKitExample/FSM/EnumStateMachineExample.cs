@@ -50,5 +50,6 @@ namespace QFramework.Example
         {
             this.UnRegisterEvent();
         }
+        
     }
 }

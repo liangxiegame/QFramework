@@ -44,7 +44,7 @@ namespace QFramework
             Create();
             
             // 注册 Zip 工具
-            ResKit.Interface.RegisterUtility<IZipFileHelper>(new ZipFileHelper());
+            ResKit.Architecture.Interface.RegisterUtility<IZipFileHelper>(new ZipFileHelper());
         }
 
         static void Create()

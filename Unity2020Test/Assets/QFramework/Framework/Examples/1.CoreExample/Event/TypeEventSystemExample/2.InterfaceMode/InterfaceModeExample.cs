@@ -19,19 +19,19 @@ namespace QFramework.Example
         {
             if (Input.GetMouseButtonDown(0))
             {
-                TypeEventSystem.Send(new OnLeftMouseClickEvent());
+                TypeEventSystem.Global.Send(new OnLeftMouseClickEvent());
             }
 
             if (Input.GetMouseButtonDown(1))
             {
-                TypeEventSystem.Send(new OnRightMouseClickEvent());
+                TypeEventSystem.Global.Send(new OnRightMouseClickEvent());
             }
         }
 
         private void Start()
         {
-            this.RegisterEvent<OnLeftMouseClickEvent>().DisposeWhenGameObjectDestroyed(this);
-            this.RegisterEvent<OnRightMouseClickEvent>().DisposeWhenGameObjectDestroyed(this);
+            this.RegisterEvent<OnLeftMouseClickEvent>().UnRegisterWhenGameObjectDestroyed(gameObject);
+            this.RegisterEvent<OnRightMouseClickEvent>().UnRegisterWhenGameObjectDestroyed(gameObject);
         }
 
         public void OnEvent(OnLeftMouseClickEvent e)

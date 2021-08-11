@@ -39,20 +39,20 @@ namespace QFramework.Example
 	{
 		private void Start()
 		{
-			TypeEventSystem.Register<GameStartEvent>(OnGameStartEvent);
-			TypeEventSystem.Register<GameOverEvent>(OnGameOverEvent);
-			TypeEventSystem.Register<ISkillEvent>(OnSkillEvent);
+			TypeEventSystem.Global.Register<GameStartEvent>(OnGameStartEvent);
+			TypeEventSystem.Global.Register<GameOverEvent>(OnGameOverEvent);
+			TypeEventSystem.Global.Register<ISkillEvent>(OnSkillEvent);
 
 
-			TypeEventSystem.Send<GameStartEvent>();
-			TypeEventSystem.Send(new GameOverEvent()
+			TypeEventSystem.Global.Send<GameStartEvent>();
+			TypeEventSystem.Global.Send(new GameOverEvent()
 			{
 				Score = 100
 			});
 
 			// 要把事件发送给父类
-			TypeEventSystem.Send<ISkillEvent>(new PlayerSkillAEvent());
-			TypeEventSystem.Send<ISkillEvent>(new PlayerSkillBEvent());
+			TypeEventSystem.Global.Send<ISkillEvent>(new PlayerSkillAEvent());
+			TypeEventSystem.Global.Send<ISkillEvent>(new PlayerSkillBEvent());
 		}
 
 		void OnGameStartEvent(GameStartEvent gameStartEvent)
@@ -79,9 +79,9 @@ namespace QFramework.Example
 
 		private void OnDestroy()
 		{
-			TypeEventSystem.UnRegister<GameStartEvent>(OnGameStartEvent);
-			TypeEventSystem.UnRegister<GameOverEvent>(OnGameOverEvent);
-			TypeEventSystem.UnRegister<ISkillEvent>(OnSkillEvent);
+			TypeEventSystem.Global.UnRegister<GameStartEvent>(OnGameStartEvent);
+			TypeEventSystem.Global.UnRegister<GameOverEvent>(OnGameOverEvent);
+			TypeEventSystem.Global.UnRegister<ISkillEvent>(OnSkillEvent);
 		}
 	}
 }
