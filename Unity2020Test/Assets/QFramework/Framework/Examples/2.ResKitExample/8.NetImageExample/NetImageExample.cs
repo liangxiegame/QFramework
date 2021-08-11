@@ -18,7 +18,7 @@ namespace QFramework.Example
 
             mResLoader.Add2Load<Texture2D>(
                 "netimage:" +
-                "https://file.liangxiegame.com/8eb58e6e-c6ac-40fe-a4a0-17b59fb6f5ed.png",
+                "http://pic.616pic.com/ys_b_img/00/44/76/IUJ3YQSjx1.jpg",
                 (b, res) =>
                 {
                     if (b)

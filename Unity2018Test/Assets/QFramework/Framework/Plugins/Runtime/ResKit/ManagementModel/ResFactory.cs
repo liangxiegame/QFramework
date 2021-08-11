@@ -82,7 +82,7 @@ namespace QFramework
 
         public IRes Create(ResSearchKeys resSearchKeys)
         {
-            return NetImageRes.Allocate(resSearchKeys.AssetName);
+            return NetImageRes.Allocate(resSearchKeys.AssetName,resSearchKeys.OriginalAssetName);
         }
     }
 

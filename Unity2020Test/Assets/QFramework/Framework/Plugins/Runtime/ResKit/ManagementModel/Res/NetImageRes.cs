@@ -24,11 +24,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using QFramework;
-
 namespace QFramework
 {
-    using System;
     using UnityEngine;
     using System.Collections;
     
@@ -47,13 +44,13 @@ namespace QFramework
         private object mRawAsset;
         private WWW mWWW;
 
-        public static NetImageRes Allocate(string name)
+        public static NetImageRes Allocate(string lowerName,string originalName)
         {
             NetImageRes res = SafeObjectPool<NetImageRes>.Instance.Allocate();
             if (res != null)
             {
-                res.AssetName = name;
-                res.SetUrl(name.Substring(9));
+                res.AssetName = lowerName;
+                res.SetUrl(originalName.Substring(9));
             }
             return res;
         }

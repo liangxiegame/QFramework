@@ -36,12 +36,15 @@ namespace QFramework
 
         public Type AssetType { get; set; }
 
+        public string OriginalAssetName { get; set; }
+        
         public static ResSearchKeys Allocate(string assetName, string ownerBundleName = null, Type assetType = null)
         {
             var resSearchRule = SafeObjectPool<ResSearchKeys>.Instance.Allocate();
             resSearchRule.AssetName = assetName.ToLower();
             resSearchRule.OwnerBundle = ownerBundleName == null ? null : ownerBundleName.ToLower();
             resSearchRule.AssetType = assetType;
+            resSearchRule.OriginalAssetName = assetName;
             return resSearchRule;
         }
         
