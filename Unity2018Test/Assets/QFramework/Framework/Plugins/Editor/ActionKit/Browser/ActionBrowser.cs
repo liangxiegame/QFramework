@@ -56,7 +56,7 @@ namespace QFramework
         }
 
 
-        List<Tuple<string, IButton>> AllActionViews = new List<Tuple<string, IButton>>();
+        List<ActionTuple<string, IButton>> AllActionViews = new List<ActionTuple<string, IButton>>();
 
         protected override void Init()
         {
@@ -98,13 +98,63 @@ namespace QFramework
                             Close();
                         })
                         .Text(type.Name)
-                        .Self(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
+                        .Self(button => AllActionViews.Add(new ActionTuple<string, IButton>(type.Name, button))));
                 }
 
                 scroll.AddChild(treeNode);
             }
-            
+
             this.AddChild(scroll);
+        }
+    }
+
+    // http://stackoverflow.com/questions/1171812/multi-key-dictionary-in-c
+
+    public class ActionTuple<T1, T2>
+    {
+        public readonly T1 Item1;
+        public readonly T2 Item2;
+
+        public ActionTuple(T1 item1, T2 item2)
+        {
+            Item1 = item1;
+            Item2 = item2;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            ActionTuple<T1, T2> p = obj as ActionTuple<T1, T2>;
+            if (obj == null) return false;
+
+            if (Item1 == null)
+            {
+                if (p.Item1 != null) return false;
+            }
+            else
+            {
+                if (p.Item1 == null || !Item1.Equals(p.Item1)) return false;
+            }
+
+            if (Item2 == null)
+            {
+                if (p.Item2 != null) return false;
+            }
+            else
+            {
+                if (p.Item2 == null || !Item2.Equals(p.Item2)) return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 0;
+            if (Item1 != null)
+                hash ^= Item1.GetHashCode();
+            if (Item2 != null)
+                hash ^= Item2.GetHashCode();
+            return hash;
         }
     }
 }
