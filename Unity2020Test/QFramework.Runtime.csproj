@@ -297,7 +297,6 @@
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\View\ImageButtonView.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\ICodeTemplate.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Disposable\CustomDisposable.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Utility\IUtility.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\IBinaryHeapElement.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\IPanel.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\RemoteRetainAudioMsg.cs" />

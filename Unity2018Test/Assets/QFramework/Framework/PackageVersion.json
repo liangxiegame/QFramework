@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.4",
+    "Version": "v0.13.5",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -13,10 +13,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.4",
-        "content": "fix: 如果 URL 中有大写的， netimage 会变成小写 http://pic.616pic.com/ys_b_img/00/44/76/IUJ3YQSjx1.jpg（菜鸟高飞-]摔得疼  10:28:28）",
+        "version": "v0.13.5",
+        "content": "IUtiilty=>QFramework.cs",
         "author": "liangxie",
-        "date": "2021 年 08 月 11 日 10:32",
+        "date": "2021 年 08 月 11 日 10:49",
         "PackageId": ""
     }
 }

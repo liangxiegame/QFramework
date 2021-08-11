@@ -185,6 +185,13 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
 * [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
 
+### 核心成员
+
+* [h3166179](https://github.com/h3166179)
+* [王二](https://github.com/so-sos-so) [so-sos-so](https://github.com/so-sos-so)
+
+* [凉鞋 liangxieq](https://github.com/liangxieq)
+
 ### 贡献者/感谢 Developer/Contributor:
 - [@karsion](https://github.com/karsion)
 - [@junyu-tu](https://github.com/junyu-tu)
@@ -192,7 +199,8 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 - [@kevin](https://github.com/KEVIN-ZED)
 - [@827922094](https://github.com/827922094)
 - [@SilenceT](https://github.com/SilenceT)
-- [@liangxie](https://github.com/liangxieq)
+
+
 
 
 ### 优秀的 Unity 库、框架

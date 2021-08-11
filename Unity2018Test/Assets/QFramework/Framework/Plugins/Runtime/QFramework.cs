@@ -259,6 +259,13 @@ namespace QFramework
 
     #endregion
 
+    #region Utility
+    public interface IUtility 
+    {
+    }
+
+    #endregion
+
     #region Rule
 
     public interface IBelongToArchitecture

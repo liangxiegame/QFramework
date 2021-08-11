@@ -154,7 +154,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Controller\Deprecated.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Model\IData.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\System\IQuery.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Utility\IUtility.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Attribute\ReadOnlyAttribute.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\BinarySerializer.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\IBinarySerializer.cs" />
