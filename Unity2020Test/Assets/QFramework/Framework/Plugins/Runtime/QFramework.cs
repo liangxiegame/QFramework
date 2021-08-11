@@ -1,10 +1,17 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2021.8 liangxie MIT License
+ * Copyright (c) 2015 ~ 2021.8 liangxiegame MIT License
  *
  * QFramework v1.0
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * 
+ * Contributor:
+ *  liangxie
+ *  王二 soso
+ *
+ * Community
+ *  QQ Group: 623597263
  ****************************************************************************/
 
 using System;
@@ -50,7 +57,7 @@ namespace QFramework
 
         private List<IModel> mModels = new List<IModel>();
 
-        public static Action<T> OnRegisterPatch = architecture => { };
+        public static event Action<T> OnRegisterPatch = architecture => { };
 
         private static T mArchitecture;
 
@@ -69,32 +76,27 @@ namespace QFramework
 
         static void MakeSureArchitecture()
         {
-            if (mArchitecture == null)
+            if (mArchitecture != null) return;
+            
+            mArchitecture = new T();
+            mArchitecture.Init();
+            OnRegisterPatch?.Invoke(mArchitecture);
+
+            foreach (var architectureModel in mArchitecture.mModels)
             {
-                mArchitecture = new T();
-                mArchitecture.Init();
-
-                if (OnRegisterPatch != null)
-                {
-                    OnRegisterPatch.Invoke(mArchitecture);
-                }
-
-                foreach (var architectureModel in mArchitecture.mModels)
-                {
-                    architectureModel.Init();
-                }
-
-                mArchitecture.mModels.Clear();
-
-                foreach (var architectureSystem in mArchitecture.mSystems)
-                {
-                    architectureSystem.Init();
-                }
-
-                mArchitecture.mSystems.Clear();
-
-                mArchitecture.mInited = true;
+                architectureModel.Init();
             }
+
+            mArchitecture.mModels.Clear();
+
+            foreach (var architectureSystem in mArchitecture.mSystems)
+            {
+                architectureSystem.Init();
+            }
+
+            mArchitecture.mSystems.Clear();
+
+            mArchitecture.mInited = true;
         }
 
         protected abstract void Init();
@@ -237,16 +239,16 @@ namespace QFramework
 
     public abstract class AbstractModel : IModel
     {
-        private IArchitecture mArchitecturel;
+        private IArchitecture mArchitecture;
 
         IArchitecture IBelongToArchitecture.GetArchitecture()
         {
-            return mArchitecturel;
+            return mArchitecture;
         }
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture)
         {
-            mArchitecturel = architecture;
+            mArchitecture = architecture;
         }
 
         void IModel.Init()
@@ -414,26 +416,34 @@ namespace QFramework
 
     public struct TypeEventSystemUnRegister<T> : IUnRegister
     {
-        public ITypeEventSystem TypeEventSystem;
-        public Action<T> OnEvent;
+        private ITypeEventSystem mTypeEventSystem;
+        private Action<T> mOnEvent;
 
+        public TypeEventSystemUnRegister(ITypeEventSystem typeEventSystem, Action<T> onEvent)
+        {
+            mTypeEventSystem = typeEventSystem;
+            mOnEvent = onEvent;
+        }
+        
         public void UnRegister()
         {
-            TypeEventSystem.UnRegister<T>(OnEvent);
+            mTypeEventSystem.UnRegister(mOnEvent);
 
-            TypeEventSystem = null;
+            mTypeEventSystem = null;
 
-            OnEvent = null;
+            mOnEvent = null;
         }
     }
 
     public class UnRegisterOnDestroyTrigger : MonoBehaviour
     {
         private HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
-
+        
         public void AddUnRegister(IUnRegister unRegister)
         {
-            mUnRegisters.Add(unRegister);
+            bool addSuccess = mUnRegisters.Add(unRegister);
+            if(!addSuccess)
+                Debug.LogWarning("Repeat Add UnRegister");
         }
 
         private void OnDestroy()
@@ -483,15 +493,13 @@ namespace QFramework
         public void Send<T>() where T : new()
         {
             var e = new T();
-            Send<T>(e);
+            Send(e);
         }
 
         public void Send<T>(T e)
         {
             var type = typeof(T);
-            IRegistrations registrations;
-
-            if (mEventRegistration.TryGetValue(type, out registrations))
+            if (mEventRegistration.TryGetValue(type, out var registrations))
             {
                 (registrations as Registrations<T>).OnEvent(e);
             }
@@ -500,12 +508,7 @@ namespace QFramework
         public IUnRegister Register<T>(Action<T> onEvent)
         {
             var type = typeof(T);
-            IRegistrations registrations;
-
-            if (mEventRegistration.TryGetValue(type, out registrations))
-            {
-            }
-            else
+            if (!mEventRegistration.TryGetValue(type, out var registrations))
             {
                 registrations = new Registrations<T>();
                 mEventRegistration.Add(type, registrations);
@@ -513,19 +516,13 @@ namespace QFramework
 
             (registrations as Registrations<T>).OnEvent += onEvent;
 
-            return new TypeEventSystemUnRegister<T>()
-            {
-                OnEvent = onEvent,
-                TypeEventSystem = this
-            };
+            return new TypeEventSystemUnRegister<T>(this, onEvent);
         }
 
         public void UnRegister<T>(Action<T> onEvent)
         {
             var type = typeof(T);
-            IRegistrations registrations;
-
-            if (mEventRegistration.TryGetValue(type, out registrations))
+            if (mEventRegistration.TryGetValue(type, out var registrations))
             {
                 (registrations as Registrations<T>).OnEvent -= onEvent;
             }
@@ -561,24 +558,13 @@ namespace QFramework
         public void Register<T>(T instance)
         {
             var key = typeof(T);
-
-            if (mInstances.ContainsKey(key))
-            {
-                mInstances[key] = instance;
-            }
-            else
-            {
-                mInstances.Add(key, instance);
-            }
+            mInstances[key] = instance;
         }
 
         public T Get<T>() where T : class
         {
             var key = typeof(T);
-
-            object retInstance;
-
-            if (mInstances.TryGetValue(key, out retInstance))
+            if (mInstances.TryGetValue(key, out var retInstance))
             {
                 return retInstance as T;
             }
@@ -593,28 +579,22 @@ namespace QFramework
 
     public class BindableProperty<T> where T : IEquatable<T>
     {
-        private T mValue = default(T);
+        private T mValue;
 
         public T Value
         {
-            get { return mValue; }
+            get => mValue;
             set
             {
-                if (!value.Equals(mValue))
-                {
-                    mValue = value;
-
-                    if (mOnValueChanged != null)
-                    {
-                        mOnValueChanged(value);
-                    }
-                }
+                if (value.Equals(mValue)) return;
+                mValue = value;
+                mOnValueChanged?.Invoke(value);
             }
         }
 
         private Action<T> mOnValueChanged = (v) => { };
 
-        public IUnRegister RegisterOnValueChanged(Action<T> onValueChanged)
+        public IUnRegister Register(Action<T> onValueChanged)
         {
             mOnValueChanged += onValueChanged;
             return new BindablePropertyUnRegister<T>()
@@ -623,8 +603,14 @@ namespace QFramework
                 OnValueChanged = onValueChanged
             };
         }
+        
+        public IUnRegister RegisterWithInitValue(Action<T> onValueChanged)
+        {
+            onValueChanged(mValue);
+            return Register(onValueChanged);
+        }
 
-        public void UnRegisterOnValueChanged(Action<T> onValueChanged)
+        public void UnRegister(Action<T> onValueChanged)
         {
             mOnValueChanged -= onValueChanged;
         }
@@ -638,7 +624,7 @@ namespace QFramework
 
         public void UnRegister()
         {
-            BindableProperty.UnRegisterOnValueChanged(OnValueChanged);
+            BindableProperty.UnRegister(OnValueChanged);
 
             BindableProperty = null;
             OnValueChanged = null;

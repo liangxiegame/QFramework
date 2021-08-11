@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.5",
+    "Version": "v0.13.6",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -13,10 +13,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.5",
-        "content": "IUtiilty=>QFramework.cs",
+        "version": "v0.13.6",
+        "content": "QFramework.cs 更新",
         "author": "liangxie",
-        "date": "2021 年 08 月 11 日 10:49",
+        "date": "2021 年 08 月 11 日 13:55",
         "PackageId": ""
     }
 }
