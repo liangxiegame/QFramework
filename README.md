@@ -33,7 +33,14 @@
 |           | Utility                   | 各种静态方法封装                                             |
 |           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
 | ActionKit | 之后写                    |                                                              |
-| ResKit    | 之后写                    |                                                              |
+| ResKit    | SimulationModel           | 真机和编辑器模拟资源加载双模式，让开发阶段与真机阶段自如切换                 |
+|           | ResPathLoad               | 从Resources目录与沙盒目录以及从网络中加载资源                                             |
+|           | LoadSprite                | 加载Sprite或精灵图集                                        |
+|           | LoadScene                 | 在AssetBundle中同步与异步加载Scene场景                       |
+|           | ResAssetManager           | 标记的AssetBunlde资源管理，快速定位                |
+|           | LoadASync                 | 异步加载与异步队列加载                                     |
+|           | CustomRes                 | Reskit功能自定义拓展                                |
+|           | CustomLoadConfig          | AssetBundle自定义配置表生成                                           |
 | UIKit     | 之后写                    |                                                              |
 | AudioKit  | 之后写                    |                                                              |
 
