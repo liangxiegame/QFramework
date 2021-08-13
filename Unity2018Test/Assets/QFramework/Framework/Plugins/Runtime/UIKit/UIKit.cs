@@ -1,222 +1,284 @@
+/****************************************************************************
+ * Copyright (c) 2021.8 liangxie
+ * 
+ * http://qframework.io
+ * https://github.com/liangxiegame/QFramework
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ ****************************************************************************/
+
+using UnityEngine;
+
 namespace QFramework
 {
-	public class UIKit
-	{
-		public static UIKitConfig Config = new UIKitConfig();
+    public class UIKit
+    {
+        public static UIKitConfig Config = new UIKitConfig();
 
-		public static UIRoot Root
-		{
-			get { return Config.Root; }
-		}
+        public static UIRoot Root
+        {
+            get { return Config.Root; }
+        }
 
-		/// <summary>
-		/// UI 堆栈
-		/// </summary>
-		public static readonly UIPanelStack Stack = new UIPanelStack();
+        /// <summary>
+        /// UI 堆栈
+        /// </summary>
+        public static readonly UIPanelStack Stack = new UIPanelStack();
 
-		/// <summary>
-		/// UIPanel  管理（数据结构）
-		/// </summary>
-		public static readonly UIPanelTable Table = new UIPanelTable();
+        /// <summary>
+        /// UIPanel  管理（数据结构）
+        /// </summary>
+        public static readonly UIPanelTable Table = new UIPanelTable();
 
-		public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
-			string assetBundleName = null,
-			string prefabName = null) where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+        public static T OpenPanel<T>(PanelOpenType panelOpenType, UILevel canvasLevel = UILevel.Common,
+            IUIData uiData = null,
+            string assetBundleName = null,
+            string prefabName = null) where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			panelSearchKeys.Level = canvasLevel;
-			panelSearchKeys.PanelType = typeof(T);
-			panelSearchKeys.AssetBundleName = assetBundleName;
-			panelSearchKeys.GameObjName = prefabName;
-			panelSearchKeys.UIData = uiData;
+            panelSearchKeys.OpenType = panelOpenType;
+            panelSearchKeys.Level = canvasLevel;
+            panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.AssetBundleName = assetBundleName;
+            panelSearchKeys.GameObjName = prefabName;
+            panelSearchKeys.UIData = uiData;
 
-			T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
+            T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
 
-			panelSearchKeys.Recycle2Cache();
+            panelSearchKeys.Recycle2Cache();
 
-			return retPanel;
-		}
+            return retPanel;
+        }
 
-		public static T OpenPanel<T>(IUIData uiData, string assetBundleName = null,
-			string prefabName = null) where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+        public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
+            string assetBundleName = null,
+            string prefabName = null) where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			panelSearchKeys.Level = UILevel.Common;
-			panelSearchKeys.PanelType = typeof(T);
-			panelSearchKeys.AssetBundleName = assetBundleName;
-			panelSearchKeys.GameObjName = prefabName;
-			panelSearchKeys.UIData = uiData;
+            panelSearchKeys.OpenType = PanelOpenType.Single;
+            panelSearchKeys.Level = canvasLevel;
+            panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.AssetBundleName = assetBundleName;
+            panelSearchKeys.GameObjName = prefabName;
+            panelSearchKeys.UIData = uiData;
 
-			T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
+            T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
 
-			panelSearchKeys.Recycle2Cache();
+            panelSearchKeys.Recycle2Cache();
 
-			return retPanel;
-		}
+            return retPanel;
+        }
 
-		public static void ClosePanel<T>() where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+        public static T OpenPanel<T>(IUIData uiData, PanelOpenType panelOpenType = PanelOpenType.Single,
+            string assetBundleName = null,
+            string prefabName = null) where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.OpenType = panelOpenType;
+            panelSearchKeys.Level = UILevel.Common;
+            panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.AssetBundleName = assetBundleName;
+            panelSearchKeys.GameObjName = prefabName;
+            panelSearchKeys.UIData = uiData;
 
-			UIManager.Instance.CloseUI(panelSearchKeys);
+            T retPanel = UIManager.Instance.OpenUI(panelSearchKeys) as T;
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            panelSearchKeys.Recycle2Cache();
 
-		public static void ShowPanel<T>() where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+            return retPanel;
+        }
 
-			panelSearchKeys.PanelType = typeof(T);
+        public static void ClosePanel<T>() where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			UIManager.Instance.ShowUI(panelSearchKeys);
+            panelSearchKeys.PanelType = typeof(T);
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            UIManager.Instance.CloseUI(panelSearchKeys);
 
-		public static void HidePanel<T>() where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
-			panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.Recycle2Cache();
+        }
 
-			UIManager.Instance.HideUI(panelSearchKeys);
+        public static void ShowPanel<T>() where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            panelSearchKeys.PanelType = typeof(T);
 
-		public static void CloseAllPanel()
-		{
-			UIManager.Instance.CloseAllUI();
-		}
+            UIManager.Instance.ShowUI(panelSearchKeys);
 
-		public static void HideAllPanel()
-		{
-			UIManager.Instance.HideAllUI();
-		}
+            panelSearchKeys.Recycle2Cache();
+        }
 
-		public static T GetPanel<T>() where T : UIPanel
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
-			panelSearchKeys.PanelType = typeof(T);
+        public static void HidePanel<T>() where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+            panelSearchKeys.PanelType = typeof(T);
 
-			var retPanel = UIManager.Instance.GetUI(panelSearchKeys);
+            UIManager.Instance.HideUI(panelSearchKeys);
 
-			panelSearchKeys.Recycle2Cache();
+            panelSearchKeys.Recycle2Cache();
+        }
 
-			return retPanel as T;
-		}
+        public static void CloseAllPanel()
+        {
+            UIManager.Instance.CloseAllUI();
+        }
 
-		#region 给脚本层用的 api
+        public static void HideAllPanel()
+        {
+            UIManager.Instance.HideAllUI();
+        }
 
-		public static UIPanel GetPanel(string panelName)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
-			panelSearchKeys.GameObjName = panelName;
+        public static T GetPanel<T>() where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+            panelSearchKeys.PanelType = typeof(T);
 
-			var retPanel = UIManager.Instance.GetUI(panelSearchKeys);
+            var retPanel = UIManager.Instance.GetUI(panelSearchKeys);
 
-			panelSearchKeys.Recycle2Cache();
+            panelSearchKeys.Recycle2Cache();
 
-			return retPanel;
-		}
-		
-		public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+            return retPanel as T;
+        }
 
-			panelSearchKeys.Level = level;
-			panelSearchKeys.AssetBundleName = assetBundleName;
-			panelSearchKeys.GameObjName = panelName;
+        #region 给脚本层用的 api
 
-			var retPanel = UIManager.Instance.OpenUI(panelSearchKeys);
+        public static UIPanel GetPanel(string panelName)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+            panelSearchKeys.GameObjName = panelName;
 
-			panelSearchKeys.Recycle2Cache();
+            var retPanel = UIManager.Instance.GetUI(panelSearchKeys);
 
-			return retPanel as UIPanel;
-		}
+            panelSearchKeys.Recycle2Cache();
 
-		public static void ClosePanel(string panelName)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+            return retPanel;
+        }
 
-			panelSearchKeys.GameObjName = panelName;
+        public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common, string assetBundleName = null)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			UIManager.Instance.CloseUI(panelSearchKeys);
+            panelSearchKeys.Level = level;
+            panelSearchKeys.AssetBundleName = assetBundleName;
+            panelSearchKeys.GameObjName = panelName;
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            var retPanel = UIManager.Instance.OpenUI(panelSearchKeys);
 
-		public static void ShowPanel(string panelName)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+            panelSearchKeys.Recycle2Cache();
 
-			panelSearchKeys.GameObjName = panelName;
+            return retPanel as UIPanel;
+        }
 
-			UIManager.Instance.ShowUI(panelSearchKeys);
+        public static void ClosePanel(string panelName)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            panelSearchKeys.GameObjName = panelName;
 
-		public static void HidePanel(string panelName)
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+            UIManager.Instance.CloseUI(panelSearchKeys);
 
-			panelSearchKeys.GameObjName = panelName;
+            panelSearchKeys.Recycle2Cache();
+        }
+        
+        public static void ClosePanel(UIPanel panel)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+            
+            panelSearchKeys.Panel = panel;
 
-			UIManager.Instance.HideUI(panelSearchKeys);
+            UIManager.Instance.CloseUI(panelSearchKeys);
 
-			panelSearchKeys.Recycle2Cache();
-		}
+            panelSearchKeys.Recycle2Cache();
+        }
 
-		#endregion
+        public static void ShowPanel(string panelName)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-		public static void Back(string currentPanelName)
-		{
-			if (currentPanelName.IsNotNullAndEmpty())
-			{
-				var panelSearchKeys = PanelSearchKeys.Allocate();
+            panelSearchKeys.GameObjName = panelName;
 
-				panelSearchKeys.GameObjName = currentPanelName;
+            UIManager.Instance.ShowUI(panelSearchKeys);
 
-				UIManager.Instance.CloseUI(panelSearchKeys);
+            panelSearchKeys.Recycle2Cache();
+        }
 
-				panelSearchKeys.Recycle2Cache();
-			}
+        public static void HidePanel(string panelName)
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			Stack.Pop();
-		}
+            panelSearchKeys.GameObjName = panelName;
 
-		public static void Back(UIPanel currentPanel)
-		{
-			if (currentPanel.IsNotNull())
-			{
-				var panelSearchKeys = PanelSearchKeys.Allocate();
+            UIManager.Instance.HideUI(panelSearchKeys);
 
-				panelSearchKeys.GameObjName = currentPanel.name;
+            panelSearchKeys.Recycle2Cache();
+        }
 
-				UIManager.Instance.CloseUI(panelSearchKeys);
+        #endregion
 
-				panelSearchKeys.Recycle2Cache();
-			}
+        public static void Back(string currentPanelName)
+        {
+            if (currentPanelName.IsNotNullAndEmpty())
+            {
+                var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			Stack.Pop();
-		}
+                panelSearchKeys.GameObjName = currentPanelName;
 
-		public static void Back<T>()
-		{
-			var panelSearchKeys = PanelSearchKeys.Allocate();
+                UIManager.Instance.CloseUI(panelSearchKeys);
 
-			panelSearchKeys.PanelType = typeof(T);
+                panelSearchKeys.Recycle2Cache();
+            }
 
-			UIManager.Instance.CloseUI(panelSearchKeys);
+            Stack.Pop();
+        }
 
-			panelSearchKeys.Recycle2Cache();
+        public static void Back(UIPanel currentPanel)
+        {
+            if (currentPanel.IsNotNull())
+            {
+                var panelSearchKeys = PanelSearchKeys.Allocate();
 
-			Stack.Pop();
-		}
-	}
+                panelSearchKeys.GameObjName = currentPanel.name;
+
+                UIManager.Instance.CloseUI(panelSearchKeys);
+
+                panelSearchKeys.Recycle2Cache();
+            }
+
+            Stack.Pop();
+        }
+
+        public static void Back<T>()
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+
+            panelSearchKeys.PanelType = typeof(T);
+
+            UIManager.Instance.CloseUI(panelSearchKeys);
+
+            panelSearchKeys.Recycle2Cache();
+
+            Stack.Pop();
+        }
+    }
 }

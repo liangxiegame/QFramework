@@ -64,7 +64,7 @@ namespace QFramework.Example
 
             BackBtn.onClick.AddListener(() =>
             {
-                // this.DoTransition<UIMenuPanel>(new FadeInOut(),UILevel.Common, prefabName: "Resources/UIMenuPanel");
+                CloseSelf();
                 UIKit.OpenPanel<UIMenuPanel>(UILevel.Common, prefabName: "Resources/UIMenuPanel");
             });
         }

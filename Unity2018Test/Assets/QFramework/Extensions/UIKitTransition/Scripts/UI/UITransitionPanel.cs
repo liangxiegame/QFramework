@@ -20,7 +20,7 @@ namespace QFramework
 	{
 		public Image Image;
 
-		protected override void InitUI(IUIData uiData = null)
+		protected override void OnInit(IUIData uiData = null)
 		{
 			mData = uiData as UITransitionPanelData ?? new UITransitionPanelData();
 			//please add init code here
@@ -37,10 +37,7 @@ namespace QFramework
 		{
 			throw new System.NotImplementedException ();
 		}
-
-		protected override void RegisterUIEvent()
-		{
-		}
+		
 
 		protected override void OnClose()
 		{

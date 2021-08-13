@@ -19,7 +19,7 @@ namespace QFramework.Tests
 			Assert.IsTrue(uiKitTestPanel);
 
 			Assert.AreEqual(uiKitTestPanel.State, PanelState.Opening);
-			Assert.AreEqual(uiKitTestPanel.PanelInfo.Level, UILevel.Common);
+			Assert.AreEqual(uiKitTestPanel.Info.Level, UILevel.Common);
 			Assert.AreEqual(uiKitTestPanel.Data.OnInitCalledCount, 1);
 			Assert.AreEqual(uiKitTestPanel.Data.OnOpenCalledCount, 1);
 			Assert.AreEqual(uiKitTestPanel.Data.OnShowCalledCount, 1);

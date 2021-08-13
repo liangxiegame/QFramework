@@ -315,6 +315,7 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Deprecated.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Helper\InputFieldEnterSubmitTrigger.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelOpenType.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelSearchKeys.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKit.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKitConfig.cs" />

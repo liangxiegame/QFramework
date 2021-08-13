@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.8",
+    "Version": "v0.13.9",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -13,10 +13,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.8",
-        "content": "EventBrowser 使用 ActionTuple",
+        "version": "v0.13.9",
+        "content": "UIKit 支持 OpenType.Single/Multiple",
         "author": "liangxie",
-        "date": "2021 年 08 月 11 日 20:11",
+        "date": "2021 年 08 月 13 日 18:32",
         "PackageId": ""
     }
 }
