@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2020.1 liangxie
+ * Copyright (c) 2021.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -23,55 +23,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System;
-using UnityEngine;
-
 namespace QFramework
 {
-    public class PanelSearchKeys : IPoolType, IPoolable
+    public enum PanelOpenType
     {
-        public Type PanelType;
-
-        public string AssetBundleName;
-
-        public string GameObjName;
-
-        public UILevel Level = UILevel.Common;
-
-        public IUIData UIData;
-        
-        
-        public IPanel Panel;
-        
-        public PanelOpenType OpenType = PanelOpenType.Single;
-
-
-        public void OnRecycled()
-        {
-            PanelType = null;
-            AssetBundleName = null;
-            GameObjName = null;
-            UIData = null;
-            Panel = null;
-        }
-
-        public bool IsRecycled { get; set; }
-
-
-        public override string ToString()
-        {
-            return "PanelSearchKeys PanelType:{0} AssetBundleName:{1} GameObjName:{2} Level:{3} UIData:{4}".FillFormat(PanelType, AssetBundleName, GameObjName, Level,
-                UIData);
-        }
-
-        public static PanelSearchKeys Allocate()
-        {
-            return SafeObjectPool<PanelSearchKeys>.Instance.Allocate();
-        }
-
-        public void Recycle2Cache()
-        {
-            SafeObjectPool<PanelSearchKeys>.Instance.Recycle(this);
-        }
+        Single,
+        Multiple
     }
 }

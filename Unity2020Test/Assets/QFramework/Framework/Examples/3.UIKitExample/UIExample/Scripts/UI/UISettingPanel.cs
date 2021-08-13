@@ -34,7 +34,7 @@ namespace QFramework.Example
 
 	public partial class UISettingPanel : UIPanel
 	{
-		protected override void InitUI(IUIData uiData = null)
+		protected override void OnInit(IUIData uiData = null)
 		{
 			//please add init code here
 

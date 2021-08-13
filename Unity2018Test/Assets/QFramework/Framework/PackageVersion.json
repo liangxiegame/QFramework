@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.9",
+    "Version": "v0.13.10",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -13,10 +13,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.9",
-        "content": "UIKit 支持 OpenType.Single/Multiple",
+        "version": "v0.13.10",
+        "content": "QFramework.cs Zero Warning",
         "author": "liangxie",
-        "date": "2021 年 08 月 13 日 18:32",
+        "date": "2021 年 08 月 13 日 18:44",
         "PackageId": ""
     }
 }

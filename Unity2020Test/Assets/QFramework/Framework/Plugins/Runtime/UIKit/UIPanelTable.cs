@@ -14,15 +14,20 @@ namespace QFramework
 
         public IEnumerable<IPanel> GetPanelsByPanelSearchKeys(PanelSearchKeys panelSearchKeys)
         {
-            if (panelSearchKeys.PanelType.IsNotNull() && (panelSearchKeys.GameObjName.IsNotNullAndEmpty() || panelSearchKeys.GameObject))
+            if (panelSearchKeys.PanelType.IsNotNull() && (panelSearchKeys.GameObjName.IsNotNullAndEmpty() || panelSearchKeys.Panel.IsNotNull()))
             {
                 return TypeIndex.Get(panelSearchKeys.PanelType)
-                    .Where(p => p.Transform.name == panelSearchKeys.GameObjName || p.Transform.gameObject == panelSearchKeys.GameObject);
+                    .Where(p => p.Transform.name == panelSearchKeys.GameObjName || p == panelSearchKeys.Panel);
             }
 
             if (panelSearchKeys.PanelType.IsNotNull())
             {
                 return TypeIndex.Get(panelSearchKeys.PanelType);
+            }
+            
+            if (panelSearchKeys.Panel.IsNotNull())
+            {
+                return GameObjectNameIndex.Get(panelSearchKeys.Panel.Transform.gameObject.name).Where(p => p == panelSearchKeys.Panel);
             }
 
             if (panelSearchKeys.GameObjName.IsNotNullAndEmpty())
@@ -43,12 +48,14 @@ namespace QFramework
         {
             GameObjectNameIndex.Remove(item);
             TypeIndex.Remove(item);
+            
         }
 
         protected override void OnClear()
         {
             GameObjectNameIndex.Clear();
             TypeIndex.Clear();
+            ;
         }
 
 

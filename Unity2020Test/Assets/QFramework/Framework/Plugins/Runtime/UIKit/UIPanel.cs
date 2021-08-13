@@ -133,7 +133,7 @@ namespace QFramework
 
 		protected void CloseSelf()
 		{
-			UIKit.ClosePanel(name);
+			UIKit.ClosePanel(this);
 		}
 
 		protected void Back()

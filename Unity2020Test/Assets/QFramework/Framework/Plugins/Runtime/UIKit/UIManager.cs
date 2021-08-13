@@ -56,16 +56,26 @@ namespace QFramework
 
         public IPanel OpenUI(PanelSearchKeys panelSearchKeys)
         {
-            var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
-
-            if (retPanel == null)
+            if (panelSearchKeys.OpenType == PanelOpenType.Single)
             {
-                retPanel = CreateUI(panelSearchKeys);
-            }
+                var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
 
-            retPanel.Open(panelSearchKeys.UIData);
-            retPanel.Show();
-            return retPanel;
+                if (retPanel == null)
+                {
+                    retPanel = CreateUI(panelSearchKeys);
+                }
+
+                retPanel.Open(panelSearchKeys.UIData);
+                retPanel.Show();
+                return retPanel;
+            }
+            else
+            {
+                var retPanel = CreateUI(panelSearchKeys);
+                retPanel.Open(panelSearchKeys.UIData);
+                retPanel.Show();
+                return retPanel;
+            }
         }
 
         /// <summary>
@@ -125,7 +135,7 @@ namespace QFramework
         /// <param name="behaviourName"></param>
         public void CloseUI(PanelSearchKeys panelSearchKeys)
         {
-            var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+            var panel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).LastOrDefault();
 
             if (panel as UIPanel)
             {

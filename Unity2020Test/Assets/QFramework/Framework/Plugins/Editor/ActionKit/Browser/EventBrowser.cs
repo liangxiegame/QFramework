@@ -56,7 +56,7 @@ namespace QFramework
         }
 
 
-        List<Tuple<string, IButton>> AllActionViews = new List<Tuple<string, IButton>>();
+        List<ActionTuple<string, IButton>> AllEventViews = new List<ActionTuple<string, IButton>>();
 
         protected override void Init()
         {
@@ -66,11 +66,11 @@ namespace QFramework
                 {
                     if (c.IsNullOrEmpty())
                     {
-                        AllActionViews.ForEach(a => a.Item2.Visible = true);
+                        AllEventViews.ForEach(a => a.Item2.Visible = true);
                     }
                     else
                     {
-                        AllActionViews.ForEach(a => a.Item2.Visible = a.Item1.ToLower().Contains(c.ToLower()));
+                        AllEventViews.ForEach(a => a.Item2.Visible = a.Item1.ToLower().Contains(c.ToLower()));
                     }
                 });
             }));
@@ -98,7 +98,7 @@ namespace QFramework
                             Close();
                         })
                         .Text(type.Name)
-                        .Self(button => AllActionViews.Add(new Tuple<string, IButton>(type.Name, button))));
+                        .Self(button => AllEventViews.Add(new ActionTuple<string, IButton>(type.Name, button))));
                 }
 
                 scroll.AddChild(treeNode);

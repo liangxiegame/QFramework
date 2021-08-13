@@ -73,7 +73,7 @@ namespace QFramework.Example
 				.RotationIdentity()
 				.Rotation(Quaternion.identity)
 				// 9. 删除所有子节点
-				.DestroyAllChild()
+				.DestroyChildren()
 				// 10. transform.SetAsFirstSibling();
 				//     transform.SetAsLastSibling();
 				//     transform.SetSiblingIndex(1);
