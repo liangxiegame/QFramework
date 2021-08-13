@@ -213,6 +213,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 优秀的 Unity 库、框架
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
+- [JEngine](https://github.com/JasonXuDeveloper/JEngine)  一个基于XAsset&ILRuntime，精简好用的热更框架
 
 ### 代码规范完全遵循:
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
