@@ -1,5 +1,13 @@
-﻿using System.Linq;
+﻿/****************************************************************************
+ * Copyright (c) 2017 ~ 2021.8 liangxiegame MIT License
+ * 
+ * http://qframework.io
+ * https://github.com/liangxiegame/QFramework
+ ****************************************************************************/
+
+using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace QFramework
@@ -19,8 +27,9 @@ namespace QFramework
                     {
                         o.AddComponent<Bind>();
                     }
-                    
-                    EditorUtils.MarkCurrentSceneDirty();
+
+                    EditorUtility.SetDirty(o);
+                    EditorSceneManager.MarkSceneDirty(o.scene);
                 }
             }
         }

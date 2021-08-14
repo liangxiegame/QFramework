@@ -159,6 +159,7 @@
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\Event\MonoBehaviour\OnStart.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIBrain.cs" />
+     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelOpenType.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Fluent\SequenceNodeChain.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\RootCode.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\EventAction.cs" />
@@ -319,7 +320,6 @@
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\AbstractBind.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\Res\AssetBundleRes.cs" />
      <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualTrigger.cs" />
-     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelOpenType.cs" />
      <None Include="Assets\QFramework\Framework\Plugins\Runtime\QFramework.Runtime.asmdef" />
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.7f1c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>

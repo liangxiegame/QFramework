@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 972284117670615239}
   - component: {fileID: 7053342887929624967}
   - component: {fileID: 9109113788645685584}
-  - component: {fileID: 8130216703845332784}
+  - component: {fileID: 982595358047398553}
   m_Layer: 5
   m_Name: PageIndex
   m_TagString: Untagged
@@ -78,7 +78,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 1
---- !u!114 &8130216703845332784
+--- !u!114 &982595358047398553
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

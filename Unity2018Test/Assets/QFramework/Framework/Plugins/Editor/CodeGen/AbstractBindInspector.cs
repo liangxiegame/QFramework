@@ -225,7 +225,7 @@ namespace QFramework
                     .Text(LocaleText.Generate + " " + CodeGenUtil.GetBindBelongs2(bind))
                     .OnClick(() =>
                     {
-                        var rootPrefabObj = PrefabUtility.GetPrefabParent(rootGameObj);
+                        var rootPrefabObj = PrefabUtility.GetCorrespondingObjectFromSource<Object>(rootGameObj);
                         UICodeGenerator.DoCreateCode(new[] {rootPrefabObj});
                     })
                     .Height(30)
