@@ -1,6 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework.Example
@@ -8,6 +6,12 @@ namespace QFramework.Example
 	[QFramework.MonoSingletonPath("[Game]/EnemyManager")]
 	public class EnemyManager : QMgrBehaviour, ISingleton
 	{
+		[RuntimeInitializeOnLoadMethodAttribute]
+		public static void InitManager()
+		{
+			QMsgCenter.RegisterManagerFactory(MgrID.Enemy, () => Instance);
+		}
+		
 		public override int ManagerId
 		{
 			get { return MgrID.Enemy; }

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.11",
+    "Version": "v0.13.12",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -13,10 +13,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.11",
-        "content": "修复在 Prefab Stage 中无法快捷键 Add Bind 功能",
+        "version": "v0.13.12",
+        "content": "v0.13.13  增加 ManagerOfManagers 的示例",
         "author": "liangxie",
-        "date": "2021 年 08 月 14 日 22:40",
+        "date": "2021 年 08 月 15 日 19:55",
         "PackageId": ""
     }
 }
