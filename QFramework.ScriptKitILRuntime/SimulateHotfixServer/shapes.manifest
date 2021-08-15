@@ -1,0 +1,34 @@
+ManifestFileVersion: 0
+CRC: 3993643742
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2accc477680dc2df4e32a5a8b35df7e9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 52b90fe34acdbe892c80e1ff630fee3e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-2.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-1.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-3.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-4.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-5.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-6.prefab
+- Assets/ILKitDemoTetris/ArtRes/Prefabs/Shapes/Shape-7.prefab
+Dependencies: []

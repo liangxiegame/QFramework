@@ -1,0 +1,22 @@
+{
+    "Id": "",
+    "Version": "v0.13.11",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/Examples",
+        "Assets/QFramework/Framework/PackageVersion.json",
+        "Assets/QFramework/Framework/Plugins",
+        "Assets/QFramework/Framework/README.md"
+    ],
+    "DocUrl": "https://lianxiegame.com",
+    "Readme": {
+        "version": "v0.13.11",
+        "content": "修复在 Prefab Stage 中无法快捷键 Add Bind 功能",
+        "author": "liangxie",
+        "date": "2021 年 08 月 14 日 22:40",
+        "PackageId": ""
+    }
+}

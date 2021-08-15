@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 947820592
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7bd6498a339b8b2de27b1d8e6826ed14
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/ILKitDemoTetris/Tetris Assets/Audio/Balloon_003.wav
+- Assets/ILKitDemoTetris/Tetris Assets/Audio/Cursor_002.wav
+- Assets/ILKitDemoTetris/Tetris Assets/Audio/Lineclear.wav
+- Assets/ILKitDemoTetris/Tetris Assets/Audio/Drop.wav
+- Assets/ILKitDemoTetris/Tetris Assets/Audio/Gameover.wav
+Dependencies: []
