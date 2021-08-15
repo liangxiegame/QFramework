@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
-CRC: 4044805268
+CRC: 1143450661
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1553be005b16b6a48dfe39faffc92934
+    Hash: 0b2203a80df548c37abb836580402c2f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+    Hash: bfb87d18134d160e3a907b7674713721
 HashAppended: 0
 ClassTypes:
-- Class: 83
+- Class: 687078895
   Script: {instanceID: 0}
 Assets:
-- Assets/QFramework/Tests/FrameworkTests/2.ResKitTests/coin_get1.mp3
+- Assets/Art/Icon/New Sprite Atlas.spriteatlas
 Dependencies: []

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 2935994015
+CRC: 969180747
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: dd804794cbcd9f571633cfac96621124
+    Hash: ca8b32baabc6c23e3f9b3e7ffa060c4e
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 1c1562712988ee36063b9e303b62a679
+    Hash: 8de51064219e4f947fb7fea9d09a4e34
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -20,4 +20,4 @@ ClassTypes:
 Assets:
 - Assets/QFramework/Tests/FrameworkTests/2.ResKitTests/coin_get1.prefab
 Dependencies:
-- /Users/liangxie/Documents/Projects/QFramework/Unity2017/AssetBundles/OSX/coin_get1_mp3
+- /Users/liangxie/Documents/Projects/QFramework/Unity2018Test/AssetBundles/OSX/coin_get1_mp3

@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2874462445
+CRC: 2917864087
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -32,4 +32,10 @@ AssetBundleManifest:
       Dependencies: {}
     Info_9:
       Name: textureexample1_png
+      Dependencies: {}
+    Info_10:
+      Name: icon
+      Dependencies: {}
+    Info_11:
+      Name: uimultipanel_prefab
       Dependencies: {}
