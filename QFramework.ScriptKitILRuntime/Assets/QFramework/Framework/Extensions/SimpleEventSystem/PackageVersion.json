@@ -1,0 +1,20 @@
+{
+  "Version": "v0.0.1",
+  "Type": 3,
+  "AccessRight": 0,
+  "DownloadUrl": null,
+  "InstallPath": "Assets/QFramework/Extensions/SimpleEventSystem/",
+  "DocUrl": "http://liangxiegame.com",
+  "Readme": {
+    "version": "v0.0.1",
+    "content": "AddSimpleEventSystem",
+    "author": "liangxie",
+    "date": "2019 年 11 月 14 日 16:52",
+    "PackageId": "",
+    "VersionNumber": 1
+  },
+  "Id": null,
+  "Name": "SimpleEventSystem",
+  "VersionNumber": 1,
+  "FileName": "SimpleEventSystem_v0.0.1.unitypackage"
+}
