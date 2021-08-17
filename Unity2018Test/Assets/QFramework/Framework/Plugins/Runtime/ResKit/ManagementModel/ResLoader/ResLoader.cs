@@ -25,6 +25,7 @@
 
 namespace QFramework
 {
+    using NUnit.Framework.Internal;
     using System;
     using System.Collections.Generic;
     using UnityEngine;
@@ -135,6 +136,11 @@ namespace QFramework
             {
                 Log.E("Failed to Load Res:" + resSearchKeys);
                 return null;
+            }
+            else
+            {
+                //清理缓存的依赖资源名称
+                tempDepends.Clear();
             }
 
             return res;
@@ -267,6 +273,9 @@ namespace QFramework
             searchRule.Recycle2Cache();
         }
 
+        //依赖资源名称缓存，防止重复添加内存
+        List<string> tempDepends = new List<string>();
+
         private void Add2Load(ResSearchKeys resSearchKeys, Action<bool, IRes> listener = null,
             bool lastOrder = true)
         {
@@ -302,13 +311,16 @@ namespace QFramework
             {
                 foreach (var depend in depends)
                 {
-                    var searchRule = ResSearchKeys.Allocate(depend, null, typeof(AssetBundle));
-
-                    Add2Load(searchRule);
-
-                    searchRule.Recycle2Cache();
+                    if (!tempDepends.Contains(depend))
+                    {
+                        var searchRule = ResSearchKeys.Allocate(depend, null, typeof(AssetBundle));
+                        tempDepends.Add(depend);                     
+                        Add2Load(searchRule);
+                        searchRule.Recycle2Cache();
+                    }                  
                 }
             }
+           
 
             AddRes2Array(res, lastOrder);
         }
@@ -611,6 +623,8 @@ namespace QFramework
 
             res.Retain();
             mResList.Add(res);
+
+        
 
             if (res.State != ResState.Ready)
             {
