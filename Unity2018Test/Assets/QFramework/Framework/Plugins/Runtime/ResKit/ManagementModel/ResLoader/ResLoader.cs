@@ -64,7 +64,7 @@ namespace QFramework
                 }
 
                 mObject2Unload.Clear();
-
+                tempDepends.Clear();    
                 mObject2Unload = null;
             }
 
@@ -309,17 +309,22 @@ namespace QFramework
 
             if (depends != null)
             {
+             
                 foreach (var depend in depends)
                 {
+           
                     if (!tempDepends.Contains(depend))
                     {
                         var searchRule = ResSearchKeys.Allocate(depend, null, typeof(AssetBundle));
+                      
                         tempDepends.Add(depend);                     
                         Add2Load(searchRule);
                         searchRule.Recycle2Cache();
                     }                  
                 }
             }
+
+
            
 
             AddRes2Array(res, lastOrder);
@@ -374,6 +379,7 @@ namespace QFramework
         {
             mListener = listener;
             DoLoadAsync();
+            tempDepends.Clear();
         }
 
         public void ReleaseRes(string resName)
