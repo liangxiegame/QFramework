@@ -46,3 +46,7 @@ Unity2020Test/Logs
 Unity2020Test/.vsconfig
 Unity2020Test/Temp
 Unity2018Test/Temp
+/QFramework.ScriptKitILRuntime/Library
+/QFramework.ScriptKitILRuntime/Logs
+/QFramework.ScriptKitILRuntime/obj
+/QFramework.ScriptKitILRuntime/.vscode
