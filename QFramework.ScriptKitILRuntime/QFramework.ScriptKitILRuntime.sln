@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Runtime", "QFramework.Runtime.csproj", "{c4b28d07-376b-5ced-a950-60fc930a6da2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{9926029a-523a-4ede-ea03-0f4b2d2a004c}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{b2b042ba-20f9-ed17-8068-aec4079ac866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hotfix", "hotfix.csproj", "{7e2904b3-e8be-3f4a-3f0f-22630925af5c}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Runtime", "QFramework.Runtime.csproj", "{c4b28d07-376b-5ced-a950-60fc930a6da2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QF.Redux", "QF.Redux.csproj", "{424bee72-8224-00d4-a045-b9845df7ce8c}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{93c0d18b-ae59-5f92-273c-ba3449ca1d5e}"
 EndProject
@@ -15,18 +17,22 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9926029a-523a-4ede-ea03-0f4b2d2a004c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9926029a-523a-4ede-ea03-0f4b2d2a004c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9926029a-523a-4ede-ea03-0f4b2d2a004c}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9926029a-523a-4ede-ea03-0f4b2d2a004c}.Release|Any CPU.Build.0 = Release|Any CPU
 		{b2b042ba-20f9-ed17-8068-aec4079ac866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{b2b042ba-20f9-ed17-8068-aec4079ac866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{b2b042ba-20f9-ed17-8068-aec4079ac866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{b2b042ba-20f9-ed17-8068-aec4079ac866}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7e2904b3-e8be-3f4a-3f0f-22630925af5c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7e2904b3-e8be-3f4a-3f0f-22630925af5c}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7e2904b3-e8be-3f4a-3f0f-22630925af5c}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7e2904b3-e8be-3f4a-3f0f-22630925af5c}.Release|Any CPU.Build.0 = Release|Any CPU
+		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{c4b28d07-376b-5ced-a950-60fc930a6da2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{424bee72-8224-00d4-a045-b9845df7ce8c}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{424bee72-8224-00d4-a045-b9845df7ce8c}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{424bee72-8224-00d4-a045-b9845df7ce8c}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{424bee72-8224-00d4-a045-b9845df7ce8c}.Release|Any CPU.Build.0 = Release|Any CPU
 		{93c0d18b-ae59-5f92-273c-ba3449ca1d5e}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{93c0d18b-ae59-5f92-273c-ba3449ca1d5e}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93c0d18b-ae59-5f92-273c-ba3449ca1d5e}.Release|Any CPU.ActiveCfg = Release|Any CPU
