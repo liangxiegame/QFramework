@@ -50,3 +50,10 @@ Unity2018Test/Temp
 /QFramework.ScriptKitILRuntime/Logs
 /QFramework.ScriptKitILRuntime/obj
 /QFramework.ScriptKitILRuntime/.vscode
+Unity2018Main/Library
+Unity2018Main/Temp
+Unity2018Main/.vs
+Unity2018Main/Logs
+Unity2018Main/Assets/StreamingAssets/AssetBundles
+Unity2018Main/Assets/Plugins/Editor/JetBrains
+Unity2018Main/AssetBundles
