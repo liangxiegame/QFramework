@@ -1,3 +1,9 @@
+[TOC]
+
+
+
+
+
 ![](./Documents/Res/QFramework-icon-0.1.0-512x128.png)
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
@@ -46,18 +52,26 @@
 
 
 
-
-
-
-
 ### ShowCase（商业案例）
 | [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
 | :-------------------------------------------------------: | :---------------------------------------------: |
 |        ![](./Documents/Res/ShowCase/鬼山之下.png)         |  ![](./Documents/Res/ShowCase/谐音梗挑战.png)   |
 
+
+
 ## Star 趋势（如果项目有帮到您欢迎点赞）
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
+
+
+
+
+
+### 正在进行
+
+* ResKit 完善（[h3166179](https://github.com/h3166179)）
+* ILRuntime 方案初始版本（[王二 so-sos-so](https://github.com/so-sos-so) ）
+* 插件、内置模块整理：跑酷 Demo 更新最新架构（[凉鞋 liangxieq](https://github.com/liangxieq)）
 
 
 
@@ -158,8 +172,8 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 ### 技术支持 Tech Support：
 * [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
 * **如在使用中遇到问题请提交 [这里 issue](https://github.com/liangxiegame/QFramework/issues/new)，我们团队会在一天内快速回复并着手解决。**
-* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **：在 QQ 群内提问，会马航内得到回复。
-* **社区:https://liangxiegame.com/qf/intro/**
+* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **：在 QQ 群内提问，会马上得到回复。
+* **社区:https://qframework.cn**
 * [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
 
 #### 下载地址 Download:
@@ -172,7 +186,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
 ### 运行环境
-* Unity 5.6.x ~ 2020.x
+* Unity 5.6.x ~ 2021.x
 
 ### 可选的包含项目 Include Projects:
 * [UniRx](https://github.com/neuecc/UniRx)

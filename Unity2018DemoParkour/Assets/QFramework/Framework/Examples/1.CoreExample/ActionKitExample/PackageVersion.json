@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v0.0.8",
+    "Type": 4,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Examples/FrameworkExamples/1.CoreExample/ActionKitExample/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Examples/FrameworkExamples/1.CoreExample/ActionKitExample"
+    ],
+    "DocUrl": "http://lianxiegame.com",
+    "Readme": {
+        "version": "v0.0.8",
+        "content": "更新 Action Kit",
+        "author": "liangxie",
+        "date": "2020 年 10 月 27 日 21:24",
+        "PackageId": ""
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "Id": "",
+    "Version": "v0.13.12",
+    "Type": 0,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Framework/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/Examples",
+        "Assets/QFramework/Framework/PackageVersion.json",
+        "Assets/QFramework/Framework/Plugins",
+        "Assets/QFramework/Framework/README.md"
+    ],
+    "DocUrl": "https://lianxiegame.com",
+    "Readme": {
+        "version": "v0.13.12",
+        "content": "v0.13.13  增加 ManagerOfManagers 的示例",
+        "author": "liangxie",
+        "date": "2021 年 08 月 15 日 19:55",
+        "PackageId": ""
+    }
+}
