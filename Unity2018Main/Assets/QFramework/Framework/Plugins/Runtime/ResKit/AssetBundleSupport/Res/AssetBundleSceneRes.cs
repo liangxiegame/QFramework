@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+
 namespace QFramework
 {
         
@@ -70,7 +71,14 @@ namespace QFramework
 
             if (abR == null || abR.AssetBundle == null)
             {
-                Log.E("Failed to Load Asset, Not Find AssetBundleImage:" + abR);
+#if UNITY_EDITOR
+
+                string path= UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(AssetBundleName)[0];
+                if (!path.IsNullOrEmpty())
+                {
+                    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
+                }
+#endif                   
                 return false;
             }
 
