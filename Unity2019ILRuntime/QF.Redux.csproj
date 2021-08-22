@@ -374,11 +374,11 @@
  <Reference Include="ILRuntime.Mono.Cecil">
  <HintPath>E:/_UnityProject/QFramework/QFramework.ScriptKitILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
  </Reference>
- <Reference Include="ILRuntime.Mono.Cecil.Pdb">
- <HintPath>E:/_UnityProject/QFramework/QFramework.ScriptKitILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
- </Reference>
  <Reference Include="ILRuntime.Mono.Cecil.Mdb">
  <HintPath>E:/_UnityProject/QFramework/QFramework.ScriptKitILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+ <HintPath>E:/_UnityProject/QFramework/QFramework.ScriptKitILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>E:/Unity/2019.4.28f1c1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
