@@ -63,7 +63,6 @@ public class IAsyncStateMachineAdapter : CrossBindingAdaptor
                 m_MoveNext = instance.Type.GetMethod("MoveNext", 0);
                 m_bMoveNextGot = true;
             }
-
             if (m_MoveNext != null)
             {
                 appdomain.Invoke(m_MoveNext, instance, null);
@@ -83,7 +82,6 @@ public class IAsyncStateMachineAdapter : CrossBindingAdaptor
                 m_SetStateMachine = instance.Type.GetMethod("SetStateMachine", 1);
                 m_bSetStateMachineGot = true;
             }
-
             if (m_SetStateMachine != null)
             {
                 appdomain.Invoke(m_SetStateMachine, instance, arg0);

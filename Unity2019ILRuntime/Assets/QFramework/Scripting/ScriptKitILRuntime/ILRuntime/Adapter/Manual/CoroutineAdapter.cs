@@ -7,7 +7,6 @@ using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Intepreter;
 using ILRuntime.CLR.Method;
 
-
 public class CoroutineAdapter : CrossBindingAdaptor
 {
     public override Type BaseCLRType

@@ -41,7 +41,7 @@ namespace BDFramework
 
             //绑定的初始化
             //ada绑定
-            AdapterRegister.RegisterCrossBindingAdaptor(AppDomain);
+            //AdapterRegister.RegisterCrossBindingAdaptor(AppDomain);
             //delegate绑定
             ILRuntimeDelegateHelper.Register(AppDomain);
             //值类型绑定
