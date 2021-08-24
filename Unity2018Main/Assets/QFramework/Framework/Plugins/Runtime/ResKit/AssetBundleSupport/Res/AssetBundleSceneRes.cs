@@ -25,6 +25,8 @@
  ****************************************************************************/
 
 
+using System.Diagnostics;
+
 namespace QFramework
 {
         
@@ -72,7 +74,6 @@ namespace QFramework
             if (abR == null || abR.AssetBundle == null)
             {
 #if UNITY_EDITOR
-
                 string path= UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(AssetBundleName)[0];
                 if (!path.IsNullOrEmpty())
                 {

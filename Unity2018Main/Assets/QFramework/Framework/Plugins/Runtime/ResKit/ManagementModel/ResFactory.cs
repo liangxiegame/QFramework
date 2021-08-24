@@ -31,6 +31,8 @@ namespace QFramework
 {
     public static class ResFactory
     {
+        public static AssetBundleSceneResCreator AssetBundleSceneResCreator=new AssetBundleSceneResCreator();
+
         public static IRes Create(ResSearchKeys resSearchKeys)
         {
             var retRes = mResCreators
@@ -62,12 +64,12 @@ namespace QFramework
             mResCreators.Add(resCreator);
         }
 
-        static List<IResCreator> mResCreators = new List<IResCreator>()
+        public  static List<IResCreator> mResCreators = new List<IResCreator>()
         {
             new ResourcesResCreator(),
             new AssetBundleResCreator(),
             new AssetResCreator(),
-            new AssetBundleSceneResCreator(),
+            AssetBundleSceneResCreator,
             new NetImageResCreator(),
             new LocalImageResCreator()
         };

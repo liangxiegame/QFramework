@@ -58,7 +58,7 @@ namespace QFramework
 			return res;
 		}
 
-		protected string AssetBundleName
+		public string AssetBundleName
 		{
 			get { return mAssetBundleArray == null ? null : mAssetBundleArray[0]; }
 		}

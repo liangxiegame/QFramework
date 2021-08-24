@@ -28,7 +28,9 @@ namespace QFramework
     using NUnit.Framework.Internal;
     using System;
     using System.Collections.Generic;
+    using UnityEditor;
     using UnityEngine;
+    using UnityEngine.SceneManagement;
     using Object = UnityEngine.Object;
 
     public class ResLoader : DisposableObject, IResLoader
@@ -95,6 +97,7 @@ namespace QFramework
             var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
+          
             return retAsset.Asset as T;
         }
 
@@ -106,12 +109,37 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string assetName) where T : Object
         {
+           
             var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
             return retAsset.Asset as T;
         }
 
+
+        public Scene LoadSync(SceneModle modle)
+        {
+
+#if UNITY_EDITOR
+
+            //string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(AssetBundleName)[0];
+            //if (!path.IsNullOrEmpty())
+            //{
+            //    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
+            //}
+#else
+            if (FromUnityToDll.Setting.SimulationMode)
+            {
+
+            }
+            else
+            {
+
+            }
+#endif
+            return default(Scene);
+
+        }
 
         /// <summary>
         /// ID:RKRL003 只通过资源名字进行同步加载,
@@ -120,9 +148,46 @@ namespace QFramework
         /// <returns></returns>
         public Object LoadSync(string name)
         {
+           
+
             var resSearchRule = ResSearchKeys.Allocate(name);
-            var retAsset = LoadResSync(resSearchRule);
+            IRes retAsset = null;
+            if (ResFactory.AssetBundleSceneResCreator.Match(resSearchRule))
+            {
+                //加载的为场景
+               IRes res= ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
+#if UNITY_EDITOR
+                if (FromUnityToDll.Setting.SimulationMode)
+                {
+           
+                    string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
+                    if (!path.IsNullOrEmpty())
+                    {
+                        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
+                    }
+                    retAsset = res;
+                }
+                else
+                {
+                    retAsset = LoadResSync(resSearchRule);
+                    SceneManager.LoadScene(name);
+                }
+
+#else
+                  retAsset = LoadResSync(resSearchRule);
+                    SceneManager.LoadScene(name);
+#endif
+            }
+            else
+            {
+                retAsset = LoadResSync(resSearchRule);
+            }
+
+          
             resSearchRule.Recycle2Cache();
+
+
+
             return retAsset.Asset;
         }
 
@@ -165,6 +230,11 @@ namespace QFramework
             }
         }
 
+
+        public class SceneModle
+        {
+
+        }
 
         class CallBackWrap
         {
@@ -317,7 +387,7 @@ namespace QFramework
                     {
                         var searchRule = ResSearchKeys.Allocate(depend, null, typeof(AssetBundle));
                       
-                        tempDepends.Add(depend);                     
+                       tempDepends.Add(depend);                     
                         Add2Load(searchRule);
                         searchRule.Recycle2Cache();
                     }                  
