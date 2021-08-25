@@ -472,6 +472,39 @@ namespace QFramework
         }
     }
 
+    public interface IUnRegisterList : IUnRegister
+    {
+        void Add(IUnRegister unRegister);
+    }
+    
+    public class UnRegisterList : IUnRegisterList
+    {
+        private readonly List<IUnRegister> mUnRegisters = new List<IUnRegister>();
+        
+        public void Add(IUnRegister unRegister)
+        {
+            mUnRegisters.Add(unRegister);
+        }
+        
+        public void UnRegister()
+        {
+            foreach (var unRegister in mUnRegisters)
+            {
+                unRegister.UnRegister();
+            }
+            
+            mUnRegisters.Clear();
+        }
+    }
+
+    public static class UnRegisterListExtension
+    {
+        public static void AddToUnRegisterList(this IUnRegister self, IUnRegisterList unRegisterList)
+        {
+            unRegisterList.Add(self);
+        }
+    }
+
     public class TypeEventSystem : ITypeEventSystem
     {
         /// <summary>

@@ -461,6 +461,11 @@ namespace QFramework
         {
         }
 
+        public void Hide()
+        {
+            throw new NotImplementedException();
+        }
+
         public IMGUILayout AddChild(IMGUIView view)
         {
             mChildren.Add(view);

@@ -52,5 +52,8 @@ namespace QFramework
         void RemoveFromParent();
 
         void Refresh();
+
+        void Hide();
+        void Show();
     }
 }
