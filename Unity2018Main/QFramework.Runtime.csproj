@@ -153,8 +153,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Model\IData.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\System\IQuery.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Attribute\ReadOnlyAttribute.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\BinarySerializer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BinarySerializer\IBinarySerializer.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\BindableProperty\QFramework.BindableProperty.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\AbstractBind.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\CodeGen\Code\Framework\CodeScope.cs" />
@@ -224,13 +222,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\EasyIMGUI\XML\XMLView.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\EnumEventSystem\EnumEventSystem.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\TypeEventSystem\ITypeEventSystem.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Event\TypeEventSystem\TypeEventSystem.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\CustomObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\DefaultObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\IObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\NonPublicObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Factory\ObjectFactory.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\FSM\QFramework.FSM.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\IOC\QFramework.IOC.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\JsonSerializer\DefaultJsonSerializer.cs" />
@@ -242,29 +233,8 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMgrID.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMonoBehaviour.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\ManagerOfManagers\QMsgCenter.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\DictionaryPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPoolable.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\IPoolType.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\ListPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\NonPublicObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\Pool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\SafeObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Pool\SimpleObjectPool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\RefCounter\QFramework.RefCounter.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Reorderable\ReorderableArray.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Reorderable\ReorderableAttribute.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\ISingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingletonPath.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\MonoSingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\PersistentMonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\ReplaceableMonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\Singleton.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\SingletonCreator.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Singleton\SingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Table\Table.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Table\TableIndex.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Utility\LayerMaskUtility.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\IConvertModule.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\XML\IXMLToObjectConverter.cs" />
@@ -275,9 +245,7 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\IPlatformFromUnity.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\ISettingFromUnity.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\IPanel.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Log.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ProjectManagement\SubProject.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\QFramework.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ActionKitSupport\ResKitInit.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\AssetBundleSettings.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\ConfigFile\AssetData.cs" />
@@ -309,6 +277,8 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResourcesSupport\ResourcesResCreator.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResSearchKeys.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResUnloadHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Utility\BinarySerializer\BinarySerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Utility\BinarySerializer\IBinarySerializer.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitClosePanel.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitSetResolution.cs" />
@@ -586,6 +556,9 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="QFramework.Log">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Framework/Plugins/CacheKit/QFramework.Log.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -932,6 +905,16 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{2965B48A-E2BF-64D3-202E-8818A00A9542}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.CacheKit.csproj">
+      <Project>{AFD179C2-4A76-FB71-6C46-570804CAF8B0}</Project>
+      <Name>QFramework.CacheKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

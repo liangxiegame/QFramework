@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{70786CC5-AEC1-4D42-156B-51E244429347}</ProjectGuid>
+    <ProjectGuid>{AFD179C2-4A76-FB71-6C46-570804CAF8B0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QF.Redux</AssemblyName>
+    <AssemblyName>QFramework.CacheKit</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,45 +57,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\DvaState.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\EntityStateElement.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IMiddleware.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IReducer.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IState.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStateChanged.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStore.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\IStoreAccessor.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\ListStateElement.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\ReducerBase.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\StateElement.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\Store.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\StructStateElement.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Core\UniduxSetting.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\IPageData.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\IPageEntity.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\ISceneConfig.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageDuck.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageEntity.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\PageState.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneCategory.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneDuck.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneState.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\SceneTransition\SceneUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\CloneUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\ColorSerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\DictionaryExtension.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\EnumUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\EqualityUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\IListExtension.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\ISerializeFactory.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\JsonUtilSerializeFactory.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\SingletonMonoBehaviour.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\StateUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\StructUtil.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector2SerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector3SerializationSurrogate.cs" />
-    <Compile Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\Util\Vector4SerializationSurrogate.cs" />
-    <None Include="Assets\QFramework\Extensions\3rd\Unidux\Scripts\Runtime\QF.Redux.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Factory\CustomObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Factory\DefaultObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Factory\IObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Factory\NonPublicObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Factory\ObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\DictionaryPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\IPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\IPoolable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\IPoolType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\ListPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\Pool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\SafeObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Pool\SimpleObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\RefCounter\QFramework.RefCounter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\ISingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\MonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\MonoSingletonPath.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\MonoSingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\PersistentMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\ReplaceableMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\Singleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\SingletonCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Singleton\SingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Table\Table.cs" />
+    <Compile Include="Assets\QFramework\Framework\Plugins\CacheKit\Table\TableIndex.cs" />
+    <None Include="Assets\QFramework\Framework\Plugins\CacheKit\QFramework.CacheKit.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -705,12 +693,6 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="UniRx.csproj">
-      <Project>{1C968162-072D-2699-6FD0-0FD0B326A5C0}</Project>
-      <Name>UniRx</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

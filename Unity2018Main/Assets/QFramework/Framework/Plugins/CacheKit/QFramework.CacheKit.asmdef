@@ -1,9 +1,6 @@
 {
-    "name": "QFramework.Runtime",
-    "references": [
-        "QFramework",
-        "QFramework.CacheKit"
-    ],
+    "name": "QFramework.CacheKit",
+    "references": [],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
