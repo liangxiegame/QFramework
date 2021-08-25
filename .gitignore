@@ -56,3 +56,7 @@ Unity2018DemoParkour/Logs
 /Unity2019ILRuntime/obj
 /Unity2019ILRuntime/.vscode
 /Unity2019ILRuntime/Temp
+Tools/EditorPlus/Assets/Plugins/Editor/JetBrains
+Tools/EditorPlus/Library
+Tools/EditorPlus/Temp
+Tools/EditorPlus/Logs
