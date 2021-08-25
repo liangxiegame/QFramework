@@ -126,28 +126,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Pro\VisualScripting\ActionKitVisualTrigger.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Timeline\KeyEventAction.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Timeline\Timeline.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\BinaryHeap.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\IBinaryHeapElement.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimeItem.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\Timer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimerHelper.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimerManager.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\0.Timer\TimeUtil.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\ActionKitAction\AudioSound.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\ActionKitAction\AudioVoice.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioKit.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioKitSettings.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioManager.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\AudioPlayer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Deprecated.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AddRetainAudioMsg.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AduioMsgPlayVoiceLoop.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMsgWithBool.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMsgWithNode.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioMusicMsg.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioSoundMsg.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\AudioVoiceMsg.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\AudioKit\Msg\RemoteRetainAudioMsg.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Architecture.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Controller\Deprecated.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\Core\Architecture\Model\IData.cs" />
@@ -558,7 +536,7 @@
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="QFramework.Log">
-      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Framework/Plugins/CacheKit/QFramework.Log.dll</HintPath>
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/CacheKit/Scripts/QFramework.Log.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
