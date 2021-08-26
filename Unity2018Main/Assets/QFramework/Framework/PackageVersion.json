@@ -1,27 +1,28 @@
 {
     "Id": "",
-    "Version": "v0.13.14",
+    "Version": "v0.13.15",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
-        "Assets/QFramework/Framework/ActionKit",
-        "Assets/QFramework/Framework/CacheKit",
-        "Assets/QFramework/Framework/CacheKitExtensions",
-        "Assets/QFramework/Framework/Examples",
+        "Assets/QFramework/Framework/Architecture",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
-        "Assets/QFramework/Framework/README.md",
-        "Assets/QFramework/Framework/Scripts",
-        "Assets/QFramework/Framework/Tools"
+        "Assets/QFramework/Framework/Toolkits/ActionKit/Example",
+        "Assets/QFramework/Framework/Toolkits/AudioKit",
+        "Assets/QFramework/Framework/Toolkits/CacheKit",
+        "Assets/QFramework/Framework/Toolkits/ResKit",
+        "Assets/QFramework/Framework/Toolkits/StaticExtensions",
+        "Assets/QFramework/Framework/Toolkits/Trigger2DCheck",
+        "Assets/QFramework/Framework/Toolkits/UIKit"
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.14",
-        "content": "补充 PackageVersion.json",
+        "version": "v0.13.15",
+        "content": "再次调整目录",
         "author": "liangxie",
-        "date": "2021 年 08 月 26 日 20:32",
+        "date": "2021 年 08 月 26 日 23:40",
         "PackageId": ""
     }
 }
