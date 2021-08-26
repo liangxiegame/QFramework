@@ -1,22 +1,27 @@
 {
     "Id": "",
-    "Version": "v0.13.12",
+    "Version": "v0.13.14",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework/ActionKit",
+        "Assets/QFramework/Framework/CacheKit",
+        "Assets/QFramework/Framework/CacheKitExtensions",
         "Assets/QFramework/Framework/Examples",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
-        "Assets/QFramework/Framework/README.md"
+        "Assets/QFramework/Framework/README.md",
+        "Assets/QFramework/Framework/Scripts",
+        "Assets/QFramework/Framework/Tools"
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.12",
-        "content": "v0.13.13  增加 ManagerOfManagers 的示例",
+        "version": "v0.13.14",
+        "content": "补充 PackageVersion.json",
         "author": "liangxie",
-        "date": "2021 年 08 月 15 日 19:55",
+        "date": "2021 年 08 月 26 日 20:32",
         "PackageId": ""
     }
 }

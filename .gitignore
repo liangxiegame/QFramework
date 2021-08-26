@@ -60,3 +60,5 @@ Tools/EditorPlus/Assets/Plugins/Editor/JetBrains
 Tools/EditorPlus/Library
 Tools/EditorPlus/Temp
 Tools/EditorPlus/Logs
+CacheKitExtensions/AudioKit/Library
+CacheKitExtensions/AudioKit/Logs

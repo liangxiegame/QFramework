@@ -57,33 +57,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Factory\CustomObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Factory\DefaultObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Factory\IObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Factory\NonPublicObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Factory\ObjectFactory.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\DictionaryPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\IPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\IPoolable.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\IPoolType.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\ListPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\NonPublicObjectPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\Pool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\SafeObjectPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Pool\SimpleObjectPool.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\RefCounter\QFramework.RefCounter.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\ISingleton.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\MonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\MonoSingletonPath.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\MonoSingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\PersistentMonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\ReplaceableMonoSingleton.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\Singleton.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\SingletonCreator.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Singleton\SingletonProperty.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Table\Table.cs" />
-    <Compile Include="Assets\QFramework\CacheKit\Scripts\Table\TableIndex.cs" />
-    <None Include="Assets\QFramework\CacheKit\Scripts\QFramework.CacheKit.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Factory\CustomObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Factory\DefaultObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Factory\IObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Factory\NonPublicObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Factory\ObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\DictionaryPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\IPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\IPoolable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\IPoolType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\ListPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\Pool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\SafeObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Pool\SimpleObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\RefCounter\QFramework.RefCounter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\ISingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\MonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\MonoSingletonPath.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\MonoSingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\PersistentMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\ReplaceableMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\Singleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\SingletonCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Singleton\SingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Table\Table.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\Table\TableIndex.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\CacheKit\Scripts\QFramework.CacheKit.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -346,7 +346,7 @@
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="QFramework.Log">
-      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/CacheKit/Scripts/QFramework.Log.dll</HintPath>
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Framework/Toolkits/CacheKit/Scripts/QFramework.Log.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

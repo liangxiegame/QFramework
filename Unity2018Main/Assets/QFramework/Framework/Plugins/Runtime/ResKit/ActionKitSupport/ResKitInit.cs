@@ -27,7 +27,7 @@
 namespace QFramework
 {
 	[ActionGroup("ResKit")]
-	public class ResKitInit : ActionKitAction
+	public class ResKitInit : ActionKitVisualAction
 	{
 		protected override void OnBegin()
 		{

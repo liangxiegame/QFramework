@@ -31,7 +31,7 @@ namespace QFramework
 {
     [Serializable]
     [ActionGroup("UIKit")]
-    public class UIKitOpenPanel : ActionKitAction
+    public class UIKitOpenPanel : ActionKitVisualAction
     {
         [SerializeField] public string Name;
         [SerializeField] public UILevel Level;
