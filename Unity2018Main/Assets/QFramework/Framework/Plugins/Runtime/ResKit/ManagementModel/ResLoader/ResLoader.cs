@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2019.1 liangxie
+ * Copyright (c) 2017 ~ 2021.8 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework
@@ -25,10 +25,8 @@
 
 namespace QFramework
 {
-    using NUnit.Framework.Internal;
     using System;
     using System.Collections.Generic;
-    using UnityEditor;
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Object = UnityEngine.Object;

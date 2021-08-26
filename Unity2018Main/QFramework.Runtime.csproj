@@ -63,11 +63,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\OnlyBeginAction.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\Action\UntilAction.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\ActionKit.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIAction.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIBrain.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIDecision.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AIState.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\AI\AITransition.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourAction.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionLeaf.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ActionKit\BehaviorTree\BehaviourActionLoop.cs" />

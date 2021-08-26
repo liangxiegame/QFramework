@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.15",
+    "Version": "v0.13.17",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -10,6 +10,7 @@
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Plugins",
         "Assets/QFramework/Framework/Toolkits/ActionKit/Example",
+        "Assets/QFramework/Framework/Toolkits/AI.zip",
         "Assets/QFramework/Framework/Toolkits/AudioKit",
         "Assets/QFramework/Framework/Toolkits/CacheKit",
         "Assets/QFramework/Framework/Toolkits/ResKit",
@@ -19,10 +20,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.15",
-        "content": "再次调整目录",
+        "version": "v0.13.17",
+        "content": "暂时压缩 AI 组件",
         "author": "liangxie",
-        "date": "2021 年 08 月 26 日 23:40",
+        "date": "2021 年 08 月 26 日 23:53",
         "PackageId": ""
     }
 }
