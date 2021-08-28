@@ -450,6 +450,55 @@ namespace QFramework
             tempDepends.Clear();
         }
 
+
+        public AsyncOperation LoadAsync(string sceneName,LoadSceneMode loadSceneMode=LoadSceneMode.Single,System.Action listener = null)
+        {
+            mListener = listener;
+        
+            var resSearchRule = ResSearchKeys.Allocate(sceneName);
+
+            if (ResFactory.AssetBundleSceneResCreator.Match(resSearchRule))
+            {
+                //加载的为场景
+                IRes res = ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
+#if UNITY_EDITOR
+                if (FromUnityToDll.Setting.SimulationMode)
+                {
+
+                    string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
+                    if (!path.IsNullOrEmpty())
+                    {
+                        LoadSceneParameters sceneParameters=new LoadSceneParameters();
+                        sceneParameters.loadSceneMode = loadSceneMode;
+                        tempDepends.Clear();
+                        return UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(path, sceneParameters);
+                    }
+                 
+                }
+                else
+                {
+                    DoLoadAsync();
+                    tempDepends.Clear();
+                  return  SceneManager.LoadSceneAsync(sceneName,loadSceneMode);
+                }
+
+#else
+                DoLoadAsync();
+                    tempDepends.Clear();
+                return    SceneManager.LoadSceneAsync(sceneName,loadSceneMode);
+#endif
+            }
+            else
+            {
+                Log.E("场景名称错误！请检查名称是否正确或资源是否被标记！AssetName:" + sceneName);
+            }
+
+
+            return null;
+        }
+
+
+
         public void ReleaseRes(string resName)
         {
             if (string.IsNullOrEmpty(resName))
