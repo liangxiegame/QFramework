@@ -73,13 +73,7 @@ namespace QFramework
 
             if (abR == null || abR.AssetBundle == null)
             {
-#if UNITY_EDITOR
-                string path= UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(AssetBundleName)[0];
-                if (!path.IsNullOrEmpty())
-                {
-                    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
-                }
-#endif                   
+              
                 return false;
             }
 
