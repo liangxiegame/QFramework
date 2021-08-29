@@ -105,7 +105,7 @@ namespace QFramework
         /// <param name="assetName">资源名字</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T LoadSync<T>(string assetName) where T : Object
+        public T LoadSync<T>(string assetName) where T :Object
         {
            
             var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
@@ -115,30 +115,7 @@ namespace QFramework
         }
 
 
-        public Scene LoadSync(SceneModle modle)
-        {
-
-#if UNITY_EDITOR
-
-            //string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle(AssetBundleName)[0];
-            //if (!path.IsNullOrEmpty())
-            //{
-            //    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
-            //}
-#else
-            if (FromUnityToDll.Setting.SimulationMode)
-            {
-
-            }
-            else
-            {
-
-            }
-#endif
-            return default(Scene);
-
-        }
-
+    
         /// <summary>
         /// ID:RKRL003 只通过资源名字进行同步加载,
         /// </summary>
@@ -229,11 +206,7 @@ namespace QFramework
         }
 
 
-        public class SceneModle
-        {
-
-        }
-
+      
         class CallBackWrap
         {
             private readonly Action<bool, IRes> mListener;
