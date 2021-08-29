@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.17",
+    "Version": "v0.13.18",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.17",
-        "content": "暂时压缩 AI 组件",
+        "version": "v0.13.18",
+        "content": "调整 UIKit 目录 UIKit 增加 ScreenOverlayMode API",
         "author": "liangxie",
-        "date": "2021 年 08 月 26 日 23:53",
+        "date": "2021 年 08 月 29 日 17:36",
         "PackageId": ""
     }
 }

@@ -217,7 +217,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\IInputFromUnity.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\IPlatformFromUnity.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\FromUnityToDll\ISettingFromUnity.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\IPanel.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ProjectManagement\SubProject.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ActionKitSupport\ResKitInit.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\AssetBundleSupport\AssetBundleSettings.cs" />
@@ -252,22 +251,6 @@
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\ResUnloadHelper.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Utility\BinarySerializer\BinarySerializer.cs" />
     <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\ResKit\Utility\BinarySerializer\IBinarySerializer.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitClosePanel.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitOpenPanel.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\ActionKitSupport\UIKitSetResolution.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Deprecated.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\Helper\InputFieldEnterSubmitTrigger.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelInfo.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelOpenType.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\PanelSearchKeys.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKit.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIKitConfig.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UILevel.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIManager.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanel.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanelStack.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIPanelTable.cs" />
-    <Compile Include="Assets\QFramework\Framework\Plugins\Runtime\UIKit\UIRoot.cs" />
     <None Include="Assets\QFramework\Framework\Plugins\Runtime\QFramework.Runtime.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

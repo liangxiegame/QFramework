@@ -85,8 +85,21 @@ namespace QFramework
         {
             return CanvasScaler.matchWidthOrHeight;
         }
-        
-        
+
+        public void ScreenSpaceOverlayRenderMode()
+        {
+            Canvas.renderMode = UnityEngine.RenderMode.ScreenSpaceOverlay;
+            UICamera.Hide();
+        }
+
+        public void ScreenSpaceCameraRenderMode()
+        {
+            Canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            UICamera.Show();
+            Canvas.worldCamera = UICamera;
+        }
+
+
         public void SetLevelOfPanel(UILevel level, IPanel panel)
         {
 
