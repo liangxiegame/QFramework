@@ -92,6 +92,12 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
         {
+            if (typeof(T)== typeof(Sprite))
+            {
+                return LoadSprite(ownerBundle, assetName) as T;
+            }
+           
+
             var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
@@ -107,7 +113,12 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string assetName) where T :Object
         {
-           
+            if (typeof(T) == typeof(Sprite))
+            {
+                return LoadSprite(assetName) as T;
+            }
+
+
             var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
