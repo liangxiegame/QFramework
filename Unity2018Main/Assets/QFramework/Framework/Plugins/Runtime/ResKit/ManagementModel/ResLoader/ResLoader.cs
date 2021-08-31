@@ -27,6 +27,7 @@ namespace QFramework
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     using UnityEngine;
     using UnityEngine.SceneManagement;
     using Object = UnityEngine.Object;
@@ -90,7 +91,7 @@ namespace QFramework
         /// <param name="assetName">资源名字</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T LoadSync<T>(string ownerBundle, string assetName) where T : Object
+        public T LoadSync<T>(string ownerBundle, string assetName) where T :Object
         {
             if (typeof(T)== typeof(Sprite))
             {
@@ -118,7 +119,6 @@ namespace QFramework
                 return LoadSprite(assetName) as T;
             }
 
-
             var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
             var retAsset = LoadResSync(resSearchKeys);
             resSearchKeys.Recycle2Cache();
@@ -126,10 +126,16 @@ namespace QFramework
         }
 
 
-        public UnityEngine.SceneManagement.Scene LoadSync<Scene>(string assetName,bool isLoadScene=false)
+        public System.Object LoadSync<Scene>(string assetName, Action action = null)
         {
             var resSearchRule = ResSearchKeys.Allocate(assetName);
-     
+
+            if (action!=null)
+            {
+                action();
+            }
+          
+
             if (ResFactory.AssetBundleSceneResCreator.Match(resSearchRule))
             {
                 //加载的为场景
@@ -137,50 +143,106 @@ namespace QFramework
 #if UNITY_EDITOR
                 if (FromUnityToDll.Setting.SimulationMode)
                 {
-
                     string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
                     if (!path.IsNullOrEmpty())
                     {
-                       
-                        //if (isLoadScene)
-                        //{
-                        return    UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
-                        //}
-                     //   return SceneManager.GetSceneByPath(path);
+
+                        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
+                        resSearchRule.Recycle2Cache();
+                        tempDepends.Clear();
+                        return null;
                     }
-                  
+
                 }
                 else
                 {
-                     LoadResSync(resSearchRule);
-                    if (isLoadScene)
-                    {
-                        SceneManager.LoadScene(assetName);
-                    }                 
-                   return SceneManager.GetSceneByName(assetName);
+                    LoadResSync(resSearchRule);
+                    SceneManager.LoadScene(assetName);
+                    resSearchRule.Recycle2Cache();
+                    tempDepends.Clear();
+                    return null;
                 }
 
 #else
-                  LoadResSync(resSearchRule);
-                    if (isLoadScene)
-                    {
+                   LoadResSync(resSearchRule);
                         SceneManager.LoadScene(assetName);
-                    }                 
-                   return SceneManager.GetSceneByName(assetName);
+                      resSearchRule.Recycle2Cache();
+                         tempDepends.Clear();
+                        return null;
 #endif
             }
             else
             {
+                resSearchRule.Recycle2Cache();
+                tempDepends.Clear();
                 Log.E("资源名称错误！请检查资源名称是否正确或是否被标记！AssetName:" + assetName);
             }
 
-          
+
 
             resSearchRule.Recycle2Cache();
 
-            return default(UnityEngine.SceneManagement.Scene);
+            return null;
         }
 
+
+        public System.Object LoadSync<Scene>(string ownerBundle,string assetName, Action action = null)
+        {
+            var resSearchRule = ResSearchKeys.Allocate(assetName, ownerBundle);
+
+            if (action != null)
+            {
+                action();
+            }
+
+            if (ResFactory.AssetBundleSceneResCreator.Match(resSearchRule))
+            {
+                //加载的为场景
+                IRes res = ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
+#if UNITY_EDITOR
+                if (FromUnityToDll.Setting.SimulationMode)
+                {
+                    string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
+                    if (!path.IsNullOrEmpty())
+                    {
+
+                        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
+                        resSearchRule.Recycle2Cache();
+                        tempDepends.Clear();
+                        return null;
+                    }
+
+                }
+                else
+                {
+                    LoadResSync(resSearchRule);
+                    SceneManager.LoadScene(assetName);
+                    resSearchRule.Recycle2Cache();
+                    tempDepends.Clear();
+                    return null;
+                }
+
+#else
+                   LoadResSync(resSearchRule);
+                        SceneManager.LoadScene(assetName);
+                      resSearchRule.Recycle2Cache();
+                         tempDepends.Clear();
+                        return null;
+#endif
+            }
+            else
+            {
+                resSearchRule.Recycle2Cache();
+                tempDepends.Clear();
+                Log.E("资源名称错误！请检查资源名称是否正确或是否被标记！AssetName:" + assetName);
+            }
+
+
+
+            resSearchRule.Recycle2Cache();
+
+            return null;
+        }
 
         /// <summary>
         /// ID:RKRL003 只通过资源名字进行同步加载,
@@ -192,42 +254,11 @@ namespace QFramework
            
 
             var resSearchRule = ResSearchKeys.Allocate(name);
-            IRes retAsset = null;
-            if (ResFactory.AssetBundleSceneResCreator.Match(resSearchRule))
-            {
-                //加载的为场景
-               IRes res= ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
-#if UNITY_EDITOR
-                if (FromUnityToDll.Setting.SimulationMode)
-                {
+            IRes  retAsset = LoadResSync(resSearchRule); ;
            
-                    string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
-                    if (!path.IsNullOrEmpty())
-                    {
-                        UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path, new UnityEngine.SceneManagement.LoadSceneParameters());
-                    }
-                    retAsset = res;
-                }
-                else
-                {
-                    retAsset = LoadResSync(resSearchRule);
-                    SceneManager.LoadScene(name);
-                }
-
-#else
-                  retAsset = LoadResSync(resSearchRule);
-                    SceneManager.LoadScene(name);
-#endif
-            }
-            else
-            {
-                retAsset = LoadResSync(resSearchRule);
-            }
-
-          
             resSearchRule.Recycle2Cache();
 
-
+            tempDepends.Clear();
 
             return retAsset.Asset;
         }
