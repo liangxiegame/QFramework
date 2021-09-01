@@ -1,6 +1,6 @@
 ﻿// /****************************************************************************
-//  * Copyright (c) 2018 Karsion(拖鞋)
-//  * Date: 2018-06-07 18:29
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 09:56
 //  *
 //  * http://qframework.io
 //  * https://github.com/liangxiegame/QFramework
@@ -29,73 +29,82 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace QFramework
 {
     internal class ButtonExAttributeDrawer
-    {
-        private readonly Object target;
-        private readonly List<MethodInfo> buttonMethods;
-        private readonly List<ButtonExAttribute> buttonAttributes;
+	{
+		private readonly SerializedObject serializedObject;
+		private readonly List<MethodInfo> buttonMethods;
+		private readonly List<ButtonExAttribute> buttonAttributes;
 
-        public ButtonExAttributeDrawer(Object target)
-        {
-            if (!target)
-            {
-                return;
-            }
+		public ButtonExAttributeDrawer(SerializedObject serializedObject)
+		{
+			this.serializedObject = serializedObject;
+			MethodInfo[] methodInfos = serializedObject.targetObject.GetType().GetMethods(BindingFlags.Static |
+				BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+			if (methodInfos.Length <= 0) return;
 
-            this.target = target;
-            MethodInfo[] methodInfos = target.GetType().GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-            if (methodInfos.Length <= 0)
-            {
-                return;
-            }
+			buttonMethods = new List<MethodInfo>();
+			buttonAttributes = new List<ButtonExAttribute>();
+			for (int i = 0; i < methodInfos.Length; i++)
+			{
+				MethodInfo buttonMethod = methodInfos[i];
+				Type tButtonExAttribute = typeof(ButtonExAttribute);
+				if (Attribute.IsDefined(buttonMethod, tButtonExAttribute, true))
+				{
+					buttonMethods.Add(buttonMethod);
+					ButtonExAttribute[] exAttributes =
+						buttonMethod.GetCustomAttributes(tButtonExAttribute, true) as ButtonExAttribute[];
+					buttonAttributes.Add(exAttributes[0]);
+				}
+			}
+		}
 
-            buttonMethods = new List<MethodInfo>();
-            buttonAttributes = new List<ButtonExAttribute>();
-            for (int i = 0; i < methodInfos.Length; i++)
-            {
-                MethodInfo buttonMethod = methodInfos[i];
-                if (Attribute.IsDefined(buttonMethod, typeof(ButtonExAttribute), true))
-                {
-                    buttonMethods.Add(buttonMethod);
-                    ButtonExAttribute[] exAttributes = buttonMethod.GetCustomAttributes(typeof(ButtonExAttribute), true) as ButtonExAttribute[];
-                    buttonAttributes.Add(exAttributes[0]);
-                }
-            }
-        }
+		public void OnInspectorGUI()
+		{
+			if (buttonMethods.Count == 0) return;
 
-        public void OnInspectorGUI()
-        {
-            if (buttonMethods.Count == 0)
-            {
-                return;
-            }
+			for (int index = 0; index < buttonAttributes.Count; index++)
+			{
+				MethodInfo methodInfo = buttonMethods[index];
+				ButtonExAttribute buttonExAttribute = buttonAttributes[index];
+				bool disabled = false;
+				if (buttonExAttribute.showIfRunTime != ShowIfRunTime.All)
+				{
+					if (buttonExAttribute.showIfRunTime == ShowIfRunTime.Playing != Application.isPlaying)
+						disabled = true;
+				}
 
-            for (int index = 0; index < buttonMethods.Count; index++)
-            {
-                MethodInfo methodInfo = buttonMethods[index];
-                ButtonExAttribute buttonExAttribute = buttonAttributes[index];
-                bool disabled = false;
-                if (buttonExAttribute.showIfRunTime != ShowIfRunTime.All)
-                {
-                    if (buttonExAttribute.showIfRunTime == ShowIfRunTime.Playing != Application.isPlaying)
-                    {
-                        disabled = true;
-                    }
-                }
+				using (new EditorGUI.DisabledScope(disabled))
+				{
+					GUILayout.BeginHorizontal();
+					string name = methodInfo.Name;
+					if (GUILayout.Button(name))
+					{
+						for (int i = 0; i < serializedObject.targetObjects.Length; i++)
+						{
+							methodInfo.Invoke(serializedObject.targetObjects[i], null);
+						}
 
-                using (new EditorGUI.DisabledScope(disabled))
-                {
-                    string name = buttonExAttribute.txtButtonName ?? methodInfo.Name;
-                    if (GUILayout.Button(name))
-                    {
-                        methodInfo.Invoke(target, null);
-                    }
-                }
-            }
-        }
-    }
+						//methodInfo.Invoke(target, null);
+					}
+
+					for (int i = 0; i < buttonExAttribute.funcNames.Length; i++)
+					{
+						string funcName = buttonExAttribute.funcNames[i];
+						if (GUILayout.Button(funcName))
+						{
+							for (int j = 0; j < serializedObject.targetObjects.Length; j++)
+							{
+								ButtonAttributeDrawer.CalledFunc(serializedObject.targetObjects[j], funcName);
+							}
+						}
+					}
+
+					GUILayout.EndHorizontal();
+				}
+			}
+		}
+	}
 }

@@ -1,27 +1,28 @@
-﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 Karsion
- * 
- * http://qframework.io
- * https://github.com/liangxiegame/QFramework
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- ****************************************************************************/
+﻿// /****************************************************************************
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 11:57
+//  *
+//  * http://qframework.io
+//  * https://github.com/liangxiegame/QFramework
+//  * 
+//  * Permission is hereby granted, free of charge, to any person obtaining a copy
+//  * of this software and associated documentation files (the "Software"), to deal
+//  * in the Software without restriction, including without limitation the rights
+//  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  * copies of the Software, and to permit persons to whom the Software is
+//  * furnished to do so, subject to the following conditions:
+//  * 
+//  * The above copyright notice and this permission notice shall be included in
+//  * all copies or substantial portions of the Software.
+//  * 
+//  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  * THE SOFTWARE.
+//  ****************************************************************************/
 
 using System;
 using UnityEditor;
@@ -29,7 +30,6 @@ using UnityEngine;
 
 namespace QFramework
 {
-
     /*-------------------------------------------------------------------------------------------------------------------------------------------
         To define a hot-key, use the following special characters: 
             % (Ctrl on Windows, Cmd on OS X)
@@ -45,7 +45,7 @@ namespace QFramework
     internal static class AssetsMenuItem
     {
         [MenuItem("GameObject/Copy/名称")]
-        private static void CopyName()
+        internal static void CopyName()
         {
             TextEditor te = new TextEditor();
             te.text = Selection.activeObject.name;
@@ -54,17 +54,6 @@ namespace QFramework
 
             Debug.Log("Name: " + te.text);
         }
-
-        //[MenuItem("Assets/Copy/Copy FilePath")]
-        //private static void CopyFilePath()
-        //{
-        //    TextEditor editor = new TextEditor();
-        //    editor.text = AssetDatabase.GetAssetPath(Selection.activeObject);
-        //    editor.SelectAll();
-        //    editor.Copy();
-
-        //    Debug.Log("FilePath: " + editor.text);
-        //}
 
         #region Copy Hierarchy Node Path
         [MenuItem("GameObject/Copy/节点路径 ..]")]//, false, 0
@@ -146,7 +135,5 @@ namespace QFramework
             }
         }
         #endregion
-
-
     }
 }

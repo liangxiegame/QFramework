@@ -1,6 +1,7 @@
 ﻿// /****************************************************************************
-//  * Copyright (c) 2018 Karsion(拖鞋)
-//  * 
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 09:56
+//  *
 //  * http://qframework.io
 //  * https://github.com/liangxiegame/QFramework
 //  * 
@@ -26,68 +27,65 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
-using ButtonAttribute = UnityEngine.ButtonAttribute;
 
 namespace QFramework
 {
-    [CustomPropertyDrawer(typeof(UnityEngine.ButtonAttribute), true)]
-    internal class ButtonAttributeDrawer : PropertyDrawer
-    {
-        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-        {
-            UnityEngine.ButtonAttribute attribute = (UnityEngine.ButtonAttribute) this.attribute;
-            return attribute.height;
-        }
+	[CustomPropertyDrawer(typeof(ButtonAttribute), true)]
+	internal class ButtonAttributeDrawer : PropertyDrawer
+	{
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+		{
+			ButtonAttribute attribute = (ButtonAttribute) this.attribute;
+			return attribute.height;
+		}
 
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {
-            UnityEngine.ButtonAttribute attribute = (UnityEngine.ButtonAttribute) this.attribute;
-            if (attribute.funcNames == null || attribute.funcNames.Length == 0)
-            {
-                position = EditorGUI.IndentedRect(position);
-                EditorGUI.HelpBox(position, "[Button] funcNames is Not Set!", MessageType.Warning);
-                return;
-            }
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		{
+			ButtonAttribute attribute = (ButtonAttribute) this.attribute;
+			if (attribute.funcNames == null || attribute.funcNames.Length == 0)
+			{
+				position = EditorGUI.IndentedRect(position);
+				EditorGUI.HelpBox(position, "[Button] funcNames is Not Set!", MessageType.Warning);
+				return;
+			}
 
-            //看看应该显示按钮的时机
-            bool disabled = false;
-            if (attribute.showIfRunTime != ShowIfRunTime.All)
-            {
-                if (attribute.showIfRunTime == ShowIfRunTime.Playing != Application.isPlaying)
-                {
-                    disabled = true;
-                }
-            }
+			//看看应该显示按钮的时机
+			bool disabled = false;
+			if (attribute.showIfRunTime != ShowIfRunTime.All)
+			{
+				if (attribute.showIfRunTime == ShowIfRunTime.Playing != Application.isPlaying) { disabled = true; }
+			}
 
-            using (new EditorGUI.DisabledScope(disabled))
-            {
-                float width = position.width / attribute.funcNames.Length;
-                position.width = width;
-                for (int i = 0; i < attribute.funcNames.Length; i++)
-                {
-                    string funcName = attribute.funcNames[i];
+			using (new EditorGUI.DisabledScope(disabled))
+			{
+				float width = position.width / attribute.funcNames.Length;
+				position.width = width;
+				for (int i = 0; i < attribute.funcNames.Length; i++)
+				{
+					string funcName = attribute.funcNames[i];
 
-                    if (GUI.Button(position, funcName))
-                    {
-                        CalledFunc(property.serializedObject.targetObject, funcName);
-                    }
+					if (GUI.Button(position, funcName))
+					{
+						CalledFunc(property.serializedObject.targetObject, funcName);
+					}
 
-                    position.x += width;
-                }
-            }
-        }
+					position.x += width;
+				}
+			}
+		}
 
-        private static void CalledFunc(Object target, string strFuncName)
-        {
-            MethodInfo methodInfo = target.GetType()
-                .GetMethod(strFuncName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            if (methodInfo == null)
-            {
-                return;
-            }
+		internal static bool CalledFunc(Object target, string strFuncName)
+		{
+			MethodInfo methodInfo = target.GetType().GetMethod(strFuncName,
+				BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+			if (methodInfo == null)
+			{
+				Debug.LogWarning($"<b>{target}</b> The target does not have Func: <b>{strFuncName}()</b>; Named by type!");
+				return false;
+			}
 
-            Debug.Log(target + ".<b>" + strFuncName + "()</b> Invoke");
-            methodInfo.Invoke(target, null);
-        }
-    }
+			methodInfo.Invoke(target, null);
+			return true;
+		}
+	}
 }

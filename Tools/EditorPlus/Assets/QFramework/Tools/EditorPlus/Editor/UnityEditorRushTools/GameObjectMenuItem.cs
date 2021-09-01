@@ -1,69 +1,42 @@
-﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2018.7 Karsion
- * 
- * http://qframework.io
- * https://github.com/liangxiegame/QFramework
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- ****************************************************************************/
+﻿// /****************************************************************************
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 10:27
+//  *
+//  * 取消了对创建Image和Text的支持，请使用Preset功能
+//  * Tips：新版本中使用Preset为一些组件做一个默认值直接创建
+//  *
+//  * http://qframework.io
+//  * https://github.com/liangxiegame/QFramework
+//  * 
+//  * Permission is hereby granted, free of charge, to any person obtaining a copy
+//  * of this software and associated documentation files (the "Software"), to deal
+//  * in the Software without restriction, including without limitation the rights
+//  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  * copies of the Software, and to permit persons to whom the Software is
+//  * furnished to do so, subject to the following conditions:
+//  * 
+//  * The above copyright notice and this permission notice shall be included in
+//  * all copies or substantial portions of the Software.
+//  * 
+//  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  * THE SOFTWARE.
+//  ****************************************************************************/
 
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace QFramework
 {
-
     internal static class GameObjectMenuItem
     {
-        [MenuItem("GameObject/ReplacePrefab &A")]
-        private static void ReplacePrefab()
-        {
-            for (int i = 0; i < Selection.gameObjects.Length; i++)
-            {
-                GameObject go = Selection.gameObjects[i];
-                PrefabType type = PrefabUtility.GetPrefabType(go);
-                switch (type)
-                {
-                    case PrefabType.PrefabInstance:
-                    case PrefabType.DisconnectedPrefabInstance:
-                        GameObject gameObject = PrefabUtility.FindValidUploadPrefabInstanceRoot(go);
-#if UNITY_2018_2_OR_NEWER
-                        Object prefabParent = PrefabUtility.GetCorrespondingObjectFromSource(gameObject);
-#else
-                        var prefabParent = PrefabUtility.GetPrefabParent(gameObject);
-#endif
-                        //Undo.RecordObject(prefabParent, "ReplacePrefab");
-                        PrefabUtility.ReplacePrefab(gameObject, prefabParent);
-                        Undo.RecordObject(gameObject, "ReplacePrefab");
-                        PrefabUtility.RevertPrefabInstance(gameObject);
-                        break;
-                }
-            }
-        }
-
         [MenuItem("GameObject/Duplicate - Top &D")]
         private static void Duplicate()
         {
-            //GameObject[] gameObjects = Selection.gameObjects;
-            //Object[] newObjects = new Object[gameObjects.Length];
             GameObject[] gameObjects = Selection.gameObjects;
             if (gameObjects.Length == 0)
             {
@@ -98,27 +71,6 @@ namespace QFramework
             }
         }
 
-        //private static void Duplicate()
-        //{
-        //    GameObject[] gameObjects = Selection.gameObjects;
-        //    Object[] newObjects = new Object[gameObjects.Length];
-        //    for (int i = 0; i < gameObjects.Length; i++)
-        //    {
-        //        GameObject gameObject = gameObjects[i];
-        //        int nSiblingIndex = gameObject.transform.GetSiblingIndex() + 1;
-        //        Selection.activeGameObject = gameObject;
-        //        Unsupported.DuplicateGameObjectsUsingPasteboard();
-        //        GameObject gameObjectClone = Selection.activeGameObject;
-        //        gameObjectClone.name = gameObject.name;
-        //        gameObjectClone.transform.SetSiblingIndex(nSiblingIndex);
-        //        EditorApplication.DirtyHierarchyWindowSorting();
-        //        newObjects[i] = gameObjectClone;
-        //        Undo.RegisterCreatedObjectUndo(gameObjectClone, "Duplicate");
-        //    }
-
-        //    Selection.objects = newObjects;
-        //}
-
         [MenuItem("GameObject/Create Empty - Top &N", false, -1)]
         private static void CreateEmpty()
         {
@@ -144,7 +96,6 @@ namespace QFramework
         [MenuItem("GameObject/Transform/Group &G", false)]
         private static void Group()
         {
-            //Debug.Log("Group");
             GameObject[] gameObjects = Selection.gameObjects;
             if (gameObjects.Length == 0)
             {
@@ -206,115 +157,6 @@ namespace QFramework
                     }
                 }
             }
-        }
-
-        /// <summary>
-        ///     第一次创建UI元素时。没有canvas、EventSystem全部要生成，Canvas作为父节点
-        ///     之后再空的位置上建UI元素会自己主动加入到Canvas下
-        ///     在非UI树下的GameObject上新建UI元素也会 自己主动加入到Canvas下（默认在UI树下）
-        ///     加入到指定的UI元素下
-        /// </summary>
-        [MenuItem("GameObject/UI/img")]
-        private static void CreatImages()
-        {
-            Transform activeTransform = Selection.activeTransform;
-            GameObject canvasObj = SecurityCheck();
-            GameObject img = Image();
-
-            if (!activeTransform) // 在根文件夹创建的， 自己主动移动到 Canvas下
-            {
-                img.transform.SetParent(canvasObj.transform, false);
-                img.layer = canvasObj.layer;
-            }
-            else
-            {
-                if (!activeTransform.GetComponentInParent<Canvas>()) // 没有在UI树下
-                {
-                    img.transform.SetParent(canvasObj.transform, false);
-                    img.layer = canvasObj.layer;
-                }
-                else
-                {
-                    img.transform.SetParent(activeTransform, false);
-                    img.layer = activeTransform.gameObject.layer;
-                }
-            }
-        }
-
-        private static GameObject Image()
-        {
-            GameObject go = new GameObject("img", typeof(Image));
-            Undo.RegisterCreatedObjectUndo(go, "Image");
-            go.GetComponent<Image>().raycastTarget = false;
-            Selection.activeGameObject = go;
-            return go;
-        }
-
-        [MenuItem("GameObject/UI/txt")]
-        private static void CreatTexts()
-        {
-            Transform activeTransform = Selection.activeTransform;
-            GameObject canvasObj = SecurityCheck();
-            GameObject txt = Text();
-            if (!activeTransform) // 在根文件夹创建的。 自己主动移动到 Canvas下
-            {
-                txt.transform.SetParent(canvasObj.transform, false);
-                txt.gameObject.layer = canvasObj.layer;
-            }
-            else
-            {
-                if (!activeTransform.GetComponentInParent<Canvas>()) // 没有在UI树下
-                {
-                    txt.transform.SetParent(canvasObj.transform, false);
-                    txt.gameObject.layer = canvasObj.layer;
-                }
-                else
-                {
-                    txt.transform.SetParent(activeTransform, false);
-                    txt.gameObject.layer = activeTransform.gameObject.layer;
-                }
-            }
-        }
-
-        private static GameObject Text()
-        {
-            GameObject go = new GameObject("txt", typeof(Text));
-            Undo.RegisterCreatedObjectUndo(go, "Text");
-            Text text = go.GetComponent<Text>();
-            text.raycastTarget = false;
-            text.supportRichText = false;
-            text.color = Color.white;
-            text.horizontalOverflow = HorizontalWrapMode.Overflow;
-            text.verticalOverflow = VerticalWrapMode.Overflow;
-
-            //text.font = AssetDatabase.LoadAssetAtPath<Font>("Assets/Arts/Fonts/zh_cn.TTF"); // 默认字体
-            Selection.activeGameObject = go;
-            return go;
-        }
-
-        // 假设第一次创建UI元素 可能没有 Canvas、EventSystem对象！
-        private static GameObject SecurityCheck()
-        {
-            Canvas cv = Object.FindObjectOfType<Canvas>();
-            GameObject canvas;
-            if (!cv)
-            {
-                canvas = new GameObject("Canvas", typeof(Canvas));
-                Undo.RegisterCreatedObjectUndo(canvas, "Canvas");
-            }
-            else
-            {
-                canvas = cv.gameObject;
-            }
-
-            if (!Object.FindObjectOfType<EventSystem>())
-            {
-                GameObject go = new GameObject("EventSystem", typeof(EventSystem));
-                Undo.RegisterCreatedObjectUndo(go, "EventSystem");
-            }
-
-            canvas.layer = LayerMask.NameToLayer("UI");
-            return canvas;
         }
     }
 }

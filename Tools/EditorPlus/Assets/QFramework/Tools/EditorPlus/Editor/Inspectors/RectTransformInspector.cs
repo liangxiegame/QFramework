@@ -24,348 +24,331 @@
 //  * THE SOFTWARE.
 //  ****************************************************************************/
 
+using System;
 using System.Reflection;
-
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-    [CanEditMultipleObjects]
-    [CustomEditor(typeof(RectTransform))]
-    public class RectTransformInspector : CustomCustomEditor
-    {
-        private const string strButtonLeft = "ButtonLeft";
-        private const string strButtonMid = "ButtonMid";
-        private const string strButtonRight = "ButtonRight";
+	[CanEditMultipleObjects]
+	[CustomEditor(typeof(RectTransform))]
+	internal class RectTransformInspector : CustomCustomEditor
+	{
+		private float scaleAll = 1;
+		private SerializedProperty spAnchoredPosition;
+		private SerializedProperty spLocalPositionZ;
+		private SerializedProperty spLocalRotation;
+		private SerializedProperty spLocalScale;
+		private SerializedProperty spPivot;
+		private SerializedProperty spSizeDelta;
 
-        private static GUIStyle styleMove;
-        private static GUIStyle stylePivotSetup;
-        private bool autoSetNativeSize;
-        private Image image;
+		internal RectTransformInspector() : base("RectTransformEditor") { }
 
-        private float scaleAll = 1;
-        private SerializedProperty spAnchoredPosition;
-        private SerializedProperty spLocalRotation;
-        private SerializedProperty spLocalScale;
-        private SerializedProperty spPivot;
-        private SerializedProperty spSizeDelta;
+		protected override void OnEnable()
+		{
+			base.OnEnable();
+			spAnchoredPosition = serializedObject.FindProperty("m_AnchoredPosition");
+			spLocalPositionZ = serializedObject.FindProperty("m_LocalPosition.z");
+			spSizeDelta = serializedObject.FindProperty("m_SizeDelta");
+			spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
+			spLocalScale = serializedObject.FindProperty("m_LocalScale");
+			spPivot = serializedObject.FindProperty("m_Pivot");
+			scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
+		}
 
-        public RectTransformInspector()
-            : base("RectTransformEditor")
-        {
-        }
+		public override void OnInspectorGUI()
+		{
+			serializedObject.Update();
+			Contents sContents = Contents.instance;
+			TransformInspector.Contents sContents2 = TransformInspector.Contents.instance;
 
-        private void MoveTargetAnchoredPosition(Vector2 v2Unit)
-        {
-            foreach (Object item in targets)
-            {
-                RectTransform rtf = item as RectTransform;
-                rtf.anchoredPosition += v2Unit;
-            }
-        }
+			#region Keyboard Move
 
-        private void OnEnable()
-        {
-            spAnchoredPosition = serializedObject.FindProperty("m_AnchoredPosition");
-            spSizeDelta = serializedObject.FindProperty("m_SizeDelta");
-            spLocalRotation = serializedObject.FindProperty("m_LocalRotation");
-            spLocalScale = serializedObject.FindProperty("m_LocalScale");
-            spPivot = serializedObject.FindProperty("m_Pivot");
-            scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
-            image = (target as RectTransform).GetComponent<Image>();
-            if (image)
-            {
-                autoSetNativeSize = !image.sprite;
-            }
-        }
+			Event e = Event.current;
+			if (e != null)
+			{
+				if (e.type == EventType.KeyDown && e.control)
+				{
+					int nUnit = e.shift ? 10 : 1;
+					switch (e.keyCode)
+					{
+						case KeyCode.UpArrow:
+							Undo.RecordObjects(targets, "UpArrow");
+							MoveTargetAnchoredPosition(Vector2.up * nUnit);
+							e.Use();
+							break;
+						case KeyCode.DownArrow:
+							Undo.RecordObjects(targets, "DownArrow");
+							MoveTargetAnchoredPosition(Vector2.down * nUnit);
+							e.Use();
+							break;
+						case KeyCode.LeftArrow:
+							Undo.RecordObjects(targets, "LeftArrow");
+							MoveTargetAnchoredPosition(Vector2.left * nUnit);
+							e.Use();
+							break;
+						case KeyCode.RightArrow:
+							Undo.RecordObjects(targets, "RightArrow");
+							MoveTargetAnchoredPosition(Vector2.right * nUnit);
+							e.Use();
+							break;
+					}
+				}
+			}
 
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
-            if (s_Contents == null)
-            {
-                s_Contents = new Contents();
-            }
+			TransformInspector.EventProcessing(targets);
 
-            serializedObject.Update();
-            Event e = Event.current;
-            if (e != null)
-            {
-                if (image) //Auto set Image's native size if Image.sprite is not null
-                {
-                    if (e.type == EventType.DragPerform || e.type == EventType.MouseDown)
-                    {
-                        autoSetNativeSize = !image.sprite;
-                    }
+			#endregion
 
-                    if (autoSetNativeSize && image.sprite && image.type == Image.Type.Simple)
-                    {
-                        autoSetNativeSize = false;
-                        RectTransform tf = target as RectTransform;
-                        float x = image.sprite.rect.width/image.pixelsPerUnit;
-                        float y = image.sprite.rect.height/image.pixelsPerUnit;
-                        tf.anchorMax = tf.anchorMin;
-                        tf.sizeDelta = new Vector2(x, y);
-                    }
-                }
+			bool isAnLayout = EditorPrefs.GetBool("RectTransformEditor.showAnchorProperties");
+			bool isAnyDrivenBy = false;
+			foreach (RectTransform rectTransform in targets)
+			{
+				isAnyDrivenBy |= typeof(RectTransform).GetProperty("drivenByObject",
+					                                      BindingFlags.GetProperty | BindingFlags.Instance |
+					                                      BindingFlags.NonPublic)
+				                                      .GetValue(rectTransform) != null;
+			}
 
-                //Keyboard control move by pixel style like Photoshop's move tool
-                if (e.type == EventType.KeyDown && e.control)
-                {
-                    int nUnit = e.shift ? 10 : 1;
-                    switch (e.keyCode)
-                    {
-                        case KeyCode.UpArrow:
-                            Undo.RecordObjects(targets, "UpArrow");
-                            MoveTargetAnchoredPosition(Vector2.up*nUnit);
-                            e.Use();
-                            break;
-                        case KeyCode.DownArrow:
-                            Undo.RecordObjects(targets, "DownArrow");
-                            MoveTargetAnchoredPosition(Vector2.down*nUnit);
-                            e.Use();
-                            break;
-                        case KeyCode.LeftArrow:
-                            Undo.RecordObjects(targets, "LeftArrow");
-                            MoveTargetAnchoredPosition(Vector2.left*nUnit);
-                            e.Use();
-                            break;
-                        case KeyCode.RightArrow:
-                            Undo.RecordObjects(targets, "RightArrow");
-                            MoveTargetAnchoredPosition(Vector2.right*nUnit);
-                            e.Use();
-                            break;
-                    }
-                }
-            }
+			Rect rect = new Rect();
+			float start = EditorGUIUtility.wideMode
+				? EditorGUIUtility.labelWidth - 2
+				: EditorGUIUtility.currentViewWidth - 212 - 2;
+			GUILayoutUtility.GetRect(new GUIContent(), GUIStyle.none);
+			rect = GUILayoutUtility.GetLastRect();
+			float currentViewWidth = rect.width;
+			float up = -EditorGUIUtility.singleLineHeight + 3;
+			GUILayout.Space(up);
 
-            const float fButtonWidth = 21;
-            if (stylePivotSetup == null)
-            {
-                stylePivotSetup = new GUIStyle("PreButton")
-                {
-                    normal = new GUIStyle("CN Box").normal,
-                    active = new GUIStyle("AppToolbar").normal,
-                    overflow = new RectOffset(),
-                    padding = new RectOffset(0, 0, -1, 0),
-                    fixedWidth = 19
-                };
+			#region Reset Position Size
 
-                styleMove = new GUIStyle(stylePivotSetup)
-                {
-                    padding = new RectOffset(0, 0, -2, 0)
-                };
-            }
+			rect.width = 18;
+			rect.x = start;
+			rect.y += EditorGUIUtility.singleLineHeight + 2;
 
-            GUILayout.BeginHorizontal();
-            {
-                GUILayout.BeginVertical();
-                {
-                    #region Tools
-                    GUILayout.BeginHorizontal();
-                    {
-                        EditorGUIUtility.labelWidth = 64;
-                        float newScale = EditorGUILayout.FloatField(s_Contents.scaleContent, scaleAll);
-                        if (!Mathf.Approximately(scaleAll, newScale))
-                        {
-                            scaleAll = newScale;
-                            spLocalScale.vector3Value = Vector3.one*scaleAll;
-                        }
-                    }
+			if (isAnyDrivenBy) { rect.y += EditorGUIUtility.singleLineHeight + 9; }
 
-                    GUILayout.EndHorizontal();
+			bool enable = spAnchoredPosition.vector2Value != Vector2.zero || e.alt && spLocalPositionZ.floatValue != 0;
+			using (new EditorGUI.DisabledGroupScope(!enable))
+			{
+				if (GUI.Button(rect, sContents2.anchoredPositionReset, sContents2.resetStyle))
+				{
+					spAnchoredPosition.vector2Value = Vector2.zero;
+					if (e.alt) { spLocalPositionZ.floatValue = 0; }
+				}
+			}
 
-                    GUILayout.BeginHorizontal();
-                    {
-                        if (GUILayout.Button(s_Contents.anchoredPosition0Content, strButtonLeft, GUILayout.Width(fButtonWidth)))
-                        {
-                            foreach (Object item in targets)
-                            {
-                                RectTransform rtf = item as RectTransform;
-                                rtf.localPosition = Vector3.zero;
-                            }
-                        }
+			rect.y += EditorGUIUtility.singleLineHeight * 2;
 
-                        if (GUILayout.Button(s_Contents.deltaSize0Content, strButtonMid, GUILayout.Width(fButtonWidth)))
-                        {
-                            spSizeDelta.vector2Value = Vector2.zero;
-                        }
+			using (new EditorGUI.DisabledGroupScope(spSizeDelta.vector2Value == Vector2.zero))
+			{
+				if (GUI.Button(rect, sContents2.deltaSizeReset, sContents2.resetStyle))
+				{
+					spSizeDelta.vector2Value = Vector2.zero;
+				}
+			}
 
-                        if (GUILayout.Button(s_Contents.rotation0Content, strButtonMid, GUILayout.Width(fButtonWidth)))
-                        {
-                            Undo.RecordObjects(targets, "rotationContent");
-                            MethodInfo method =
-                                typeof(Transform).GetMethod("SetLocalEulerAngles", BindingFlags.Instance | BindingFlags.NonPublic);
-                            object[] clear = { Vector3.zero, 0 };
-                            for (int i = 0; i < targets.Length; i++)
-                            {
-                                method.Invoke(targets[i], clear);
-                            }
+			#endregion
 
-                            Event.current.type = EventType.Used;
-                        }
+			#region Pivot
 
-                        if (GUILayout.Button(s_Contents.scale0Content, strButtonRight, GUILayout.Width(fButtonWidth)))
-                        {
-                            spLocalScale.vector3Value = Vector3.one;
-                            scaleAll = spLocalScale.FindPropertyRelative("x").floatValue;
-                        }
+			float w = 14;
+			Rect rect2 = new Rect(currentViewWidth - 32,
+				rect.y + EditorGUIUtility.singleLineHeight + 1, w, w);
+			if (GUI.Button(rect2, "◤", sContents.stylePivotSetup)) { spPivot.vector2Value = new Vector2(0, 1); }
 
-                        if (GUILayout.Button(s_Contents.roundContent))
-                        {
-                            Vector2 v2 = spAnchoredPosition.vector2Value;
-                            spAnchoredPosition.vector2Value = new Vector2(Mathf.Round(v2.x), Mathf.Round(v2.y));
-                            v2 = spSizeDelta.vector2Value;
-                            spSizeDelta.vector2Value = new Vector2(Mathf.Round(v2.x), Mathf.Round(v2.y));
-                        }
-                    }
-                    GUILayout.EndHorizontal();
-                    #endregion
+			rect2.x += w;
+			if (GUI.Button(rect2, EditorGUIUtility.TrTempContent(""), sContents.stylePivotSetup))
+			{
+				spPivot.vector2Value = new Vector2(0.5f, 1);
+			}
 
-                    #region Copy Paste
-                    GUILayout.BeginHorizontal();
-                    Color c = GUI.color;
-                    GUI.color = new Color(1f, 1f, 0.5f, 1f);
-                    if (GUILayout.Button(s_Contents.copyContent, strButtonLeft, GUILayout.Width(fButtonWidth)))
-                    {
-                        ComponentUtility.CopyComponent(target as RectTransform);
-                    }
+			rect2.x += w;
+			if (GUI.Button(rect2, "◥", sContents.stylePivotSetup)) { spPivot.vector2Value = new Vector2(1, 1); }
 
-                    GUI.color = new Color(1f, 0.5f, 0.5f, 1f);
-                    if (GUILayout.Button(s_Contents.pasteContent, strButtonMid, GUILayout.Width(fButtonWidth)))
-                    {
-                        foreach (Object item in targets)
-                        {
-                            ComponentUtility.PasteComponentValues(item as RectTransform);
-                        }
-                    }
+			rect2.y += w;
+			if (GUI.Button(rect2, EditorGUIUtility.TrTempContent(""), sContents.stylePivotSetup))
+			{
+				spPivot.vector2Value = new Vector2(1, 0.5f);
+			}
 
-                    GUI.color = c;
-                    if (GUILayout.Button(s_Contents.fillParentContent, strButtonMid, GUILayout.Width(fButtonWidth)))
-                    {
-                        Undo.RecordObjects(targets, "F");
-                        foreach (Object item in targets)
-                        {
-                            RectTransform rtf = item as RectTransform;
-                            rtf.anchorMax = Vector2.one;
-                            rtf.anchorMin = Vector2.zero;
-                            rtf.offsetMax = Vector2.zero;
-                            rtf.offsetMin = Vector2.zero;
-                        }
-                    }
+			rect2.x -= w;
+			if (GUI.Button(rect2, "+", sContents.stylePivotSetup)) { spPivot.vector2Value = new Vector2(0.5f, 0.5f); }
 
-                    if (GUILayout.Button(s_Contents.normalSizeDeltaContent, strButtonRight, GUILayout.Width(fButtonWidth)))
-                    {
-                        Undo.RecordObjects(targets, "N");
-                        foreach (Object item in targets)
-                        {
-                            RectTransform rtf = item as RectTransform;
-                            Rect rect = rtf.rect;
-                            rtf.anchorMax = new Vector2(0.5f, 0.5f);
-                            rtf.anchorMin = new Vector2(0.5f, 0.5f);
-                            rtf.sizeDelta = rect.size;
-                        }
-                    }
+			rect2.x -= w;
+			if (GUI.Button(rect2, EditorGUIUtility.TrTempContent(""), sContents.stylePivotSetup))
+			{
+				spPivot.vector2Value = new Vector2(0, 0.5f);
+			}
 
-                    GUILayout.Label(s_Contents.readmeContent);
-                    GUILayout.EndHorizontal();
-                    #endregion
-                }
-                GUILayout.EndVertical();
+			rect2.y += w;
+			if (GUI.Button(rect2, "◣", sContents.stylePivotSetup)) { spPivot.vector2Value = new Vector2(0, 0); }
 
-                GUILayout.BeginVertical();
-                {
-                    #region Pivot
-                    GUILayout.Label("Pivot", "ProfilerPaneSubLabel"); //┌─┐
-                    GUILayout.BeginHorizontal(); //│┼│
-                    {
-                        //└─┘
-                        if (GUILayout.Button("◤", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(0, 1);
-                        }
+			rect2.x += w;
+			if (GUI.Button(rect2, EditorGUIUtility.TrTempContent(""), sContents.stylePivotSetup))
+			{
+				spPivot.vector2Value = new Vector2(0.5f, 0);
+			}
 
-                        if (GUILayout.Button("", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(0.5f, 1);
-                        }
+			rect2.x += w;
+			if (GUI.Button(rect2, "◢", sContents.stylePivotSetup)) { spPivot.vector2Value = new Vector2(1, 0); }
 
-                        if (GUILayout.Button("◥", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(1, 1);
-                        }
-                    }
+			#endregion
 
-                    GUILayout.EndHorizontal();
+			#region Reset Rotation Scale
 
-                    GUILayout.BeginHorizontal();
-                    {
-                        if (GUILayout.Button("", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(0, 0.5f);
-                        }
+			rect.y += EditorGUIUtility.singleLineHeight * 4 - 2;
+			rect.x = 10;
+			if (isAnLayout) { rect.y += EditorGUIUtility.singleLineHeight * 2; }
 
-                        if (GUILayout.Button("+", styleMove))
-                        {
-                            spPivot.vector2Value = new Vector2(0.5f, 0.5f);
-                        }
+			using (new EditorGUI.DisabledGroupScope(spLocalRotation.quaternionValue == Quaternion.identity))
+			{
+				if (GUI.Button(rect, sContents2.rotationReset, sContents2.resetStyle))
+				{
+					Undo.RecordObjects(targets, "rotationContent");
+					MethodInfo method =
+						typeof(Transform).GetMethod("SetLocalEulerAngles",
+							BindingFlags.Instance | BindingFlags.NonPublic);
+					object[] clear = {Vector3.zero, 0,};
+					for (int i = 0; i < targets.Length; i++) { method.Invoke(targets[i], clear); }
 
-                        if (GUILayout.Button("", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(1, 0.5f);
-                        }
-                    }
+					Event.current.type = EventType.Used;
+				}
+			}
 
-                    GUILayout.EndHorizontal();
+			rect.y += EditorGUIUtility.singleLineHeight + 2;
+			using (new EditorGUI.DisabledGroupScope(spLocalScale.vector3Value == Vector3.one))
+			{
+				if (GUI.Button(rect, sContents2.rotationReset, sContents2.resetStyle))
+				{
+					scaleAll = 1;
+					spLocalScale.vector3Value = Vector3.one;
+					Event.current.type = EventType.Used;
+				}
+			}
 
-                    GUILayout.BeginHorizontal();
-                    {
-                        if (GUILayout.Button("◣", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(0, 0);
-                        }
+			#endregion
 
-                        if (GUILayout.Button("", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(0.5f, 0);
-                        }
+			EditorGUI.indentLevel = 1;
+			base.OnInspectorGUI();
+			EditorGUI.indentLevel = 0;
 
-                        if (GUILayout.Button("◢", stylePivotSetup))
-                        {
-                            spPivot.vector2Value = new Vector2(1, 0);
-                        }
-                    }
+			#region Scale All
 
-                    GUILayout.EndHorizontal();
-                }
-                #endregion
+			GUILayout.BeginHorizontal();
+			{
+				EditorGUIUtility.labelWidth = 64;
+				float newScale = EditorGUILayout.FloatField(sContents2.scale, scaleAll);
+				if (!Mathf.Approximately(scaleAll, newScale))
+				{
+					scaleAll = newScale;
+					spLocalScale.vector3Value = Vector3.one * scaleAll;
+				}
 
-                GUILayout.EndVertical();
-            }
-            GUILayout.EndHorizontal();
+				if (GUILayout.Button(sContents2.roundRect, GUILayout.Width(54)))
+				{
+					Vector2 v2 = spAnchoredPosition.vector2Value;
+					spAnchoredPosition.vector2Value = new Vector2(Mathf.Round(v2.x), Mathf.Round(v2.y));
+					v2 = spSizeDelta.vector2Value;
+					spSizeDelta.vector2Value = new Vector2(Mathf.Round(v2.x), Mathf.Round(v2.y));
+				}
+			}
 
-            TransformInspector.DrawBottomPanel(target, targets);
-            serializedObject.ApplyModifiedProperties();
-        }
+			GUILayout.EndHorizontal();
 
-        private static Contents s_Contents;
+			#endregion
 
-        private class Contents
-        {
-            public readonly GUIContent anchoredPosition0Content = new GUIContent("P", "AnchoredPosition 0");
-            public readonly GUIContent scaleContent = new GUIContent("Scale …", "Scale all axis");
-            public readonly GUIContent scale0Content = new GUIContent("S", "Scale 0");
-            public readonly GUIContent deltaSize0Content = new GUIContent("D", "DeltaSize 0");
-            public readonly GUIContent rotation0Content = new GUIContent("R", "Rotation 0");
-            public readonly GUIContent roundContent = new GUIContent("Round", "AnchoredPosition DeltaSize round to int");
-            public readonly GUIContent copyContent = new GUIContent("C", "Copy component value");
-            public readonly GUIContent pasteContent = new GUIContent("P", "Paste component value");
-            public readonly GUIContent fillParentContent = new GUIContent("F", "Fill the parent RectTransform");
-            public readonly GUIContent normalSizeDeltaContent = new GUIContent("N", "Change to normal sizeDelta mode");
-            public readonly GUIContent readmeContent = new GUIContent("Readme", "Ctrl+Arrow key move rectTransform\nCtrl: 1px    Shift: 10px");
-        }
-    }
+			#region Copy Paste
+
+			GUILayout.BeginHorizontal();
+			Color c = GUI.color;
+			GUI.color = new Color(1f, 1f, 0.5f, 1f);
+			if (GUILayout.Button(sContents.contentCopy, sContents.styleButtonLeft))
+			{
+				ComponentUtility.CopyComponent(target as RectTransform);
+			}
+
+			GUI.color = new Color(1f, 0.5f, 0.5f, 1f);
+			if (GUILayout.Button(sContents.contentPaste, sContents.styleButtonMid))
+			{
+				foreach (Object item in targets) { ComponentUtility.PasteComponentValues(item as RectTransform); }
+			}
+
+			GUI.color = c;
+
+			if (GUILayout.Button(sContents.contentFilled, sContents.styleButtonMid))
+			{
+				Undo.RecordObjects(targets, "F");
+				foreach (Object item in targets)
+				{
+					RectTransform rtf = item as RectTransform;
+					rtf.anchorMax = Vector2.one;
+					rtf.anchorMin = Vector2.zero;
+					rtf.offsetMax = Vector2.zero;
+					rtf.offsetMin = Vector2.zero;
+				}
+			}
+
+			if (GUILayout.Button(sContents.contentUnfilled, sContents.styleButtonRight))
+			{
+				Undo.RecordObjects(targets, "N");
+				foreach (Object item in targets)
+				{
+					RectTransform rtf = item as RectTransform;
+					Rect rectTemp = rtf.rect;
+					rtf.anchorMax = new Vector2(0.5f, 0.5f);
+					rtf.anchorMin = new Vector2(0.5f, 0.5f);
+					rtf.sizeDelta = rectTemp.size;
+				}
+			}
+
+			GUILayout.Label(sContents.contentReadme);
+			GUILayout.EndHorizontal();
+
+			#endregion
+
+			TransformInspector.DrawBottomPanel(target, targets);
+			serializedObject.ApplyModifiedProperties();
+		}
+
+		private void MoveTargetAnchoredPosition(Vector2 v2Unit)
+		{
+			foreach (Object item in targets)
+			{
+				RectTransform rtf = item as RectTransform;
+				rtf.anchoredPosition += v2Unit;
+			}
+		}
+
+		private class Contents : Singleton<Contents>
+		{
+			public readonly GUIContent contentReadme =
+				new GUIContent("Help", "Ctrl+Arrow key move rectTransform\nCtrl: 1px    Shift: 10px");
+
+			public readonly GUIContent contentUnfilled = new GUIContent("Unfilled", "Change to normal sizeDelta mode");
+			public readonly GUIContent contentFilled = new GUIContent("Filled", "Fill the parent RectTransform");
+			public readonly GUIContent contentPaste = new GUIContent("Paste", "Paste component value");
+			public readonly GUIContent contentCopy = new GUIContent("Copy", "Copy component value");
+
+			public readonly GUIStyle styleButtonLeft = new GUIStyle("ButtonLeft");
+			public readonly GUIStyle styleButtonMid = new GUIStyle("ButtonMid");
+			public readonly GUIStyle styleButtonRight = new GUIStyle("ButtonRight");
+			public readonly GUIStyle stylePivotSetup;
+
+			public Contents() =>
+				stylePivotSetup = new GUIStyle("PreButton")
+				{
+					normal = new GUIStyle("CN Box").normal,
+					active = new GUIStyle("AppToolbar").normal,
+					overflow = new RectOffset(),
+					padding = new RectOffset(1, -1, -1, 1),
+					fontSize = 15,
+					fixedWidth = 15,
+					fixedHeight = 15,
+				};
+		}
+	}
 }

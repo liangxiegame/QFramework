@@ -1,6 +1,7 @@
 ﻿// /****************************************************************************
-//  * Copyright (c) 2018 Karsion(拖鞋)
-//  * 
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 11:26
+//  *
 //  * http://qframework.io
 //  * https://github.com/liangxiegame/QFramework
 //  * 
@@ -39,22 +40,28 @@ namespace QFramework
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            ShowIfAttribute attribute = (ShowIfAttribute)this.attribute;
+            ShowIfAttribute attribute = (ShowIfAttribute) this.attribute;
             isShow = CheckShowTargets(property, attribute);
-            return isShow ? base.GetPropertyHeight(property, label) : -2;
+            float height = isShow ? EditorGUI.GetPropertyHeight(property, label, property.hasVisibleChildren) : -2;
+            return height;
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            //ShowIfAttribute attribute = (ShowIfAttribute)this.attribute;
-            if (isShow)
-            {
-                EditorGUI.PropertyField(position, property, label);
-            }
+            if (isShow) { EditorGUI.PropertyField(position, property, label, property.hasVisibleChildren); }
+        }
+
+        private static object TargetObjectGetField(SerializedProperty property, string name)
+        {
+            Object targetObject = property.serializedObject.targetObject;
+            FieldInfo fieldInfo = targetObject.GetType().GetField(name);
+            object obj = fieldInfo.GetValue(targetObject);
+            return obj;
         }
 
         private const string strArrayKeyword = ".Array.data[";
 
+        //如果特性作用于数组
         private static object GetTargetObjectForArray(SerializedProperty property, string targetName)
         {
             string strPath = property.propertyPath;
@@ -65,43 +72,39 @@ namespace QFramework
             {
                 int start = strPath.IndexOf(strArrayKeyword, StringComparison.Ordinal) + 12;
                 int end = strPath.IndexOf("].", StringComparison.Ordinal);
-                if (end < 0)
-                {
-                    return null;
-                }
+                if (end < 0) { return null; }
 
                 int length = end - start;
-                int index = -1;
 
                 //得到数组索引
-                if (!int.TryParse(strPath.Substring(start, length), out index))
-                {
-                    return null;
-                }
+                if (!int.TryParse(strPath.Substring(start, length), out int index)) { return null; }
 
                 //得到数组变量名
-                string strArray = strPath.Substring(0, start - 12);
-                if (!targetName.Equals(strArray))
-                {
-                    return null;
-                }
+                string strArrayFieldName = strPath.Substring(0, start - 12);
 
                 //得到数组变量值
-                FieldInfo fieldInfo = property.serializedObject.targetObject.GetType().GetField(strArray);
-                object obj = fieldInfo.GetValue(property.serializedObject.targetObject);
+                object obj = TargetObjectGetField(property, strArrayFieldName);
 
                 //取元素值
-                IList list = (IList)obj;
-                if (list != null)
-                {
-                    return list[index];
-                }
+                IList list = (IList) obj;
+                if (list != null) { return list[index]; }
 
-                Array array = (Array)obj;
-                if (array != null)
-                {
-                    return array.GetValue(index);
-                }
+                Array array = (Array) obj;
+                if (array != null) { return array.GetValue(index); }
+            }
+
+            return null;
+        }
+
+        //如果特性作用于类或结构体
+        private static object GetTargetObjectChild(SerializedProperty property, string targetName)
+        {
+            int startIndex = property.propertyPath.IndexOf('.');
+            if (startIndex >= 0)
+            {
+                string strPropertyName = property.propertyPath.Remove(startIndex);
+                object obj = TargetObjectGetField(property, strPropertyName);
+                return obj;
             }
 
             return null;
@@ -110,13 +113,12 @@ namespace QFramework
         public static bool CheckFieldOrProperty(object targetObject, ShowIfAttribute.Target target)
         {
             Type targetObjectType = targetObject.GetType();
-            FieldInfo fieldInfo = targetObjectType.GetField(target.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-            if (fieldInfo != null)
-            {
-                return CheckIsUnityObject(fieldInfo.GetValue(targetObject)) == target.show;
-            }
+            FieldInfo fieldInfo = targetObjectType.GetField(target.name,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            if (fieldInfo != null) { return CheckIsUnityObject(fieldInfo.GetValue(targetObject)) == target.show; }
 
-            PropertyInfo propertyInfo = targetObjectType.GetProperty(target.name, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo propertyInfo = targetObjectType.GetProperty(target.name,
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             if (propertyInfo != null)
             {
                 return CheckIsUnityObject(propertyInfo.GetValue(targetObject, null)) == target.show;
@@ -127,32 +129,33 @@ namespace QFramework
 
         private static bool CheckIsUnityObject(object value)
         {
-            if (value == null)
-            {
-                return false;
-            }
+            if (value == null) { return false; }
 
-            if (value is Object)
-            {
-                Object obj = value as Object;
-                return obj;
-            }
+            if (value is Object obj) { return obj; }
 
-            return (bool)value;
+            if (value is bool b) { return b; }
+
+            if (value is int n) { return n > 0; }
+
+            if (value is float f) { return f > 0; }
+
+            return false;
         }
 
-        private static bool CheckShowTarget(SerializedProperty property, ShowIfAttribute.Target target)
+        internal static bool CheckShowTarget(SerializedProperty property, ShowIfAttribute.Target target)
         {
-            if (target == null)
-            {
-                return true;
-            }
+            if (target == null) { return true; }
 
-            object obj = GetTargetObjectForArray(property, target.name) ?? property.serializedObject.targetObject;
+            object obj = GetTargetObjectForArray(property, target.name);
+
+            if (obj == null) { obj = GetTargetObjectChild(property, target.name); }
+
+            if (obj == null) { obj = property.serializedObject.targetObject; }
+
             return CheckFieldOrProperty(obj, target);
         }
 
-        private static bool CheckShowTargets(SerializedProperty property, ShowIfAttribute orAttribute)
+        internal static bool CheckShowTargets(SerializedProperty property, ShowIfAttribute orAttribute)
         {
             bool res = true;
             if (orAttribute.mode == ShowIfAttribute.Mode.And)
@@ -160,26 +163,20 @@ namespace QFramework
                 for (int i = 0; i < orAttribute.targets.Length; i++)
                 {
                     res &= CheckShowTarget(property, orAttribute.targets[i]);
-                    if (!res)
-                    {
-                        return false;
-                    }
+                    if (!res) { return false; }
                 }
 
-                return res;
+                return true;
             }
 
             res = false;
             for (int i = 0; i < orAttribute.targets.Length; i++)
             {
                 res |= CheckShowTarget(property, orAttribute.targets[i]);
-                if (res)
-                {
-                    return true;
-                }
+                if (res) { return true; }
             }
 
-            return res;
+            return false;
         }
     }
 }
