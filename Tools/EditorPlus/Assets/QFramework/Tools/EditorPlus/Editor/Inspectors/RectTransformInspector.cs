@@ -1,6 +1,6 @@
 ﻿// /****************************************************************************
-//  * Copyright (c) 2018 Karsion(拖鞋)
-//  * Date: 2018-06-07 18:30
+//  * Copyright (c) 2021 Karsion(拖鞋)
+//  * Date: 2021-09-01 11:57
 //  *
 //  * http://qframework.io
 //  * https://github.com/liangxiegame/QFramework
@@ -117,6 +117,7 @@ namespace QFramework
 			float start = EditorGUIUtility.wideMode
 				? EditorGUIUtility.labelWidth - 2
 				: EditorGUIUtility.currentViewWidth - 212 - 2;
+
 			GUILayoutUtility.GetRect(new GUIContent(), GUIStyle.none);
 			rect = GUILayoutUtility.GetLastRect();
 			float currentViewWidth = rect.width;
@@ -127,9 +128,20 @@ namespace QFramework
 
 			rect.width = 18;
 			rect.x = start;
+#if UNITY_2017 || UNITY_2018
 			rect.y += EditorGUIUtility.singleLineHeight + 2;
+#elif UNITY_2019_1_OR_NEWER
+			rect.y += EditorGUIUtility.singleLineHeight + 4;
+#endif
 
-			if (isAnyDrivenBy) { rect.y += EditorGUIUtility.singleLineHeight + 9; }
+			if (isAnyDrivenBy)
+			{
+#if UNITY_2017 || UNITY_2018
+				rect.y += EditorGUIUtility.singleLineHeight + 9;
+#elif UNITY_2019_1_OR_NEWER
+				rect.y += EditorGUIUtility.singleLineHeight + 4;
+#endif
+			}
 
 			bool enable = spAnchoredPosition.vector2Value != Vector2.zero || e.alt && spLocalPositionZ.floatValue != 0;
 			using (new EditorGUI.DisabledGroupScope(!enable))
@@ -200,8 +212,12 @@ namespace QFramework
 
 			#region Reset Rotation Scale
 
+#if UNITY_2017 || UNITY_2018
 			rect.y += EditorGUIUtility.singleLineHeight * 4 - 2;
-			rect.x = 10;
+#elif UNITY_2019_1_OR_NEWER
+			rect.y += EditorGUIUtility.singleLineHeight * 4;
+#endif
+			rect.x = 15;
 			if (isAnLayout) { rect.y += EditorGUIUtility.singleLineHeight * 2; }
 
 			using (new EditorGUI.DisabledGroupScope(spLocalRotation.quaternionValue == Quaternion.identity))

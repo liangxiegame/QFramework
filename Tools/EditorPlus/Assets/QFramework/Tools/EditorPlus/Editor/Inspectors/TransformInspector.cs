@@ -139,14 +139,14 @@ namespace QFramework
 		/// </summary>
 		public override void OnInspectorGUI()
 		{
-#if UNITY_2017_1_OR_NEWER || UNITY_2018
+#if UNITY_2017 || UNITY_2018
 			GUILayoutUtility.GetRect(new GUIContent(), GUIStyle.none);
 			float up = -EditorGUIUtility.singleLineHeight + 3;
 			GUILayout.Space(up);
 			float startY = GUILayoutUtility.GetLastRect().y + up + 2;
 			float startX = 10;
 #elif UNITY_2019_1_OR_NEWER
-			float startY = 5;
+			float startY = 6;
 			float startX = 15;
 #endif
 			float labelWidthNew = 80;
