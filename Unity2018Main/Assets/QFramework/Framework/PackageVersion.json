@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.18",
+    "Version": "v0.13.19",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.18",
-        "content": "调整 UIKit 目录 UIKit 增加 ScreenOverlayMode API",
+        "version": "v0.13.19",
+        "content": "BindableProperty 去掉 IEqualable",
         "author": "liangxie",
-        "date": "2021 年 08 月 29 日 17:36",
+        "date": "2021 年 09 月 08 日 18:33",
         "PackageId": ""
     }
 }
