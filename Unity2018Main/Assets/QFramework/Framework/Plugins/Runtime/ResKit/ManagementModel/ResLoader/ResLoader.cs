@@ -93,17 +93,35 @@ namespace QFramework
         /// <returns></returns>
         public T LoadSync<T>(string ownerBundle, string assetName) where T :Object
         {
+           
             if (typeof(T)== typeof(Sprite))
             {
-                return LoadSprite(ownerBundle, assetName) as T;
+                if (FromUnityToDll.Setting.SimulationMode)
+                {
+                    return LoadSprite(ownerBundle, assetName) as T;
+                }
+                else
+                {
+                    var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
+                    var retAsset = LoadResSync(resSearchKeys);
+                    resSearchKeys.Recycle2Cache();
+                    return retAsset.Asset as T;
+                }
+
+
+              
+            }
+            else
+            {
+                var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
+                var retAsset = LoadResSync(resSearchKeys);
+                resSearchKeys.Recycle2Cache();
+
+                return retAsset.Asset as T;
             }
            
 
-            var resSearchKeys = ResSearchKeys.Allocate(assetName, ownerBundle, typeof(T));
-            var retAsset = LoadResSync(resSearchKeys);
-            resSearchKeys.Recycle2Cache();
-          
-            return retAsset.Asset as T;
+        
         }
 
         /// <summary>
@@ -116,13 +134,25 @@ namespace QFramework
         {
             if (typeof(T) == typeof(Sprite))
             {
-                return LoadSprite(assetName) as T;
+                if (FromUnityToDll.Setting.SimulationMode)
+                {
+                    return LoadSprite(assetName) as T;
+                }
+                else
+                {
+                    var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
+                    var retAsset = LoadResSync(resSearchKeys);
+                    resSearchKeys.Recycle2Cache();
+                    return retAsset.Asset as T;
+                }
             }
-
-            var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
-            var retAsset = LoadResSync(resSearchKeys);
-            resSearchKeys.Recycle2Cache();
-            return retAsset.Asset as T;
+            else
+            {
+                var resSearchKeys = ResSearchKeys.Allocate(assetName, null, typeof(T));
+                var retAsset = LoadResSync(resSearchKeys);
+                resSearchKeys.Recycle2Cache();
+                return retAsset.Asset as T;
+            }          
         }
 
 
@@ -495,6 +525,7 @@ namespace QFramework
 
         public Sprite LoadSprite(string spriteName)
         {
+
             if (FromUnityToDll.Setting.SimulationMode)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
@@ -508,6 +539,7 @@ namespace QFramework
                 mCachedSpriteDict.Add(spriteName, sprite);
                 return mCachedSpriteDict[spriteName];
             }
+
 
             return LoadSync<Sprite>(spriteName);
         }
