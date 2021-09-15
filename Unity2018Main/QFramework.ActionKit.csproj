@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2965B48A-E2BF-64D3-202E-8818A00A9542}</ProjectGuid>
+    <ProjectGuid>{62CCFA55-103C-C165-9E25-BE16D4F79D9E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.ActionKit</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,8 +57,71 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.cs" />
-    <None Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Action\DelayAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Action\DelayFrameAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Action\EventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Action\OnlyBeginAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Action\UntilAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\ActionKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionLeaf.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionLoop.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionNonPrioritizedSelector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionParallel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionPrioritizedSelector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourActionSequence.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourPrecondition.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourTreeConst.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourTreeData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\BehaviorTree\BehaviourTreeNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\ActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\Helper\ActionQueue.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\Helper\EventInjector.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\IActionChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\IActionChainExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\IActionExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\IDisposeEventRegister.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\IDisposeWhen.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\RepeatNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Fluent\SequenceNodeChain.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\ActionKitAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\Attribute\ActionGroupAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\Attribute\OnlyUsedByCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\IAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\IActionData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\IActionExecutor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Framework\INode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\FSM\ActionKitFSM.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\FSM\ActionKitFSMState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\FSM\ActionKitFSMTransition.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\FSM\ActionKitFSMTransitionTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\FSM\EnumStateMachine.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Node\Dynamic\AsyncNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Node\Dynamic\QueueNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Node\RepeatNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Node\SequenceNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Node\SpawnNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Action\MonoBehaviour\CallUnityEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Action\Unity\InstantiateGameObject.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Action\Unity\LogInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Action\Unity\SetTargetFrameRate.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Event\MonoBehaviour\OnStart.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Event\OnTriggerEnter2D.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Event\UGUI\OnButtonClick.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Event\UGUI\OnPointerEnterEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Event\UGUI\OnSelectEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Framework\ActionTypeDB.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Framework\Event\ActionKitEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\Framework\EventTypeDB.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitFlow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitStateMachine.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitVisualAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitVisualEvent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitVisualState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Pro\VisualScripting\ActionKitVisualTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Timeline\KeyEventAction.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\Timeline\Timeline.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\ActionKit\Scripts\QFramework.ActionKit.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -668,6 +731,16 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.Core.csproj">
+      <Project>{79C7A124-64F2-E202-215A-E1B198387E82}</Project>
+      <Name>QFramework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{2965B48A-E2BF-64D3-202E-8818A00A9542}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

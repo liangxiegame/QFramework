@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2965B48A-E2BF-64D3-202E-8818A00A9542}</ProjectGuid>
+    <ProjectGuid>{FC9636A4-2C06-0F34-266B-079B4CD9A429}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.ResKit.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,8 +57,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.cs" />
-    <None Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\AssetBundleExporter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\Build\SubProjectData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\BuildScript.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\ResKitAssetsMenu.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\ResKitEditorAPI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\ResKitEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\ResKitInfoGenerator.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\ResKit\Editor\QFramework.ResKit.Editor.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -668,6 +674,16 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.Core.Editor.csproj">
+      <Project>{A03D78FB-9628-D2CE-6A80-C756A95CAD48}</Project>
+      <Name>QFramework.Core.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.Core.csproj">
+      <Project>{79C7A124-64F2-E202-215A-E1B198387E82}</Project>
+      <Name>QFramework.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

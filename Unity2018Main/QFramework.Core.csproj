@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2965B48A-E2BF-64D3-202E-8818A00A9542}</ProjectGuid>
+    <ProjectGuid>{79C7A124-64F2-E202-215A-E1B198387E82}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.Core</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,8 +57,134 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.cs" />
-    <None Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Architecture\Architecture.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Architecture\Controller\Deprecated.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Architecture\Model\IData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Architecture\System\IQuery.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Attribute\ReadOnlyAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\BindableProperty\QFramework.BindableProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\AbstractBind.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Framework\CodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Framework\ICode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Framework\ICodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Language\ClassCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Language\CustomCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Language\CustomCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Language\NamespaceCodeScope.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Language\UsingCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\RootCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Symbol\CloseBraceCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Symbol\EmptyLineCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Code\Symbol\OpenBraceCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\IBind.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\ICodeTemplate.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\ViewController.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Writer\FileCodeWriter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CodeGen\Writer\ICodeWriter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\AnimatorExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\CSharpObjectExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\DelegateExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\GameObjectExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\LayerMaskExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\MaterialExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\QFramework.CSharpExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\TextureExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\CustomDisposable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\DisposableList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\IDisposableExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\IDisposableList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\Trigger\OnDestroyDisposeTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\Trigger\OnDisableDisposeTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\EasyIMGUI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Extensions\IMGUILayoutRootExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Extensions\LayoutExtenion.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Extensions\ViewExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\Feature\ICanClick.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\Feature\IHasRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\Feature\IHasText.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\Feature\IHasTextGetter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\IMGUILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\IMGUIView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\Layout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Framework\View.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\IMGUILayoutRoot.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\Layout\Area\AreaLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\Layout\Horizontal\HorizontalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\Layout\Scroll\ScrollLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\Layout\Vertical\VerticalLayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\BoxView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Button\Button.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\CustomView\CustomView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\ImageButtonView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Label\Label.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Space\FlexibleSpace.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Space\Space.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Text\TextArea.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Text\TextField.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Toggle\Toggle.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUILayout\View\Toolbar\ToolbarView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUIStyleProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUIWithRect\BoxWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\GUIWithRect\LabelWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Utility\CrossPlatformGUILayout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\Utility\RenderEndCommandExecutor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\XML\EasyIMGUIXMLModule.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\EasyIMGUI\XML\XMLView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Event\EnumEventSystem\EnumEventSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Factory\CustomObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Factory\DefaultObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Factory\IObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Factory\NonPublicObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Factory\ObjectFactory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\FromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\IInputFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\InitFromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\InputFromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\IPlatformFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\ISettingFromUnity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\PlatformFromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FromUnityToDll\SettingFromUnityToDll.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\FSM\QFramework.FSM.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\IOC\QFramework.IOC.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\JsonSerializer\DefaultJsonSerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\JsonSerializer\IJsonSerializer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\IManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\IMsg.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\MsgSpan.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\QMgrBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\QMgrID.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\QMonoBehaviour.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ManagerOfManagers\QMsgCenter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\DictionaryPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\IPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\IPoolable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\IPoolType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\ListPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\NonPublicObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\Pool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\SafeObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Pool\SimpleObjectPool.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\ProjectManagement\SubProject.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\RefCounter\QFramework.RefCounter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Reorderable\ReorderableArray.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Reorderable\ReorderableAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\ISingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\MonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\MonoSingletonPath.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\MonoSingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\PersistentMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\ReplaceableMonoSingleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\Singleton.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\SingletonCreator.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Singleton\SingletonProperty.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Table\Table.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Table\TableIndex.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Utility\LayerMaskUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\XML\IConvertModule.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\XML\IXMLToObjectConverter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\XML\IXMLToObjectConvertSystem.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\XML\XMLKit.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\QFramework.Core.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -668,6 +794,12 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{2965B48A-E2BF-64D3-202E-8818A00A9542}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

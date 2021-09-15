@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2965B48A-E2BF-64D3-202E-8818A00A9542}</ProjectGuid>
+    <ProjectGuid>{A03D78FB-9628-D2CE-6A80-C756A95CAD48}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.Core.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,8 +57,120 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.cs" />
-    <None Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\Attribute\ReadOnlyAttributeDrawer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\EasyEditorWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\EasyInspectorEditor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\Block.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\BlockContainer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\BlockContent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\BlockLine.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\BlockSpace.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\Content.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\ContentImage.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\ContentText.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\Context.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\IActions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\IBuilder.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\Layout.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\LayoutBuilder.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\Style.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Layout\StyleConverter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownAsset.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownEditor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownEditorAsset.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownHandleImages.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownHandleNavigate.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownHistory.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownImporter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownMenus.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownPreferences.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownUtils.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\MarkdownViewer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\mgGif.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockHeading.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockHtml.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockParagraph.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockQuote.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererBlockThematicBreak.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineAutoLink.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineCode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineDelimiter.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineEmphasis.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineHtml.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineHtmlEntity.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineLineBreak.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineLink.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererInlineLiteral.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\MarkdownView\Scripts\Renderer\RendererMarkdown.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\TreeNode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\TreeView\AssetTree.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\TreeView\AssetTreeIMGUI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\TreeView\TreeIMGUI.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\TreeView\TreeView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\View\GenericMenuView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EasyIMGUI\View\PopupView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\EditorReload.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Advertise\AdvertisementItemView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Advertise\AdvertisementView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Attributes\PackageKitGroupAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Attributes\PackageKitRenderOrderAttribute.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\EditorHttp.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\EditorKit\LabelViewWithRect.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\EditorLifecycle.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\EditorStorage.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\PackageApplication.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Window\AnchorType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Window\IPackageKitView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Window\PackageKitWindow.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Window\RectExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Framework\Window\VerticalSplitView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Command\LoginCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Command\LogoutCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Command\OpenRegisterViewCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Command\OpenRegisterWebsiteCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\PackageKitLoginApp.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Service\IPackageLoginService.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\Service\PacakgeLoginService.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\State\PackageKitLoginState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\View\LoginView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\View\PackageKitLoginView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Login\View\RegisterView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Model\ILocalPackageVersionModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Model\IPackageTypeConfigModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageMaker\Command\PublishPackageCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageMaker\Model\PackageMakerModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageMaker\PackageMaker.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageMaker\Service\UploadPackage.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageMaker\View\PackageMakerEditor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\Model\PackageData.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\Model\PackageManagerModel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\Model\PackageRepository.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\Model\Service\IPackageManagerServer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\Model\Service\PackageManagerServer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\State\PackageManagerState.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\PackageManager\View\PackageManagerView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\QFramework.PackageKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Roadmap\RoadmapView.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\ImportPackageCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\OpenDetailCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\PackageManagerInitCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\ReimportPackageCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\SearchCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\UpdateCategoriesFromModelCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\System\PackageManager\Command\UpdatePackageCommand.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Utility\IEditorDialogUtility.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Utility\MutableTuple.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\Utility\UrlHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\ProjectManagement\SubProjectEditor.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\Properties\AssemblyInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\Reorderble\ReorderableDrawer.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Editor\Reorderble\ReorderableList.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\Core\Editor\QFramework.Core.Editor.asmdef" />
+    <None Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\View\Support.xml" />
+    <None Include="Assets\QFramework\Framework\Toolkits\Core\Editor\PackageKit\View\SupportItem.xml" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -668,6 +780,16 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.Core.csproj">
+      <Project>{79C7A124-64F2-E202-215A-E1B198387E82}</Project>
+      <Name>QFramework.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{2965B48A-E2BF-64D3-202E-8818A00A9542}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

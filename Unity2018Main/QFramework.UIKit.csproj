@@ -13,10 +13,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{2965B48A-E2BF-64D3-202E-8818A00A9542}</ProjectGuid>
+    <ProjectGuid>{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework</AssemblyName>
+    <AssemblyName>QFramework.UIKit</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -57,8 +57,46 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.cs" />
-    <None Include="Assets\QFramework\Framework\Architecture\Scripts\QFramework.asmdef" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\ActionKitSupport\UIKitCameraRenderMode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\ActionKitSupport\UIKitClosePanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\ActionKitSupport\UIKitOpenPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\ActionKitSupport\UIKitScreenOverlayRenderMode.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\ActionKitSupport\UIKitSetResolution.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Bind.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Component\UIComponent.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Component\UIElement.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Component\UIElementList.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Component\UIScrollPage.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Component\UIScrollPageMark.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Deprecated.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\DontDestroyOnLoad.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Empty4Raycast.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Extension\QUICameraUtil.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Extension\UIPointerDownEventListener.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Extension\UIPointerUpEventListener.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Extension\UIRectTransform.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Extension\UISpriteAnimation.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Helper\InputFieldEnterSubmitTrigger.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Hide.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\IPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\PanelInfo.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\PanelOpenType.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\PanelSearchKeys.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Script\UIPanelTester.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIDefaultPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIKit.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIKitConfig.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UILevel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIManager.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIMark.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIPanel.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIPanelStack.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIPanelTable.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\UIRoot.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Util\CollisionTriggerListener.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Util\UIEffectHelper.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\Util\UIEventListener.cs" />
+    <None Include="Assets\QFramework\Framework\Toolkits\UIKit\Scripts\QFramework.UIKit.asmdef" />
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
     </Reference>
@@ -668,6 +706,24 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="QFramework.ResKit.csproj">
+      <Project>{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}</Project>
+      <Name>QFramework.ResKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.csproj">
+      <Project>{2965B48A-E2BF-64D3-202E-8818A00A9542}</Project>
+      <Name>QFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.ActionKit.csproj">
+      <Project>{62CCFA55-103C-C165-9E25-BE16D4F79D9E}</Project>
+      <Name>QFramework.ActionKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.Core.csproj">
+      <Project>{79C7A124-64F2-E202-215A-E1B198387E82}</Project>
+      <Name>QFramework.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
