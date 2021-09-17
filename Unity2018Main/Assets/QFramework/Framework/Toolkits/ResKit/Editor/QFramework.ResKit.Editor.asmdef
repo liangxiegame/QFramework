@@ -1,0 +1,19 @@
+{
+    "name": "QFramework.ResKit.Editor",
+    "references": [
+        "QFramework.Core",
+        "QFramework.Core.Editor",
+        "QFramework.ResKit",
+        "QFramework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

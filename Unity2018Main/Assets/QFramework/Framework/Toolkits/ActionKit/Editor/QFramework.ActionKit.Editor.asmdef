@@ -1,0 +1,19 @@
+{
+    "name": "QFramework.ActionKit.Editor",
+    "references": [
+        "QFramework",
+        "QFramework.ActionKit",
+        "QFramework.Core.Editor",
+        "QFramework.Core"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}
