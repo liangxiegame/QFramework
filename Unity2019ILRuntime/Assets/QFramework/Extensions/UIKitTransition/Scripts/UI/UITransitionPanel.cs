@@ -37,6 +37,7 @@ namespace QFramework
 		{
 			throw new System.NotImplementedException ();
 		}
+		
 
 		protected override void OnClose()
 		{

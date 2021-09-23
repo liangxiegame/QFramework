@@ -1,0 +1,15 @@
+{
+    "name": "QFramework.Core",
+    "references": [
+        "QFramework",
+        "QFramework.CacheKit"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

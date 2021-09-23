@@ -1,0 +1,17 @@
+{
+    "name": "QFramework.AudioKit",
+    "references": [
+        "QFramework",
+        "QFramework.Core",
+        "QFramework.ActionKit",
+        "QFramework.ResKit"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

@@ -25,9 +25,6 @@
 
 namespace QFramework
 {
-    using System;
-    using UnityEngine.UI;
-
     public static class UITransitionExtension
     {
         public static void DoTransition<TDstPanel>(this UIPanel selfBehaviour, UITransition transition,
@@ -43,7 +40,7 @@ namespace QFramework
             };
             
 
-            UIKit.OpenPanel<UITransitionPanel>(UILevel.Forward, new UITransitionPanelData()
+            UIKit.OpenPanel<UITransitionPanel>(UILevel.PopUI, new UITransitionPanelData()
             {
                 Transition = transition
             }, prefabName: "Resources/UITransitionPanel");

@@ -1,0 +1,17 @@
+{
+    "name": "QFramework.UIKit",
+    "references": [
+        "QFramework.ResKit",
+        "QFramework",
+        "QFramework.ActionKit",
+        "QFramework.Core"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

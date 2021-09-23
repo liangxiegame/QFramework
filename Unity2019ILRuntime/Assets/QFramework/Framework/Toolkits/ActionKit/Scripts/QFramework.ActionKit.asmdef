@@ -1,0 +1,16 @@
+{
+    "name": "QFramework.ActionKit",
+    "references": [
+        "",
+        "QFramework.Core",
+        "QFramework"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

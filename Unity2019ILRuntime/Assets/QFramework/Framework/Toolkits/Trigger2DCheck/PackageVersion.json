@@ -1,0 +1,19 @@
+{
+    "Id": "",
+    "Version": "v1.0.0",
+    "Type": 3,
+    "AccessRight": 0,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/QFramework/Component/Trigger2DCheck/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Component/Trigger2DCheck"
+    ],
+    "DocUrl": "https://lianxiegame.com",
+    "Readme": {
+        "version": "v1.0.0",
+        "content": "物理检测器",
+        "author": "liangxie",
+        "date": "2021 年 08 月 09 日 08:56",
+        "PackageId": ""
+    }
+}
