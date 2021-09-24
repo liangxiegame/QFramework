@@ -12,10 +12,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{7534e598-439a-dfd8-7e5c-a87007c70a44}</ProjectGuid>
+    <ProjectGuid>{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework.UIKit.Editor</AssemblyName>
+    <AssemblyName>QFramework.ILRuntime</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -29,7 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -39,7 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -50,41 +50,88 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\AbstractBindInspector.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\BindCollector.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Data\ElementCodeData.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Data\MarkedObjInfo.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Data\PanelCodeData.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\IBaseTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\ILRuntimePanelCodeTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\UIElementCodeTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\UIPanelDesignerTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\UIPanelTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Templates\ViewControllerTemplate.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\UICodeGenerator.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\UISerializer.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\CodeGen\Util.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\PrefabUtils.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\UICreateService.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\UIEditorWindow.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\UIKitSettingView.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\UIKitSettingViewModel.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\ViewControllerCode.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\CodeGen\ViewControllerInspector.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\UIKitHierarchyMenu.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\UIKitSetttingData.cs" />
-     <None Include="Assets\QFramework\Framework\Toolkits\UIKit\Editor\QFramework.UIKit.Editor.asmdef" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\ILComponentBehaviour.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\ILKitBehaviour.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\IScript.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\ReflectionScript.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\ScriptHelper\ILRuntimeHelper.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\ScriptKit.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\IJsonWrapper.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonData.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonException.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonMapper.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonMockWrapper.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonReader.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\JsonWriter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\Lexer.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\LitJson\ParserToken.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\Myjson\MyJson.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\Myjson\MyJsonCompress.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Helper\ILController.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Helper\ILEventSystemNode.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\ILArchitecture.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\ILComponent.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Model\ILModel.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanGetModel.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanGetPanel.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanGetSystem.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanGetUtility.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanRegisterEvent.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanRegisterModel.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanRegisterSystem.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanRegisterUtility.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanSendCommand.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Rule\ILCanSendEvent.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\System\ILCommand.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\System\ILQuery.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\System\ILSystem.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Utility\ILPool.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Utility\ILRuntimeIOCContainer.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Utility\ILSingleton.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Utility\ILTypeEventSystem.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Utility\ILUtility.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Wrapper\ILUIKit.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Wrapper\ILUIPanelTester.Designer.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Wrapper\ILUIPanelTester.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\Framework@hotfix\Wrapper\RootAttribute.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\ExceptionAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\IAsyncStateMachineAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\IEnumerableAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\Manual\CoroutineAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\Manual\MonoBehaviourAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\ScriptableObjectAdapter.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\Analysis\CLRBindings.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\Manual\CLRManualBindings.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\Manual\UnityEngine_Transform_ManualBinding.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\ValueType\QuaternionBinder.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\ValueType\Vector2Binder.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\ValueType\Vector3Binder.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\ValueType\Vector4Binder.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Delegate\ILRuntimeDelegateHelper.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntimeScript.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\ILRuntimeScriptSetting.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\IVersionCheckStrategy.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\RealVersionCheckStrategy.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\Scripts\UI\UIHotFixCheckPanel.Designer.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\Scripts\UI\UIHotFixCheckPanel.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\SimulateVersionCheckStrategy.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\Version\DLLVersion.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\Version\LocalDllVersion.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\Version\ServerDllVersion.cs" />
+     <Compile Include="Assets\Scripting\ScriptKitILRuntime\VersionCheckKit\VersionCheck.cs" />
+     <None Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Adapter\这里放热更类Adapter.txt" />
+     <None Include="Assets\Scripting\ScriptKitILRuntime\Framework\github\Reademe.txt" />
+     <None Include="Assets\Scripting\ScriptKitILRuntime\ILRuntime\Binding\这里放置CLRbinding.txt" />
+     <None Include="Assets\Scripting\ScriptKitILRuntime\Resources\BuildConfig\Define.txt" />
+     <None Include="Assets\Scripting\ScriptKitILRuntime\QFramework.ILRuntime.asmdef" />
+ <Reference Include="ILRuntime">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/ILRuntime.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.TestRunner">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.TestRunner">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2019.4.30f1c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -370,9 +417,6 @@
  </Reference>
  <Reference Include="System.Numerics.Vectors">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Numerics.Vectors.dll</HintPath>
- </Reference>
- <Reference Include="nunit.framework">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2019.4.30f1c1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -733,25 +777,17 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="QFramework.csproj">
-      <Project>{ddbf421c-1ef7-35dc-c29e-d1cbcf18ef73}</Project>
-      <Name>QFramework</Name>
-    </ProjectReference>
     <ProjectReference Include="QFramework.Core.csproj">
       <Project>{90f20286-e68c-dfaf-4381-079da51fd340}</Project>
       <Name>QFramework.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="QFramework.Core.Editor.csproj">
-      <Project>{df62ede6-7064-2e8f-4b5b-9badd793bc9d}</Project>
-      <Name>QFramework.Core.Editor</Name>
+    <ProjectReference Include="QFramework.ResKit.csproj">
+      <Project>{587d8980-6f35-d72d-e120-27012a99e70e}</Project>
+      <Name>QFramework.ResKit</Name>
     </ProjectReference>
     <ProjectReference Include="QFramework.UIKit.csproj">
       <Project>{a42daa45-58f2-b3b7-a73b-7130cd1f1291}</Project>
       <Name>QFramework.UIKit</Name>
-    </ProjectReference>
-    <ProjectReference Include="QFramework.ResKit.Editor.csproj">
-      <Project>{753a469a-1587-53ff-8157-bee838b24ca5}</Project>
-      <Name>QFramework.ResKit.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

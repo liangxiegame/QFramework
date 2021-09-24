@@ -1,0 +1,18 @@
+{
+    "name": "QFramework.ILRuntime",
+    "references": [
+        "GUID:7a1fa966b0ea23f40a6a4dc4dab1e297",
+        "GUID:b08193b61734745eda8648cd16e2c7b2",
+        "GUID:8ed2a396aae604c5ca111525d261bb03",
+        "GUID:22208c7e849c34c218fe267b9a814fab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

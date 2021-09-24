@@ -2,7 +2,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using BDFramework;
-using UniRx;
 using UnityEngine;
 
 namespace QFramework
@@ -73,7 +72,7 @@ namespace QFramework
                     if (File.Exists(dllPath)) //支持File操作 或者存在
                     {
                         LoadDll(dllPath);
-                        loadDone.InvokeGracefully();
+                        loadDone?.Invoke();
                     }
                     else
                     {
@@ -84,8 +83,7 @@ namespace QFramework
                         {
                             path = "file://" + path;
                         }
-
-                        ObservableWWW.GetAndGetBytes(path).Subscribe(bytes =>
+                        Load(path,bytes =>
                         {
                             LoadDll(bytes);
                             loadDone.InvokeGracefully();
@@ -112,9 +110,7 @@ namespace QFramework
                             var source = secondPath;
                             var copyto = firstPath;
                             Debug.Log("复制到第一路径:" + source);
-
-                            ObservableWWW.GetAndGetBytes(source)
-                                .Subscribe(bytes =>
+                            Load(source, bytes =>
                                 {
                                     copyto.CreateDirIfNotExists4FilePath();
                                     File.WriteAllBytes(copyto, bytes);
@@ -131,7 +127,7 @@ namespace QFramework
 
                     //解释执行模式
                     LoadDll(dllPath);
-                    loadDone.InvokeGracefully();
+                    loadDone?.Invoke();
                 }
             }
             else
@@ -139,8 +135,13 @@ namespace QFramework
                 // pc 模式
                 ILRuntimeScriptSetting.Default.HotfixRunMode = HotfixCodeRunMode.Editor;
                 LoadDll("");
-                loadDone.InvokeGracefully();
+                loadDone?.Invoke();
             }
+        }
+
+        private void Load(string path, Action<byte[]> cb, Action<Exception> e)
+        {
+            
         }
 
         public void Dispose()

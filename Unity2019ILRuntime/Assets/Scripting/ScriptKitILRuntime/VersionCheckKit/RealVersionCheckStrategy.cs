@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UniRx;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -48,7 +47,7 @@ namespace QFramework
         public void UpdateRes(Action done)
         {
 
-            Observable.FromCoroutine(() => DoDownload()).Subscribe(_ => { done(); });
+            //Observable.FromCoroutine(() => DoDownload()).Subscribe(_ => { done(); });
         }
 
         IEnumerator DoDownload()
@@ -106,12 +105,12 @@ namespace QFramework
                     StreamingAssetPath.CombinePath(
                         "AssetBundles/{0}/hotfix.json".FillFormat(AssetBundleSettings.GetPlatformForAssetBundles(Application.platform)));
 
-                ObservableWWW.Get(localJsonFile).Subscribe(content =>
-                {
-                    var localVersion = content.FromJson<DLLVersion>();
-
-                    onLocalVersionGetted(localVersion);
-                });
+                // ObservableWWW.Get(localJsonFile).Subscribe(content =>
+                // {
+                //     var localVersion = content.FromJson<DLLVersion>();
+                //
+                //     onLocalVersionGetted(localVersion);
+                // });
             }
             else
             {
@@ -127,16 +126,16 @@ namespace QFramework
 
         public void ServerVersionGetter(Action<DLLVersion> onServerVersionGetted)
         {
-            ObservableWWW.Get(ServerHost + "hotfix.json").Subscribe(result =>
-            {
-                result.LogInfo();
-
-                var serverVersion = result.FromJson<DLLVersion>();
-
-                Debug.Log(serverVersion.Version);
-
-                onServerVersionGetted(serverVersion);
-            });
+            // ObservableWWW.Get(ServerHost + "hotfix.json").Subscribe(result =>
+            // {
+            //     result.LogInfo();
+            //
+            //     var serverVersion = result.FromJson<DLLVersion>();
+            //
+            //     Debug.Log(serverVersion.Version);
+            //
+            //     onServerVersionGetted(serverVersion);
+            // });
         }
 
         public void VersionCheck(Action<bool, DLLVersion, DLLVersion> onHasRes)

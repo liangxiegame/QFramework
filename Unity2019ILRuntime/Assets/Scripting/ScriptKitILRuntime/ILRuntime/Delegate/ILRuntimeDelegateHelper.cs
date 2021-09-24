@@ -19,7 +19,6 @@ public class ILRuntimeDelegateHelper
         appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
         appdomain.DelegateManager.RegisterMethodDelegate<System.Single>();
         appdomain.DelegateManager.RegisterFunctionDelegate<System.Object, System.Boolean>();
-        appdomain.DelegateManager.RegisterMethodDelegate<UniRx.Unit>();
         appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
         {
             return new UnityEngine.Events.UnityAction(() =>
