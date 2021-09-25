@@ -28,8 +28,10 @@ using System.Linq;
 
 namespace QFramework
 {
+    using System.IO;
     using UnityEditor;
     using UnityEngine;
+
 
     public class ResKitEditorWindow : EditorWindow
     {
@@ -216,7 +218,7 @@ namespace QFramework
                             ResKitEditorAPI.BuildAssetBundles();
                             if (EncryptAB)
                             {
-
+                               //
                             }
                           
                         });
@@ -239,6 +241,9 @@ namespace QFramework
 
                 ReloadMarkedList();
             }
+
+
+    
 
             void ReloadMarkedList()
             {
@@ -314,6 +319,9 @@ namespace QFramework
             public void OnUpdate()
             {
             }
+
+
+          
         }
 
         public class LocaleText
@@ -408,5 +416,8 @@ namespace QFramework
                 }
             }
         }
+
+
+      
     }
 }

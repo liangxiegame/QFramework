@@ -18,9 +18,13 @@ namespace QFramework.Example
 		{
 			var resLoader = ResLoader.Allocate();
 
-			resLoader.Add2Load("BattleScene");
+			//		resLoader.Add2Load("BattleScene",);
 
-			resLoader.LoadAsync(() => { SceneManager.LoadScene("BattleScene"); });
+			//	resLoader.LoadAsync(() => { SceneManager.LoadScene("BattleScene"); });
+
+			Debug.Log(1 >>10);
+
+			resLoader.LoadSync<Scene>("BattleScene");
 		}
 
 		// Update is called once per frame
