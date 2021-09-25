@@ -4,13 +4,16 @@ using UnityEngine;
 using System.Security.Cryptography;
 using System.Text;
 using System;
+using System.IO;
 
 namespace QFramework
 {
     public class RSA
     {
+        private static string RSAHead = "RSAEncrypt";
+
         /// <summary>
-        /// RSA加密
+        /// RSA对称加密
         /// </summary>
         /// <param name="publickey"></param>
         /// <param name="content"></param>
@@ -24,10 +27,13 @@ namespace QFramework
             cipherbytes = rsa.Encrypt(Encoding.UTF8.GetBytes(content), false);
 
             return Convert.ToBase64String(cipherbytes);
+
+
+
         }
 
         /// <summary>
-        /// RSA解密
+        /// RSA对称解密
         /// </summary>
         /// <param name="privatekey"></param>
         /// <param name="content"></param>
@@ -41,6 +47,9 @@ namespace QFramework
             cipherbytes = rsa.Decrypt(Convert.FromBase64String(content), false);
 
             return Encoding.UTF8.GetString(cipherbytes);
+
+
+
         }
     }
 }

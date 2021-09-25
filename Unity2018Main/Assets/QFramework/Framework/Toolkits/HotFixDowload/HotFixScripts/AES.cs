@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
+
 namespace QFramework
 {
     public class AES
@@ -49,6 +50,7 @@ namespace QFramework
                         fs.Write(headBuffer, 0, headBuffer.Length);
                         byte[] EncBuffer = AESEncrypt(buffer, EncrptyKey);
                         fs.Write(EncBuffer, 0, EncBuffer.Length);
+                        Debug.Log(fs.Length);
                     }
                 }
             }
@@ -86,6 +88,7 @@ namespace QFramework
                             fs.SetLength(0);
                             byte[] DecBuffer = AESDecrypt(buffer, EncrptyKey);
                             fs.Write(DecBuffer, 0, DecBuffer.Length);
+                            Debug.Log(fs.Length);
                         }
                     }
                 }
