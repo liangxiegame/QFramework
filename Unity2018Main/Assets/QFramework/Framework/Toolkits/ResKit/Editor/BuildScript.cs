@@ -119,7 +119,7 @@ namespace QFramework
 
         private static string GetPlatformName()
         {
-            return FromUnityToDll.Setting.GetPlatformName();
+            return AssetBundleUtility.GetPlatformName();
         }
     }
 }

@@ -55,7 +55,6 @@ namespace QFramework
 
         void GetFileInFolder(string dirName, string fileName, List<string> outResult);
         
-        string GetPlatformName();
         string[] GetAssetPathsFromAssetBundleAndAssetName(string abRAssetName, string assetName);
         Object LoadAssetAtPath(string assetPath, Type assetType);
         T LoadAssetAtPath<T>(string assetPath) where T : Object;

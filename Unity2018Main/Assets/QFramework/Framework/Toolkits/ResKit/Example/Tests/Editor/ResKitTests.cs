@@ -11,8 +11,8 @@ namespace QFramework.ResKit.Tests
 		[Test]
 		public void ResKit_TestPlatformName()
 		{
-			var platformName = FromUnityToDll.Setting.GetPlatformName();
-			var abPlatformName = SettingFromUnityToDll.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
+			var platformName = AssetBundleUtility.GetPlatformName();
+			var abPlatformName = AssetBundleUtility.GetPlatformForAssetBundles(EditorUserBuildSettings.activeBuildTarget);
 			
 			Assert.AreEqual(platformName,abPlatformName);
 		}

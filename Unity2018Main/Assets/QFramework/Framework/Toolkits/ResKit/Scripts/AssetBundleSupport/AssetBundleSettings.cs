@@ -52,11 +52,11 @@ namespace QFramework
         {
             string retName = null;
             string parren = FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
-                            FromUnityToDll.Setting.GetPlatformName() + "/";
+                            AssetBundleUtility.GetPlatformName() + "/";
             retName = url.Replace(parren, "");
 
             parren = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
-                     FromUnityToDll.Setting.GetPlatformName() + "/";
+                     AssetBundleUtility.GetPlatformName() + "/";
             retName = retName.Replace(parren, "");
             return retName;
         }
@@ -64,7 +64,7 @@ namespace QFramework
         public static string AssetBundleName2Url(string name)
         {
             string retUrl = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
-                            FromUnityToDll.Setting.GetPlatformName() + "/" + name;
+                            AssetBundleUtility.GetPlatformName() + "/" + name;
 
             if (File.Exists(retUrl))
             {
@@ -72,7 +72,7 @@ namespace QFramework
             }
 
             return FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
-                   FromUnityToDll.Setting.GetPlatformName() + "/" + name;
+                   AssetBundleUtility.GetPlatformName() + "/" + name;
         }
 
         //导出目录
@@ -82,37 +82,9 @@ namespace QFramework
         /// </summary>
         public static string RELATIVE_AB_ROOT_FOLDER
         {
-            get { return "/AssetBundles/" + FromUnityToDll.Setting.GetPlatformName() + "/"; }
+            get { return "/AssetBundles/" + AssetBundleUtility.GetPlatformName() + "/"; }
         }
 
         #endregion
-
-
-        public static string GetPlatformForAssetBundles(RuntimePlatform platform)
-        {
-            switch (platform)
-            {
-                case RuntimePlatform.Android:
-                    return "Android";
-                case RuntimePlatform.WSAPlayerARM:
-                case RuntimePlatform.WSAPlayerX64:
-                case RuntimePlatform.WSAPlayerX86:
-                    return "WSAPlayer";
-                case RuntimePlatform.IPhonePlayer:
-                    return "iOS";
-                case RuntimePlatform.WebGLPlayer:
-                    return "WebGL";
-                case RuntimePlatform.WindowsPlayer:
-                    return "Windows";
-                case RuntimePlatform.OSXPlayer:
-                    return "OSX";
-                case RuntimePlatform.LinuxPlayer:
-                    return "Linux";
-                // Add more build targets for your own.
-                // If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
-                default:
-                    return null;
-            }
-        }
     }
 }

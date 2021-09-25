@@ -113,14 +113,14 @@ namespace QFramework
                 if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
                     var streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
-                                        FromUnityToDll.Setting.GetPlatformName() + "/" + ResDatas.FileName;
+                                        AssetBundleUtility.GetPlatformName() + "/" + ResDatas.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
                     var persistentPath = Application.persistentDataPath + "/AssetBundles/" +
-                                         FromUnityToDll.Setting.GetPlatformName() + "/" + ResDatas.FileName;
+                                         AssetBundleUtility.GetPlatformName() + "/" + ResDatas.FileName;
                     outResult.Add(pathPrefix + persistentPath);
                 }
 
