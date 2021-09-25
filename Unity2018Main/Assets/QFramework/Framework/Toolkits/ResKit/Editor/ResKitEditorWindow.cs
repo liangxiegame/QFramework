@@ -102,6 +102,11 @@ namespace QFramework
             private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
             public const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
 
+            
+            private bool EncryptAB=false;
+            private bool EncryptKey = false;
+            private string AESKey = "QFramework";
+
             public void Init(IQFrameworkContainer container)
             {
                 EasyIMGUI.Label().Text(LocaleText.ResKit).FontSize(12).Parent(this);
@@ -161,6 +166,24 @@ namespace QFramework
                     .Parent(verticalLayout)
                     .ValueProperty.Bind(v => ResKitEditorAPI.SimulationMode = v);
 
+                EasyIMGUI.Toggle()
+                   .Text(LocaleText.EncryptAB)
+                   .IsOn(EncryptAB)
+                   .Parent(verticalLayout)
+                   .ValueProperty.Bind(v => EncryptAB = v);
+
+
+                var aesLine = EasyIMGUI.Horizontal();
+                EasyIMGUI.Label().Text("AES秘钥:").Parent(aesLine).Width(100);
+                EasyIMGUI.TextField().Text(AESKey).Parent(aesLine);
+                aesLine.Parent(verticalLayout);
+
+                EasyIMGUI.Toggle()
+                   .Text(LocaleText.EncryptKey)
+                   .IsOn(EncryptKey)
+                   .Parent(verticalLayout)
+                   .ValueProperty.Bind(v => EncryptKey = v);
+
                 var resVersionLine = new HorizontalLayout()
                     .Parent(verticalLayout);
 
@@ -191,6 +214,11 @@ namespace QFramework
                             }
 
                             ResKitEditorAPI.BuildAssetBundles();
+                            if (EncryptAB)
+                            {
+
+                            }
+                          
                         });
                     }).Parent(verticalLayout);
 
@@ -357,6 +385,26 @@ namespace QFramework
                     return Language.IsChinese
                         ? "已标记的 AB"
                         : "Marked AB";
+                }
+            }
+
+            public static string EncryptAB
+            {
+                get
+                {
+                    return Language.IsChinese
+                        ? "加密AB(AES加密)"
+                        : "EncryptAB";
+                }
+            }
+
+            public static string EncryptKey
+            {
+                get
+                {
+                    return Language.IsChinese
+                        ? "加密秘钥(RSA加密)"
+                        : "EncryptKey";
                 }
             }
         }
