@@ -1,8 +1,0 @@
-{
-    "name": "QF.Redux",
-    "references": [
-        "UniRx"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": []
-}
