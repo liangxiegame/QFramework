@@ -425,9 +425,6 @@
     <Reference Include="Markdig">
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Framework/Toolkits/Core/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="DOTween">
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
     </Reference>
@@ -445,6 +442,9 @@
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
       <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/liangxie/Documents/Projects/QFramework/Unity2018Main/Assets/QFramework/Framework/Toolkits/HotFixDowload/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
