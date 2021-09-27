@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ResKit", "QFramework.ResKit.csproj", "{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core.Editor", "QFramework.Core.Editor.csproj", "{A03D78FB-9628-D2CE-6A80-C756A95CAD48}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ActionKit", "QFramework.ActionKit.csproj", "{62CCFA55-103C-C165-9E25-BE16D4F79D9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.UIKit", "QFramework.UIKit.csproj", "{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.AudioKit", "QFramework.AudioKit.csproj", "{4D4FCB20-277C-74C1-F25F-D9DEE32EBD90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework", "QFramework.csproj", "{2965B48A-E2BF-64D3-202E-8818A00A9542}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core.Editor", "QFramework.Core.Editor.csproj", "{A03D78FB-9628-D2CE-6A80-C756A95CAD48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ActionKit.Editor", "QFramework.ActionKit.Editor.csproj", "{AFE3E305-3475-AA28-EDB8-7A17D5EF0FA9}"
 EndProject
@@ -49,10 +49,6 @@ Global
 		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +65,10 @@ Global
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFE3E305-3475-AA28-EDB8-7A17D5EF0FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFE3E305-3475-AA28-EDB8-7A17D5EF0FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE3E305-3475-AA28-EDB8-7A17D5EF0FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU

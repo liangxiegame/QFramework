@@ -32,6 +32,7 @@ namespace QFramework
 
 			mTweener.OnComplete(Finish);
 		}
+		
 
 		protected override void OnDispose()
 		{
@@ -46,7 +47,7 @@ namespace QFramework
 				mTweener.Kill();
 			}	
 			mTweener = null;
-
+			Reset();
 		}
 
 		public bool IsRecycled { get; set; }
@@ -87,7 +88,7 @@ namespace QFramework
 
 			mSequence.OnComplete(Finish);
 		}
-
+		
 		protected override void OnDispose()
 		{
 			Recycle2Cache();
@@ -103,6 +104,8 @@ namespace QFramework
 			}
 
 			mSequence = null;
+			
+			Reset();
 		}
 
 		public bool IsRecycled { get; set; }

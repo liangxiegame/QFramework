@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.20",
+    "Version": "v0.13.23",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -22,10 +22,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.20",
-        "content": "修复打包问题 增加 AB 加密功能",
+        "version": "v0.13.23",
+        "content": "HotFix 目录剥离",
         "author": "liangxie",
-        "date": "2021 年 09 月 25 日 22:27",
+        "date": "2021 年 09 月 27 日 12:28",
         "PackageId": ""
     }
 }

@@ -1,19 +1,19 @@
 {
     "Id": "",
-    "Version": "v1.0.0",
+    "Version": "v1.0.1",
     "Type": 3,
     "AccessRight": 0,
     "DownloadUrl": "",
-    "InstallPath": "Assets/QFramework/Extensions/ActionKit/ActionKitDOTweenAction/",
+    "InstallPath": "Assets/QFramework/Framework/Toolkits/ActionKit/Extensions/ActionKitDOTweenAction/",
     "IncludeFileOrFolders": [
-        "Assets/QFramework/Extensions/ActionKit/ActionKitDOTweenAction"
+        "Assets/QFramework/Framework/Toolkits/ActionKit/Extensions/ActionKitDOTweenAction"
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v1.0.0",
-        "content": "增加 Example",
+        "version": "v1.0.1",
+        "content": "修复复用的问题",
         "author": "liangxie",
-        "date": "2021 年 08 月 14 日 21:40",
+        "date": "2021 年 09 月 27 日 11:32",
         "PackageId": ""
     }
 }
