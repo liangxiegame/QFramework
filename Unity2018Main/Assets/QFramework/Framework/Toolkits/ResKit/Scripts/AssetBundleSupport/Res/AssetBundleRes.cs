@@ -76,6 +76,7 @@ namespace QFramework
             else
             {
                 var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
+                Log.I(url);
                 var bundle = AssetBundle.LoadFromFile(url);
 
                 mUnloadFlag = true;

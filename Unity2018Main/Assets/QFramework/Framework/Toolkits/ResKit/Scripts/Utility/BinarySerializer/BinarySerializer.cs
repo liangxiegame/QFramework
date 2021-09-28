@@ -25,7 +25,10 @@
  ****************************************************************************/
 
 
+using System.Diagnostics;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace QFramework
 {
@@ -62,6 +65,8 @@ namespace QFramework
                 return null;
             }
 
+
+
             using (stream)
             {
                 var bf =
@@ -93,10 +98,25 @@ namespace QFramework
             {
                 var bf =
                     new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+
                 var data = bf.Deserialize(fs);
 
                 return data;
             }
+        }
+
+      
+
+        public object DeserializeBinary(byte[] info)
+        {
+            object obj;
+
+            using (MemoryStream ms = new MemoryStream(info))
+            {
+                IFormatter iFormatter = new BinaryFormatter();
+                obj = iFormatter.Deserialize(ms);
+            }
+            return obj;
         }
     }
 }

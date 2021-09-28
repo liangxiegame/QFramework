@@ -34,5 +34,6 @@ namespace QFramework
         bool SerializeBinary(string path, object obj);
         object DeserializeBinary(Stream stream);
         object DeserializeBinary(string path);
+        object DeserializeBinary(byte[] info);
     }
 }

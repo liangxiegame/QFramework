@@ -149,8 +149,21 @@ namespace QFramework
             var binarySerializer = ResKit.Architecture.Interface.GetUtility<IBinarySerializer>();
             var zipFileHelper = ResKit.Architecture.Interface.GetUtility<IZipFileHelper>();
 
-            var data = binarySerializer
-                .DeserializeBinary(zipFileHelper.OpenReadStream(path));
+            object data;
+
+            if (File.ReadAllText(path).Contains(AES.AESHead))
+            {
+                data = binarySerializer
+              .DeserializeBinary((AES.AESFileByteDecrypt(path, "QFramework")));
+            }
+            else
+            {
+                data = binarySerializer
+           .DeserializeBinary(zipFileHelper.OpenReadStream(path));
+            }
+
+
+           
 
             if (data == null)
             {

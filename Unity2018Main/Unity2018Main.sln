@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{1C968162-072D-2699-6FD0-0FD0B326A5C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core", "QFramework.Core.csproj", "{79C7A124-64F2-E202-215A-E1B198387E82}"
@@ -11,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ResKit", "QFrame
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ActionKit", "QFramework.ActionKit.csproj", "{62CCFA55-103C-C165-9E25-BE16D4F79D9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx.Examples", "UniRx.Examples.csproj", "{672E3E98-AFED-7CE7-08C9-20D0E64DF551}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.UIKit", "QFramework.UIKit.csproj", "{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.AudioKit", "QFramework.AudioKit.csproj", "{4D4FCB20-277C-74C1-F25F-D9DEE32EBD90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework", "QFramework.csproj", "{2965B48A-E2BF-64D3-202E-8818A00A9542}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx.Examples", "UniRx.Examples.csproj", "{672E3E98-AFED-7CE7-08C9-20D0E64DF551}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core.Editor", "QFramework.Core.Editor.csproj", "{A03D78FB-9628-D2CE-6A80-C756A95CAD48}"
 EndProject
@@ -55,6 +55,10 @@ Global
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FC62629-47F0-AC2B-CC17-2C19ACA56C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,10 +71,6 @@ Global
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2965B48A-E2BF-64D3-202E-8818A00A9542}.Release|Any CPU.Build.0 = Release|Any CPU
-		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{672E3E98-AFED-7CE7-08C9-20D0E64DF551}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A03D78FB-9628-D2CE-6A80-C756A95CAD48}.Release|Any CPU.ActiveCfg = Release|Any CPU

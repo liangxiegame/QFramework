@@ -218,9 +218,10 @@ namespace QFramework
                             ResKitEditorAPI.BuildAssetBundles();
                             if (EncryptAB)
                             {
-                               //
+                                string key = EncryptKey ? RSA.RSAEncrypt("", AESKey):AESKey;
+                                BundleHotFix.EncryptAB(key);
                             }
-                          
+                            
                         });
                     }).Parent(verticalLayout);
 
