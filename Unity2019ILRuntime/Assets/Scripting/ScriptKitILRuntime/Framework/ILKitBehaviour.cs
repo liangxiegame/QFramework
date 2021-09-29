@@ -18,7 +18,6 @@ namespace QFramework
                 ScriptKit.CallStaticMethod(Namespace + "." + ScriptName, "Start", this);
             }
         }
-        
 
         void OnApplicationQuit()
         {

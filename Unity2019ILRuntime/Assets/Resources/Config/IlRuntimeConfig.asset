@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: IlRuntimeConfig
   m_EditorClassIdentifier: 
   HotfixRunMode: 0
+  GenAdaptorPath: QFramework/Scripting/ScriptKitILRuntime/ILRuntime/Adapter
+  GenClrBindPath: QFrameworkData/ScriptKitILRuntimeCLRBindingCodeGen
+  HotfixAsmdefName: '*@hotfix'

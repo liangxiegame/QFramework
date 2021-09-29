@@ -5,7 +5,6 @@ namespace QFramework
 {
     public enum HotfixCodeRunMode
     {
-        Editor,
         ILRuntime,
         Reflection,
     }
@@ -51,7 +50,7 @@ namespace QFramework
             get
             {
                 return Application.streamingAssetsPath + "/AssetBundles/" +
-                       AssetBundleSettings.GetPlatformForAssetBundles(Application.platform) + "/hotfix.dll";
+                       AssetBundleSettings.GetPlatformForAssetBundles(Application.platform) + "hotfix.dll";
             }
         }
 
@@ -60,13 +59,15 @@ namespace QFramework
             get
             {
                 return Application.persistentDataPath + "/AssetBundles/" +
-                       AssetBundleSettings.GetPlatformForAssetBundles(Application.platform) + "/hotfix.dll";
+                       AssetBundleSettings.GetPlatformForAssetBundles(Application.platform) + "hotfix.dll";
             }
         }
 
-        public HotfixCodeRunMode HotfixRunMode = HotfixCodeRunMode.Editor;
+        public HotfixCodeRunMode HotfixRunMode = HotfixCodeRunMode.Reflection;
         public string GenAdaptorPath = "QFramework/Scripting/ScriptKitILRuntime/ILRuntime/Adapter";
         public string GenClrBindPath = "QFrameworkData/ScriptKitILRuntimeCLRBindingCodeGen";
-
+        public string HotfixAsmdefName = "*@hotfix";
+        [HideInInspector]
+        public bool UsePdb = false;
     }
 }

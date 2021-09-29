@@ -76,7 +76,6 @@ namespace QFramework.ILKitDemo.Tetris
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-
         public void SetIsAudioOn(bool isActive)
         {
             SettingUI.GetILComponent<SettingUI>().Mute.gameObject.SetActive(!isActive);

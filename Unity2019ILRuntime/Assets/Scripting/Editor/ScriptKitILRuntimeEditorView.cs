@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    [DisplayName("ScriptKit ILRuntime 设置")]
+    [DisplayName("ILRuntime 设置")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(4)]
     public class ScriptKitILRuntimeEditorView : IPackageKitView
@@ -132,6 +132,7 @@ namespace QFramework
                         {
                             var outpath_win = Application.streamingAssetsPath + "/AssetBundles/" +
                                               AssetBundleSettings.GetPlatformForAssetBundles(Application.platform);
+                            
                             ScriptBuildTools.BuildDll(outpath_win, ScriptBuildTools.BuildMode.Debug);
                         }
                         if (GUILayout.Button("编译dll(Release)",GUILayout.Height(30)))
@@ -199,6 +200,17 @@ namespace QFramework
             runModelPop.AddLayoutOption(GUILayout.Height(30));
             runModelPop.ValueProperty.Bind(v => ILRuntimeScriptSetting.Default.HotfixRunMode = (HotfixCodeRunMode)v);
             EasyIMGUI.Horizontal().AddChild(EasyIMGUI.Label().Text("运行模式")).AddChild(runModelPop).Parent(mRootLayout);
+            EasyIMGUI.Custom().OnGUI(() =>
+            {
+                if (string.IsNullOrEmpty(ILRuntimeScriptSetting.Default.HotfixAsmdefName))
+                {
+                    EditorGUILayout.HelpBox("程序集名字为空则默认查找@hotfix后缀的程序集", MessageType.Info);
+                }
+                GUILayout.BeginHorizontal();
+                GUILayout.Label("热更程序集名字");
+                ILRuntimeScriptSetting.Default.HotfixAsmdefName =
+                    GUILayout.TextField(ILRuntimeScriptSetting.Default.HotfixAsmdefName);
+            }).Parent(mRootLayout);
         }
 
         public void OnUpdate()

@@ -5,7 +5,7 @@ using LitJson;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
 
-namespace BDFramework
+namespace QFramework
 {
     static public class ILRuntimeHelper
     {
@@ -19,9 +19,7 @@ namespace BDFramework
         {
             //
             IsRunning = true;
-            string pdbPath = dllPath.Replace(".dll", ".pdb");
-
-            Debug.Log("DLL加载路径:" + dllPath);
+            string pdbPath = dllPath + ".pdb";
             //
             AppDomain = new AppDomain();
             if (File.Exists(pdbPath))
@@ -37,8 +35,7 @@ namespace BDFramework
                 fsDll = new FileStream(dllPath, FileMode.Open, FileAccess.Read);
                 AppDomain.LoadAssembly(fsDll);
             }
-
-
+            
             //绑定的初始化
             //ada绑定
             //AdapterRegister.RegisterCrossBindingAdaptor(AppDomain);
@@ -49,10 +46,7 @@ namespace BDFramework
             AppDomain.RegisterValueTypeBinder(typeof(Vector3), new Vector3Binder());
             AppDomain.RegisterValueTypeBinder(typeof(Vector4), new Vector4Binder());
             AppDomain.RegisterValueTypeBinder(typeof(Quaternion), new QuaternionBinder());
-           
-            
-            
-            
+
             //是否注册各种binding
             if (isRegisterBindings)
             {
@@ -66,7 +60,6 @@ namespace BDFramework
             if (Application.isEditor)
             {
                 AppDomain.DebugService.StartDebugService(56000);
-                Debug.Log("热更调试器 准备待命~");
             }
         }
 
