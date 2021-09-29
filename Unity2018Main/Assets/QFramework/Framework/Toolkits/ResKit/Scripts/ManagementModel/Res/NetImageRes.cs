@@ -62,7 +62,7 @@ namespace QFramework
 
         public string LocalResPath
         {
-            get { return string.Format("{0}{1}", FromUnityToDll.Setting.PersistentDataPath4Photo, mHashCode); }
+            get { return string.Format("{0}{1}", AssetBundlePathHelper.PersistentDataPath4Photo, mHashCode); }
         }
 
         public virtual object RawAsset

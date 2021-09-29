@@ -45,7 +45,6 @@ namespace QFramework
 
         static void Create()
         {
-            FromUnityToDll.Setting = new SettingFromUnityToDll();
             FromUnityToDll.Platform = new PlatformFromUnityToDll();
             FromUnityToDll.Input = new InputFromUnityToDll();
         }

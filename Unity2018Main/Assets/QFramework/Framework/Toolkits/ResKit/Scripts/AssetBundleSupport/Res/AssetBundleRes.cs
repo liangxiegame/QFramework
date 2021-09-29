@@ -70,7 +70,7 @@ namespace QFramework
             State = ResState.Loading;
 
 
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
             }
             else
@@ -118,7 +118,7 @@ namespace QFramework
                 yield break;
             }
 
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 yield return null;
             }

@@ -96,7 +96,7 @@ namespace QFramework
            
             if (typeof(T)== typeof(Sprite))
             {
-                if (FromUnityToDll.Setting.SimulationMode)
+                if (AssetBundlePathHelper.SimulationMode)
                 {
                     return LoadSprite(ownerBundle, assetName) as T;
                 }
@@ -134,7 +134,7 @@ namespace QFramework
         {
             if (typeof(T) == typeof(Sprite))
             {
-                if (FromUnityToDll.Setting.SimulationMode)
+                if (AssetBundlePathHelper.SimulationMode)
                 {
                     return LoadSprite(assetName) as T;
                 }
@@ -171,7 +171,7 @@ namespace QFramework
                 //加载的为场景
                 IRes res = ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
 #if UNITY_EDITOR
-                if (FromUnityToDll.Setting.SimulationMode)
+                if (AssetBundlePathHelper.SimulationMode)
                 {
                     string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
                     if (!path.IsNullOrEmpty())
@@ -230,7 +230,7 @@ namespace QFramework
                 //加载的为场景
                 IRes res = ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
 #if UNITY_EDITOR
-                if (FromUnityToDll.Setting.SimulationMode)
+                if (AssetBundlePathHelper.SimulationMode)
                 {
                     string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
                     if (!path.IsNullOrEmpty())
@@ -504,7 +504,7 @@ namespace QFramework
 
         public Sprite LoadSprite(string bundleName, string spriteName)
         {
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -526,7 +526,7 @@ namespace QFramework
         public Sprite LoadSprite(string spriteName)
         {
 
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 if (mCachedSpriteDict.ContainsKey(spriteName))
                 {
@@ -564,7 +564,7 @@ namespace QFramework
                 //加载的为场景
                 IRes res = ResFactory.AssetBundleSceneResCreator.Create(resSearchRule);
 #if UNITY_EDITOR
-                if (FromUnityToDll.Setting.SimulationMode)
+                if (AssetBundlePathHelper.SimulationMode)
                 {
 
                     string path = UnityEditor.AssetDatabase.GetAssetPathsFromAssetBundle((res as AssetBundleSceneRes).AssetBundleName)[0];
@@ -608,7 +608,7 @@ namespace QFramework
                 return;
             }
 
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 if (mCachedSpriteDict.ContainsKey(resName))
                 {
@@ -660,7 +660,7 @@ namespace QFramework
 
         public void ReleaseAllRes()
         {
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 foreach (var spritePair in mCachedSpriteDict)
                 {

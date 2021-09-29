@@ -10,7 +10,6 @@ namespace QFramework
         [DidReloadScripts]
         static void OnReload()
         {
-            FromUnityToDll.Setting = new SettingFromUnityToDll();
             // ReSharper disable once RedundantAssignment
             var architectureForInit = EasyIMGUI.Interface;
             architectureForInit = XMLKit.Interface;
@@ -27,11 +26,6 @@ namespace QFramework
             OnReload();
 #endif
         }
-
-        [InitializeOnLoadMethod]
-        [RuntimeInitializeOnLoadMethod]
-        static void OnLoad()
-        {
-        }
+        
     }
 }
