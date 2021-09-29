@@ -385,35 +385,23 @@
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>/Applications/Unity/Hub/Editor/2019.4.30f1c1/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="QFramework.Log">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Framework/Toolkits/Core/Scripts/QFramework.Log.dll</HintPath>
+ <Reference Include="Unity.Plastic.Newtonsoft.Json">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.unity.collab-proxy@1.8.0/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
  </Reference>
- <Reference Include="Markdig">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Framework/Toolkits/Core/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
+ <Reference Include="unityplastic">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.unity.collab-proxy@1.8.0/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
  </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ <Reference Include="Unity.Plastic.Antlr3.Runtime">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.unity.collab-proxy@1.8.0/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
  </Reference>
- <Reference Include="ProtobufNet">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/ProtobufNet/ProtobufNet.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="ILRuntime.Mono.Cecil">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
- </Reference>
- <Reference Include="ILRuntime.Mono.Cecil.Pdb">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
- </Reference>
- <Reference Include="ILRuntime.Mono.Cecil.Mdb">
- <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
+ <Reference Include="log4netPlastic">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.unity.collab-proxy@1.8.0/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
  <Reference Include="System.Collections.Immutable">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Collections.Immutable.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/DOTween/Editor/DOTweenEditor.dll</HintPath>
  </Reference>
  <Reference Include="System.Diagnostics.Tracing">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Diagnostics.Tracing.dll</HintPath>
@@ -427,6 +415,12 @@
  <Reference Include="System.IO.Compression">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.IO.Compression.dll</HintPath>
  </Reference>
+ <Reference Include="Markdig">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Framework/Toolkits/Core/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
+ </Reference>
+ <Reference Include="QFramework.Log">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Framework/Toolkits/Core/Scripts/QFramework.Log.dll</HintPath>
+ </Reference>
  <Reference Include="Microsoft.CodeAnalysis.CSharp">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/Microsoft.CodeAnalysis.CSharp.dll</HintPath>
  </Reference>
@@ -439,8 +433,14 @@
  <Reference Include="System.Globalization.Extensions">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Globalization.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="ProtobufNet">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/ProtobufNet/ProtobufNet.dll</HintPath>
+ </Reference>
  <Reference Include="System.Xml.XPath.XDocument">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Xml.XPath.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="System.Buffers">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Buffers.dll</HintPath>
@@ -450,6 +450,9 @@
  </Reference>
  <Reference Include="Microsoft.CodeAnalysis">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/Microsoft.CodeAnalysis.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/QFramework/Extensions/3rd/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="System.Runtime.CompilerServices.Unsafe">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -471,6 +474,15 @@
  </Reference>
  <Reference Include="System.Numerics.Vectors">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Assets/Scripting/Editor/Roslyn/System.Numerics.Vectors.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Pdb">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
+ </Reference>
+ <Reference Include="ILRuntime.Mono.Cecil.Mdb">
+ <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/PackageCache/com.ourpalm.ilruntime@1.6.7/Plugins/ILRuntime.Mono.Cecil.Mdb.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2019.4.30f1c1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

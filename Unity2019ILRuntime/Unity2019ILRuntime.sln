@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ActionKit", "QFr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ILRuntime.Editor", "QFramework.ILRuntime.Editor.csproj", "{6151804c-be3c-074b-bec7-64c9818deed9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game@hotfix", "Game@hotfix.csproj", "{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ILRuntime", "QFramework.ILRuntime.csproj", "{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.UIKit", "QFramework.UIKit.csproj", "{a42daa45-58f2-b3b7-a73b-7130cd1f1291}"
@@ -71,6 +73,10 @@ Global
 		{6151804c-be3c-074b-bec7-64c9818deed9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6151804c-be3c-074b-bec7-64c9818deed9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6151804c-be3c-074b-bec7-64c9818deed9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}.Release|Any CPU.Build.0 = Release|Any CPU
 		{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}.Release|Any CPU.ActiveCfg = Release|Any CPU

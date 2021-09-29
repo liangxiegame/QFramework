@@ -12,10 +12,10 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{e9cf2a54-7d22-a59f-8f04-2f072c0fe766}</ProjectGuid>
+    <ProjectGuid>{6fbb9bea-b4a1-7319-de7a-f21ed5d9b256}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <AssemblyName>QFramework.AudioKit</AssemblyName>
+    <AssemblyName>Game@hotfix</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <BaseDirectory>.</BaseDirectory>
@@ -50,29 +50,68 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\ActionKitAction\AudioSound.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\ActionKitAction\AudioVoice.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\AudioKit.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\AudioKitSettings.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\AudioManager.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\AudioPlayer.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Deprecated.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AddRetainAudioMsg.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AduioMsgPlayVoiceLoop.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AudioMsgWithBool.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AudioMsgWithNode.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AudioMusicMsg.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AudioSoundMsg.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\AudioVoiceMsg.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Msg\RemoteRetainAudioMsg.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\BinaryHeap.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\IBinaryHeapElement.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\TimeItem.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\TimeUtil.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\Timer.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\TimerHelper.cs" />
-     <Compile Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\Timer\TimerManager.cs" />
-     <None Include="Assets\QFramework\Framework\Toolkits\AudioKit\Scripts\QFramework.AudioKit.asmdef" />
+     <Compile Include="Assets\Scripts@hotfix\Extensions\Vector3Extension.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Helper\ILController.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Helper\ILEventSystemNode.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\ILArchitecture.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\ILComponent.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Model\ILModel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanGetModel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanGetPanel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanGetSystem.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanGetUtility.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanRegisterEvent.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanRegisterModel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanRegisterSystem.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanRegisterUtility.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanSendCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Rule\ILCanSendEvent.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\System\ILCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\System\ILQuery.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\System\ILSystem.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Utility\ILPool.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Utility\ILRuntimeIOCContainer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Utility\ILSingleton.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Utility\ILTypeEventSystem.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Utility\ILUtility.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Wrapper\ILUIKit.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Wrapper\ILUIPanelTester.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Wrapper\ILUIPanelTester.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Framework@hotfix\Wrapper\RootAttribute.cs" />
+     <Compile Include="Assets\Scripts@hotfix\GameObject\Shape.cs" />
+     <Compile Include="Assets\Scripts@hotfix\GameStart.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\GameStart.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Managers\CameraManager.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Managers\GameManager.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Model\GameModel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Audio\OnAudioButtonClickCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Audio\PlayControllerSoundCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Audio\PlayCursorSoundCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Audio\PlayDropSoundCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Audio\PlayLineClearSoundCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Camera\CameraZoomInCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Camera\CameraZoomOutCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Game\PauseGameCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\Game\StartGameCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\UI\EnteringMenuCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\UI\OnDestoryButtonClickCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\UI\OnRankButtonClickCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\System\UI\OnRestartButtonClickCommand.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Tetris.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\GameOverUI.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\GameOverUI.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\GameUI.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\GameUI.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\MenuUI.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\MenuUI.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\RankUI.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\RankUI.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\SettingUI.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\SettingUI.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\UITetrisPanel.Designer.cs" />
+     <Compile Include="Assets\Scripts@hotfix\UI\UITetrisPanel.cs" />
+     <Compile Include="Assets\Scripts@hotfix\Utility\IStorage.cs" />
+     <None Include="Assets\Scripts@hotfix\Game@hotfix.asmdef" />
  <Reference Include="UnityEditor.UI">
  <HintPath>/Users/symj/Documents/unity_project/QFramework/Unity2019ILRuntime/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
@@ -735,21 +774,29 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="QFramework.csproj">
-      <Project>{ddbf421c-1ef7-35dc-c29e-d1cbcf18ef73}</Project>
-      <Name>QFramework</Name>
+    <ProjectReference Include="QFramework.ILRuntime.csproj">
+      <Project>{dbd4a7c9-ccb8-8608-bfe7-beabb96b1ae5}</Project>
+      <Name>QFramework.ILRuntime</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniRx.csproj">
+      <Project>{bd928cf8-8041-f83e-bd51-5aa2adda4abd}</Project>
+      <Name>UniRx</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.UIKit.csproj">
+      <Project>{a42daa45-58f2-b3b7-a73b-7130cd1f1291}</Project>
+      <Name>QFramework.UIKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="QFramework.ResKit.csproj">
+      <Project>{587d8980-6f35-d72d-e120-27012a99e70e}</Project>
+      <Name>QFramework.ResKit</Name>
     </ProjectReference>
     <ProjectReference Include="QFramework.Core.csproj">
       <Project>{90f20286-e68c-dfaf-4381-079da51fd340}</Project>
       <Name>QFramework.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="QFramework.ActionKit.csproj">
-      <Project>{abe11ea2-b388-a57c-b430-967e669dcddd}</Project>
-      <Name>QFramework.ActionKit</Name>
-    </ProjectReference>
-    <ProjectReference Include="QFramework.ResKit.csproj">
-      <Project>{587d8980-6f35-d72d-e120-27012a99e70e}</Project>
-      <Name>QFramework.ResKit</Name>
+    <ProjectReference Include="QFramework.AudioKit.csproj">
+      <Project>{e9cf2a54-7d22-a59f-8f04-2f072c0fe766}</Project>
+      <Name>QFramework.AudioKit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
