@@ -37,7 +37,7 @@ namespace QFramework
 			ConfigFileUtility.AddABInfo2ResDatas(table, abNames);
 
 			var filePath =
-				(outputPath ?? (FromUnityToDll.Setting.StreamingAssetsPath + AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER)).CreateDirIfNotExists() +
+				(outputPath ?? (AssetBundlePathHelper.StreamingAssetsPath + AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER)).CreateDirIfNotExists() +
 				ResDatas.FileName;
 			
 			table.Save(filePath);

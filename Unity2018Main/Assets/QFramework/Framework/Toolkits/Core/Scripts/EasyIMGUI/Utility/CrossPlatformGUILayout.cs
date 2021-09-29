@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2018 ~ 2020.10 liangxie
+ * Copyright (c) 2018 ~ 2021.9 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,26 +24,43 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-// using UnityEditor;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace QFramework
 {
     public class CrossPlatformGUILayout
     {
-        public static string PasswordField(string value, GUIStyle style, params GUILayoutOption[] options)
+
+        public static string PasswordField(string value, GUIStyle style, GUILayoutOption[] options)
         {
-            return FromUnityToDll.Setting.PasswordField(value,  style, options);
+#if UNITY_EDITOR
+            return EditorGUILayout.PasswordField(value, style, options);
+#else
+            return GUILayout.PasswordField(value, '*', style, options);
+#endif
         }
 
-        public static string TextField(string value, GUIStyle style, params GUILayoutOption[] options)
+        public static string TextField(string value, GUIStyle style, GUILayoutOption[] options)
         {
-            return FromUnityToDll.Setting.TextField(value,  style, options);
+#if UNITY_EDITOR
+
+            return EditorGUILayout.TextField(value, style, options);
+#else
+            return GUILayout.TextField(value, style, options);
+#endif
         }
 
-        public static string TextArea(string value, GUIStyle style, params GUILayoutOption[] options)
+        public static string TextArea(string value, GUIStyle style, GUILayoutOption[] options)
         {
-            return FromUnityToDll.Setting.TextArea(value, style, options);
+#if UNITY_EDITOR
+
+            return EditorGUILayout.TextArea(value, style, options);
+#else
+            return GUILayout.TextArea(value, style, options);
+#endif
         }
     }
 }

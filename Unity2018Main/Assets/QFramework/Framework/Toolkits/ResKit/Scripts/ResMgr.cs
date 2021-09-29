@@ -96,7 +96,7 @@ namespace QFramework
 
         public IEnumerator InitResMgrAsync()
         {
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 AssetBundleSettings.AssetBundleConfigFile = ConfigFileUtility.BuildEditorDataTable();
                 yield return null;
@@ -107,20 +107,20 @@ namespace QFramework
 
                 var outResult = new List<string>();
 
-                var pathPrefix = FromUnityToDll.Setting.PathPrefix;
+                var pathPrefix = AssetBundlePathHelper.PathPrefix;
 
                 // 未进行过热更
                 if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
                     var streamingPath = Application.streamingAssetsPath + "/AssetBundles/" +
-                                        AssetBundleUtility.GetPlatformName() + "/" + ResDatas.FileName;
+                                        AssetBundlePathHelper.GetPlatformName() + "/" + ResDatas.FileName;
                     outResult.Add(pathPrefix + streamingPath);
                 }
                 // 进行过热更
                 else
                 {
                     var persistentPath = Application.persistentDataPath + "/AssetBundles/" +
-                                         AssetBundleUtility.GetPlatformName() + "/" + ResDatas.FileName;
+                                         AssetBundlePathHelper.GetPlatformName() + "/" + ResDatas.FileName;
                     outResult.Add(pathPrefix + persistentPath);
                 }
 
@@ -136,7 +136,7 @@ namespace QFramework
 
         public void InitResMgr()
         {
-            if (FromUnityToDll.Setting.SimulationMode)
+            if (AssetBundlePathHelper.SimulationMode)
             {
                 AssetBundleSettings.AssetBundleConfigFile = ConfigFileUtility.BuildEditorDataTable();
             }
@@ -155,7 +155,7 @@ namespace QFramework
                 // 进行过热更
                 else
                 {
-                    FromUnityToDll.Setting.GetFileInFolder(FromUnityToDll.Setting.PersistentDataPath, ResDatas.FileName,
+                    AssetBundlePathHelper.GetFileInFolder(AssetBundlePathHelper.PersistentDataPath, ResDatas.FileName,
                         outResult);
                 }
 

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.24",
+    "Version": "v0.13.25",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -8,7 +8,6 @@
     "IncludeFileOrFolders": [
         "Assets/QFramework/Framework/Architecture",
         "Assets/QFramework/Framework/PackageVersion.json",
-        "Assets/QFramework/Framework/Plugins",
         "Assets/QFramework/Framework/Toolkits/ActionKit",
         "Assets/QFramework/Framework/Toolkits/AI.zip",
         "Assets/QFramework/Framework/Toolkits/AudioKit",
@@ -20,10 +19,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.24",
-        "content": "调整目录 停止维护 Extensions 目录",
+        "version": "v0.13.25",
+        "content": "修复运行之后 FromSettingToDll 为空的问题",
         "author": "liangxie",
-        "date": "2021 年 09 月 28 日 09:17",
+        "date": "2021 年 09 月 29 日 15:24",
         "PackageId": ""
     }
 }

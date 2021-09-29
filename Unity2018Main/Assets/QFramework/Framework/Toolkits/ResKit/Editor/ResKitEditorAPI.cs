@@ -39,8 +39,8 @@ namespace QFramework
 
         public static bool SimulationMode
         {
-            get { return FromUnityToDll.Setting.SimulationMode; }
-            set { FromUnityToDll.Setting.SimulationMode = value; }
+            get { return AssetBundlePathHelper.SimulationMode; }
+            set { AssetBundlePathHelper.SimulationMode = value; }
         }
 
         public static void ForceClearAssetBundles()

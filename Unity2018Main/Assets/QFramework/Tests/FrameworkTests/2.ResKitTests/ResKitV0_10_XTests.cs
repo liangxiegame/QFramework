@@ -196,7 +196,7 @@ namespace QFramework.Tests
 		[Test]
 		public void ReadConfigTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 			
 			ResKit.Init();
 
@@ -221,7 +221,7 @@ namespace QFramework.Tests
 		[Test]
 		public void LoadAssetWithNameAndTypeInRuntimeModeTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 
 			ResKit.Init();
 			
@@ -242,7 +242,7 @@ namespace QFramework.Tests
 		[UnityTest]
 		public IEnumerator LoadAssetWithNameAndTypeAsyncInRuntimeModeTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 			
 			ResKit.Init();
 
@@ -278,7 +278,7 @@ namespace QFramework.Tests
 		[UnityTest]
 		public IEnumerator LoadAssetWithNameAndTypeAsyncTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 
 			ResKit.Init();
 			
@@ -315,7 +315,7 @@ namespace QFramework.Tests
 		[Test]
 		public void LoadAssetWithNameAndTypeTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 
 
 			ResKit.Init();
@@ -337,7 +337,7 @@ namespace QFramework.Tests
 		[Test]
 		public void AssetBundleTable_GetAssetDataTest()
 		{
-			FromUnityToDll.Setting.SimulationMode = false;
+			AssetBundlePathHelper.SimulationMode = false;
 
 			ResKit.Init();
 			

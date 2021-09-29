@@ -51,28 +51,28 @@ namespace QFramework
         public static string AssetBundleUrl2Name(string url)
         {
             string retName = null;
-            string parren = FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
-                            AssetBundleUtility.GetPlatformName() + "/";
+            string parren = AssetBundlePathHelper.StreamingAssetsPath + "AssetBundles/" +
+                            AssetBundlePathHelper.GetPlatformName() + "/";
             retName = url.Replace(parren, "");
 
-            parren = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
-                     AssetBundleUtility.GetPlatformName() + "/";
+            parren = AssetBundlePathHelper.PersistentDataPath + "AssetBundles/" +
+                     AssetBundlePathHelper.GetPlatformName() + "/";
             retName = retName.Replace(parren, "");
             return retName;
         }
 
         public static string AssetBundleName2Url(string name)
         {
-            string retUrl = FromUnityToDll.Setting.PersistentDataPath + "AssetBundles/" +
-                            AssetBundleUtility.GetPlatformName() + "/" + name;
+            string retUrl = AssetBundlePathHelper.PersistentDataPath + "AssetBundles/" +
+                            AssetBundlePathHelper.GetPlatformName() + "/" + name;
 
             if (File.Exists(retUrl))
             {
                 return retUrl;
             }
 
-            return FromUnityToDll.Setting.StreamingAssetsPath + "AssetBundles/" +
-                   AssetBundleUtility.GetPlatformName() + "/" + name;
+            return AssetBundlePathHelper.StreamingAssetsPath + "AssetBundles/" +
+                   AssetBundlePathHelper.GetPlatformName() + "/" + name;
         }
 
         //导出目录
@@ -82,7 +82,7 @@ namespace QFramework
         /// </summary>
         public static string RELATIVE_AB_ROOT_FOLDER
         {
-            get { return "/AssetBundles/" + AssetBundleUtility.GetPlatformName() + "/"; }
+            get { return "/AssetBundles/" + AssetBundlePathHelper.GetPlatformName() + "/"; }
         }
 
         #endregion

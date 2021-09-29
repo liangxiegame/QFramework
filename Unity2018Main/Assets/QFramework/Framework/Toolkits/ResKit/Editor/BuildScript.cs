@@ -119,7 +119,7 @@ namespace QFramework
 
         private static string GetPlatformName()
         {
-            return AssetBundleUtility.GetPlatformName();
+            return AssetBundlePathHelper.GetPlatformName();
         }
     }
 }

@@ -46,8 +46,8 @@ namespace QFramework
 
         public ZipFileHelper()
         {
-            mSearchDirList.Add(FromUnityToDll.Setting.PersistentDataPath4Res);
-            mStreamingAssetsPath = FromUnityToDll.Setting.StreamingAssetsPath;
+            mSearchDirList.Add(AssetBundlePathHelper.PersistentDataPath4Res);
+            mStreamingAssetsPath = AssetBundlePathHelper.StreamingAssetsPath;
 #if (UNITY_ANDROID) && !UNITY_EDITOR
 			if (mZipFile == null)
 			{
@@ -70,7 +70,7 @@ namespace QFramework
 
         public void InitStreamingAssetPath()
         {
-            mStreamingAssetsPath = FromUnityToDll.Setting.StreamingAssetsPath;
+            mStreamingAssetsPath = AssetBundlePathHelper.StreamingAssetsPath;
         }
 
         //在包内查找是否有改资源
@@ -151,7 +151,7 @@ namespace QFramework
 			GetFileInZip(mZipFile, fileName, outResult);
 			return;
 #endif
-            FromUnityToDll.Setting.GetFileInFolder(FromUnityToDll.Setting.StreamingAssetsPath, fileName, outResult);
+            AssetBundlePathHelper.GetFileInFolder(AssetBundlePathHelper.StreamingAssetsPath, fileName, outResult);
         }
 
         public byte[] ReadSync(string fileRelativePath)

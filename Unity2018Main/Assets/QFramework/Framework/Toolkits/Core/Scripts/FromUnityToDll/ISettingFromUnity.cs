@@ -35,23 +35,6 @@ namespace QFramework
         bool SimulationMode { get; set; }
         string PathPrefix { get; }
 
-        // 外部目录  
-        string PersistentDataPath { get; }
-
-        // 内部目录
-        string StreamingAssetsPath { get; }
-
-        // 外部资源目录
-        string PersistentDataPath4Res { get; }
-
-        // 外部头像缓存目录
-        string PersistentDataPath4Photo { get; }
-
-        // 资源路径，优先返回外存资源路径
-        string GetResPathInPersistentOrStream(string relativePath);
-
-        // 上一级目录
-        string GetParentDir(string dir, int floor = 1);
 
         void GetFileInFolder(string dirName, string fileName, List<string> outResult);
         

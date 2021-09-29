@@ -88,14 +88,14 @@ namespace QFramework
 
 			Object obj = null;
 
-			if (FromUnityToDll.Setting.SimulationMode && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (AssetBundlePathHelper.SimulationMode && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
 				var resSearchKeys = ResSearchKeys.Allocate(AssetBundleName,null,typeof(AssetBundle));
 
 				var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 				resSearchKeys.Recycle2Cache();
 
-				var assetPaths =  FromUnityToDll.Setting.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
+				var assetPaths =  AssetBundlePathHelper.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
 				{
 					Log.E("Failed Load Asset:" + mAssetName);
@@ -110,11 +110,11 @@ namespace QFramework
 				if (AssetType != null)
 				{
 
-					obj = FromUnityToDll.Setting.LoadAssetAtPath(assetPaths[0],AssetType);
+					obj = AssetBundlePathHelper.LoadAssetAtPath(assetPaths[0],AssetType);
 				}
 				else
 				{
-					obj = FromUnityToDll.Setting.LoadAssetAtPath<Object>(assetPaths[0]);
+					obj = AssetBundlePathHelper.LoadAssetAtPath<Object>(assetPaths[0]);
 				}
 			}
 			else
@@ -191,9 +191,9 @@ namespace QFramework
             var abR = ResMgr.Instance.GetRes<AssetBundleRes>(resSearchKeys);
 			resSearchKeys.Recycle2Cache();
 
-			if (FromUnityToDll.Setting.SimulationMode && !string.Equals(mAssetName, "assetbundlemanifest"))
+			if (AssetBundlePathHelper.SimulationMode && !string.Equals(mAssetName, "assetbundlemanifest"))
 			{
-				var assetPaths = FromUnityToDll.Setting.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
+				var assetPaths = AssetBundlePathHelper.GetAssetPathsFromAssetBundleAndAssetName(abR.AssetName, mAssetName);
 				if (assetPaths.Length == 0)
 				{
 					Log.E("Failed Load Asset:" + mAssetName);
@@ -214,11 +214,11 @@ namespace QFramework
 				if (AssetType != null)
 				{
 
-					mAsset = FromUnityToDll.Setting.LoadAssetAtPath(assetPaths[0],AssetType);
+					mAsset = AssetBundlePathHelper.LoadAssetAtPath(assetPaths[0],AssetType);
 				}
 				else
 				{
-					mAsset = FromUnityToDll.Setting.LoadAssetAtPath<Object>(assetPaths[0]);
+					mAsset = AssetBundlePathHelper.LoadAssetAtPath<Object>(assetPaths[0]);
 				}
 
 			}
