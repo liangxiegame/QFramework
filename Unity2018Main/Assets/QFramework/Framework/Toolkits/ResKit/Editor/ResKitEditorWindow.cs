@@ -31,10 +31,13 @@ namespace QFramework
     using System.IO;
     using UnityEditor;
     using UnityEngine;
+   
 
 
     public class ResKitEditorWindow : EditorWindow
     {
+       static EncryptConfig config;
+       
         [MenuItem("QFramework/Res Kit %#r")]
         public static void ExecuteAssetBundle()
         {
@@ -46,6 +49,31 @@ namespace QFramework
 
         private void OnEnable()
         {
+            TextAsset text = Resources.Load<TextAsset>("EncryptConfig");
+            if (text)
+            {
+                config = JsonUtility.FromJson<EncryptConfig>(text.text);
+
+                if (config == null)
+                {
+                    config = new EncryptConfig();
+                }
+            }
+            else
+            {
+                config = new EncryptConfig();
+
+                string savePath = Application.dataPath + "QFrameworkData/Resources/EncryptConfig.Json";
+                using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate))
+                {
+                    using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8))
+                    {                      
+                        sw.WriteLine(JsonUtility.ToJson(config));
+                    }
+                }
+            }
+          
+
             mResKitView = new ResKitView();
             var container = new QFrameworkContainer();
             container.RegisterInstance<EditorWindow>(this);
@@ -61,9 +89,21 @@ namespace QFramework
 
         public void OnDisable()
         {
+            string savePath = Application.dataPath + "/QFrameworkData/Resources/EncryptConfig.Json";
+            using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate))
+            {
+                using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8))
+                {
+                    sw.WriteLine(JsonUtility.ToJson(config));
+                }
+            }
+            AssetDatabase.Refresh();
+
             mResKitView.Clear();
             mResKitView.OnDispose();
             mResKitView = null;
+
+           
         }
 
         private void OnGUI()
@@ -105,9 +145,7 @@ namespace QFramework
             public const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
 
             
-            private bool EncryptAB=false;
-            private bool EncryptKey = false;
-            private string AESKey = "QFramework";
+          
 
             public void Init(IQFrameworkContainer container)
             {
@@ -170,21 +208,21 @@ namespace QFramework
 
                 EasyIMGUI.Toggle()
                    .Text(LocaleText.EncryptAB)
-                   .IsOn(EncryptAB)
+                   .IsOn(config.EncryptAB)
                    .Parent(verticalLayout)
-                   .ValueProperty.Bind(v => EncryptAB = v);
+                   .ValueProperty.Bind(v => config.EncryptAB = v);
 
 
                 var aesLine = EasyIMGUI.Horizontal();
                 EasyIMGUI.Label().Text("AES秘钥:").Parent(aesLine).Width(100);
-                EasyIMGUI.TextField().Text(AESKey).Parent(aesLine);
+                EasyIMGUI.TextField().Text(config.AESKey).Parent(aesLine).Content.OnValueChanged.AddListener(_=>config.AESKey=_);
                 aesLine.Parent(verticalLayout);
 
                 EasyIMGUI.Toggle()
                    .Text(LocaleText.EncryptKey)
-                   .IsOn(EncryptKey)
+                   .IsOn(config.EncryptKey)
                    .Parent(verticalLayout)
-                   .ValueProperty.Bind(v => EncryptKey = v);
+                   .ValueProperty.Bind(v => config.EncryptKey = v);
 
                 var resVersionLine = new HorizontalLayout()
                     .Parent(verticalLayout);
@@ -216,9 +254,9 @@ namespace QFramework
                             }
 
                             ResKitEditorAPI.BuildAssetBundles();
-                            if (EncryptAB)
+                            if (config.EncryptAB)
                             {
-                                string key = EncryptKey ? RSA.RSAEncrypt("", AESKey):AESKey;
+                                string key = config.EncryptKey ? RSA.RSAEncrypt("", config.AESKey): config.AESKey;
                                 BundleHotFix.EncryptAB(key);
                             }
                             
@@ -307,6 +345,8 @@ namespace QFramework
             {
                 EditorPrefs.SetBool(KEY_AUTOGENERATE_CLASS, mEnableGenerateClass);
                 EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
+
+
             }
 
             public new void OnShow()
