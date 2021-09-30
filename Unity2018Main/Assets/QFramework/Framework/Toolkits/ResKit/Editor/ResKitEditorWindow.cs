@@ -257,7 +257,7 @@ namespace QFramework
                             if (config.EncryptAB)
                             {
                                 string key = config.EncryptKey ? RSA.RSAEncrypt("", config.AESKey): config.AESKey;
-                             //   BundleHotFix.EncryptAB(key);
+                                BundleHotFix.EncryptAB(key);
                             }
                             
                         });

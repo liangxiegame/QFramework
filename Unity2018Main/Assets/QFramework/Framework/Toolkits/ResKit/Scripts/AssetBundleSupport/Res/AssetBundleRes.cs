@@ -31,12 +31,15 @@ namespace QFramework
 {
     using UnityEngine;
     using System.Collections;
+    using System.IO;
 
     public class AssetBundleRes : Res
     {
         private bool                     mUnloadFlag = true;
         private string[]                 mDependResList;
         private AsyncOperation mAssetBundleCreateRequest;
+        public string AESKey = string.Empty;
+
 
         public static AssetBundleRes Allocate(string name)
         {
@@ -76,8 +79,24 @@ namespace QFramework
             else
             {
                 var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
-                Log.I(url);
-                var bundle = AssetBundle.LoadFromFile(url);
+                AssetBundle bundle; 
+                var zipFileHelper = ResKit.Architecture.Interface.GetUtility<IZipFileHelper>();
+
+                if (File.ReadAllText(url).Contains(AES.AESHead))
+                {
+                    if (AESKey == string.Empty)
+                    {
+                        AESKey = JsonUtility.FromJson<EncryptConfig>(Resources.Load<TextAsset>("EncryptConfig").text).AESKey;
+                    }
+                 
+                     bundle= AssetBundle.LoadFromMemory((AES.AESFileByteDecrypt(url, AESKey)));
+                 
+                }
+                else
+                {
+                    bundle = AssetBundle.LoadFromStream(zipFileHelper.OpenReadStream(url));
+                }
+
 
                 mUnloadFlag = true;
 

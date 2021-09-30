@@ -262,6 +262,7 @@ namespace QFramework
 
         private void SetSerializeData(SerializeData data)
         {
+
             if (data == null || data.AssetDataGroup == null)
             {
                 return;
