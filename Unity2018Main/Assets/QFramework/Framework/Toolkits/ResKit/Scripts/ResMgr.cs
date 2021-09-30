@@ -161,7 +161,7 @@ namespace QFramework
 
                 foreach (var outRes in outResult)
                 {
-                    Log.I(outRes);
+                 
                     AssetBundleSettings.AssetBundleConfigFile.LoadFromFile(outRes);
                 }
             }

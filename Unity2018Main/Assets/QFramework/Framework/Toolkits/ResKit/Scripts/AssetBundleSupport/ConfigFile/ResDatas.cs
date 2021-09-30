@@ -36,6 +36,8 @@ namespace QFramework
     /// </summary>
     public sealed class ResDatas : IResDatas
     {
+        public string AESKey = string.Empty;
+
         [Serializable]
         public class SerializeData
         {
@@ -149,12 +151,27 @@ namespace QFramework
             var binarySerializer = ResKit.Architecture.Interface.GetUtility<IBinarySerializer>();
             var zipFileHelper = ResKit.Architecture.Interface.GetUtility<IZipFileHelper>();
 
+            
+
             object data;
 
             if (File.ReadAllText(path).Contains(AES.AESHead))
             {
+                if (AESKey == string.Empty)
+                {
+                   AESKey=JsonUtility.FromJson<EncryptConfig>( Resources.Load<TextAsset>("EncryptConfig").text).AESKey;
+                }
                 data = binarySerializer
-              .DeserializeBinary((AES.AESFileByteDecrypt(path, "QFramework")));
+           .DeserializeBinary((AES.AESFileByteDecrypt(path, AESKey)));
+                //try
+                //{
+
+                //}
+                //catch (Exception e)
+                //{
+                //    Log.E("解密AB包失败,请检查秘钥!!当前使用的秘钥:" + AESKey);
+                //}
+
             }
             else
             {
@@ -163,7 +180,7 @@ namespace QFramework
             }
 
 
-           
+            Log.I(path);
 
             if (data == null)
             {
@@ -179,7 +196,7 @@ namespace QFramework
                 return;
             }
 
-            Log.I("Load AssetConfig From File:" + path);
+
             SetSerializeData(sd);
         }
 
