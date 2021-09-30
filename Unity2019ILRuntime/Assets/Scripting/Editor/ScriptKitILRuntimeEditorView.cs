@@ -130,27 +130,26 @@ namespace QFramework
                         GUILayout.BeginHorizontal();
                         if (GUILayout.Button("编译dll(Debug)",GUILayout.Height(30)))
                         {
-                            var outpath_win = Application.streamingAssetsPath + "/AssetBundles/" +
-                                              AssetBundleSettings.GetPlatformForAssetBundles(Application.platform);
-                            
-                            ScriptBuildTools.BuildDll(outpath_win, ScriptBuildTools.BuildMode.Debug);
+                            ScriptBuildTools.BuildDll(ScriptBuildTools.BuildMode.Debug);
                         }
                         if (GUILayout.Button("编译dll(Release)",GUILayout.Height(30)))
                         {
-                            var outpath_win = Application.streamingAssetsPath + "/AssetBundles/" +
-                                              AssetBundleSettings.GetPlatformForAssetBundles(Application.platform);
-                            ScriptBuildTools.BuildDll(outpath_win, ScriptBuildTools.BuildMode.Release);
+                            ScriptBuildTools.BuildDll(ScriptBuildTools.BuildMode.Release);
                         }
                         GUILayout.EndHorizontal();
+                        GUILayout.BeginHorizontal();
+                        ILRuntimeScriptSetting.Default.AutoCompile = GUILayout.Toggle(ILRuntimeScriptSetting.Default.AutoCompile, "自动编译");
+                        EditorGUILayout.HelpBox("开启自动编译后，写完代码会自动编译热更dll", MessageType.Info);
+                        GUILayout.EndHorizontal();
                         GUI.color = Color.green;
-                        GUILayout.Label(
+                        EditorGUILayout.HelpBox(
                             @"注意事项:
      1.编译服务使用Roslyn,请放心使用
      2.如编译出现报错，请仔细看报错信息,和报错的代码行列,
        一般均为语法错
      3.语法报错原因可能有:主工程访问hotfix中的类, 使用宏
        编译时代码结构发生变化..等等，需要细心的你去发现"
-                        );
+                        , MessageType.Info);
                         GUI.color = GUI.backgroundColor;
                     }
                     EditorGUILayout.EndFoldoutHeaderGroup();

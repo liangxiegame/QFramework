@@ -15,8 +15,7 @@ namespace QFramework.ILKitDemo.Tetris
         public GameModel Model { get; set; }
 
         public GameManager gameManager;
-
-
+        
         public void DoBeforeEnteringPlay()
         {
             ShowGameUI(Model.Score.Value, Model.HighScore.Value);
@@ -103,9 +102,13 @@ namespace QFramework.ILKitDemo.Tetris
         {
             mData = uiData as UITetrisPanelData ?? new UITetrisPanelData();
 
-
+            MenuUI.gameObject.SetActive(false);
+            GameUI.gameObject.SetActive(false);
+            SettingUI.gameObject.SetActive(false);
+            RankUI.gameObject.SetActive(false);
+            GameOverUI.gameObject.SetActive(false);
+            
             Model = new GameModel();
-
 
             RankUI.GetComponent<Button>().onClick.AddListener(OnRankUIClick);
             SettingUI.GetComponent<Button>().onClick.AddListener(OnSettingUIClick);

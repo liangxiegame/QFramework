@@ -10,12 +10,13 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Emit;
 using QFramework;
+using UnityEditor.Callbacks;
 #if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
 #endif
-public class ScriptBuildTools
+public static class ScriptBuildTools
 {
 
     public enum BuildMode
@@ -29,14 +30,21 @@ public class ScriptBuildTools
 
 #endif
 
+    [InitializeOnLoadMethod]
+    public static void AutoCompile()
+    {
+        if(ILRuntimeScriptSetting.Default.AutoCompile)
+            BuildDll(BuildMode.Debug);
+    }
 
     /// <summary>
     /// 编译DLL
     /// </summary>
-    public static void BuildDll(string outPath, BuildMode mode)
+    public static void BuildDll(BuildMode mode)
     {
         try
         {
+            string outPath = ILRuntimeScriptSetting.Default.DllOutPath;
             EditorUtility.DisplayProgressBar("编译服务", "准备编译环境...", 0.1f);
             ILRuntimeScriptSetting.Default.UsePdb = mode == BuildMode.Debug;
             //输出环境

@@ -67,7 +67,11 @@ namespace QFramework
         public string GenAdaptorPath = "QFramework/Scripting/ScriptKitILRuntime/ILRuntime/Adapter";
         public string GenClrBindPath = "QFrameworkData/ScriptKitILRuntimeCLRBindingCodeGen";
         public string HotfixAsmdefName = "*@hotfix";
+        public string DllOutPath => Application.streamingAssetsPath + "/AssetBundles/" +
+                                    AssetBundleSettings.GetPlatformForAssetBundles(Application.platform);
         [HideInInspector]
         public bool UsePdb = false;
+
+        public bool AutoCompile = false;
     }
 }

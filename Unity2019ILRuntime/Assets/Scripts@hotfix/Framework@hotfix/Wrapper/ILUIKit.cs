@@ -1,3 +1,6 @@
+using System.Reflection;
+using UnityEngine;
+
 namespace QFramework
 {
     public interface ILUIPanelInterface : ICanGetILComponentFromGameObject
@@ -27,7 +30,8 @@ namespace QFramework
 
         protected abstract void OnClose();
 
-        void ILUIPanelInterface.Open(ILUIData uiData = null)
+        //不能隐式实现 ？？
+        public void Open(ILUIData uiData = null)
         {
             OnOpen(uiData);
         }
@@ -72,6 +76,7 @@ namespace QFramework
 
         public static T OpenPanel<T>(ILUIData uiData = null) where T : ILUIPanelInterface, new()
         {
+            
             var panel = UIKit.OpenPanel(typeof(T).Name)
                 .GetILComponent<T>();
             panel.Open(uiData);
