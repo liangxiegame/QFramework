@@ -11,30 +11,37 @@ namespace QFramework
     
     public class ILRuntimeScriptSetting : ScriptableObject
     {
-        private const string scriptObjectPath = "Config/IlRuntimeConfig";
+        private static string ScriptObjectPath => $"Resources/{LoadPath}";
+        private const string LoadPath = "Config/ILRuntimeConfig";
         private static ILRuntimeScriptSetting defaultVal;
         public static ILRuntimeScriptSetting Default
         {
             get
             {
                 if (defaultVal != null) return defaultVal;
-                defaultVal = Resources.Load<ILRuntimeScriptSetting>(scriptObjectPath);
+                defaultVal = Resources.Load<ILRuntimeScriptSetting>(LoadPath);
                 if (defaultVal != null) return defaultVal;
                 defaultVal = CreateInstance<ILRuntimeScriptSetting>();
-#if UNITY_EDITOR
-                {
-                    var savePath = $"{Application.dataPath}/Resources/Config";
-                    Directory.CreateDirectory(savePath);
-                    UnityEditor.AssetDatabase.CreateAsset(defaultVal, "Assets/Resources/" + scriptObjectPath + ".asset");
-                    UnityEditor.AssetDatabase.SaveAssets();
-                    UnityEditor.AssetDatabase.Refresh();
-                }
-#endif
-
+                Save();
                 return defaultVal;
             }
         }
-        
+
+        public static void Save()
+        {
+#if UNITY_EDITOR
+            var filePath = $"{Application.dataPath}/{ScriptObjectPath}.asset";
+            if (!File.Exists(filePath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                UnityEditor.AssetDatabase.CreateAsset(defaultVal, $"Assets/{ScriptObjectPath}.asset");
+            }
+            UnityEditor.EditorUtility.SetDirty(Default);
+            UnityEditor.AssetDatabase.SaveAssets();
+            UnityEditor.AssetDatabase.Refresh();
+#endif
+        }
+
         /// <summary>
         /// 检测是否热更过
         /// </summary>

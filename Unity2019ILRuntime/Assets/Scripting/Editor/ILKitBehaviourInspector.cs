@@ -1,8 +1,11 @@
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
@@ -122,9 +125,17 @@ namespace QFramework
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("请将要生成脚本的文件夹拖到下边区域 或 自行填写目录到上一栏中");
                 var sfxPathRect = EditorGUILayout.GetControlRect();
-                sfxPathRect.height = 200;
+                sfxPathRect.height = 50;
                 GUI.Box(sfxPathRect, string.Empty);
-                EditorGUILayout.LabelField(string.Empty, GUILayout.Height(185));
+                var fontStyle = new GUIStyle
+                {
+                    alignment = TextAnchor.UpperCenter,
+                    normal =
+                    {
+                        textColor = Color.green
+                    }
+                };
+                EditorGUILayout.LabelField("拖拽文件夹到这",fontStyle, GUILayout.Height(35));
                 if (
                     Event.current.type == EventType.DragUpdated
                     && sfxPathRect.Contains(Event.current.mousePosition)
@@ -134,17 +145,17 @@ namespace QFramework
                     DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
                     if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
                     {
-                        if (DragAndDrop.paths[0] != "")
+                        if (DragAndDrop.paths[0] != "" && mScriptFolderView.Content.Value != DragAndDrop.paths[0])
                         {
                             var newPath = DragAndDrop.paths[0];
                             mScriptFolderView.Content.Value = newPath;
                             AssetDatabase.SaveAssets();
                             AssetDatabase.Refresh();
-                            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
                         }
                     }
                 }
-
+                
                 var fileFullPath = mCodeGenerateInfo.ScriptsFolder + "/" + mCodeGenerateInfo.ScriptName + ".cs";
                 if (File.Exists(mCodeGenerateInfo.ScriptsFolder + "/" + mCodeGenerateInfo.ScriptName + ".cs"))
                 {
@@ -156,10 +167,10 @@ namespace QFramework
 
                     if (GUILayout.Button("选择脚本", GUILayout.Height(30)))
                     {
-                        Selection.objects = new Object[] {scriptObject};
+                        Selection.objects = new Object[] { scriptObject };
                     }
                 }
-            }).AddTo(mRootLayout);
+            }).Parent(mRootLayout);
 
             EasyIMGUI.Button()
                 .Text(LocaleText.Generate)
@@ -175,7 +186,7 @@ namespace QFramework
                         }
                     })
                 .Height(30)
-                .AddTo(mRootLayout);
+                .Parent(mRootLayout);
         }
 
         public override void OnInspectorGUI()

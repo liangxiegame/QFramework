@@ -201,14 +201,15 @@ namespace QFramework
             EasyIMGUI.Horizontal().AddChild(EasyIMGUI.Label().Text("运行模式")).AddChild(runModelPop).Parent(mRootLayout);
             EasyIMGUI.Custom().OnGUI(() =>
             {
-                if (string.IsNullOrEmpty(ILRuntimeScriptSetting.Default.HotfixAsmdefName))
-                {
-                    EditorGUILayout.HelpBox("程序集名字为空则默认查找@hotfix后缀的程序集", MessageType.Info);
-                }
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("热更程序集名字");
                 ILRuntimeScriptSetting.Default.HotfixAsmdefName =
                     GUILayout.TextField(ILRuntimeScriptSetting.Default.HotfixAsmdefName);
+                GUILayout.EndHorizontal();
+                if (string.IsNullOrEmpty(ILRuntimeScriptSetting.Default.HotfixAsmdefName))
+                {
+                    EditorGUILayout.HelpBox("😄↑↑↑程序集名字为空则默认查找@hotfix后缀的程序集", MessageType.Info);
+                }
             }).Parent(mRootLayout);
         }
 
@@ -219,7 +220,7 @@ namespace QFramework
 
         public void OnDispose()
         {
-            AssetDatabase.SaveAssets();
+            ILRuntimeScriptSetting.Save();
         }
 
         public void OnShow()
