@@ -305,7 +305,7 @@ namespace QFramework
             PackageManagerState.Categories.Bind(value =>
             {
                 mCategoriesSelectorView.Menus(value);
-                Container.Resolve<PackageKitWindow>().Repaint();
+                mPackageKitWindow.Repaint();
             }).AddToDisposeList(mDisposableList);
 
 
