@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Runtime.InteropServices;
 using System.IO;
-using Newtonsoft.Json;
+using NUnit.Framework;
 
 namespace QFramework
 {
@@ -77,7 +77,7 @@ namespace QFramework
 
             using (var streamReader = new StreamReader(abmd5Path))
             {
-                JsonConvert.DeserializeObject<List<ABMD5>>(streamReader.ReadToEnd()).ForEach(_ =>
+                JsonUtility.FromJson<List<ABMD5>>(streamReader.ReadToEnd()).ForEach(_ =>
                 {
                     m_PackedMd5.Add(_.ABName, _);
                 });

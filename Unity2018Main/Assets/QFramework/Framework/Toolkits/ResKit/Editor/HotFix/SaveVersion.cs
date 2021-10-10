@@ -1,11 +1,7 @@
-
-
 using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
-using QFramework;
-using Newtonsoft.Json;
 
 namespace QFramework
 {
@@ -83,8 +79,8 @@ namespace QFramework
                     }
                 }
                 string ABMD5Path = Application.dataPath + "/Resources/ABMD5.bytes";
-  
-                File.WriteAllText(ABMD5Path, JsonConvert.SerializeObject(abMD5List));
+
+                File.WriteAllText(ABMD5Path, JsonUtility.ToJson(abMD5List));
 
                 //将打版的版本拷贝到外部进行储存
                 if (!Directory.Exists(m_VersionMd5Path))

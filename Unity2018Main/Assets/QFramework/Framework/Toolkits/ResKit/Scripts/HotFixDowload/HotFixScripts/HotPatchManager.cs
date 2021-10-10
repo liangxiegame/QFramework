@@ -1,4 +1,3 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -95,8 +94,7 @@ namespace QFramework
             }
 
 
-
-            JsonConvert.DeserializeObject<List<ABMD5>>(md5.text).ForEach(_ =>
+            JsonUtility.FromJson<List<ABMD5>>(md5.text).ForEach(_ =>
             {
                 m_PackedMd5.Add(_.ABName, _);
             });
