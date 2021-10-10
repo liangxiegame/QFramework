@@ -1,12 +1,13 @@
 {
     "Id": "",
-    "Version": "v0.13.25",
+    "Version": "v0.13.26",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
         "Assets/QFramework/Framework/Architecture",
+        "Assets/QFramework/Framework/link.xml",
         "Assets/QFramework/Framework/PackageVersion.json",
         "Assets/QFramework/Framework/Toolkits/ActionKit",
         "Assets/QFramework/Framework/Toolkits/AI.zip",
@@ -19,10 +20,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.25",
-        "content": "修复运行之后 FromSettingToDll 为空的问题",
+        "version": "v0.13.26",
+        "content": "去掉 Json.Net 依赖",
         "author": "liangxie",
-        "date": "2021 年 09 月 29 日 15:24",
+        "date": "2021 年 10 月 10 日 08:41",
         "PackageId": ""
     }
 }
