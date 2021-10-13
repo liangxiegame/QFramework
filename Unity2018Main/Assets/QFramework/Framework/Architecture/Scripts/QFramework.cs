@@ -625,6 +625,11 @@ namespace QFramework
             }
         }
 
+        public BindableProperty(T value = default)
+        {
+            Value = value;
+        }
+
         private Action<T> mOnValueChanged = (v) => { };
 
         public IUnRegister Register(Action<T> onValueChanged)
@@ -646,6 +651,16 @@ namespace QFramework
         public void UnRegister(Action<T> onValueChanged)
         {
             mOnValueChanged -= onValueChanged;
+        }
+        
+        public static implicit operator T(BindableProperty<T> property)
+        {
+            return property.Value;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 
