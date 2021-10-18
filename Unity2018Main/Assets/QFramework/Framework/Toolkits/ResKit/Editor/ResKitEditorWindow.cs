@@ -97,15 +97,15 @@ namespace QFramework
 
         public void OnDisable()
         {
-            string savePath = Application.dataPath + "/QFrameworkData/Resources/EncryptConfig.Json";
-            using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate))
-            {
-                using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8))
-                {
-                    sw.WriteLine(JsonUtility.ToJson(GetConfig()));
-                }
-            }
-            AssetDatabase.Refresh();
+            //string savePath = Application.dataPath + "/QFrameworkData/Resources/EncryptConfig.Json";
+            //using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate))
+            //{
+            //    using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8))
+            //    {
+            //        sw.WriteLine(JsonUtility.ToJson(GetConfig()));
+            //    }
+            //}
+            //AssetDatabase.Refresh();
 
             mResKitView.Clear();
             mResKitView.OnDispose();
@@ -262,11 +262,11 @@ namespace QFramework
                             }
 
                             ResKitEditorAPI.BuildAssetBundles();
-                            if (GetConfig().EncryptAB)
-                            {
-                                string key = GetConfig().EncryptKey ? RSA.RSAEncrypt("", GetConfig().AESKey): GetConfig().AESKey;
-                                BundleHotFix.EncryptAB(key);
-                            }
+                            //if (GetConfig().EncryptAB)
+                            //{
+                            //    string key = GetConfig().EncryptKey ? RSA.RSAEncrypt("", GetConfig().AESKey): GetConfig().AESKey;
+                            //    BundleHotFix.EncryptAB(key);
+                            //}
                             
                         });
                     }).Parent(verticalLayout);
