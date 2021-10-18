@@ -214,28 +214,28 @@ namespace QFramework
                     .Parent(verticalLayout)
                     .ValueProperty.Bind(v => ResKitEditorAPI.SimulationMode = v);
 
-                EasyIMGUI.Toggle()
-                   .Text(LocaleText.EncryptAB)
-                   .IsOn(GetConfig().EncryptAB)
-                   .Parent(verticalLayout)
-                   .ValueProperty.Bind(v => GetConfig().EncryptAB = v);
+                // EasyIMGUI.Toggle()
+                //    .Text(LocaleText.EncryptAB)
+                //    .IsOn(GetConfig().EncryptAB)
+                //    .Parent(verticalLayout)
+                //    .ValueProperty.Bind(v => GetConfig().EncryptAB = v);
 
 
-                var aesLine = EasyIMGUI.Horizontal();
-                EasyIMGUI.Label().Text("AES秘钥:").Parent(aesLine).Width(100);
-                EasyIMGUI.TextField().Text(GetConfig().AESKey).Parent(aesLine).Content.OnValueChanged.AddListener(_=>GetConfig().AESKey=_);
-                aesLine.Parent(verticalLayout);
+                // var aesLine = EasyIMGUI.Horizontal();
+                // EasyIMGUI.Label().Text("AES秘钥:").Parent(aesLine).Width(100);
+                // EasyIMGUI.TextField().Text(GetConfig().AESKey).Parent(aesLine).Content.OnValueChanged.AddListener(_=>GetConfig().AESKey=_);
+                // aesLine.Parent(verticalLayout);
 
-                EasyIMGUI.Toggle()
-                   .Text(LocaleText.EncryptKey)
-                   .IsOn(GetConfig().EncryptKey)
-                   .Parent(verticalLayout)
-                   .ValueProperty.Bind(v => GetConfig().EncryptKey = v);
+                // EasyIMGUI.Toggle()
+                //    .Text(LocaleText.EncryptKey)
+                //    .IsOn(GetConfig().EncryptKey)
+                //    .Parent(verticalLayout)
+                //    .ValueProperty.Bind(v => GetConfig().EncryptKey = v);
 
                 var resVersionLine = new HorizontalLayout()
                     .Parent(verticalLayout);
 
-                EasyIMGUI.Label().Text("ResVesion:").Parent(resVersionLine).Width(100);
+                // EasyIMGUI.Label().Text("ResVesion:").Parent(resVersionLine).Width(100);
 
                 EasyIMGUI.TextField().Text(mResVersion).Parent(resVersionLine)
                     .Content.Bind(v => mResVersion = v);
@@ -445,25 +445,25 @@ namespace QFramework
                 }
             }
 
-            public static string EncryptAB
-            {
-                get
-                {
-                    return Language.IsChinese
-                        ? "加密AB(AES加密)"
-                        : "EncryptAB";
-                }
-            }
-
-            public static string EncryptKey
-            {
-                get
-                {
-                    return Language.IsChinese
-                        ? "加密秘钥(RSA加密)"
-                        : "EncryptKey";
-                }
-            }
+            // public static string EncryptAB
+            // {
+            //     get
+            //     {
+            //         return Language.IsChinese
+            //             ? "加密AB(AES加密)"
+            //             : "EncryptAB";
+            //     }
+            // }
+            //
+            // public static string EncryptKey
+            // {
+            //     get
+            //     {
+            //         return Language.IsChinese
+            //             ? "加密秘钥(RSA加密)"
+            //             : "EncryptKey";
+            //     }
+            // }
         }
 
 
