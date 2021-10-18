@@ -39,6 +39,8 @@ namespace QFramework
         void SendCommand<T>() where T : ICommand, new();
         void SendCommand<T>(T command) where T : ICommand;
 
+        T SendQuery<T>(IQuery<T> query);
+        
         void SendEvent<T>() where T : new();
         void SendEvent<T>(T e);
 
@@ -166,6 +168,12 @@ namespace QFramework
             command.Execute();
         }
 
+        public TQuery SendQuery<TQuery>(IQuery<TQuery> query)
+        {
+            query.SetArchitecture(this);
+            return query.Do();
+        }
+
         private readonly ITypeEventSystem mTypeEventSystem = new TypeEventSystem();
 
         public void SendEvent<TEvent>() where TEvent : new()
@@ -192,7 +200,7 @@ namespace QFramework
     #region IController
 
     public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
-        ICanRegisterEvent
+        ICanRegisterEvent, ICanSendQuery
     {
     }
 
@@ -261,6 +269,31 @@ namespace QFramework
 
     #endregion
 
+    #region IQuery
+
+    public interface IQuery<out T> : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetSystem, ICanGetUtility
+    {
+        T Do();
+    }
+
+    public abstract class AbstractQuery<T> : IQuery<T>
+    {
+        private IArchitecture mArchitecture;
+        public abstract T Do();
+
+        IArchitecture IBelongToArchitecture.GetArchitecture()
+        {
+            return mArchitecture;
+        }
+
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture)
+        {
+            mArchitecture = architecture;
+        }
+    }
+
+    #endregion
+    
     #region Utility
     public interface IUtility 
     {
@@ -364,6 +397,18 @@ namespace QFramework
         public static void SendEvent<T>(this ICanSendEvent self, T e)
         {
             self.GetArchitecture().SendEvent<T>(e);
+        }
+    }
+
+    public interface ICanSendQuery : IBelongToArchitecture
+    {
+    }
+
+    public static class CanSendQuery
+    {
+        public static T SendQuery<T>(this ICanSendQuery self, IQuery<T> query) where T : new()
+        {
+            return self.GetArchitecture().SendQuery(query);
         }
     }
 
