@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.13.27",
+    "Version": "v0.13.28",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -20,10 +20,10 @@
     ],
     "DocUrl": "https://lianxiegame.com",
     "Readme": {
-        "version": "v0.13.27",
-        "content": "修复 Android 打包后加载 bin 失败的问题（感谢梅川内酷提供和测试）",
+        "version": "v0.13.28",
+        "content": "打包报错问题修复(h)",
         "author": "liangxie",
-        "date": "2021 年 10 月 18 日 20:41",
+        "date": "2021 年 10 月 19 日 11:38",
         "PackageId": ""
     }
 }

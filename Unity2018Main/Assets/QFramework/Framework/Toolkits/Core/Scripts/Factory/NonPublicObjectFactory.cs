@@ -42,7 +42,7 @@ namespace QFramework
 
             if (ctor == null)
             {
-                throw new Exception("Non-Public Constructor() not found! in " + typeof(T));
+                throw new Exception("Non-Public Constructor() not found! in " + typeof(T) + "\n 在没有找到非 public 的构造方法");
             }
 
             return ctor.Invoke(null) as T;
