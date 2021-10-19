@@ -68,3 +68,5 @@ Tools/EditorPlus/EditorPlus.sln
 Tools/EditorPlus/.vs/EditorPlus/v16/.suo
 .DS_Store
 Unity2018Test/Assets/StreamingAssets/
+Unity2018Main/UniRx.csproj
+Unity2018Main/UniRx.Examples.csproj

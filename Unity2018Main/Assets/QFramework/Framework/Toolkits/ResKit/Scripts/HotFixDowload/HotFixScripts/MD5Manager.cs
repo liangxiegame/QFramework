@@ -9,9 +9,24 @@ using System.Text;
 
 namespace QFramework
 {
+  
     [Serializable]
-    public class MD5Manager : Singleton<MD5Manager>
+    public class MD5Manager 
     {
+
+        private static MD5Manager m_Instance;
+        public static MD5Manager Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                {
+                    m_Instance = new MD5Manager();
+                }
+
+                return m_Instance;
+            }
+        }
 
         //储存Md5码，filePath为文件路径，md5SavePath为储存md5码路径
         public void SaveMd5(string filePath, string md5SavePath)

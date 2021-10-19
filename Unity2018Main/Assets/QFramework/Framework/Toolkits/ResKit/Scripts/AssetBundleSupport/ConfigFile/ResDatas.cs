@@ -28,6 +28,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace QFramework
 {
@@ -154,27 +155,28 @@ namespace QFramework
             
 
             object data;
-
-           //  if (File.ReadAllText(path).Contains(AES.AESHead))
-           //  {
-           //      if (AESKey == string.Empty)
-           //      {
-           //         AESKey=JsonUtility.FromJson<EncryptConfig>( Resources.Load<TextAsset>("EncryptConfig").text).AESKey;
-           //      }
-           //      data = binarySerializer
-           // .DeserializeBinary((AES.AESFileByteDecrypt(path, AESKey)));
-           //      //try
-           //      //{
-           //
-           //      //}
-           //      //catch (Exception e)
-           //      //{
-           //      //    Log.E("解密AB包失败,请检查秘钥!!当前使用的秘钥:" + AESKey);
-           //      //}
-           //
-           //  }
-           //  else
-           //  {
+            UnityWebRequest unityWebRequest = UnityWebRequest.Get(path);
+           // Debug.Log(unityWebRequest.downloadHandler.data.);
+                //if (File.ReadAllText(path).Contains(AES.AESHead))
+                //  {
+                //      if (AESKey == string.Empty)
+                //      {
+                //         AESKey=JsonUtility.FromJson<EncryptConfig>( Resources.Load<TextAsset>("EncryptConfig").text).AESKey;
+                //      }
+                //      data = binarySerializer
+                // .DeserializeBinary((AES.AESFileByteDecrypt(path, AESKey)));
+                //      //try
+                //      //{
+                //
+                //      //}
+                //      //catch (Exception e)
+                //      //{
+                //      //    Log.E("解密AB包失败,请检查秘钥!!当前使用的秘钥:" + AESKey);
+                //      //}
+                //
+                //  }
+                //  else
+                //  {
                 data = binarySerializer
            .DeserializeBinary(zipFileHelper.OpenReadStream(path));
             // }
