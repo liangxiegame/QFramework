@@ -9,8 +9,23 @@ using UnityEngine.Networking;
 namespace QFramework
 {
 
-    public class HotPatchManager : Singleton<HotPatchManager>
+    public class HotPatchManager
     {
+
+        private static HotPatchManager m_Instance;
+        public static HotPatchManager Instance
+        {
+            get
+            {
+                if (m_Instance == null)
+                {
+                    m_Instance = new HotPatchManager();
+                }
+
+                return m_Instance;
+            }
+        }
+
         private MonoBehaviour m_Mono;
 
         private string m_UnPackPath = Application.persistentDataPath + "/Origin";
@@ -74,6 +89,10 @@ namespace QFramework
         //已解压大小
         public float AlreadyUnPackSize = 0;
 
+         HotPatchManager()
+        {
+        }
+
         public void Init(MonoBehaviour mono)
         {
             m_Mono = mono;
@@ -93,11 +112,16 @@ namespace QFramework
                 return;
             }
 
-
-            JsonUtility.FromJson<List<ABMD5>>(md5.text).ForEach(_ =>
+            string[] str =md5.text.Split('|');
+            for (int i = 0; i < str.Length; i++)
             {
-                m_PackedMd5.Add(_.ABName, _);
-            });
+                if (str[i]!=string.Empty)
+                {
+                    ABMD5 aBMD5= JsonUtility.FromJson<ABMD5>(str[i]);
+                    m_PackedMd5.Add(aBMD5.ABName,aBMD5);
+                }           
+            }
+         
         }
 
         /// <summary>
@@ -328,9 +352,8 @@ namespace QFramework
 
         IEnumerator ReadXml(Action callBack)
         {
-            string xmlUrl = "http://annuzhiting2.oss-cn-hangzhou.aliyuncs.com/ServerInfo.xml";
-       
-            UnityWebRequest webRequest = UnityWebRequest.Get(xmlUrl);
+        
+            UnityWebRequest webRequest = UnityWebRequest.Get(HotUpdateCheck.Instance.ServerConfigURL);
             webRequest.timeout = 30;
             yield return webRequest.SendWebRequest();
 
@@ -514,10 +537,7 @@ namespace QFramework
                 {
                     if (MD5Manager.Instance.BuildFileMd5(downLoad.SaveFilePath) != md5)
                     {
-                       Debug.Log(downLoad.SaveFilePath);
-                       //Debug.Log(m_DownLoadMD5Dic[downLoad.FileName] + "不同于"+ downLoad.SaveFilePath);
-
-                   //     Debug.Log(string.Format("此文件{0}MD5校验失败，即将重新下载", downLoad.FileName));
+                   
                         Patch patch = FindPatchByGamePath(downLoad.FileName);
                         if (patch != null)
                         {

@@ -2,17 +2,14 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 using System.Collections.Generic;
+using System.Text;
 
 namespace QFramework
 {
     public class SaveVersion : EditorWindow
     {
         private static string m_VersionMd5Path = Application.dataPath + "/../Version/" + EditorUserBuildSettings.activeBuildTarget.ToString();
-        private string VersionText;
-
-      
-
-
+    
         [MenuItem("热更/热更配置", false, 2)]
         static void AddWindow()
         {
@@ -69,18 +66,22 @@ namespace QFramework
                 DirectoryInfo directoryInfo = new DirectoryInfo(path);
                 FileInfo[] files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
                 List<ABMD5> abMD5List = new List<ABMD5>();
+                StringBuilder builder = new StringBuilder();
+           
                 for (int i = 0; i < files.Length; i++)
                 {
                     if (!files[i].Name.EndsWith(".meta") && !files[i].Name.EndsWith(".manifest"))
                     {
                         ABMD5 aBMD5 = new ABMD5(files[i].Name, files[i].Length / 1024.0f, MD5Manager.Instance.BuildFileMd5(files[i].FullName));
-
+                        builder.Append(JsonUtility.ToJson(aBMD5)+"|");
                         abMD5List.Add(aBMD5);
                     }
                 }
+            
                 string ABMD5Path = Application.dataPath + "/Resources/ABMD5.bytes";
 
-                File.WriteAllText(ABMD5Path, JsonUtility.ToJson(abMD5List));
+                File.WriteAllText(ABMD5Path, builder.ToString());
+
 
                 //将打版的版本拷贝到外部进行储存
                 if (!Directory.Exists(m_VersionMd5Path))
