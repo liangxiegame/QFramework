@@ -1,0 +1,23 @@
+{
+    "name": "QFramework.ILRuntime.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2bb1b191bb386469fa2a2c52d2b5c2da",
+        "GUID:7a1fa966b0ea23f40a6a4dc4dab1e297",
+        "GUID:22208c7e849c34c218fe267b9a814fab",
+        "GUID:3d0cdf3912d33164686483209bb5eff6",
+        "GUID:6e773dc2480b442c1af8b5b7488b94a5",
+        "GUID:8ed2a396aae604c5ca111525d261bb03",
+        "GUID:9e97e42c28a41430880bee376c274c86",
+        "GUID:b1e4c2f820b5a6f47abcfa461211a48b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
