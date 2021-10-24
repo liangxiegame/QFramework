@@ -131,7 +131,7 @@ namespace QFramework
 
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
-                if (assembly.FullName.StartsWith("QF") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
+                if (assembly.FullName.StartsWith("Unity") || assembly.FullName.StartsWith("System")) continue;
                 {
                     CachedAssembly(assembly);
                 }
