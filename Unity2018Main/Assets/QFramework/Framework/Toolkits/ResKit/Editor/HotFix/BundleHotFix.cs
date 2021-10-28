@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Runtime.InteropServices;
 using System.IO;
-using NUnit.Framework;
+
 
 namespace QFramework
 {
@@ -19,7 +19,7 @@ namespace QFramework
         OpenFileName m_OpenFileName = null;
         static Dictionary<string, ABMD5> m_PackedMd5 = new Dictionary<string, ABMD5>();
 
-        [MenuItem("热更/打包热更包", false, 3)]
+        [MenuItem("QFramework/热更/打包热更包", false, 3)]
         static void Init()
         {
             BundleHotFix window = (BundleHotFix)EditorWindow.GetWindow(typeof(BundleHotFix), false, "热更包界面", true);
@@ -75,12 +75,16 @@ namespace QFramework
         {
             m_PackedMd5.Clear();
 
-            using (var streamReader = new StreamReader(abmd5Path))
+           
+
+            string[] str = File.ReadAllText(abmd5Path).Split('|');
+            for (int i = 0; i < str.Length; i++)
             {
-                JsonUtility.FromJson<List<ABMD5>>(streamReader.ReadToEnd()).ForEach(_ =>
+                if (str[i] != string.Empty)
                 {
-                    m_PackedMd5.Add(_.ABName, _);
-                });
+                    ABMD5 aBMD5 = JsonUtility.FromJson<ABMD5>(str[i]);
+                    m_PackedMd5.Add(aBMD5.ABName, aBMD5);
+                }
             }
 
             List<string> changeList = new List<string>();
@@ -144,7 +148,7 @@ namespace QFramework
                 patch.Size = files[i].Length / 1024.0f;
                 patch.Platform = EditorUserBuildSettings.activeBuildTarget.ToString();
                 //服务器资源路径
-                patch.Url = "http://annuzhiting2.oss-cn-hangzhou.aliyuncs.com/AssetBundle/" + PlayerSettings.bundleVersion + "/" + hotCount + "/" + files[i].Name;
+                patch.Url = "http://192.168.0.101/AssetBundle/" + PlayerSettings.bundleVersion + "/" + hotCount + "/" + files[i].Name;
                 pathces.Files.Add(patch);
             }
 

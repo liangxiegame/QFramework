@@ -10,7 +10,7 @@ namespace QFramework
     {
         private static string m_VersionMd5Path = Application.dataPath + "/../Version/" + EditorUserBuildSettings.activeBuildTarget.ToString();
     
-        [MenuItem("热更/热更配置", false, 2)]
+        [MenuItem("QFramework/热更/热更配置", false, 2)]
         static void AddWindow()
         {
             //创建窗口
