@@ -80,24 +80,9 @@ namespace QFramework
             {
                 var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
                 AssetBundle bundle; 
-                // var zipFileHelper = ResKit.Architecture.Interface.GetUtility<IZipFileHelper>();
-
-                // if (File.ReadAllText(url).Contains(AES.AESHead))
-                // {
-                //     if (AESKey == string.Empty)
-                //     {
-                //         AESKey = JsonUtility.FromJson<EncryptConfig>(Resources.Load<TextAsset>("EncryptConfig").text).AESKey;
-                //     }
-                //  
-                //      bundle= AssetBundle.LoadFromMemory((AES.AESFileByteDecrypt(url, AESKey)));
-                //  
-                // }
-                // else
-                // {
+               
                 bundle = AssetBundle.LoadFromFile(url);
-                // }
-
-
+               
                 mUnloadFlag = true;
 
                 if (bundle == null)
