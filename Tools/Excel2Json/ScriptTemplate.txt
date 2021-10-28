@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using LitJson;
+
+[Config("#class_name")]
+public partial class #class_name
+{
+    #fields
+
+    public static Dictionary<int, #class_name> Data { get; private set; }
+	    
+    private static void Load(string content)
+    {
+        if (Data != null) return;
+        BeginInit();
+        Data = new Dictionary<int, #class_name>();
+        var data = JsonMapper.ToObject(content);
+        foreach (var jsonData in data.Keys)
+        {
+            var obj = data[jsonData].ToObject(typeof(#class_name)) as #class_name;
+            Data[obj.ID] = obj;
+        }
+        EndInit();
+    }
+
+    public static #class_name GetById(int id)
+    {
+        if (Data.TryGetValue(id, out var result))
+            return result;
+        return null;
+    }
+
+    static partial void BeginInit();
+
+    static partial void EndInit();
+}
