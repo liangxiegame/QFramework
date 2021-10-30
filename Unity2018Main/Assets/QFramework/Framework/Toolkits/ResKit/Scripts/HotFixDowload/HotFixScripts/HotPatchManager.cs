@@ -261,9 +261,10 @@ namespace QFramework
                     }
                     return;
                 }
-
+              
                 foreach (VersionInfo version in m_ServerInfo.GameVersion)
                 {
+                 
                     if (version.Version == m_CurVersion)
                     {
                         m_GameVersion = version;
@@ -406,15 +407,19 @@ namespace QFramework
             m_DownLoadList.Clear();
             m_DownLoadDic.Clear();
             m_DownLoadMD5Dic.Clear();
+          
             if (m_GameVersion != null && m_GameVersion.Pathces != null && m_GameVersion.Pathces.Length > 0)
             {
+              
                 m_CurrentPatches = m_GameVersion.Pathces[m_GameVersion.Pathces.Length - 1];
                 if (m_CurrentPatches.Files != null && m_CurrentPatches.Files.Count > 0)
                 {
+                  
                     foreach (Patch patch in m_CurrentPatches.Files)
                     {
                         if ((Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor) && patch.Platform.Contains("StandaloneWindows64"))
                         {
+                     
                             AddDownLoadList(patch);
                         }
                         else if ((Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor) && patch.Platform.Contains("Android"))
@@ -437,7 +442,7 @@ namespace QFramework
             if (File.Exists(filePath))
             {
                 string md5 = MD5Manager.Instance.BuildFileMd5(filePath);
-                Debug.Log(filePath);
+
                 if (patch.Md5 != md5)
                 {
                     m_DownLoadList.Add(patch);

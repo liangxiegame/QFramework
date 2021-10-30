@@ -353,8 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb7e03e7c19a5c46849ed96c5c85af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ConfigURL: 
-  ConfigURL2: 
+  ServerConfigURL: http://192.168.0.101/ServerInfo.xml
 --- !u!114 &425835723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -407,7 +406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &735464353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1244,7 +1243,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3.52M/S...
+  m_Text: 
 --- !u!222 &1309558034
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1486,7 +1485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2137701413
 RectTransform:
   m_ObjectHideFlags: 0

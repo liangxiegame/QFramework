@@ -312,6 +312,9 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>F:/unity2019/2018.4.36f1/Editor/Data/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>F:/unity2019/2018.4.36f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>F:/unity2019/2018.4.36f1/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -319,22 +322,22 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Markdig">
-      <HintPath>E:/新建文件夹/Unity2018Main/Assets/QFramework/Framework/Toolkits/Core/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
+      <HintPath>E:/000/Unity2018Main/Assets/QFramework/Framework/Toolkits/Core/Editor/Markdown/Scripts/Renderer/Markdig.dll</HintPath>
     </Reference>
     <Reference Include="QFramework.Log">
-      <HintPath>E:/新建文件夹/Unity2018Main/Assets/QFramework/Framework/Toolkits/Core/Scripts/QFramework.Log.dll</HintPath>
+      <HintPath>E:/000/Unity2018Main/Assets/QFramework/Framework/Toolkits/Core/Scripts/QFramework.Log.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
-      <HintPath>E:/新建文件夹/Unity2018Main/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
+      <HintPath>E:/000/Unity2018Main/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>E:/新建文件夹/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>E:/新建文件夹/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>E:/000/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>E:/新建文件夹/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>E:/000/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Analytics.StandardEvents">
+      <HintPath>E:/000/Unity2018Main/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>F:/unity2019/2018.4.36f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

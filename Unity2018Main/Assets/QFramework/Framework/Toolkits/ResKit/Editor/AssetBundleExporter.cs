@@ -32,7 +32,7 @@ namespace QFramework
 	{
 		public static void BuildDataTable(string[] abNames = null,string outputPath = null)
 		{
-			Log.I("Start Default BuildAssetDataTable!");
+
 			var table = new ResDatas();
 			ConfigFileUtility.AddABInfo2ResDatas(table, abNames);
 

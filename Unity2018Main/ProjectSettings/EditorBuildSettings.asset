@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/QFramework/Framework/Toolkits/ResKit/Example/1.LoadAssetBundleResExample/Scene.unity
+    guid: 2b7b35e33fe46dd4cb0848bb6e4c1e27
+  m_configObjects: {}

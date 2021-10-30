@@ -162,7 +162,8 @@ namespace QFramework
         {
             HotPatchManager.Instance.ServerInfoError -= ServerInfoError;
             HotPatchManager.Instance.ItemError -= ItemError;
-            Destroy(gameObject);
+            Debug.Log("下载完成");
+          //  Destroy(gameObject);
         }
 
       

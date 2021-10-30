@@ -25,9 +25,7 @@ namespace QFramework
             BundleHotFix window = (BundleHotFix)EditorWindow.GetWindow(typeof(BundleHotFix), false, "热更包界面", true);
             window.Show();
 
-            Debug.Log(m_BunleTargetPath);
-            Debug.Log(m_HotPath);
-   
+         
         }
 
         private void OnGUI()
@@ -96,7 +94,7 @@ namespace QFramework
                 {
                     string name = files[i].Name;
                     string md5 = MD5Manager.Instance.BuildFileMd5(files[i].FullName);
-                    Debug.Log("生成MD5" + files[i].FullName);
+
                     ABMD5 abmd5 = null;
                     if (!m_PackedMd5.ContainsKey(name))
                     {
@@ -140,19 +138,32 @@ namespace QFramework
             Pathces pathces = new Pathces();
             pathces.Version = 1;
             pathces.Files = new List<Patch>();
-            for (int i = 0; i < files.Length; i++)
+
+            string serverPath = PlayerPrefs.GetString("ServerPath");
+
+            if (serverPath==null||serverPath==string.Empty)
             {
-                Patch patch = new Patch();
-                patch.Md5 = MD5Manager.Instance.BuildFileMd5(files[i].FullName);
-                patch.Name = files[i].Name;
-                patch.Size = files[i].Length / 1024.0f;
-                patch.Platform = EditorUserBuildSettings.activeBuildTarget.ToString();
-                //服务器资源路径
-                patch.Url = "http://192.168.0.101/AssetBundle/" + PlayerSettings.bundleVersion + "/" + hotCount + "/" + files[i].Name;
-                pathces.Files.Add(patch);
+                Debug.LogError("文件服务器地址为空，请检查热更配置！！！");
+            }
+            else
+            {
+                serverPath += "/AssetBundle/" + PlayerSettings.bundleVersion + "/" + hotCount + "/";
+                for (int i = 0; i < files.Length; i++)
+                {
+                    Patch patch = new Patch();
+                    patch.Md5 = MD5Manager.Instance.BuildFileMd5(files[i].FullName);
+                    patch.Name = files[i].Name;
+                    patch.Size = files[i].Length / 1024.0f;
+                    patch.Platform = EditorUserBuildSettings.activeBuildTarget.ToString();
+                    //服务器资源路径
+                    patch.Url = serverPath + files[i].Name;
+                    pathces.Files.Add(patch);
+                }
+
+                BinarySerializeOpt.Xmlserialize(m_HotPath + "/Patch.xml", pathces);
             }
 
-            BinarySerializeOpt.Xmlserialize(m_HotPath + "/Patch.xml", pathces);
+          
          
         }
 

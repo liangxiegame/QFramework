@@ -18,7 +18,7 @@ namespace QFramework
 
         public void Show(string title, string str, UnityEngine.Events.UnityAction confirmAction, UnityEngine.Events.UnityAction cancleAction)
         {
-   
+            TitleText.transform.parent.gameObject.SetActive(true);
             TitleText.text = title;
             HotFixDesText.text = str;
 
