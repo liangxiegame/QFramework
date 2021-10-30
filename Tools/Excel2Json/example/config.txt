@@ -1,7 +1,0 @@
-# 路径可以填绝对路径和相对py脚本路径
-# #开头会被注释
-exe_path = ../build/ExcelToJson.exe
-e = excels
-j = jsons
-c = cs
-t = ../ScriptTemplate.txt

@@ -32,7 +32,7 @@ namespace ExcelToJson
             {
                 Tools.CreateExcelReader(excelPath);
             }
-            GenSync();
+            Gen();
             while (!finish)
             {
                 Thread.Sleep(100);
