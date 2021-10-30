@@ -9,7 +9,7 @@ namespace QFramework
     public class SaveVersion : EditorWindow
     {
         private static string m_VersionMd5Path = Application.dataPath + "/../Version/" + EditorUserBuildSettings.activeBuildTarget.ToString();
-    
+        static string text = string.Empty;
         [MenuItem("QFramework/热更/热更配置", false, 2)]
         static void AddWindow()
         {
@@ -17,9 +17,11 @@ namespace QFramework
             Rect wr = new Rect(0, 0, 500, 200);
             SaveVersion window = (SaveVersion)EditorWindow.GetWindowWithRect(typeof(SaveVersion), wr, true, "热更版本号记录");
             window.Show();
+
+            text = PlayerPrefs.GetString("ServerPath");
         }
 
-
+       
         void OnGUI()
         {
 
@@ -95,7 +97,9 @@ namespace QFramework
                 }
                 File.Copy(ABMD5Path, targetPath);
             }
-
+        
+            text=EditorGUILayout.TextField("文件服务器路径:", text);
+            PlayerPrefs.SetString("ServerPath",text);
         }
 
         void OnInspectorUpdate()
