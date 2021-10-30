@@ -10,6 +10,8 @@ namespace QFramework
     {
         private static string m_VersionMd5Path = Application.dataPath + "/../Version/" + EditorUserBuildSettings.activeBuildTarget.ToString();
         static string text = string.Empty;
+        string savePath = Application.dataPath + "/QFrameworkData/Resources/";
+
         [MenuItem("QFramework/热更/热更配置", false, 2)]
         static void AddWindow()
         {
@@ -31,10 +33,19 @@ namespace QFramework
                 //记录版本号
 
                 string content = "Version|" + PlayerSettings.bundleVersion + ";PackageName|" + PlayerSettings.applicationIdentifier + ";";
-                string savePath = Application.dataPath + "/Resources/Version.txt";
+               
                 string oneLine = "";
                 string all = "";
-                using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
+                string filePath = savePath + "Version.txt";
+
+
+                if (!Directory.Exists(savePath))
+                {
+                    Directory.CreateDirectory(savePath);
+                    AssetDatabase.Refresh();
+                }
+
+                using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite))
                 {
                     using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.UTF8))
                     {
@@ -42,7 +53,7 @@ namespace QFramework
                         oneLine = all.Split('\r')[0];
                     }
                 }
-                using (FileStream fs = new FileStream(savePath, FileMode.OpenOrCreate))
+                using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
                 {
                     using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.UTF8))
                     {
@@ -57,6 +68,7 @@ namespace QFramework
                         sw.Write(all);
                     }
                 }
+                AssetDatabase.Refresh();
             }
 
             if (GUILayout.Button("生成热更资源列表", GUILayout.Width(200)))
@@ -64,7 +76,7 @@ namespace QFramework
 
                 
                 string path = (Application.streamingAssetsPath + AssetBundleSettings.RELATIVE_AB_ROOT_FOLDER).CreateDirIfNotExists();
-                Debug.Log(path);
+             
                 DirectoryInfo directoryInfo = new DirectoryInfo(path);
                 FileInfo[] files = directoryInfo.GetFiles("*", SearchOption.AllDirectories);
                 List<ABMD5> abMD5List = new List<ABMD5>();
@@ -79,8 +91,16 @@ namespace QFramework
                         abMD5List.Add(aBMD5);
                     }
                 }
-            
-                string ABMD5Path = Application.dataPath + "/Resources/ABMD5.bytes";
+
+              
+
+                if (!Directory.Exists(savePath))
+                {
+                    Directory.CreateDirectory(savePath);
+                    AssetDatabase.Refresh();
+                }
+
+                string ABMD5Path = Application.dataPath + "/QFrameworkData/Resources/ABMD5.bytes";
 
                 File.WriteAllText(ABMD5Path, builder.ToString());
 
@@ -96,6 +116,8 @@ namespace QFramework
                     File.Delete(targetPath);
                 }
                 File.Copy(ABMD5Path, targetPath);
+
+                AssetDatabase.Refresh();
             }
         
             text=EditorGUILayout.TextField("文件服务器路径:", text);
