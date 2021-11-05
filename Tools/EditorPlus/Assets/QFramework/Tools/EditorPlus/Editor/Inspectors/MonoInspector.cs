@@ -26,7 +26,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     [CustomEditor(typeof(MonoBehaviour), true, isFallback = true)]
     [CanEditMultipleObjects]

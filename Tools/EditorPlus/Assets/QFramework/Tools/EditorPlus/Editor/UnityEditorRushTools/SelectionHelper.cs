@@ -35,7 +35,7 @@ using UnityEditor;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace QFramework
+namespace QFramework.Editor
 {
 	internal static class SelectionHelper
 	{

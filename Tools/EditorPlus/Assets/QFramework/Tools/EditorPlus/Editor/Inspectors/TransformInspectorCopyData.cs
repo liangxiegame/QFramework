@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     public class TransformInspectorCopyData
     {

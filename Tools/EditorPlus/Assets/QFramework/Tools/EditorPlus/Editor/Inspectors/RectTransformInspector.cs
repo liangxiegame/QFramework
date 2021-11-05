@@ -31,7 +31,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace QFramework
+namespace QFramework.Editor
 {
 	[CanEditMultipleObjects]
 	[CustomEditor(typeof(RectTransform))]

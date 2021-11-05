@@ -28,7 +28,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
 	[CustomPropertyDrawer(typeof(ButtonAttribute), true)]
 	internal class ButtonAttributeDrawer : PropertyDrawer

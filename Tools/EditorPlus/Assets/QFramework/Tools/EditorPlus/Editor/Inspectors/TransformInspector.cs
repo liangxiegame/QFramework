@@ -34,7 +34,7 @@ using UnityEngine;
 using UnityEngine.Playables;
 using Object = UnityEngine.Object;
 
-namespace QFramework
+namespace QFramework.Editor
 {
 	[CanEditMultipleObjects]
 	[CustomEditor(typeof(Transform), true)]

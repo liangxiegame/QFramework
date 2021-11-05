@@ -6,7 +6,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace QFramework
+namespace QFramework.Editor
 {
     /// <summary>
     /// 图片最优尺寸

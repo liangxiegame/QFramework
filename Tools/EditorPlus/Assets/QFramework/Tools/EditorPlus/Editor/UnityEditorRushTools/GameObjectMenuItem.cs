@@ -30,7 +30,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     internal static class GameObjectMenuItem
     {

@@ -4,7 +4,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     /// <summary>
     /// 添加文件头说明

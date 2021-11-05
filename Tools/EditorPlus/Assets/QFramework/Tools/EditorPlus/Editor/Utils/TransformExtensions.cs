@@ -2,13 +2,13 @@
 using System.Text;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
-	public static class TransformExtensions
+	internal static class TransformExtensions
 	{
 		#region 遍历或查找
 
-		public static void ActionRecursionInterruptible(this Transform tfParent, Func<Transform, bool> predicate)
+		internal static void ActionRecursionInterruptible(this Transform tfParent, Func<Transform, bool> predicate)
 		{
 			if (predicate(tfParent))
 			{
@@ -16,13 +16,13 @@ namespace QFramework
 			}
 		}
 
-		public static void ActionRecursion(this Transform tfParent, Action<Transform> action)
+		internal static void ActionRecursion(this Transform tfParent, Action<Transform> action)
 		{
 			action(tfParent);
 			foreach (Transform tfChild in tfParent) { tfChild.ActionRecursion(action); }
 		}
 
-		public static Transform FindChildRecursionExt(this Transform tfParent, string name,
+		internal static Transform FindChildRecursionExt(this Transform tfParent, string name,
 			StringComparison stringComparison)
 		{
 			if (tfParent.name.Equals(name, stringComparison))
@@ -41,7 +41,7 @@ namespace QFramework
 			return null;
 		}
 
-		public static Transform FindChildRecursionExt(this Transform tfParent, string name)
+		internal static Transform FindChildRecursionExt(this Transform tfParent, string name)
 		{
 			if (tfParent.name.Equals(name))
 			{
@@ -59,7 +59,7 @@ namespace QFramework
 			return null;
 		}
 
-		public static Transform FindChildRecursionExt(this Transform tfParent, Func<Transform, bool> predicate)
+		internal static Transform FindChildRecursionExt(this Transform tfParent, Func<Transform, bool> predicate)
 		{
 			if (predicate(tfParent))
 			{
@@ -78,7 +78,7 @@ namespace QFramework
 			return null;
 		}
 
-		public static Transform FindParentRecursionExt(this Transform tfParent, string name)
+		internal static Transform FindParentRecursionExt(this Transform tfParent, string name)
 		{
 			if (tfParent.name.Equals(name))
 			{
@@ -96,7 +96,7 @@ namespace QFramework
 			return null;
 		}
 
-		public static Transform FindParentRecursionExt(this Transform tfParent, Func<Transform, bool> predicate)
+		internal static Transform FindParentRecursionExt(this Transform tfParent, Func<Transform, bool> predicate)
 		{
 			if (predicate(tfParent))
 			{
@@ -115,7 +115,7 @@ namespace QFramework
 			return null;
 		}
 
-		public static void FindTransformByKeyWord(MonoBehaviour mono, ref Transform tfAnchor, params string[] keyWord)
+		internal static void FindTransformByKeyWord(MonoBehaviour mono, ref Transform tfAnchor, params string[] keyWord)
 		{
 			tfAnchor = mono.transform.FindChildRecursionExt(t =>
 			{
@@ -129,7 +129,7 @@ namespace QFramework
 			});
 		}
 
-		public static string GetPathExt(this Transform transform)
+		internal static string GetPathExt(this Transform transform)
 		{
 			StringBuilder sb = new StringBuilder();
 			Transform t = transform;

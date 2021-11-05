@@ -1,4 +1,7 @@
-internal class Singleton<T> where T : class, new()
+namespace QFramework.Editor
 {
-	public static readonly T instance = new T();
+	internal class Singleton<T> where T : class, new()
+	{
+		public static readonly T instance = new T();
+	}
 }

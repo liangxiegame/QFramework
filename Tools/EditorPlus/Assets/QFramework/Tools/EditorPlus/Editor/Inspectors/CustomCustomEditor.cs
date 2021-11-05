@@ -31,20 +31,21 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UEditor = UnityEditor.Editor;
 
-namespace QFramework
+namespace QFramework.Editor
 {
 	/// <summary>
 	///     A base class for creating editors that decorate Unity's built-in editor types.
 	/// </summary>
-	public abstract class CustomCustomEditor : Editor
+	public abstract class CustomCustomEditor : UEditor
 	{
 		// empty array for invoking methods using reflection
 		private static readonly object[] EMPTY_ARRAY = new object[0];
 
 		private static readonly Dictionary<string, MethodInfo> decoratedMethods = new Dictionary<string, MethodInfo>();
 
-		private static readonly Assembly editorAssembly = Assembly.GetAssembly(typeof(Editor));
+		private static readonly Assembly editorAssembly = Assembly.GetAssembly(typeof(UEditor));
 
 		protected CustomCustomEditor(string editorTypeName)
 		{
@@ -60,7 +61,7 @@ namespace QFramework
 			}
 		}
 
-		protected Editor EditorInstance
+		protected UEditor EditorInstance
 		{
 			get
 			{
@@ -121,7 +122,7 @@ namespace QFramework
 		/// <summary>
 		///     Delegates a method call with the given name to the decorated editor instance.
 		/// </summary>
-		protected void CallInspectorMethod(string methodName, Editor editor)
+		protected void CallInspectorMethod(string methodName, UEditor editor)
 		{
 			MethodInfo method = null;
 
@@ -193,7 +194,7 @@ namespace QFramework
 		/// </summary>
 		private Type editedObjectType;
 
-		private Editor editorInstance;
+		private UEditor editorInstance;
 
 		#endregion
 	}

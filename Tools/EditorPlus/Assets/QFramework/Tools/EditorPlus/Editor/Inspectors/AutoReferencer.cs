@@ -31,7 +31,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     public static class AutoReferencer
     {

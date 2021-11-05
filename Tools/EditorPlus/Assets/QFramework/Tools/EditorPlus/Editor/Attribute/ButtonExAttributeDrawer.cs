@@ -30,7 +30,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     internal class ButtonExAttributeDrawer
 	{

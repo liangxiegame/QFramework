@@ -28,7 +28,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework
+namespace QFramework.Editor
 {
     /*-------------------------------------------------------------------------------------------------------------------------------------------
         To define a hot-key, use the following special characters: 

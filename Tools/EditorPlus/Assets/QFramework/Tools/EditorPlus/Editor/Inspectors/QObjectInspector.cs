@@ -29,10 +29,11 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UEditor = UnityEditor.Editor;
 
-namespace QFramework
+namespace QFramework.Editor
 {
-	public abstract class QObjectInspector : Editor
+	public abstract class QObjectInspector : UEditor
 	{
 		private class Styles
 		{
