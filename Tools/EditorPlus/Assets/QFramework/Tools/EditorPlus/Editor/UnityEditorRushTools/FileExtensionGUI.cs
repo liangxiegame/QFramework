@@ -46,7 +46,7 @@ namespace QFramework.Editor
 		private static void HandleOnGUI(string guid, Rect selectionRect)
 		{
 			string path = AssetDatabase.GUIDToAssetPath(guid);
-			string extRaw = Path.GetExtension(path);
+			string extRaw = Path.GetExtension(path).ToLower();
 			if (!showExt.Contains(extRaw)) { return; }
 
 			bool selected = false;
