@@ -5,6 +5,7 @@ using UnityEngine;
 namespace QFramework
 {
     [ExecuteInEditMode]
+    [InitializeOnLoad]
     public class EditorReload
     {
         [DidReloadScripts]

@@ -1,13 +1,13 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ResKit", "QFramework.ResKit.csproj", "{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniRx", "UniRx.csproj", "{1C968162-072D-2699-6FD0-0FD0B326A5C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.Core", "QFramework.Core.csproj", "{79C7A124-64F2-E202-215A-E1B198387E82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{5ABBFF1B-48BD-8A6F-E216-960A296E214A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ResKit", "QFramework.ResKit.csproj", "{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QFramework.ActionKit", "QFramework.ActionKit.csproj", "{62CCFA55-103C-C165-9E25-BE16D4F79D9E}"
 EndProject
@@ -35,10 +35,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C968162-072D-2699-6FD0-0FD0B326A5C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C968162-072D-2699-6FD0-0FD0B326A5C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C968162-072D-2699-6FD0-0FD0B326A5C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{5ABBFF1B-48BD-8A6F-E216-960A296E214A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ABBFF1B-48BD-8A6F-E216-960A296E214A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ABBFF1B-48BD-8A6F-E216-960A296E214A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07B3AD7E-57D9-4067-0B65-4702C15D1C1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CCFA55-103C-C165-9E25-BE16D4F79D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
