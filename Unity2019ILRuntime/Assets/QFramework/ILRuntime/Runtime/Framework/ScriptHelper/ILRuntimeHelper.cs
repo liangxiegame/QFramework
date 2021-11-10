@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using ILRuntime.CLR.TypeSystem;
 using ILRuntime.Mono.Cecil.Pdb;
+using ILRuntime.Reflection;
+using ILRuntime.Runtime.Enviorment;
 using ILRuntime.Runtime.Generated;
+using ILRuntime.Runtime.Intepreter;
 using LitJson;
 using UnityEngine;
 using AppDomain = ILRuntime.Runtime.Enviorment.AppDomain;
@@ -31,7 +36,6 @@ namespace QFramework
             
             //绑定的初始化
             //ada绑定
-            //AdapterRegister.RegisterCrossBindingAdaptor(AppDomain);
             //是否注册各种binding
             if (isRegisterBindings)
             {
@@ -62,8 +66,42 @@ namespace QFramework
                     hotfixType.Add(v.Key,v.Value.ReflectionType);
                 }
             }
-
+            
             return hotfixType.Values;
+        }
+
+        public static Type GetCLRType(object obj)
+        {
+            //如果是继承了主项目的热更的类型
+            if (obj is CrossBindingAdaptorType adaptor)
+            {
+                return adaptor.ILInstance.Type.ReflectionType;
+            }
+            //如果是热更的类型
+            if (obj is ILTypeInstance ilInstance)
+            {
+                return ilInstance.Type.ReflectionType;
+            }
+
+            return obj.GetType();
+        }
+        
+        public static Type GetCLRType(Type type)
+        {
+            if (type is ILRuntimeType runtimeType)
+                return runtimeType.ILType.ReflectionType;
+            if (type is ILRuntimeWrapperType wrapperType)
+                return wrapperType.RealType;
+            return type;
+        }
+        
+        public static Type GetCLRType(this IType type)
+        {
+            if (type is CLRType clrType)
+            {
+                return clrType.TypeForCLR;
+            }
+            return type.ReflectionType;
         }
 
         public static Type GetType(string name)
@@ -73,7 +111,6 @@ namespace QFramework
             return hotfixType.TryGetValue(name, out var type) ? type : null;
         }
 
-        
         public static void Close()
         {
             if (msDll != null)

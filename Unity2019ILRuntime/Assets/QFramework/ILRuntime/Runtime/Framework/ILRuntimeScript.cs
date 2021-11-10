@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using ILRuntime.Runtime.Intepreter;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -15,7 +16,6 @@ namespace QFramework
 
         public void CallStaticMethod(string typeOrFileName, string methodName, params object[] args)
         {
-
             if (ILRuntimeScriptSetting.Default.HotfixRunMode == HotfixCodeRunMode.ILRuntime)
             {
                 ILRuntimeHelper.AppDomain.Invoke(typeOrFileName, methodName, null, args);
@@ -64,7 +64,20 @@ namespace QFramework
                     break;
                 }
             }
+
+            //ReflectionHelper.InitCustomFunc(InstanceFunc, ILRuntimeHelper.GetType, ILRuntimeHelper.GetCLRType, ILRuntimeHelper.GetCLRType);
             loadDone?.Invoke();
+        }
+        
+        private static object InstanceFunc(Type type, object[] args)
+        {
+            if (type.Assembly.GetName().Name == ILRuntimeScriptSetting.Default.HotfixDllName)
+            {
+                ILTypeInstance ins = ILRuntimeHelper.AppDomain.Instantiate(type.FullName, args);
+                return ins.CLRInstance;
+            }
+
+            return Activator.CreateInstance(type, args);
         }
 
         private async void Load(string path, Action<byte[]> cb, Action<Exception> e)

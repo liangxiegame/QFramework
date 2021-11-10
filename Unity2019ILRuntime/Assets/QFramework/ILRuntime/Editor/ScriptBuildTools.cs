@@ -129,7 +129,7 @@ public static class ScriptBuildTools
             }
             else if (mode == BuildMode.Debug)
             {
-                Build(csFiles, dllFiles, outHotfixPath, true);
+                Build(csFiles, dllFiles, outHotfixPath);
             }
 
             AssetDatabase.Refresh();
@@ -150,15 +150,14 @@ public static class ScriptBuildTools
     static public void Build(
         List<string> hotfixCS,
         List<string> dllFiles,
-        string outHotfixDllPath,
-        bool isdebug=false)
+        string outHotfixDllPath)
     {
         //开始执行
         EditorUtility.DisplayProgressBar("编译服务", "开始编译hotfix.dll...", 0.7f);
         //build
         try
         {
-            BuildByRoslyn(dllFiles.ToArray(), hotfixCS.ToArray(), outHotfixDllPath, isdebug);
+            BuildByRoslyn(dllFiles.ToArray(), hotfixCS.ToArray(), outHotfixDllPath);
         }
         catch (Exception e)
         {
@@ -172,16 +171,17 @@ public static class ScriptBuildTools
         AssetDatabase.Refresh();
     }
     private static List<string> defineList = new List<string>();
+
     /// <summary>
     /// 编译dll
     /// </summary>
     /// <param name="rootpaths"></param>
     /// <param name="output"></param>
-    static public bool BuildByRoslyn(string[] dlls, string[] codefiles, string output, bool isdebug = false)
+    static public bool BuildByRoslyn(string[] dlls, string[] codefiles, string output)
     {
         //添加语法树
         //宏解析
-        List< Microsoft.CodeAnalysis.SyntaxTree> codes = new List< Microsoft.CodeAnalysis.SyntaxTree>();
+        List<Microsoft.CodeAnalysis.SyntaxTree> codes = new List<Microsoft.CodeAnalysis.SyntaxTree>();
         var opa = new CSharpParseOptions(LanguageVersion.Latest, preprocessorSymbols: defineList);
         foreach (var cs in codefiles)
         {
@@ -205,51 +205,31 @@ public static class ScriptBuildTools
         var dir = Path.GetDirectoryName(output);
         Directory.CreateDirectory(dir);
         //编译参数
-        CSharpCompilationOptions option = null;
-        if (isdebug)
-        {
-            option = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
-                optimizationLevel: OptimizationLevel.Debug,warningLevel:4,
-                allowUnsafe: true
-            );
-        }
-        else
-        {
-            option = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
-                optimizationLevel: OptimizationLevel.Release, warningLevel: 4,
-                allowUnsafe: true
-            );
-        }
+        CSharpCompilationOptions option = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary,
+            optimizationLevel: OptimizationLevel.Release, warningLevel: 4,
+            allowUnsafe: true);
 
         //创建编译器代理
         var assemblyname = Path.GetFileNameWithoutExtension(output);
         var compilation = CSharpCompilation.Create(assemblyname, codes, assemblies, option);
         EmitResult result = null;
-        if (!isdebug)
+        var pdbPath = output + ".pdb";
+        var emitOptions = new EmitOptions(debugInformationFormat: DebugInformationFormat.PortablePdb,
+            pdbFilePath: pdbPath);
+        using (var dllStream = new MemoryStream())
+        using (var pdbStream = new MemoryStream())
         {
-            result =compilation.Emit(output);
-        }
-        else
-        {
-            var pdbPath = output + ".pdb";
-            var emitOptions = new EmitOptions(
-                debugInformationFormat: DebugInformationFormat.PortablePdb,
-                pdbFilePath: pdbPath);
-            using (var dllStream = new MemoryStream())
-            using (var pdbStream = new MemoryStream())
-            {
-                result = compilation.Emit(dllStream, pdbStream,  options: emitOptions);
-                
-                File.WriteAllBytes(output,dllStream.GetBuffer()); 
-                File.WriteAllBytes(pdbPath,pdbStream.GetBuffer()); 
-            }
+            result = compilation.Emit(dllStream, pdbStream, options: emitOptions);
+
+            File.WriteAllBytes(output, dllStream.GetBuffer());
+            File.WriteAllBytes(pdbPath, pdbStream.GetBuffer());
         }
         // 编译失败，提示
         if (!result.Success)
         {
             IEnumerable<Diagnostic> failures = result.Diagnostics.Where(diagnostic =>
-                diagnostic.IsWarningAsError ||
-                diagnostic.Severity == DiagnosticSeverity.Error);
+                    diagnostic.IsWarningAsError ||
+                    diagnostic.Severity == DiagnosticSeverity.Error);
 
             foreach (var diagnostic in failures)
             {
