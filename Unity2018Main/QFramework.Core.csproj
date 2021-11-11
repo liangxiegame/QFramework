@@ -85,10 +85,12 @@
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\CSharpObjectExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\DelegateExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\GameObjectExtension.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\GenericUtils.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\LayerMaskExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\MaterialExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\QFramework.CSharpExtension.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\TextureExtensions.cs" />
+    <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\CSharpExtension\UnityActionExtensions.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\CustomDisposable.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\DisposableList.cs" />
     <Compile Include="Assets\QFramework\Framework\Toolkits\Core\Scripts\Disposable\IDisposableExtension.cs" />
