@@ -1,8 +1,0 @@
-<linker>
-	<assembly fullname="QFramework" preserve="all" />
-	<assembly fullname="QFramework.ActionKit" preserve="all" />
-	<assembly fullname="QFramework.AudioKit" preserve="all" />
-	<assembly fullname="QFramework.Core" preserve="all" />
-	<assembly fullname="QFramework.ResKit" preserve="all" />
-	<assembly fullname="QFramework.UIKit" preserve="all" />
-</linker>

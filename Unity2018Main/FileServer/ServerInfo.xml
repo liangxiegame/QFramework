@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ServerInfo>
-  <GameVersion Version="1.0">
-    <Pathces  Version="1" Des="测试">            
- <Files Name="battlescene_unity" Url="http://192.168.0.101/AssetBundle/1.0/1/battlescene_unity" Platform="StandaloneWindows64" Md5="00df89052f38f90150b32d55d4db20df" Size="102.201172" />
-  <Files Name="Windows" Url="http://192.168.0.101/AssetBundle/1.0/1/Windows" Platform="StandaloneWindows64" Md5="472437ad5f8848615e37c643c5a869a6" Size="1.86621094" />
- </Pathces> 
-  </GameVersion>
-</ServerInfo>
