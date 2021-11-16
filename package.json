@@ -1,0 +1,23 @@
+{
+  "name": "com.liangxiegame.qframework",
+  "version": "1.0.0",
+  "displayName": "QFramework",
+  "description": "System Design Architecture",
+  "unity": "2018.4",
+  "unityRelease": "0b5",
+  "documentationUrl": "https://qframework.cn/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "dependencies": {
+    },
+ "keywords": [
+    "keyword1",
+    "keyword2",
+    "keyword3"
+  ],
+  "author": {
+    "name": "liangxie",
+    "email": "liangxiegame@163.com",
+    "url": "https://qframework.cn"
+  }
+}
