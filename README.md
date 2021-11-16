@@ -23,8 +23,8 @@
 
 * 从 [Asset Store](http://u3d.as/SJ9) 下载
 * PackageManager
-    * add from package git url：https://github.com/liangxiegame/QFramework 
-    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework
+    * add from package git url：https://github.com/liangxiegame/QFramework.git 
+    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework.git
 
 * 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
 * OpenUPM(TODO)
