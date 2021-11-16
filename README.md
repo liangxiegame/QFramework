@@ -11,7 +11,18 @@
 [![Coverage Status](https://coveralls.io/repos/github/liangxiegame/QFramework/badge.svg?branch=master)](https://coveralls.io/github/liangxiegame/QFramework?branch=master)
 
 # QFramework 简介 Intro
-  [QFramework](https://github.com/liangxiegame/QFramework) 是一套 **渐进式** 的 **快速开发** 框架。目标是作为无框架经验的公司、独立开发者、以及 Unity3D 初学者们的 **第一套框架**。框架内部积累了多个项目的在各个技术方向的解决方案。学习成本低，接入成本低，重构成本低，二次开发成本低，文档内容丰富(提供使用方式以及原理、开发文档)、插件丰富。github:https://github.com/liangxiegame/QFramework
+
+[中文]()|[English](README_EN.md)
+
+[QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 800 行，你可以完全把她放在你的笔记应用里保存。
+
+## 提供的架构图
+
+![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
+
+## 示意图
+
+![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
 
 
 
@@ -212,14 +223,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [王二](https://github.com/so-sos-so) [so-sos-so](https://github.com/so-sos-so)
 
 * [凉鞋 liangxieq](https://github.com/liangxieq)
-
-### 贡献者/感谢 Developer/Contributor:
-- [@karsion](https://github.com/karsion)
-- [@junyu-tu](https://github.com/junyu-tu)
-- [@vin129](https://github.com/vin129)
-- [@kevin](https://github.com/KEVIN-ZED)
-- [@827922094](https://github.com/827922094)
-- [@SilenceT](https://github.com/SilenceT)
 
 
 
