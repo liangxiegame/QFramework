@@ -670,11 +670,6 @@ namespace QFramework
             }
         }
 
-        public BindableProperty(T value = default)
-        {
-            Value = value;
-        }
-
         private Action<T> mOnValueChanged = (v) => { };
 
         public IUnRegister Register(Action<T> onValueChanged)

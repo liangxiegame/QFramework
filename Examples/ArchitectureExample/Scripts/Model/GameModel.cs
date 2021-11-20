@@ -16,15 +16,15 @@
 
     public class GameModel : AbstractModel, IGameModel
     {
-        public BindableProperty<int> KillCount { get; } = new BindableProperty<int>(0);
+        public BindableProperty<int> KillCount { get; } = new BindableProperty<int>();
 
-        public BindableProperty<int> Gold { get; } = new BindableProperty<int>(0);
+        public BindableProperty<int> Gold { get; } = new BindableProperty<int>();
 
-        public BindableProperty<int> Score { get; } = new BindableProperty<int>(0);
+        public BindableProperty<int> Score { get; } = new BindableProperty<int>();
 
-        public BindableProperty<int> BestScore { get; } = new BindableProperty<int>(0);
+        public BindableProperty<int> BestScore { get; } = new BindableProperty<int>();
 
-        public BindableProperty<int> Life { get; } = new BindableProperty<int>(0);
+        public BindableProperty<int> Life { get; } = new BindableProperty<int>();
 
         protected override void OnInit()
         {
