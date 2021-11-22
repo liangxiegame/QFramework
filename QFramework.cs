@@ -673,12 +673,9 @@ namespace QFramework
             }
         }
 
-        public BindableProperty(T value) {
+        public BindableProperty(T value = default) 
+        {
             Value = value;
-        }
-
-        public BindableProperty() {
-
         }
 
         private Action<T> mOnValueChanged = (v) => { };
