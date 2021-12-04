@@ -534,6 +534,8 @@ namespace QFramework
         private Dictionary<Type, IRegistrations> mEventRegistration = new Dictionary<Type, IRegistrations>();
 
 
+        public static readonly TypeEventSystem Global = new TypeEventSystem();
+        
         public void Send<T>() where T : new()
         {
             var e = new T();
@@ -701,4 +703,3 @@ namespace QFramework
     
     #endregion
 }
-
