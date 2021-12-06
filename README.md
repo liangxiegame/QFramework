@@ -47,9 +47,11 @@
 | gitee issue | gitee 社区（国内访问快） | [地址](https://gitee.com/liangxiegame/QFramework/issues) |
 | ------**教程**------ |  |  |
 | 教程《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)   |
-| ------**案例**------ |  |  |
+| ------**商业案例**------ |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
+| ------**群友案例**------ |  |  |
+| 赛车游戏《Crazy Car》 | 群友使用 QF 进行重构的赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar))     |
 
 
 
