@@ -40,7 +40,7 @@
 
 | 名称                     | 描述                                     | 地址                                                         |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
-| Example 示例 | 包含 CounterApp | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
+| Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
 | ------**社区**------ |  |  |
 | QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
 | github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
