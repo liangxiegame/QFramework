@@ -1,10 +1,6 @@
-[TOC]
 
 
 
-
-
-![](./Documents/Res/QFramework-icon-0.1.0-512x128.png)
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
@@ -14,32 +10,6 @@
 [中文]()|[English](README_EN.md)
 
 [QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 800 行，你可以完全把她放在你的笔记应用里保存。
-
-### 运行环境
-
-* Unity 2018.4.x ~ 2021.x
-
-## 安装
-
-* 从 [Asset Store](http://u3d.as/SJ9) 下载
-* PackageManager
-    * add from package git url：https://github.com/liangxiegame/QFramework.git 
-    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework.git
-
-* 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
-* OpenUPM(TODO)
-
-
-
-## 示例&Demo
-
-* [Example](Examples) (安装后即可运行)
-
-## 交流&社区
-
-* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **
-* **[github issue](https://github.com/liangxiegame/QFramework/issues/new)**
-* **[gitee issue](https://gitee.com/liangxiegame/QFramework/issues)**
 
 ## 提供的架构图
 
@@ -51,12 +21,35 @@
 
 
 
+### 运行环境
+
+* Unity 2018.4.x ~ 2021.x
+
+## 安装
+
+* 从 [Asset Store](http://u3d.as/SJ9) 下载
+* PackageManager
+    * add from package git url：https://github.com/liangxiegame/QFramework.git 
+    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework.git
+* 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
+* OpenUPM(TODO)
 
 
-### ShowCase（商业案例）
-| [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
-| :-------------------------------------------------------: | :---------------------------------------------: |
-|        ![](./Documents/Res/ShowCase/鬼山之下.png)         |  ![](./Documents/Res/ShowCase/谐音梗挑战.png)   |
+
+## 资源
+
+| 名称                     | 描述                                     | 地址                                                         |
+| ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
+| Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
+| ------**社区**------ |  |  |
+| QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
+| github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue | gitee 社区（国内访问快） | [地址](https://gitee.com/liangxiegame/QFramework/issues) |
+| ------**教程**------ |  |  |
+| 教程《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)   |
+| ------**案例**------ |  |  |
+| 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
+| 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
 
 
 
@@ -85,7 +78,6 @@
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
 
 
-
 ### 赞助 Donate:
 
 * 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
@@ -93,50 +85,11 @@
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
 
 
-
-
-
 ## TODO:
 
 以下内容待整理内容
 
 
-
-
-
-#### 快速图解:
-
-**1.ViewController和Bind的基本使用 自动生成脚本**
-
-![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/1.ViewController和Bind的基本使用自动生成脚本.gif) 
-
-自动生成的脚本如下：
-
-![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/1.相关脚本.jpg) 
-
-**2.ViewController和ViewController的嵌套使用**
-
-![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/2.ViewController和ViewController的嵌套使用.gif) 
-
-自动生成的脚本如下：
-
-![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/2.相关脚本.jpg) 
-
-**3.自动生成Prefab**
-
-![](./Documents/Res/Gif/1.ViewController与Bind模式下脚本和Prefab生成/3.自动生成Prefab.gif) 
-
-**4.使用UIKit创建Prefab和脚本**
-
-![](./Documents/Res/Gif/2.UIKit/1.使用UIKit创建Prefab和脚本.gif) 
-
-自动生成的脚本如下：
-
-![](./Documents/Res/Gif/2.UIKit/1.相关脚本.jpg) 
-
-**5.使用UIKit子控件UIElement**
-
-![](./Documents/Res/Gif/2.UIKit/2.使用UIKit子控件UIElement.gif) 
 
 #### 快速开始 QuickStart:
 

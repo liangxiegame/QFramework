@@ -2,18 +2,18 @@
   "name": "com.liangxiegame.qframework",
   "version": "1.0.0",
   "displayName": "QFramework",
-  "description": "System Design Architecture",
+  "description": "QFramework 是一套只有不到 800 行代码的系统设计架构，它包含易上手的架构核心和丰富的生态，可以用这套架构开发任意类型的项目，包括游戏、App、插件、框架、网站、网页、服务器等 | QFramework is a system design architecture with only 800 lines of code. she has easy 2 use architecture and feature bundled ecosystem. it can be used to make game、app、plugin、framework、webpage、server etc.",
+  "license": "MIT",
   "unity": "2018.4",
-  "unityRelease": "0b5",
   "documentationUrl": "https://qframework.cn/",
-  "changelogUrl": "https://example.com/changelog.html",
-  "licensesUrl": "https://example.com/licensing.html",
-  "dependencies": {
-    },
- "keywords": [
-    "keyword1",
-    "keyword2",
-    "keyword3"
+  "keywords": [
+    "SystemDesign",
+    "Unity",
+    "DDD",
+    "CQRS",
+    "Event-Driven",
+    "Data-Driven",
+    "Full-Stack"
   ],
   "author": {
     "name": "liangxie",
