@@ -50,6 +50,8 @@
 | ------**案例**------ |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
+| ------**群友案例**------ |  |  |
+| 赛车游戏《Crazy Car》 | 群友使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar))     |
 
 
 
