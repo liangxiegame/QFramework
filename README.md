@@ -54,8 +54,8 @@
 | ------**产品案例**------ |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-|                           |                                                              |                                                              |
-|                           |                                                              |                                                              |
+| ------**官方工具**------  |                                                              |                                                              |
+| SingletonKit              | 单例工具                                                     | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 
 
 
