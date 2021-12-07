@@ -7,10 +7,11 @@
  * https://github.com/liangxiegame/QFramework
  * 
  * Author:
- *  liangxie
- *  王二 soso
+ *  liangxie        https://github.com/liangxie
+ *  soso            https://github.com/so-sos-so
+ *
  * Contributor
- *  TastSong
+ *  TastSong        https://github.com/TastSong
  * 
  * Community
  *  QQ Group: 623597263
