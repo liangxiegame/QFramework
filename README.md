@@ -27,12 +27,10 @@
 
 ## 安装
 
-* 从 [Asset Store](http://u3d.as/SJ9) 下载
 * PackageManager
     * add from package git url：https://github.com/liangxiegame/QFramework.git 
     * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework.git
 * 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
-* OpenUPM(TODO)
 
 
 
@@ -55,7 +53,7 @@
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
 | ------**官方工具**------  |                                                              |                                                              |
-| SingletonKit              | 单例工具                                                     | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 
 
 
