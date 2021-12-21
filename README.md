@@ -56,6 +56,7 @@
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 | ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
 | IOCKit | 易上手功能强大的 IOC 容器 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
 
 
 
@@ -190,18 +191,18 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 | 模块名称  | 包含功能                  | 描述                                                         |
 | --------- | ------------------------- | ------------------------------------------------------------ |
-| Core      | Architecture              | 一套全栈通用的系统设计架构，QF 的本身是用这套架构设计，同时这套架构可以应用与项目开发，为 QF 的主要提供架构，QF 的文档系统（React）、QF 的插件系统（.Net Core）均用此架构开发。 |
+| Core      |                           | 一套全栈通用的系统设计架构，QF 的本身是用这套架构设计，同时这套架构可以应用与项目开发，为 QF 的主要提供架构，QF 的文档系统（React）、QF 的插件系统（.Net Core）均用此架构开发。 |
 |           | CodeGen                   | 代码生成库，一套链式代码生成模板。                           |
-|           | Singleton                 | 一套单例模板工具                                             |
-|           | IOC                       | 依赖注入/控制反转容器                                        |
+|           |                           |                                                              |
+|           |                           |                                                              |
 |           | Event                     | 事件机制实现，包含枚举事件 和 类型事件                       |
 |           | Pool                      | 各种对象池提供，包含 List、Dictionary 对象池                 |
 |           | FSM                       | 一套基于类型的状态机实现                                     |
-|           | Disposable                | 销毁模式 和 对应扩展方法实现                                 |
-|           | Factory                   | 对象的创建模式封装                                           |
+|           |                           |                                                              |
+|           |                           |                                                              |
 |           | RefCounter                | 引用计数器实现                                               |
-|           | CSharpExtensions          | 大量的方便易用的扩展实现                                     |
-|           | Table                     | 可以建立索引的表格数据结构实现                               |
+|           |                           |                                                              |
+|           |                           |                                                              |
 |           | EasyIMGUI                 | 方便易用的、面向对象的（组合模式）的 IMGUI（OnGUI）绘制库    |
 |           | Utility                   | 各种静态方法封装                                             |
 |           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
