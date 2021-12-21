@@ -38,22 +38,23 @@
 
 | 名称                     | 描述                                     | 地址                                                         |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
-| ------**示例**/Demo------ |  |  |
+| **示例/Demo** |  |  |
 | Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
 | ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
-| ------**群友案例**------ |  |  |
+| **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
-| ------**社区**------ |  |  |
+| **社区** |  |  |
 | QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
 | github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
 | gitee issue | gitee 社区（国内访问快） | [地址](https://gitee.com/liangxiegame/QFramework/issues) |
-| ------**教程**------ |  |  |
+| **教程** |  |  |
 | 教程《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)   |
-| ------**产品案例**------ |  |  |
+| **产品案例** |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-| ------**官方工具**------  |                                                              |                                                              |
+| **官方工具**  |                                                              |                                                              |
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
 
 
 
