@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2015 ~ 2022 liangxiegame MIT License
  *
  * QFramework v1.0
@@ -488,6 +488,29 @@ namespace QFramework
         void UnRegister();
     }
 
+    public interface IUnRegisterList
+    {
+        List<IUnRegister> UnregisterList { get; }
+    }
+
+    public static class IUnRegisterListExtension
+    {
+        public static void AddToUnregisterList(this IUnRegister self, IUnRegisterList unRegisterList)
+        {
+            unRegisterList.UnregisterList.Add(self);
+        }
+
+        public static void UnRegisterAll(this IUnRegisterList self)
+        {
+            foreach (var unRegister in self.UnregisterList)
+            {
+                unRegister.UnRegister();
+            }
+            
+            self.UnregisterList.Clear();
+        }
+    }
+
     public struct TypeEventSystemUnRegister<T> : IUnRegister
     {
         public ITypeEventSystem TypeEventSystem;
@@ -500,6 +523,35 @@ namespace QFramework
             TypeEventSystem = null;
 
             OnEvent = null;
+        }
+    }
+    
+    /// <summary>
+    /// 自定义可注销的类
+    /// </summary>
+    public class CustomUnRegister : IUnRegister
+    {
+        /// <summary>
+        /// 委托对象
+        /// </summary>
+        private Action mOnUnRegsiter = null;
+
+        /// <summary>
+        /// 带参构造函数
+        /// </summary>
+        /// <param name="onDispose"></param>
+        public CustomUnRegister(Action onUnRegsiter)
+        {
+            mOnUnRegsiter = onUnRegsiter;
+        }
+
+        /// <summary>
+        /// 资源释放
+        /// </summary>
+        public void UnRegister()
+        {
+            mOnUnRegsiter.Invoke();
+            mOnUnRegsiter = null;
         }
     }
 
@@ -654,7 +706,7 @@ namespace QFramework
             mValue = defaultValue;
         }
 
-        private T mValue = default(T);
+        protected T mValue = default(T);
 
         public T Value
         {
