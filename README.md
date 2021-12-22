@@ -59,6 +59,7 @@
 | TableKit | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
 | PoolKit | 对象池工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
 | LogKit | 日志工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit | 动作序列工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
 
 
 
@@ -103,28 +104,6 @@
 
 #### 快速开始 QuickStart:
 
-**1.Action Kit**
-
-* chainning style(Driven by MonoBehaviour or Update)
-
-``` csharp
-this.Sequence()
-	.Delay(1.0f)
-	.Event(()=>Log.I("Delayed 1 second"))
-	.Until(()=>something is done)
-	.Begin();
-```
-
-* object oriented style
-
-``` csharp
-var sequenceNode = new SequenceNode();
-sequenceNode.Append(DelayAction.Allocate(1.0f));
-sequenceNode.Append(EventAction.Allocate(()=>Log.I("Delayed 1 second"));
-sequenceNode.Append(UntilAction.Allocate(()=>something is true));
-
-this.ExecuteNode(sequenceNode);
-```
 
 **2.Res Kit**
 ``` csharp
