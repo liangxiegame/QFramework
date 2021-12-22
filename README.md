@@ -154,8 +154,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
 
 #### 参考 Reference:
-* [MultyFramework](https://github.com/OnClick9927/MultyFramework)
-* [IFramework_GUICanvas](https://github.com/OnClick9927/IFramework_GUICanvas)
 * [IFramework](https://github.com/OnClick9927/IFramework)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
@@ -173,20 +171,20 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 
 | 模块名称  | 包含功能                  | 描述                                                         |
 | --------- | ------------------------- | ------------------------------------------------------------ |
-| Core      |                           | 一套全栈通用的系统设计架构，QF 的本身是用这套架构设计，同时这套架构可以应用与项目开发，为 QF 的主要提供架构，QF 的文档系统（React）、QF 的插件系统（.Net Core）均用此架构开发。 |
+|           |                           |                                                              |
 |           | CodeGen                   | 代码生成库，一套链式代码生成模板。                           |
 |           |                           |                                                              |
 |           |                           |                                                              |
 |           | Event                     | 事件机制实现，包含枚举事件 和 类型事件                       |
-|           | Pool                      | 各种对象池提供，包含 List、Dictionary 对象池                 |
+|           |                           |                                                              |
 |           | FSM                       | 一套基于类型的状态机实现                                     |
 |           |                           |                                                              |
 |           |                           |                                                              |
-|           | RefCounter                | 引用计数器实现                                               |
+|           |                           |                                                              |
 |           |                           |                                                              |
 |           |                           |                                                              |
 |           | EasyIMGUI                 | 方便易用的、面向对象的（组合模式）的 IMGUI（OnGUI）绘制库    |
-|           | Utility                   | 各种静态方法封装                                             |
+|           |                           |                                                              |
 |           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
 | ActionKit | 之后写                    |                                                              |
 | ResKit    | SimulationModel           | 真机和编辑器模拟资源加载双模式，让开发阶段与真机阶段自如切换 |
@@ -197,6 +195,6 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 |           | LoadASync                 | 异步加载与异步队列加载                                       |
 |           | CustomRes                 | Reskit功能自定义拓展                                         |
 |           | CustomLoadConfig          | AssetBundle自定义配置表生成                                  |
-| UIKit     | 之后写                    |                                                              |
-| AudioKit  | 之后写                    |                                                              |
+| UIKit     |                           |                                                              |
+|           |                           |                                                              |
 
