@@ -60,6 +60,7 @@
 | PoolKit | 对象池工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
 | LogKit | 日志工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
 | ActionKit | 动作序列工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit | 资源管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
 
 
 
@@ -103,29 +104,6 @@
 
 
 #### 快速开始 QuickStart:
-
-
-**2.Res Kit**
-``` csharp
-// allocate a loader when initialize a panel or a monobehavour
-var loader = ResLoader.Allocate();
-
-// load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("resources://smobj");
-
-loader.LoadSync<Texture2D>("resources://Bg");
-
-// load by asset bundle's assetName
-loader.LoadSync<Texture2D>("HomeBg");
-
-// load by asset bundle name and assetName
-loader.LoadSync<Texture2D>("home","HomeBg");
-
-
-// resycle this panel/monobehaivour's loaded res when destroyed 
-loader.Recycle2Cache();
-loader = null;
-```
 
 **3.UI Kit**
 
