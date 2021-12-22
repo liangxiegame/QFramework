@@ -61,6 +61,7 @@
 | LogKit | 日志工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
 | ActionKit | 动作序列工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
 | ResKit | 资源管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护 | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
 
 
 
@@ -99,26 +100,8 @@
 
 ## TODO:
 
-以下内容待整理内容
-
-
-
-#### 快速开始 QuickStart:
-
-**3.UI Kit**
-
-``` csharp
-// open a panel from assetBundle
-UIKit.OpenPanel<UIMainPanel>();
-
-// load a panel from specified Resources
-UIKit.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
-
-// load a panel from specield assetName
-UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
-```
-
 ### 技术支持 Tech Support：
+
 * [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
 * **社区:https://qframework.cn**
 * [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
