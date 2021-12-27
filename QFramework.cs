@@ -511,30 +511,15 @@ namespace QFramework
         }
     }
 
-    public struct TypeEventSystemUnRegister<T> : IUnRegister
-    {
-        public ITypeEventSystem TypeEventSystem;
-        public Action<T> OnEvent;
-        
-        public void UnRegister()
-        {
-            TypeEventSystem.UnRegister<T>(OnEvent);
-
-            TypeEventSystem = null;
-
-            OnEvent = null;
-        }
-    }
-    
     /// <summary>
     /// 自定义可注销的类
     /// </summary>
-    public class CustomUnRegister : IUnRegister
+    public struct CustomUnRegister : IUnRegister
     {
         /// <summary>
         /// 委托对象
         /// </summary>
-        private Action mOnUnRegsiter = null;
+        private Action mOnUnRegister { get; set; }
 
         /// <summary>
         /// 带参构造函数
@@ -542,7 +527,7 @@ namespace QFramework
         /// <param name="onDispose"></param>
         public CustomUnRegister(Action onUnRegsiter)
         {
-            mOnUnRegsiter = onUnRegsiter;
+            mOnUnRegister = onUnRegsiter;
         }
 
         /// <summary>
@@ -550,8 +535,8 @@ namespace QFramework
         /// </summary>
         public void UnRegister()
         {
-            mOnUnRegsiter.Invoke();
-            mOnUnRegsiter = null;
+            mOnUnRegister.Invoke();
+            mOnUnRegister = null;
         }
     }
 
@@ -626,12 +611,13 @@ namespace QFramework
 
         public IUnRegister Register<T>(Action<T> onEvent)
         {
+
             var type = typeof(T);
             IRegistrations registrations;
 
             if (mEventRegistration.TryGetValue(type, out registrations))
             {
-                
+
             }
             else
             {
@@ -641,11 +627,7 @@ namespace QFramework
 
             (registrations as Registrations<T>).OnEvent += onEvent;
 
-            return new TypeEventSystemUnRegister<T>()
-            {
-                OnEvent = onEvent,
-                TypeEventSystem = this
-            };
+            return new CustomUnRegister(() => { UnRegister<T>(onEvent); });
         }
 
         public void UnRegister<T>(Action<T> onEvent)

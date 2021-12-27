@@ -112,10 +112,6 @@
 * 最新版本:https://github.com/liangxiegame/QFramework/releases
 * 
 
-### 可选的包含项目 Include Projects:
-* [UniRx](https://github.com/neuecc/UniRx)
-* [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
-
 #### 参考 Reference:
 * [IFramework](https://github.com/OnClick9927/IFramework)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
@@ -127,37 +123,3 @@
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
 * [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
 * [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
-
-
-
-## 功能列表
-
-| 模块名称  | 包含功能                  | 描述                                                         |
-| --------- | ------------------------- | ------------------------------------------------------------ |
-|           |                           |                                                              |
-|           | CodeGen                   | 代码生成库，一套链式代码生成模板。                           |
-|           |                           |                                                              |
-|           |                           |                                                              |
-|           | Event                     | 事件机制实现，包含枚举事件 和 类型事件                       |
-|           |                           |                                                              |
-|           | FSM                       | 一套基于类型的状态机实现                                     |
-|           |                           |                                                              |
-|           |                           |                                                              |
-|           |                           |                                                              |
-|           |                           |                                                              |
-|           |                           |                                                              |
-|           | EasyIMGUI                 | 方便易用的、面向对象的（组合模式）的 IMGUI（OnGUI）绘制库    |
-|           |                           |                                                              |
-|           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
-| ActionKit | 之后写                    |                                                              |
-| ResKit    | SimulationModel           | 真机和编辑器模拟资源加载双模式，让开发阶段与真机阶段自如切换 |
-|           | ResPathLoad               | 从Resources目录与沙盒目录以及从网络中加载资源                |
-|           | LoadSprite                | 加载Sprite或精灵图集                                         |
-|           | LoadScene                 | 在AssetBundle中同步与异步加载Scene场景                       |
-|           | ResAssetManager           | 标记的AssetBunlde资源管理，快速定位                          |
-|           | LoadASync                 | 异步加载与异步队列加载                                       |
-|           | CustomRes                 | Reskit功能自定义拓展                                         |
-|           | CustomLoadConfig          | AssetBundle自定义配置表生成                                  |
-| UIKit     |                           |                                                              |
-|           |                           |                                                              |
-
