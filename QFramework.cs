@@ -13,11 +13,11 @@
  *
  * Contributor
  *  TastSong        https://github.com/TastSong
- *  京肠炒饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
+ *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2021.1.6 13:52 fix win and webgl aot problems
+ * Latest Update: 2021.1.6 14:31 fix error spell
  ****************************************************************************/
 
 using System;
