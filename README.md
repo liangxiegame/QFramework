@@ -36,8 +36,10 @@
 
 ## 资源
 
-| 名称                     | 描述                                     | 地址                                                         |
+| **版本** |                                      |                                                          |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
+| QFramework.cs | QFramework 本体架构的实现 |  |
+| QFrameworkWith Toolkits | QFramework  集成 UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [从国内服务器下载](https://file.liangxiegame.com/Frameworkv0_14_22_a4b5a851_aff3_4f11_beb5_6d87a600c554.unitypackage)\|[AssetStore](http://u3d.as/SJ9) |
 | **示例/Demo** |  |  |
 | Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
 | ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
