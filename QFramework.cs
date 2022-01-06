@@ -5,6 +5,7 @@
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  * 
  * Author:
  *  liangxie        https://github.com/liangxie
@@ -12,9 +13,11 @@
  *
  * Contributor
  *  TastSong        https://github.com/TastSong
+ *  京肠炒饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
  * 
  * Community
  *  QQ Group: 623597263
+ * Latest Update: 2021.1.6 13:52 fix win and webgl aot problems
  ****************************************************************************/
 
 using System;
@@ -179,7 +182,7 @@ namespace QFramework
             return query.Do();
         }
 
-        private ITypeEventSystem mTypeEventSystem = new TypeEventSystem();
+        private TypeEventSystem mTypeEventSystem = new TypeEventSystem();
         
         public void SendEvent<TEvent>() where TEvent : new()
         {
@@ -475,14 +478,6 @@ namespace QFramework
 
     #region TypeEventSystem
 
-     public interface ITypeEventSystem
-    {
-        void Send<T>() where T : new();
-        void Send<T>(T e);
-        IUnRegister Register<T>(Action<T> onEvent);
-        void UnRegister<T>(Action<T> onEvent);
-    }
-
     public interface IUnRegister
     {
         void UnRegister();
@@ -575,7 +570,7 @@ namespace QFramework
         }
     }
     
-    public class TypeEventSystem  : ITypeEventSystem
+    public class TypeEventSystem  
     {
         public interface IRegistrations
         {
