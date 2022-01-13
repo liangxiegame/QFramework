@@ -15,7 +15,11 @@
 
 ![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
 
-## 示意图
+## 举个例子（一图胜千言😂）
+
+![](Example.png)
+
+## 各种情况的示意图
 
 ![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
 
@@ -36,24 +40,36 @@
 
 ## 资源
 
-| 名称                     | 描述                                     | 地址                                                         |
+| **版本** |                                      |                                                          |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
-| ------**示例**/Demo------ |  |  |
+| QFramework.cs | QFramework 本体架构的实现 |  |
+| QFrameworkWith Toolkits | QFramework  集成 UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [从国内服务器下载](https://file.liangxiegame.com/Frameworkv0_14_22_a4b5a851_aff3_4f11_beb5_6d87a600c554.unitypackage)\|[AssetStore](http://u3d.as/SJ9) |
+| **示例/Demo** |  |  |
 | Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
 | ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
-| ------**群友案例**------ |  |  |
+| **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
-| ------**社区**------ |  |  |
+| **社区** |  |  |
 | QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
 | github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
 | gitee issue | gitee 社区（国内访问快） | [地址](https://gitee.com/liangxiegame/QFramework/issues) |
-| ------**教程**------ |  |  |
+| **教程** |  |  |
 | 教程《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)   |
-| ------**产品案例**------ |  |  |
+| **产品案例** |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-| ------**官方工具**------  |                                                              |                                                              |
+| **官方工具**  |                                                              |                                                              |
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
+| IOCKit | 易上手功能强大的 IOC 容器 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
+| PoolKit | 对象池工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
+| LogKit | 日志工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit | 动作序列工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit | 资源管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护 | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
+| AudioKit | 一套音频管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
+| PackageKit | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
 
 
 
@@ -75,6 +91,7 @@
 
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
+- [TinaX Framework](https://tinax.corala.space/) “开箱即用”的Unity独立游戏开发工具
 - [JEngine](https://github.com/JasonXuDeveloper/JEngine)  一个基于XAsset&ILRuntime，精简好用的热更框架
 
 ### 代码规范完全遵循:
@@ -91,71 +108,8 @@
 
 ## TODO:
 
-以下内容待整理内容
-
-
-
-#### 快速开始 QuickStart:
-
-**1.Action Kit**
-
-* chainning style(Driven by MonoBehaviour or Update)
-
-``` csharp
-this.Sequence()
-	.Delay(1.0f)
-	.Event(()=>Log.I("Delayed 1 second"))
-	.Until(()=>something is done)
-	.Begin();
-```
-
-* object oriented style
-
-``` csharp
-var sequenceNode = new SequenceNode();
-sequenceNode.Append(DelayAction.Allocate(1.0f));
-sequenceNode.Append(EventAction.Allocate(()=>Log.I("Delayed 1 second"));
-sequenceNode.Append(UntilAction.Allocate(()=>something is true));
-
-this.ExecuteNode(sequenceNode);
-```
-
-**2.Res Kit**
-``` csharp
-// allocate a loader when initialize a panel or a monobehavour
-var loader = ResLoader.Allocate();
-
-// load someth in a panel or a monobehaviour
-loader.LoadSync<GameObject>("resources://smobj");
-
-loader.LoadSync<Texture2D>("resources://Bg");
-
-// load by asset bundle's assetName
-loader.LoadSync<Texture2D>("HomeBg");
-
-// load by asset bundle name and assetName
-loader.LoadSync<Texture2D>("home","HomeBg");
-
-
-// resycle this panel/monobehaivour's loaded res when destroyed 
-loader.Recycle2Cache();
-loader = null;
-```
-
-**3.UI Kit**
-
-``` csharp
-// open a panel from assetBundle
-UIKit.OpenPanel<UIMainPanel>();
-
-// load a panel from specified Resources
-UIKit.OpenPanel<UIMainPanel>(prefabName:"Resources/UIMainPanel");
-
-// load a panel from specield assetName
-UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
-```
-
 ### 技术支持 Tech Support：
+
 * [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
 * **社区:https://qframework.cn**
 * [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
@@ -164,13 +118,7 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * 最新版本:https://github.com/liangxiegame/QFramework/releases
 * 
 
-### 可选的包含项目 Include Projects:
-* [UniRx](https://github.com/neuecc/UniRx)
-* [Json.net](https://github.com/JamesNK/Newtonsoft.Json)
-
 #### 参考 Reference:
-* [MultyFramework](https://github.com/OnClick9927/MultyFramework)
-* [IFramework_GUICanvas](https://github.com/OnClick9927/IFramework_GUICanvas)
 * [IFramework](https://github.com/OnClick9927/IFramework)
 * [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
 * [BDFramework](https://github.com/yimengfan/BDFramework.Core)
@@ -181,37 +129,3 @@ UIKit.OpenPanel<UIMainPanel>(prefabName:"UIMainPanel1");
 * [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
 * [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
 * [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
-
-
-
-## 功能列表
-
-| 模块名称  | 包含功能                  | 描述                                                         |
-| --------- | ------------------------- | ------------------------------------------------------------ |
-| Core      | Architecture              | 一套全栈通用的系统设计架构，QF 的本身是用这套架构设计，同时这套架构可以应用与项目开发，为 QF 的主要提供架构，QF 的文档系统（React）、QF 的插件系统（.Net Core）均用此架构开发。 |
-|           | CodeGen                   | 代码生成库，一套链式代码生成模板。                           |
-|           | Singleton                 | 一套单例模板工具                                             |
-|           | IOC                       | 依赖注入/控制反转容器                                        |
-|           | Event                     | 事件机制实现，包含枚举事件 和 类型事件                       |
-|           | Pool                      | 各种对象池提供，包含 List、Dictionary 对象池                 |
-|           | FSM                       | 一套基于类型的状态机实现                                     |
-|           | Disposable                | 销毁模式 和 对应扩展方法实现                                 |
-|           | Factory                   | 对象的创建模式封装                                           |
-|           | RefCounter                | 引用计数器实现                                               |
-|           | CSharpExtensions          | 大量的方便易用的扩展实现                                     |
-|           | Table                     | 可以建立索引的表格数据结构实现                               |
-|           | EasyIMGUI                 | 方便易用的、面向对象的（组合模式）的 IMGUI（OnGUI）绘制库    |
-|           | Utility                   | 各种静态方法封装                                             |
-|           | ManagerOfManagers（弃用） | Manager Of Managers 架构的实现                               |
-| ActionKit | 之后写                    |                                                              |
-| ResKit    | SimulationModel           | 真机和编辑器模拟资源加载双模式，让开发阶段与真机阶段自如切换 |
-|           | ResPathLoad               | 从Resources目录与沙盒目录以及从网络中加载资源                |
-|           | LoadSprite                | 加载Sprite或精灵图集                                         |
-|           | LoadScene                 | 在AssetBundle中同步与异步加载Scene场景                       |
-|           | ResAssetManager           | 标记的AssetBunlde资源管理，快速定位                          |
-|           | LoadASync                 | 异步加载与异步队列加载                                       |
-|           | CustomRes                 | Reskit功能自定义拓展                                         |
-|           | CustomLoadConfig          | AssetBundle自定义配置表生成                                  |
-| UIKit     | 之后写                    |                                                              |
-| AudioKit  | 之后写                    |                                                              |
-

@@ -1,10 +1,11 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2015 ~ 2022 liangxiegame MIT License
  *
  * QFramework v1.0
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  * 
  * Author:
  *  liangxie        https://github.com/liangxie
@@ -12,9 +13,11 @@
  *
  * Contributor
  *  TastSong        https://github.com/TastSong
+ *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
  * 
  * Community
  *  QQ Group: 623597263
+ * Latest Update: 2021.1.6 14:31 fix error spell
  ****************************************************************************/
 
 using System;
@@ -179,7 +182,7 @@ namespace QFramework
             return query.Do();
         }
 
-        private ITypeEventSystem mTypeEventSystem = new TypeEventSystem();
+        private TypeEventSystem mTypeEventSystem = new TypeEventSystem();
         
         public void SendEvent<TEvent>() where TEvent : new()
         {
@@ -475,31 +478,60 @@ namespace QFramework
 
     #region TypeEventSystem
 
-     public interface ITypeEventSystem
-    {
-        void Send<T>() where T : new();
-        void Send<T>(T e);
-        IUnRegister Register<T>(Action<T> onEvent);
-        void UnRegister<T>(Action<T> onEvent);
-    }
-
     public interface IUnRegister
     {
         void UnRegister();
     }
 
-    public struct TypeEventSystemUnRegister<T> : IUnRegister
+    public interface IUnRegisterList
     {
-        public ITypeEventSystem TypeEventSystem;
-        public Action<T> OnEvent;
-        
+        List<IUnRegister> UnregisterList { get; }
+    }
+
+    public static class IUnRegisterListExtension
+    {
+        public static void AddToUnregisterList(this IUnRegister self, IUnRegisterList unRegisterList)
+        {
+            unRegisterList.UnregisterList.Add(self);
+        }
+
+        public static void UnRegisterAll(this IUnRegisterList self)
+        {
+            foreach (var unRegister in self.UnregisterList)
+            {
+                unRegister.UnRegister();
+            }
+            
+            self.UnregisterList.Clear();
+        }
+    }
+
+    /// <summary>
+    /// 自定义可注销的类
+    /// </summary>
+    public struct CustomUnRegister : IUnRegister
+    {
+        /// <summary>
+        /// 委托对象
+        /// </summary>
+        private Action mOnUnRegister { get; set; }
+
+        /// <summary>
+        /// 带参构造函数
+        /// </summary>
+        /// <param name="onDispose"></param>
+        public CustomUnRegister(Action onUnRegsiter)
+        {
+            mOnUnRegister = onUnRegsiter;
+        }
+
+        /// <summary>
+        /// 资源释放
+        /// </summary>
         public void UnRegister()
         {
-            TypeEventSystem.UnRegister<T>(OnEvent);
-
-            TypeEventSystem = null;
-
-            OnEvent = null;
+            mOnUnRegister.Invoke();
+            mOnUnRegister = null;
         }
     }
 
@@ -538,7 +570,7 @@ namespace QFramework
         }
     }
     
-    public class TypeEventSystem  : ITypeEventSystem
+    public class TypeEventSystem  
     {
         public interface IRegistrations
         {
@@ -574,12 +606,13 @@ namespace QFramework
 
         public IUnRegister Register<T>(Action<T> onEvent)
         {
+
             var type = typeof(T);
             IRegistrations registrations;
 
             if (mEventRegistration.TryGetValue(type, out registrations))
             {
-                
+
             }
             else
             {
@@ -589,11 +622,7 @@ namespace QFramework
 
             (registrations as Registrations<T>).OnEvent += onEvent;
 
-            return new TypeEventSystemUnRegister<T>()
-            {
-                OnEvent = onEvent,
-                TypeEventSystem = this
-            };
+            return new CustomUnRegister(() => { UnRegister<T>(onEvent); });
         }
 
         public void UnRegister<T>(Action<T> onEvent)
@@ -654,7 +683,7 @@ namespace QFramework
             mValue = defaultValue;
         }
 
-        private T mValue = default(T);
+        protected T mValue = default(T);
 
         public T Value
         {
