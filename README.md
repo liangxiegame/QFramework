@@ -46,14 +46,14 @@
     * 可以获取Model
     * 可以发送Event
     * 可以发送Command
-    * 使用规则：
-        * IController 更改 ISystem、IModel 的状态必须用Command
-        * ISystem、IModel状态发生变更后通知IController必须用事件或BindableProperty
-        * IController可以获取ISystem、IModel对象来进行数据查询
-        * ICommand不能有状态
-        * 上层可以直接获取下层，下层不能获取上层对象
-        * 下层向上层通信用事件
-        * 上层向下层通信用方法调用（只是做查询，状态变更用Command），IController的交互逻辑为特别情况，只能用Command
+* 层级规则：
+    * IController 更改 ISystem、IModel 的状态必须用Command
+    * ISystem、IModel状态发生变更后通知IController必须用事件或BindableProperty
+    * IController可以获取ISystem、IModel对象来进行数据查询
+    * ICommand不能有状态
+    * 上层可以直接获取下层，下层不能获取上层对象
+    * 下层向上层通信用事件
+    * 上层向下层通信用方法调用（只是做查询，状态变更用Command），IController的交互逻辑为特别情况，只能用Command
 
 （照抄自：[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)）
 

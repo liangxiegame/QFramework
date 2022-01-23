@@ -8,58 +8,100 @@
 
 [中文](README)|[English](README_EN.md)
 
-[QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 800 行，你可以完全把她放在你的笔记应用里保存。
+[QFramework](https://github.com/liangxiegame/QFramework)  is a framework. she support solid pricinple、domain design driven、event-driven、data-driven、layered、mvc、cqrs、modulization、extendable、scalable architecture. Simple but powerful! she only has 800 lines of code.can save to a note-taking app. 
 
-### 运行环境
+## Architecture diagram
+
+![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
+
+## For Example（😂）
+
+![](https://file.liangxiegame.com/5fcdf6d1-0605-4ae6-b4bf-12e661eb2f1e.png)
+
+## Schematic diagram of various situations
+
+![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
+
+## Architecture Rule
+
+**QFramework System Design Architecture has 4 layers：**
+
+* Presentation Layer：ViewController Layer. Using IController interface，recive input from user and state changed event from model. In unity MonoBehaviour is on presentation layer
+    * Can get System
+    * Can get Model
+    * Can send Command
+    * Can listen Event
+* System Layer：Using ISystem interface. share IController's part of responsibility. Sharing logic shared across multiple presentation layers，suchas time system、shop system、archivement system.
+    * Can get System
+    * Can get Model
+    * Can listen Event
+    * Can send Event
+* Model Layer：Using IModel interface.Responsible for data definition, data addition, deletion, query and modification methods.
+    * Can get Utility
+    * Can send Event
+* Utility Layer：Using IUtility interface.Responsible for providing infrastructure, such as storage method, serialization method, network connection method, Bluetooth method, SDK, framework inheritance, etc. Nothing can be done. You can integrate third-party libraries or encapsulate APIs
+* In addition to the four layers, there is a core concept - command
+    * Can get System
+    * Can get Model
+    * Can send Event
+    * Can send Command
+* Layer Rule：
+    * IController change ISystem、IModel's state by Command
+    * Notify icontroller after the change of ISystem and IModel must use event or bindableproperty
+    * IController can get ISystem、IModel for data query
+    * ICommand cannot have state
+    * The upper layer can directly obtain the lower layer, and the lower layer cannot obtain the upper object
+    * Events for lower layer to upper layer communication
+    * The communication between the upper layer and the lower layer is called by method (only for query and command for state change). The interaction logic of IController is special, and command can only be used
+
+（照抄自：[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)）
+
+### Environment
 
 * Unity 2018.4.x ~ 2021.x
 
-## 安装
+## Install
 
-* 从 [Asset Store](http://u3d.as/SJ9) 下载
+* install by [Asset Store](http://u3d.as/SJ9) 
 * PackageManager
     * add from package git url：https://github.com/liangxiegame/QFramework 
     * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework
 
-* 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
+* or copy [this code](QFramework.cs) to your project
 * OpenUPM(TODO)
 
+## Resources
 
-
-## 示例&Demo
-
-* [Example](Examples) (安装后即可运行)
-
-## 交流&社区
-
-* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **
-* **[github issue](https://github.com/liangxiegame/QFramework/issues/new)**
-* **[gitee issue](https://gitee.com/liangxiegame/QFramework/issues)**
-
-## 提供的架构图
-
-![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
-
-## 示意图
-
-![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
-
-
-
-
-
-### ShowCase（商业案例）
-| [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
-| :-------------------------------------------------------: | :---------------------------------------------: |
-|         ![](Documents/Res/ShowCase/鬼山之下.png)          |   ![](Documents/Res/ShowCase/谐音梗挑战.png)    |
+| **Version**             |                                                             |                                                              |
+| ----------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| QFramework.cs           | Implementation of qframework ontology architecture          |                                                              |
+| QFrameworkWith Toolkits | QFramework  with UIKit/ActionKit/ResKit/PackageKit/AudioKit | [AssetStore](http://u3d.as/SJ9)                              |
+| **Example/Demo**        |                                                             |                                                              |
+| Example 示例            | Include  CounterApp、《点点点》etc QF example               | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
+| ShootingEditor2D        | include a level designer' shooting game                     | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
+| **Community**           |                                                             |                                                              |
+| github issue            | github 社区                                                 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue             | gitee 社区（国内访问快）                                    | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |                                                           |
+| **Official Toolkits**   |                                                             |                                                              |
+| SingletonKit            |                                                             | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit            |                                                             | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
+| IOCKit                  |                                                             | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit                |                                                             | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
+| PoolKit                 |                                                             | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
+| LogKit                  |                                                             | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit               |                                                             | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit                  |                                                             | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit                   |                                                             | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
+| AudioKit                |                                                             | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
+| PackageKit              |                                                             | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
 
 
 
-## Star 趋势（如果项目有帮到您欢迎点赞）
+## Star Trends
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
-### 核心成员
+### Core Members
 
 * [h3166179](https://github.com/h3166179)
 * [王二](https://github.com/so-sos-so) [so-sos-so](https://github.com/so-sos-so)
@@ -69,20 +111,20 @@
 
 
 
-### 优秀的 Unity 库、框架
+### Other Awesome Framework
 
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
+- [TinaX Framework](https://tinax.corala.space/) “开箱即用”的Unity独立游戏开发工具
 - [JEngine](https://github.com/JasonXuDeveloper/JEngine)  一个基于XAsset&ILRuntime，精简好用的热更框架
 
-### 代码规范完全遵循:
+### Code Style:
 
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
 
 
+### Donate:
 
-### 赞助 Donate:
-
-* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
-* 或者给此仓库一个小小的 Star~ star this repository
+* 如果觉得不错可以在 [Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
+* 或者给此仓库一个小小的  Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
