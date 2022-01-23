@@ -1,10 +1,8 @@
-![](Documents/Res/QFramework-icon-0.1.0-512x128.png)
-
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
 
-# QFramework 简介 Intro
+# QFramework Intro
 
 [中文](README)|[English](README_EN.md)
 
