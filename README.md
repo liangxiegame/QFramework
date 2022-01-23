@@ -27,7 +27,7 @@
 
 **QFramework系统设计架构分为四层及其规则：**
 
-* 表现层：ViewController层。IController接口，负责接收输入和状态变化时的表现，一般情况下，MonoBehaviour均为表现层
+* 表现层：ViewController层。IController接口，负责接收输入和状态变化时的表现，一般情况下，MonoBehaviour 均为表现层
     * 可以获取System
     * 可以获取Model
     * 可以发送Command
@@ -40,14 +40,14 @@
 * 数据层：Model层。IModel接口，负责数据的定义、数据的增删查改方法的提供
     * 可以获取Utility
     * 可以发送Event
-    * 工具层：Utility层。IUtility接口，负责提供基础设施，比如存储方法、序列化方法、网络连接方法、蓝牙方法、SDK、框架继承等。啥都干不了，可以集成第三方库，或者封装API
+* 工具层：Utility层。IUtility接口，负责提供基础设施，比如存储方法、序列化方法、网络连接方法、蓝牙方法、SDK、框架继承等。啥都干不了，可以集成第三方库，或者封装API
 * 除了四个层级，还有一个核心概念——Command
     * 可以获取System
     * 可以获取Model
     * 可以发送Event
     * 可以发送Command
     * 使用规则：
-        * IController更改ISystem、IModel的状态必须用Command
+        * IController 更改 ISystem、IModel 的状态必须用Command
         * ISystem、IModel状态发生变更后通知IController必须用事件或BindableProperty
         * IController可以获取ISystem、IModel对象来进行数据查询
         * ICommand不能有状态
@@ -136,28 +136,3 @@
 * 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
 * 或者给此仓库一个小小的 Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
-
-
-## TODO:
-
-### 技术支持 Tech Support：
-
-* [文档 Document:http://qf.liangxiegame.com/qf/community](http://qf.liangxiegame.com/qf/community)
-* **社区:https://qframework.cn**
-* [awesome_qframework](https://github.com/liangxiegame/awesome-qframework)  
-
-#### 下载地址 Download:
-* 最新版本:https://github.com/liangxiegame/QFramework/releases
-* 
-
-#### 参考 Reference:
-* [IFramework](https://github.com/OnClick9927/IFramework)
-* [Loxodon Framework](https://github.com/cocowolf/loxodon-framework)
-* [BDFramework](https://github.com/yimengfan/BDFramework.Core)
-* [HGFramework: Unity3D客户端框架](https://github.com/zhutaorun/HGFramework)
-* [Qarth: Framework For Game Develop With Unity3d](https://github.com/SnowCold/Qarth)
-* [GameFramework:A game framework based on Unity 5.3 and later versions](https://github.com/EllanJiang/GameFramework)
-* [cocos2d/cocos2d-x](https://github.com/cocos2d/cocos2d-x)
-* [ResetCore.Unity](https://github.com/vgvgvvv/ResetCore.Unity)
-* [UnityUGUIImageShaderPack](https://github.com/zhangmaker/UnityUGUIImageShaderPack)
-* [FishManShaderTutorial](https://github.com/JiepengTan/FishManShaderTutorial)
