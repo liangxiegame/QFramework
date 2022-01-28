@@ -2,6 +2,14 @@
 
 
 
+
+
+
+
+![LOGO](LOGO.png)
+
+
+
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
@@ -17,7 +25,7 @@
 
 ## 举个例子（一图胜千言😂）
 
-![](Example.png)
+![](https://file.liangxiegame.com/6bf42306-0b2a-4417-bbcf-354af0132596.png)
 
 ## 各种情况的示意图
 
