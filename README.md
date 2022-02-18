@@ -133,8 +133,8 @@
 
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
+- [JEngine](https://github.com/JasonXuDeveloper/JEngine)  使Unity开发的游戏支持热更新的解决方案。
 - [TinaX Framework](https://tinax.corala.space/) “开箱即用”的Unity独立游戏开发工具
-- [JEngine](https://github.com/JasonXuDeveloper/JEngine)  一个基于XAsset&ILRuntime，精简好用的热更框架
 
 ### 代码规范完全遵循:
 
