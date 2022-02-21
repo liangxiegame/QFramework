@@ -91,6 +91,7 @@
 | ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
 | **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
+| 贪吃蛇 | 群友使用 [一只皮皮虾](https://gitee.com/PantyNeko) QF 提供的贪吃蛇案例 | [游戏主页(Gitee)](https://gitee.com/PantyNeko/snake-game) |
 | **社区** |  |  |
 | QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
 | github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
