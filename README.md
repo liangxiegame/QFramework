@@ -13,6 +13,14 @@
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
+
+
+凉鞋的好朋友 麦扣老师 还差 2k 粉丝就 10w 了，小的恳请大家棒棒忙，关注一下 麦扣老师的 b 站，帮助他早日达到 10w 粉丝
+
+b 站地址：https://space.bilibili.com/370283072
+
+
+
 # QFramework 简介 Intro
 
 [中文]()|[English](README_EN.md)
