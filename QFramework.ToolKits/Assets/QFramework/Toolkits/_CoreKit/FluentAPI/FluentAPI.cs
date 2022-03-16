@@ -138,6 +138,7 @@ namespace QFramework
         #endregion
     }
 
+    [ClassAPI("CSharp 对象的扩展")]
     public static class CSharpObjectExtension
     {
         /// <summary>

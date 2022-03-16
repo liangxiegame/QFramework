@@ -21,14 +21,18 @@ namespace QFramework
     internal class APIDoc : IPackageKitView
     {
         public EditorWindow EditorWindow { get; set; }
-        
+
         public void Init()
         {
-            
         }
 
-        public List<Type> mTypes = new List<Type>();
-        
+        private List<Type> mTypes = new List<Type>();
+        private VerticalSplitView mSplitView;
+
+        private static GUIStyle mSelectionRect = "SelectionRect";
+
+        private Type mSelectionType;
+
         public void OnShow()
         {
             foreach (var type in PackageKitAssemblyCache.GetAllTypes())
@@ -40,6 +44,45 @@ namespace QFramework
                     mTypes.Add(type);
                 }
             }
+
+            mSplitView = new VerticalSplitView(240)
+            {
+                FirstPan = (rect) =>
+                {
+                    GUILayout.BeginArea(rect);
+                    mSplitView.DrawExpandButtonLeft();
+
+                    foreach (var type in mTypes)
+                    {
+                        GUILayout.BeginHorizontal();
+                        GUILayout.BeginVertical("box");
+                        GUILayout.Label(type.Name);
+                        GUILayout.EndVertical();
+                        GUILayout.Space(5); // padding
+                        GUILayout.EndHorizontal();
+
+                        IMGUIGestureHelper.LastRectSelectionCheck(type, mSelectionType,
+                            () =>
+                            {
+                                mSelectionType = type; 
+                                
+                            });
+                    }
+
+                    GUILayout.EndArea();
+                },
+                SecondPan = (rect) =>
+                {
+                    GUILayout.BeginArea(rect);
+                    mSplitView.DrawExpandButtonRight();
+
+                    if (mSelectionType != null)
+                    {
+                        GUILayout.Label(mSelectionType.FullName);
+                    }
+                    GUILayout.EndArea();
+                },
+            };
         }
 
 
@@ -49,16 +92,15 @@ namespace QFramework
 
         public void OnGUI()
         {
-            foreach (var type in mTypes)
-            {
-                GUILayout.Label(type.Name);
-            }
+            var lastRect = GUILayoutUtility.GetLastRect();
+            mSplitView?.OnGUI(new Rect(new Vector2(0, lastRect.yMax),
+                new Vector2(EditorWindow.position.width, EditorWindow.position.height - lastRect.height)));
         }
 
         public void OnWindowGUIEnd()
         {
         }
-        
+
         public void OnHide()
         {
             mTypes.Clear();
@@ -67,8 +109,6 @@ namespace QFramework
         public void OnDispose()
         {
         }
-
-
     }
 }
 #endif

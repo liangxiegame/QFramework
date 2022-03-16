@@ -46,6 +46,21 @@ namespace QFramework
 
     public class VerticalSplitView
     {
+        public void DrawExpandButtonLeft()
+        {
+            GUILayout.BeginHorizontal();
+            GUILayout.BeginVertical();
+            GUILayout.Space(20);
+            GUILayout.EndVertical();
+            GUILayout.FlexibleSpace();
+                    
+            if (Expand.Value && GUILayout.Button("<"))
+            {
+                Expand.Value = false;
+            }
+
+            GUILayout.EndHorizontal();
+        }
         public VerticalSplitView(int splitLeftSize = 200)
         {
             mBoxWithRect = EasyIMGUI.BoxWithRect();
@@ -167,6 +182,23 @@ namespace QFramework
 
                     break;
             }
+        }
+
+        public void DrawExpandButtonRight()
+        {
+            GUILayout.BeginHorizontal();
+            if (!Expand.Value && GUILayout.Button(">"))
+            {
+                Expand.Value = true;
+            }
+
+            GUILayout.FlexibleSpace();
+
+            GUILayout.BeginVertical();
+            GUILayout.Space(20);
+            GUILayout.EndVertical();
+
+            GUILayout.EndHorizontal();
         }
     }
 
