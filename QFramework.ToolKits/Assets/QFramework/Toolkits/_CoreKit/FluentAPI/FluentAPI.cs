@@ -20,109 +20,16 @@ namespace QFramework
     using UnityEngine.UI;
 
 
-
-    /// <summary>
-    /// 泛型工具
-    /// 
-    /// 实例：
-    /// <code>
-    /// 示例：
-    /// var typeName = GenericExtention.GetTypeName<string>();
-    /// typeName.LogInfo(); // string
-    /// </code>
-    /// </summary>
-    public static class GenericUtil
-    {
-        /// <summary>
-        /// 获取泛型名字
-        /// <code>
-        /// var typeName = GenericExtention.GetTypeName<string>();
-        /// typeName.LogInfo(); // string
-        /// </code>
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static string GetTypeName<T>()
-        {
-            return typeof(T).ToString();
-        }
-    }
-
+    
     /// <summary>
     /// 可枚举的集合扩展（Array、List<T>、Dictionary<K,V>)
     /// </summary>
     public static class IEnumerableExtension
     {
-        #region Array Extension
-
-        /// <summary>
-        /// 遍历数组
-        /// <code>
-        /// var testArray = new[] { 1, 2, 3 };
-        /// testArray.ForEach(number => number.LogInfo());
-        /// </code>
-        /// </summary>
-        /// <returns>The each.</returns>
-        /// <param name="selfArray">Self array.</param>
-        /// <param name="action">Action.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        /// <returns> 返回自己 </returns>
-        public static T[] ForEach<T>(this T[] selfArray, Action<T> action)
-        {
-            Array.ForEach(selfArray, action);
-            return selfArray;
-        }
-
-        /// <summary>
-        /// 遍历 IEnumerable
-        /// <code>
-        /// // IEnumerable<T>
-        /// IEnumerable<int> testIenumerable = new List<int> { 1, 2, 3 };
-        /// testIenumerable.ForEach(number => number.LogInfo());
-        /// // 支持字典的遍历
-        /// new Dictionary<string, string>()
-        ///         .ForEach(keyValue => Log.I("key:{0},value:{1}", keyValue.Key, keyValue.Value));
-        /// </code>
-        /// </summary>
-        /// <returns>The each.</returns>
-        /// <param name="selfArray">Self array.</param>
-        /// <param name="action">Action.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> selfArray, Action<T> action)
-        {
-            if (action == null) throw new ArgumentException();
-            foreach (var item in selfArray)
-            {
-                action(item);
-            }
-
-            return selfArray;
-        }
-
-        #endregion
 
         #region List Extension
 
-        /// <summary>
-        /// 倒序遍历
-        /// <code>
-        /// var testList = new List<int> { 1, 2, 3 };
-        /// testList.ForEachReverse(number => number.LogInfo()); // 3, 2, 1
-        /// </code>
-        /// </summary>
-        /// <returns>返回自己</returns>
-        /// <param name="selfList">Self list.</param>
-        /// <param name="action">Action.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T> action)
-        {
-            if (action == null) throw new ArgumentException();
 
-            for (var i = selfList.Count - 1; i >= 0; --i)
-                action(selfList[i]);
-
-            return selfList;
-        }
 
         /// <summary>
         /// 倒序遍历（可获得索引)
@@ -1240,9 +1147,9 @@ namespace QFramework
                 .DestroySelfAfterDelayGracefully(1.0f);
 
             gameObject
-                .ApplySelfTo(selfObj => Log.I(selfObj.name))
+                .Self(selfObj => Log.I(selfObj.name))
                 .Name("TestObj")
-                .ApplySelfTo(selfObj => Log.I(selfObj.name))
+                .Self(selfObj => Log.I(selfObj.name))
                 .Name("ExtensionExample")
                 .DontDestroyOnLoad();
         }

@@ -28,6 +28,7 @@ namespace QFramework
         private APIDescriptionENAttribute mDescriptionEN;
 
         public List<MethodAPIRenderInfo> Methods { get; private set; }
+        public int RenderOrder { get; private set; }
 
 
         private Type mType;
@@ -37,6 +38,7 @@ namespace QFramework
             mType = type;
             DisplayName = classAPIAttribute.DisplayName;
             GroupName = classAPIAttribute.GroupName;
+            RenderOrder = classAPIAttribute.RenderOrder;
         }
 
         public void Parse()
@@ -47,8 +49,8 @@ namespace QFramework
             Namespace = mType.Namespace;
 
             Methods = mType.GetMethods()
-                .Where(m=>m.GetFirstAttribute<MethodAPIAttribute>(false)!=null)
-                .Select(m=>new MethodAPIRenderInfo(m)).ToList();
+                .Where(m => m.GetFirstAttribute<MethodAPIAttribute>(false) != null)
+                .Select(m => new MethodAPIRenderInfo(m)).ToList();
 
 
             var exampleCode = mType.GetFirstAttribute<APIExampleCodeAttribute>(false);

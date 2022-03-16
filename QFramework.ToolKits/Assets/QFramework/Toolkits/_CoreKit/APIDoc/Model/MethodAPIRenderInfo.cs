@@ -27,7 +27,7 @@ namespace QFramework
             var exampleCodeAttribute = mMethodInfo.GetCustomAttribute<APIExampleCodeAttribute>();
 
             var description = string.Empty;
-            
+
             if (LocaleKitEditor.IsCN.Value)
             {
                 description = mMethodInfo.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description;
@@ -37,17 +37,15 @@ namespace QFramework
                 description = mMethodInfo.GetFirstAttribute<APIDescriptionENAttribute>(false).Description;
             }
 
-
-            builder.AppendLine("|名称 |描述 |")
-                .AppendLine("|-|-|")
-                .Append("|").Append(mMethodInfo.Name)
-                .Append("|").Append(description).AppendLine("|");
-
             builder
-                .Append("* **").Append(mMethodInfo.Name).AppendLine("**")
+                .AppendLine("--------")
+                .Append("|").Append(mMethodInfo.Name).Append("|").Append(description).AppendLine("|")
+                .AppendLine("|-|-|")
+                .Append("|").Append(APIDocLocale.ExampleCode).Append("|").AppendLine(" |")
                 .AppendLine("```")
                 .AppendLine(exampleCodeAttribute.Code)
-                .AppendLine("```");
+                .AppendLine("```")
+                .AppendLine("--------");
         }
     }
 }

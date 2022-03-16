@@ -14,11 +14,14 @@ namespace QFramework
     {
         public string DisplayName { get; private set; }
         public string GroupName { get; private set; }
+        
+        public int RenderOrder { get;private set; }
 
-        public ClassAPIAttribute(string groupName, string displayName)
+        public ClassAPIAttribute(string groupName, string displayName,int renderOrder)
         {
             GroupName = groupName;
             DisplayName = displayName;
+            RenderOrder = renderOrder;
         }
     }
 }

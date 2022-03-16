@@ -11,12 +11,16 @@ namespace QFramework
 {
     public class APIDocLocale
     {
-        public bool IsCN => LocaleKitEditor.IsCN.Value;
+        static bool IsCN => LocaleKitEditor.IsCN.Value;
 
-        public string Description => IsCN ? "描述" : "Description";
+        public static string Description => IsCN ? "描述" : "Description";
 
-        public string ExampleCode => IsCN ? "示例" : "Example";
-        public string Methods => IsCN ? "方法" : "Methods";
+        public static string ExampleCode => IsCN ? "示例" : "Example";
+        public static string Methods => IsCN ? "方法" : "Methods";
+
+        public static string Name => IsCN ? "名称" : "Name";
+        
+        
     }
 }
 #endif

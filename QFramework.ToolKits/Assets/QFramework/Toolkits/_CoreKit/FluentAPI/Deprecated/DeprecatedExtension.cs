@@ -11,6 +11,23 @@ namespace QFramework
 {
     public static class DeprecatedExtension
     {
+        
+        /// <summary>
+        /// 获取泛型名字
+        /// <code>
+        /// var typeName = GenericExtention.GetTypeName<string>();
+        /// typeName.LogInfo(); // string
+        /// </code>
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used",true)]
+        public static string GetTypeName<T>()
+        {
+            return typeof(T).ToString();
+        }
+        
+        
         [Obsolete("不要使用，Do not used",true)]
         public static void DoIfNotNull<T>(this T selfObj, Action<T> action) where T : class
         {

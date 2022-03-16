@@ -81,6 +81,7 @@ namespace QFramework
                 {
                     GUILayout.BeginArea(rect);
                     mSplitView.DrawExpandButtonRight();
+                    GUILayout.Space(8);
 
                     if (mSelectionClassAPIRenderInfo != null)
                     {
@@ -110,7 +111,7 @@ namespace QFramework
                 .Append("class in ").AppendLine(mSelectionClassAPIRenderInfo.Namespace)
                 .AppendLine()
                 // Description
-                .Append("#### ").Append(mLocaleText.Description).AppendLine()
+                .Append("**").Append(APIDocLocale.Description).AppendLine("**")
                 .Append("> ").AppendLine(mSelectionClassAPIRenderInfo.Description)
                 .AppendLine()
                 // ExampleCode
@@ -119,7 +120,7 @@ namespace QFramework
                     if (mSelectionClassAPIRenderInfo.ExampleCode.IsNotNullAndEmpty())
                     {
                         builder
-                            .Append("#### ").AppendLine(mLocaleText.ExampleCode)
+                            .Append("**").Append(APIDocLocale.ExampleCode).AppendLine("**")
                             .AppendLine()
                             .AppendLine("```")
                             .AppendLine(mSelectionClassAPIRenderInfo.ExampleCode)
@@ -133,8 +134,9 @@ namespace QFramework
                     if (mSelectionClassAPIRenderInfo.Methods.Any())
                     {
                         builder
-                            .Append("#### ").AppendLine(mLocaleText.Methods)
-                            .AppendLine();
+                            .Append("**").Append(APIDocLocale.Methods).AppendLine("**")
+                            .AppendLine()
+                            .AppendLine("--------");
 
 
                         foreach (var method in mSelectionClassAPIRenderInfo.Methods)
@@ -142,6 +144,8 @@ namespace QFramework
                             builder.AppendLine()
                                 .Self(method.BuildString);
                         }
+
+                        builder.AppendLine("--------");
                     }
                 })
                 .ToString()
@@ -162,7 +166,7 @@ namespace QFramework
                 .Select(g => new ClassAPIGroupRenderInfo()
                 {
                     GroupName = g.Key,
-                    ClassAPIRenderInfos = g.ToList()
+                    ClassAPIRenderInfos = g.OrderBy(c=>c.RenderOrder).ToList()
                 }).ToList();
 
 
