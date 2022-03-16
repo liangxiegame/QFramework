@@ -8,11 +8,12 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDContext
+    internal class MDContext
     {
         public MDContext(GUISkin skin, MDHandlerImages images, MDHandlerNavigate navigate)
         {
@@ -70,3 +71,4 @@ namespace QFramework
         }
     }
 }
+#endif

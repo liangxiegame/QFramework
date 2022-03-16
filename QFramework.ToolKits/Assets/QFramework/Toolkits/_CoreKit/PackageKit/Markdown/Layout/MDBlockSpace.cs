@@ -8,11 +8,12 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDBlockSpace : MDBlock
+    internal class MDBlockSpace : MDBlock
     {
         public MDBlockSpace(float indent) : base(indent)
         {
@@ -30,3 +31,4 @@ namespace QFramework
         }
     }
 }
+#endif

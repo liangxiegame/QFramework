@@ -8,12 +8,13 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace QFramework
 {
-    public abstract class MDContent
+    internal abstract class MDContent
     {
         public Rect Location;
         public MDStyle Style;
@@ -62,3 +63,4 @@ namespace QFramework
         }
     }
 }
+#endif

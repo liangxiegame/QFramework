@@ -8,12 +8,13 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDBlockContent : MDBlock
+    internal class MDBlockContent : MDBlock
     {
         MDContent mPrefix = null;
         List<MDContent> mContent = new List<MDContent>();
@@ -123,3 +124,4 @@ namespace QFramework
         }
     }
 }
+#endif

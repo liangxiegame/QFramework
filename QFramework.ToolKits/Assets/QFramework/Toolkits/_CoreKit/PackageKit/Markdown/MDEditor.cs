@@ -8,6 +8,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    [CustomEditor( typeof( TextAsset ) )]
+    [CustomEditor(typeof(TextAsset))]
     public class MDEditor : Editor
     {
         public GUISkin SkinLight;
@@ -28,21 +29,21 @@ namespace QFramework
 
         protected void OnEnable()
         {
-            var content = ( target as TextAsset ).text;
-            var path    = AssetDatabase.GetAssetPath( target );
+            var content = (target as TextAsset).text;
+            var path = AssetDatabase.GetAssetPath(target);
 
-            var ext = Path.GetExtension( path ).ToLower();
+            var ext = Path.GetExtension(path).ToLower();
 
-            if( mExtensions.Contains( ext ) )
+            if (mExtensions.Contains(ext))
             {
-                mViewer = new MDViewer( MDPreferences.DarkSkin ? SkinDark : SkinLight, path, content );
+                mViewer = new MDViewer(MDPreferences.DarkSkin ? SkinDark : SkinLight, path, content);
                 EditorApplication.update += UpdateRequests;
             }
         }
 
         protected void OnDisable()
         {
-            if( mViewer != null )
+            if (mViewer != null)
             {
                 EditorApplication.update -= UpdateRequests;
                 mViewer = null;
@@ -51,7 +52,7 @@ namespace QFramework
 
         void UpdateRequests()
         {
-            if( mViewer != null && mViewer.Update() )
+            if (mViewer != null && mViewer.Update())
             {
                 Repaint();
             }
@@ -82,13 +83,13 @@ namespace QFramework
         }
 
 
-            //------------------------------------------------------------------------------
+        //------------------------------------------------------------------------------
 
         private Editor mDefaultEditor;
 
         void DrawEditor()
         {
-            if( mViewer != null )
+            if (mViewer != null)
             {
                 mViewer.Draw();
             }
@@ -100,15 +101,16 @@ namespace QFramework
 
         void DrawDefaultEditor()
         {
-            if( mDefaultEditor == null )
+            if (mDefaultEditor == null)
             {
-                mDefaultEditor = CreateEditor( target, Type.GetType( "UnityEditor.TextAssetInspector, UnityEditor" ) );
+                mDefaultEditor = CreateEditor(target, Type.GetType("UnityEditor.TextAssetInspector, UnityEditor"));
             }
 
-            if( mDefaultEditor != null )
+            if (mDefaultEditor != null)
             {
                 mDefaultEditor.OnInspectorGUI();
             }
         }
     }
 }
+#endif

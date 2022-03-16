@@ -8,6 +8,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using Markdig;
 using UnityEditor;
 using UnityEngine;
@@ -278,3 +279,4 @@ namespace QFramework
 
     }
 }
+#endif

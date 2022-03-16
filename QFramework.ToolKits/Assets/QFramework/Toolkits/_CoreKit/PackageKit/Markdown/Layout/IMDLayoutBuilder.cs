@@ -8,6 +8,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System.Text;
 using UnityEngine;
 
@@ -305,3 +306,4 @@ namespace QFramework
         }
     }
 }
+#endif

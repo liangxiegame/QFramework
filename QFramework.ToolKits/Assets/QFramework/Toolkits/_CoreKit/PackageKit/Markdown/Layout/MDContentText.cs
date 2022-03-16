@@ -8,11 +8,12 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDContentText : MDContent
+    internal class MDContentText : MDContent
     {
         public MDContentText(GUIContent payload, MDStyle style, string link)
             : base(payload, style, link)
@@ -20,3 +21,4 @@ namespace QFramework
         }
     }
 }
+#endif

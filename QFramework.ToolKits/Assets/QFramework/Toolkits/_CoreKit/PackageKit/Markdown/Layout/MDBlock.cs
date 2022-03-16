@@ -8,12 +8,13 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System;
 using UnityEngine;
 
 namespace QFramework
 {
-    public abstract class MDBlock
+    internal abstract class MDBlock
     {
         public string ID = null;
         public Rect Rect = new Rect();
@@ -34,3 +35,4 @@ namespace QFramework
         }
     }
 }
+#endif

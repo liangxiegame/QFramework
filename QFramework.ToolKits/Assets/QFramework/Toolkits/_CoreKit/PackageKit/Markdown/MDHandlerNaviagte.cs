@@ -8,6 +8,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using UnityEditor;
@@ -15,7 +16,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class MDHandlerNavigate
+    internal class MDHandlerNavigate
     {
         public MDHistory  MDHistory;
         public string   CurrentPath;
@@ -79,3 +80,4 @@ namespace QFramework
         }
     }
 }
+#endif

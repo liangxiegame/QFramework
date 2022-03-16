@@ -8,9 +8,10 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 namespace QFramework
 {
-    public class MDLayout
+    internal class MDLayout
     {
         MDContext mContext;
         MDBlockContainer mDocument;
@@ -44,3 +45,4 @@ namespace QFramework
         }
     }
 }
+#endif

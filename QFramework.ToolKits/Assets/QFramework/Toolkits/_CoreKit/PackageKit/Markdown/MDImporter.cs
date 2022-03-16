@@ -8,6 +8,8 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+
+#if UNITY_EDITOR
 #if UNITY_2018_1_OR_NEWER
 
 using UnityEngine;
@@ -32,4 +34,5 @@ namespace QFramework
     }
 }
 
+#endif
 #endif

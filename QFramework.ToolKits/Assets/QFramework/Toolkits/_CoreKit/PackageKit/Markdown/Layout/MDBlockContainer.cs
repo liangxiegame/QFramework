@@ -8,13 +8,14 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDBlockContainer : MDBlock
+    internal class MDBlockContainer : MDBlock
     {
         public bool Quoted = false;
         public bool Highlight = false;
@@ -151,3 +152,4 @@ namespace QFramework
         }
     }
 }
+#endif

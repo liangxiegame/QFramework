@@ -8,11 +8,12 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using UnityEngine;
 
 namespace QFramework
 {
-    public class MDContentImage : MDContent
+    internal class MDContentImage : MDContent
     {
         public string URL;
         public string Alt;
@@ -50,3 +51,4 @@ namespace QFramework
         }
     }
 }
+#endif
