@@ -5,6 +5,7 @@
  * https://github.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System;
 using System.IO;
 
 namespace QFramework
@@ -111,6 +112,56 @@ Debug.Log(Path)
         public static string CombinePath(this string selfPath, string toCombinePath)
         {
             return Path.Combine(selfPath, toCombinePath);
+        }
+
+
+#if UNITY_EDITOR
+        // V1 No.15
+        [MethodAPI]
+        [APIDescriptionCN("根据路径获取文件名")]
+        [APIDescriptionEN("get file name by path")]
+        [APIExampleCode(@"
+var fileName =""/abc/def/b.txt"".GetFileName();
+Debug.Log(fileName0);
+// b.txt
+        ")]
+#endif
+        public static string GetFileName(this string filePath)
+        {
+            return Path.GetFileName(filePath);
+        }
+
+#if UNITY_EDITOR
+        // V1 No.16
+        [MethodAPI]
+        [APIDescriptionCN("根据路径获取文件名，不包含文件扩展名")]
+        [APIDescriptionEN("Get the file name based on the path, excluding the file name extension")]
+        [APIExampleCode(@"
+var fileName =""/abc/def/b.txt"".GetFileNameWithoutExtend();
+Debug.Log(fileName0);
+// b
+        ")]
+#endif
+
+        public static string GetFileNameWithoutExtend(this string filePath)
+        {
+            return Path.GetFileNameWithoutExtension(filePath);
+        }
+
+#if UNITY_EDITOR
+        // V1 No.17
+        [MethodAPI]
+        [APIDescriptionCN("根据路径获取文件扩展名")]
+        [APIDescriptionEN("Get the file extension based on the path")]
+        [APIExampleCode(@"
+var fileName =""/abc/def/b.txt"".GetFileExtendName();
+Debug.Log(fileName0);
+// .txt
+        ")]
+#endif
+        public static string GetFileExtendName(this string filePath)
+        {
+            return Path.GetExtension(filePath);
         }
     }
 }

@@ -144,8 +144,6 @@ namespace QFramework
                             builder.AppendLine()
                                 .Self(method.BuildString);
                         }
-
-                        builder.AppendLine("--------");
                     }
                 })
                 .ToString()

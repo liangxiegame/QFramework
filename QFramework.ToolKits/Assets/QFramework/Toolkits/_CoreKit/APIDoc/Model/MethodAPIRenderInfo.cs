@@ -38,7 +38,6 @@ namespace QFramework
             }
 
             builder
-                .AppendLine("--------")
                 .Append("|").Append(mMethodInfo.Name).Append("|").Append(description).AppendLine("|")
                 .AppendLine("|-|-|")
                 .Append("|").Append(APIDocLocale.ExampleCode).Append("|").AppendLine(" |")
