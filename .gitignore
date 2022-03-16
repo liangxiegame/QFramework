@@ -1,1 +1,10 @@
 .idea
+QFramework.ToolKits/Assets/.qframework
+QFramework.ToolKits/Assets/Plugins/Editor/JetBrains
+JetBrains.meta
+Editor.meta
+QFramework.ToolKits/Builds
+QFramework.ToolKits/Library
+QFramework.ToolKits/Logs
+QFramework.ToolKits/obj
+QFramework.ToolKits/Temp

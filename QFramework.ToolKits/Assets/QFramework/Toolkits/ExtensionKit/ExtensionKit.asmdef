@@ -1,0 +1,6 @@
+﻿{
+	"name": "ExtensionKit",
+	"references": [
+		"QFramework.CoreKit"
+	]
+}
