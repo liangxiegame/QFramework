@@ -23,6 +23,12 @@ if (someObj.IsNotNull())
 {
     // do sth
 }
+
+new GameObject()
+    .Self(self=>self.name = ""Hello World"")
+    .Self(self=>{
+        newGameObject = self;
+    });
 "
     )]
 #endif
@@ -68,13 +74,14 @@ if (someObj.IsNotNull())
         {
             return null != selfObj;
         }
-
-        public static void DoIfNotNull<T>(this T selfObj, Action<T> action) where T : class
+        
+        public static T Self<T>(this T self, Action<T> onDo)
         {
-            if (selfObj != null)
-            {
-                action(selfObj);
-            }
+            onDo?.Invoke(self);
+            return self;
         }
+        
+
+ 
     }
 }

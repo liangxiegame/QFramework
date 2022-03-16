@@ -1343,12 +1343,6 @@ namespace QFramework
             return selfObj;
         }
         
-        
-        public static T Self<T>(this T self, Action<T> onDo)
-        {
-            onDo?.Invoke(self);
-            return self;
-        }
         #endregion
 
         #region CEUO006 DontDestroyOnLoad

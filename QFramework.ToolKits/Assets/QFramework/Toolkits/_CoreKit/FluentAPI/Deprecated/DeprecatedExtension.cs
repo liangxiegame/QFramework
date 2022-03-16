@@ -11,6 +11,16 @@ namespace QFramework
 {
     public static class DeprecatedExtension
     {
+        [Obsolete("不要使用，Do not used",true)]
+        public static void DoIfNotNull<T>(this T selfObj, Action<T> action) where T : class
+        {
+            if (selfObj != null)
+            {
+                action(selfObj);
+            }
+        }
+        
+        
         /// <summary>
         /// 是否相等
         /// 
