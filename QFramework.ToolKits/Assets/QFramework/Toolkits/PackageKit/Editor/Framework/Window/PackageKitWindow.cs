@@ -267,7 +267,7 @@ namespace QFramework
             // 创建双屏
             mSplitView = new VerticalSplitView
             {
-                fistPan = rect =>
+                FirstPan = rect =>
                 {
                     GUILayout.BeginArea(rect);
                     GUILayout.BeginVertical();
@@ -276,7 +276,7 @@ namespace QFramework
                     LeftSelectView("");
                     GUILayout.EndArea();
                 },
-                secondPan = rect =>
+                SecondPan = rect =>
                 {
                     GUILayout.BeginArea(rect);
                     GUILayout.BeginVertical();

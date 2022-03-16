@@ -1,7 +1,6 @@
 {
     "name": "PackageKit",
     "references": [
-        "EditorKit",
         "QFramework",
         "QFramework.CoreKit"
     ],

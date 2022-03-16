@@ -284,16 +284,5 @@ namespace QFramework
                 return attrs[0];
             return null;
         }
-
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
-        public static T GetFirstAttribute<T>(this Type type, bool inherit) where T : Attribute
-        {
-            var attrs = (T[])type.GetCustomAttributes(typeof(T), inherit);
-            if (attrs != null && attrs.Length > 0)
-                return attrs[0];
-            return null;
-        }
     }
 }

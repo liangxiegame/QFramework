@@ -7,10 +7,13 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
+using UnityEngine;
 
-namespace QFramework.Editor
+namespace QFramework
 {
     [DisplayName("API 文档")]
     [PackageKitGroup("QFramework")]
@@ -24,29 +27,48 @@ namespace QFramework.Editor
             
         }
 
+        public List<Type> mTypes = new List<Type>();
+        
+        public void OnShow()
+        {
+            foreach (var type in PackageKitAssemblyCache.GetAllTypes())
+            {
+                var classAPIAttribute = type.GetFirstAttribute<ClassAPIAttribute>(false);
+
+                if (classAPIAttribute != null)
+                {
+                    mTypes.Add(type);
+                }
+            }
+        }
+
+
         public void OnUpdate()
         {
         }
 
         public void OnGUI()
         {
+            foreach (var type in mTypes)
+            {
+                GUILayout.Label(type.Name);
+            }
         }
 
         public void OnWindowGUIEnd()
         {
+        }
+        
+        public void OnHide()
+        {
+            mTypes.Clear();
         }
 
         public void OnDispose()
         {
         }
 
-        public void OnShow()
-        {
-        }
 
-        public void OnHide()
-        {
-        }
     }
 }
 #endif

@@ -8,3 +8,4 @@ QFramework.ToolKits/Library
 QFramework.ToolKits/Logs
 QFramework.ToolKits/obj
 QFramework.ToolKits/Temp
+*.csproj

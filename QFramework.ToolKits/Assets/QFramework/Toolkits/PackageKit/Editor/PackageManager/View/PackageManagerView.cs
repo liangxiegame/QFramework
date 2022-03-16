@@ -27,7 +27,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using MG.MDV;
 using UnityEditor;
 using UnityEngine;
 
@@ -41,7 +40,7 @@ namespace QFramework
         private IPopup mCategoriesSelectorView = null;
 
 
-        private MarkdownViewer mMarkdownViewer;
+        private MDViewer mMarkdownViewer;
 
         private PackageKitWindow mPackageKitWindow;
 
@@ -222,7 +221,7 @@ namespace QFramework
             var skin = Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
 
 
-            mMarkdownViewer = new MarkdownViewer(skin, string.Empty, "");
+            mMarkdownViewer = new MDViewer(skin, string.Empty, "");
             // 右侧
             mRightLayout = EasyIMGUI.Vertical()
                 .AddChild(EasyIMGUI.Area().WithRectGetter(() => mRightRect)
@@ -305,15 +304,15 @@ namespace QFramework
 
 
             // 创建双屏
-            mSplitView = mSplitView = new VerticalSplitView
+            mSplitView = mSplitView = new VerticalSplitView(240)
             {
-                Split = 240,
-                fistPan = rect =>
+                
+                FirstPan = rect =>
                 {
                     mLeftRect = rect;
                     mLeftLayout.DrawGUI();
                 },
-                secondPan = rect =>
+                SecondPan = rect =>
                 {
                     mRightRect = rect;
                     mRightLayout.DrawGUI();

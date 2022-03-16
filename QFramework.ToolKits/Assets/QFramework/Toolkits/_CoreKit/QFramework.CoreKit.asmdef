@@ -1,3 +1,6 @@
 {
-  "name": "QFramework.CoreKit"
+  "name": "QFramework.CoreKit",
+  "references": [
+    "QFramework"
+  ]
 }
