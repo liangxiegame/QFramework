@@ -96,16 +96,7 @@ filePath.DeleteFileIfExists();
             return false;
         }
 
-        /// <summary>
-        /// 合并路径
-        /// <code>
-        /// // 示例：
-        /// Application.dataPath.CombinePath("Resources").LogInfo();  // /projectPath/Assets/Resources
-        /// </code>
-        /// </summary>
-        /// <param name="selfPath"></param>
-        /// <param name="toCombinePath"></param>
-        /// <returns> 合并后的路径 </returns>
+
 #if UNITY_EDITOR
         // V1 No.14
         [MethodAPI]
