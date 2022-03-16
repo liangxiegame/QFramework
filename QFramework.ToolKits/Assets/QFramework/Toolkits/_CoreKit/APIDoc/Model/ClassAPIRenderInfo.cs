@@ -12,6 +12,4 @@ namespace QFramework
         public string DescriptionCN;
         public string DescriptionEN;
     }
-    
-    
 }

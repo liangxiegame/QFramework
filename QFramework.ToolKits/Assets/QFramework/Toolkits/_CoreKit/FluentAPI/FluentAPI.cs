@@ -1336,12 +1336,19 @@ namespace QFramework
 
         #region CEUO005 Apply Self To
 
+        [Obsolete("弃用，请使用 Self, use Self instead")]
         public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : UnityEngine.Object
         {
-            toFunction?.Invoke(selfObj);
+            toFunction.InvokeGracefully(selfObj);
             return selfObj;
         }
-
+        
+        
+        public static T Self<T>(this T self, Action<T> onDo)
+        {
+            onDo?.Invoke(self);
+            return self;
+        }
         #endregion
 
         #region CEUO006 DontDestroyOnLoad

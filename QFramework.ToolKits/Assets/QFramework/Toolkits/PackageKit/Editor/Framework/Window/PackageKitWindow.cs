@@ -301,6 +301,7 @@ namespace QFramework
             base.OnGUI();
 
             GUILayout.BeginHorizontal();
+            LocaleKitEditor.DrawSwitchToggle(GUI.skin.label.normal.textColor);
             GUILayout.EndHorizontal();
 
             var r = GUILayoutUtility.GetLastRect();

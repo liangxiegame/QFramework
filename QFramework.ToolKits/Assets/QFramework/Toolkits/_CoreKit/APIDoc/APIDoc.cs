@@ -10,6 +10,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
 using UnityEditor;
 using UnityEngine;
 
@@ -24,6 +26,8 @@ namespace QFramework
 
         public void Init()
         {
+            var skin = Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
+            mMDViewer = new MDViewer(skin, "", "");
         }
 
         private List<Type> mTypes = new List<Type>();
@@ -33,8 +37,21 @@ namespace QFramework
 
         private Type mSelectionType;
 
+        private MDViewer mMDViewer;
+
+        void UpdateDoc()
+        {
+            new StringBuilder()
+                .AppendLine("* 命名空间:" + mSelectionType.Namespace)
+                .AppendLine("* 类名:" + mSelectionType.Name)
+                .AppendLine("* 描述:" + mSelectionType.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description)
+                .ToString()
+                .Self(mMDViewer.UpdateText);
+        }
+
         public void OnShow()
         {
+            mTypes.Clear();
             foreach (var type in PackageKitAssemblyCache.GetAllTypes())
             {
                 var classAPIAttribute = type.GetFirstAttribute<ClassAPIAttribute>(false);
@@ -43,6 +60,12 @@ namespace QFramework
                 {
                     mTypes.Add(type);
                 }
+            }
+
+            if (mTypes.Count > 0)
+            {
+                mSelectionType = mTypes.First();
+                UpdateDoc();
             }
 
             mSplitView = new VerticalSplitView(240)
@@ -62,7 +85,11 @@ namespace QFramework
                         GUILayout.EndHorizontal();
 
                         IMGUIGestureHelper.LastRectSelectionCheck(type, mSelectionType,
-                            () => { mSelectionType = type; });
+                            () =>
+                            {
+                                mSelectionType = type;
+                                UpdateDoc();
+                            });
                     }
 
                     GUILayout.EndArea();
@@ -74,8 +101,11 @@ namespace QFramework
 
                     if (mSelectionType != null)
                     {
-                        GUILayout.Label(mSelectionType.FullName);
+                        var lastRect = GUILayoutUtility.GetLastRect();
+                        mMDViewer.DrawWithRect(new Rect(lastRect.x, lastRect.y + lastRect.height,
+                            rect.width - 210, rect.height - lastRect.y - lastRect.height));
                     }
+
 
                     GUILayout.EndArea();
                 },
@@ -85,6 +115,7 @@ namespace QFramework
 
         public void OnUpdate()
         {
+            mMDViewer.Update();
         }
 
         public void OnGUI()
@@ -105,6 +136,7 @@ namespace QFramework
 
         public void OnDispose()
         {
+            mMDViewer = null;
         }
     }
 }
