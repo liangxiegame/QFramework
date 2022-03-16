@@ -11,11 +11,8 @@ namespace BuildTestApp
         {
             "Hello World".LogInfo();
 
-            Action a = () =>
-            {
-                "Invoked".LogInfo();
-            };
-            a.InvokeGracefully();
+            Action a = () => { "Invoked".LogInfo(); };
+            a();
         }
     }
 }

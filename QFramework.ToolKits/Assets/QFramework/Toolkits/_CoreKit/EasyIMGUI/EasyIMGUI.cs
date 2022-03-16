@@ -1158,7 +1158,7 @@ namespace QFramework
             get { return mStyleProperty; }
             protected set { mStyleProperty = value; }
         }
-
+        
         private Color mBackgroundColor = GUI.backgroundColor;
 
         public Color BackgroundColor

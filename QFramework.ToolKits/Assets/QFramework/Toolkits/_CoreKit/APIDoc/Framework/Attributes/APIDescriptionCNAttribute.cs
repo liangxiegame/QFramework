@@ -9,14 +9,13 @@ using System;
 
 namespace QFramework
 {
-    [AttributeUsage(AttributeTargets.Class)]
-    public class ClassAPIAttribute : Attribute
+    public class APIDescriptionCNAttribute : Attribute
     {
-        public string GroupName { get; private set; }
+        public string Description { get; private set; }
 
-        public ClassAPIAttribute(string groupName)
+        public APIDescriptionCNAttribute(string description)
         {
-            GroupName = groupName;
+            Description = description;
         }
     }
 }

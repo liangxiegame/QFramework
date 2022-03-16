@@ -26,7 +26,6 @@ namespace QFramework
                 {
                     mResLoader = ResLoader.Allocate();
                 }
-                
                 if (panelSearchKeys.PanelType.IsNotNull() && panelSearchKeys.GameObjName.IsNullOrEmpty())
                 {
                     return mResLoader.LoadSync<GameObject>(panelSearchKeys.PanelType.Name);

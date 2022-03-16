@@ -293,9 +293,9 @@ namespace QFramework
             };
         }
 
+        [SerializeField]
         private VerticalSplitView mSplitView;
-
-
+        
         public override void OnGUI()
         {
             base.OnGUI();

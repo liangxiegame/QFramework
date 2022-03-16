@@ -9,7 +9,8 @@ namespace QFramework
 {
     internal class ClassAPIRenderInfo
     {
-        public string Description;
+        public string DescriptionCN;
+        public string DescriptionEN;
     }
     
     

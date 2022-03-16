@@ -62,11 +62,7 @@ namespace QFramework
                         GUILayout.EndHorizontal();
 
                         IMGUIGestureHelper.LastRectSelectionCheck(type, mSelectionType,
-                            () =>
-                            {
-                                mSelectionType = type; 
-                                
-                            });
+                            () => { mSelectionType = type; });
                     }
 
                     GUILayout.EndArea();
@@ -80,6 +76,7 @@ namespace QFramework
                     {
                         GUILayout.Label(mSelectionType.FullName);
                     }
+
                     GUILayout.EndArea();
                 },
             };
