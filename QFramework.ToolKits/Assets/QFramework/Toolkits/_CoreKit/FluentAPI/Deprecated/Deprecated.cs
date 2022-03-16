@@ -13,12 +13,62 @@ using System.Linq;
 namespace QFramework
 {
     /// <summary>
+    /// 简单的概率计算
+    /// </summary>
+    public static class ProbilityHelper
+    {
+        [Obsolete("不要使用，Do not used", true)]
+        public static T RandomValueFrom<T>(params T[] values)
+        {
+            return values[UnityEngine.Random.Range(0, values.Length)];
+        }
+
+        /// <summary>
+        /// percent probability
+        /// </summary>
+        /// <param name="percent"> 0 ~ 100 </param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static bool PercentProbability(int percent)
+        {
+            return UnityEngine.Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
+        }
+    }
+
+    /// <summary>
     /// Write in unity 2017 .Net 3.5
     /// after unity 2018 .Net 4.x and new C# version are more powerful
     /// </summary>
     public static class DeprecatedExtension
     {
-        
+        /// <summary>
+        /// Determines whether the type implements the specified interface
+        /// and is not an interface itself.
+        /// </summary>
+        /// <returns><c>true</c>, if interface was implementsed, <c>false</c> otherwise.</returns>
+        /// <param name="type">Type.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        [Obsolete("不要使用，Do not used", true)]
+        public static bool ImplementsInterface<T>(this Type type)
+        {
+            return !type.IsInterface && type.GetInterfaces().Contains(typeof(T));
+        }
+
+        /// <summary>
+        /// Determines whether the type implements the specified interface
+        /// and is not an interface itself.
+        /// </summary>
+        /// <returns><c>true</c>, if interface was implementsed, <c>false</c> otherwise.</returns>
+        /// <param name="type">Type.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        [Obsolete("不要使用，Do not used", true)]
+        public static bool ImplementsInterface<T>(this object obj)
+        {
+            var type = obj.GetType();
+            return !type.IsInterface && type.GetInterfaces().Contains(typeof(T));
+        }
+
+
         /// <summary>
         /// 使目录存在,Path可以是目录名必须是文件名
         /// </summary>
@@ -33,7 +83,6 @@ namespace QFramework
             }
         }
 
-        
 
         /// 获取父文件夹
         /// </summary>
@@ -49,7 +98,7 @@ namespace QFramework
 
             return Path.GetDirectoryName(path);
         }
-        
+
         // "使路径标准化，去除空格并将所有'\'转换为'/'"
         // "Normalize paths by removing whitespace and converting all '\' to '/'"
         [Obsolete("不要使用，Do not used", true)]
@@ -57,8 +106,8 @@ namespace QFramework
         {
             return path.Trim().Replace("\\", "/");
         }
-        
-     
+
+
         /// <summary>
         /// 获取不带后缀的文件路径
         /// </summary>
@@ -70,7 +119,7 @@ namespace QFramework
                 return fileName.Substring(0, fileName.LastIndexOf('.'));
             return fileName;
         }
-        
+
         /// <summary>
         /// 获取不带后缀的文件名
         /// </summary>
@@ -82,7 +131,7 @@ namespace QFramework
         {
             return GetFilePathWithoutExtension(GetFileName(fileName, separator));
         }
-        
+
         /// <summary>
         /// 获取文件名
         /// </summary>
@@ -95,7 +144,7 @@ namespace QFramework
             path = MakePathStandard(path);
             return path.Substring(path.LastIndexOf(separator) + 1);
         }
-        
+
         /// <summary>
         /// 获取文件夹名
         /// </summary>
@@ -107,8 +156,8 @@ namespace QFramework
             fileName = MakePathStandard(fileName);
             return fileName.Substring(0, fileName.LastIndexOf('/'));
         }
-        
-        
+
+
         [Obsolete("不要使用，Do not used", true)]
         public static string GetDirPath(this string absOrAssetsPath)
         {
@@ -125,7 +174,7 @@ namespace QFramework
 
             return absOrAssetsPath.EndsWith("/") ? dirs[dirs.Length - 2] : dirs[dirs.Length - 1];
         }
-        
+
         [Obsolete("不要使用，Do not used", true)]
         public static List<string> GetDirSubFilePathList(this string dirABSPath, bool isRecursive = true,
             string suffix = "")
@@ -328,7 +377,7 @@ namespace QFramework
             return selfCondition;
         }
 
-        #region Func Extension
+        
 
         /// <summary>
         /// 功能：不为空则调用 Func
@@ -347,10 +396,7 @@ namespace QFramework
         {
             return null != selfFunc ? selfFunc() : default(T);
         }
-
-        #endregion
-
-        #region Action
+        
 
         /// <summary>
         /// 功能：不为空则调用 Action
@@ -445,7 +491,5 @@ namespace QFramework
 
             return false;
         }
-
-        #endregion
     }
 }

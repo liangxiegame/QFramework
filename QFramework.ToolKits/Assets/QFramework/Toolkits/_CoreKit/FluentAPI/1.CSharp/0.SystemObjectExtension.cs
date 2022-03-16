@@ -17,7 +17,7 @@ namespace QFramework
     public static class SystemObjectExtension
     {
 #if UNITY_EDITOR
-        // V1 No.1 
+        // v1 No.1 
         [MethodAPI]
         [APIDescriptionCN("将自己传到 Action 委托中")]
         [APIDescriptionEN("apply self to the Action delegate")]
@@ -37,7 +37,7 @@ new GameObject()
 
 
 #if UNITY_EDITOR
-        // V1 No.2
+        // v1 No.2
         [MethodAPI]
         [APIDescriptionCN("判断是否为空")]
         [APIDescriptionEN("Check Is Null,return true or false")]
@@ -55,7 +55,7 @@ if (simpleObject.IsNull()) // simpleObject == null
         }
 
 #if UNITY_EDITOR
-        // V1 No.3
+        // v1 No.3
         [MethodAPI]
         [APIDescriptionCN("判断不是为空")]
         [APIDescriptionEN("Check Is Not Null,return true or false")]

@@ -12,14 +12,14 @@ using System.Linq;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.Collections", 1)]
+    [ClassAPI("FluentAPI.CSharp", "System.Collections", 3)]
     [APIDescriptionCN("针对 System.Collections 提供的链式扩展，理论上任何集合都可以使用")]
     [APIDescriptionEN("The chain extension provided by System.Collections can theoretically be used by any collection")]
 #endif
     public static class CollectionsExtension
     {
 #if UNITY_EDITOR
-        // V1 No.4
+        // v1 No.4
         [MethodAPI]
         [APIDescriptionCN("遍历 IEnumerable")]
         [APIDescriptionEN("ForEach for IEnumerable")]
@@ -50,7 +50,7 @@ new Dictionary<string, string>()
         }
 
 #if UNITY_EDITOR
-        // V1 No.5
+        // v1 No.5
         [MethodAPI]
         [APIDescriptionCN("List 倒序遍历")]
         [APIDescriptionEN("Reverse ForEach for List")]
@@ -70,7 +70,7 @@ testList.ForEachReverse(number => number.LogInfo());
         
         
 #if UNITY_EDITOR
-        // V1 No.6
+        // v1 No.6
         [MethodAPI]
         [APIDescriptionCN("遍历 List (可获得索引）")]
         [APIDescriptionEN("foreach List (can get index)")]
@@ -90,7 +90,7 @@ testList.Foreach((c,index)=>Debug.Log(index));
         
         
 #if UNITY_EDITOR
-        // V1 No.7
+        // v1 No.7
         [MethodAPI]
         [APIDescriptionCN("遍历字典")]
         [APIDescriptionEN("ForEach Dictionary")]
@@ -116,7 +116,7 @@ infos.ForEach((key,value)=> Debug.LogFormat(""{0}:{1}"",key,value);
         
         
 #if UNITY_EDITOR
-        // V1 No.8
+        // v1 No.8
         [MethodAPI]
         [APIDescriptionCN("合并字典")]
         [APIDescriptionEN("Merge Dictionaries")]
@@ -140,7 +140,7 @@ dictionary3.ForEach(pair => Debug.LogFormat(""{0}:{1}"", pair.Key, pair.Value));
         }
 
 #if UNITY_EDITOR
-        // V1 No.9
+        // v1 No.9
         [MethodAPI]
         [APIDescriptionCN("字典添加新的字典")]
         [APIDescriptionEN("Dictionary Adds a new dictionary")]

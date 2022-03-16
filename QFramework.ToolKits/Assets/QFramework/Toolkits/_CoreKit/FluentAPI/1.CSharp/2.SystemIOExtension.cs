@@ -12,13 +12,13 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     [ClassAPI("FluentAPI.CSharp", "System.IO", 2)]
-    [APIDescriptionCN("针对 System.Collections 提供的链式扩展，理论上任何集合都可以使用")]
-    [APIDescriptionEN("The chain extension provided by System.Collections can theoretically be used by any collection")]
+    [APIDescriptionCN("针对 System.IO 提供的链式扩展,主要是文件和文件夹的一些 IO 操作")]
+    [APIDescriptionEN("IO chain extension for system. IO, mainly file and folder IO operations")]
 #endif
     public static class SystemIOExtension
     {
 #if UNITY_EDITOR
-        // V1 No.10
+        // v1 No.10
         [MethodAPI]
         [APIDescriptionCN("创建文件夹,如果存在则不创建")]
         [APIDescriptionEN("Create folder or not if it exists")]
@@ -38,7 +38,7 @@ testDir.CreateDirIfNotExists();"
         }
 
 #if UNITY_EDITOR
-        // V1 No.11
+        // v1 No.11
         [MethodAPI]
         [APIDescriptionCN("删除文件夹，如果存在")]
         [APIDescriptionEN("Delete the folder if it exists")]
@@ -56,7 +56,7 @@ testDir.DeleteDirIfExists();
         }
 
 #if UNITY_EDITOR
-        // V1 No.12
+        // v1 No.12
         [MethodAPI]
         [APIDescriptionCN("清空 Dir（保留目录),如果存在")]
         [APIDescriptionEN("Clear Dir (reserved directory), if exists")]
@@ -76,7 +76,7 @@ testDir.EmptyDirIfExists();
         }
 
 #if UNITY_EDITOR
-        // V1 No.13
+        // v1 No.13
         [MethodAPI]
         [APIDescriptionCN("删除文件 如果存在")]
         [APIDescriptionEN("Delete the file if it exists")]
@@ -99,7 +99,7 @@ filePath.DeleteFileIfExists();
 
 
 #if UNITY_EDITOR
-        // V1 No.14
+        // v1 No.14
         [MethodAPI]
         [APIDescriptionCN("合并路径")]
         [APIDescriptionEN("Combine path")]
@@ -116,7 +116,7 @@ Debug.Log(Path)
 
 
 #if UNITY_EDITOR
-        // V1 No.15
+        // v1 No.15
         [MethodAPI]
         [APIDescriptionCN("根据路径获取文件名")]
         [APIDescriptionEN("get file name by path")]
@@ -132,7 +132,7 @@ Debug.Log(fileName0);
         }
 
 #if UNITY_EDITOR
-        // V1 No.16
+        // v1 No.16
         [MethodAPI]
         [APIDescriptionCN("根据路径获取文件名，不包含文件扩展名")]
         [APIDescriptionEN("Get the file name based on the path, excluding the file name extension")]
@@ -149,7 +149,7 @@ Debug.Log(fileName0);
         }
 
 #if UNITY_EDITOR
-        // V1 No.17
+        // v1 No.17
         [MethodAPI]
         [APIDescriptionCN("根据路径获取文件扩展名")]
         [APIDescriptionEN("Get the file extension based on the path")]
