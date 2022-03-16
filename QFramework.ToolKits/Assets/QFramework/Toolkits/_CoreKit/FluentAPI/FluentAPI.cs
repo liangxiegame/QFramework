@@ -26,51 +26,7 @@ namespace QFramework
     /// </summary>
     public static class IEnumerableExtension
     {
-
-        #region List Extension
-
-
-
-        /// <summary>
-        /// 倒序遍历（可获得索引)
-        /// <code>
-        /// var testList = new List<int> { 1, 2, 3 };
-        /// testList.ForEachReverse((number,index)=> number.LogInfo()); // 3, 2, 1
-        /// </code>
-        /// </summary>
-        /// <returns>The each reverse.</returns>
-        /// <param name="selfList">Self list.</param>
-        /// <param name="action">Action.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T, int> action)
-        {
-            if (action == null) throw new ArgumentException();
-
-            for (var i = selfList.Count - 1; i >= 0; --i)
-                action(selfList[i], i);
-
-            return selfList;
-        }
-
-        /// <summary>
-        /// 遍历列表(可获得索引）
-        /// <code>
-        /// var testList = new List<int> {1, 2, 3 };
-        /// testList.Foreach((number,index)=>number.LogInfo()); // 1, 2, 3,
-        /// </code>
-        /// </summary>
-        /// <typeparam name="T">列表类型</typeparam>
-        /// <param name="list">目标表</param>
-        /// <param name="action">行为</param>
-        public static void ForEach<T>(this List<T> list, Action<int, T> action)
-        {
-            for (var i = 0; i < list.Count; i++)
-            {
-                action(i, list[i]);
-            }
-        }
-
-        #endregion
+        
 
         #region Dictionary Extension
 

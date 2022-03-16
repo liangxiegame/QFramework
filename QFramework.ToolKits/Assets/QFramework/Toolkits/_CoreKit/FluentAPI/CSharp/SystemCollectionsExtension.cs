@@ -18,6 +18,7 @@ namespace QFramework
     public static class CollectionsExtension
     {
 #if UNITY_EDITOR
+        // 4
         [MethodAPI]
         [APIDescriptionCN("遍历 IEnumerable")]
         [APIDescriptionEN("ForEach for IEnumerable")]
@@ -34,7 +35,6 @@ new Dictionary<string, string>()
     {""company"",""liangxiegame"" } 
 }
 .ForEach(keyValue => Log.I(""key:{0},value:{1}"", keyValue.Key, keyValue.Value));
-// output
 // key:name,value:liangxie
 // key:company,value:liangxiegame")]
 #endif
@@ -48,24 +48,43 @@ new Dictionary<string, string>()
             return self;
         }
 
-        /// <summary>
-        /// 倒序遍历
-        /// <code>
-        /// var testList = new List<int> { 1, 2, 3 };
-        /// testList.ForEachReverse(number => number.LogInfo());
-        /// // 3, 2, 1
-        /// </code>
-        /// </summary>
-        /// <returns>返回自己</returns>
-        /// <param name="selfList">Self list.</param>
-        /// <param name="action">Action.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
+#if UNITY_EDITOR
+        // 5
+        [MethodAPI]
+        [APIDescriptionCN("List 倒序遍历")]
+        [APIDescriptionEN("Reverse ForEach for List")]
+        [APIExampleCode(@"
+var testList = new List<int> { 1, 2, 3 };
+testList.ForEachReverse(number => number.LogInfo());
+// 3 2 1
+")]
+#endif
         public static List<T> ForEachReverse<T>(this List<T> selfList, Action<T> action)
         {
             for (var i = selfList.Count - 1; i >= 0; --i)
                 action(selfList[i]);
 
             return selfList;
+        }
+        
+        
+#if UNITY_EDITOR
+        // 6
+        [MethodAPI]
+        [APIDescriptionCN("遍历 List (可获得索引）")]
+        [APIDescriptionEN("foreach List (can get index)")]
+        [APIExampleCode(@"
+var testList = new List<string> {""a"", ""b"", ""c"" };
+testList.Foreach((c,index)=>Debug.Log(index)); 
+// 1, 2, 3,
+")]
+#endif
+        public static void ForEach<T>(this List<T> list, Action<int, T> action)
+        {
+            for (var i = 0; i < list.Count; i++)
+            {
+                action(i, list[i]);
+            }
         }
     }
 }
