@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QFramework
 {
@@ -18,7 +19,7 @@ namespace QFramework
     public static class CollectionsExtension
     {
 #if UNITY_EDITOR
-        // 4
+        // V1 No.4
         [MethodAPI]
         [APIDescriptionCN("遍历 IEnumerable")]
         [APIDescriptionEN("ForEach for IEnumerable")]
@@ -34,7 +35,7 @@ new Dictionary<string, string>()
     {""name"",""liangxie""}, 
     {""company"",""liangxiegame"" } 
 }
-.ForEach(keyValue => Log.I(""key:{0},value:{1}"", keyValue.Key, keyValue.Value));
+.ForEach(keyValue => Debug.LogFormat(""key:{0},value:{1}"", keyValue.Key, keyValue.Value));
 // key:name,value:liangxie
 // key:company,value:liangxiegame")]
 #endif
@@ -49,7 +50,7 @@ new Dictionary<string, string>()
         }
 
 #if UNITY_EDITOR
-        // 5
+        // V1 No.5
         [MethodAPI]
         [APIDescriptionCN("List 倒序遍历")]
         [APIDescriptionEN("Reverse ForEach for List")]
@@ -69,7 +70,7 @@ testList.ForEachReverse(number => number.LogInfo());
         
         
 #if UNITY_EDITOR
-        // 6
+        // V1 No.6
         [MethodAPI]
         [APIDescriptionCN("遍历 List (可获得索引）")]
         [APIDescriptionEN("foreach List (can get index)")]
@@ -85,6 +86,95 @@ testList.Foreach((c,index)=>Debug.Log(index));
             {
                 action(i, list[i]);
             }
+        }
+        
+        
+#if UNITY_EDITOR
+        // V1 No.7
+        [MethodAPI]
+        [APIDescriptionCN("遍历字典")]
+        [APIDescriptionEN("ForEach Dictionary")]
+        [APIExampleCode(@"
+var infos = new Dictionary<string,string> {{""name"",""liangxie""},{""age"",""18""}};
+infos.ForEach((key,value)=> Debug.LogFormat(""{0}:{1}"",key,value);
+// name:liangxie    
+// age:18
+")]
+#endif
+        public static void ForEach<K, V>(this Dictionary<K, V> dict, Action<K, V> action)
+        {
+            var dictE = dict.GetEnumerator();
+
+            while (dictE.MoveNext())
+            {
+                var current = dictE.Current;
+                action(current.Key, current.Value);
+            }
+
+            dictE.Dispose();
+        }
+        
+        
+#if UNITY_EDITOR
+        // V1 No.8
+        [MethodAPI]
+        [APIDescriptionCN("合并字典")]
+        [APIDescriptionEN("Merge Dictionaries")]
+        [APIExampleCode(@"
+var dictionary1 = new Dictionary<string, string> { { ""1"", ""2"" } };
+var dictionary2 = new Dictionary<string, string> { { ""3"", ""4"" } };
+var dictionary3 = dictionary1.Merge(dictionary2);
+dictionary3.ForEach(pair => Debug.LogFormat(""{0}:{1}"", pair.Key, pair.Value));
+// 1:2
+// 3:4
+
+// notice: duplicate keys are not supported.
+// 注意：不支持重复的 key。
+")]
+#endif
+        public static Dictionary<TKey, TValue> Merge<TKey, TValue>(this Dictionary<TKey, TValue> dictionary,
+            params Dictionary<TKey, TValue>[] dictionaries)
+        {
+            return dictionaries.Aggregate(dictionary,
+                (current, dict) => current.Union(dict).ToDictionary(kv => kv.Key, kv => kv.Value));
+        }
+
+#if UNITY_EDITOR
+        // V1 No.9
+        [MethodAPI]
+        [APIDescriptionCN("字典添加新的字典")]
+        [APIDescriptionEN("Dictionary Adds a new dictionary")]
+        [APIExampleCode(@"
+var dictionary1 = new Dictionary<string, string> { { ""1"", ""2"" } };
+var dictionary2 = new Dictionary<string, string> { { ""1"", ""4"" } };
+var dictionary3 = dictionary1.AddRange(dictionary2,true); // true means override
+dictionary3.ForEach(pair => Debug.LogFormat(""{0}:{1}"", pair.Key, pair.Value));
+// 1:2
+// 3:4
+
+// notice: duplicate keys are  supported.
+// 注意：支持重复的 key。
+")]
+#endif
+        public static void AddRange<K, V>(this Dictionary<K, V> dict, Dictionary<K, V> addInDict,
+            bool isOverride = false)
+        {
+            var enumerator = addInDict.GetEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                var current = enumerator.Current;
+                if (dict.ContainsKey(current.Key))
+                {
+                    if (isOverride)
+                        dict[current.Key] = current.Value;
+                    continue;
+                }
+
+                dict.Add(current.Key, current.Value);
+            }
+
+            enumerator.Dispose();
         }
     }
 }
