@@ -117,9 +117,7 @@ namespace QFramework
             {
                 return string.Empty;
             }
-
-            /// <see cref="Markdig.Renderers.RendererBase.WriteChildren(ContainerInline)"/>
-
+            
             var inline = node.FirstChild;
             var content = string.Empty;
 

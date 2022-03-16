@@ -6,6 +6,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System;
 using UnityEditor;
 using UnityEngine;
@@ -22,11 +23,8 @@ namespace QFramework
 
             // 初始化
             mValue = EditorPrefs.GetBool(key, initValue);
-            
-            RegisterWithInitValue(value =>
-            {
-                EditorPrefs.SetBool(mKey, value);
-            });
+
+            RegisterWithInitValue(value => { EditorPrefs.SetBool(mKey, value); });
         }
     }
 
@@ -35,8 +33,6 @@ namespace QFramework
         /// <summary>
         /// 快捷访问 减少代码量
         /// </summary>
-
-
         private static Lazy<EditorPrefsBoolProperty> mIsCN =
             new Lazy<EditorPrefsBoolProperty>(() => new EditorPrefsBoolProperty("EDITOR_CN", true));
 
@@ -70,3 +66,4 @@ namespace QFramework
         }
     }
 }
+#endif

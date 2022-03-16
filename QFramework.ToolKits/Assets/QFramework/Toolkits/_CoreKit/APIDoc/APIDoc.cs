@@ -7,7 +7,6 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -23,63 +22,17 @@ namespace QFramework
     internal class APIDoc : IPackageKitView, IUnRegisterList
     {
         public EditorWindow EditorWindow { get; set; }
-        private Type mSelectionType;
+        private ClassAPIRenderInfo mSelectionClassAPIRenderInfo;
+
+        private List<ClassAPIGroupRenderInfo> mGroupRenderInfos = new List<ClassAPIGroupRenderInfo>();
 
         private MDViewer mMDViewer;
-        
+
 
         public void Init()
         {
             var skin = Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
             mMDViewer = new MDViewer(skin, string.Empty, "");
-        }
-
-        private List<Type> mTypes = new List<Type>();
-        private VerticalSplitView mSplitView;
-
-        private static GUIStyle mSelectionRect = "SelectionRect";
-
-        void UpdateDoc()
-        {
-            new StringBuilder()
-                .AppendLine("#### 基本信息")
-                .AppendLine()
-                .AppendLine("* 命名空间:**" + mSelectionType.Namespace +"**")
-                .AppendLine("* 类名:**" + mSelectionType.Name + "**")
-                .AppendLine()
-                .AppendLine("#### 描述:")
-                .AppendLine()
-                .AppendLine("* " + mSelectionType.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description)
-                .AppendLine()
-                .AppendLine("#### 示例")
-                .AppendLine()
-                .AppendLine("```")
-                .AppendLine(mSelectionType.GetFirstAttribute<APIExampleCodeAttribute>(false).Code)
-                .AppendLine("```")
-                .ToString()
-                .Self(mMDViewer.UpdateText);
-        }
-
-        public void OnShow()
-        {
-            LocaleKitEditor.IsCN.Register(_ => { UpdateDoc(); }).AddToUnregisterList(this);
-
-            mTypes.Clear();
-            foreach (var type in PackageKitAssemblyCache.GetAllTypes())
-            {
-                var classAPIAttribute = type.GetFirstAttribute<ClassAPIAttribute>(false);
-
-                if (classAPIAttribute != null)
-                {
-                    mTypes.Add(type);
-                }
-            }
-
-            if (mTypes.Count > 0)
-            {
-                mSelectionType = mTypes.First();
-                UpdateDoc();
-            }
 
             mSplitView = new VerticalSplitView(240)
             {
@@ -88,22 +41,39 @@ namespace QFramework
                     GUILayout.BeginArea(rect);
                     mSplitView.DrawExpandButtonLeft();
 
-                    foreach (var type in mTypes)
+                    foreach (var groupRenderInfo in mGroupRenderInfos)
                     {
-                        GUILayout.BeginHorizontal();
                         GUILayout.BeginVertical("box");
-                        GUILayout.Label(type.Name);
-                        GUILayout.EndVertical();
-                        GUILayout.Space(5); // padding
-                        GUILayout.EndHorizontal();
-
-                        IMGUIGestureHelper.LastRectSelectionCheck(type, mSelectionType,
-                            () =>
+                        if (EditorGUILayout.Foldout(groupRenderInfo.Open, groupRenderInfo.GroupName, true))
+                        {
+                            groupRenderInfo.Open = true;
+                            GUILayout.EndVertical();
+                            foreach (var classAPIRenderInfo in groupRenderInfo.ClassAPIRenderInfos)
                             {
-                                mSelectionType = type;
-                                UpdateDoc();
-                            });
+                                GUILayout.BeginHorizontal();
+                                GUILayout.Space(20); // indent
+                                GUILayout.BeginVertical("box");
+                                GUILayout.Label(classAPIRenderInfo.DisplayName);
+                                GUILayout.EndVertical();
+                                GUILayout.Space(5); // padding
+                                GUILayout.EndHorizontal();
+
+                                IMGUIGestureHelper.LastRectSelectionCheck(classAPIRenderInfo,
+                                    mSelectionClassAPIRenderInfo,
+                                    () =>
+                                    {
+                                        mSelectionClassAPIRenderInfo = classAPIRenderInfo;
+                                        UpdateDoc();
+                                    });
+                            }
+                        }
+                        else
+                        {
+                            groupRenderInfo.Open = false;
+                            GUILayout.EndVertical();
+                        }
                     }
+
 
                     GUILayout.EndArea();
                 },
@@ -112,7 +82,7 @@ namespace QFramework
                     GUILayout.BeginArea(rect);
                     mSplitView.DrawExpandButtonRight();
 
-                    if (mSelectionType != null)
+                    if (mSelectionClassAPIRenderInfo != null)
                     {
                         var lastRect = GUILayoutUtility.GetLastRect();
                         mMDViewer.DrawWithRect(new Rect(lastRect.x, lastRect.y + lastRect.height,
@@ -123,6 +93,84 @@ namespace QFramework
                     GUILayout.EndArea();
                 },
             };
+        }
+
+        private VerticalSplitView mSplitView;
+
+        private static GUIStyle mSelectionRect = "SelectionRect";
+
+        private APIDocLocale mLocaleText = new APIDocLocale();
+
+        void UpdateDoc()
+        {
+            mSelectionClassAPIRenderInfo.Parse();
+            new StringBuilder()
+                .Append("#### **").Append(mSelectionClassAPIRenderInfo.ClassName).AppendLine("**")
+                .AppendLine()
+                .Append("class in ").AppendLine(mSelectionClassAPIRenderInfo.Namespace)
+                .AppendLine()
+                // Description
+                .Append("#### ").Append(mLocaleText.Description).AppendLine()
+                .Append("> ").AppendLine(mSelectionClassAPIRenderInfo.Description)
+                .AppendLine()
+                // ExampleCode
+                .Self(builder =>
+                {
+                    if (mSelectionClassAPIRenderInfo.ExampleCode.IsNotNullAndEmpty())
+                    {
+                        builder
+                            .Append("#### ").AppendLine(mLocaleText.ExampleCode)
+                            .AppendLine()
+                            .AppendLine("```")
+                            .AppendLine(mSelectionClassAPIRenderInfo.ExampleCode)
+                            .AppendLine("```");
+                    }
+                })
+                .AppendLine()
+                // Methods
+                .Self(builder =>
+                {
+                    if (mSelectionClassAPIRenderInfo.Methods.Any())
+                    {
+                        builder
+                            .Append("#### ").AppendLine(mLocaleText.Methods)
+                            .AppendLine();
+
+
+                        foreach (var method in mSelectionClassAPIRenderInfo.Methods)
+                        {
+                            builder.AppendLine()
+                                .Self(method.BuildString);
+                        }
+                    }
+                })
+                .ToString()
+                .Self(mMDViewer.UpdateText);
+        }
+
+        public void OnShow()
+        {
+            LocaleKitEditor.IsCN.Register(_ => { UpdateDoc(); }).AddToUnregisterList(this);
+
+            mGroupRenderInfos.Clear();
+
+            mGroupRenderInfos = PackageKitAssemblyCache.GetAllTypes()
+                .Where(t => t.GetFirstAttribute<ClassAPIAttribute>(false) != null)
+                .Select(t => new ClassAPIRenderInfo(t, t.GetFirstAttribute<ClassAPIAttribute>(false)))
+                .GroupBy(c => c.GroupName)
+                .OrderBy(c => c.Key)
+                .Select(g => new ClassAPIGroupRenderInfo()
+                {
+                    GroupName = g.Key,
+                    ClassAPIRenderInfos = g.ToList()
+                }).ToList();
+
+
+            if (mGroupRenderInfos.Count > 0)
+            {
+                mSelectionClassAPIRenderInfo = mGroupRenderInfos.First().ClassAPIRenderInfos.First();
+                UpdateDoc();
+            }
         }
 
 
@@ -144,7 +192,7 @@ namespace QFramework
 
         public void OnHide()
         {
-            mTypes.Clear();
+            mGroupRenderInfos.Clear();
         }
 
         public void OnDispose()

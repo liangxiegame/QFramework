@@ -10,7 +10,7 @@ using System;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp")]
+    [ClassAPI("FluentAPI.CSharp","System.Object")]
     [APIDescriptionCN("针对 System.Object 提供的链式扩展，理论上任何对象都可以使用")]
     [APIDescriptionEN("The chain extension provided by System.object can theoretically be used by any Object")]
     [APIExampleCode(@"
@@ -34,22 +34,17 @@ new GameObject()
 #endif
     public static class SystemObjectExtension
     {
-        /// <summary>
-        /// 功能：判断是否为空
-        /// 
-        /// 示例：
-        /// <code>
-        /// var simpleObject = new object();
-        ///
-        /// if (simpleObject.IsNull()) // 等价于 simpleObject == null
-        /// {
-        ///     // do sth
-        /// }
-        /// </code>
-        /// </summary>
-        /// <param name="selfObj">判断对象(this)</param>
-        /// <typeparam name="T">对象的类型（可不填）</typeparam>
-        /// <returns>是否为空</returns>
+        [MethodAPI]
+        [APIDescriptionCN("判断是否为空")]
+        [APIDescriptionEN("Check Is Null,return true or false")]
+        [APIExampleCode(@"
+        var simpleObject = new object();
+        
+        if (simpleObject.IsNull()) // 等价于 simpleObject == null
+        {
+            // do sth
+        }
+        ")]
         public static bool IsNull<T>(this T selfObj) where T : class
         {
             return null == selfObj;
@@ -80,8 +75,5 @@ new GameObject()
             onDo?.Invoke(self);
             return self;
         }
-        
-
- 
     }
 }

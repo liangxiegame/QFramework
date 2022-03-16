@@ -12,11 +12,13 @@ namespace QFramework
     [AttributeUsage(AttributeTargets.Class)]
     public class ClassAPIAttribute : Attribute
     {
+        public string DisplayName { get; private set; }
         public string GroupName { get; private set; }
 
-        public ClassAPIAttribute(string groupName)
+        public ClassAPIAttribute(string groupName, string displayName)
         {
             GroupName = groupName;
+            DisplayName = displayName;
         }
     }
 }
