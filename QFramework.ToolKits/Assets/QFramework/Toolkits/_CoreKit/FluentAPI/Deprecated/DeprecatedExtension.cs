@@ -6,11 +6,30 @@
  ****************************************************************************/
 
 using System;
+using System.IO;
 
 namespace QFramework
 {
     public static class DeprecatedExtension
     {
+        /// <summary>
+        /// 检测路径是否存在，如果不存在则创建
+        /// </summary>
+        /// <param name="path"></param>
+        [Obsolete("不要使用，Do not used",true)]
+        public static string CreateDirIfNotExists4FilePath(this string path)
+        {
+            var direct = path.GetPathParentFolder();
+
+            if (!Directory.Exists(direct))
+            {
+                Directory.CreateDirectory(direct);
+            }
+
+            return path;
+        }
+
+        
         
         /// <summary>
         /// 获取泛型名字
