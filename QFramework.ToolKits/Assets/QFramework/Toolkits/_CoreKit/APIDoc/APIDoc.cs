@@ -20,14 +20,18 @@ namespace QFramework
     [DisplayName("API 文档")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(10)]
-    internal class APIDoc : IPackageKitView
+    internal class APIDoc : IPackageKitView, IUnRegisterList
     {
         public EditorWindow EditorWindow { get; set; }
+        private Type mSelectionType;
+
+        private MDViewer mMDViewer;
+        
 
         public void Init()
         {
             var skin = Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
-            mMDViewer = new MDViewer(skin, "", "");
+            mMDViewer = new MDViewer(skin, string.Empty, "");
         }
 
         private List<Type> mTypes = new List<Type>();
@@ -35,22 +39,31 @@ namespace QFramework
 
         private static GUIStyle mSelectionRect = "SelectionRect";
 
-        private Type mSelectionType;
-
-        private MDViewer mMDViewer;
-
         void UpdateDoc()
         {
             new StringBuilder()
-                .AppendLine("* 命名空间:" + mSelectionType.Namespace)
-                .AppendLine("* 类名:" + mSelectionType.Name)
-                .AppendLine("* 描述:" + mSelectionType.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description)
+                .AppendLine("#### 基本信息")
+                .AppendLine()
+                .AppendLine("* 命名空间:**" + mSelectionType.Namespace +"**")
+                .AppendLine("* 类名:**" + mSelectionType.Name + "**")
+                .AppendLine()
+                .AppendLine("#### 描述:")
+                .AppendLine()
+                .AppendLine("* " + mSelectionType.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description)
+                .AppendLine()
+                .AppendLine("#### 示例")
+                .AppendLine()
+                .AppendLine("```")
+                .AppendLine(mSelectionType.GetFirstAttribute<APIExampleCodeAttribute>(false).Code)
+                .AppendLine("```")
                 .ToString()
                 .Self(mMDViewer.UpdateText);
         }
 
         public void OnShow()
         {
+            LocaleKitEditor.IsCN.Register(_ => { UpdateDoc(); }).AddToUnregisterList(this);
+
             mTypes.Clear();
             foreach (var type in PackageKitAssemblyCache.GetAllTypes())
             {
@@ -136,8 +149,11 @@ namespace QFramework
 
         public void OnDispose()
         {
+            this.UnRegisterAll();
             mMDViewer = null;
         }
+
+        public List<IUnRegister> UnregisterList { get; } = new List<IUnRegister>();
     }
 }
 #endif

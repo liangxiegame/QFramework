@@ -9,8 +9,75 @@ using System;
 
 namespace QFramework
 {
-    public static class DelegateExtension
+    public static class DeprecatedExtension
     {
+        /// <summary>
+        /// 是否相等
+        /// 
+        /// 示例：
+        /// <code>
+        /// if (this.Is(player))
+        /// {
+        ///     ...
+        /// }
+        /// </code>
+        /// </summary>
+        /// <param name="selfObj"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [Obsolete("请使用 Object.Equals(A,B)，please use Object.Equals() isntead",true)]
+        public static bool Is<T>(this T selfObj, T value)
+        {
+            return Equals(selfObj, value);
+        }
+
+        [Obsolete("请使用 Object.Equals(A,B)，please use Object.Equals() isntead",true)]
+        public static bool Is<T>(this T selfObj, Func<T, bool> condition)
+        {
+            return condition(selfObj);
+        }
+
+        /// <summary>
+        /// 表达式成立 则执行 Action
+        /// 
+        /// 示例:
+        /// <code>
+        /// (1 == 1).Do(()=>Debug.Log("1 == 1");
+        /// </code>
+        /// </summary>
+        /// <param name="selfCondition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used",true)]
+        public static bool Do(this bool selfCondition, Action action)
+        {
+            if (selfCondition)
+            {
+                action();
+            }
+
+            return selfCondition;
+        }
+
+        /// <summary>
+        /// 不管表达成不成立 都执行 Action，并把结果返回
+        /// 
+        /// 示例:
+        /// <code>
+        /// (1 == 1).Do((result)=>Debug.Log("1 == 1:" + result);
+        /// </code>
+        /// </summary>
+        /// <param name="selfCondition"></param>
+        /// <param name="action"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used",true)]
+        public static bool Do(this bool selfCondition, Action<bool> action)
+        {
+            action(selfCondition);
+
+            return selfCondition;
+        }
+        
         #region Func Extension
 
         /// <summary>
