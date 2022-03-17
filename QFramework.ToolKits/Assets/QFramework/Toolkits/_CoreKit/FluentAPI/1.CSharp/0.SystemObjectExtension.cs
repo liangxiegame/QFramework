@@ -12,7 +12,7 @@ using System;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.Object", 0)]
+    [ClassAPI("1.FluentAPI.CSharp", "System.Object", 0)]
     [APIDescriptionCN("针对 System.Object 提供的链式扩展，理论上任何对象都可以使用")]
     [APIDescriptionEN("The chain extension provided by System.object can theoretically be used by any Object")]
 #endif

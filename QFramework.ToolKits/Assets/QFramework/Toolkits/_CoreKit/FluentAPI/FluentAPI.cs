@@ -14,8 +14,6 @@ namespace QFramework
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
-    
-
 
     public static class BehaviourExtension
     {
@@ -84,15 +82,9 @@ namespace QFramework
         /// <returns></returns>
         public static Color HtmlStringToColor(this string htmlString)
         {
-            Color retColor;
-            var parseSucceed = ColorUtility.TryParseHtmlString(htmlString, out retColor);
+            var parseSucceed = ColorUtility.TryParseHtmlString(htmlString, out var retColor);
             return parseSucceed ? retColor : Color.black;
         }
-
-        /// <summary>
-        /// unity's color always new a color
-        /// </summary>
-        public static Color White = Color.white;
     }
 
     public static class GraphicExtension
@@ -141,147 +133,7 @@ namespace QFramework
             RenderSettings.ambientLight = htmlStringColor.HtmlStringToColor();
         }
     }
-
-    public static class ObjectExtension
-    {
-        public static void Example()
-        {
-            var gameObject = new GameObject();
-
-            gameObject.Instantiate()
-                .Name("ExtensionExample")
-                .DestroySelf();
-
-            gameObject.Instantiate()
-                .DestroySelfGracefully();
-
-            gameObject.Instantiate()
-                .DestroySelfAfterDelay(1.0f);
-
-            gameObject.Instantiate()
-                .DestroySelfAfterDelayGracefully(1.0f);
-
-            gameObject
-                .Self(selfObj => Log.I(selfObj.name))
-                .Name("TestObj")
-                .Self(selfObj => Log.I(selfObj.name))
-                .Name("ExtensionExample")
-                .DontDestroyOnLoad();
-        }
-
-
-        #region CEUO001 Instantiate
-
-        public static T Instantiate<T>(this T selfObj) where T : UnityEngine.Object
-        {
-            return UnityEngine.Object.Instantiate(selfObj);
-        }
-
-        public static T Instantiate<T>(this T selfObj, Vector3 position, Quaternion rotation)
-            where T : UnityEngine.Object
-        {
-            return UnityEngine.Object.Instantiate(selfObj, position, rotation);
-        }
-
-        public static T Instantiate<T>(
-            this T selfObj,
-            Vector3 position,
-            Quaternion rotation,
-            Transform parent)
-            where T : UnityEngine.Object
-        {
-            return UnityEngine.Object.Instantiate(selfObj, position, rotation, parent);
-        }
-
-
-        public static T InstantiateWithParent<T>(this T selfObj, Transform parent, bool worldPositionStays)
-            where T : UnityEngine.Object
-        {
-            return (T)UnityEngine.Object.Instantiate((UnityEngine.Object)selfObj, parent, worldPositionStays);
-        }
-
-        public static T InstantiateWithParent<T>(this T selfObj, Transform parent) where T : UnityEngine.Object
-        {
-            return UnityEngine.Object.Instantiate(selfObj, parent, false);
-        }
-
-        #endregion
-
-        #region CEUO002 Name
-
-        public static T Name<T>(this T selfObj, string name) where T : UnityEngine.Object
-        {
-            selfObj.name = name;
-            return selfObj;
-        }
-
-        #endregion
-
-        #region CEUO003 Destroy Self
-
-        public static void DestroySelf<T>(this T selfObj) where T : UnityEngine.Object
-        {
-            UnityEngine.Object.Destroy(selfObj);
-        }
-
-        public static T DestroySelfGracefully<T>(this T selfObj) where T : UnityEngine.Object
-        {
-            if (selfObj)
-            {
-                UnityEngine.Object.Destroy(selfObj);
-            }
-
-            return selfObj;
-        }
-
-        #endregion
-
-        #region CEUO004 Destroy Self AfterDelay
-
-        public static T DestroySelfAfterDelay<T>(this T selfObj, float afterDelay) where T : UnityEngine.Object
-        {
-            UnityEngine.Object.Destroy(selfObj, afterDelay);
-            return selfObj;
-        }
-
-        public static T DestroySelfAfterDelayGracefully<T>(this T selfObj, float delay) where T : UnityEngine.Object
-        {
-            if (selfObj)
-            {
-                UnityEngine.Object.Destroy(selfObj, delay);
-            }
-
-            return selfObj;
-        }
-
-        #endregion
-
-        #region CEUO005 Apply Self To
-
-        [Obsolete("弃用，请使用 Self, use Self instead")]
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : UnityEngine.Object
-        {
-            toFunction.InvokeGracefully(selfObj);
-            return selfObj;
-        }
-        
-        #endregion
-
-        #region CEUO006 DontDestroyOnLoad
-
-        public static T DontDestroyOnLoad<T>(this T selfObj) where T : UnityEngine.Object
-        {
-            UnityEngine.Object.DontDestroyOnLoad(selfObj);
-            return selfObj;
-        }
-
-        #endregion
-
-        public static T As<T>(this object selfObj) where T : class
-        {
-            return selfObj as T;
-        }
-    }
+    
 
     public static class RectTransformExtension
     {
@@ -368,7 +220,7 @@ namespace QFramework
             var transform = selfScript.transform;
 
             transform
-                // .Parent(null)
+                .Parent(null)
                 .LocalIdentity()
                 .LocalPositionIdentity()
                 .LocalRotationIdentity()
@@ -397,7 +249,7 @@ namespace QFramework
                 .SiblingIndex(0);
 
             selfScript
-                // .Parent(null)
+                .Parent(null)
                 .LocalIdentity()
                 .LocalPositionIdentity()
                 .LocalRotationIdentity()

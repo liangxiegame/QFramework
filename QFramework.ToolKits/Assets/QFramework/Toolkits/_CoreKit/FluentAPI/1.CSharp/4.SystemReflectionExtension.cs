@@ -14,7 +14,7 @@ using System.Reflection;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.Reflection", 4)]
+    [ClassAPI("1.FluentAPI.CSharp", "System.Reflection", 4)]
     [APIDescriptionCN("针对 System.Reflection 提供的链式扩展")]
     [APIDescriptionEN("Chain extension provided for System.Reflection")]
 #endif

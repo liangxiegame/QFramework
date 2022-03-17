@@ -13,7 +13,7 @@ using System.Linq;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.Collections", 3)]
+    [ClassAPI("1.FluentAPI.CSharp", "System.Collections", 3)]
     [APIDescriptionCN("针对 System.Collections 提供的链式扩展，理论上任何集合都可以使用")]
     [APIDescriptionEN("The chain extension provided by System.Collections can theoretically be used by any collection")]
 #endif

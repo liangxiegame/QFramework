@@ -11,7 +11,7 @@ using System.IO;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.IO", 2)]
+    [ClassAPI("1.FluentAPI.CSharp", "System.IO", 2)]
     [APIDescriptionCN("针对 System.IO 提供的链式扩展,主要是文件和文件夹的一些 IO 操作")]
     [APIDescriptionEN("IO chain extension for system. IO, mainly file and folder IO operations")]
 #endif

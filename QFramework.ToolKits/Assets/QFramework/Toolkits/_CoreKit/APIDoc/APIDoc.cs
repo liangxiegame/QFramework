@@ -157,8 +157,8 @@ namespace QFramework
             mGroupRenderInfos.Clear();
 
             mGroupRenderInfos = PackageKitAssemblyCache.GetAllTypes()
-                .Where(t => t.GetFirstAttribute<ClassAPIAttribute>(false) != null)
-                .Select(t => new ClassAPIRenderInfo(t, t.GetFirstAttribute<ClassAPIAttribute>(false)))
+                .Where(t => t.HasAttribute<ClassAPIAttribute>())
+                .Select(t => new ClassAPIRenderInfo(t, t.GetAttribute<ClassAPIAttribute>(false)))
                 .GroupBy(c => c.GroupName)
                 .OrderBy(c => c.Key)
                 .Select(g => new ClassAPIGroupRenderInfo()

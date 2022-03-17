@@ -98,7 +98,7 @@ namespace QFramework
 
             foreach (var view in viewTypes)
             {
-                if (view.GetFirstAttribute<PackageKitIgnoreAttribute>(false) == null)
+                if (view.GetAttribute<PackageKitIgnoreAttribute>(false) == null)
                 {
                     var viewInstance = Activator.CreateInstance(view) as IPackageKitView;
                     if (viewInstance == null) continue;

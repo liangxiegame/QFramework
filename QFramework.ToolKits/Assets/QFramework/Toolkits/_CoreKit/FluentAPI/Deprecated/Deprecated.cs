@@ -70,6 +70,7 @@ namespace QFramework
 
     public static class ReflectionExtension
     {
+        
         public static Assembly GetAssemblyCSharp()
         {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -108,33 +109,41 @@ namespace QFramework
     public static class DeprecatedExtension
     {
         
+        [Obsolete("弃用，请使用 Self, use Self instead",true)]
+        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : UnityEngine.Object
+        {
+            toFunction.InvokeGracefully(selfObj);
+            return selfObj;
+        }
+
+        
         [Obsolete(
-            "请使用 str.Builder().AppendFormat(template,args).ToString(),please use str.Builder().AppendFormat(template,args).ToString() instead",
+            "请使用 GetAttribute<T>(),please use GetAttribute<T>() instead",
             true)]
         public static T GetFirstAttribute<T>(this MethodInfo method, bool inherit) where T : Attribute
         {
             return method.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
+        [Obsolete(
+            "请使用 GetAttribute<T>(),please use GetAttribute<T>() instead",
+            true)]
         public static T GetFirstAttribute<T>(this FieldInfo field, bool inherit) where T : Attribute
         {
             return field.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
+        [Obsolete(
+            "请使用 GetAttribute<T>(),please use GetAttribute<T>() instead",
+            true)]
         public static T GetFirstAttribute<T>(this PropertyInfo prop, bool inherit) where T : Attribute
         {
             return prop.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
+        [Obsolete(
+            "请使用 GetAttribute<T>(),please use GetAttribute<T>() instead",
+            true)]
         public static T GetFirstAttribute<T>(this Type type, bool inherit) where T : Attribute
         {
             return type.GetCustomAttributes<T>(inherit).FirstOrDefault();

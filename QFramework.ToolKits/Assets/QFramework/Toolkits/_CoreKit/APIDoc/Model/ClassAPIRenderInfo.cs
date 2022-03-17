@@ -44,8 +44,8 @@ namespace QFramework
         public void Parse()
         {
             ClassName = mType.Name;
-            mDescriptionCN = mType.GetFirstAttribute<APIDescriptionCNAttribute>(false);
-            mDescriptionEN = mType.GetFirstAttribute<APIDescriptionENAttribute>(false);
+            mDescriptionCN = mType.GetAttribute<APIDescriptionCNAttribute>(false);
+            mDescriptionEN = mType.GetAttribute<APIDescriptionENAttribute>(false);
             Namespace = mType.Namespace;
 
             Methods = mType.GetMethods()
@@ -53,7 +53,7 @@ namespace QFramework
                 .Select(m => new MethodAPIRenderInfo(m)).ToList();
 
 
-            var exampleCode = mType.GetFirstAttribute<APIExampleCodeAttribute>(false);
+            var exampleCode = mType.GetAttribute<APIExampleCodeAttribute>(false);
             if (exampleCode != null)
             {
                 ExampleCode = exampleCode.Code;

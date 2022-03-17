@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("FluentAPI.CSharp", "System.String", 1)]
+    [ClassAPI("1.FluentAPI.CSharp", "System.String", 1)]
     [APIDescriptionCN("针对 System.String 提供的链式扩展，理论上任何集合都可以使用")]
     [APIDescriptionEN("The chain extension provided by System.Collections can theoretically be used by any collection")]
 #endif
