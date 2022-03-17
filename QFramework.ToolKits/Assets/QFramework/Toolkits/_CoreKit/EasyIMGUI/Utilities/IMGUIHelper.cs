@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public static class IMGUIGestureHelper
+    public static class IMGUIHelper
     {
         private static readonly GUIStyle SelectionRect = "SelectionRect";
 
@@ -31,6 +31,20 @@ namespace QFramework
                 onSelect();
                 Event.current.Use();
             }
+        }
+        
+        /// <summary>
+        /// 设置屏幕分辨率（拉伸)
+        /// SetDesignResolution(Strench)
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        public static void SetDesignResolution(float width, float height)
+        {
+            var scaleX = Screen.width / width;
+            var scaleY = Screen.height / height;
+
+            GUIUtility.ScaleAroundPivot(new Vector2(scaleX, scaleY), new Vector2(0, 0));
         }
     }
 }

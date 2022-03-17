@@ -258,6 +258,8 @@ Debug.Log(""Hello World "".RemoveString(""Hello"","" ""));
             return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
         }
         
+        
+        
 
     }
 }

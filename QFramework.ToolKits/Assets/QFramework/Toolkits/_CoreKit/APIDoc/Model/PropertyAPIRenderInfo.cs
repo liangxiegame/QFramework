@@ -9,37 +9,36 @@
 using System.Reflection;
 using System.Text;
 
-#if UNITY_EDITOR
 namespace QFramework
 {
-    public class MethodAPIRenderInfo
+    public class PropertyAPIRenderInfo
     {
-        private readonly MethodInfo mMethodInfo;
-        public string MethodCode { get; private set; }
+        private readonly PropertyInfo mPropertyInfo;
 
-        public MethodAPIRenderInfo(MethodInfo methodInfo)
+        public PropertyAPIRenderInfo(PropertyInfo propertyInfo)
         {
-            mMethodInfo = methodInfo;
-            MethodCode = methodInfo.Name;
+            mPropertyInfo = propertyInfo;
         }
+
 
         public void BuildString(StringBuilder builder)
         {
-            var exampleCodeAttribute = mMethodInfo.GetCustomAttribute<APIExampleCodeAttribute>();
+            var exampleCodeAttribute = mPropertyInfo.GetCustomAttribute<APIExampleCodeAttribute>();
 
             var description = string.Empty;
 
             if (LocaleKitEditor.IsCN.Value)
             {
-                description = mMethodInfo.GetAttribute<APIDescriptionCNAttribute>().Description;
+                description = mPropertyInfo.GetAttribute<APIDescriptionCNAttribute>().Description;
             }
             else
             {
-                description = mMethodInfo.GetAttribute<APIDescriptionENAttribute>(false).Description;
+                description = mPropertyInfo.GetAttribute<APIDescriptionENAttribute>(false).Description;
             }
 
             builder
-                .Append("|").Append(mMethodInfo.Name).Append("|").Append(description).AppendLine("|")
+                .Append("|").Append(mPropertyInfo.PropertyType.Name + " " + mPropertyInfo.Name).Append("|")
+                .Append(description).AppendLine("|")
                 .AppendLine("|-|-|")
                 .Append("|").Append(APIDocLocale.ExampleCode).Append("|").AppendLine(" |")
                 .AppendLine("```")
@@ -49,4 +48,3 @@ namespace QFramework
         }
     }
 }
-#endif

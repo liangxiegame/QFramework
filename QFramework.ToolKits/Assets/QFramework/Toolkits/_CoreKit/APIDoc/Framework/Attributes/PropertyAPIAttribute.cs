@@ -10,14 +10,9 @@ using System;
 
 namespace QFramework
 {
-    public class APIDescriptionENAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Property)]
+    public class PropertyAPIAttribute : Attribute
     {
-        public string Description { get; private set; }
-
-        public APIDescriptionENAttribute(string description)
-        {
-            Description = description;
-        }
         
     }
 }

@@ -1,8 +1,9 @@
 /****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
  * 
- * http://qframework.io
+ * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 #if UNITY_EDITOR
@@ -27,7 +28,9 @@ namespace QFramework
         private APIDescriptionCNAttribute mDescriptionCN;
         private APIDescriptionENAttribute mDescriptionEN;
 
+        public List<PropertyAPIRenderInfo> Properties { get; private set; }
         public List<MethodAPIRenderInfo> Methods { get; private set; }
+        
         public int RenderOrder { get; private set; }
 
 
@@ -47,6 +50,10 @@ namespace QFramework
             mDescriptionCN = mType.GetAttribute<APIDescriptionCNAttribute>(false);
             mDescriptionEN = mType.GetAttribute<APIDescriptionENAttribute>(false);
             Namespace = mType.Namespace;
+
+            Properties = mType.GetProperties()
+                .Where(p => p.HasAttribute<PropertyAPIAttribute>())
+                .Select(p => new PropertyAPIRenderInfo(p)).ToList();
 
             Methods = mType.GetMethods()
                 .Where(m => m.HasAttribute<MethodAPIAttribute>())

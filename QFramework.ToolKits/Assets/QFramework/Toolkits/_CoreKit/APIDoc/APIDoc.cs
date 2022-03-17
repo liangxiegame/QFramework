@@ -58,7 +58,7 @@ namespace QFramework
                                 GUILayout.EndHorizontal();
                                 GUILayout.EndVertical();
 
-                                IMGUIGestureHelper.LastRectSelectionCheck(classAPIRenderInfo,
+                                IMGUIHelper.LastRectSelectionCheck(classAPIRenderInfo,
                                     mSelectionClassAPIRenderInfo,
                                     () =>
                                     {
@@ -125,6 +125,25 @@ namespace QFramework
                             .AppendLine("```")
                             .AppendLine(mSelectionClassAPIRenderInfo.ExampleCode)
                             .AppendLine("```");
+                    }
+                })
+                .AppendLine()
+                // Properties
+                .Self(builder =>
+                {
+                    if (mSelectionClassAPIRenderInfo.Properties.Any())
+                    {
+                        builder
+                            .Append("**").Append(APIDocLocale.Properties).AppendLine("**")
+                            .AppendLine()
+                            .AppendLine("--------");
+
+
+                        foreach (var property in mSelectionClassAPIRenderInfo.Properties)
+                        {
+                            builder.AppendLine()
+                                .Self(property.BuildString);
+                        }
                     }
                 })
                 .AppendLine()

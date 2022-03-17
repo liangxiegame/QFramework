@@ -163,5 +163,28 @@ Debug.Log(fileName0);
         {
             return Path.GetExtension(filePath);
         }
+        
+        
+#if UNITY_EDITOR
+        // v1 No.156
+        [MethodAPI]
+        [APIDescriptionCN("获取文件夹路径")]
+        [APIDescriptionEN("get filePath's folder path")]
+        [APIExampleCode(@"
+var folderPath =""/abc/def/b.txt"".GetFolderPath();
+Debug.Log(fileName0);
+// /abs/def
+        ")]
+#endif
+        public static string GetFolderPath(this string path)
+        {
+                if (string.IsNullOrEmpty(path))
+                {
+                        return string.Empty;
+                }
+
+                return Path.GetDirectoryName(path);
+        }
+
     }
 }
