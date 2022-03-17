@@ -11,9 +11,9 @@ using UnityEngine;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("0.FluentAPI.Unity", "System.Object", 0)]
-    [APIDescriptionCN("针对 System.Object 提供的链式扩展，理论上任何对象都可以使用")]
-    [APIDescriptionEN("The chain extension provided by System.object can theoretically be used by any Object")]
+    [ClassAPI("0.FluentAPI.Unity", "UnityEngine.Object", 0)]
+    [APIDescriptionCN("针对 UnityEngine.Object 提供的链式扩展")]
+    [APIDescriptionEN("The chain extension provided by UnityEngine.Object")]
     [APIExampleCode(@"
 var gameObject = new GameObject();
 //
