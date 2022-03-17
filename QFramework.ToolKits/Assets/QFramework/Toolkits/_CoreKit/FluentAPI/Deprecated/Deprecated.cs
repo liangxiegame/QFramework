@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -50,6 +51,7 @@ namespace QFramework
     /// </summary>
     public static class ProbilityHelper
     {
+        
         [Obsolete("不要使用，Do not used", true)]
         public static T RandomValueFrom<T>(params T[] values)
         {
@@ -108,6 +110,75 @@ namespace QFramework
     /// </summary>
     public static class DeprecatedExtension
     {
+        [Obsolete("弃用，请使用 Scale(), use Scale() instead",true)]
+
+        public static Vector3 GetGlobalScale<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.lossyScale;
+        }
+
+        [Obsolete("弃用，请使用 Scale(), use Scale() instead",true)]
+        public static Vector3 GetScale<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.lossyScale;
+        }
+
+        [Obsolete("弃用，请使用 Scale(), use Scale() instead",true)]
+        public static Vector3 GetWorldScale<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.lossyScale;
+        }
+
+        [Obsolete("弃用，请使用 Scale(), use Scale() instead",true)]
+        public static Vector3 GetLossyScale<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.lossyScale;
+        }
+        
+        [Obsolete("弃用，请使用 Rotation(), use Rotation() instead",true)]
+
+        public static Quaternion GetRotation<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.rotation;
+        }
+
+        
+        [Obsolete("弃用啦 请使用 DestroyChildren,use DestroyChildren() instead")]
+        public static T DestroyAllChild<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.DestroyChildren();
+        }
+
+        [Obsolete("弃用啦 请使用 DestroyChildren,use DestroyChildren() instead")]
+        public static GameObject DestroyAllChild(this GameObject selfGameObj)
+        {
+            return selfGameObj.DestroyChildren();
+        }
+        
+        [Obsolete("弃用，请使用 Position(), use Position() instead",true)]
+        public static Vector3 GetPosition<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.position;
+        }
+        
+        [Obsolete("弃用，请使用 LocalScale(), use LocalScale() instead",true)]
+
+        public static Vector3 GetLocalScale<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.localScale;
+        }
+        
+        [Obsolete("弃用，请使用 LocalRotation(), use LocalRotation() instead",true)]
+        public static Quaternion GetLocalRotation<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.localRotation;
+        }
+        
+        [Obsolete("弃用，请使用 LocalPosition(), use LocalPosition() instead",true)]
+        public static Vector3 GetLocalPosition<T>(this T selfComponent) where T : Component
+        {
+            return selfComponent.transform.localPosition;
+        }
         
         [Obsolete("弃用，请使用 Self, use Self instead",true)]
         public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : UnityEngine.Object

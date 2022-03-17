@@ -12,7 +12,7 @@ using UnityEngine;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("0.FluentAPI.Unity", "UnityEngine.GameObject", 0)]
+    [ClassAPI("0.FluentAPI.Unity", "UnityEngine.GameObject", 1)]
     [APIDescriptionCN("针对 UnityEngine.GameObject 提供的链式扩展")]
     [APIDescriptionEN("The chain extension provided by UnityEngine.Object.")]
     [APIExampleCode(@"
