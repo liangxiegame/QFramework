@@ -9,10 +9,42 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace QFramework
 {
+    /// 程序集工具
+    /// </summary>
+    public class AssemblyUtil
+    {
+        
+        /// <summary>
+        /// 获取 Assembly-CSharp 程序集
+        /// </summary>
+        [Obsolete("不要使用，Do not used", true)]
+        public static Assembly DefaultCSharpAssembly
+        {
+            get
+            {
+                return AppDomain.CurrentDomain.GetAssemblies()
+                    .SingleOrDefault(a => a.GetName().Name == "Assembly-CSharp");
+            }
+        }
+
+        /// <summary>
+        /// 获取默认的程序集中的类型
+        /// </summary>
+        /// <param name="typeName"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static Type GetDefaultAssemblyType(string typeName)
+        {
+            return DefaultCSharpAssembly.GetType(typeName);
+        }
+    }
+
+    
     /// <summary>
     /// 简单的概率计算
     /// </summary>
@@ -36,12 +68,55 @@ namespace QFramework
         }
     }
 
+    public static class ReflectionExtension
+    {
+        public static Assembly GetAssemblyCSharp()
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var a in assemblies)
+            {
+                if (a.FullName.StartsWith("Assembly-CSharp,"))
+                {
+                    return a;
+                }
+            }
+
+//            Log.E(">>>>>>>Error: Can\'t find Assembly-CSharp.dll");
+            return null;
+        }
+
+        public static Assembly GetAssemblyCSharpEditor()
+        {
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (var a in assemblies)
+            {
+                if (a.FullName.StartsWith("Assembly-CSharp-Editor,"))
+                {
+                    return a;
+                }
+            }
+
+//            Log.E(">>>>>>>Error: Can\'t find Assembly-CSharp-Editor.dll");
+            return null;
+        }
+    }
+
     /// <summary>
     /// Write in unity 2017 .Net 3.5
     /// after unity 2018 .Net 4.x and new C# version are more powerful
     /// </summary>
     public static class DeprecatedExtension
     {
+        /// <summary>
+        /// 获取默认值
+        /// </summary>
+        /// <param name="targetType"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static object DefaultForType(this Type targetType)
+        {
+            return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
+        }
         
         /// <summary>
         /// 最后一个单词
