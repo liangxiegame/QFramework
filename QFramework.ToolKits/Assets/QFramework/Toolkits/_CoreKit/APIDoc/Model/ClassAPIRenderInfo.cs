@@ -49,7 +49,7 @@ namespace QFramework
             Namespace = mType.Namespace;
 
             Methods = mType.GetMethods()
-                .Where(m => m.GetFirstAttribute<MethodAPIAttribute>(false) != null)
+                .Where(m => m.HasAttribute<MethodAPIAttribute>())
                 .Select(m => new MethodAPIRenderInfo(m)).ToList();
 
 

@@ -107,22 +107,79 @@ namespace QFramework
     /// </summary>
     public static class DeprecatedExtension
     {
+        
+        [Obsolete(
+            "请使用 str.Builder().AppendFormat(template,args).ToString(),please use str.Builder().AppendFormat(template,args).ToString() instead",
+            true)]
+        public static T GetFirstAttribute<T>(this MethodInfo method, bool inherit) where T : Attribute
+        {
+            return method.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+
         /// <summary>
-        /// 获取默认值
+        /// 获取第一个特性
         /// </summary>
-        /// <param name="targetType"></param>
+        public static T GetFirstAttribute<T>(this FieldInfo field, bool inherit) where T : Attribute
+        {
+            return field.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取第一个特性
+        /// </summary>
+        public static T GetFirstAttribute<T>(this PropertyInfo prop, bool inherit) where T : Attribute
+        {
+            return prop.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取第一个特性
+        /// </summary>
+        public static T GetFirstAttribute<T>(this Type type, bool inherit) where T : Attribute
+        {
+            return type.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+        
+        /// <summary>
+        /// 通过反射方式获取域值
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="fieldName">域名</param>
         /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static object GetFieldByReflect(this object obj, string fieldName)
+        {
+            var fieldInfo = obj.GetType().GetField(fieldName);
+            return fieldInfo == null ? null : fieldInfo.GetValue(obj);
+        }
+
+        /// <summary>
+        /// 通过反射方式获取属性
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="fieldName">属性名</param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static object GetPropertyByReflect(this object obj, string propertyName, object[] index = null)
+        {
+            var propertyInfo = obj.GetType().GetProperty(propertyName);
+            return propertyInfo == null ? null : propertyInfo.GetValue(obj, index);
+        }
+        
+        [Obsolete("不要使用，Do not used", true)]
+        public static object InvokeByReflect(this object obj, string methodName, params object[] args)
+        {
+            var methodInfo = obj.GetType().GetMethod(methodName);
+            return methodInfo == null ? null : methodInfo.Invoke(obj, args);
+        }
+
+        
         [Obsolete("不要使用，Do not used", true)]
         public static object DefaultForType(this Type targetType)
         {
             return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
         }
         
-        /// <summary>
-        /// 最后一个单词
-        /// </summary>
-        /// <param name="selfUrl"></param>
-        /// <returns></returns>
         [Obsolete("不要使用，Do not used", true)]
         public static string LastWord(this string selfUrl)
         {

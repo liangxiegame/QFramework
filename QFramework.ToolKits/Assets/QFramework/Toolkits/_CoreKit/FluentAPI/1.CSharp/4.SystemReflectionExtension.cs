@@ -25,7 +25,7 @@ namespace QFramework
         // {
         //         "/abc/e.txt".GetFileExtendName().LogInfo();
         // }
-        
+
 #if UNITY_EDITOR
         // v1 No.32
         [MethodAPI]
@@ -44,8 +44,8 @@ new A().ReflectionCallPrivateMethod(""Say"");
         public static object ReflectionCallPrivateMethod<T>(this T self, string methodName, params object[] args)
         {
             var type = typeof(T);
-            var methodInfo = type.GetMethod(methodName,BindingFlags.Instance | BindingFlags.NonPublic);
-            
+            var methodInfo = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
+
             return methodInfo?.Invoke(self, args);
         }
 
@@ -64,127 +64,213 @@ Debug.Log(new A().ReflectionCallPrivateMethod(""Add"",1,2));
 // 3
 ")]
 #endif
-        public static TReturnType ReflectionCallPrivateMethod<T,TReturnType>(this T self, string methodName, params object[] args)
+        public static TReturnType ReflectionCallPrivateMethod<T, TReturnType>(this T self, string methodName,
+            params object[] args)
         {
             return (TReturnType)self.ReflectionCallPrivateMethod(methodName, args);
         }
-        
-          /// <summary>
-        /// 通过反射方式调用函数
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="methodName">方法名</param>
-        /// <param name="args">参数</param>
-        /// <returns></returns>
-        public static object InvokeByReflect(this object obj, string methodName, params object[] args)
+
+
+#if UNITY_EDITOR
+        // v1 No.34
+        [MethodAPI]
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+        [APIExampleCode(@"
+[DisplayName(""A Class"")
+class A
+{
+    [DisplayName(""A Number"")
+    public int Number;
+
+    [DisplayName(""Is Complete?"")
+    private bool Complete => Number > 100;
+
+    [DisplayName(""Say complete result?"")
+    public void SayComplete()
+    {
+        Debug.Log(Complete);
+    }
+}
+
+var aType = typeof(A);
+//
+Debug.Log(aType.HasAttribute(typeof(DisplayNameAttribute));
+// true
+Debug.Log(aType.HasAttribute<DisplayNameAttribute>());
+// true
+
+// also support MethodInfo、PropertyInfo、FieldInfo
+// 同时 也支持 MethodInfo、PropertyInfo、FieldInfo
+")]
+#endif
+        public static bool HasAttribute<T>(this Type type, bool inherit = false) where T : Attribute
         {
-            var methodInfo = obj.GetType().GetMethod(methodName);
-            return methodInfo == null ? null : methodInfo.Invoke(obj, args);
+            return type.GetCustomAttributes(typeof(T), inherit).Any();
         }
 
-        /// <summary>
-        /// 通过反射方式获取域值
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="fieldName">域名</param>
-        /// <returns></returns>
-        public static object GetFieldByReflect(this object obj, string fieldName)
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute(this Type type, Type attributeType, bool inherit = false)
         {
-            var fieldInfo = obj.GetType().GetField(fieldName);
-            return fieldInfo == null ? null : fieldInfo.GetValue(obj);
+            return type.GetCustomAttributes(attributeType, inherit).Any();
+        }
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute<T>(this PropertyInfo prop, bool inherit = false) where T : Attribute
+        {
+            return prop.GetCustomAttributes(typeof(T), inherit).Any();
         }
 
-        /// <summary>
-        /// 通过反射方式获取属性
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="fieldName">属性名</param>
-        /// <returns></returns>
-        public static object GetPropertyByReflect(this object obj, string propertyName, object[] index = null)
-        {
-            var propertyInfo = obj.GetType().GetProperty(propertyName);
-            return propertyInfo == null ? null : propertyInfo.GetValue(obj, index);
-        }
-
-        /// <summary>
-        /// 拥有特性
-        /// </summary>
-        /// <returns></returns>
-        public static bool HasAttribute(this PropertyInfo prop, Type attributeType, bool inherit)
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute(this PropertyInfo prop, Type attributeType, bool inherit = false)
         {
             return prop.GetCustomAttributes(attributeType, inherit).Any();
         }
 
-        /// <summary>
-        /// 拥有特性
-        /// </summary>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute<T>(this FieldInfo field, bool inherit = false) where T : Attribute
+        {
+            return field.GetCustomAttributes(typeof(T), inherit).Any();
+        }
+
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
         public static bool HasAttribute(this FieldInfo field, Type attributeType, bool inherit)
         {
             return field.GetCustomAttributes(attributeType, inherit).Any();
         }
 
-        /// <summary>
-        /// 拥有特性
-        /// </summary>
-        /// <returns></returns>
-        public static bool HasAttribute(this Type type, Type attributeType, bool inherit)
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute<T>(this MethodInfo method, bool inherit = false) where T : Attribute
         {
-            return type.GetCustomAttributes(attributeType, inherit).Any();
+            return method.GetCustomAttributes(typeof(T), inherit).Any();
         }
 
-        /// <summary>
-        /// 拥有特性
-        /// </summary>
-        /// <returns></returns>
-        public static bool HasAttribute(this MethodInfo method, Type attributeType, bool inherit)
+#if UNITY_EDITOR
+        [APIDescriptionCN("检查是否有指定的 Attribute")]
+        [APIDescriptionEN("Check whether the specified Attribute exists")]
+#endif
+        public static bool HasAttribute(this MethodInfo method, Type attributeType, bool inherit = false)
         {
             return method.GetCustomAttributes(attributeType, inherit).Any();
         }
 
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
-        public static T GetFirstAttribute<T>(this MethodInfo method, bool inherit) where T : Attribute
+#if UNITY_EDITOR
+        // v1 No.35
+        [MethodAPI]
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+        [APIExampleCode(@"
+[DisplayName(""A Class"")
+class A
+{
+    [DisplayName(""A Number"")
+    public int Number;
+
+    [DisplayName(""Is Complete?"")
+    private bool Complete => Number > 100;
+
+    [DisplayName(""Say complete result?"")
+    public void SayComplete()
+    {
+        Debug.Log(Complete);
+    }
+}
+
+var aType = typeof(A);
+//
+Debug.Log(aType.GetAttribute(typeof(DisplayNameAttribute));
+// DisplayNameAttribute
+Debug.Log(aType.GetAttribute<DisplayNameAttribute>());
+// DisplayNameAttribute
+
+// also support MethodInfo、PropertyInfo、FieldInfo
+// 同时 也支持 MethodInfo、PropertyInfo、FieldInfo
+")]
+#endif
+        public static T GetAttribute<T>(this Type type, bool inherit = false) where T : Attribute
         {
-            var attrs = (T[])method.GetCustomAttributes(typeof(T), inherit);
-            if (attrs != null && attrs.Length > 0)
-                return attrs[0];
-            return null;
+            return type.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
-        public static T GetFirstAttribute<T>(this FieldInfo field, bool inherit) where T : Attribute
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static object GetAttribute(this Type type, Type attributeType, bool inherit = false)
         {
-            var attrs = (T[])field.GetCustomAttributes(typeof(T), inherit);
-            if (attrs != null && attrs.Length > 0)
-                return attrs[0];
-            return null;
+            return type.GetCustomAttributes(attributeType, inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
-        public static T GetFirstAttribute<T>(this PropertyInfo prop, bool inherit) where T : Attribute
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static T GetAttribute<T>(this MethodInfo method, bool inherit = false) where T : Attribute
         {
-            var attrs = (T[])prop.GetCustomAttributes(typeof(T), inherit);
-            if (attrs != null && attrs.Length > 0)
-                return attrs[0];
-            return null;
+            return method.GetCustomAttributes<T>(inherit).FirstOrDefault();
         }
 
-        /// <summary>
-        /// 获取第一个特性
-        /// </summary>
-        public static T GetFirstAttribute<T>(this Type type, bool inherit) where T : Attribute
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static object GetAttribute(this MethodInfo method, Type attributeType, bool inherit = false)
         {
-            var attrs = (T[])type.GetCustomAttributes(typeof(T), inherit);
-            if (attrs != null && attrs.Length > 0)
-                return attrs[0];
-            return null;
+            return method.GetCustomAttributes(attributeType, inherit).FirstOrDefault();
+        }
+
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static T GetAttribute<T>(this FieldInfo field, bool inherit = false) where T : Attribute
+        {
+            return field.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static object GetAttribute(this FieldInfo field, Type attributeType, bool inherit = false)
+        {
+            return field.GetCustomAttributes(attributeType, inherit).FirstOrDefault();
+        }
+
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static T GetAttribute<T>(this PropertyInfo prop, bool inherit = false) where T : Attribute
+        {
+            return prop.GetCustomAttributes<T>(inherit).FirstOrDefault();
+        }
+
+#if UNITY_EDITOR
+        [APIDescriptionCN("获取指定的 Attribute")]
+        [APIDescriptionEN("Gets the specified Attribute")]
+#endif
+        public static object GetAttribute(this PropertyInfo prop, Type attributeType, bool inherit = false)
+        {
+            return prop.GetCustomAttributes(attributeType, inherit).FirstOrDefault();
         }
     }
 }

@@ -30,11 +30,11 @@ namespace QFramework
 
             if (LocaleKitEditor.IsCN.Value)
             {
-                description = mMethodInfo.GetFirstAttribute<APIDescriptionCNAttribute>(false).Description;
+                description = mMethodInfo.GetAttribute<APIDescriptionCNAttribute>().Description;
             }
             else
             {
-                description = mMethodInfo.GetFirstAttribute<APIDescriptionENAttribute>(false).Description;
+                description = mMethodInfo.GetAttribute<APIDescriptionENAttribute>(false).Description;
             }
 
             builder
