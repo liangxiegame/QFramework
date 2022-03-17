@@ -12,6 +12,7 @@ namespace QFramework
     [Obsolete("请使用 LogKit，use LogKit instead", true)]
     public static class Log
     {
+        
         [Obsolete("请使用 LogKit.Level，use LogKit.Level instead", true)]
         public static LogKit.LogLevel Level
         {

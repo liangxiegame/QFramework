@@ -12,8 +12,8 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     [ClassAPI("0.FluentAPI.Unity", "UnityEngine.Graphic", 6)]
-    [APIDescriptionCN("UnityEngine.Graphic 静态扩展")]
-    [APIDescriptionEN("UnityEngine.Graphic extension")]
+    [APIDescriptionCN("UnityEngine.UI.Graphic 静态扩展")]
+    [APIDescriptionEN("UnityEngine.UI.Graphic extension")]
 #endif
     public static class UnityEngineUIGraphicExtension
     {

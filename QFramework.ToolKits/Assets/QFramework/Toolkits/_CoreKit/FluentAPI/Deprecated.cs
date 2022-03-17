@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace QFramework
 {
@@ -145,13 +146,278 @@ namespace QFramework
     /// </summary>
     public static class DeprecatedExtension
     {
+        [Obsolete("不要使用，Do not used", true)]
+        public static int GetRandomWithPower(this List<int> powers)
+        {
+            var sum = 0;
+            foreach (var power in powers)
+            {
+                sum += power;
+            }
+
+            var randomNum = UnityEngine.Random.Range(0, sum);
+            var currentSum = 0;
+            for (var i = 0; i < powers.Count; i++)
+            {
+                var nextSum = currentSum + powers[i];
+                if (randomNum >= currentSum && randomNum <= nextSum)
+                {
+                    return i;
+                }
+
+                currentSum = nextSum;
+            }
+
+            LogKit.E("权值范围计算错误！");
+            return -1;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static T GetRandomWithPower<T>(this Dictionary<T, int> powersDict)
+        {
+            var keys = new List<T>();
+            var values = new List<int>();
+
+            foreach (var key in powersDict.Keys)
+            {
+                keys.Add(key);
+                values.Add(powersDict[key]);
+            }
+
+            var finalKeyIndex = values.GetRandomWithPower();
+            return keys[finalKeyIndex];
+        }
         
+        
+        [Obsolete("不要使用，Do not used", true)]
+        public static void AddAnimatorParameterIfExists(this Animator animator, string parameterName,
+            AnimatorControllerParameterType type, List<string> parameterList)
+        {
+            if (animator.HasParameterOfType(parameterName, type))
+            {
+                parameterList.Add(parameterName);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorBool(this Animator self, string parameterName, bool value,
+            List<string> parameterList)
+        {
+            if (parameterList.Contains(parameterName))
+            {
+                self.SetBool(parameterName, value);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorTrigger(this Animator self, string parameterName, List<string> parameterList)
+        {
+            if (parameterList.Contains(parameterName))
+            {
+                self.SetTrigger(parameterName);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void SetAnimatorTrigger(this Animator self, string parameterName, List<string> parameterList)
+        {
+            if (parameterList.Contains(parameterName))
+            {
+                self.SetTrigger(parameterName);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorFloat(this Animator self, string parameterName, float value,
+            List<string> parameterList)
+        {
+            if (parameterList.Contains(parameterName))
+            {
+                self.SetFloat(parameterName, value);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorInteger(this Animator self, string parameterName, int value,
+            List<string> parameterList)
+        {
+            if (parameterList.Contains(parameterName))
+            {
+                self.SetInteger(parameterName, value);
+            }
+        }
+
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorBool(this Animator self, string parameterName, bool value)
+        {
+            self.SetBool(parameterName, value);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorTrigger(this Animator self, string parameterName)
+        {
+            self.SetTrigger(parameterName);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void SetAnimatorTrigger(this Animator self, string parameterName)
+        {
+            self.SetTrigger(parameterName);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorFloat(this Animator self, string parameterName, float value)
+        {
+            self.SetFloat(parameterName, value);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorInteger(this Animator self, string parameterName, int value)
+        {
+            self.SetInteger(parameterName, value);
+        }
+
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorBoolIfExists(this Animator self, string parameterName, bool value)
+        {
+            if (self.HasParameterOfType(parameterName, AnimatorControllerParameterType.Bool))
+            {
+                self.SetBool(parameterName, value);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorTriggerIfExists(this Animator self, string parameterName)
+        {
+            if (self.HasParameterOfType(parameterName, AnimatorControllerParameterType.Trigger))
+            {
+                self.SetTrigger(parameterName);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void SetAnimatorTriggerIfExists(this Animator self, string parameterName)
+        {
+            if (self.HasParameterOfType(parameterName, AnimatorControllerParameterType.Trigger))
+            {
+                self.SetTrigger(parameterName);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorFloatIfExists(this Animator self, string parameterName, float value)
+        {
+            if (self.HasParameterOfType(parameterName, AnimatorControllerParameterType.Float))
+            {
+                self.SetFloat(parameterName, value);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void UpdateAnimatorIntegerIfExists(this Animator self, string parameterName, int value)
+        {
+            if (self.HasParameterOfType(parameterName, AnimatorControllerParameterType.Int))
+            {
+                self.SetInteger(parameterName, value);
+            }
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static bool HasParameterOfType(this Animator self, string name, AnimatorControllerParameterType type)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                return false;
+            }
+
+            var parameters = self.parameters;
+            return parameters.Any(currParam => currParam.type == type && currParam.name == name);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static T EnableInteract<T>(this T selfSelectable) where T : Selectable
+        {
+            selfSelectable.interactable = true;
+            return selfSelectable;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static T DisableInteract<T>(this T selfSelectable) where T : Selectable
+        {
+            selfSelectable.interactable = false;
+            return selfSelectable;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static T CancelAllTransitions<T>(this T selfSelectable) where T : Selectable
+        {
+            selfSelectable.transition = Selectable.Transition.None;
+            return selfSelectable;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static void RegOnValueChangedEvent(this Toggle selfToggle, UnityAction<bool> onValueChangedEvent)
+        {
+            selfToggle.onValueChanged.AddListener(onValueChangedEvent);
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static Vector2 GetPosInRootTrans(this RectTransform selfRectTransform, Transform rootTrans)
+        {
+            return RectTransformUtility.CalculateRelativeRectTransformBounds(rootTrans, selfRectTransform).center;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static RectTransform AnchorPosX(this RectTransform selfRectTrans, float anchorPosX)
+        {
+            var anchorPos = selfRectTrans.anchoredPosition;
+            anchorPos.x = anchorPosX;
+            selfRectTrans.anchoredPosition = anchorPos;
+            return selfRectTrans;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static RectTransform AnchorPosY(this RectTransform selfRectTrans, float anchorPosY)
+        {
+            var anchorPos = selfRectTrans.anchoredPosition;
+            anchorPos.y = anchorPosY;
+            selfRectTrans.anchoredPosition = anchorPos;
+            return selfRectTrans;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static RectTransform SetSizeWidth(this RectTransform selfRectTrans, float sizeWidth)
+        {
+            var sizeDelta = selfRectTrans.sizeDelta;
+            sizeDelta.x = sizeWidth;
+            selfRectTrans.sizeDelta = sizeDelta;
+            return selfRectTrans;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static RectTransform SetSizeHeight(this RectTransform selfRectTrans, float sizeHeight)
+        {
+            var sizeDelta = selfRectTrans.sizeDelta;
+            sizeDelta.y = sizeHeight;
+            selfRectTrans.sizeDelta = sizeDelta;
+            return selfRectTrans;
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static Vector2 GetWorldSize(this RectTransform selfRectTrans)
+        {
+            return RectTransformUtility.CalculateRelativeRectTransformBounds(selfRectTrans).size;
+        }
+
+
         [Obsolete("不要使用，Do not used", true)]
         public static void SetAmbientLightHTMLStringColor(string htmlStringColor)
         {
             RenderSettings.ambientLight = htmlStringColor.HtmlStringToColor();
         }
-        
+
         /// <summary>
         /// 参考资料: https://blog.csdn.net/qiminixi/article/details/78402505
         /// </summary>
