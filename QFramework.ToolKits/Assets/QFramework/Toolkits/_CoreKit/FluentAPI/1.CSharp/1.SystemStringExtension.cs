@@ -34,7 +34,7 @@ Debug.Log(string.Empty.IsNullOrEmpty());
             return string.IsNullOrEmpty(selfStr);
         }
 
-        
+
 #if UNITY_EDITOR
         // v1 No.19
         [MethodAPI]
@@ -64,7 +64,7 @@ Debug.Log(""   "".IsTrimNullOrEmpty());
         {
             return selfStr == null || string.IsNullOrEmpty(selfStr.Trim());
         }
-        
+
         /// <summary>
         /// Check Whether string trim is null or empty
         /// </summary>
@@ -84,215 +84,182 @@ Debug.Log(""  123  "".IsTrimNotNullAndEmpty());
         {
             return selfStr != null && !string.IsNullOrEmpty(selfStr.Trim());
         }
-        
+
 
         /// <summary>
         /// 缓存
         /// </summary>
         private static readonly char[] mCachedSplitCharArray = { '.' };
 
-        /// <summary>
-        /// Split
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="splitSymbol"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.22
+        [MethodAPI]
+        [APIDescriptionCN("字符串分割")]
+        [APIDescriptionEN("String splitting")]
+        [APIExampleCode(@"
+""1.2.3.4.5"".Split('.').ForEach(str=>Debug.Log(str));
+// 1 2 3 4 5
+        ")]
+#endif
         public static string[] Split(this string selfStr, char splitSymbol)
         {
             mCachedSplitCharArray[0] = splitSymbol;
             return selfStr.Split(mCachedSplitCharArray);
         }
 
-        /// <summary>
-        /// 首字母大写
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string UppercaseFirst(this string str)
-        {
-            return char.ToUpper(str[0]) + str.Substring(1);
-        }
+#if UNITY_EDITOR
+        // v1 No.23
+        [MethodAPI]
+        [APIDescriptionCN("格式化字符串填充参数")]
+        [APIDescriptionEN("The format string populates the parameters")]
+        [APIExampleCode(@"
 
-        /// <summary>
-        /// 首字母小写
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string LowercaseFirst(this string str)
-        {
-            return char.ToLower(str[0]) + str.Substring(1);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string ToUnixLineEndings(this string str)
-        {
-            return str.Replace("\r\n", "\n").Replace("\r", "\n");
-        }
-
-        /// <summary>
-        /// 转换成 CSV
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        public static string ToCSV(this string[] values)
-        {
-            return string.Join(", ", values
-                .Where(value => !string.IsNullOrEmpty(value))
-                .Select(value => value.Trim())
-                .ToArray()
-            );
-        }
-
-        public static string[] ArrayFromCSV(this string values)
-        {
-            return values
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(value => value.Trim())
-                .ToArray();
-        }
-
-        public static string ToSpacedCamelCase(this string text)
-        {
-            var sb = new StringBuilder(text.Length * 2);
-            sb.Append(char.ToUpper(text[0]));
-            for (var i = 1; i < text.Length; i++)
-            {
-                if (char.IsUpper(text[i]) && text[i - 1] != ' ')
-                {
-                    sb.Append(' ');
-                }
-
-                sb.Append(text[i]);
-            }
-
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// 有点不安全,编译器不会帮你排查错误。
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
+var newStr = ""{0},{1}"".FillFormat(1,2);
+Debug.Log(newStr);
+// 1,2
+        ")]
+#endif
         public static string FillFormat(this string selfStr, params object[] args)
         {
             return string.Format(selfStr, args);
         }
 
-        /// <summary>
-        /// 添加前缀
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="toAppend"></param>
-        /// <returns></returns>
-        public static StringBuilder Append(this string selfStr, string toAppend)
+#if UNITY_EDITOR
+        // v1 No.24
+        [MethodAPI]
+        [APIDescriptionCN("返回包含此字符串的 StringBuilder")]
+        [APIDescriptionEN("Returns a StringBuilder containing this string")]
+        [APIExampleCode(@"
+var builder = ""Hello"".Builder();
+builder.Append("" QF"");
+Debug.Log(builder.ToString());
+// Hello QF
+        ")]
+#endif
+        public static StringBuilder Builder(this string selfStr)
         {
-            return new StringBuilder(selfStr).Append(toAppend);
+            return new StringBuilder(selfStr);
         }
 
-        /// <summary>
-        /// 添加后缀
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="toPrefix"></param>
-        /// <returns></returns>
-        public static string AddPrefix(this string selfStr, string toPrefix)
+#if UNITY_EDITOR
+        // v1 No.25
+        [MethodAPI]
+        [APIDescriptionCN("StringBuilder 添加前缀")]
+        [APIDescriptionEN("StringBuilder insert prefix string")]
+        [APIExampleCode(@"
+var builder = ""I'm liangxie"".Builder().AddPrefix(""Hi!"") ;
+Debug.Log(builder.ToString());
+// Hi!I'm liangxie
+        ")]
+#endif
+        public static StringBuilder AddPrefix(this StringBuilder self, string prefixString)
         {
-            return new StringBuilder(toPrefix).Append(selfStr).ToString();
+            self.Insert(0, prefixString);
+            return self;
         }
 
-        /// <summary>
-        /// 格式化
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="toAppend"></param>
-        /// <param name="args"></param>
-        /// <returns></returns>
-        public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
-        {
-            return new StringBuilder(selfStr).AppendFormat(toAppend, args);
-        }
 
-        /// <summary>
-        /// 最后一个单词
-        /// </summary>
-        /// <param name="selfUrl"></param>
-        /// <returns></returns>
-        public static string LastWord(this string selfUrl)
-        {
-            return selfUrl.Split('/').Last();
-        }
-
-        /// <summary>
-        /// 解析成数字类型
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="defaulValue"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.26
+        [MethodAPI]
+        [APIDescriptionCN("字符串解析成 Int")]
+        [APIDescriptionEN("parse string to int")]
+        [APIExampleCode(@"
+var number = ""123456"".ToInt();
+Debug.Log(number);
+// 123456
+// notice unsafe
+// 不安全
+        ")]
+#endif
         public static int ToInt(this string selfStr, int defaulValue = 0)
         {
             var retValue = defaulValue;
             return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
         }
 
-        /// <summary>
-        /// 解析到时间类型
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="defaultValue"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.27
+        [MethodAPI]
+        [APIDescriptionCN("字符串解析成 Int")]
+        [APIDescriptionEN("parse string to int")]
+        [APIExampleCode(@"
+DateTime.Now.ToString().ToDataTime();
+        ")]
+#endif
         public static DateTime ToDateTime(this string selfStr, DateTime defaultValue = default(DateTime))
         {
-            var retValue = defaultValue;
-            return DateTime.TryParse(selfStr, out retValue) ? retValue : defaultValue;
+            return DateTime.TryParse(selfStr, out var retValue) ? retValue : defaultValue;
         }
 
 
-        /// <summary>
-        /// 解析 Float 类型
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="defaulValue"></param>
-        /// <returns></returns>
-        public static float ToFloat(this string selfStr, float defaulValue = 0)
+#if UNITY_EDITOR
+        // v1 No.28
+        [MethodAPI]
+        [APIDescriptionCN("字符串解析成 float")]
+        [APIDescriptionEN("parse string to float")]
+        [APIExampleCode(@"
+var number = ""123456f"".ToInt();
+Debug.Log(number);
+// 123456
+// notice unsafe
+// 不安全
+        ")]
+#endif
+        public static float ToFloat(this string selfStr, float defaultValue = 0)
         {
-            var retValue = defaulValue;
-            return float.TryParse(selfStr, out retValue) ? retValue : defaulValue;
+            return float.TryParse(selfStr, out var retValue) ? retValue : defaultValue;
         }
 
-        /// <summary>
-        /// 是否存在中文字符
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.29
+        [MethodAPI]
+        [APIDescriptionCN("是否存在中文字符")]
+        [APIDescriptionEN("check string contains chinese or not")]
+        [APIExampleCode(@"
+Debug.Log(""你好"".HasChinese());
+// true
+")]
+#endif
         public static bool HasChinese(this string input)
         {
             return Regex.IsMatch(input, @"[\u4e00-\u9fa5]");
         }
 
-        /// <summary>
-        /// 是否存在空格
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.30
+        [MethodAPI]
+        [APIDescriptionCN("是否存在空格")]
+        [APIDescriptionEN("check string contains space or not")]
+        [APIExampleCode(@"
+Debug.Log(""你好 "".HasSpace());
+// true
+")]
+#endif
         public static bool HasSpace(this string input)
         {
             return input.Contains(" ");
         }
 
-        /// <summary>
-        /// 删除特定字符
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
+#if UNITY_EDITOR
+        // v1 No.31
+        [MethodAPI]
+        [APIDescriptionCN("remove string")]
+        [APIDescriptionEN("check string contains space or not")]
+        [APIExampleCode(@"
+Debug.Log(""Hello World "".RemoveString(""Hello"","" ""));
+// World
+")]
+#endif
         public static string RemoveString(this string str, params string[] targets)
         {
             return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
         }
+        
+        // [UnityEditor.MenuItem("QF/Test")]
+        // public static void Test()
+        // {
+        //         "/abc/e.txt".GetFileExtendName().LogInfo();
+        // }
     }
 }

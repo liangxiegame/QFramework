@@ -11,9 +11,7 @@ namespace QFramework
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Reflection;
-    using System.Text;
     using UnityEngine;
     using UnityEngine.Events;
     using UnityEngine.UI;
@@ -22,13 +20,6 @@ namespace QFramework
     /// </summary>
     public class AssemblyUtil
     {
-        
-        [UnityEditor.MenuItem("QF/Test")]
-        public static void Test()
-        {
-            "/abc/e.txt".GetFileExtendName().LogInfo();
-        }
-
         
         /// <summary>
         /// 获取 Assembly-CSharp 程序集

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace QFramework
 {
@@ -41,6 +42,137 @@ namespace QFramework
     /// </summary>
     public static class DeprecatedExtension
     {
+        
+        /// <summary>
+        /// 最后一个单词
+        /// </summary>
+        /// <param name="selfUrl"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static string LastWord(this string selfUrl)
+        {
+            return selfUrl.Split('/').Last();
+        }
+        
+        /// <summary>
+        /// 格式化
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toAppend"></param>
+        /// <param name="args"></param>
+        [Obsolete(
+            "请使用 str.Builder().AppendFormat(template,args).ToString(),please use str.Builder().AppendFormat(template,args).ToString() instead",
+            true)]
+        public static StringBuilder AppendFormat(this string selfStr, string toAppend, params object[] args)
+        {
+            return new StringBuilder(selfStr).AppendFormat(toAppend, args);
+        }
+        
+        /// <summary>
+        /// 添加前缀
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toPrefix"></param>
+        /// <returns></returns>
+        [Obsolete(
+            "请使用 str.Builder().AddPrefix(***).ToString(),please use str.Builder().AddPrefix(***).ToString() instead",
+            true)]
+        public static string AddPrefix(this string selfStr, string toPrefix)
+        {
+            return new StringBuilder(toPrefix).Append(selfStr).ToString();
+        }
+
+
+        /// <summary>
+        /// 添加前缀
+        /// </summary>
+        /// <param name="selfStr"></param>
+        /// <param name="toAppend"></param>
+        /// <returns></returns>
+        [Obsolete(
+            "请使用 str.Builder().Append(***).ToString(),please use str.Builder().Append(***).ToString() instead",
+            true)]
+        public static StringBuilder Append(this string selfStr, string toAppend)
+        {
+            return new StringBuilder(selfStr).Append(toAppend);
+        }
+
+        /// <summary>
+        /// 首字母大写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static string UppercaseFirst(this string str)
+        {
+            return char.ToUpper(str[0]) + str.Substring(1);
+        }
+
+        /// <summary>
+        /// 首字母小写
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static string LowercaseFirst(this string str)
+        {
+            return char.ToLower(str[0]) + str.Substring(1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static string ToUnixLineEndings(this string str)
+        {
+            return str.Replace("\r\n", "\n").Replace("\r", "\n");
+        }
+
+        /// <summary>
+        /// 转换成 CSV
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        [Obsolete("不要使用，Do not used", true)]
+        public static string ToCSV(this string[] values)
+        {
+            return string.Join(", ", values
+                .Where(value => !string.IsNullOrEmpty(value))
+                .Select(value => value.Trim())
+                .ToArray()
+            );
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static string[] ArrayFromCSV(this string values)
+        {
+            return values
+                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(value => value.Trim())
+                .ToArray();
+        }
+
+        [Obsolete("不要使用，Do not used", true)]
+        public static string ToSpacedCamelCase(this string text)
+        {
+            var sb = new StringBuilder(text.Length * 2);
+            sb.Append(char.ToUpper(text[0]));
+            for (var i = 1; i < text.Length; i++)
+            {
+                if (char.IsUpper(text[i]) && text[i - 1] != ' ')
+                {
+                    sb.Append(' ');
+                }
+
+                sb.Append(text[i]);
+            }
+
+            return sb.ToString();
+        }
+
+
         /// <summary>
         /// Determines whether the type implements the specified interface
         /// and is not an interface itself.
@@ -377,7 +509,6 @@ namespace QFramework
             return selfCondition;
         }
 
-        
 
         /// <summary>
         /// 功能：不为空则调用 Func
@@ -396,7 +527,7 @@ namespace QFramework
         {
             return null != selfFunc ? selfFunc() : default(T);
         }
-        
+
 
         /// <summary>
         /// 功能：不为空则调用 Action

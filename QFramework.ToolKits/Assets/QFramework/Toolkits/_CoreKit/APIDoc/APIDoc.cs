@@ -50,13 +50,13 @@ namespace QFramework
                             GUILayout.EndVertical();
                             foreach (var classAPIRenderInfo in groupRenderInfo.ClassAPIRenderInfos)
                             {
-                                GUILayout.BeginHorizontal();
-                                GUILayout.Space(20); // indent
+
                                 GUILayout.BeginVertical("box");
+                                GUILayout.BeginHorizontal();
+                                GUILayout.Space(10); // indent
                                 GUILayout.Label(classAPIRenderInfo.DisplayName);
-                                GUILayout.EndVertical();
-                                GUILayout.Space(5); // padding
                                 GUILayout.EndHorizontal();
+                                GUILayout.EndVertical();
 
                                 IMGUIGestureHelper.LastRectSelectionCheck(classAPIRenderInfo,
                                     mSelectionClassAPIRenderInfo,

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.31",
+    "Version": "v0.14.32",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.31",
-        "content": "PackageMaker 修复几行代码",
+        "version": "v0.14.32",
+        "content": "* 添加 APIDoc 功能, 整理了 21 个 API",
         "author": "liangxie",
-        "date": "2022 年 03 月 01 日 02:45",
+        "date": "2022 年 03 月 17 日 00:00",
         "PackageId": ""
     }
 }

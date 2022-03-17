@@ -52,9 +52,11 @@ namespace QFramework
             if (!string.IsNullOrEmpty(panelName))
             {
                 var fullScenePath = "Assets/Scenes/TestUIPanels/".CreateDirIfNotExists()
+                    .Builder()
                     .Append("Test{0}.unity".FillFormat(panelName)).ToString();
 
                 var panelPrefabPath = "Assets/Art/UIPrefab/".CreateDirIfNotExists()
+                    .Builder()
                     .Append("{0}.prefab".FillFormat(panelName)).ToString();
 
                 if (File.Exists(panelPrefabPath))
