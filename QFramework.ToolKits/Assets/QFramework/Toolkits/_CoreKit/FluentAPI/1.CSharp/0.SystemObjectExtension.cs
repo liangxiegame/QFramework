@@ -73,5 +73,21 @@ if (simpleObject.IsNotNull()) // simpleObject != null
         {
             return null != selfObj;
         }
+      
+#if UNITY_EDITOR
+        // v1 No.36
+        [MethodAPI]
+        [APIDescriptionCN("转型")]
+        [APIDescriptionEN("cast")]
+        [APIExampleCode(@"
+int a = 10;
+Debug.Log(a.As<float>())
+// 10
+")]
+#endif
+        public static T As<T>(this object selfObj) where T : class
+        {
+            return selfObj as T;
+        }
     }
 }
