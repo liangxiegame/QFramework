@@ -1046,7 +1046,7 @@ gameObj.PositionX(x);
             return self;
         }
 
-        
+
 #if UNITY_EDITOR
         // v1 No.123
         [MethodAPI]
@@ -1063,7 +1063,7 @@ component.PositionX(x=>x * 5);
             selfComponent.transform.position = position;
             return selfComponent;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.124
         [MethodAPI]
@@ -1073,7 +1073,7 @@ component.PositionX(x=>x * 5);
 gameObj.PositionX(x=>x * 5);
 ")]
 #endif
-        public static GameObject PositionX(this GameObject self, Func<float, float> xSetter) 
+        public static GameObject PositionX(this GameObject self, Func<float, float> xSetter)
         {
             var position = self.transform.position;
             position.x = xSetter(position.x);
@@ -1081,7 +1081,7 @@ gameObj.PositionX(x=>x * 5);
             return self;
         }
 
-        
+
 #if UNITY_EDITOR
         // v1 No.125
         [MethodAPI]
@@ -1131,7 +1131,7 @@ component.PositionY(y=>y * 5);
             selfComponent.transform.position = position;
             return selfComponent;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.128
         [MethodAPI]
@@ -1148,7 +1148,7 @@ gameObj.PositionY(y=>y * 5);
             self.transform.position = position;
             return self;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.129
         [MethodAPI]
@@ -1157,7 +1157,7 @@ gameObj.PositionY(y=>y * 5);
         [APIExampleCode(@"
 component.PositionZ(10);
 ")]
-#endif    
+#endif
         public static T PositionZ<T>(this T selfComponent, float z) where T : Component
         {
             var position = selfComponent.transform.position;
@@ -1173,7 +1173,7 @@ component.PositionZ(10);
         [APIExampleCode(@"
 component.PositionZ(10);
 ")]
-#endif    
+#endif
         public static GameObject PositionZ(this GameObject self, float z)
         {
             var position = self.transform.position;
@@ -1198,7 +1198,7 @@ component.PositionZ(z=>z * 5);
             self.transform.position = position;
             return self;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.132
         [MethodAPI]
@@ -1231,7 +1231,7 @@ component.RotationIdentity();
             selfComponent.transform.rotation = Quaternion.identity;
             return selfComponent;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.134
         [MethodAPI]
@@ -1261,7 +1261,7 @@ component.Rotation(Quaternion.identity);
             selfComponent.transform.rotation = rotation;
             return selfComponent;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.136
         [MethodAPI]
@@ -1290,7 +1290,7 @@ var rotation = myScript.Rotation();
         {
             return selfComponent.transform.rotation;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.138
         [MethodAPI]
@@ -1306,8 +1306,6 @@ var rotation = gameObj.Rotation();
         }
 
 
-
-
 #if UNITY_EDITOR
         // v1 No.139
         [MethodAPI]
@@ -1321,7 +1319,7 @@ var scale = component.Scale();
         {
             return selfComponent.transform.lossyScale;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.140
         [MethodAPI]
@@ -1331,12 +1329,12 @@ var scale = component.Scale();
 var scale = gameObj.Scale();
 ")]
 #endif
-        public static Vector3 Scale(this GameObject selfComponent) 
+        public static Vector3 Scale(this GameObject selfComponent)
         {
             return selfComponent.transform.lossyScale;
         }
 
-        
+
 #if UNITY_EDITOR
         // v1 No.141
         [MethodAPI]
@@ -1379,157 +1377,95 @@ rootGameObj.DestroyChildren();
             return selfGameObj;
         }
 
-        
+
+#if UNITY_EDITOR
+        // v1 No.143
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.SetAsLastSibling()")]
+        [APIDescriptionEN("component.transform.SetAsLastSibling()")]
+        [APIExampleCode(@"
+myScript.AsLastSibling();
+")]
+#endif
         public static T AsLastSibling<T>(this T selfComponent) where T : Component
         {
             selfComponent.transform.SetAsLastSibling();
             return selfComponent;
         }
 
+#if UNITY_EDITOR
+        // v1 No.144
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.SetAsLastSibling()")]
+        [APIDescriptionEN("gameObj.transform.SetAsLastSibling()")]
+        [APIExampleCode(@"
+gameObj.AsLastSibling();
+")]
+#endif
+        public static GameObject AsLastSibling(this GameObject self)
+        {
+            self.transform.SetAsLastSibling();
+            return self;
+        }
+
+#if UNITY_EDITOR
+        // v1 No.145
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.SetAsFirstSibling()")]
+        [APIDescriptionEN("component.transform.SetAsFirstSibling()")]
+        [APIExampleCode(@"
+component.AsFirstSibling();
+")]
+#endif
         public static T AsFirstSibling<T>(this T selfComponent) where T : Component
         {
             selfComponent.transform.SetAsFirstSibling();
             return selfComponent;
         }
+#if UNITY_EDITOR
+        // v1 No.146
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.SetAsFirstSibling()")]
+        [APIDescriptionEN("gameObj.transform.SetAsFirstSibling()")]
+        [APIExampleCode(@"
+gameObj.AsFirstSibling();
+")]
+#endif
+        public static GameObject AsFirstSibling(this GameObject selfComponent)
+        {
+            selfComponent.transform.SetAsFirstSibling();
+            return selfComponent;
+        }
 
+#if UNITY_EDITOR
+        // v1 No.147
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.SetSiblingIndex(index)")]
+        [APIDescriptionEN("component.transform.SetSiblingIndex(index)")]
+        [APIExampleCode(@"
+myScript.SiblingIndex(10);
+")]
+#endif
         public static T SiblingIndex<T>(this T selfComponent, int index) where T : Component
         {
             selfComponent.transform.SetSiblingIndex(index);
             return selfComponent;
         }
-
-
-
-        public static Transform FindByPath(this Transform selfTrans, string path)
+        
+#if UNITY_EDITOR
+        // v1 No.148
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.SetSiblingIndex(index)")]
+        [APIDescriptionEN("gameObj.transform.SetSiblingIndex(index)")]
+        [APIExampleCode(@"
+gameObj.SiblingIndex(10);
+")]
+#endif
+        public static GameObject SiblingIndex(this GameObject selfComponent, int index)
         {
-            return selfTrans.Find(path.Replace(".", "/"));
-        }
-
-        public static Transform SeekTrans(this Transform selfTransform, string uniqueName)
-        {
-            var childTrans = selfTransform.Find(uniqueName);
-
-            if (null != childTrans)
-                return childTrans;
-
-            foreach (Transform trans in selfTransform)
-            {
-                childTrans = trans.SeekTrans(uniqueName);
-
-                if (null != childTrans)
-                    return childTrans;
-            }
-
-            return null;
-        }
-
-        public static T ShowChildTransByPath<T>(this T selfComponent, string tranformPath) where T : Component
-        {
-            selfComponent.transform.Find(tranformPath).gameObject.Show();
+            selfComponent.transform.SetSiblingIndex(index);
             return selfComponent;
         }
-
-        public static T HideChildTransByPath<T>(this T selfComponent, string tranformPath) where T : Component
-        {
-            selfComponent.transform.Find(tranformPath).Hide();
-            return selfComponent;
-        }
-
-        public static void CopyDataFromTrans(this Transform selfTrans, Transform fromTrans)
-        {
-            selfTrans.SetParent(fromTrans.parent);
-            selfTrans.localPosition = fromTrans.localPosition;
-            selfTrans.localRotation = fromTrans.localRotation;
-            selfTrans.localScale = fromTrans.localScale;
-        }
-
-        /// <summary>
-        /// 递归遍历子物体，并调用函数
-        /// </summary>
-        /// <param name="tfParent"></param>
-        /// <param name="action"></param>
-        public static void ActionRecursion(this Transform tfParent, Action<Transform> action)
-        {
-            action(tfParent);
-            foreach (Transform tfChild in tfParent)
-            {
-                tfChild.ActionRecursion(action);
-            }
-        }
-
-        /// <summary>
-        /// 递归遍历查找指定的名字的子物体
-        /// </summary>
-        /// <param name="tfParent">当前Transform</param>
-        /// <param name="name">目标名</param>
-        /// <param name="stringComparison">字符串比较规则</param>
-        /// <returns></returns>
-        public static Transform FindChildRecursion(this Transform tfParent, string name,
-            StringComparison stringComparison = StringComparison.Ordinal)
-        {
-            if (tfParent.name.Equals(name, stringComparison))
-            {
-                //Debug.Log("Hit " + tfParent.name);
-                return tfParent;
-            }
-
-            foreach (Transform tfChild in tfParent)
-            {
-                Transform tfFinal = null;
-                tfFinal = tfChild.FindChildRecursion(name, stringComparison);
-                if (tfFinal)
-                {
-                    return tfFinal;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// 递归遍历查找相应条件的子物体
-        /// </summary>
-        /// <param name="tfParent">当前Transform</param>
-        /// <param name="predicate">条件</param>
-        /// <returns></returns>
-        public static Transform FindChildRecursion(this Transform tfParent, Func<Transform, bool> predicate)
-        {
-            if (predicate(tfParent))
-            {
-                Log.I("Hit " + tfParent.name);
-                return tfParent;
-            }
-
-            foreach (Transform tfChild in tfParent)
-            {
-                Transform tfFinal = null;
-                tfFinal = tfChild.FindChildRecursion(predicate);
-                if (tfFinal)
-                {
-                    return tfFinal;
-                }
-            }
-
-            return null;
-        }
-
-        public static string GetPath(this Transform transform)
-        {
-            var sb = new System.Text.StringBuilder();
-            var t = transform;
-            while (true)
-            {
-                sb.Insert(0, t.name);
-                t = t.parent;
-                if (t)
-                {
-                    sb.Insert(0, "/");
-                }
-                else
-                {
-                    return sb.ToString();
-                }
-            }
-        }
+        
     }
 }

@@ -287,10 +287,10 @@ spriteRenderer.IsInLayerMask(layerMask);
 gameObj.GetOrAddComponent<SpriteRenderer>();
 ")]
 #endif
-        public static T GetOrAddComponent<T>(this GameObject selfComponent) where T : Component
+        public static T GetOrAddComponent<T>(this GameObject self) where T : Component
         {
-            var comp = selfComponent.gameObject.GetComponent<T>();
-            return comp ? comp : selfComponent.gameObject.AddComponent<T>();
+            var comp = self.gameObject.GetComponent<T>();
+            return comp ? comp : self.gameObject.AddComponent<T>();
         }
 
 #if UNITY_EDITOR
@@ -316,10 +316,26 @@ component.GetOrAddComponent<SpriteRenderer>();
 gameObj.GetOrAddComponent(typeof(SpriteRenderer));
 ")]
 #endif
-        public static Component GetOrAddComponent(this GameObject selfComponent, Type type)
+        public static Component GetOrAddComponent(this GameObject self, Type type)
         {
-            var comp = selfComponent.gameObject.GetComponent(type);
-            return comp ? comp : selfComponent.gameObject.AddComponent(type);
+            var component = self.gameObject.GetComponent(type);
+            return component ? component : self.gameObject.AddComponent(type);
+        }
+    }
+
+    public static class LayerMaskUtility
+    {
+        public static bool IsInLayerMask(int layer, LayerMask layerMask)
+        {
+            var objLayerMask = 1 << layer;
+            return (layerMask.value & objLayerMask) == objLayerMask;
+        }
+
+        public static bool IsInLayerMask(GameObject gameObj, LayerMask layerMask)
+        {
+            // 根据Layer数值进行移位获得用于运算的Mask值
+            var objLayerMask = 1 << gameObj.layer;
+            return (layerMask.value & objLayerMask) == objLayerMask;
         }
     }
 }
