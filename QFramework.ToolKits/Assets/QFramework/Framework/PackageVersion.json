@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.36",
+    "Version": "v0.14.37",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.36",
-        "content": "冲掉之前的版本",
+        "version": "v0.14.37",
+        "content": "整理完 163 个 API ",
         "author": "liangxie",
-        "date": "2022 年 03 月 17 日 14:55",
+        "date": "2022 年 03 月 17 日 19:23",
         "PackageId": ""
     }
 }

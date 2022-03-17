@@ -1,7 +1,7 @@
-/****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+﻿/****************************************************************************
+ * Copyright (c) 2020.10 ~ 2022 liangxiegame UNDER MIT LICENSE
  * 
- * http://qframework.cn
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -9,92 +9,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using UnityEditor;
-using UnityEngine;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
-    internal interface ILocalPackageVersionModel : IModel
-    {
-        InstalledPackageVersionTable PackageVersionsTable { get; }
-
-        void Reload();
-
-        PackageVersion GetByName(string name);
-    }
-
-    internal class InstalledPackageVersionTable : PackageKitTable<PackageVersion>
-    {
-        public PackageKitTableIndex<string, PackageVersion> NameIndex =
-            new PackageKitTableIndex<string, PackageVersion>(p => p.Name);
-
-        protected override void OnAdd(PackageVersion item)
-        {
-            NameIndex.Add(item);
-        }
-
-        protected override void OnRemove(PackageVersion item)
-        {
-            NameIndex.Remove(item);
-        }
-
-        protected override void OnClear()
-        {
-            NameIndex.Clear();
-        }
-
-        public override IEnumerator<PackageVersion> GetEnumerator()
-        {
-            return NameIndex.Dictionary.SelectMany(n => n.Value).GetEnumerator();
-        }
-
-        protected override void OnDispose()
-        {
-            NameIndex.Dispose();
-            NameIndex = null;
-        }
-    }
-
-    internal class LocalPackageVersionModel : AbstractModel, ILocalPackageVersionModel
-    {
-        public InstalledPackageVersionTable PackageVersionsTable { get; private set; }
-
-        public LocalPackageVersionModel()
-        {
-            PackageVersionsTable = new InstalledPackageVersionTable();
-
-            Reload();
-        }
-
-        public void Reload()
-        {
-            PackageVersionsTable.Clear();
-
-            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
-                name => name.EndsWith("PackageVersion.json"));
-
-            foreach (var fileName in versionFiles)
-            {
-                var text = File.ReadAllText(fileName);
-                var packageVersion = JsonUtility.FromJson<PackageVersion>(text);
-
-                PackageVersionsTable.Add(packageVersion);
-            }
-        }
-
-        public PackageVersion GetByName(string name)
-        {
-            return PackageVersionsTable.NameIndex.Get(name).FirstOrDefault();
-        }
-
-        protected override void OnInit()
-        {
-        }
-    }
-
-    public abstract class PackageKitTable<TDataItem> : IEnumerable<TDataItem>, IDisposable
+    public abstract class Table<TDataItem> : IEnumerable<TDataItem>, IDisposable
     {
         public void Add(TDataItem item)
         {
@@ -137,13 +57,13 @@ namespace QFramework
         protected abstract void OnDispose();
     }
 
-    public class PackageKitTableIndex<TKeyType, TDataItem> : IDisposable
+    public class TableIndex<TKeyType, TDataItem> : IDisposable
     {
         private Dictionary<TKeyType, List<TDataItem>> mIndex = new Dictionary<TKeyType, List<TDataItem>>();
 
         private Func<TDataItem, TKeyType> mGetKeyByDataItem = null;
 
-        public PackageKitTableIndex(Func<TDataItem, TKeyType> keyGetter)
+        public TableIndex(Func<TDataItem, TKeyType> keyGetter)
         {
             mGetKeyByDataItem = keyGetter;
         }

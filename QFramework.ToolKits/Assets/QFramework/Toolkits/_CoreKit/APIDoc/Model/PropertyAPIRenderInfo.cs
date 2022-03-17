@@ -6,6 +6,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+#if UNITY_EDITOR
 using System.Reflection;
 using System.Text;
 
@@ -48,3 +49,4 @@ namespace QFramework
         }
     }
 }
+#endif
