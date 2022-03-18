@@ -13,16 +13,19 @@ namespace QFramework
     [AttributeUsage(AttributeTargets.Class)]
     public class ClassAPIAttribute : Attribute
     {
-        public string DisplayName { get; private set; }
+        public string DisplayMenuName { get; private set; }
         public string GroupName { get; private set; }
         
         public int RenderOrder { get;private set; }
+        
+        public string DisplayClassName { get; private set; }
 
-        public ClassAPIAttribute(string groupName, string displayName,int renderOrder)
+        public ClassAPIAttribute(string groupName, string displayMenuName,int renderOrder,string displayClassName = null)
         {
             GroupName = groupName;
-            DisplayName = displayName;
+            DisplayMenuName = displayMenuName;
             RenderOrder = renderOrder;
+            DisplayClassName = displayClassName;
         }
     }
 }

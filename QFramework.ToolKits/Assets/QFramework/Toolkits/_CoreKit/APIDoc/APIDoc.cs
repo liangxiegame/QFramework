@@ -54,7 +54,7 @@ namespace QFramework
                                 GUILayout.BeginVertical("box");
                                 GUILayout.BeginHorizontal();
                                 GUILayout.Space(20); // indent
-                                GUILayout.Label(classAPIRenderInfo.DisplayName);
+                                GUILayout.Label(classAPIRenderInfo.DisplayMenuName);
                                 GUILayout.EndHorizontal();
                                 GUILayout.EndVertical();
 

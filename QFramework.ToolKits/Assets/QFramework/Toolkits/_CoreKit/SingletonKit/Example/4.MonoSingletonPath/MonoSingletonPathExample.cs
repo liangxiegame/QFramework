@@ -2,13 +2,13 @@ namespace QFramework.Example
 {
 	using UnityEngine;
 
-	[QFramework.MonoSingletonPath("[Example]/MonoSingletonPath")]
+	[MonoSingletonPath("[Example]/MonoSingletonPath")]
     internal class ClassUseMonoSingletonPath : MonoSingleton<ClassUseMonoSingletonPath>
 	{
 		
 	}
 	
-	public class MonoSingletonPath : MonoBehaviour
+	public class MonoSingletonPathExample : MonoBehaviour
 	{
 		private void Start()
 		{

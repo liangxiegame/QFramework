@@ -19,7 +19,7 @@ namespace QFramework.Example
 		}
 	}
 	
-	public class Singleton : MonoBehaviour
+	public class SingletonExample : MonoBehaviour
 	{
 		private void Start()
 		{

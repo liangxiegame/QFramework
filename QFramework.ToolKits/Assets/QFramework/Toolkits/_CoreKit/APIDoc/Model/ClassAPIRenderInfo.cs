@@ -19,7 +19,8 @@ namespace QFramework
             LocaleKitEditor.IsCN.Value ? mDescriptionCN.Description : mDescriptionEN.Description;
 
         public string ClassName { get; private set; }
-        public string DisplayName { get; private set; }
+        public string DisplayMenuName { get; private set; }
+        public string DisplayClassName { get; private set; }
         public string Namespace { get; private set; }
 
         public string ExampleCode { get; private set; }
@@ -39,14 +40,23 @@ namespace QFramework
         public ClassAPIRenderInfo(Type type, ClassAPIAttribute classAPIAttribute)
         {
             mType = type;
-            DisplayName = classAPIAttribute.DisplayName;
+            DisplayMenuName = classAPIAttribute.DisplayMenuName;
             GroupName = classAPIAttribute.GroupName;
             RenderOrder = classAPIAttribute.RenderOrder;
+            DisplayClassName = classAPIAttribute.DisplayClassName;
         }
 
         public void Parse()
         {
-            ClassName = mType.Name;
+            if (DisplayClassName.IsNullOrEmpty())
+            {
+                ClassName = mType.Name;
+            }
+            else
+            {
+                ClassName = DisplayClassName;
+            }
+
             mDescriptionCN = mType.GetAttribute<APIDescriptionCNAttribute>(false);
             mDescriptionEN = mType.GetAttribute<APIDescriptionENAttribute>(false);
             Namespace = mType.Namespace;
