@@ -12,7 +12,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -2052,7 +2051,7 @@ namespace QFramework
         {
             return new ECARule<EmptyEventData>
             {
-                E = Utils.GetOrAddComponent<UpdateTrigger>(self.gameObject)
+                E = self.gameObject.GetOrAddComponent<UpdateTrigger>()
             };
         }
 
@@ -2060,7 +2059,7 @@ namespace QFramework
         {
             return new ECARule<EmptyEventData>
             {
-                E = Utils.GetOrAddComponent<FixedUpdateTrigger>(self.gameObject)
+                E = self.gameObject.GetOrAddComponent<FixedUpdateTrigger>()
             };
         }
 
@@ -2068,25 +2067,11 @@ namespace QFramework
         {
             return new ECARule<EmptyEventData>
             {
-                E = Utils.GetOrAddComponent<LateUpdateTrigger>(self.gameObject)
+                E = self.gameObject.GetOrAddComponent<LateUpdateTrigger>()
             };
         }
     }
-
-    internal static class Utils
-    {
-        public static T GetOrAddComponent<T>(GameObject gameObject) where T : MonoBehaviour
-        {
-            var t = gameObject.GetComponent<T>();
-
-            if (!t)
-            {
-                t = gameObject.AddComponent<T>();
-            }
-
-            return t;
-        }
-    }
+    
 
     #endregion
 }
