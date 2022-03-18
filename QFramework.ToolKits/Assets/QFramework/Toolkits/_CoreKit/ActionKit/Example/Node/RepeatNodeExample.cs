@@ -18,10 +18,12 @@
         void Simplefy()
         {
 	        // 不填次数就是无限循环
-	        var node =this.Repeat()
+	        var node = this.Repeat()
 		        .Delay(1.0f)
-		        .Event(() => Debug.Log("延时 1 秒"))
-		        .Begin();
+		        .Event(() => Debug.Log("延时 1 秒"));
+
+	        node.Begin();
+	        node.Dispose();
         }
  	}
  }

@@ -9,13 +9,14 @@
 namespace QFramework
 {
     /// <summary>
-    /// 单例接口
+    /// 默认对象工厂：相关对象是通过New 出来的
     /// </summary>
-    public interface ISingleton
+    /// <typeparam name="T"></typeparam>
+    public class DefaultObjectFactory<T> : IObjectFactory<T> where T : new()
     {
-        /// <summary>
-        /// 单例初始化(继承当前接口的类都需要实现该方法)
-        /// </summary>
-        void OnSingletonInit();
+        public T Create()
+        {
+            return new T();
+        }
     }
 }

@@ -59,7 +59,8 @@ namespace QFramework
 
     public class TableIndex<TKeyType, TDataItem> : IDisposable
     {
-        private Dictionary<TKeyType, List<TDataItem>> mIndex = new Dictionary<TKeyType, List<TDataItem>>();
+        private Dictionary<TKeyType, List<TDataItem>> mIndex =
+            new Dictionary<TKeyType, List<TDataItem>>();
 
         private Func<TDataItem, TKeyType> mGetKeyByDataItem = null;
 

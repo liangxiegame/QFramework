@@ -11,7 +11,7 @@ using UnityEngine;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("0.FluentAPI.Unity", "UnityEngine.Camera", 5)]
+    [ClassAPI("0.FluentAPI.Unity", "UnityEngine.Color", 5)]
     [APIDescriptionCN("UnityEngine.Color 静态扩展")]
     [APIDescriptionEN("UnityEngine.Color extension")]
 #endif

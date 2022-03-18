@@ -15,8 +15,15 @@ namespace QFramework
     {
         public List<ClassAPIRenderInfo> ClassAPIRenderInfos { get; set; }
 
-        public string GroupName { get; set; }
-        public bool Open { get; set; } = true;
+        public string GroupName { get; private set; }
+
+        public ClassAPIGroupRenderInfo(string groupName)
+        {
+            GroupName = groupName;
+            Open = new EditorPrefsBoolProperty(groupName);
+        }
+
+        public EditorPrefsBoolProperty Open { get; private set; }
     }
 }
 #endif

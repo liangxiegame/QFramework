@@ -9,13 +9,10 @@
 namespace QFramework
 {
     /// <summary>
-    /// 单例接口
+    /// I cache type.
     /// </summary>
-    public interface ISingleton
+    public interface IPoolType
     {
-        /// <summary>
-        /// 单例初始化(继承当前接口的类都需要实现该方法)
-        /// </summary>
-        void OnSingletonInit();
+        void Recycle2Cache();
     }
 }

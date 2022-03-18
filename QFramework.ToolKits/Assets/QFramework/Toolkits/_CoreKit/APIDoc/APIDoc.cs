@@ -34,6 +34,7 @@ namespace QFramework
             var skin = Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
             mMDViewer = new MDViewer(skin, string.Empty, "");
 
+            Vector2 scrollPos = Vector2.zero;
             mSplitView = new VerticalSplitView(240)
             {
                 FirstPan = (rect) =>
@@ -41,16 +42,16 @@ namespace QFramework
                     GUILayout.BeginArea(rect);
                     mSplitView.DrawExpandButtonLeft();
 
+                    scrollPos = GUILayout.BeginScrollView(scrollPos);
                     foreach (var groupRenderInfo in mGroupRenderInfos)
                     {
                         GUILayout.BeginVertical("box");
-                        if (EditorGUILayout.Foldout(groupRenderInfo.Open, groupRenderInfo.GroupName, true))
+                        if (EditorGUILayout.Foldout(groupRenderInfo.Open.Value, groupRenderInfo.GroupName, true))
                         {
-                            groupRenderInfo.Open = true;
+                            groupRenderInfo.Open.Value = true;
                             GUILayout.EndVertical();
                             foreach (var classAPIRenderInfo in groupRenderInfo.ClassAPIRenderInfos)
                             {
-
                                 GUILayout.BeginVertical("box");
                                 GUILayout.BeginHorizontal();
                                 GUILayout.Space(20); // indent
@@ -69,12 +70,12 @@ namespace QFramework
                         }
                         else
                         {
-                            groupRenderInfo.Open = false;
+                            groupRenderInfo.Open.Value = false;
                             GUILayout.EndVertical();
                         }
                     }
 
-
+                    GUILayout.EndScrollView();
                     GUILayout.EndArea();
                 },
                 SecondPan = (rect) =>
@@ -180,16 +181,18 @@ namespace QFramework
                 .Select(t => new ClassAPIRenderInfo(t, t.GetAttribute<ClassAPIAttribute>(false)))
                 .GroupBy(c => c.GroupName)
                 .OrderBy(c => c.Key)
-                .Select(g => new ClassAPIGroupRenderInfo()
+                .Select(g => new ClassAPIGroupRenderInfo(g.Key)
                 {
-                    GroupName = g.Key,
-                    ClassAPIRenderInfos = g.OrderBy(c=>c.RenderOrder).ToList()
+                    ClassAPIRenderInfos = g.OrderBy(c => c.RenderOrder).ToList()
                 }).ToList();
 
 
             if (mGroupRenderInfos.Count > 0)
             {
-                mSelectionClassAPIRenderInfo = mGroupRenderInfos.First().ClassAPIRenderInfos.First();
+                var firstGroup = mGroupRenderInfos.First();
+                firstGroup.Open.Value = true;
+
+                mSelectionClassAPIRenderInfo = firstGroup.ClassAPIRenderInfos.First();
                 UpdateDoc();
             }
         }

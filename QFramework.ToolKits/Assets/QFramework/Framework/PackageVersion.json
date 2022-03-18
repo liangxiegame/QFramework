@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.37",
+    "Version": "v0.14.38",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.37",
-        "content": "整理完 163 个 API ",
+        "version": "v0.14.38",
+        "content": "Singleton、Pool 部分的 API 整理完毕",
         "author": "liangxie",
-        "date": "2022 年 03 月 17 日 19:23",
+        "date": "2022 年 03 月 18 日 16:30",
         "PackageId": ""
     }
 }

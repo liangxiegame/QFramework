@@ -9,13 +9,23 @@
 namespace QFramework
 {
     /// <summary>
-    /// 单例接口
+    /// 对象池接口
     /// </summary>
-    public interface ISingleton
+    /// <typeparam name="T"></typeparam>
+    public interface IPool<T>
     {
         /// <summary>
-        /// 单例初始化(继承当前接口的类都需要实现该方法)
+        /// 分配对象
         /// </summary>
-        void OnSingletonInit();
+        /// <returns></returns>
+        T Allocate();
+
+        /// <summary>
+        /// 回收对象
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        bool Recycle(T obj);
     }
+
 }

@@ -30,12 +30,35 @@ namespace QFramework
             pool.Recycle(fish);
 
             Debug.Log(pool.CurCount);
+
+
+            var gameObjPool = new SimpleObjectPool<GameObject>(() =>
+            {
+                var gameObj = new GameObject("AGameObject");
+                // init gameObj code 
+
+                // gameObjPrefab = Resources.Load<GameObject>("somePath/someGameObj");
+                
+                return gameObj;
+            }, (gameObj) =>
+            {
+                // reset code here
+            });
             #endregion
 
 
 
             #region SafeObjectPool
 
+            SafeObjectPool<Bullet>.Instance.SetFactoryMethod(() =>
+            {
+                // bullet can be mono behaviour
+                return new Bullet();
+            });
+            
+            SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet>());
+            
+            
             SafeObjectPool<Bullet>.Instance.Init(50,25);
             
             var bullet = Bullet.Allocate();
