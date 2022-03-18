@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2020.10 ~ 2022 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -14,6 +14,69 @@ using System.Linq;
 // ReSharper disable once CheckNamespace
 namespace QFramework
 {
+#if UNITY_EDITOR
+    // v1 No.174
+    [ClassAPI("98.TableKit", "Table<T>", 3, "Table<T>")]
+    [APIDescriptionCN("一类似表格的数据结构，兼顾查询功能和性能，支持联合查询")]
+    [APIDescriptionEN("A tabular like data structure, both query function and performance, support joint query")]
+    [APIExampleCode(@"
+public class Student
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public int Level { get; set; }
+}
+ 
+public class School : Table<Student>
+{
+    public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);
+    public TableIndex<int, Student> LevelIndex = new TableIndex<int, Student>((student) => student.Level);
+         
+    protected override void OnAdd(Student item)
+    {
+        AgeIndex.Add(item);
+        LevelIndex.Add(item);
+    }
+ 
+    protected override void OnRemove(Student item)
+    {
+        AgeIndex.Remove(item);
+        LevelIndex.Remove(item);
+    }
+ 
+    protected override void OnClear()
+    {
+        AgeIndex.Clear();
+        LevelIndex.Clear();
+    }
+ 
+    public override IEnumerator<Student> GetEnumerator()
+    {
+        return AgeIndex.Dictionary.Values.SelectMany(s=>s).GetEnumerator();
+    }
+ 
+    protected override void OnDispose()
+    {
+        AgeIndex.Dispose();
+        LevelIndex.Dispose();
+    }
+}
+ 
+ 
+var school = new School();
+school.Add(new Student(){Age = 1,Level = 2,Name = ""liangxie""});
+school.Add(new Student(){Age = 2,Level = 2,Name = ""ava""});
+school.Add(new Student(){Age = 3,Level = 2,Name = ""abc""});
+school.Add(new Student(){Age = 3,Level = 3,Name = ""efg""});
+            
+foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
+{
+    Debug.Log(student.Age + "":"" + student.Level + "":"" + student.Name);
+}
+// 1:2:liangxie
+// 2:2:ava
+")]
+#endif
     public abstract class Table<TDataItem> : IEnumerable<TDataItem>, IDisposable
     {
         public void Add(TDataItem item)
@@ -31,7 +94,7 @@ namespace QFramework
             OnClear();
         }
 
-        // 改，由于 TDataItem 是引用类型，所以直接改值即可。
+        // 改，由于 TDataItem 通常是引用类型，所以直接改值即可，也有可能是值类型 以后再说
         public void Update()
         {
         }

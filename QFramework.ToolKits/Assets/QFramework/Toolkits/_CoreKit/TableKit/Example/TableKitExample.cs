@@ -13,8 +13,6 @@ namespace QFramework
             public int Age { get; set; }
             public int Level { get; set; }
         }
-        
-        
         public class School : Table<Student>
         {
             public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);

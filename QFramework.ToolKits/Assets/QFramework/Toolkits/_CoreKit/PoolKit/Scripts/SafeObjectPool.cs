@@ -13,8 +13,8 @@ namespace QFramework
 #if UNITY_EDITOR
     // v1 No.173
     [ClassAPI("99.PoolKit", "SafeObjectPool<T>", 3, "SafeObjectPool<T>")]
-    [APIDescriptionCN("更安全的对象池，用于设计底层框架。")]
-    [APIDescriptionEN("Store a pool of List objects for optimization to reduce the number of new calls.")]
+    [APIDescriptionCN("更安全的对象池，带有一定的约束。")]
+    [APIDescriptionEN("More secure object pooling, with certain constraints.")]
     [APIExampleCode(@"
 class Bullet :IPoolable,IPoolType
 {
