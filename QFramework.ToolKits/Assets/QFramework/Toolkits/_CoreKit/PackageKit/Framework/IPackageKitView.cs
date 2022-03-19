@@ -1,30 +1,26 @@
-/****************************************************************************
- * Copyright (c) 2017 - 2022 liangxiegame UNDER MIT License
- * 
- * http://qframework.io
- * https://github.com/liangxiegame/QFramework
- ****************************************************************************/
-
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
 
 namespace QFramework
 {
     public interface IPackageKitView
     {
+
         EditorWindow EditorWindow { get; set; }
 
-        void Init();
+        Type Type { get; }
 
-        void OnShow();
+        void Init();
 
         void OnUpdate();
         void OnGUI();
 
         void OnWindowGUIEnd();
-        void OnHide();
 
         void OnDispose();
+        void OnShow();
+        void OnHide();
     }
 }
 #endif

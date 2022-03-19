@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -54,6 +55,8 @@ namespace QFramework
         private bool mIsOfficial = true;
 
         public EditorWindow EditorWindow { get; set; }
+
+        public Type Type { get; } = typeof(PackageManagerView);
 
         public void Init()
         {

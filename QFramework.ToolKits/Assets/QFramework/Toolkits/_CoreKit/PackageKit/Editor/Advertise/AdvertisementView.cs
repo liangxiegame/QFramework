@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.ComponentModel;
 using UnityEditor;
 using UnityEngine;
@@ -39,6 +40,8 @@ namespace QFramework
 		private IXMLView mView = null;
 
 		public EditorWindow EditorWindow { get; set; }
+
+		public Type Type { get; } = typeof(AdvertisementView);
 
 		public void Init()
 		{

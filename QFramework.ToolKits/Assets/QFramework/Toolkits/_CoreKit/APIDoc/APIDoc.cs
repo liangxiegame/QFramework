@@ -7,6 +7,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace QFramework
 
         private MDViewer mMDViewer;
 
+
+        public Type Type { get; } = typeof(APIDoc);
 
         public void Init()
         {

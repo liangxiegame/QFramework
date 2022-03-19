@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
  * 
  * http://qframework.cn
@@ -499,7 +499,7 @@ namespace QFramework
             }
         }
 
-        [Obsolete("不要使用，Do not used", true)]
+        [Obsolete("不要使用，Do not used", false)]
         public static Transform FindChildRecursion(this Transform tfParent, string name,
             StringComparison stringComparison = StringComparison.Ordinal)
         {
@@ -544,7 +544,7 @@ namespace QFramework
             return null;
         }
 
-        [Obsolete("不要使用，Do not used", true)]
+        [Obsolete("不要使用，Do not used", false)]
         public static string GetPath(this Transform transform)
         {
             var sb = new System.Text.StringBuilder();

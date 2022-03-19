@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEditor;
@@ -39,7 +40,8 @@ namespace QFramework
 
         public EditorWindow EditorWindow { get; set; }
 
-      
+
+        public Type Type { get; } = typeof(PackageKitLoginView);
 
         public void Init()
         {

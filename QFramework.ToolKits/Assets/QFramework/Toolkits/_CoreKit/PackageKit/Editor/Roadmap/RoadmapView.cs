@@ -25,6 +25,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.ComponentModel;
 using UnityEditor;
 
@@ -36,6 +37,8 @@ namespace QFramework
     public class RoadmapView : VerticalLayout, IPackageKitView
     {
         public EditorWindow EditorWindow { get; set; }
+
+        public Type Type { get; } = typeof(RoadmapView);
 
         public void Init()
         {
