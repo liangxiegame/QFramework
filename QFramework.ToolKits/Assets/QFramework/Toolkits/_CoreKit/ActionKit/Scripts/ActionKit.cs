@@ -232,6 +232,78 @@ ActionKit.Sequence()
         }
 
 
+#if UNITY_EDITOR
+        [MethodAPI]
+        [APIDescriptionCN("自定义动作")]
+        [APIDescriptionEN("Custom action example")]
+        [APIExampleCode(@" 
+ActionKit.Custom(a =>
+{
+    a
+        .OnStart(() => { Debug.Log(""OnStart""); })
+        .OnExecute(dt =>
+        {
+            Debug.Log(""OnExecute"");
+ 
+            a.Finish();
+        })
+        .OnFinish(() => { Debug.Log(""OnFinish""); });
+}).Start(this);
+             
+// OnStart
+// OnExecute
+// OnFinish
+ 
+class SomeData
+{
+    public int ExecuteCount = 0;
+}
+ 
+ActionKit.Custom<SomeData>(a =>
+{
+    a
+        .OnStart(() =>
+        {
+            a.Data = new SomeData()
+            {
+                ExecuteCount = 0
+            };
+        })
+        .OnExecute(dt =>
+        {
+            Debug.Log(a.Data.ExecuteCount);
+            a.Data.ExecuteCount++;
+ 
+            if (a.Data.ExecuteCount >= 5)
+            {
+                a.Finish();
+            }
+        }).OnFinish(() => { Debug.Log(""Finished""); });
+}).Start(this);
+         
+// 0
+// 1
+// 2
+// 3
+// 4
+// Finished
+")]
+#endif
+        public static IAction Custom(Action<ICustomAPI<object>> customSetting)
+        {
+            var action = QFramework.Custom.Allocate();
+            customSetting(action);
+            return action;
+        }
+
+        public static IAction Custom<TData>(Action<ICustomAPI<TData>> customSetting)
+        {
+            var action = QFramework.Custom<TData>.Allocate();
+            customSetting(action);
+            return action;
+        }
+
+
         #region Events
 
         public static EasyEvent OnUpdate => ActionKitMonoBehaviourEvents.Instance.OnUpdate;

@@ -20,8 +20,7 @@ namespace QFramework
 
     public interface IActionController
     {
-        bool Paused { get; }
-        bool Deinited { get; }
+        bool Paused { get; set; }
 
         void Deinit();
         void Reset();
@@ -29,9 +28,7 @@ namespace QFramework
 
     public interface IAction<TStatus> : IActionController
     {
-        new bool Paused { get; set; }
-
-        new bool Deinited { get; set; }
+        bool Deinited { get; set; }
 
         TStatus Status { get; set; }
         void OnStart();
@@ -39,14 +36,11 @@ namespace QFramework
         void OnFinish();
     }
 
-    public interface IAction<TStatus, TData> : IAction<TStatus>
-    {
-        TData Data { get; set; }
-    }
 
     public interface IAction : IAction<ActionStatus>
     {
     }
+    
 
 
     public static class IActionExtensions
