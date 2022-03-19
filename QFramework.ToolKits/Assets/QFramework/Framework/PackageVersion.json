@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.39",
+    "Version": "v0.14.40",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.39",
-        "content": "TableKit 整理",
+        "version": "v0.14.40",
+        "content": "ActionKit API 整理",
         "author": "liangxie",
-        "date": "2022 年 03 月 18 日 16:49",
+        "date": "2022 年 03 月 18 日 17:09",
         "PackageId": ""
     }
 }
