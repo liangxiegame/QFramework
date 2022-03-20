@@ -1,8 +1,0 @@
-<EasyIMGUI xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="EasyIMGUI"
-           xsi:schemaLocation="">
-    <IHorizontal>
-        <ILabel Id="title" Text="Hello" FontBold="true"/>
-        <IFlexibleSpace/>
-        <IButton Id="linkBtn" Width="200" />
-    </IHorizontal>
-</EasyIMGUI>

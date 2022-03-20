@@ -17,8 +17,8 @@ namespace QFramework
     [CustomEditor( typeof( MDAsset ) )]
     public class MDEditorAsset : Editor
     {
-        public GUISkin SkinLight;
-        public GUISkin SkinDark;
+        public GUISkin SkinDark => Resources.Load<GUISkin>("Skin/MarkdownViewerSkin");
+        public GUISkin SkinLight => Resources.Load<GUISkin>("Skin/MarkdownSkinQS");
 
         MDViewer mViewer;
 

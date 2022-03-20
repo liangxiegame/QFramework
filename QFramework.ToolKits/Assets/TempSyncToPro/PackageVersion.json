@@ -1,0 +1,30 @@
+{
+    "Id": "",
+    "Version": "v0.0.2",
+    "Type": 0,
+    "AccessRight": 1,
+    "DownloadUrl": "",
+    "InstallPath": "Assets/TempSyncToPro/",
+    "IncludeFileOrFolders": [
+        "Assets/QFramework/Framework",
+        "Assets/QFramework/Toolkits/_CoreKit/ActionKit",
+        "Assets/QFramework/Toolkits/_CoreKit/APIDoc",
+        "Assets/QFramework/Toolkits/_CoreKit/FluentAPI",
+        "Assets/QFramework/Toolkits/_CoreKit/IOCKit",
+        "Assets/QFramework/Toolkits/_CoreKit/LocaleKit",
+        "Assets/QFramework/Toolkits/_CoreKit/LogKit",
+        "Assets/QFramework/Toolkits/_CoreKit/PoolKit",
+        "Assets/QFramework/Toolkits/_CoreKit/QFramework.CoreKit.asmdef",
+        "Assets/QFramework/Toolkits/_CoreKit/SingletonKit",
+        "Assets/QFramework/Toolkits/_CoreKit/TableKit",
+        "Assets/TempSyncToPro"
+    ],
+    "DocUrl": "https://liangxiegame.com",
+    "Readme": {
+        "version": "v0.0.2",
+        "content": "Core 部分尝试同步 除了 PackageKit",
+        "author": "liangxie",
+        "date": "2022 年 03 月 19 日 17:26",
+        "PackageId": ""
+    }
+}
