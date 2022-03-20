@@ -291,9 +291,9 @@ namespace QFramework
                                         return r;
                                     }
 
-                                    if (ResKitAssetsMenu.Marked(r.GetPathParentFolder()))
+                                    if (ResKitAssetsMenu.Marked(r.GetFolderPath()))
                                     {
-                                        return r.GetPathParentFolder();
+                                        return r.GetFolderPath();
                                     }
 
                                     return null;

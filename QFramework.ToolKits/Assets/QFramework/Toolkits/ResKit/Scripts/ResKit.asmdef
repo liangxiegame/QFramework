@@ -1,6 +1,9 @@
 {
     "name": "ResKit",
-    "references": [],
+    "references": [
+        "QFramework",
+        "QFramework.CoreKit"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],

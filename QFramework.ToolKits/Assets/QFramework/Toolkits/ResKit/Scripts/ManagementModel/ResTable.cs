@@ -3,9 +3,9 @@ using System.Linq;
 
 namespace QFramework
 {
-    public class ResTable : ResKitTable<IRes>
+    public class ResTable : Table<IRes>
     {
-        public ResKitTableIndex<string, IRes> NameIndex = new ResKitTableIndex<string, IRes>(res => res.AssetName.ToLower());
+        public TableIndex<string, IRes> NameIndex = new TableIndex<string, IRes>(res => res.AssetName.ToLower());
 
         public IRes GetResBySearchKeys(ResSearchKeys resSearchKeys)
         {

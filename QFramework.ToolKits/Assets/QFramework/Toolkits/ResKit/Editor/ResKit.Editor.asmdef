@@ -1,7 +1,9 @@
 {
     "name": "ResKit.Editor",
     "references": [
-        "ResKit"
+        "ResKit",
+        "QFramework",
+        "QFramework.CoreKit"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

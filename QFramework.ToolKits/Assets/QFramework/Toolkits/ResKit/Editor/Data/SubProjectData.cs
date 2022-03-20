@@ -96,18 +96,4 @@ namespace QFramework
             }
         }
     }
-
-    internal static class StringEx
-    {
-        /// <summary>
-        /// 删除特定字符
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="target"></param>
-        /// <returns></returns>
-        public static string RemoveString(this string str, params string[] targets)
-        {
-            return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
-        }
-    }
 }

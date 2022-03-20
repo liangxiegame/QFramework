@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class AssetDataTable : ResKitTable<AssetData>
+    public class AssetDataTable : Table<AssetData>
     {
-        public ResKitTableIndex<string, AssetData> NameIndex = new ResKitTableIndex<string, AssetData>(data => data.AssetName);
+        public TableIndex<string, AssetData> NameIndex = new TableIndex<string, AssetData>(data => data.AssetName);
 
         public AssetData GetAssetDataByResSearchKeys(ResSearchKeys resSearchKeys)
         {

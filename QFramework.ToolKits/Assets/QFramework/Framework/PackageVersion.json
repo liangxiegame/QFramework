@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.41",
+    "Version": "v0.14.42",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.41",
-        "content": "找回 2 个 API 设置为 warning",
+        "version": "v0.14.42",
+        "content": "整理 EditorKit 代码",
         "author": "liangxie",
-        "date": "2022 年 03 月 19 日 23:20",
+        "date": "2022 年 03 月 20 日 15:40",
         "PackageId": ""
     }
 }
