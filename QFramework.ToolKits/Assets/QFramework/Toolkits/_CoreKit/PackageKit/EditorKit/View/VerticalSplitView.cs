@@ -64,7 +64,7 @@ namespace QFramework
         }
         public VerticalSplitView(int splitLeftSize = 200)
         {
-            mBoxWithRect = EasyIMGUI.BoxWithRect();
+            mIMGUIRectBox = EasyIMGUI.BoxWithRect();
 
             mSplit = splitLeftSize;
 
@@ -94,7 +94,7 @@ namespace QFramework
         public event System.Action OnBeginResize;
         public event System.Action OnEndResize;
 
-        private IBoxWithRect mBoxWithRect;
+        private IMGUIRectBox mIMGUIRectBox;
 
         public bool Dragging
         {
@@ -138,7 +138,7 @@ namespace QFramework
                 SecondPan(rs[1]);
             }
 
-            mBoxWithRect.Rect(mid).DrawGUI();
+            mIMGUIRectBox.Rect(mid).DrawGUI();
 
             var e = Event.current;
             if (mid.Contains(e.mousePosition))

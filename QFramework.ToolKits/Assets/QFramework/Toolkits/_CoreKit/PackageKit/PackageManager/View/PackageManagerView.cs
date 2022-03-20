@@ -238,28 +238,28 @@ namespace QFramework
                         .WithVisibleCondition(() => mSelectedPackageRepository != null)
                         // 名字
                         .AddChild(EasyIMGUI.Label()
-                            .TextGetter(() => mSelectedPackageRepository.name)
+                            .Text(() => mSelectedPackageRepository.name)
                             .FontSize(30)
                             .FontBold())
                         .AddChild(EasyIMGUI.Space())
                         // 服务器版本
                         .AddChild(EasyIMGUI.Label()
-                            .TextGetter(() => "服务器版本: " + mSelectedPackageRepository.latestVersion)
+                            .Text(() => "服务器版本: " + mSelectedPackageRepository.latestVersion)
                             .FontSize(15))
                         // 本地版本
                         .AddChild(EasyIMGUI.Label()
                             .WithVisibleCondition(() =>
                                 localPackageVersionModel.GetByName(mSelectedPackageRepository.name) != null)
-                            .TextGetter(() =>
+                            .Text(() =>
                                 "本地版本:" + localPackageVersionModel.GetByName(mSelectedPackageRepository.name).Version)
                             .FontSize(15))
                         // 作者
                         .AddChild(EasyIMGUI.Label()
-                            .TextGetter(() => "作者:" + mSelectedPackageRepository.author)
+                            .Text(() => "作者:" + mSelectedPackageRepository.author)
                             .FontSize(15))
                         // 权限
                         .AddChild(EasyIMGUI.Label()
-                            .TextGetter(() => "权限:" + mSelectedPackageRepository.accessRight)
+                            .Text(() => "权限:" + mSelectedPackageRepository.accessRight)
                             .FontSize(15))
                         // 主页
                         .AddChild(
@@ -268,7 +268,7 @@ namespace QFramework
                                     .FontSize(15)
                                     .Text("插件主页:"))
                                 .AddChild(EasyIMGUI.Button()
-                                    .TextGetter(() => UrlHelper.PackageUrl(mSelectedPackageRepository))
+                                    .Text(() => UrlHelper.PackageUrl(mSelectedPackageRepository))
                                     .FontSize(15)
                                     .OnClick(() =>
                                     {
@@ -279,7 +279,7 @@ namespace QFramework
                         )
                         // 描述
                         .AddChild(EasyIMGUI.Label()
-                            .TextGetter(() => "描述:")
+                            .Text(() => "描述:")
                             .FontSize(15)
                         )
                         .AddChild(EasyIMGUI.Space())

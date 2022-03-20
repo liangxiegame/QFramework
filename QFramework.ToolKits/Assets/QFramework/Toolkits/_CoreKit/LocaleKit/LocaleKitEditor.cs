@@ -38,7 +38,7 @@ namespace QFramework
 
         public static IBindableProperty<bool> IsCN => mIsCN.Value;
 
-        private static ILabel mENLabel;
+        private static IMGUILabel mENLabel;
 
         private static Lazy<IMGUIView> mSwitchToggleView = new Lazy<IMGUIView>(() =>
         {

@@ -70,9 +70,9 @@ namespace QFramework
                 view.Init();
             }
         }
-        
+
         private static List<IPackageKitView> mViews;
-        
+
         class LocaleText
         {
             public static string QFrameworkSettings
@@ -121,39 +121,37 @@ namespace QFramework
         }
 
 
-    
+        private Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>>
+            mPackageKitViewRenderInfos = null;
 
-        private Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>> mPackageKitViewRenderInfos = null;
-
-        public string SelectedDisplayName
+        public static string SelectedDisplayName
         {
-            get { return EditorPrefs.GetString("QF_SELECTED_DISPLAY_NAME", string.Empty); }
-            set { EditorPrefs.SetString("QF_SELECTED_DISPLAY_NAME", value); }
+            get => EditorPrefs.GetString("QF_SELECTED_DISPLAY_NAME", string.Empty);
+            set => EditorPrefs.SetString("QF_SELECTED_DISPLAY_NAME", value);
         }
 
-        
-       
-        
+
         protected override void Init()
         {
             Views = null;
             RemoveAllChildren();
 
-            var reflectRenderInfos = AssetDatabase.GetAllAssetPaths().Where(path => path.EndsWith("packagekitconfig.json")).Select(path =>
-            {
-                var jsonText = File.ReadAllText(path);
+            var reflectRenderInfos = AssetDatabase.GetAllAssetPaths()
+                .Where(path => path.EndsWith("packagekitconfig.json")).Select(path =>
+                {
+                    var jsonText = File.ReadAllText(path);
 
-                var infoNew = JsonUtility.FromJson<ReflectRenderInfo>(jsonText);
+                    var infoNew = JsonUtility.FromJson<ReflectRenderInfo>(jsonText);
 
-                infoNew.Load();
-                var renderInfo = new PackageKitViewRenderInfo(infoNew);
-                renderInfo.DisplayName = infoNew.DisplayName;
-                renderInfo.GroupName = infoNew.GroupName;
-                renderInfo.RenderOrder = infoNew.RenderOrder;
-                renderInfo.Interface.EditorWindow = this;
-                renderInfo.Interface.Init();
-                return renderInfo;
-            });
+                    infoNew.Load();
+                    var renderInfo = new PackageKitViewRenderInfo(infoNew);
+                    renderInfo.DisplayName = infoNew.DisplayName;
+                    renderInfo.GroupName = infoNew.GroupName;
+                    renderInfo.RenderOrder = infoNew.RenderOrder;
+                    renderInfo.Interface.EditorWindow = this;
+                    renderInfo.Interface.Init();
+                    return renderInfo;
+                });
 
             mPackageKitViewRenderInfos = Views
                 .Select(view => new PackageKitViewRenderInfo(view))
@@ -177,7 +175,7 @@ namespace QFramework
             }
 
             mSelectedViewRender.Interface.OnShow();
-            
+
 
             // 创建双屏
             mSplitView = new VerticalSplitView
@@ -208,9 +206,8 @@ namespace QFramework
             };
         }
 
-        [SerializeField]
-        private VerticalSplitView mSplitView;
-        
+        [SerializeField] private VerticalSplitView mSplitView;
+
         public override void OnGUI()
         {
             base.OnGUI();
@@ -235,7 +232,7 @@ namespace QFramework
             {
                 GUILayout.BeginVertical("box");
                 if (EditorGUILayout.Foldout(packageKitViewRenderInfo.Key.Item2, packageKitViewRenderInfo.Key.Item1,
-                    true))
+                        true))
                 {
                     GUILayout.EndVertical();
 
@@ -264,6 +261,7 @@ namespace QFramework
                             SelectedDisplayName = mSelectedViewRender.Interface.ToString();
                             Event.current.Use();
                         }
+
                         GUILayout.EndHorizontal();
                     }
                 }
@@ -295,6 +293,12 @@ namespace QFramework
             {
                 mSelectedViewRender.Interface.OnUpdate();
             }
+        }
+
+        public static void OpenWindowWithViewType<T>()
+        {
+            SelectedDisplayName = typeof(T).FullName;
+            OpenWindow();
         }
     }
 }

@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    internal class LabelViewWithRect : View
+    internal class LabelViewWithRect : IMGUIAbstractView
     {
         public LabelViewWithRect(string content = "", float x = 100, float y = 200, float width = 200,
             float height = 200)

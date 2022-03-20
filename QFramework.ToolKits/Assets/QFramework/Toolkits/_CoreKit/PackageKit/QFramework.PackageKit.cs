@@ -631,7 +631,7 @@ namespace QFramework
     }
 
 
-    internal class ColorView : View
+    internal class ColorView : IMGUIAbstractView
     {
         public ColorView(Color color)
         {
@@ -647,7 +647,7 @@ namespace QFramework
     }
 
 
-    internal class EnumPopupView : View
+    internal class EnumPopupView : IMGUIAbstractView
     {
         public BindableProperty<Enum> ValueProperty { get; set; }
 
