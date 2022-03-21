@@ -35,6 +35,7 @@ using UnityEngine;
 namespace QFramework
 {
     [DisplayName("PackageKit 插件管理")]
+    [DisplayNameEN("Plugin Manager(OnlyCN)")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(1)]
     internal class PackageManagerView : IPackageKitView, IController, IUnRegisterList

@@ -124,7 +124,7 @@ namespace QFramework
         private Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>>
             mPackageKitViewRenderInfos = null;
 
-        public static string SelectedDisplayName
+        public static string SelectedViewName
         {
             get => EditorPrefs.GetString("QF_SELECTED_DISPLAY_NAME", string.Empty);
             set => EditorPrefs.SetString("QF_SELECTED_DISPLAY_NAME", value);
@@ -144,11 +144,18 @@ namespace QFramework
                     var infoNew = JsonUtility.FromJson<ReflectRenderInfo>(jsonText);
 
                     infoNew.Load();
-                    var renderInfo = new PackageKitViewRenderInfo(infoNew);
-                    renderInfo.DisplayName = infoNew.DisplayName;
-                    renderInfo.GroupName = infoNew.GroupName;
-                    renderInfo.RenderOrder = infoNew.RenderOrder;
-                    renderInfo.Interface.EditorWindow = this;
+                    var renderInfo = new PackageKitViewRenderInfo(infoNew)
+                    {
+                        DisplayName = infoNew.DisplayName,
+                        DisplayNameCN = infoNew.DisplayNameCN,
+                        DisplayNameEN = infoNew.DisplayNameEN,
+                        GroupName = infoNew.GroupName,
+                        RenderOrder = infoNew.RenderOrder,
+                        Interface =
+                        {
+                            EditorWindow = this
+                        }
+                    };
                     renderInfo.Interface.Init();
                     return renderInfo;
                 });
@@ -162,7 +169,7 @@ namespace QFramework
                     g.OrderBy(renderInfo => renderInfo.RenderOrder).ToList()))
                 .ToDictionary(p => p.Key, p => p.Value);
 
-            if (string.IsNullOrEmpty(SelectedDisplayName))
+            if (string.IsNullOrEmpty(SelectedViewName))
             {
                 mSelectedViewRender = mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
             }
@@ -170,7 +177,7 @@ namespace QFramework
             {
                 mSelectedViewRender = mPackageKitViewRenderInfos
                                           .SelectMany(p => p.Value)
-                                          .FirstOrDefault(p => p.Interface.ToString() == SelectedDisplayName) ??
+                                          .FirstOrDefault(p => p.Interface.ToString() == SelectedViewName) ??
                                       mPackageKitViewRenderInfos.FirstOrDefault().Value.FirstOrDefault();
             }
 
@@ -243,7 +250,7 @@ namespace QFramework
                         GUILayout.BeginVertical();
                         GUILayout.BeginHorizontal("box");
                         GUILayout.Space(20);
-                        GUILayout.Label(drawer.DisplayName);
+                        GUILayout.Label(drawer.GetDisplayName());
                         GUILayout.FlexibleSpace();
                         GUILayout.EndHorizontal();
                         var rect = GUILayoutUtility.GetLastRect();
@@ -258,7 +265,7 @@ namespace QFramework
                             mSelectedViewRender.Interface.OnHide();
                             mSelectedViewRender = drawer;
                             mSelectedViewRender.Interface.OnShow();
-                            SelectedDisplayName = mSelectedViewRender.Interface.ToString();
+                            SelectedViewName = mSelectedViewRender.Interface.ToString();
                             Event.current.Use();
                         }
 
@@ -297,7 +304,7 @@ namespace QFramework
 
         public static void OpenWindowWithViewType<T>()
         {
-            SelectedDisplayName = typeof(T).FullName;
+            SelectedViewName = typeof(T).FullName;
             OpenWindow();
         }
     }

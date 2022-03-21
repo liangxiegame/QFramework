@@ -19,7 +19,7 @@ namespace QFramework
         OpenFileName m_OpenFileName = null;
         static Dictionary<string, ABMD5> m_PackedMd5 = new Dictionary<string, ABMD5>();
 
-        [MenuItem("热更/打包热更包", false, 3)]
+        // [MenuItem("热更/打包热更包", false, 3)]
         static void Init()
         {
             BundleHotFix window = (BundleHotFix)EditorWindow.GetWindow(typeof(BundleHotFix), false, "热更包界面", true);

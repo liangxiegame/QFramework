@@ -2,7 +2,7 @@
   "AssemblyName": "QFramework.CoreKit",
   "DisplayName": "使用指南",
   "DisplayNameCN": "使用指南",
-  "DisplayNameEN": "Documents",
+  "DisplayNameEN": "Guideline",
   "TypeName": "QFramework.Guideline",
   "InitFunc": "Init",
   "OnGUIFunc": "OnGUI",

@@ -13,7 +13,7 @@ namespace QFramework
       
 
 
-        [MenuItem("热更/热更配置", false, 2)]
+        // [MenuItem("热更/热更配置", false, 2)]
         static void AddWindow()
         {
             //创建窗口

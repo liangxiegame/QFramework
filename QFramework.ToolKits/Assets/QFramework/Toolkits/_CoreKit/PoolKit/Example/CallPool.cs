@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018 ~ 2022 UNDER MIT Lisence 布鞋 827922094@qq.com
  * 
- * http://qframework.io
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  ****************************************************************************/
 

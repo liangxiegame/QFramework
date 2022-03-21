@@ -18,6 +18,8 @@ using UnityEngine;
 namespace QFramework
 {
     [DisplayName("API 文档")]
+    [DisplayNameCN("API 文档")]
+    [DisplayNameEN("API Doc")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(10)]
     internal class APIDoc : IPackageKitView, IUnRegisterList

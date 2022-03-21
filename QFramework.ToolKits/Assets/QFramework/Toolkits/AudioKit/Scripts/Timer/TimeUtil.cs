@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2017 liangxie
  * 
- * http://qframework.io
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy

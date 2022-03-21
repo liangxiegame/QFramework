@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018 ~ 2022 liangxiegame UNDER MIT License
  * 
- * http://qframework.io
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  ****************************************************************************/
 

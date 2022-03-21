@@ -33,11 +33,12 @@ using UnityEditor;
 namespace QFramework
 {
     [DisplayName("账户")]
+    [DisplayNameCN("账户")]
+    [DisplayNameEN("Account")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(int.MaxValue)]
-    internal class PackageKitLoginView : VerticalLayout, IPackageKitView,IController,IUnRegisterList
+    internal class PackageKitLoginView : VerticalLayout, IPackageKitView, IController, IUnRegisterList
     {
-
         public EditorWindow EditorWindow { get; set; }
 
 
@@ -48,7 +49,7 @@ namespace QFramework
             EasyIMGUI.Label().Text("账户信息").FontSize(12).Parent(this);
 
             var boxLayout = new VerticalLayout("box").Parent(this);
-            
+
             var logoutBtn = EasyIMGUI.Button().Text("注销")
                 .Visible(PackageKitLoginState.Logined.Value)
                 .Parent(boxLayout);
@@ -63,10 +64,11 @@ namespace QFramework
 
             PackageKitLoginState.Logined.Register(value => { logoutBtn.Visible = value; }).AddToUnregisterList(this);
 
-            
+
             logoutBtn.OnClick(this.SendCommand<LogoutCommand>);
 
-            PackageKitLoginState.LoginViewVisible.Register(value => { loginView.Visible = value; }).AddToUnregisterList(this);
+            PackageKitLoginState.LoginViewVisible.Register(value => { loginView.Visible = value; })
+                .AddToUnregisterList(this);
 
 
             PackageKitLoginState.RegisterViewVisible.Register(value => { registerView.Visible = value; })
@@ -94,7 +96,6 @@ namespace QFramework
 
         public new void OnShow()
         {
-            
         }
 
         public new void OnHide()

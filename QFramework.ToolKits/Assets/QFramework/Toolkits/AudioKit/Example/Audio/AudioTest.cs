@@ -2,7 +2,7 @@
  * Copyright (c) 2018.3 布鞋 827922094@qq.com
  * Copyright (c) 2018.6 liangxie
  * 
- * http://qframework.io
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
