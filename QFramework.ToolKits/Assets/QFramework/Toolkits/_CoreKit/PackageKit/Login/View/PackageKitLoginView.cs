@@ -34,7 +34,7 @@ namespace QFramework
 {
     [DisplayName("账户")]
     [DisplayNameCN("账户")]
-    [DisplayNameEN("Account")]
+    [DisplayNameEN("Account(OnlyCN)")]
     [PackageKitGroup("QFramework")]
     [PackageKitRenderOrder(int.MaxValue)]
     internal class PackageKitLoginView : VerticalLayout, IPackageKitView, IController, IUnRegisterList

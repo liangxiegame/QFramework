@@ -17,11 +17,11 @@ using UnityEngine;
 
 namespace QFramework
 {
-    [DisplayName("API 文档")]
-    [DisplayNameCN("API 文档")]
-    [DisplayNameEN("API Doc")]
+    [DisplayName("API 文档(整理中)")]
+    [DisplayNameCN("API 文档(整理中)")]
+    [DisplayNameEN("API Doc(InProgress)")]
     [PackageKitGroup("QFramework")]
-    [PackageKitRenderOrder(10)]
+    [PackageKitRenderOrder(0)]
     internal class APIDoc : IPackageKitView, IUnRegisterList
     {
         public EditorWindow EditorWindow { get; set; }
