@@ -32,6 +32,7 @@ namespace QFramework.Example
 		private void Awake()
 		{
             UIKit.OpenPanel<UIMenuPanel>(prefabName: "Resources/UIMenuPanel");
+            
 		}
 	}
 }
