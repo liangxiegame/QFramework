@@ -57,6 +57,14 @@ namespace QFramework.Example
             // 3
             // 4
             // Finished
+
+            // 还支持 Sequence、Repeat、Spawn 等
+            // Also support sequence repeat spawn
+            // ActionKit.Sequence()
+            //     .Custom(c =>
+            //     {
+            //         c.OnStart(() => c.Finish());
+            //     }).Start(this);
         }
     }
 }

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.46",
+    "Version": "v0.14.47",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.46",
-        "content": "修复过时的 UIKit 文档",
+        "version": "v0.14.47",
+        "content": "ActionKit Custom 支持 Sequence、Repeat、Parallel",
         "author": "liangxie",
-        "date": "2022 年 03 月 22 日 10:39",
+        "date": "2022 年 03 月 26 日 13:20",
         "PackageId": ""
     }
 }

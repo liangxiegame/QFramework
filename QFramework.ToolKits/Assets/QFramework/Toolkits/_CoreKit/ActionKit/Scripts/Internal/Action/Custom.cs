@@ -138,4 +138,20 @@ namespace QFramework
             }
         }
     }
+
+    public static class CustomExtension
+    {
+        public static ISequence Custom(this ISequence self, Action<ICustomAPI<object>> onCustomSetting)
+        {
+            var custom = ActionKit.Custom(onCustomSetting);
+            return self.Append(custom);
+        }
+
+
+        public static ISequence Custom<TData>(this ISequence self, Action<ICustomAPI<TData>> onCustomSetting)
+        {
+            var custom = ActionKit.Custom(onCustomSetting);
+            return self.Append(custom);
+        }
+    }
 }

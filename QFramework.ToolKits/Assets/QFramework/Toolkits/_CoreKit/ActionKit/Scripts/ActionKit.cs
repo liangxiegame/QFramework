@@ -287,6 +287,14 @@ ActionKit.Custom<SomeData>(a =>
 // 3
 // 4
 // Finished
+ 
+// 还支持 Sequence、Repeat、Parallel 等
+// Also support sequence repeat Parallel
+// ActionKit.Sequence()
+//     .Custom(c =>
+//     {
+//         c.OnStart(() => c.Finish());
+//     }).Start(this);
 ")]
 #endif
         public static IAction Custom(Action<ICustomAPI<object>> customSetting)
