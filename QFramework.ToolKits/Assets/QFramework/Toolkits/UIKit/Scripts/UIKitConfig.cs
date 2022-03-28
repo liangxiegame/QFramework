@@ -23,8 +23,11 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
@@ -38,7 +41,6 @@ namespace QFramework
         public virtual IPanel LoadPanel(PanelSearchKeys panelSearchKeys)
         {
             var panelLoader = PanelLoaderPool.AllocateLoader();
-            
 
             panelLoader.LoadPanelPrefab(panelSearchKeys);
 
@@ -51,14 +53,29 @@ namespace QFramework
             var panelInterface = retScript as IPanel;
             panelInterface.Loader = panelLoader;
 
-            Debug.Log(panelInterface);
-
             return retScript;
         }
 
-        
 
-        public  IPanelLoaderPool PanelLoaderPool = new DefaultPanelLoaderPool();
+        public virtual void LoadPanelAsync(PanelSearchKeys panelSearchKeys, Action<IPanel> onPanelLoad)
+        {
+            var panelLoader = PanelLoaderPool.AllocateLoader();
+
+            panelLoader.LoadPanelPrefabAsync(panelSearchKeys, (panelPrefab) =>
+            {
+                var obj = Object.Instantiate(panelPrefab);
+
+                var retScript = obj.GetComponent<UIPanel>();
+
+                var panelInterface = retScript as IPanel;
+                panelInterface.Loader = panelLoader;
+
+                onPanelLoad?.Invoke(retScript);
+            });
+        }
+
+
+        public IPanelLoaderPool PanelLoaderPool = new DefaultPanelLoaderPool();
 
         public virtual void SetDefaultSizeOfPanel(IPanel panel)
         {
@@ -73,7 +90,7 @@ namespace QFramework
             panelRectTrans.localScale = Vector3.one;
         }
     }
-    
+
     /// <summary>
     /// 如果想要定制自己的加载器，自定义 IPanelLoader 以及
     /// </summary>
@@ -81,24 +98,25 @@ namespace QFramework
     {
         GameObject LoadPanelPrefab(PanelSearchKeys panelSearchKeys);
 
+        void LoadPanelPrefabAsync(PanelSearchKeys panelSearchKeys, Action<GameObject> onPanelPrefabLoad);
+
         void Unload();
     }
 
 
-    
     public interface IPanelLoaderPool
     {
         IPanelLoader AllocateLoader();
         void RecycleLoader(IPanelLoader panelLoader);
     }
-        
+
     public abstract class AbstractPanelLoaderPool : IPanelLoaderPool
     {
         private Stack<IPanelLoader> mPool = new Stack<IPanelLoader>(16);
 
         public IPanelLoader AllocateLoader()
         {
-            return mPool.Count > 0 ? mPool.Pop() :CreatePanelLoader();
+            return mPool.Count > 0 ? mPool.Pop() : CreatePanelLoader();
         }
 
         protected abstract IPanelLoader CreatePanelLoader();
@@ -108,16 +126,14 @@ namespace QFramework
             mPool.Push(panelLoader);
         }
     }
-        
+
     public class DefaultPanelLoaderPool : AbstractPanelLoaderPool
     {
-            
         /// <summary>
         /// Default
         /// </summary>
         public class DefaultPanelLoader : IPanelLoader
         {
-
             private GameObject mPanelPrefab;
 
             public GameObject LoadPanelPrefab(PanelSearchKeys panelSearchKeys)
@@ -126,15 +142,22 @@ namespace QFramework
                 return mPanelPrefab;
             }
 
+            public void LoadPanelPrefabAsync(PanelSearchKeys panelSearchKeys, Action<GameObject> onPanelLoad)
+            {
+                var request = Resources.LoadAsync<GameObject>(panelSearchKeys.GameObjName);
+
+                request.completed += operation => { onPanelLoad(request.asset as GameObject); };
+            }
+
             public void Unload()
             {
-             
+                mPanelPrefab = null;
             }
         }
+
         protected override IPanelLoader CreatePanelLoader()
         {
             return new DefaultPanelLoader();
         }
-            
     }
 }

@@ -6,6 +6,8 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace QFramework
@@ -60,6 +62,17 @@ namespace QFramework
         {
             OnApplicationQuitEvent?.Trigger();
             base.OnApplicationQuit();
+        }
+
+        public void ExecuteCoroutine(IEnumerator coroutine, Action onFinish)
+        {
+            StartCoroutine(DoExecuteCoroutine(coroutine, onFinish));
+        }
+
+        IEnumerator DoExecuteCoroutine(IEnumerator coroutine, Action onFinish)
+        {
+            yield return coroutine;
+            onFinish?.Invoke();
         }
     }
 }

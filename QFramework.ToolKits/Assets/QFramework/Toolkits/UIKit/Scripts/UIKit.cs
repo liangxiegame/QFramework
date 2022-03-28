@@ -1,28 +1,12 @@
 /****************************************************************************
- * Copyright (c) 2021.8 liangxie
+ * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
  * 
- * http://qframework.io
+ * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System.Collections;
 using UnityEngine;
 
 namespace QFramework
@@ -31,10 +15,7 @@ namespace QFramework
     {
         public static UIKitConfig Config = new UIKitConfig();
 
-        public static UIRoot Root
-        {
-            get { return Config.Root; }
-        }
+        public static UIRoot Root => Config.Root;
 
         /// <summary>
         /// UI 堆栈
@@ -65,6 +46,35 @@ namespace QFramework
             panelSearchKeys.Recycle2Cache();
 
             return retPanel;
+        }
+
+        private static WaitForEndOfFrame mWaitForEndOfFrame = new WaitForEndOfFrame();
+        
+        public static IEnumerator OpenPanelAsync<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
+            string assetBundleName = null,
+            string prefabName = null) where T : UIPanel
+        {
+            var panelSearchKeys = PanelSearchKeys.Allocate();
+
+            panelSearchKeys.OpenType = PanelOpenType.Single;
+            panelSearchKeys.Level = canvasLevel;
+            panelSearchKeys.PanelType = typeof(T);
+            panelSearchKeys.AssetBundleName = assetBundleName;
+            panelSearchKeys.GameObjName = prefabName;
+            panelSearchKeys.UIData = uiData;
+
+            bool loaded = false;
+            UIManager.Instance.OpenUIAsync(panelSearchKeys, panel =>
+            {
+                loaded = true;
+            });
+
+            while (!loaded)
+            {
+                yield return mWaitForEndOfFrame;
+            }
+
+            panelSearchKeys.Recycle2Cache();
         }
 
         public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
@@ -200,11 +210,11 @@ namespace QFramework
 
             panelSearchKeys.Recycle2Cache();
         }
-        
+
         public static void ClosePanel(UIPanel panel)
         {
             var panelSearchKeys = PanelSearchKeys.Allocate();
-            
+
             panelSearchKeys.Panel = panel;
 
             UIManager.Instance.CloseUI(panelSearchKeys);
@@ -280,7 +290,5 @@ namespace QFramework
 
             Stack.Pop();
         }
-
-        
     }
 }

@@ -25,6 +25,8 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -51,6 +53,41 @@ namespace QFramework
                 }
 
                 return mInstance;
+            }
+        }
+
+
+        public void OpenUIAsync(PanelSearchKeys panelSearchKeys,Action<IPanel> onLoad)
+        {
+            if (panelSearchKeys.OpenType == PanelOpenType.Single)
+            {
+                var retPanel = UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault();
+
+                if (retPanel == null)
+                {
+                    CreateUIAsync(panelSearchKeys, (panel) =>
+                    {
+                        retPanel = panel;
+                        retPanel.Open(panelSearchKeys.UIData);
+                        retPanel.Show();
+                        onLoad?.Invoke(retPanel);
+                    });
+                }
+                else
+                {
+                    retPanel.Open(panelSearchKeys.UIData);
+                    retPanel.Show();
+                    onLoad?.Invoke(retPanel);
+                }
+            }
+            else
+            {
+                CreateUIAsync(panelSearchKeys, (panel) =>
+                {
+                    panel.Open(panelSearchKeys.UIData);
+                    panel.Show();
+                    onLoad?.Invoke(panel);
+                });
             }
         }
 
@@ -186,12 +223,34 @@ namespace QFramework
 
             panel.Info = PanelInfo.Allocate(panelSearchKeys.GameObjName, panelSearchKeys.Level, panelSearchKeys.UIData,
                 panelSearchKeys.PanelType, panelSearchKeys.AssetBundleName);
-            
+
             UIKit.Table.Add(panel);
 
             panel.Init(panelSearchKeys.UIData);
 
             return panel;
+        }
+
+        public void CreateUIAsync(PanelSearchKeys panelSearchKeys, Action<IPanel> onPanelCreate)
+        {
+            UIKit.Config.LoadPanelAsync(panelSearchKeys, panel =>
+            {
+                UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level, panel);
+
+                UIKit.Config.SetDefaultSizeOfPanel(panel);
+
+                panel.Transform.gameObject.name = panelSearchKeys.GameObjName ?? panelSearchKeys.PanelType.Name;
+
+                panel.Info = PanelInfo.Allocate(panelSearchKeys.GameObjName, panelSearchKeys.Level,
+                    panelSearchKeys.UIData,
+                    panelSearchKeys.PanelType, panelSearchKeys.AssetBundleName);
+
+                UIKit.Table.Add(panel);
+
+                panel.Init(panelSearchKeys.UIData);
+
+                onPanelCreate(panel);
+            });
         }
     }
 }

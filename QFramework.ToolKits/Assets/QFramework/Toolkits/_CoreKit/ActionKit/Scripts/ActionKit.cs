@@ -7,6 +7,7 @@
  ****************************************************************************/
 
 using System;
+using System.Collections;
 
 namespace QFramework
 {
@@ -309,6 +310,33 @@ ActionKit.Custom<SomeData>(a =>
             var action = QFramework.Custom<TData>.Allocate();
             customSetting(action);
             return action;
+        }
+
+
+#if UNITY_EDITOR
+        [MethodAPI]
+        [APIDescriptionCN("协程支持")]
+        [APIDescriptionEN("coroutine action example")]
+        [APIExampleCode(@"
+IEnumerator SomeCoroutine()
+{
+    yield return new WaitForSeconds(1.0f);
+    Debug.Log(""Hello:"" + Time.time);
+}
+ 
+ActionKit.Coroutine(SomeCoroutine).Start(this);
+// Hello:1.0039           
+SomeCoroutine().ToAction().Start(this);
+// Hello:1.0039
+ActionKit.Sequence()
+    .Coroutine(SomeCoroutine)
+    .Start(this);
+// Hello:1.0039
+")]
+#endif
+        public static IAction Coroutine(Func<IEnumerator> coroutineGetter)
+        {
+            return CoroutineAction.Allocate(coroutineGetter);
         }
 
 

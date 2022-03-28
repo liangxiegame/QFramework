@@ -259,7 +259,7 @@ namespace QFramework
 
         private void Update()
         {
-            mMarkdownViewer.Update();
+            mMarkdownViewer?.Update();
         }
 
         private static GUIStyle mSelectionRect = "SelectionRect";
