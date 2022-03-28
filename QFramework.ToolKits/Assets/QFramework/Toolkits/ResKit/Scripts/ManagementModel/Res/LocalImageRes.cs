@@ -44,7 +44,9 @@ namespace QFramework
         private string mFullPath;
         private string mHashCode;
         private object mRawAsset;
+#pragma warning disable CS0618
         private WWW mWWW = null;
+#pragma warning restore CS0618
 
         public static LocalImageRes Allocate(string name)
         {
@@ -201,7 +203,9 @@ namespace QFramework
 //                yield break;
 //            }
 
+#pragma warning disable CS0618
             WWW www = new WWW("file://" + mFullPath);
+#pragma warning restore CS0618
 
             mWWW = www;
 

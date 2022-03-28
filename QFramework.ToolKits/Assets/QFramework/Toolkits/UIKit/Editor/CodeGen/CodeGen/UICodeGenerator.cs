@@ -62,8 +62,12 @@ namespace QFramework
 		{
 			if (obj != null)
 			{
+#pragma warning disable CS0618
 				var prefabType = PrefabUtility.GetPrefabType(obj);
+#pragma warning restore CS0618
+#pragma warning disable CS0618
 				if (PrefabType.Prefab != prefabType)
+#pragma warning restore CS0618
 				{
 					return;
 				}

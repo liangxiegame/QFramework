@@ -42,7 +42,9 @@ namespace QFramework
         private string mUrl;
         private string mHashCode;
         private object mRawAsset;
+#pragma warning disable CS0618
         private WWW mWWW;
+#pragma warning restore CS0618
 
         public static NetImageRes Allocate(string lowerName,string originalName)
         {
@@ -194,7 +196,9 @@ namespace QFramework
                 yield break;
             }
 
+#pragma warning disable CS0618
             WWW www = new WWW(mUrl);
+#pragma warning restore CS0618
 
             mWWW = www;
 

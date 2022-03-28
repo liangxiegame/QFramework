@@ -16,14 +16,14 @@ namespace QFramework
 {
     public class AssetTree
     {
-        private TreeNode<AssetData> _root;
+        private TreeNode<TreeAssetData> _root;
 
         public AssetTree()
         {
-            _root = new TreeNode<AssetData>(null);
+            _root = new TreeNode<TreeAssetData>(null);
         }
 
-        public TreeNode<AssetData> Root
+        public TreeNode<TreeAssetData> Root
         {
             get { return _root; }
         }
@@ -37,7 +37,7 @@ namespace QFramework
         {
             if (string.IsNullOrEmpty(guid)) return;
 
-            TreeNode<AssetData> node = _root;
+            TreeNode<TreeAssetData> node = _root;
 
             string assetPath = AssetDatabase.GUIDToAssetPath(guid);
 
@@ -55,7 +55,7 @@ namespace QFramework
                 int subLength = endIndex == -1 ? length - startIndex : endIndex - startIndex;
                 string directory = assetPath.Substring(startIndex, subLength);
 
-                var pathNode = new AssetData(endIndex == -1 ? guid : null, directory,
+                var pathNode = new TreeAssetData(endIndex == -1 ? guid : null, directory,
                     assetPath.Substring(0, endIndex == -1 ? length : endIndex), node.Level == 0 || isExpanded,
                     isSelected);
 
@@ -69,7 +69,7 @@ namespace QFramework
         }
     }
 
-    public class AssetData : ITreeIMGUIData
+    public class TreeAssetData : ITreeIMGUIData
     {
         public readonly string guid;
         public readonly string path;
@@ -77,7 +77,7 @@ namespace QFramework
         public bool isExpanded { get; set; }
         public bool isSelected { get; set; }
 
-        public AssetData(string guid, string path, string fullPath, bool isExpanded, bool isSelected)
+        public TreeAssetData(string guid, string path, string fullPath, bool isExpanded, bool isSelected)
         {
             this.guid = guid;
             this.path = path;
@@ -98,23 +98,23 @@ namespace QFramework
 
         public override bool Equals(object obj)
         {
-            AssetData node = obj as AssetData;
+            TreeAssetData node = obj as TreeAssetData;
             return node != null && node.path == path;
         }
 
-        public bool Equals(AssetData node)
+        public bool Equals(TreeAssetData node)
         {
             return node.path == path;
         }
     }
 
-    public class AssetTreeIMGUI : TreeIMGUI<AssetData>
+    public class AssetTreeIMGUI : TreeIMGUI<TreeAssetData>
     {
-        public AssetTreeIMGUI(TreeNode<AssetData> root) : base(root)
+        public AssetTreeIMGUI(TreeNode<TreeAssetData> root) : base(root)
         {
         }
 
-        protected override void OnDrawTreeNode(Rect rect, TreeNode<AssetData> node, bool selected, bool focus)
+        protected override void OnDrawTreeNode(Rect rect, TreeNode<TreeAssetData> node, bool selected, bool focus)
         {
             GUIContent labelContent = new GUIContent(node.Data.path, AssetDatabase.GetCachedIcon(node.Data.fullPath));
 

@@ -116,7 +116,7 @@ namespace QFramework
         {
         }
 
-        public static Custom Allocate()
+        public new static Custom Allocate()
         {
             var custom = mSimpleObjectPool.Allocate();
             custom.Deinited = false;

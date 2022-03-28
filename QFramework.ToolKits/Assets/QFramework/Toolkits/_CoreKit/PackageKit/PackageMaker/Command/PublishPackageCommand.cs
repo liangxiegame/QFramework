@@ -76,7 +76,7 @@ namespace QFramework
                 {
                     AssetDatabase.Refresh();
 
-                    EditorWindow.focusedWindow.Close();
+                    EditorWindow.GetWindow<PackageMakerEditor>().Close();
                 }
             });
         }

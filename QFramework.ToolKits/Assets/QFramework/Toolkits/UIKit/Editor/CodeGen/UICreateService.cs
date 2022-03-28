@@ -212,7 +212,9 @@ namespace QFramework
             Debug.Log(dirPath);
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
+#pragma warning disable CS0618
             PrefabUtility.CreatePrefab(filePath, UIManagerGo, ReplacePrefabOptions.ConnectToPrefab);
+#pragma warning restore CS0618
         }
 
     }

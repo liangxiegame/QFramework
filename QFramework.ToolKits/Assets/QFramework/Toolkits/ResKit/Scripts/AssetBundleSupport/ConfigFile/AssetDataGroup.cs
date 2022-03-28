@@ -290,7 +290,7 @@ namespace QFramework
             {
                 var resSearchRule = ResSearchKeys.Allocate(data.AssetName,data.OwnerBundleName);
 
-                AssetData old = GetAssetData(resSearchRule);
+                var old = GetAssetData(resSearchRule);
                 resSearchRule.Recycle2Cache();
 
                 Debug.LogWarningFormat("Already Add AssetData :{0} \n OldAB:{1}      NewAB:{2}", data.UUID,
@@ -310,7 +310,7 @@ namespace QFramework
             sd.abUnitArray = mABUnitArray.ToArray();
             if (mAssetDataMap != null)
             {
-                AssetData[] acArray = new AssetData[mAssetDataMap.Count];
+                var acArray = new AssetData[mAssetDataMap.Count];
 
                 int index = 0;
                 foreach (var item in mAssetDataMap)

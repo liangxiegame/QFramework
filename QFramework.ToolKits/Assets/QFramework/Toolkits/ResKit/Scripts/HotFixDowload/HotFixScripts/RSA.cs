@@ -10,7 +10,9 @@ namespace QFramework
 {
     public class RSA
     {
+#pragma warning disable CS0414
         private static string RSAHead = "RSAEncrypt";
+#pragma warning restore CS0414
 
         /// <summary>
         /// RSA对称加密

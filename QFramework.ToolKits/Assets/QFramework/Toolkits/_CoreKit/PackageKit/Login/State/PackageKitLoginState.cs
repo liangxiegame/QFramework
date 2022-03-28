@@ -76,15 +76,15 @@ namespace QFramework
 
         public new T Value
         {
-            get { return GetValue(); }
-            set { SetValue(value); }
+            get => GetValue();
+            set => SetValue(value);
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        protected T GetValue()
+        protected new T GetValue()
         {
             mValue = mValueGetter.Invoke();
             return mValue;
@@ -94,7 +94,7 @@ namespace QFramework
         /// 
         /// </summary>
         /// <param name="value"></param>
-        protected void SetValue(T value)
+        protected new void SetValue(T value)
         {
             base.Value = value;
             if (mValueSetter != null) mValueSetter(value);

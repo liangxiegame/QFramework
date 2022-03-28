@@ -36,12 +36,16 @@ namespace QFramework
     {
         public class EditorWWWExecuter
         {
+#pragma warning disable CS0618
             private WWW                        mWWW;
+#pragma warning restore CS0618
             private Action<EditorHttpResponse> mResponse;
             private Action<float>              mOnProgress;
             private bool                       mDownloadMode;
 
+#pragma warning disable CS0618
             public EditorWWWExecuter(WWW www, Action<EditorHttpResponse> response, Action<float> onProgress = null,
+#pragma warning restore CS0618
                 bool downloadMode = false)
             {
                 mWWW = www;
@@ -112,17 +116,23 @@ namespace QFramework
 
         public static void Get(string url, Action<EditorHttpResponse> response)
         {
+#pragma warning disable CS0618
             new EditorWWWExecuter(new WWW(url), response);
+#pragma warning restore CS0618
         }
 
         public static void Post(string url, WWWForm form, Action<EditorHttpResponse> response)
         {
+#pragma warning disable CS0618
             new EditorWWWExecuter(new WWW(url, form), response);
+#pragma warning restore CS0618
         }
 
         public static void Download(string url, Action<EditorHttpResponse> response, Action<float> onProgress = null)
         {
+#pragma warning disable CS0618
             new EditorWWWExecuter(new WWW(url), response, onProgress, true);
+#pragma warning restore CS0618
         }
     }
 }

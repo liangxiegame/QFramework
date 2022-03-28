@@ -17,7 +17,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2021.2.20 13:13 Add EasyEvent
+ * Latest Update: 2021.3.16 5:26 Add IBindableProperty
  ****************************************************************************/
 
 using System;
@@ -552,6 +552,11 @@ namespace QFramework
             mUnRegisters.Add(unRegister);
         }
 
+        public void RemoveUnRegister(IUnRegister unRegister)
+        {
+            mUnRegisters.Remove(unRegister);
+        }
+
         private void OnDestroy()
         {
             foreach (var unRegister in mUnRegisters)
@@ -650,26 +655,56 @@ namespace QFramework
 
     #region BindableProperty
 
-    public class BindableProperty<T>
+    public interface IBindableProperty<T> : IReadonlyBindableProperty<T>
+    {
+        new T Value { get; set; }
+        void SetValueWithoutEvent(T newValue);
+    }
+
+    public interface IReadonlyBindableProperty<T>
+    {
+        T Value { get; }
+        
+        IUnRegister RegisterWithInitValue(Action<T> action);
+        void UnRegister(Action<T> onValueChanged);
+        IUnRegister Register(Action<T> onValueChanged);
+    }
+
+    public class BindableProperty<T> : IBindableProperty<T>
     {
         public BindableProperty(T defaultValue = default)
         {
             mValue = defaultValue;
         }
 
-        protected T mValue = default(T);
+        protected T mValue;
 
         public T Value
         {
-            get => mValue;
+            get => GetValue();
             set
             {
                 if (value == null && mValue == null) return;
                 if (value != null && value.Equals(mValue)) return;
 
-                mValue = value;
+                SetValue(value);
                 mOnValueChanged?.Invoke(value);
             }
+        }
+
+        protected virtual void SetValue(T newValue)
+        {
+            mValue = newValue;
+        }
+
+        protected virtual T GetValue()
+        {
+            return mValue;
+        }
+
+        public void SetValueWithoutEvent(T newValue)
+        {
+            mValue = newValue;
         }
 
         private Action<T> mOnValueChanged = (v) => { };
@@ -821,24 +856,25 @@ namespace QFramework
         {
             return mGlobalEvents.GetEvent<T>();
         }
+        
 
         public static void Register<T>() where T : IEasyEvent, new()
         {
             mGlobalEvents.AddEvent<T>();
         }
 
-        private Dictionary<Type, IEasyEvent> mEvents = new Dictionary<Type, IEasyEvent>();
-
+        private Dictionary<Type, IEasyEvent> mTypeEvents = new Dictionary<Type, IEasyEvent>();
+        
         public void AddEvent<T>() where T : IEasyEvent, new()
         {
-            mEvents.Add(typeof(T), new T());
+            mTypeEvents.Add(typeof(T), new T());
         }
 
         public T GetEvent<T>() where T : IEasyEvent
         {
             IEasyEvent e;
 
-            if (mEvents.TryGetValue(typeof(T), out e))
+            if (mTypeEvents.TryGetValue(typeof(T), out e))
             {
                 return (T)e;
             }
@@ -849,13 +885,13 @@ namespace QFramework
         public T GetOrAddEvent<T>() where T : IEasyEvent, new()
         {
             var eType = typeof(T);
-            if (mEvents.TryGetValue(eType, out var e))
+            if (mTypeEvents.TryGetValue(eType, out var e))
             {
                 return (T)e;
             }
 
             var t = new T();
-            mEvents.Add(eType, t);
+            mTypeEvents.Add(eType, t);
             return t;
         }
     }

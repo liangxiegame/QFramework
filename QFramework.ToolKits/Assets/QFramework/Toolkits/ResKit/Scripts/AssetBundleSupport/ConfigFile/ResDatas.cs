@@ -203,7 +203,9 @@ namespace QFramework
 
         public IEnumerator LoadFromFileAsync(string path)
         {
+#pragma warning disable CS0618
             using (var www = new WWW(path))
+#pragma warning restore CS0618
             {
                 yield return www;
 

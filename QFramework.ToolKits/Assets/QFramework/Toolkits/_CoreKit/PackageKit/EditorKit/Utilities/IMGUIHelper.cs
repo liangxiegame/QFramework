@@ -6,9 +6,10 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
-#if UNITY_EDITOR
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace QFramework
@@ -34,10 +35,12 @@ namespace QFramework
             }
         }
         
+#if UNITY_EDITOR
         public static void ShowEditorDialogWithErrorMsg(string content)
         {
             EditorUtility.DisplayDialog("error", content, "OK");
         }
+#endif
         
         /// <summary>
         /// 设置屏幕分辨率（拉伸)
@@ -50,8 +53,9 @@ namespace QFramework
             var scaleX = Screen.width / width;
             var scaleY = Screen.height / height;
 
-            GUIUtility.ScaleAroundPivot(new Vector2(scaleX, scaleY), new Vector2(0, 0));
+            var scale = Mathf.Max(scaleX, scaleY);
+
+            GUIUtility.ScaleAroundPivot(new Vector2(scale, scale), new Vector2(0, 0));
         }
     }
 }
-#endif
