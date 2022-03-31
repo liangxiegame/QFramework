@@ -12,7 +12,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.173
-    [ClassAPI("99.PoolKit", "SafeObjectPool<T>", 3, "SafeObjectPool<T>")]
+    [ClassAPI("6.PoolKit", "SafeObjectPool<T>", 3, "SafeObjectPool<T>")]
     [APIDescriptionCN("更安全的对象池，带有一定的约束。")]
     [APIDescriptionEN("More secure object pooling, with certain constraints.")]
     [APIExampleCode(@"

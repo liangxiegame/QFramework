@@ -12,7 +12,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.170
-    [ClassAPI("99.PoolKit", "SimpleObjectPool<T>", 0, "SimpleObjectPool<T>")]
+    [ClassAPI("6.PoolKit", "SimpleObjectPool<T>", 0, "SimpleObjectPool<T>")]
     [APIDescriptionCN("面向业务的对象池")]
     [APIDescriptionEN("simple object pool")]
     [APIExampleCode(@"

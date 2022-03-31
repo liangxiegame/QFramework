@@ -32,28 +32,30 @@ using UnityEngine.U2D;
 namespace QFramework
 {
     using System;
-    
+
     public static partial class ObjectAssetTypeCode
     {
-        public const short GameObject  = 1;
-        public const short AudioClip   = 2;
-        public const short Sprite      = 3;
-        public const short Scene       = 4;
-        public const short SpriteAtlas = 5;
-        public const short Mesh        = 6;
-        public const short Texture2D   = 7;
-        public const short TextAsset   = 8;
-        public const short AssetBundle   = 8;
+        private const short GameObject = 1;
+        private const short AudioClip = 2;
+        private const short Sprite = 3;
+        private const short Scene = 4;
+        private const short SpriteAtlas = 5;
+        private const short Mesh = 6;
+        private const short Texture2D = 7;
+        private const short TextAsset = 8;
+        private const short AssetBundle = 9;
+        private const short Animator = 10;
 
-        public static Type GameObjectType  = typeof(GameObject);
-        public static Type AudioClipType   = typeof(AudioClip);
-        public static Type SpriteType      = typeof(Sprite);
-        public static Type SceneType       = typeof(Scene);
-        public static Type SpriteAtlasType = typeof(SpriteAtlas);
-        public static Type MeshType        = typeof(Mesh);
-        public static Type Texture2DType   = typeof(Texture2D);
-        public static Type TextAssetType   = typeof(TextAsset);
-        public static Type AssetBundleType   = typeof(AssetBundle);
+        private static readonly Type GameObjectType = typeof(GameObject);
+        private static readonly Type AudioClipType = typeof(AudioClip);
+        private static readonly Type SpriteType = typeof(Sprite);
+        private static readonly Type SceneType = typeof(Scene);
+        private static readonly Type SpriteAtlasType = typeof(SpriteAtlas);
+        private static readonly Type MeshType = typeof(Mesh);
+        private static readonly Type Texture2DType = typeof(Texture2D);
+        private static readonly Type TextAssetType = typeof(TextAsset);
+        private static readonly Type AssetBundleType = typeof(AssetBundle);
+        private static readonly Type AnimatorType = typeof(Animator);
 
         public static short ToCode(this Type type)
         {
@@ -100,6 +102,11 @@ namespace QFramework
             if (type == AssetBundleType)
             {
                 return AssetBundle;
+            }
+
+            if (type == AnimatorType)
+            {
+                return Animator;
             }
 
             return 0;
@@ -152,6 +159,11 @@ namespace QFramework
                 return AssetBundleType;
             }
 
+            if (code == Animator)
+            {
+                return AnimatorType;
+            }
+
             return null;
         }
     }
@@ -164,48 +176,43 @@ namespace QFramework
     {
         private string mAssetName;
         private string mOwnerBundleName;
-        private int    mAbIndex;
-        private short  mAssetType;
-        private short  mAssetObjectTypeCode = 0;
+        private int mAbIndex;
+        private short mAssetType;
+        private short mAssetObjectTypeCode = 0;
 
         public string AssetName
         {
-            get { return mAssetName; }
-            set { mAssetName = value; }
+            get => mAssetName;
+            set => mAssetName = value;
         }
 
         public int AssetBundleIndex
         {
-            get { return mAbIndex; }
-            set { mAbIndex = value; }
+            get => mAbIndex;
+            set => mAbIndex = value;
         }
 
         public string OwnerBundleName
         {
-            get { return mOwnerBundleName; }
-            set { mOwnerBundleName = value; }
+            get => mOwnerBundleName;
+            set => mOwnerBundleName = value;
         }
 
         public short AssetObjectTypeCode
         {
-            get { return mAssetObjectTypeCode; }
-            set { mAssetObjectTypeCode = value; }
+            get => mAssetObjectTypeCode;
+            set => mAssetObjectTypeCode = value;
         }
 
-        public string UUID
-        {
-            get
-            {
-                return string.IsNullOrEmpty(mOwnerBundleName)
-                    ? AssetName
-                    : OwnerBundleName + AssetName;
-            }
-        }
+        public string UUID =>
+            string.IsNullOrEmpty(mOwnerBundleName)
+                ? AssetName
+                : OwnerBundleName + AssetName;
 
         public short AssetType
         {
-            get { return mAssetType; }
-            set { mAssetType = value; }
+            get => mAssetType;
+            set => mAssetType = value;
         }
 
         public AssetData(string assetName, short assetType, int abIndex, string ownerBundleName,

@@ -12,7 +12,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.172
-    [ClassAPI("99.PoolKit", "DictionaryPool<T,K>", 2, "DictionaryPool<T,K>")]
+    [ClassAPI("6.PoolKit", "DictionaryPool<T,K>", 2, "DictionaryPool<T,K>")]
     [APIDescriptionCN("存储 Dictionary 对象池，用于优化减少 new 调用次数。")]
     [APIDescriptionEN("Store a pool of Dictionary objects for optimization to reduce the number of new calls.")]
     [APIExampleCode(@"

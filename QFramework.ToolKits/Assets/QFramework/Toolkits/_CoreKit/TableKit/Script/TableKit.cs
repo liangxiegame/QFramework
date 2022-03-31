@@ -16,7 +16,7 @@ namespace QFramework
 {
 #if UNITY_EDITOR
     // v1 No.174
-    [ClassAPI("98.TableKit", "Table<T>", 3, "Table<T>")]
+    [ClassAPI("5.TableKit", "Table<T>", 3, "Table<T>")]
     [APIDescriptionCN("一类似表格的数据结构，兼顾查询功能和性能，支持联合查询")]
     [APIDescriptionEN("A tabular like data structure, both query function and performance, support joint query")]
     [APIExampleCode(@"

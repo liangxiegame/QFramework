@@ -50,7 +50,7 @@ namespace QFramework
             yield return ResMgr.InitAsync();
         }
 
-        private static Lazy<ResKit> mInstance = new Lazy<ResKit>(() => new ResKit().InternalInit());
+        private static readonly Lazy<ResKit> mInstance = new Lazy<ResKit>(() => new ResKit().InternalInit());
         internal static ResKit Get => mInstance.Value;
         internal IOCContainer Container = new IOCContainer();
 

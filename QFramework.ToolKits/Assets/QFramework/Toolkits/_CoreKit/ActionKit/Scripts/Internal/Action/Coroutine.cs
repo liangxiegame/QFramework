@@ -23,6 +23,7 @@ namespace QFramework
         public static CoroutineAction Allocate(Func<IEnumerator> coroutineGetter)
         {
             var coroutineAction = mPool.Allocate();
+            coroutineAction.Deinited = false;
             coroutineAction.Reset();
             coroutineAction.mCoroutineGetter = coroutineGetter;
             return coroutineAction;

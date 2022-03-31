@@ -18,6 +18,11 @@ namespace QFramework.Example
 		{
 			mData = uiData as UIStartPanelData ?? new UIStartPanelData();
 			// please add init code here
+			
+			BtnStart.onClick.AddListener(() =>
+			{
+				UIKit.OpenPanelAsync<UIGameInfoPanel>().ToAction().Start(this, CloseSelf);
+			});
 		}
 		
 		protected override void OnOpen(IUIData uiData = null)
