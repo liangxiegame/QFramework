@@ -136,8 +136,11 @@ namespace QFramework
             Views = null;
             RemoveAllChildren();
 
-            var reflectRenderInfos = AssetDatabase.GetAllAssetPaths()
-                .Where(path => path.EndsWith("packagekitconfig.json")).Select(path =>
+
+            var reflectRenderInfos = AssetDatabase.FindAssets("packagekitconfig t:TextAsset")
+                .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                .Where(path => path.EndsWith(".json"))
+                .Select(path =>
                 {
                     var jsonText = File.ReadAllText(path);
 

@@ -23,7 +23,6 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -35,13 +34,15 @@ namespace QFramework
         public string Name { get; set; }
         public string Path { get; set; }
         public string Folder { get; set; }
-        
+
         public List<AssetBundleBuild> Builds = new List<AssetBundleBuild>();
 
 
         public static List<SubProjectData> SearchAllInProject()
         {
-            return AssetDatabase.GetAllAssetPaths().Where(assetPath => assetPath.EndsWith(".asset"))
+            return AssetDatabase.FindAssets("t:SubProject")
+                .Select(AssetDatabase.GUIDToAssetPath)
+                .Where(assetPath => assetPath.EndsWith(".asset"))
                 .Select(assetPath =>
                 {
                     var subProject = AssetDatabase.LoadAssetAtPath<SubProject>(assetPath);
@@ -62,7 +63,8 @@ namespace QFramework
                 .ToList();
         }
 
-        public static void SplitAssetBundles2DefaultAndSubProjectDatas(SubProjectData defaultSubProjectData, List<SubProjectData> subProjectDatas)
+        public static void SplitAssetBundles2DefaultAndSubProjectDatas(SubProjectData defaultSubProjectData,
+            List<SubProjectData> subProjectDatas)
         {
             var assetBundleNames = AssetDatabase.GetAllAssetBundleNames();
 
@@ -74,8 +76,8 @@ namespace QFramework
                     assetNames = AssetDatabase.GetAssetPathsFromAssetBundle(assetBundleName)
                 };
                 var isDefault = true;
-                  
-                
+
+
                 foreach (var subProjectData in subProjectDatas)
                 {
                     foreach (var assetName in assetBundleBuild.assetNames)

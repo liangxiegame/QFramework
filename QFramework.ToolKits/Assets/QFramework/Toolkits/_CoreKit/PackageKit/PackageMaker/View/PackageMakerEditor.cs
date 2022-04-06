@@ -136,7 +136,6 @@ namespace QFramework
                 _assetTree.AddAsset(guids[i], hashSet);
             }
 
-
             RootLayout = new VerticalLayout("box");
 
             var editorView = EasyIMGUI.Vertical().Parent(RootLayout);

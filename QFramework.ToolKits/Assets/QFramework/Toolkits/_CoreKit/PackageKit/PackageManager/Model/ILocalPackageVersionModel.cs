@@ -73,10 +73,9 @@ namespace QFramework
         {
             PackageVersionsTable.Clear();
 
-            var versionFiles = Array.FindAll(AssetDatabase.GetAllAssetPaths(),
-                name => name.EndsWith("PackageVersion.json"));
-
-            foreach (var fileName in versionFiles)
+            foreach (var fileName in AssetDatabase.FindAssets("PackageVersion t:TextAsset")
+                         .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                         .Where(path => path.EndsWith(".json")))
             {
                 var text = File.ReadAllText(fileName);
                 var packageVersion = JsonUtility.FromJson<PackageVersion>(text);
