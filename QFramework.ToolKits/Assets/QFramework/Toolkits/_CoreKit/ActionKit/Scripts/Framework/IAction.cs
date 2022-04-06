@@ -1,7 +1,7 @@
 /****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
  * 
- * http://qframework.cn
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -21,19 +21,20 @@ namespace QFramework
     public interface IActionController
     {
         bool Paused { get; set; }
-
-        void Deinit();
         void Reset();
+        void Deinit();
     }
 
     public interface IAction<TStatus> : IActionController
     {
-        bool Deinited { get; set; }
-
         TStatus Status { get; set; }
         void OnStart();
         void OnExecute(float dt);
         void OnFinish();
+        
+        bool Deinited { get; set; }
+
+
     }
 
 
