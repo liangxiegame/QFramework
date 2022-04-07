@@ -101,7 +101,7 @@
 | **产品案例** |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-| 独立游戏《推灭泡泡姆》 | 使用 QF.cs 制作的独立游戏 | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
+| 独立游戏《推灭泡泡姆》 | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
 | **官方工具**  |                                                              |                                                              |
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 | ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
