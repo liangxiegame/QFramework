@@ -13,18 +13,6 @@
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
-
-
-凉鞋的好朋友 麦扣老师 
-
-专做 Unity 和 游戏开发教程，学习体验丝滑，多多支持。 
-
-还差 2k 粉丝就 10w 了，恳请大家棒棒忙，关注一下 麦扣老师的 b 站，帮助他早日达到 10w 粉丝
-
-b 站地址：https://space.bilibili.com/370283072
-
-
-
 # QFramework 简介 Intro
 
 [中文]()|[English](README_EN.md)
@@ -113,6 +101,7 @@ b 站地址：https://space.bilibili.com/370283072
 | **产品案例** |  |  |
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
+| 独立游戏《推灭泡泡姆》 | 使用 QF.cs 制作的独立游戏 | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
 | **官方工具**  |                                                              |                                                              |
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 | ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
