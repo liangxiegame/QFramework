@@ -381,30 +381,16 @@ namespace QFramework
 
         class LocaleText
         {
-            public static string FrameworkPackages
-            {
-                get { return Language.IsChinese ? "框架模块" : "Framework Packages"; }
-            }
+            public static bool IsCN => LocaleKitEditor.IsCN.Value;
+            public static string FrameworkPackages => IsCN ? "框架模块" : "Framework Packages";
 
-            public static string VersionCheck
-            {
-                get { return Language.IsChinese ? "版本检测" : "Version Check"; }
-            }
+            public static string VersionCheck => IsCN ? "版本检测" : "Version Check";
 
-            public static string Import
-            {
-                get { return Language.IsChinese ? "导入" : "Import"; }
-            }
+            public static string Import => IsCN ? "导入" : "Import";
 
-            public static string Update
-            {
-                get { return Language.IsChinese ? "更新" : "Update"; }
-            }
+            public static string Update => IsCN ? "更新" : "Update";
 
-            public static string Reimport
-            {
-                get { return Language.IsChinese ? "再次导入" : "Reimport"; }
-            }
+            public static string Reimport => IsCN ? "再次导入" : "Reimport";
         }
 
         public IArchitecture GetArchitecture()

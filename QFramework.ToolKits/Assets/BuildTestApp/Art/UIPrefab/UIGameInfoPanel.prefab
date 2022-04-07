@@ -129,7 +129,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarkType: 0
   CustomComponentName: BtnBack
-  ComponentGeneratePath: 
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
 --- !u!1 &1486114328846954761

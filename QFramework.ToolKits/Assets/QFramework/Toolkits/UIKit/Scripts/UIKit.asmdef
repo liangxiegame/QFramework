@@ -1,6 +1,9 @@
 {
     "name": "UIKit",
-    "references": [],
+    "references": [
+        "QFramework.CoreKit",
+        "QFramework"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],

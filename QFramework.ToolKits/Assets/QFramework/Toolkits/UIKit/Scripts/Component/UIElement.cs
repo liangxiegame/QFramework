@@ -30,14 +30,14 @@ namespace QFramework
     /// <summary>
     /// belone to a panel 
     /// </summary>
-    public abstract class UIElement : QMonoBehaviour,IBind
+    public abstract class UIElement : QMonoBehaviour,IBindOld
     {
         public virtual BindType GetBindType()
         {
             return BindType.Element;
         }
         
-        public abstract string ComponentName { get; }
+        public abstract string TypeName { get; }
 
         public string Comment
         {

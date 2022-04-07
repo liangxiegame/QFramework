@@ -16,19 +16,19 @@ namespace QFramework
 		{
 			foreach (Transform childTrans in curTrans)
 			{
-				var uiMark = childTrans.GetComponent<IBind>();
+				var uiMark = childTrans.GetComponent<IBindOld>();
 
 				if (null != uiMark)
 				{
 					if (null == parentElementCodeInfo)
 					{
-						if (!panelCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
+						if (!panelCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.TypeName.Equals(uiMark.Transform.name)))
 						{
 							panelCodeInfo.BindInfos.Add(new BindInfo
 							{
-								Name = uiMark.Transform.name,
+								TypeName = uiMark.Transform.name,
 								BindScript = uiMark,
-								PathToElement = CodeGenUtil.PathToParent(childTrans, panelCodeInfo.GameObjectName)
+								PathToRoot = CodeGenHelper.PathToParent(childTrans, panelCodeInfo.GameObjectName)
 							});
 							panelCodeInfo.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
@@ -39,13 +39,13 @@ namespace QFramework
 					}
 					else
 					{
-						if (!parentElementCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.Name.Equals(uiMark.Transform.name)))
+						if (!parentElementCodeInfo.BindInfos.Any(markedObjInfo => markedObjInfo.TypeName.Equals(uiMark.Transform.name)))
 						{
 							parentElementCodeInfo.BindInfos.Add(new BindInfo()
 							{
-								Name = uiMark.Transform.name,
+								TypeName = uiMark.Transform.name,
 								BindScript = uiMark,
-								PathToElement = CodeGenUtil.PathToParent(childTrans, parentElementCodeInfo.BehaviourName)
+								PathToRoot = CodeGenHelper.PathToParent(childTrans, parentElementCodeInfo.BehaviourName)
 							});
 							parentElementCodeInfo.DicNameToFullName.Add(uiMark.Transform.name, transFullName + childTrans.name);
 						}
@@ -61,7 +61,7 @@ namespace QFramework
 					{
 						var elementCodeData = new ElementCodeInfo
 						{
-							BehaviourName = uiMark.ComponentName,
+							BehaviourName = uiMark.TypeName,
 							BindInfo = new BindInfo
 							{
 								BindScript = uiMark

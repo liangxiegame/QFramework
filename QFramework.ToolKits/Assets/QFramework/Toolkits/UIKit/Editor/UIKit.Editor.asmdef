@@ -1,7 +1,9 @@
 {
     "name": "UIKit.Editor",
     "references": [
-        "UIKit"
+        "UIKit",
+        "QFramework",
+        "QFramework.CoreKit"
     ],
     "optionalUnityReferences": [],
     "includePlatforms": [

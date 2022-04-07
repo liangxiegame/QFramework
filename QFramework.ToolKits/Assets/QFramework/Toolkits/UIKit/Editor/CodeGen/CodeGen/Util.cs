@@ -7,56 +7,6 @@ namespace QFramework
 {
     public static class CodeGenUtil
     {
-        /// <summary>
-        /// 添加前缀
-        /// </summary>
-        /// <param name="selfStr"></param>
-        /// <param name="toAppend"></param>
-        /// <returns></returns>
-        internal static StringBuilder Append(this string selfStr, string toAppend)
-        {
-            return new StringBuilder(selfStr).Append(toAppend);
-        }
-        
-        public static string PathToParent(Transform trans, string parentName)
-        {
-            var retValue = new StringBuilder(trans.name);
-
-            while (trans.parent != null)
-            {
-                if (trans.parent.name.Equals(parentName))
-                {
-                    break;
-                }
-
-                retValue = trans.parent.name.Append("/").Append(retValue);
-
-                trans = trans.parent;
-            }
-
-            return retValue.ToString();
-        }
-
-        public static bool IsUIPanel(this Component component)
-        {
-            if (component.GetComponent<UIPanel>())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public static bool IsViewController(this Component component)
-        {
-            if (component.GetComponent<ViewController>())
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public static string GetBindBelongs2(AbstractBind bind)
         {
             var trans = bind.Transform;
@@ -113,16 +63,16 @@ namespace QFramework
 
             if (uiPrefabPath.Contains(prefabDirPattern))
             {
-                strFilePath = uiPrefabPath.Replace(prefabDirPattern, UIKitSettingData.GetScriptsPath());
+                strFilePath = uiPrefabPath.Replace(prefabDirPattern, UIKitSettingData.Load().UIScriptDir);
 
             }
             else if (uiPrefabPath.Contains("/Resources"))
             {
-                strFilePath = uiPrefabPath.Replace("/Resources", UIKitSettingData.GetScriptsPath());
+                strFilePath = uiPrefabPath.Replace("/Resources", UIKitSettingData.Load().UIScriptDir);
             }
             else
             {
-                strFilePath = uiPrefabPath.Replace("/" + CodeGenUtil.GetLastDirName(uiPrefabPath), UIKitSettingData.GetScriptsPath());
+                strFilePath = uiPrefabPath.Replace("/" + CodeGenUtil.GetLastDirName(uiPrefabPath), UIKitSettingData.Load().UIScriptDir);
             }
 
             strFilePath.Replace(prefabName + ".prefab", string.Empty).CreateDirIfNotExists();

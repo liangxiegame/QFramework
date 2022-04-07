@@ -77,19 +77,19 @@ namespace QFramework
 	    }
 	    
 	    public static void SetObjectRef2Property(GameObject obj, string behaviourName, Assembly assembly,
-			List<IBind> processedMarks = null)
+			List<IBindOld> processedMarks = null)
 		{
 			if (null == processedMarks)
 			{
-				processedMarks = new List<IBind>();
+				processedMarks = new List<IBindOld>();
 			}
 
-			var iBind = obj.GetComponent<IBind>();
+			var iBind = obj.GetComponent<IBindOld>();
 			var className = string.Empty;
 
 			if (iBind != null)
 			{
-				className = UIKitSettingData.GetProjectNamespace() + "." + iBind.ComponentName;
+				className = CodeGenKit.Setting.Namespace + "." + iBind.TypeName;
 
 				// 这部分
 				if (iBind.GetBindType() != BindType.DefaultUnityElement)
@@ -103,14 +103,14 @@ namespace QFramework
 			}
 			else
 			{
-				className = UIKitSettingData.GetProjectNamespace() + "." + behaviourName;
+				className = CodeGenKit.Setting.Namespace + "." + behaviourName;
 			}
 
 			var t = assembly.GetType(className);
 
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
-			var bindScripts = obj.GetComponentsInChildren<IBind>(true);
+			var bindScripts = obj.GetComponentsInChildren<IBindOld>(true);
 
 			foreach (var elementMark in bindScripts)
 			{
@@ -121,7 +121,7 @@ namespace QFramework
 
 				processedMarks.Add(elementMark);
 
-				var uiType = elementMark.ComponentName;
+				var uiType = elementMark.TypeName;
 				var propertyName = string.Format("{0}", elementMark.Transform.gameObject.name);
 
 				if (sObj.FindProperty(propertyName) == null)
@@ -131,10 +131,10 @@ namespace QFramework
 				}
 
 				sObj.FindProperty(propertyName).objectReferenceValue = elementMark.Transform.gameObject;
-				SetObjectRef2Property(elementMark.Transform.gameObject, elementMark.ComponentName, assembly, processedMarks);
+				SetObjectRef2Property(elementMark.Transform.gameObject, elementMark.TypeName, assembly, processedMarks);
 			}
 
-			var marks = obj.GetComponentsInChildren<IBind>(true);
+			var marks = obj.GetComponentsInChildren<IBindOld>(true);
 			foreach (var elementMark in marks)
 			{
 				if (processedMarks.Contains(elementMark))

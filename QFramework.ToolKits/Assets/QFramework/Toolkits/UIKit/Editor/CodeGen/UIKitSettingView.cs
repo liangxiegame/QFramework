@@ -127,8 +127,8 @@ namespace QFramework
                     GUILayout.Label(LocaleText.ViewControllerScriptGenerateDir, mLabelBold12.Value,
                         GUILayout.Width(220));
 
-                    mUiKitSettingData.DefaultViewControllerScriptDir =
-                        EditorGUILayout.TextField(mUiKitSettingData.DefaultViewControllerScriptDir);
+                    CodeGenKit.Setting.ScriptDir =
+                        EditorGUILayout.TextField(CodeGenKit.Setting.ScriptDir);
 
                 }
                 GUILayout.EndHorizontal();
@@ -141,8 +141,8 @@ namespace QFramework
 
                     GUILayout.Label(LocaleText.ViewControllerPrefabGenerateDir, mLabelBold12.Value,
                         GUILayout.Width(220));
-                    mUiKitSettingData.DefaultViewControllerPrefabDir =
-                        EditorGUILayout.TextField(mUiKitSettingData.DefaultViewControllerPrefabDir);
+                    CodeGenKit.Setting.PrefabDir =
+                        EditorGUILayout.TextField(CodeGenKit.Setting.PrefabDir);
 
                 }
                 GUILayout.EndHorizontal();
@@ -152,6 +152,7 @@ namespace QFramework
                 if (GUILayout.Button(LocaleText.Apply))
                 {
                     mUiKitSettingData.Save();
+                    CodeGenKit.Setting.Save();
                 }
             }
             GUILayout.EndVertical();
@@ -164,52 +165,21 @@ namespace QFramework
 
         class LocaleText
         {
-            public static string Namespace
-            {
-                get { return Language.IsChinese ? " 默认命名空间:" : " Namespace:"; }
-            }
+            public static bool IsCN => LocaleKitEditor.IsCN.Value;
+            public static string Namespace => IsCN ? " 默认命名空间:" : " Namespace:";
 
-            public static string UIScriptGenerateDir
-            {
-                get { return Language.IsChinese ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:"; }
-            }
+            public static string UIScriptGenerateDir => IsCN ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:";
 
-            public static string UIPanelPrefabDir
-            {
-                get { return Language.IsChinese ? " UIPanel Prefab 路径:" : " UIPanel Prefab Dir:"; }
-            }
+            public static string UIPanelPrefabDir => IsCN ? " UIPanel Prefab 路径:" : " UIPanel Prefab Dir:";
 
-            public static string ViewControllerScriptGenerateDir
-            {
-                get { return Language.IsChinese ? " ViewController 脚本生成路径:" : " Default ViewController Generate Dir:"; }
-            }
+            public static string ViewControllerScriptGenerateDir => IsCN ? " ViewController 脚本生成路径:" : " Default ViewController Generate Dir:";
 
-            public static string ViewControllerPrefabGenerateDir
-            {
-                get
-                {
-                    return Language.IsChinese
-                        ? " ViewController Prefab 生成路径:"
-                        : " Default ViewController Prefab Dir:";
-                }
-            }
+            public static string ViewControllerPrefabGenerateDir =>
+                IsCN
+                    ? " ViewController Prefab 生成路径:"
+                    : " Default ViewController Prefab Dir:";
 
-            public static string Apply
-            {
-                get { return Language.IsChinese ? "保存" : "Apply"; }
-            }
-            
-        }
-    }
-    internal class Language
-    {
-        public static bool IsChinese
-        {
-            get
-            {
-                return Application.systemLanguage == SystemLanguage.Chinese ||
-                       Application.systemLanguage == SystemLanguage.ChineseSimplified;
-            }
+            public static string Apply => IsCN ? "保存" : "Apply";
         }
     }
 }

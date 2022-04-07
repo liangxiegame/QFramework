@@ -36,10 +36,7 @@ namespace QFramework
 	[Serializable]
 	public class UIKitSettingData
 	{
-		static string mConfigSavedDir
-		{
-			get { return (Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/"; }
-		}
+		static string mConfigSavedDir => (Application.dataPath + "/QFrameworkData/").CreateDirIfNotExists() + "ProjectConfig/";
 
 		private const string mConfigSavedFileName = "ProjectConfig.json";
 
@@ -49,25 +46,9 @@ namespace QFramework
 
 		public string UIPrefabDir = "/Art/UIPrefab";
 
-		public string DefaultViewControllerScriptDir = "/Scripts/Game";
-		
-		public string DefaultViewControllerPrefabDir = "/Art/Prefab";
-		
-		public bool IsDefaultNamespace
-		{
-			get { return Namespace == "QFramework.Example"; }
-		}
-		
-		public static string GetScriptsPath()
-		{
-			return Load().UIScriptDir;
-		}
-		
-		public static string GetProjectNamespace()
-		{
-			return Load().Namespace;
-		}
-		
+		public bool IsDefaultNamespace => Namespace == "QFramework.Example";
+
+
 		public static UIKitSettingData Load()
 		{
 			mConfigSavedDir.CreateDirIfNotExists();

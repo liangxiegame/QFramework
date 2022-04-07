@@ -763,7 +763,7 @@ namespace QFramework
     public interface IEasyEvent
     {
     }
-
+    
     public class EasyEvent : IEasyEvent
     {
         private Action mOnEvent = () => { };

@@ -63,7 +63,7 @@ namespace QFramework
                             }
 
                             classScope.Custom("[SerializeField]");
-                            classScope.Custom("public " + bindInfo.BindScript.ComponentName + " " + bindInfo.Name +
+                            classScope.Custom("public " + bindInfo.BindScript.TypeName + " " + bindInfo.TypeName +
                                               ";");
                         }
 
@@ -76,7 +76,7 @@ namespace QFramework
                         {
                             foreach (var bindInfo in panelCodeInfo.BindInfos)
                             {
-                                function.Custom(bindInfo.Name + " = null;");
+                                function.Custom(bindInfo.TypeName + " = null;");
                             }
 
                             function.EmptyLine();

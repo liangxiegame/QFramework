@@ -123,7 +123,7 @@ namespace QFramework
         
         class LocaleText
         {
-            public static string CreateUIPanel => Language.IsChinese ? "创建 UI Panel" : "Create UI Panel";
+            public static string CreateUIPanel => LocaleKitEditor.IsCN.Value ? "创建 UI Panel" : "Create UI Panel";
         }
 
     }

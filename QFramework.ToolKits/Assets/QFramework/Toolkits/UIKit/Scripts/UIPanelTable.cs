@@ -31,7 +31,8 @@ namespace QFramework
                 return GameObjectNameIndex.Get(panelSearchKeys.Panel.Transform.gameObject.name).Where(p => p == panelSearchKeys.Panel);
             }
 
-            if (string.IsNullOrEmpty(panelSearchKeys.GameObjName))
+            // 感谢 QF 群友 王某人 提供bug反馈
+            if (panelSearchKeys.GameObjName.IsNotNullAndEmpty())
             {
                 return GameObjectNameIndex.Get(panelSearchKeys.GameObjName);
             }
@@ -56,7 +57,6 @@ namespace QFramework
         {
             GameObjectNameIndex.Clear();
             TypeIndex.Clear();
-            ;
         }
 
 

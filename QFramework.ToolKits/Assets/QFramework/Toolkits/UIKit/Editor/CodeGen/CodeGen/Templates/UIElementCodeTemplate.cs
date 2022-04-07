@@ -98,9 +98,9 @@ namespace QFramework
 
 			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
-				var strUIType = markInfo.BindScript.ComponentName;
+				var strUIType = markInfo.BindScript.TypeName;
 				strBuilder.AppendFormat("\t\t[SerializeField] public {0} {1};\r\n",
-					strUIType, markInfo.Name);
+					strUIType, markInfo.TypeName);
 			}
 
 			strBuilder.AppendLine();
@@ -110,7 +110,7 @@ namespace QFramework
 			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
 				strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
-					markInfo.Name);
+					markInfo.TypeName);
 			}
 
 			strBuilder.Append("\t\t").AppendLine("}");
@@ -119,7 +119,7 @@ namespace QFramework
 			strBuilder.Append("\t\t").AppendLine("public override string ComponentName");
 			strBuilder.Append("\t\t").AppendLine("{");
 			strBuilder.Append("\t\t\t");
-			strBuilder.AppendLine("get { return \"" + elementCodeInfo.BindInfo.BindScript.ComponentName + "\";}");
+			strBuilder.AppendLine("get { return \"" + elementCodeInfo.BindInfo.BindScript.TypeName + "\";}");
 			strBuilder.Append("\t\t").AppendLine("}");
 			strBuilder.AppendLine("\t}");
 			strBuilder.AppendLine("}");

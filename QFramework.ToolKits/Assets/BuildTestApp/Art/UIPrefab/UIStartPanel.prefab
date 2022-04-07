@@ -206,7 +206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarkType: 0
   CustomComponentName: BtnStart
-  ComponentGeneratePath: 
   CustomComment: 
   mComponentName: UnityEngine.UI.Button
 --- !u!1 &1221478627065424558
@@ -301,7 +300,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarkType: 0
   CustomComponentName: Title
-  ComponentGeneratePath: 
   CustomComment: 
   mComponentName: UnityEngine.UI.Text
 --- !u!1 &1221478627208111597

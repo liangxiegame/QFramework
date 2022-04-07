@@ -75,10 +75,7 @@ namespace QFramework
 
         class LocaleText
         {
-            public static string QFrameworkSettings
-            {
-                get { return Language.IsChinese ? "QFramework 设置" : "QFramework Settings"; }
-            }
+            public static string QFrameworkSettings => LocaleKitEditor.IsCN.Value ? "QFramework 设置" : "QFramework Settings";
         }
 
         private const float toolbarHeight = 20;

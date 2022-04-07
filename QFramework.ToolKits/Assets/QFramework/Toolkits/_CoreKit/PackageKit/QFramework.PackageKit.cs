@@ -196,18 +196,7 @@ namespace QFramework
 
         public const int Feedback = 11;
     }
-
-    public class Language
-    {
-        public static bool IsChinese
-        {
-            get
-            {
-                return Application.systemLanguage == SystemLanguage.Chinese ||
-                       Application.systemLanguage == SystemLanguage.ChineseSimplified;
-            }
-        }
-    }
+    
 
     public class SubWindow : EditorWindow, IMGUILayout
     {

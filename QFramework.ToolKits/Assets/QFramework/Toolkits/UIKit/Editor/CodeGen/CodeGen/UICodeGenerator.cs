@@ -106,7 +106,7 @@ namespace QFramework
 				if (File.Exists(strFilePath) == false)
 				{
 					if(mScriptKitInfo.Templates != null && mScriptKitInfo.Templates[0] != null)
-						mScriptKitInfo.Templates[0].Generate(strFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(),null);
+						mScriptKitInfo.Templates[0].Generate(strFilePath, behaviourName, UIKitSettingData.Load().Namespace,null);
 				}
 			}
 			else
@@ -128,17 +128,17 @@ namespace QFramework
 			if(mScriptKitInfo != null)
 			{
 				if(mScriptKitInfo.Templates != null && mScriptKitInfo.Templates[1] != null){
-					mScriptKitInfo.Templates[1].Generate(generateFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), panelCodeInfo);
+					mScriptKitInfo.Templates[1].Generate(generateFilePath, behaviourName, UIKitSettingData.Load().Namespace, panelCodeInfo);
 				}
 				mScriptKitInfo.HotScriptFilePath.CreateDirIfNotExists();
 				mScriptKitInfo.HotScriptFilePath = mScriptKitInfo.HotScriptFilePath + "/" + behaviourName + mScriptKitInfo.HotScriptSuffix;
 				if (File.Exists(mScriptKitInfo.HotScriptFilePath) == false && mScriptKitInfo.Templates != null &&  mScriptKitInfo.Templates[2] != null){
-					mScriptKitInfo.Templates[2].Generate(mScriptKitInfo.HotScriptFilePath, behaviourName, UIKitSettingData.GetProjectNamespace(), panelCodeInfo);
+					mScriptKitInfo.Templates[2].Generate(mScriptKitInfo.HotScriptFilePath, behaviourName, UIKitSettingData.Load().Namespace, panelCodeInfo);
 				}
 			}
 			else
 			{
-				UIPanelDesignerTemplate.Write(behaviourName,dir,UIKitSettingData.GetProjectNamespace(),panelCodeInfo,UIKitSettingData.Load());
+				UIPanelDesignerTemplate.Write(behaviourName,dir,UIKitSettingData.Load().Namespace,panelCodeInfo,UIKitSettingData.Load());
 			}
 
 			foreach (var elementCodeData in panelCodeInfo.ElementCodeDatas)
@@ -146,7 +146,7 @@ namespace QFramework
 				var elementDir = string.Empty;
 				elementDir = elementCodeData.BindInfo.BindScript.GetBindType() == BindType.Element
 					? (dir + behaviourName + "/").CreateDirIfNotExists()
-					: (Application.dataPath + "/" + UIKitSettingData.GetScriptsPath() + "/Components/").CreateDirIfNotExists();
+					: (Application.dataPath + "/" + UIKitSettingData.Load().UIScriptDir + "/Components/").CreateDirIfNotExists();
 				CreateUIElementCode(elementDir, elementCodeData);
 			}
 		}
@@ -158,11 +158,11 @@ namespace QFramework
 			if (File.Exists(panelFilePathWhithoutExt + ".cs") == false)
 			{
 				UIElementCodeTemplate.Generate(panelFilePathWhithoutExt + ".cs",
-					elementCodeInfo.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeInfo);
+					elementCodeInfo.BehaviourName, UIKitSettingData.Load().Namespace, elementCodeInfo);
 			}
 
 			UIElementCodeComponentTemplate.Generate(panelFilePathWhithoutExt + ".Designer.cs",
-				elementCodeInfo.BehaviourName, UIKitSettingData.GetProjectNamespace(), elementCodeInfo);
+				elementCodeInfo.BehaviourName, UIKitSettingData.Load().Namespace, elementCodeInfo);
 
 			foreach (var childElementCodeData in elementCodeInfo.ElementCodeDatas)
 			{
