@@ -62,38 +62,40 @@
 
 ## Install
 
-* install by [Asset Store](http://u3d.as/SJ9) 
-* PackageManager
-    * add from package git url：https://github.com/liangxiegame/QFramework 
-    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework
+* QFramework.cs
+    * copy [this code](QFramework.cs) to your project
 
-* or copy [this code](QFramework.cs) to your project
-* OpenUPM(TODO)
+* QFramework.ToolKits
+    * See bellow table
+* QFramework.ToolkitsPro
+    * install by [Asset Store](http://u3d.as/SJ9) 
+
 
 ## Resources
 
-| **Version**             |                                                             |                                                              |
-| ----------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| QFramework.cs           | Implementation of qframework ontology architecture          |                                                              |
-| QFrameworkWith Toolkits | QFramework  with UIKit/ActionKit/ResKit/PackageKit/AudioKit | [AssetStore](http://u3d.as/SJ9)                              |
-| **Example/Demo**        |                                                             |                                                              |
-| Example 示例            | Include  CounterApp、《点点点》etc QF example               | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
-| ShootingEditor2D        | include a level designer' shooting game                     | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
-| **Community**           |                                                             |                                                              |
-| github issue            | github 社区                                                 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
-| gitee issue             | gitee 社区（国内访问快）                                    | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |                                                           |
-| **Official Toolkits**   |                                                             |                                                              |
-| SingletonKit            |                                                             | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
-| ExtensionKit            |                                                             | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
-| IOCKit                  |                                                             | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
-| TableKit                |                                                             | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
-| PoolKit                 |                                                             | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
-| LogKit                  |                                                             | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
-| ActionKit               |                                                             | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
-| ResKit                  |                                                             | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
-| UIKit                   |                                                             | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
-| AudioKit                |                                                             | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
-| PackageKit              |                                                             | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
+| **Version**            |                                                             |                                                              |
+| ---------------------- | ----------------------------------------------------------- | ------------------------------------------------------------ |
+| QFramework.cs          | Implementation of qframework ontology architecture          |                                                              |
+| QFramework.ToolKits    | QFramework  with UIKit/ActionKit/ResKit/PackageKit/AudioKit | [Github Release](https://github.com/liangxiegame/QFramework/releases) |
+| QFramework.ToolKitsPro | More Powerful Tools version based on QFramework.ToolKits    | [AssetStore](http://u3d.as/SJ9)                              |
+| **Example/Demo**       |                                                             |                                                              |
+| Example 示例           | Include  CounterApp、《点点点》etc QF example               | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
+| ShootingEditor2D       | include a level designer' shooting game                     | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
+| **Community**          |                                                             |                                                              |
+| github issue           | github 社区                                                 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue            | gitee 社区（国内访问快）                                    | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |
+| **Official Toolkits**  |                                                             |                                                              |
+| SingletonKit           |                                                             | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit           |                                                             | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
+| IOCKit                 |                                                             | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit               |                                                             | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
+| PoolKit                |                                                             | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
+| LogKit                 |                                                             | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit              |                                                             | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit                 |                                                             | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit                  |                                                             | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
+| AudioKit               |                                                             | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
+| PackageKit             |                                                             | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
 
 
 

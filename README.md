@@ -71,10 +71,12 @@
 
 ## 安装
 
-* PackageManager
-    * add from package git url：https://github.com/liangxiegame/QFramework.git 
-    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework.git
-* 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
+* QFramework.cs 
+    * 直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
+* QFramework.ToolKits
+    * 见下列表格
+* QFramework.ToolKitsPro
+    * 从 [AssetStore](http://u3d.as/SJ9) 安装
 
 
 
@@ -83,7 +85,8 @@
 | **版本** |                                      |                                                          |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
 | QFramework.cs | QFramework 本体架构的实现 |  |
-| QFrameworkWith Toolkits | QFramework  集成 UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [从国内服务器下载](https://file.liangxiegame.com/Frameworkv0_14_22_a4b5a851_aff3_4f11_beb5_6d87a600c554.unitypackage)\|[AssetStore](http://u3d.as/SJ9) |
+| QFramework.Toolkits | QFramework  集成 UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [从国内服务器下载](https://file.liangxiegame.com/Frameworkv0_14_22_a4b5a851_aff3_4f11_beb5_6d87a600c554.unitypackage)\|[Github Release](https://github.com/liangxiegame/QFramework/releases) |
+| QFramework.ToolKitsPro | 在 ToolKits 基础上集成更多好用的工具的版本 | [AssetStore](http://u3d.as/SJ9) |
 | **示例/Demo** |  |  |
 | Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
 | CubeMaster 示例 | 一个 3D 版 2048 小游戏，由 QF 成员 soso 制作 | [github](https://github.com/liangxiegame/CubeMaster)\|[gitee](https://gitee.com/liangxiegame/CubeMaster) |
@@ -102,7 +105,7 @@
 | 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏           | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏          | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
 | 独立游戏《推灭泡泡姆》 | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
-| **官方工具**  |                                                              |                                                              |
+| **官方工具**（独立版本，不互相依赖) |                                                              |                                                              |
 | SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
 | ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
 | IOCKit | 易上手功能强大的 IOC 容器 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
