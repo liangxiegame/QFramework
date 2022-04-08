@@ -157,6 +157,7 @@ namespace QFramework
 
         private void OnCompile()
         {
+            if (CurrentTask == null) return;
             if (CurrentTask.Status == CodeGenTaskStatus.Compile)
             {
                 var generateClassName = CurrentTask.ClassName;
