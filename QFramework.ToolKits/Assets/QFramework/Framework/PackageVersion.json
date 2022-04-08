@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.56",
+    "Version": "v0.14.57",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.56",
-        "content": "* CodeGenKit 修复安装之后第一个报错的问题",
+        "version": "v0.14.57",
+        "content": "ResKit 补充一个 WebGL 文档",
         "author": "liangxie",
-        "date": "2022 年 04 月 08 日 01:16",
+        "date": "2022 年 04 月 08 日 18:57",
         "PackageId": ""
     }
 }
