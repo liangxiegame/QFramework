@@ -85,7 +85,7 @@ namespace QFramework
 
             public void Unload()
             {
-                mResLoader.Recycle2Cache();
+                mResLoader?.Recycle2Cache();
                 mResLoader = null;
             }
         }

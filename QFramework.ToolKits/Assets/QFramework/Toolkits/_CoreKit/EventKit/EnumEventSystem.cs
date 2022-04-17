@@ -18,6 +18,7 @@ namespace QFramework
         
         private readonly Dictionary<int, IEasyEvent> mEvents = new Dictionary<int, IEasyEvent>(50);
         
+        protected EnumEventSystem(){}
 
         #region 功能函数
 
@@ -80,6 +81,10 @@ namespace QFramework
     [Obsolete("请使用 EnumEventSystem,Please use EnumEventSystem instead", true)]
     public class QEventSystem : EnumEventSystem
     {
+        protected QEventSystem() : base()
+        {
+            
+        }
         [Obsolete("请使用 Global,Please use Global instead", true)]
         public static EnumEventSystem Instance => Global;
         

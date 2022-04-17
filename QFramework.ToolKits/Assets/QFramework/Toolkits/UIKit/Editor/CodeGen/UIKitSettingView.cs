@@ -86,13 +86,13 @@ namespace QFramework
             
             GUILayout.BeginVertical("box");
             {
-                GUILayout.Label(LocaleText.Namespace, mLabel12.Value, GUILayout.Width(200));
+                GUILayout.Label(LocaleText.UINamespace, mLabel12.Value, GUILayout.Width(200));
 
                 GUILayout.Space(6);
 
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LocaleText.Namespace, mLabelBold12.Value, GUILayout.Width(200));
+                    GUILayout.Label(LocaleText.UINamespace, mLabelBold12.Value, GUILayout.Width(200));
 
                     mUiKitSettingData.Namespace = EditorGUILayout.TextField(mUiKitSettingData.Namespace);
 
@@ -121,6 +121,21 @@ namespace QFramework
                 }
                 GUILayout.EndHorizontal();
                 GUILayout.Space(12);
+                
+                GUILayout.Label(LocaleText.ViewControllerNamespace, mLabel12.Value, GUILayout.Width(200));
+
+                GUILayout.Space(6);
+
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LocaleText.ViewControllerNamespace, mLabelBold12.Value, GUILayout.Width(200));
+
+                    CodeGenKit.Setting.Namespace = EditorGUILayout.TextField(CodeGenKit.Setting.Namespace);
+
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.Space(6);
 
                 GUILayout.BeginHorizontal();
                 {
@@ -166,18 +181,21 @@ namespace QFramework
         class LocaleText
         {
             public static bool IsCN => LocaleKitEditor.IsCN.Value;
-            public static string Namespace => IsCN ? " 默认命名空间:" : " Namespace:";
+            public static string UINamespace => IsCN ? " UI 命名空间:" : "UI Namespace:";
 
             public static string UIScriptGenerateDir => IsCN ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:";
 
             public static string UIPanelPrefabDir => IsCN ? " UIPanel Prefab 路径:" : " UIPanel Prefab Dir:";
 
-            public static string ViewControllerScriptGenerateDir => IsCN ? " ViewController 脚本生成路径:" : " Default ViewController Generate Dir:";
+            public static string ViewControllerNamespace => IsCN ? " ViewController 命名空间:" : "ViewController Namespace:";
+
+            
+            public static string ViewControllerScriptGenerateDir => IsCN ? " ViewController 脚本生成路径:" : " ViewController Code Generate Dir:";
 
             public static string ViewControllerPrefabGenerateDir =>
                 IsCN
                     ? " ViewController Prefab 生成路径:"
-                    : " Default ViewController Prefab Dir:";
+                    : " ViewController Prefab Generate Dir:";
 
             public static string Apply => IsCN ? "保存" : "Apply";
         }

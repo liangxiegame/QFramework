@@ -37,7 +37,8 @@ namespace QFramework
             return BindType.Element;
         }
         
-        public abstract string TypeName { get; }
+        public virtual string TypeName => ComponentName;
+        public abstract string ComponentName { get; }
 
         public string Comment
         {

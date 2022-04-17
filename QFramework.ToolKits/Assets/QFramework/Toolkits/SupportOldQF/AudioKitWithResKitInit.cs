@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace QFramework
 {
-
     public class AudioKitWithResKitInit : MonoBehaviour
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -15,39 +14,49 @@ namespace QFramework
 
     public class ResKitAudioLoaderPool : AbstractAudioLoaderPool
     {
-        
         public class ResKitAudioLoader : IAudioLoader
         {
-            
-            Lazy<ResLoader> mResLoader = new Lazy<ResLoader>(()=>ResLoader.Allocate());
+            private ResLoader mResLoader = null;
 
             public AudioClip Clip => mClip;
             private AudioClip mClip;
-            
+
             public AudioClip LoadClip(AudioSearchKeys audioSearchKeys)
             {
-                 mClip = mResLoader.Value.LoadSync<AudioClip>(audioSearchKeys.AssetName);
+                if (mResLoader == null)
+                {
+                    mResLoader = ResLoader.Allocate();
+                }
 
-                 return mClip;
+                mClip = mResLoader.LoadSync<AudioClip>(audioSearchKeys.AssetName);
+
+                return mClip;
             }
 
             public void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool, AudioClip> onLoad)
             {
-                mResLoader.Value.Add2Load<AudioClip>(audioSearchKeys.AssetName,(b, res) =>
+                if (mResLoader == null)
+                {
+                    mResLoader = ResLoader.Allocate();
+                }
+
+                mResLoader.Add2Load<AudioClip>(audioSearchKeys.AssetName, (b, res) =>
                 {
                     mClip = res.Asset as AudioClip;
-                    onLoad(b,res.Asset as AudioClip);
+                    onLoad(b, res.Asset as AudioClip);
                 });
 
-                mResLoader.Value.LoadAsync();
+                mResLoader.LoadAsync();
             }
 
             public void Unload()
             {
                 mClip = null;
-                mResLoader.Value.Recycle2Cache();
+                mResLoader?.Recycle2Cache();
+                mResLoader = null;
             }
         }
+
         protected override IAudioLoader CreateLoader()
         {
             return new ResKitAudioLoader();
