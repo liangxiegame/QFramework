@@ -1050,7 +1050,7 @@ namespace QFramework
 
             if (TriggerEvents)
             {
-                // TypeEventSystem.Global.Send(new EnumStateChangeEvent<T>(this));
+                TypeEventSystem.Global.Send(new EnumStateChangeEvent<T>(this));
             }
         }
 
@@ -1063,7 +1063,7 @@ namespace QFramework
 
             if (TriggerEvents)
             {
-                // TypeEventSystem.Global.Send(new EnumStateChangeEvent<T>(this));
+                TypeEventSystem.Global.Send(new EnumStateChangeEvent<T>(this));
             }
         }
     }
