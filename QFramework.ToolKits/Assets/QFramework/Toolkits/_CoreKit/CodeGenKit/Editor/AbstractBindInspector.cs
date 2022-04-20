@@ -42,7 +42,9 @@ namespace QFramework
                 mComponentNameIndex = 0;
             }
 
-            mComponentName = serializedObject.FindProperty("mComponentName");
+            mComponentNameProperty = serializedObject.FindProperty("mComponentName");
+            mCustomComponentNameProperty = serializedObject.FindProperty("CustomComponentName");
+
         }
 
         private Lazy<GUIStyle> mLabel12 = new Lazy<GUIStyle>(() => new GUIStyle(GUI.skin.label)
@@ -50,7 +52,9 @@ namespace QFramework
             fontSize = 12
         });
 
-        private SerializedProperty mComponentName;
+        private SerializedProperty mComponentNameProperty;
+        private SerializedProperty mCustomComponentNameProperty;
+
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -60,15 +64,23 @@ namespace QFramework
             GUILayout.BeginHorizontal();
             GUILayout.Label(mLocaleText.Bind, mLabel12.Value, GUILayout.Width(60));
 
+
+            EditorGUI.BeginChangeCheck();
+
             mBindScript.MarkType = (BindType)EditorGUILayout.EnumPopup(mBindScript.MarkType);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(target);
+            }
 
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
 
-            if (mBindScript.CustomComponentName == null ||
-                string.IsNullOrEmpty(mBindScript.CustomComponentName.Trim()))
+            if (mCustomComponentNameProperty.stringValue == null ||
+                string.IsNullOrEmpty(mCustomComponentNameProperty.stringValue.Trim()))
             {
-                mBindScript.CustomComponentName = mBindScript.name;
+                mCustomComponentNameProperty.stringValue = mBindScript.name;
             }
 
             if (mBindScript.MarkType == BindType.DefaultUnityElement)
@@ -81,8 +93,7 @@ namespace QFramework
                 mComponentNameIndex = EditorGUILayout.Popup(mComponentNameIndex, mComponentNames);
                 if (EditorGUI.EndChangeCheck())
                 {
-                    
-                    mComponentName.stringValue = mComponentNames[mComponentNameIndex];
+                    mComponentNameProperty.stringValue = mComponentNames[mComponentNameIndex];
                     EditorUtility.SetDirty(target);
                 }
 
@@ -110,7 +121,7 @@ namespace QFramework
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(mLocaleText.ClassName, mLabel12.Value, GUILayout.Width(60));
-                mBindScript.CustomComponentName = EditorGUILayout.TextField(mBindScript.CustomComponentName);
+                mCustomComponentNameProperty.stringValue = EditorGUILayout.TextField(mCustomComponentNameProperty.stringValue);
 
                 GUILayout.EndHorizontal();
             }
@@ -133,12 +144,18 @@ namespace QFramework
                     CodeGenKit.Generate(rootGameObj.GetComponent<IBindGroup>());
                 }
             }
-            
+
             GUILayout.EndVertical();
 
             serializedObject.ApplyModifiedProperties();
-            
+
             base.OnInspectorGUI();
+        }
+
+        private void OnDisable()
+        {
+            mCustomComponentNameProperty = null;
+            mComponentNameProperty = null;
         }
     }
 }

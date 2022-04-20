@@ -52,14 +52,23 @@ namespace QFramework
         {
             get
             {
-                if (string.IsNullOrEmpty(mComponentName))
+                if (MarkType == BindType.DefaultUnityElement)
                 {
-                    mComponentName = GetDefaultComponentName();
+                    if (string.IsNullOrEmpty(mComponentName))
+                    {
+                        mComponentName = GetDefaultComponentName();
+                    }
+
+                    return mComponentName;
+                }
+
+                if (MarkType == BindType.Element || MarkType == BindType.Component)
+                {
+                    return CustomComponentName;
                 }
 
                 return mComponentName;
             }
-            set => mComponentName = value;
         }
 
         /// <summary>
