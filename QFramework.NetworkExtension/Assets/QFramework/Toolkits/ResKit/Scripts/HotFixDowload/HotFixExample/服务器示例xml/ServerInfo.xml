@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ServerInfo>
+  <GameVersion Version="0.1">
+    <Pathces  Version="1" Des="测试">            
+<Files Name="canvas_prefab" Url="http://annuzhiting2.oss-cn-hangzhou.aliyuncs.com/AssetBundle/0.1/1/canvas_prefab" Platform="StandaloneWindows64" Md5="5769c065967d0c674382d1214dc68dc2" Size="5.109375" />
+  <Files Name="Windows" Url="http://annuzhiting2.oss-cn-hangzhou.aliyuncs.com/AssetBundle/0.1/1/Windows" Platform="StandaloneWindows64" Md5="0c539265a5e81f36c57bd8547a3bd749" Size="1.51269531" />
+
+ </Pathces> 
+  </GameVersion>
+</ServerInfo>
