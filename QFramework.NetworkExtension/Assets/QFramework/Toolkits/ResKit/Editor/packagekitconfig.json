@@ -1,0 +1,12 @@
+{
+    "AssemblyName": "ResKit.Editor",
+    "DisplayName": "ResKit 设置/编辑器",
+    "DisplayNameCN": "ResKit 设置/编辑器",
+    "DisplayNameEN": "ResKit Editor(OnlyCN)",
+    "TypeName": "QFramework.ResKitView",
+    "InitFunc": "Init",
+    "OnGUIFunc": "OnGUI",
+    "DisposeFunc": "OnDestroy",
+    "GroupName": "QFramework",
+    "RenderOrder": "2"
+}

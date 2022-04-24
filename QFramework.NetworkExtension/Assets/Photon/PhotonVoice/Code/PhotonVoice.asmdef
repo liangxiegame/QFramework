@@ -1,0 +1,11 @@
+{
+    "name": "PhotonVoice",
+    "references": [
+        "PhotonRealtime",
+        "PhotonVoice.API"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

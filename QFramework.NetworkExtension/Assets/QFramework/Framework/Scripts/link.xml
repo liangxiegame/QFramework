@@ -1,0 +1,3 @@
+<linker>
+	<assembly fullname="QFramework" preserve="all" />
+</linker>

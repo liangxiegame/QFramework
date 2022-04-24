@@ -1,0 +1,12 @@
+{
+    "AssemblyName": "UIKit.Editor",
+    "DisplayName": "UIKit 设置",
+    "DisplayNameCN": "UIKit 设置",
+    "DisplayNameEN": "UIKit Settings(OnlyCN)",
+    "TypeName": "QFramework.UIKitSettingView",
+    "InitFunc": "Init",
+    "OnGUIFunc": "OnGUI",
+    "DisposeFunc": "OnDestroy",
+    "GroupName": "QFramework",
+    "RenderOrder": "3"
+}

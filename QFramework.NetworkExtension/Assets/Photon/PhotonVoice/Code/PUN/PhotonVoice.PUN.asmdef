@@ -1,0 +1,11 @@
+{
+    "name": "PhotonVoice.PUN",
+    "references": [
+        "PhotonVoice",
+        "PhotonUnityNetworking",
+        "PhotonRealtime",
+        "PhotonVoice.API"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": []
+}
