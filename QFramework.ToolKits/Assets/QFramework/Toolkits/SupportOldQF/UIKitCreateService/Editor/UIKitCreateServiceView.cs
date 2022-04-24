@@ -55,7 +55,10 @@ namespace QFramework
                     .Builder()
                     .Append("Test{0}.unity".FillFormat(panelName)).ToString();
 
-                var panelPrefabPath = "Assets/Art/UIPrefab/".CreateDirIfNotExists()
+                var uiKitSettingData = UIKitSettingData.Load();
+                
+                var panelPrefabPath = $"Assets{uiKitSettingData.UIPrefabDir}/"
+                    .CreateDirIfNotExists()
                     .Builder()
                     .Append("{0}.prefab".FillFormat(panelName)).ToString();
 
