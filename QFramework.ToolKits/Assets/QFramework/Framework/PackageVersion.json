@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.63",
+    "Version": "v0.14.64",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.63",
-        "content": "* UIKitCreateService 修复生成路径写死的问题（感谢群友FateArth 提供的反馈和测试）",
+        "version": "v0.14.64",
+        "content": "* 补充 SingleFileCreator",
         "author": "liangxie",
-        "date": "2022 年 04 月 24 日 17:50",
+        "date": "2022 年 04 月 24 日 18:03",
         "PackageId": ""
     }
 }
