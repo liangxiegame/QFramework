@@ -17,7 +17,7 @@ namespace QFramework
         
         private Dictionary<string, IEasyEvent> mEvents = new Dictionary<string, IEasyEvent>();
         
-        public  IUnRegister Register<T>(string key, Action onEvent)
+        public  IUnRegister Register(string key, Action onEvent)
         {
             if (mEvents.TryGetValue(key, out var e))
             {

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.64",
+    "Version": "v0.14.65",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.64",
-        "content": "* 补充 SingleFileCreator",
+        "version": "v0.14.65",
+        "content": "* 改进一些 API 的使用",
         "author": "liangxie",
-        "date": "2022 年 04 月 24 日 18:03",
+        "date": "2022 年 05 月 02 日 14:17",
         "PackageId": ""
     }
 }

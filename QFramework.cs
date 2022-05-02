@@ -17,7 +17,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2021.3.16 5:26 Add IBindableProperty
+ * Latest Update: 2021.5.2 14:08 Return IUnRegister for UnRegisterWhenGameObjectDestroyed
  ****************************************************************************/
 
 using System;
@@ -570,7 +570,7 @@ namespace QFramework
 
     public static class UnRegisterExtension
     {
-        public static void UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister, GameObject gameObject)
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister, GameObject gameObject)
         {
             var trigger = gameObject.GetComponent<UnRegisterOnDestroyTrigger>();
 
@@ -580,6 +580,8 @@ namespace QFramework
             }
 
             trigger.AddUnRegister(unRegister);
+            
+            return unRegister;
         }
     }
 
@@ -763,7 +765,7 @@ namespace QFramework
     public interface IEasyEvent
     {
     }
-
+    
     public class EasyEvent : IEasyEvent
     {
         private Action mOnEvent = () => { };

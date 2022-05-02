@@ -348,6 +348,12 @@ ActionKit.Sequence()
         public static EasyEvent OnGUI => ActionKitMonoBehaviourEvents.Instance.OnGUIEvent;
         public static EasyEvent OnApplicationQuit => ActionKitMonoBehaviourEvents.Instance.OnApplicationQuitEvent;
 
+        public static EasyEvent<bool> OnApplicationPause =>
+            ActionKitMonoBehaviourEvents.Instance.OnApplicationPauseEvent;
+
+        public static EasyEvent<bool> OnApplicationFocus =>
+            ActionKitMonoBehaviourEvents.Instance.OnApplicationFocusEvent;
+
         protected override void Init()
         {
         }
