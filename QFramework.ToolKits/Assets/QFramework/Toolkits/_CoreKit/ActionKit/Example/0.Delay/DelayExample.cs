@@ -7,7 +7,7 @@ namespace QFramework.Example
         void Start()
         {
             Debug.Log("Start Time:" + Time.time);
-
+            
             ActionKit.Delay(1.0f, () =>
             {
                 Debug.Log("End Time:" + Time.time);

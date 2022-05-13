@@ -8,6 +8,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -79,18 +80,16 @@ namespace QFramework
             }
         }
 
+
+        private readonly ViewControllerInspectorStyle mStyle = new ViewControllerInspectorStyle();
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
             GUILayout.BeginVertical("box");
 
-            GUILayout.Label(mLocaleText.CodegenPart, new GUIStyle()
-            {
-                fontStyle = FontStyle.Bold,
-                fontSize = 15
-            });
-
+            GUILayout.Label(mLocaleText.CodegenPart,mStyle.BigTitleStyle.Value);
 
             LocaleKitEditor.DrawSwitchToggle(GUI.skin.label.normal.textColor);
 
