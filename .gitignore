@@ -11,3 +11,4 @@ QFramework.ToolKits/Temp
 *.csproj
 QFramework.ToolKits/AssetBundles
 QFramework.ToolKits/Assets/StreamingAssets/AssetBundles
+QFramework.ToolKits/Build/
