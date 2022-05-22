@@ -19,9 +19,9 @@ namespace QFramework
     {
         private PackageVersion mPackageVersion;
 
-        private AssetTree _assetTree;
-        private AssetTreeIMGUI _assetTreeGUI;
-        private Vector2 _scrollPosition;
+        private AssetTree mAssetTree;
+        private AssetTreeIMGUI mAssetTreeGUI;
+        private Vector2 mScrollPosition;
 
         static string MakeInstallPath()
         {
@@ -127,13 +127,13 @@ namespace QFramework
             }
 
 
-            _assetTree = new AssetTree();
-            _assetTreeGUI = new AssetTreeIMGUI(_assetTree.Root);
+            mAssetTree = new AssetTree();
+            mAssetTreeGUI = new AssetTreeIMGUI(mAssetTree.Root);
             var guids = AssetDatabase.FindAssets(string.Empty);
             int i = 0, l = guids.Length;
             for (; i < l; ++i)
             {
-                _assetTree.AddAsset(guids[i], hashSet);
+                mAssetTree.AddAsset(guids[i], hashSet);
             }
 
             RootLayout = new VerticalLayout("box");
@@ -180,9 +180,9 @@ namespace QFramework
 
             EasyIMGUI.Custom().OnGUI(() =>
             {
-                _scrollPosition = EditorGUILayout.BeginScrollView(_scrollPosition);
+                mScrollPosition = EditorGUILayout.BeginScrollView(mScrollPosition);
 
-                _assetTreeGUI.DrawTreeLayout();
+                mAssetTreeGUI.DrawTreeLayout();
 
                 EditorGUILayout.EndScrollView();
             }).Parent(editorView);
@@ -198,7 +198,7 @@ namespace QFramework
                     .OnClick(() =>
                     {
                         var includedPaths = new List<string>();
-                        _assetTree.Root.Traverse(data =>
+                        mAssetTree.Root.Traverse(data =>
                         {
                             if (data != null && data.isSelected)
                             {

@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.14.68",
+    "Version": "v0.15.1",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.14.68",
-        "content": "*编辑器内的文档内置架构篇",
+        "version": "v0.15.1",
+        "content": "* [X] 使用指南=>用户手册。\n* [X] 增加 ActionKit 的生命周期示例。\n* [X] ActionKit 的生命周期 API 文档。",
         "author": "liangxie",
-        "date": "2022 年 05 月 14 日 19:03",
+        "date": "2022 年 05 月 23 日 01:19",
         "PackageId": ""
     }
 }
