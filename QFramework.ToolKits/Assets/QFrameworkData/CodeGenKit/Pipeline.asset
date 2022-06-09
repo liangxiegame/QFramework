@@ -20,33 +20,27 @@ MonoBehaviour:
     NameToFullName: []
     BindInfos:
     - TypeName: Transform
-      PathToRoot: Child1
-      MemberName: Child1
+      PathToRoot: SomeObject
+      MemberName: SomeObject
     - TypeName: Transform
-      PathToRoot: Child2
-      MemberName: Child2
-    - TypeName: Transform
-      PathToRoot: Child2/Child3
-      MemberName: Child3
-    - TypeName: Transform
-      PathToRoot: Child2/Child4
-      MemberName: Child4
-    - TypeName: QFramework.Example.ChildController
-      PathToRoot: ChildController
-      MemberName: ChildController
-    ScriptsFolder: Assets/QFramework/Toolkits/UIKit/Example/0.Basic
-    ClassName: GameObjectRoot
+      PathToRoot: SomeTransform
+      MemberName: SomeTransform
+    - TypeName: UnityEngine.UI.Image
+      PathToRoot: Canvas/SomeImage
+      MemberName: SomeImage
+    ScriptsFolder: Assets/QFramework/Toolkits/_CoreKit/CodeGenKit/Example
+    ClassName: SomeStructure
     Namespace: QFramework.Example
-    MainCode: "using UnityEngine;\nusing QFramework;\n\n// 1.\u8BF7\u5728\u83DC\u5355
-      \u7F16\u8F91\u5668\u6269\u5C55/Namespace Settings \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\n//
+    MainCode: "using UnityEngine;\r\nusing QFramework;\r\n\r\n// 1.\u8BF7\u5728\u83DC\u5355
+      \u7F16\u8F91\u5668\u6269\u5C55/Namespace Settings \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\r\n//
       2.\u547D\u540D\u7A7A\u95F4\u66F4\u6539\u540E\uFF0C\u751F\u6210\u4EE3\u7801\u4E4B\u540E\uFF0C\u9700\u8981\u628A\u903B\u8F91\u4EE3\u7801\u6587\u4EF6\uFF08\u975E
-      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\nnamespace
-      QFramework.Example\n{\n\tpublic partial class GameObjectRoot : ViewController\n\t{\n\t\tvoid
-      Start()\n\t\t{\n\t\t\t// Code Here\n\t\t}\n\t}\n}\n"
-    DesignerCode: "// Generate Id:25b22dca-8fce-4428-ba5b-3291e93255b1\nusing UnityEngine;\n\n//
+      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\r\nnamespace
+      QFramework.Example\r\n{\r\n\tpublic partial class SomeStructure : ViewController\r\n\t{\r\n\t\tvoid
+      Start()\r\n\t\t{\r\n\t\t\t// Code Here\r\n\t\t}\r\n\t}\r\n}\r\n"
+    DesignerCode: "// Generate Id:2ff987e2-aba9-495b-b7cd-407d27ae2e83\r\nusing UnityEngine;\r\n\r\n//
       1.\u8BF7\u5728\u83DC\u5355 \u7F16\u8F91\u5668\u6269\u5C55/Namespace Settings
-      \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\n// 2.\u547D\u540D\u7A7A\u95F4\u66F4\u6539\u540E\uFF0C\u751F\u6210\u4EE3\u7801\u4E4B\u540E\uFF0C\u9700\u8981\u628A\u903B\u8F91\u4EE3\u7801\u6587\u4EF6\uFF08\u975E
-      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\nnamespace
-      QFramework.Example\n{\n\tpublic partial class GameObjectRoot\n\t{\n\n\t\tpublic
-      Transform Child1;\n\n\t\tpublic Transform Child2;\n\n\t\tpublic Transform Child3;\n\n\t\tpublic
-      Transform Child4;\n\n\t\tpublic QFramework.Example.ChildController ChildController;\n\n\t}\n}\n"
+      \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\r\n// 2.\u547D\u540D\u7A7A\u95F4\u66F4\u6539\u540E\uFF0C\u751F\u6210\u4EE3\u7801\u4E4B\u540E\uFF0C\u9700\u8981\u628A\u903B\u8F91\u4EE3\u7801\u6587\u4EF6\uFF08\u975E
+      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\r\nnamespace
+      QFramework.Example\r\n{\r\n\tpublic partial class SomeStructure\r\n\t{\r\n\r\n\t\tpublic
+      Transform SomeObject;\r\n\r\n\t\tpublic Transform SomeTransform;\r\n\r\n\t\tpublic
+      UnityEngine.UI.Image SomeImage;\r\n\r\n\t}\r\n}\r\n"

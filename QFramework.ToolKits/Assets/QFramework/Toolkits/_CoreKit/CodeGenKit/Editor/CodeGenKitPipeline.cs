@@ -163,10 +163,13 @@ namespace QFramework
                 var generateClassName = CurrentTask.ClassName;
                 var generateNamespace = CurrentTask.Namespace;
 
-                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-                var defaultAssembly = assemblies.First(assembly => assembly.GetName().Name == "Assembly-CSharp");
-                var typeName = generateNamespace + "." + generateClassName;
-                var type = defaultAssembly.GetType(typeName);
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly =>
+                    !assembly.FullName.StartsWith("Unity"));
+                
+                var typeName =  generateNamespace + "." + generateClassName;
+
+                var type = assemblies.Where(a => a.GetType(typeName) != null)
+                    .Select(a => a.GetType(typeName)).FirstOrDefault();
 
                 if (type == null)
                 {
