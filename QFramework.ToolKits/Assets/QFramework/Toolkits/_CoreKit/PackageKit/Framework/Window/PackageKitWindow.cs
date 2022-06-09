@@ -36,6 +36,11 @@ namespace QFramework
 {
     public class PackageKitWindow : EasyEditorWindow
     {
+        private void OnEnable()
+        {
+            var _ = LocaleKitEditor.IsCN;
+        }
+
         public static List<IPackageKitView> Views
         {
             get
@@ -143,22 +148,26 @@ namespace QFramework
 
                     var infoNew = JsonUtility.FromJson<ReflectRenderInfo>(jsonText);
 
-                    infoNew.Load();
-                    var renderInfo = new PackageKitViewRenderInfo(infoNew)
+                    if (infoNew.Load())
                     {
-                        DisplayName = infoNew.DisplayName,
-                        DisplayNameCN = infoNew.DisplayNameCN,
-                        DisplayNameEN = infoNew.DisplayNameEN,
-                        GroupName = infoNew.GroupName,
-                        RenderOrder = infoNew.RenderOrder,
-                        Interface =
+                        var renderInfo = new PackageKitViewRenderInfo(infoNew)
                         {
-                            EditorWindow = this
-                        }
-                    };
-                    renderInfo.Interface.Init();
-                    return renderInfo;
-                });
+                            DisplayName = infoNew.DisplayName,
+                            DisplayNameCN = infoNew.DisplayNameCN,
+                            DisplayNameEN = infoNew.DisplayNameEN,
+                            GroupName = infoNew.GroupName,
+                            RenderOrder = infoNew.RenderOrder,
+                            Interface =
+                            {
+                                EditorWindow = this
+                            }
+                        };
+                        renderInfo.Interface.Init();
+                        return renderInfo;
+                    }
+
+                    return null;
+                }).Where(info=>info != null);
 
             mPackageKitViewRenderInfos = Views
                 .Select(view => new PackageKitViewRenderInfo(view))

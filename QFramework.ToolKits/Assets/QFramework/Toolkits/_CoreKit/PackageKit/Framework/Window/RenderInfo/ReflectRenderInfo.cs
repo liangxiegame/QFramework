@@ -53,11 +53,12 @@ namespace QFramework
         private object[] mEmptyParams = new Object[] { };
 
         
-        public void Load()
+        public bool Load()
         {
             mAssembly = AppDomain.CurrentDomain.GetAssemblies()
                 .FirstOrDefault(assembly => assembly.FullName.StartsWith(AssemblyName));
-            mType = mAssembly.GetTypes().FirstOrDefault(t => t.FullName == TypeName);
+            mType = mAssembly?.GetTypes().FirstOrDefault(t => t.FullName == TypeName);
+            if (mType == null) return false;
             mRenderObj = Activator.CreateInstance(mType);
             mInitFunc = mType.GetMethod(InitFunc, BindingFlags.Instance | BindingFlags.Public);
             mOnGUIFunc = mType.GetMethod(OnGUIFunc, BindingFlags.Instance | BindingFlags.Public);
@@ -89,6 +90,7 @@ namespace QFramework
 
             mDisposeFunc = mType.GetMethod(DisposeFunc, BindingFlags.Instance | BindingFlags.Public);
             mEditorWindowProperty = mType.GetProperty("EditorWindow", BindingFlags.Instance | BindingFlags.Public);
+            return true;
         }
 
 

@@ -54,8 +54,14 @@ namespace QFramework
                 mOutputFilepathProperty.stringValue =
                     EditorUtility.OpenFolderPanel("Select Folder", mOutputFilepathProperty.stringValue, "");
             }
+            
 
             GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Open Output Folder"))
+            {
+                EditorUtility.RevealInFinder(mOutputFilepathProperty.stringValue);
+            }
 
             if (GUILayout.Button("Create"))
             {
