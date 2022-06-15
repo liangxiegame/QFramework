@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v0.15.5",
+    "Version": "v0.15.6",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v0.15.5",
-        "content": "调整一下文档顺序，增加一个 CodeGenKit 示例",
+        "version": "v0.15.6",
+        "content": "删除掉一些不用的文档",
         "author": "liangxie",
-        "date": "2022 年 06 月 09 日 17:51",
+        "date": "2022 年 06 月 15 日 19:22",
         "PackageId": ""
     }
 }
