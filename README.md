@@ -88,17 +88,11 @@
 | **版本** |                                      |                                                          |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
 | QFramework.cs | QFramework 本体架构的实现 | [文件](QFramework.cs) |
-| QFramework.cs  示例 | QFramework.cs 与官方示例： CounterApp、《点点点》 | [点此下载 unitypackage](./QFramework.cs.Examples.unitypackage) |
+| QFramework.cs  示例 | QFramework.cs 与官方示例： CounterApp、《点点点》、FlappyBird、CubeMaster、ShootingEditor2D、贪吃蛇等 | [点此下载 unitypackage](./QFramework.cs.Examples.unitypackage) |
 | QFramework.Toolkits | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [点此下载 unitypackage](./QFramework.Toolkits.unitypackage) |
 | QFramework.ToolKitsPro | 在 ToolKits 基础上集成更多好用的工具的版本 | [AssetStore](http://u3d.as/SJ9) |
-| **示例/Demo** |  |  |
-|  |  |                                                              |
-| CubeMaster 示例 | 一个 3D 版 2048 小游戏，由 QF 成员 soso 制作 | [github](https://github.com/liangxiegame/CubeMaster)\|[gitee](https://gitee.com/liangxiegame/CubeMaster) |
-| FlappyBird 示例 | 一个 FlappyBird 小游戏，由 QF 成员 soso 制作 | [github](https://github.com/liangxiegame/FlappyBird)\|[gitee](https://gitee.com/liangxiegame/FlappyBird) |
-| ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
 | **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
-| 贪吃蛇 | 群友使用 [一只皮皮虾](https://gitee.com/PantyNeko) QF 提供的贪吃蛇案例 | [游戏主页(Gitee)](https://gitee.com/PantyNeko/snake-game) |
 | **社区** |  |  |
 | QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
 | github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
@@ -121,6 +115,12 @@
 | UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护 | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
 | AudioKit | 一套音频管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
 | PackageKit | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
+|                                     |                                                              |                                                              |
+|                                     |                                                              |                                                              |
+|                                     |                                                              |                                                              |
+|                                     |                                                              |                                                              |
+|                                     |                                                              |                                                              |
+|                                     |                                                              |                                                              |
 
 
 
