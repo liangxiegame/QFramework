@@ -17,7 +17,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2021.5.2 14:08 Return IUnRegister for UnRegisterWhenGameObjectDestroyed
+ * Latest Update: 2022.7.21 13:15 Add ExecuteCommand virtual method
  ****************************************************************************/
 
 using System;
@@ -167,17 +167,26 @@ namespace QFramework
         public void SendCommand<TCommand>() where TCommand : ICommand, new()
         {
             var command = new TCommand();
-            command.SetArchitecture(this);
-            command.Execute();
+            ExecuteCommand(command);
         }
 
         public void SendCommand<TCommand>(TCommand command) where TCommand : ICommand
+        {
+            ExecuteCommand(command);
+        }
+
+        protected virtual void ExecuteCommand(ICommand command)
         {
             command.SetArchitecture(this);
             command.Execute();
         }
 
         public TResult SendQuery<TResult>(IQuery<TResult> query)
+        {
+            return DoQuery<TResult>(query);
+        }
+
+        protected virtual TResult DoQuery<TResult>(IQuery<TResult> query)
         {
             query.SetArchitecture(this);
             return query.Do();

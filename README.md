@@ -73,6 +73,9 @@
 
 * QFramework.cs 
     * 直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
+* QFramework.cs 与 官方示例
+    * [点此下载 unitypackage](./QFramework.cs.Examples.unitypackage)
+
 * QFramework.ToolKits
     * [点此下载 unitypackage](./QFramework.Toolkits.unitypackage)
 * QFramework.ToolKitsPro
@@ -85,10 +88,11 @@
 | **版本** |                                      |                                                          |
 | ----------------------  | ---------------------------------------- | ------------------------------------------------------------ |
 | QFramework.cs | QFramework 本体架构的实现 | [文件](QFramework.cs) |
-| QFramework.Toolkits | QFramework  集成 UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [点此下载](./QFramework.Toolkits.unitypackage) |
+| QFramework.cs  示例 | QFramework.cs 与官方示例： CounterApp、《点点点》 | [点此下载 unitypackage](./QFramework.cs.Examples.unitypackage) |
+| QFramework.Toolkits | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具 | [点此下载 unitypackage](./QFramework.Toolkits.unitypackage) |
 | QFramework.ToolKitsPro | 在 ToolKits 基础上集成更多好用的工具的版本 | [AssetStore](http://u3d.as/SJ9) |
 | **示例/Demo** |  |  |
-| Example 示例 | 包含 CounterApp、《点点点》小游戏等 QF 使用示例 | [github](https://github.com/liangxiegame/QFramework.Example)\|[gitee](https://gitee.com/liangxiegame/QFramework.Example) |
+|  |  |                                                              |
 | CubeMaster 示例 | 一个 3D 版 2048 小游戏，由 QF 成员 soso 制作 | [github](https://github.com/liangxiegame/CubeMaster)\|[gitee](https://gitee.com/liangxiegame/CubeMaster) |
 | FlappyBird 示例 | 一个 FlappyBird 小游戏，由 QF 成员 soso 制作 | [github](https://github.com/liangxiegame/FlappyBird)\|[gitee](https://gitee.com/liangxiegame/FlappyBird) |
 | ShootingEditor2D | 包含一个关卡编辑器的开源射击游戏 | [github](https://github.com/liangxiegame/ShootingEditor2D)\|[gitee](https://gitee.com/liangxiegame/ShootingEditor2D) |
