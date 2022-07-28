@@ -309,14 +309,19 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 * UIKit 支持多个 Canvas Root 和 摄像机方案
 * CodeGenKit 同步
 * 插件平台的插件整理
-* Example 示例整理
 * ResKit 重构（支持热更）
 * UIKit 重构
 * AudioKit 重构
 
-**v0.16.x**（正在进行）
-*《QFramework v1.0 使用指南》 编写完架构篇，现有的文档把过时的 API 改成新的
+** v1.0.x （当前）
+* QFramework.Toolkits 收录四个示例
+* 编辑器使用体验改进
+* QFramework Pro v0.5 Architecture Designer 发布
+
+**v0.16.x**（已完成）
+*《QFramework v1.0 使用指南》 完成
 * 编辑器文档 支持 gif 动画 和 简单的 C# 代码高亮
+* 示例完善
 
 **v0.15.x**（已完成）
 * 文档整理 & 在编辑器内部内置
@@ -599,7 +604,7 @@ namespace QFramework.Example
 
 其中很有可能让 mCount 在多个 Controller 中使用，甚至需要针对 mCount 这个数据写一些其他逻辑，比如增加 mCount 则增加 5 个分数，或者 mCount 需要存储等，总之 mCount 在未来可能会发展成一个需要共享的数据，而 mCount 目前只属于 CounterAppController，显然在未来这是不够用的。
 
-我们就需要让 mCount 成员变量变成一个共享的数据，最快的做法是吧 mCount 变量变成镜头变量或者单例，但是这样虽然写起来很快，但是在后期维护额度时候会产生很多的问题。
+我们就需要让 mCount 成员变量变成一个共享的数据，最快的做法是吧 mCount 变量变成静态变量或者单例，但是这样虽然写起来很快，但是在后期维护额度时候会产生很多的问题。
 
 而 QFramework 架构提供了 Model 的概念。
 
@@ -3956,9 +3961,9 @@ QFramework.cs 的架构当前的版本，是从 《框架搭建 决定版》中�
 
 
 另外 QFramework.Toolkits 和 QFramework.ToolkitsPro 里包含的工具很多都是由 QFramework.cs 设计的， 工具的源码本身也是不错的学习资料。
-
   
-
+  
+  
 # 3. 工具篇：QFramework.Toolkits
 # 1. QFramework.Toolkits 简介
 
@@ -6385,7 +6390,7 @@ namespace QFramework
 
 
 
-
+  
 # 7. AudioKit 音频管理解决方案
 
 ## 基本使用
@@ -7337,10 +7342,10 @@ namespace QFramework.Example
 如果要和其他脚本层通信选择用 StringEventSystem。
 
 
-​    
-​    
-​    
-​        
+    
+    
+    
+        
 # 14. 更多内容
 
 
@@ -7366,5 +7371,4 @@ namespace QFramework.Example
 * gitee https://gitee.com/liangxiegame/QFramework
 
 ![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png) 
-
 
