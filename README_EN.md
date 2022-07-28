@@ -77,29 +77,31 @@
 
 ## Resources
 
-| **Version**                 |                                                              |                                                              |
-| --------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| QFramework.cs               | Implementation of qframework ontology architecture           | [code file](./QFramework.cs)                                 |
-| QFramework.cs With Examples | QFramework.cs and  Examples：CounterApp、Point Point Point、CubeMaster、FlappyBird、ShootingEditor2D、SnakeGame  etc | [downlowd unitypackage](./QFramework.cs.Examples.unitypackage) |
-| QFramework.ToolKits         | QFramework.cs  with UIKit/ActionKit/ResKit/PackageKit/AudioKit | [downlowd](./QFramework.Toolkits.unitypackage)               |
-| QFramework.ToolKitsPro      | More Powerful Tools version based on QFramework.ToolKits     | [AssetStore](http://u3d.as/SJ9)                              |
-| **Community**               |                                                              |                                                              |
-| github issue                | github 社区                                                  | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
-| gitee issue                 | gitee 社区（国内访问快）                                     | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |
-| **Official Toolkits**       |                                                              |                                                              |
-| SingletonKit                |                                                              | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
-| ExtensionKit                |                                                              | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
-| IOCKit                      |                                                              | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
-| TableKit                    |                                                              | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
-| PoolKit                     |                                                              | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
-| LogKit                      |                                                              | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
-| ActionKit                   |                                                              | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
-| ResKit                      |                                                              | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
-| UIKit                       |                                                              | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
-| AudioKit                    |                                                              | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
-| PackageKit                  |                                                              | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
-|                             |                                                              |                                                              |
-|                             |                                                              |                                                              |
+| **Version**                     |                                                              |                                                              |
+| ------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| QFramework.cs                   | Implementation of qframework ontology architecture           | [code file](./QFramework.cs)                                 |
+| QFramework.cs With Examples     | QFramework.cs and  Examples：CounterApp、Point Point Point、CubeMaster、FlappyBird、ShootingEditor2D、SnakeGame  etc (QFramework.cs included) | [downlowd unitypackage](./QFramework.cs.Examples.unitypackage) |
+| QFramework.ToolKits             | QFramework.cs  with UIKit/ActionKit/ResKit/PackageKit/AudioKit (QFramework.cs and examples included) | [downlowd unity package](./QFramework.Toolkits.unitypackage) |
+| QFramework.Toolkits.Demo.WuZiQi | Gobang Demo by QFramework.Toolkits（Need Install QFramework.Toolkits） | [download unitypackage](./QFramework.Toolkits.Demo.WuZiQi.unitypackage) |
+| QFramework.Toolkits.Demo.Saolei | Mine clearance Demo by QFramework.Toolkits（Need Install QFramework.Toolkits） | [download unitypackage](./QFramework.Toolkits.Demo.SaoLei.unitypackage) |
+| QFramework.ToolKitsPro          | More Powerful Tools version based on QFramework.ToolKits (QFramework.Toolkits included) | [AssetStore](http://u3d.as/SJ9)                              |
+| **Community**                   |                                                              |                                                              |
+| github issue                    | github community                                             | [address](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue                     | gitee community                                              | [address](https://gitee.com/liangxiegame/QFramework/issues)  |
+| **Official Toolkits**           |                                                              |                                                              |
+| SingletonKit                    |                                                              | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit                    |                                                              | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
+| IOCKit                          |                                                              | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit                        |                                                              | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
+| PoolKit                         |                                                              | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
+| LogKit                          |                                                              | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit                       |                                                              | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit                          |                                                              | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit                           |                                                              | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
+| AudioKit                        |                                                              | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
+| PackageKit                      |                                                              | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
+|                                 |                                                              |                                                              |
+|                                 |                                                              |                                                              |
 
 
 
