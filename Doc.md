@@ -70,7 +70,7 @@ QFramework 的设计哲学是从每个细节上提升开发效率。
 | QFramework.Toolkits | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具         |                                                                                                               |
 | QFramework.ToolKitsPro | 在 ToolKits 基础上集成更多好用的工具的版本                                                        | [AssetStore](http://u3d.as/SJ9)                                                                               |
 | **教程** |                                                                                   |                                                                                                               |
-| 官方文档《QFramework v0.16 使用指南》  |                                                                                   | 此文档即是                                                                                                         | 
+| 官方文档《QFramework 使用指南》  |                                                                                   | 此文档即是                                                                                                         | 
 | 《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？                                                     | [课程主页](https://learn.u3d.cn/tutorial/framework_design) |[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
 | Unity 开发者进阶班级：小班 | |  [地址](https://www.gamepixedu.com/my/course/51)                                                                |
 | **社区** |                                                                                   |                                                                                                               |
