@@ -14,10 +14,11 @@
  * Contributor
  *  TastSong        https://github.com/TastSong
  *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
+ *  猫叔(一只皮皮虾)  https://space.bilibili.com/656352/
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2022.7.21 13:15 Add ExecuteCommand virtual method
+ * Latest Update: 2022.8.8 10:24 List=>HashSet
  ****************************************************************************/
 
 using System;
@@ -56,14 +57,11 @@ namespace QFramework
 
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
-        /// <summary>
-        /// 是否初始化完成 
-        /// </summary>
         private bool mInited = false;
 
-        private List<ISystem> mSystems = new List<ISystem>();
+        private HashSet<ISystem> mSystems = new HashSet<ISystem>();
 
-        private List<IModel> mModels = new List<IModel>();
+        private HashSet<IModel> mModels = new HashSet<IModel>();
 
         public static Action<T> OnRegisterPatch = architecture => { };
 
