@@ -117,6 +117,9 @@
 | UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护 | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
 | AudioKit | 一套音频管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
 | PackageKit | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
+| **其他相关教程** |  |  |
+| 《独立游戏体验计划》（猫叔） | 独立游戏制作体验教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/656352) |
+| 《原创独立游戏制作》（凉鞋） | 原创独立游戏制作教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
 
 
 
