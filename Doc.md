@@ -1,5 +1,5 @@
 # 1. 介绍
-# 1. 简介
+# 01. 简介
 
 大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 ~ 2022 年 7 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
 
@@ -63,39 +63,41 @@ QFramework 的设计哲学是从每个细节上提升开发效率。
 
 *资源*
 
-| **版本** |                                                                                   |                                                                                                               |
+| **版本**                            |                                                              |                                                              |
 | ----------------------  |-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| QFramework.cs | QFramework 本体架构的实现                                                                |                                                                                                               |
-| QFramework.cs  示例 | QFramework.cs 与官方示例： CounterApp、《点点点》、FlappyBird、CubeMaster、ShootingEditor2D、贪吃蛇等 |                                                                                                               |
-| QFramework.Toolkits | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具         |                                                                                                               |
-| QFramework.ToolKitsPro | 在 ToolKits 基础上集成更多好用的工具的版本                                                        | [AssetStore](http://u3d.as/SJ9)                                                                               |
-| **教程** |                                                                                   |                                                                                                               |
-| 官方文档《QFramework 使用指南》  |                                                                                   | 此文档即是                                                                                                         | 
-| 《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？                                                     | [课程主页](https://learn.u3d.cn/tutorial/framework_design) |[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
-| Unity 开发者进阶班级：小班 | |  [地址](https://www.gamepixedu.com/my/course/51)                                                                |
-| **社区** |                                                                                   |                                                                                                               |
-| QQ 群:623597263        | 交流群                                                                               | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
-| github issue | github 社区                                                                         | [地址](https://github.com/liangxiegame/QFramework/issues/new)                                                   |
-| gitee issue | gitee 社区（国内访问快）                                                                   | [地址](https://gitee.com/liangxiegame/QFramework/issues)                                                        |
-| 提问/提需求/提 Bug/社区 |                                                                                   | [地址](https://qframework.cn/community)                                                                         |
-| **产品案例** |                                                                                   |                                                                                                               |
-| 独立游戏《鬼山之下》   | 使用 QF 制作的独立游戏                                                                     | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/)                                                  |
-| 手机游戏《谐音梗挑战》 | 使用 QF 制作的手机游戏                                                                     | [游戏主页(TapTap)](https://www.taptap.com/app/201075)                                                             |
-| 独立游戏《推灭泡泡姆》 | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~）            | [游戏主页(TapTap)](https://www.taptap.com/app/233228)                                                             |
-| **官方工具**（独立版本，不互相依赖) |                                                                                   |                                                                                                               |
-| SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                                                            | [github](https://github.com/liangxiegame/SingletonKit)|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
-| ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护                                             | [github](https://github.com/liangxiegame/ExtensionKit)|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
-| IOCKit | 易上手功能强大的 IOC 容器 ，由 QF 官方维护                                                        | [github](https://github.com/liangxiegame/IOCKit)|[gitee](https://gitee.com/liangxiegame/IOCKit) |
-| TableKit | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护                           | [github](https://github.com/liangxiegame/TableKit)|[gitee](https://gitee.com/liangxiegame/TableKit) |
-| PoolKit | 对象池工具，由 QF 官方维护                                                                   | [github](https://github.com/liangxiegame/PoolKit)|[gitee](https://gitee.com/liangxiegame/PoolKit) |
-| LogKit | 日志工具，由 QF 官方维护                                                                    | [github](https://github.com/liangxiegame/LogKit)|[gitee](https://gitee.com/liangxiegame/LogKit) |
-| ActionKit | 动作序列工具，由 QF 官方维护                                                                  | [github](https://github.com/liangxiegame/ActionKit)|[gitee](https://gitee.com/liangxiegame/ActionKit) |
-| ResKit | 资源管理工具，由 QF 官方维护                                                                  | [github](https://github.com/liangxiegame/ResKit)|[gitee](https://gitee.com/liangxiegame/ResKit) |
-| UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护                                                | [github](https://github.com/liangxiegame/UIKit)|[gitee](https://gitee.com/liangxiegame/UIKit) |
-| AudioKit | 一套音频管理工具，由 QF 官方维护                                                                | [github](https://github.com/liangxiegame/AudioKit)|[gitee](https://gitee.com/liangxiegame/AudioKit) |
-| PackageKit | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。                              |                                                                                                               | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
-| **群友案例** |                                                                                   |                                                                                                               |
-| 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏                      | [游戏主页(Github](https://github.com/TastSong/CrazyCar))                                                          |
+| QFramework.cs                       | QFramework 本体架构的实现                                    |                                                              |
+| QFramework.cs  示例                 | QFramework.cs 与官方示例： CounterApp、《点点点》、FlappyBird、CubeMaster、ShootingEditor2D、贪吃蛇等 |                                                              |
+| QFramework.Toolkits                 | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具（已包含 QFramework.cs 和 示例) |                                                              |
+| QFramework.Toolkits.Demo.WuZiQi     | 使用 QFramework.Toolkits 开发的五子棋 Demo（需要安装好  QFramework.Toolkits） |                                                              |
+| QFramework.Toolkits.Demo.Saolei     | 使用 QFramework.Toolkits 开发的扫雷 Demo（需要安装好  QFramework.Toolkits） |                                                              |
+| QFramework.ToolKitsPro              | 在 ToolKits 基础上集成更多好用的工具的版本（已包含 QFramework.Toolkits） | [AssetStore](http://u3d.as/SJ9)                              |
+| **群友案例**                        |                                                              |                                                              |
+| 赛车游戏《Crazy Car》               | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar))     |
+| **社区**                            |                                                              |                                                              |
+| QQ 群:623597263                     | 交流群                                                       | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
+| github issue                        | github 社区                                                  | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue                         | gitee 社区（国内访问快）                                     | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |
+| **教程**                            |                                                              |                                                              |
+| 《框架搭建 决定版》                 | 教程 QFramework  的核心架构是怎么演化过来的？                | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
+| **产品案例**                        |                                                              |                                                              |
+| 独立游戏《鬼山之下》                | 使用 QF 制作的独立游戏                                       | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
+| 手机游戏《谐音梗挑战》              | 使用 QF 制作的手机游戏                                       | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
+| 独立游戏《推灭泡泡姆》              | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228)        |
+| **官方工具**（独立版本，不互相依赖) |                                                              |                                                              |
+| SingletonKit                        | 易上手功能强大的单例工具，由 QF 官方维护                     | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
+| ExtensionKit                        | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护     | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
+| IOCKit                              | 易上手功能强大的 IOC 容器 ，由 QF 官方维护                   | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
+| TableKit                            | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
+| PoolKit                             | 对象池工具，由 QF 官方维护                                   | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
+| LogKit                              | 日志工具，由 QF 官方维护                                     | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
+| ActionKit                           | 动作序列工具，由 QF 官方维护                                 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
+| ResKit                              | 资源管理工具，由 QF 官方维护                                 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
+| UIKit                               | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护            | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
+| AudioKit                            | 一套音频管理工具，由 QF 官方维护                             | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
+| PackageKit                          | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
+| **其他相关教程**                    |                                                              |                                                              |
+| 《独立游戏体验计划》（猫叔）        | 独立游戏制作体验教程，有用到 QFramework.cs                   | [b 站](https://space.bilibili.com/656352)                    |
+| 《原创独立游戏制作》（凉鞋）        | 原创独立游戏制作教程，有用到 QFramework.cs                   | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
 
 
 **典型的 QFramework.cs 架构代码**
@@ -301,6 +303,8 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 教程分为架构篇和工具集篇，架构篇着重介绍 QFramework.cs 这套架构入门以及使用规范，工具篇着重介绍 QFramework 中的大量的工具集的使用。
 
 
+# 02.Roadmap-路线图
+
 **将来也许**
 * sLua、toLua、xLua、ILRuntime 支持
 * Pro 版本推进
@@ -313,7 +317,7 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 * UIKit 重构
 * AudioKit 重构
 
-** v1.0.x （当前）
+**v1.0.x**（当前）
 * QFramework.Toolkits 收录四个示例
 * 编辑器使用体验改进
 * QFramework Pro v0.5 Architecture Designer 发布
@@ -379,7 +383,7 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
   * 存档-未开始）
 
 # 2. 架构篇：QFramework.cs
-# 1. QFramework 架构简介
+# 01. QFramework 架构简介
 
 QFramework 架构是一套简单、强大、易上手的系统设计架构。
 
@@ -403,7 +407,7 @@ QFramework 架构是一套简单、强大、易上手的系统设计架构。
 
 
 
-# 2. QFramework 的 MVC
+# 02. QFramework 的 MVC
 QFramework 基于 MVC 的开发模式
 
 所以我们先从最熟知的 MVC 架构开始着手 QFramework 的学习。
@@ -740,7 +744,7 @@ Architecture 用于管理模块，或者说 Architecture 提供一整套架构�
 
 
 
-# 3. 引入 Command
+# 03. 引入 Command
 
 我们回顾一下目前的代码，如下；
 ``` csharp
@@ -1047,7 +1051,7 @@ Command 最明显的好处就是：
 
 
 
-# 4. 引入 Event
+# 04. 引入 Event
 
 我们看下当前的代码:
 
@@ -1395,7 +1399,7 @@ OK，到此，我们算是用上了还算合格的 MVC 的实现，而 QFramewor
 
 不过接下来还有一些概念，我们下一篇继续。
 
-# 5. 引入 Utility
+# 05. 引入 Utility
 
 在这一篇，我们来支持 CounterApp 的存储功能。
 
@@ -1609,7 +1613,7 @@ namespace QFramework.Example
 
 
 
-# 6. 引入 System
+# 06. 引入 System
 在这一篇，我们来引入最后一个基本概念 System。
 
 首先我们来看下代码，如下:
@@ -1925,15 +1929,6 @@ namespace QFramework.Example
                 
             model.Count++;
             this.SendEvent<CountChangeEvent>(); // ++
-
-            if (model.Count == 10)
-            {
-                Debug.Log("触发 点击达人 成就");
-            }
-            else if (model.Count == 20)
-            {
-                Debug.Log("触发 点击专家 成就");
-            }
         }
     }
     
@@ -2056,7 +2051,7 @@ QFramework 总共分四个层级，即
 
 
 
-# 7. 使用 BindableProperty 优化事件
+# 07. 使用 BindableProperty 优化事件
 
 在这篇我们介绍一个新的概念 BindableProperty。
 
@@ -2201,15 +2196,6 @@ namespace QFramework.Example
             var model = this.GetModel<CounterAppModel>();
                 
             model.Count.Value++; // -+
-            
-            if (model.Count == 10)
-            {
-                Debug.Log("触发 点击达人 成就");
-            }
-            else if (model.Count == 20)
-            {
-                Debug.Log("触发 点击专家 成就");
-            }
         }
     }
     
@@ -2307,7 +2293,7 @@ namespace QFramework.Example
 好了 BindableProperty 我们就介绍到这里。
 
 
-# 8. 用接口设计模块（依赖倒置原则）
+# 08. 用接口设计模块（依赖倒置原则）
 
 QFramework 本身支持依赖倒置原则，就是所有的模块访问和交互都可以通过接口来完成，代码如下:
 
@@ -2415,15 +2401,6 @@ namespace QFramework.Example
             var model = this.GetModel<ICounterAppModel>();
                 
             model.Count.Value++; // -+
-            
-            if (model.Count == 10)
-            {
-                Debug.Log("触发 点击达人 成就");
-            }
-            else if (model.Count == 20)
-            {
-                Debug.Log("触发 点击专家 成就");
-            }
         }
     }
     
@@ -2551,7 +2528,7 @@ namespace QFramework.Example
 这篇内容就这些。
 
 
-# 9. Query 介绍
+# 09. Query 介绍
 
 Query 是 CQRS 中的 Q，也就是 Command Query Responsibility Saperation 中的 Query。
 
@@ -3961,11 +3938,11 @@ QFramework.cs 的架构当前的版本，是从 《框架搭建 决定版》中�
 
 
 另外 QFramework.Toolkits 和 QFramework.ToolkitsPro 里包含的工具很多都是由 QFramework.cs 设计的， 工具的源码本身也是不错的学习资料。
+
   
-  
-  
+
 # 3. 工具篇：QFramework.Toolkits
-# 1. QFramework.Toolkits 简介
+# 01. QFramework.Toolkits 简介
 
 QFramework.Toolkits 是包含 QFramework.cs 和 大量工具集的解决方案。
 
@@ -4059,7 +4036,7 @@ namespace liangxiegame
 ```
 
 
-# 2. 下载与安装
+# 02. 下载与安装
 
 
 ## 如何下载&安装
@@ -4085,7 +4062,7 @@ git 仓库地址:
 
 当有新版本时，图中的按钮会显示为"更新"，点击就可以一键更新。
 
-# 3. CodeGenKit 脚本生成
+# 03. CodeGenKit 脚本生成
 
 在这一篇，我们学习几乎每个项目都要用到并且从中受益的功能：自动生成脚本并绑定，简称脚本生成。
 
@@ -4357,7 +4334,7 @@ CodeGenKit 中的  ViewController 除了可以用于普通的 GameObject，还�
 
 
 
-# 4. ActionKit 时序动作执行系统
+# 04. ActionKit 时序动作执行系统
 AciontKit 是一个时序动作执行系统。
 
 游戏中，动画的播放、延时、资源的异步加载、Tween 的执行、网络请求等，这些全部都是时序任务，而 ActionKit，可以把这些任务全部整合在一起，使用统一的 API，来对他们的执行进行**计划**。
@@ -4859,7 +4836,7 @@ namespace QFramework.Example
 ```
 
 好了，关于 ActionKit 的介绍就到这里。
-# 5. ResKit 资源管理&开发解决方案
+# 05. ResKit 资源管理&开发解决方案
 
 ## Res Kit 简介
 Res Kit，是资源管理&快速开发解决方案
@@ -5590,7 +5567,7 @@ ResKit.InitAsync().ToAction().StartGlobal();
 
 
 
-# 6. UIKit 界面管理&快速开发解决方案
+# 06. UIKit 界面管理&快速开发解决方案
 
 ## UI Kit 简介
 
@@ -6390,8 +6367,8 @@ namespace QFramework
 
 
 
-  
-# 7. AudioKit 音频管理解决方案
+
+# 07. AudioKit 音频管理解决方案
 
 ## 基本使用
 
@@ -6532,7 +6509,7 @@ namespace QFramework.Example
 
 
 
-# 8. FluentAPI 链式 API
+# 08. FluentAPI 链式 API
 
 ## FluentAPI 简介
 FluentAPI 是 笔者积累的 Unity API 的一些链式封装。
@@ -6588,7 +6565,7 @@ mResLoader.LoadSync<GameObject>("mygameobj")
 
 
 
-# 9. SingletonKit 单例模板套件
+# 09. SingletonKit 单例模板套件
 
 SingletonKit 是 QFramework 的第一个收集的工具，经过了 7 年的迭代，现在已经非常成熟了。
 
@@ -6905,126 +6882,207 @@ IEnumerator Start()
 
 QFramework 内置了一个简易的状态机，基本使用如下:
 
+## 链式
+
 ``` csharp
-        void Example()
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class IStateBasicUsageExample : MonoBehaviour
+    {
+        public enum States
         {
-            var fsm = new FSM<States>();
-            fsm.State(States.A)
+            A,
+            B
+        }
+
+        public FSM<States> FSM = new FSM<States>();
+
+        void Start()
+        {
+            FSM.State(States.A)
+                .OnCondition(()=>FSM.CurrentStateId == States.B)
                 .OnEnter(() =>
+                {
+                    Debug.Log("Enter A");
+                })
+                .OnUpdate(() =>
                 {
                     
                 })
-                .OnUpdate(() =>
-                { 
-                    //if (xxx) fsm.ChangeState(States.B);
+                .OnFixedUpdate(() =>
+                {
                     
+                })
+                .OnGUI(() =>
+                {
+                    GUILayout.Label("State A");
+                    if (GUILayout.Button("To State B"))
+                    {
+                        FSM.ChangeState(States.B);
+                    }
                 })
                 .OnExit(() =>
                 {
-                    
+                    Debug.Log("Enter B");
+
                 });
 
-            fsm.State(States.B)
-                .OnEnter(() =>
+            FSM.State(States.B)
+                .OnCondition(() => FSM.CurrentStateId == States.A)
+                .OnGUI(() =>
                 {
-
+                    GUILayout.Label("State B");
+                    if (GUILayout.Button("To State A"))
+                    {
+                        FSM.ChangeState(States.A);
+                    }
                 });
-
-            fsm.StartState(States.A);
-
-            // 需要用 Update 去刷状态机
-            ActionKit.OnUpdate.Register(() =>
-            {
-                fsm.Update();
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-        }
-```
-# 12. TableKit 表数据结构
-
-在设计 UIKit、ResKit 等系统时，如果只使用默认的 List 和 Dictionary 来管理数据和对象需要做很多的封装。
-
-因为本身 List 和 Dictionary 支持的查询方式比较单一，如果想做一些比较复杂的查询，比如联合查询，那么 List 和 Dictionary 的性能会比较差。
-
-所以为此，笔者简单封装了一个 Table 数据结构。
-
-使用示例如下:
-
-``` csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-namespace QFramework
-{
-    public class TableKitExample : MonoBehaviour
-    {
-        public class Student
-        {
-            public string Name { get; set; }
-            public int Age { get; set; }
-            public int Level { get; set; }
-        }
-        public class School : Table<Student>
-        {
-            public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);
-            public TableIndex<int, Student> LevelIndex = new TableIndex<int, Student>((student) => student.Level);
             
-            protected override void OnAdd(Student item)
-            {
-                AgeIndex.Add(item);
-                LevelIndex.Add(item);
-            }
-
-            protected override void OnRemove(Student item)
-            {
-                AgeIndex.Remove(item);
-                LevelIndex.Remove(item);
-            }
-
-            protected override void OnClear()
-            {
-                AgeIndex.Clear();
-                LevelIndex.Clear();
-            }
-
-            public override IEnumerator<Student> GetEnumerator()
-            {
-                return AgeIndex.Dictionary.Values.SelectMany(s=>s).GetEnumerator();
-            }
-
-            protected override void OnDispose()
-            {
-                AgeIndex.Dispose();
-                LevelIndex.Dispose();
-            }
+            FSM.StartState(States.A);
         }
 
-
-        private void Start()
+        private void Update()
         {
-            var school = new School();
-            school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
-            school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
-            school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
-            school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
-            
-            foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
-            {
-                Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
-            }
+            FSM.Update();
+        }
+
+        private void FixedUpdate()
+        {
+            FSM.FixedUpdate();
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
         }
     }
 }
-// 1:2:liangxie
-// 2:2:ava
+```
+
+运行之后，结果如下:
+
+![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
+
+没啥问题。
+
+
+
+## 类模式
+
+链式适合在快速开发阶段，或者在状态非常少的阶段使用。
+
+
+
+而如果状态较多，或者相应代码量较多的阶段，可以使用类模式，代码如下:
+
+
+
+``` csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class IStateClassExample : MonoBehaviour
+    {
+
+        public enum States
+        {
+            A,
+            B,
+            C
+        }
+
+        public FSM<States> FSM = new FSM<States>();
+
+        public class StateA : AbstractState<States,IStateClassExample>
+        {
+            public StateA(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            {
+            }
+
+            protected override bool OnCondition()
+            {
+                return mFSM.CurrentStateId == States.B;
+            }
+
+            public override void OnGUI()
+            {
+                GUILayout.Label("State A");
+
+                if (GUILayout.Button("To State B"))
+                {
+                    mFSM.ChangeState(States.B);
+                }
+            }
+        }
+        
+        
+        public class StateB: AbstractState<States,IStateClassExample>
+        {
+            public StateB(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            {
+            }
+
+            protected override bool OnCondition()
+            {
+                return mFSM.CurrentStateId == States.A;
+            }
+
+            public override void OnGUI()
+            {
+                GUILayout.Label("State B");
+
+                if (GUILayout.Button("To State A"))
+                {
+                    mFSM.ChangeState(States.A);
+                }
+            }
+        }
+
+        private void Start()
+        {
+            FSM.AddState(States.A, new StateA(FSM, this));
+            FSM.AddState(States.B, new StateB(FSM, this));
+
+            // 支持和链式模式混用
+            // FSM.State(States.C)
+            //     .OnEnter(() =>
+            //     {
+            //
+            //     });
+            
+            FSM.StartState(States.A);
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
+        }
+    }
+}
 ```
 
 
-TableKit 兼顾查询功能支持和性能，在功能和性能之间取得了一个平衡。
 
-ResKit、UIKit 的数据管理全部由 TableKit 支持。
+运行之后结果如下。
 
+
+
+![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
+
+关于状态机的介绍就到这里。
 
 # 11. PoolKit 对象池套件
 
@@ -7134,6 +7192,93 @@ infos.Add(""name"",""liangxie"");
 infos.Release2Pool();
 // or DictionaryPool<string,string>.Release(names);
 ```
+# 12. TableKit 表数据结构
+
+在设计 UIKit、ResKit 等系统时，如果只使用默认的 List 和 Dictionary 来管理数据和对象需要做很多的封装。
+
+因为本身 List 和 Dictionary 支持的查询方式比较单一，如果想做一些比较复杂的查询，比如联合查询，那么 List 和 Dictionary 的性能会比较差。
+
+所以为此，笔者简单封装了一个 Table 数据结构。
+
+使用示例如下:
+
+``` csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace QFramework
+{
+    public class TableKitExample : MonoBehaviour
+    {
+        public class Student
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public int Level { get; set; }
+        }
+        public class School : Table<Student>
+        {
+            public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);
+            public TableIndex<int, Student> LevelIndex = new TableIndex<int, Student>((student) => student.Level);
+            
+            protected override void OnAdd(Student item)
+            {
+                AgeIndex.Add(item);
+                LevelIndex.Add(item);
+            }
+
+            protected override void OnRemove(Student item)
+            {
+                AgeIndex.Remove(item);
+                LevelIndex.Remove(item);
+            }
+
+            protected override void OnClear()
+            {
+                AgeIndex.Clear();
+                LevelIndex.Clear();
+            }
+
+            public override IEnumerator<Student> GetEnumerator()
+            {
+                return AgeIndex.Dictionary.Values.SelectMany(s=>s).GetEnumerator();
+            }
+
+            protected override void OnDispose()
+            {
+                AgeIndex.Dispose();
+                LevelIndex.Dispose();
+            }
+        }
+
+
+        private void Start()
+        {
+            var school = new School();
+            school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
+            school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
+            school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
+            school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
+            
+            foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
+            {
+                Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
+            }
+        }
+    }
+}
+// 1:2:liangxie
+// 2:2:ava
+```
+
+
+TableKit 兼顾查询功能支持和性能，在功能和性能之间取得了一个平衡。
+
+ResKit、UIKit 的数据管理全部由 TableKit 支持。
+
+
 # 13. 其他事件工具
 
 QFramework 除了支持了  TypeEventSystem、EasyEvent 还支持了 EnumEventSystem、StringEventSystem。
@@ -7342,10 +7487,10 @@ namespace QFramework.Example
 如果要和其他脚本层通信选择用 StringEventSystem。
 
 
-    
-    
-    
-        
+​    
+​    
+​    
+​        
 # 14. 更多内容
 
 
