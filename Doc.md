@@ -1,57 +1,57 @@
 # 1. 介绍
 # 01. 简介
 
-大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 ~ 2022 年 7 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
+大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 \~ 2022 年 10 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
 
 此教程，将收录于 QFramework 的官方文档，发布于 qframework.cn，同时也会包含在 QFramework.Toolkits 的编辑器内置文档中。
 
-
 ## QFramework 简介
+
 QFramework 是一套渐进式、快速开发框架，适用于任何类型的游戏及应用项目。
 
 QFramework 包含一套 开发架构 和 大量的工具集。
 
 QFramework 特性速览：
 
-* 开发架构（QFramework.cs v1.0）
-  * 简单、易上手、强大
-  * MVC
-  * IOC、分层支持
-  * CQRS 支持
-  * 符合 SOLID原则
-  * 可以使用 DDD 的方式设计项目
-  * 不到 1000 行代码
-* 工具集（QFramework.Toolkits v0.16）
-  * UIKit 界面&View快速开发&管理解决方案
-    * UI、GameObject 的代码生成&自动赋值
-    * 界面管理
-    * 层级管理
-    * 界面堆栈
-    * 默认使用 ResKit 方式管理界面资源
-    * 可自定义界面的加载、卸载方式
-    * Manager Of Manager 架构集成（不推荐使用）
-  * ResKit 资源快速开发&管理解决方案
-    * AssetBundle 提供模拟模式，开发阶段无需打包即可加载资源
-    * 资源名称代码生成支持
-    * 同一个 API 可加载 AssetBundle、Resources、网络 和 自定义来源的资源
-    * 提供一套引用计数的资源管理模型
-  * AudioKit 音频管理解决方案
-    * 提供背景音乐、人声、音效 三种音频播放 API
-    * 音量控制
-    * 默认使用 ResKit 方式管理音频资源
-    * 可自定义音频的加载、卸载方式
-  * CoreKit 提供大量的代码工具
-    * ActionKit：动作序列执行系统
-    * CodeGenKit：代码生成 & 自动序列化赋值工具
-    * EventKit：提供基于类、字符串、枚举以及信号类型的事件工具集
-    * FluentAPI：对大量的 Unity 和 C# 常用的 API 提供了静态扩展的封装（链式 API）
-    * IOCKit：提供依赖注入容器
-    * LocaleKit：本地化&多语言工具集
-    * LogKit：日志工具集
-    * PackageKit：包管理工具，由此可更新框架和对应的插件模块。
-    * PoolKit：对象池工具集，提供对象池的基础上，也提供 ListPool 和 Dictionary Pool 等工具。
-    * SingletonKit：单例工具集
-    * TableKit：提供表格类数据结构的工具集
+*   开发架构（QFramework.cs）
+  *   简单、易上手、强大
+  *   MVC
+  *   IOC、分层支持
+  *   CQRS 支持
+  *   符合 SOLID原则
+  *   可以使用 DDD 的方式设计项目
+  *   不到 1000 行代码
+*   工具集（QFramework.Toolkits）
+  *   UIKit 界面\&View快速开发&管理解决方案
+    *   UI、GameObject 的代码生成&自动赋值
+    *   界面管理
+    *   层级管理
+    *   界面堆栈
+    *   默认使用 ResKit 方式管理界面资源
+    *   可自定义界面的加载、卸载方式
+    *   Manager Of Manager 架构集成（不推荐使用）
+  *   ResKit 资源快速开发&管理解决方案
+    *   AssetBundle 提供模拟模式，开发阶段无需打包即可加载资源
+    *   资源名称代码生成支持
+    *   同一个 API 可加载 AssetBundle、Resources、网络 和 自定义来源的资源
+    *   提供一套引用计数的资源管理模型
+  *   AudioKit 音频管理解决方案
+    *   提供背景音乐、人声、音效 三种音频播放 API
+    *   音量控制
+    *   默认使用 ResKit 方式管理音频资源
+    *   可自定义音频的加载、卸载方式
+  *   CoreKit 提供大量的代码工具
+    *   ActionKit：动作序列执行系统
+    *   CodeGenKit：代码生成 & 自动序列化赋值工具
+    *   EventKit：提供基于类、字符串、枚举以及信号类型的事件工具集
+    *   FluentAPI：对大量的 Unity 和 C# 常用的 API 提供了静态扩展的封装（链式 API）
+    *   IOCKit：提供依赖注入容器
+    *   LocaleKit：本地化&多语言工具集
+    *   LogKit：日志工具集
+    *   PackageKit：包管理工具，由此可更新框架和对应的插件模块。
+    *   PoolKit：对象池工具集，提供对象池的基础上，也提供 ListPool 和 Dictionary Pool 等工具。
+    *   SingletonKit：单例工具集
+    *   TableKit：提供表格类数据结构的工具集
 
 QFramework 的设计哲学是从每个细节上提升开发效率。
 
@@ -63,46 +63,45 @@ QFramework 的设计哲学是从每个细节上提升开发效率。
 
 *资源*
 
-| **版本**                            |                                                              |                                                              |
-| ----------------------  |-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| QFramework.cs                       | QFramework 本体架构的实现                                    |                                                              |
-| QFramework.cs  示例                 | QFramework.cs 与官方示例： CounterApp、《点点点》、FlappyBird、CubeMaster、ShootingEditor2D、贪吃蛇等 |                                                              |
-| QFramework.Toolkits                 | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具（已包含 QFramework.cs 和 示例) |                                                              |
-| QFramework.Toolkits.Demo.WuZiQi     | 使用 QFramework.Toolkits 开发的五子棋 Demo（需要安装好  QFramework.Toolkits） |                                                              |
-| QFramework.Toolkits.Demo.Saolei     | 使用 QFramework.Toolkits 开发的扫雷 Demo（需要安装好  QFramework.Toolkits） |                                                              |
-| QFramework.ToolKitsPro              | 在 ToolKits 基础上集成更多好用的工具的版本（已包含 QFramework.Toolkits） | [AssetStore](http://u3d.as/SJ9)                              |
-| **群友案例**                        |                                                              |                                                              |
-| 赛车游戏《Crazy Car》               | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar))     |
-| **社区**                            |                                                              |                                                              |
-| QQ 群:623597263                     | 交流群                                                       | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
-| github issue                        | github 社区                                                  | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
-| gitee issue                         | gitee 社区（国内访问快）                                     | [地址](https://gitee.com/liangxiegame/QFramework/issues)     |
-| **教程**                            |                                                              |                                                              |
-| 《框架搭建 决定版》                 | 教程 QFramework  的核心架构是怎么演化过来的？                | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
-| **产品案例**                        |                                                              |                                                              |
-| 独立游戏《鬼山之下》                | 使用 QF 制作的独立游戏                                       | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
-| 手机游戏《谐音梗挑战》              | 使用 QF 制作的手机游戏                                       | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-| 独立游戏《推灭泡泡姆》              | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228)        |
-| **官方工具**（独立版本，不互相依赖) |                                                              |                                                              |
-| SingletonKit                        | 易上手功能强大的单例工具，由 QF 官方维护                     | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
-| ExtensionKit                        | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护     | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
-| IOCKit                              | 易上手功能强大的 IOC 容器 ，由 QF 官方维护                   | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
-| TableKit                            | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
-| PoolKit                             | 对象池工具，由 QF 官方维护                                   | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
-| LogKit                              | 日志工具，由 QF 官方维护                                     | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
-| ActionKit                           | 动作序列工具，由 QF 官方维护                                 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
-| ResKit                              | 资源管理工具，由 QF 官方维护                                 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
-| UIKit                               | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护            | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
-| AudioKit                            | 一套音频管理工具，由 QF 官方维护                             | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
-| PackageKit                          | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
-| **其他相关教程**                    |                                                              |                                                              |
-| 《独立游戏体验计划》（猫叔）        | 独立游戏制作体验教程，有用到 QFramework.cs                   | [b 站](https://space.bilibili.com/656352)                    |
-| 《原创独立游戏制作》（凉鞋）        | 原创独立游戏制作教程，有用到 QFramework.cs                   | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
-
+| **版本**                          |                                                                                                   |                                                                                                                                                                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| QFramework.cs                   | QFramework 本体架构的实现                                                                                |                                                                                                                                                                                                                            |
+| QFramework.cs  示例               | QFramework.cs 与官方示例： CounterApp、《点点点》、FlappyBird、CubeMaster、ShootingEditor2D、贪吃蛇等                 | [github](https://github.com/liangxiegame/QFramework/blob/master/QFramework.cs.Examples.unitypackage)\|[gitee](https://gitee.com/liangxiegame/QFramework/blob/master/QFramework.cs.Examples.unitypackage)                   |
+| QFramework.Toolkits             | QFramework  集成 CoreKit/UIKit/ActionKit/ResKit/PackageKit/AudioKit 等全部官方工具（已包含 QFramework.cs 和 示例) | [github](https://github.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.unitypackage)\|[gitee](https://gitee.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.unitypackage)                         |
+| QFramework.Toolkits.Demo.WuZiQi | 使用 QFramework.Toolkits 开发的五子棋 Demo（需要安装好  QFramework.Toolkits）                                    | [github](https://github.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.Demo.WuZiQi.unitypackage)\|[gitee](https://gitee.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.Demo.WuZiQi.unitypackage) |
+| QFramework.Toolkits.Demo.Saolei | 使用 QFramework.Toolkits 开发的扫雷 Demo（需要安装好  QFramework.Toolkits）                                     | [github](https://github.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.Demo.SaoLei.unitypackage)\|[gitee](https://gitee.com/liangxiegame/QFramework/blob/master/QFramework.Toolkits.Demo.SaoLei.unitypackage) |
+| QFramework.ToolKitsPro          | 在 ToolKits 基础上集成更多好用的工具的版本（已包含 QFramework.Toolkits）                                               | [AssetStore](http://u3d.as/SJ9)                                                                                                                                                                                            |
+| **群友案例**                        |                                                                                                   |                                                                                                                                                                                                                            |
+| 赛车游戏《Crazy Car》                 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏                                      | [游戏主页(Github](https://github.com/TastSong/CrazyCar))                                                                                                                                                                       |
+| **社区**                          |                                                                                                   |                                                                                                                                                                                                                            |
+| QQ 群:623597263                  | 交流群                                                                                               | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66)                                                                                                              |
+| github issue                    | github 社区                                                                                         | [地址](https://github.com/liangxiegame/QFramework/issues/new)                                                                                                                                                                |
+| gitee issue                     | gitee 社区（国内访问快）                                                                                   | [地址](https://gitee.com/liangxiegame/QFramework/issues)                                                                                                                                                                     |
+| **教程**                          |                                                                                                   |                                                                                                                                                                                                                            |
+| 《框架搭建 决定版》                      | 教程 QFramework  的核心架构是怎么演化过来的？                                                                     | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D)                                              |
+| **产品案例**                        |                                                                                                   |                                                                                                                                                                                                                            |
+| 独立游戏《鬼山之下》                      | 使用 QF 制作的独立游戏                                                                                     | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/)                                                                                                                                                               |
+| 手机游戏《谐音梗挑战》                     | 使用 QF 制作的手机游戏                                                                                     | [游戏主页(TapTap)](https://www.taptap.com/app/201075)                                                                                                                                                                          |
+| 独立游戏《推灭泡泡姆》                     | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支~（P.S 使用 QF.cs 作为架构开发的哦~）                              | [游戏主页(TapTap)](https://www.taptap.com/app/233228)                                                                                                                                                                          |
+| **官方工具**（独立版本，不互相依赖)            |                                                                                                   |                                                                                                                                                                                                                            |
+| SingletonKit                    | 易上手功能强大的单例工具，由 QF 官方维护                                                                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit)                                                                                                               |
+| ExtensionKit                    | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护                                                             | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit)                                                                                                               |
+| IOCKit                          | 易上手功能强大的 IOC 容器 ，由 QF 官方维护                                                                        | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit)                                                                                                                           |
+| TableKit                        | 一套类似表格的数据结构（List\<List\<T>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护                                           | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit)                                                                                                                       |
+| PoolKit                         | 对象池工具，由 QF 官方维护                                                                                   | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit)                                                                                                                         |
+| LogKit                          | 日志工具，由 QF 官方维护                                                                                    | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit)                                                                                                                           |
+| ActionKit                       | 动作序列工具，由 QF 官方维护                                                                                  | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit)                                                                                                                     |
+| ResKit                          | 资源管理工具，由 QF 官方维护                                                                                  | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit)                                                                                                                           |
+| UIKit                           | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护                                                                | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit)                                                                                                                             |
+| AudioKit                        | 一套音频管理工具，由 QF 官方维护                                                                                | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit)                                                                                                                       |
+| PackageKit                      | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。                                              | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit)                                                                                                                   |
+| **其他相关教程**                      |                                                                                                   |                                                                                                                                                                                                                            |
+| 《独立游戏体验计划》（猫叔）                  | 独立游戏制作体验教程，有用到 QFramework.cs                                                                      | [b 站](https://space.bilibili.com/656352)                                                                                                                                                                                   |
+| 《原创独立游戏制作》（凉鞋）                  | 原创独立游戏制作教程，有用到 QFramework.cs                                                                      | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221)                                                                                                                                             |
 
 **典型的 QFramework.cs 架构代码**
 
-``` csharp
+```csharp
 namespace QFramework.Exmaple
 {
     public class CounterAppController : MonoBehaviour , IController
@@ -169,7 +168,7 @@ namespace QFramework.Exmaple
 
 **典型的 QFramework.Toolkits 代码**
 
-``` csharp
+```csharp
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -213,8 +212,8 @@ namespace liangxiegame
 }
 ```
 
-
 ## 大量的示例
+
 ### 小游戏《点点点》
 
 ![b5966b31-f004-4b5f-a38d-25753fb2eb8f.gif](https://file.liangxiegame.com/5a10aa95-4c93-4dae-acec-667a113c30ca.gif)
@@ -223,34 +222,31 @@ namespace liangxiegame
 
 ![430b7f31-508d-4569-aa51-b75d5553b8c4.gif](https://file.liangxiegame.com/9845122b-93d9-4106-a027-2d7c129a096a.gif)
 
-作者：王二 soso https://github.com/so-sos-so
+作者：王二 soso <https://github.com/so-sos-so>
 
 ### 小游戏《Cube Master》
 
-![b1334ef2-f6d4-4a9c-a5c4-b6cd6508595c.gif](https://file.liangxiegame.com/f51abab0-9dc9-478b-b1f1-67f2cd588477.gif)
-作者：王二 soso https://github.com/so-sos-so
+![b1334ef2-f6d4-4a9c-a5c4-b6cd6508595c.gif](https://file.liangxiegame.com/f51abab0-9dc9-478b-b1f1-67f2cd588477.gif) 作者：王二 soso <https://github.com/so-sos-so>
 
 ### 简易关卡编辑器2D
+
 ![c57c20cf-5ee6-4346-8be8-8ad1ea2d63b9.gif](https://file.liangxiegame.com/6492498b-6c22-478d-8785-9f43453c34db.gif)
 
 ![ea2cb545-4b5b-4d02-b494-dde4afa4e190.gif](https://file.liangxiegame.com/34b775c6-6a49-4141-9b9a-1377a6c15673.gif)
-
 
 ### 小游戏《贪吃蛇》
 
 ![fb907355-c06c-4bde-8ca3-5638ba9b3ef7.gif](https://file.liangxiegame.com/ac70d14e-ea89-445d-899e-06f18f11f8d1.gif)
 
-作者：一只皮皮虾 https://gitee.com/PantyNeko/
+作者：一只皮皮虾 <https://gitee.com/PantyNeko/>
 
 以上的示例都是由 QFramework.cs 制作而成的官方示例。
-
 
 另外还有群友制作的开源游戏
 
 ### CrazyCar
 
 Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用QFramework框架，支持KCP和WebSocket网络(商用级)
-
 
 ![Login.jpg](https://file.liangxiegame.com/0ab6cb1d-2374-4aa2-b27d-f04eb72792cd.png)
 
@@ -260,26 +256,24 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 
 ![Avatar.png](https://file.liangxiegame.com/32b48b5b-cdcc-433e-b1b2-4b1333211a70.png) ![Profile.png](https://file.liangxiegame.com/bda476e4-0ede-4fd9-a5bb-e993bce8a786.png)
 
-
 ![Equip.png](https://file.liangxiegame.com/158b0ce0-6e67-47c5-81b5-cee6388dd99c.png)
 
 ![Rank.png](https://file.liangxiegame.com/2bd0ef1f-d639-48e8-8c48-320995d20de4.png)
 
-![TimeTrial.png](https://file.liangxiegame.com/aa337718-b868-41d2-bc6b-2ef51c157481.png)
-![Match.png](https://file.liangxiegame.com/06157781-3271-438c-bf3f-613e6ec00fb0.png)
+![TimeTrial.png](https://file.liangxiegame.com/aa337718-b868-41d2-bc6b-2ef51c157481.png) ![Match.png](https://file.liangxiegame.com/06157781-3271-438c-bf3f-613e6ec00fb0.png)
 
-作者: TastSone  https://github.com/TastSong
+作者: TastSone  <https://github.com/TastSong>
 
-项目地址: https://github.com/TastSong/CrazyCar
+项目地址: <https://github.com/TastSong/CrazyCar>
 
 ## 案例《五子棋》
 
 ![2f4dacbd-e59b-43af-b7be-44220fac664e.png](https://file.liangxiegame.com/a76bc24a-1828-46f2-94c5-8bd24884f932.png)
 
-
 源码地址:
-* github https://github.com/liangxiegame/QFramework
-* gitee https://gitee.com/liangxiegame/QFramework
+
+*   github <https://github.com/liangxiegame/QFramework>
+*   gitee <https://gitee.com/liangxiegame/QFramework>
 
 ![image.png](https://file.liangxiegame.com/3abceb70-2d17-4457-aff1-ef8a6ef4bd66.png)
 
@@ -287,22 +281,29 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 
 作者：Joker
 
-![172348_4d54744e_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png)
+![172348\_4d54744e\_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png)
 
 源码地址:
-* github https://github.com/liangxiegame/QFramework
-* gitee https://gitee.com/liangxiegame/QFramework
+
+*   github <https://github.com/liangxiegame/QFramework>
+*   gitee <https://gitee.com/liangxiegame/QFramework>
 
 ![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png)
 
-
-
 ## 本教程简介
+
 在上一版官方教程《QFramework 使用指南 2020》写完之后，经过两年（2022 年），QFramework 改进了很多工具的使用体验，同时又新增了一套非常简单且强大的开发架构，这样就迎来了 QFramework 第一个正式版本 QFramework v1，这样就导致导致 QFramework 的推荐使用的 API 发生了一些变化，虽然旧版本的 API 还能用，但是按照《QFramework 使用指南 2020》写的很多代码会报很多警告，这会让很多初学者感到疑惑，所以笔者打算在《QFramework 使用指南 2020》的基础上，重制一套新的 QFramework 使用教程，名字叫做《QFramework v1.0 使用指南》。
 
 教程分为架构篇和工具集篇，架构篇着重介绍 QFramework.cs 这套架构入门以及使用规范，工具篇着重介绍 QFramework 中的大量的工具集的使用。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 02.Roadmap-路线图
 
 **将来也许**
@@ -382,6 +383,15 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
   * QuestKit-任务编辑器（未开始）
   * 存档-未开始）
 
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 2. 架构篇：QFramework.cs
 # 01. QFramework 架构简介
 
@@ -406,7 +416,14 @@ QFramework 架构是一套简单、强大、易上手的系统设计架构。
 这两张图现在大家可能还看不太懂，没关系，我们过一遍快速入门就懂了。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 02. QFramework 的 MVC
 QFramework 基于 MVC 的开发模式
 
@@ -425,7 +442,7 @@ QFramework 基于 MVC 的开发模式
 
 复制完之后，我们创建一个脚本叫做 CounterAppController，代码如下：
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -492,7 +509,7 @@ namespace QFramework.Example
 首先是 Model、View、Controller
 
 Model 的代码如下:
-``` csharp
+```csharp
 // Model
 private int mCount = 0;
 ```
@@ -500,7 +517,7 @@ private int mCount = 0;
 非常简单，只有一个成员变量，但是在这里它其实并不算是一个 Model，他只是要在 View 中显示的一个数据而已，具体为什么不是 Model 我们在后边再说。
 
 View 的代码如下:
-``` csharp
+```csharp
 // View
 private Button mBtnAdd;
 private Button mBtnSub;
@@ -511,7 +528,7 @@ View 的代码也很简单，View 在 QFramework 的 MVC 定义里就是提供�
 
 Controller 的代码，如下：
 
-``` csharp
+```csharp
 void Start()
 {
     ...
@@ -547,7 +564,7 @@ void UpdateView()
 好了，我们回头再看下完整代码。
 
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -624,7 +641,7 @@ QFramework.cs 地址：
 
 导入之后，我们将 CounterAppController 的代码改成如下：
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -737,9 +754,14 @@ Architecture 用于管理模块，或者说 Architecture 提供一整套架构�
 
 虽然我们上手了 MVC，但是这样的 MVC 还有很多问题，我们下一篇继续解决。
 
+## 更多内容
 
-
-
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -747,7 +769,7 @@ Architecture 用于管理模块，或者说 Architecture 提供一整套架构�
 # 03. 引入 Command
 
 我们回顾一下目前的代码，如下；
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -848,7 +870,7 @@ namespace QFramework.Example
 
 我们简单分析一下为什么 Controller 会越来越臃肿，我们先看下监听用户输入部分的代码，如下：
 
-``` csharp
+```csharp
 // 监听输入
 mBtnAdd.onClick.AddListener(() =>
 {
@@ -901,7 +923,7 @@ QFramework 也是使用了同样的方式解决 Controller 臃肿的问题。
 
 我们将代码改成如下：
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1047,15 +1069,21 @@ Command 最明显的好处就是：
 
 这篇内容就这些。
 
+## 更多内容
 
-
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 # 04. 引入 Event
 
 我们看下当前的代码:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1171,7 +1199,7 @@ namespace QFramework.Example
 
 表现逻辑的代码如下：
 
-``` csharp
+```csharp
 // 监听输入
 mBtnAdd.onClick.AddListener(() =>
 {
@@ -1208,7 +1236,7 @@ mBtnSub.onClick.AddListener(() =>
 
 在 QFramework 中，用法非常简单，代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1399,13 +1427,21 @@ OK，到此，我们算是用上了还算合格的 MVC 的实现，而 QFramewor
 
 不过接下来还有一些概念，我们下一篇继续。
 
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 05. 引入 Utility
 
 在这一篇，我们来支持 CounterApp 的存储功能。
 
 其代码也非常简单，只需要修改一部分 Model 的代码即可，如下：
 
-``` csharp
+```csharp
     // 定义一个 Model 对象
     public class CounterAppModel : AbstractModel
     {
@@ -1439,7 +1475,7 @@ OK，到此，我们算是用上了还算合格的 MVC 的实现，而 QFramewor
 
 于是 QFramework 提供了一个 Utility 层，专门用来解决上述两个问题的，使用方法非常简单，如下：
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1612,13 +1648,20 @@ namespace QFramework.Example
 好了，这篇就介绍到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 06. 引入 System
 在这一篇，我们来引入最后一个基本概念 System。
 
 首先我们来看下代码，如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -1780,7 +1823,7 @@ namespace QFramework.Example
 
 逻辑听起来很简单，我们直接在 IncreaseCountCommand 里编写即可，如下：
 
-``` csharp
+```csharp
     public class IncreaseCountCommand : AbstractCommand 
     {
         protected override void OnExecute()
@@ -1820,7 +1863,7 @@ namespace QFramework.Example
 
 使用代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -2045,7 +2088,14 @@ QFramework 总共分四个层级，即
 
 这篇就到这里。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -2060,7 +2110,7 @@ BindableProperty 是包含 数据 + 数据变更事件 的一个对象。
 ## BindableProperty 基本使用
 简单的用法如下:
 
-``` csharp
+```csharp
 var age = new BindableProperty<int>(10);
 
 age.Register(newAge=>{
@@ -2084,7 +2134,7 @@ BindableProperty 除了提供 Register 这个 API 之外，还提供了 Register
 
 具体用法如下:
 
-``` csharp
+```csharp
 var age = new BindableProperty<int>(5);
 
 age.RegisterWithInitValue(newAge => {
@@ -2105,7 +2155,7 @@ BindableProperty 是一个独立的工具，可以脱离 QFramework 架构使用
 
 我们直接优化即可，优化后代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -2292,12 +2342,19 @@ namespace QFramework.Example
 
 好了 BindableProperty 我们就介绍到这里。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 08. 用接口设计模块（依赖倒置原则）
 
 QFramework 本身支持依赖倒置原则，就是所有的模块访问和交互都可以通过接口来完成，代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -2485,7 +2542,7 @@ namespace QFramework.Example
 当然面向接口的方式去做开发也有很多其他的好处，这当然是大家随着使用时长会慢慢体会的。
 
 其中有一个重要的大一点，就是我们之前说的 Storage，如果想把存储的 API 从 PlayerPrefs 切换成 EasySave，那么我们就不需要去修改 Storage 对象，而是扩展一个 IStorage 接口即可，伪代码如下:
-``` csharp
+```csharp
     public class EasySaveStorage : IStorage
     {
         public void SaveInt(string key, int value)
@@ -2503,7 +2560,7 @@ namespace QFramework.Example
 
 注册模块的伪代码如下:
 
-``` csharp
+```csharp
     // 定义一个架构（用于管理模块）
     public class CounterApp : Architecture<CounterApp>
     {
@@ -2527,7 +2584,14 @@ namespace QFramework.Example
 
 这篇内容就这些。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 09. Query 介绍
 
 Query 是 CQRS 中的 Q，也就是 Command Query Responsibility Saperation 中的 Query。
@@ -2540,7 +2604,7 @@ Query 是 CQRS 中的 Q，也就是 Command Query Responsibility Saperation 中�
 
 使用的方式也很简单，和 Command 用法一致，这里我们写一个小的 App， 叫做 QueryExampleApp 代码如下:
 
-``` csharp
+```csharp
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -2640,7 +2704,14 @@ Command 一般负责数据的 增 删 改，而 Query 负责数据的 查。
 
 好了，关于 Query 就介绍到这里。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 10. 架构规范 与 推荐用法
 
 QFramework 架构提供了四个层级：
@@ -2655,13 +2726,13 @@ QFramework 架构提供了四个层级：
 这里有一套层级的规则，如下：
 
 * 表现层：ViewController 层。IController接口，负责接收输入和状态变化时的表现，一般情况下，MonoBehaviour 均为表现层
-    * 可以获取 System、Model
-    * 可以发送 Command、Query
-    * 可以监听 Event
+  * 可以获取 System、Model
+  * 可以发送 Command、Query
+  * 可以监听 Event
 
 Controller 的接口定义如下：
 
-``` csharp
+```csharp
 #region Controller
 
 public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,ICanRegisterEvent, ICanSendQuery
@@ -2672,13 +2743,13 @@ public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSy
 ```
 
 * 系统层：System层。ISystem接口，帮助IController承担一部分逻辑，在多个表现层共享的逻辑，比如计时系统、商城系统、成就系统等
-    * 可以获取 System、Model
-    * 可以监听Event
-    *  可以发送Event
+  * 可以获取 System、Model
+  * 可以监听Event
+  *  可以发送Event
 
 System 的接口定义如下：
 
-``` csharp
+```csharp
 #region System
 
 public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,ICanRegisterEvent, ICanSendEvent, ICanGetSystem
@@ -2689,12 +2760,12 @@ public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetMo
 
 
 * 数据层：Model层。IModel接口，负责数据的定义、数据的增删查改方法的提供
-    * 可以获取 Utility
-    * 可以发送 Event
+  * 可以获取 Utility
+  * 可以发送 Event
 
 
 Model 的接口定义如下：
-``` csharp
+```csharp
 public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent
 {
     void Init();
@@ -2705,7 +2776,7 @@ public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUti
 * 工具层：Utility层。IUtility接口，负责提供基础设施，比如存储方法、序列化方法、网络连接方法、蓝牙方法、SDK、框架继承等。啥都干不了，可以集成第三方库，或者封装API
 
 Utility 的接口定义如下:
-``` csharp
+```csharp
 #region Utility
 
 public interface IUtility
@@ -2717,12 +2788,12 @@ public interface IUtility
 
 
 * Command：命令，负责数据的增删改。
-    * 可以获取 System、Model
-    * 可以发送 Event、Command
+  * 可以获取 System、Model
+  * 可以发送 Event、Command
 
 Command 的接口定义如下：
 
-``` csharp
+```csharp
 public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility,ICanSendEvent, ICanSendCommand, ICanSendQuery
 {
     void Execute();
@@ -2730,10 +2801,10 @@ public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetS
 ```
 
 * Query：查询、负责数据的查询
-    * 可以获取 System、Model
-    * 可以发送 Query
+  * 可以获取 System、Model
+  * 可以发送 Query
 
-``` csharp
+```csharp
 public interface IQuery<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetSystem,ICanSendQuery
 {
     TResult Do();
@@ -2742,19 +2813,19 @@ public interface IQuery<TResult> : IBelongToArchitecture, ICanSetArchitecture, I
 
 
 * 通用规则：
-    - IController 更改 ISystem、IModel 的状态必须用Command
-    - ISystem、IModel 状态发生变更后通知 IController 必须用事件或BindableProperty
-    - IController可以获取ISystem、IModel对象来进行数据查询
-    - ICommand、IQuery 不能有状态,
-    - 上层可以直接获取下层，下层不能获取上层对象
-    - 下层向上层通信用事件
-    - 上层向下层通信用方法调用（只是做查询，状态变更用 Command），IController 的交互逻辑为特别情况，只能用 Command
+  - IController 更改 ISystem、IModel 的状态必须用Command
+  - ISystem、IModel 状态发生变更后通知 IController 必须用事件或BindableProperty
+  - IController可以获取ISystem、IModel对象来进行数据查询
+  - ICommand、IQuery 不能有状态,
+  - 上层可以直接获取下层，下层不能获取上层对象
+  - 下层向上层通信用事件
+  - 上层向下层通信用方法调用（只是做查询，状态变更用 Command），IController 的交互逻辑为特别情况，只能用 Command
 
 通用规则是理想状态下的一套规则，但是落实的实际项目，很有可能需要对以上规则做一些修改。
 
 修改的方式非常简单，比如我希望 IController 可以发送事件，那么我们只需要在 IController 接口上增加一个 ICanSendEvent 接口即可，代码如下:
 
-``` csharp
+```csharp
     #region Controller
 
     public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
@@ -2774,14 +2845,21 @@ public interface IQuery<TResult> : IBelongToArchitecture, ICanSetArchitecture, I
 
 再慢慢开始用 Command 来解决交互逻辑臃肿的问题，以此类推，直到能完全掌握全部概念，最终能修改和定制 QFramework.cs 源码。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 11. 光速实现 EditorCounterApp 和 给主程看的开发模式
 
 首先，我们来实现一个好玩的事情，就是在前边已经实现好的 CounterApp 的基础上，光速实现一个编辑器版本的 CounterApp。
 
 代码非常简单，如下:
 
-``` csharp
+```csharp
 #if UNITY_EDITOR
 using System;
 using UnityEditor;
@@ -2880,7 +2958,14 @@ namespace QFramework.Example
 这篇就介绍到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 # 12. 纸上设计
@@ -2966,7 +3051,14 @@ namespace QFramework.Example
 好了关于纸上设计的入门和一些拓展用法就介绍到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -2980,7 +3072,7 @@ namespace QFramework.Example
 不管是 System、Model 还是 Utility，都会注册到 Architecture 中。
 
 伪代码如下:
-``` csharp
+```csharp
 namespace QFramework.PointGame
 {
     public class PointGame : Architecture<PointGame>
@@ -3021,7 +3113,7 @@ namespace QFramework.PointGame
 
 这里，再贴出一下笔者曾经写的项目的 Architecture，代码如下:
 
-``` csharp
+```csharp
 using IndieGame.Models;
 using IndieGame.Utility;
 using QFramework;
@@ -3075,7 +3167,14 @@ System 层有什么、Model 层有什么、Utility 层有什么，一目了然�
 
 好了，这篇就到这里。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 14. Command 拦截
 
 QFramework 提供了拦截 Command 的 API。
@@ -3084,7 +3183,7 @@ QFramework 提供了拦截 Command 的 API。
 
 代码很简单，如下:
 
-``` csharp
+```csharp
 public class CounterApp : Architecture<CounterApp>
 {
     protected override void Init()
@@ -3129,7 +3228,14 @@ public class CounterApp : Architecture<CounterApp>
 好了这篇就介绍到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 15. 内置工具：TypeEventSystem
 
 QFramework 除了提供了一套架构之外，QFramework 还提供三个可以脱离架构使用的工具 TypeEventSystem、EasyEvent、BindableProperty、IOCContainer。
@@ -3140,7 +3246,7 @@ QFramework 除了提供了一套架构之外，QFramework 还提供三个可以�
 
 ## 基本使用
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -3193,7 +3299,7 @@ namespace QFramework.Example
 除了基本用法，TypeEventSystem 的事件还支持继承关系。
 
 示例代码如下:
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -3243,7 +3349,7 @@ namespace QFramework.Example
 
 如果想控制 TypeEventSystem 的注销，而不是自动注销也很简单，代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -3280,7 +3386,7 @@ namespace QFramework.Example
 
 TypeEventSystem 还支持接口事件模式，示例代码如下:
 
-``` csharp
+```csharp
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -3350,7 +3456,7 @@ namespace QFramework.Example
 
 ## 非 MonoBehavior 脚本如何自动销毁
 
-``` csharp
+```csharp
 public class NoneMonoScript : IUnRegisterList
 {
     public List<IUnRegister> UnregisterList { get; } = new List<IUnRegister>();
@@ -3384,6 +3490,15 @@ public class NoneMonoScript : IUnRegisterList
 接口事件拥有更好的约束，也可以通过 IDE 的代码生成来提高开发效率。
 
 总之 TypeEventSystem 是一个非常强大的事件工具。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 16. 内置工具：EasyEvent
 
 TypeEventSystem 是基于 EasyEvent 实现的。
@@ -3395,7 +3510,7 @@ EasyEvent 也是一个可以脱离架构使用的工具。
 ## 基本使用
 代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -3480,8 +3595,15 @@ EasyEvent 相比 C# 委托和事件，优势是可以自动注销。
 好了，关于 EasyEvent 的介绍就到这里。
 
 
+## 更多内容
 
-# 17. 内置工具:BindableProperty
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+# 17. 内置工具：BindableProperty
 
 在此篇介绍 BindableProperty。
 
@@ -3489,7 +3611,7 @@ BindableProperty 提供 数据 + 数据变更事件 的一个对象。
 
 ## 基本使用
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -3539,7 +3661,14 @@ namespace QFramework.Example
 关于 BindableProperty，在之前写 CounterApp 的时候有介绍过，所以这篇就介绍到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 18. 内置工具：IOCContainer
 
 QFramework 架构的模块注册与获取是通过 IOCContainer 实现的。
@@ -3558,7 +3687,7 @@ QFramework 架构中的 IOCContainer 是一个非常简易版本的控制翻转�
 
 代码如下:
 
-``` csharp
+```csharp
 using System;
 using UnityEngine;
 
@@ -3619,7 +3748,14 @@ namespace QFramework.Example
 
 好了，关于 IOCContainer 就介绍到这里。
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 19. 心中有架构
 
 QFramework.cs 提供了 MVC、分层、CQRS、事件驱动、数据驱动等工具，除了这些工具，QFramework.cs 还提供了架构使用规范。
@@ -3632,7 +3768,7 @@ QFramework.cs 提供了 MVC、分层、CQRS、事件驱动、数据驱动等工�
 
 具体的示例如下:
 
-``` csharp
+```csharp
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -3827,7 +3963,14 @@ BookRespository 对应的是 CounterModel。
 好了，这篇内容就说到这里。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -3939,8 +4082,15 @@ QFramework.cs 的架构当前的版本，是从 《框架搭建 决定版》中�
 
 另外 QFramework.Toolkits 和 QFramework.ToolkitsPro 里包含的工具很多都是由 QFramework.cs 设计的， 工具的源码本身也是不错的学习资料。
 
-  
 
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 3. 工具篇：QFramework.Toolkits
 # 01. QFramework.Toolkits 简介
 
@@ -3991,7 +4141,7 @@ QFramework 工具集的设计哲学是追求极致的开发效率和开发体验
 
 **典型的 QFrameowrk.Toolkits 代码**
 
-``` csharp
+```csharp
 using QFramework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -4035,7 +4185,14 @@ namespace liangxiegame
 }
 ```
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 02. 下载与安装
 
 
@@ -4061,6 +4218,15 @@ git 仓库地址:
 ![image.png](https://file.liangxiegame.com/af6ae4cb-312b-413b-a92e-a57c27820a60.png)
 
 当有新版本时，图中的按钮会显示为"更新"，点击就可以一键更新。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 # 03. CodeGenKit 脚本生成
 
@@ -4129,7 +4295,7 @@ Weapon 挂上的组件如下所示:
 
 我们看下 Player.Designer 的代码，如下:
 
-``` csharp
+```csharp
 // Generate Id:471bf5e6-b60b-42b8-b5c8-b070a963ab4a
 using UnityEngine;
 
@@ -4164,7 +4330,7 @@ Player 多了一个 Ground Check
 
 再看下  Player.Designer 的代码，如下:
 
-``` csharp
+```csharp
 // Generate Id:f512c2ed-6243-4a89-897e-bdaaabe50d63
 using UnityEngine;
 
@@ -4216,7 +4382,7 @@ Player 引用的  Weapon 变成了 Sprite Renderer 类型。
 
 Player.Designer.cs 的代码变成了如下:
 
-``` csharp
+```csharp
 // Generate Id:de59e915-d1b6-40aa-a8e5-6fc4a8bf8e3e
 using UnityEngine;
 
@@ -4332,8 +4498,14 @@ CodeGenKit 中的  ViewController 除了可以用于普通的 GameObject，还�
 
 好了，关于脚本生成的功能介绍到这里。
 
+## 更多内容
 
-
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 04. ActionKit 时序动作执行系统
 AciontKit 是一个时序动作执行系统。
 
@@ -4345,7 +4517,7 @@ OK，我们先看下 ActionKit的基本用法。
 
 示例代码如下:
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4371,7 +4543,7 @@ namespace QFramework.Example
 ```
 
 ## 序列和完成回调
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4399,7 +4571,7 @@ namespace QFramework.Example
 
 ## 帧延时
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4436,7 +4608,7 @@ namespace QFramework.Example
 
 ## 条件执行
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4462,7 +4634,7 @@ namespace QFramework.Example
 
 ## 重复执行
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4495,7 +4667,7 @@ namespace QFramework.Example
 ```
 
 ## 并行执行
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4529,7 +4701,7 @@ namespace QFramework.Example
 
 ## 更复杂的示例
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4576,7 +4748,7 @@ namespace QFramework.Example
 
 ## 自定义动作
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4652,7 +4824,7 @@ namespace QFramework.Example
 
 ## 协程支持
 
-``` csharp
+```csharp
 using System.Collections;
 using UnityEngine;
 
@@ -4687,7 +4859,7 @@ namespace QFramework.Example
 
 
 ## 全局 Mono 生命周期
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -4751,7 +4923,7 @@ namespace QFramework.Example
 
 导入之后，就可以用 让 ActionKit 跑 DOTween 了，代码如下:
 
-``` csharp
+```csharp
 using DG.Tweening;
 using UnityEngine;
 
@@ -4799,7 +4971,7 @@ namespace QFramework.Example
 
 导入成功后，使用示例如下:
 
-``` csharp
+```csharp
 using System;
 using UniRx;
 using UnityEngine;
@@ -4836,6 +5008,16 @@ namespace QFramework.Example
 ```
 
 好了，关于 ActionKit 的介绍就到这里。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 05. ResKit 资源管理&开发解决方案
 
 ## Res Kit 简介
@@ -4900,7 +5082,7 @@ Res Kit 在开发阶段，分为两步。
 ### 2.资源加载
 接下来我们直接写资源加载的代码即可，代码如下，具体的代码含义，看注释即可。。
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -5047,7 +5229,7 @@ mResLoader.LoadAsync();
 
 ## 异步加载
 代码如下:
-``` csharp
+```csharp
 using System.Collections;
 using UnityEngine;
 
@@ -5110,7 +5292,7 @@ namespace QFramework.Example
 
 注意：标记场景时要确保，一个场景是一个 AssetBundle。
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -5150,7 +5332,7 @@ namespace QFramework.Example
 
 ## 加载 Resources 中的资源
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5182,7 +5364,7 @@ namespace QFramework.Example
 
 ## 关联对象管理
 
-``` csharp
+```csharp
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5222,7 +5404,7 @@ namespace QFramework.Example
 
 ## SpriteAtlas 加载
 
-``` csharp
+```csharp
 using System.Collections;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -5263,7 +5445,7 @@ namespace QFramework
 
 ## 加载网络图片
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5307,7 +5489,7 @@ namespace QFramework.Example
 
 
 ## 从 PersistentDataPath 加载图片
-``` csharp
+```csharp
 namespace QFramework.Example
 {
 	using System.Collections;
@@ -5356,7 +5538,7 @@ namespace QFramework.Example
 ResKit 提供了 自定义 Res ，通过自定义 Res 可以非常方便地自定义 Res 的加载来源，比如 PersistentDataPath、StreamingAssetPath、AssetBundle 等，甚至是内存中的 GameObject 等资产，还可以集成 Addressables 或者其他的资源管理方案，ResKit 内置支持的 AssetBundle、Resources、网络图片加载、PersistentDataPath 图片加载都是通过自定义 Res 的方式扩展而来。
 
 我们看下自定义 Res 的用法，如下:
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework
@@ -5550,7 +5732,7 @@ ResLoader 获取资源引用的过程如下:
 
 
 异步初始化
-``` csharp
+```csharp
 StartCoroutine(ResKit.InitAsync());
 // 或者
 ResKit.InitAsync().ToAction().StartGlobal();
@@ -5562,6 +5744,15 @@ ResKit.InitAsync().ToAction().StartGlobal();
 
 
 好了，ResKit 的功能就全部介绍完了。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -5707,7 +5898,7 @@ Apply 之后，再次生成一次代码，操作如下所示:
 
 接着，我们打开 UIHomePanel.cs 脚本，试着写一些代码:
 
-``` csharp
+```csharp
 using UnityEngine;
 using UnityEngine.UI;
 using QFramework;
@@ -5772,7 +5963,7 @@ UIPanelTester 是一个 UI 界面的测试器，它只能在编辑器环境下�
 
 只需要写如下代码即可:
 
-``` csharp
+```csharp
 UIKit.OpenPanel<UIBasicPanel>();
 ```
 
@@ -5780,13 +5971,13 @@ UIKit.OpenPanel<UIBasicPanel>();
 
 而我们要关闭掉一个 UI 界面也比较容易，代码如下:
 
-``` csharp
+```csharp
 UIKit.ClosePanel<UIBasicPanel>();
 ```
 
 如果是在一个界面内部关掉自己的话，代码如下:
 
-``` csharp
+```csharp
 this.CloseSelf(); // this 继承自 UIPanel 
 ```
 
@@ -5802,7 +5993,7 @@ OK，到此我们接触了 3 个 API：
 
 UIKit.OpenPanel 的参数定义及重载如下：
 
-``` csharp
+```csharp
 public static T OpenPanel<T>(UILevel canvasLevel = UILevel.Common, IUIData uiData = null,
             string assetBundleName = null,
             string prefabName = null) where T : UIPanel
@@ -5842,7 +6033,7 @@ public static UIPanel OpenPanel(string panelName, UILevel level = UILevel.Common
 
 下边举一些例子。
 
-``` csharp
+```csharp
 // 在 Forward 层级打开
 UIKit.OpenPanel<UIBasicPanel>(UILevel.Forward);
 
@@ -5862,7 +6053,7 @@ UIKit.OpenPanel<UIBasicPanel>(prefabName: "UIBasicPanel");
 
 答案是在，OnInit 和 OnOpen 中，如下所示:
 
-``` csharp
+```csharp
 namespace QFramework.Example
 {
     using System;
@@ -5926,7 +6117,7 @@ namespace QFramework.Example
 
 ## 异步加载界面
 
-``` csharp
+```csharp
 StartCoroutine(UIKit.OpenPanelAsync<UIHomePanel>());
 // 或者
 UIKit.OpenPanelAsync<UIHomePanel>().ToAction().Start(this);
@@ -5942,7 +6133,7 @@ UIKit.OpenPanelAsync<UIHomePanel>().ToAction().Start(this);
 
 我们先看下  UIBasicPanel 的代码，如下:
 
-``` csharp
+```csharp
 namespace QFramework.Example
 {
     using System;
@@ -6036,7 +6227,7 @@ OK，此篇的内容就这些。
 
 获取 UIRoot 的摄像机。
 
-``` csharp
+```csharp
 var uiCamera = UIKit.Root.Camera;
 ```
 
@@ -6048,7 +6239,7 @@ var uiCamera = UIKit.Root.Camera;
 
 示例代码:
 
-``` csharp
+```csharp
 UIKit.Stack.Push(this); // this 是 Panel
 // UIHomePanel 需要确保是打开的状态，如果不打开会报错。
 UIKit.Stack.Push<UIHomePanel>();
@@ -6160,7 +6351,7 @@ BtnClose 由 UIAboutSubPanel 管理了
 
 打开 UIAboutSubPanel 脚本，代码如下所示:
 
-``` csharp
+```csharp
 /****************************************************************************
  * 2022.7 LIANGXIEWIN
  ****************************************************************************/
@@ -6188,7 +6379,7 @@ namespace QFramework.Example
 
 再看下 UILoginView.Designer.cs 脚本，如下所示:
 
-``` csharp
+```csharp
 /****************************************************************************
  * 2022.7 LIANGXIEWIN
  ****************************************************************************/
@@ -6227,7 +6418,7 @@ namespace QFramework.Example
 
 ## 同一个类型的界面打开多个
 
-``` csharp
+```csharp
 UIKit.OpenPanel<UIMultiPanel>(new UIMultiPanelData(), PanelOpenType.Multiple);
 ```
 
@@ -6243,7 +6434,7 @@ UIKit.OpenPanel<UIMultiPanel>(new UIMultiPanelData(), PanelOpenType.Multiple);
 
 
 
-``` csharp
+```csharp
 using System;
 using UnityEngine;
 
@@ -6308,7 +6499,7 @@ namespace QFramework.Example
 
 
 
-``` csharp
+```csharp
 using System;
 using UnityEngine;
 
@@ -6356,6 +6547,14 @@ namespace QFramework
 关于 UIKit 就介绍到这里。
 
 
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -6368,6 +6567,8 @@ namespace QFramework
 
 
 
+
+  
 # 07. AudioKit 音频管理解决方案
 
 ## 基本使用
@@ -6379,7 +6580,7 @@ AudioKit 音频播放相关的功能如下:
 
 对应的 API 调用方式如下:
 
-``` csharp
+```csharp
 btnPlayGame.onClick.AddListener(() => { AudioKit.PlayMusic("resources://game_bg"); });
 
 btnPlaySound.onClick.AddListener(() => { AudioKit.PlaySound("resources://game_bg"); });
@@ -6395,7 +6596,7 @@ AudioKit 设置相关的功能如下:
 
 调用示例如下：
 
-``` csharp
+```csharp
 btnSoundOn.onClick.AddListener(() => { AudioKit.Settings.IsSoundOn.Value = true; });
 
 btnSoundOff.onClick.AddListener(() => { AudioKit.Settings.IsSoundOn.Value = false; });
@@ -6413,7 +6614,7 @@ btnVoiceOff.onClick.AddListener(() => { AudioKit.Settings.IsVoiceOn.Value = fals
 
 调整音量大小的代码如下:
 
-``` csharp
+```csharp
 AudioKit.Settings.MusicVolume.RegisterWithInitValue(v => musicVolumeSlider.value = v);
 AudioKit.Settings.VoiceVolume.RegisterWithInitValue(v => voiceVolumeSlider.value = v);
 AudioKit.Settings.SoundVolume.RegisterWithInitValue(v => soundVolumeSlider.value = v);
@@ -6430,7 +6631,7 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
 
 参考代码如下:
 
-``` csharp
+```csharp
 using System;
 using UnityEngine;
 
@@ -6490,7 +6691,7 @@ namespace QFramework.Example
 
 由于 QFramework 中的 AudioKit 默认是通过 ResKit 加载，所以使用自定义加载方式时，请将项目中如下代码注释掉:
 
-``` csharp
+```csharp
     public class AudioKitWithResKitInit 
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -6505,7 +6706,14 @@ namespace QFramework.Example
 关于 AudioKit 就介绍到这。
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 
@@ -6515,7 +6723,7 @@ namespace QFramework.Example
 FluentAPI 是 笔者积累的 Unity API 的一些链式封装。
 
 基本使用非常简单，如下：
-``` csharp
+```csharp
 // traditional style
 var playerPrefab = Resources.Load<GameObject>("no prefab don't run");
 var playerObj = Instantiate(playerPrefab);
@@ -6550,7 +6758,7 @@ FluentAPI 包含 100 多个常用 API 的链式封装，具体可以参考编辑
 
 另外 链式 API 可以与 QFramework 的其他模块配合使用事半功倍，比如 ResKit 与 FluentAPI 结合，参考代码如下:
 
-``` csharp
+```csharp
 mResLoader.LoadSync<GameObject>("mygameobj")
   .InstantiateWithParent(parent)
   .transform
@@ -6564,7 +6772,14 @@ mResLoader.LoadSync<GameObject>("mygameobj")
 
 
 
+## 更多内容
 
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 09. SingletonKit 单例模板套件
 
 SingletonKit 是 QFramework 的第一个收集的工具，经过了 7 年的迭代，现在已经非常成熟了。
@@ -6573,13 +6788,13 @@ SingletonKit 是 QFramework 的第一个收集的工具，经过了 7 年的迭�
 
 ## QSingleton:
 
-  之前有几篇文章介绍过单例模板在 Unity 中的几种实现。之后又参考了其他的单例库的实现，借鉴(chao)了它们的优点,借鉴了哪里有声明原作者。
+之前有几篇文章介绍过单例模板在 Unity 中的几种实现。之后又参考了其他的单例库的实现，借鉴(chao)了它们的优点,借鉴了哪里有声明原作者。
 
 ## 快速开始:
 
 实现一个继承 MonoBehaviour 的单例类
 
-```cs
+```csharp
 namespace QFramework.Example
 {
 	[MonoSingletonPath("[Audio]/AudioManager")]
@@ -6615,7 +6830,7 @@ namespace QFramework.Example
 ```
 
 结果如下:
-![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-a0d55653522f9037.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
+![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-a0d55653522f9037.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 这样从头到尾都很！优！雅！
 
 
@@ -6623,7 +6838,7 @@ namespace QFramework.Example
 
 *   Singleton.cs
 
-```c#
+```csharp
 public class GameDataManager : Singleton<GameDataManager>
 {
     private static int mIndex = 0;
@@ -6660,7 +6875,7 @@ Hello World!
 ## Mono 单例
 
 * MonoSingleton.cs
-```cs
+```csharp
 public class GameManager : MonoSingleton<GameManager>
 {
     public override void OnSingletonInit()
@@ -6699,7 +6914,7 @@ var gameManager = GameManager.Instance;
 代码如下:
 
 * MonoSingletonProperty.cs
-```cs
+```csharp
 public class GameManager : MonoBehaviour,ISingleton
 {
     public static GameManager Instance
@@ -6745,7 +6960,7 @@ var gameManager = GameManager.Instance;
 代码如下：
 
 * SingletonProperty.cs
-```cs
+```csharp
 public class GameDataManager : ISingleton
 {
     public static GameDataManager Instance
@@ -6790,7 +7005,7 @@ GameDataManager.Instance.Dispose();
 代码如下：
 MonoSingletonPath.cs：
 
-```cs
+```csharp
 namespace QFramework.Example
 {
 	using UnityEngine;
@@ -6812,7 +7027,7 @@ namespace QFramework.Example
 ```
 
 ## 结果:
-![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-8bf380c8327ffbce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240) 
+![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-8bf380c8327ffbce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
@@ -6822,7 +7037,7 @@ namespace QFramework.Example
 
 当场景里包含两个 PersistentMonoSingleton，保留先创建的
 
-``` csharp
+```csharp
 public class GameManager : PersistentMonoSingleton<GameManager>
 {
  
@@ -6849,7 +7064,7 @@ IEnumerator Start()
 
 当场景里包含两个 ReplaceableMonoSingleton，保留最后创建的
 
-``` csharp
+```csharp
 public class GameManager : ReplaceableMonoSingleton<GameManager>
 {
  
@@ -6876,6 +7091,16 @@ IEnumerator Start()
 关于 SingletonKit 的介绍就到这。
 
 
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.game
+
+
 
 
 # 10. FSMKit 状态机
@@ -6884,7 +7109,7 @@ QFramework 内置了一个简易的状态机，基本使用如下:
 
 ## 链式
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -6984,7 +7209,7 @@ namespace QFramework.Example
 
 
 
-``` csharp
+```csharp
 using UnityEngine;
 
 namespace QFramework.Example
@@ -7084,12 +7309,22 @@ namespace QFramework.Example
 
 关于状态机的介绍就到这里。
 
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+
 # 11. PoolKit 对象池套件
 
 
 ## SimpleObjectPool 简易对象池
 
-``` csharp
+```csharp
 class Fish
 {
              
@@ -7126,7 +7361,7 @@ var gameObjPool = new SimpleObjectPool<GameObject>(() =>
 
 ## SafeObjectPool 安全对象池
 
-``` csharp
+```csharp
 class Bullet :IPoolable,IPoolType
 {
     public void OnRecycled()
@@ -7176,7 +7411,7 @@ SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet
 
 ## 基本的数据结构封装 List、Dictionary
 
-``` csharp
+```csharp
 var names = ListPool<string>.Get()
 names.Add(""Hello"");
 
@@ -7185,13 +7420,22 @@ names.Release2Pool();
 ```
 
 
-``` csharp
+```csharp
 var infos = DictionaryPool<string,string>.Get()
 infos.Add(""name"",""liangxie"");
 
 infos.Release2Pool();
 // or DictionaryPool<string,string>.Release(names);
 ```
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 12. TableKit 表数据结构
 
 在设计 UIKit、ResKit 等系统时，如果只使用默认的 List 和 Dictionary 来管理数据和对象需要做很多的封装。
@@ -7202,7 +7446,7 @@ infos.Release2Pool();
 
 使用示例如下:
 
-``` csharp
+```csharp
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7277,6 +7521,15 @@ namespace QFramework
 TableKit 兼顾查询功能支持和性能，在功能和性能之间取得了一个平衡。
 
 ResKit、UIKit 的数据管理全部由 TableKit 支持。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
 
 # 13. 其他事件工具
@@ -7458,26 +7711,26 @@ namespace QFramework.Example
 ## 对比
 
 * TypeEventSystem：
-    * 事件体定义简洁
-    * 比较适合用于设计框架
-    * 支持 struct 获得较好内存性能
-    * 使用反射，CPU 性能相对比较差
+  * 事件体定义简洁
+  * 比较适合用于设计框架
+  * 支持 struct 获得较好内存性能
+  * 使用反射，CPU 性能相对比较差
 
 * EasyEvent
-    * 方便、易用、开发效率高
-    * CPU 性能、内存性能较好，接近委托
-    * 功能有限
-    * 比较适合设计通用解决工具，比如通用背包、全局生命周期触发等
-    * StringEventSystem、TypeEventSystem 的底层由 EasyEvent 实现
+  * 方便、易用、开发效率高
+  * CPU 性能、内存性能较好，接近委托
+  * 功能有限
+  * 比较适合设计通用解决工具，比如通用背包、全局生命周期触发等
+  * StringEventSystem、TypeEventSystem 的底层由 EasyEvent 实现
 
 * EnumEventSystem
-    * 使用枚举作为事件 id，比较适合和服务端的 protobuf 或带有消息 id 的长链接通信
-    * 性能较好
-    * 枚举用于定义消息体有维护成本
+  * 使用枚举作为事件 id，比较适合和服务端的 protobuf 或带有消息 id 的长链接通信
+  * 性能较好
+  * 枚举用于定义消息体有维护成本
 
 * StringEventSystem
-    * 使用字符串作为事件 id，比较适合和其他脚本层通信，比如 Lua、ILRuntime、PlayMaker 等。
-    * 性能一般
+  * 使用字符串作为事件 id，比较适合和其他脚本层通信，比如 Lua、ILRuntime、PlayMaker 等。
+  * 性能一般
 
 
 目前官方推荐使用 TypeEventSystem 和 EasyEvent 这两个工具。
@@ -7486,34 +7739,49 @@ namespace QFramework.Example
 
 如果要和其他脚本层通信选择用 StringEventSystem。
 
+## 更多内容
 
-​    
-​    
-​    
-​        
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+    
+    
+    
+        
 # 14. 更多内容
 
 
 ## 案例《五子棋》
 
-![2f4dacbd-e59b-43af-b7be-44220fac664e.png](https://file.liangxiegame.com/a76bc24a-1828-46f2-94c5-8bd24884f932.png) 
+![2f4dacbd-e59b-43af-b7be-44220fac664e.png](https://file.liangxiegame.com/a76bc24a-1828-46f2-94c5-8bd24884f932.png)
 
 
 源码地址:
 * github https://github.com/liangxiegame/QFramework
 * gitee https://gitee.com/liangxiegame/QFramework
 
-![image.png](https://file.liangxiegame.com/3abceb70-2d17-4457-aff1-ef8a6ef4bd66.png) 
+![image.png](https://file.liangxiegame.com/3abceb70-2d17-4457-aff1-ef8a6ef4bd66.png)
 
 ## 案例《扫雷》
 
 作者：Joker
 
-![172348_4d54744e_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png) 
+![172348_4d54744e_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png)
 
 源码地址:
 * github https://github.com/liangxiegame/QFramework
 * gitee https://gitee.com/liangxiegame/QFramework
 
-![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png) 
+![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png)
 
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
