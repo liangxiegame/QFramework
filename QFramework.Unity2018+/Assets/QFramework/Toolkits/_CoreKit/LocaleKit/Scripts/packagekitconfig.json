@@ -1,0 +1,13 @@
+{
+  "AssemblyName": "QFramework.CoreKit",
+  "DisplayName": "LocaleKit 配置",
+  "DisplayNameCN": "LocaleKit 配置",
+  "DisplayNameEN": "LocaleKit Config",
+  "TypeName": "QFramework.LocaleKitConfigView",
+  "InitFunc": "Init",
+  "OnGUIFunc": "OnGUI",
+  "OnWindowGUIEndFunc": "OnWindowGUIEnd",
+  "DisposeFunc": "OnDestroy",
+  "GroupName": "QFramework",
+  "RenderOrder": "5"
+}

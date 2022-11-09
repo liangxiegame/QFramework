@@ -12,3 +12,7 @@ QFramework.ToolKits/Temp
 QFramework.ToolKits/AssetBundles
 QFramework.ToolKits/Assets/StreamingAssets/AssetBundles
 QFramework.ToolKits/Build/
+QFramework.Unity2018+/Temp/
+QFramework.Unity2018+/Logs/
+QFramework.Unity2018+/Library/
+QFramework.Unity2018+/Assets/.qframework/

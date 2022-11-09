@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Level>
+    <LevelItem name="Player" x="0" y="0"/>
+    <LevelItem name="Enemy" x="2" y="0"/>
+    <LevelItem name="NextLevel" x="4" y="0"/>
+    <LevelItem name="Ground" x="0" y="-1"/>
+    <LevelItem name="Ground" x="1" y="-1"/>
+    <LevelItem name="Ground" x="2" y="-1"/>
+    <LevelItem name="Ground" x="3" y="-1"/>
+    <LevelItem name="Ground" x="4" y="-1"/>
+</Level>

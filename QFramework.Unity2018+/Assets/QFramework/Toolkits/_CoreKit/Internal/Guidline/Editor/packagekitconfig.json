@@ -1,0 +1,12 @@
+{
+  "AssemblyName": "QFramework.CoreKit",
+  "DisplayName": "用户手册",
+  "DisplayNameCN": "用户手册",
+  "DisplayNameEN": "User Manual(InProgress)",
+  "TypeName": "QFramework.Guideline",
+  "InitFunc": "Init",
+  "OnGUIFunc": "OnGUI",
+  "DisposeFunc": "OnDestroy",
+  "GroupName": "QFramework",
+  "RenderOrder": "-1"
+}
