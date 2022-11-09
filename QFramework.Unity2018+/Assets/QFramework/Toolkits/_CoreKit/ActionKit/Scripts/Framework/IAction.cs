@@ -109,6 +109,8 @@ namespace QFramework
             }
             else if (self.Status == ActionStatus.Started)
             {
+                if (self.Paused) return false;
+                
                 self.OnExecute(dt);
 
                 if (self.Status == ActionStatus.Finished)
