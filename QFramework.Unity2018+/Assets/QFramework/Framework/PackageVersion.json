@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.13",
+    "Version": "v1.0.14",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.13",
-        "content": "LoadSceneExample 增加场景加载完的回调示例代码",
+        "version": "v1.0.14",
+        "content": "ActionKit：Delay 支持传入 Func<float>",
         "author": "liangxie",
-        "date": "2022 年 10 月 24 日 14:41",
+        "date": "2022 年 11 月 09 日 16:19",
         "PackageId": ""
     }
 }
