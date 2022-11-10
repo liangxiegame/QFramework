@@ -154,7 +154,6 @@ mResLoader.LoadSceneSync(""BattleScene"",LoadSceneMode.Additive,LocalPhysicsMode
                     {
                         UnityEditor.SceneManagement.EditorSceneManager.LoadSceneInPlayMode(path,
                             new LoadSceneParameters(mode, physicsMode));
-                        resSearchRule.Recycle2Cache();
                     }
                 }
                 else
@@ -162,12 +161,10 @@ mResLoader.LoadSceneSync(""BattleScene"",LoadSceneMode.Additive,LocalPhysicsMode
                 {
                     self.LoadResSync(resSearchRule);
                     SceneManager.LoadScene(resSearchRule.OriginalAssetName, new LoadSceneParameters(mode, physicsMode));
-                    resSearchRule.Recycle2Cache();
                 }
             }
             else
             {
-                resSearchRule.Recycle2Cache();
                 Debug.LogError("资源名称错误！请检查资源名称是否正确或是否被标记！AssetName:" + resSearchRule.AssetName);
             }
         }
@@ -247,15 +244,18 @@ mResLoader.LoadSceneAsync(""BattleScene"",(operation)=>
                 else
 #endif
                 {
-                    self.LoadAsync(() =>
+                    var sceneName = resSearchKeys.OriginalAssetName;
+                    
+                    self.Add2Load(resSearchKeys,(b, res1) =>
                     {
-                        var asyncOperation = SceneManager.LoadSceneAsync(resSearchKeys.OriginalAssetName, new LoadSceneParameters()
+                        var asyncOperation = SceneManager.LoadSceneAsync(sceneName, new LoadSceneParameters()
                         {
                             loadSceneMode = loadSceneMode,
                             localPhysicsMode = physicsMode
                         });
                         onStartLoading?.Invoke(asyncOperation);
                     });
+                    self.LoadAsync();
                 }
             }
             else

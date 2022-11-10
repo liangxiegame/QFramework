@@ -18,3 +18,6 @@ QFramework.Unity2018+/Library/
 QFramework.Unity2018+/Assets/.qframework/
 QFramework.Unity2018+/obj/
 QFramework.Unity2018+/Assets/Plugins/Editor/JetBrains/
+QFramework.Unity2018+/AssetBundles/
+QFramework.Unity2018+/Assets/StreamingAssets/AssetBundles/
+QFramework.Unity2018+/Assets/StreamingAssets/AssetBundles.meta
