@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.16",
+    "Version": "v1.0.17",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.16",
-        "content": "ResKit：修复在非模拟模式下无法异步加载场景的问题",
+        "version": "v1.0.17",
+        "content": "FluentAPI 增加 2 个 API：Self 和 DestroyChildrenWithCondition",
         "author": "liangxie",
-        "date": "2022 年 11 月 10 日 16:54",
+        "date": "2022 年 11 月 12 日 23:08",
         "PackageId": ""
     }
 }

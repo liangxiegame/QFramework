@@ -36,6 +36,24 @@ new GameObject()
             onDo?.Invoke(self);
             return self;
         }
+        
+#if UNITY_EDITOR
+        // v1 No.1.1
+        [MethodAPI]
+        [APIDescriptionCN("将自己传到 Func<T,T> 委托中,然后返回自己")]
+        [APIDescriptionEN("apply self to the Func<T,T> delegate")]
+        [APIExampleCode(@"
+new GameObject()
+        .Self(gameObj=>gameObj.name = ""Enemy"")
+        .Self(gameObj=>{
+            Debug.Log(gameObj.name);
+        });"
+        )]
+#endif
+        public static T Self<T>(this T self, Func<T,T> onDo)
+        {
+            return onDo.Invoke(self);
+        }
 
 
 #if UNITY_EDITOR

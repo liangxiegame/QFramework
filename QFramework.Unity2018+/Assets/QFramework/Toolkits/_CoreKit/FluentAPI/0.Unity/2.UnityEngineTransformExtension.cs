@@ -1357,6 +1357,32 @@ rootTransform.DestroyChildren();
         }
 
 #if UNITY_EDITOR
+        // v1 No.141.1
+        [MethodAPI]
+        [APIDescriptionCN("根据条件 Destroy 掉所有的子 GameObject ")]
+        [APIDescriptionEN("destroy all child gameObjects if condition matched")]
+        [APIExampleCode(@"
+rootTransform.DestroyChildrenWithCondition(child=>child != other);
+")]
+#endif
+        public static T DestroyChildrenWithCondition<T>(this T selfComponent, Func<Transform, bool> condition)
+            where T : Component
+        {
+            var childCount = selfComponent.transform.childCount;
+
+            for (var i = 0; i < childCount; i++)
+            {
+                var child = selfComponent.transform.GetChild(i);
+                if (condition(child))
+                {
+                    child.DestroyGameObjGracefully();
+                }
+            }
+
+            return selfComponent;
+        }
+
+#if UNITY_EDITOR
         // v1 No.142
         [MethodAPI]
         [APIDescriptionCN("Destroy 掉所有的子 GameObject")]
@@ -1451,7 +1477,7 @@ myScript.SiblingIndex(10);
             selfComponent.transform.SetSiblingIndex(index);
             return selfComponent;
         }
-        
+
 #if UNITY_EDITOR
         // v1 No.148
         [MethodAPI]
@@ -1466,6 +1492,5 @@ gameObj.SiblingIndex(10);
             selfComponent.transform.SetSiblingIndex(index);
             return selfComponent;
         }
-        
     }
 }
