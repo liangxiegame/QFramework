@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.17",
+    "Version": "v1.0.18",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.17",
-        "content": "FluentAPI 增加 2 个 API：Self 和 DestroyChildrenWithCondition",
+        "version": "v1.0.18",
+        "content": "PoolKit：提供 Clear API",
         "author": "liangxie",
-        "date": "2022 年 11 月 12 日 23:08",
+        "date": "2022 年 12 月 06 日 17:25",
         "PackageId": ""
     }
 }

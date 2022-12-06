@@ -43,6 +43,19 @@ namespace QFramework
         /// </summary>
         protected readonly Stack<T> mCacheStack = new Stack<T>();
 
+        public void Clear(Action<T> onClearItem = null)
+        {
+            if (onClearItem != null)
+            {
+                foreach (var poolObject in mCacheStack)
+                {
+                    onClearItem(poolObject);
+                }
+            }
+            
+            mCacheStack.Clear();
+        }
+        
         /// <summary>
         /// default is 5
         /// </summary>

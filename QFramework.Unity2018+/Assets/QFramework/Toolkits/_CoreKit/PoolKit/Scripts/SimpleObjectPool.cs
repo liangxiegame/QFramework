@@ -48,6 +48,9 @@ var gameObjPool = new SimpleObjectPool<GameObject>(() =>
 {
     // reset code here
 });
+
+// ---- Clear ----
+gameObjPool.Clear(gameObj=> Object.Destroy(gameObk));
 ")]
 #endif
     public class SimpleObjectPool<T> : Pool<T>
