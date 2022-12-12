@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.18",
+    "Version": "v1.0.19",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.18",
-        "content": "PoolKit：提供 Clear API",
+        "version": "v1.0.19",
+        "content": "GridKit 增加 EasyGrid 数据结构 和 示例",
         "author": "liangxie",
-        "date": "2022 年 12 月 06 日 17:25",
+        "date": "2022 年 12 月 12 日 04:05",
         "PackageId": ""
     }
 }
