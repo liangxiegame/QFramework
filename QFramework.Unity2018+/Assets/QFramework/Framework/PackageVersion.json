@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.19",
+    "Version": "v1.0.20",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.19",
-        "content": "GridKit 增加 EasyGrid 数据结构 和 示例",
+        "version": "v1.0.20",
+        "content": "v1.0.21 增加 LiveCodingKit 方案",
         "author": "liangxie",
-        "date": "2022 年 12 月 12 日 04:05",
+        "date": "2022 年 12 月 13 日 16:59",
         "PackageId": ""
     }
 }
