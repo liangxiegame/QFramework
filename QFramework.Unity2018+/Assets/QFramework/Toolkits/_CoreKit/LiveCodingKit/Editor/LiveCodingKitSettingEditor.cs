@@ -55,18 +55,50 @@ namespace QFramework
                 GUILayout.BeginHorizontal();
                 EditorGUI.BeginChangeCheck();
                 
-                GUILayout.Label(LocaleText.Switch,mLabelBold12.Value,GUILayout.Width(40));
+                GUILayout.Label(LocaleText.Switch,mLabel12.Value,GUILayout.Width(40));
                 
                 LiveCodingKit.Setting.Open = GUILayout.Toggle(LiveCodingKit.Setting.Open,"");
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    LiveCodingKitSetting.Load().Save();
+                    Save();
                 }
                 
                 GUILayout.EndHorizontal();
+
+                if (LiveCodingKit.Setting.Open)
+                {
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Space(20);
+                    GUILayout.Label(LocaleText.WhenCompileFinish,mLabel12.Value);
+                    EditorGUI.BeginChangeCheck();
+
+                    if (LocaleKitEditor.IsCN.Value)
+                    {
+                        LiveCodingKit.Setting.WhenCompileFinish =
+                            (LiveCodingKitSetting.ReloadMethod)EditorGUILayout.Popup((int)LiveCodingKit.Setting
+                            .WhenCompileFinish, LocaleText.ReloadMethodNames);
+                    }
+                    else
+                    {
+                        LiveCodingKit.Setting.WhenCompileFinish =
+                            (LiveCodingKitSetting.ReloadMethod)EditorGUILayout.EnumPopup(LiveCodingKit.Setting
+                                .WhenCompileFinish);
+                    }
+
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        Save();
+                    }
+                }
+                
             }
             GUILayout.EndVertical();
+        }
+
+        void Save()
+        {
+            LiveCodingKitSetting.Load().Save();
         }
 
         public void OnWindowGUIEnd()
@@ -95,6 +127,14 @@ namespace QFramework
             
 
             public static string Apply => IsCN ? "保存" : "Apply";
+            public static string WhenCompileFinish => IsCN ? "当编译完成时" : "When Compile Finish";
+            private static string ReloadCurrentScene => IsCN ? "重新加载当前场景" : "";
+            private static string RestartGame => IsCN ? "重启游戏" : "";
+
+            public static readonly string[] ReloadMethodNames = {
+                RestartGame,
+                ReloadCurrentScene
+            };
         }
     }
 }

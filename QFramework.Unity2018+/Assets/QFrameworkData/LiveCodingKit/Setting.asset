@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Setting
   m_EditorClassIdentifier: 
   Open: 1
+  WhenCompileFinish: 1

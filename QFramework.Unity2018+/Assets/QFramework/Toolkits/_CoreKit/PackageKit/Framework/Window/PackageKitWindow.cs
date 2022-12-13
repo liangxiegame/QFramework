@@ -30,12 +30,23 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace QFramework
 {
     public class PackageKitWindow : EasyEditorWindow
     {
+
+        // [DidReloadScripts]
+        // static void Reload()
+        // {
+        //     if (focusedWindow.GetType() == typeof(PackageKitWindow))
+        //     {
+        //         GetWindow<PackageKitWindow>().Close();
+        //         GetWindow<PackageKitWindow>().Open();
+        //     }
+        // }
         private void OnEnable()
         {
             var _ = LocaleKitEditor.IsCN;

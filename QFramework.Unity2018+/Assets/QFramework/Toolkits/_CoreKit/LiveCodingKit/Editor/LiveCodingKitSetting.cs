@@ -16,8 +16,16 @@ namespace QFramework
 {
     public class LiveCodingKitSetting : ScriptableObject
     {
+        public enum ReloadMethod
+        {
+            RestartGame = 0,
+            ReloadCurrentScene = 1,
+        }
 
         public bool Open;
+
+
+        public ReloadMethod WhenCompileFinish = ReloadMethod.ReloadCurrentScene;
         
         
         private static LiveCodingKitSetting mInstance;

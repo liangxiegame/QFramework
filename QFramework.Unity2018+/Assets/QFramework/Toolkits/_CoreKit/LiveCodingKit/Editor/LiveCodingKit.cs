@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 #endif
 
 namespace QFramework
@@ -26,20 +27,26 @@ namespace QFramework
             // if live coding opened
             if (EditorApplication.isPlaying && Setting.Open)
             {
-                EditorApplication.isPlaying = false;
-                
-                // wait for close unity
-                while (Time.frameCount > 1)
-                {
-                    await Task.Delay(TimeSpan.FromSeconds(0.1f));
 
-                    if (Time.frameCount <= 1)
+                if (Setting.WhenCompileFinish == LiveCodingKitSetting.ReloadMethod.RestartGame)
+                {
+                    EditorApplication.isPlaying = false;
+
+                    // wait for close unity
+                    while (Time.frameCount > 1)
                     {
-                        EditorApplication.isPlaying = true;
-                        break;
+                        await Task.Delay(TimeSpan.FromSeconds(0.1f));
+
+                        if (Time.frameCount <= 1)
+                        {
+                            EditorApplication.isPlaying = true;
+                            break;
+                        }
                     }
+                } else if (Setting.WhenCompileFinish == LiveCodingKitSetting.ReloadMethod.ReloadCurrentScene)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
- 
             }
             #endif
         }
