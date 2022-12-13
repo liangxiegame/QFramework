@@ -20,6 +20,9 @@ namespace QFramework
     public class LiveCodingKit 
     {
         public static LiveCodingKitSetting Setting => LiveCodingKitSetting.Load();
+        
+        
+        
         [DidReloadScripts]
         public static async void Reload()
         {
