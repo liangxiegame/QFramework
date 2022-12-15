@@ -5,15 +5,15 @@
  * https://github.com/liangxiegame/QFramework
  ****************************************************************************/
 
-
-using System;
 #if UNITY_EDITOR
+using System;
+
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-#endif
+
 
 namespace QFramework
 {
@@ -26,7 +26,6 @@ namespace QFramework
         [DidReloadScripts]
         public static async void Reload()
         {
-            #if UNITY_EDITOR
             // if live coding opened
             if (EditorApplication.isPlaying && Setting.Open)
             {
@@ -51,7 +50,8 @@ namespace QFramework
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 }
             }
-            #endif
         }
     }
 }
+
+#endif
