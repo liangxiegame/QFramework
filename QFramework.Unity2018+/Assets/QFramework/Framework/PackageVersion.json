@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.24",
+    "Version": "v1.0.25",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.24",
-        "content": "EventKit 增加 Component 版本的 UnRegisterWhenGameObjectDestroy API",
+        "version": "v1.0.25",
+        "content": "更新 QFramework.cs",
         "author": "liangxie",
-        "date": "2022 年 12 月 19 日 14:27",
+        "date": "2022 年 12 月 19 日 14:39",
         "PackageId": ""
     }
 }

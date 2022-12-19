@@ -18,7 +18,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2022.8.8 10:24 List=>HashSet
+ * Latest Update: 2022.12.19 14:38 support Component Version of UnRegisterWhenGameObjectDestroyed
  ****************************************************************************/
 
 using System;
@@ -589,6 +589,12 @@ namespace QFramework
             trigger.AddUnRegister(unRegister);
             
             return unRegister;
+        }
+        
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
+            where T : Component
+        {
+            return self.UnRegisterWhenGameObjectDestroyed(component.gameObject);
         }
     }
 
