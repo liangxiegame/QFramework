@@ -8,13 +8,14 @@
 
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace QFramework.Experimental
 {
-    public class GameEventListener : MonoBehaviour
+    public class ScriptableObjectEventListener : MonoBehaviour
     {
-        public SOGameEvent Event; //Which event does this listen for
-        public UnityEvent Response; //Reponse to happen when the event is raised
+        public ScriptableObjectEvent Event; //Which event does this listen for
+        [FormerlySerializedAs("Response")] public UnityEvent OnEvent; //Reponse to happen when the event is raised
 
         [TextArea]
         [Tooltip("What does this object do when the attached event is raised")]
@@ -41,9 +42,9 @@ namespace QFramework.Experimental
         /// <summary>
         /// Raise the response set to this event
         /// </summary>
-        public void OnEventRaised()
+        public void OnEventTrigger()
         {
-            Response.Invoke();
+            OnEvent.Invoke();
         }
     }
 }

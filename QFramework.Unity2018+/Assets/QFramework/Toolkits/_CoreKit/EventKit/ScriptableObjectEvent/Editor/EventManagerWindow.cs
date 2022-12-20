@@ -23,13 +23,13 @@ namespace QFramework.Experimental
     {
 
         //Dictionary of all objects that are using the GameEventListener
-        private Dictionary<SOGameEvent, List<GameObject>> gameEventDictionary = new Dictionary<SOGameEvent, List<GameObject>>();
+        private Dictionary<ScriptableObjectEvent, List<GameObject>> gameEventDictionary = new Dictionary<ScriptableObjectEvent, List<GameObject>>();
 
         //List of all eventListenrs that isn't assigned
         private List<GameObject> unassignedEventListeners = new List<GameObject>();
 
         //All the objects with the gameEventListener
-        private GameEventListener[] eventObjects;
+        private ScriptableObjectEventListener[] eventObjects;
 
         //Values for scrollPos
         private Vector2 scrollPos;
@@ -112,7 +112,7 @@ namespace QFramework.Experimental
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos);
 
             //Print out a list of all the Events and each GameObject thats part of the event
-            foreach (SOGameEvent key in gameEventDictionary.Keys)
+            foreach (ScriptableObjectEvent key in gameEventDictionary.Keys)
             {
                 //***********************Event Name***********************
                 EditorGUILayout.BeginHorizontal(EditorStyles.helpBox); //All the Event names
@@ -141,7 +141,7 @@ namespace QFramework.Experimental
                 {
                     if (GUILayout.Button("Raise Event"))
                     {
-                        key.Raise(); //Raise the events
+                        key.Trigger(); //Raise the events
                     }
                 }
                 EditorGUILayout.EndVertical();
@@ -200,9 +200,9 @@ namespace QFramework.Experimental
             ClearCollections();
 
             //Get all the eventObjects in the scene
-            eventObjects = FindObjectsOfType<GameEventListener>();
+            eventObjects = FindObjectsOfType<ScriptableObjectEventListener>();
 
-            foreach (GameEventListener listener in eventObjects)
+            foreach (ScriptableObjectEventListener listener in eventObjects)
             {
                 if (listener.Event != null) //Check to make sure there is an event (there won't be when the component is first added)
                 {

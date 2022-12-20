@@ -14,24 +14,24 @@ using UnityEditor;
 
 namespace QFramework.Experimental
 {
-    [CustomEditor(typeof(SOGameEvent))]
+    [CustomEditor(typeof(ScriptableObjectEvent))]
     [CanEditMultipleObjects]
-    public class ScriptableGameEventEditor : Editor
+    public class ScriptableObjectEventEditor : Editor
     {
         public override void OnInspectorGUI()
         {
             //Draw the defualt inspector options
             DrawDefaultInspector();
 
-            SOGameEvent script = (SOGameEvent)target;
+            ScriptableObjectEvent script = (ScriptableObjectEvent)target;
 
             //Draw button
-            if (GUILayout.Button("Raise Event"))
+            if (GUILayout.Button("Trigger Event"))
             {
                 //If the application is playing - raise/trigger the event
                 if (EditorApplication.isPlaying)
                 {
-                    script.Raise();
+                    script.Trigger();
                 }
             }
         }

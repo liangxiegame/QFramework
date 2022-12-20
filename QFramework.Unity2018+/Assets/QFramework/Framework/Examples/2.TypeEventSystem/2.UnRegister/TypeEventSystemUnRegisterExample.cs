@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework.Example
@@ -11,10 +10,16 @@ namespace QFramework.Example
         {
             
         }
+
+        public struct EventB
+        {
+            
+        }
         
         private void Start()
         {
             TypeEventSystem.Global.Register<EventA>(OnEventA);
+            TypeEventSystem.Global.Register<EventB>(b => { }).UnRegisterWhenGameObjectDestroyed(this);
         }
         
         void OnEventA(EventA e)

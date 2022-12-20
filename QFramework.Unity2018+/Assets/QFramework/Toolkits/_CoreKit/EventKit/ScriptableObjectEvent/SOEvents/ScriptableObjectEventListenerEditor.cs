@@ -15,9 +15,9 @@ using UnityEditor;
 namespace QFramework.Experimental
 {
 
-    [CustomEditor(typeof(GameEventListener))]
+    [CustomEditor(typeof(ScriptableObjectEventListener))]
     [CanEditMultipleObjects]
-    public class GameEventListenerEditor : Editor
+    public class ScriptableObjectEventListenerEditor : Editor
     {
 
         SerializedProperty gameEvent;
@@ -27,13 +27,13 @@ namespace QFramework.Experimental
         private void OnEnable()
         {
             gameEvent = serializedObject.FindProperty("Event");
-            response = serializedObject.FindProperty("Response");
+            response = serializedObject.FindProperty("OnEvent");
             responseDescription = serializedObject.FindProperty("responseDescription");
         }
 
         public override void OnInspectorGUI()
         {
-            GameEventListener targetScript = (GameEventListener)target;
+            ScriptableObjectEventListener targetScript = (ScriptableObjectEventListener)target;
 
             serializedObject.Update();
 
