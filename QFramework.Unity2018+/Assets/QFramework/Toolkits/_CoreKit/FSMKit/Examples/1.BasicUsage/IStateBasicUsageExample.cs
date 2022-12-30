@@ -14,6 +14,8 @@ namespace QFramework.Example
 
         void Start()
         {
+            Application.targetFrameRate = 60;
+            
             FSM.State(States.A)
                 .OnCondition(()=>FSM.CurrentStateId == States.B)
                 .OnEnter(() =>
@@ -22,7 +24,10 @@ namespace QFramework.Example
                 })
                 .OnUpdate(() =>
                 {
-                    
+                    if (FSM.FrameCountOfCurrentState % 60 == 0)
+                    {
+                        Debug.Log("Heart beat");
+                    }
                 })
                 .OnFixedUpdate(() =>
                 {

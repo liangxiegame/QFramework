@@ -306,6 +306,8 @@ namespace QFramework.Example
         public IState CurrentState => mCurrentState;
         public T CurrentStateId => mCurrentStateId;
         public T PreviousStateId { get; private set; }
+
+        public long FrameCountOfCurrentState = 1;
         
         public void ChangeState(T t)
         {
@@ -319,6 +321,7 @@ namespace QFramework.Example
                     PreviousStateId = mCurrentStateId;
                     mCurrentState = state;
                     mCurrentStateId = t;
+                    FrameCountOfCurrentState = 1;
                     mCurrentState.Enter();
                 }
             }
@@ -331,6 +334,7 @@ namespace QFramework.Example
                 PreviousStateId = t;
                 mCurrentState = state;
                 mCurrentStateId = t;
+                FrameCountOfCurrentState = 0;
                 state.Enter();
             }
         }
@@ -343,6 +347,7 @@ namespace QFramework.Example
         public void Update()
         {
             mCurrentState?.Update();
+            FrameCountOfCurrentState++;
         }
 
         public void OnGUI()
