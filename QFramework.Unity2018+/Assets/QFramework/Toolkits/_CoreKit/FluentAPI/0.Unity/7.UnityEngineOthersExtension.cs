@@ -1,13 +1,13 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
  * 
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
-
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -30,6 +30,23 @@ new List<int>(){ 1,2,3 }.GetRandomItem();
         public static T GetRandomItem<T>(this List<T> list)
         {
             return list[UnityEngine.Random.Range(0, list.Count)];
+        }
+
+#if UNITY_EDITOR
+        // v1
+        [MethodAPI]
+        [APIDescriptionCN("为 SpriteRender 设置 alpha 值")]
+        [APIDescriptionEN("set SpriteRender's alpha value")]
+        [APIExampleCode(@"
+mySprRender.Alpha(0.5f);
+")]
+#endif
+        public static SpriteRenderer Alpha(this SpriteRenderer self, float alpha)
+        {
+            var color = self.color;
+            color.a = alpha;
+            self.color = color;
+            return self;
         }
     }
 }

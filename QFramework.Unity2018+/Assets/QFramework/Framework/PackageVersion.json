@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.26",
+    "Version": "v1.0.27",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.26",
-        "content": "FSM 增加 FrameCountOfCurrentState API",
+        "version": "v1.0.27",
+        "content": "FluentKit 增加 SpriteRender 的 Alpha 设置 API",
         "author": "liangxie",
-        "date": "2022 年 12 月 30 日 11:09",
+        "date": "2022 年 12 月 31 日 13:09",
         "PackageId": ""
     }
 }
