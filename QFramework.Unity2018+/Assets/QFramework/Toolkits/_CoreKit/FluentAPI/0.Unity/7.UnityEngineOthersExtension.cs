@@ -12,7 +12,7 @@ using UnityEngine;
 namespace QFramework
 {
 #if UNITY_EDITOR
-    [ClassAPI("00.FluentAPI.Unity", "UnityEngine.Others", 7)]
+    [ClassAPI("00.FluentAPI.Unity", "UnityEngine.Others", 8)]
     [APIDescriptionCN("其他的一些静态扩展")]
     [APIDescriptionEN("other extension")]
 #endif
@@ -47,6 +47,33 @@ mySprRender.Alpha(0.5f);
             color.a = alpha;
             self.color = color;
             return self;
+        }
+    }
+    
+#if UNITY_EDITOR
+    [ClassAPI("00.FluentAPI.Unity", "UnityEngine.Random", 7)]
+    [APIDescriptionCN("针对随机做的一些封装")]
+    [APIDescriptionEN("wrapper for random")]
+#endif
+    public static class RandomUtility
+    {
+#if UNITY_EDITOR
+        // v1
+        [MethodAPI]
+        [APIDescriptionCN("随机选择")]
+        [APIDescriptionEN("RandomChoose")]
+        [APIExampleCode(@"
+var result = RandomUtility.Choose(1,1,1,2,2,2,2,3,3);
+
+if (result == 3)
+{
+    // todo ...
+}
+")]
+#endif
+        public static T Choose<T>(params T[] args)
+        {
+            return args[UnityEngine.Random.Range(0, args.Length)];
         }
     }
 }
