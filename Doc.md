@@ -1,4 +1,7 @@
+[toc]
+
 # 1. 介绍
+
 # 01. 简介
 
 大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 \~ 2022 年 10 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
@@ -6568,7 +6571,7 @@ namespace QFramework
 
 
 
-  
+
 # 07. AudioKit 音频管理解决方案
 
 ## 基本使用
@@ -7750,7 +7753,7 @@ namespace QFramework.Example
     
     
     
-        
+    ​    
 # 14. 更多内容
 
 
@@ -7785,3 +7788,70 @@ namespace QFramework.Example
 *   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
 *   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
 *   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+# 15. GridKit 二维格子数据结构
+
+在做游戏的过程中，我们经常需要处理二维格子类的数据，比如消除类游戏、俄罗斯方块、各种棋类游戏，还有我们最常用的 Tilemap 的地块数据，这些都需要二维格子数据结构。
+
+而在 GameMaker Studio 引擎中，这样的数据结构直接在引擎层面提供，名字叫做 ds_grid。
+
+受到 GameMaker Stdio 的 ds_grid 启发，QFramework 也实现了一个类似的数据结构，名字叫做 EasyGrid，示例代码如下:
+``` csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class GridKitExample : MonoBehaviour
+    {
+        // Start is called before the first frame update
+        void Start()
+        {
+            var grid = new EasyGrid<string>(4, 4);
+
+            grid.Fill("Empty");
+            
+            grid[2, 3] = "Hello;
+
+            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content}));
+
+            grid.Clear();
+        }
+    }
+}
+```
+
+运行后，代码如下:
+``` 
+(0,0):Empty
+(0,1):Empty
+(0,2):Empty
+(0,3):Empty
+(1,0):Empty
+(1,1):Empty
+(1,2):Empty
+(1,3):Empty
+(2,0):Empty
+(2,1):Empty
+(2,2):Empty
+(2,3):Hello
+(3,0):Empty
+(3,1):Empty
+(3,2):Empty
+(3,3):Empty
+```
+
+好了这个就是关于 GridKit 的简单介绍。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+
+*   QFramework 交流群: 623597263
+
+*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
+
+*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
+
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>

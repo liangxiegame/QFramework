@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace QFramework.Example
 {
@@ -11,9 +9,9 @@ namespace QFramework.Example
         {
             var grid = new EasyGrid<string>(4, 4);
 
-            grid.Fill("这是空");
+            grid.Fill("Empty");
             
-            grid[2, 3] = "@@@ 你好呀 @@@";
+            grid[2, 3] = "@@@ Hello @@@";
 
             grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content}"));
 

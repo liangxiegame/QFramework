@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.28",
+    "Version": "v1.0.29",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.28",
-        "content": "增加 RandomUtility.Choose API",
+        "version": "v1.0.29",
+        "content": "v1.0.29 增加 GridKit 的 API 文档 和 使用教程",
         "author": "liangxie",
-        "date": "2023 年 01 月 02 日 09:40",
+        "date": "2023 年 01 月 03 日 13:31",
         "PackageId": ""
     }
 }
