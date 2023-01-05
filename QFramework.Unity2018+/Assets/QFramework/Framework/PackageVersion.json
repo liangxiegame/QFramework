@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.29",
+    "Version": "v1.0.30",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.29",
-        "content": "v1.0.29 增加 GridKit 的 API 文档 和 使用教程",
+        "version": "v1.0.30",
+        "content": "Bind 可以搜索隐藏的 GameObject & Bind 增加 UnityEditor 条件编译",
         "author": "liangxie",
-        "date": "2023 年 01 月 03 日 13:31",
+        "date": "2023 年 01 月 05 日 10:13",
         "PackageId": ""
     }
 }

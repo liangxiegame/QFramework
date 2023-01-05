@@ -29,11 +29,11 @@ namespace QFramework
             // }
 
 
-            var bindGroupTransforms = task.GameObject.GetComponentsInChildren<IBindGroup>()
+            var bindGroupTransforms = task.GameObject.GetComponentsInChildren<IBindGroup>(true)
                 .Select(g => g.As<Component>().transform)
                 .Where(t => t != task.GameObject.transform);
 
-            var binds = task.GameObject.GetComponentsInChildren<IBindOld>()
+            var binds = task.GameObject.GetComponentsInChildren<IBindOld>(true)
                 .Where(b => b.Transform != task.GameObject.transform);
 
 
