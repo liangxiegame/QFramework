@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -48,8 +48,53 @@ mySprRender.Alpha(0.5f);
             self.color = color;
             return self;
         }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Lerp")]
+        [APIDescriptionEN("Mathf.Lerp")]
+        [APIExampleCode(@"
+var v = 0.5f.Lerp(0.1f,0.5f);
+// v is 0.3f
+")]
+#endif
+        public static float Lerp(this float self, float a, float b)
+        {
+            return Mathf.Lerp(a, b, self);
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Abs")]
+        [APIDescriptionEN("Mathf.Abs")]
+        [APIExampleCode(@"
+var absValue = -1.0f.Abs();
+// absValue is 1.0f
+")]
+#endif
+        public static float Abs(this float self)
+        {
+            return Mathf.Abs(self);
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Sign")]
+        [APIDescriptionEN("Mathf.Sign")]
+        [APIExampleCode(@"
+var sign = -5.0f.Sign();
+// sign is 5.0f
+")]
+#endif
+        public static float Sign(this float self)
+        {
+            return Mathf.Sign(self);
+        }
     }
-    
+
 #if UNITY_EDITOR
     [ClassAPI("00.FluentAPI.Unity", "UnityEngine.Random", 7)]
     [APIDescriptionCN("针对随机做的一些封装")]

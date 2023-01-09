@@ -725,6 +725,35 @@ gameObj.LocalScaleX(10);
         }
 
 #if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.localScale.x")]
+        [APIDescriptionEN("gameObj.transform.localScale.x)")]
+        [APIExampleCode(@"
+var scaleX = gameObj.LocalScaleX();
+")]
+#endif
+        public static float LocalScaleX(this GameObject self)
+        {
+            return self.transform.localScale.x;
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.localScale.x")]
+        [APIDescriptionEN("component.transform.localScale.x)")]
+        [APIExampleCode(@"
+var scaleX = component.LocalScaleX();
+")]
+#endif
+        public static float LocalScaleX<T>(this T self) where T : Component
+        {
+            return self.transform.localScale.x;
+        }
+
+
+#if UNITY_EDITOR
         // v1 No.105
         [MethodAPI]
         [APIDescriptionCN("component.transform.localScale.y = y")]
@@ -733,12 +762,12 @@ gameObj.LocalScaleX(10);
 component.LocalScaleY(10);
 ")]
 #endif
-        public static T LocalScaleY<T>(this T selfComponent, float y) where T : Component
+        public static T LocalScaleY<T>(this T self, float y) where T : Component
         {
-            var localScale = selfComponent.transform.localScale;
+            var localScale = self.transform.localScale;
             localScale.y = y;
-            selfComponent.transform.localScale = localScale;
-            return selfComponent;
+            self.transform.localScale = localScale;
+            return self;
         }
 
 #if UNITY_EDITOR
@@ -750,13 +779,42 @@ component.LocalScaleY(10);
 gameObj.LocalScaleY(10);
 ")]
 #endif
-        public static GameObject LocalScaleY(this GameObject selfComponent, float y)
+        public static GameObject LocalScaleY(this GameObject self, float y)
         {
-            var localScale = selfComponent.transform.localScale;
+            var localScale = self.transform.localScale;
             localScale.y = y;
-            selfComponent.transform.localScale = localScale;
-            return selfComponent;
+            self.transform.localScale = localScale;
+            return self;
         }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.localScale.y")]
+        [APIDescriptionEN("component.transform.localScale.y)")]
+        [APIExampleCode(@"
+var scaleY = component.LocalScaleY(10);
+")]
+#endif
+        public static float LocalScaleY<T>(this T self) where T : Component
+        {
+            return self.transform.localScale.y;
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.localScale.y")]
+        [APIDescriptionEN("gameObj.transform.localScale.y)")]
+        [APIExampleCode(@"
+var scaleY = gameObj.LocalScaleY();
+")]
+#endif
+        public static float LocalScaleY(this GameObject self)
+        {
+            return self.transform.localScale.y;
+        }
+
 
 #if UNITY_EDITOR
         // v1 No.107
@@ -791,6 +849,35 @@ gameObj.LocalScaleZ(10);
             selfComponent.transform.localScale = localScale;
             return selfComponent;
         }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("component.transform.localScale.z")]
+        [APIDescriptionEN("component.transform.localScale.z)")]
+        [APIExampleCode(@"
+var scaleZ = component.LocalScaleZ();
+")]
+#endif
+        public static float LocalScaleZ<T>(this T self) where T : Component
+        {
+            return self.transform.localScale.z;
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.31
+        [MethodAPI]
+        [APIDescriptionCN("gameObj.transform.localScale.z")]
+        [APIDescriptionEN("gameObj.transform.localScale.z)")]
+        [APIExampleCode(@"
+var scaleZ = gameObj.LocalScaleZ();
+")]
+#endif
+        public static float LocalScaleZ(this GameObject self)
+        {
+            return self.transform.localScale.z;
+        }
+
 
 #if UNITY_EDITOR
         // v1 No.109
