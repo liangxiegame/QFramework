@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.30",
+    "Version": "v1.0.31",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.30",
-        "content": "Bind 可以搜索隐藏的 GameObject & Bind 增加 UnityEditor 条件编译",
+        "version": "v1.0.31",
+        "content": "FluentKit 增加 Abs、Sign、Lerp、LocalScaleX、Y、Z",
         "author": "liangxie",
-        "date": "2023 年 01 月 05 日 10:13",
+        "date": "2023 年 01 月 09 日 10:27",
         "PackageId": ""
     }
 }
