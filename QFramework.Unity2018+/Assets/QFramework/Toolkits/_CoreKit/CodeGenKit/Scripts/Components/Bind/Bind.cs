@@ -9,10 +9,8 @@ using UnityEngine;
 
 namespace QFramework
 {
-#if UNITY_EDITOR
     [AddComponentMenu("QFramework/CodeGenKit/Bind")]
     public class Bind : AbstractBind
     {
     }
-#endif
 }
