@@ -93,6 +93,145 @@ var sign = -5.0f.Sign();
         {
             return Mathf.Sign(self);
         }
+        
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Cos")]
+        [APIDescriptionEN("Mathf.Cos")]
+        [APIExampleCode(@"
+var cos = (90.0f * Mathf.Deg2Rad).Cos();
+// cos is 0f
+")]
+#endif
+        public static float Cos(this float self)
+        {
+            return Mathf.Cos(self);
+        }
+        
+        public static float Cos(this int self)
+        {
+            return Mathf.Cos(self);
+        }
+        
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Sin")]
+        [APIDescriptionEN("Mathf.Sin")]
+        [APIExampleCode(@"
+var sin = (90.0f * Mathf.Deg2Rad).Sin();
+// sin is 1f
+")]
+#endif
+        public static float Sin(this float self)
+        {
+            return Mathf.Sin(self);
+        }
+        
+        public static float Sin(this int self)
+        {
+            return Mathf.Sin(self);
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Cos(x * Mathf.Deg2Rad)")]
+        [APIDescriptionEN("Mathf.Cos(x * Mathf.Deg2Rad)")]
+        [APIExampleCode(@"
+var cos = (90.0f).CosAngle();
+// cos is 0f
+")]
+#endif
+        public static float CosAngle(this float self)
+        {
+            return Mathf.Cos(self * Mathf.Deg2Rad);
+        }
+        
+        public static float CosAngle(this int self)
+        {
+            return Mathf.Cos(self * Mathf.Deg2Rad);
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Sin(x * Mathf.Deg2Rad)")]
+        [APIDescriptionEN("Mathf.Sin(x * Mathf.Deg2Rad)")]
+        [APIExampleCode(@"
+var sin = (90.0f).SinAngle();
+// sin is 1f
+")]
+#endif
+        public static float SinAngle(this float self)
+        {
+            return Mathf.Sin(self * Mathf.Deg2Rad);
+        }
+        
+        public static float SinAngle(this int self)
+        {
+            return Mathf.Sin(self * Mathf.Deg2Rad);
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Deg2Rad")]
+        [APIDescriptionEN("Mathf.Deg2Rad")]
+        [APIExampleCode(@"
+var radius = (90.0f).Deg2Rad();
+// radius is 1.57f
+")]
+#endif
+        public static float Deg2Rad(this float self)
+        {
+            return self * Mathf.Deg2Rad;
+        }
+
+        public static float Deg2Rad(this int self)
+        {
+            return self * Mathf.Deg2Rad;
+        }
+        
+        
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Rad2Deg")]
+        [APIDescriptionEN("Mathf.Rad2Deg")]
+        [APIExampleCode(@"
+var degree = 1.57f.Rad2Deg();
+// degree is 90f
+")]
+#endif
+        public static float Rad2Deg(this float self)
+        {
+            return self * Mathf.Rad2Deg;
+        }
+        
+        public static float Rad2Deg(this int self)
+        {
+            return self * Mathf.Rad2Deg;
+        }
+
+#if UNITY_EDITOR
+        // Added in v1.0.32
+        [MethodAPI]
+        [APIDescriptionCN("new Vector3(vec2.x,vec2.y,0 or z)")]
+        [APIDescriptionEN("new Vector3(vec2.x,vec2.y,0 or z)")]
+        [APIExampleCode(@"
+
+var vec3 = new Vector2(1,1).ToVector3();
+// vec3 is (1,1,0)
+vec3 = new Vector2(1,1).ToVector3(1);
+// vec3 is (1,1,1)
+")]
+#endif
+        public static Vector3 ToVector3(this Vector2 self,float z = 0)
+        {
+            return new Vector3(self.x, self.y, z);
+        }
     }
 
 #if UNITY_EDITOR

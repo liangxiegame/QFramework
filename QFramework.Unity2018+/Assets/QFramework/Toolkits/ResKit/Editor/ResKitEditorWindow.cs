@@ -334,63 +334,65 @@ namespace QFramework
             EditorPrefs.SetBool(KEY_AUTOGENERATE_CLASS, mEnableGenerateClass);
             EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
         }
+        
+        public class LocaleText
+        {
+            public static bool IsCN => LocaleKitEditor.IsCN.Value;
+            public static string ResKit => IsCN ? "Res Kit 设置" : "Res Kit Setting";
+
+            public static string GoToPersistent => IsCN ? "打开 Persistent 目录" : "Go To Persistance";
+
+            public static string GenerateClass => IsCN ? "生成代码（资源名常量）" : "Generate Class";
+
+            public static string Build => IsCN ? "打 AB 包" : "Build";
+
+            public static string ForceClear => IsCN ? "清空已生成的 AB" : "ForceClear";
+
+            public static string AutoGenerateClass => IsCN ? "打 AB 包时，自动生成资源名常量代码" : "auto generate class when build";
+
+            public static string SimulationMode =>
+                IsCN
+                    ? "模拟模式（勾选后每当资源修改时无需再打 AB 包，开发阶段建议勾选，打真机包时取消勾选并打一次 AB 包）"
+                    : "Simulation Mode";
+
+            public static string CancelMark =>
+                IsCN
+                    ? "取消标记"
+                    : "Cancel Mark";
+
+            public static string Select =>
+                IsCN
+                    ? "选择"
+                    : "Select";
+
+            public static string MarkedAb =>
+                IsCN
+                    ? "已标记的 AB"
+                    : "Marked AB";
+
+            // public static string EncryptAB
+            // {
+            //     get
+            //     {
+            //         return Language.IsChinese
+            //             ? "加密AB(AES加密)"
+            //             : "EncryptAB";
+            //     }
+            // }
+            //
+            // public static string EncryptKey
+            // {
+            //     get
+            //     {
+            //         return Language.IsChinese
+            //             ? "加密秘钥(RSA加密)"
+            //             : "EncryptKey";
+            //     }
+            // }
+        }
     }
 
-    public class LocaleText
-    {
-        public static bool IsCN => LocaleKitEditor.IsCN.Value;
-        public static string ResKit => IsCN ? "Res Kit 设置" : "Res Kit Setting";
 
-        public static string GoToPersistent => IsCN ? "打开 Persistent 目录" : "Go To Persistance";
-
-        public static string GenerateClass => IsCN ? "生成代码（资源名常量）" : "Generate Class";
-
-        public static string Build => IsCN ? "打 AB 包" : "Build";
-
-        public static string ForceClear => IsCN ? "清空已生成的 AB" : "ForceClear";
-
-        public static string AutoGenerateClass => IsCN ? "打 AB 包时，自动生成资源名常量代码" : "auto generate class when build";
-
-        public static string SimulationMode =>
-            IsCN
-                ? "模拟模式（勾选后每当资源修改时无需再打 AB 包，开发阶段建议勾选，打真机包时取消勾选并打一次 AB 包）"
-                : "Simulation Mode";
-
-        public static string CancelMark =>
-            IsCN
-                ? "取消标记"
-                : "Cancel Mark";
-
-        public static string Select =>
-            IsCN
-                ? "选择"
-                : "Select";
-
-        public static string MarkedAb =>
-            IsCN
-                ? "已标记的 AB"
-                : "Marked AB";
-
-        // public static string EncryptAB
-        // {
-        //     get
-        //     {
-        //         return Language.IsChinese
-        //             ? "加密AB(AES加密)"
-        //             : "EncryptAB";
-        //     }
-        // }
-        //
-        // public static string EncryptKey
-        // {
-        //     get
-        //     {
-        //         return Language.IsChinese
-        //             ? "加密秘钥(RSA加密)"
-        //             : "EncryptKey";
-        //     }
-        // }
-    }
     internal class EditorLifecycle
     {
         static EditorLifecycle()

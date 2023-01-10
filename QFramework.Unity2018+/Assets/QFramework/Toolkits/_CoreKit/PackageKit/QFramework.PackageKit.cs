@@ -166,7 +166,7 @@ namespace QFramework
                         return new PackageInfosRequestCache();
                     }
                 }
-                catch (Exception _)
+                catch (Exception)
                 {
                     return new PackageInfosRequestCache();
                 }

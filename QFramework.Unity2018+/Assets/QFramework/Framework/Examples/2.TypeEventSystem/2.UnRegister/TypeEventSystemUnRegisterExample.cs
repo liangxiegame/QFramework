@@ -40,7 +40,7 @@ namespace QFramework.Example
 
             void Start()
             {
-                TypeEventSystem.Global.Register<EasyEventExample.EventA>(a =>
+                TypeEventSystem.Global.Register<EventA>(a =>
                 {
                     
                 }).AddToUnregisterList(this);
