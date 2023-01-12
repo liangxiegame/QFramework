@@ -14,6 +14,8 @@ namespace QFramework
 {
     public class ViewController : MonoBehaviour, IBindGroup
     {
+        [HideInInspector] public bool IsUseNamespace = true;
+
         [HideInInspector] public string Namespace = string.Empty;
 
         [HideInInspector] public string ScriptName;
