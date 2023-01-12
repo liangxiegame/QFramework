@@ -21,6 +21,11 @@ namespace QFramework
 
         protected override void GenFirstLine(ICodeWriter codeWriter)
         {
+            //if (!string.IsNullOrWhiteSpace(mNamespace))
+            //{
+            //    codeWriter.WriteLine(string.Format("namespace {0}", mNamespace));
+            //}
+
             codeWriter.WriteLine(string.Format("namespace {0}", mNamespace));
         }
     }
@@ -32,6 +37,15 @@ namespace QFramework
         {
             var namespaceCodeScope = new NamespaceCodeScope(ns);
             namespaceCodeScopeSetting(namespaceCodeScope);
+            self.Codes.Add(namespaceCodeScope);
+            return self;
+        }
+
+        public static ICodeScope NewNamespace(this ICodeScope self, string ns,
+            ICodeScope codeScope)
+        {
+            var namespaceCodeScope = new NamespaceCodeScope(ns);
+            namespaceCodeScope.Codes = codeScope.Codes;
             self.Codes.Add(namespaceCodeScope);
             return self;
         }

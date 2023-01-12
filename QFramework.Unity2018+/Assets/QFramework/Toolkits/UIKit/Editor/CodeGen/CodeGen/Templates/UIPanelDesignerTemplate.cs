@@ -37,82 +37,88 @@ namespace QFramework
 
             var writer = File.CreateText(scriptFile);
 
-            var root = new RootCode()
+            var rootCode = new RootCode()
                 .Using("System")
                 .Using("UnityEngine")
                 .Using("UnityEngine.UI")
                 .Using("QFramework")
-                .EmptyLine()
-                .Namespace(string.IsNullOrWhiteSpace(scriptNamespace)
-                    ? uiKitSettingData.Namespace
-                    : scriptNamespace, ns =>
+                .EmptyLine();
+
+            var subRoot = new RootCode()
+                .Custom(string.Format("// Generate Id:{0}", Guid.NewGuid().ToString()))
+                .Class(name, null, true, false, (classScope) =>
                 {
-                    ns.Custom(string.Format("// Generate Id:{0}",Guid.NewGuid().ToString()));
-                    ns.Class(name, null, true, false, (classScope) =>
+                    classScope.Custom("public const string Name = \"" + name + "\";");
+                    classScope.EmptyLine();
+
+                    foreach (var bindInfo in panelCodeInfo.BindInfos)
                     {
-                        classScope.Custom("public const string Name = \"" + name + "\";");
-                        classScope.EmptyLine();
-
-                        foreach (var bindInfo in panelCodeInfo.BindInfos)
+                        if (!string.IsNullOrEmpty(bindInfo.BindScript.Comment))
                         {
-                            if (!string.IsNullOrEmpty(bindInfo.BindScript.Comment))
-                            {
-                                classScope.Custom("/// <summary>");
-                                classScope.Custom("/// " + bindInfo.BindScript.Comment);
-                                classScope.Custom("/// </summary>");
-                            }
-
-                            classScope.Custom("[SerializeField]");
-                            classScope.Custom("public " + bindInfo.BindScript.TypeName + " " + bindInfo.TypeName +
-                                              ";");
+                            classScope.Custom("/// <summary>");
+                            classScope.Custom("/// " + bindInfo.BindScript.Comment);
+                            classScope.Custom("/// </summary>");
                         }
 
-                        classScope.EmptyLine();
-                        classScope.Custom("private " + name + "Data mPrivateData = null;");
+                        classScope.Custom("[SerializeField]");
+                        classScope.Custom("public " + bindInfo.BindScript.TypeName + " " + bindInfo.TypeName +
+                                          ";");
+                    }
 
-                        classScope.EmptyLine();
+                    classScope.EmptyLine();
+                    classScope.Custom("private " + name + "Data mPrivateData = null;");
 
-                        classScope.CustomScope("protected override void ClearUIComponents()", false, (function) =>
+                    classScope.EmptyLine();
+
+                    classScope.CustomScope("protected override void ClearUIComponents()", false, (function) =>
+                    {
+                        foreach (var bindInfo in panelCodeInfo.BindInfos)
                         {
-                            foreach (var bindInfo in panelCodeInfo.BindInfos)
-                            {
-                                function.Custom(bindInfo.TypeName + " = null;");
-                            }
+                            function.Custom(bindInfo.TypeName + " = null;");
+                        }
 
-                            function.EmptyLine();
-                            function.Custom("mData = null;");
+                        function.EmptyLine();
+                        function.Custom("mData = null;");
+                    });
+
+                    classScope.EmptyLine();
+
+                    classScope.CustomScope("public " + name + "Data Data", false,
+                        (property) =>
+                        {
+                            property.CustomScope("get", false, (getter) => { getter.Custom("return mData;"); });
                         });
 
-                        classScope.EmptyLine();
+                    classScope.EmptyLine();
 
-                        classScope.CustomScope("public " + name + "Data Data", false,
-                            (property) =>
+
+                    classScope.CustomScope(name + "Data mData", false, (property) =>
+                    {
+                        property.CustomScope("get", false,
+                            (getter) =>
                             {
-                                property.CustomScope("get", false, (getter) => { getter.Custom("return mData;"); });
+                                getter.Custom("return mPrivateData ?? (mPrivateData = new " + name + "Data());");
                             });
 
-                        classScope.EmptyLine();
-
-
-                        classScope.CustomScope(name + "Data mData", false, (property) =>
+                        property.CustomScope("set", false, (setter) =>
                         {
-                            property.CustomScope("get", false,
-                                (getter) =>
-                                {
-                                    getter.Custom("return mPrivateData ?? (mPrivateData = new " + name + "Data());");
-                                });
-
-                            property.CustomScope("set", false, (setter) =>
-                            {
-                                setter.Custom("mUIData = value;");
-                                setter.Custom("mPrivateData = value;");
-                            });
+                            setter.Custom("mUIData = value;");
+                            setter.Custom("mPrivateData = value;");
                         });
                     });
                 });
 
+            if (!string.IsNullOrWhiteSpace(scriptNamespace))
+            {
+                rootCode.NewNamespace(scriptNamespace, subRoot);
+            }
+            else
+            {
+                rootCode.CustomCodeScopeode(subRoot);
+            }
+
             var codeWriter = new FileCodeWriter(writer);
-            root.Gen(codeWriter);
+            rootCode.Gen(codeWriter);
             codeWriter.Dispose();
         }
     }

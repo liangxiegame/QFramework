@@ -39,34 +39,47 @@ namespace QFramework
 			var sw = new StreamWriter(generateFilePath, false, new UTF8Encoding(false));
 			var strBuilder = new StringBuilder();
 
-			var markType = elementCodeInfo.BindInfo.BindScript.GetBindType();
+            var tabChar = string.IsNullOrWhiteSpace(nameSpace) ? "" : "\t";
+
+            var markType = elementCodeInfo.BindInfo.BindScript.GetBindType();
 
 			strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);
 			strBuilder.AppendLine(" ****************************************************************************/");
 			strBuilder.AppendLine();
 
-			strBuilder.AppendLine("using System;");
+            
+
+            strBuilder.AppendLine("using System;");
 			strBuilder.AppendLine("using System.Collections.Generic;");
 			strBuilder.AppendLine("using UnityEngine;");
 			strBuilder.AppendLine("using UnityEngine.UI;");
 			strBuilder.AppendLine("using QFramework;").AppendLine();
 
-			strBuilder.AppendLine("namespace " + nameSpace);
-			strBuilder.AppendLine("{");
-			strBuilder.AppendFormat("\tpublic partial class {0} : {1}", behaviourName,
+            if (tabChar != "")
+            {
+                strBuilder.AppendLine("namespace " + nameSpace);
+                strBuilder.AppendLine("{");
+                strBuilder.AppendLine();
+            }
+
+			strBuilder.AppendFormat(tabChar + "public partial class {0} : {1}", behaviourName,
 				markType == BindType.Component ? "UIComponent" : "UIElement");
 			strBuilder.AppendLine();
-			strBuilder.AppendLine("\t{");
-			strBuilder.Append("\t\t").AppendLine("private void Awake()");
-			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t").AppendLine("}");
+			strBuilder.AppendLine(tabChar + "{");
+			strBuilder.Append(tabChar + "\t").AppendLine("private void Awake()");
+			strBuilder.Append(tabChar + "\t").AppendLine("{");
+			strBuilder.Append(tabChar + "\t").AppendLine("}");
 			strBuilder.AppendLine();
-			strBuilder.Append("\t\t").AppendLine("protected override void OnBeforeDestroy()");
-			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t").AppendLine("}");
-			strBuilder.AppendLine("\t}");
-			strBuilder.Append("}");
+			strBuilder.Append(tabChar + "\t").AppendLine("protected override void OnBeforeDestroy()");
+			strBuilder.Append(tabChar + "\t").AppendLine("{");
+			strBuilder.Append(tabChar + "\t").AppendLine("}");
+			strBuilder.AppendLine(tabChar + "}");
+
+            if (tabChar != "")
+            {
+				strBuilder.Append("}");
+            }
 
 			sw.Write(strBuilder);
 			sw.Flush();
@@ -82,7 +95,9 @@ namespace QFramework
 			var sw = new StreamWriter(generateFilePath, false, Encoding.UTF8);
 			var strBuilder = new StringBuilder();
 
-			strBuilder.AppendLine("/****************************************************************************");
+            var tabChar = string.IsNullOrWhiteSpace(nameSpace) ? "" : "\t";
+
+            strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);
 			strBuilder.AppendLine(" ****************************************************************************/");
 			strBuilder.AppendLine();
@@ -90,39 +105,50 @@ namespace QFramework
 			strBuilder.AppendLine("using UnityEngine.UI;");
 			strBuilder.AppendLine("using QFramework;");
 			strBuilder.AppendLine();
-			strBuilder.AppendLine("namespace " + nameSpace);
-			strBuilder.AppendLine("{");
-			strBuilder.AppendFormat("\tpublic partial class {0}", behaviourName);
+
+            if (tabChar != "")
+            {
+                strBuilder.AppendLine("namespace " + nameSpace);
+                strBuilder.AppendLine("{");
+                strBuilder.AppendLine();
+            }
+
+            strBuilder.AppendFormat(tabChar + "public partial class {0}", behaviourName);
 			strBuilder.AppendLine();
-			strBuilder.AppendLine("\t{");
+			strBuilder.AppendLine(tabChar + "{");
 
 			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
 				var strUIType = markInfo.BindScript.TypeName;
-				strBuilder.AppendFormat("\t\t[SerializeField] public {0} {1};\r\n",
+				strBuilder.AppendFormat(tabChar + "\t[SerializeField] public {0} {1};\r\n",
 					strUIType, markInfo.TypeName);
 			}
 
 			strBuilder.AppendLine();
 
-			strBuilder.Append("\t\t").AppendLine("public void Clear()");
-			strBuilder.Append("\t\t").AppendLine("{");
+			strBuilder.Append(tabChar + "\t").AppendLine("public void Clear()");
+			strBuilder.Append(tabChar + "\t").AppendLine("{");
 			foreach (var markInfo in elementCodeInfo.BindInfos)
 			{
-				strBuilder.AppendFormat("\t\t\t{0} = null;\r\n",
+				strBuilder.AppendFormat(tabChar + "\t\t{0} = null;\r\n",
 					markInfo.TypeName);
 			}
 
-			strBuilder.Append("\t\t").AppendLine("}");
+			strBuilder.Append(tabChar + "\t").AppendLine("}");
 			strBuilder.AppendLine();
 
-			strBuilder.Append("\t\t").AppendLine("public override string ComponentName");
-			strBuilder.Append("\t\t").AppendLine("{");
-			strBuilder.Append("\t\t\t");
+			strBuilder.Append(tabChar + "\t").AppendLine("public override string ComponentName");
+			strBuilder.Append(tabChar + "\t").AppendLine("{");
+			strBuilder.Append(tabChar + "\t\t");
 			strBuilder.AppendLine("get { return \"" + elementCodeInfo.BindInfo.BindScript.TypeName + "\";}");
-			strBuilder.Append("\t\t").AppendLine("}");
-			strBuilder.AppendLine("\t}");
-			strBuilder.AppendLine("}");
+			strBuilder.Append(tabChar + "\t").AppendLine("}");
+			strBuilder.AppendLine(tabChar + "}");
+
+			if (tabChar != "")
+			{
+				strBuilder.AppendLine("}");
+			}
+
 			sw.Write(strBuilder);
 			sw.Flush();
 			sw.Close();

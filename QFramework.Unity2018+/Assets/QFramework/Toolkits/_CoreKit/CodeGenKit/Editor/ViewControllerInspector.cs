@@ -96,9 +96,12 @@ namespace QFramework
 
             if (string.IsNullOrEmpty(ViewController.Namespace))
             {
-                var setting = CodeGenKitSetting.Load();
-                ViewController.Namespace = setting.Namespace;
+                //var setting = CodeGenKitSetting.Load();
+                //ViewController.Namespace = setting.Namespace;
+                ViewController.Namespace = CodeGenKitSetting.LoadSettingNamespace();
             }
+
+            ViewController.IsUseNamespace = CodeGenKitSetting.Load().IsUseNamespace;
         }
 
 
@@ -115,9 +118,25 @@ namespace QFramework
             LocaleKitEditor.DrawSwitchToggle(GUI.skin.label.normal.textColor);
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label(mLocaleText.Namespace, GUILayout.Width(150));
-            ViewController.Namespace = EditorGUILayout.TextArea(ViewController.Namespace);
+            GUILayout.Label(mLocaleText.IsUseNamespace, GUILayout.Width(150));
+            //ViewController.IsUseNamespace = GUILayout.Toggle(ViewController.IsUseNamespace, "");
+            GUILayout.Label(ViewController.IsUseNamespace.ToString());
             GUILayout.EndHorizontal();
+
+            if (ViewController.IsUseNamespace)
+            {
+                var setting = CodeGenKitSetting.Load();
+                ViewController.Namespace = setting.Namespace;
+
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(mLocaleText.Namespace, GUILayout.Width(150));
+                ViewController.Namespace = EditorGUILayout.TextArea(ViewController.Namespace);
+                GUILayout.EndHorizontal();
+            }
+            else
+            {
+                ViewController.Namespace = "";
+            }
 
             GUILayout.BeginHorizontal();
             GUILayout.Label(mLocaleText.ScriptName, GUILayout.Width(150));

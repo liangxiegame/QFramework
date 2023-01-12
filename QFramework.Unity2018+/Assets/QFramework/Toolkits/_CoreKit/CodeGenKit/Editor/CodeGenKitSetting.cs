@@ -16,6 +16,7 @@ namespace QFramework
 {
     public class CodeGenKitSetting : ScriptableObject
     {
+        public bool IsUseNamespace = true;
         public bool IsDefaultNamespace => Namespace == "QFramework.Example";
         public string Namespace = "QFramework.Example";
         public string ScriptDir = "Assets/Scripts/Game";
@@ -31,10 +32,30 @@ namespace QFramework
 
             if (File.Exists(filePath))
             {
-                return mInstance = AssetDatabase.LoadAssetAtPath<CodeGenKitSetting>(filePath);
+                mInstance = AssetDatabase.LoadAssetAtPath<CodeGenKitSetting>(filePath);
+                var jsonString = File.ReadAllText(filePath);
+                if (mInstance != null && jsonString != "" && !jsonString.Contains("IsUseNamespace"))
+                {
+                    mInstance.IsUseNamespace = true;
+                }
+                return mInstance;
             }
 
             return mInstance = CreateInstance<CodeGenKitSetting>();
+        }
+
+        public static string LoadSettingNamespace()
+        {
+            var cgks = Load();
+            if (cgks.IsUseNamespace)
+            {
+                if (string.IsNullOrEmpty(cgks.Namespace))
+                {
+                    return "QFramework.Example";
+                }
+                return cgks.Namespace;
+            }
+            return "";
         }
 
         public void Save()
