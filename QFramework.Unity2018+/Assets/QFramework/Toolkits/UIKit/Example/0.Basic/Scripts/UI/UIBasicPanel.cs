@@ -17,6 +17,8 @@ namespace QFramework.Example
 			{
 				Debug.Log("开始游戏");
 			});
+
+			BtnStart.Rotation(Quaternion.Euler(0, 0, 90)); // 新增代码
 		}
 		
 		protected override void OnOpen(IUIData uiData = null)
@@ -29,6 +31,7 @@ namespace QFramework.Example
 		{
 			Debug.Log("UIBasicPanel OnShow");
 		}
+		
 		
 		protected override void OnHide()
 		{

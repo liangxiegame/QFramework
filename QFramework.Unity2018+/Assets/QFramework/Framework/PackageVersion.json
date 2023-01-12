@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.32",
+    "Version": "v1.0.33",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.32",
-        "content": "FluentKit：增加 Sin、Cos、SinAngle、CosAngle、Deg2Rad、Rad2Deg、ToVector3 API",
+        "version": "v1.0.33",
+        "content": "LiveCodingKit：增加使用文档",
         "author": "liangxie",
-        "date": "2023 年 01 月 10 日 10:35",
+        "date": "2023 年 01 月 12 日 10:58",
         "PackageId": ""
     }
 }

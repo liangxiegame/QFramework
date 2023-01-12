@@ -140,7 +140,7 @@ var sin = (90.0f * Mathf.Deg2Rad).Sin();
         [APIDescriptionCN("Mathf.Cos(x * Mathf.Deg2Rad)")]
         [APIDescriptionEN("Mathf.Cos(x * Mathf.Deg2Rad)")]
         [APIExampleCode(@"
-var cos = (90.0f).CosAngle();
+var cos = 90.0f.CosAngle();
 // cos is 0f
 ")]
 #endif
@@ -160,7 +160,7 @@ var cos = (90.0f).CosAngle();
         [APIDescriptionCN("Mathf.Sin(x * Mathf.Deg2Rad)")]
         [APIDescriptionEN("Mathf.Sin(x * Mathf.Deg2Rad)")]
         [APIExampleCode(@"
-var sin = (90.0f).SinAngle();
+var sin = 90.0f.SinAngle();
 // sin is 1f
 ")]
 #endif
@@ -180,7 +180,7 @@ var sin = (90.0f).SinAngle();
         [APIDescriptionCN("Mathf.Deg2Rad")]
         [APIDescriptionEN("Mathf.Deg2Rad")]
         [APIExampleCode(@"
-var radius = (90.0f).Deg2Rad();
+var radius = 90.0f.Deg2Rad();
 // radius is 1.57f
 ")]
 #endif

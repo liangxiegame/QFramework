@@ -1,7 +1,4 @@
-[toc]
-
 # 1. 介绍
-
 # 01. 简介
 
 大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 \~ 2022 年 10 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
@@ -6571,7 +6568,7 @@ namespace QFramework
 
 
 
-
+  
 # 07. AudioKit 音频管理解决方案
 
 ## 基本使用
@@ -7753,7 +7750,7 @@ namespace QFramework.Example
     
     
     
-    ​    
+        
 # 14. 更多内容
 
 
@@ -7809,9 +7806,9 @@ namespace QFramework.Example
 
             grid.Fill("Empty");
             
-            grid[2, 3] = "Hello;
+            grid[2, 3] = "Hello";
 
-            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content}));
+            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content})");
 
             grid.Clear();
         }
@@ -7840,6 +7837,79 @@ namespace QFramework.Example
 ```
 
 好了这个就是关于 GridKit 的简单介绍。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+
+*   QFramework 交流群: 623597263
+
+*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
+
+*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
+
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>
+# 16. LiveCodingKit 写代码不用停止运行的利器
+
+我们在用 Unity 开发的时候，每次编写或修改一点代码就需要进行 停止运行->编写代码->等待编译->运行游戏。
+
+而在很多情况下这个过程是一个比较耗神的过程，因为开发者需要等待，还需要动手操作。
+
+在笔者体验过 GameMakerStudio 的 GMLive 插件后，发现不停止运行就可以直接查看代码编写的结果的体验非常丝滑。
+
+于是笔者就在 QFramework 中写了一个类似的方案 LiveCodingKit。
+
+使用方式很简单，首先在 QFramework 编辑器中可以看到 LiveCodingKit 面板，如下:
+
+![image-20230112105034532](https://file.liangxiegame.com/4e7b25f6-cb59-4283-8e74-9d2c951c39e5.png)
+
+确保开启是勾选状态。
+
+然后根据自己需要选择当编译完成时，对应的操作，一般情况下重新加载当前场景就够用了。
+
+当然如果是场景和场景间有依赖关系，那么可以选择重启游戏。
+
+然后随意运行一个带有脚本的场景，笔者选择的是 QFramework 自带的示例，如下:
+
+![image-20230112105245671](https://file.liangxiegame.com/907db129-95aa-4674-a63a-3c47f82d4dc9.png)
+
+然后新增代码如下:
+
+```csharp
+public partial class UIBasicPanel : UIPanel
+{
+   protected override void OnInit(IUIData uiData = null)
+   {
+      mData = uiData as UIBasicPanelData ?? new UIBasicPanelData();
+      
+      BtnStart.onClick.AddListener(() =>
+      {
+         Debug.Log("开始游戏");
+      });
+
+      BtnStart.Rotation(Quaternion.Euler(0, 0, 90)); // 新增代码
+   }
+   
+```
+
+之后回到 Unity 直接等待编译（不用停止运行）。
+
+
+
+编译完成后结果如下:
+
+![image-20230112105456694](https://file.liangxiegame.com/5185ab09-938c-4bd7-9259-6ff08ebaf779.png)
+
+
+
+OK，结果没问题。
+
+这就是 LiveCodingKit 的介绍，当你需要在代码中调整一些数值，写 OnGUI 代码，会非常方便，当然也有一些不适用的情况，这个就需要大家自行体验了。
+
+
 
 
 ## 更多内容
