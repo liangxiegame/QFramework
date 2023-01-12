@@ -89,7 +89,15 @@ namespace QFramework
 
 			if (iBind != null)
 			{
-				className = UIKitSettingData.Load().Namespace + "." + iBind.TypeName;
+				var nameSpace = UIKitSettingData.LoadSettingNamespace();
+				if (nameSpace != "")
+				{
+					className = nameSpace + "." + iBind.TypeName;
+				}
+				else
+				{
+					className = iBind.TypeName;
+                }
 
 				// 这部分
 				if (iBind.GetBindType() != BindType.DefaultUnityElement)
@@ -103,8 +111,16 @@ namespace QFramework
 			}
 			else
 			{
-				className = UIKitSettingData.Load().Namespace + "." + behaviourName;
-			}
+                var nameSpace = UIKitSettingData.LoadSettingNamespace();
+                if (nameSpace != "")
+                {
+                    className = nameSpace + "." + behaviourName;
+                }
+                else
+                {
+                    className = behaviourName;
+                }
+            }
 
 			var t = assembly.GetType(className);
 

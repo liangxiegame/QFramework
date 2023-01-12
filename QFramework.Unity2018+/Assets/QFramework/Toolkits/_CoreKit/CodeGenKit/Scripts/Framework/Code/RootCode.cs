@@ -29,4 +29,13 @@ namespace QFramework
             }
         }
     }
+
+    public static partial class ICodeScopeExtensions
+    {
+        public static ICodeScope CustomCodeScopeode(this ICodeScope self, ICodeScope other)
+        {
+            self.Codes.Add(other);
+            return self;
+        }
+    }
 }

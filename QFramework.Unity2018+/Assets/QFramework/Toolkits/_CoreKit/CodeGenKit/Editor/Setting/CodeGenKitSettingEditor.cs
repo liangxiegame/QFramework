@@ -52,19 +52,29 @@ namespace QFramework
 
             GUILayout.BeginVertical("box");
             {
-                GUILayout.Label(LocaleText.ViewControllerNamespace, mLabel12.Value, GUILayout.Width(200));
-
-                GUILayout.Space(6);
-
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LocaleText.ViewControllerNamespace, mLabelBold12.Value, GUILayout.Width(200));
+                    GUILayout.Label(LocaleText.ViewControllerIsUseNamespace, mLabelBold12.Value, GUILayout.Width(200));
 
-                    CodeGenKit.Setting.Namespace = EditorGUILayout.TextField(CodeGenKit.Setting.Namespace);
+                    CodeGenKit.Setting.IsUseNamespace = GUILayout.Toggle(CodeGenKit.Setting.IsUseNamespace, "");
 
                 }
                 GUILayout.EndHorizontal();
 
+                if (CodeGenKit.Setting.IsUseNamespace)
+                {
+                    GUILayout.Space(6);
+
+                    GUILayout.BeginHorizontal();
+                    {
+                        GUILayout.Label(LocaleText.ViewControllerNamespace, mLabelBold12.Value, GUILayout.Width(200));
+
+                        CodeGenKit.Setting.Namespace = EditorGUILayout.TextField(CodeGenKit.Setting.Namespace);
+
+                    }
+                    GUILayout.EndHorizontal();
+                }
+                
                 GUILayout.Space(6);
 
                 GUILayout.BeginHorizontal();
@@ -122,6 +132,8 @@ namespace QFramework
         class LocaleText
         {
             public static bool IsCN => LocaleKitEditor.IsCN.Value;
+
+            public static string ViewControllerIsUseNamespace => IsCN ? " UI 是否使用命名空间:" : "UI is use Namespace:";
 
             public static string ViewControllerNamespace =>
                 IsCN ? " ViewController 命名空间:" : "ViewController Namespace:";
