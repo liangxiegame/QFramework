@@ -115,11 +115,12 @@
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
-### Core Members
+### Contributors
 
+* [蓝色孤舟 gdtdftdqtd](https://github.com/gdtdftdqtd)
 * [h3166179](https://github.com/h3166179)
 * [葫芦 WangEdgar](https://github.com/WangEdgar)
-* [凉鞋 liangxieq](https://github.com/liangxieq)
+* [凉鞋 liangxiegame](https://github.com/liangxiegame)
 
 
 

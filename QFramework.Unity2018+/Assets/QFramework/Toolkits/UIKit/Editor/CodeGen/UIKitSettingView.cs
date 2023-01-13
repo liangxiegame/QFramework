@@ -86,28 +86,18 @@ namespace QFramework
             
             GUILayout.BeginVertical("box");
             {
+                GUILayout.Label(LocaleText.UINamespace, mLabel12.Value, GUILayout.Width(200));
+
+                GUILayout.Space(6);
+
                 GUILayout.BeginHorizontal();
                 {
-                    GUILayout.Label(LocaleText.IsUseNamespace, mLabelBold12.Value, GUILayout.Width(200));
+                    GUILayout.Label(LocaleText.UINamespace, mLabelBold12.Value, GUILayout.Width(200));
 
-                    mUiKitSettingData.IsUseNamespace = GUILayout.Toggle(mUiKitSettingData.IsUseNamespace,"");
+                    mUiKitSettingData.Namespace = EditorGUILayout.TextField(mUiKitSettingData.Namespace);
 
                 }
                 GUILayout.EndHorizontal();
-
-                if (mUiKitSettingData.IsUseNamespace)
-                {
-                    GUILayout.Space(6);
-
-                    GUILayout.BeginHorizontal();
-                    {
-                        GUILayout.Label(LocaleText.UINamespace, mLabelBold12.Value, GUILayout.Width(200));
-
-                        mUiKitSettingData.Namespace = EditorGUILayout.TextField(mUiKitSettingData.Namespace);
-
-                    }
-                    GUILayout.EndHorizontal();
-                }
 
                 GUILayout.Space(6);
 
@@ -150,9 +140,6 @@ namespace QFramework
         class LocaleText
         {
             public static bool IsCN => LocaleKitEditor.IsCN.Value;
-
-            public static string IsUseNamespace => IsCN ? " UI 是否使用命名空间:" : "UI is use Namespace:";
-
             public static string UINamespace => IsCN ? " UI 命名空间:" : "UI Namespace:";
 
             public static string UIScriptGenerateDir => IsCN ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:";

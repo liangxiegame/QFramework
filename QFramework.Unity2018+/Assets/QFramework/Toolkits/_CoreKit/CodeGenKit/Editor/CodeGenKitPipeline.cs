@@ -72,39 +72,28 @@ namespace QFramework
 
             // var writer = File.CreateText(scriptFile);
 
-            var tabChar = task.IsUseNamespace ? "\t" : "";
-
             var writer = new StringBuilder();
             writer.AppendLine("using UnityEngine;");
             writer.AppendLine("using QFramework;");
             writer.AppendLine();
 
-            if (tabChar != "")
+            if (CodeGenKit.Setting.IsDefaultNamespace)
             {
-                if (CodeGenKit.Setting.IsDefaultNamespace)
-                {
-                    writer.AppendLine("// 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间");
-                    writer.AppendLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
-                }
-
-                writer.AppendLine(
-                    $"namespace {((string.IsNullOrWhiteSpace(task.Namespace)) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
-                writer.AppendLine("{");
+                writer.AppendLine("// 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间");
+                writer.AppendLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
             }
 
-            
-            writer.AppendFormat(tabChar + "public partial class {0} : ViewController", task.ClassName).AppendLine();
-            writer.AppendLine(tabChar + "{");
-            writer.AppendLine(tabChar + "\tvoid Start()");
-            writer.AppendLine(tabChar + "\t{");
-            writer.AppendLine(tabChar + "\t\t// Code Here");
-            writer.AppendLine(tabChar + "\t}");
-            writer.AppendLine(tabChar + "}");
-
-            if (tabChar != "")
-            {
-                writer.AppendLine("}");
-            }
+            writer.AppendLine(
+                $"namespace {((string.IsNullOrWhiteSpace(task.Namespace)) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
+            writer.AppendLine("{");
+            writer.AppendLine($"\tpublic partial class {task.ClassName} : ViewController");
+            writer.AppendLine("\t{");
+            writer.AppendLine("\t\tvoid Start()");
+            writer.AppendLine("\t\t{");
+            writer.AppendLine("\t\t\t// Code Here");
+            writer.AppendLine("\t\t}");
+            writer.AppendLine("\t}");
+            writer.AppendLine("}");
 
             task.MainCode = writer.ToString();
             writer.Clear();
@@ -113,45 +102,38 @@ namespace QFramework
             writer.AppendLine("using UnityEngine;");
             writer.AppendLine();
 
-            if (tabChar != "")
+            if (CodeGenKit.Setting.IsDefaultNamespace)
             {
-                if (CodeGenKit.Setting.IsDefaultNamespace)
-                {
-                    writer.AppendLine("// 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间");
-                    writer.AppendLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
-                }
-                writer.AppendLine($"namespace {(string.IsNullOrWhiteSpace(task.Namespace) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
-                writer.AppendLine("{");
+                writer.AppendLine("// 1.请在菜单 编辑器扩展/Namespace Settings 里设置命名空间");
+                writer.AppendLine("// 2.命名空间更改后，生成代码之后，需要把逻辑代码文件（非 Designer）的命名空间手动更改");
             }
 
-            writer.AppendFormat(tabChar + "public partial class {0}", task.ClassName).AppendLine();
-            writer.AppendLine(tabChar + "{");
+            writer.AppendLine(
+                $"namespace {(string.IsNullOrWhiteSpace(task.Namespace) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
+            writer.AppendLine("{");
+            writer.AppendLine($"\tpublic partial class {task.ClassName}");
+            writer.AppendLine("\t{");
 
             foreach (var bindData in task.BindInfos)
             {
                 writer.AppendLine();
                 if (bindData.BindScript.Comment.IsNotNullAndEmpty())
                 {
-                    writer.AppendLine(tabChar + "\t/// <summary>");
+                    writer.AppendLine("\t\t/// <summary>");
                     foreach (var comment in bindData.BindScript.Comment.Split('\n'))
                     {
-                        writer.AppendFormat(tabChar + "\t/// {0}", comment).AppendLine();
+                        writer.AppendLine($"\t\t/// {comment}");
                     }
 
-                    writer.AppendLine(tabChar + "\t/// </summary>");
+                    writer.AppendLine("\t\t/// </summary>");
                 }
 
-                writer.AppendFormat(tabChar + "\tpublic {0} {1};", bindData.TypeName, bindData.MemberName).AppendLine();
+                writer.AppendLine($"\t\tpublic {bindData.TypeName} {bindData.MemberName};");
             }
 
             writer.AppendLine();
-            writer.AppendLine(tabChar + "}");
-
-            if (tabChar != "")
-            {
-                writer.AppendLine("}");
-            }
-
+            writer.AppendLine("\t}");
+            writer.AppendLine("}");
             task.DesignerCode = writer.ToString();
             writer.Clear();
 
@@ -237,7 +219,6 @@ namespace QFramework
                     serializedObject.FindProperty("GeneratePrefab").boolValue = codeGenerateInfo.GeneratePrefab;
                     serializedObject.FindProperty("ScriptName").stringValue = codeGenerateInfo.ScriptName;
                     serializedObject.FindProperty("Namespace").stringValue = codeGenerateInfo.Namespace;
-                    serializedObject.FindProperty("IsUseNamespace").boolValue = codeGenerateInfo.IsUseNamespace;
 
                     var generatePrefab = codeGenerateInfo.GeneratePrefab;
                     var prefabFolder = codeGenerateInfo.PrefabFolder;

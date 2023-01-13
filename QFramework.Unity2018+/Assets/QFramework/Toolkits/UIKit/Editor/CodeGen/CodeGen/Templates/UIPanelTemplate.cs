@@ -32,44 +32,36 @@ namespace QFramework
                 .Using("UnityEngine")
                 .Using("UnityEngine.UI")
                 .Using("QFramework")
-                .EmptyLine();
-
-            var subRoot = new RootCode()
-                .Class(name + "Data", "UIPanelData", false, false, classScope => { })
                 .EmptyLine()
-                .Class(name, "UIPanel", true, false, classScope =>
+                .Namespace(scriptNamespace, nsScope =>
                 {
-                    classScope.CustomScope("protected override void OnInit(IUIData uiData = null)", false,
-                        function =>
-                        {
-                            function.Custom(string.Format("mData = uiData as {0} ?? new {0}();", (name + "Data")));
-                            function.Custom("// please add init code here");
-                        });
+                    nsScope.Class(name + "Data", "UIPanelData", false, false, classScope => { });
 
-                    classScope.EmptyLine();
-                    classScope.CustomScope("protected override void OnOpen(IUIData uiData = null)", false,
-                        function => { });
+                    nsScope.Class(name, "UIPanel", true, false, classScope =>
+                    {
+                        classScope.CustomScope("protected override void OnInit(IUIData uiData = null)", false,
+                            function =>
+                            {
+                                function.Custom(string.Format("mData = uiData as {0} ?? new {0}();",(name + "Data")));
+                                function.Custom("// please add init code here");
+                            });
 
-                    classScope.EmptyLine();
-                    classScope.CustomScope("protected override void OnShow()", false,
-                        function => { });
-                    classScope.EmptyLine();
-                    classScope.CustomScope("protected override void OnHide()", false,
-                        function => { });
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnOpen(IUIData uiData = null)", false,
+                            function => { });
 
-                    classScope.EmptyLine();
-                    classScope.CustomScope("protected override void OnClose()", false,
-                        function => { });
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnShow()", false,
+                            function => { });
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnHide()", false,
+                            function => { });
+
+                        classScope.EmptyLine();
+                        classScope.CustomScope("protected override void OnClose()", false,
+                            function => { });
+                    });
                 });
-
-            if (!string.IsNullOrWhiteSpace(scriptNamespace))
-            {
-                rootCode.NewNamespace(scriptNamespace, subRoot);
-            }
-            else
-            {
-                rootCode.CustomCodeScopeode(subRoot);
-            }
 
             rootCode.Gen(codeWriter);
             codeWriter.Dispose();

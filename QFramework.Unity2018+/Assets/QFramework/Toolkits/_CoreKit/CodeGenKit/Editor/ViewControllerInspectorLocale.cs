@@ -18,7 +18,6 @@ namespace QFramework
         }
 
         public string CodegenPart => CN ? " 代码生成设置" : " Code Generate Setting";
-        public string IsUseNamespace => CN ? "是否使用命名空间:" : "Is Use Namespace :";
         public string Namespace => CN ? "命名空间:" : "Namespace :";
         public string ScriptName => CN ? "生成脚本名:" : "Script name:";
         public string ScriptsFolder => CN ? "脚本生成目录:" : "Scripts Generate Folder:";

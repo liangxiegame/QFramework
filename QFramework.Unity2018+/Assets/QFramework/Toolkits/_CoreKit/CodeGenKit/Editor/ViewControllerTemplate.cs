@@ -29,8 +29,7 @@ namespace QFramework
                 From = GameObjectFrom.Scene,
                 ClassName = viewController.ScriptName,
                 ScriptsFolder = viewController.ScriptsFolder,
-                Namespace = viewController.Namespace,
-                IsUseNamespace = viewController.IsUseNamespace,
+                Namespace = viewController.Namespace
             };
         }
     }

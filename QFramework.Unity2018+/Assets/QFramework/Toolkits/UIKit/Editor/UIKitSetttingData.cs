@@ -40,7 +40,7 @@ namespace QFramework
 
 		private const string mConfigSavedFileName = "ProjectConfig.json";
 
-		public string Namespace = "QFramework.Example";
+		public string Namespace;
 
 		public string UIScriptDir = "/Scripts/UI";
 
@@ -48,10 +48,8 @@ namespace QFramework
 
 		public bool IsDefaultNamespace => Namespace == "QFramework.Example";
 
-		public bool IsUseNamespace = true;
 
-
-        public static UIKitSettingData Load()
+		public static UIKitSettingData Load()
 		{
 			mConfigSavedDir.CreateDirIfNotExists();
 
@@ -62,33 +60,16 @@ namespace QFramework
 					fileStream.Close();
 				}
 			}
-			var jsonString = File.ReadAllText(mConfigSavedDir + mConfigSavedFileName);
-			var frameworkConfigData = JsonUtility.FromJson<UIKitSettingData>(jsonString);
-            if (frameworkConfigData != null && jsonString != "" && !jsonString.Contains("IsUseNamespace"))
-            {
-                frameworkConfigData.IsUseNamespace = true;
-            }
 
-            if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
+			var frameworkConfigData =
+				JsonUtility.FromJson<UIKitSettingData>(File.ReadAllText(mConfigSavedDir + mConfigSavedFileName));
+
+			if (frameworkConfigData == null || string.IsNullOrEmpty(frameworkConfigData.Namespace))
 			{
 				frameworkConfigData = new UIKitSettingData {Namespace = "QFramework.Example"};
 			}
 
 			return frameworkConfigData;
-		}
-
-		public static string LoadSettingNamespace()
-		{
-			var fcd = Load();
-			if (fcd.IsUseNamespace)
-			{
-				if (string.IsNullOrEmpty(fcd.Namespace))
-				{
-					return "QFramework.Example";
-                }
-				return fcd.Namespace;
-			}
-			return "";
 		}
 
 		public void Save()

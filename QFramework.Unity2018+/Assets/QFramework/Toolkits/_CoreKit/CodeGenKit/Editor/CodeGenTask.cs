@@ -47,8 +47,7 @@ namespace QFramework
         public string ScriptsFolder;
         public string ClassName;
         public string Namespace;
-        public bool IsUseNamespace;
-
+        
         // result
         public string MainCode;
         public string DesignerCode;
