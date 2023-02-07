@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -106,6 +106,12 @@ ActionKit.Sequence()
         public static IAction NextFrame(Action onNextFrame)
         {
             return QFramework.DelayFrame.Allocate(1, onNextFrame);
+        }
+
+
+        public static IAction Lerp(float a,float b,float duration,Action<float> onLerp,Action onLerpFinish = null)
+        {
+            return QFramework.Lerp.Allocate(a, b, duration, onLerp, onLerpFinish);
         }
 
 

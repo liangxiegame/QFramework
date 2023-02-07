@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.33",
+    "Version": "v1.0.34",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.33",
-        "content": "LiveCodingKit：增加使用文档",
+        "version": "v1.0.34",
+        "content": "ActionKit：增加 Lerp  FluentKit：增加 list.GetAndRemoveRandomItem()",
         "author": "liangxie",
-        "date": "2023 年 01 月 12 日 10:58",
+        "date": "2023 年 02 月 07 日 13:42",
         "PackageId": ""
     }
 }

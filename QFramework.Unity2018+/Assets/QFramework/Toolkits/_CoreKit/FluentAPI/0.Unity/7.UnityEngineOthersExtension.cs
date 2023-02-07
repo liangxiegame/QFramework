@@ -31,6 +31,23 @@ new List<int>(){ 1,2,3 }.GetRandomItem();
         {
             return list[UnityEngine.Random.Range(0, list.Count)];
         }
+        
+#if UNITY_EDITOR
+        // v1.0.34
+        [MethodAPI]
+        [APIDescriptionCN("随机获取并删除 List 中的一个元素")]
+        [APIDescriptionEN("get and remove random item in a list")]
+        [APIExampleCode(@"
+new List<int>(){ 1,2,3 }.GetAndRemoveRandomItem();
+")]
+#endif
+        public static T GetAndRemoveRandomItem<T>(this List<T> list)
+        {
+            var randomIndex = UnityEngine.Random.Range(0, list.Count);
+            var randomItem = list[randomIndex];
+            list.RemoveAt(randomIndex);
+            return randomItem;
+        }
 
 #if UNITY_EDITOR
         // v1
@@ -78,6 +95,11 @@ var absValue = -1.0f.Abs();
         {
             return Mathf.Abs(self);
         }
+        
+        public static float Abs(this int self)
+        {
+            return Mathf.Abs(self);
+        }
 
 #if UNITY_EDITOR
         // Added in v1.0.31
@@ -90,6 +112,11 @@ var sign = -5.0f.Sign();
 ")]
 #endif
         public static float Sign(this float self)
+        {
+            return Mathf.Sign(self);
+        }
+        
+        public static float Sign(this int self)
         {
             return Mathf.Sign(self);
         }
