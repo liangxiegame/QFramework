@@ -105,7 +105,7 @@ namespace QFramework
             public Texture GetTexture()
             {
                 var handler = Request.downloadHandler as DownloadHandlerTexture;
-                return handler != null ? handler.texture : null;
+                return handler?.texture;
             }
         }
 
@@ -123,7 +123,7 @@ namespace QFramework
 
             if (url.StartsWith("/"))
             {
-                return string.Format("file:///{0}{1}", projectDir, url);
+                return $"file:///{projectDir}{url}";
             }
 
             var assetDir = Path.GetDirectoryName(CurrentPath);
