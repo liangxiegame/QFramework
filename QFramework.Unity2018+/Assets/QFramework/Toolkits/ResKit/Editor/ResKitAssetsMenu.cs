@@ -1,4 +1,4 @@
-﻿/****************************************************************************
+/****************************************************************************
  * Copyright (c) 2017 ~ 2018.5 liangxie
  * 
  * http://qframework.io
@@ -23,84 +23,91 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System.Collections.Generic;
 using UnityEditor;
 using System.IO;
-using QFramework;
+				 
 
 namespace QFramework
 {
-	[InitializeOnLoad]
-	public class ResKitAssetsMenu
-	{
-		public const   string AssetBundlesOutputPath       = "AssetBundles";
-		private const string Mark_AssetBundle   = "Assets/@ResKit - AssetBundle Mark";
+    [InitializeOnLoad]
+    public class ResKitAssetsMenu
+    {
+        public const string AssetBundlesOutputPath = "AssetBundles";
+        private const string Mark_AssetBundle = "Assets/@ResKit - AssetBundle Mark";
 
-		static ResKitAssetsMenu()
-		{
-			Selection.selectionChanged = OnSelectionChanged;
-		}
+        static ResKitAssetsMenu()
+        {
+            Selection.selectionChanged = OnSelectionChanged;
+        }
 
-		public static void OnSelectionChanged()
-		{
-			var path = GetSelectedPathOrFallback();
-			if (!string.IsNullOrEmpty(path))
-			{
-				Menu.SetChecked(Mark_AssetBundle, Marked(path));
-			}
-		}
+        public static void OnSelectionChanged()
+        {
+            var paths = GetSelectedPathOrFallback();
+            if (paths != null && paths.Count > 0)
+            {
+                foreach (var path in paths)
+                {
+                    Menu.SetChecked(Mark_AssetBundle, Marked(path));
+                }
+            }
+        }
 
-		public static bool Marked(string path)
-		{
-			var ai = AssetImporter.GetAtPath(path);
-			var dir = new DirectoryInfo(path);
-			return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
-		}
+        public static bool Marked(string path)
+        {
+            var ai = AssetImporter.GetAtPath(path);
+            var dir = new DirectoryInfo(path);
+            return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
+        }
 
-		public static void MarkAB(string path)
-		{
-			if (!string.IsNullOrEmpty(path))
-			{
-				var ai = AssetImporter.GetAtPath(path);
-				var dir = new DirectoryInfo(path);
+        public static void MarkAB(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+            {
+                var ai = AssetImporter.GetAtPath(path);
+                var dir = new DirectoryInfo(path);
 
-				if (Marked(path))
-				{
-					Menu.SetChecked(Mark_AssetBundle, false);
-					ai.assetBundleName = null;
-				}
-				else
-				{
-					Menu.SetChecked(Mark_AssetBundle, true);
-					ai.assetBundleName = dir.Name.Replace(".", "_");
-				}
+                if (Marked(path))
+                {
+                    Menu.SetChecked(Mark_AssetBundle, false);
+                    ai.assetBundleName = null;
+                }
+                else
+                {
+                    Menu.SetChecked(Mark_AssetBundle, true);
+                    ai.assetBundleName = dir.Name.Replace(".", "_");
+                }
 
-				AssetDatabase.RemoveUnusedAssetBundleNames();
-			}
-		}
+                AssetDatabase.RemoveUnusedAssetBundleNames();
+            }
+        }
 
 
-		[MenuItem(Mark_AssetBundle)]
-		public static void MarkPTABDir()
-		{
-			var path = GetSelectedPathOrFallback();
-			MarkAB(path);
-		}
+        [MenuItem(Mark_AssetBundle)]
+        public static void MarkPTABDir()
+        {
+            var paths = GetSelectedPathOrFallback();
+            foreach (var path in paths)
+            {
+                MarkAB(path);
+            }
+        }
 
-		public static string GetSelectedPathOrFallback()
-		{
-			var path = string.Empty;
+        public static List<string> GetSelectedPathOrFallback()
+        {
+            var paths = new List<string>();
 
-			foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
-			{
-				path = AssetDatabase.GetAssetPath(obj);
+            foreach (var obj in Selection.GetFiltered(typeof(UnityEngine.Object), SelectionMode.Assets))
+            {
+                var path = AssetDatabase.GetAssetPath(obj);
 
-				if (!string.IsNullOrEmpty(path) && File.Exists(path))
-				{
-					return path;
-				}
-			}
+                if (!string.IsNullOrEmpty(path) && File.Exists(path))
+                {
+                    paths.Add(path);
+                }
+            }
 
-			return path;
-		}
-	}
+            return paths;
+        }
+    }
 }
