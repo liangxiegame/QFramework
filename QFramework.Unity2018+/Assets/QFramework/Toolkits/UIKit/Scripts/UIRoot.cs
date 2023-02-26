@@ -125,6 +125,17 @@ namespace QFramework
                 }
             }
         }
+        
+        /// <summary>
+        /// UICamera为3D相机时屏幕自适应
+        /// </summary>
+        [Button("Info")]
+        private void Fit3DCamera()
+        {
+            var rectHeight = GetComponent<RectTransform>().rect.height;
+            var uiCameZDis = -rectHeight *0.5f/Mathf.Tan(UICamera.fieldOfView * 0.5f*Mathf.Deg2Rad);
+            UICamera.LocalPositionZ(uiCameZDis);
+        }
 
         public void OnSingletonInit()
         {
