@@ -30,8 +30,10 @@ namespace QFramework.Example
             
             grid[2, 3] = ""Hello"";
 
-            grid.ForEach((x, y, content) => Debug.Log($""({x},{y}):{content}""));
+            grid.Resize(5, 5, (x, y) => ""123"");
 
+            grid.ForEach((x, y, content) => Debug.Log($""({x},{y}):{content}""));
+            
             grid.Clear();
         }
     }
@@ -52,6 +54,31 @@ namespace QFramework.Example
 (3,1):Empty
 (3,2):Empty
 (3,3):Empty
+(0,0):Empty
+(0,1):Empty
+(0,2):Empty
+(0,3):Empty
+(0,4):123
+(1,0):Empty
+(1,1):Empty
+(1,2):Empty
+(1,3):Empty
+(1,4):123
+(2,0):Empty
+(2,1):Empty
+(2,2):Empty
+(2,3):Hello
+(2,4):123
+(3,0):Empty
+(3,1):Empty
+(3,2):Empty
+(3,3):Empty
+(3,4):123
+(4,0):123
+(4,1):123
+(4,2):123
+(4,3):123
+(4,4):123
 ")]
 #endif
     public class EasyGrid<T>
@@ -59,6 +86,9 @@ namespace QFramework.Example
         private T[,] mGrid;
         private int mWidth;
         private int mHeight;
+
+        public int Width => mWidth;
+        public int Height => mHeight;
 
         public EasyGrid(int width, int height)
         {
@@ -87,6 +117,40 @@ namespace QFramework.Example
                     mGrid[x, y] = onFill(x, y);
                 }
             }
+        }
+
+        public void Resize(int width, int height, Func<int, int, T> onAdd)
+        {
+            var newGrid = new T[width, height];
+            for (var x = 0; x < mWidth; x++)
+            {
+                for (var y = 0; y < mHeight; y++)
+                {
+                    newGrid[x, y] = mGrid[x, y];
+                }
+
+                // x addition
+                for (var y = mHeight; y < height; y++)
+                {
+                    newGrid[x, y] = onAdd(x, y);
+                }
+            }
+
+            for (var x = mWidth;  x < width; x++)
+            {
+                // y addition
+                for (var y = 0; y < height; y++)
+                {
+                    newGrid[x, y] = onAdd(x, y);
+                }
+            }
+
+            // 清空之前的
+            Fill(default(T));
+
+            mWidth = width;
+            mHeight = height;
+            mGrid = newGrid;
         }
 
         public void ForEach(Action<int, int, T> each)

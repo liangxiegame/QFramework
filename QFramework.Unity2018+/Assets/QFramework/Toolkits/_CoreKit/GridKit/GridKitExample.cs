@@ -14,7 +14,11 @@ namespace QFramework.Example
             grid[2, 3] = "@@@ Hello @@@";
 
             grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content}"));
+            
+            grid.Resize(5, 5, (x, y) => "123");
 
+            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content}"));
+            
             grid.Clear();
         }
 
