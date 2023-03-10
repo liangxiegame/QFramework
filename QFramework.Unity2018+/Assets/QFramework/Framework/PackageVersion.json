@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.36",
+    "Version": "v1.0.37",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.36",
-        "content": "EasyGrid 支持增量 Resize",
+        "version": "v1.0.37",
+        "content": "QFramework.cs IController Support ICanGetUtility",
         "author": "liangxie",
-        "date": "2023 年 03 月 09 日 12:11",
+        "date": "2023 年 03 月 10 日 10:42",
         "PackageId": ""
     }
 }

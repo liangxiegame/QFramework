@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2022 liangxiegame MIT License
+ * Copyright (c) 2015 ~ 2023 liangxiegame MIT License
  *
  * QFramework v1.0
  *
@@ -18,7 +18,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2022.12.19 14:38 support Component Version of UnRegisterWhenGameObjectDestroyed
+ * Latest Update: 2023.3.10 10:40 IController Support ICanGetUtility
  ****************************************************************************/
 
 using System;
@@ -236,7 +236,7 @@ namespace QFramework
     #region Controller
 
     public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
-        ICanRegisterEvent, ICanSendQuery
+        ICanRegisterEvent, ICanSendQuery,ICanGetUtility
     {
     }
 
