@@ -52,6 +52,11 @@ names.Release2Pool();
         /// <param name="toRelease"></param>
         public static void Release(List<T> toRelease)
         {
+            if (mListStack.Contains(toRelease))
+            {
+                throw new System.InvalidOperationException ("重复回收 List，The List is released even though it is in the pool");
+            }
+
             toRelease.Clear();
             mListStack.Push(toRelease);
         }
