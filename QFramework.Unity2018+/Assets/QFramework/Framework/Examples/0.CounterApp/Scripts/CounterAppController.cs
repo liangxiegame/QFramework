@@ -99,6 +99,14 @@ namespace QFramework.Example
             base.ExecuteCommand(command);
             Debug.Log("After " + command.GetType().Name + "Execute");
         }
+
+        protected override TResult ExecuteCommand<TResult>(ICommand<TResult> command)
+        {
+            Debug.Log("Before " + command.GetType().Name + "Execute");
+            var result =  base.ExecuteCommand(command);
+            Debug.Log("After " + command.GetType().Name + "Execute");
+            return result;
+        }
     }
 
     // 引入 Command

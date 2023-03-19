@@ -1,13 +1,13 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
-
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -258,8 +258,19 @@ Debug.Log(""Hello World "".RemoveString(""Hello"","" ""));
             return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
         }
         
-        
-        
-
+#if UNITY_EDITOR
+        // v1.0.39
+        [MethodAPI]
+        [APIDescriptionCN("join string")]
+        [APIDescriptionEN("join string")]
+        [APIExampleCode(@"
+Debug.Log(new List<string>() { ""1"",""2"",""3""}.StringJoin("",""));
+// 1,2,3
+")]
+#endif
+        public static string StringJoin(this IEnumerable<string> self, string separator)
+        {
+                return string.Join(separator, self);
+        }
     }
 }

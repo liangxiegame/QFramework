@@ -18,7 +18,7 @@
  * 
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.3.10 10:40 IController Support ICanGetUtility
+ * Latest Update: 2023.3.19 16:32 support Command<TResult>
  ****************************************************************************/
 
 using System;
@@ -43,8 +43,9 @@ namespace QFramework
 
         T GetUtility<T>() where T : class, IUtility;
 
-        void SendCommand<T>() where T : ICommand, new();
         void SendCommand<T>(T command) where T : ICommand;
+
+        TResult SendCommand<TResult>(ICommand<TResult> command);
 
         TResult SendQuery<TResult>(IQuery<TResult> query);
 
@@ -162,15 +163,20 @@ namespace QFramework
             return mContainer.Get<TUtility>();
         }
 
-        public void SendCommand<TCommand>() where TCommand : ICommand, new()
+        public TResult SendCommand<TResult>(ICommand<TResult> command)
         {
-            var command = new TCommand();
-            ExecuteCommand(command);
+            return ExecuteCommand(command);
         }
 
         public void SendCommand<TCommand>(TCommand command) where TCommand : ICommand
         {
             ExecuteCommand(command);
+        }
+
+        protected virtual TResult ExecuteCommand<TResult>(ICommand<TResult> command)
+        {
+            command.SetArchitecture(this);
+            return command.Execute();
         }
 
         protected virtual void ExecuteCommand(ICommand command)
@@ -236,7 +242,7 @@ namespace QFramework
     #region Controller
 
     public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
-        ICanRegisterEvent, ICanSendQuery,ICanGetUtility
+        ICanRegisterEvent, ICanSendQuery, ICanGetUtility
     {
     }
 
@@ -321,6 +327,13 @@ namespace QFramework
         void Execute();
     }
 
+    public interface ICommand<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel,
+        ICanGetUtility,
+        ICanSendEvent, ICanSendCommand, ICanSendQuery
+    {
+        TResult Execute();
+    }
+
     public abstract class AbstractCommand : ICommand
     {
         private IArchitecture mArchitecture;
@@ -341,6 +354,28 @@ namespace QFramework
         }
 
         protected abstract void OnExecute();
+    }
+
+    public abstract class AbstractCommand<TResult> : ICommand<TResult>
+    {
+        private IArchitecture mArchitecture;
+
+        IArchitecture IBelongToArchitecture.GetArchitecture()
+        {
+            return mArchitecture;
+        }
+
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture)
+        {
+            mArchitecture = architecture;
+        }
+
+        TResult ICommand<TResult>.Execute()
+        {
+            return OnExecute();
+        }
+
+        protected abstract TResult OnExecute();
     }
 
     #endregion
@@ -447,16 +482,22 @@ namespace QFramework
     {
     }
 
+
     public static class CanSendCommandExtension
     {
         public static void SendCommand<T>(this ICanSendCommand self) where T : ICommand, new()
         {
-            self.GetArchitecture().SendCommand<T>();
+            self.GetArchitecture().SendCommand<T>(new T());
         }
 
         public static void SendCommand<T>(this ICanSendCommand self, T command) where T : ICommand
         {
             self.GetArchitecture().SendCommand<T>(command);
+        }
+
+        public static TResult SendCommand<TResult>(this ICanSendCommand self, ICommand<TResult> command)
+        {
+            return self.GetArchitecture().SendCommand(command);
         }
     }
 
@@ -587,10 +628,10 @@ namespace QFramework
             }
 
             trigger.AddUnRegister(unRegister);
-            
+
             return unRegister;
         }
-        
+
         public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
             where T : Component
         {
@@ -679,7 +720,7 @@ namespace QFramework
     public interface IReadonlyBindableProperty<T>
     {
         T Value { get; }
-        
+
         IUnRegister RegisterWithInitValue(Action<T> action);
         void UnRegister(Action<T> onValueChanged);
         IUnRegister Register(Action<T> onValueChanged);
@@ -778,7 +819,7 @@ namespace QFramework
     public interface IEasyEvent
     {
     }
-    
+
     public class EasyEvent : IEasyEvent
     {
         private Action mOnEvent = () => { };
@@ -871,7 +912,7 @@ namespace QFramework
         {
             return mGlobalEvents.GetEvent<T>();
         }
-        
+
 
         public static void Register<T>() where T : IEasyEvent, new()
         {
@@ -879,7 +920,7 @@ namespace QFramework
         }
 
         private Dictionary<Type, IEasyEvent> mTypeEvents = new Dictionary<Type, IEasyEvent>();
-        
+
         public void AddEvent<T>() where T : IEasyEvent, new()
         {
             mTypeEvents.Add(typeof(T), new T());
