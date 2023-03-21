@@ -4,6 +4,8 @@
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
+ *
+ * 感谢 于大进 提供反馈
  ****************************************************************************/
 
 using System.Collections.Generic;

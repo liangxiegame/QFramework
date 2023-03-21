@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.39",
+    "Version": "v1.0.40",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.39",
-        "content": "QFramework.cs:新增 AbstractCommand<TResult> 和示例\nFluentAPI:新增 StringJoin 和 API 文档\nListPool 重复释放异常支持（于大进 反馈）\n",
+        "version": "v1.0.40",
+        "content": "UIKit：重复 LoadPanel 代码删除（感谢高跟鞋、NormalKatt 提供反馈）",
         "author": "liangxie",
-        "date": "2023 年 03 月 19 日 17:02",
+        "date": "2023 年 03 月 21 日 17:43",
         "PackageId": ""
     }
 }

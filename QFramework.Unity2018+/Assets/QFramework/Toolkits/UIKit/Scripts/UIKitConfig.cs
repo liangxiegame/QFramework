@@ -42,6 +42,7 @@ namespace QFramework
         {
             var panelLoader = PanelLoaderPool.AllocateLoader();
             
+            // panelLoader.LoadPanelPrefab 感谢 NormalKatt、高跟鞋提供为反馈
             var panelPrefab = panelLoader.LoadPanelPrefab(panelSearchKeys);
 
             var obj = Object.Instantiate(panelPrefab);
