@@ -20,18 +20,13 @@ namespace QFramework
     {
         public static bool UpdateAction(this IActionExecutor self,IAction action,float dt,Action<IAction> onFinish = null)
         {
-            if (action.Execute(dt))
+            if (!action.Deinited && action.Execute(dt))
             {
                 onFinish?.Invoke(action);
                 action.Deinit();
             }
 
-            if (action.Deinited)
-            {
-                return true;
-            }
-
-            return false;
+            return action.Deinited;
         }
     }
 }

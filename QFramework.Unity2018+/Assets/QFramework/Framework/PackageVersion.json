@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.41",
+    "Version": "v1.0.42",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.41",
-        "content": "ActionKit 修复 Repeat 的 Sequence 没有正确回收的问题",
+        "version": "v1.0.42",
+        "content": "ActionKit：修复 Deinit 后可能多跑一帧的问题（学猫叫的鹦鹉提供反馈）",
         "author": "liangxie",
-        "date": "2023 年 04 月 20 日 15:11",
+        "date": "2023 年 04 月 20 日 15:52",
         "PackageId": ""
     }
 }
