@@ -16,7 +16,7 @@ namespace QFramework
 
     public class Repeat : IRepeat
     {
-        private Sequence mSequence = Sequence.Allocate();
+        private Sequence mSequence = null;
 
         private int mRepeatCount = -1;
         private int mCurrentRepeatCount = 0;
@@ -31,6 +31,7 @@ namespace QFramework
         public static Repeat Allocate(int repeatCount = -1)
         {
             var repeat = mSimpleObjectPool.Allocate();
+            repeat.mSequence = Sequence.Allocate();
             repeat.Deinited = false;
             repeat.Reset();
             repeat.mRepeatCount = repeatCount;

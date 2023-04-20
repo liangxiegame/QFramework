@@ -18,6 +18,40 @@ namespace QFramework.Example
                 .Start(this, () =>
                 {
                     Debug.Log("Right click finished");
+                    
+                    ActionKit.Repeat(5)
+                        .Condition(() => Input.GetMouseButtonDown(1))
+                        .Callback(() => Debug.Log("Mouse right clicked"))
+                        .Start(this, () =>
+                        {
+                            Debug.Log("Right click finished");
+                    
+                            ActionKit.Repeat(5)
+                                .Condition(() => Input.GetMouseButtonDown(1))
+                                .Callback(() => Debug.Log("Mouse right clicked"))
+                                .Start(this, () =>
+                                {
+                                    Debug.Log("Right click finished");
+                    
+                                    ActionKit.Repeat(5)
+                                        .Condition(() => Input.GetMouseButtonDown(1))
+                                        .Callback(() => Debug.Log("Mouse right clicked"))
+                                        .Start(this, () =>
+                                        {
+                                            Debug.Log("Right click finished");
+                    
+                                            ActionKit.Repeat(5)
+                                                .Condition(() => Input.GetMouseButtonDown(1))
+                                                .Callback(() => Debug.Log("Mouse right clicked"))
+                                                .Start(this, () =>
+                                                {
+                                                    Debug.Log("Right click finished");
+                    
+                    
+                                                });
+                                        });
+                                });
+                        });
                 });
         }
     }

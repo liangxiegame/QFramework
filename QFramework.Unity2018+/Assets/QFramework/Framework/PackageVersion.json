@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.40",
+    "Version": "v1.0.41",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.40",
-        "content": "UIKit：重复 LoadPanel 代码删除（感谢高跟鞋、NormalKatt 提供反馈）",
+        "version": "v1.0.41",
+        "content": "ActionKit 修复 Repeat 的 Sequence 没有正确回收的问题",
         "author": "liangxie",
-        "date": "2023 年 03 月 21 日 17:43",
+        "date": "2023 年 04 月 20 日 15:11",
         "PackageId": ""
     }
 }
