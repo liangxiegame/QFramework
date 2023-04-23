@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.42",
+    "Version": "v1.0.43",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.42",
-        "content": "ActionKit：修复 Deinit 后可能多跑一帧的问题（学猫叫的鹦鹉提供反馈）",
+        "version": "v1.0.43",
+        "content": "v1.0.43 ActionKit 每个 Action 增加 ID",
         "author": "liangxie",
-        "date": "2023 年 04 月 20 日 15:52",
+        "date": "2023 年 04 月 23 日 22:47",
         "PackageId": ""
     }
 }

@@ -31,6 +31,7 @@ namespace QFramework
         public static Repeat Allocate(int repeatCount = -1)
         {
             var repeat = mSimpleObjectPool.Allocate();
+            repeat.ActionID = ActionKit.ID_GENERATOR++;
             repeat.mSequence = Sequence.Allocate();
             repeat.Deinited = false;
             repeat.Reset();
@@ -40,6 +41,7 @@ namespace QFramework
 
         public bool Paused { get; set; }
         public bool Deinited { get; set; }
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
 
         public void OnStart()

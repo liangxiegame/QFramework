@@ -32,6 +32,7 @@ namespace QFramework
         public static Sequence Allocate()
         {
             var sequence = mSimpleObjectPool.Allocate();
+            sequence.ActionID = ActionKit.ID_GENERATOR++;
             sequence.Reset();
             sequence.Deinited = false;
             return sequence;
@@ -41,6 +42,7 @@ namespace QFramework
 
         public bool Deinited { get; set; }
 
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
 
         public void OnStart()

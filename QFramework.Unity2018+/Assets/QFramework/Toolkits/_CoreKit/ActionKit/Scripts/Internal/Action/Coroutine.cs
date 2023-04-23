@@ -23,6 +23,7 @@ namespace QFramework
         public static CoroutineAction Allocate(Func<IEnumerator> coroutineGetter)
         {
             var coroutineAction = mPool.Allocate();
+            coroutineAction.ActionID = ActionKit.ID_GENERATOR++;
             coroutineAction.Deinited = false;
             coroutineAction.Reset();
             coroutineAction.mCoroutineGetter = coroutineGetter;
@@ -48,6 +49,7 @@ namespace QFramework
         }
 
         public bool Deinited { get; set; }
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
         public void OnStart()
         {

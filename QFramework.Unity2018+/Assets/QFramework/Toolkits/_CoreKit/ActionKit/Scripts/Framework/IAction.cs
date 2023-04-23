@@ -20,48 +20,101 @@ namespace QFramework
 
     public interface IActionController
     {
+        ulong ActionID { get; set; }
+
+        IAction Action { get; set; }
+
         bool Paused { get; set; }
         void Reset();
         void Deinit();
     }
 
-    public interface IAction<TStatus> : IActionController
+    public interface IAction<TStatus>
     {
+        ulong ActionID { get; set; }
         TStatus Status { get; set; }
         void OnStart();
         void OnExecute(float dt);
         void OnFinish();
-        
+
         bool Deinited { get; set; }
 
-
+        bool Paused { get; set; }
+        void Reset();
+        void Deinit();
     }
 
 
     public interface IAction : IAction<ActionStatus>
     {
     }
-    
+
+    public struct ActionController : IActionController
+    {
+        public ulong ActionID { get; set; }
+        public IAction Action { get; set; }
+
+        public bool Paused
+        {
+            get => Action.Paused;
+            set => Action.Paused = value;
+        }
+
+        public void Reset()
+        {
+            if (Action.ActionID == ActionID)
+            {
+                Action.Reset();
+            }
+        }
+
+        public void Deinit()
+        {
+            if (Action.ActionID == ActionID)
+            {
+                Action.Deinit();
+            }
+        }
+    }
 
 
     public static class IActionExtensions
     {
         public static IActionController Start(this IAction self, MonoBehaviour monoBehaviour,
-            Action<IAction> onFinish = null)
+            Action<IActionController> onFinish = null)
         {
-            return monoBehaviour.ExecuteByUpdate(self, onFinish);
+            monoBehaviour.ExecuteByUpdate(self, onFinish);
+
+            return new ActionController()
+            {
+                Action = self,
+                ActionID = self.ActionID,
+            };
         }
 
         public static IActionController Start(this IAction self, MonoBehaviour monoBehaviour,
             Action onFinish)
         {
-            return monoBehaviour.ExecuteByUpdate(self, _ => onFinish());
+            monoBehaviour.ExecuteByUpdate(self, _ => onFinish());
+
+            return new ActionController()
+            {
+                Action = self,
+                ActionID = self.ActionID,
+            };
         }
 
-        public static IActionController StartGlobal(this IAction self, Action<IAction> onFinish = null)
+        public static IActionController StartGlobal(this IAction self, Action<IActionController> onFinish = null)
         {
             IActionExecutor executor = null;
-            if (executor.UpdateAction(self, 0, onFinish)) return self;
+            if (executor.UpdateAction(self, 0, onFinish))
+            {
+                return new ActionController()
+                {
+                    Action = self,
+                    ActionID = self.ActionID,
+                };
+            }
 
             void Update()
             {
@@ -74,7 +127,11 @@ namespace QFramework
             ActionKit.OnUpdate.Register(Update);
 
 
-            return self;
+            return new ActionController()
+            {
+                Action = self,
+                ActionID = self.ActionID,
+            };
         }
 
 
@@ -110,7 +167,7 @@ namespace QFramework
             else if (self.Status == ActionStatus.Started)
             {
                 if (self.Paused) return false;
-                
+
                 self.OnExecute(dt);
 
                 if (self.Status == ActionStatus.Finished)

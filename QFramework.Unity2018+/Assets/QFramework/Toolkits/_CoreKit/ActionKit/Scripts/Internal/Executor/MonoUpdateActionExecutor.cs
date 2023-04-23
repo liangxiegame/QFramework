@@ -15,7 +15,7 @@ namespace QFramework
     {
         private Action mOnUpdate = () => { };
         
-        public void Execute(IAction action,Action<IAction> onFinish = null)
+        public void Execute(IAction action,Action<IActionController> onFinish = null)
         {
             if (action.Status == ActionStatus.Finished) action.Reset();
             if (this.UpdateAction(action, 0, onFinish)) return;
@@ -39,7 +39,7 @@ namespace QFramework
 
     public static class MonoUpdateActionExecutorExtension
     {
-        public static IAction ExecuteByUpdate<T>(this T self, IAction action,Action<IAction> onFinish = null) where T : MonoBehaviour
+        public static IAction ExecuteByUpdate<T>(this T self, IAction action,Action<IActionController> onFinish = null) where T : MonoBehaviour
         {
             if (action.Status == ActionStatus.Finished) action.Reset();
             self.gameObject.GetOrAddComponent<MonoUpdateActionExecutor>().Execute(action,onFinish);

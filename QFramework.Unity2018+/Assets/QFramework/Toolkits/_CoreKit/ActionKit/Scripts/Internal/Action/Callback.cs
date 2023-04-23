@@ -24,6 +24,7 @@ namespace QFramework
         public static Callback Allocate(Action callback)
         {
             var callbackAction = mSimpleObjectPool.Allocate();
+            callbackAction.ActionID = ActionKit.ID_GENERATOR++;
             callbackAction.Reset();
             callbackAction.Deinited = false;
             callbackAction.mCallback = callback;
@@ -32,6 +33,7 @@ namespace QFramework
 
         public bool Paused { get; set; }
         public bool Deinited { get; set; }
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
 
         public void OnStart()

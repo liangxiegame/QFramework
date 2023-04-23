@@ -29,12 +29,14 @@ namespace QFramework
         public static Parallel Allocate()
         {
             var parallel = mSimpleObjectPool.Allocate();
+            parallel.ActionID = ActionKit.ID_GENERATOR++;
             parallel.Deinited = false;
             parallel.Reset();
             return parallel;
         }
         public bool Paused { get; set; }
         public bool Deinited { get; set; }
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
         public void OnStart()
         {

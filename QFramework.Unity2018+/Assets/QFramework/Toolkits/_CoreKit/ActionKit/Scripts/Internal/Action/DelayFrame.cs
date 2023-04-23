@@ -15,6 +15,7 @@ namespace QFramework
     {
         public bool Paused { get; set; }
         public bool Deinited { get; set; }
+        public ulong ActionID { get; set; }
         public ActionStatus Status { get; set; }
 
         private static SimpleObjectPool<DelayFrame> mSimpleObjectPool =
@@ -25,6 +26,7 @@ namespace QFramework
         public static DelayFrame Allocate(int frameCount, Action onDelayFinish = null)
         {
             var delayFrame = mSimpleObjectPool.Allocate();
+            delayFrame.ActionID = ActionKit.ID_GENERATOR++;
             delayFrame.Reset();
             delayFrame.Deinited = false;
             delayFrame.mDelayedFrameCount = frameCount;

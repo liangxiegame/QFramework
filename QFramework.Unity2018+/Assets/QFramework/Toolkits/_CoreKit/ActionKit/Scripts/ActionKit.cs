@@ -19,6 +19,8 @@ namespace QFramework
 #endif
     public class ActionKit : Architecture<ActionKit>
     {
+        public static ulong ID_GENERATOR = 0;
+        
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("延时回调")]
