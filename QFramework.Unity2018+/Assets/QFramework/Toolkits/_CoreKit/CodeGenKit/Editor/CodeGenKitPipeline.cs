@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2023 liangxiegame UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -131,6 +131,16 @@ namespace QFramework
                 writer.AppendLine($"\t\tpublic {bindData.TypeName} {bindData.MemberName};");
             }
 
+            if (task.GameObject.GetComponent<OtherBinds>())
+            {
+                var referenceBinds = task.GameObject.GetComponent<OtherBinds>();
+                foreach (var referenceBind in referenceBinds.Binds)
+                {
+                    writer.AppendLine();
+                    writer.AppendLine($"\t\tpublic {referenceBind.Object.GetType().Name} {referenceBind.MemberName};");
+                }
+            }
+
             writer.AppendLine();
             writer.AppendLine("\t}");
             writer.AppendLine("}");
@@ -180,8 +190,7 @@ namespace QFramework
                 Debug.Log(type);
 
                 var gameObject = CurrentTask.GameObject;
-
-
+                
                 var scriptComponent = gameObject.GetComponent(type);
 
                 if (!scriptComponent)
@@ -190,11 +199,9 @@ namespace QFramework
                 }
 
                 var serializedObject = new SerializedObject(scriptComponent);
-
-
+                
                 foreach (var bindInfo in CurrentTask.BindInfos)
                 {
-
                     var componentName = bindInfo.TypeName.Split('.').Last();
                     var serializedProperty = serializedObject.FindProperty(bindInfo.MemberName);
                     var component = gameObject.transform.Find(bindInfo.PathToRoot).GetComponent(componentName);
@@ -205,10 +212,17 @@ namespace QFramework
                     }
 
                     serializedProperty.objectReferenceValue = component;
-
-                    // Debug.Log(componentName + "@@@@" + serializedProperty + "@@@@" + component);
                 }
 
+                var referenceBinds = gameObject.GetComponent<OtherBinds>();
+                if (referenceBinds)
+                {
+                    foreach (var bind in referenceBinds.Binds)
+                    {
+                        var serializedProperty = serializedObject.FindProperty(bind.MemberName);
+                        serializedProperty.objectReferenceValue = bind.Object;
+                    }
+                }
 
                 var codeGenerateInfo = gameObject.GetComponent<ViewController>();
 
@@ -223,13 +237,13 @@ namespace QFramework
                     var generatePrefab = codeGenerateInfo.GeneratePrefab;
                     var prefabFolder = codeGenerateInfo.PrefabFolder;
 
-
                     if (codeGenerateInfo.GetType() != type)
                     {
                         DestroyImmediate(codeGenerateInfo, false);
                     }
 
-                    serializedObject.ApplyModifiedPropertiesWithoutUndo();
+                    serializedObject.ApplyModifiedProperties();
+                    serializedObject.UpdateIfRequiredOrScript();
 
                     if (generatePrefab)
                     {
@@ -250,7 +264,8 @@ namespace QFramework
                 else
                 {
                     serializedObject.FindProperty("ScriptsFolder").stringValue = "Assets/Scripts";
-                    serializedObject.ApplyModifiedPropertiesWithoutUndo();
+                    serializedObject.ApplyModifiedProperties();
+                    serializedObject.UpdateIfRequiredOrScript();
                 }
 
                 EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());

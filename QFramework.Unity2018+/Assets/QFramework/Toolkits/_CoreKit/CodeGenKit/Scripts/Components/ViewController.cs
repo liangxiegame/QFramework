@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 xiaojun
- * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2023 liangxiegame UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework

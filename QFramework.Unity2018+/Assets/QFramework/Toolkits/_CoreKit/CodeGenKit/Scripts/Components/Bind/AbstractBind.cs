@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 ~ 2021.1 liangxie
+ * Copyright (c) 2017 ~ 2023 liangxie
  * 
  * http://qframework.io
  * https://github.com/liangxiegame/QFramework

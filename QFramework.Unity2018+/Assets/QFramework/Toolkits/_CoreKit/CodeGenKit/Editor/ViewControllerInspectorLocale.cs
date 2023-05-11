@@ -27,6 +27,8 @@ namespace QFramework
         public string SelectScript => CN ? " 选择脚本" : "Select Script File";
         public string Generate => CN ? " 生成代码" : " Generate Code";
 
+        public string AddOtherBinds => CN ? " 添加 Other Binds" : " Add Other Binds";
+
         public string DragDescription =>
             CN ? "请将要生成脚本的文件夹拖到下边区域 或 自行填写目录到上一栏中" : "drag file or folder below or write in above";
         

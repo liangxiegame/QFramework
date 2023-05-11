@@ -16,6 +16,11 @@ namespace QFramework.Example
         {
             Application.targetFrameRate = 60;
             
+            FSM.OnStateChanged((previousState, nextState) =>
+            {
+                Debug.Log($"{previousState}=>{nextState}");
+            });
+            
             FSM.State(States.A)
                 .OnCondition(()=>FSM.CurrentStateId == States.B)
                 .OnEnter(() =>
@@ -43,7 +48,7 @@ namespace QFramework.Example
                 })
                 .OnExit(() =>
                 {
-                    Debug.Log("Enter B");
+                    Debug.Log("Exit A");
 
                 });
 

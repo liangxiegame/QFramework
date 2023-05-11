@@ -39,7 +39,7 @@ namespace QFramework
             }
         }
 
-        [MenuItem("GameObject/QFramework/CodeGenKit/@(Alt+B)Add Bind &b",false,1)]
+        [MenuItem("GameObject/QFramework/CodeGenKit/@(Alt+B)Add Bind &b", false, 1)]
         public static void AddBind()
         {
             foreach (var o in Selection.objects.OfType<GameObject>())
@@ -58,16 +58,13 @@ namespace QFramework
                 }
             }
         }
-        
+
         [MenuItem("GameObject/QFramework/CodeGenKit/@(Alt+C)Create Code &c", false, 2)]
         static void CreateCode()
         {
             var gameObject = Selection.objects.First() as GameObject;
             CodeGenKit.Generate(gameObject.GetComponent<IBindGroup>());
         }
-        
-
-
 
         private ViewControllerInspectorLocale mLocaleText = new ViewControllerInspectorLocale();
 
@@ -110,7 +107,7 @@ namespace QFramework
 
             GUILayout.BeginVertical("box");
 
-            GUILayout.Label(mLocaleText.CodegenPart,mStyle.BigTitleStyle.Value);
+            GUILayout.Label(mLocaleText.CodegenPart, mStyle.BigTitleStyle.Value);
 
             LocaleKitEditor.DrawSwitchToggle(GUI.skin.label.normal.textColor);
 
@@ -135,27 +132,34 @@ namespace QFramework
             EditorGUILayout.Space();
             EditorGUILayout.LabelField(mLocaleText.DragDescription);
             var sfxPathRect = EditorGUILayout.GetControlRect();
-            sfxPathRect.height = 100;
+            sfxPathRect.height = 50;
             GUI.Box(sfxPathRect, string.Empty);
-            EditorGUILayout.LabelField(string.Empty, GUILayout.Height(85));
+            EditorGUILayout.LabelField(string.Empty, GUILayout.Height(35));
             if (
-                Event.current.type == EventType.DragUpdated
+                (Event.current.type == EventType.DragUpdated || Event.current.type == EventType.DragPerform) 
                 && sfxPathRect.Contains(Event.current.mousePosition)
             )
             {
                 //改变鼠标的外表  
                 DragAndDrop.visualMode = DragAndDropVisualMode.Generic;
-                if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
+
+                if (Event.current.type == EventType.DragPerform)
                 {
-                    if (DragAndDrop.paths[0] != "")
+                    if (DragAndDrop.paths != null && DragAndDrop.paths.Length > 0)
                     {
-                        var newPath = DragAndDrop.paths[0];
-                        ViewController.ScriptsFolder = newPath;
-                        AssetDatabase.SaveAssets();
-                        AssetDatabase.Refresh();
-                        EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+                        if (DragAndDrop.paths[0] != "")
+                        {
+                            var newPath = DragAndDrop.paths[0];
+                            ViewController.ScriptsFolder = newPath;
+                            AssetDatabase.SaveAssets();
+                            AssetDatabase.Refresh();
+                            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+                        }
                     }
                 }
+
+                Event.current.Use();
+
             }
 
 
@@ -171,7 +175,7 @@ namespace QFramework
                 ViewController.PrefabFolder =
                     GUILayout.TextArea(ViewController.PrefabFolder, GUILayout.Height(30));
                 GUILayout.EndHorizontal();
-                
+
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField(mLocaleText.DragDescription);
 
@@ -197,6 +201,17 @@ namespace QFramework
                             EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
                         }
                     }
+                }
+            }
+
+
+            if (!ViewController.GetComponent<OtherBinds>())
+            {
+                if (GUILayout.Button(mLocaleText.AddOtherBinds, GUILayout.Height(30)))
+                {
+                    ViewController.gameObject.AddComponent<OtherBinds>();
+                    EditorUtility.SetDirty(ViewController.gameObject);
+                    EditorSceneManager.MarkSceneDirty(ViewController.gameObject.scene);
                 }
             }
 

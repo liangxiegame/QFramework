@@ -55,8 +55,6 @@ namespace QFramework
 						}
 					}
 
-					
-
 					if (uiMark.GetBindType() != BindType.DefaultUnityElement)
 					{
 						var elementCodeData = new ElementCodeInfo
