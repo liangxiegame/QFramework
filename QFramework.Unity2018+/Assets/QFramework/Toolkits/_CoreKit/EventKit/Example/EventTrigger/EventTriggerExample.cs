@@ -11,6 +11,14 @@ namespace QFramework.Example
                 Debug.Log(collider2D1.name + ": entered");
                 
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
+
+            var uiImage = GameObject.Find("Canvas/Image");
+
+            uiImage.OnPointerDownEvent(data =>
+            {
+                Debug.Log("Click");
+                
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
     }
 }

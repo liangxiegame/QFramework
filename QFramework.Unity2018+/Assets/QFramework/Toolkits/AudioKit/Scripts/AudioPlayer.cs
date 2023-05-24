@@ -294,7 +294,7 @@ namespace QFramework
                 mTimeItem = null;
             }
 
-            if (mAudioSource != null)
+            if (mAudioSource)
             {
                 if (mAudioSource.clip == mAudioClip)
                 {

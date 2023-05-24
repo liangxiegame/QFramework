@@ -18,6 +18,8 @@ namespace QFramework.Example
             var btnVoiceOn = transform.Find("BtnVoiceOn").GetComponent<Button>();
             var btnVoiceOff = transform.Find("BtnVoiceOff").GetComponent<Button>();
 
+            var btnStopAllSound = transform.Find("BtnStopAllSounds").GetComponent<Button>();
+            
             var musicVolumeSlider = transform.Find("MusicVolume").GetComponent<Slider>();
             var voiceVolumeSlider = transform.Find("VoiceVolume").GetComponent<Slider>();
             var soundVolumeSlider = transform.Find("SoundVolume").GetComponent<Slider>();
@@ -42,6 +44,11 @@ namespace QFramework.Example
             btnVoiceOn.onClick.AddListener(() => { AudioKit.Settings.IsVoiceOn.Value = true; });
 
             btnVoiceOff.onClick.AddListener(() => { AudioKit.Settings.IsVoiceOn.Value = false; });
+            
+            btnStopAllSound.onClick.AddListener(() =>
+            {
+                AudioKit.StopAllSound();
+            });
 
 
             AudioKit.Settings.MusicVolume.RegisterWithInitValue(v => musicVolumeSlider.value = v);

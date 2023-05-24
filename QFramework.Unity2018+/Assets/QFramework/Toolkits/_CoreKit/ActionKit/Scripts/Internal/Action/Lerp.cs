@@ -43,6 +43,7 @@ namespace QFramework
         public void Reset()
         {
             Status = ActionStatus.NotStart;
+            Paused = false;
             mCurrentTime = 0.0f;
         }
 

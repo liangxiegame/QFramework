@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.44",
+    "Version": "v1.0.54",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.44",
-        "content": "CodeGenKit 支持 OtherBinds\nFSMKit 支持 OnStateChanged 回调",
+        "version": "v1.0.54",
+        "content": "EventKit：新增一堆事件触发器",
         "author": "liangxie",
-        "date": "2023 年 05 月 11 日 15:46",
+        "date": "2023 年 05 月 24 日 18:07",
         "PackageId": ""
     }
 }

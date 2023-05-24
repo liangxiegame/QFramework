@@ -237,8 +237,10 @@ mResLoader.LoadSceneAsync(""BattleScene"",(operation)=>
                             localPhysicsMode = physicsMode
                         };
 
-                        onStartLoading(UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(path,
-                            sceneParameters));
+                        var asyncOperation = UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(
+                            path,
+                            sceneParameters);
+                        onStartLoading?.Invoke(asyncOperation);
                     }
                 }
                 else

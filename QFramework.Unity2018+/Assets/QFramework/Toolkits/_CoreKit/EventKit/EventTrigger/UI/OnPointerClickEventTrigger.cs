@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,15 +24,15 @@ namespace QFramework
 
     public static class OnPointerClickEventTriggerExtension
     {
-        public static IUnRegister OnPointerClickEvent<T>(this T self, Action<PointerEventData> onClick)
+        public static IUnRegister OnPointerClickEvent<T>(this T self, Action<PointerEventData> onPointerClick)
             where T : Component
         {
-            return self.GetOrAddComponent<OnPointerClickEventTrigger>().OnPointerClickEvent.Register(onClick);
+            return self.GetOrAddComponent<OnPointerClickEventTrigger>().OnPointerClickEvent.Register(onPointerClick);
         }
         
-        public static IUnRegister OnPointerClickEvent(this GameObject self, Action<PointerEventData> onClick)
+        public static IUnRegister OnPointerClickEvent(this GameObject self, Action<PointerEventData> onPointerClick)
         {
-            return self.GetOrAddComponent<OnPointerClickEventTrigger>().OnPointerClickEvent.Register(onClick);
+            return self.GetOrAddComponent<OnPointerClickEventTrigger>().OnPointerClickEvent.Register(onPointerClick);
         }
     }
 }

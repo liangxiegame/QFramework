@@ -52,7 +52,6 @@ namespace QFramework
             if (!Deinited)
             {
                 Deinited = true;
-
                 mOnStart = null;
                 mOnExecute = null;
                 mOnFinish = null;
@@ -63,6 +62,7 @@ namespace QFramework
 
         public void Reset()
         {
+            Paused = false;
             Status = ActionStatus.NotStart;
         }
 

@@ -137,12 +137,18 @@ namespace QFramework
 
         public static void Pause(this IActionController self)
         {
-            self.As<IAction>().Paused = true;
+            if (self.ActionID == self.Action.ActionID)
+            {
+                self.Action.Paused = true;
+            }
         }
 
         public static void Resume(this IActionController self)
         {
-            self.As<IAction>().Paused = false;
+            if (self.ActionID == self.Action.ActionID)
+            {
+                self.Action.Paused = false;
+            }
         }
 
         public static void Finish(this IAction self)

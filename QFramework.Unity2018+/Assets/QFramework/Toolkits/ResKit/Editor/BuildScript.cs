@@ -34,7 +34,7 @@ namespace QFramework
 
     public class AssetBundleInfo
     {
-        public readonly string Name = "";
+        public readonly string Name;
 
         public AssetBundleInfo(string name)
         {

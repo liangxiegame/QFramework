@@ -137,6 +137,7 @@ namespace QFramework
         {
             mCurrentActionIndex = 0;
             Status = ActionStatus.NotStart;
+            Paused = false;
             foreach (var action in mActions)
             {
                 action.Reset();

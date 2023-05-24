@@ -62,6 +62,7 @@ namespace QFramework
 
         public void Reset()
         {
+            Paused = false;
             Status = ActionStatus.NotStart;
         }
     }

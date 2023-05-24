@@ -137,7 +137,7 @@ namespace QFramework
                 foreach (var referenceBind in referenceBinds.Binds)
                 {
                     writer.AppendLine();
-                    writer.AppendLine($"\t\tpublic {referenceBind.Object.GetType().Name} {referenceBind.MemberName};");
+                    writer.AppendLine($"\t\tpublic {referenceBind.Object.GetType().FullName} {referenceBind.MemberName};");
                 }
             }
 

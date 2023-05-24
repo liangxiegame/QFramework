@@ -102,6 +102,7 @@ namespace QFramework
         {
             mCurrentRepeatCount = 0;
             Status = ActionStatus.NotStart;
+            Paused = false;
             mSequence.Reset();
         }
     }

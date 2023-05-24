@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -40,7 +41,6 @@ namespace QFramework
         public ActionStatus Status { get; set; }
         public void OnStart()
         {
-            
         }
 
         public void OnExecute(float dt)
@@ -97,13 +97,13 @@ namespace QFramework
         public void Reset()
         {
             Status = ActionStatus.NotStart;
-            
+            mFinishedCount = 0;
+            Paused = false;
             foreach (var action in mActions)
             {
                 action.Reset();
             }
             
-            mFinishedCount = 0;
         }
     }
     
