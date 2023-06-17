@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.54",
+    "Version": "v1.0.60",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.54",
-        "content": "EventKit：新增一堆事件触发器",
+        "version": "v1.0.60",
+        "content": "修复 UniRx&Tween Action 的报错问题",
         "author": "liangxie",
-        "date": "2023 年 05 月 24 日 18:07",
+        "date": "2023 年 06 月 17 日 12:59",
         "PackageId": ""
     }
 }

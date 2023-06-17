@@ -54,7 +54,7 @@ namespace QFramework
                 Deinited = true;
                 OnLerp = null;
                 OnLerpFinish = null;
-                mPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Lerp>(mPool,this));
             }
         }
 
@@ -94,6 +94,11 @@ namespace QFramework
         public static ISequence Lerp(this ISequence self, float a,float b,float duration,Action<float> onLerp = null,Action onLerpFinish = null)
         {
             return self.Append(QFramework.Lerp.Allocate(a,b,duration,onLerp,onLerpFinish));
+        }
+        
+        public static ISequence Lerp01(this ISequence self, float duration,Action<float> onLerp = null,Action onLerpFinish = null)
+        {
+            return self.Append(QFramework.Lerp.Allocate(0,1,duration,onLerp,onLerpFinish));
         }
         
     }

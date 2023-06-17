@@ -8,6 +8,7 @@
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -35,6 +36,26 @@ namespace QFramework
             if (!activeObject) return false;
             var assetPath = AssetDatabase.GetAssetPath(activeObject);
             return AssetDatabase.IsValidFolder(assetPath);
+        }
+
+        [MenuItem("Assets/@QPM/Import Package")]
+        public static void ImportPackage()
+        {
+            var activeObject = Selection.activeObject;
+            var assetPath = AssetDatabase.GetAssetPath(activeObject);
+            Debug.Log(assetPath);
+            AssetDatabase.ImportPackage(assetPath, true);
+
+        }
+
+        [MenuItem("Assets/@QPM/Import Package", true)]
+        public static bool ImportPackageCheck()
+        {
+            var activeObject = Selection.activeObject;
+            if (!activeObject) return false;
+            var assetPath = AssetDatabase.GetAssetPath(activeObject);
+            if (!assetPath.EndsWith(".unitypackage")) return false;
+            return true;
         }
     }
 }

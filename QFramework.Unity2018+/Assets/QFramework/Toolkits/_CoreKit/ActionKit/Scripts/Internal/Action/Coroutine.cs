@@ -38,7 +38,7 @@ namespace QFramework
                 Deinited = true;
                 mCoroutineGetter = null;
 
-                mPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<CoroutineAction>(mPool,this));
             }
         }
 

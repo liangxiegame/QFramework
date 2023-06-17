@@ -732,7 +732,7 @@ namespace QFramework
         {
             mValue = defaultValue;
         }
-
+        
         protected T mValue;
 
         public T Value

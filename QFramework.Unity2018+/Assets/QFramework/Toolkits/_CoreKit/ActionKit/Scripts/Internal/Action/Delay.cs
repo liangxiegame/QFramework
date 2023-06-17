@@ -93,7 +93,7 @@ namespace QFramework
             {
                 OnDelayFinish = null;
                 Deinited = true;
-                mPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Delay>(mPool,this));
             }
         }
 

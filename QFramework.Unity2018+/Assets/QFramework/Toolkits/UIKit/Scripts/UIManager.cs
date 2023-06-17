@@ -75,6 +75,10 @@ namespace QFramework
                 }
                 else
                 {
+                    if (retPanel.Info != null && retPanel.Info.Level != panelSearchKeys.Level)
+                    {
+                        UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level,retPanel);
+                    }
                     retPanel.Open(panelSearchKeys.UIData);
                     retPanel.Show();
                     onLoad?.Invoke(retPanel);
@@ -102,6 +106,11 @@ namespace QFramework
                     retPanel = CreateUI(panelSearchKeys);
                 }
 
+                if (retPanel.Info != null && retPanel.Info.Level != panelSearchKeys.Level)
+                {
+                    UIKit.Root.SetLevelOfPanel(panelSearchKeys.Level,retPanel);
+                }
+                
                 retPanel.Open(panelSearchKeys.UIData);
                 retPanel.Show();
                 return retPanel;

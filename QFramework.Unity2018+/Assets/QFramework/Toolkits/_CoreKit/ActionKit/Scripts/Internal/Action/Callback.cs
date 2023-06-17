@@ -56,7 +56,7 @@ namespace QFramework
             {
                 Deinited = true;
                 mCallback = null;
-                mSimpleObjectPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Callback>(mSimpleObjectPool,this));
             }
         }
 

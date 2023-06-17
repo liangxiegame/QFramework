@@ -1781,34 +1781,7 @@ namespace QFramework
         }
     }
 
-    [MonoSingletonPath("[ActionKit]/ActionQueue")]
-    public class ActionQueue : MonoBehaviour, ISingleton
-    {
-        private List<IDeprecateAction> mActions = new List<IDeprecateAction>();
-
-        public static void Append(IDeprecateAction action)
-        {
-            mInstance.mActions.Add(action);
-        }
-
-        // Update is called once per frame
-        private void Update()
-        {
-            if (mActions.Count != 0 && mActions[0].Execute(Time.deltaTime))
-            {
-                mActions.RemoveAt(0);
-            }
-        }
-
-        void ISingleton.OnSingletonInit()
-        {
-        }
-
-        private static ActionQueue mInstance
-        {
-            get { return MonoSingletonProperty<ActionQueue>.Instance; }
-        }
-    }
+    
     
 
     

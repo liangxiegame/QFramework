@@ -89,7 +89,7 @@ namespace QFramework
                 
                 mActions.Clear();
                 
-                mSimpleObjectPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Parallel>(mSimpleObjectPool,this));
             }
 
         }

@@ -56,7 +56,7 @@ namespace QFramework
                 mOnExecute = null;
                 mOnFinish = null;
 
-                mSimpleObjectPool.Recycle(this);
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Custom<TData>>(mSimpleObjectPool,this));
             }
         }
 

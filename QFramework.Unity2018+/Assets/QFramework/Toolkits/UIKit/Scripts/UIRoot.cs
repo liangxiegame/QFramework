@@ -124,6 +124,11 @@ namespace QFramework
                         break;
                 }
             }
+
+            if (panel.Info != null && panel.Info.Level != level)
+            {
+                panel.Info.Level = level;
+            }
         }
 
         public void OnSingletonInit()
