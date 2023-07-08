@@ -17,6 +17,21 @@ namespace QFramework
 {
     internal class PackageMakerEditor : EasyEditorWindow, IController, IUnRegisterList
     {
+        public static void InitViewState()
+        {
+            InEditorView.Value = true;
+            InFinishView.Value = false;
+            InUploadingView.Value = false;
+            NoticeMessage.Value = "";
+            UpdateResult.Value = "";
+        }
+        
+        public static BindableProperty<bool> InEditorView = new BindableProperty<bool>(true);
+        public static BindableProperty<bool> InFinishView = new BindableProperty<bool>(true);
+        public static BindableProperty<bool> InUploadingView = new BindableProperty<bool>(true);
+        public static BindableProperty<string> NoticeMessage = new BindableProperty<string>("");
+        public static BindableProperty<string> UpdateResult = new BindableProperty<string>("");
+        
         private PackageVersion mPackageVersion;
 
         private AssetTree mAssetTree;
@@ -61,13 +76,13 @@ namespace QFramework
             }
         }
 
-        [MenuItem("Assets/@QPM - Publish Package", true)]
+        [MenuItem("Assets/@QPM/Publish Package", true)]
         static bool ValidateExportPackage()
         {
             return User.Logined;
         }
 
-        [MenuItem("Assets/@QPM - Publish Package", priority = 2)]
+        [MenuItem("Assets/@QPM/Publish Package", priority = 2)]
         public static void PublishPackage()
         {
             if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -112,7 +127,7 @@ namespace QFramework
 
         protected override void Init()
         {
-            PackageMakerModel.InitState();
+            InitViewState();
 
             var hashSet = new HashSet<string>();
 
@@ -188,7 +203,7 @@ namespace QFramework
             }).Parent(editorView);
 
 
-            PackageMakerModel.InEditorView.RegisterWithInitValue(value => { editorView.Visible = value; })
+            InEditorView.RegisterWithInitValue(value => { editorView.Visible = value; })
                 .AddToUnregisterList(this);
 
             if (User.Logined)
@@ -221,10 +236,10 @@ namespace QFramework
 
             var notice = new LabelViewWithRect("", 100, 200, 200, 200).Parent(uploadingView);
 
-            PackageMakerModel.NoticeMessage
+            NoticeMessage
                 .RegisterWithInitValue(value => { notice.Content.Value = value; }).AddToUnregisterList(this);
 
-            PackageMakerModel.InUploadingView.RegisterWithInitValue(value => { uploadingView.Visible = value; })
+            InUploadingView.RegisterWithInitValue(value => { uploadingView.Visible = value; })
                 .AddToUnregisterList(this);
         }
 

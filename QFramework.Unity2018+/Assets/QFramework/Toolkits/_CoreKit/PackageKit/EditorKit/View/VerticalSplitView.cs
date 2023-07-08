@@ -128,17 +128,11 @@ namespace QFramework
         {
             var rs = position.Split(mSplitType, mSplit, 4);
             var mid = position.SplitRect(mSplitType, mSplit, 4);
-            if (FirstPan != null)
-            {
-                FirstPan(rs[0]);
-            }
+            FirstPan?.Invoke(rs[0]);
 
-            if (SecondPan != null)
-            {
-                SecondPan(rs[1]);
-            }
+            SecondPan?.Invoke(rs[1]);
 
-            mIMGUIRectBox.Rect(mid).DrawGUI();
+            mIMGUIRectBox?.Rect(mid)?.DrawGUI();
 
             var e = Event.current;
             if (mid.Contains(e.mousePosition))

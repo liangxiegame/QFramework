@@ -1,7 +1,7 @@
 ﻿/****************************************************************************
- * Copyright (c) 2020.10 liangxiegame Under Mit License
+ * Copyright (c) 2015 - 2023 liangxiegame UNDER MIT License
  * 
- * https://qframework.cn
+ * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -26,31 +26,16 @@ namespace QFramework
 
         protected override void OnExecute()
         {
-            foreach (var installedVersionIncludeFileOrFolder in mInstalledVersion.IncludeFileOrFolders)
-            {
-                var path = Application.dataPath.Replace("Assets", installedVersionIncludeFileOrFolder);
-                
-                if (Directory.Exists(path))
-                {
-                    Directory.Delete(path, true);
-                }
-                else if (File.Exists(path))
-                {
-                    File.Delete(path);
-                }
-                else if (Directory.Exists(path + "/"))
-                {
-                    Directory.Delete(path + "/");
-                }
-            }
-
             RenderEndCommandExecutor.PushCommand(() =>
             {
                 AssetDatabase.Refresh();
 
                 EditorWindow.GetWindow<PackageKitWindow>().Close();
 
-                this.SendCommand(new InstallPackageCommand(mPackageRepository));
+                this.SendCommand(new InstallPackageCommand(mPackageRepository, () =>
+                {
+                    PackageHelper.DeletePackageFiles(mInstalledVersion);
+                }));
             });
         }
     }

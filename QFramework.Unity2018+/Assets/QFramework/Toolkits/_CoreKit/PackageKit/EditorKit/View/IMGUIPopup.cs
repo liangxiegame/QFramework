@@ -29,7 +29,7 @@ namespace QFramework
     {
         protected PopupView()
         {
-            mStyleProperty = new GUIStyleProperty(() => EditorStyles.popup);
+            mStyle = new FluentGUIStyle(() => EditorStyles.popup);
         }
 
         public static IPopup Create()
@@ -55,7 +55,7 @@ namespace QFramework
         protected override void OnGUI()
         {
             IndexProperty.Value =
-                EditorGUILayout.Popup(IndexProperty.Value, mMenus, mStyleProperty.Value, LayoutStyles);
+                EditorGUILayout.Popup(IndexProperty.Value, mMenus, mStyle.Value, LayoutStyles);
         }
 
         public IPopup WithIndexAndMenus(int index, params string[] menus)
@@ -73,7 +73,7 @@ namespace QFramework
 
         public IPopup ToolbarStyle()
         {
-            mStyleProperty = new GUIStyleProperty(() => EditorStyles.toolbarPopup);
+            mStyle = new FluentGUIStyle(() => EditorStyles.toolbarPopup);
             return this;
         }
     }

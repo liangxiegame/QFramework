@@ -239,7 +239,7 @@ namespace QFramework
 
                     if (codeGenerateInfo.GetType() != type)
                     {
-                        DestroyImmediate(codeGenerateInfo, false);
+                        DestroyImmediate(codeGenerateInfo, true);
                     }
 
                     serializedObject.ApplyModifiedProperties();
@@ -267,10 +267,11 @@ namespace QFramework
                     serializedObject.ApplyModifiedProperties();
                     serializedObject.UpdateIfRequiredOrScript();
                 }
+                
+                EditorUtility.SetDirty(gameObject);
 
-                EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
-
-
+                // EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+                
                 CurrentTask.Status = CodeGenTaskStatus.Complete;
                 CurrentTask = null;
             }

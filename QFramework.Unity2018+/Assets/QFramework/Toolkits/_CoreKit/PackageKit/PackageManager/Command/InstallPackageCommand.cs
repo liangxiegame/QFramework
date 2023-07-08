@@ -7,6 +7,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace QFramework
     internal class InstallPackageCommand : AbstractCommand
     {
         private readonly PackageRepository mRequestPackageData;
+        private readonly Action mOnAfterDownloadBeforeImport;
 
         private void OnProgressChanged(float progress)
         {
@@ -23,9 +25,10 @@ namespace QFramework
                 string.Format("插件下载中 {0:P2}", progress), progress);
         }
 
-        public InstallPackageCommand(PackageRepository requestPackageData)
+        public InstallPackageCommand(PackageRepository requestPackageData, Action onAfterDownloadBeforeImport = null)
         {
             mRequestPackageData = requestPackageData;
+            mOnAfterDownloadBeforeImport = onAfterDownloadBeforeImport;
         }
 
         protected override void OnExecute()
@@ -43,6 +46,8 @@ namespace QFramework
                     File.WriteAllBytes(tempFile, response.Bytes);
 
                     EditorUtility.ClearProgressBar();
+                    
+                    mOnAfterDownloadBeforeImport?.Invoke();
 
                     AssetDatabase.ImportPackage(tempFile, false);
 

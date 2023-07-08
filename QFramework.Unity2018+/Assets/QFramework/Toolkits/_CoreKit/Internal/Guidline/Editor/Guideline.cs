@@ -49,7 +49,13 @@ namespace QFramework
 
         public void Init()
         {
-            EditorApplication.update += Update;
+          
+        }
+
+
+        public void OnShow()
+        {
+              EditorApplication.update += Update;
             mViews = new List<GuidelineItem>();
 
             var positionMarkForLoad = Resources.Load<TextAsset>("EditorGuideline/PositionMarkForLoad");
@@ -292,6 +298,13 @@ namespace QFramework
             mCurrentWindow = EditorWindow.focusedWindow;
         }
 
+        public void OnHide()
+        {
+            EditorApplication.update -= Update;
+            mMarkdownViewer = null;
+            mCurrentWindow = null;
+        }
+
         private void Update()
         {
             if (mMarkdownViewer != null && mMarkdownViewer.Update())
@@ -313,9 +326,7 @@ namespace QFramework
 
         public void OnDestroy()
         {
-            EditorApplication.update -= Update;
-            mMarkdownViewer = null;
-            mCurrentWindow = null;
+
         }
     }
 }

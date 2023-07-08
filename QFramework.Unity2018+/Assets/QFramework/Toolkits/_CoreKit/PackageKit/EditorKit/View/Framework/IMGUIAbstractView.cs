@@ -36,12 +36,12 @@ namespace QFramework
         protected GUILayoutOption[] LayoutStyles { get; private set; }
 
 
-        protected GUIStyleProperty mStyleProperty = new GUIStyleProperty(() => new GUIStyle());
+        protected FluentGUIStyle mStyle = new FluentGUIStyle(() => new GUIStyle());
 
-        public GUIStyleProperty Style
+        public FluentGUIStyle Style
         {
-            get { return mStyleProperty; }
-            protected set { mStyleProperty = value; }
+            get => mStyle;
+            protected set => mStyle = value;
         }
 
         private Color mBackgroundColor = GUI.backgroundColor;

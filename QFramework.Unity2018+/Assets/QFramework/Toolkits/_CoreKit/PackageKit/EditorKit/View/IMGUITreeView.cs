@@ -32,7 +32,7 @@ namespace QFramework
             Content = content;
             Spread = new BindableProperty<bool>(spread);
 
-            Style = new GUIStyleProperty(() => EditorStyles.foldout);
+            Style = new FluentGUIStyle(() => EditorStyles.foldout);
 
             mFirstLine.Parent(this);
             mFirstLine.AddChild(EasyIMGUI.Space().Pixel(indent));

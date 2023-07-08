@@ -20,7 +20,7 @@ namespace QFramework
     {
         public IMGUIRectBoxView()
         {
-            mStyleProperty = new GUIStyleProperty(() => GUI.skin.box);
+            mStyle = new FluentGUIStyle(() => GUI.skin.box);
         }
 
         private Rect mRect = new Rect(0, 0, 200, 100);
@@ -29,7 +29,7 @@ namespace QFramework
 
         protected override void OnGUI()
         {
-            GUI.Box(mRect, mText, mStyleProperty.Value);
+            GUI.Box(mRect, mText, mStyle.Value);
         }
 
         public IMGUIRectBox Text(string labelText)

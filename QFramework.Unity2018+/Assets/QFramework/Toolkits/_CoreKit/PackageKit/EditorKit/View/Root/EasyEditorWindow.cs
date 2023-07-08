@@ -7,7 +7,9 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using UnityEditor;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -48,12 +50,18 @@ namespace QFramework
         private void OnDestroy()
         {
             EditorApplication.update -= OnUpdate;
+            Openning = false;
             OnClose();
         }
 
         protected abstract void Init();
 
-        private bool mInited = false;
+        protected bool mInited = false;
+
+        public void ReInitNextFrame()
+        {
+            mInited = false;
+        }
 
         public virtual void OnGUI()
         {
@@ -61,9 +69,17 @@ namespace QFramework
             {
                 Init();
                 mInited = true;
+                return;
             }
 
-            this.GetLayout().DrawGUI();
+            try
+            {
+                this.GetLayout().DrawGUI();
+            }
+            catch (Exception _)
+            {
+                GUIUtility.ExitGUI();
+            }
         }
 
         VerticalLayout IMGUILayoutRoot.Layout { get; set; }

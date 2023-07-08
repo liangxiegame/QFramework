@@ -20,10 +20,10 @@ namespace QFramework
             var server = this.GetModel<IPackageManagerServer>();
             var installedPackageVersionsModel = this.GetModel<ILocalPackageVersionModel>();
             installedPackageVersionsModel.Reload();
-            
+
             PackageManagerState.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
             this.SendCommand<UpdateCategoriesFromModelCommand>();
-            
+
             server.GetAllRemotePackageInfoV5((list, categories) =>
             {
                 if (list != null && categories != null)

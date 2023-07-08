@@ -38,7 +38,7 @@ namespace QFramework
                 }
             });
 
-            Style = new GUIStyleProperty(() => GUI.skin.button);
+            Style = new FluentGUIStyle(() => GUI.skin.button);
         }
 
         public IMGUIToolbar Menus(List<string> menuNames)

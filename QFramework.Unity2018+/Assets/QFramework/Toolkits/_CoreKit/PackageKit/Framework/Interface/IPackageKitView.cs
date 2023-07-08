@@ -15,17 +15,17 @@ namespace QFramework
     public interface IPackageKitView
     {
         EditorWindow EditorWindow { get; set; }
-        
+
         void Init();
+        void OnShow();
 
         void OnUpdate();
         void OnGUI();
+        void OnHide();
 
         void OnWindowGUIEnd();
 
         void OnDispose();
-        void OnShow();
-        void OnHide();
     }
 }
 #endif

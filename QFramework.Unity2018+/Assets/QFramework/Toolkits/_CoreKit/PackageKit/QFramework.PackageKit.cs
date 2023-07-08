@@ -211,9 +211,9 @@ namespace QFramework
 
         IMGUILayout IMGUIView.Parent { get; set; }
 
-        private GUIStyleProperty mStyle = new GUIStyleProperty(() => new GUIStyle());
+        private FluentGUIStyle mStyle = new FluentGUIStyle(() => new GUIStyle());
 
-        public GUIStyleProperty Style
+        public FluentGUIStyle Style
         {
             get { return mStyle; }
             set { mStyle = value; }
@@ -644,7 +644,7 @@ namespace QFramework
         {
             ValueProperty = new BindableProperty<Enum>(initValue);
             ValueProperty.Value = initValue;
-            Style = new GUIStyleProperty(() => EditorStyles.popup);
+            Style = new FluentGUIStyle(() => EditorStyles.popup);
         }
 
         protected override void OnGUI()

@@ -1,27 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2020.10 ~ 12 liangxie
+ * Copyright (c) 2016 ~ 2023 liangxie UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
  ****************************************************************************/
 
 #if UNITY_EDITOR
@@ -35,24 +17,30 @@ using UnityEngine;
 
 namespace QFramework
 {
+    [InitializeOnLoad]
     public class PackageKitWindow : EasyEditorWindow
     {
+        static PackageKitWindow()
+        {
+            mViews = null;
+        }
 
-        // [DidReloadScripts]
-        // static void Reload()
-        // {
-        //     if (focusedWindow.GetType() == typeof(PackageKitWindow))
-        //     {
-        //         GetWindow<PackageKitWindow>().Close();
-        //         GetWindow<PackageKitWindow>().Open();
-        //     }
-        // }
+        [DidReloadScripts]
+        public static void Reload()
+        {
+            var editorWindows = Resources.FindObjectsOfTypeAll<EditorWindow>();
+            if (editorWindows.Any(w => w.GetType() == typeof(PackageKitWindow) && w.As<PackageKitWindow>().Openning))
+            {
+                GetWindow<PackageKitWindow>().ReInitNextFrame();
+            }
+        }
+
         private void OnEnable()
         {
             var _ = LocaleKitEditor.IsCN;
         }
 
-        public static List<IPackageKitView> Views
+        private static List<IPackageKitView> Views
         {
             get
             {
@@ -61,7 +49,7 @@ namespace QFramework
                 InitializeViews(mViews);
                 return mViews;
             }
-            set { mViews = value; }
+            set => mViews = value;
         }
 
         private static void InitializeViews(List<IPackageKitView> views)
@@ -91,7 +79,11 @@ namespace QFramework
 
         class LocaleText
         {
-            public static string QFrameworkSettings => LocaleKitEditor.IsCN.Value ? "QFramework 设置" : "QFramework Settings";
+            public static string QFrameworkSettings =>
+                LocaleKitEditor.IsCN.Value ? "QFramework 设置" : "QFramework Settings";
+
+            public static string Compiling => LocaleKitEditor.IsCN.Value ? "编译中..." : "Compiling...";
+            public static string Reloading => LocaleKitEditor.IsCN.Value ? "重载中..." : "Reloading...";
         }
 
         private const float toolbarHeight = 20;
@@ -133,7 +125,6 @@ namespace QFramework
             Application.OpenURL(URL_FEEDBACK);
         }
 
-
         private Dictionary<MutableTuple<string, bool>, List<PackageKitViewRenderInfo>>
             mPackageKitViewRenderInfos = null;
 
@@ -143,12 +134,13 @@ namespace QFramework
             set => EditorPrefs.SetString("QF_SELECTED_DISPLAY_NAME", value);
         }
 
-
         protected override void Init()
         {
             Views = null;
+
             RemoveAllChildren();
 
+            mSplitView = null;
 
             var reflectRenderInfos = AssetDatabase.FindAssets("packagekitconfig t:TextAsset")
                 .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
@@ -157,7 +149,7 @@ namespace QFramework
                 {
                     var jsonText = File.ReadAllText(path);
 
-                    var infoNew = JsonUtility.FromJson<ReflectRenderInfo>(jsonText);
+                    var infoNew = JsonUtility.FromJson<PackageKitScriptViewRenderInfo>(jsonText);
 
                     if (infoNew.Load())
                     {
@@ -177,8 +169,9 @@ namespace QFramework
                         return renderInfo;
                     }
 
+
                     return null;
-                }).Where(info=>info != null);
+                }).Where(info => info != null);
 
             mPackageKitViewRenderInfos = Views
                 .Select(view => new PackageKitViewRenderInfo(view))
@@ -202,41 +195,55 @@ namespace QFramework
             }
 
             mSelectedViewRender.Interface.OnShow();
-
-
-            // 创建双屏
-            mSplitView = new VerticalSplitView
-            {
-                FirstPan = rect =>
-                {
-                    GUILayout.BeginArea(rect);
-                    GUILayout.BeginVertical();
-                    GUILayout.Space(toolbarHeight);
-                    GUILayout.EndVertical();
-                    LeftSelectView("");
-                    GUILayout.EndArea();
-                },
-                SecondPan = rect =>
-                {
-                    GUILayout.BeginArea(rect);
-                    GUILayout.BeginVertical();
-                    GUILayout.Space(toolbarHeight);
-                    GUILayout.EndVertical();
-
-                    if (mSelectedViewRender != null)
-                    {
-                        mSelectedViewRender.Interface.OnGUI();
-                    }
-
-                    GUILayout.EndArea();
-                }
-            };
         }
 
         [SerializeField] private VerticalSplitView mSplitView;
 
         public override void OnGUI()
         {
+            if (EditorApplication.isCompiling)
+            {
+                GUILayout.Label(LocaleText.Compiling);
+                return;
+            }
+
+            if (!mInited)
+            {
+                GUILayout.Label(LocaleText.Reloading);
+                base.OnGUI();
+                return;
+            }
+
+            if (mSplitView == null)
+            {
+                mSplitView = new VerticalSplitView
+                {
+                    FirstPan = rect =>
+                    {
+                        GUILayout.BeginArea(rect);
+                        GUILayout.BeginVertical();
+                        GUILayout.Space(toolbarHeight);
+                        GUILayout.EndVertical();
+                        LeftSelectView("");
+                        GUILayout.EndArea();
+                    },
+                    SecondPan = rect =>
+                    {
+                        GUILayout.BeginArea(rect);
+                        GUILayout.BeginVertical();
+                        GUILayout.Space(toolbarHeight);
+                        GUILayout.EndVertical();
+
+                        if (mSelectedViewRender != null)
+                        {
+                            mSelectedViewRender.Interface.OnGUI();
+                        }
+
+                        GUILayout.EndArea();
+                    }
+                };
+            }
+
             base.OnGUI();
 
             GUILayout.BeginHorizontal();
@@ -244,7 +251,7 @@ namespace QFramework
             GUILayout.EndHorizontal();
 
             var r = GUILayoutUtility.GetLastRect();
-            mSplitView.OnGUI(new Rect(new Vector2(0, r.yMax),
+            mSplitView?.OnGUI(new Rect(new Vector2(0, r.yMax),
                 new Vector2(position.width, position.height - r.height)));
 
             mSelectedViewRender?.Interface?.OnWindowGUIEnd();
@@ -299,7 +306,6 @@ namespace QFramework
                 }
             }
         }
-
 
         public override void OnClose()
         {

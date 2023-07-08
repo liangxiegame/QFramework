@@ -52,11 +52,11 @@ namespace QFramework
 
         public void PublishPackage(PackageVersion packageVersion, bool deleteLocal)
         {
-            PackageMakerModel.NoticeMessage.Value = "插件上传中,请稍后...";
+            PackageMakerEditor.NoticeMessage.Value = "插件上传中,请稍后...";
 
-            PackageMakerModel.InUploadingView.Value = true;
-            PackageMakerModel.InEditorView.Value = false;
-            PackageMakerModel.InFinishView.Value = false;
+            PackageMakerEditor.InUploadingView.Value = true;
+            PackageMakerEditor.InEditorView.Value = false;
+            PackageMakerEditor.InFinishView.Value = false;
 
             UploadPackage.DoUpload(packageVersion, () =>
             {
@@ -66,13 +66,13 @@ namespace QFramework
                     AssetDatabase.Refresh();
                 }
 
-                PackageMakerModel.UpdateResult.Value = "上传成功";
+                PackageMakerEditor.UpdateResult.Value = "上传成功";
 
-                PackageMakerModel.InEditorView.Value = false;
-                PackageMakerModel.InUploadingView.Value = false;
-                PackageMakerModel.InFinishView.Value = true;
+                PackageMakerEditor.InEditorView.Value = false;
+                PackageMakerEditor.InUploadingView.Value = false;
+                PackageMakerEditor.InFinishView.Value = true;
 
-                if (EditorUtility.DisplayDialog("上传结果", PackageMakerModel.UpdateResult.Value, "OK"))
+                if (EditorUtility.DisplayDialog("上传结果", PackageMakerEditor.UpdateResult.Value, "OK"))
                 {
                     AssetDatabase.Refresh();
 

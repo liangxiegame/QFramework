@@ -13,7 +13,6 @@ using UnityEngine;
 
 namespace QFramework
 {
-
     [Serializable]
     public class QFrameworkServerResultFormat<T>
     {
@@ -24,7 +23,7 @@ namespace QFramework
         public T data;
     }
 
-    internal class PackageManagerServer : AbstractModel, IPackageManagerServer,ICanGetModel
+    internal class PackageManagerServer : AbstractModel, IPackageManagerServer, ICanGetModel
     {
         public void DeletePackage(string packageId, System.Action onResponse)
         {
@@ -49,7 +48,7 @@ namespace QFramework
                 }
             });
         }
-        
+
         public void GetAllRemotePackageInfoV5(Action<List<PackageRepository>, List<string>> onResponse)
         {
             if (User.Logined)
@@ -91,8 +90,8 @@ namespace QFramework
             public List<string> categories;
             public List<PackageRepository> repositories;
         }
-        
-        void OnResponseV5(EditorHttpResponse response, Action<List<PackageRepository>,List<string>> onResponse)
+
+        void OnResponseV5(EditorHttpResponse response, Action<List<PackageRepository>, List<string>> onResponse)
         {
             if (response.Type == ResponseType.SUCCEED)
             {
@@ -105,7 +104,7 @@ namespace QFramework
                     onResponse(null, null);
                     return;
                 }
-                
+
                 if (responseJson.code == 1)
                 {
                     var listPackageResponseResult = responseJson.data;
@@ -116,12 +115,12 @@ namespace QFramework
                     {
                         packageRepository.type = packageTypeConfigModel.GetFullTypeName(packageRepository.type);
                     }
-                    
+
                     new PackageInfosRequestCache()
                     {
                         PackageRepositories = listPackageResponseResult.repositories
                     }.Save();
-                    
+
                     onResponse(listPackageResponseResult.repositories, listPackageResponseResult.categories);
                 }
             }
@@ -133,7 +132,6 @@ namespace QFramework
 
         protected override void OnInit()
         {
-            
         }
     }
 }

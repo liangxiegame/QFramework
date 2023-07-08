@@ -29,7 +29,7 @@ namespace QFramework
         {
             ValueProperty = new BindableProperty<bool>(false);
 
-            Style = new GUIStyleProperty(() => GUI.skin.toggle);
+            Style = new FluentGUIStyle(() => GUI.skin.toggle);
         }
 
         public BindableProperty<bool> ValueProperty { get; private set; }

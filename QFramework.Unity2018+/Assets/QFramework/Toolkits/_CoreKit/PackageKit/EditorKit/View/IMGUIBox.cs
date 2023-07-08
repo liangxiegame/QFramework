@@ -19,7 +19,7 @@ namespace QFramework
     {
         public IMGUIBoxView()
         {
-            mStyleProperty = new GUIStyleProperty(() =>
+            mStyle = new FluentGUIStyle(() =>
             {
                 // Box 的颜色保持和文本的颜色一致
                 var boxStyle = new GUIStyle(GUI.skin.box) { normal = { textColor = GUI.skin.label.normal.textColor } };
@@ -29,7 +29,7 @@ namespace QFramework
 
         protected override void OnGUI()
         {
-            GUILayout.Box(mText, mStyleProperty.Value, LayoutStyles);
+            GUILayout.Box(mText, mStyle.Value, LayoutStyles);
         }
 
         private string mText = string.Empty;

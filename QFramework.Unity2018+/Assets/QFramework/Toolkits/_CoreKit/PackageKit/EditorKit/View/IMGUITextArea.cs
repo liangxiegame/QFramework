@@ -22,14 +22,14 @@ namespace QFramework
         public IMGUITextAreaView()
         {
             Content = new BindableProperty<string>(string.Empty);
-            mStyleProperty = new GUIStyleProperty(() => GUI.skin.textArea);
+            mStyle = new FluentGUIStyle(() => GUI.skin.textArea);
         }
 
         public BindableProperty<string> Content { get; private set; }
 
         protected override void OnGUI()
         {
-            Content.Value = CrossPlatformGUILayout.TextArea(Content.Value, mStyleProperty.Value, LayoutStyles);
+            Content.Value = CrossPlatformGUILayout.TextArea(Content.Value, mStyle.Value, LayoutStyles);
         }
 
         public IMGUITextArea Text(string labelText)

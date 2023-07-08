@@ -21,7 +21,7 @@ namespace QFramework
     {
         public IMGUIRectLabelView()
         {
-            mStyleProperty = new GUIStyleProperty(() => new GUIStyle(GUI.skin.label));
+            mStyle = new FluentGUIStyle(() => new GUIStyle(GUI.skin.label));
         }
 
         private string mText = string.Empty;
@@ -29,7 +29,7 @@ namespace QFramework
 
         protected override void OnGUI()
         {
-            GUI.Label(mRect, mText, mStyleProperty.Value);
+            GUI.Label(mRect, mText, mStyle.Value);
         }
 
         public IMGUIRectLabel Text(string labelText)

@@ -25,7 +25,7 @@ namespace QFramework
         {
             Content = new BindableProperty<string>(string.Empty);
 
-            mStyleProperty = new GUIStyleProperty(() => GUI.skin.textField);
+            mStyle = new FluentGUIStyle(() => GUI.skin.textField);
         }
 
         public BindableProperty<string> Content { get; private set; }

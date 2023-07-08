@@ -135,18 +135,18 @@ namespace QFramework
                                              {
                                                  return -1;
                                              }
-                                             else if (installedVersion.VersionNumber < p.VersionNumber)
+
+                                             if (installedVersion.VersionNumber < p.VersionNumber)
                                              {
                                                  return 2;
                                              }
-                                             else if (installedVersion.VersionNumber == p.VersionNumber)
+
+                                             if (installedVersion.VersionNumber == p.VersionNumber)
                                              {
                                                  return 1;
                                              }
-                                             else
-                                             {
-                                                 return 0;
-                                             }
+
+                                             return 0;
                                          })
                                          .ThenBy(p => p.name))
                             {
@@ -161,13 +161,23 @@ namespace QFramework
 
                                 GUILayout.BeginHorizontal();
                                 {
+                                    var installedVersion = localPackageVersionModel.GetByName(p.name);
+
+                                    if (installedVersion != null)
+                                    {
+                                        EasyIMGUI.Box().Text(installedVersion.Version)
+                                            .Self(self => self.BackgroundColor = Color.yellow)
+                                            .DrawGUI();
+
+                                    }
                                     EasyIMGUI.Box().Text(p.latestVersion)
                                         .Self(self => self.BackgroundColor = Color.green)
                                         .DrawGUI();
 
+                        
+
                                     GUILayout.FlexibleSpace();
 
-                                    var installedVersion = localPackageVersionModel.GetByName(p.name);
 
                                     if (installedVersion == null)
                                     {
@@ -298,9 +308,6 @@ namespace QFramework
 
             mPackageKitWindow = EditorWindow.GetWindow<PackageKitWindow>();
 
-            this.SendCommand<PackageManagerInitCommand>();
-
-
             PackageManagerState.Categories.Register(value =>
             {
                 mCategoriesSelectorView.Menus(value);
@@ -372,6 +379,7 @@ namespace QFramework
 
         public void OnShow()
         {
+            this.SendCommand<PackageManagerInitCommand>();
         }
 
         public void OnHide()

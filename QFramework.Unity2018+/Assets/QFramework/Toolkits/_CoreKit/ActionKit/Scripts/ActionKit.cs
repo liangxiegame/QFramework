@@ -116,6 +116,11 @@ ActionKit.Sequence()
             return QFramework.Lerp.Allocate(a, b, duration, onLerp, onLerpFinish);
         }
 
+        public static IAction Callback(Action callback)
+        {
+            return QFramework.Callback.Allocate(callback);
+        }
+
 
 #if UNITY_EDITOR
         [MethodAPI]

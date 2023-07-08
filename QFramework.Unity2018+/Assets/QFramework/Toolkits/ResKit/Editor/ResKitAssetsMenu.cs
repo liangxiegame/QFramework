@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  ****************************************************************************/
 
+using System;
 using UnityEditor;
 using System.IO;
 using QFramework;
@@ -51,9 +52,16 @@ namespace QFramework
 
 		public static bool Marked(string path)
 		{
-			var ai = AssetImporter.GetAtPath(path);
-			var dir = new DirectoryInfo(path);
-			return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
+			try
+			{
+				var ai = AssetImporter.GetAtPath(path);
+				var dir = new DirectoryInfo(path);
+				return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
+			}
+			catch (Exception _)
+			{
+				return false;
+			}
 		}
 
 		public static void MarkAB(string path)

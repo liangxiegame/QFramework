@@ -21,14 +21,16 @@ namespace QFramework
     {
         public string Content { get; set; }
 
+        private FluentGUIStyle mFluentGUIStyle;
+
         public IMGUILabelView()
         {
-            mStyleProperty = new GUIStyleProperty(() => new GUIStyle(GUI.skin.label));
+            mFluentGUIStyle = FluentGUIStyle.Label();
         }
 
         protected override void OnGUI()
         {
-            GUILayout.Label(mTextGetter == null ? Content : mTextGetter(), Style.Value, LayoutStyles);
+            GUILayout.Label(mTextGetter == null ? Content : mTextGetter(), mFluentGUIStyle.Value, LayoutStyles);
         }
 
         public IMGUILabel Text(string labelText)

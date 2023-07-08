@@ -22,7 +22,7 @@ namespace QFramework
 
         IMGUILayout Parent { get; set; }
 
-        GUIStyleProperty Style { get; }
+        FluentGUIStyle Style { get; }
 
         Color BackgroundColor { get; set; }
 
@@ -134,19 +134,19 @@ namespace QFramework
 
         public static T FontBold<T>(this T view) where T : IMGUIView
         {
-            view.Style.Set(style => style.fontStyle = FontStyle.Bold);
+            view.Style.FontBold();
             return view;
         }
 
         public static T FontNormal<T>(this T view) where T : IMGUIView
         {
-            view.Style.Set(style => style.fontStyle = FontStyle.Normal);
+            view.Style.FontNormal();
             return view;
         }
 
         public static T FontSize<T>(this T view, int fontSize) where T : IMGUIView
         {
-            view.Style.Set(style => style.fontSize = fontSize);
+            view.Style.FontSize(fontSize);
             return view;
         }
 

@@ -5,6 +5,8 @@
   "DisplayNameEN": "User Manual(InProgress)",
   "TypeName": "QFramework.Guideline",
   "InitFunc": "Init",
+  "OnShowFunc": "OnShow",
+  "OnHideFunc": "OnHide",
   "OnGUIFunc": "OnGUI",
   "DisposeFunc": "OnDestroy",
   "GroupName": "QFramework",
