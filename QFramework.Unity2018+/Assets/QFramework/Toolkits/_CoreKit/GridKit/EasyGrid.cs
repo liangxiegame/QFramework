@@ -201,6 +201,18 @@ namespace QFramework.Example
                 }
             }
         }
+        
+        public T this[Vector2Int indexPair]
+        {
+            get
+            {
+                return this[indexPair.x, indexPair.y];
+            }
+            set
+            {
+                this[indexPair.x, indexPair.y] = value;
+            }
+        }
 
         public void Clear(Action<T> cleanupItem = null)
         {
