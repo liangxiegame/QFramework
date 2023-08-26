@@ -71,10 +71,6 @@ namespace QFramework
 
         public void OnGUI()
         {
-            #if UNITY_2022_1_OR_NEWER
-            EditorGUILayout.LabelField("暂时不支持 Unity2022，很快回来 not support Unity2022. coming soon");
-            return;
-            #endif
             EditorGUILayout.LabelField(LocaleText.ResolutionOrMatchWidthOrHeight);
 
             GUILayout.BeginVertical("box");
@@ -242,12 +238,10 @@ namespace QFramework
 
                     // 标记 AssetBundle
                     ResKitAssetsMenu.MarkAB(panelPrefabPath);
-
-#if !UNITY_2022_1_OR_NEWER
+                    
                     var tester = new GameObject("Test{0}".FillFormat(panelName));
                     var uiPanelTester = tester.AddComponent<ResKitUIPanelTester>();
                     uiPanelTester.PanelName = panelName;
-#endif
 
                     // 开始生成代码
                     UICodeGenerator.DoCreateCode(new[] { prefab });

@@ -112,7 +112,7 @@ namespace QFramework
             else
             {
                 packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-                packageKitWindow.position = new Rect(50, 100, 1000, 800);
+                packageKitWindow.position = new Rect(50, 50, 1200, 900);
                 packageKitWindow.Open();
             }
         }
@@ -221,18 +221,40 @@ namespace QFramework
                     FirstPan = rect =>
                     {
                         GUILayout.BeginArea(rect);
+                        GUILayout.BeginHorizontal();
                         GUILayout.BeginVertical();
                         GUILayout.Space(toolbarHeight);
                         GUILayout.EndVertical();
+                        if (mSplitView.Expand.Value)
+                        {
+                            GUILayout.FlexibleSpace();
+
+                            if (GUILayout.Button("<"))
+                            {
+                                mSplitView.Expand.Value = false;
+                            }
+                        }
+                        GUILayout.EndHorizontal();
                         LeftSelectView("");
                         GUILayout.EndArea();
                     },
                     SecondPan = rect =>
                     {
                         GUILayout.BeginArea(rect);
+                        GUILayout.BeginHorizontal();
+                        if (!mSplitView.Expand.Value)
+                        {
+                            if (GUILayout.Button(">"))
+                            {
+                                mSplitView.Expand.Value = true;
+                            }
+
+                            GUILayout.FlexibleSpace();
+                        }
                         GUILayout.BeginVertical();
                         GUILayout.Space(toolbarHeight);
                         GUILayout.EndVertical();
+                        GUILayout.EndHorizontal();
 
                         if (mSelectedViewRender != null)
                         {

@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2021.4 liangxie
+ * Copyright (c) 2016 ~ 2023 liangxie
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -9,13 +9,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using UnityEditor;
 
 namespace QFramework
 {
-    using System.IO;
-    using UnityEditor;
     using UnityEngine;
-
 
     public class ResKitEditorWindow : EditorWindow
     {
@@ -104,8 +103,7 @@ namespace QFramework
             GUILayout.EndVertical();
             GUILayout.Space(50);
 
-            
-            
+
             // RenderEndCommandExecuter.ExecuteCommand();
         }
     }
@@ -114,6 +112,7 @@ namespace QFramework
     public class ResKitView
     {
         private string mResVersion = "100";
+
         private bool mEnableGenerateClass
         {
             get => EditorPrefs.GetBool(KEY_AUTOGENERATE_CLASS, false);
@@ -121,21 +120,22 @@ namespace QFramework
         }
 
         private int mBuildTargetIndex = 0;
+
         public static int GenerateClassNameStyle
         {
             get => EditorPrefs.GetInt(KEY_GENERATE_CLASS_NAME_STYLE, 0);
             set => EditorPrefs.SetInt(KEY_GENERATE_CLASS_NAME_STYLE, value);
         }
-        
+
         private const string KEY_QAssetBundleBuilder_RESVERSION = "KEY_QAssetBundleBuilder_RESVERSION";
         public const string KEY_AUTOGENERATE_CLASS = "KEY_AUTOGENERATE_CLASS";
         public const string KEY_GENERATE_CLASS_NAME_STYLE = "KEY_GENERATE_CLASS_NAME_STYLE";
-        
+
 
         public void Init()
         {
             mResVersion = EditorPrefs.GetString(KEY_QAssetBundleBuilder_RESVERSION, "100");
-            
+
             switch (EditorUserBuildSettings.activeBuildTarget)
             {
                 case BuildTarget.WSAPlayer:
@@ -178,12 +178,13 @@ namespace QFramework
         {
             fontSize = 12
         });
-        
+
         public EditorWindow EditorWindow { get; set; }
 
 
         public const int GENERATE_NAME_STYLE_UPPERCASE = 0;
         public const int GENERATE_NAME_STYLE_KeepOriginal = 1;
+
         public void OnGUI()
         {
             GUILayout.Label(LocaleText.ResKit, mResKitNameStyle.Value);
@@ -206,18 +207,34 @@ namespace QFramework
 
             GUILayout.BeginHorizontal();
             mEnableGenerateClass = GUILayout.Toggle(mEnableGenerateClass, LocaleText.AutoGenerateClass);
-            
+
             if (mEnableGenerateClass)
             {
                 GUILayout.FlexibleSpace();
-                GenerateClassNameStyle = EditorGUILayout.Popup(GenerateClassNameStyle, LocaleText.GenerateClassNameStyleItems);
+                GenerateClassNameStyle =
+                    EditorGUILayout.Popup(GenerateClassNameStyle, LocaleText.GenerateClassNameStyleItems);
             }
-            
+
             GUILayout.EndHorizontal();
 
-            ResKitEditorAPI.SimulationMode =
-                GUILayout.Toggle(ResKitEditorAPI.SimulationMode, LocaleText.SimulationMode);
+            GUILayout.BeginHorizontal();
+            var index = ResKitEditorAPI.SimulationMode ? 0 : 1;
+            index = EditorGUILayout.Popup(index, LocaleText.ModeMenu, GUILayout.Width(100));
+            if (index != (ResKitEditorAPI.SimulationMode ? 0 : 1))
+            {
+                ResKitEditorAPI.SimulationMode = (index == 0);
+            }
 
+            if (ResKitEditorAPI.SimulationMode)
+            {
+                GUILayout.Label(LocaleText.SimulationModeDescription);
+            }
+            else
+            {
+                GUILayout.Label(LocaleText.DeviceModeDescription);
+            }
+
+            GUILayout.EndHorizontal();
 
             // EasyIMGUI.Toggle()
             //    .Text(LocaleText.EncryptAB)
@@ -279,26 +296,26 @@ namespace QFramework
                 GUILayout.BeginVertical("box");
                 {
                     foreach (var n in AssetDatabase.GetAllAssetBundleNames()
-                        .SelectMany(n =>
-                        {
-                            var result = AssetDatabase.GetAssetPathsFromAssetBundle(n);
+                                 .SelectMany(n =>
+                                 {
+                                     var result = AssetDatabase.GetAssetPathsFromAssetBundle(n);
 
-                            return result.Select(r =>
-                                {
-                                    if (ResKitAssetsMenu.Marked(r))
-                                    {
-                                        return r;
-                                    }
+                                     return result.Select(r =>
+                                         {
+                                             if (ResKitAssetsMenu.Marked(r))
+                                             {
+                                                 return r;
+                                             }
 
-                                    if (ResKitAssetsMenu.Marked(r.GetFolderPath()))
-                                    {
-                                        return r.GetFolderPath();
-                                    }
+                                             if (ResKitAssetsMenu.Marked(r.GetFolderPath()))
+                                             {
+                                                 return r.GetFolderPath();
+                                             }
 
-                                    return null;
-                                }).Where(r => r != null)
-                                .Distinct();
-                        }))
+                                             return null;
+                                         }).Where(r => r != null)
+                                         .Distinct();
+                                 }))
                     {
                         GUILayout.BeginHorizontal();
                         {
@@ -332,7 +349,7 @@ namespace QFramework
         {
             EditorPrefs.SetString(KEY_QAssetBundleBuilder_RESVERSION, mResVersion);
         }
-        
+
         public class LocaleText
         {
             public static bool IsCN => LocaleKitEditor.IsCN.Value;
@@ -362,11 +379,30 @@ namespace QFramework
 
             public static string[] GenerateClassNameStyleItems =>
                 IsCN ? mGenerateClassNameStyleItemsCN : mGenerateClassNameStyleItemsEN;
-            
-            public static string SimulationMode =>
+
+            private static string[] mModeMenuCN = new[]
+            {
+                "模拟模式",
+                "真机模式"
+            };
+
+            private static string[] mModeMenuEN = new[]
+            {
+                "SimulationMode",
+                "DeviceMode"
+            };
+
+            public static string[] ModeMenu => IsCN ? mModeMenuCN : mModeMenuEN;
+
+            public static string SimulationModeDescription =>
                 IsCN
-                    ? "模拟模式（勾选后每当资源修改时无需再打 AB 包，开发阶段建议勾选，打真机包时取消勾选并打一次 AB 包）"
-                    : "Simulation Mode";
+                    ? "不用主动调用 ResKit.Init 或 ResKit.InitAsync.每当资源修改时无需再打 AB 包，开发阶段建议选择"
+                    : "Don't need to call ResKit.Init or ResKit.InitAsync.When Assets modified, don't need to build AB package";
+
+            public static string DeviceModeDescription =>
+                IsCN
+                    ? "每当资源修改时需要打 AB 包，需要在游戏运行后调用 ResKit.Init 或 ResKit.InitAsync，在真机上只支持此模式"
+                    : "Need call ResKit.Init or ResKit.InitAsync after game run.When Assets modified, need to build AB.Only this mode is supported on real machines";
 
             public static string CancelMark =>
                 IsCN
@@ -417,7 +453,7 @@ namespace QFramework
         {
             ExecuteCommand();
         }
-        
+
         private static Queue<System.Action> mPrivateCommands = new Queue<System.Action>();
 
         private static Queue<System.Action> mCommands

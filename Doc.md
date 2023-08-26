@@ -1,4 +1,9 @@
+[toc]
+
+
+
 # 1. 介绍
+
 # 01. 简介
 
 大家好，我是 QFramework 的作者 凉鞋，QFramework 从第一次代码提交到现在快 7 年了（2015 年 12 月 \~ 2022 年 10 月）了，而经过了 7 年时间的打磨，我们终于迎来了 v1.0 版本。
@@ -281,7 +286,7 @@ Unity制作的联机赛车游戏，后台为SpringBoot + Mybatis；游戏采用Q
 
 作者：Joker
 
-![172348\_4d54744e\_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png)
+![扫雷](https://file.liangxiegame.com/4c42d227-11b9-4485-8884-a2f04a62460c.png)
 
 源码地址:
 
@@ -4228,8 +4233,923 @@ git 仓库地址:
 *   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
 *   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 
-# 03. CodeGenKit 脚本生成
+## UI Kit 小结
 
+在这一章，UI Kit 的核心功能，我们都接触过了，如下：
+
+* UIPanel/UIElement 代码生成
+* UIKit 常用 API
+  * UIKit.OpenPanel（Async）
+  * UIKit.ClosePanel
+  * UIKit.CloseSelf
+  * UIKit.SetResolution
+  * UIKit.Stack.Push、UIPanel.Back(Pop)
+* UIPanel 生命周期
+* UIPanel 测试场景生成工具
+* 自定义加载界面
+
+只要掌握了以上这些，基本上开发一些界面就没啥问题了。
+
+关于 UIKit 就介绍到这里。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 01. FluentAPI 链式 API
+
+## FluentAPI 简介
+FluentAPI 是 笔者积累的 Unity API 的一些链式封装。
+
+基本使用非常简单，如下：
+```csharp
+// traditional style
+var playerPrefab = Resources.Load<GameObject>("no prefab don't run");
+var playerObj = Instantiate(playerPrefab);
+
+playerObj.transform.SetParent(null);
+playerObj.transform.localRotation = Quaternion.identity;
+playerObj.transform.localPosition = Vector3.left;
+playerObj.transform.localScale = Vector3.one;
+playerObj.layer = 1;
+playerObj.layer = LayerMask.GetMask("Default");
+
+Debug.Log("playerPrefab instantiated");
+
+// Extension's Style,same as above 
+Resources.Load<GameObject>("playerPrefab")
+    .Instantiate()
+    .transform
+    .Parent(null)
+    .LocalRotationIdentity()
+    .LocalPosition(Vector3.left)
+    .LocalScaleIdentity()
+    .Layer(1)
+    .Layer("Default")
+    .ApplySelfTo(_ => { Debug.Log("playerPrefab instantiated"); });
+```
+
+代码很简单。
+
+FluentAPI 包含 100 多个常用 API 的链式封装，具体可以参考编辑器内文档。
+
+![image.png](https://file.liangxiegame.com/67604baa-a9ca-4f03-8f7a-c1f88be322b7.png)
+
+另外 链式 API 可以与 QFramework 的其他模块配合使用事半功倍，比如 ResKit 与 FluentAPI 结合，参考代码如下:
+
+```csharp
+mResLoader.LoadSync<GameObject>("mygameobj")
+  .InstantiateWithParent(parent)
+  .transform
+  .LocalIdentity()
+  .Name("MyGameObj")
+  .Show();
+```
+
+
+链式 API 就介绍到这里。
+# 01. FSMKit 状态机
+
+QFramework 内置了一个简易的状态机，基本使用如下:
+
+## 链式
+
+```csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class IStateBasicUsageExample : MonoBehaviour
+    {
+        public enum States
+        {
+            A,
+            B
+        }
+
+        public FSM<States> FSM = new FSM<States>();
+
+        void Start()
+        {
+            FSM.State(States.A)
+                .OnCondition(()=>FSM.CurrentStateId == States.B)
+                .OnEnter(() =>
+                {
+                    Debug.Log("Enter A");
+                })
+                .OnUpdate(() =>
+                {
+                    
+                })
+                .OnFixedUpdate(() =>
+                {
+                    
+                })
+                .OnGUI(() =>
+                {
+                    GUILayout.Label("State A");
+                    if (GUILayout.Button("To State B"))
+                    {
+                        FSM.ChangeState(States.B);
+                    }
+                })
+                .OnExit(() =>
+                {
+                    Debug.Log("Enter B");
+
+                });
+
+            FSM.State(States.B)
+                .OnCondition(() => FSM.CurrentStateId == States.A)
+                .OnGUI(() =>
+                {
+                    GUILayout.Label("State B");
+                    if (GUILayout.Button("To State A"))
+                    {
+                        FSM.ChangeState(States.A);
+                    }
+                });
+            
+            FSM.StartState(States.A);
+        }
+
+        private void Update()
+        {
+            FSM.Update();
+        }
+
+        private void FixedUpdate()
+        {
+            FSM.FixedUpdate();
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
+        }
+    }
+}
+```
+
+运行之后，结果如下:
+
+![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
+
+没啥问题。
+
+
+
+## 类模式
+
+链式适合在快速开发阶段，或者在状态非常少的阶段使用。
+
+
+
+而如果状态较多，或者相应代码量较多的阶段，可以使用类模式，代码如下:
+
+
+
+```csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class IStateClassExample : MonoBehaviour
+    {
+
+        public enum States
+        {
+            A,
+            B,
+            C
+        }
+
+        public FSM<States> FSM = new FSM<States>();
+
+        public class StateA : AbstractState<States,IStateClassExample>
+        {
+            public StateA(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            {
+            }
+
+            protected override bool OnCondition()
+            {
+                return mFSM.CurrentStateId == States.B;
+            }
+
+            public override void OnGUI()
+            {
+                GUILayout.Label("State A");
+
+                if (GUILayout.Button("To State B"))
+                {
+                    mFSM.ChangeState(States.B);
+                }
+            }
+        }
+        
+        
+        public class StateB: AbstractState<States,IStateClassExample>
+        {
+            public StateB(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            {
+            }
+
+            protected override bool OnCondition()
+            {
+                return mFSM.CurrentStateId == States.A;
+            }
+
+            public override void OnGUI()
+            {
+                GUILayout.Label("State B");
+
+                if (GUILayout.Button("To State A"))
+                {
+                    mFSM.ChangeState(States.A);
+                }
+            }
+        }
+
+        private void Start()
+        {
+            FSM.AddState(States.A, new StateA(FSM, this));
+            FSM.AddState(States.B, new StateB(FSM, this));
+
+            // 支持和链式模式混用
+            // FSM.State(States.C)
+            //     .OnEnter(() =>
+            //     {
+            //
+            //     });
+            
+            FSM.StartState(States.A);
+        }
+
+        private void OnGUI()
+        {
+            FSM.OnGUI();
+        }
+
+        private void OnDestroy()
+        {
+            FSM.Clear();
+        }
+    }
+}
+```
+
+
+
+运行之后结果如下。
+
+
+
+![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
+
+关于状态机的介绍就到这里。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+
+# 01. PoolKit 对象池套件
+
+
+## SimpleObjectPool 简易对象池
+
+```csharp
+class Fish
+{
+             
+}
+
+var pool = new SimpleObjectPool<Fish>(() => new Fish(),initCount:50);
+ 
+Debug.Log(pool.CurCount);
+// 50 
+var fish = pool.Allocate();
+ 
+Debug.Log(pool.CurCount);
+// 49
+pool.Recycle(fish);
+
+Debug.Log(pool.CurCount);
+// 50
+
+
+// ---- GameObject ----
+var gameObjPool = new SimpleObjectPool<GameObject>(() =>
+{
+    var gameObj = new GameObject(""AGameObject"");
+    // init gameObj code 
+
+    // gameObjPrefab = Resources.Load<GameObject>(""somePath/someGameObj"");
+                
+    return gameObj;
+}, (gameObj) =>
+{
+    // reset code here
+});
+```
+
+## SafeObjectPool 安全对象池
+
+```csharp
+class Bullet :IPoolable,IPoolType
+{
+    public void OnRecycled()
+    {
+        Debug.Log(""回收了"");
+    }
+ 
+    public  bool IsRecycled { get; set; }
+ 
+    public static Bullet Allocate()
+    {
+        return SafeObjectPool<Bullet>.Instance.Allocate();
+    }
+             
+    public void Recycle2Cache()
+    {
+        SafeObjectPool<Bullet>.Instance.Recycle(this);
+    }
+}
+ 
+SafeObjectPool<Bullet>.Instance.Init(50,25);
+             
+var bullet = Bullet.Allocate();
+ 
+Debug.Log(SafeObjectPool<Bullet>.Instance.CurCount);
+             
+bullet.Recycle2Cache();
+ 
+Debug.Log(SafeObjectPool<Bullet>.Instance.CurCount);
+ 
+// can config object factory
+// 可以配置对象工厂
+SafeObjectPool<Bullet>.Instance.SetFactoryMethod(() =>
+{
+    // bullet can be mono behaviour
+    return new Bullet();
+});
+             
+SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet>());
+ 
+// can set
+// 可以设置
+// NonPublicObjectFactory: 可以通过调用私有构造来创建对象,can call private constructor to create object
+// CustomObjectFactory: 自定义创建对象的方式,can create object by Func<T>
+// DefaultObjectFactory: 通过 new 创建对象, can create object by new 
+```
+
+## 基本的数据结构封装 List、Dictionary
+
+```csharp
+var names = ListPool<string>.Get()
+names.Add(""Hello"");
+
+names.Release2Pool();
+// or ListPool<string>.Release(names);
+```
+
+
+```csharp
+var infos = DictionaryPool<string,string>.Get()
+infos.Add(""name"",""liangxie"");
+
+infos.Release2Pool();
+// or DictionaryPool<string,string>.Release(names);
+```
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+# 01. TableKit 表数据结构
+
+在设计 UIKit、ResKit 等系统时，如果只使用默认的 List 和 Dictionary 来管理数据和对象需要做很多的封装。
+
+因为本身 List 和 Dictionary 支持的查询方式比较单一，如果想做一些比较复杂的查询，比如联合查询，那么 List 和 Dictionary 的性能会比较差。
+
+所以为此，笔者简单封装了一个 Table 数据结构。
+
+使用示例如下:
+
+```csharp
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+namespace QFramework
+{
+    public class TableKitExample : MonoBehaviour
+    {
+        public class Student
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+            public int Level { get; set; }
+        }
+        public class School : Table<Student>
+        {
+            public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);
+            public TableIndex<int, Student> LevelIndex = new TableIndex<int, Student>((student) => student.Level);
+            
+            protected override void OnAdd(Student item)
+            {
+                AgeIndex.Add(item);
+                LevelIndex.Add(item);
+            }
+
+            protected override void OnRemove(Student item)
+            {
+                AgeIndex.Remove(item);
+                LevelIndex.Remove(item);
+            }
+
+            protected override void OnClear()
+            {
+                AgeIndex.Clear();
+                LevelIndex.Clear();
+            }
+
+            public override IEnumerator<Student> GetEnumerator()
+            {
+                return AgeIndex.Dictionary.Values.SelectMany(s=>s).GetEnumerator();
+            }
+
+            protected override void OnDispose()
+            {
+                AgeIndex.Dispose();
+                LevelIndex.Dispose();
+            }
+        }
+
+
+        private void Start()
+        {
+            var school = new School();
+            school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
+            school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
+            school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
+            school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
+            
+            foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
+            {
+                Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
+            }
+        }
+    }
+}
+// 1:2:liangxie
+// 2:2:ava
+```
+
+
+TableKit 兼顾查询功能支持和性能，在功能和性能之间取得了一个平衡。
+
+ResKit、UIKit 的数据管理全部由 TableKit 支持。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+
+
+# 01. 其他事件工具
+
+QFramework 除了支持了  TypeEventSystem、EasyEvent 还支持了 EnumEventSystem、StringEventSystem。
+
+
+## EnumEventSystem
+
+EnumEventSystem 前身是 老版本 QFramework 的 QEventSystem
+
+``` csharp
+using UnityEngine;
+
+namespace QFramework
+{
+	public class EnumEventExample : MonoBehaviour
+	{
+		#region 事件定义
+
+		public enum TestEvent
+		{
+			Start,
+			TestOne,
+			End,
+		}
+
+		public enum TestEventB
+		{
+			Start = TestEvent.End, // 为了保证每个消息 Id 唯一，需要头尾相接
+			TestB,
+			End,
+		}
+
+		#endregion 事件定义
+		
+		void Start()
+		{
+			EnumEventSystem.Global.Register(TestEvent.TestOne, OnEvent);
+		}
+
+		void OnEvent(int key, params object[] obj)
+		{
+			switch (key)
+			{
+				case (int) TestEvent.TestOne:
+					Debug.Log(obj[0]);
+					break;
+			}
+		}
+
+		private void Update()
+		{
+			if (Input.GetMouseButtonDown(0))
+			{
+				EnumEventSystem.Global.Send(TestEvent.TestOne, "Hello World!");
+			}
+		}
+
+		private void OnDestroy()
+		{
+			EnumEventSystem.Global.UnRegister(TestEvent.TestOne, OnEvent);
+		}
+	}
+}
+```
+
+
+## StringEventSystem
+
+StringEventSystem 的前身是，老版本的 MsgDispatcher
+
+``` csharp
+using UnityEngine;
+
+namespace QFramework
+{
+	public class EnumEventExample : MonoBehaviour
+	{
+		#region 事件定义
+
+		public enum TestEvent
+		{
+			Start,
+			TestOne,
+			End,
+		}
+
+		public enum TestEventB
+		{
+			Start = TestEvent.End, // 为了保证每个消息 Id 唯一，需要头尾相接
+			TestB,
+			End,
+		}
+
+		#endregion 事件定义
+		
+		void Start()
+		{
+			EnumEventSystem.Global.Register(TestEvent.TestOne, OnEvent);
+		}
+
+		void OnEvent(int key, params object[] obj)
+		{
+			switch (key)
+			{
+				case (int) TestEvent.TestOne:
+					Debug.Log(obj[0]);
+					break;
+			}
+		}
+
+		private void Update()
+		{
+			if (Input.GetMouseButtonDown(0))
+			{
+				EnumEventSystem.Global.Send(TestEvent.TestOne, "Hello World!");
+			}
+		}
+
+		private void OnDestroy()
+		{
+			EnumEventSystem.Global.UnRegister(TestEvent.TestOne, OnEvent);
+		}
+	}
+}
+// 输出结果
+// 点击鼠标左键
+// Hello World
+```
+
+
+## StringEventSystem
+
+``` csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class StringEventSystemExample : MonoBehaviour
+    {
+        void Start()
+        {
+            StringEventSystem.Global.Register("TEST_ONE", () =>
+            {
+                Debug.Log("TEST_ONE");
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+            
+            // 事件 + 参数
+            StringEventSystem.Global.Register<int>("TEST_TWO", (count) =>
+            {
+                Debug.Log("TEST_TWO:" + count);
+
+            }).UnRegisterWhenGameObjectDestroyed(gameObject);
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                StringEventSystem.Global.Send("TEST_ONE");
+                StringEventSystem.Global.Send("TEST_TWO",10);
+                
+            }
+        }
+    }
+}
+
+// 输出结果
+// 点击鼠标左键
+// TEST_ONE
+// TEST_TWO:10
+
+```
+
+
+
+
+## 对比
+
+* TypeEventSystem：
+  * 事件体定义简洁
+  * 比较适合用于设计框架
+  * 支持 struct 获得较好内存性能
+  * 使用反射，CPU 性能相对比较差
+
+* EasyEvent
+  * 方便、易用、开发效率高
+  * CPU 性能、内存性能较好，接近委托
+  * 功能有限
+  * 比较适合设计通用解决工具，比如通用背包、全局生命周期触发等
+  * StringEventSystem、TypeEventSystem 的底层由 EasyEvent 实现
+
+* EnumEventSystem
+  * 使用枚举作为事件 id，比较适合和服务端的 protobuf 或带有消息 id 的长链接通信
+  * 性能较好
+  * 枚举用于定义消息体有维护成本
+
+* StringEventSystem
+  * 使用字符串作为事件 id，比较适合和其他脚本层通信，比如 Lua、ILRuntime、PlayMaker 等。
+  * 性能一般
+
+
+目前官方推荐使用 TypeEventSystem 和 EasyEvent 这两个工具。
+
+如果要和网络通信则选择用 EnumEventSystem。
+
+如果要和其他脚本层通信选择用 StringEventSystem。
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+    
+    
+    
+    ​    
+# 01. 更多内容
+
+
+## 案例《五子棋》
+
+![2f4dacbd-e59b-43af-b7be-44220fac664e.png](https://file.liangxiegame.com/a76bc24a-1828-46f2-94c5-8bd24884f932.png)
+
+
+源码地址:
+* github https://github.com/liangxiegame/QFramework
+* gitee https://gitee.com/liangxiegame/QFramework
+
+![image.png](https://file.liangxiegame.com/3abceb70-2d17-4457-aff1-ef8a6ef4bd66.png)
+
+## 案例《扫雷》
+
+作者：Joker
+
+![扫雷](https://file.liangxiegame.com/4c42d227-11b9-4485-8884-a2f04a62460c.png)
+源码地址:
+* github https://github.com/liangxiegame/QFramework
+* gitee https://gitee.com/liangxiegame/QFramework
+
+![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png)
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+*   QFramework 交流群: 623597263
+*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
+*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
+# 01. GridKit 二维格子数据结构
+
+在做游戏的过程中，我们经常需要处理二维格子类的数据，比如消除类游戏、俄罗斯方块、各种棋类游戏，还有我们最常用的 Tilemap 的地块数据，这些都需要二维格子数据结构。
+
+而在 GameMaker Studio 引擎中，这样的数据结构直接在引擎层面提供，名字叫做 ds_grid。
+
+受到 GameMaker Stdio 的 ds_grid 启发，QFramework 也实现了一个类似的数据结构，名字叫做 EasyGrid，示例代码如下:
+``` csharp
+using UnityEngine;
+
+namespace QFramework.Example
+{
+    public class GridKitExample : MonoBehaviour
+    {
+        // Start is called before the first frame update
+        void Start()
+        {
+            var grid = new EasyGrid<string>(4, 4);
+
+            grid.Fill("Empty");
+            
+            grid[2, 3] = "Hello";
+
+            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content})");
+
+            grid.Clear();
+        }
+    }
+}
+```
+
+运行后，代码如下:
+``` 
+(0,0):Empty
+(0,1):Empty
+(0,2):Empty
+(0,3):Empty
+(1,0):Empty
+(1,1):Empty
+(1,2):Empty
+(1,3):Empty
+(2,0):Empty
+(2,1):Empty
+(2,2):Empty
+(2,3):Hello
+(3,0):Empty
+(3,1):Empty
+(3,2):Empty
+(3,3):Empty
+```
+
+好了这个就是关于 GridKit 的简单介绍。
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+
+*   QFramework 交流群: 623597263
+
+*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
+
+*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
+
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>
+* 
+# 01. LiveCodingKit 热重载
+
+我们在用 Unity 开发的时候，每次编写或修改一点代码就需要进行 停止运行->编写代码->等待编译->运行游戏。
+
+而在很多情况下这个过程是一个比较耗神的过程，因为开发者需要等待，还需要动手操作。
+
+在笔者体验过 GameMakerStudio 的 GMLive 插件后，发现不停止运行就可以直接查看代码编写的结果的体验非常丝滑。
+
+于是笔者就在 QFramework 中写了一个类似的方案 LiveCodingKit。
+
+使用方式很简单，首先在 QFramework 编辑器中可以看到 LiveCodingKit 面板，如下:
+
+![image-20230112105034532](https://file.liangxiegame.com/4e7b25f6-cb59-4283-8e74-9d2c951c39e5.png)
+
+确保开启是勾选状态。
+
+然后根据自己需要选择当编译完成时，对应的操作，一般情况下重新加载当前场景就够用了。
+
+当然如果是场景和场景间有依赖关系，那么可以选择重启游戏。
+
+然后随意运行一个带有脚本的场景，笔者选择的是 QFramework 自带的示例，如下:
+
+![image-20230112105245671](https://file.liangxiegame.com/907db129-95aa-4674-a63a-3c47f82d4dc9.png)
+
+然后新增代码如下:
+
+```csharp
+public partial class UIBasicPanel : UIPanel
+{
+   protected override void OnInit(IUIData uiData = null)
+   {
+      mData = uiData as UIBasicPanelData ?? new UIBasicPanelData();
+      
+      BtnStart.onClick.AddListener(() =>
+      {
+         Debug.Log("开始游戏");
+      });
+
+      BtnStart.Rotation(Quaternion.Euler(0, 0, 90)); // 新增代码
+   }
+   
+```
+
+之后回到 Unity 直接等待编译（不用停止运行）。
+
+
+
+编译完成后结果如下:
+
+![image-20230112105456694](https://file.liangxiegame.com/5185ab09-938c-4bd7-9259-6ff08ebaf779.png)
+
+
+
+OK，结果没问题。
+
+这就是 LiveCodingKit 的介绍，当你需要在代码中调整一些数值，写 OnGUI 代码，会非常方便，当然也有一些不适用的情况，这个就需要大家自行体验了。
+
+
+
+
+## 更多内容
+
+*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
+
+*   QFramework 主页：[qframework.cn](https://qframework.cn)
+
+*   QFramework 交流群: 623597263
+
+*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
+
+*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
+
+*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>
+# 03. CodeGenKit 脚本生成
 在这一篇，我们学习几乎每个项目都要用到并且从中受益的功能：自动生成脚本并绑定，简称脚本生成。
 
 ## 基本使用
@@ -4407,25 +5327,6 @@ Weapon 从原来的 Transform 类型变成了 SpriteRenderer 类型。
 
 ![image.png](https://file.liangxiegame.com/534d8275-5d63-4307-89a8-378722f0bffc.png)
 
-## 如何设置默认的 命名空间 和 脚本生成目录
-很简单，打开 QFramework 编辑器面板，（快捷键 ctrl + e 或 ctrl + shift + e)
-
-![image.png](https://file.liangxiegame.com/4322e7cc-8f5e-4e45-abbe-d63110d2e605.png)
-
-在 CodeGenKit 设置里就可以更改默认的命名空间和默认的脚本生成位置。
-
-当然在这里生成了，也还是可以在 ViewController Inspector 上进行设置。
-
-我们先改下命名空间和脚本生成路径，如下:
-
-![image.png](https://file.liangxiegame.com/72f7df2a-40cb-443c-a1f3-f4c5d5656a4b.png)
-
-然后我们创建一个 GameObject 挂上 ViewController 组件，结果如下:
-
-![image.png](https://file.liangxiegame.com/f461ade5-8cf6-4bfd-a94d-c86f523cf8e8.png)
-
-这样默认的命名空间就生效了。
-
 ## ViewController 与 ViewController 嵌套
 ViewController 与 ViewController 之间可以嵌套
 
@@ -4465,8 +5366,24 @@ ViewController 与 ViewController 之间可以嵌套
 ![image.png](https://file.liangxiegame.com/c29ba2f9-39b0-436a-8084-781edaf959fe.png)
 
 当然可以再 Weapon.cs 中写 Weapon 自己的逻辑。
+## 如何设置默认的 命名空间 和 脚本生成目录
+很简单，打开 QFramework 编辑器面板，（快捷键 ctrl + e 或 ctrl + shift + e)
 
+![image.png](https://file.liangxiegame.com/4322e7cc-8f5e-4e45-abbe-d63110d2e605.png)
 
+在 CodeGenKit 设置里就可以更改默认的命名空间和默认的脚本生成位置。
+
+当然在这里生成了，也还是可以在 ViewController Inspector 上进行设置。
+
+我们先改下命名空间和脚本生成路径，如下:
+
+![image.png](https://file.liangxiegame.com/72f7df2a-40cb-443c-a1f3-f4c5d5656a4b.png)
+
+然后我们创建一个 GameObject 挂上 ViewController 组件，结果如下:
+
+![image.png](https://file.liangxiegame.com/f461ade5-8cf6-4bfd-a94d-c86f523cf8e8.png)
+
+这样默认的命名空间就生效了。
 ## 生成 Prefab
 在 ViewController 或 生成脚本的 Inspector 上，有一个生成 prefab 的选项
 
@@ -4497,22 +5414,12 @@ ViewController 与 ViewController 之间可以嵌套
 CodeGenKit 中的  ViewController 除了可以用于普通的 GameObject，还可以支持 NGUI 和 UGUI 等 UI 组件。
 
 好了，关于脚本生成的功能介绍到这里。
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
 # 04. ActionKit 时序动作执行系统
 AciontKit 是一个时序动作执行系统。
 
 游戏中，动画的播放、延时、资源的异步加载、Tween 的执行、网络请求等，这些全部都是时序任务，而 ActionKit，可以把这些任务全部整合在一起，使用统一的 API，来对他们的执行进行**计划**。
 
 OK，我们先看下 ActionKit的基本用法。
-
 ## 延时回调
 
 示例代码如下:
@@ -4541,7 +5448,6 @@ namespace QFramework.Example
 // Start Time: 0
 // End Time: 1.00781
 ```
-
 ## 序列和完成回调
 ```csharp
 using UnityEngine;
@@ -4568,7 +5474,6 @@ namespace QFramework.Example
 // Delay Finish:1.00537
 // Sequence Finish:1.00537
 ```
-
 ## 帧延时
 
 ```csharp
@@ -4631,7 +5536,6 @@ namespace QFramework.Example
 // 鼠标左键按下后
 // Mouse Clicked
 ```
-
 ## 重复执行
 
 ```csharp
@@ -4665,7 +5569,6 @@ namespace QFramework.Example
 // 点击鼠标右键，只会输出五次：Mouse right clicked，第五次输出  Right click finished
 // 
 ```
-
 ## 并行执行
 ```csharp
 using UnityEngine;
@@ -4697,8 +5600,6 @@ namespace QFramework.Example
 // 3.018883
 // Parallel Finish:3.018883
 ```
-
-
 ## 更复杂的示例
 
 ```csharp
@@ -4744,7 +5645,6 @@ namespace QFramework.Example
 // Mouse Clicked
 // Finish
 ```
-
 
 ## 自定义动作
 
@@ -4820,8 +5720,6 @@ namespace QFramework.Example
     }
 }
 ```
-
-
 ## 协程支持
 
 ```csharp
@@ -4856,8 +5754,6 @@ namespace QFramework.Example
 // Hello:1.002077
 // Hello:1.002077
 ```
-
-
 ## 全局 Mono 生命周期
 ```csharp
 using UnityEngine;
@@ -4912,7 +5808,6 @@ namespace QFramework.Example
     }
 }
 ```
-
 ## DOTween 集成
 
 需要先提前装好 DOTween。
@@ -4960,7 +5855,6 @@ namespace QFramework.Example
   
 }
 ```
-
 ## UniRx 集成
 需要先提前装好 UniRx。
 
@@ -5006,20 +5900,301 @@ namespace QFramework.Example
  
 }
 ```
+# 05. SingletonKit 单例套件
+SingletonKit 是 QFramework 的第一个收集的工具，经过了 8 年的迭代，现在已经非常成熟了。
 
-好了，关于 ActionKit 的介绍就到这里。
+好久不见 ！之前想着让各位直接用 QFramework，但是后来想想，如果正在进行的项目直接使用QFramework，这样风险太高了，要改的代码太多，所以打算陆续独立出来一些工具和模块,允许各位一个模块一个模块的进行更换，减少更换带来的风险。
+
+## SingletonKit:
+
+之前有几篇文章介绍过单例模板在 Unity 中的几种实现。之后又参考了其他的单例库的实现，借鉴(chao)了它们的优点,借鉴了哪里有声明原作者。
+
+## 快速开始:
+
+实现一个继承 MonoBehaviour 的单例类
+
+```csharp
+namespace QFramework.Example
+{
+	[MonoSingletonPath("[Audio]/AudioManager")]
+	public class AudioManager : ManagerBase,ISingleton
+	{
+		public static AudioManager Instance
+		{
+			get { return QMonoSingletonProperty<AudioManager>.Instance; }
+		}
+		
+		public void OnSingletonInit()
+		{
+			
+		}
+
+		public void Dispose()
+		{
+			QMonoSingletonProperty<AudioManager>.Dispose();
+		}
 
 
-## 更多内容
+		public void PlaySound(string soundName)
+		{
+			
+		}
 
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-# 05. ResKit 资源管理&开发解决方案
+		public void StopSound(string soundName)
+		{
+			
+		}
+	}
+}
+```
 
+结果如下:
+![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-a0d55653522f9037.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+这样从头到尾都很！优！雅！
+## C# 单例类
+
+*   Singleton.cs
+
+```csharp
+public class GameDataManager : Singleton<GameDataManager>
+{
+    private static int mIndex = 0;
+
+    private Class2Singleton() {}
+
+    public override void OnSingletonInit()
+    {
+        mIndex++;
+    }
+
+    public void Log(string content)
+    {
+        Debug.Log(""GameDataManager"" + mIndex + "":"" + content);
+    }
+}
+
+GameDataManager.Instance.Log(""Hello"");
+// GameDataManager1:OnSingletonInit:Hello
+GameDataManager.Instance.Log(""Hello"");
+// GameDataManager1:OnSingletonInit:Hello
+GameDataManager.Instance.Dispose();
+```
+
+只需简单继承QSingleton，并声明非public构造方法即可。如果有需要获取单例初始化的时机，则可以选择重载OnSingletonInit方法。
+
+## 结果:
+``` 
+Hello World!
+Hello World!
+```
+## Mono 单例
+
+* MonoSingleton.cs
+```csharp
+public class GameManager : MonoSingleton<GameManager>
+{
+    public override void OnSingletonInit()
+    {
+        Debug.Log(name + "":"" + ""OnSingletonInit"");
+    }
+
+    private void Awake()
+    {
+        Debug.Log(name + "":"" + ""Awake"");
+    }
+
+    private void Start()
+    {
+        Debug.Log(name + "":"" + ""Start"");
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+			
+        Debug.Log(name + "":"" + ""OnDestroy"");
+    }
+}
+
+var gameManager = GameManager.Instance;
+// GameManager:OnSingletonInit
+// GameManager:Awake
+// GameManager:Start
+// ---------------------
+// GameManager:OnDestroy
+```
+## Mono 属性单例
+代码如下:
+
+* MonoSingletonProperty.cs
+```csharp
+public class GameManager : MonoBehaviour,ISingleton
+{
+    public static GameManager Instance
+    {
+        get { return MonoSingletonProperty<GameManager>.Instance; }
+    }
+		
+    public void Dispose()
+    {
+    	MonoSingletonProperty<GameManager>.Dispose();
+    }
+		
+    public void OnSingletonInit()
+    {
+    	Debug.Log(name + "":"" + ""OnSingletonInit"");
+    }
+    
+    private void Awake()
+    {
+        Debug.Log(name + "":"" + ""Awake"");
+    }
+    
+    private void Start()
+    {
+        Debug.Log(name + "":"" + ""Start"");
+    }
+    
+    protected void OnDestroy()
+    {
+        Debug.Log(name + "":"" + ""OnDestroy"");
+    }
+}
+var gameManager = GameManager.Instance;
+// GameManager:OnSingletonInit
+// GameManager:Awake
+// GameManager:Start
+// ---------------------
+// GameManager:OnDestroy
+```
+## C# 属性单例
+
+代码如下：
+
+* SingletonProperty.cs
+```csharp
+public class GameDataManager : ISingleton
+{
+    public static GameDataManager Instance
+    {
+        get { return SingletonProperty<GameDataManager>.Instance; }
+    }
+
+    private GameDataManager() {}
+		
+    private static int mIndex = 0;
+
+    public void OnSingletonInit()
+    {
+        mIndex++;
+    }
+
+    public void Dispose()
+    {
+        SingletonProperty<GameDataManager>.Dispose();
+    }
+		
+    public void Log(string content)
+    {
+        Debug.Log(""GameDataManager"" + mIndex + "":"" + content);
+    }
+}
+ 
+GameDataManager.Instance.Log(""Hello"");
+// GameDataManager1:OnSingletonInit:Hello
+ 
+GameDataManager.Instance.Log(""Hello"");
+// GameDataManager1:OnSingletonInit:Hello
+ 
+GameDataManager.Instance.Dispose();
+```
+
+## MonoSingletPath 重命名
+
+
+代码如下：
+MonoSingletonPath.cs：
+
+```csharp
+namespace QFramework.Example
+{
+	using UnityEngine;
+
+	[MonoSingletonPath("[Example]/MonoSingeltonPath")]
+	class ClassUseMonoSingletonPath : QMonoSingleton<ClassUseMonoSingletonPath>
+	{
+		
+	}
+	
+	public class MonoSingletonPath : MonoBehaviour
+	{
+		private void Start()
+		{
+			var intance = ClassUseMonoSingletonPath.Instance;
+		}
+	}
+}
+```
+
+## 结果:
+![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-8bf380c8327ffbce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+## PersistentMonoSingleton
+
+当场景里包含两个 PersistentMonoSingleton，保留先创建的
+
+```csharp
+public class GameManager : PersistentMonoSingleton<GameManager>
+{
+ 
+}
+ 
+IEnumerator Start()
+{
+    var gameManager = GameManager.Instance;
+ 
+    var newGameManager = new GameObject().AddComponent<GameManager>();
+ 
+    yield return new WaitForEndOfFrame();
+ 
+    Debug.Log(FindObjectOfTypes<GameManager>().Length);
+    // 1
+    Debug.Log(gameManager == null);
+    // false
+    Debug.Log(newGameManager == null);
+    // true
+}
+```
+## ReplaceableMonoSingleton
+
+当场景里包含两个 ReplaceableMonoSingleton，保留最后创建的
+
+```csharp
+public class GameManager : ReplaceableMonoSingleton<GameManager>
+{
+ 
+}
+
+IEnumerator Start()
+{
+    var gameManager = GameManager.Instance;
+ 
+    var newGameManager = new GameObject().AddComponent<GameManager>();
+ 
+    yield return new WaitForEndOfFrame();
+ 
+    Debug.Log(FindObjectOfTypes<GameManager>().Length);
+    // 1
+    Debug.Log(gameManager == null);
+    // true
+    Debug.Log(newGameManager == null);
+    // false
+}
+```
+# 3. 解决方案篇
+# 01. ResKit：资源管理&开发解决方案
 ## Res Kit 简介
 Res Kit，是资源管理&快速开发解决方案
 
@@ -5027,8 +6202,8 @@ Res Kit，是资源管理&快速开发解决方案
 * 可以使用一个 API 从  dataPath、Resources、StreammingAssetPath、PersistentDataPath、网络等地方加载资源。
 * 基于引用计数，简化资源加载和卸载。
 * 拥抱游戏开发流程中的不同阶段
-  * 开发阶段不用打 AB 直接从 dataPath 加载。
-  * 测试阶段支持只需打一次 AB 即可。
+    * 开发阶段不用打 AB 直接从 dataPath 加载。
+    * 测试阶段支持只需打一次 AB 即可。
 * 可选择生成资源名常量代码，减少拼写错误。
 * 异步加载队列支持
 * 对于 AssetBundle 资源，可以只通过资源名而不是 AssetBundle 名 + 资源名 加载资源，简化 API 使用。
@@ -5126,7 +6301,6 @@ namespace QFramework.Example
 ![image.png](https://file.liangxiegame.com/04cd1727-b7ad-436d-988c-80b70c0fc106.png)
 
 资源加载成功。
-
 ## 模拟模式与非模拟模式
 
 ### AssetBundle 的不便之处
@@ -5194,10 +6368,10 @@ AssetBundle 麻烦在哪里呢？
 
 ### 小结
 * 开发阶段：
-  *  模拟模式
+    *  模拟模式
 * 真机阶段：
-  * 每次打 App 包之前，打一次 AB 包。
-  * 可以在 Unity Editor 环境下，取消勾选模拟模式，这时在运行时加载的资源则是真正的 AssetBundle 资源
+    * 每次打 App 包之前，打一次 AB 包。
+    * 可以在 Unity Editor 环境下，取消勾选模拟模式，这时在运行时加载的资源则是真正的 AssetBundle 资源
 
 
 ## 如何打 AssetBundle（真机模式）
@@ -5206,8 +6380,6 @@ AssetBundle 麻烦在哪里呢？
 ![image.png](https://file.liangxiegame.com/bcc21643-8c4a-4f6f-b3a9-db1ec3071119.png)
 
 取消勾选模拟模式情况下，点击打 AB 包 即可。
-
-
 ## 异步加载
 异步加载代码如下:
 ``` csharp
@@ -5287,7 +6459,6 @@ namespace QFramework.Example
 
 ![image.png](https://file.liangxiegame.com/8ad406e4-f59c-43d2-bd4a-e7de57560958.png)
 
-
 ## 加载场景
 
 注意：标记场景时要确保，一个场景是一个 AssetBundle。
@@ -5328,8 +6499,6 @@ namespace QFramework.Example
 	}
 }
 ```
-
-
 ## 加载 Resources 中的资源
 
 ```csharp
@@ -5360,8 +6529,6 @@ namespace QFramework.Example
 	}
 }
 ```
-
-
 ## 关联对象管理
 
 ```csharp
@@ -5401,7 +6568,6 @@ namespace QFramework.Example
     }
 }
 ```
-
 ## SpriteAtlas 加载
 
 ```csharp
@@ -5442,7 +6608,6 @@ namespace QFramework
 	}
 }
 ```
-
 ## 加载网络图片
 
 ```csharp
@@ -5486,8 +6651,6 @@ namespace QFramework.Example
     }
 }
 ```
-
-
 ## 从 PersistentDataPath 加载图片
 ```csharp
 namespace QFramework.Example
@@ -5531,8 +6694,6 @@ namespace QFramework.Example
 	}
 }
 ```
-
-
 ## 自定义 Res
 
 ResKit 提供了 自定义 Res ，通过自定义 Res 可以非常方便地自定义 Res 的加载来源，比如 PersistentDataPath、StreamingAssetPath、AssetBundle 等，甚至是内存中的 GameObject 等资产，还可以集成 Addressables 或者其他的资源管理方案，ResKit 内置支持的 AssetBundle、Resources、网络图片加载、PersistentDataPath 图片加载都是通过自定义 Res 的方式扩展而来。
@@ -5615,13 +6776,12 @@ namespace QFramework
 ```
 
 非常简单。
-
 ## 代码生成
 
 Res Kit 支持代码生成，生成按钮的位置如下所示:
 ![image.png](https://file.liangxiegame.com/e482f08e-2e8e-4b43-84bf-f32722cc5f5c.png)
 点击生成代码即可，生成后结果如下。
-![image.png](http://file.liangxiegame.com/0ea13581-4960-4bc8-bbf1-b49a03455271.png)
+![image.png](https://file.liangxiegame.com/0ea13581-4960-4bc8-bbf1-b49a03455271.png)
 
 生成了 QAssets 代码文件，代码内容如下:
 
@@ -5644,12 +6804,11 @@ namespace QAssetBundle
 ```
 
 生成了代码，那么在写资源加载的代码的时候就会爽的飞起，如下图示:
-![image.png](http://file.liangxiegame.com/7b8ae854-aafe-49d8-9318-5f7d1190c8cc.png)
+![image.png](https://file.liangxiegame.com/7b8ae854-aafe-49d8-9318-5f7d1190c8cc.png)
 
 图中，给出了资源名字的提示。
 
 这样就不容易出现字符串的拼写错误了。
-
 ## ResLoader 推荐用法
 
 ResLoader 的推荐用法，是一个需要加载的单元申请一个 ResLoader。
@@ -5701,7 +6860,7 @@ ResLoader 的职责字如其意，就是负责加载资源的，即资源加载�
 这样它在释放资源的时候只需要根据加载记录，进行释放即可。
 
 ResLoader 与 单元（Test 脚本）的示意图如下:
-![image.png](http://file.liangxiegame.com/296b0166-bdea-47d5-ac87-4b55c91df16f.png)
+![image.png](https://file.liangxiegame.com/296b0166-bdea-47d5-ac87-4b55c91df16f.png)
 
 这里我们要注意，ResLoader 不是进行真正的资源加载操作，而是进行资源的引用获取。
 
@@ -5724,8 +6883,6 @@ ResLoader 获取资源引用的过程如下:
 ## 申请 ResLoader 的消耗
 
 几乎没有消耗，因为 ResLoader 是从对象池中申请的。
-
-
 ## WebGL 注意事项补充
 
 在 WebGL 平台 ResKit 加载 AssetBundle 资源只支持异步加载。
@@ -5758,8 +6915,7 @@ ResKit.InitAsync().ToAction().StartGlobal();
 
 
 
-# 06. UIKit 界面管理&快速开发解决方案
-
+# 02. UIKit：界面管理&快速开发解决方案
 ## UI Kit 简介
 
 UI Kit 是一套界面管理&快速开发解决方案
@@ -5950,9 +7106,6 @@ namespace QFramework.Example
 
 
 自动绑定的功能与 View Controller + Bind 是使用的是同一套机制。
-
-
-
 ## 打开、关闭界面
 
 我们运行 UIBasicPanel 是通过 UIPanelTester 实现的。
@@ -6249,9 +7402,6 @@ this.Back(); // 弹出 this
 ```
 
 非常简单。
-
-
-
 ## UIPanel 自动生成工具
 
 在此篇的最开始，笔者手动创建了一套围绕 UIBasicPanel 的测试、开发场景，其过程比较繁琐。
@@ -6295,12 +7445,6 @@ this.Back(); // 弹出 this
 ![image-20220725214155564](https://file.liangxiegame.com/a0a6c3e3-c4b6-4602-8b92-a47506714a98.png)
 
 这就是这个工具的一个用处，非常方便，解决了笔者大量的开发工作量。
-
-
-在上一篇，我们了解了界面的打开和关闭相关的 API。
-
-在这一篇，我们了解一下 UI Kit 中的 子界面/子控件—UI Element
-
 ## UI Element 简介
 
 在前篇，我们了解到，一个 UIPanel 是可以自动绑定几个 子控件的（Bind）。但是当一个界面结构比较复杂的时候，不可能一个 UIPanel 管理数十个 Bind，这时候就需要对 Bind 进行一些打组操作。我们的 UIElement 就可以登场了。
@@ -6421,11 +7565,6 @@ namespace QFramework.Example
 ```csharp
 UIKit.OpenPanel<UIMultiPanel>(new UIMultiPanelData(), PanelOpenType.Multiple);
 ```
-
-
-
-
-
 ## 如何自定义界面加载方式?
 
 
@@ -6525,52 +7664,7 @@ namespace QFramework
 
 
 好了，关于 UIKit 自定义加载界面就简单介绍到这里。
-
-
-
-## UI Kit 小结
-
-在这一章，UI Kit 的核心功能，我们都接触过了，如下：
-
-* UIPanel/UIElement 代码生成
-* UIKit 常用 API
-  * UIKit.OpenPanel（Async）
-  * UIKit.ClosePanel
-  * UIKit.CloseSelf
-  * UIKit.SetResolution
-  * UIKit.Stack.Push、UIPanel.Back(Pop)
-* UIPanel 生命周期
-* UIPanel 测试场景生成工具
-
-只要掌握了以上这些，基本上开发一些界面就没啥问题了。
-
-关于 UIKit 就介绍到这里。
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-# 07. AudioKit 音频管理解决方案
-
+# 03. AudioKit 音频管理解决方案
 ## 基本使用
 
 AudioKit 音频播放相关的功能如下:
@@ -6701,1227 +7795,3 @@ namespace QFramework.Example
         }
     }
 ```
-
-
-关于 AudioKit 就介绍到这。
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-
-
-
-# 08. FluentAPI 链式 API
-
-## FluentAPI 简介
-FluentAPI 是 笔者积累的 Unity API 的一些链式封装。
-
-基本使用非常简单，如下：
-```csharp
-// traditional style
-var playerPrefab = Resources.Load<GameObject>("no prefab don't run");
-var playerObj = Instantiate(playerPrefab);
-
-playerObj.transform.SetParent(null);
-playerObj.transform.localRotation = Quaternion.identity;
-playerObj.transform.localPosition = Vector3.left;
-playerObj.transform.localScale = Vector3.one;
-playerObj.layer = 1;
-playerObj.layer = LayerMask.GetMask("Default");
-
-Debug.Log("playerPrefab instantiated");
-
-// Extension's Style,same as above 
-Resources.Load<GameObject>("playerPrefab")
-    .Instantiate()
-    .transform
-    .Parent(null)
-    .LocalRotationIdentity()
-    .LocalPosition(Vector3.left)
-    .LocalScaleIdentity()
-    .Layer(1)
-    .Layer("Default")
-    .ApplySelfTo(_ => { Debug.Log("playerPrefab instantiated"); });
-```
-
-代码很简单。
-
-FluentAPI 包含 100 多个常用 API 的链式封装，具体可以参考编辑器内文档。
-
-![image.png](https://file.liangxiegame.com/67604baa-a9ca-4f03-8f7a-c1f88be322b7.png)
-
-另外 链式 API 可以与 QFramework 的其他模块配合使用事半功倍，比如 ResKit 与 FluentAPI 结合，参考代码如下:
-
-```csharp
-mResLoader.LoadSync<GameObject>("mygameobj")
-  .InstantiateWithParent(parent)
-  .transform
-  .LocalIdentity()
-  .Name("MyGameObj")
-  .Show();
-```
-
-
-链式 API 就介绍到这里。
-
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-# 09. SingletonKit 单例模板套件
-
-SingletonKit 是 QFramework 的第一个收集的工具，经过了 7 年的迭代，现在已经非常成熟了。
-
-好久不见 ！之前想着让各位直接用 QFramework，但是后来想想，如果正在进行的项目直接使用QFramework，这样风险太高了，要改的代码太多，所以打算陆续独立出来一些工具和模块,允许各位一个模块一个模块的进行更换，减少更换带来的风险。
-
-## QSingleton:
-
-之前有几篇文章介绍过单例模板在 Unity 中的几种实现。之后又参考了其他的单例库的实现，借鉴(chao)了它们的优点,借鉴了哪里有声明原作者。
-
-## 快速开始:
-
-实现一个继承 MonoBehaviour 的单例类
-
-```csharp
-namespace QFramework.Example
-{
-	[MonoSingletonPath("[Audio]/AudioManager")]
-	public class AudioManager : ManagerBase,ISingleton
-	{
-		public static AudioManager Instance
-		{
-			get { return QMonoSingletonProperty<AudioManager>.Instance; }
-		}
-		
-		public void OnSingletonInit()
-		{
-			
-		}
-
-		public void Dispose()
-		{
-			QMonoSingletonProperty<AudioManager>.Dispose();
-		}
-
-
-		public void PlaySound(string soundName)
-		{
-			
-		}
-
-		public void StopSound(string soundName)
-		{
-			
-		}
-	}
-}
-```
-
-结果如下:
-![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-a0d55653522f9037.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-这样从头到尾都很！优！雅！
-
-
-## C# 单例类
-
-*   Singleton.cs
-
-```csharp
-public class GameDataManager : Singleton<GameDataManager>
-{
-    private static int mIndex = 0;
-
-    private Class2Singleton() {}
-
-    public override void OnSingletonInit()
-    {
-        mIndex++;
-    }
-
-    public void Log(string content)
-    {
-        Debug.Log(""GameDataManager"" + mIndex + "":"" + content);
-    }
-}
-
-GameDataManager.Instance.Log(""Hello"");
-// GameDataManager1:OnSingletonInit:Hello
-GameDataManager.Instance.Log(""Hello"");
-// GameDataManager1:OnSingletonInit:Hello
-GameDataManager.Instance.Dispose();
-```
-
-只需简单继承QSingleton，并声明非public构造方法即可。如果有需要获取单例初始化的时机，则可以选择重载OnSingletonInit方法。
-
-## 结果:
-``` 
-Hello World!
-Hello World!
-```
-
-
-## Mono 单例
-
-* MonoSingleton.cs
-```csharp
-public class GameManager : MonoSingleton<GameManager>
-{
-    public override void OnSingletonInit()
-    {
-        Debug.Log(name + "":"" + ""OnSingletonInit"");
-    }
-
-    private void Awake()
-    {
-        Debug.Log(name + "":"" + ""Awake"");
-    }
-
-    private void Start()
-    {
-        Debug.Log(name + "":"" + ""Start"");
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-			
-        Debug.Log(name + "":"" + ""OnDestroy"");
-    }
-}
-
-var gameManager = GameManager.Instance;
-// GameManager:OnSingletonInit
-// GameManager:Awake
-// GameManager:Start
-// ---------------------
-// GameManager:OnDestroy
-```
-
-
-## Mono 属性单例
-代码如下:
-
-* MonoSingletonProperty.cs
-```csharp
-public class GameManager : MonoBehaviour,ISingleton
-{
-    public static GameManager Instance
-    {
-        get { return MonoSingletonProperty<GameManager>.Instance; }
-    }
-		
-    public void Dispose()
-    {
-    	MonoSingletonProperty<GameManager>.Dispose();
-    }
-		
-    public void OnSingletonInit()
-    {
-    	Debug.Log(name + "":"" + ""OnSingletonInit"");
-    }
-    
-    private void Awake()
-    {
-        Debug.Log(name + "":"" + ""Awake"");
-    }
-    
-    private void Start()
-    {
-        Debug.Log(name + "":"" + ""Start"");
-    }
-    
-    protected void OnDestroy()
-    {
-        Debug.Log(name + "":"" + ""OnDestroy"");
-    }
-}
-var gameManager = GameManager.Instance;
-// GameManager:OnSingletonInit
-// GameManager:Awake
-// GameManager:Start
-// ---------------------
-// GameManager:OnDestroy
-```
-
-## C# 属性单例
-
-代码如下：
-
-* SingletonProperty.cs
-```csharp
-public class GameDataManager : ISingleton
-{
-    public static GameDataManager Instance
-    {
-        get { return SingletonProperty<GameDataManager>.Instance; }
-    }
-
-    private GameDataManager() {}
-		
-    private static int mIndex = 0;
-
-    public void OnSingletonInit()
-    {
-        mIndex++;
-    }
-
-    public void Dispose()
-    {
-        SingletonProperty<GameDataManager>.Dispose();
-    }
-		
-    public void Log(string content)
-    {
-        Debug.Log(""GameDataManager"" + mIndex + "":"" + content);
-    }
-}
- 
-GameDataManager.Instance.Log(""Hello"");
-// GameDataManager1:OnSingletonInit:Hello
- 
-GameDataManager.Instance.Log(""Hello"");
-// GameDataManager1:OnSingletonInit:Hello
- 
-GameDataManager.Instance.Dispose();
-```
-
-
-
-## MonoSingletPath 重命名
-
-
-代码如下：
-MonoSingletonPath.cs：
-
-```csharp
-namespace QFramework.Example
-{
-	using UnityEngine;
-
-	[MonoSingletonPath("[Example]/MonoSingeltonPath")]
-	class ClassUseMonoSingletonPath : QMonoSingleton<ClassUseMonoSingletonPath>
-	{
-		
-	}
-	
-	public class MonoSingletonPath : MonoBehaviour
-	{
-		private void Start()
-		{
-			var intance = ClassUseMonoSingletonPath.Instance;
-		}
-	}
-}
-```
-
-## 结果:
-![DraggedImage.png](https://upload-images.jianshu.io/upload_images/2296785-8bf380c8327ffbce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-
-
-
-## PersistentMonoSingleton
-
-当场景里包含两个 PersistentMonoSingleton，保留先创建的
-
-```csharp
-public class GameManager : PersistentMonoSingleton<GameManager>
-{
- 
-}
- 
-IEnumerator Start()
-{
-    var gameManager = GameManager.Instance;
- 
-    var newGameManager = new GameObject().AddComponent<GameManager>();
- 
-    yield return new WaitForEndOfFrame();
- 
-    Debug.Log(FindObjectOfTypes<GameManager>().Length);
-    // 1
-    Debug.Log(gameManager == null);
-    // false
-    Debug.Log(newGameManager == null);
-    // true
-}
-```
-
-## ReplaceableMonoSingleton
-
-当场景里包含两个 ReplaceableMonoSingleton，保留最后创建的
-
-```csharp
-public class GameManager : ReplaceableMonoSingleton<GameManager>
-{
- 
-}
-
-IEnumerator Start()
-{
-    var gameManager = GameManager.Instance;
- 
-    var newGameManager = new GameObject().AddComponent<GameManager>();
- 
-    yield return new WaitForEndOfFrame();
- 
-    Debug.Log(FindObjectOfTypes<GameManager>().Length);
-    // 1
-    Debug.Log(gameManager == null);
-    // true
-    Debug.Log(newGameManager == null);
-    // false
-}
-```
-
-
-关于 SingletonKit 的介绍就到这。
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.game
-
-
-
-
-# 10. FSMKit 状态机
-
-QFramework 内置了一个简易的状态机，基本使用如下:
-
-## 链式
-
-```csharp
-using UnityEngine;
-
-namespace QFramework.Example
-{
-    public class IStateBasicUsageExample : MonoBehaviour
-    {
-        public enum States
-        {
-            A,
-            B
-        }
-
-        public FSM<States> FSM = new FSM<States>();
-
-        void Start()
-        {
-            FSM.State(States.A)
-                .OnCondition(()=>FSM.CurrentStateId == States.B)
-                .OnEnter(() =>
-                {
-                    Debug.Log("Enter A");
-                })
-                .OnUpdate(() =>
-                {
-                    
-                })
-                .OnFixedUpdate(() =>
-                {
-                    
-                })
-                .OnGUI(() =>
-                {
-                    GUILayout.Label("State A");
-                    if (GUILayout.Button("To State B"))
-                    {
-                        FSM.ChangeState(States.B);
-                    }
-                })
-                .OnExit(() =>
-                {
-                    Debug.Log("Enter B");
-
-                });
-
-            FSM.State(States.B)
-                .OnCondition(() => FSM.CurrentStateId == States.A)
-                .OnGUI(() =>
-                {
-                    GUILayout.Label("State B");
-                    if (GUILayout.Button("To State A"))
-                    {
-                        FSM.ChangeState(States.A);
-                    }
-                });
-            
-            FSM.StartState(States.A);
-        }
-
-        private void Update()
-        {
-            FSM.Update();
-        }
-
-        private void FixedUpdate()
-        {
-            FSM.FixedUpdate();
-        }
-
-        private void OnGUI()
-        {
-            FSM.OnGUI();
-        }
-
-        private void OnDestroy()
-        {
-            FSM.Clear();
-        }
-    }
-}
-```
-
-运行之后，结果如下:
-
-![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
-
-没啥问题。
-
-
-
-## 类模式
-
-链式适合在快速开发阶段，或者在状态非常少的阶段使用。
-
-
-
-而如果状态较多，或者相应代码量较多的阶段，可以使用类模式，代码如下:
-
-
-
-```csharp
-using UnityEngine;
-
-namespace QFramework.Example
-{
-    public class IStateClassExample : MonoBehaviour
-    {
-
-        public enum States
-        {
-            A,
-            B,
-            C
-        }
-
-        public FSM<States> FSM = new FSM<States>();
-
-        public class StateA : AbstractState<States,IStateClassExample>
-        {
-            public StateA(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
-            {
-            }
-
-            protected override bool OnCondition()
-            {
-                return mFSM.CurrentStateId == States.B;
-            }
-
-            public override void OnGUI()
-            {
-                GUILayout.Label("State A");
-
-                if (GUILayout.Button("To State B"))
-                {
-                    mFSM.ChangeState(States.B);
-                }
-            }
-        }
-        
-        
-        public class StateB: AbstractState<States,IStateClassExample>
-        {
-            public StateB(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
-            {
-            }
-
-            protected override bool OnCondition()
-            {
-                return mFSM.CurrentStateId == States.A;
-            }
-
-            public override void OnGUI()
-            {
-                GUILayout.Label("State B");
-
-                if (GUILayout.Button("To State A"))
-                {
-                    mFSM.ChangeState(States.A);
-                }
-            }
-        }
-
-        private void Start()
-        {
-            FSM.AddState(States.A, new StateA(FSM, this));
-            FSM.AddState(States.B, new StateB(FSM, this));
-
-            // 支持和链式模式混用
-            // FSM.State(States.C)
-            //     .OnEnter(() =>
-            //     {
-            //
-            //     });
-            
-            FSM.StartState(States.A);
-        }
-
-        private void OnGUI()
-        {
-            FSM.OnGUI();
-        }
-
-        private void OnDestroy()
-        {
-            FSM.Clear();
-        }
-    }
-}
-```
-
-
-
-运行之后结果如下。
-
-
-
-![1](https://file.liangxiegame.com/c263fec3-02eb-4af6-bb84-a3310440cfa9.gif)
-
-关于状态机的介绍就到这里。
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-
-# 11. PoolKit 对象池套件
-
-
-## SimpleObjectPool 简易对象池
-
-```csharp
-class Fish
-{
-             
-}
-
-var pool = new SimpleObjectPool<Fish>(() => new Fish(),initCount:50);
- 
-Debug.Log(pool.CurCount);
-// 50 
-var fish = pool.Allocate();
- 
-Debug.Log(pool.CurCount);
-// 49
-pool.Recycle(fish);
-
-Debug.Log(pool.CurCount);
-// 50
-
-
-// ---- GameObject ----
-var gameObjPool = new SimpleObjectPool<GameObject>(() =>
-{
-    var gameObj = new GameObject(""AGameObject"");
-    // init gameObj code 
-
-    // gameObjPrefab = Resources.Load<GameObject>(""somePath/someGameObj"");
-                
-    return gameObj;
-}, (gameObj) =>
-{
-    // reset code here
-});
-```
-
-## SafeObjectPool 安全对象池
-
-```csharp
-class Bullet :IPoolable,IPoolType
-{
-    public void OnRecycled()
-    {
-        Debug.Log(""回收了"");
-    }
- 
-    public  bool IsRecycled { get; set; }
- 
-    public static Bullet Allocate()
-    {
-        return SafeObjectPool<Bullet>.Instance.Allocate();
-    }
-             
-    public void Recycle2Cache()
-    {
-        SafeObjectPool<Bullet>.Instance.Recycle(this);
-    }
-}
- 
-SafeObjectPool<Bullet>.Instance.Init(50,25);
-             
-var bullet = Bullet.Allocate();
- 
-Debug.Log(SafeObjectPool<Bullet>.Instance.CurCount);
-             
-bullet.Recycle2Cache();
- 
-Debug.Log(SafeObjectPool<Bullet>.Instance.CurCount);
- 
-// can config object factory
-// 可以配置对象工厂
-SafeObjectPool<Bullet>.Instance.SetFactoryMethod(() =>
-{
-    // bullet can be mono behaviour
-    return new Bullet();
-});
-             
-SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet>());
- 
-// can set
-// 可以设置
-// NonPublicObjectFactory: 可以通过调用私有构造来创建对象,can call private constructor to create object
-// CustomObjectFactory: 自定义创建对象的方式,can create object by Func<T>
-// DefaultObjectFactory: 通过 new 创建对象, can create object by new 
-```
-
-## 基本的数据结构封装 List、Dictionary
-
-```csharp
-var names = ListPool<string>.Get()
-names.Add(""Hello"");
-
-names.Release2Pool();
-// or ListPool<string>.Release(names);
-```
-
-
-```csharp
-var infos = DictionaryPool<string,string>.Get()
-infos.Add(""name"",""liangxie"");
-
-infos.Release2Pool();
-// or DictionaryPool<string,string>.Release(names);
-```
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-# 12. TableKit 表数据结构
-
-在设计 UIKit、ResKit 等系统时，如果只使用默认的 List 和 Dictionary 来管理数据和对象需要做很多的封装。
-
-因为本身 List 和 Dictionary 支持的查询方式比较单一，如果想做一些比较复杂的查询，比如联合查询，那么 List 和 Dictionary 的性能会比较差。
-
-所以为此，笔者简单封装了一个 Table 数据结构。
-
-使用示例如下:
-
-```csharp
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
-
-namespace QFramework
-{
-    public class TableKitExample : MonoBehaviour
-    {
-        public class Student
-        {
-            public string Name { get; set; }
-            public int Age { get; set; }
-            public int Level { get; set; }
-        }
-        public class School : Table<Student>
-        {
-            public TableIndex<int, Student> AgeIndex = new TableIndex<int, Student>((student) => student.Age);
-            public TableIndex<int, Student> LevelIndex = new TableIndex<int, Student>((student) => student.Level);
-            
-            protected override void OnAdd(Student item)
-            {
-                AgeIndex.Add(item);
-                LevelIndex.Add(item);
-            }
-
-            protected override void OnRemove(Student item)
-            {
-                AgeIndex.Remove(item);
-                LevelIndex.Remove(item);
-            }
-
-            protected override void OnClear()
-            {
-                AgeIndex.Clear();
-                LevelIndex.Clear();
-            }
-
-            public override IEnumerator<Student> GetEnumerator()
-            {
-                return AgeIndex.Dictionary.Values.SelectMany(s=>s).GetEnumerator();
-            }
-
-            protected override void OnDispose()
-            {
-                AgeIndex.Dispose();
-                LevelIndex.Dispose();
-            }
-        }
-
-
-        private void Start()
-        {
-            var school = new School();
-            school.Add(new Student(){Age = 1,Level = 2,Name = "liangxie"});
-            school.Add(new Student(){Age = 2,Level = 2,Name = "ava"});
-            school.Add(new Student(){Age = 3,Level = 2,Name = "abc"});
-            school.Add(new Student(){Age = 3,Level = 3,Name = "efg"});
-            
-            foreach (var student in school.LevelIndex.Get(2).Where(s=>s.Age < 3))
-            {
-                Debug.Log(student.Age + ":" + student.Level + ":" + student.Name);
-            }
-        }
-    }
-}
-// 1:2:liangxie
-// 2:2:ava
-```
-
-
-TableKit 兼顾查询功能支持和性能，在功能和性能之间取得了一个平衡。
-
-ResKit、UIKit 的数据管理全部由 TableKit 支持。
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-
-
-# 13. 其他事件工具
-
-QFramework 除了支持了  TypeEventSystem、EasyEvent 还支持了 EnumEventSystem、StringEventSystem。
-
-
-## EnumEventSystem
-
-EnumEventSystem 前身是 老版本 QFramework 的 QEventSystem
-
-``` csharp
-using UnityEngine;
-
-namespace QFramework
-{
-	public class EnumEventExample : MonoBehaviour
-	{
-		#region 事件定义
-
-		public enum TestEvent
-		{
-			Start,
-			TestOne,
-			End,
-		}
-
-		public enum TestEventB
-		{
-			Start = TestEvent.End, // 为了保证每个消息 Id 唯一，需要头尾相接
-			TestB,
-			End,
-		}
-
-		#endregion 事件定义
-		
-		void Start()
-		{
-			EnumEventSystem.Global.Register(TestEvent.TestOne, OnEvent);
-		}
-
-		void OnEvent(int key, params object[] obj)
-		{
-			switch (key)
-			{
-				case (int) TestEvent.TestOne:
-					Debug.Log(obj[0]);
-					break;
-			}
-		}
-
-		private void Update()
-		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				EnumEventSystem.Global.Send(TestEvent.TestOne, "Hello World!");
-			}
-		}
-
-		private void OnDestroy()
-		{
-			EnumEventSystem.Global.UnRegister(TestEvent.TestOne, OnEvent);
-		}
-	}
-}
-```
-
-
-## StringEventSystem
-
-StringEventSystem 的前身是，老版本的 MsgDispatcher
-
-``` csharp
-using UnityEngine;
-
-namespace QFramework
-{
-	public class EnumEventExample : MonoBehaviour
-	{
-		#region 事件定义
-
-		public enum TestEvent
-		{
-			Start,
-			TestOne,
-			End,
-		}
-
-		public enum TestEventB
-		{
-			Start = TestEvent.End, // 为了保证每个消息 Id 唯一，需要头尾相接
-			TestB,
-			End,
-		}
-
-		#endregion 事件定义
-		
-		void Start()
-		{
-			EnumEventSystem.Global.Register(TestEvent.TestOne, OnEvent);
-		}
-
-		void OnEvent(int key, params object[] obj)
-		{
-			switch (key)
-			{
-				case (int) TestEvent.TestOne:
-					Debug.Log(obj[0]);
-					break;
-			}
-		}
-
-		private void Update()
-		{
-			if (Input.GetMouseButtonDown(0))
-			{
-				EnumEventSystem.Global.Send(TestEvent.TestOne, "Hello World!");
-			}
-		}
-
-		private void OnDestroy()
-		{
-			EnumEventSystem.Global.UnRegister(TestEvent.TestOne, OnEvent);
-		}
-	}
-}
-// 输出结果
-// 点击鼠标左键
-// Hello World
-```
-
-
-## StringEventSystem
-
-``` csharp
-using UnityEngine;
-
-namespace QFramework.Example
-{
-    public class StringEventSystemExample : MonoBehaviour
-    {
-        void Start()
-        {
-            StringEventSystem.Global.Register("TEST_ONE", () =>
-            {
-                Debug.Log("TEST_ONE");
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            
-            // 事件 + 参数
-            StringEventSystem.Global.Register<int>("TEST_TWO", (count) =>
-            {
-                Debug.Log("TEST_TWO:" + count);
-
-            }).UnRegisterWhenGameObjectDestroyed(gameObject);
-        }
-
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                StringEventSystem.Global.Send("TEST_ONE");
-                StringEventSystem.Global.Send("TEST_TWO",10);
-                
-            }
-        }
-    }
-}
-
-// 输出结果
-// 点击鼠标左键
-// TEST_ONE
-// TEST_TWO:10
-
-```
-
-
-
-
-## 对比
-
-* TypeEventSystem：
-  * 事件体定义简洁
-  * 比较适合用于设计框架
-  * 支持 struct 获得较好内存性能
-  * 使用反射，CPU 性能相对比较差
-
-* EasyEvent
-  * 方便、易用、开发效率高
-  * CPU 性能、内存性能较好，接近委托
-  * 功能有限
-  * 比较适合设计通用解决工具，比如通用背包、全局生命周期触发等
-  * StringEventSystem、TypeEventSystem 的底层由 EasyEvent 实现
-
-* EnumEventSystem
-  * 使用枚举作为事件 id，比较适合和服务端的 protobuf 或带有消息 id 的长链接通信
-  * 性能较好
-  * 枚举用于定义消息体有维护成本
-
-* StringEventSystem
-  * 使用字符串作为事件 id，比较适合和其他脚本层通信，比如 Lua、ILRuntime、PlayMaker 等。
-  * 性能一般
-
-
-目前官方推荐使用 TypeEventSystem 和 EasyEvent 这两个工具。
-
-如果要和网络通信则选择用 EnumEventSystem。
-
-如果要和其他脚本层通信选择用 StringEventSystem。
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-    
-    
-    
-        
-# 14. 更多内容
-
-
-## 案例《五子棋》
-
-![2f4dacbd-e59b-43af-b7be-44220fac664e.png](https://file.liangxiegame.com/a76bc24a-1828-46f2-94c5-8bd24884f932.png)
-
-
-源码地址:
-* github https://github.com/liangxiegame/QFramework
-* gitee https://gitee.com/liangxiegame/QFramework
-
-![image.png](https://file.liangxiegame.com/3abceb70-2d17-4457-aff1-ef8a6ef4bd66.png)
-
-## 案例《扫雷》
-
-作者：Joker
-
-![172348_4d54744e_5161625.webp](https://file.liangxiegame.com/c6116b7e-a08b-4c13-ae64-7053be3c503c.png)
-
-源码地址:
-* github https://github.com/liangxiegame/QFramework
-* gitee https://gitee.com/liangxiegame/QFramework
-
-![image.png](https://file.liangxiegame.com/6482d4eb-5af9-4932-a2f8-2164cb22e931.png)
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-*   QFramework 交流群: 623597263
-*   QFramework Github 地址: [https://github.com/liangxiegame/qframework](https://github.com/liangxiegame/qframework)
-*   QFramework Gitee 地址：[https://gitee.com/liangxiegame/QFramework](https://gitee.com/liangxiegame/QFramework)
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：[https://www.gamepixedu.com/](https://www.gamepixedu.com/)
-# 15. GridKit 二维格子数据结构
-
-在做游戏的过程中，我们经常需要处理二维格子类的数据，比如消除类游戏、俄罗斯方块、各种棋类游戏，还有我们最常用的 Tilemap 的地块数据，这些都需要二维格子数据结构。
-
-而在 GameMaker Studio 引擎中，这样的数据结构直接在引擎层面提供，名字叫做 ds_grid。
-
-受到 GameMaker Stdio 的 ds_grid 启发，QFramework 也实现了一个类似的数据结构，名字叫做 EasyGrid，示例代码如下:
-``` csharp
-using UnityEngine;
-
-namespace QFramework.Example
-{
-    public class GridKitExample : MonoBehaviour
-    {
-        // Start is called before the first frame update
-        void Start()
-        {
-            var grid = new EasyGrid<string>(4, 4);
-
-            grid.Fill("Empty");
-            
-            grid[2, 3] = "Hello";
-
-            grid.ForEach((x, y, content) => Debug.Log($"({x},{y}):{content})");
-
-            grid.Clear();
-        }
-    }
-}
-```
-
-运行后，代码如下:
-``` 
-(0,0):Empty
-(0,1):Empty
-(0,2):Empty
-(0,3):Empty
-(1,0):Empty
-(1,1):Empty
-(1,2):Empty
-(1,3):Empty
-(2,0):Empty
-(2,1):Empty
-(2,2):Empty
-(2,3):Hello
-(3,0):Empty
-(3,1):Empty
-(3,2):Empty
-(3,3):Empty
-```
-
-好了这个就是关于 GridKit 的简单介绍。
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-
-*   QFramework 交流群: 623597263
-
-*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
-
-*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
-
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>
-# 16. LiveCodingKit 写代码不用停止运行的利器
-
-我们在用 Unity 开发的时候，每次编写或修改一点代码就需要进行 停止运行->编写代码->等待编译->运行游戏。
-
-而在很多情况下这个过程是一个比较耗神的过程，因为开发者需要等待，还需要动手操作。
-
-在笔者体验过 GameMakerStudio 的 GMLive 插件后，发现不停止运行就可以直接查看代码编写的结果的体验非常丝滑。
-
-于是笔者就在 QFramework 中写了一个类似的方案 LiveCodingKit。
-
-使用方式很简单，首先在 QFramework 编辑器中可以看到 LiveCodingKit 面板，如下:
-
-![image-20230112105034532](https://file.liangxiegame.com/4e7b25f6-cb59-4283-8e74-9d2c951c39e5.png)
-
-确保开启是勾选状态。
-
-然后根据自己需要选择当编译完成时，对应的操作，一般情况下重新加载当前场景就够用了。
-
-当然如果是场景和场景间有依赖关系，那么可以选择重启游戏。
-
-然后随意运行一个带有脚本的场景，笔者选择的是 QFramework 自带的示例，如下:
-
-![image-20230112105245671](https://file.liangxiegame.com/907db129-95aa-4674-a63a-3c47f82d4dc9.png)
-
-然后新增代码如下:
-
-```csharp
-public partial class UIBasicPanel : UIPanel
-{
-   protected override void OnInit(IUIData uiData = null)
-   {
-      mData = uiData as UIBasicPanelData ?? new UIBasicPanelData();
-      
-      BtnStart.onClick.AddListener(() =>
-      {
-         Debug.Log("开始游戏");
-      });
-
-      BtnStart.Rotation(Quaternion.Euler(0, 0, 90)); // 新增代码
-   }
-   
-```
-
-之后回到 Unity 直接等待编译（不用停止运行）。
-
-
-
-编译完成后结果如下:
-
-![image-20230112105456694](https://file.liangxiegame.com/5185ab09-938c-4bd7-9259-6ff08ebaf779.png)
-
-
-
-OK，结果没问题。
-
-这就是 LiveCodingKit 的介绍，当你需要在代码中调整一些数值，写 OnGUI 代码，会非常方便，当然也有一些不适用的情况，这个就需要大家自行体验了。
-
-
-
-
-## 更多内容
-
-*   转载请注明地址：[liangxiegame.com](https://liangxiegame.com) （首发） 微信公众号：凉鞋的笔记
-
-*   QFramework 主页：[qframework.cn](https://qframework.cn)
-
-*   QFramework 交流群: 623597263
-
-*   QFramework Github 地址: <https://github.com/liangxiegame/qframework>
-
-*   QFramework Gitee 地址：<https://gitee.com/liangxiegame/QFramework>
-
-*   GamePix 独立游戏学院 & Unity 进阶小班地址：<https://www.gamepixedu.com/>

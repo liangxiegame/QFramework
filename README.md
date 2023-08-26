@@ -11,13 +11,12 @@
 
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
 # QFramework 简介 Intro
 
 [中文]()|[English](README_EN.md)
 
-[QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 800 行，你可以完全把她放在你的笔记应用里保存。
+[QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 1000 行，你可以完全把她放在你的笔记应用里保存。
 
 ## 提供的架构图
 
@@ -108,22 +107,12 @@
 | 独立游戏《推灭泡泡姆》 | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
 | 独立游戏《鬼山之下》   | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
 | 手机游戏《谐音梗挑战》 | 部分使用 QF 制作的独立游戏 | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
-| **官方工具**（独立版本，不互相依赖) |                                                              |                                                              |
-| SingletonKit              | 易上手功能强大的单例工具，由 QF 官方维护                            | [github](https://github.com/liangxiegame/SingletonKit)\|[gitee](https://gitee.com/liangxiegame/SingletonKit) |
-| ExtensionKit | 易上手功能强大的 C#/UnityAPI 的静态扩展 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/ExtensionKit)\|[gitee](https://gitee.com/liangxiegame/ExtensionKit) |
-| IOCKit | 易上手功能强大的 IOC 容器 ，由 QF 官方维护 | [github](https://github.com/liangxiegame/IOCKit)\|[gitee](https://gitee.com/liangxiegame/IOCKit) |
-| TableKit | 一套类似表格的数据结构（List<List\<T\>>)，兼顾查询效率和联合强大的查询功能，由 QF 官方维护 | [github](https://github.com/liangxiegame/TableKit)\|[gitee](https://gitee.com/liangxiegame/TableKit) |
-| PoolKit | 对象池工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/PoolKit)\|[gitee](https://gitee.com/liangxiegame/PoolKit) |
-| LogKit | 日志工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/LogKit)\|[gitee](https://gitee.com/liangxiegame/LogKit) |
-| ActionKit | 动作序列工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ActionKit)\|[gitee](https://gitee.com/liangxiegame/ActionKit) |
-| ResKit | 资源管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/ResKit)\|[gitee](https://gitee.com/liangxiegame/ResKit) |
-| UIKit | UIKit 是一套 UI/View 开发解决方案，由 QF 官方维护 | [github](https://github.com/liangxiegame/UIKit)\|[gitee](https://gitee.com/liangxiegame/UIKit) |
-| AudioKit | 一套音频管理工具，由 QF 官方维护 | [github](https://github.com/liangxiegame/AudioKit)\|[gitee](https://gitee.com/liangxiegame/AudioKit) |
-| PackageKit | 一套包管理工具，可以通过 PackageKit 安装旧版本的 QFramework，以及大量的解决方案。 | [github](https://github.com/liangxiegame/PackageKit)\|[gitee](https://gitee.com/liangxiegame/PackageKit) |
 | **其他相关教程** |  |  |
 | 《独立游戏体验计划》（猫叔） | 独立游戏制作体验教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/656352) |
 | 《原创独立游戏制作：平台射击 Roguelike》（凉鞋） | 原创独立游戏制作教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
 | 《原创独立游戏制作：类星露谷》（凉鞋） | 原创独立游戏制作教程，有用到 PlayMaker、QFramework.Tookits | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=919279) |
+| 《QFramework 游戏开发：类幸存者》 | 面向 QFramework 的游戏开发教程，完成一款类吸血鬼幸存者游戏。 | [b 站](https://www.bilibili.com/video/BV1Uu4y1i7WH/) |
+| 《QFramework 教程年会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/goods/show/55) |
 
 
 

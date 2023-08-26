@@ -58,7 +58,9 @@ namespace QFramework
 				var dir = new DirectoryInfo(path);
 				return string.Equals(ai.assetBundleName, dir.Name.Replace(".", "_").ToLower());
 			}
+#pragma warning disable CS0168
 			catch (Exception _)
+#pragma warning restore CS0168
 			{
 				return false;
 			}

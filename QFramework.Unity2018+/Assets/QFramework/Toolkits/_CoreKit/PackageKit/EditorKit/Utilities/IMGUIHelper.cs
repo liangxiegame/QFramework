@@ -16,7 +16,7 @@ namespace QFramework
 {
     public static class IMGUIHelper
     {
-        private static readonly GUIStyle SelectionRect = "SelectionRect";
+        private static readonly FluentGUIStyle SelectionRect = new FluentGUIStyle(() => "SelectionRect");
 
         public static void LastRectSelectionCheck<T>(T current,T select,Action onSelect)
         {
@@ -24,7 +24,7 @@ namespace QFramework
 
             if (Equals(current,select))
             {
-                GUI.Box(lastRect, "", SelectionRect);
+                GUI.Box(lastRect, "", SelectionRect.Value);
             }
 
             if (lastRect.Contains(Event.current.mousePosition) &&

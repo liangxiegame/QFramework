@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -18,6 +19,17 @@ namespace QFramework
 #endif
     public class ResKit
     {
+#if UNITY_EDITOR
+        [RuntimeInitializeOnLoadMethod]
+        public static void CheckAutoInit()
+        {
+            if (PlatformCheck.IsEditor && AssetBundlePathHelper.SimulationMode)
+            {
+                Init();
+            }
+        }
+#endif
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("初始化 ResKit")]
@@ -30,7 +42,7 @@ ResKit.Init();
         {
             ResMgr.Init();
         }
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("异步初始化 ResKit，如果是 WebGL 平台，只支持异步初始化")]
@@ -55,7 +67,7 @@ ResKit.InitAsync().ToAction().Start(this,()=>
 
         private static readonly Lazy<ResKit> mInstance = new Lazy<ResKit>(() => new ResKit().InternalInit());
         internal static ResKit Get => mInstance.Value;
-        
+
         internal IOCContainer Container = new IOCContainer();
 
         ResKit InternalInit()

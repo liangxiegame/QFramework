@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.69",
+    "Version": "v1.0.76",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.69",
-        "content": "CodeGenKit 修复 Prefab 报错的问题",
+        "version": "v1.0.76",
+        "content": "Bind 在 IDE 报错问题修复",
         "author": "liangxie",
-        "date": "2023 年 07 月 08 日 12:43",
+        "date": "2023 年 08 月 26 日 15:08",
         "PackageId": ""
     }
 }

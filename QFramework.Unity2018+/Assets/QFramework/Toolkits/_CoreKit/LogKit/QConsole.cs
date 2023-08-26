@@ -15,8 +15,8 @@ namespace QFramework
     {
         struct ConsoleMessage
         {
-            public readonly string  message;
-            public readonly string  stackTrace;
+            public readonly string message;
+            public readonly string stackTrace;
             public readonly LogType type;
 
             public ConsoleMessage(string message, string stackTrace, LogType type)
@@ -40,22 +40,24 @@ namespace QFramework
         public OnUpdateCallback onUpdateCallback = null;
 
         public OnGUICallback onGUICallback = null;
-        
+
         private bool showGUI = true;
 
         List<ConsoleMessage> entries = new List<ConsoleMessage>();
-        Vector2              scrollPos;
-        bool                 scrollToBottom = true;
-        bool                 collapse;
+        Vector2 scrollPos;
+        bool scrollToBottom = true;
+        bool collapse;
+#if UNITY_IOS
         bool                 mTouching = false;
+#endif
 
         const int margin = 20;
 
         Rect windowRect = new Rect(margin + Screen.width * 0.5f, margin, Screen.width * 0.5f - (2 * margin),
             Screen.height - (2 * margin));
 
-        GUIContent clearLabel          = new GUIContent("Clear", "Clear the contents of the console.");
-        GUIContent collapseLabel       = new GUIContent("Collapse", "Hide repeated messages.");
+        GUIContent clearLabel = new GUIContent("Clear", "Clear the contents of the console.");
+        GUIContent collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
         GUIContent scrollToBottomLabel = new GUIContent("ScrollToBottom", "Scroll bar always at bottom");
 
         public bool OpenInAwake = false;
@@ -65,7 +67,7 @@ namespace QFramework
             Application.logMessageReceived += HandleLog;
 
             this.showGUI = OpenInAwake;
-            
+
             DontDestroyOnLoad(this);
         }
 
@@ -106,8 +108,8 @@ namespace QFramework
             if (GUI.Button(new Rect(100, 100, 200, 100), "清空数据"))
             {
                 PlayerPrefs.DeleteAll();
-                
-                Directory.Delete(Application.persistentDataPath,true);
+
+                Directory.Delete(Application.persistentDataPath, true);
 #if UNITY_EDITOR
                 EditorApplication.isPlaying = false;
 #else
@@ -156,18 +158,18 @@ namespace QFramework
                         GUI.contentColor = Color.white;
                         break;
                 }
-                
+
                 GUIStyle myStyle = new GUIStyle();
                 myStyle.fontSize = 40;
                 myStyle.normal.textColor = Color.white;
 
                 if (entry.type == LogType.Exception)
                 {
-                    GUILayout.Label(entry.message + " || " + entry.stackTrace,myStyle);
+                    GUILayout.Label(entry.message + " || " + entry.stackTrace, myStyle);
                 }
                 else
                 {
-                    GUILayout.Label(entry.message,myStyle);
+                    GUILayout.Label(entry.message, myStyle);
                 }
             }
 

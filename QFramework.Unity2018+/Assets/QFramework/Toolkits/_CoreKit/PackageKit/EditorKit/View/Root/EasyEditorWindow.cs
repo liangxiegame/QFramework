@@ -76,7 +76,9 @@ namespace QFramework
             {
                 this.GetLayout().DrawGUI();
             }
+#pragma warning disable CS0168
             catch (Exception _)
+#pragma warning restore CS0168
             {
                 GUIUtility.ExitGUI();
             }
