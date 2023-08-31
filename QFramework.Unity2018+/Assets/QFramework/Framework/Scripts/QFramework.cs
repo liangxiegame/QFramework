@@ -237,6 +237,11 @@ namespace QFramework
         }
     }
 
+    public interface IOnEventInArchitecture<T>
+    {
+        void OnEventInArchitecture(T e);
+    }
+
     #endregion
 
     #region Controller
@@ -467,6 +472,8 @@ namespace QFramework
 
     public static class CanRegisterEventExtension
     {
+        private static readonly string mHandlerInArchitectureMethodName = "OnEventInArchitecture";
+
         public static IUnRegister RegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent)
         {
             return self.GetArchitecture().RegisterEvent<T>(onEvent);
@@ -475,6 +482,71 @@ namespace QFramework
         public static void UnRegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent)
         {
             self.GetArchitecture().UnRegisterEvent<T>(onEvent);
+        }
+
+        private static void ForEachSpecificMethod(object obj, string methodName, Action<Type, Delegate> callback)
+        {
+            if (obj == null) return;
+
+            Type type = obj.GetType();
+            MethodInfo[] methods = type.GetMethods(BindingFlags.Public | BindingFlags.Instance);
+            foreach (MethodInfo method in methods)
+            {
+                if (method.Name == methodName)
+                {
+                    Type paramType = method.GetParameters()[0].ParameterType;
+                    Type delegateType = typeof(Action<>).MakeGenericType(paramType);
+                    var handler = method.CreateDelegate(delegateType, obj);
+
+                    callback?.Invoke(paramType, handler);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 注册所有通过 IOnEventInArchitecture<T> 接口实现的事件处理器
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="obj"></param>
+        /// <param name="isAutoUnregister">是否在 gameObject 销毁后自动注销</param>
+        public static void RegisterAllEventInArchitecture(this ICanRegisterEvent self, object obj, bool isAutoUnregister = true)
+        {
+            if (obj == null) return;
+
+            GameObject gameObject = obj is Component ? (obj as Component).gameObject : null;
+            Type architectureType = self.GetArchitecture().GetType();
+
+            ForEachSpecificMethod(obj, mHandlerInArchitectureMethodName, (paramType, handler) =>
+            {
+                MethodInfo registerMethod = architectureType
+                    .GetMethod("RegisterEvent", BindingFlags.Public | BindingFlags.Instance)
+                    .MakeGenericMethod(paramType);
+                var unregister = registerMethod.Invoke(self.GetArchitecture(), new object[] { handler }) as IUnRegister;
+                if (isAutoUnregister && gameObject is not null)
+                {
+                    unregister.UnRegisterWhenGameObjectDestroyed(gameObject);
+                }
+            });
+        }
+
+        /// <summary>
+        /// 注销所有通过 IOnEventInArchitecture<T> 接口实现的事件处理器
+        /// </summary>
+        /// <param name="self"></param>
+        /// <param name="obj"></param>
+        public static void UnRegisterAllEventInArchitecture(this ICanRegisterEvent self, object obj)
+        {
+            if (obj == null) return;
+
+            Type architectureType = self.GetArchitecture().GetType();
+
+            ForEachSpecificMethod(obj, mHandlerInArchitectureMethodName, (paramType, handler) =>
+            {
+                MethodInfo unregisterMethod = architectureType
+                    .GetMethod("UnRegisterEvent", BindingFlags.Public | BindingFlags.Instance)
+                    .MakeGenericMethod(paramType);
+                unregisterMethod.Invoke(self.GetArchitecture(), new object[] { handler });
+            });
         }
     }
 
@@ -732,7 +804,7 @@ namespace QFramework
         {
             mValue = defaultValue;
         }
-        
+
         protected T mValue;
 
         public T Value
