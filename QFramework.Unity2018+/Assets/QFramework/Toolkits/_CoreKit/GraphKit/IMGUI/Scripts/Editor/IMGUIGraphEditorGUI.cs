@@ -8,18 +8,18 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
-using QFramework.XNodeEditor.Internal;
+using QFramework.Internal;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Contains GUI methods </summary>
-    public partial class IMGUIGraphWindow
+    public partial class GUIGraphWindow
     {
-        public IMGUIGraphEditor graphEditor;
+        public GUIGraphEditor graphEditor;
         private List<UnityEngine.Object> selectionCache;
-        private List<IMGUIGraphNode> culledNodes;
+        private List<GUIGraphNode> culledNodes;
 
         /// <summary> 19 if docked, 22 if not </summary>
         private int topPadding
@@ -125,21 +125,21 @@ namespace QFramework.Pro
         }
 
         /// <summary> Show right-click context menu for hovered reroute </summary>
-        void ShowRerouteContextMenu(IMGUIGraphRerouteReference reroute)
+        void ShowRerouteContextMenu(GUIGraphRerouteReference reroute)
         {
             GenericMenu contextMenu = new GenericMenu();
             contextMenu.AddItem(new GUIContent("Remove"), false, () => reroute.RemovePoint());
             contextMenu.DropDown(new Rect(Event.current.mousePosition, Vector2.zero));
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
         }
 
         /// <summary> Show right-click context menu for hovered port </summary>
-        void ShowPortContextMenu(IMGUIGraphNodePort hoveredPort)
+        void ShowPortContextMenu(GUIGraphNodePort hoveredPort)
         {
             GenericMenu contextMenu = new GenericMenu();
             contextMenu.AddItem(new GUIContent("Clear Connections"), false, () => hoveredPort.ClearConnections());
             contextMenu.DropDown(new Rect(Event.current.mousePosition, Vector2.zero));
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
         }
 
         static Vector2 CalculateBezierPoint(Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3, float t)
@@ -164,7 +164,7 @@ namespace QFramework.Pro
         }
 
         /// <summary> Draw a bezier from output to input in grid coordinates </summary>
-        public void DrawNoodle(Gradient gradient, IMGUIGraphConnectionPath path, IMGUIGraphConnectionStroke stroke, float thickness,
+        public void DrawNoodle(Gradient gradient, GUIGraphConnectionPath path, GUIGraphConnectionStroke stroke, float thickness,
             List<Vector2> gridPoints)
         {
             // convert grid points to window points
@@ -176,7 +176,7 @@ namespace QFramework.Pro
             int length = gridPoints.Count;
             switch (path)
             {
-                case IMGUIGraphConnectionPath.Curvy:
+                case GUIGraphConnectionPath.Curvy:
                     Vector2 outputTangent = Vector2.right;
                     for (int i = 0; i < length - 1; i++)
                     {
@@ -215,7 +215,7 @@ namespace QFramework.Pro
                         Vector2 bezierPrevious = point_a;
                         for (int j = 1; j <= division; ++j)
                         {
-                            if (stroke == IMGUIGraphConnectionStroke.Dashed)
+                            if (stroke == GUIGraphConnectionStroke.Dashed)
                             {
                                 draw++;
                                 if (draw >= 2) draw = -2;
@@ -237,7 +237,7 @@ namespace QFramework.Pro
                     }
 
                     break;
-                case IMGUIGraphConnectionPath.Straight:
+                case GUIGraphConnectionPath.Straight:
                     for (int i = 0; i < length - 1; i++)
                     {
                         Vector2 point_a = gridPoints[i];
@@ -261,12 +261,12 @@ namespace QFramework.Pro
                             }
 
                             prev_point = lerp;
-                            if (stroke == IMGUIGraphConnectionStroke.Dashed && draw >= 2) draw = -2;
+                            if (stroke == GUIGraphConnectionStroke.Dashed && draw >= 2) draw = -2;
                         }
                     }
 
                     break;
-                case IMGUIGraphConnectionPath.Angled:
+                case GUIGraphConnectionPath.Angled:
                     for (int i = 0; i < length - 1; i++)
                     {
                         if (i == length - 1) continue; // Skip last index
@@ -327,7 +327,7 @@ namespace QFramework.Pro
                     }
 
                     break;
-                case IMGUIGraphConnectionPath.ShaderLab:
+                case GUIGraphConnectionPath.ShaderLab:
                     Vector2 start = gridPoints[0];
                     Vector2 end = gridPoints[length - 1];
                     //Modify first and last point in array so we can loop trough them nicely.
@@ -361,7 +361,7 @@ namespace QFramework.Pro
                             }
 
                             prev_point = lerp;
-                            if (stroke == IMGUIGraphConnectionStroke.Dashed && draw >= 2) draw = -2;
+                            if (stroke == GUIGraphConnectionStroke.Dashed && draw >= 2) draw = -2;
                         }
                     }
 
@@ -377,21 +377,21 @@ namespace QFramework.Pro
         public void DrawConnections()
         {
             Vector2 mousePos = Event.current.mousePosition;
-            List<IMGUIGraphRerouteReference> selection = preBoxSelectionReroute != null
-                ? new List<IMGUIGraphRerouteReference>(preBoxSelectionReroute)
-                : new List<IMGUIGraphRerouteReference>();
-            hoveredReroute = new IMGUIGraphRerouteReference();
+            List<GUIGraphRerouteReference> selection = preBoxSelectionReroute != null
+                ? new List<GUIGraphRerouteReference>(preBoxSelectionReroute)
+                : new List<GUIGraphRerouteReference>();
+            hoveredReroute = new GUIGraphRerouteReference();
 
             List<Vector2> gridPoints = new List<Vector2>(2);
 
             Color col = GUI.color;
-            foreach (IMGUIGraphNode node in graph.nodes)
+            foreach (GUIGraphNode node in graph.nodes)
             {
                 //If a null node is found, return. This can happen if the nodes associated script is deleted. It is currently not possible in Unity to delete a null asset.
                 if (node == null) continue;
 
                 // Draw full connections and output > reroute
-                foreach (IMGUIGraphNodePort output in node.Outputs)
+                foreach (GUIGraphNodePort output in node.Outputs)
                 {
                     //Needs cleanup. Null checks are ugly
                     Rect fromRect;
@@ -400,12 +400,12 @@ namespace QFramework.Pro
                     Color portColor = graphEditor.GetPortColor(output);
                     for (int k = 0; k < output.ConnectionCount; k++)
                     {
-                        IMGUIGraphNodePort input = output.GetConnection(k);
+                        GUIGraphNodePort input = output.GetConnection(k);
 
                         Gradient noodleGradient = graphEditor.GetNoodleGradient(output, input);
                         float noodleThickness = graphEditor.GetNoodleThickness(output, input);
-                        IMGUIGraphConnectionPath imguiGraphConnectionPath = graphEditor.GetNoodlePath(output, input);
-                        IMGUIGraphConnectionStroke imguiGraphConnectionStroke = graphEditor.GetNoodleStroke(output, input);
+                        GUIGraphConnectionPath guiGraphConnectionPath = graphEditor.GetNoodlePath(output, input);
+                        GUIGraphConnectionStroke guiGraphConnectionStroke = graphEditor.GetNoodleStroke(output, input);
 
                         // Error handling
                         if (input == null)
@@ -420,12 +420,12 @@ namespace QFramework.Pro
                         gridPoints.Add(fromRect.center);
                         gridPoints.AddRange(reroutePoints);
                         gridPoints.Add(toRect.center);
-                        DrawNoodle(noodleGradient, imguiGraphConnectionPath, imguiGraphConnectionStroke, noodleThickness, gridPoints);
+                        DrawNoodle(noodleGradient, guiGraphConnectionPath, guiGraphConnectionStroke, noodleThickness, gridPoints);
 
                         // Loop through reroute points again and draw the points
                         for (int i = 0; i < reroutePoints.Count; i++)
                         {
-                            IMGUIGraphRerouteReference rerouteRef = new IMGUIGraphRerouteReference(output, k, i);
+                            GUIGraphRerouteReference rerouteRef = new GUIGraphRerouteReference(output, k, i);
                             // Draw reroute point at position
                             Rect rect = new Rect(reroutePoints[i], new Vector2(12, 12));
                             rect.position = new Vector2(rect.position.x - 6, rect.position.y - 6);
@@ -434,12 +434,12 @@ namespace QFramework.Pro
                             // Draw selected reroute points with an outline
                             if (selectedReroutes.Contains(rerouteRef))
                             {
-                                GUI.color = IMGUIGraphPreferences.GetSettings().highlightColor;
-                                GUI.DrawTexture(rect, IMGUIGraphResources.DotOuter);
+                                GUI.color = GUIGraphPreferences.GetSettings().highlightColor;
+                                GUI.DrawTexture(rect, GUIGraphResources.DotOuter);
                             }
 
                             GUI.color = portColor;
-                            GUI.DrawTexture(rect, IMGUIGraphResources.Dot);
+                            GUI.DrawTexture(rect, GUIGraphResources.Dot);
                             if (rect.Overlaps(selectionBox)) selection.Add(rerouteRef);
                             if (rect.Contains(mousePos)) hoveredReroute = rerouteRef;
                         }
@@ -461,7 +461,7 @@ namespace QFramework.Pro
             }
 
             System.Reflection.MethodInfo onValidate = null;
-            if (Selection.activeObject != null && Selection.activeObject is IMGUIGraphNode)
+            if (Selection.activeObject != null && Selection.activeObject is GUIGraphNode)
             {
                 onValidate = Selection.activeObject.GetType().GetMethod("OnValidate");
                 if (onValidate != null) EditorGUI.BeginChangeCheck();
@@ -501,15 +501,15 @@ namespace QFramework.Pro
             //Save guiColor so we can revert it
             Color guiColor = GUI.color;
 
-            List<IMGUIGraphNodePort> removeEntries = new List<IMGUIGraphNodePort>();
+            List<GUIGraphNodePort> removeEntries = new List<GUIGraphNodePort>();
 
-            if (e.type == EventType.Layout) culledNodes = new List<IMGUIGraphNode>();
+            if (e.type == EventType.Layout) culledNodes = new List<GUIGraphNode>();
             for (int n = 0; n < graph.nodes.Count; n++)
             {
                 // Skip null nodes. The user could be in the process of renaming scripts, so removing them at this point is not advisable.
                 if (graph.nodes[n] == null) continue;
                 if (n >= graph.nodes.Count) return;
-                IMGUIGraphNode node = graph.nodes[n];
+                GUIGraphNode node = graph.nodes[n];
 
                 // Culling
                 if (e.type == EventType.Layout)
@@ -532,9 +532,9 @@ namespace QFramework.Pro
                     foreach (var k in removeEntries) _portConnectionPoints.Remove(k);
                 }
 
-                IMGUIGraphNodeEditor nodeEditor = IMGUIGraphNodeEditor.GetEditor(node, this);
+                GUIGraphNodeEditor nodeEditor = GUIGraphNodeEditor.GetEditor(node, this);
 
-                IMGUIGraphNodeEditor.portPositions.Clear();
+                GUIGraphNodeEditor.portPositions.Clear();
 
                 // Set default label width. This is potentially overridden in OnBodyGUI
                 EditorGUIUtility.labelWidth = 84;
@@ -554,7 +554,7 @@ namespace QFramework.Pro
                     style.padding = new RectOffset();
                     GUI.color = nodeEditor.GetTint();
                     GUILayout.BeginVertical(style);
-                    GUI.color = IMGUIGraphPreferences.GetSettings().highlightColor;
+                    GUI.color = GUIGraphPreferences.GetSettings().highlightColor;
                     GUILayout.BeginVertical(new GUIStyle(highlightStyle));
                 }
                 else
@@ -574,7 +574,7 @@ namespace QFramework.Pro
                 //If user changed a value, notify other scripts through onUpdateNode
                 if (EditorGUI.EndChangeCheck())
                 {
-                    if (IMGUIGraphNodeEditor.onUpdateNode != null) IMGUIGraphNodeEditor.onUpdateNode(node);
+                    if (GUIGraphNodeEditor.onUpdateNode != null) GUIGraphNodeEditor.onUpdateNode(node);
                     EditorUtility.SetDirty(node);
                     nodeEditor.serializedObject.ApplyModifiedProperties();
                 }
@@ -588,7 +588,7 @@ namespace QFramework.Pro
                     if (nodeSizes.ContainsKey(node)) nodeSizes[node] = size;
                     else nodeSizes.Add(node, size);
 
-                    foreach (var kvp in IMGUIGraphNodeEditor.portPositions)
+                    foreach (var kvp in GUIGraphNodeEditor.portPositions)
                     {
                         Vector2 portHandlePos = kvp.Value;
                         portHandlePos += node.position;
@@ -614,7 +614,7 @@ namespace QFramework.Pro
 
                     //Check if we are hovering any of this nodes ports
                     //Check input ports
-                    foreach (IMGUIGraphNodePort input in node.Inputs)
+                    foreach (GUIGraphNodePort input in node.Inputs)
                     {
                         //Check if port rect is available
                         if (!portConnectionPoints.ContainsKey(input)) continue;
@@ -623,7 +623,7 @@ namespace QFramework.Pro
                     }
 
                     //Check all output ports
-                    foreach (IMGUIGraphNodePort output in node.Outputs)
+                    foreach (GUIGraphNodePort output in node.Outputs)
                     {
                         //Check if port rect is available
                         if (!portConnectionPoints.ContainsKey(output)) continue;
@@ -645,7 +645,7 @@ namespace QFramework.Pro
             if (onValidate != null && EditorGUI.EndChangeCheck()) onValidate.Invoke(Selection.activeObject, null);
         }
 
-        private bool ShouldBeCulled(IMGUIGraphNode node)
+        private bool ShouldBeCulled(GUIGraphNode node)
         {
             Vector2 nodePos = GridToWindowPositionNoClipped(node.position);
             if (nodePos.x / _zoom > position.width) return true; // Right
@@ -662,16 +662,16 @@ namespace QFramework.Pro
 
         private void DrawTooltip()
         {
-            if (hoveredPort != null && IMGUIGraphPreferences.GetSettings().portTooltips &&
+            if (hoveredPort != null && GUIGraphPreferences.GetSettings().portTooltips &&
                 graphEditor != null)
             {
                 string tooltip = graphEditor.GetPortTooltip(hoveredPort);
                 if (string.IsNullOrEmpty(tooltip)) return;
                 GUIContent content = new GUIContent(tooltip);
-                Vector2 size = IMGUIGraphResources.styles.Tooltip.CalcSize(content);
+                Vector2 size = GUIGraphResources.styles.Tooltip.CalcSize(content);
                 size.x += 8;
                 Rect rect = new Rect(Event.current.mousePosition - (size), size);
-                EditorGUI.LabelField(rect, content, IMGUIGraphResources.styles.Tooltip);
+                EditorGUI.LabelField(rect, content, GUIGraphResources.styles.Tooltip);
                 Repaint();
             }
         }

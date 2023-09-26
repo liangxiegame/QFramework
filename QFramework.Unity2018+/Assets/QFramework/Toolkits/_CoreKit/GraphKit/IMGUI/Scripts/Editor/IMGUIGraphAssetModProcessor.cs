@@ -10,10 +10,10 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Deals with modified assets </summary>
-    class IMGUIGraphAssetModProcessor : UnityEditor.AssetModificationProcessor
+    class GUIGraphAssetModProcessor : UnityEditor.AssetModificationProcessor
     {
         /// <summary> Automatically delete Node sub-assets before deleting their script.
         /// This is important to do, because you can't delete null sub assets.
@@ -33,7 +33,7 @@ namespace QFramework.Pro
             UnityEditor.MonoScript script = obj as UnityEditor.MonoScript;
             System.Type scriptType = script.GetClass();
             if (scriptType == null ||
-                (scriptType != typeof(IMGUIGraphNode) && !scriptType.IsSubclassOf(typeof(IMGUIGraphNode))))
+                (scriptType != typeof(GUIGraphNode) && !scriptType.IsSubclassOf(typeof(GUIGraphNode))))
                 return AssetDeleteResult.DidNotDelete;
 
             // Find all ScriptableObjects using this script
@@ -44,7 +44,7 @@ namespace QFramework.Pro
                 Object[] objs = AssetDatabase.LoadAllAssetRepresentationsAtPath(assetpath);
                 for (int k = 0; k < objs.Length; k++)
                 {
-                    IMGUIGraphNode node = objs[k] as IMGUIGraphNode;
+                    GUIGraphNode node = objs[k] as GUIGraphNode;
                     if (node.GetType() == scriptType)
                     {
                         if (node != null && node.graph != null)
@@ -68,12 +68,12 @@ namespace QFramework.Pro
         private static void OnReloadEditor()
         {
             // Find all NodeGraph assets
-            string[] guids = AssetDatabase.FindAssets("t:" + typeof(IMGUIGraph));
+            string[] guids = AssetDatabase.FindAssets("t:" + typeof(GUIGraph));
             for (int i = 0; i < guids.Length; i++)
             {
                 string assetpath = AssetDatabase.GUIDToAssetPath(guids[i]);
-                IMGUIGraph graph =
-                    AssetDatabase.LoadAssetAtPath(assetpath, typeof(IMGUIGraph)) as IMGUIGraph;
+                GUIGraph graph =
+                    AssetDatabase.LoadAssetAtPath(assetpath, typeof(GUIGraph)) as GUIGraph;
                 graph.nodes.RemoveAll(x => x == null); //Remove null items
                 Object[] objs = AssetDatabase.LoadAllAssetRepresentationsAtPath(assetpath);
                 // Ensure that all sub node assets are present in the graph node list
@@ -81,7 +81,7 @@ namespace QFramework.Pro
                 {
                     // Ignore null sub assets
                     if (objs[u] == null) continue;
-                    if (!graph.nodes.Contains(objs[u] as IMGUIGraphNode)) graph.nodes.Add(objs[u] as IMGUIGraphNode);
+                    if (!graph.nodes.Contains(objs[u] as GUIGraphNode)) graph.nodes.Add(objs[u] as GUIGraphNode);
                 }
             }
         }

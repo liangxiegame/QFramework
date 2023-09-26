@@ -12,26 +12,26 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace QFramework.Pro.Internal
+namespace QFramework.Internal
 {
     /// <summary> Handles caching of custom editor classes and their target types. Accessible with GetEditor(Type type) </summary>
     /// <typeparam name="T">Editor Type. Should be the type of the deriving script itself (eg. NodeEditor) </typeparam>
     /// <typeparam name="A">Attribute Type. The attribute used to connect with the runtime type (eg. CustomNodeEditorAttribute) </typeparam>
     /// <typeparam name="K">Runtime Type. The ScriptableObject this can be an editor for (eg. Node) </typeparam>
-    public abstract class IMGUIGraphEditorBase<T, A, K>
-        where A : Attribute, IMGUIGraphEditorBase<T, A, K>.INodeEditorAttrib
-        where T : IMGUIGraphEditorBase<T, A, K>
+    public abstract class GUIGraphEditorBase<T, A, K>
+        where A : Attribute, GUIGraphEditorBase<T, A, K>.INodeEditorAttrib
+        where T : GUIGraphEditorBase<T, A, K>
         where K : ScriptableObject
     {
         /// <summary> Custom editors defined with [CustomNodeEditor] </summary>
         private static Dictionary<Type, Type> editorTypes;
 
         private static Dictionary<K, T> editors = new Dictionary<K, T>();
-        public IMGUIGraphWindow window;
+        public GUIGraphWindow window;
         public K target;
         public SerializedObject serializedObject;
 
-        public static T GetEditor(K target, IMGUIGraphWindow window)
+        public static T GetEditor(K target, GUIGraphWindow window)
         {
             if (target == null) return null;
             T editor;

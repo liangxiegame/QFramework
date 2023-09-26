@@ -6,18 +6,17 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
-using QFramework.Pro;
 using UnityEngine;
 
-namespace QFramework.XNodeEditor.Internal
+namespace QFramework.Internal
 {
-    public struct IMGUIGraphRerouteReference
+    public struct GUIGraphRerouteReference
     {
-        public IMGUIGraphNodePort port;
+        public GUIGraphNodePort port;
         public int connectionIndex;
         public int pointIndex;
 
-        public IMGUIGraphRerouteReference(IMGUIGraphNodePort port, int connectionIndex, int pointIndex)
+        public GUIGraphRerouteReference(GUIGraphNodePort port, int connectionIndex, int pointIndex)
         {
             this.port = port;
             this.connectionIndex = connectionIndex;

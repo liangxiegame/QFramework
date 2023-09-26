@@ -9,9 +9,9 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    public static class IMGUIGraphResources
+    public static class GUIGraphResources
     {
         // Textures
         public static Texture2D Dot => mDot != null ? mDot : mDot = Resources.Load<Texture2D>("graphkit_imgui_dot");
@@ -101,7 +101,7 @@ namespace QFramework.Pro
                 {
                     normal =
                     {
-                        background = IMGUIGraphResources.NodeBody,
+                        background = GUIGraphResources.NodeBody,
                         textColor = Color.white
                     },
                     border = new RectOffset(32, 32, 32, 32),
@@ -112,7 +112,7 @@ namespace QFramework.Pro
                 {
                     normal =
                     {
-                        background = IMGUIGraphResources.NodeHighlight
+                        background = GUIGraphResources.NodeHighlight
                     },
                     border = new RectOffset(32, 32, 32, 32)
                 };

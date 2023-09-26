@@ -7,23 +7,23 @@
 
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Lets you instantiate a node graph in the scene. This allows you to reference in-scene objects. </summary>
-    public class IMGUISceneGraph : MonoBehaviour
+    public class GUISceneGraph : MonoBehaviour
     {
-        public IMGUIGraph graph;
+        public GUIGraph graph;
     }
 
     /// <summary> Derive from this class to create a SceneGraph with a specific graph type. </summary>
     /// <example>
     /// <code>
-    /// public class MySceneGraph : SceneGraph<MyGraph> {
+    /// public class MySceneGraph : GUISceneGraph<MyGraph> {
     /// 	
     /// }
     /// </code>
     /// </example>
-    public class IMGUISceneGraph<T> : IMGUISceneGraph where T : IMGUIGraph
+    public class GUISceneGraph<T> : GUISceneGraph where T : GUIGraph
     {
         public new T graph
         {

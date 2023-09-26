@@ -9,7 +9,7 @@
 using System.Xml.Linq;
 using UnityEditor;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary>
     /// This asset processor resolves an issue with the new v2 AssetDatabase system present on 2019.3 and later. When
@@ -19,7 +19,7 @@ namespace QFramework.Pro
     /// finds a case where a <see cref="XNode.Node"/> has been made the main asset it will swap it back to being a sub-asset
     /// and rename the node to the default name for that node type.
     /// </summary>
-    internal sealed class IMGUIGraphRenameFixAssetProcessor : AssetPostprocessor
+    internal sealed class GUIGraphRenameFixAssetProcessor : AssetPostprocessor
     {
         private static void OnPostprocessAllAssets(
             string[] importedAssets,
@@ -29,7 +29,7 @@ namespace QFramework.Pro
         {
             for (int i = 0; i < movedAssets.Length; i++)
             {
-                IMGUIGraphNode nodeAsset = AssetDatabase.LoadMainAssetAtPath(movedAssets[i]) as IMGUIGraphNode;
+                GUIGraphNode nodeAsset = AssetDatabase.LoadMainAssetAtPath(movedAssets[i]) as GUIGraphNode;
 
                 // If the renamed asset is a node graph, but the v2 AssetDatabase has swapped a sub-asset node to be its
                 // main asset, reset the node graph to be the main asset and rename the node asset back to its default
@@ -39,7 +39,7 @@ namespace QFramework.Pro
                     AssetDatabase.SetMainObject(nodeAsset.graph, movedAssets[i]);
                     AssetDatabase.ImportAsset(movedAssets[i]);
 
-                    nodeAsset.name = IMGUIGraphUtilities.NodeDefaultName(nodeAsset.GetType());
+                    nodeAsset.name = GUIGraphUtilities.NodeDefaultName(nodeAsset.GetType());
                     EditorUtility.SetDirty(nodeAsset);
                 }
             }

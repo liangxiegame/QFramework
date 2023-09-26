@@ -20,7 +20,7 @@
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.9.12 14:42 revert operator override
+ * Latest Update: 2023.9.26 15:14 support godot4.net
  ****************************************************************************/
 
 using System;
@@ -488,27 +488,6 @@ namespace QFramework
 		}
 	}
 	#endif
-	
-	#if GODOT
-	public partial class UnRegisterTrigger : Godot.Node
-	{
-		private readonly HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
-
-		public void AddUnRegister(IUnRegister unRegister) => mUnRegisters.Add(unRegister);
-
-		public void RemoveUnRegister(IUnRegister unRegister) => mUnRegisters.Remove(unRegister);
-
-		public override void _ExitTree()
-		{
-			foreach (var unRegister in mUnRegisters)
-			{
-				unRegister.UnRegister();
-			}
-
-			mUnRegisters.Clear();
-		}
-	}
-	#endif
 
 	public static class UnRegisterExtension
 	{
@@ -536,16 +515,7 @@ namespace QFramework
 #if GODOT
 		public static IUnRegister UnRegisterWhenNodeExitTree(this IUnRegister unRegister, Godot.Node node)
 		{
-			var trigger = node.FindChild("UnRegisterTrigger") as UnRegisterTrigger;
-
-			if (trigger == null)
-			{
-				trigger = new UnRegisterTrigger();
-				trigger.Name = "UnRegisterTrigger";
-				node.AddChild(trigger);
-			}
-
-			trigger.AddUnRegister(unRegister);
+			node.TreeExiting += unRegister.UnRegister;
 			return unRegister;
 		}
 #endif
@@ -682,7 +652,6 @@ namespace QFramework
 			void Action(T _) => onEvent();
 		}
 		
-		public static implicit operator T(BindableProperty<T> property) => property.Value;
 		public override string ToString() => Value.ToString();
 	}
 

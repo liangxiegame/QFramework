@@ -9,28 +9,28 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QFramework.Pro.Internal;
+using QFramework.Internal;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Base class to derive custom Node editors from. Use this to create your own custom inspectors and editors for your nodes. </summary>
-    [CustomNodeEditor(typeof(IMGUIGraphNode))]
-    public class IMGUIGraphNodeEditor : IMGUIGraphEditorBase<IMGUIGraphNodeEditor,
-        IMGUIGraphNodeEditor.CustomNodeEditorAttribute, IMGUIGraphNode>
+    [CustomNodeEditor(typeof(GUIGraphNode))]
+    public class GUIGraphNodeEditor : GUIGraphEditorBase<GUIGraphNodeEditor,
+        GUIGraphNodeEditor.CustomNodeEditorAttribute, GUIGraphNode>
     {
         private readonly Color DEFAULTCOLOR = new Color32(57, 58, 64, byte.MaxValue);
 
         /// <summary> Fires every whenever a node was modified through the editor </summary>
-        public static Action<IMGUIGraphNode> onUpdateNode;
+        public static Action<GUIGraphNode> onUpdateNode;
 
-        public readonly static Dictionary<IMGUIGraphNodePort, Vector2> portPositions =
-            new Dictionary<IMGUIGraphNodePort, Vector2>();
+        public readonly static Dictionary<GUIGraphNodePort, Vector2> portPositions =
+            new Dictionary<GUIGraphNodePort, Vector2>();
 
         public virtual void OnHeaderGUI()
         {
-            GUILayout.Label(target.name, IMGUIGraphResources.styles.NodeHeader, GUILayout.Height(30));
+            GUILayout.Label(target.name, GUIGraphResources.styles.NodeHeader, GUILayout.Height(30));
         }
 
         /// <summary> Draws standard field editors for all public fields </summary>
@@ -50,14 +50,14 @@ namespace QFramework.Pro
             {
                 enterChildren = false;
                 if (excludes.Contains(iterator.name)) continue;
-                IMGUIGraphGUILayout.PropertyField(iterator, true);
+                GUIGraphGUILayout.PropertyField(iterator, true);
             }
 
             // Iterate through dynamic ports and draw them in the order in which they are serialized
-            foreach (IMGUIGraphNodePort dynamicPort in target.DynamicPorts)
+            foreach (GUIGraphNodePort dynamicPort in target.DynamicPorts)
             {
-                if (IMGUIGraphGUILayout.IsDynamicPortListPort(dynamicPort)) continue;
-                IMGUIGraphGUILayout.PortField(dynamicPort);
+                if (GUIGraphGUILayout.IsDynamicPortListPort(dynamicPort)) continue;
+                GUIGraphGUILayout.PortField(dynamicPort);
             }
 
             serializedObject.ApplyModifiedProperties();
@@ -84,12 +84,12 @@ namespace QFramework.Pro
 
         public virtual GUIStyle GetBodyStyle()
         {
-            return IMGUIGraphResources.styles.nodeBody;
+            return GUIGraphResources.styles.nodeBody;
         }
 
         public virtual GUIStyle GetBodyHighlightStyle()
         {
-            return IMGUIGraphResources.styles.NodeHighlight;
+            return GUIGraphResources.styles.NodeHighlight;
         }
 
         /// <summary> Add items for the context menu when right-clicking this node. Override to add custom menu items. </summary>
@@ -97,28 +97,28 @@ namespace QFramework.Pro
         {
             bool canRemove = true;
             // Actions if only one node is selected
-            if (Selection.objects.Length == 1 && Selection.activeObject is IMGUIGraphNode)
+            if (Selection.objects.Length == 1 && Selection.activeObject is GUIGraphNode)
             {
-                IMGUIGraphNode node = Selection.activeObject as IMGUIGraphNode;
+                GUIGraphNode node = Selection.activeObject as GUIGraphNode;
                 menu.AddItem(new GUIContent("Move To Top"), false,
-                    () => IMGUIGraphWindow.current.MoveNodeToTop(node));
-                menu.AddItem(new GUIContent("Rename"), false, IMGUIGraphWindow.current.RenameSelectedNode);
+                    () => GUIGraphWindow.current.MoveNodeToTop(node));
+                menu.AddItem(new GUIContent("Rename"), false, GUIGraphWindow.current.RenameSelectedNode);
 
-                canRemove = IMGUIGraphEditor.GetEditor(node.graph, IMGUIGraphWindow.current).CanRemove(node);
+                canRemove = GUIGraphEditor.GetEditor(node.graph, GUIGraphWindow.current).CanRemove(node);
             }
 
             // Add actions to any number of selected nodes
-            menu.AddItem(new GUIContent("Copy"), false, IMGUIGraphWindow.current.CopySelectedNodes);
-            menu.AddItem(new GUIContent("Duplicate"), false, IMGUIGraphWindow.current.DuplicateSelectedNodes);
+            menu.AddItem(new GUIContent("Copy"), false, GUIGraphWindow.current.CopySelectedNodes);
+            menu.AddItem(new GUIContent("Duplicate"), false, GUIGraphWindow.current.DuplicateSelectedNodes);
 
             if (canRemove)
-                menu.AddItem(new GUIContent("Remove"), false, IMGUIGraphWindow.current.RemoveSelectedNodes);
+                menu.AddItem(new GUIContent("Remove"), false, GUIGraphWindow.current.RemoveSelectedNodes);
             else menu.AddItem(new GUIContent("Remove"), false, null);
 
             // Custom sctions if only one node is selected
-            if (Selection.objects.Length == 1 && Selection.activeObject is IMGUIGraphNode)
+            if (Selection.objects.Length == 1 && Selection.activeObject is GUIGraphNode)
             {
-                IMGUIGraphNode node = Selection.activeObject as IMGUIGraphNode;
+                GUIGraphNode node = Selection.activeObject as GUIGraphNode;
                 menu.AddCustomContextMenuItems(node);
             }
         }
@@ -127,7 +127,7 @@ namespace QFramework.Pro
         public void Rename(string newName)
         {
             if (newName == null || newName.Trim() == "")
-                newName = IMGUIGraphUtilities.NodeDefaultName(target.GetType());
+                newName = GUIGraphUtilities.NodeDefaultName(target.GetType());
             target.name = newName;
             OnRename();
             AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(target));
@@ -140,8 +140,8 @@ namespace QFramework.Pro
 
         [AttributeUsage(AttributeTargets.Class)]
         public class CustomNodeEditorAttribute : Attribute,
-            IMGUIGraphEditorBase<IMGUIGraphNodeEditor, IMGUIGraphNodeEditor.CustomNodeEditorAttribute,
-                IMGUIGraphNode>.INodeEditorAttrib
+            GUIGraphEditorBase<GUIGraphNodeEditor, GUIGraphNodeEditor.CustomNodeEditorAttribute,
+                GUIGraphNode>.INodeEditorAttrib
         {
             private Type inspectedType;
 

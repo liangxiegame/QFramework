@@ -13,10 +13,10 @@ using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> xNode-specific version of <see cref="EditorGUILayout"/> </summary>
-    public static class IMGUIGraphGUILayout
+    public static class GUIGraphGUILayout
     {
         private static readonly Dictionary<UnityEngine.Object, Dictionary<string, ReorderableList>>
             reorderableListCache = new Dictionary<UnityEngine.Object, Dictionary<string, ReorderableList>>();
@@ -35,20 +35,20 @@ namespace QFramework.Pro
             params GUILayoutOption[] options)
         {
             if (property == null) throw new NullReferenceException();
-            IMGUIGraphNode node = property.serializedObject.targetObject as IMGUIGraphNode;
-            IMGUIGraphNodePort port = node.GetPort(property.name);
+            GUIGraphNode node = property.serializedObject.targetObject as GUIGraphNode;
+            GUIGraphNodePort port = node.GetPort(property.name);
             PropertyField(property, label, port, includeChildren);
         }
 
         /// <summary> Make a field for a serialized property. Manual node port override. </summary>
-        public static void PropertyField(SerializedProperty property, IMGUIGraphNodePort port,
+        public static void PropertyField(SerializedProperty property, GUIGraphNodePort port,
             bool includeChildren = true, params GUILayoutOption[] options)
         {
             PropertyField(property, null, port, includeChildren, options);
         }
 
         /// <summary> Make a field for a serialized property. Manual node port override. </summary>
-        public static void PropertyField(SerializedProperty property, GUIContent label, IMGUIGraphNodePort port,
+        public static void PropertyField(SerializedProperty property, GUIContent label, GUIGraphNodePort port,
             bool includeChildren = true, params GUILayoutOption[] options)
         {
             if (property == null) throw new NullReferenceException();
@@ -60,24 +60,24 @@ namespace QFramework.Pro
                 Rect rect = new Rect();
 
                 List<PropertyAttribute> propertyAttributes =
-                    IMGUIGraphUtilities.GetCachedPropertyAttribs(port.node.GetType(), property.name);
+                    GUIGraphUtilities.GetCachedPropertyAttribs(port.node.GetType(), property.name);
 
                 // If property is an input, display a regular property field and put a port handle on the left side
-                if (port.direction == IMGUIGraphNodePort.IO.Input)
+                if (port.direction == GUIGraphNodePort.IO.Input)
                 {
                     // Get data from [Input] attribute
-                    IMGUIGraphNode.ShowBackingValue showBacking = IMGUIGraphNode.ShowBackingValue.Unconnected;
-                    IMGUIGraphNode.InputAttribute inputAttribute;
+                    GUIGraphNode.ShowBackingValue showBacking = GUIGraphNode.ShowBackingValue.Unconnected;
+                    GUIGraphNode.InputAttribute inputAttribute;
                     bool dynamicPortList = false;
-                    if (IMGUIGraphUtilities.GetCachedAttrib(port.node.GetType(), property.name, out inputAttribute))
+                    if (GUIGraphUtilities.GetCachedAttrib(port.node.GetType(), property.name, out inputAttribute))
                     {
                         dynamicPortList = inputAttribute.dynamicPortList;
                         showBacking = inputAttribute.backingValue;
                     }
 
                     bool usePropertyAttributes = dynamicPortList ||
-                                                 showBacking == IMGUIGraphNode.ShowBackingValue.Never ||
-                                                 (showBacking == IMGUIGraphNode.ShowBackingValue.Unconnected &&
+                                                 showBacking == GUIGraphNode.ShowBackingValue.Never ||
+                                                 (showBacking == GUIGraphNode.ShowBackingValue.Unconnected &&
                                                   port.IsConnected);
 
                     float spacePadding = 0;
@@ -108,16 +108,16 @@ namespace QFramework.Pro
                     if (dynamicPortList)
                     {
                         Type type = GetType(property);
-                        IMGUIGraphNode.ConnectionType connectionType = inputAttribute != null
+                        GUIGraphNode.ConnectionType connectionType = inputAttribute != null
                             ? inputAttribute.connectionType
-                            : IMGUIGraphNode.ConnectionType.Multiple;
+                            : GUIGraphNode.ConnectionType.Multiple;
                         DynamicPortList(property.name, type, property.serializedObject, port.direction, connectionType);
                         return;
                     }
 
                     switch (showBacking)
                     {
-                        case IMGUIGraphNode.ShowBackingValue.Unconnected:
+                        case GUIGraphNode.ShowBackingValue.Unconnected:
                             // Display a label if port is connected
                             if (port.IsConnected)
                                 EditorGUILayout.LabelField(label != null
@@ -127,11 +127,11 @@ namespace QFramework.Pro
                             else
                                 EditorGUILayout.PropertyField(property, label, includeChildren, GUILayout.MinWidth(30));
                             break;
-                        case IMGUIGraphNode.ShowBackingValue.Never:
+                        case GUIGraphNode.ShowBackingValue.Never:
                             // Display a label
                             EditorGUILayout.LabelField(label != null ? label : new GUIContent(property.displayName));
                             break;
-                        case IMGUIGraphNode.ShowBackingValue.Always:
+                        case GUIGraphNode.ShowBackingValue.Always:
                             // Display an editable property field
                             EditorGUILayout.PropertyField(property, label, includeChildren, GUILayout.MinWidth(30));
                             break;
@@ -141,21 +141,21 @@ namespace QFramework.Pro
                     rect.position = rect.position - new Vector2(16, -spacePadding);
                     // If property is an output, display a text label and put a port handle on the right side
                 }
-                else if (port.direction == IMGUIGraphNodePort.IO.Output)
+                else if (port.direction == GUIGraphNodePort.IO.Output)
                 {
                     // Get data from [Output] attribute
-                    IMGUIGraphNode.ShowBackingValue showBacking = IMGUIGraphNode.ShowBackingValue.Unconnected;
-                    IMGUIGraphNode.OutputAttribute outputAttribute;
+                    GUIGraphNode.ShowBackingValue showBacking = GUIGraphNode.ShowBackingValue.Unconnected;
+                    GUIGraphNode.OutputAttribute outputAttribute;
                     bool dynamicPortList = false;
-                    if (IMGUIGraphUtilities.GetCachedAttrib(port.node.GetType(), property.name, out outputAttribute))
+                    if (GUIGraphUtilities.GetCachedAttrib(port.node.GetType(), property.name, out outputAttribute))
                     {
                         dynamicPortList = outputAttribute.dynamicPortList;
                         showBacking = outputAttribute.backingValue;
                     }
 
                     bool usePropertyAttributes = dynamicPortList ||
-                                                 showBacking == IMGUIGraphNode.ShowBackingValue.Never ||
-                                                 (showBacking == IMGUIGraphNode.ShowBackingValue.Unconnected &&
+                                                 showBacking == GUIGraphNode.ShowBackingValue.Never ||
+                                                 (showBacking == GUIGraphNode.ShowBackingValue.Unconnected &&
                                                   port.IsConnected);
 
                     float spacePadding = 0;
@@ -186,30 +186,30 @@ namespace QFramework.Pro
                     if (dynamicPortList)
                     {
                         Type type = GetType(property);
-                        IMGUIGraphNode.ConnectionType connectionType = outputAttribute != null
+                        GUIGraphNode.ConnectionType connectionType = outputAttribute != null
                             ? outputAttribute.connectionType
-                            : IMGUIGraphNode.ConnectionType.Multiple;
+                            : GUIGraphNode.ConnectionType.Multiple;
                         DynamicPortList(property.name, type, property.serializedObject, port.direction, connectionType);
                         return;
                     }
 
                     switch (showBacking)
                     {
-                        case IMGUIGraphNode.ShowBackingValue.Unconnected:
+                        case GUIGraphNode.ShowBackingValue.Unconnected:
                             // Display a label if port is connected
                             if (port.IsConnected)
                                 EditorGUILayout.LabelField(label != null ? label : new GUIContent(property.displayName),
-                                    IMGUIGraphResources.OutputPort, GUILayout.MinWidth(30));
+                                    GUIGraphResources.OutputPort, GUILayout.MinWidth(30));
                             // Display an editable property field if port is not connected
                             else
                                 EditorGUILayout.PropertyField(property, label, includeChildren, GUILayout.MinWidth(30));
                             break;
-                        case IMGUIGraphNode.ShowBackingValue.Never:
+                        case GUIGraphNode.ShowBackingValue.Never:
                             // Display a label
                             EditorGUILayout.LabelField(label != null ? label : new GUIContent(property.displayName),
-                                IMGUIGraphResources.OutputPort, GUILayout.MinWidth(30));
+                                GUIGraphResources.OutputPort, GUILayout.MinWidth(30));
                             break;
-                        case IMGUIGraphNode.ShowBackingValue.Always:
+                        case GUIGraphNode.ShowBackingValue.Always:
                             // Display an editable property field
                             EditorGUILayout.PropertyField(property, label, includeChildren, GUILayout.MinWidth(30));
                             break;
@@ -221,14 +221,14 @@ namespace QFramework.Pro
 
                 rect.size = new Vector2(16, 16);
 
-                IMGUIGraphNodeEditor editor = IMGUIGraphNodeEditor.GetEditor(port.node, IMGUIGraphWindow.current);
+                GUIGraphNodeEditor editor = GUIGraphNodeEditor.GetEditor(port.node, GUIGraphWindow.current);
                 Color backgroundColor = editor.GetTint();
-                Color col = IMGUIGraphWindow.current.graphEditor.GetPortColor(port);
+                Color col = GUIGraphWindow.current.graphEditor.GetPortColor(port);
                 DrawPortHandle(rect, backgroundColor, col);
 
                 // Register the handle position
                 Vector2 portPos = rect.center;
-                IMGUIGraphNodeEditor.portPositions[port] = portPos;
+                GUIGraphNodeEditor.portPositions[port] = portPos;
             }
         }
 
@@ -240,13 +240,13 @@ namespace QFramework.Pro
         }
 
         /// <summary> Make a simple port field. </summary>
-        public static void PortField(IMGUIGraphNodePort port, params GUILayoutOption[] options)
+        public static void PortField(GUIGraphNodePort port, params GUILayoutOption[] options)
         {
             PortField(null, port, options);
         }
 
         /// <summary> Make a simple port field. </summary>
-        public static void PortField(GUIContent label, IMGUIGraphNodePort port, params GUILayoutOption[] options)
+        public static void PortField(GUIContent label, GUIGraphNodePort port, params GUILayoutOption[] options)
         {
             if (port == null) return;
             if (options == null) options = new GUILayoutOption[] { GUILayout.MinWidth(30) };
@@ -254,7 +254,7 @@ namespace QFramework.Pro
             GUIContent content = label != null ? label : new GUIContent(ObjectNames.NicifyVariableName(port.fieldName));
 
             // If property is an input, display a regular property field and put a port handle on the left side
-            if (port.direction == IMGUIGraphNodePort.IO.Input)
+            if (port.direction == GUIGraphNodePort.IO.Input)
             {
                 // Display a label
                 EditorGUILayout.LabelField(content, options);
@@ -263,10 +263,10 @@ namespace QFramework.Pro
                 position = rect.position - new Vector2(16, 0);
             }
             // If property is an output, display a text label and put a port handle on the right side
-            else if (port.direction == IMGUIGraphNodePort.IO.Output)
+            else if (port.direction == GUIGraphNodePort.IO.Output)
             {
                 // Display a label
-                EditorGUILayout.LabelField(content, IMGUIGraphResources.OutputPort, options);
+                EditorGUILayout.LabelField(content, GUIGraphResources.OutputPort, options);
 
                 Rect rect = GUILayoutUtility.GetLastRect();
                 position = rect.position + new Vector2(rect.width, 0);
@@ -276,36 +276,36 @@ namespace QFramework.Pro
         }
 
         /// <summary> Make a simple port field. </summary>
-        public static void PortField(Vector2 position, IMGUIGraphNodePort port)
+        public static void PortField(Vector2 position, GUIGraphNodePort port)
         {
             if (port == null) return;
 
             Rect rect = new Rect(position, new Vector2(16, 16));
 
-            IMGUIGraphNodeEditor editor = IMGUIGraphNodeEditor.GetEditor(port.node, IMGUIGraphWindow.current);
+            GUIGraphNodeEditor editor = GUIGraphNodeEditor.GetEditor(port.node, GUIGraphWindow.current);
             Color backgroundColor = editor.GetTint();
-            Color col = IMGUIGraphWindow.current.graphEditor.GetPortColor(port);
+            Color col = GUIGraphWindow.current.graphEditor.GetPortColor(port);
             DrawPortHandle(rect, backgroundColor, col);
 
             // Register the handle position
             Vector2 portPos = rect.center;
-            IMGUIGraphNodeEditor.portPositions[port] = portPos;
+            GUIGraphNodeEditor.portPositions[port] = portPos;
         }
 
         /// <summary> Add a port field to previous layout element. </summary>
-        public static void AddPortField(IMGUIGraphNodePort port)
+        public static void AddPortField(GUIGraphNodePort port)
         {
             if (port == null) return;
             Rect rect = new Rect();
 
             // If property is an input, display a regular property field and put a port handle on the left side
-            if (port.direction == IMGUIGraphNodePort.IO.Input)
+            if (port.direction == GUIGraphNodePort.IO.Input)
             {
                 rect = GUILayoutUtility.GetLastRect();
                 rect.position = rect.position - new Vector2(16, 0);
                 // If property is an output, display a text label and put a port handle on the right side
             }
-            else if (port.direction == IMGUIGraphNodePort.IO.Output)
+            else if (port.direction == GUIGraphNodePort.IO.Output)
             {
                 rect = GUILayoutUtility.GetLastRect();
                 rect.position = rect.position + new Vector2(rect.width, 0);
@@ -313,22 +313,22 @@ namespace QFramework.Pro
 
             rect.size = new Vector2(16, 16);
 
-            IMGUIGraphNodeEditor editor = IMGUIGraphNodeEditor.GetEditor(port.node, IMGUIGraphWindow.current);
+            GUIGraphNodeEditor editor = GUIGraphNodeEditor.GetEditor(port.node, GUIGraphWindow.current);
             Color backgroundColor = editor.GetTint();
-            Color col = IMGUIGraphWindow.current.graphEditor.GetPortColor(port);
+            Color col = GUIGraphWindow.current.graphEditor.GetPortColor(port);
             DrawPortHandle(rect, backgroundColor, col);
 
             // Register the handle position
             Vector2 portPos = rect.center;
-            IMGUIGraphNodeEditor.portPositions[port] = portPos;
+            GUIGraphNodeEditor.portPositions[port] = portPos;
         }
 
         /// <summary> Draws an input and an output port on the same line </summary>
-        public static void PortPair(IMGUIGraphNodePort input, IMGUIGraphNodePort output)
+        public static void PortPair(GUIGraphNodePort input, GUIGraphNodePort output)
         {
             GUILayout.BeginHorizontal();
-            IMGUIGraphGUILayout.PortField(input, GUILayout.MinWidth(0));
-            IMGUIGraphGUILayout.PortField(output, GUILayout.MinWidth(0));
+            GUIGraphGUILayout.PortField(input, GUILayout.MinWidth(0));
+            GUIGraphGUILayout.PortField(output, GUILayout.MinWidth(0));
             GUILayout.EndHorizontal();
         }
 
@@ -336,14 +336,14 @@ namespace QFramework.Pro
         {
             Color col = GUI.color;
             GUI.color = backgroundColor;
-            GUI.DrawTexture(rect, IMGUIGraphResources.DotOuter);
+            GUI.DrawTexture(rect, GUIGraphResources.DotOuter);
             GUI.color = typeColor;
-            GUI.DrawTexture(rect, IMGUIGraphResources.Dot);
+            GUI.DrawTexture(rect, GUIGraphResources.Dot);
             GUI.color = col;
         }
 
         /// <summary> Is this port part of a DynamicPortList? </summary>
-        public static bool IsDynamicPortListPort(IMGUIGraphNodePort port)
+        public static bool IsDynamicPortListPort(GUIGraphNodePort port)
         {
             string[] parts = port.fieldName.Split(' ');
             if (parts.Length != 2) return false;
@@ -364,12 +364,12 @@ namespace QFramework.Pro
         /// <param name="connectionType">Connection type of added dynamic ports</param>
         /// <param name="onCreation">Called on the list on creation. Use this if you want to customize the created ReorderableList</param>
         public static void DynamicPortList(string fieldName, Type type, SerializedObject serializedObject,
-            IMGUIGraphNodePort.IO io,
-            IMGUIGraphNode.ConnectionType connectionType = IMGUIGraphNode.ConnectionType.Multiple,
-            IMGUIGraphNode.TypeConstraint typeConstraint = IMGUIGraphNode.TypeConstraint.None,
+            GUIGraphNodePort.IO io,
+            GUIGraphNode.ConnectionType connectionType = GUIGraphNode.ConnectionType.Multiple,
+            GUIGraphNode.TypeConstraint typeConstraint = GUIGraphNode.TypeConstraint.None,
             Action<ReorderableList> onCreation = null)
         {
-            IMGUIGraphNode node = serializedObject.targetObject as IMGUIGraphNode;
+            GUIGraphNode node = serializedObject.targetObject as GUIGraphNode;
 
             var indexedPorts = node.DynamicPorts.Select(x =>
             {
@@ -383,9 +383,9 @@ namespace QFramework.Pro
                     }
                 }
 
-                return new { index = -1, port = (IMGUIGraphNodePort)null };
+                return new { index = -1, port = (GUIGraphNodePort)null };
             }).Where(x => x.port != null);
-            List<IMGUIGraphNodePort> dynamicPorts = indexedPorts.OrderBy(x => x.index).Select(x => x.port).ToList();
+            List<GUIGraphNodePort> dynamicPorts = indexedPorts.OrderBy(x => x.index).Select(x => x.port).ToList();
 
             node.UpdatePorts();
 
@@ -412,20 +412,20 @@ namespace QFramework.Pro
             list.DoLayoutList();
         }
 
-        private static ReorderableList CreateReorderableList(string fieldName, List<IMGUIGraphNodePort> dynamicPorts,
-            SerializedProperty arrayData, Type type, SerializedObject serializedObject, IMGUIGraphNodePort.IO io,
-            IMGUIGraphNode.ConnectionType connectionType, IMGUIGraphNode.TypeConstraint typeConstraint,
+        private static ReorderableList CreateReorderableList(string fieldName, List<GUIGraphNodePort> dynamicPorts,
+            SerializedProperty arrayData, Type type, SerializedObject serializedObject, GUIGraphNodePort.IO io,
+            GUIGraphNode.ConnectionType connectionType, GUIGraphNode.TypeConstraint typeConstraint,
             Action<ReorderableList> onCreation)
         {
             bool hasArrayData = arrayData != null && arrayData.isArray;
-            IMGUIGraphNode node = serializedObject.targetObject as IMGUIGraphNode;
+            GUIGraphNode node = serializedObject.targetObject as GUIGraphNode;
             ReorderableList list = new ReorderableList(dynamicPorts, null, true, true, true, true);
             string label = arrayData != null ? arrayData.displayName : ObjectNames.NicifyVariableName(fieldName);
 
             list.drawElementCallback =
                 (Rect rect, int index, bool isActive, bool isFocused) =>
                 {
-                    IMGUIGraphNodePort port = node.GetPort(fieldName + " " + index);
+                    GUIGraphNodePort port = node.GetPort(fieldName + " " + index);
                     if (hasArrayData && arrayData.propertyType != SerializedPropertyType.String)
                     {
                         if (arrayData.arraySize <= index)
@@ -443,7 +443,7 @@ namespace QFramework.Pro
                     {
                         Vector2 pos = rect.position +
                                       (port.IsOutput ? new Vector2(rect.width + 6, 0) : new Vector2(-36, 0));
-                        IMGUIGraphGUILayout.PortField(pos, port);
+                        GUIGraphGUILayout.PortField(pos, port);
                     }
                 };
             list.elementHeightCallback =
@@ -473,16 +473,16 @@ namespace QFramework.Pro
                     {
                         for (int i = reorderableListIndex; i < rl.index; ++i)
                         {
-                            IMGUIGraphNodePort port = node.GetPort(fieldName + " " + i);
-                            IMGUIGraphNodePort nextPort = node.GetPort(fieldName + " " + (i + 1));
+                            GUIGraphNodePort port = node.GetPort(fieldName + " " + i);
+                            GUIGraphNodePort nextPort = node.GetPort(fieldName + " " + (i + 1));
                             port.SwapConnections(nextPort);
 
                             // Swap cached positions to mitigate twitching
-                            hasRect = IMGUIGraphWindow.current.portConnectionPoints.TryGetValue(port, out rect);
+                            hasRect = GUIGraphWindow.current.portConnectionPoints.TryGetValue(port, out rect);
                             hasNewRect =
-                                IMGUIGraphWindow.current.portConnectionPoints.TryGetValue(nextPort, out newRect);
-                            IMGUIGraphWindow.current.portConnectionPoints[port] = hasNewRect ? newRect : rect;
-                            IMGUIGraphWindow.current.portConnectionPoints[nextPort] = hasRect ? rect : newRect;
+                                GUIGraphWindow.current.portConnectionPoints.TryGetValue(nextPort, out newRect);
+                            GUIGraphWindow.current.portConnectionPoints[port] = hasNewRect ? newRect : rect;
+                            GUIGraphWindow.current.portConnectionPoints[nextPort] = hasRect ? rect : newRect;
                         }
                     }
                     // Move down
@@ -490,16 +490,16 @@ namespace QFramework.Pro
                     {
                         for (int i = reorderableListIndex; i > rl.index; --i)
                         {
-                            IMGUIGraphNodePort port = node.GetPort(fieldName + " " + i);
-                            IMGUIGraphNodePort nextPort = node.GetPort(fieldName + " " + (i - 1));
+                            GUIGraphNodePort port = node.GetPort(fieldName + " " + i);
+                            GUIGraphNodePort nextPort = node.GetPort(fieldName + " " + (i - 1));
                             port.SwapConnections(nextPort);
 
                             // Swap cached positions to mitigate twitching
-                            hasRect = IMGUIGraphWindow.current.portConnectionPoints.TryGetValue(port, out rect);
+                            hasRect = GUIGraphWindow.current.portConnectionPoints.TryGetValue(port, out rect);
                             hasNewRect =
-                                IMGUIGraphWindow.current.portConnectionPoints.TryGetValue(nextPort, out newRect);
-                            IMGUIGraphWindow.current.portConnectionPoints[port] = hasNewRect ? newRect : rect;
-                            IMGUIGraphWindow.current.portConnectionPoints[nextPort] = hasRect ? rect : newRect;
+                                GUIGraphWindow.current.portConnectionPoints.TryGetValue(nextPort, out newRect);
+                            GUIGraphWindow.current.portConnectionPoints[port] = hasNewRect ? newRect : rect;
+                            GUIGraphWindow.current.portConnectionPoints[nextPort] = hasRect ? rect : newRect;
                         }
                     }
 
@@ -516,8 +516,8 @@ namespace QFramework.Pro
                     // Apply changes
                     serializedObject.ApplyModifiedProperties();
                     serializedObject.Update();
-                    IMGUIGraphWindow.current.Repaint();
-                    EditorApplication.delayCall += IMGUIGraphWindow.current.Repaint;
+                    GUIGraphWindow.current.Repaint();
+                    EditorApplication.delayCall += GUIGraphWindow.current.Repaint;
                 };
             list.onAddCallback =
                 (ReorderableList rl) =>
@@ -527,8 +527,8 @@ namespace QFramework.Pro
                     int i = 0;
                     while (node.HasPort(newName)) newName = fieldName + " " + (++i);
 
-                    if (io == IMGUIGraphNodePort.IO.Output)
-                        node.AddDynamicOutput(type, connectionType, IMGUIGraphNode.TypeConstraint.None, newName);
+                    if (io == GUIGraphNodePort.IO.Output)
+                        node.AddDynamicOutput(type, connectionType, GUIGraphNode.TypeConstraint.None, newName);
                     else node.AddDynamicInput(type, connectionType, typeConstraint, newName);
                     serializedObject.Update();
                     EditorUtility.SetDirty(node);
@@ -554,7 +554,7 @@ namespace QFramework.Pro
                             }
                         }
 
-                        return new { index = -1, port = (IMGUIGraphNodePort)null };
+                        return new { index = -1, port = (GUIGraphNodePort)null };
                     }).Where(x => x.port != null);
                     dynamicPorts = indexedPorts.OrderBy(x => x.index).Select(x => x.port).ToList();
 
@@ -578,7 +578,7 @@ namespace QFramework.Pro
                         {
                             for (int j = 0; j < dynamicPorts[k].ConnectionCount; j++)
                             {
-                                IMGUIGraphNodePort other = dynamicPorts[k].GetConnection(j);
+                                GUIGraphNodePort other = dynamicPorts[k].GetConnection(j);
                                 dynamicPorts[k].Disconnect(other);
                                 dynamicPorts[k - 1].Connect(other);
                             }
@@ -627,7 +627,7 @@ namespace QFramework.Pro
                     string newName = arrayData.name + " 0";
                     int i = 0;
                     while (node.HasPort(newName)) newName = arrayData.name + " " + (++i);
-                    if (io == IMGUIGraphNodePort.IO.Output)
+                    if (io == GUIGraphNodePort.IO.Output)
                         node.AddDynamicOutput(type, connectionType, typeConstraint, newName);
                     else node.AddDynamicInput(type, connectionType, typeConstraint, newName);
                     EditorUtility.SetDirty(node);

@@ -8,16 +8,16 @@
 #if UNITY_EDITOR
 using System;
 using System.Linq;
+using QFramework.Internal;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Base class to derive custom Node Graph editors from. Use this to override how graphs are drawn in the editor. </summary>
-    [CustomNodeGraphEditor(typeof(IMGUIGraph))]
-    public class IMGUIGraphEditor : Internal.IMGUIGraphEditorBase<IMGUIGraphEditor, IMGUIGraphEditor.CustomNodeGraphEditorAttribute, IMGUIGraph>
+    [CustomNodeGraphEditor(typeof(GUIGraph))]
+    public class GUIGraphEditor : GUIGraphEditorBase<GUIGraphEditor, GUIGraphEditor.CustomNodeGraphEditorAttribute, GUIGraph>
     {
-        
 
         /// <summary> Are we currently renaming a node? </summary>
         protected bool isRenaming;
@@ -49,37 +49,37 @@ namespace QFramework.Pro
         
         public virtual Texture2D GetGridTexture()
         {
-            return IMGUIGraphPreferences.GetSettings().gridTexture;
+            return GUIGraphPreferences.GetSettings().gridTexture;
         }
 
         public virtual Texture2D GetSecondaryGridTexture()
         {
-            return IMGUIGraphPreferences.GetSettings().crossTexture;
+            return GUIGraphPreferences.GetSettings().crossTexture;
         }
 
         /// <summary> Return default settings for this graph type. This is the settings the user will load if no previous settings have been saved. </summary>
-        public virtual IMGUIGraphPreferences.Settings GetDefaultPreferences()
+        public virtual GUIGraphPreferences.Settings GetDefaultPreferences()
         {
-            return new IMGUIGraphPreferences.Settings();
+            return new GUIGraphPreferences.Settings();
         }
 
         /// <summary> Returns context node menu path. Null or empty strings for hidden nodes. </summary>
         public virtual string GetNodeMenuName(Type type)
         {
             //Check if type has the CreateNodeMenuAttribute
-            IMGUIGraphNode.CreateNodeMenuAttribute attrib;
-            if (IMGUIGraphUtilities.GetAttrib(type, out attrib)) // Return custom path
+            GUIGraphNode.CreateNodeMenuAttribute attrib;
+            if (GUIGraphUtilities.GetAttrib(type, out attrib)) // Return custom path
                 return attrib.menuName;
             else // Return generated path
-                return IMGUIGraphUtilities.NodeDefaultPath(type);
+                return GUIGraphUtilities.NodeDefaultPath(type);
         }
 
         /// <summary> The order by which the menu items are displayed. </summary>
         public virtual int GetNodeMenuOrder(Type type)
         {
             //Check if type has the CreateNodeMenuAttribute
-            IMGUIGraphNode.CreateNodeMenuAttribute attrib;
-            if (IMGUIGraphUtilities.GetAttrib(type, out attrib)) // Return custom path
+            GUIGraphNode.CreateNodeMenuAttribute attrib;
+            if (GUIGraphUtilities.GetAttrib(type, out attrib)) // Return custom path
                 return attrib.order;
             else
                 return 0;
@@ -88,8 +88,8 @@ namespace QFramework.Pro
         /// <summary> Add items for the context menu when right-clicking this node. Override to add custom menu items. </summary>
         public virtual void AddContextMenuItems(GenericMenu menu)
         {
-            Vector2 pos = IMGUIGraphWindow.current.WindowToGridPosition(Event.current.mousePosition);
-            var nodeTypes = IMGUIGraphReflection.nodeTypes.OrderBy(type => GetNodeMenuOrder(type)).ToArray();
+            Vector2 pos = GUIGraphWindow.current.WindowToGridPosition(Event.current.mousePosition);
+            var nodeTypes = GUIGraphReflection.nodeTypes.OrderBy(type => GetNodeMenuOrder(type)).ToArray();
             for (int i = 0; i < nodeTypes.Length; i++)
             {
                 Type type = nodeTypes[i];
@@ -99,9 +99,9 @@ namespace QFramework.Pro
                 if (string.IsNullOrEmpty(path)) continue;
 
                 // Check if user is allowed to add more of given node type
-                IMGUIGraphNode.DisallowMultipleNodesAttribute disallowAttrib;
+                GUIGraphNode.DisallowMultipleNodesAttribute disallowAttrib;
                 bool disallowed = false;
-                if (IMGUIGraphUtilities.GetAttrib(type, out disallowAttrib))
+                if (GUIGraphUtilities.GetAttrib(type, out disallowAttrib))
                 {
                     int typeCount = target.nodes.Count(x => x.GetType() == type);
                     if (typeCount >= disallowAttrib.max) disallowed = true;
@@ -112,14 +112,14 @@ namespace QFramework.Pro
                 else
                     menu.AddItem(new GUIContent(path), false, () =>
                     {
-                        IMGUIGraphNode node = CreateNode(type, pos);
-                        IMGUIGraphWindow.current.AutoConnect(node);
+                        GUIGraphNode node = CreateNode(type, pos);
+                        GUIGraphWindow.current.AutoConnect(node);
                     });
             }
 
             menu.AddSeparator("");
-            if (IMGUIGraphWindow.copyBuffer != null && IMGUIGraphWindow.copyBuffer.Length > 0)
-                menu.AddItem(new GUIContent("Paste"), false, () => IMGUIGraphWindow.current.PasteNodes(pos));
+            if (GUIGraphWindow.copyBuffer != null && GUIGraphWindow.copyBuffer.Length > 0)
+                menu.AddItem(new GUIContent("Paste"), false, () => GUIGraphWindow.current.PasteNodes(pos));
             else menu.AddDisabledItem(new GUIContent("Paste"));
             // menu.AddItem(new GUIContent("Preferences"), false, () => IMGUIGraphReflection.OpenPreferences());
             menu.AddCustomContextMenuItems(target);
@@ -128,7 +128,7 @@ namespace QFramework.Pro
         /// <summary> Returned gradient is used to color noodles </summary>
         /// <param name="output"> The output this noodle comes from. Never null. </param>
         /// <param name="input"> The output this noodle comes from. Can be null if we are dragging the noodle. </param>
-        public virtual Gradient GetNoodleGradient(IMGUIGraphNodePort output, IMGUIGraphNodePort input)
+        public virtual Gradient GetNoodleGradient(GUIGraphNodePort output, GUIGraphNodePort input)
         {
             Gradient grad = new Gradient();
 
@@ -165,23 +165,23 @@ namespace QFramework.Pro
         /// <summary> Returned float is used for noodle thickness </summary>
         /// <param name="output"> The output this noodle comes from. Never null. </param>
         /// <param name="input"> The output this noodle comes from. Can be null if we are dragging the noodle. </param>
-        public virtual float GetNoodleThickness(IMGUIGraphNodePort output, IMGUIGraphNodePort input)
+        public virtual float GetNoodleThickness(GUIGraphNodePort output, GUIGraphNodePort input)
         {
             return 5f;
         }
 
-        public virtual IMGUIGraphConnectionPath GetNoodlePath(IMGUIGraphNodePort output, IMGUIGraphNodePort input)
+        public virtual GUIGraphConnectionPath GetNoodlePath(GUIGraphNodePort output, GUIGraphNodePort input)
         {
-            return IMGUIGraphPreferences.GetSettings().imguiGraphConnectionPath;
+            return GUIGraphPreferences.GetSettings().guiGraphConnectionPath;
         }
 
-        public virtual IMGUIGraphConnectionStroke GetNoodleStroke(IMGUIGraphNodePort output, IMGUIGraphNodePort input)
+        public virtual GUIGraphConnectionStroke GetNoodleStroke(GUIGraphNodePort output, GUIGraphNodePort input)
         {
-            return IMGUIGraphPreferences.GetSettings().imguiGraphConnectionStroke;
+            return GUIGraphPreferences.GetSettings().guiGraphConnectionStroke;
         }
 
         /// <summary> Returned color is used to color ports </summary>
-        public virtual Color GetPortColor(IMGUIGraphNodePort port)
+        public virtual Color GetPortColor(GUIGraphNodePort port)
         {
             return GetTypeColor(port.ValueType);
         }
@@ -189,11 +189,11 @@ namespace QFramework.Pro
         /// <summary> Returns generated color for a type. This color is editable in preferences </summary>
         public virtual Color GetTypeColor(Type type)
         {
-            return IMGUIGraphPreferences.GetTypeColor(type);
+            return GUIGraphPreferences.GetTypeColor(type);
         }
 
         /// <summary> Override to display custom tooltips </summary>
-        public virtual string GetPortTooltip(IMGUIGraphNodePort port)
+        public virtual string GetPortTooltip(GUIGraphNodePort port)
         {
             Type portType = port.ValueType;
             string tooltip = "";
@@ -210,44 +210,44 @@ namespace QFramework.Pro
         /// <summary> Deal with objects dropped into the graph through DragAndDrop </summary>
         public virtual void OnDropObjects(UnityEngine.Object[] objects)
         {
-            if (GetType() != typeof(IMGUIGraphEditor)) Debug.Log("No OnDropObjects override defined for " + GetType());
+            if (GetType() != typeof(GUIGraphEditor)) Debug.Log("No OnDropObjects override defined for " + GetType());
         }
 
         /// <summary> Create a node and save it in the graph asset </summary>
-        public virtual IMGUIGraphNode CreateNode(Type type, Vector2 position)
+        public virtual GUIGraphNode CreateNode(Type type, Vector2 position)
         {
             Undo.RecordObject(target, "Create Node");
-            IMGUIGraphNode node = target.AddNode(type);
+            GUIGraphNode node = target.AddNode(type);
             Undo.RegisterCreatedObjectUndo(node, "Create Node");
             node.position = position;
             if (node.name == null || node.name.Trim() == "")
-                node.name = IMGUIGraphUtilities.NodeDefaultName(type);
+                node.name = GUIGraphUtilities.NodeDefaultName(type);
             if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(target))) AssetDatabase.AddObjectToAsset(node, target);
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
-            IMGUIGraphWindow.RepaintAll();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            GUIGraphWindow.RepaintAll();
             return node;
         }
 
         /// <summary> Creates a copy of the original node in the graph </summary>
-        public virtual IMGUIGraphNode CopyNode(IMGUIGraphNode original)
+        public virtual GUIGraphNode CopyNode(GUIGraphNode original)
         {
             Undo.RecordObject(target, "Duplicate Node");
-            IMGUIGraphNode node = target.CopyNode(original);
+            GUIGraphNode node = target.CopyNode(original);
             Undo.RegisterCreatedObjectUndo(node, "Duplicate Node");
             node.name = original.name;
             AssetDatabase.AddObjectToAsset(node, target);
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
             return node;
         }
 
         /// <summary> Return false for nodes that can't be removed </summary>
-        public virtual bool CanRemove(IMGUIGraphNode node)
+        public virtual bool CanRemove(GUIGraphNode node)
         {
             // Check graph attributes to see if this node is required
             Type graphType = target.GetType();
-            IMGUIGraph.RequireNodeAttribute[] attribs = Array.ConvertAll(
-                graphType.GetCustomAttributes(typeof(IMGUIGraph.RequireNodeAttribute), true),
-                x => x as IMGUIGraph.RequireNodeAttribute);
+            GUIGraph.RequireNodeAttribute[] attribs = Array.ConvertAll(
+                graphType.GetCustomAttributes(typeof(GUIGraph.RequireNodeAttribute), true),
+                x => x as GUIGraph.RequireNodeAttribute);
             if (attribs.Any(x => x.Requires(node.GetType())))
             {
                 if (target.nodes.Count(x => x.GetType() == node.GetType()) <= 1)
@@ -260,7 +260,7 @@ namespace QFramework.Pro
         }
 
         /// <summary> Safely remove a node and all its connections. </summary>
-        public virtual void RemoveNode(IMGUIGraphNode node)
+        public virtual void RemoveNode(GUIGraphNode node)
         {
             if (!CanRemove(node)) return;
 
@@ -272,14 +272,14 @@ namespace QFramework.Pro
                 Undo.RecordObject(conn.node, "Delete Node");
             target.RemoveNode(node);
             Undo.DestroyObjectImmediate(node);
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
         }
 
 
         [AttributeUsage(AttributeTargets.Class)]
         public class CustomNodeGraphEditorAttribute : Attribute,
-            Internal.IMGUIGraphEditorBase<IMGUIGraphEditor, IMGUIGraphEditor.CustomNodeGraphEditorAttribute,
-                IMGUIGraph>.INodeEditorAttrib
+            Internal.GUIGraphEditorBase<GUIGraphEditor, GUIGraphEditor.CustomNodeGraphEditorAttribute,
+                GUIGraph>.INodeEditorAttrib
         {
             private Type inspectedType;
             public string editorPrefsKey;

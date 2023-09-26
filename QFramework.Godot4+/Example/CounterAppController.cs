@@ -11,7 +11,7 @@ namespace QFramework.Example
         [Export] public Button BtnAdd;
 
         [Export] public Button BtnSub;
-        
+
         public override void _Ready()
         {
             this.GetModel<ICounterAppModel>().Count.RegisterWithInitValue(count =>

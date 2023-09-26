@@ -16,10 +16,10 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> A set of editor-only utilities and extensions for xNode </summary>
-    public static class IMGUIGraphUtilities
+    public static class GUIGraphUtilities
     {
         /// <summary>C#'s Script Icon [The one MonoBhevaiour Scripts have].</summary>
         private static Texture2D scriptIcon = (EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D);

@@ -10,28 +10,28 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Precaches reflection data in editor so we won't have to do it runtime </summary>
-    public static class IMGUIGraphDataCache
+    public static class GUIGraphDataCache
     {
         private static PortDataCache portDataCache;
 
         private static bool Initialized => portDataCache != null;
 
         /// <summary> Update static ports and dynamic ports managed by DynamicPortLists to reflect class fields. </summary>
-        public static void UpdatePorts(IMGUIGraphNode node, Dictionary<string, IMGUIGraphNodePort> ports)
+        public static void UpdatePorts(GUIGraphNode node, Dictionary<string, GUIGraphNodePort> ports)
         {
             if (!Initialized) BuildCache();
 
-            Dictionary<string, IMGUIGraphNodePort> staticPorts = new Dictionary<string, IMGUIGraphNodePort>();
-            Dictionary<string, List<IMGUIGraphNodePort>> removedPorts =
-                new Dictionary<string, List<IMGUIGraphNodePort>>();
+            Dictionary<string, GUIGraphNodePort> staticPorts = new Dictionary<string, GUIGraphNodePort>();
+            Dictionary<string, List<GUIGraphNodePort>> removedPorts =
+                new Dictionary<string, List<GUIGraphNodePort>>();
             System.Type nodeType = node.GetType();
 
-            List<IMGUIGraphNodePort> dynamicListPorts = new List<IMGUIGraphNodePort>();
+            List<GUIGraphNodePort> dynamicListPorts = new List<GUIGraphNodePort>();
 
-            List<IMGUIGraphNodePort> typePortCache;
+            List<GUIGraphNodePort> typePortCache;
             if (portDataCache.TryGetValue(nodeType, out typePortCache))
             {
                 for (int i = 0; i < typePortCache.Count; i++)
@@ -43,10 +43,10 @@ namespace QFramework.Pro
             // Cleanup port dict - Remove nonexisting static ports - update static port types
             // AND update dynamic ports (albeit only those in lists) too, in order to enforce proper serialisation.
             // Loop through current node ports
-            foreach (IMGUIGraphNodePort port in ports.Values.ToList())
+            foreach (GUIGraphNodePort port in ports.Values.ToList())
             {
                 // If port still exists, check it it has been changed
-                IMGUIGraphNodePort staticPort;
+                GUIGraphNodePort staticPort;
                 if (staticPorts.TryGetValue(port.fieldName, out staticPort))
                 {
                     // If port exists but with wrong settings, remove it. Re-add it later.
@@ -76,18 +76,18 @@ namespace QFramework.Pro
             }
 
             // Add missing ports
-            foreach (IMGUIGraphNodePort staticPort in staticPorts.Values)
+            foreach (GUIGraphNodePort staticPort in staticPorts.Values)
             {
                 if (!ports.ContainsKey(staticPort.fieldName))
                 {
-                    IMGUIGraphNodePort port = new IMGUIGraphNodePort(staticPort, node);
+                    GUIGraphNodePort port = new GUIGraphNodePort(staticPort, node);
                     //If we just removed the port, try re-adding the connections
-                    List<IMGUIGraphNodePort> reconnectConnections;
+                    List<GUIGraphNodePort> reconnectConnections;
                     if (removedPorts.TryGetValue(staticPort.fieldName, out reconnectConnections))
                     {
                         for (int i = 0; i < reconnectConnections.Count; i++)
                         {
-                            IMGUIGraphNodePort connection = reconnectConnections[i];
+                            GUIGraphNodePort connection = reconnectConnections[i];
                             if (connection == null) continue;
                             if (port.CanConnectTo(connection)) port.Connect(connection);
                         }
@@ -98,12 +98,12 @@ namespace QFramework.Pro
             }
 
             // Finally, make sure dynamic list port settings correspond to the settings of their "backing port"
-            foreach (IMGUIGraphNodePort listPort in dynamicListPorts)
+            foreach (GUIGraphNodePort listPort in dynamicListPorts)
             {
                 // At this point we know that ports here are dynamic list ports
                 // which have passed name/"backing port" checks, ergo we can proceed more safely.
                 string backingPortName = listPort.fieldName.Split(' ')[0];
-                IMGUIGraphNodePort backingPort = staticPorts[backingPortName];
+                GUIGraphNodePort backingPort = staticPorts[backingPortName];
 
                 // Update port constraints. Creating a new port instead will break the editor, mandating the need for setters.
                 listPort.ValueType = GetBackingValueType(backingPort.ValueType);
@@ -134,7 +134,7 @@ namespace QFramework.Pro
         }
 
         /// <summary>Returns true if the given port is in a dynamic port list.</summary>
-        private static bool IsDynamicListPort(IMGUIGraphNodePort port)
+        private static bool IsDynamicListPort(GUIGraphNodePort port)
         {
             // Ports flagged as "dynamicPortList = true" end up having a "backing port" and a name with an index, but we have
             // no guarantee that a dynamic port called "output 0" is an element in a list backed by a static "output" port.
@@ -148,8 +148,8 @@ namespace QFramework.Pro
             object[] attribs = backingPortInfo.GetCustomAttributes(true);
             return attribs.Any(x =>
             {
-                IMGUIGraphNode.InputAttribute inputAttribute = x as IMGUIGraphNode.InputAttribute;
-                IMGUIGraphNode.OutputAttribute outputAttribute = x as IMGUIGraphNode.OutputAttribute;
+                GUIGraphNode.InputAttribute inputAttribute = x as GUIGraphNode.InputAttribute;
+                GUIGraphNode.OutputAttribute outputAttribute = x as GUIGraphNode.OutputAttribute;
                 return inputAttribute != null && inputAttribute.dynamicPortList ||
                        outputAttribute != null && outputAttribute.dynamicPortList;
             });
@@ -159,7 +159,7 @@ namespace QFramework.Pro
         private static void BuildCache()
         {
             portDataCache = new PortDataCache();
-            System.Type baseType = typeof(IMGUIGraphNode);
+            System.Type baseType = typeof(GUIGraphNode);
             List<System.Type> nodeTypes = new List<System.Type>();
             System.Reflection.Assembly[] assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
 
@@ -200,7 +200,7 @@ namespace QFramework.Pro
 
             // GetFields doesnt return inherited private fields, so walk through base types and pick those up
             System.Type tempType = nodeType;
-            while ((tempType = tempType.BaseType) != typeof(IMGUIGraphNode))
+            while ((tempType = tempType.BaseType) != typeof(GUIGraphNode))
             {
                 FieldInfo[] parentFields = tempType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
                 for (int i = 0; i < parentFields.Length; i++)
@@ -225,10 +225,10 @@ namespace QFramework.Pro
             {
                 //Get InputAttribute and OutputAttribute
                 object[] attribs = fieldInfo[i].GetCustomAttributes(true);
-                IMGUIGraphNode.InputAttribute inputAttrib =
-                    attribs.FirstOrDefault(x => x is IMGUIGraphNode.InputAttribute) as IMGUIGraphNode.InputAttribute;
-                IMGUIGraphNode.OutputAttribute outputAttrib =
-                    attribs.FirstOrDefault(x => x is IMGUIGraphNode.OutputAttribute) as IMGUIGraphNode.OutputAttribute;
+                GUIGraphNode.InputAttribute inputAttrib =
+                    attribs.FirstOrDefault(x => x is GUIGraphNode.InputAttribute) as GUIGraphNode.InputAttribute;
+                GUIGraphNode.OutputAttribute outputAttrib =
+                    attribs.FirstOrDefault(x => x is GUIGraphNode.OutputAttribute) as GUIGraphNode.OutputAttribute;
 
                 if (inputAttrib == null && outputAttrib == null) continue;
 
@@ -238,17 +238,17 @@ namespace QFramework.Pro
                 else
                 {
                     if (!portDataCache.ContainsKey(nodeType))
-                        portDataCache.Add(nodeType, new List<IMGUIGraphNodePort>());
-                    portDataCache[nodeType].Add(new IMGUIGraphNodePort(fieldInfo[i]));
+                        portDataCache.Add(nodeType, new List<GUIGraphNodePort>());
+                    portDataCache[nodeType].Add(new GUIGraphNodePort(fieldInfo[i]));
                 }
             }
         }
 
         [System.Serializable]
-        private class PortDataCache : Dictionary<System.Type, List<IMGUIGraphNodePort>>, ISerializationCallbackReceiver
+        private class PortDataCache : Dictionary<System.Type, List<GUIGraphNodePort>>, ISerializationCallbackReceiver
         {
             [SerializeField] private List<System.Type> keys = new List<System.Type>();
-            [SerializeField] private List<List<IMGUIGraphNodePort>> values = new List<List<IMGUIGraphNodePort>>();
+            [SerializeField] private List<List<GUIGraphNodePort>> values = new List<List<GUIGraphNodePort>>();
 
             // save the dictionary to lists
             public void OnBeforeSerialize()

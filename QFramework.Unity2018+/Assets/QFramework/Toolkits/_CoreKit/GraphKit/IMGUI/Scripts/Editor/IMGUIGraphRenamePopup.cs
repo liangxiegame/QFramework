@@ -9,23 +9,23 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Utility for renaming assets </summary>
-    public class IMGUIGraphRenamePopup : EditorWindow
+    public class GUIGraphRenamePopup : EditorWindow
     {
         private const string inputControlName = "nameInput";
 
-        public static IMGUIGraphRenamePopup current { get; private set; }
+        public static GUIGraphRenamePopup current { get; private set; }
         public Object target;
         public string input;
 
         private bool firstFrame = true;
 
         /// <summary> Show a rename popup for an asset at mouse position. Will trigger reimport of the asset on apply.
-        public static IMGUIGraphRenamePopup Show(Object target, float width = 200)
+        public static GUIGraphRenamePopup Show(Object target, float width = 200)
         {
-            IMGUIGraphRenamePopup window = EditorWindow.GetWindow<IMGUIGraphRenamePopup>(true, "Rename " + target.name, true);
+            GUIGraphRenamePopup window = EditorWindow.GetWindow<GUIGraphRenamePopup>(true, "Rename " + target.name, true);
             if (current != null) current.Close();
             current = window;
             window.target = target;
@@ -69,9 +69,9 @@ namespace QFramework.Pro
             {
                 if (GUILayout.Button("Revert to default") || (e.isKey && e.keyCode == KeyCode.Return))
                 {
-                    target.name = IMGUIGraphUtilities.NodeDefaultName(target.GetType());
-                    IMGUIGraphNodeEditor.GetEditor((IMGUIGraphNode)target, IMGUIGraphWindow.current).OnRename();
-                    AssetDatabase.SetMainObject((target as IMGUIGraphNode).graph, AssetDatabase.GetAssetPath(target));
+                    target.name = GUIGraphUtilities.NodeDefaultName(target.GetType());
+                    GUIGraphNodeEditor.GetEditor((GUIGraphNode)target, GUIGraphWindow.current).OnRename();
+                    AssetDatabase.SetMainObject((target as GUIGraphNode).graph, AssetDatabase.GetAssetPath(target));
                     AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(target));
                     Close();
                     target.TriggerOnValidate();
@@ -83,8 +83,8 @@ namespace QFramework.Pro
                 if (GUILayout.Button("Apply") || (e.isKey && e.keyCode == KeyCode.Return))
                 {
                     target.name = input;
-                    IMGUIGraphNodeEditor.GetEditor((IMGUIGraphNode)target, IMGUIGraphWindow.current).OnRename();
-                    AssetDatabase.SetMainObject((target as IMGUIGraphNode).graph, AssetDatabase.GetAssetPath(target));
+                    GUIGraphNodeEditor.GetEditor((GUIGraphNode)target, GUIGraphWindow.current).OnRename();
+                    AssetDatabase.SetMainObject((target as GUIGraphNode).graph, AssetDatabase.GetAssetPath(target));
                     AssetDatabase.ImportAsset(AssetDatabase.GetAssetPath(target));
                     Close();
                     target.TriggerOnValidate();

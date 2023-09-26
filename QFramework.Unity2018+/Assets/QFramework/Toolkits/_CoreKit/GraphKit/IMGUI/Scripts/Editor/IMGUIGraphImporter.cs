@@ -12,10 +12,10 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Deals with modified assets </summary>
-    class IMGUIGraphImporter : AssetPostprocessor
+    class GUIGraphImporter : AssetPostprocessor
     {
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets,
             string[] movedAssets, string[] movedFromAssetPaths)
@@ -26,17 +26,17 @@ namespace QFramework.Pro
                 if (Path.GetExtension(path) != ".asset") continue;
 
                 // Get the object that is requested for deletion
-                IMGUIGraph graph = AssetDatabase.LoadAssetAtPath<IMGUIGraph>(path);
+                GUIGraph graph = AssetDatabase.LoadAssetAtPath<GUIGraph>(path);
                 if (graph == null) continue;
 
                 // Get attributes
                 Type graphType = graph.GetType();
-                IMGUIGraph.RequireNodeAttribute[] attribs = Array.ConvertAll(
-                    graphType.GetCustomAttributes(typeof(IMGUIGraph.RequireNodeAttribute), true),
-                    x => x as IMGUIGraph.RequireNodeAttribute);
+                GUIGraph.RequireNodeAttribute[] attribs = Array.ConvertAll(
+                    graphType.GetCustomAttributes(typeof(GUIGraph.RequireNodeAttribute), true),
+                    x => x as GUIGraph.RequireNodeAttribute);
 
                 Vector2 position = Vector2.zero;
-                foreach (IMGUIGraph.RequireNodeAttribute attrib in attribs)
+                foreach (GUIGraph.RequireNodeAttribute attrib in attribs)
                 {
                     if (attrib.type0 != null) AddRequired(graph, attrib.type0, ref position);
                     if (attrib.type1 != null) AddRequired(graph, attrib.type1, ref position);
@@ -45,15 +45,15 @@ namespace QFramework.Pro
             }
         }
 
-        private static void AddRequired(IMGUIGraph graph, Type type, ref Vector2 position)
+        private static void AddRequired(GUIGraph graph, Type type, ref Vector2 position)
         {
             if (!graph.nodes.Any(x => x.GetType() == type))
             {
-                IMGUIGraphNode node = graph.AddNode(type);
+                GUIGraphNode node = graph.AddNode(type);
                 node.position = position;
                 position.x += 200;
                 if (node.name == null || node.name.Trim() == "")
-                    node.name = IMGUIGraphUtilities.NodeDefaultName(type);
+                    node.name = GUIGraphUtilities.NodeDefaultName(type);
                 if (!string.IsNullOrEmpty(AssetDatabase.GetAssetPath(graph)))
                     AssetDatabase.AddObjectToAsset(node, graph);
             }

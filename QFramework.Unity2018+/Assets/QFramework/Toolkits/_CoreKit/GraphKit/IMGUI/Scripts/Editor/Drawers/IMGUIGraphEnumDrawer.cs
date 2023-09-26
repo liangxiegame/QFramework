@@ -10,10 +10,10 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    [CustomPropertyDrawer(typeof(IMGUIGraphEnumAttribute))]
-    public class IMGUIGraphEnumDrawer : PropertyDrawer
+    [CustomPropertyDrawer(typeof(GUIGraphEnumAttribute))]
+    public class GUIGraphEnumDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -45,7 +45,7 @@ namespace QFramework.Pro
             {
                 // Position is all wrong if we show the dropdown during the node draw phase.
                 // Instead, add it to onLateGUI to display it later.
-                IMGUIGraphWindow.current.onLateGUI += () => ShowContextMenuAtMouse(property);
+                GUIGraphWindow.current.onLateGUI += () => ShowContextMenuAtMouse(property);
             }
         }
 

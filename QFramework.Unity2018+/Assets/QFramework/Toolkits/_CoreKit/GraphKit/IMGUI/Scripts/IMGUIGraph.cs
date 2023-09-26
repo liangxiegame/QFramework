@@ -9,40 +9,39 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    /// <summary> Base class for all node graphs </summary>
     [Serializable]
-    public abstract class IMGUIGraph : ScriptableObject
+    public abstract class GUIGraph : ScriptableObject
     {
 
         public virtual string Name => this.name;
         
         /// <summary> All nodes in the graph. <para/>
         /// See: <see cref="AddNode{T}"/> </summary>
-        [SerializeField] public List<IMGUIGraphNode> nodes = new List<IMGUIGraphNode>();
+        [SerializeField] public List<GUIGraphNode> nodes = new List<GUIGraphNode>();
 
         /// <summary> Add a node to the graph by type (convenience method - will call the System.Type version) </summary>
-        public T AddNode<T>() where T : IMGUIGraphNode
+        public T AddNode<T>() where T : GUIGraphNode
         {
             return AddNode(typeof(T)) as T;
         }
 
         /// <summary> Add a node to the graph by type </summary>
-        public virtual IMGUIGraphNode AddNode(Type type)
+        public virtual GUIGraphNode AddNode(Type type)
         {
-            IMGUIGraphNode.graphHotfix = this;
-            IMGUIGraphNode node = ScriptableObject.CreateInstance(type) as IMGUIGraphNode;
+            GUIGraphNode.graphHotfix = this;
+            GUIGraphNode node = ScriptableObject.CreateInstance(type) as GUIGraphNode;
             node.graph = this;
             nodes.Add(node);
             return node;
         }
 
         /// <summary> Creates a copy of the original node in the graph </summary>
-        public virtual IMGUIGraphNode CopyNode(IMGUIGraphNode original)
+        public virtual GUIGraphNode CopyNode(GUIGraphNode original)
         {
-            IMGUIGraphNode.graphHotfix = this;
-            IMGUIGraphNode node = ScriptableObject.Instantiate(original);
+            GUIGraphNode.graphHotfix = this;
+            GUIGraphNode node = ScriptableObject.Instantiate(original);
             node.graph = this;
             node.ClearConnections();
             nodes.Add(node);
@@ -51,7 +50,7 @@ namespace QFramework.Pro
 
         /// <summary> Safely remove a node and all its connections </summary>
         /// <param name="node"> The node to remove </param>
-        public virtual void RemoveNode(IMGUIGraphNode node)
+        public virtual void RemoveNode(GUIGraphNode node)
         {
             node.ClearConnections();
             nodes.Remove(node);
@@ -73,16 +72,16 @@ namespace QFramework.Pro
         }
 
         /// <summary> Create a new deep copy of this graph </summary>
-        public virtual IMGUIGraph Copy()
+        public virtual GUIGraph Copy()
         {
             // Instantiate a new nodegraph instance
-            IMGUIGraph graph = Instantiate(this);
+            GUIGraph graph = Instantiate(this);
             // Instantiate all nodes inside the graph
             for (int i = 0; i < nodes.Count; i++)
             {
                 if (nodes[i] == null) continue;
-                IMGUIGraphNode.graphHotfix = graph;
-                IMGUIGraphNode node = Instantiate(nodes[i]) as IMGUIGraphNode;
+                GUIGraphNode.graphHotfix = graph;
+                GUIGraphNode node = Instantiate(nodes[i]) as GUIGraphNode;
                 node.graph = graph;
                 graph.nodes[i] = node;
             }
@@ -91,7 +90,7 @@ namespace QFramework.Pro
             for (int i = 0; i < graph.nodes.Count; i++)
             {
                 if (graph.nodes[i] == null) continue;
-                foreach (IMGUIGraphNodePort port in graph.nodes[i].Ports)
+                foreach (GUIGraphNodePort port in graph.nodes[i].Ports)
                 {
                     port.Redirect(nodes, graph.nodes);
                 }

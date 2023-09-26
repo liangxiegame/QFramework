@@ -13,10 +13,10 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Contains reflection-related extensions built for xNode </summary>
-    public static class IMGUIGraphReflection
+    public static class GUIGraphReflection
     {
         [NonSerialized] private static Dictionary<Type, Color> nodeTint;
         [NonSerialized] private static Dictionary<Type, int> nodeWidth;
@@ -41,7 +41,7 @@ namespace QFramework.Pro
         public static Type[] GetNodeTypes()
         {
             //Get all classes deriving from Node via reflection
-            return GetDerivedTypes(typeof(IMGUIGraphNode));
+            return GetDerivedTypes(typeof(GUIGraphNode));
         }
 
         /// <summary> Custom node tint colors defined with [NodeColor(r, g, b)] </summary>
@@ -49,7 +49,7 @@ namespace QFramework.Pro
         {
             if (nodeTint == null)
             {
-                CacheAttributes<Color, IMGUIGraphNode.NodeTintAttribute>(ref nodeTint, x => x.color);
+                CacheAttributes<Color, GUIGraphNode.NodeTintAttribute>(ref nodeTint, x => x.color);
             }
 
             return nodeTint.TryGetValue(nodeType, out tint);
@@ -60,7 +60,7 @@ namespace QFramework.Pro
         {
             if (nodeWidth == null)
             {
-                CacheAttributes<int, IMGUIGraphNode.NodeWidthAttribute>(ref nodeWidth, x => x.width);
+                CacheAttributes<int, GUIGraphNode.NodeWidthAttribute>(ref nodeWidth, x => x.width);
             }
 
             return nodeWidth.TryGetValue(nodeType, out width);
@@ -85,7 +85,7 @@ namespace QFramework.Pro
             FieldInfo field = type.GetField(fieldName,
                 BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
             // Search base classes for private fields only. Public fields are found above
-            while (field == null && (type = type.BaseType) != typeof(IMGUIGraphNode))
+            while (field == null && (type = type.BaseType) != typeof(GUIGraphNode))
                 field = type.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
             return field;
         }

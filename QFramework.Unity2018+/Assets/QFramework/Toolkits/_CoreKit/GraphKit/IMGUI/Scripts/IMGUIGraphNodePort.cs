@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 Thor Brigsted UNDER MIT LICENSE  see licenses.txt 
- * Copyright (c) 2022 liangxiegame UNDER Paid MIT LICENSE  see licenses.txt
+ * Copyright (c) 2022 ~ 2023 liangxiegame UNDER Paid MIT LICENSE  see licenses.txt
  *
  * xNode: https://github.com/Siccity/xNode
  ****************************************************************************/
@@ -10,10 +10,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     [Serializable]
-    public class IMGUIGraphNodePort
+    public class GUIGraphNodePort
     {
         public enum IO
         {
@@ -27,7 +27,7 @@ namespace QFramework.Pro
         }
 
         /// <summary> Return the first non-null connection </summary>
-        public IMGUIGraphNodePort Connection
+        public GUIGraphNodePort Connection
         {
             get
             {
@@ -46,13 +46,13 @@ namespace QFramework.Pro
             internal set { _direction = value; }
         }
 
-        public IMGUIGraphNode.ConnectionType connectionType
+        public GUIGraphNode.ConnectionType connectionType
         {
             get { return _connectionType; }
             internal set { _connectionType = value; }
         }
 
-        public IMGUIGraphNode.TypeConstraint typeConstraint
+        public GUIGraphNode.TypeConstraint typeConstraint
         {
             get { return _typeConstraint; }
             internal set { _typeConstraint = value; }
@@ -79,10 +79,7 @@ namespace QFramework.Pro
             get { return _fieldName; }
         }
 
-        public IMGUIGraphNode node
-        {
-            get { return _node; }
-        }
+        public GUIGraphNode node => _node;
 
         public bool IsDynamic
         {
@@ -112,16 +109,16 @@ namespace QFramework.Pro
         private Type valueType;
 
         [SerializeField] private string _fieldName;
-        [SerializeField] private IMGUIGraphNode _node;
+        [SerializeField] private GUIGraphNode _node;
         [SerializeField] private string _typeQualifiedName;
         [SerializeField] private List<PortConnection> connections = new List<PortConnection>();
         [SerializeField] private IO _direction;
-        [SerializeField] private IMGUIGraphNode.ConnectionType _connectionType;
-        [SerializeField] private IMGUIGraphNode.TypeConstraint _typeConstraint;
+        [SerializeField] private GUIGraphNode.ConnectionType _connectionType;
+        [SerializeField] private GUIGraphNode.TypeConstraint _typeConstraint;
         [SerializeField] private bool _dynamic;
 
         /// <summary> Construct a static targetless nodeport. Used as a template. </summary>
-        public IMGUIGraphNodePort(FieldInfo fieldInfo)
+        public GUIGraphNodePort(FieldInfo fieldInfo)
         {
             _fieldName = fieldInfo.Name;
             ValueType = fieldInfo.FieldType;
@@ -129,23 +126,23 @@ namespace QFramework.Pro
             var attribs = fieldInfo.GetCustomAttributes(false);
             for (int i = 0; i < attribs.Length; i++)
             {
-                if (attribs[i] is IMGUIGraphNode.InputAttribute)
+                if (attribs[i] is GUIGraphNode.InputAttribute)
                 {
                     _direction = IO.Input;
-                    _connectionType = (attribs[i] as IMGUIGraphNode.InputAttribute).connectionType;
-                    _typeConstraint = (attribs[i] as IMGUIGraphNode.InputAttribute).typeConstraint;
+                    _connectionType = (attribs[i] as GUIGraphNode.InputAttribute).connectionType;
+                    _typeConstraint = (attribs[i] as GUIGraphNode.InputAttribute).typeConstraint;
                 }
-                else if (attribs[i] is IMGUIGraphNode.OutputAttribute)
+                else if (attribs[i] is GUIGraphNode.OutputAttribute)
                 {
                     _direction = IO.Output;
-                    _connectionType = (attribs[i] as IMGUIGraphNode.OutputAttribute).connectionType;
-                    _typeConstraint = (attribs[i] as IMGUIGraphNode.OutputAttribute).typeConstraint;
+                    _connectionType = (attribs[i] as GUIGraphNode.OutputAttribute).connectionType;
+                    _typeConstraint = (attribs[i] as GUIGraphNode.OutputAttribute).typeConstraint;
                 }
             }
         }
 
         /// <summary> Copy a nodePort but assign it to another node. </summary>
-        public IMGUIGraphNodePort(IMGUIGraphNodePort nodePort, IMGUIGraphNode node)
+        public GUIGraphNodePort(GUIGraphNodePort nodePort, GUIGraphNode node)
         {
             _fieldName = nodePort._fieldName;
             ValueType = nodePort.valueType;
@@ -157,8 +154,8 @@ namespace QFramework.Pro
         }
 
         /// <summary> Construct a dynamic port. Dynamic ports are not forgotten on reimport, and is ideal for runtime-created ports. </summary>
-        public IMGUIGraphNodePort(string fieldName, Type type, IO direction, IMGUIGraphNode.ConnectionType connectionType,
-            IMGUIGraphNode.TypeConstraint typeConstraint, IMGUIGraphNode node)
+        public GUIGraphNodePort(string fieldName, Type type, IO direction, GUIGraphNode.ConnectionType connectionType,
+            GUIGraphNode.TypeConstraint typeConstraint, GUIGraphNode node)
         {
             _fieldName = fieldName;
             this.ValueType = type;
@@ -194,7 +191,7 @@ namespace QFramework.Pro
         /// <returns> <see cref="NodePort.GetOutputValue"/> </returns>
         public object GetInputValue()
         {
-            IMGUIGraphNodePort connectedPort = Connection;
+            GUIGraphNodePort connectedPort = Connection;
             if (connectedPort == null) return null;
             return connectedPort.GetOutputValue();
         }
@@ -206,7 +203,7 @@ namespace QFramework.Pro
             object[] objs = new object[ConnectionCount];
             for (int i = 0; i < ConnectionCount; i++)
             {
-                IMGUIGraphNodePort connectedPort = connections[i].Port;
+                GUIGraphNodePort connectedPort = connections[i].Port;
                 if (connectedPort == null)
                 {
                     // if we happen to find a null port, remove it and look again
@@ -292,7 +289,7 @@ namespace QFramework.Pro
 
         /// <summary> Connect this <see cref="NodePort"/> to another </summary>
         /// <param name="port">The <see cref="NodePort"/> to connect to</param>
-        public void Connect(IMGUIGraphNodePort port)
+        public void Connect(GUIGraphNodePort port)
         {
             if (connections == null) connections = new List<PortConnection>();
             if (port == null)
@@ -322,12 +319,12 @@ namespace QFramework.Pro
             UnityEditor.Undo.RecordObject(node, "Connect Port");
             UnityEditor.Undo.RecordObject(port.node, "Connect Port");
 #endif
-            if (port.connectionType == IMGUIGraphNode.ConnectionType.Override && port.ConnectionCount != 0)
+            if (port.connectionType == GUIGraphNode.ConnectionType.Override && port.ConnectionCount != 0)
             {
                 port.ClearConnections();
             }
 
-            if (connectionType == IMGUIGraphNode.ConnectionType.Override && ConnectionCount != 0)
+            if (connectionType == GUIGraphNode.ConnectionType.Override && ConnectionCount != 0)
             {
                 ClearConnections();
             }
@@ -339,19 +336,19 @@ namespace QFramework.Pro
             port.node.OnCreateConnection(this, port);
         }
 
-        public List<IMGUIGraphNodePort> GetConnections()
+        public List<GUIGraphNodePort> GetConnections()
         {
-            List<IMGUIGraphNodePort> result = new List<IMGUIGraphNodePort>();
+            List<GUIGraphNodePort> result = new List<GUIGraphNodePort>();
             for (int i = 0; i < connections.Count; i++)
             {
-                IMGUIGraphNodePort port = GetConnection(i);
+                GUIGraphNodePort port = GetConnection(i);
                 if (port != null) result.Add(port);
             }
 
             return result;
         }
 
-        public IMGUIGraphNodePort GetConnection(int i)
+        public GUIGraphNodePort GetConnection(int i)
         {
             //If the connection is broken for some reason, remove it.
             if (connections[i].node == null || string.IsNullOrEmpty(connections[i].fieldName))
@@ -360,7 +357,7 @@ namespace QFramework.Pro
                 return null;
             }
 
-            IMGUIGraphNodePort port = connections[i].node.GetPort(connections[i].fieldName);
+            GUIGraphNodePort port = connections[i].node.GetPort(connections[i].fieldName);
             if (port == null)
             {
                 connections.RemoveAt(i);
@@ -371,7 +368,7 @@ namespace QFramework.Pro
         }
 
         /// <summary> Get index of the connection connecting this and specified ports </summary>
-        public int GetConnectionIndex(IMGUIGraphNodePort port)
+        public int GetConnectionIndex(GUIGraphNodePort port)
         {
             for (int i = 0; i < ConnectionCount; i++)
             {
@@ -381,7 +378,7 @@ namespace QFramework.Pro
             return -1;
         }
 
-        public bool IsConnectedTo(IMGUIGraphNodePort port)
+        public bool IsConnectedTo(GUIGraphNodePort port)
         {
             for (int i = 0; i < connections.Count; i++)
             {
@@ -392,10 +389,10 @@ namespace QFramework.Pro
         }
 
         /// <summary> Returns true if this port can connect to specified port </summary>
-        public bool CanConnectTo(IMGUIGraphNodePort port)
+        public bool CanConnectTo(GUIGraphNodePort port)
         {
             // Figure out which is input and which is output
-            IMGUIGraphNodePort input = null, output = null;
+            GUIGraphNodePort input = null, output = null;
             if (IsInput) input = this;
             else output = this;
             if (port.IsInput) input = port;
@@ -403,25 +400,25 @@ namespace QFramework.Pro
             // If there isn't one of each, they can't connect
             if (input == null || output == null) return false;
             // Check input type constraints
-            if (input.typeConstraint == IMGUIGraphNode.TypeConstraint.Inherited &&
+            if (input.typeConstraint == GUIGraphNode.TypeConstraint.Inherited &&
                 !input.ValueType.IsAssignableFrom(output.ValueType)) return false;
-            if (input.typeConstraint == IMGUIGraphNode.TypeConstraint.Strict && input.ValueType != output.ValueType)
+            if (input.typeConstraint == GUIGraphNode.TypeConstraint.Strict && input.ValueType != output.ValueType)
                 return false;
-            if (input.typeConstraint == IMGUIGraphNode.TypeConstraint.InheritedInverse &&
+            if (input.typeConstraint == GUIGraphNode.TypeConstraint.InheritedInverse &&
                 !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
             // Check output type constraints
-            if (output.typeConstraint == IMGUIGraphNode.TypeConstraint.Inherited &&
+            if (output.typeConstraint == GUIGraphNode.TypeConstraint.Inherited &&
                 !input.ValueType.IsAssignableFrom(output.ValueType)) return false;
-            if (output.typeConstraint == IMGUIGraphNode.TypeConstraint.Strict &&
+            if (output.typeConstraint == GUIGraphNode.TypeConstraint.Strict &&
                 input.ValueType != output.ValueType) return false;
-            if (output.typeConstraint == IMGUIGraphNode.TypeConstraint.InheritedInverse &&
+            if (output.typeConstraint == GUIGraphNode.TypeConstraint.InheritedInverse &&
                 !output.ValueType.IsAssignableFrom(input.ValueType)) return false;
             // Success
             return true;
         }
 
         /// <summary> Disconnect this port from another port </summary>
-        public void Disconnect(IMGUIGraphNodePort port)
+        public void Disconnect(GUIGraphNodePort port)
         {
             // Remove this ports connection to the other
             for (int i = connections.Count - 1; i >= 0; i--)
@@ -453,7 +450,7 @@ namespace QFramework.Pro
         public void Disconnect(int i)
         {
             // Remove the other ports connection to this port
-            IMGUIGraphNodePort otherPort = connections[i].Port;
+            GUIGraphNodePort otherPort = connections[i].Port;
             if (otherPort != null)
             {
                 for (int k = 0; k < otherPort.connections.Count; k++)
@@ -488,13 +485,13 @@ namespace QFramework.Pro
         }
 
         /// <summary> Swap connections with another node </summary>
-        public void SwapConnections(IMGUIGraphNodePort targetPort)
+        public void SwapConnections(GUIGraphNodePort targetPort)
         {
             int aConnectionCount = connections.Count;
             int bConnectionCount = targetPort.connections.Count;
 
-            List<IMGUIGraphNodePort> portConnections = new List<IMGUIGraphNodePort>();
-            List<IMGUIGraphNodePort> targetPortConnections = new List<IMGUIGraphNodePort>();
+            List<GUIGraphNodePort> portConnections = new List<GUIGraphNodePort>();
+            List<GUIGraphNodePort> targetPortConnections = new List<GUIGraphNodePort>();
 
             // Cache port connections
             for (int i = 0; i < aConnectionCount; i++)
@@ -517,19 +514,19 @@ namespace QFramework.Pro
         }
 
         /// <summary> Copy all connections pointing to a node and add them to this one </summary>
-        public void AddConnections(IMGUIGraphNodePort targetPort)
+        public void AddConnections(GUIGraphNodePort targetPort)
         {
             int connectionCount = targetPort.ConnectionCount;
             for (int i = 0; i < connectionCount; i++)
             {
                 PortConnection connection = targetPort.connections[i];
-                IMGUIGraphNodePort otherPort = connection.Port;
+                GUIGraphNodePort otherPort = connection.Port;
                 Connect(otherPort);
             }
         }
 
         /// <summary> Move all connections pointing to this node, to another node </summary>
-        public void MoveConnections(IMGUIGraphNodePort targetPort)
+        public void MoveConnections(GUIGraphNodePort targetPort)
         {
             int connectionCount = connections.Count;
 
@@ -537,7 +534,7 @@ namespace QFramework.Pro
             for (int i = 0; i < connectionCount; i++)
             {
                 PortConnection connection = targetPort.connections[i];
-                IMGUIGraphNodePort otherPort = connection.Port;
+                GUIGraphNodePort otherPort = connection.Port;
                 Connect(otherPort);
             }
 
@@ -545,7 +542,7 @@ namespace QFramework.Pro
         }
 
         /// <summary> Swap connected nodes from the old list with nodes from the new list </summary>
-        public void Redirect(List<IMGUIGraphNode> oldNodes, List<IMGUIGraphNode> newNodes)
+        public void Redirect(List<GUIGraphNode> oldNodes, List<GUIGraphNode> newNodes)
         {
             foreach (PortConnection connection in connections)
             {
@@ -558,19 +555,19 @@ namespace QFramework.Pro
         private class PortConnection
         {
             [SerializeField] public string fieldName;
-            [SerializeField] public IMGUIGraphNode node;
+            [SerializeField] public GUIGraphNode node;
 
-            public IMGUIGraphNodePort Port
+            public GUIGraphNodePort Port
             {
                 get { return port != null ? port : port = GetPort(); }
             }
 
-            [NonSerialized] private IMGUIGraphNodePort port;
+            [NonSerialized] private GUIGraphNodePort port;
 
             /// <summary> Extra connection path points for organization </summary>
             [SerializeField] public List<Vector2> reroutePoints = new List<Vector2>();
 
-            public PortConnection(IMGUIGraphNodePort port)
+            public PortConnection(GUIGraphNodePort port)
             {
                 this.port = port;
                 node = port.node;
@@ -578,7 +575,7 @@ namespace QFramework.Pro
             }
 
             /// <summary> Returns the port that this <see cref="PortConnection"/> points to </summary>
-            private IMGUIGraphNodePort GetPort()
+            private GUIGraphNodePort GetPort()
             {
                 if (node == null || string.IsNullOrEmpty(fieldName)) return null;
                 return node.GetPort(fieldName);

@@ -12,9 +12,9 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    public enum IMGUIGraphConnectionPath
+    public enum GUIGraphConnectionPath
     {
         Curvy,
         Straight,
@@ -22,16 +22,17 @@ namespace QFramework.Pro
         ShaderLab
     }
 
-    public enum IMGUIGraphConnectionStroke
+    public enum GUIGraphConnectionStroke
     {
         Full,
         Dashed
     }
+    
 
-    public static class IMGUIGraphPreferences
+    public static class GUIGraphPreferences
     {
         /// <summary> The last editor we checked. This should be the one we modify </summary>
-        private static IMGUIGraphEditor lastEditor;
+        private static GUIGraphEditor lastEditor;
 
         /// <summary> The last key we checked. This should be the one we modify </summary>
         private static string lastKey = "GraphKit.UMGI.Settings";
@@ -86,8 +87,8 @@ namespace QFramework.Pro
             public bool portTooltips = true;
             [SerializeField] private string typeColorsData = "";
             [NonSerialized] public Dictionary<string, Color> typeColors = new Dictionary<string, Color>();
-            [FormerlySerializedAs("noodleType")] public IMGUIGraphConnectionPath imguiGraphConnectionPath = IMGUIGraphConnectionPath.Curvy;
-            public IMGUIGraphConnectionStroke imguiGraphConnectionStroke = IMGUIGraphConnectionStroke.Full;
+            [FormerlySerializedAs("imguiGraphConnectionPath")] [FormerlySerializedAs("noodleType")] public GUIGraphConnectionPath guiGraphConnectionPath = GUIGraphConnectionPath.Curvy;
+            [FormerlySerializedAs("imguiGraphConnectionStroke")] public GUIGraphConnectionStroke guiGraphConnectionStroke = GUIGraphConnectionStroke.Full;
 
             private Texture2D _gridTexture;
 
@@ -96,7 +97,7 @@ namespace QFramework.Pro
                 get
                 {
                     if (_gridTexture == null)
-                        _gridTexture = IMGUIGraphResources.GenerateGridTexture(gridLineColor, gridBgColor);
+                        _gridTexture = GUIGraphResources.GenerateGridTexture(gridLineColor, gridBgColor);
                     return _gridTexture;
                 }
             }
@@ -107,7 +108,7 @@ namespace QFramework.Pro
             {
                 get
                 {
-                    if (_crossTexture == null) _crossTexture = IMGUIGraphResources.GenerateCrossTexture(gridLineColor);
+                    if (_crossTexture == null) _crossTexture = GUIGraphResources.GenerateCrossTexture(gridLineColor);
                     return _crossTexture;
                 }
             }
@@ -141,17 +142,17 @@ namespace QFramework.Pro
         /// <summary> Get settings of current active editor </summary>
         public static Settings GetSettings()
         {
-            if (IMGUIGraphWindow.current == null) return new Settings();
+            if (QFramework.GUIGraphWindow.current == null) return new Settings();
 
-            if (lastEditor != IMGUIGraphWindow.current.graphEditor)
+            if (lastEditor != GUIGraphWindow.current.graphEditor)
             {
-                object[] attribs = IMGUIGraphWindow.current.graphEditor.GetType()
-                    .GetCustomAttributes(typeof(IMGUIGraphEditor.CustomNodeGraphEditorAttribute), true);
+                object[] attribs = GUIGraphWindow.current.graphEditor.GetType()
+                    .GetCustomAttributes(typeof(GUIGraphEditor.CustomNodeGraphEditorAttribute), true);
                 if (attribs.Length == 1)
                 {
-                    IMGUIGraphEditor.CustomNodeGraphEditorAttribute attrib =
-                        attribs[0] as IMGUIGraphEditor.CustomNodeGraphEditorAttribute;
-                    lastEditor = IMGUIGraphWindow.current.graphEditor;
+                    GUIGraphEditor.CustomNodeGraphEditorAttribute attrib =
+                        attribs[0] as GUIGraphEditor.CustomNodeGraphEditorAttribute;
+                    lastEditor = GUIGraphWindow.current.graphEditor;
                     lastKey = attrib.editorPrefsKey;
                 }
                 else return null;
@@ -181,7 +182,7 @@ namespace QFramework.Pro
         private static void PreferencesGUI()
         {
             VerifyLoaded();
-            Settings settings = IMGUIGraphPreferences.settings[lastKey];
+            Settings settings = GUIGraphPreferences.settings[lastKey];
 
             if (GUILayout.Button(new GUIContent("Documentation", "https://github.com/Siccity/xNode/wiki"),
                     GUILayout.Width(100))) Application.OpenURL("https://github.com/Siccity/xNode/wiki");
@@ -219,7 +220,7 @@ namespace QFramework.Pro
             {
                 SavePrefs(key, settings);
 
-                IMGUIGraphWindow.RepaintAll();
+                GUIGraphWindow.RepaintAll();
             }
 
             EditorGUILayout.Space();
@@ -241,9 +242,9 @@ namespace QFramework.Pro
             //Label
             EditorGUILayout.LabelField("Node", EditorStyles.boldLabel);
             settings.highlightColor = EditorGUILayout.ColorField("Selection", settings.highlightColor);
-            settings.imguiGraphConnectionPath = (IMGUIGraphConnectionPath)EditorGUILayout.EnumPopup("Noodle path", (Enum)settings.imguiGraphConnectionPath);
-            settings.imguiGraphConnectionStroke =
-                (IMGUIGraphConnectionStroke)EditorGUILayout.EnumPopup("Noodle stroke", (Enum)settings.imguiGraphConnectionStroke);
+            settings.guiGraphConnectionPath = (GUIGraphConnectionPath)EditorGUILayout.EnumPopup("Noodle path", (Enum)settings.guiGraphConnectionPath);
+            settings.guiGraphConnectionStroke =
+                (GUIGraphConnectionStroke)EditorGUILayout.EnumPopup("Noodle stroke", (Enum)settings.guiGraphConnectionStroke);
             settings.portTooltips = EditorGUILayout.Toggle("Port Tooltips", settings.portTooltips);
             settings.dragToCreate =
                 EditorGUILayout.Toggle(
@@ -253,7 +254,7 @@ namespace QFramework.Pro
             if (GUI.changed)
             {
                 SavePrefs(key, settings);
-                IMGUIGraphWindow.RepaintAll();
+                GUIGraphWindow.RepaintAll();
             }
 
             EditorGUILayout.Space();
@@ -270,7 +271,7 @@ namespace QFramework.Pro
             //Display type colors. Save them if they are edited by the user
             foreach (var type in typeColorKeys)
             {
-                string typeColorKey = IMGUIGraphUtilities.PrettyName(type);
+                string typeColorKey = GUIGraphUtilities.PrettyName(type);
                 Color col = typeColors[type];
                 EditorGUI.BeginChangeCheck();
                 EditorGUILayout.BeginHorizontal();
@@ -282,7 +283,7 @@ namespace QFramework.Pro
                     if (settings.typeColors.ContainsKey(typeColorKey)) settings.typeColors[typeColorKey] = col;
                     else settings.typeColors.Add(typeColorKey, col);
                     SavePrefs(key, settings);
-                    IMGUIGraphWindow.RepaintAll();
+                    GUIGraphWindow.RepaintAll();
                 }
             }
         }
@@ -308,7 +309,7 @@ namespace QFramework.Pro
             if (settings.ContainsKey(lastKey)) settings.Remove(lastKey);
             typeColors = new Dictionary<Type, Color>();
             VerifyLoaded();
-            IMGUIGraphWindow.RepaintAll();
+            GUIGraphWindow.RepaintAll();
         }
 
         /// <summary> Save preferences in EditorPrefs </summary>

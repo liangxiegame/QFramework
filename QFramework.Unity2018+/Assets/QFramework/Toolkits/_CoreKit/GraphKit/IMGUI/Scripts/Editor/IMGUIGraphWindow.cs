@@ -13,20 +13,17 @@ using UnityEngine;
 using System;
 using Object = UnityEngine.Object;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     [InitializeOnLoad]
-    public partial class IMGUIGraphWindow : EditorWindow, IUnRegisterList
+    public partial class GUIGraphWindow : EditorWindow, IUnRegisterList
     {
-        public static IMGUIGraphWindow current;
+        public static GUIGraphWindow current;
 
         /// <summary> Stores node positions for all nodePorts. </summary>
-        public Dictionary<IMGUIGraphNodePort, Rect> portConnectionPoints
-        {
-            get { return _portConnectionPoints; }
-        }
+        public Dictionary<GUIGraphNodePort, Rect> portConnectionPoints => _portConnectionPoints;
 
-        private Dictionary<IMGUIGraphNodePort, Rect> _portConnectionPoints = new Dictionary<IMGUIGraphNodePort, Rect>();
+        private Dictionary<GUIGraphNodePort, Rect> _portConnectionPoints = new Dictionary<GUIGraphNodePort, Rect>();
         [SerializeField] private NodePortReference[] _references = new NodePortReference[0];
         [SerializeField] private Rect[] _rects = new Rect[0];
 
@@ -44,16 +41,16 @@ namespace QFramework.Pro
         [System.Serializable]
         private class NodePortReference
         {
-            [SerializeField] private IMGUIGraphNode _node;
+            [SerializeField] private GUIGraphNode _node;
             [SerializeField] private string _name;
 
-            public NodePortReference(IMGUIGraphNodePort nodePort)
+            public NodePortReference(GUIGraphNodePort nodePort)
             {
                 _node = nodePort.node;
                 _name = nodePort.fieldName;
             }
 
-            public IMGUIGraphNodePort GetNodePort()
+            public GUIGraphNodePort GetNodePort()
             {
                 if (_node == null)
                 {
@@ -89,7 +86,7 @@ namespace QFramework.Pro
             {
                 for (int i = 0; i < length; i++)
                 {
-                    IMGUIGraphNodePort nodePort = _references[i].GetNodePort();
+                    GUIGraphNodePort nodePort = _references[i].GetNodePort();
                     if (nodePort != null)
                         _portConnectionPoints.Add(nodePort, _rects[i]);
                 }
@@ -99,13 +96,10 @@ namespace QFramework.Pro
                 .AddToUnregisterList(this);
         }
 
-        public Dictionary<IMGUIGraphNode, Vector2> nodeSizes
-        {
-            get { return _nodeSizes; }
-        }
+        public Dictionary<GUIGraphNode, Vector2> nodeSizes => _nodeSizes;
 
-        private Dictionary<IMGUIGraphNode, Vector2> _nodeSizes = new Dictionary<IMGUIGraphNode, Vector2>();
-        public IMGUIGraph graph;
+        private Dictionary<GUIGraphNode, Vector2> _nodeSizes = new Dictionary<GUIGraphNode, Vector2>();
+        public GUIGraph graph;
 
         public Vector2 panOffset
         {
@@ -124,8 +118,8 @@ namespace QFramework.Pro
             get { return _zoom; }
             set
             {
-                _zoom = Mathf.Clamp(value, IMGUIGraphPreferences.GetSettings().minZoom,
-                    IMGUIGraphPreferences.GetSettings().maxZoom);
+                _zoom = Mathf.Clamp(value, GUIGraphPreferences.GetSettings().minZoom,
+                    GUIGraphPreferences.GetSettings().maxZoom);
                 Repaint();
             }
         }
@@ -139,7 +133,7 @@ namespace QFramework.Pro
             if (graphEditor != null)
             {
                 graphEditor.OnWindowFocus();
-                if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
             }
 
             dragThreshold = Math.Max(1f, Screen.width / 1000f);
@@ -160,7 +154,7 @@ namespace QFramework.Pro
         /// <summary> Handle Selection Change events</summary>
         private static void OnSelectionChanged()
         {
-            IMGUIGraph nodeGraph = Selection.activeObject as IMGUIGraph;
+            GUIGraph nodeGraph = Selection.activeObject as GUIGraph;
             if (nodeGraph && !AssetDatabase.Contains(nodeGraph))
             {
                 Open(nodeGraph);
@@ -170,7 +164,7 @@ namespace QFramework.Pro
         /// <summary> Make sure the graph editor is assigned and to the right object </summary>
         private void ValidateGraphEditor()
         {
-            IMGUIGraphEditor graphEditor = IMGUIGraphEditor.GetEditor(graph, this);
+            GUIGraphEditor graphEditor = GUIGraphEditor.GetEditor(graph, this);
             if (this.graphEditor != graphEditor && graphEditor != null)
             {
                 this.graphEditor = graphEditor;
@@ -179,9 +173,9 @@ namespace QFramework.Pro
         }
 
         /// <summary> Create editor window </summary>
-        public static IMGUIGraphWindow Init()
+        public static GUIGraphWindow Init()
         {
-            IMGUIGraphWindow w = CreateInstance<IMGUIGraphWindow>();
+            GUIGraphWindow w = CreateInstance<GUIGraphWindow>();
             w.titleContent = new GUIContent("GraphKit.IMGUI");
             w.wantsMouseMove = true;
             w.Show();
@@ -193,7 +187,7 @@ namespace QFramework.Pro
             if (AssetDatabase.Contains(graph))
             {
                 EditorUtility.SetDirty(graph);
-                if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
             }
             else SaveAs();
         }
@@ -204,11 +198,11 @@ namespace QFramework.Pro
             if (string.IsNullOrEmpty(path)) return;
             else
             {
-                IMGUIGraph existingGraph = AssetDatabase.LoadAssetAtPath<IMGUIGraph>(path);
+                GUIGraph existingGraph = AssetDatabase.LoadAssetAtPath<GUIGraph>(path);
                 if (existingGraph != null) AssetDatabase.DeleteAsset(path);
                 AssetDatabase.CreateAsset(graph, path);
                 EditorUtility.SetDirty(graph);
-                if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
             }
         }
 
@@ -249,7 +243,7 @@ namespace QFramework.Pro
             return new Vector2(xOffset, yOffset);
         }
 
-        public void SelectNode(IMGUIGraphNode node, bool add)
+        public void SelectNode(GUIGraphNode node, bool add)
         {
             if (add)
             {
@@ -260,7 +254,7 @@ namespace QFramework.Pro
             else Selection.objects = new Object[] { node };
         }
 
-        public void DeselectNode(IMGUIGraphNode node)
+        public void DeselectNode(GUIGraphNode node)
         {
             List<Object> selection = new List<Object>(Selection.objects);
             selection.Remove(node);
@@ -270,7 +264,7 @@ namespace QFramework.Pro
         [OnOpenAsset(0)]
         public static bool OnOpen(int instanceID, int line)
         {
-            IMGUIGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as IMGUIGraph;
+            GUIGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as GUIGraph;
             if (nodeGraph != null)
             {
                 Open(nodeGraph);
@@ -281,8 +275,15 @@ namespace QFramework.Pro
         }
 
 
-        public static IMGUIGraphWindow OpenWithGraph(IMGUIGraph graph)
+        static void TryUpdateGraphWindowName(GUIGraph graph)
         {
+            GUIGraphWindow w = GetWindow(typeof(GUIGraphWindow), false, graph.Name, true) as GUIGraphWindow;
+            if (w.titleContent.text != graph.Name) w.titleContent.text = graph.Name;
+        }
+        
+        public static GUIGraphWindow OpenWithGraph(GUIGraph graph)
+        {
+            TryUpdateGraphWindowName(graph);
             if (!graph) return null;
             var window = Open(graph);
             var sceneView = GetWindow<SceneView>();
@@ -292,10 +293,11 @@ namespace QFramework.Pro
 
 
         /// <summary>Open the provided graph in the NodeEditor</summary>
-        private static IMGUIGraphWindow Open(IMGUIGraph graph)
+        private static GUIGraphWindow Open(GUIGraph graph)
         {
+            TryUpdateGraphWindowName(graph);
             if (!graph) return null;
-            IMGUIGraphWindow w = GetWindow(typeof(IMGUIGraphWindow), false, graph.Name, true) as IMGUIGraphWindow;
+            GUIGraphWindow w = GetWindow(typeof(GUIGraphWindow), false, graph.Name, true) as GUIGraphWindow;
             w.wantsMouseMove = true;
             w.graph = graph;
             return w;
@@ -304,7 +306,7 @@ namespace QFramework.Pro
         /// <summary> Repaint all open NodeEditorWindows. </summary>
         public static void RepaintAll()
         {
-            IMGUIGraphWindow[] windows = Resources.FindObjectsOfTypeAll<IMGUIGraphWindow>();
+            GUIGraphWindow[] windows = Resources.FindObjectsOfTypeAll<GUIGraphWindow>();
             for (int i = 0; i < windows.Length; i++)
             {
                 windows[i].Repaint();

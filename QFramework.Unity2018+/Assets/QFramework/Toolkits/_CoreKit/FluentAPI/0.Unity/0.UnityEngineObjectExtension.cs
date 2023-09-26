@@ -101,6 +101,12 @@ prefab.Instantiate(transformRoot,true);
         {
             return (T)UnityEngine.Object.Instantiate((UnityEngine.Object)selfObj, parent, worldPositionStays);
         }
+        
+        public static T InstantiateWithParent<T>(this T selfObj, Component parent, bool worldPositionStays)
+            where T : UnityEngine.Object
+        {
+            return (T)UnityEngine.Object.Instantiate((UnityEngine.Object)selfObj, parent.transform, worldPositionStays);
+        }
 #if UNITY_EDITOR
         // v1 No.41
         [MethodAPI]
@@ -113,6 +119,11 @@ prefab.Instantiate(transformRoot);
         public static T InstantiateWithParent<T>(this T selfObj, Transform parent) where T : UnityEngine.Object
         {
             return UnityEngine.Object.Instantiate(selfObj, parent, false);
+        }
+        
+        public static T InstantiateWithParent<T>(this T selfObj, Component parent) where T : UnityEngine.Object
+        {
+            return UnityEngine.Object.Instantiate(selfObj, parent.transform, false);
         }
 
 

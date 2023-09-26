@@ -1,10 +1,10 @@
 /****************************************************************************
-* Copyright (c) 2016 ~ 2022 liangxie
-*
-* https://qframework.cn
-* https://github.com/liangxiegame/QFramework
-* https://gitee.com/liangxiegame/QFramework
-****************************************************************************/
+ * Copyright (c) 2016 ~ 2022 liangxie
+ *
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
@@ -19,8 +19,6 @@ namespace QFramework
 #endif
     public class AudioKit
     {
-
-
         public static AudioPlayer MusicPlayer
         {
             get { return AudioManager.Instance.MusicPlayer; }
@@ -102,7 +100,7 @@ AudioKit.StopMusic();
             AudioManager.Instance.MusicPlayer.Stop();
         }
 
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("暂停背景音乐播放")]
@@ -116,7 +114,7 @@ AudioKit.PauseMusic();
             AudioManager.Instance.MusicPlayer.Pause();
         }
 
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("继续背景音乐播放")]
@@ -132,7 +130,7 @@ AudioKit.ResumeMusic();
 
         public static AudioPlayer VoicePlayer => AudioManager.Instance.VoicePlayer;
 
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("播放人声")]
@@ -158,9 +156,9 @@ AudioKit.PlayVoice(SentenceAClip);
             VoicePlayer.SetOnStartListener(player =>
             {
                 onBeganCallback?.Invoke();
-                
+
                 player.SetVolume(Settings.VoiceVolume.Value);
-                
+
                 // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
                 VoicePlayer.SetOnStartListener(null);
             });
@@ -213,8 +211,78 @@ AudioKit.StopVoice();
         {
             VoicePlayer.Stop();
         }
+
+        public static PlaySoundModes PlaySoundMode = PlaySoundModes.EveryOne;
+        public static int SoundFrameCountForIgnoreSameSound = 10;
+        public static int GlobalFrameCountForIgnoreSameSound = 10;
         
+        private static Dictionary<string, int> mSoundFrameCountForName = new Dictionary<string, int>();
+        private static int mGlobalFrameCount = 0;
         
+        public enum PlaySoundModes
+        {
+            EveryOne,
+            IgnoreSameSoundInGlobalFrames,
+            IgnoreSameSoundInSoundFrames
+        }
+
+        static bool CanPlaySound(string soundName)
+        {
+            if (PlaySoundMode == PlaySoundModes.EveryOne)
+            {
+                return true;
+            }
+
+            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInGlobalFrames)
+            {
+                if (Time.frameCount - mGlobalFrameCount <= GlobalFrameCountForIgnoreSameSound)
+                {
+                    if (mSoundFrameCountForName.ContainsKey(soundName))
+                    {
+                        return false;
+                    }
+
+                    mSoundFrameCountForName.Add(soundName, 0);
+                }
+                else
+                {
+                    mGlobalFrameCount = Time.frameCount;
+                    mSoundFrameCountForName.Clear();
+                    mSoundFrameCountForName.Add(soundName, 0);
+                }
+
+                return true;
+            }
+
+            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInSoundFrames)
+            {
+                if (mSoundFrameCountForName.TryGetValue(soundName, out var frames))
+                {
+                    if (Time.frameCount - frames <= SoundFrameCountForIgnoreSameSound)
+                    {
+                        return false;
+                    }
+
+                    mSoundFrameCountForName[soundName] = Time.frameCount;
+                }
+                else
+                {
+                    mSoundFrameCountForName.Add(soundName, Time.frameCount);
+                }
+            }
+
+            return true;
+        }
+
+        static void SoundFinish(string soundName)
+        {
+            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInSoundFrames)
+            {
+                mSoundFrameCountForName.Remove(soundName);
+            }
+        }
+
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("播放声音")]
@@ -225,27 +293,25 @@ AudioKit.PlaySound(EnemyDieClip);
 ")]
 #endif
         public static AudioPlayer PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
-            int customEventId = -1)
+            int customEventId = -1, float volumeScale = 1.0f)
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
+            if (!CanPlaySound(soundName)) return null;
 
             var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
 
             soundPlayer.SetOnStartListener(player =>
             {
-                player.SetVolume(Settings.SoundVolume.Value);
+                player.SetVolume(Settings.SoundVolume.Value * volumeScale);
                 soundPlayer.SetOnStartListener(null);
             });
             soundPlayer.SetAudio(AudioManager.Instance.gameObject, soundName, loop);
             soundPlayer.SetOnFinishListener(soundUnit =>
             {
-                if (callBack != null)
-                {
-                    callBack(soundUnit);
-                }
-
+                callBack?.Invoke(soundUnit);
                 AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
+                SoundFinish(soundName);
             });
 
             soundPlayer.customEventID = customEventId;
@@ -271,6 +337,7 @@ AudioKit.StopAllSound();
 
 
         #region 梅川内酷需求
+
         public static void PlayMusic(AudioClip clip, bool loop = true, System.Action onBeganCallback = null,
             System.Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
         {
@@ -357,7 +424,7 @@ AudioKit.StopAllSound();
 
             var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
 
-            soundPlayer.SetAudioExt(AudioManager.Instance.gameObject, clip,"sound" + clip.GetHashCode(), loop);
+            soundPlayer.SetAudioExt(AudioManager.Instance.gameObject, clip, "sound" + clip.GetHashCode(), loop);
             soundPlayer.SetVolume(Settings.SoundVolume.Value);
             soundPlayer.SetOnFinishListener(soundUnit =>
             {
@@ -374,8 +441,9 @@ AudioKit.StopAllSound();
             AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
             return soundPlayer;
         }
+
         #endregion
-        
+
 #if UNITY_EDITOR
         [PropertyAPI]
         [APIDescriptionCN("音频相关设置")]
@@ -417,15 +485,14 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
     }
 
     public interface IAudioLoader
-    { 
+    {
         AudioClip Clip { get; }
         AudioClip LoadClip(AudioSearchKeys audioSearchKeys);
 
-        void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool,AudioClip> onLoad);
+        void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool, AudioClip> onLoad);
         void Unload();
-        
     }
-    
+
     public class AudioSearchKeys : IPoolType, IPoolable
     {
         public string AssetBundleName;
@@ -458,13 +525,13 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
             SafeObjectPool<AudioSearchKeys>.Instance.Recycle(this);
         }
     }
-    
+
     public interface IAudioLoaderPool
     {
         IAudioLoader AllocateLoader();
         void RecycleLoader(IAudioLoader loader);
     }
-    
+
     public abstract class AbstractAudioLoaderPool : IAudioLoaderPool
     {
         private Stack<IAudioLoader> mPool = new Stack<IAudioLoader>(16);
@@ -475,7 +542,7 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
         }
 
         protected abstract IAudioLoader CreateLoader();
-        
+
         public void RecycleLoader(IAudioLoader loader)
         {
             mPool.Push(loader);
@@ -493,7 +560,7 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
     public class DefaultAudioLoader : IAudioLoader
     {
         private AudioClip mClip;
-        
+
         public AudioClip Clip => mClip;
 
         public AudioClip LoadClip(AudioSearchKeys panelSearchKeys)
@@ -502,7 +569,7 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
             return mClip;
         }
 
-        public void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool,AudioClip> onLoad)
+        public void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool, AudioClip> onLoad)
         {
             var resourceRequest = Resources.LoadAsync<AudioClip>(audioSearchKeys.AssetName);
             resourceRequest.completed += operation =>

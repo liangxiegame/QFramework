@@ -9,13 +9,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using QFramework.XNodeEditor.Internal;
+using QFramework.Internal;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    public partial class IMGUIGraphWindow
+    public partial class GUIGraphWindow
     {
         public enum NodeActivity
         {
@@ -30,7 +30,7 @@ namespace QFramework.Pro
         public static bool isPanning { get; private set; }
         public static Vector2[] dragOffset;
 
-        public static IMGUIGraphNode[] copyBuffer = null;
+        public static GUIGraphNode[] copyBuffer = null;
 
         private bool IsDraggingPort
         {
@@ -52,17 +52,17 @@ namespace QFramework.Pro
             get { return hoveredReroute.port != null; }
         }
 
-        private IMGUIGraphNode hoveredNode = null;
-        [NonSerialized] public IMGUIGraphNodePort hoveredPort = null;
-        [NonSerialized] private IMGUIGraphNodePort draggedOutput = null;
-        [NonSerialized] private IMGUIGraphNodePort draggedOutputTarget = null;
-        [NonSerialized] private IMGUIGraphNodePort autoConnectOutput = null;
+        private GUIGraphNode hoveredNode = null;
+        [NonSerialized] public GUIGraphNodePort hoveredPort = null;
+        [NonSerialized] private GUIGraphNodePort draggedOutput = null;
+        [NonSerialized] private GUIGraphNodePort draggedOutputTarget = null;
+        [NonSerialized] private GUIGraphNodePort autoConnectOutput = null;
         [NonSerialized] private List<Vector2> draggedOutputReroutes = new List<Vector2>();
-        private IMGUIGraphRerouteReference hoveredReroute = new IMGUIGraphRerouteReference();
-        public List<IMGUIGraphRerouteReference> selectedReroutes = new List<IMGUIGraphRerouteReference>();
+        private GUIGraphRerouteReference hoveredReroute = new GUIGraphRerouteReference();
+        public List<GUIGraphRerouteReference> selectedReroutes = new List<GUIGraphRerouteReference>();
         private Vector2 dragBoxStart;
         private UnityEngine.Object[] preBoxSelection;
-        private IMGUIGraphRerouteReference[] preBoxSelectionReroute;
+        private GUIGraphRerouteReference[] preBoxSelectionReroute;
         private Rect selectionBox;
         private bool isDoubleClick = false;
         private Vector2 lastMousePosition;
@@ -92,7 +92,7 @@ namespace QFramework.Pro
                     float oldZoom = zoom;
                     if (e.delta.y > 0) zoom += 0.1f * zoom;
                     else zoom -= 0.1f * zoom;
-                    if (IMGUIGraphPreferences.GetSettings().zoomToMouse)
+                    if (GUIGraphPreferences.GetSettings().zoomToMouse)
                         panOffset += (1 - oldZoom / zoom) * (WindowToGridPosition(e.mousePosition) + panOffset);
                     break;
                 case EventType.MouseDrag:
@@ -122,16 +122,16 @@ namespace QFramework.Pro
                         if (currentActivity == NodeActivity.DragNode)
                         {
                             // Holding ctrl inverts grid snap
-                            bool gridSnap = IMGUIGraphPreferences.GetSettings().gridSnap;
+                            bool gridSnap = GUIGraphPreferences.GetSettings().gridSnap;
                             if (e.control) gridSnap = !gridSnap;
 
                             Vector2 mousePos = WindowToGridPosition(e.mousePosition);
                             // Move selected nodes with offset
                             for (int i = 0; i < Selection.objects.Length; i++)
                             {
-                                if (Selection.objects[i] is IMGUIGraphNode)
+                                if (Selection.objects[i] is GUIGraphNode)
                                 {
-                                    IMGUIGraphNode node = Selection.objects[i] as IMGUIGraphNode;
+                                    GUIGraphNode node = Selection.objects[i] as GUIGraphNode;
                                     Undo.RecordObject(node, "Moved Node");
                                     Vector2 initial = node.position;
                                     node.position = mousePos + dragOffset[i];
@@ -145,7 +145,7 @@ namespace QFramework.Pro
                                     Vector2 offset = node.position - initial;
                                     if (offset.sqrMagnitude > 0)
                                     {
-                                        foreach (IMGUIGraphNodePort output in node.Outputs)
+                                        foreach (GUIGraphNodePort output in node.Outputs)
                                         {
                                             Rect rect;
                                             if (portConnectionPoints.TryGetValue(output, out rect))
@@ -155,7 +155,7 @@ namespace QFramework.Pro
                                             }
                                         }
 
-                                        foreach (IMGUIGraphNodePort input in node.Inputs)
+                                        foreach (GUIGraphNodePort input in node.Inputs)
                                         {
                                             Rect rect;
                                             if (portConnectionPoints.TryGetValue(input, out rect))
@@ -241,15 +241,15 @@ namespace QFramework.Pro
                                 autoConnectOutput = null;
                                 if (hoveredPort.IsConnected)
                                 {
-                                    IMGUIGraphNode node = hoveredPort.node;
-                                    IMGUIGraphNodePort output = hoveredPort.Connection;
+                                    GUIGraphNode node = hoveredPort.node;
+                                    GUIGraphNodePort output = hoveredPort.Connection;
                                     int outputConnectionIndex = output.GetConnectionIndex(hoveredPort);
                                     draggedOutputReroutes = output.GetReroutePoints(outputConnectionIndex);
                                     hoveredPort.Disconnect(output);
                                     draggedOutput = output;
                                     draggedOutputTarget = hoveredPort;
-                                    if (IMGUIGraphNodeEditor.onUpdateNode != null)
-                                        IMGUIGraphNodeEditor.onUpdateNode(node);
+                                    if (GUIGraphNodeEditor.onUpdateNode != null)
+                                        GUIGraphNodeEditor.onUpdateNode(node);
                                 }
                             }
                         }
@@ -279,7 +279,7 @@ namespace QFramework.Pro
                                 // Select it
                                 else
                                 {
-                                    selectedReroutes = new List<IMGUIGraphRerouteReference>() { hoveredReroute };
+                                    selectedReroutes = new List<GUIGraphRerouteReference>() { hoveredReroute };
                                     Selection.activeObject = null;
                                 }
                             }
@@ -311,7 +311,7 @@ namespace QFramework.Pro
                             // If connection is valid, save it
                             if (draggedOutputTarget != null && draggedOutput.CanConnectTo(draggedOutputTarget))
                             {
-                                IMGUIGraphNode node = draggedOutputTarget.node;
+                                GUIGraphNode node = draggedOutputTarget.node;
                                 if (graph.nodes.Count != 0) draggedOutput.Connect(draggedOutputTarget);
 
                                 // ConnectionIndex can be -1 if the connection is removed instantly after creation
@@ -319,13 +319,13 @@ namespace QFramework.Pro
                                 if (connectionIndex != -1)
                                 {
                                     draggedOutput.GetReroutePoints(connectionIndex).AddRange(draggedOutputReroutes);
-                                    if (IMGUIGraphNodeEditor.onUpdateNode != null) IMGUIGraphNodeEditor.onUpdateNode(node);
+                                    if (GUIGraphNodeEditor.onUpdateNode != null) GUIGraphNodeEditor.onUpdateNode(node);
                                     EditorUtility.SetDirty(graph);
                                 }
                             }
                             // Open context menu for auto-connection if there is no target node
                             else if (draggedOutputTarget == null &&
-                                     IMGUIGraphPreferences.GetSettings().dragToCreate &&
+                                     GUIGraphPreferences.GetSettings().dragToCreate &&
                                      autoConnectOutput != null)
                             {
                                 GenericMenu menu = new GenericMenu();
@@ -337,14 +337,14 @@ namespace QFramework.Pro
                             draggedOutput = null;
                             draggedOutputTarget = null;
                             EditorUtility.SetDirty(graph);
-                            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
                         }
                         else if (currentActivity == NodeActivity.DragNode)
                         {
-                            IEnumerable<IMGUIGraphNode> nodes = Selection.objects.Where(x => x is IMGUIGraphNode)
-                                .Select(x => x as IMGUIGraphNode);
-                            foreach (IMGUIGraphNode node in nodes) EditorUtility.SetDirty(node);
-                            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                            IEnumerable<GUIGraphNode> nodes = Selection.objects.Where(x => x is GUIGraphNode)
+                                .Select(x => x as GUIGraphNode);
+                            foreach (GUIGraphNode node in nodes) EditorUtility.SetDirty(node);
+                            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
                         }
                         else if (!IsHoveringNode)
                         {
@@ -355,7 +355,7 @@ namespace QFramework.Pro
                                 EditorGUIUtility.editingTextField = false;
                             }
 
-                            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+                            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
                         }
 
                         // If click node header, select it.
@@ -377,7 +377,7 @@ namespace QFramework.Pro
                         // If click reroute, select it.
                         if (IsHoveringReroute && !(e.control || e.shift))
                         {
-                            selectedReroutes = new List<IMGUIGraphRerouteReference>() { hoveredReroute };
+                            selectedReroutes = new List<GUIGraphRerouteReference>() { hoveredReroute };
                             Selection.activeObject = null;
                         }
 
@@ -396,7 +396,7 @@ namespace QFramework.Pro
                                      selectedReroutes.Count == 1)
                             {
                                 selectedReroutes[0].InsertPoint(selectedReroutes[0].GetPoint());
-                                selectedReroutes[0] = new IMGUIGraphRerouteReference(selectedReroutes[0].port,
+                                selectedReroutes[0] = new GUIGraphRerouteReference(selectedReroutes[0].port,
                                     selectedReroutes[0].connectionIndex, selectedReroutes[0].pointIndex + 1);
                             }
                             else if (IsHoveringReroute)
@@ -412,7 +412,7 @@ namespace QFramework.Pro
                                 if (!Selection.Contains(hoveredNode)) SelectNode(hoveredNode, false);
                                 autoConnectOutput = null;
                                 GenericMenu menu = new GenericMenu();
-                                IMGUIGraphNodeEditor.GetEditor(hoveredNode, this).AddContextMenuItems(menu);
+                                GUIGraphNodeEditor.GetEditor(hoveredNode, this).AddContextMenuItems(menu);
                                 menu.DropDown(new Rect(Event.current.mousePosition, Vector2.zero));
                                 e.Use(); // Fixes copy/paste context menu appearing in Unity 5.6.6f2 - doesn't occur in 2018.3.2f1 Probably needs to be used in other places.
                             }
@@ -434,7 +434,7 @@ namespace QFramework.Pro
                 case EventType.KeyDown:
                     if (EditorGUIUtility.editingTextField) break;
                     else if (e.keyCode == KeyCode.F) Home();
-                    if (IMGUIGraphUtilities.IsMac())
+                    if (GUIGraphUtilities.IsMac())
                     {
                         if (e.keyCode == KeyCode.Return) RenameSelectedNode();
                     }
@@ -445,16 +445,16 @@ namespace QFramework.Pro
 
                     if (e.keyCode == KeyCode.A)
                     {
-                        if (Selection.objects.Any(x => graph.nodes.Contains(x as IMGUIGraphNode)))
+                        if (Selection.objects.Any(x => graph.nodes.Contains(x as GUIGraphNode)))
                         {
-                            foreach (IMGUIGraphNode node in graph.nodes)
+                            foreach (GUIGraphNode node in graph.nodes)
                             {
                                 DeselectNode(node);
                             }
                         }
                         else
                         {
-                            foreach (IMGUIGraphNode node in graph.nodes)
+                            foreach (GUIGraphNode node in graph.nodes)
                             {
                                 SelectNode(node, true);
                             }
@@ -471,7 +471,7 @@ namespace QFramework.Pro
                         if (e.type == EventType.ExecuteCommand) RemoveSelectedNodes();
                         e.Use();
                     }
-                    else if (IMGUIGraphUtilities.IsMac() && e.commandName == "Delete")
+                    else if (GUIGraphUtilities.IsMac() && e.commandName == "Delete")
                     {
                         if (e.type == EventType.ExecuteCommand) RemoveSelectedNodes();
                         e.Use();
@@ -512,9 +512,9 @@ namespace QFramework.Pro
             // Selected nodes
             for (int i = 0; i < Selection.objects.Length; i++)
             {
-                if (Selection.objects[i] is IMGUIGraphNode)
+                if (Selection.objects[i] is GUIGraphNode)
                 {
-                    IMGUIGraphNode node = Selection.objects[i] as IMGUIGraphNode;
+                    GUIGraphNode node = Selection.objects[i] as GUIGraphNode;
                     dragOffset[i] = node.position - WindowToGridPosition(current.mousePosition);
                 }
             }
@@ -530,7 +530,7 @@ namespace QFramework.Pro
         /// <summary> Puts all selected nodes in focus. If no nodes are present, resets view and zoom to to origin </summary>
         public void Home()
         {
-            var nodes = Selection.objects.Where(o => o is IMGUIGraphNode).Cast<IMGUIGraphNode>().ToList();
+            var nodes = Selection.objects.Where(o => o is GUIGraphNode).Cast<GUIGraphNode>().ToList();
             if (nodes.Count > 0)
             {
                 Vector2 minPos = nodes.Select(x => x.position)
@@ -560,9 +560,9 @@ namespace QFramework.Pro
             selectedReroutes.Clear();
             foreach (UnityEngine.Object item in Selection.objects)
             {
-                if (item is IMGUIGraphNode)
+                if (item is GUIGraphNode)
                 {
-                    IMGUIGraphNode node = item as IMGUIGraphNode;
+                    GUIGraphNode node = item as GUIGraphNode;
                     graphEditor.RemoveNode(node);
                 }
             }
@@ -571,23 +571,23 @@ namespace QFramework.Pro
         /// <summary> Initiate a rename on the currently selected node </summary>
         public void RenameSelectedNode()
         {
-            if (Selection.objects.Length == 1 && Selection.activeObject is IMGUIGraphNode)
+            if (Selection.objects.Length == 1 && Selection.activeObject is GUIGraphNode)
             {
-                IMGUIGraphNode node = Selection.activeObject as IMGUIGraphNode;
+                GUIGraphNode node = Selection.activeObject as GUIGraphNode;
                 Vector2 size;
                 if (nodeSizes.TryGetValue(node, out size))
                 {
-                    IMGUIGraphRenamePopup.Show(Selection.activeObject, size.x);
+                    GUIGraphRenamePopup.Show(Selection.activeObject, size.x);
                 }
                 else
                 {
-                    IMGUIGraphRenamePopup.Show(Selection.activeObject);
+                    GUIGraphRenamePopup.Show(Selection.activeObject);
                 }
             }
         }
 
         /// <summary> Draw this node on top of other nodes by placing it last in the graph.nodes list </summary>
-        public void MoveNodeToTop(IMGUIGraphNode node)
+        public void MoveNodeToTop(GUIGraphNode node)
         {
             int index;
             while ((index = graph.nodes.IndexOf(node)) != graph.nodes.Count - 1)
@@ -601,7 +601,7 @@ namespace QFramework.Pro
         public void DuplicateSelectedNodes()
         {
             // Get selected nodes which are part of this graph
-            IMGUIGraphNode[] selectedNodes = Selection.objects.Select(x => x as IMGUIGraphNode)
+            GUIGraphNode[] selectedNodes = Selection.objects.Select(x => x as GUIGraphNode)
                 .Where(x => x != null && x.graph == graph).ToArray();
             if (selectedNodes == null || selectedNodes.Length == 0) return;
             // Get top left node position
@@ -612,7 +612,7 @@ namespace QFramework.Pro
 
         public void CopySelectedNodes()
         {
-            copyBuffer = Selection.objects.Select(x => x as IMGUIGraphNode).Where(x => x != null && x.graph == graph)
+            copyBuffer = Selection.objects.Select(x => x as GUIGraphNode).Where(x => x != null && x.graph == graph)
                 .ToArray();
         }
 
@@ -621,7 +621,7 @@ namespace QFramework.Pro
             InsertDuplicateNodes(copyBuffer, pos);
         }
 
-        private void InsertDuplicateNodes(IMGUIGraphNode[] nodes, Vector2 topLeft)
+        private void InsertDuplicateNodes(GUIGraphNode[] nodes, Vector2 topLeft)
         {
             if (nodes == null || nodes.Length == 0) return;
 
@@ -631,22 +631,22 @@ namespace QFramework.Pro
             Vector2 offset = topLeft - topLeftNode;
 
             UnityEngine.Object[] newNodes = new UnityEngine.Object[nodes.Length];
-            Dictionary<IMGUIGraphNode, IMGUIGraphNode> substitutes = new Dictionary<IMGUIGraphNode, IMGUIGraphNode>();
+            Dictionary<GUIGraphNode, GUIGraphNode> substitutes = new Dictionary<GUIGraphNode, GUIGraphNode>();
             for (int i = 0; i < nodes.Length; i++)
             {
-                IMGUIGraphNode srcNode = nodes[i];
+                GUIGraphNode srcNode = nodes[i];
                 if (srcNode == null) continue;
 
                 // Check if user is allowed to add more of given node type
-                IMGUIGraphNode.DisallowMultipleNodesAttribute disallowAttrib;
+                GUIGraphNode.DisallowMultipleNodesAttribute disallowAttrib;
                 Type nodeType = srcNode.GetType();
-                if (IMGUIGraphUtilities.GetAttrib(nodeType, out disallowAttrib))
+                if (GUIGraphUtilities.GetAttrib(nodeType, out disallowAttrib))
                 {
                     int typeCount = graph.nodes.Count(x => x.GetType() == nodeType);
                     if (typeCount >= disallowAttrib.max) continue;
                 }
 
-                IMGUIGraphNode newNode = graphEditor.CopyNode(srcNode);
+                GUIGraphNode newNode = graphEditor.CopyNode(srcNode);
                 substitutes.Add(srcNode, newNode);
                 newNode.position = srcNode.position + offset;
                 newNodes[i] = newNode;
@@ -655,18 +655,18 @@ namespace QFramework.Pro
             // Walk through the selected nodes again, recreate connections, using the new nodes
             for (int i = 0; i < nodes.Length; i++)
             {
-                IMGUIGraphNode srcNode = nodes[i];
+                GUIGraphNode srcNode = nodes[i];
                 if (srcNode == null) continue;
-                foreach (IMGUIGraphNodePort port in srcNode.Ports)
+                foreach (GUIGraphNodePort port in srcNode.Ports)
                 {
                     for (int c = 0; c < port.ConnectionCount; c++)
                     {
-                        IMGUIGraphNodePort inputPort =
-                            port.direction == IMGUIGraphNodePort.IO.Input ? port : port.GetConnection(c);
-                        IMGUIGraphNodePort outputPort =
-                            port.direction == IMGUIGraphNodePort.IO.Output ? port : port.GetConnection(c);
+                        GUIGraphNodePort inputPort =
+                            port.direction == GUIGraphNodePort.IO.Input ? port : port.GetConnection(c);
+                        GUIGraphNodePort outputPort =
+                            port.direction == GUIGraphNodePort.IO.Output ? port : port.GetConnection(c);
 
-                        IMGUIGraphNode newNodeIn, newNodeOut;
+                        GUIGraphNode newNodeIn, newNodeOut;
                         if (substitutes.TryGetValue(inputPort.node, out newNodeIn) &&
                             substitutes.TryGetValue(outputPort.node, out newNodeOut))
                         {
@@ -692,8 +692,8 @@ namespace QFramework.Pro
             {
                 Gradient gradient = graphEditor.GetNoodleGradient(draggedOutput, null);
                 float thickness = graphEditor.GetNoodleThickness(draggedOutput, null);
-                IMGUIGraphConnectionPath path = graphEditor.GetNoodlePath(draggedOutput, null);
-                IMGUIGraphConnectionStroke stroke = graphEditor.GetNoodleStroke(draggedOutput, null);
+                GUIGraphConnectionPath path = graphEditor.GetNoodlePath(draggedOutput, null);
+                GUIGraphConnectionStroke stroke = graphEditor.GetNoodleStroke(draggedOutput, null);
 
                 Rect fromRect;
                 if (!_portConnectionPoints.TryGetValue(draggedOutput, out fromRect)) return;
@@ -722,12 +722,12 @@ namespace QFramework.Pro
                     rect.position = new Vector2(rect.position.x - 8, rect.position.y - 8);
                     rect = GridToWindowRect(rect);
 
-                    IMGUIGraphGUILayout.DrawPortHandle(rect, bgcol, frcol);
+                    GUIGraphGUILayout.DrawPortHandle(rect, bgcol, frcol);
                 }
             }
         }
 
-        bool IsHoveringTitle(IMGUIGraphNode node)
+        bool IsHoveringTitle(GUIGraphNode node)
         {
             Vector2 mousePos = Event.current.mousePosition;
             //Get node position
@@ -741,12 +741,12 @@ namespace QFramework.Pro
         }
 
         /// <summary> Attempt to connect dragged output to target node </summary>
-        public void AutoConnect(IMGUIGraphNode node)
+        public void AutoConnect(GUIGraphNode node)
         {
             if (autoConnectOutput == null) return;
 
             // Find input port of same type
-            IMGUIGraphNodePort inputPort =
+            GUIGraphNodePort inputPort =
                 node.Ports.FirstOrDefault(x => x.IsInput && x.ValueType == autoConnectOutput.ValueType);
             // Fallback to input port
             if (inputPort == null) inputPort = node.Ports.FirstOrDefault(x => x.IsInput);
@@ -755,7 +755,7 @@ namespace QFramework.Pro
 
             // Save changes
             EditorUtility.SetDirty(graph);
-            if (IMGUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
+            if (GUIGraphPreferences.GetSettings().autoSave) AssetDatabase.SaveAssets();
             autoConnectOutput = null;
         }
     }

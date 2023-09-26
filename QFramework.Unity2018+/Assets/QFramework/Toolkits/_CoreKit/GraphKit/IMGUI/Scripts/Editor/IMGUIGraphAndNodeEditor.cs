@@ -9,11 +9,11 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
     /// <summary> Override graph inspector to show an 'Open Graph' button at the top </summary>
-    [CustomEditor(typeof(IMGUIGraph), true)]
-    public class IMGUIGlobalGraphInspector : UnityEditor.Editor
+    [CustomEditor(typeof(GUIGraph), true)]
+    public class GUIGlobalGraphInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -21,7 +21,7 @@ namespace QFramework.Pro
 
             if (GUILayout.Button("Edit graph", GUILayout.Height(40)))
             {
-                IMGUIGraphWindow.OpenWithGraph(serializedObject.targetObject as IMGUIGraph);
+                GUIGraphWindow.OpenWithGraph(serializedObject.targetObject as GUIGraph);
             }
 
             GUILayout.Space(EditorGUIUtility.singleLineHeight);
@@ -33,8 +33,8 @@ namespace QFramework.Pro
         }
     }
 
-    [CustomEditor(typeof(IMGUIGraphNode), true)]
-    public class IMGUIGlobalGraphNodeInspector : UnityEditor.Editor
+    [CustomEditor(typeof(GUIGraphNode), true)]
+    public class GlobalGUIGraphNodeInspector : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
@@ -43,7 +43,7 @@ namespace QFramework.Pro
             if (GUILayout.Button("Edit graph", GUILayout.Height(40)))
             {
                 SerializedProperty graphProp = serializedObject.FindProperty("graph");
-                IMGUIGraphWindow w = IMGUIGraphWindow.OpenWithGraph(graphProp.objectReferenceValue as IMGUIGraph);
+                GUIGraphWindow w = GUIGraphWindow.OpenWithGraph(graphProp.objectReferenceValue as GUIGraph);
                 w.Home(); // Focus selected node
             }
 

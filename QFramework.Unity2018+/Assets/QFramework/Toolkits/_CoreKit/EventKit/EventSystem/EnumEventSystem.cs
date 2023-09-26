@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2015 - 2023 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework

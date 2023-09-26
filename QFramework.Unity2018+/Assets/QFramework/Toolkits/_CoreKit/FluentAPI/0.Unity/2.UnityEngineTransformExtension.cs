@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
+ *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -89,9 +89,9 @@ selfScript
 myScript.Parent(rootGameObj);
 ")]
 #endif
-        public static T Parent<T>(this T self, Component parentComponent) where T : Component
+        public static T Parent<T>(this T self, Component parent) where T : Component
         {
-            self.transform.SetParent(parentComponent == null ? null : parentComponent.transform);
+            self.transform.SetParent(parent == null ? null : parent.transform);
             return self;
         }
 
@@ -104,9 +104,9 @@ myScript.Parent(rootGameObj);
 gameObj.SetParent(null);
 ")]
 #endif
-        public static GameObject Parent(this GameObject self, Component parentComponent)
+        public static GameObject Parent(this GameObject self, Component parent)
         {
-            self.transform.SetParent(parentComponent == null ? null : parentComponent.transform);
+            self.transform.SetParent(parent == null ? null : parent.transform);
             return self;
         }
 
@@ -1578,6 +1578,238 @@ gameObj.SiblingIndex(10);
         {
             selfComponent.transform.SetSiblingIndex(index);
             return selfComponent;
+        }
+
+        public static Vector2 Position2D(this GameObject self)
+        {
+            return new Vector2(self.transform.position.x, self.transform.position.y);
+        }
+
+        public static Vector2 Position2D(this Component self)
+        {
+            return new Vector2(self.transform.position.x, self.transform.position.y);
+        }
+
+        public static GameObject Position2D(this GameObject self, Vector2 position)
+        {
+            return self.Position(position.x, position.y);
+        }
+
+        public static T Position2D<T>(this T self, Vector2 position) where T : Component
+        {
+            return self.Position(position.x, position.y);
+        }
+
+        public static Vector2 LocalPosition2D(this GameObject self)
+        {
+            return new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
+        }
+
+        public static Vector2 LocalPosition2D(this Component self)
+        {
+            return new Vector2(self.transform.localPosition.x, self.transform.position.y);
+        }
+
+        public static GameObject LocalPosition2D(this GameObject self, Vector2 position)
+        {
+            return self.LocalPosition(position.x, position.y);
+        }
+
+        public static T LocalPosition2D<T>(this T self, Vector2 position) where T : Component
+        {
+            return self.LocalPosition(position.x, position.y);
+        }
+
+        public static GameObject SyncPositionFrom(this GameObject self, GameObject from)
+        {
+            return self.Position(from.Position());
+        }
+
+        public static T SyncPositionFrom<T>(this T self, GameObject from) where T : Component
+        {
+            return self.Position(from.Position());
+        }
+
+        public static GameObject SyncPositionFrom<T>(this GameObject self, Component from) where T : Component
+        {
+            return self.Position(from.Position());
+        }
+
+        public static T SyncPositionFrom<T>(this T self, Component from) where T : Component
+        {
+            return self.Position(from.Position());
+        }
+
+        public static GameObject SyncPosition2DFrom(this GameObject self, GameObject from) =>
+            self.Position2D(from.Position2D());
+
+        public static T SyncPosition2DFrom<T>(this T self, GameObject from) where T : Component =>
+            self.Position2D(from.Position2D());
+
+        public static GameObject SyncPosition2DFrom(this GameObject self, Component from) =>
+            self.Position2D(from.Position2D());
+
+        public static T SyncPosition2DFrom<T>(this T self, Component from) where T : Component =>
+            self.Position2D(from.Position2D());
+
+
+        public static GameObject SyncPositionTo(this GameObject self, GameObject to)
+        {
+            to.Position(self.Position());
+            return self;
+        }
+
+        public static GameObject SyncPositionTo(this GameObject self, Component to)
+        {
+            to.Position(self.Position());
+            return self;
+        }
+
+        public static T SyncPositionTo<T>(this T self, GameObject to) where T : Component
+        {
+            to.Position(self.Position());
+            return self;
+        }
+
+        public static T SyncPositionTo<T>(this T self, Component to) where T : Component
+        {
+            to.Position(self.Position());
+            return self;
+        }
+
+        public static GameObject SyncPosition2DTo(this GameObject self, GameObject to)
+        {
+            to.Position2D(self.Position2D());
+            return self;
+        }
+
+        public static GameObject SyncPosition2DTo(this GameObject self, Component to)
+        {
+            to.Position2D(self.Position2D());
+            return self;
+        }
+
+        public static T SyncPosition2DTo<T>(this T self, GameObject to) where T : Component
+        {
+            to.Position2D(self.Position2D());
+            return self;
+        }
+
+        public static T SyncPosition2DTo<T>(this T self, Component to) where T : Component
+        {
+            to.Position2D(self.Position2D());
+            return self;
+        }
+
+        public static float PositionX(this GameObject self)
+        {
+            return self.transform.position.x;
+        }
+
+        public static float PositionX(this Component self)
+        {
+            return self.transform.position.x;
+        }
+
+        public static float PositionY(this GameObject self)
+        {
+            return self.transform.position.y;
+        }
+
+        public static float PositionY(this Component self)
+        {
+            return self.transform.position.y;
+        }
+
+        public static float PositionZ(this GameObject self)
+        {
+            return self.transform.position.z;
+        }
+
+        public static float PositionZ(this Component self)
+        {
+            return self.transform.position.z;
+        }
+
+        public static float LocalPositionX(this GameObject self)
+        {
+            return self.transform.localPosition.x;
+        }
+
+        public static float LocalPositionX(this Component self)
+        {
+            return self.transform.localPosition.x;
+        }
+
+        public static float LocalPositionY(this GameObject self)
+        {
+            return self.transform.localPosition.y;
+        }
+
+        public static float LocalPositionY(this Component self)
+        {
+            return self.transform.localPosition.y;
+        }
+
+        public static float LocalPositionZ(this GameObject self)
+        {
+            return self.transform.localPosition.z;
+        }
+
+        public static float LocalPositionZ(this Component self) => self.transform.localPosition.z;
+        public static Vector3 LocalEulerAngles(this GameObject self) => self.transform.localEulerAngles;
+        public static Vector3 LocalEulerAngles(this Component self) => self.transform.localEulerAngles;
+
+        public static GameObject LocalEulerAngles(this GameObject self, Vector3 localEulerAngles)
+        {
+            self.transform.localEulerAngles = localEulerAngles;
+            return self;
+        }
+
+        public static T LocalEulerAngles<T>(this T self, Vector3 localEulerAngles) where T : Component
+        {
+            self.transform.localEulerAngles = localEulerAngles;
+            return self;
+        }
+
+        public static GameObject LocalEulerAnglesZ(this GameObject self, float z)
+        {
+            self.LocalEulerAngles(self.LocalEulerAngles().Z(z));
+            return self;
+        }
+
+        public static T LocalEulerAnglesZ<T>(this T self, float z) where T : Component
+        {
+            self.LocalEulerAngles(self.LocalEulerAngles().Z(z));
+            return self;
+        }
+        
+        
+        public static Vector3 EulerAngles(this GameObject self) => self.transform.eulerAngles;
+        public static Vector3 EulerAngles(this Component self) => self.transform.eulerAngles;
+
+        public static GameObject EulerAngles(this GameObject self, Vector3 eulerAngles)
+        {
+            self.transform.eulerAngles = eulerAngles;
+            return self;
+        }
+
+        public static T EulerAngles<T>(this T self, Vector3 eulerAngles) where T : Component
+        {
+            self.transform.eulerAngles = eulerAngles;
+            return self;
+        }
+
+        public static GameObject EulerAnglesZ(this GameObject self, float z)
+        {
+            self.EulerAngles(self.EulerAngles().Z(z));
+            return self;
+        }
+
+        public static T EulerAnglesZ<T>(this T self, float z) where T : Component
+        {
+            self.EulerAngles(self.EulerAngles().Z(z));
+            return self;
         }
     }
 }

@@ -10,12 +10,12 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-namespace QFramework.Pro
+namespace QFramework
 {
-    [CustomEditor(typeof(IMGUISceneGraph), true)]
-    public class IMGUISceneGraphInspector : Editor
+    [CustomEditor(typeof(GUISceneGraph), true)]
+    public class GUISceneGraphInspector : Editor
     {
-        private IMGUISceneGraph sceneGraph;
+        private GUISceneGraph sceneGraph;
         private bool removeSafely;
         private Type graphType;
 
@@ -31,7 +31,7 @@ namespace QFramework.Pro
                 {
                     if (graphType == null)
                     {
-                        Type[] graphTypes = IMGUIGraphReflection.GetDerivedTypes(typeof(IMGUIGraph));
+                        Type[] graphTypes = GUIGraphReflection.GetDerivedTypes(typeof(GUIGraph));
                         GenericMenu menu = new GenericMenu();
                         for (int i = 0; i < graphTypes.Length; i++)
                         {
@@ -51,7 +51,7 @@ namespace QFramework.Pro
             {
                 if (GUILayout.Button("Open graph", GUILayout.Height(40)))
                 {
-                    IMGUIGraphWindow.OpenWithGraph(sceneGraph.graph);
+                    GUIGraphWindow.OpenWithGraph(sceneGraph.graph);
                 }
 
                 if (removeSafely)
@@ -89,9 +89,9 @@ namespace QFramework.Pro
 
         private void OnEnable()
         {
-            sceneGraph = target as IMGUISceneGraph;
+            sceneGraph = target as GUISceneGraph;
             Type sceneGraphType = sceneGraph.GetType();
-            if (sceneGraphType == typeof(IMGUISceneGraph))
+            if (sceneGraphType == typeof(GUISceneGraph))
             {
                 graphType = null;
             }
@@ -108,7 +108,7 @@ namespace QFramework.Pro
         public void CreateGraph(Type type)
         {
             Undo.RecordObject(sceneGraph, "Create graph");
-            sceneGraph.graph = ScriptableObject.CreateInstance(type) as IMGUIGraph;
+            sceneGraph.graph = ScriptableObject.CreateInstance(type) as GUIGraph;
             sceneGraph.graph.name = sceneGraph.name + "-graph";
         }
     }

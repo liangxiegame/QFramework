@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 project/assembly_name="Q Framework.godot 4.net"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/qframework/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
