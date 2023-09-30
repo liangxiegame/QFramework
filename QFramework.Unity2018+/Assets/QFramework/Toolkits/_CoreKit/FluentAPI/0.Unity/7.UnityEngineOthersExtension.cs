@@ -241,24 +241,6 @@ var degree = 1.57f.Rad2Deg();
         {
             return self * Mathf.Rad2Deg;
         }
-
-#if UNITY_EDITOR
-        // Added in v1.0.32
-        [MethodAPI]
-        [APIDescriptionCN("new Vector3(vec2.x,vec2.y,0 or z)")]
-        [APIDescriptionEN("new Vector3(vec2.x,vec2.y,0 or z)")]
-        [APIExampleCode(@"
-
-var vec3 = new Vector2(1,1).ToVector3();
-// vec3 is (1,1,0)
-vec3 = new Vector2(1,1).ToVector3(1);
-// vec3 is (1,1,1)
-")]
-#endif
-        public static Vector3 ToVector3(this Vector2 self,float z = 0)
-        {
-            return new Vector3(self.x, self.y, z);
-        }
     }
 
 #if UNITY_EDITOR
