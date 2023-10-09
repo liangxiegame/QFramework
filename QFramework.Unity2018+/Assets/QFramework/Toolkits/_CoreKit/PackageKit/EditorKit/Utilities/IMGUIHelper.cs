@@ -53,7 +53,7 @@ namespace QFramework
             var scaleX = Screen.width / width;
             var scaleY = Screen.height / height;
 
-            var scale = Mathf.Max(scaleX, scaleY);
+            var scale = Mathf.Min(scaleX, scaleY);
 
             GUIUtility.ScaleAroundPivot(new Vector2(scale, scale), new Vector2(0, 0));
         }
