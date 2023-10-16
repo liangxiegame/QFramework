@@ -147,3 +147,14 @@
 * 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
 * 或者给此仓库一个小小的 Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
+
+
+### 鸣谢
+
+感谢 JetBrains 公司提供的使用许可证！
+
+<p><a href="https://www.jetbrains.com/?from=QFramework ">
+<img src="https://images.gitee.com/uploads/images/2020/0722/084147_cc1c0a4a_2253805.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>
+
+本开源项目由 [QFramework 教程年会员](https://www.gamepixedu.com/goods/show/55) 提供资助

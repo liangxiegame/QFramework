@@ -113,7 +113,6 @@
 ### Other Awesome Framework
 
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
-- [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
 - [JEngine](https://github.com/JasonXuDeveloper/JEngine)  The solution that allows unity games update in runtime.
 - [TinaX Framework](https://tinax.corala.space/) “开箱即用”的Unity独立游戏开发工具
 
@@ -127,3 +126,10 @@
 * 如果觉得不错可以在 [Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
 * 或者给此仓库一个小小的  Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
+### Credits:
+
+Thanks for Licenses Supporting by JetBrains Company
+
+<p><a href="https://www.jetbrains.com/?from=QFramework ">
+<img src="https://images.gitee.com/uploads/images/2020/0722/084147_cc1c0a4a_2253805.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>
