@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.96",
+    "Version": "v1.0.105",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.96",
-        "content": "增加 UnRegisterWhenDisabled 和 IMGUIHelper.SetResolution 选择 MinSize 对齐",
+        "version": "v1.0.105",
+        "content": "ActionKit 支持双击事件(诗远 PR)",
         "author": "liangxie",
-        "date": "2023 年 10 月 09 日 14:41",
+        "date": "2023 年 11 月 08 日 14:35",
         "PackageId": ""
     }
 }

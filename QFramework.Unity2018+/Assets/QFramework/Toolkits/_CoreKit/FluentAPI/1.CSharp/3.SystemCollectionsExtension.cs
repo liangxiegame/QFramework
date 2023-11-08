@@ -177,5 +177,19 @@ dictionary3.ForEach(pair => Debug.LogFormat(""{0}:{1}"", pair.Key, pair.Value));
 
             enumerator.Dispose();
         }
+        
+        
+        // TODO:
+        public static bool IsNullOrEmpty<T>(this T[] collection) => collection == null || collection.Length == 0;
+        // TODO:
+        public static bool IsNullOrEmpty<T>(this IList<T> collection) => collection == null || collection.Count == 0;
+        // TODO:
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> collection) => collection == null || !collection.Any();
+        // TODO:
+        public static bool IsNotNullAndEmpty<T>(this T[] collection) => !IsNullOrEmpty(collection);
+        // TODO:
+        public static bool IsNotNullAndEmpty<T>(this IList<T> collection) => !IsNullOrEmpty(collection);
+        // TODO:
+        public static bool IsNotNullAndEmpty<T>(this IEnumerable<T> collection) => !IsNullOrEmpty(collection);
     }
 }

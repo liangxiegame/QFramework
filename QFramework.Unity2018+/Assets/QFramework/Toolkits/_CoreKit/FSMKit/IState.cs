@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2016 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -17,7 +18,6 @@ namespace QFramework
         void Enter();
         void Update();
         void FixedUpdate();
-
         void OnGUI();
         void Exit();
     }
@@ -318,6 +318,7 @@ namespace QFramework.Example
         public T PreviousStateId { get; private set; }
 
         public long FrameCountOfCurrentState = 1;
+        public float SecondsOfCurrentState = 0.0f;
         
         public void ChangeState(T t)
         {
@@ -333,6 +334,7 @@ namespace QFramework.Example
                     mCurrentStateId = t;
                     mOnStateChanged?.Invoke(PreviousStateId, CurrentStateId);
                     FrameCountOfCurrentState = 1;
+                    SecondsOfCurrentState = 0.0f;
                     mCurrentState.Enter();
                 }
             }
@@ -353,6 +355,7 @@ namespace QFramework.Example
                 mCurrentState = state;
                 mCurrentStateId = t;
                 FrameCountOfCurrentState = 0;
+                SecondsOfCurrentState = 0.0f;
                 state.Enter();
             }
         }
@@ -366,6 +369,7 @@ namespace QFramework.Example
         {
             mCurrentState?.Update();
             FrameCountOfCurrentState++;
+            SecondsOfCurrentState += Time.deltaTime;
         }
 
         public void OnGUI()

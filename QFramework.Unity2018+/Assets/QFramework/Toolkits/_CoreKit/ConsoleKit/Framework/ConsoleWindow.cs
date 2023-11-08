@@ -23,6 +23,11 @@ namespace QFramework
 
         public OnGUICallback onGUICallback = null;
 
+        public bool ShowGUI
+        {
+            get => showGUI;
+            set => showGUI = value;
+        }
         private bool showGUI = true;
 
 #if UNITY_IOS
@@ -82,7 +87,7 @@ namespace QFramework
             var cachedMatrix = GUI.matrix;
             IMGUIHelper.SetDesignResolution(960, 540);
 
-            if (GUI.Button(new Rect(100, 100, 200, 100), "清空数据"))
+            if (GUI.Button(new Rect(100, 100, 100, 50), "清空数据"))
             {
                 PlayerPrefs.DeleteAll();
 
@@ -108,7 +113,5 @@ namespace QFramework
             ConsoleKit.Modules[mIndex].DrawGUI();
             GUI.DragWindow(new Rect(0, 0, 10000, 20));
         }
-
-
     }
 }

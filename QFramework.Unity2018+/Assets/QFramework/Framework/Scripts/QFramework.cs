@@ -20,11 +20,12 @@
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.10.9 13:15 support unregister when disable
+ * Latest Update: 2023.10.16 16:29 add Deinit
  ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QFramework
 {
@@ -55,15 +56,14 @@ namespace QFramework
 
         IUnRegister RegisterEvent<T>(Action<T> onEvent);
         void UnRegisterEvent<T>(Action<T> onEvent);
+        
+        void Deinit();
     }
 
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
         private bool mInited = false;
-
-        private HashSet<ISystem> mSystems = new HashSet<ISystem>();
-
-        private HashSet<IModel> mModels = new HashSet<IModel>();
+        
 
         public static Action<T> OnRegisterPatch = architecture => { };
 
@@ -73,11 +73,7 @@ namespace QFramework
         {
             get
             {
-                if (mArchitecture == null)
-                {
-                    MakeSureArchitecture();
-                }
-
+                if (mArchitecture == null) MakeSureArchitecture();
                 return mArchitecture;
             }
         }
@@ -92,25 +88,34 @@ namespace QFramework
 
                 OnRegisterPatch?.Invoke(mArchitecture);
 
-                foreach (var architectureModel in mArchitecture.mModels)
+                foreach (var model in mArchitecture.mContainer.GetInstancesByType<IModel>().Where(m=>!m.Initialized))
                 {
-                    architectureModel.Init();
+                    model.Init();
+                    model.Initialized = true;
                 }
-
-                mArchitecture.mModels.Clear();
-
-                foreach (var architectureSystem in mArchitecture.mSystems)
+                
+                foreach (var system in mArchitecture.mContainer.GetInstancesByType<ISystem>().Where(m=>!m.Initialized))
                 {
-                    architectureSystem.Init();
+                    system.Init();
+                    system.Initialized = true;
                 }
-
-                mArchitecture.mSystems.Clear();
 
                 mArchitecture.mInited = true;
             }
         }
 
         protected abstract void Init();
+
+        public void Deinit()
+        {
+            OnDeinit();
+            foreach (var system in mContainer.GetInstancesByType<ISystem>().Where(s=>s.Initialized)) system.Deinit();
+            foreach (var model in mContainer.GetInstancesByType<IModel>().Where(m=>m.Initialized)) model.Deinit();
+            mContainer.Clear();
+            mArchitecture = null;
+        }
+
+        protected virtual void OnDeinit() { }
 
         private IOCContainer mContainer = new IOCContainer();
 
@@ -119,13 +124,10 @@ namespace QFramework
             system.SetArchitecture(this);
             mContainer.Register<TSystem>(system);
 
-            if (!mInited)
-            {
-                mSystems.Add(system);
-            }
-            else
+            if (mInited)
             {
                 system.Init();
+                system.Initialized = true;
             }
         }
 
@@ -134,13 +136,10 @@ namespace QFramework
             model.SetArchitecture(this);
             mContainer.Register<TModel>(model);
 
-            if (!mInited)
-            {
-                mModels.Add(model);
-            }
-            else
+            if (mInited)
             {
                 model.Init();
+                model.Initialized = true;
             }
         }
 
@@ -186,6 +185,7 @@ namespace QFramework
         public IUnRegister RegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.Register<TEvent>(onEvent);
 
         public void UnRegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.UnRegister<TEvent>(onEvent);
+
     }
 
     public interface IOnEvent<T>
@@ -216,9 +216,8 @@ namespace QFramework
     #region System
 
     public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,
-        ICanRegisterEvent, ICanSendEvent, ICanGetSystem
+        ICanRegisterEvent, ICanSendEvent, ICanGetSystem,ICanInit
     {
-        void Init();
     }
 
     public abstract class AbstractSystem : ISystem
@@ -229,8 +228,12 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
-        void ISystem.Init() => OnInit();
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
 
+        public void Deinit() => OnDeinit();
+
+        protected virtual void OnDeinit(){}
         protected abstract void OnInit();
     }
 
@@ -238,9 +241,8 @@ namespace QFramework
 
     #region Model
 
-    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent
+    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent,ICanInit
     {
-        void Init();
     }
 
     public abstract class AbstractModel : IModel
@@ -251,7 +253,11 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecturel = architecture;
 
-        void IModel.Init() => OnInit();
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
+        public void Deinit() => OnDeinit();
+
+        protected virtual void OnDeinit(){}
 
         protected abstract void OnInit();
     }
@@ -425,6 +431,13 @@ namespace QFramework
         public static TResult SendQuery<TResult>(this ICanSendQuery self, IQuery<TResult> query) =>
             self.GetArchitecture().SendQuery(query);
     }
+    
+    public interface ICanInit
+    {
+        bool Initialized { get; set; }
+        void Init();
+        void Deinit();
+    }
 
     #endregion
 
@@ -574,10 +587,7 @@ namespace QFramework
         public void UnRegister<T>(Action<T> onEvent)
         {
             var e = mEvents.GetEvent<EasyEvent<T>>();
-            if (e != null)
-            {
-                e.UnRegister(onEvent);
-            }
+            e?.UnRegister(onEvent);
         }
     }
 
@@ -614,6 +624,14 @@ namespace QFramework
 
             return null;
         }
+
+        public IEnumerable<T> GetInstancesByType<T>()
+        {
+            var type = typeof(T);
+            return mInstances.Values.Where(instance => type.IsInstanceOfType(instance)).Cast<T>();
+        }
+
+        public void Clear() => mInstances.Clear();
     }
 
     #endregion
