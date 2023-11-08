@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.105",
+    "Version": "v1.0.106",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.105",
-        "content": "ActionKit 支持双击事件(诗远 PR)",
+        "version": "v1.0.106",
+        "content": "UIKit OnApplicationQuit 时清空静态数据（支持 Domain Reload 设置，于大进 提供反馈和测试）",
         "author": "liangxie",
-        "date": "2023 年 11 月 08 日 14:35",
+        "date": "2023 年 11 月 08 日 15:27",
         "PackageId": ""
     }
 }
