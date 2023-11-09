@@ -251,7 +251,7 @@ mResLoader.LoadSceneAsync(""BattleScene"",(operation)=>
             Action<AsyncOperation> onStartLoading = null)
         {
 
-            var resSearchKey = ResSearchKeys.Allocate(bundleName,sceneName);
+            var resSearchKey = ResSearchKeys.Allocate(sceneName,bundleName);
             self.LoadSceneAsync(resSearchKey,loadSceneMode,physicsMode,onStartLoading);
             resSearchKey.Recycle2Cache();
         }
