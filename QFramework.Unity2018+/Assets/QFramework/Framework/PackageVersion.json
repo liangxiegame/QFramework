@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.109",
+    "Version": "v1.0.110",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.109",
-        "content": "LogKit 支持双击找到报错定位（感谢 clksaaa)",
+        "version": "v1.0.110",
+        "content": "修复 LogKti 打包时的编译错误",
         "author": "liangxie",
-        "date": "2023 年 11 月 10 日 13:56",
+        "date": "2023 年 11 月 10 日 14:49",
         "PackageId": ""
     }
 }

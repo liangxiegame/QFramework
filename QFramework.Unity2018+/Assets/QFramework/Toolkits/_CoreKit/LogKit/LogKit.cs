@@ -4,7 +4,7 @@
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
- * 
+ *
  ****************************************************************************/
 
 using System.Reflection;
@@ -232,7 +232,7 @@ LogKit.Level = LogKit.LogLevel.Max;
         }
     }
 
-
+#if UNITY_EDITOR
     // * 参考: https://zhuanlan.zhihu.com/p/92291084
     // 感谢 https://github.com/clksaaa 提供的 issue 反馈 和 解决方案
     public static class OpenAssetLogLine
@@ -307,4 +307,5 @@ LogKit.Level = LogKit.LogLevel.Max;
             return null;
         }
     }
+#endif
 }
