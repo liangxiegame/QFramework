@@ -5,9 +5,10 @@ namespace QFramework
 {
     public class ConsoleKit
     {
+        private static LogModule mDefaultLogModule = new LogModule();
         private static List<ConsoleModule> mModules = new List<ConsoleModule>()
         {
-            new LogModule()
+            mDefaultLogModule
         };
 
         public static IReadOnlyList<ConsoleModule> Modules => mModules;
@@ -25,6 +26,7 @@ namespace QFramework
         public static void DestroyModules()
         {
             Modules.ForEach(m => m.OnDestroy());
+            mModules.RemoveAll(m => m != mDefaultLogModule);
         }
     }
     

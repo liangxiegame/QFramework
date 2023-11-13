@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.111",
+    "Version": "v1.0.112",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.111",
-        "content": "PackageKit 默认打开的为止在 Unity 所在的屏幕",
+        "version": "v1.0.112",
+        "content": "ConsoleKit 游戏结束时清空窗口",
         "author": "liangxie",
-        "date": "2023 年 11 月 13 日 15:19",
+        "date": "2023 年 11 月 14 日 01:34",
         "PackageId": ""
     }
 }
