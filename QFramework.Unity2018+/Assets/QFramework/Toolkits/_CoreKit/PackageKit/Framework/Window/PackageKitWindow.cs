@@ -311,6 +311,7 @@ namespace QFramework
 
                         if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
                         {
+                            GUIUtility.keyboardControl = 0;
                             mSelectedViewRender.Interface.OnHide();
                             mSelectedViewRender = drawer;
                             mSelectedViewRender.Interface.OnShow();

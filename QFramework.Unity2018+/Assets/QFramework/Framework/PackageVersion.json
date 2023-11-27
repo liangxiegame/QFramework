@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.112",
+    "Version": "v1.0.113",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.112",
-        "content": "ConsoleKit 游戏结束时清空窗口",
+        "version": "v1.0.113",
+        "content": "文档支持简单的搜索功能&修复切换编辑器界面输入框聚焦异常的问题（感谢MisakiMei贡献）",
         "author": "liangxie",
-        "date": "2023 年 11 月 14 日 01:34",
+        "date": "2023 年 11 月 27 日 21:03",
         "PackageId": ""
     }
 }

@@ -1,12 +1,13 @@
 ﻿/****************************************************************************
- * Copyright (c) 2016 ~ 2022 liangxiegame UNDER MIT LICENSE
- * 
+ * Copyright (c) 2016 ~ 2024 liangxiegame UNDER MIT LICENSE
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace QFramework
 {
     public class Guideline
     {
+        
         public class GuidelineItem : GuidelineItemFolder
         {
             public string FilePath;
@@ -32,14 +34,14 @@ namespace QFramework
 
             public void DrawGUI(Guideline guideline)
             {
-                foreach (var guidelineItemGroup in Folders.OrderBy(g=>g.Name))
+                foreach (var guidelineItemGroup in Folders.OrderBy(g => g.Name))
                 {
                     if (guidelineItemGroup is GuidelineItem)
                     {
                         var guidelineItem = guidelineItemGroup as GuidelineItem;
-                        
+
                         GUILayout.BeginHorizontal();
-                        GUILayout.Space(Indent * 8);
+                        GUILayout.Space(Indent * 10);
 
                         GUILayout.BeginVertical("box");
 
@@ -69,19 +71,20 @@ namespace QFramework
                             guideline.mMarkdownViewer.ResetScrollPos();
                             Event.current.Use();
                         }
+
                         GUILayout.EndHorizontal();
                     }
                     else
                     {
-
+                        if (guidelineItemGroup.Folders.Count == 0) continue;
                         GUILayout.BeginHorizontal();
                         if (Indent != 0)
                         {
-                            GUILayout.Space((Indent) * 8);
+                            GUILayout.Space((Indent) * 10);
                         }
 
                         GUILayout.BeginVertical("box");
-                        
+
                         if (EditorGUILayout.Foldout(guidelineItemGroup.Open, guidelineItemGroup.Name,
                                 true))
                         {
@@ -120,6 +123,61 @@ namespace QFramework
         {
         }
 
+        private EditorCoroutine mRefreshCoroutine = null;
+
+        IEnumerator Refresh(string folderPath,string searchKey)
+        {
+            mRootFolder.Folders.Clear();
+
+            var searching = searchKey.IsNotNullAndEmpty();
+            foreach (var guidelineItem in mViews)
+            {
+                var pathToRoot = guidelineItem.FilePath.RemoveString(folderPath);
+
+                var names = pathToRoot.Split(Path.DirectorySeparatorChar);
+
+                var currentGroup = mRootFolder;
+                var indent = 1;
+                foreach (var name in names)
+                {
+                    if (name.IsNullOrEmpty())
+                    {
+                        continue;
+                    }
+
+                    indent++;
+                    if (name.EndsWith(".md"))
+                    {
+                        if (!searching || name.ToLower().Contains(searchKey.ToLower()))
+                        {
+                            guidelineItem.Indent = indent;
+                            currentGroup.Folders.Add(guidelineItem);
+                        }
+                    }
+                    else
+                    {
+                        var childGroup = currentGroup.Folders.FirstOrDefault(g => g.Name == name);
+
+                        if (childGroup != null)
+                        {
+                            currentGroup = childGroup;
+                        }
+                        else
+                        {
+                            childGroup = new GuidelineItemFolder()
+                            {
+                                Name = name,
+                                Indent = indent,
+                                Open = searching
+                            };
+                            currentGroup.Folders.Add(childGroup);
+                            currentGroup = childGroup;
+                        }
+                        yield return null;
+                    }
+                }
+            }
+        }
 
         public void OnShow()
         {
@@ -154,50 +212,19 @@ namespace QFramework
             mRootFolder = new GuidelineItemFolder()
             {
             };
+            
+            var searchKey = string.Empty;
 
-            foreach (var guidelineItem in mViews)
+            if (mRefreshCoroutine != null)
             {
-                var pathToRoot = guidelineItem.FilePath.RemoveString(folderPath);
-
-                var names = pathToRoot.Split(Path.DirectorySeparatorChar);
-
-                var currentGroup = mRootFolder;
-                var indent = 1;
-                foreach (var name in names)
-                {
-                    if (name.IsNullOrEmpty())
-                    {
-                        continue;
-                    }
-
-                    indent++;
-                    if (name.EndsWith(".md"))
-                    {
-                        guidelineItem.Indent = indent;
-                        currentGroup.Folders.Add(guidelineItem);
-                    }
-                    else
-                    {
-                        var childGroup = currentGroup.Folders.FirstOrDefault(g => g.Name == name);
-
-                        if (childGroup != null)
-                        {
-                            currentGroup = childGroup;
-                        }
-                        else
-                        {
-                            childGroup = new GuidelineItemFolder()
-                            {
-                                Name = name,
-                                Indent = indent
-                            };
-                            currentGroup.Folders.Add(childGroup);
-                            currentGroup = childGroup;
-                        }
-                    }
-                }
+                mRefreshCoroutine.Stop();
+                mRefreshCoroutine = null;
             }
-
+            
+            mRefreshCoroutine = EditorCoroutine.Start(Refresh(folderPath,searchKey), () =>
+            {
+                mRefreshCoroutine = null;
+            });
 
             // 创建双屏
             mSplitView = new VerticalSplitView(240)
@@ -216,11 +243,12 @@ namespace QFramework
 
             var scrollPos = Vector2.zero;
 
+
             mLeftLayout = EasyIMGUI.Area().WithRectGetter(() => mLeftRect)
                 .AddChild(EasyIMGUI.Custom().OnGUI(() =>
                 {
                     GUILayout.BeginHorizontal();
-                    
+
                     GUILayout.BeginVertical();
                     GUILayout.Space(20);
                     GUILayout.EndVertical();
@@ -239,17 +267,35 @@ namespace QFramework
                 }))
                 .AddChild(EasyIMGUI.Custom().OnGUI(() =>
                 {
+                    EditorGUI.BeginChangeCheck();
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label(LocaleText.Search);
+                    searchKey = EditorGUILayout.TextField(searchKey,GUILayout.Height(20));
+                    GUILayout.EndHorizontal();
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        if (mRefreshCoroutine != null)
+                        {
+                            mRefreshCoroutine.Stop();
+                            mRefreshCoroutine = null;
+                        }
+                        
+                        mRefreshCoroutine = EditorCoroutine.Start(Refresh(folderPath,searchKey), () =>
+                        {
+                            mRefreshCoroutine = null;
+                        });
+                    }
+
                     scrollPos = GUILayout.BeginScrollView(scrollPos);
 
                     mRootFolder.DrawGUI(this);
-
 
                     GUILayout.EndScrollView();
 
                     if (GUILayout.Button(LocaleKitEditor.IsCN.Value ? "导出" : "Export"))
                     {
                         var builder = new StringBuilder();
-                        
+
                         void Export(GuidelineItemFolder currentFolder)
                         {
                             foreach (var guidelineItemGroup in currentFolder.Folders)
@@ -272,22 +318,22 @@ namespace QFramework
                         }
 
                         Export(mRootFolder);
-                    
+
                         var framework = PackageKit.Interface.GetModel<ILocalPackageVersionModel>()
                             .GetByName("Framework");
-                    
-                    
+
+
                         var guidelineText = LocaleKitEditor.IsCN.Value ? "使用指南 " : "Guideline";
-                    
+
                         var savedPath = EditorUtility.SaveFilePanel($"QFramework {framework.Version} {guidelineText}",
                             Application.dataPath,
                             $"QFramework {framework.Version} {guidelineText}", "md");
-                    
+
                         File.WriteAllText(savedPath, builder.ToString());
-                    
+
                         EditorUtility.RevealInFinder(savedPath);
                     }
-                    
+
                     GUILayout.Space(5);
                 }));
 
@@ -352,6 +398,13 @@ namespace QFramework
 
         public void OnDestroy()
         {
+        }
+        
+        class LocaleText
+        {
+            public static string Search =>
+                LocaleKitEditor.IsCN.Value ? "搜索:" : "Search:";
+            
         }
     }
 }

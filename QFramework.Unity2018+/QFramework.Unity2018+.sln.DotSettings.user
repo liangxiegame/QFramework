@@ -1,0 +1,5 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;
+  &lt;Assembly Path="/Applications/Unity/Hub/Editor/2018.4.36f1/Unity.app/Contents/Managed/UnityEditor.dll" /&gt;
+  &lt;Assembly Path="/Users/liangxie/Desktop/works/QFramework/QFramework.Unity2018+/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll" /&gt;
+&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
