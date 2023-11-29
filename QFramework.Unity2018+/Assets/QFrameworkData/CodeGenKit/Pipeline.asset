@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621f3f918dd5423d93a746ad8fc9082d, type: 3}
+  m_Name: Pipeline
+  m_EditorClassIdentifier: 
+  CurrentTask:
+    ShowLog: 0
+    Status: 1
+    GameObject: {fileID: 0}
+    From: 0
+    NameToFullName: []
+    BindInfos: []
+    ScriptsFolder: Assets/Scripts/Game
+    ClassName: MyScript
+    Namespace: QFramework.Example
+    MainCode: "using UnityEngine;\nusing QFramework;\n\n// 1.\u8BF7\u5728\u83DC\u5355
+      \u7F16\u8F91\u5668\u6269\u5C55/Namespace Settings \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\n//
+      2.\u547D\u540D\u7A7A\u95F4\u66F4\u6539\u540E\uFF0C\u751F\u6210\u4EE3\u7801\u4E4B\u540E\uFF0C\u9700\u8981\u628A\u903B\u8F91\u4EE3\u7801\u6587\u4EF6\uFF08\u975E
+      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\nnamespace
+      QFramework.Example\n{\n\tpublic partial class MyScript : ViewController\n\t{\n\t\tvoid
+      Start()\n\t\t{\n\t\t\t// Code Here\n\t\t}\n\t}\n}\n"
+    DesignerCode: "// Generate Id:dcfdfde4-c62d-4c38-b9fe-144057ad97b2\nusing UnityEngine;\n\n//
+      1.\u8BF7\u5728\u83DC\u5355 \u7F16\u8F91\u5668\u6269\u5C55/Namespace Settings
+      \u91CC\u8BBE\u7F6E\u547D\u540D\u7A7A\u95F4\n// 2.\u547D\u540D\u7A7A\u95F4\u66F4\u6539\u540E\uFF0C\u751F\u6210\u4EE3\u7801\u4E4B\u540E\uFF0C\u9700\u8981\u628A\u903B\u8F91\u4EE3\u7801\u6587\u4EF6\uFF08\u975E
+      Designer\uFF09\u7684\u547D\u540D\u7A7A\u95F4\u624B\u52A8\u66F4\u6539\nnamespace
+      QFramework.Example\n{\n\tpublic partial class MyScript : QFramework.IController\n\t{\n\n\t\tQFramework.IArchitecture
+      QFramework.IBelongToArchitecture.GetArchitecture()=>MyArchitecture.Interface;\n\t}\n}\n"

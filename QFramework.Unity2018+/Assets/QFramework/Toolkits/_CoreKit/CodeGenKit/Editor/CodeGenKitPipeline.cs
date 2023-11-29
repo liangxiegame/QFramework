@@ -68,10 +68,7 @@ namespace QFramework
             CurrentTask.Status = CodeGenTaskStatus.Search;
             BindSearchHelper.Search(task);
             CurrentTask.Status = CodeGenTaskStatus.Gen;
-
-
-            // var writer = File.CreateText(scriptFile);
-
+            
             var writer = new StringBuilder();
             writer.AppendLine("using UnityEngine;");
             writer.AppendLine("using QFramework;");
@@ -111,7 +108,15 @@ namespace QFramework
             writer.AppendLine(
                 $"namespace {(string.IsNullOrWhiteSpace(task.Namespace) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
             writer.AppendLine("{");
-            writer.AppendLine($"\tpublic partial class {task.ClassName}");
+            var viewController = task.GameObject.GetComponent<ViewController>();
+            if (viewController.ArchitectureFullTypeName.IsNotNullAndEmpty())
+            {
+                writer.AppendLine($"\tpublic partial class {task.ClassName} : QFramework.IController");
+            }
+            else
+            {
+                writer.AppendLine($"\tpublic partial class {task.ClassName}");
+            }
             writer.AppendLine("\t{");
 
             foreach (var bindData in task.BindInfos)
@@ -142,6 +147,11 @@ namespace QFramework
             }
 
             writer.AppendLine();
+            if (viewController.ArchitectureFullTypeName.IsNotNullAndEmpty())
+            {
+                writer.AppendLine(
+                    $"\t\tQFramework.IArchitecture QFramework.IBelongToArchitecture.GetArchitecture()=>{viewController.ArchitectureFullTypeName}.Interface;");
+            }
             writer.AppendLine("\t}");
             writer.AppendLine("}");
             task.DesignerCode = writer.ToString();
@@ -233,7 +243,8 @@ namespace QFramework
                     serializedObject.FindProperty("GeneratePrefab").boolValue = codeGenerateInfo.GeneratePrefab;
                     serializedObject.FindProperty("ScriptName").stringValue = codeGenerateInfo.ScriptName;
                     serializedObject.FindProperty("Namespace").stringValue = codeGenerateInfo.Namespace;
-
+                    serializedObject.FindProperty("ArchitectureFullTypeName").stringValue = codeGenerateInfo.ArchitectureFullTypeName;
+                    
                     var generatePrefab = codeGenerateInfo.GeneratePrefab;
                     var prefabFolder = codeGenerateInfo.PrefabFolder;
 

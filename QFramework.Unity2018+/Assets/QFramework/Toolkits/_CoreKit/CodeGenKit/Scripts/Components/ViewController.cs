@@ -22,8 +22,9 @@ namespace QFramework
 
         [HideInInspector] public bool GeneratePrefab = false;
 
-
         [HideInInspector] public string PrefabFolder = string.Empty;
+        
+        [HideInInspector] public string ArchitectureFullTypeName = string.Empty;
 
         public string TemplateName => nameof(ViewController);
     }

@@ -8,6 +8,7 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
+using System;
 using System.IO;
 using System.Linq;
 using UnityEditor;
@@ -96,8 +97,22 @@ namespace QFramework
                 var setting = CodeGenKitSetting.Load();
                 ViewController.Namespace = setting.Namespace;
             }
+            
+            mArchitectureTypes = SearchAllArchitectureTypes();
+            mArchitectureTypeMenus = mArchitectureTypes.Select(t => t.FullName).Append("None").ToArray();
         }
 
+        private static Type[] SearchAllArchitectureTypes()
+        {
+            var architectureType = typeof(IArchitecture);
+
+            return AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.Contains("UnityEngine") && !a.FullName.Contains("Kit") && !a.FullName.Contains("QFramework"))
+                .SelectMany(a => a.GetTypes())
+                .Where(type => !type.IsAbstract && architectureType.IsAssignableFrom(type)).ToArray();
+        }
+
+        private Type[] mArchitectureTypes;
+        private string[] mArchitectureTypeMenus;
 
         private readonly ViewControllerInspectorStyle mStyle = new ViewControllerInspectorStyle();
 
@@ -110,6 +125,33 @@ namespace QFramework
             GUILayout.Label(mLocaleText.CodegenPart, mStyle.BigTitleStyle.Value);
 
             LocaleKitEditor.DrawSwitchToggle(GUI.skin.label.normal.textColor);
+            
+            if (mArchitectureTypes.Length > 0)
+            {
+                var index = Array.FindIndex(mArchitectureTypes,
+                    (t) => t.FullName == ViewController.ArchitectureFullTypeName);
+                if (index == -1)
+                {
+                    index = mArchitectureTypeMenus.Length - 1;
+                }
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(mLocaleText.ArchitectureType, GUILayout.Width(150));
+                EditorGUI.BeginChangeCheck();
+                index = EditorGUILayout.Popup(index, mArchitectureTypeMenus);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    if (index == mArchitectureTypeMenus.Length - 1)
+                    {
+                        ViewController.ArchitectureFullTypeName = string.Empty;
+                    }
+                    else
+                    {
+                        ViewController.ArchitectureFullTypeName = mArchitectureTypes[index].FullName;
+                    }
+                }
+                GUILayout.EndHorizontal();
+            }
+
 
             GUILayout.BeginHorizontal();
             GUILayout.Label(mLocaleText.Namespace, GUILayout.Width(150));
