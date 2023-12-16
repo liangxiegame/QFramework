@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.114",
+    "Version": "v1.0.116",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.114",
-        "content": "ViewController 可以选择关联架构",
+        "version": "v1.0.116",
+        "content": "LocaleKit: LanguageText 的 Inspector 显示改进",
         "author": "liangxie",
-        "date": "2023 年 11 月 29 日 15:50",
+        "date": "2023 年 12 月 16 日 22:59",
         "PackageId": ""
     }
 }

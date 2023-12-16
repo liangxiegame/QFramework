@@ -1,13 +1,12 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
+ * Copyright (c) 2015 - 2023 liangxiegame UNDER MIT License
+ *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 #if UNITY_EDITOR
-using System;
 using UnityEditor;
 #endif
 using System.Linq;
@@ -21,7 +20,7 @@ namespace QFramework
         [SerializeField] public int LanguageIndex = 0;
         [HideInInspector] public Language Language;
 
-        [TextArea(1, int.MaxValue)] public string Text;
+        [TextArea(0,int.MaxValue)] public string Text;
     }
 
 
@@ -29,37 +28,43 @@ namespace QFramework
     [CustomPropertyDrawer(typeof(LanguageText))]
     public class LanguageTextDrawer : PropertyDrawer
     {
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            var textProperty = property.FindPropertyRelative("Text");
+            var height = EditorGUI.GetPropertyHeight(textProperty);
+            return height;
+        }
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            var languageIndex = property.FindPropertyRelative("LanguageIndex");
+            var language = property.FindPropertyRelative("Language");
+            var text = property.FindPropertyRelative("Text");
+            
             EditorGUI.BeginProperty(position, label, property);
-            GUILayout.BeginVertical("box");
+
+            var languageRect = new Rect(position.x, position.y, position.width,
+                EditorGUIUtility.singleLineHeight);
+            var languages = LanguageDefineConfig.Default.LanguageDefines;
+            
+            languageIndex.intValue = EditorGUI.Popup(languageRect, languageIndex.intValue,
+                languages.Select(l => l.Language.ToString()).ToArray());
+
+            if (language.intValue != (int)languages[languageIndex.intValue].Language)
             {
-                var languageIndex = property.FindPropertyRelative("LanguageIndex");
-                var language = property.FindPropertyRelative("Language");
-
-                var text = property.FindPropertyRelative("Text");
-
-                var languages = LanguageDefineConfig.Default.LanguageDefines;
-
-                GUILayout.BeginHorizontal();
-                {
-                    GUILayout.Label("Language:");
-
-                    EditorGUI.BeginChangeCheck();
-                    languageIndex.intValue = EditorGUILayout.Popup(languageIndex.intValue,
-                        languages.Select(l => l.Language.ToString()).ToArray());
-
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        language.intValue = (int)languages[languageIndex.intValue].Language;
-                    }
-
-                    GUILayout.EndHorizontal();
-                }
-
-                EditorGUILayout.PropertyField(text);
+                language.intValue = (int)languages[languageIndex.intValue].Language;
             }
-            GUILayout.EndVertical();
+            
+            var indent = EditorGUI.indentLevel;
+            EditorGUI.indentLevel = 0;
+            var textHeight = EditorGUI.GetPropertyHeight(text);
+
+            var textRect = new Rect(position.x, position.y + EditorGUIUtility.singleLineHeight + 5, position.width,
+                textHeight - EditorGUIUtility.singleLineHeight - 12);
+            text.stringValue = EditorGUI.TextArea(textRect, text.stringValue);
+
+            
+            EditorGUI.indentLevel = indent;
             EditorGUI.EndProperty();
         }
     }

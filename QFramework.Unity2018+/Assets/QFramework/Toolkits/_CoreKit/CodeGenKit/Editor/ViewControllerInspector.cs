@@ -165,9 +165,13 @@ namespace QFramework
 
             GUILayout.BeginHorizontal();
             GUILayout.Label(mLocaleText.ScriptsFolder, GUILayout.Width(150));
-            ViewController.ScriptsFolder =
-                EditorGUILayout.TextArea(ViewController.ScriptsFolder, GUILayout.Height(30));
-
+            EditorGUILayout.TextArea(ViewController.ScriptsFolder);
+            if (GUILayout.Button("...",GUILayout.Width(30)))
+            {
+                var folderPath = Application.dataPath.Replace("Assets", ViewController.ScriptsFolder);
+                folderPath = EditorUtility.OpenFolderPanel("Select Folder", folderPath, string.Empty);
+                ViewController.ScriptsFolder = folderPath.Replace(Application.dataPath, "Assets");
+            }
             GUILayout.EndHorizontal();
 
 
@@ -269,6 +273,24 @@ namespace QFramework
                 if (GUILayout.Button(mLocaleText.SelectScript, GUILayout.Height(30)))
                 {
                     Selection.activeObject = scriptObject;
+                }
+            }
+            else
+            {
+                if (ViewController.GetType() != typeof(ViewController))
+                {
+                    var scriptPath = AssetDatabase
+                        .FindAssets($"t:{nameof(MonoScript)}")
+                        .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                        .Where(path =>
+                            path.Contains(ViewController.GetType().Name) && !path.EndsWith("Designer.cs"))
+                        .FirstOrDefault(path => AssetDatabase.LoadAssetAtPath<MonoScript>(path).GetClass() == ViewController.GetType());
+
+                    if (scriptPath != null)
+                    {
+                        ViewController.ScriptsFolder = scriptPath.GetFolderPath();
+                    }
+
                 }
             }
 
