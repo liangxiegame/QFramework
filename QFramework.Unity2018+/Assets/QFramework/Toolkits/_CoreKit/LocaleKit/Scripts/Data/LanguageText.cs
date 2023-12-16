@@ -30,13 +30,20 @@ namespace QFramework
     {
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
+            if (property.serializedObject.isEditingMultipleObjects)
+                return EditorGUIUtility.singleLineHeight;
+            
             var textProperty = property.FindPropertyRelative("Text");
             var height = EditorGUI.GetPropertyHeight(textProperty);
             return height;
         }
 
+        
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
+            if (property.serializedObject.isEditingMultipleObjects)
+                return;
+
             var languageIndex = property.FindPropertyRelative("LanguageIndex");
             var language = property.FindPropertyRelative("Language");
             var text = property.FindPropertyRelative("Text");
@@ -54,7 +61,7 @@ namespace QFramework
             {
                 language.intValue = (int)languages[languageIndex.intValue].Language;
             }
-            
+
             var indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
             var textHeight = EditorGUI.GetPropertyHeight(text);
