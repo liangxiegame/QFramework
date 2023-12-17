@@ -35,7 +35,7 @@ namespace QFramework
             
             var textProperty = property.FindPropertyRelative("Text");
             var height = EditorGUI.GetPropertyHeight(textProperty);
-            return height;
+            return height + EditorGUIUtility.singleLineHeight;
         }
 
         
@@ -70,9 +70,22 @@ namespace QFramework
                 textHeight - EditorGUIUtility.singleLineHeight - 12);
             text.stringValue = EditorGUI.TextArea(textRect, text.stringValue);
 
-            
+
+            var previewButtonRect = new Rect(position.x, position.y + 10
+                + textHeight - 12,
+                position.width, EditorGUIUtility.singleLineHeight);
+            if (GUI.Button(previewButtonRect, Locale.Preview))
+            {
+                var localeText = property.serializedObject.targetObject as LocaleText;
+                if (localeText != null) localeText.UpdateText((Language)language.intValue);
+            }
             EditorGUI.indentLevel = indent;
             EditorGUI.EndProperty();
+        }
+        
+        public class Locale
+        {
+            public static string Preview => LocaleKitEditor.IsCN.Value ? "预览 " : "Preview ";
         }
     }
 #endif
