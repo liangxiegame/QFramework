@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2023 liangxiegame MIT License
+ * Copyright (c) 2015 ~ 2024 liangxiegame MIT License
  *
  * QFramework v1.0
  *
@@ -16,502 +16,553 @@
  *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
  *  猫叔(一只皮皮虾)  https://space.bilibili.com/656352/
  *  New一天
- *  幽飞冷凝雪～冷 
+ *  幽飞冷凝雪～冷
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.9.26 15:14 support godot4.net
+ * Latest Update: 2024.1.4 14:56 remove BindablePropertyUnRegister
  ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace QFramework
 {
-	#region Architecture
+    #region Architecture
 
-	public interface IArchitecture
-	{
-		void RegisterSystem<T>(T system) where T : ISystem;
+    public interface IArchitecture
+    {
+        void RegisterSystem<T>(T system) where T : ISystem;
 
-		void RegisterModel<T>(T model) where T : IModel;
+        void RegisterModel<T>(T model) where T : IModel;
 
-		void RegisterUtility<T>(T utility) where T : IUtility;
+        void RegisterUtility<T>(T utility) where T : IUtility;
 
-		T GetSystem<T>() where T : class, ISystem;
+        T GetSystem<T>() where T : class, ISystem;
 
-		T GetModel<T>() where T : class, IModel;
+        T GetModel<T>() where T : class, IModel;
+
+        T GetUtility<T>() where T : class, IUtility;
 
-		T GetUtility<T>() where T : class, IUtility;
+        void SendCommand<T>(T command) where T : ICommand;
 
-		void SendCommand<T>(T command) where T : ICommand;
+        TResult SendCommand<TResult>(ICommand<TResult> command);
 
-		TResult SendCommand<TResult>(ICommand<TResult> command);
+        TResult SendQuery<TResult>(IQuery<TResult> query);
 
-		TResult SendQuery<TResult>(IQuery<TResult> query);
+        void SendEvent<T>() where T : new();
+        void SendEvent<T>(T e);
 
-		void SendEvent<T>() where T : new();
-		void SendEvent<T>(T e);
+        IUnRegister RegisterEvent<T>(Action<T> onEvent);
+        void UnRegisterEvent<T>(Action<T> onEvent);
+        
+        void Deinit();
+    }
 
-		IUnRegister RegisterEvent<T>(Action<T> onEvent);
-		void UnRegisterEvent<T>(Action<T> onEvent);
-	}
+    public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
+    {
+        private bool mInited = false;
+        
 
-	public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
-	{
-		private bool mInited = false;
+        public static Action<T> OnRegisterPatch = architecture => { };
 
-		private HashSet<ISystem> mSystems = new HashSet<ISystem>();
+        protected static T mArchitecture;
 
-		private HashSet<IModel> mModels = new HashSet<IModel>();
+        public static IArchitecture Interface
+        {
+            get
+            {
+                if (mArchitecture == null) MakeSureArchitecture();
+                return mArchitecture;
+            }
+        }
 
-		public static Action<T> OnRegisterPatch = architecture => { };
 
-		protected static T mArchitecture;
+        static void MakeSureArchitecture()
+        {
+            if (mArchitecture == null)
+            {
+                mArchitecture = new T();
+                mArchitecture.Init();
 
-		public static IArchitecture Interface
-		{
-			get
-			{
-				if (mArchitecture == null)
-				{
-					MakeSureArchitecture();
-				}
+                OnRegisterPatch?.Invoke(mArchitecture);
 
-				return mArchitecture;
-			}
-		}
+                foreach (var model in mArchitecture.mContainer.GetInstancesByType<IModel>().Where(m=>!m.Initialized))
+                {
+                    model.Init();
+                    model.Initialized = true;
+                }
+                
+                foreach (var system in mArchitecture.mContainer.GetInstancesByType<ISystem>().Where(m=>!m.Initialized))
+                {
+                    system.Init();
+                    system.Initialized = true;
+                }
 
+                mArchitecture.mInited = true;
+            }
+        }
 
-		static void MakeSureArchitecture()
-		{
-			if (mArchitecture == null)
-			{
-				mArchitecture = new T();
-				mArchitecture.Init();
+        protected abstract void Init();
 
-				OnRegisterPatch?.Invoke(mArchitecture);
+        public void Deinit()
+        {
+            OnDeinit();
+            foreach (var system in mContainer.GetInstancesByType<ISystem>().Where(s=>s.Initialized)) system.Deinit();
+            foreach (var model in mContainer.GetInstancesByType<IModel>().Where(m=>m.Initialized)) model.Deinit();
+            mContainer.Clear();
+            mArchitecture = null;
+        }
 
-				foreach (var architectureModel in mArchitecture.mModels)
-				{
-					architectureModel.Init();
-				}
+        protected virtual void OnDeinit() { }
 
-				mArchitecture.mModels.Clear();
+        private IOCContainer mContainer = new IOCContainer();
 
-				foreach (var architectureSystem in mArchitecture.mSystems)
-				{
-					architectureSystem.Init();
-				}
+        public void RegisterSystem<TSystem>(TSystem system) where TSystem : ISystem
+        {
+            system.SetArchitecture(this);
+            mContainer.Register<TSystem>(system);
 
-				mArchitecture.mSystems.Clear();
+            if (mInited)
+            {
+                system.Init();
+                system.Initialized = true;
+            }
+        }
 
-				mArchitecture.mInited = true;
-			}
-		}
+        public void RegisterModel<TModel>(TModel model) where TModel : IModel
+        {
+            model.SetArchitecture(this);
+            mContainer.Register<TModel>(model);
 
-		protected abstract void Init();
+            if (mInited)
+            {
+                model.Init();
+                model.Initialized = true;
+            }
+        }
 
-		private IOCContainer mContainer = new IOCContainer();
+        public void RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility =>
+            mContainer.Register<TUtility>(utility);
 
-		public void RegisterSystem<TSystem>(TSystem system) where TSystem : ISystem
-		{
-			system.SetArchitecture(this);
-			mContainer.Register<TSystem>(system);
+        public TSystem GetSystem<TSystem>() where TSystem : class, ISystem => mContainer.Get<TSystem>();
 
-			if (!mInited)
-			{
-				mSystems.Add(system);
-			}
-			else
-			{
-				system.Init();
-			}
-		}
+        public TModel GetModel<TModel>() where TModel : class, IModel => mContainer.Get<TModel>();
 
-		public void RegisterModel<TModel>(TModel model) where TModel : IModel
-		{
-			model.SetArchitecture(this);
-			mContainer.Register<TModel>(model);
+        public TUtility GetUtility<TUtility>() where TUtility : class, IUtility => mContainer.Get<TUtility>();
 
-			if (!mInited)
-			{
-				mModels.Add(model);
-			}
-			else
-			{
-				model.Init();
-			}
-		}
+        public TResult SendCommand<TResult>(ICommand<TResult> command) => ExecuteCommand(command);
 
-		public void RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility =>
-			mContainer.Register<TUtility>(utility);
+        public void SendCommand<TCommand>(TCommand command) where TCommand : ICommand => ExecuteCommand(command);
 
-		public TSystem GetSystem<TSystem>() where TSystem : class, ISystem => mContainer.Get<TSystem>();
+        protected virtual TResult ExecuteCommand<TResult>(ICommand<TResult> command)
+        {
+            command.SetArchitecture(this);
+            return command.Execute();
+        }
 
-		public TModel GetModel<TModel>() where TModel : class, IModel => mContainer.Get<TModel>();
+        protected virtual void ExecuteCommand(ICommand command)
+        {
+            command.SetArchitecture(this);
+            command.Execute();
+        }
 
-		public TUtility GetUtility<TUtility>() where TUtility : class, IUtility => mContainer.Get<TUtility>();
+        public TResult SendQuery<TResult>(IQuery<TResult> query) => DoQuery<TResult>(query);
 
-		public TResult SendCommand<TResult>(ICommand<TResult> command) => ExecuteCommand(command);
+        protected virtual TResult DoQuery<TResult>(IQuery<TResult> query)
+        {
+            query.SetArchitecture(this);
+            return query.Do();
+        }
 
-		public void SendCommand<TCommand>(TCommand command) where TCommand : ICommand => ExecuteCommand(command);
+        private TypeEventSystem mTypeEventSystem = new TypeEventSystem();
 
-		protected virtual TResult ExecuteCommand<TResult>(ICommand<TResult> command)
-		{
-			command.SetArchitecture(this);
-			return command.Execute();
-		}
+        public void SendEvent<TEvent>() where TEvent : new() => mTypeEventSystem.Send<TEvent>();
 
-		protected virtual void ExecuteCommand(ICommand command)
-		{
-			command.SetArchitecture(this);
-			command.Execute();
-		}
+        public void SendEvent<TEvent>(TEvent e) => mTypeEventSystem.Send<TEvent>(e);
 
-		public TResult SendQuery<TResult>(IQuery<TResult> query) => DoQuery<TResult>(query);
+        public IUnRegister RegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.Register<TEvent>(onEvent);
 
-		protected virtual TResult DoQuery<TResult>(IQuery<TResult> query)
-		{
-			query.SetArchitecture(this);
-			return query.Do();
-		}
+        public void UnRegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.UnRegister<TEvent>(onEvent);
 
-		private TypeEventSystem mTypeEventSystem = new TypeEventSystem();
+    }
 
-		public void SendEvent<TEvent>() where TEvent : new() => mTypeEventSystem.Send<TEvent>();
+    public interface IOnEvent<T>
+    {
+        void OnEvent(T e);
+    }
 
-		public void SendEvent<TEvent>(TEvent e) => mTypeEventSystem.Send<TEvent>(e);
+    public static class OnGlobalEventExtension
+    {
+        public static IUnRegister RegisterEvent<T>(this IOnEvent<T> self) where T : struct =>
+            TypeEventSystem.Global.Register<T>(self.OnEvent);
 
-		public IUnRegister RegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.Register<TEvent>(onEvent);
+        public static void UnRegisterEvent<T>(this IOnEvent<T> self) where T : struct =>
+            TypeEventSystem.Global.UnRegister<T>(self.OnEvent);
+    }
 
-		public void UnRegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.UnRegister<TEvent>(onEvent);
-	}
+    #endregion
 
-	public interface IOnEvent<T>
-	{
-		void OnEvent(T e);
-	}
+    #region Controller
 
-	public static class OnGlobalEventExtension
-	{
-		public static IUnRegister RegisterEvent<T>(this IOnEvent<T> self) where T : struct =>
-			TypeEventSystem.Global.Register<T>(self.OnEvent);
+    public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
+        ICanRegisterEvent, ICanSendQuery, ICanGetUtility
+    {
+    }
 
-		public static void UnRegisterEvent<T>(this IOnEvent<T> self) where T : struct =>
-			TypeEventSystem.Global.UnRegister<T>(self.OnEvent);
-	}
+    #endregion
 
-	#endregion
+    #region System
 
-	#region Controller
+    public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,
+        ICanRegisterEvent, ICanSendEvent, ICanGetSystem,ICanInit
+    {
+    }
 
-	public interface IController : IBelongToArchitecture, ICanSendCommand, ICanGetSystem, ICanGetModel,
-		ICanRegisterEvent, ICanSendQuery, ICanGetUtility
-	{
-	}
+    public abstract class AbstractSystem : ISystem
+    {
+        private IArchitecture mArchitecture;
 
-	#endregion
+        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
 
-	#region System
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
-	public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,
-		ICanRegisterEvent, ICanSendEvent, ICanGetSystem
-	{
-		void Init();
-	}
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
 
-	public abstract class AbstractSystem : ISystem
-	{
-		private IArchitecture mArchitecture;
+        public void Deinit() => OnDeinit();
 
-		IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
+        protected virtual void OnDeinit(){}
+        protected abstract void OnInit();
+    }
 
-		void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
+    #endregion
 
-		void ISystem.Init() => OnInit();
+    #region Model
 
-		protected abstract void OnInit();
-	}
+    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent,ICanInit
+    {
+    }
 
-	#endregion
+    public abstract class AbstractModel : IModel
+    {
+        private IArchitecture mArchitecturel;
 
-	#region Model
+        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecturel;
 
-	public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent
-	{
-		void Init();
-	}
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecturel = architecture;
 
-	public abstract class AbstractModel : IModel
-	{
-		private IArchitecture mArchitecturel;
+        public bool Initialized { get; set; }
+        void ICanInit.Init() => OnInit();
+        public void Deinit() => OnDeinit();
 
-		IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecturel;
+        protected virtual void OnDeinit(){}
 
-		void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecturel = architecture;
+        protected abstract void OnInit();
+    }
 
-		void IModel.Init() => OnInit();
+    #endregion
 
-		protected abstract void OnInit();
-	}
+    #region Utility
 
-	#endregion
+    public interface IUtility
+    {
+    }
 
-	#region Utility
+    #endregion
 
-	public interface IUtility
-	{
-	}
+    #region Command
 
-	#endregion
+    public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility,
+        ICanSendEvent, ICanSendCommand, ICanSendQuery
+    {
+        void Execute();
+    }
 
-	#region Command
+    public interface ICommand<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel,
+        ICanGetUtility,
+        ICanSendEvent, ICanSendCommand, ICanSendQuery
+    {
+        TResult Execute();
+    }
 
-	public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility,
-		ICanSendEvent, ICanSendCommand, ICanSendQuery
-	{
-		void Execute();
-	}
+    public abstract class AbstractCommand : ICommand
+    {
+        private IArchitecture mArchitecture;
 
-	public interface ICommand<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel,
-		ICanGetUtility,
-		ICanSendEvent, ICanSendCommand, ICanSendQuery
-	{
-		TResult Execute();
-	}
+        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
 
-	public abstract class AbstractCommand : ICommand
-	{
-		private IArchitecture mArchitecture;
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
-		IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
+        void ICommand.Execute() => OnExecute();
 
-		void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
+        protected abstract void OnExecute();
+    }
 
-		void ICommand.Execute() => OnExecute();
+    public abstract class AbstractCommand<TResult> : ICommand<TResult>
+    {
+        private IArchitecture mArchitecture;
 
-		protected abstract void OnExecute();
-	}
+        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
 
-	public abstract class AbstractCommand<TResult> : ICommand<TResult>
-	{
-		private IArchitecture mArchitecture;
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
-		IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
+        TResult ICommand<TResult>.Execute() => OnExecute();
 
-		void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
+        protected abstract TResult OnExecute();
+    }
 
-		TResult ICommand<TResult>.Execute() => OnExecute();
+    #endregion
 
-		protected abstract TResult OnExecute();
-	}
+    #region Query
 
-	#endregion
+    public interface IQuery<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetSystem,
+        ICanSendQuery
+    {
+        TResult Do();
+    }
 
-	#region Query
+    public abstract class AbstractQuery<T> : IQuery<T>
+    {
+        public T Do() => OnDo();
 
-	public interface IQuery<TResult> : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetSystem,
-		ICanSendQuery
-	{
-		TResult Do();
-	}
+        protected abstract T OnDo();
 
-	public abstract class AbstractQuery<T> : IQuery<T>
-	{
-		public T Do() => OnDo();
 
-		protected abstract T OnDo();
+        private IArchitecture mArchitecture;
 
+        public IArchitecture GetArchitecture() => mArchitecture;
 
-		private IArchitecture mArchitecture;
+        public void SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
+    }
 
-		public IArchitecture GetArchitecture() => mArchitecture;
+    #endregion
 
-		public void SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
-	}
+    #region Rule
 
-	#endregion
+    public interface IBelongToArchitecture
+    {
+        IArchitecture GetArchitecture();
+    }
 
-	#region Rule
+    public interface ICanSetArchitecture
+    {
+        void SetArchitecture(IArchitecture architecture);
+    }
 
-	public interface IBelongToArchitecture
-	{
-		IArchitecture GetArchitecture();
-	}
+    public interface ICanGetModel : IBelongToArchitecture
+    {
+    }
 
-	public interface ICanSetArchitecture
-	{
-		void SetArchitecture(IArchitecture architecture);
-	}
+    public static class CanGetModelExtension
+    {
+        public static T GetModel<T>(this ICanGetModel self) where T : class, IModel =>
+            self.GetArchitecture().GetModel<T>();
+    }
 
-	public interface ICanGetModel : IBelongToArchitecture
-	{
-	}
+    public interface ICanGetSystem : IBelongToArchitecture
+    {
+    }
 
-	public static class CanGetModelExtension
-	{
-		public static T GetModel<T>(this ICanGetModel self) where T : class, IModel =>
-			self.GetArchitecture().GetModel<T>();
-	}
+    public static class CanGetSystemExtension
+    {
+        public static T GetSystem<T>(this ICanGetSystem self) where T : class, ISystem =>
+            self.GetArchitecture().GetSystem<T>();
+    }
 
-	public interface ICanGetSystem : IBelongToArchitecture
-	{
-	}
+    public interface ICanGetUtility : IBelongToArchitecture
+    {
+    }
 
-	public static class CanGetSystemExtension
-	{
-		public static T GetSystem<T>(this ICanGetSystem self) where T : class, ISystem =>
-			self.GetArchitecture().GetSystem<T>();
-	}
+    public static class CanGetUtilityExtension
+    {
+        public static T GetUtility<T>(this ICanGetUtility self) where T : class, IUtility =>
+            self.GetArchitecture().GetUtility<T>();
+    }
 
-	public interface ICanGetUtility : IBelongToArchitecture
-	{
-	}
+    public interface ICanRegisterEvent : IBelongToArchitecture
+    {
+    }
 
-	public static class CanGetUtilityExtension
-	{
-		public static T GetUtility<T>(this ICanGetUtility self) where T : class, IUtility =>
-			self.GetArchitecture().GetUtility<T>();
-	}
+    public static class CanRegisterEventExtension
+    {
+        public static IUnRegister RegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent) =>
+            self.GetArchitecture().RegisterEvent<T>(onEvent);
 
-	public interface ICanRegisterEvent : IBelongToArchitecture
-	{
-	}
+        public static void UnRegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent) =>
+            self.GetArchitecture().UnRegisterEvent<T>(onEvent);
+    }
 
-	public static class CanRegisterEventExtension
-	{
-		public static IUnRegister RegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent) =>
-			self.GetArchitecture().RegisterEvent<T>(onEvent);
+    public interface ICanSendCommand : IBelongToArchitecture
+    {
+    }
 
-		public static void UnRegisterEvent<T>(this ICanRegisterEvent self, Action<T> onEvent) =>
-			self.GetArchitecture().UnRegisterEvent<T>(onEvent);
-	}
+    public static class CanSendCommandExtension
+    {
+        public static void SendCommand<T>(this ICanSendCommand self) where T : ICommand, new() =>
+            self.GetArchitecture().SendCommand<T>(new T());
 
-	public interface ICanSendCommand : IBelongToArchitecture
-	{
-	}
+        public static void SendCommand<T>(this ICanSendCommand self, T command) where T : ICommand =>
+            self.GetArchitecture().SendCommand<T>(command);
 
-	public static class CanSendCommandExtension
-	{
-		public static void SendCommand<T>(this ICanSendCommand self) where T : ICommand, new() =>
-			self.GetArchitecture().SendCommand<T>(new T());
+        public static TResult SendCommand<TResult>(this ICanSendCommand self, ICommand<TResult> command) =>
+            self.GetArchitecture().SendCommand(command);
+    }
 
-		public static void SendCommand<T>(this ICanSendCommand self, T command) where T : ICommand =>
-			self.GetArchitecture().SendCommand<T>(command);
+    public interface ICanSendEvent : IBelongToArchitecture
+    {
+    }
 
-		public static TResult SendCommand<TResult>(this ICanSendCommand self, ICommand<TResult> command) =>
-			self.GetArchitecture().SendCommand(command);
-	}
+    public static class CanSendEventExtension
+    {
+        public static void SendEvent<T>(this ICanSendEvent self) where T : new() =>
+            self.GetArchitecture().SendEvent<T>();
 
-	public interface ICanSendEvent : IBelongToArchitecture
-	{
-	}
+        public static void SendEvent<T>(this ICanSendEvent self, T e) => self.GetArchitecture().SendEvent<T>(e);
+    }
 
-	public static class CanSendEventExtension
-	{
-		public static void SendEvent<T>(this ICanSendEvent self) where T : new() =>
-			self.GetArchitecture().SendEvent<T>();
+    public interface ICanSendQuery : IBelongToArchitecture
+    {
+    }
 
-		public static void SendEvent<T>(this ICanSendEvent self, T e) => self.GetArchitecture().SendEvent<T>(e);
-	}
+    public static class CanSendQueryExtension
+    {
+        public static TResult SendQuery<TResult>(this ICanSendQuery self, IQuery<TResult> query) =>
+            self.GetArchitecture().SendQuery(query);
+    }
+    
+    public interface ICanInit
+    {
+        bool Initialized { get; set; }
+        void Init();
+        void Deinit();
+    }
 
-	public interface ICanSendQuery : IBelongToArchitecture
-	{
-	}
+    #endregion
 
-	public static class CanSendQueryExtension
-	{
-		public static TResult SendQuery<TResult>(this ICanSendQuery self, IQuery<TResult> query) =>
-			self.GetArchitecture().SendQuery(query);
-	}
+    #region TypeEventSystem
 
-	#endregion
+    public interface IUnRegister
+    {
+        void UnRegister();
+    }
 
-	#region TypeEventSystem
+    public interface IUnRegisterList
+    {
+        List<IUnRegister> UnregisterList { get; }
+    }
 
-	public interface IUnRegister
-	{
-		void UnRegister();
-	}
+    public static class IUnRegisterListExtension
+    {
+        public static void AddToUnregisterList(this IUnRegister self, IUnRegisterList unRegisterList) =>
+            unRegisterList.UnregisterList.Add(self);
 
-	public interface IUnRegisterList
-	{
-		List<IUnRegister> UnregisterList { get; }
-	}
+        public static void UnRegisterAll(this IUnRegisterList self)
+        {
+            foreach (var unRegister in self.UnregisterList)
+            {
+                unRegister.UnRegister();
+            }
 
-	public static class IUnRegisterListExtension
-	{
-		public static void AddToUnregisterList(this IUnRegister self, IUnRegisterList unRegisterList) =>
-			unRegisterList.UnregisterList.Add(self);
+            self.UnregisterList.Clear();
+        }
+    }
 
-		public static void UnRegisterAll(this IUnRegisterList self)
-		{
-			foreach (var unRegister in self.UnregisterList)
-			{
-				unRegister.UnRegister();
-			}
+    public struct CustomUnRegister : IUnRegister
+    {
+        private Action mOnUnRegister { get; set; }
+        public CustomUnRegister(Action onUnRegister) => mOnUnRegister = onUnRegister;
 
-			self.UnregisterList.Clear();
-		}
-	}
+        public void UnRegister()
+        {
+            mOnUnRegister.Invoke();
+            mOnUnRegister = null;
+        }
+    }
 
-	public struct CustomUnRegister : IUnRegister
-	{
-		private Action mOnUnRegister { get; set; }
-		public CustomUnRegister(Action onUnRegister) => mOnUnRegister = onUnRegister;
+#if UNITY_5_6_OR_NEWER
+    public abstract class UnRegisterTrigger : UnityEngine.MonoBehaviour
+    {
+        private readonly HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
 
-		public void UnRegister()
-		{
-			mOnUnRegister.Invoke();
-			mOnUnRegister = null;
-		}
-	}
+        public void AddUnRegister(IUnRegister unRegister) => mUnRegisters.Add(unRegister);
 
-	#if UNITY_5_6_OR_NEWER
-	public class UnRegisterOnDestroyTrigger : UnityEngine.MonoBehaviour
-	{
-		private readonly HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
+        public void RemoveUnRegister(IUnRegister unRegister) => mUnRegisters.Remove(unRegister);
 
-		public void AddUnRegister(IUnRegister unRegister) => mUnRegisters.Add(unRegister);
+        public void UnRegister()
+        {
+            foreach (var unRegister in mUnRegisters)
+            {
+                unRegister.UnRegister();
+            }
 
-		public void RemoveUnRegister(IUnRegister unRegister) => mUnRegisters.Remove(unRegister);
+            mUnRegisters.Clear();
+        }
+    }
 
-		private void OnDestroy()
-		{
-			foreach (var unRegister in mUnRegisters)
-			{
-				unRegister.UnRegister();
-			}
+    public class UnRegisterOnDestroyTrigger : UnRegisterTrigger
+    {
+        private void OnDestroy()
+        {
+            UnRegister();
+        }
+    }
 
-			mUnRegisters.Clear();
-		}
-	}
-	#endif
+    public class UnRegisterOnDisableTrigger : UnRegisterTrigger
+    {
+        private void OnDisable()
+        {
+            UnRegister();
+        }
+    }
+#endif
 
-	public static class UnRegisterExtension
-	{
-		#if UNITY_5_6_OR_NEWER
-		public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister, UnityEngine.GameObject gameObject)
-		{
-			var trigger = gameObject.GetComponent<UnRegisterOnDestroyTrigger>();
+    public static class UnRegisterExtension
+    {
+#if UNITY_5_6_OR_NEWER
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister,
+            UnityEngine.GameObject gameObject)
+        {
+            var trigger = gameObject.GetComponent<UnRegisterOnDestroyTrigger>();
 
-			if (!trigger)
-			{
-				trigger = gameObject.AddComponent<UnRegisterOnDestroyTrigger>();
-			}
+            if (!trigger)
+            {
+                trigger = gameObject.AddComponent<UnRegisterOnDestroyTrigger>();
+            }
 
-			trigger.AddUnRegister(unRegister);
+            trigger.AddUnRegister(unRegister);
 
-			return unRegister;
-		}
+            return unRegister;
+        }
 
-		public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
-			where T : UnityEngine.Component =>
-			self.UnRegisterWhenGameObjectDestroyed(component.gameObject);
-		#endif
-		
-		
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
+            where T : UnityEngine.Component =>
+            self.UnRegisterWhenGameObjectDestroyed(component.gameObject);
+
+        public static IUnRegister UnRegisterWhenDisabled<T>(this IUnRegister self, T component)
+            where T : UnityEngine.Component =>
+            self.UnRegisterWhenDisabled(component.gameObject);
+
+        public static IUnRegister UnRegisterWhenDisabled(this IUnRegister unRegister,
+            UnityEngine.GameObject gameObject)
+        {
+            var trigger = gameObject.GetComponent<UnRegisterOnDisableTrigger>();
+
+            if (!trigger)
+            {
+                trigger = gameObject.AddComponent<UnRegisterOnDisableTrigger>();
+            }
+
+            trigger.AddUnRegister(unRegister);
+
+            return unRegister;
+        }
+
+
+#endif
+
+
 #if GODOT
 		public static IUnRegister UnRegisterWhenNodeExitTree(this IUnRegister unRegister, Godot.Node node)
 		{
@@ -519,352 +570,337 @@ namespace QFramework
 			return unRegister;
 		}
 #endif
-	}
-
-	public class TypeEventSystem
-	{
-		private readonly EasyEvents mEvents = new EasyEvents();
-
-		public static readonly TypeEventSystem Global = new TypeEventSystem();
+    }
 
-		public void Send<T>() where T : new() => mEvents.GetEvent<EasyEvent<T>>()?.Trigger(new T());
+    public class TypeEventSystem
+    {
+        private readonly EasyEvents mEvents = new EasyEvents();
 
-		public void Send<T>(T e) => mEvents.GetEvent<EasyEvent<T>>()?.Trigger(e);
+        public static readonly TypeEventSystem Global = new TypeEventSystem();
 
-		public IUnRegister Register<T>(Action<T> onEvent) => mEvents.GetOrAddEvent<EasyEvent<T>>().Register(onEvent);
+        public void Send<T>() where T : new() => mEvents.GetEvent<EasyEvent<T>>()?.Trigger(new T());
+
+        public void Send<T>(T e) => mEvents.GetEvent<EasyEvent<T>>()?.Trigger(e);
 
-		public void UnRegister<T>(Action<T> onEvent)
-		{
-			var e = mEvents.GetEvent<EasyEvent<T>>();
-			if (e != null)
-			{
-				e.UnRegister(onEvent);
-			}
-		}
-	}
+        public IUnRegister Register<T>(Action<T> onEvent) => mEvents.GetOrAddEvent<EasyEvent<T>>().Register(onEvent);
 
-	#endregion
+        public void UnRegister<T>(Action<T> onEvent)
+        {
+            var e = mEvents.GetEvent<EasyEvent<T>>();
+            e?.UnRegister(onEvent);
+        }
+    }
 
-	#region IOC
+    #endregion
 
-	public class IOCContainer
-	{
-		private Dictionary<Type, object> mInstances = new Dictionary<Type, object>();
+    #region IOC
 
-		public void Register<T>(T instance)
-		{
-			var key = typeof(T);
-
-			if (mInstances.ContainsKey(key))
-			{
-				mInstances[key] = instance;
-			}
-			else
-			{
-				mInstances.Add(key, instance);
-			}
-		}
-
-		public T Get<T>() where T : class
-		{
-			var key = typeof(T);
-
-			if (mInstances.TryGetValue(key, out var retInstance))
-			{
-				return retInstance as T;
-			}
-
-			return null;
-		}
-	}
-
-	#endregion
-
-	#region BindableProperty
-
-	public interface IBindableProperty<T> : IReadonlyBindableProperty<T>
-	{
-		new T Value { get; set; }
-		void SetValueWithoutEvent(T newValue);
-	}
-
-	public interface IReadonlyBindableProperty<T> : IEasyEvent
-	{
-		T Value { get; }
-
-		IUnRegister RegisterWithInitValue(Action<T> action);
-		void UnRegister(Action<T> onValueChanged);
-		IUnRegister Register(Action<T> onValueChanged);
-	}
-
-	public class BindableProperty<T> : IBindableProperty<T>
-	{
-		public BindableProperty(T defaultValue = default) => mValue = defaultValue;
-
-		protected T mValue;
-
-		public static Func<T, T, bool> Comparer { get; set; } = (a, b) => a.Equals(b);
-
-		public BindableProperty<T> WithComparer(Func<T, T, bool> comparer)
-		{
-			Comparer = comparer;
-			return this;
-		}
-
-		public T Value
-		{
-			get => GetValue();
-			set
-			{
-				if (value == null && mValue == null) return;
-				if (value != null && Comparer(value, mValue)) return;
-
-				SetValue(value);
-				mOnValueChanged?.Invoke(value);
-			}
-		}
-
-		protected virtual void SetValue(T newValue) => mValue = newValue;
-
-		protected virtual T GetValue() => mValue;
-
-		public void SetValueWithoutEvent(T newValue) => mValue = newValue;
-
-		private Action<T> mOnValueChanged = (v) => { };
-
-		public IUnRegister Register(Action<T> onValueChanged)
-		{
-			mOnValueChanged += onValueChanged;
-			return new BindablePropertyUnRegister<T>(this, onValueChanged);
-		}
-
-		public IUnRegister RegisterWithInitValue(Action<T> onValueChanged)
-		{
-			onValueChanged(mValue);
-			return Register(onValueChanged);
-		}
-
-		public void UnRegister(Action<T> onValueChanged) => mOnValueChanged -= onValueChanged;
-
-		IUnRegister IEasyEvent.Register(Action onEvent)
-		{
-			return Register(Action);
-			void Action(T _) => onEvent();
-		}
-		
-		public override string ToString() => Value.ToString();
-	}
-
-	internal class ComparerAutoRegister
-	{
-		#if UNITY_5_6_OR_NEWER
-		[UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
-		public static void AutoRegister()
-		{
-			BindableProperty<int>.Comparer = (a, b) => a == b;
-			BindableProperty<float>.Comparer = (a, b) => a == b;
-			BindableProperty<double>.Comparer = (a, b) => a == b;
-			BindableProperty<string>.Comparer = (a, b) => a == b;
-			BindableProperty<long>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Vector2>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Vector3>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Vector4>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Color>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Color32>.Comparer = (a, b) => a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
-			BindableProperty<UnityEngine.Bounds>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Rect>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Quaternion>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Vector2Int>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.Vector3Int>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.BoundsInt>.Comparer = (a, b) => a == b;
-			BindableProperty<UnityEngine.RangeInt>.Comparer = (a, b) => a.start == b.start && a.length == b.length;
-			BindableProperty<UnityEngine.RectInt>.Comparer = (a, b) => a.Equals(b);
-		}
-		#endif
-	}
-
-	public class BindablePropertyUnRegister<T> : IUnRegister
-	{
-		public BindablePropertyUnRegister(BindableProperty<T> bindableProperty, Action<T> onValueChanged)
-		{
-			BindableProperty = bindableProperty;
-			OnValueChanged = onValueChanged;
-		}
-
-		public BindableProperty<T> BindableProperty { get; set; }
-
-		public Action<T> OnValueChanged { get; set; }
-
-		public void UnRegister()
-		{
-			BindableProperty.UnRegister(OnValueChanged);
-			BindableProperty = null;
-			OnValueChanged = null;
-		}
-	}
-
-	#endregion
-
-	#region EasyEvent
-
-	public interface IEasyEvent
-	{
-		IUnRegister Register(Action onEvent);
-	}
-
-	public class EasyEvent : IEasyEvent
-	{
-		private Action mOnEvent = () => { };
-
-		public IUnRegister Register(Action onEvent)
-		{
-			mOnEvent += onEvent;
-			return new CustomUnRegister(() => { UnRegister(onEvent); });
-		}
-
-		public void UnRegister(Action onEvent) => mOnEvent -= onEvent;
-
-		public void Trigger() => mOnEvent?.Invoke();
-	}
-
-	public class EasyEvent<T> : IEasyEvent
-	{
-		private Action<T> mOnEvent = e => { };
-
-		public IUnRegister Register(Action<T> onEvent)
-		{
-			mOnEvent += onEvent;
-			return new CustomUnRegister(() => { UnRegister(onEvent); });
-		}
-
-		public void UnRegister(Action<T> onEvent) => mOnEvent -= onEvent;
-
-		public void Trigger(T t) => mOnEvent?.Invoke(t);
-
-		IUnRegister IEasyEvent.Register(Action onEvent)
-		{
-			return Register(Action);
-			void Action(T _) => onEvent();
-		}
-	}
-
-	public class EasyEvent<T, K> : IEasyEvent
-	{
-		private Action<T, K> mOnEvent = (t, k) => { };
-
-		public IUnRegister Register(Action<T, K> onEvent)
-		{
-			mOnEvent += onEvent;
-			return new CustomUnRegister(() => { UnRegister(onEvent); });
-		}
-
-		public void UnRegister(Action<T, K> onEvent) => mOnEvent -= onEvent;
-
-		public void Trigger(T t, K k) => mOnEvent?.Invoke(t, k);
-
-		IUnRegister IEasyEvent.Register(Action onEvent)
-		{
-			return Register(Action);
-			void Action(T _, K __) => onEvent();
-		}
-	}
-
-	public class EasyEvent<T, K, S> : IEasyEvent
-	{
-		private Action<T, K, S> mOnEvent = (t, k, s) => { };
-
-		public IUnRegister Register(Action<T, K, S> onEvent)
-		{
-			mOnEvent += onEvent;
-			return new CustomUnRegister(() => { UnRegister(onEvent); });
-		}
-
-		public void UnRegister(Action<T, K, S> onEvent) => mOnEvent -= onEvent;
-
-		public void Trigger(T t, K k, S s) => mOnEvent?.Invoke(t, k, s);
-
-		IUnRegister IEasyEvent.Register(Action onEvent)
-		{
-			return Register(Action);
-			void Action(T _, K __, S ___) => onEvent();
-		}
-	}
-
-	public class EasyEvents
-	{
-		private static readonly EasyEvents mGlobalEvents = new EasyEvents();
-
-		public static T Get<T>() where T : IEasyEvent => mGlobalEvents.GetEvent<T>();
-
-		public static void Register<T>() where T : IEasyEvent, new() => mGlobalEvents.AddEvent<T>();
-
-		private readonly Dictionary<Type, IEasyEvent> mTypeEvents = new Dictionary<Type, IEasyEvent>();
-
-		public void AddEvent<T>() where T : IEasyEvent, new() => mTypeEvents.Add(typeof(T), new T());
-
-		public T GetEvent<T>() where T : IEasyEvent
-		{
-			return mTypeEvents.TryGetValue(typeof(T), out var e) ? (T)e : default;
-		}
-
-		public T GetOrAddEvent<T>() where T : IEasyEvent, new()
-		{
-			var eType = typeof(T);
-			if (mTypeEvents.TryGetValue(eType, out var e))
-			{
-				return (T)e;
-			}
-
-			var t = new T();
-			mTypeEvents.Add(eType, t);
-			return t;
-		}
-	}
-
-	#endregion
-
-
-	#region Event Extension
-
-	public class OrEvent : IUnRegisterList
-	{
-		public OrEvent Or(IEasyEvent easyEvent)
-		{
-			easyEvent.Register(Trigger).AddToUnregisterList(this);
-			return this;
-		}
-
-		private Action mOnEvent = () => { };
-
-		public IUnRegister Register(Action onEvent)
-		{
-			mOnEvent += onEvent;
-			return new CustomUnRegister(() => { UnRegister(onEvent); });
-		}
-
-		public void UnRegister(Action onEvent)
-		{
-			mOnEvent -= onEvent;
-			this.UnRegisterAll();
-		}
-
-		private void Trigger() => mOnEvent?.Invoke();
-
-		public List<IUnRegister> UnregisterList { get; } = new List<IUnRegister>();
-	}
-
-	public static class OrEventExtensions
-	{
-		public static OrEvent Or(this IEasyEvent self, IEasyEvent e) => new OrEvent().Or(self).Or(e);
-	}
-
-	#endregion
+    public class IOCContainer
+    {
+        private Dictionary<Type, object> mInstances = new Dictionary<Type, object>();
+
+        public void Register<T>(T instance)
+        {
+            var key = typeof(T);
+
+            if (mInstances.ContainsKey(key))
+            {
+                mInstances[key] = instance;
+            }
+            else
+            {
+                mInstances.Add(key, instance);
+            }
+        }
+
+        public T Get<T>() where T : class
+        {
+            var key = typeof(T);
+
+            if (mInstances.TryGetValue(key, out var retInstance))
+            {
+                return retInstance as T;
+            }
+
+            return null;
+        }
+
+        public IEnumerable<T> GetInstancesByType<T>()
+        {
+            var type = typeof(T);
+            return mInstances.Values.Where(instance => type.IsInstanceOfType(instance)).Cast<T>();
+        }
+
+        public void Clear() => mInstances.Clear();
+    }
+
+    #endregion
+
+    #region BindableProperty
+
+    public interface IBindableProperty<T> : IReadonlyBindableProperty<T>
+    {
+        new T Value { get; set; }
+        void SetValueWithoutEvent(T newValue);
+    }
+
+    public interface IReadonlyBindableProperty<T> : IEasyEvent
+    {
+        T Value { get; }
+
+        IUnRegister RegisterWithInitValue(Action<T> action);
+        void UnRegister(Action<T> onValueChanged);
+        IUnRegister Register(Action<T> onValueChanged);
+    }
+
+    public class BindableProperty<T> : IBindableProperty<T>
+    {
+        public BindableProperty(T defaultValue = default) => mValue = defaultValue;
+
+        protected T mValue;
+
+        public static Func<T, T, bool> Comparer { get; set; } = (a, b) => a.Equals(b);
+
+        public BindableProperty<T> WithComparer(Func<T, T, bool> comparer)
+        {
+            Comparer = comparer;
+            return this;
+        }
+
+        public T Value
+        {
+            get => GetValue();
+            set
+            {
+                if (value == null && mValue == null) return;
+                if (value != null && Comparer(value, mValue)) return;
+
+                SetValue(value);
+                mOnValueChanged.Trigger(value);
+            }
+        }
+
+        protected virtual void SetValue(T newValue) => mValue = newValue;
+
+        protected virtual T GetValue() => mValue;
+
+        public void SetValueWithoutEvent(T newValue) => mValue = newValue;
+
+        private EasyEvent<T> mOnValueChanged = new EasyEvent<T>();
+
+        public IUnRegister Register(Action<T> onValueChanged)
+        {
+            return mOnValueChanged.Register(onValueChanged);
+        }
+
+        public IUnRegister RegisterWithInitValue(Action<T> onValueChanged)
+        {
+            onValueChanged(mValue);
+            return Register(onValueChanged);
+        }
+
+        public void UnRegister(Action<T> onValueChanged) => mOnValueChanged.UnRegister(onValueChanged);
+
+        IUnRegister IEasyEvent.Register(Action onEvent)
+        {
+            return Register(Action);
+            void Action(T _) => onEvent();
+        }
+
+        public override string ToString() => Value.ToString();
+    }
+
+    internal class ComparerAutoRegister
+    {
+#if UNITY_5_6_OR_NEWER
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void AutoRegister()
+        {
+            BindableProperty<int>.Comparer = (a, b) => a == b;
+            BindableProperty<float>.Comparer = (a, b) => a == b;
+            BindableProperty<double>.Comparer = (a, b) => a == b;
+            BindableProperty<string>.Comparer = (a, b) => a == b;
+            BindableProperty<long>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector2>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector3>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector4>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Color>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Color32>.Comparer =
+                (a, b) => a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a;
+            BindableProperty<UnityEngine.Bounds>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Rect>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Quaternion>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector2Int>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.Vector3Int>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.BoundsInt>.Comparer = (a, b) => a == b;
+            BindableProperty<UnityEngine.RangeInt>.Comparer = (a, b) => a.start == b.start && a.length == b.length;
+            BindableProperty<UnityEngine.RectInt>.Comparer = (a, b) => a.Equals(b);
+        }
+#endif
+    }
+    
+    #endregion
+
+    #region EasyEvent
+
+    public interface IEasyEvent
+    {
+        IUnRegister Register(Action onEvent);
+    }
+
+    public class EasyEvent : IEasyEvent
+    {
+        private Action mOnEvent = () => { };
+
+        public IUnRegister Register(Action onEvent)
+        {
+            mOnEvent += onEvent;
+            return new CustomUnRegister(() => { UnRegister(onEvent); });
+        }
+
+        public void UnRegister(Action onEvent) => mOnEvent -= onEvent;
+
+        public void Trigger() => mOnEvent?.Invoke();
+    }
+
+    public class EasyEvent<T> : IEasyEvent
+    {
+        private Action<T> mOnEvent = e => { };
+
+        public IUnRegister Register(Action<T> onEvent)
+        {
+            mOnEvent += onEvent;
+            return new CustomUnRegister(() => { UnRegister(onEvent); });
+        }
+
+        public void UnRegister(Action<T> onEvent) => mOnEvent -= onEvent;
+
+        public void Trigger(T t) => mOnEvent?.Invoke(t);
+
+        IUnRegister IEasyEvent.Register(Action onEvent)
+        {
+            return Register(Action);
+            void Action(T _) => onEvent();
+        }
+    }
+
+    public class EasyEvent<T, K> : IEasyEvent
+    {
+        private Action<T, K> mOnEvent = (t, k) => { };
+
+        public IUnRegister Register(Action<T, K> onEvent)
+        {
+            mOnEvent += onEvent;
+            return new CustomUnRegister(() => { UnRegister(onEvent); });
+        }
+
+        public void UnRegister(Action<T, K> onEvent) => mOnEvent -= onEvent;
+
+        public void Trigger(T t, K k) => mOnEvent?.Invoke(t, k);
+
+        IUnRegister IEasyEvent.Register(Action onEvent)
+        {
+            return Register(Action);
+            void Action(T _, K __) => onEvent();
+        }
+    }
+
+    public class EasyEvent<T, K, S> : IEasyEvent
+    {
+        private Action<T, K, S> mOnEvent = (t, k, s) => { };
+
+        public IUnRegister Register(Action<T, K, S> onEvent)
+        {
+            mOnEvent += onEvent;
+            return new CustomUnRegister(() => { UnRegister(onEvent); });
+        }
+
+        public void UnRegister(Action<T, K, S> onEvent) => mOnEvent -= onEvent;
+
+        public void Trigger(T t, K k, S s) => mOnEvent?.Invoke(t, k, s);
+
+        IUnRegister IEasyEvent.Register(Action onEvent)
+        {
+            return Register(Action);
+            void Action(T _, K __, S ___) => onEvent();
+        }
+    }
+
+    public class EasyEvents
+    {
+        private static readonly EasyEvents mGlobalEvents = new EasyEvents();
+
+        public static T Get<T>() where T : IEasyEvent => mGlobalEvents.GetEvent<T>();
+
+        public static void Register<T>() where T : IEasyEvent, new() => mGlobalEvents.AddEvent<T>();
+
+        private readonly Dictionary<Type, IEasyEvent> mTypeEvents = new Dictionary<Type, IEasyEvent>();
+
+        public void AddEvent<T>() where T : IEasyEvent, new() => mTypeEvents.Add(typeof(T), new T());
+
+        public T GetEvent<T>() where T : IEasyEvent
+        {
+            return mTypeEvents.TryGetValue(typeof(T), out var e) ? (T)e : default;
+        }
+
+        public T GetOrAddEvent<T>() where T : IEasyEvent, new()
+        {
+            var eType = typeof(T);
+            if (mTypeEvents.TryGetValue(eType, out var e))
+            {
+                return (T)e;
+            }
+
+            var t = new T();
+            mTypeEvents.Add(eType, t);
+            return t;
+        }
+    }
+
+    #endregion
+
+
+    #region Event Extension
+
+    public class OrEvent : IUnRegisterList
+    {
+        public OrEvent Or(IEasyEvent easyEvent)
+        {
+            easyEvent.Register(Trigger).AddToUnregisterList(this);
+            return this;
+        }
+
+        private Action mOnEvent = () => { };
+
+        public IUnRegister Register(Action onEvent)
+        {
+            mOnEvent += onEvent;
+            return new CustomUnRegister(() => { UnRegister(onEvent); });
+        }
+
+        public void UnRegister(Action onEvent)
+        {
+            mOnEvent -= onEvent;
+            this.UnRegisterAll();
+        }
+
+        private void Trigger() => mOnEvent?.Invoke();
+
+        public List<IUnRegister> UnregisterList { get; } = new List<IUnRegister>();
+    }
+
+    public static class OrEventExtensions
+    {
+        public static OrEvent Or(this IEasyEvent self, IEasyEvent e) => new OrEvent().Or(self).Or(e);
+    }
+
+    #endregion
 
 #if UNITY_EDITOR
-	internal class EditorMenus
-	{
-		[UnityEditor.MenuItem("QFramework/Install QFrameworkWithToolKits")]
-		public static void InstallPackageKit() => UnityEngine.Application.OpenURL("https://qframework.cn/qf");
-	}
+    internal class EditorMenus
+    {
+        [UnityEditor.MenuItem("QFramework/Install QFrameworkWithToolKits")]
+        public static void InstallPackageKit() => UnityEngine.Application.OpenURL("https://qframework.cn/qf");
+    }
 #endif
 }

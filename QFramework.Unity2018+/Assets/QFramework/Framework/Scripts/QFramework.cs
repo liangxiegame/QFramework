@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2023 liangxiegame MIT License
+ * Copyright (c) 2015 ~ 2024 liangxiegame MIT License
  *
  * QFramework v1.0
  *
@@ -20,7 +20,7 @@
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2023.10.16 16:29 add Deinit
+ * Latest Update: 2024.1.4 14:56 remove BindablePropertyUnRegister
  ****************************************************************************/
 
 using System;
@@ -676,7 +676,7 @@ namespace QFramework
                 if (value != null && Comparer(value, mValue)) return;
 
                 SetValue(value);
-                mOnValueChanged?.Invoke(value);
+                mOnValueChanged.Trigger(value);
             }
         }
 
@@ -686,12 +686,11 @@ namespace QFramework
 
         public void SetValueWithoutEvent(T newValue) => mValue = newValue;
 
-        private Action<T> mOnValueChanged = (v) => { };
+        private EasyEvent<T> mOnValueChanged = new EasyEvent<T>();
 
         public IUnRegister Register(Action<T> onValueChanged)
         {
-            mOnValueChanged += onValueChanged;
-            return new BindablePropertyUnRegister<T>(this, onValueChanged);
+            return mOnValueChanged.Register(onValueChanged);
         }
 
         public IUnRegister RegisterWithInitValue(Action<T> onValueChanged)
@@ -700,7 +699,7 @@ namespace QFramework
             return Register(onValueChanged);
         }
 
-        public void UnRegister(Action<T> onValueChanged) => mOnValueChanged -= onValueChanged;
+        public void UnRegister(Action<T> onValueChanged) => mOnValueChanged.UnRegister(onValueChanged);
 
         IUnRegister IEasyEvent.Register(Action onEvent)
         {
@@ -739,27 +738,7 @@ namespace QFramework
         }
 #endif
     }
-
-    public class BindablePropertyUnRegister<T> : IUnRegister
-    {
-        public BindablePropertyUnRegister(BindableProperty<T> bindableProperty, Action<T> onValueChanged)
-        {
-            BindableProperty = bindableProperty;
-            OnValueChanged = onValueChanged;
-        }
-
-        public BindableProperty<T> BindableProperty { get; set; }
-
-        public Action<T> OnValueChanged { get; set; }
-
-        public void UnRegister()
-        {
-            BindableProperty.UnRegister(OnValueChanged);
-            BindableProperty = null;
-            OnValueChanged = null;
-        }
-    }
-
+    
     #endregion
 
     #region EasyEvent
