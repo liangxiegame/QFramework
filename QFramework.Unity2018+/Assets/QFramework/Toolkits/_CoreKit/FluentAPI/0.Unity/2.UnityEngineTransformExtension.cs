@@ -1607,7 +1607,7 @@ gameObj.SiblingIndex(10);
 
         public static Vector2 LocalPosition2D(this Component self)
         {
-            return new Vector2(self.transform.localPosition.x, self.transform.position.y);
+            return new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
         }
 
         public static GameObject LocalPosition2D(this GameObject self, Vector2 position)

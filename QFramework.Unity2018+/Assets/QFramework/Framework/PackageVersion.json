@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.119",
+    "Version": "v1.0.125",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.119",
-        "content": "BindableProperty 统一使用 EasyEvent 删除掉 BindablePropertyUnRegister",
+        "version": "v1.0.125",
+        "content": "修复 LocalPosition2D y 值错误的问题（感谢群友 shen 提供反馈）",
         "author": "liangxie",
-        "date": "2024 年 01 月 04 日 14:58",
+        "date": "2024 年 03 月 21 日 13:32",
         "PackageId": ""
     }
 }

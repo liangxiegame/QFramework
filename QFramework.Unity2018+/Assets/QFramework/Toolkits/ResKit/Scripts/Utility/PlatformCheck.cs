@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2021 ~ 2022 liangxiegame UNDER MIT License
- * 
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -66,6 +66,18 @@ namespace QFramework
             {
                 bool retValue = false;
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+                retValue = true;
+#endif
+                return retValue;
+            }
+        }
+
+        public static bool IsOSX
+        {
+            get
+            {
+                bool retValue = false;
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
                 retValue = true;
 #endif
                 return retValue;

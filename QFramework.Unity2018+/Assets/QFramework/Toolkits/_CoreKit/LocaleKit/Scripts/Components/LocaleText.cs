@@ -47,6 +47,28 @@ namespace QFramework
             {
                 mTextMesh.text = LanguageTexts.First(lt => lt.Language == language).Text;
             }
+            
+            else if (mTextMesh)
+            {
+                mTextMesh.text = LanguageTexts.First(lt => lt.Language == language).Text;
+            }
+            else // Editor Support
+            {
+                var text = GetComponent<Text>();
+
+                if (text)
+                {
+                    text.text = LanguageTexts.First(lt => lt.Language == language).Text;
+                }
+                else
+                {
+                    var textMesh = GetComponent<TextMesh>();
+                    if (textMesh)
+                    {
+                        textMesh.text = LanguageTexts.First(lt => lt.Language == language).Text;
+                    }
+                }
+            }
         }
     }
 }

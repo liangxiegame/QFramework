@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
@@ -9,10 +10,7 @@ namespace QFramework
         private AudioSource mAudioSource;
         private string mName;
 
-        public string Name
-        {
-            get { return mName; }
-        }
+        public string Name => mName;
 
         private bool mIsLoop;
         private AudioClip mAudioClip;
@@ -27,48 +25,31 @@ namespace QFramework
         private int mPlayCount = 0;
         private int mCustomEventID;
 
-        public AudioSource AudioSource
-        {
-            get { return mAudioSource; }
-        }
+        public AudioSource AudioSource => mAudioSource;
 
         public int customEventID
         {
-            get { return mCustomEventID; }
-            set { mCustomEventID = -1; }
+            get => mCustomEventID;
+            set => mCustomEventID = -1;
         }
 
-        public static AudioPlayer Allocate()
-        {
-            return SafeObjectPool<AudioPlayer>.Instance.Allocate();
-        }
+        public static AudioPlayer Allocate() => SafeObjectPool<AudioPlayer>.Instance.Allocate();
 
-        public void SetOnStartListener(Action<AudioPlayer> l)
-        {
-            mOnStartListener = l;
-        }
+        public void SetOnStartListener(Action<AudioPlayer> l) => mOnStartListener = l;
 
-        public void SetOnFinishListener(Action<AudioPlayer> l)
-        {
-            mOnFinishListener = l;
-        }
+        public void SetOnFinishListener(Action<AudioPlayer> l) => mOnFinishListener = l;
 
         public bool usedCache
         {
-            get { return mUsedCache; }
-            set { mUsedCache = false; }
+            get => mUsedCache;
+            set => mUsedCache = false;
         }
-
-        public int playCount
-        {
-            get { return mPlayCount; }
-        }
-
+        
         public bool IsRecycled
         {
-            get { return mIsCache; }
+            get => mIsCache;
 
-            set { mIsCache = value; }
+            set => mIsCache = value;
         }
 
         public void SetAudioExt( GameObject root, AudioClip clip, string name, bool loop)
@@ -184,7 +165,7 @@ namespace QFramework
 
         public void SetVolume(float volume)
         {
-            if (null != mAudioSource)
+            if (mAudioSource)
             {
                 mAudioSource.volume = volume;
             }
@@ -324,7 +305,7 @@ namespace QFramework
             {
                 if (mAudioSource != null)
                 {
-                    GameObject.Destroy(mAudioSource);
+                    Object.Destroy(mAudioSource);
                     mAudioSource = null;
                 }
             }

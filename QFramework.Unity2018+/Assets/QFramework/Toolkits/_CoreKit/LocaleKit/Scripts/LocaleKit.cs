@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2015 - 2024 liangxiegame UNDER MIT License
  * 
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -21,8 +21,7 @@ namespace QFramework
             // if config is created
             if (Config)
             {
-                var @interface = LocaleKit.Interface;
-                Debug.Log(@interface + ": inited");
+                var @_ = Interface;
             }
         }
         
@@ -38,7 +37,12 @@ namespace QFramework
             CurrentLanguage = Config.LanguageDefines[languageIndex].Language;
         }
 
-        public static Language CurrentLanguage { get; private set; }
+        private Language mCurrentLanguage;
+        public static Language CurrentLanguage
+        {
+            get => ((LocaleKit)Interface).mCurrentLanguage;
+            private set => ((LocaleKit)Interface).mCurrentLanguage = value;
+        }
 
         public static Action<string, int> SaveCommand = (key, languageIndex) =>
             PlayerPrefs.SetInt(key, languageIndex);

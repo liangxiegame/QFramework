@@ -56,7 +56,7 @@ gameObjPool.Clear(gameObj=> Object.Destroy(gameObk));
     public class SimpleObjectPool<T> : Pool<T>
     {
         readonly Action<T> mResetMethod;
-
+        
         public SimpleObjectPool(Func<T> factoryMethod, Action<T> resetMethod = null, int initCount = 0)
         {
             mFactory = new CustomObjectFactory<T>(factoryMethod);

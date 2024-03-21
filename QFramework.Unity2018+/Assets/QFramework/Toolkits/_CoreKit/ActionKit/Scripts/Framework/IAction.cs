@@ -49,6 +49,57 @@ namespace QFramework
     {
     }
 
+    public abstract class AbstractAction<T> : IAction where T : AbstractAction<T>,new()
+    {
+        protected AbstractAction(){}
+        
+        private static readonly SimpleObjectPool<T> mPool =
+            new SimpleObjectPool<T>(() => new T(), null, 10);
+
+        public static T Allocate()
+        {
+            var retNode = mPool.Allocate();
+            retNode.ActionID = ActionKit.ID_GENERATOR++;
+            retNode.Deinited = false;
+            retNode.Reset();
+            return retNode;
+        }
+
+        public ulong ActionID { get; set; }
+        public ActionStatus Status { get; set; }
+        
+        public virtual void OnStart() {}
+
+        public virtual void OnExecute(float dt) {}
+
+        public virtual void OnFinish() { }
+
+        protected virtual void OnReset(){}
+        
+        protected virtual void OnDeinit(){}
+
+        public void Reset()
+        {
+            Status = ActionStatus.NotStart;
+            Paused = false;
+            OnReset();
+        }
+
+        public bool Paused { get; set; }
+
+        public void Deinit()
+        {
+            if (!Deinited)
+            {
+                Deinited = true;
+                OnDeinit();
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<T>(mPool,this as T));
+            }
+        }
+        
+        public bool Deinited { get; set; }
+    }
+
     public struct ActionController : IActionController
     {
         public ulong ActionID { get; set; }

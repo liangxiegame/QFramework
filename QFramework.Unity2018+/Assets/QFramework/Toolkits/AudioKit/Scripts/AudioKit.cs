@@ -397,8 +397,7 @@ AudioKit.StopAllSound();
             {
                 return;
             }
-
-
+            
             VoicePlayer.SetOnStartListener(musicUnit =>
             {
                 onBeganCallback?.Invoke();
