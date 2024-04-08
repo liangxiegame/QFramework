@@ -46,6 +46,8 @@ namespace QFramework
 
 		public string UIPrefabDir = "/Art/UIPrefab";
 
+		public string ScriptAssemblyPrefix = "Assembly-CSharp,";
+
 		public bool IsDefaultNamespace => Namespace == "QFramework.Example";
 
 

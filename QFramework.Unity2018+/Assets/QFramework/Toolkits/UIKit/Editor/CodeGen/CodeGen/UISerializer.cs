@@ -152,10 +152,11 @@ namespace QFramework
 		}
 	    public static Assembly GetAssemblyCSharp()
 	    {
+			var scriptAssemblyPrefix = UIKitSettingData.Load().ScriptAssemblyPrefix;
 		    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 		    foreach (var a in assemblies)
 		    {
-			    if (a.FullName.StartsWith("Assembly-CSharp,"))
+			    if (a.FullName.StartsWith(scriptAssemblyPrefix))
 			    {
 				    return a;
 			    }
