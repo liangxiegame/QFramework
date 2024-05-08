@@ -420,6 +420,7 @@ AudioKit.StopAllSound();
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
+            if (!CanPlaySound(clip.name)) return null;
 
             var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
 
