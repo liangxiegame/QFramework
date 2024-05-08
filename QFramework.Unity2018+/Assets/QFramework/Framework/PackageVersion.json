@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.125",
+    "Version": "v1.0.126",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.125",
-        "content": "修复 LocalPosition2D y 值错误的问题（感谢群友 shen 提供反馈）",
+        "version": "v1.0.126",
+        "content": "CodeGenKit：OtherBinds 引用自身组件则命名为 SelfXXX",
         "author": "liangxie",
-        "date": "2024 年 03 月 21 日 13:32",
+        "date": "2024 年 03 月 28 日 14:18",
         "PackageId": ""
     }
 }

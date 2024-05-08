@@ -1,6 +1,6 @@
 /****************************************************************************
- * Copyright (c) 2015 ~ 2023 liangxiegame UNDER MIT LICENSE
- * 
+ * Copyright (c) 2015 ~ 2024 liangxiegame UNDER MIT LICENSE
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -36,84 +36,12 @@ namespace QFramework
     public class OtherBinds : MonoBehaviour
     {
         public List<OtherBind> Binds = new List<OtherBind>();
-
-#if UNITY_EDITOR
-        public void Add(string memberName, Object obj)
-        {
-            var serializedObject = new SerializedObject(this);
-
-            var bindsProperty = serializedObject.FindProperty("Binds");
-
-
-            var index = Binds.FindIndex(b => b.MemberName == memberName);
-            if (index != -1)
-            {
-                var element = bindsProperty.GetArrayElementAtIndex(index);
-                element.FindPropertyRelative("Object").objectReferenceValue = obj;
-            }
-            else
-            {
-                bindsProperty.InsertArrayElementAtIndex(index);
-                var element = bindsProperty.GetArrayElementAtIndex(index);
-                element.FindPropertyRelative("MemberName").stringValue = memberName;
-                element.FindPropertyRelative("Object").objectReferenceValue = obj;
-            }
-
-            EditorUtility.SetDirty(this);
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.UpdateIfRequiredOrScript();
-        }
-
-        public void Remove(string memberName)
-        {
-            var serializedObject = new SerializedObject(this);
-            var bindsProperty = serializedObject.FindProperty("Binds");
-            int i;
-            for (i = 0; i < Binds.Count; i++)
-            {
-                if (Binds[i].MemberName == memberName)
-                {
-                    break;
-                }
-            }
-
-            if (i != Binds.Count)
-            {
-                bindsProperty.DeleteArrayElementAtIndex(i);
-            }
-
-            EditorUtility.SetDirty(this);
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.UpdateIfRequiredOrScript();
-        }
-
-        public void Clear()
-        {
-            var serializedObject = new SerializedObject(this);
-
-            var bindsProperty = serializedObject.FindProperty("Binds");
-            bindsProperty.ClearArray();
-            EditorUtility.SetDirty(this);
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.UpdateIfRequiredOrScript();
-        }
-
-        public void Sort()
-        {
-            var serializedObject = new SerializedObject(this);
-            Binds.Sort(new OtherBindComparer());
-            EditorUtility.SetDirty(this);
-            serializedObject.ApplyModifiedProperties();
-            serializedObject.UpdateIfRequiredOrScript();
-        }
-#endif
     }
 
 #if UNITY_EDITOR
     [CustomEditor(typeof(OtherBinds))]
     public class ReferenceBindsEditor : Editor
     {
-
         private OtherBinds mOtherBinds;
 
         private void DelNullReference()
@@ -169,7 +97,8 @@ namespace QFramework
                     {
                         property.objectReferenceValue = objects[newIndex];
                     }
-                } else if (property.objectReferenceValue is GameObject gameObject)
+                }
+                else if (property.objectReferenceValue is GameObject gameObject)
                 {
                     var objects = new List<Object>();
                     objects.AddRange(gameObject.GetComponents<Component>());
@@ -182,7 +111,7 @@ namespace QFramework
                         property.objectReferenceValue = objects[newIndex];
                     }
                 }
-                
+
                 if (GUILayout.Button("X"))
                 {
                     //将元素添加进删除list
@@ -192,7 +121,9 @@ namespace QFramework
                 GUILayout.EndHorizontal();
             }
 
-            GUILayout.Label(LocaleKitEditor.IsCN.Value ? "将其他需要生成变量的 Object 拖拽至此" : " Drag other Object bellow to generate member variables");
+            GUILayout.Label(LocaleKitEditor.IsCN.Value
+                ? "将其他需要生成变量的 Object 拖拽至此"
+                : " Drag other Object bellow to generate member variables");
             var sfxPathRect = EditorGUILayout.GetControlRect();
             sfxPathRect.height = 50;
             GUI.Box(sfxPathRect, string.Empty);
@@ -209,7 +140,14 @@ namespace QFramework
                     DragAndDrop.AcceptDrag();
                     foreach (var o in DragAndDrop.objectReferences)
                     {
-                        AddReference(dataProperty, o.name.RemoveString(" ","-","@"), o);
+                        if (o.name == target.name)
+                        {
+                            AddReference(dataProperty, "Self" + o.GetType().Name, o);
+                        }
+                        else
+                        {
+                            AddReference(dataProperty, o.name.RemoveString(" ", "-", "@"), o);
+                        }
                     }
                 }
 
@@ -217,26 +155,6 @@ namespace QFramework
             }
 
             GUILayout.BeginHorizontal();
-            
-            // if (GUILayout.Button(  LocaleKitEditor.IsCN.Value ? "添加引用" : "Add Ref"))
-            // {
-            //     AddReference(dataProperty, Guid.NewGuid().GetHashCode().ToString(), null);
-            // }
-            //
-            // if (GUILayout.Button( LocaleKitEditor.IsCN.Value ? "全部删除" : "Clear"))
-            // {
-            //     mOtherBinds.Clear();
-            // }
-            //
-            // if (GUILayout.Button(LocaleKitEditor.IsCN.Value ? "删除空引用" : "Delete Null Ref"))
-            // {
-            //     DelNullReference();
-            // }
-
-            // if (GUILayout.Button(LocaleKitEditor.IsCN.Value ?"排序" : "Sort"))
-            // {
-            //     mOtherBinds.Sort();
-            // }
 
             EditorGUILayout.EndHorizontal();
 
