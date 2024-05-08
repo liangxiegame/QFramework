@@ -241,6 +241,42 @@ var degree = 1.57f.Rad2Deg();
         {
             return self * Mathf.Rad2Deg;
         }
+        
+#if UNITY_EDITOR
+        // Added in v1.0.129
+        [MethodAPI]
+        [APIDescriptionCN("将欧拉角转换为方向向量(Vector2)")]
+        [APIDescriptionEN("Convert Degree To Direction(Vector2)")]
+        [APIExampleCode(@"
+var direction = 90.AngleToDirection2D();
+// Vector2(1,0)
+")]
+#endif
+                
+        public static Vector2 AngleToDirection2D(this int self)
+        {
+            return new Vector2(self.CosAngle(), self.SinAngle());
+        }
+        
+        public static Vector2 AngleToDirection2D(this float self)
+        {
+            return new Vector2(self.CosAngle(), self.SinAngle());
+        }
+        
+#if UNITY_EDITOR
+        // Added in v1.0.129
+        [MethodAPI]
+        [APIDescriptionCN("将方向(Vector2)转换为欧拉角")]
+        [APIDescriptionEN("Convert Direction To Degrees")]
+        [APIExampleCode(@"
+var direction = Vector2.right.ToAngle();
+// Vector2(1,0)
+")]
+#endif
+        public static float ToAngle(this Vector2 self)
+        {
+            return Mathf.Atan2(self.y, self.x).Rad2Deg();
+        }
     }
 
 #if UNITY_EDITOR
