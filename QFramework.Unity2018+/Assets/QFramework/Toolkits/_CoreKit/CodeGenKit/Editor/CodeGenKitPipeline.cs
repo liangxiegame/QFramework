@@ -68,6 +68,7 @@ namespace QFramework
             CurrentTask.Status = CodeGenTaskStatus.Search;
             BindSearchHelper.Search(task);
             CurrentTask.Status = CodeGenTaskStatus.Gen;
+            var viewController = task.GameObject.GetComponent<ViewController>();
             
             var writer = new StringBuilder();
             writer.AppendLine("using UnityEngine;");
@@ -83,8 +84,15 @@ namespace QFramework
             writer.AppendLine(
                 $"namespace {((string.IsNullOrWhiteSpace(task.Namespace)) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
             writer.AppendLine("{");
-            writer.AppendLine($"\tpublic partial class {task.ClassName} : ViewController");
-            writer.AppendLine("\t{");
+            if (viewController.ViewControllerFullTypeName.IsNotNullAndEmpty())
+            {
+                writer.AppendLine(
+                    $"\tpublic partial class {task.ClassName} : {viewController.ViewControllerFullTypeName}");
+            }
+            else
+            {
+                writer.AppendLine($"\tpublic partial class {task.ClassName} : ViewController");
+            }            writer.AppendLine("\t{");
             writer.AppendLine("\t\tvoid Start()");
             writer.AppendLine("\t\t{");
             writer.AppendLine("\t\t\t// Code Here");
@@ -108,7 +116,6 @@ namespace QFramework
             writer.AppendLine(
                 $"namespace {(string.IsNullOrWhiteSpace(task.Namespace) ? CodeGenKit.Setting.Namespace : task.Namespace)}");
             writer.AppendLine("{");
-            var viewController = task.GameObject.GetComponent<ViewController>();
             if (viewController.ArchitectureFullTypeName.IsNotNullAndEmpty())
             {
                 writer.AppendLine($"\tpublic partial class {task.ClassName} : QFramework.IController");

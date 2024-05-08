@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2017 xiaojun
- * Copyright (c) 2015 ~ 2023 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2024 liangxiegame UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -8,6 +8,7 @@
  ****************************************************************************/
 
 
+using System;
 using UnityEngine;
 
 namespace QFramework
@@ -25,7 +26,13 @@ namespace QFramework
         [HideInInspector] public string PrefabFolder = string.Empty;
         
         [HideInInspector] public string ArchitectureFullTypeName = string.Empty;
+        
+        [HideInInspector] public string ViewControllerFullTypeName = string.Empty;
 
         public string TemplateName => nameof(ViewController);
+    }
+    
+    public class ViewControllerChildAttribute : Attribute
+    {
     }
 }

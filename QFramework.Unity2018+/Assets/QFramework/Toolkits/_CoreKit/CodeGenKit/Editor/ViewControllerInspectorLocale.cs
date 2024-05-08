@@ -19,6 +19,7 @@ namespace QFramework
 
         public string CodegenPart => CN ? " 代码生成设置" : " Code Generate Setting";
         public string ArchitectureType => CN ? "架构:" : "Architecture :";
+        public string ViewControllerType => CN ? "继承:" : "Inherit :";
         public string Namespace => CN ? "命名空间:" : "Namespace :";
         public string ScriptName => CN ? "生成脚本名:" : "Script name:";
         public string ScriptsFolder => CN ? "脚本生成目录:" : "Scripts Generate Folder:";

@@ -6,6 +6,7 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,6 +39,10 @@ namespace QFramework
                 if (MarkType == BindType.DefaultUnityElement)
                 {
                     if (string.IsNullOrEmpty(mComponentName))
+                    {
+                        mComponentName = GetDefaultComponentName();
+                    }
+                    else if (!GetComponent(mComponentName) && !GetComponent(mComponentName.Split('.').Last()))
                     {
                         mComponentName = GetDefaultComponentName();
                     }
