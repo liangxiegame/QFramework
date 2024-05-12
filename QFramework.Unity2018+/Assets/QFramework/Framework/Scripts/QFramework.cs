@@ -14,18 +14,22 @@
  * Contributor
  *  TastSong        https://github.com/TastSong
  *  京产肠饭         https://gitee.com/JingChanChangFan/hk_-unity-tools
- *  猫叔(一只皮皮虾)  https://space.bilibili.com/656352/
+ *  猫叔(一只皮皮虾) https://space.bilibili.com/656352/
+ *  misakiMeiii     https://github.com/misakiMeiii
  *  New一天
  *  幽飞冷凝雪～冷
  *
  * Community
  *  QQ Group: 623597263
- * Latest Update: 2024.1.4 14:56 remove BindablePropertyUnRegister
+ * 
+ * Latest Update: 2024.5.12 20:17 add UnRegisterWhenCurrentSceneUnloaded(Suggested by misakiMeiii) 
  ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace QFramework
 {
@@ -56,14 +60,14 @@ namespace QFramework
 
         IUnRegister RegisterEvent<T>(Action<T> onEvent);
         void UnRegisterEvent<T>(Action<T> onEvent);
-        
+
         void Deinit();
     }
 
     public abstract class Architecture<T> : IArchitecture where T : Architecture<T>, new()
     {
         private bool mInited = false;
-        
+
 
         public static Action<T> OnRegisterPatch = architecture => { };
 
@@ -88,13 +92,14 @@ namespace QFramework
 
                 OnRegisterPatch?.Invoke(mArchitecture);
 
-                foreach (var model in mArchitecture.mContainer.GetInstancesByType<IModel>().Where(m=>!m.Initialized))
+                foreach (var model in mArchitecture.mContainer.GetInstancesByType<IModel>().Where(m => !m.Initialized))
                 {
                     model.Init();
                     model.Initialized = true;
                 }
-                
-                foreach (var system in mArchitecture.mContainer.GetInstancesByType<ISystem>().Where(m=>!m.Initialized))
+
+                foreach (var system in mArchitecture.mContainer.GetInstancesByType<ISystem>()
+                             .Where(m => !m.Initialized))
                 {
                     system.Init();
                     system.Initialized = true;
@@ -109,13 +114,15 @@ namespace QFramework
         public void Deinit()
         {
             OnDeinit();
-            foreach (var system in mContainer.GetInstancesByType<ISystem>().Where(s=>s.Initialized)) system.Deinit();
-            foreach (var model in mContainer.GetInstancesByType<IModel>().Where(m=>m.Initialized)) model.Deinit();
+            foreach (var system in mContainer.GetInstancesByType<ISystem>().Where(s => s.Initialized)) system.Deinit();
+            foreach (var model in mContainer.GetInstancesByType<IModel>().Where(m => m.Initialized)) model.Deinit();
             mContainer.Clear();
             mArchitecture = null;
         }
 
-        protected virtual void OnDeinit() { }
+        protected virtual void OnDeinit()
+        {
+        }
 
         private IOCContainer mContainer = new IOCContainer();
 
@@ -185,7 +192,6 @@ namespace QFramework
         public IUnRegister RegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.Register<TEvent>(onEvent);
 
         public void UnRegisterEvent<TEvent>(Action<TEvent> onEvent) => mTypeEventSystem.UnRegister<TEvent>(onEvent);
-
     }
 
     public interface IOnEvent<T>
@@ -216,7 +222,7 @@ namespace QFramework
     #region System
 
     public interface ISystem : IBelongToArchitecture, ICanSetArchitecture, ICanGetModel, ICanGetUtility,
-        ICanRegisterEvent, ICanSendEvent, ICanGetSystem,ICanInit
+        ICanRegisterEvent, ICanSendEvent, ICanGetSystem, ICanInit
     {
     }
 
@@ -233,7 +239,10 @@ namespace QFramework
 
         public void Deinit() => OnDeinit();
 
-        protected virtual void OnDeinit(){}
+        protected virtual void OnDeinit()
+        {
+        }
+
         protected abstract void OnInit();
     }
 
@@ -241,7 +250,7 @@ namespace QFramework
 
     #region Model
 
-    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent,ICanInit
+    public interface IModel : IBelongToArchitecture, ICanSetArchitecture, ICanGetUtility, ICanSendEvent, ICanInit
     {
     }
 
@@ -257,7 +266,9 @@ namespace QFramework
         void ICanInit.Init() => OnInit();
         public void Deinit() => OnDeinit();
 
-        protected virtual void OnDeinit(){}
+        protected virtual void OnDeinit()
+        {
+        }
 
         protected abstract void OnInit();
     }
@@ -431,7 +442,7 @@ namespace QFramework
         public static TResult SendQuery<TResult>(this ICanSendQuery self, IQuery<TResult> query) =>
             self.GetArchitecture().SendQuery(query);
     }
-    
+
     public interface ICanInit
     {
         bool Initialized { get; set; }
@@ -486,7 +497,11 @@ namespace QFramework
     {
         private readonly HashSet<IUnRegister> mUnRegisters = new HashSet<IUnRegister>();
 
-        public void AddUnRegister(IUnRegister unRegister) => mUnRegisters.Add(unRegister);
+        public IUnRegister AddUnRegister(IUnRegister unRegister)
+        {
+            mUnRegisters.Add(unRegister);
+            return unRegister;
+        }
 
         public void RemoveUnRegister(IUnRegister unRegister) => mUnRegisters.Remove(unRegister);
 
@@ -516,25 +531,57 @@ namespace QFramework
             UnRegister();
         }
     }
+
+    public class UnRegisterCurrentSceneUnloadedTrigger : UnRegisterTrigger
+    {
+        private static UnRegisterCurrentSceneUnloadedTrigger mDefault;
+
+        public static UnRegisterCurrentSceneUnloadedTrigger Get
+        {
+            get
+            {
+                if (!mDefault)
+                {
+                    mDefault = new GameObject("UnRegisterCurrentSceneUnloadedTrigger")
+                        .AddComponent<UnRegisterCurrentSceneUnloadedTrigger>();
+                }
+
+                return mDefault;
+            }
+        }
+
+        private void Awake()
+        {
+            DontDestroyOnLoad(this);
+            hideFlags = HideFlags.HideInHierarchy;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
+
+        private void OnDestroy() => SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        void OnSceneUnloaded(Scene scene) => UnRegister();
+    }
 #endif
 
     public static class UnRegisterExtension
     {
 #if UNITY_5_6_OR_NEWER
-        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister,
-            UnityEngine.GameObject gameObject)
+
+        static T GetOrAddComponent<T>(GameObject gameObject) where T : Component
         {
-            var trigger = gameObject.GetComponent<UnRegisterOnDestroyTrigger>();
+            var trigger = gameObject.GetComponent<T>();
 
             if (!trigger)
             {
-                trigger = gameObject.AddComponent<UnRegisterOnDestroyTrigger>();
+                trigger = gameObject.AddComponent<T>();
             }
 
-            trigger.AddUnRegister(unRegister);
-
-            return unRegister;
+            return trigger;
         }
+
+        public static IUnRegister UnRegisterWhenGameObjectDestroyed(this IUnRegister unRegister,
+            UnityEngine.GameObject gameObject) =>
+            GetOrAddComponent<UnRegisterOnDestroyTrigger>(gameObject)
+                .AddUnRegister(unRegister);
 
         public static IUnRegister UnRegisterWhenGameObjectDestroyed<T>(this IUnRegister self, T component)
             where T : UnityEngine.Component =>
@@ -545,21 +592,12 @@ namespace QFramework
             self.UnRegisterWhenDisabled(component.gameObject);
 
         public static IUnRegister UnRegisterWhenDisabled(this IUnRegister unRegister,
-            UnityEngine.GameObject gameObject)
-        {
-            var trigger = gameObject.GetComponent<UnRegisterOnDisableTrigger>();
-
-            if (!trigger)
-            {
-                trigger = gameObject.AddComponent<UnRegisterOnDisableTrigger>();
-            }
-
-            trigger.AddUnRegister(unRegister);
-
-            return unRegister;
-        }
-
-
+            UnityEngine.GameObject gameObject) =>
+            GetOrAddComponent<UnRegisterOnDisableTrigger>(gameObject)
+                .AddUnRegister(unRegister);
+        
+        public static IUnRegister UnRegisterWhenCurrentSceneUnloaded(this IUnRegister self) =>
+            UnRegisterCurrentSceneUnloadedTrigger.Get.AddUnRegister(self);
 #endif
 
 
@@ -738,7 +776,7 @@ namespace QFramework
         }
 #endif
     }
-    
+
     #endregion
 
     #region EasyEvent

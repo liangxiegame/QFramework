@@ -154,6 +154,16 @@ namespace QFramework
                 ActionID = self.ActionID,
             };
         }
+        
+        public static IActionController StartCurrentScene(this IAction self, Action<IActionController> onFinish = null)
+        {
+            return self.Start(ActionKitCurrentScene.SceneComponent, onFinish);
+        }
+        
+        public static IActionController StartCurrentScene(this IAction self, Action onFinish)
+        {
+            return self.Start(ActionKitCurrentScene.SceneComponent, onFinish);
+        }
 
         public static IActionController StartGlobal(this IAction self, Action<IActionController> onFinish = null)
         {

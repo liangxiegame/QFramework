@@ -31,6 +31,4 @@ namespace QFramework
             return self;
         }
     }
-    
-    
 }

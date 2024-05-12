@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.131",
+    "Version": "v1.0.132",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.131",
-        "content": "补充文档",
+        "version": "v1.0.132",
+        "content": "CodeGenKit: 增加 TabCustomCode（misakiMeiii 提供)\nActionKit: 增加 StartCurrentScene（misakiMeiii 提供建议，已包含示例和文档）\nQFramework.cs: 增加 UnRegisterWhenCurrentSceneUnloaded（misakiMeiii 提供建议，已包含示例和文档）",
         "author": "liangxie",
-        "date": "2024 年 05 月 08 日 16:34",
+        "date": "2024 年 05 月 12 日 20:27",
         "PackageId": ""
     }
 }
