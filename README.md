@@ -66,7 +66,7 @@
 
 ### 运行环境
 
-* Unity 2018.4.x ~ 2021.x
+* Unity 2018.4.x ~ Unity 6.x
 
 ## 安装
 
@@ -120,14 +120,33 @@
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
-### 贡献者
 
-* [蓝色孤舟 gdtdftdqtd](https://github.com/gdtdftdqtd)
-* [h3166179](https://github.com/h3166179)
-* [葫芦 WangEdgar](https://github.com/WangEdgar)
+
+### 作者
+
 * [凉鞋 liangxiegame](https://github.com/liangxiegame)
 
+### 贡献者
 
+* [京产肠饭]( https://gitee.com/JingChanChangFan/hk_-unity-tools)
+
+* [猫叔(一只皮皮虾)]( https://space.bilibili.com/656352/)
+
+* [TastSong]( https://github.com/TastSong)
+
+* [misakiMeiii](https://github.com/misakiMeiii)
+
+* [soso](https://github.com/so-sos-so)
+
+* [蓝色孤舟 gdtdftdqtd](https://github.com/gdtdftdqtd)
+
+* [h3166179](https://github.com/h3166179)
+
+* [葫芦 WangEdgar](https://github.com/WangEdgar)
+
+* New一天
+
+* 幽飞冷凝雪～冷
 
 
 ### 优秀的 Unity 库、框架

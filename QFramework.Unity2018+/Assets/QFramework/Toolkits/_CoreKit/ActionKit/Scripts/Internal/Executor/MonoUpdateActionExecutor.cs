@@ -1,7 +1,7 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
- * http://qframework.cn
+ * Copyright (c) 2015 - 2024 liangxiegame UNDER MIT License
+ *
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -14,18 +14,37 @@ namespace QFramework
 {
     internal class MonoUpdateActionExecutor : MonoBehaviour, IActionExecutor
     {
-        private List<KeyValuePair<IAction, Action<IActionController>>> mPrepareExecutionActions =
-            new List<KeyValuePair<IAction, Action<IActionController>>>();
-
-        private Dictionary<IAction, Action<IActionController>> mExecutingActions =
-            new Dictionary<IAction, Action<IActionController>>();
-
-        public void Execute(IAction action, Action<IActionController> onFinish = null)
+        public class ActionTask
         {
-            if (action.Status == ActionStatus.Finished) action.Reset();
-            if (this.UpdateAction(action, 0, onFinish)) return;
+            public IAction Action;
+            public IActionController Controller;
+            public Action<IActionController> OnFinish;
+        }
 
-            mPrepareExecutionActions.Add(new KeyValuePair<IAction, Action<IActionController>>(action, onFinish));
+        private List<ActionTask> mPrepareExecutionActions =
+            new List<ActionTask>();
+
+        private Dictionary<IAction, ActionTask> mExecutingActions =
+            new Dictionary<IAction, ActionTask>();
+
+        private static SimpleObjectPool<ActionTask> mActionTaskPool = new SimpleObjectPool<ActionTask>(
+            () => new ActionTask(), (task) =>
+            {
+                task.Action = null;
+                task.Controller = null;
+                task.OnFinish = null;
+            }, 50);
+
+        public void Execute(IActionController controller, Action<IActionController> onFinish = null)
+        {
+            if (controller.Action.Status == ActionStatus.Finished) controller.Action.Reset();
+            if (this.UpdateAction(controller, 0, onFinish)) return;
+
+            var actionTask = mActionTaskPool.Allocate();
+            actionTask.Action = controller.Action;
+            actionTask.Controller = controller;
+            actionTask.OnFinish = onFinish;
+            mPrepareExecutionActions.Add(actionTask);
         }
 
         private List<IAction> mToActionRemove = new List<IAction>();
@@ -36,24 +55,36 @@ namespace QFramework
             {
                 foreach (var prepareExecutionAction in mPrepareExecutionActions)
                 {
-                    if (mExecutingActions.ContainsKey(prepareExecutionAction.Key))
+                    if (mExecutingActions.ContainsKey(prepareExecutionAction.Action))
                     {
-                        mExecutingActions[prepareExecutionAction.Key] = prepareExecutionAction.Value;
+                        mExecutingActions[prepareExecutionAction.Action] = prepareExecutionAction;
                     }
                     else
                     {
-                        mExecutingActions.Add(prepareExecutionAction.Key, prepareExecutionAction.Value);
+                        mExecutingActions.Add(prepareExecutionAction.Action, prepareExecutionAction);
                     }
                 }
-                
+
                 mPrepareExecutionActions.Clear();
             }
 
             foreach (var actionAndFinishCallback in mExecutingActions)
             {
-                if (this.UpdateAction(actionAndFinishCallback.Key, Time.deltaTime, actionAndFinishCallback.Value))
+                if (actionAndFinishCallback.Value.Controller.UpdateMode == ActionUpdateModes.ScaledDeltaTime)
                 {
-                    mToActionRemove.Add(actionAndFinishCallback.Key);
+                    if (this.UpdateAction(actionAndFinishCallback.Value.Controller, Time.deltaTime,
+                            actionAndFinishCallback.Value.OnFinish))
+                    {
+                        mToActionRemove.Add(actionAndFinishCallback.Key);
+                    }
+                }
+                else if (actionAndFinishCallback.Value.Controller.UpdateMode == ActionUpdateModes.UnscaledDeltaTime)
+                {
+                    if (this.UpdateAction(actionAndFinishCallback.Value.Controller, Time.unscaledDeltaTime,
+                            actionAndFinishCallback.Value.OnFinish))
+                    {
+                        mToActionRemove.Add(actionAndFinishCallback.Key);
+                    }
                 }
             }
 
@@ -71,11 +102,12 @@ namespace QFramework
 
     public static class MonoUpdateActionExecutorExtension
     {
-        public static IAction ExecuteByUpdate<T>(this T self, IAction action, Action<IActionController> onFinish = null)
+        public static IAction ExecuteByUpdate<T>(this T self, IAction action, IActionController controller,
+            Action<IActionController> onFinish = null)
             where T : MonoBehaviour
         {
             if (action.Status == ActionStatus.Finished) action.Reset();
-            self.gameObject.GetOrAddComponent<MonoUpdateActionExecutor>().Execute(action, onFinish);
+            self.gameObject.GetOrAddComponent<MonoUpdateActionExecutor>().Execute(controller, onFinish);
             return action;
         }
     }
