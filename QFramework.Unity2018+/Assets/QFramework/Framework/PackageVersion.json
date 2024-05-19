@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.133",
+    "Version": "v1.0.135",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.133",
-        "content": "* ActionKit: 增加 IgnoreTimeScale API(秋濑 建议,已包含示例和文档)\n* Readme.md 补全作者\n* TabCustomCode 增加 misakiMeii 的声明",
+        "version": "v1.0.135",
+        "content": "修复 ActionController 回收后 还需要判断 Action 的问题",
         "author": "liangxie",
-        "date": "2024 年 05 月 15 日 19:49",
+        "date": "2024 年 05 月 17 日 22:08",
         "PackageId": ""
     }
 }

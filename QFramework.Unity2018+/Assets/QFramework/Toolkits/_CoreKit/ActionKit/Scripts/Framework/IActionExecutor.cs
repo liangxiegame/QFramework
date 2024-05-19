@@ -7,6 +7,7 @@
  ****************************************************************************/
 
 using System;
+using UnityEngine;
 
 namespace QFramework
 {
@@ -23,7 +24,6 @@ namespace QFramework
             if (!controller.Action.Deinited && controller.Action.Execute(dt))
             {
                 onFinish?.Invoke(controller);
-                
                 controller.Deinit();
                 return true;
             }

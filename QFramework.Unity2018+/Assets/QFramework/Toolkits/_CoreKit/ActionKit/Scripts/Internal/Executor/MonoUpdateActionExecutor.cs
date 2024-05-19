@@ -47,7 +47,7 @@ namespace QFramework
             mPrepareExecutionActions.Add(actionTask);
         }
 
-        private List<IAction> mToActionRemove = new List<IAction>();
+        private List<IActionController> mToActionRemove = new List<IActionController>();
 
         private void Update()
         {
@@ -75,7 +75,7 @@ namespace QFramework
                     if (this.UpdateAction(actionAndFinishCallback.Value.Controller, Time.deltaTime,
                             actionAndFinishCallback.Value.OnFinish))
                     {
-                        mToActionRemove.Add(actionAndFinishCallback.Key);
+                        mToActionRemove.Add(actionAndFinishCallback.Value.Controller);
                     }
                 }
                 else if (actionAndFinishCallback.Value.Controller.UpdateMode == ActionUpdateModes.UnscaledDeltaTime)
@@ -83,16 +83,17 @@ namespace QFramework
                     if (this.UpdateAction(actionAndFinishCallback.Value.Controller, Time.unscaledDeltaTime,
                             actionAndFinishCallback.Value.OnFinish))
                     {
-                        mToActionRemove.Add(actionAndFinishCallback.Key);
+                        mToActionRemove.Add(actionAndFinishCallback.Value.Controller);
                     }
                 }
             }
 
             if (mToActionRemove.Count > 0)
             {
-                foreach (var action in mToActionRemove)
+                foreach (var controller in mToActionRemove)
                 {
-                    mExecutingActions.Remove(action);
+                    mExecutingActions.Remove(controller.Action);
+                    controller.Recycle();
                 }
 
                 mToActionRemove.Clear();
