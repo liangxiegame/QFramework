@@ -112,7 +112,7 @@ namespace QFramework
             else
             {
                 packageKitWindow.titleContent = new GUIContent(LocaleText.QFrameworkSettings);
-                packageKitWindow.minSize = new Vector2(1200, 900);
+                packageKitWindow.minSize = new Vector2(1280, 720);
                 packageKitWindow.Open();
             }
         }
