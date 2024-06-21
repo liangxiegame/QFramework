@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.136",
+    "Version": "v1.0.137",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.136",
-        "content": "更改 QFramework 面板分辨率，为小屏笔记本适配",
+        "version": "v1.0.137",
+        "content": "FluentAPI:Position2D 支持传 x,y",
         "author": "liangxie",
-        "date": "2024 年 05 月 19 日 19:20",
+        "date": "2024 年 06 月 21 日 21:57",
         "PackageId": ""
     }
 }

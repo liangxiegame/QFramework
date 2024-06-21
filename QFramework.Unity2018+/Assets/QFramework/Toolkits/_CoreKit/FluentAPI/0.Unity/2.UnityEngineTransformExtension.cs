@@ -1580,65 +1580,33 @@ gameObj.SiblingIndex(10);
             return selfComponent;
         }
 
-        public static Vector2 Position2D(this GameObject self)
-        {
-            return new Vector2(self.transform.position.x, self.transform.position.y);
-        }
+        public static Vector2 Position2D(this GameObject self) => new Vector2(self.transform.position.x, self.transform.position.y);
 
-        public static Vector2 Position2D(this Component self)
-        {
-            return new Vector2(self.transform.position.x, self.transform.position.y);
-        }
+        public static Vector2 Position2D(this Component self) => new Vector2(self.transform.position.x, self.transform.position.y);
 
-        public static GameObject Position2D(this GameObject self, Vector2 position)
-        {
-            return self.Position(position.x, position.y);
-        }
+        public static GameObject Position2D(this GameObject self, Vector2 position) => self.Position(position.x, position.y);
 
-        public static T Position2D<T>(this T self, Vector2 position) where T : Component
-        {
-            return self.Position(position.x, position.y);
-        }
+        public static GameObject Position2D(this GameObject self, float x, float y) => self.Position(x, y);
 
-        public static Vector2 LocalPosition2D(this GameObject self)
-        {
-            return new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
-        }
+        public static T Position2D<T>(this T self, float x,float y) where T : Component => self.Position(x, y);
+        
+        public static T Position2D<T>(this T self, Vector2 position) where T : Component => self.Position(position.x, position.y);
 
-        public static Vector2 LocalPosition2D(this Component self)
-        {
-            return new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
-        }
+        public static Vector2 LocalPosition2D(this GameObject self) => new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
 
-        public static GameObject LocalPosition2D(this GameObject self, Vector2 position)
-        {
-            return self.LocalPosition(position.x, position.y);
-        }
+        public static Vector2 LocalPosition2D(this Component self) => new Vector2(self.transform.localPosition.x, self.transform.localPosition.y);
 
-        public static T LocalPosition2D<T>(this T self, Vector2 position) where T : Component
-        {
-            return self.LocalPosition(position.x, position.y);
-        }
+        public static GameObject LocalPosition2D(this GameObject self, Vector2 position) => self.LocalPosition(position.x, position.y);
 
-        public static GameObject SyncPositionFrom(this GameObject self, GameObject from)
-        {
-            return self.Position(from.Position());
-        }
+        public static T LocalPosition2D<T>(this T self, Vector2 position) where T : Component => self.LocalPosition(position.x, position.y);
 
-        public static T SyncPositionFrom<T>(this T self, GameObject from) where T : Component
-        {
-            return self.Position(from.Position());
-        }
+        public static GameObject SyncPositionFrom(this GameObject self, GameObject from) => self.Position(from.Position());
 
-        public static GameObject SyncPositionFrom<T>(this GameObject self, Component from) where T : Component
-        {
-            return self.Position(from.Position());
-        }
+        public static T SyncPositionFrom<T>(this T self, GameObject from) where T : Component => self.Position(from.Position());
 
-        public static T SyncPositionFrom<T>(this T self, Component from) where T : Component
-        {
-            return self.Position(from.Position());
-        }
+        public static GameObject SyncPositionFrom<T>(this GameObject self, Component from) where T : Component => self.Position(from.Position());
+
+        public static T SyncPositionFrom<T>(this T self, Component from) where T : Component => self.Position(from.Position());
 
         public static GameObject SyncPosition2DFrom(this GameObject self, GameObject from) =>
             self.Position2D(from.Position2D());
@@ -1701,60 +1669,27 @@ gameObj.SiblingIndex(10);
             return self;
         }
 
-        public static float PositionX(this GameObject self)
-        {
-            return self.transform.position.x;
-        }
+        public static float PositionX(this GameObject self) => self.transform.position.x;
 
-        public static float PositionX(this Component self)
-        {
-            return self.transform.position.x;
-        }
+        public static float PositionX(this Component self) => self.transform.position.x;
 
-        public static float PositionY(this GameObject self)
-        {
-            return self.transform.position.y;
-        }
+        public static float PositionY(this GameObject self) => self.transform.position.y;
 
-        public static float PositionY(this Component self)
-        {
-            return self.transform.position.y;
-        }
+        public static float PositionY(this Component self) => self.transform.position.y;
 
-        public static float PositionZ(this GameObject self)
-        {
-            return self.transform.position.z;
-        }
+        public static float PositionZ(this GameObject self) => self.transform.position.z;
 
-        public static float PositionZ(this Component self)
-        {
-            return self.transform.position.z;
-        }
+        public static float PositionZ(this Component self) => self.transform.position.z;
 
-        public static float LocalPositionX(this GameObject self)
-        {
-            return self.transform.localPosition.x;
-        }
+        public static float LocalPositionX(this GameObject self) => self.transform.localPosition.x;
 
-        public static float LocalPositionX(this Component self)
-        {
-            return self.transform.localPosition.x;
-        }
+        public static float LocalPositionX(this Component self) => self.transform.localPosition.x;
 
-        public static float LocalPositionY(this GameObject self)
-        {
-            return self.transform.localPosition.y;
-        }
+        public static float LocalPositionY(this GameObject self) => self.transform.localPosition.y;
 
-        public static float LocalPositionY(this Component self)
-        {
-            return self.transform.localPosition.y;
-        }
+        public static float LocalPositionY(this Component self) => self.transform.localPosition.y;
 
-        public static float LocalPositionZ(this GameObject self)
-        {
-            return self.transform.localPosition.z;
-        }
+        public static float LocalPositionZ(this GameObject self) => self.transform.localPosition.z;
 
         public static float LocalPositionZ(this Component self) => self.transform.localPosition.z;
         public static Vector3 LocalEulerAngles(this GameObject self) => self.transform.localEulerAngles;
