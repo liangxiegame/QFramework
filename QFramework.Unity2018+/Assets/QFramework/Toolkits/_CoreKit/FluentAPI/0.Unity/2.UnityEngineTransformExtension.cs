@@ -1435,7 +1435,7 @@ rootTransform.DestroyChildren();
         {
             var childCount = selfComponent.transform.childCount;
 
-            for (var i = 0; i < childCount; i++)
+            for (var i = childCount - 1; i >= 0; i--)
             {
                 selfComponent.transform.GetChild(i).DestroyGameObjGracefully();
             }
@@ -1457,7 +1457,7 @@ rootTransform.DestroyChildrenWithCondition(child=>child != other);
         {
             var childCount = selfComponent.transform.childCount;
 
-            for (var i = 0; i < childCount; i++)
+            for (var i = childCount - 1; i >= 0; i--)
             {
                 var child = selfComponent.transform.GetChild(i);
                 if (condition(child))
@@ -1482,7 +1482,7 @@ rootGameObj.DestroyChildren();
         {
             var childCount = selfGameObj.transform.childCount;
 
-            for (var i = 0; i < childCount; i++)
+            for (var i = childCount - 1; i >= 0; i--)
             {
                 selfGameObj.transform.GetChild(i).DestroyGameObjGracefully();
             }

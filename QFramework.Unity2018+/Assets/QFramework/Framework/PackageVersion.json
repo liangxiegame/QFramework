@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.137",
+    "Version": "v1.0.138",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.137",
-        "content": "FluentAPI:Position2D 支持传 x,y",
+        "version": "v1.0.138",
+        "content": "FluentAPI:DestroyChildren 改成倒序遍历 （misakiMeiii 提供反馈和建议)",
         "author": "liangxie",
-        "date": "2024 年 06 月 21 日 21:57",
+        "date": "2024 年 06 月 21 日 22:03",
         "PackageId": ""
     }
 }
