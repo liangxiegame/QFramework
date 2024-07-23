@@ -1,88 +1,153 @@
-![](Documents/Res/QFramework-icon-0.1.0-512x128.png)
+![LOGO](https://file.liangxiegame.com/67ca2c27-d711-40b2-96f3-d2f6071e3f3c.png)
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
 
-# QFramework 简介 Intro
+# QFramework Intro
 
 [中文](README)|[English](README_EN.md)
 
-[QFramework](https://github.com/liangxiegame/QFramework) 是提供一套简单、强大、易上手、符合 SOLID 原则、支持领域驱动设计（DDD）、事件驱动、数据驱动、分层、MVC 、CQRS、模块化、易扩展的架构，她的源码只有不到 800 行，你可以完全把她放在你的笔记应用里保存。
+[QFramework](https://github.com/liangxiegame/QFramework)  is a framework. she support solid pricinple、domain design driven、event-driven、data-driven、layered、mvc、cqrs、modulization、extendable、scalable architecture. Simple but powerful! she only has 800 lines of code.can save to a note-taking app. 
 
-### 运行环境
-
-* Unity 2018.4.x ~ 2021.x
-
-## 安装
-
-* 从 [Asset Store](http://u3d.as/SJ9) 下载
-* PackageManager
-    * add from package git url：https://github.com/liangxiegame/QFramework 
-    * 或者国内镜像仓库：https://gitee.com/liangxiegame/QFramework
-
-* 或者直接复制[此代码](QFramework.cs)到自己项目中的任意脚本中
-* OpenUPM(TODO)
-
-
-
-## 示例&Demo
-
-* [Example](Examples) (安装后即可运行)
-
-## 交流&社区
-
-* **[QQ 群:623597263](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) **
-* **[github issue](https://github.com/liangxiegame/QFramework/issues/new)**
-* **[gitee issue](https://gitee.com/liangxiegame/QFramework/issues)**
-
-## 提供的架构图
+## Architecture diagram
 
 ![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
 
-## 示意图
+## For Example（😂）
+
+![](https://file.liangxiegame.com/5fcdf6d1-0605-4ae6-b4bf-12e661eb2f1e.png)
+
+## Schematic diagram of various situations
 
 ![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
 
+## Architecture Rule
+
+**QFramework System Design Architecture has 4 layers：**
+
+* Presentation Layer：ViewController Layer. Using IController interface，recive input from user and state changed event from model. In unity MonoBehaviour is on presentation layer
+    * Can get System
+    * Can get Model
+    * Can send Command
+    * Can listen Event
+* System Layer：Using ISystem interface. share IController's part of responsibility. Sharing logic shared across multiple presentation layers，suchas time system、shop system、archivement system.
+    * Can get System
+    * Can get Model
+    * Can listen Event
+    * Can send Event
+* Model Layer：Using IModel interface.Responsible for data definition, data addition, deletion, query and modification methods.
+    * Can get Utility
+    * Can send Event
+* Utility Layer：Using IUtility interface.Responsible for providing infrastructure, such as storage method, serialization method, network connection method, Bluetooth method, SDK, framework inheritance, etc. Nothing can be done. You can integrate third-party libraries or encapsulate APIs
+* In addition to the four layers, there is a core concept - command
+    * Can get System
+    * Can get Model
+    * Can send Event
+    * Can send Command
+* Layer Rule：
+    * IController change ISystem、IModel's state by Command
+    * Notify icontroller after the change of ISystem and IModel must use event or bindableproperty
+    * IController can get ISystem、IModel for data query
+    * ICommand cannot have state
+    * The upper layer can directly obtain the lower layer, and the lower layer cannot obtain the upper object
+    * Events for lower layer to upper layer communication
+    * The communication between the upper layer and the lower layer is called by method (only for query and command for state change). The interaction logic of IController is special, and command can only be used
+
+（照抄自：[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)）
+
+### Environment
+
+* Unity 2018.4.x ~ 2021.x
+
+## Install
+
+* QFramework.cs
+    * copy [this code](QFramework.cs) to your project
+
+* QFramework.cs With Examples
+    * [downlowd unitypackage](./QFramework.cs.Examples.unitypackage)
+* QFramework.ToolKits
+    * [downlowd unitypackage](./QFramework.Toolkits.unitypackage)
+* QFramework.ToolkitsPro
+    * install by [Asset Store](http://u3d.as/SJ9) 
 
 
 
 
-### ShowCase（商业案例）
-| [鬼山之下](https://store.steampowered.com/app/1517160/_/) | [谐音梗挑战](https://www.taptap.com/app/201075) |
-| :-------------------------------------------------------: | :---------------------------------------------: |
-|         ![](Documents/Res/ShowCase/鬼山之下.png)          |   ![](Documents/Res/ShowCase/谐音梗挑战.png)    |
+## Resources
+
+| **Version**                                 |                                                              |                                                              |
+| ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| QFramework.cs                               | Implementation of qframework ontology architecture           | [code file](./QFramework.cs)                                 |
+| QFramework.cs With Examples                 | QFramework.cs and  Examples：CounterApp、Point Point Point、CubeMaster、FlappyBird、ShootingEditor2D、SnakeGame  etc (QFramework.cs included) | [downlowd unitypackage](./QFramework.cs.Examples.unitypackage) |
+| QFramework.ToolKits                         | QFramework.cs  with UIKit/ActionKit/ResKit/PackageKit/AudioKit (QFramework.cs and examples included) | [downlowd unity package](./QFramework.Toolkits.unitypackage) |
+| QFramework.Toolkits.Demo.WuZiQi             | Gobang Demo by QFramework.Toolkits（Need Install QFramework.Toolkits） | [download unitypackage](./QFramework.Toolkits.Demo.WuZiQi.unitypackage) |
+| QFramework.Toolkits.Demo.Saolei             | Mine clearance Demo by QFramework.Toolkits（Need Install QFramework.Toolkits） | [download unitypackage](./QFramework.Toolkits.Demo.SaoLei.unitypackage) |
+| QFramework.ToolKitsPro                      | More Powerful Tools version based on QFramework.ToolKits (QFramework.Toolkits included) | [AssetStore](http://u3d.as/SJ9)                              |
+| **Community**                               |                                                              |                                                              |
+| github issue                                | github community                                             | [address](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue                                 | gitee community                                              | [address](https://gitee.com/liangxiegame/QFramework/issues)  |
+| **ShowCase**                                | email me or publish on github's issue. My email: liangxiegame@163.com |                                                              |
+| 《When The Train Buzzes For Three Seconds》 |                                                              | [Steam](https://store.steampowered.com/app/1563700/_/)\|[TapTap](https://www.taptap.cn/app/208258) |
+| 《The First Mountain》                      |                                                              | [Steam](https://store.steampowered.com/app/2149980/The_First_Mountain/) |
+| 《Hi Eggplant》                             |                                                              | [Steam](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
+| 《Under The Ghost Mountain》                |                                                              | [Steam](https://store.steampowered.com/app/1517160/_/)       |
 
 
 
-## Star 趋势（如果项目有帮到您欢迎点赞）
+## Star Trends
 
 [![Stargazers over time](https://starchart.cc/liangxiegame/QFramework.svg)](https://starchart.cc/liangxiegame/QFramework)
 
-### 核心成员
+
+### Author
+
+* [凉鞋 liangxiegame](https://github.com/liangxiegame)
+
+### Contributors
+
+* [京产肠饭]( https://gitee.com/JingChanChangFan/hk_-unity-tools)
+
+* [猫叔(一只皮皮虾)]( https://space.bilibili.com/656352/)
+
+* [TastSong]( https://github.com/TastSong)
+
+* [misakiMeiii](https://github.com/misakiMeiii)
+
+* [soso](https://github.com/so-sos-so)
+
+* [蓝色孤舟 gdtdftdqtd](https://github.com/gdtdftdqtd)
 
 * [h3166179](https://github.com/h3166179)
-* [王二](https://github.com/so-sos-so) [so-sos-so](https://github.com/so-sos-so)
 
-* [凉鞋 liangxieq](https://github.com/liangxieq)
+* [葫芦 WangEdgar](https://github.com/WangEdgar)
+
+* New一天
+
+* 幽飞冷凝雪～冷
 
 
-
-
-### 优秀的 Unity 库、框架
+### Other Awesome Framework
 
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
-- [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
-- [JEngine](https://github.com/JasonXuDeveloper/JEngine)  一个基于XAsset&ILRuntime，精简好用的热更框架
+- [JEngine](https://github.com/JasonXuDeveloper/JEngine)  The solution that allows unity games update in runtime.
+- [TinaX Framework](https://tinax.corala.space/) “开箱即用”的Unity独立游戏开发工具
 
-### 代码规范完全遵循:
+### Code Style:
 
 [QCSharpStyleGuide](https://github.com/liangxiegame/QCSharpStyleGuide)
 
 
+### Donate:
 
-### 赞助 Donate:
-
-* 如果觉得不错可以在 [这里 Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
-* 或者给此仓库一个小小的 Star~ star this repository
+* 如果觉得不错可以在 [Asset Store](http://u3d.as/SJ9) 给个 5 星哦~ give 5 star
+* 或者给此仓库一个小小的  Star~ star this repository
 * 以上这些都会转化成我们的动力,提供更好的技术服务! 
+
+### Credits:
+
+Thanks for Licenses Supporting by JetBrains Company
+
+<p><a href="https://www.jetbrains.com/?from=QFramework ">
+<img src="https://file.liangxiegame.com/2bf40802-c296-4bdc-bc8a-718000503771.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>

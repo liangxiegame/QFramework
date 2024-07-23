@@ -1,0 +1,13 @@
+{
+    "AssemblyName": "Assembly-CSharp-Editor,",
+    "DisplayName": "UIKit 创建服务",
+    "DisplayNameCN": "UIKit 创建服务",
+    "DisplayNameEN": "UIKit Create Service(OnlyCN)",
+    "TypeName": "QFramework.UIKitCreateServiceView",
+    "InitFunc": "Init",
+    "OnGUIFunc": "OnGUI",
+    "OnWindowGUIEndFunc": "OnWindowGUIEnd",
+    "DisposeFunc": "OnDestroy",
+    "GroupName": "QFramework",
+    "RenderOrder": "4"
+}

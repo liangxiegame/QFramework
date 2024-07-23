@@ -1,0 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using QFramework.Pro;
+
+[CreateAssetMenu]
+public class #SCRIPTNAME# : IMGUIGraph 
+{ 
+	#NOTRIM#
+}

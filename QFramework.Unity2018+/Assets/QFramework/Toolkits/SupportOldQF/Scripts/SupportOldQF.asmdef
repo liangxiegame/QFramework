@@ -1,0 +1,17 @@
+{
+    "name": "SupportOldQF",
+    "references": [
+        "QFramework.CoreKit",
+        "ResKit",
+        "UIKit",
+        "AudioKit"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

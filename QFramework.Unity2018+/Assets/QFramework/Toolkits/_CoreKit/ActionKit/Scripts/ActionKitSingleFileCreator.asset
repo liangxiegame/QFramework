@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d09d8a43c87a14101b9a7e0e34f7b584, type: 3}
+  m_Name: ActionKitSingleFileCreator
+  m_EditorClassIdentifier: 
+  LicenseCode: "/****************************************************************************\n
+    * Copyright (c) 2018 ~ 2022 liangxiegame UNDER MIT LICENSE\n * \n * https://qframework.cn\n
+    * https://github.com/liangxiegame/QFramework\n * https://gitee.com/liangxiegame/QFramework\n
+    *\n * Latest Update: 2022.4.24 16:01 Add new API\n ****************************************************************************/"
+  FileName: ActionKit.cs
+  Scripts:
+  - {fileID: 11500000, guid: 1eb7321d1cc64360b1b3bc7f8c9e9419, type: 3}
+  - {fileID: 11500000, guid: 10d69d7b2c9a44f0e94dd9b6931f5963, type: 3}
+  - {fileID: 11500000, guid: 5be57e93c2484d7b9d90297c1d7fb96a, type: 3}
+  - {fileID: 11500000, guid: b13e466d85684e3dad0a0f264a0b2e3d, type: 3}
+  - {fileID: 11500000, guid: cd67abe5767a40049834fd71dc768a4f, type: 3}
+  - {fileID: 11500000, guid: 7377b7d1b2cc4be695f3a8b1ba90c4d4, type: 3}
+  - {fileID: 11500000, guid: cc053ffd89e84e5c8aab27361b4ee3a7, type: 3}
+  - {fileID: 11500000, guid: 8edfd561d9c1840b9bc4fbc1d9c3cbdc, type: 3}
+  - {fileID: 11500000, guid: f0833ed03da64be7a2aecf07e92e5b63, type: 3}
+  - {fileID: 11500000, guid: a8a2f78ebb17428eb5e450aafd2f3137, type: 3}
+  - {fileID: 11500000, guid: 4850d46fd5874d6d88d8c6360e6f4cc4, type: 3}
+  - {fileID: 11500000, guid: 20711cb9c24949458827b122d9fd1aec, type: 3}
+  - {fileID: 11500000, guid: 36b61916d489432194161a762af54cc8, type: 3}
+  - {fileID: 11500000, guid: 2775179b56b0439d837266b2ee6eb86b, type: 3}
+  - {fileID: 11500000, guid: 05595c8656ab45a8acf1f8612068b009, type: 3}
+  DependencyScripts:
+  - {fileID: 11500000, guid: ca2390cef399464489e6d6ea084bafae, type: 3}
+  - {fileID: 11500000, guid: ae407f80a4da40b085dddedf10a7748a, type: 3}
+  - {fileID: 11500000, guid: 50dfb0161f4a47aa8834f9b4cd3d7149, type: 3}
+  - {fileID: 11500000, guid: 4544e132448d470c934479b47f116bbc, type: 3}
+  - {fileID: 11500000, guid: a2e2cee30b4b4de096f78da47efffbdf, type: 3}
+  - {fileID: 11500000, guid: e1de56b807d34ad894d4c8e0a076e8c3, type: 3}
+  - {fileID: 11500000, guid: 7a1fba0c3bb80422c82f18ba7b548eda, type: 3}
+  - {fileID: 11500000, guid: e32325ba790944944be9c8f91dc8efac, type: 3}
+  - {fileID: 11500000, guid: 6b8e94867f674cfabf491cfaca25073a, type: 3}
+  - {fileID: 11500000, guid: 27e4fa434de7479395f4501dd26239c6, type: 3}
+  - {fileID: 11500000, guid: b23e24a4f7a94b1c88364d7648daf2aa, type: 3}
+  - {fileID: 11500000, guid: 72248ec1038f4ce58ad2861e9b02aa52, type: 3}
+  - {fileID: 11500000, guid: 2c5538bb5e55498ba063f98c0c7a8800, type: 3}
+  - {fileID: 11500000, guid: 570b6aa696204dbc949fea41caf8fcae, type: 3}
+  - {fileID: 11500000, guid: 2b2cffc9094e4ce6b514a6664d1dff51, type: 3}
+  - {fileID: 11500000, guid: b48b349a950f405095cf304b9bde0338, type: 3}
+  - {fileID: 11500000, guid: 5db430b6c4ac4de5a9836454125e0669, type: 3}
+  - {fileID: 11500000, guid: de91558020064600aafd13498ad75aed, type: 3}
+  - {fileID: 11500000, guid: 7243c8d3e87c4a0d8d4ef099f235bd98, type: 3}
+  - {fileID: 11500000, guid: 02d57f6172ab49bebf3d89454bbd9156, type: 3}
+  - {fileID: 11500000, guid: 2e4ec3ac3c89497dae3f65073e36908c, type: 3}
+  - {fileID: 11500000, guid: 397959faf21c4fe2b4dc004faddb5186, type: 3}
+  - {fileID: 11500000, guid: 8ef786a6b2b044b69fcc6abb9e695619, type: 3}
+  - {fileID: 11500000, guid: 0e9137c29fdb42adaa925cb58e1f6e4d, type: 3}
+  - {fileID: 11500000, guid: 36146f65e25b4ec79d3030f3babbc6cc, type: 3}
+  - {fileID: 11500000, guid: 5f82c097d6fc40e3ba52585f53920178, type: 3}
+  - {fileID: 11500000, guid: e6cb3e56f60a4e66a2ceee853c7b6feb, type: 3}
+  - {fileID: 11500000, guid: 16d61fd661134d988122939df0d5d0b9, type: 3}
+  OutputFilePath: /Users/liangxie/Documents/QFrameworkProjects/ActionKitSingleFileTest/Assets
