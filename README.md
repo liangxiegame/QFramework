@@ -95,9 +95,9 @@
 | **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
 | **社区** |  |  |
-| QQ 群:623597263        | 交流群 | [点击加群](http://shang.qq.com/wpa/qunwpa?idkey=706b8eef0fff3fe4be9ce27c8702ad7d8cc1bceabe3b7c0430ec9559b3a9ce66) |
-| github issue | github 社区 | [地址](https://github.com/liangxiegame/QFramework/issues/new) |
-| gitee issue | gitee 社区（国内访问快） | [地址](https://gitee.com/liangxiegame/QFramework/issues) |
+| QQ 1 群（已满）:623597263        | 交流群 | [点击加群](https://qm.qq.com/cgi-bin/qm/qr?k=G4DZ_6qMbN8miP8RcRD9NdhNcVyrD88F&jump_from=webapi&authKey=P8WO3esK/KbDxWPHI5F3EC04IPT6jDSkk/tl73/EHIcRkMTvnLhwpTK1PtHr6V+p) |
+| QQ 2 群 :651816077        | 交流群 | [点击加群](https://qm.qq.com/cgi-bin/qm/qr?k=cd90nbaKMS_PFuFb85SerHNU5PCQiJEb&jump_from=webapi&authKey=i5gVd+WiadQJoCVh+YoC+oTUSktVmrqrAKyKzAzS/e8xZ1am4+M6ozJ1fXe6T+Di) |
+| QQ 频道 :qframework        | 交流群&社区 | [点击加入频道](https://pd.qq.com/s/52bw86mlv) |
 | **教程** |  |  |
 | 《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
 | **产品案例** | 如果用了 qf 并且想要在如下列表中登记，可以在 github/gitee 的 issue 里发帖子,也可以加 qq 群，也可以用邮箱联系凉鞋 liangxiegame@163.com |  |
