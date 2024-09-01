@@ -664,7 +664,7 @@ namespace QFramework
     public interface IReadonlyBindableProperty<T>
     {
         T Value { get; }
-        
+
         IUnRegister RegisterWithInitValue(Action<T> action);
         void UnRegister(Action<T> onValueChanged);
         IUnRegister Register(Action<T> onValueChanged);
@@ -701,7 +701,10 @@ namespace QFramework
         {
             return mValue;
         }
-
+        public virtual void ValueChangedInvoke()
+        {
+            mOnValueChanged.Trigger(mValue);
+        }
         public void SetValueWithoutEvent(T newValue)
         {
             mValue = newValue;
@@ -763,7 +766,7 @@ namespace QFramework
     public interface IEasyEvent
     {
     }
-    
+
     public class EasyEvent : IEasyEvent
     {
         private Action mOnEvent = () => { };
@@ -856,7 +859,7 @@ namespace QFramework
         {
             return mGlobalEvents.GetEvent<T>();
         }
-        
+
 
         public static void Register<T>() where T : IEasyEvent, new()
         {
@@ -864,7 +867,7 @@ namespace QFramework
         }
 
         private Dictionary<Type, IEasyEvent> mTypeEvents = new Dictionary<Type, IEasyEvent>();
-        
+
         public void AddEvent<T>() where T : IEasyEvent, new()
         {
             mTypeEvents.Add(typeof(T), new T());
