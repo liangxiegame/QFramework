@@ -1,27 +1,10 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
+ * Copyright (c) 2017 liangxie UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 namespace QFramework
@@ -56,20 +39,6 @@ namespace QFramework
             mLastChildIndex = 0;
         }
 
-        public BinaryHeap(T[] dataArray, BinaryHeapSortMode sortMode)
-        {
-            mSortMode = sortMode;
-            int minSize = 10;
-            if (dataArray != null)
-            {
-                minSize = dataArray.Length + 1;
-            }
-
-            mArray = new T[minSize];
-            mLastChildIndex = 0;
-            Insert(dataArray, BinaryHeapBuildMode.kN);
-        }
-
         #region 公开方法
 
         #region 清空
@@ -83,40 +52,6 @@ namespace QFramework
         #endregion
 
         #region 插入
-
-        public void Insert(T[] dataArray, BinaryHeapBuildMode buildMode)
-        {
-            if (dataArray == null)
-            {
-                throw new NullReferenceException("BinaryHeap Not Support Insert Null Object");
-            }
-
-            int totalLength = mLastChildIndex + dataArray.Length + 1;
-            if (mArray.Length < totalLength)
-            {
-                ResizeArray(totalLength);
-            }
-
-            if (buildMode == BinaryHeapBuildMode.kNLog)
-            {
-                //方式1:直接添加，每次添加都会上浮
-                for (int i = 0; i < dataArray.Length; ++i)
-                {
-                    Insert(dataArray[i]);
-                }
-            }
-            else
-            {
-                //数量比较大的情况下会快一些
-                //方式2:先添加完，然后排序
-                for (int i = 0; i < dataArray.Length; ++i)
-                {
-                    mArray[++mLastChildIndex] = dataArray[i];
-                }
-
-                SortAsCurrentMode();
-            }
-        }
 
         public void Insert(T element)
         {
@@ -167,16 +102,6 @@ namespace QFramework
         #endregion
 
         #region 重新排序
-
-        public void Sort(BinaryHeapSortMode sortMode)
-        {
-            if (mSortMode == sortMode)
-            {
-                return;
-            }
-            mSortMode = sortMode;
-            SortAsCurrentMode();
-        }
 
         public void RebuildAtIndex(int index)
         {
@@ -231,51 +156,7 @@ namespace QFramework
 
         #endregion
 
-        #region 指定位置删除
 
-        public void RemoveAt(int index)
-        {
-            if (index > mLastChildIndex || index < 1)
-            {
-                return;
-            }
-
-            if (index == mLastChildIndex)
-            {
-                --mLastChildIndex;
-                mArray[index] = default(T);
-                return;
-            }
-
-            mArray[index] = mArray[mLastChildIndex--];
-            mArray[index].HeapIndex = index;
-            RebuildAtIndex(index);
-        }
-
-        #endregion
-
-        #region 索引查找
-
-        //这个索引和大小排序之间没有任何关系
-        public T GetElement(int index)
-        {
-            if (index > mLastChildIndex)
-            {
-                return default(T);
-            }
-            return mArray[index];
-        }
-
-        #endregion
-
-        #region 判定辅助
-
-        public bool HasValue()
-        {
-            return mLastChildIndex > 0;
-        }
-
-        #endregion
 
         #region 内部方法
 

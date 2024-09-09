@@ -1,7 +1,11 @@
 /****************************************************************************
  * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 liangxie
-****************************************************************************/
+ * Copyright (c) 2017 ~ 2024 liangxiegame UNDER MIT LICENSE
+ * 
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ ****************************************************************************/
 
 namespace QFramework
 {
@@ -14,15 +18,11 @@ namespace QFramework
                  */
 
         private float                   mDelayTime;
-        private bool                    mIsEnable = true;
         private int                     mRepeatCount;
-        private float                   mSortScore;
-		private Action<int>                mCallback;
+        private Action<int>                mCallback;
         private int                     mCallbackTick;
-        private int                     mHeapIndex;
-        private bool                    mIsCache;
 
-		public static TimeItem Allocate(Action<int> callback, float delayTime, int repeatCount = 1)
+        public static TimeItem Allocate(Action<int> callback, float delayTime, int repeatCount = 1)
         {
             TimeItem item = SafeObjectPool<TimeItem>.Instance.Allocate();
             item.Set(callback, delayTime, repeatCount);
@@ -50,46 +50,19 @@ namespace QFramework
             }
         }
 
-		public Action<int> callback
-        {
-            get { return mCallback; }
-        }
+        public float SortScore { get; set; }
 
-        public float SortScore
-        {
-            get { return mSortScore; }
-            set { mSortScore = value; }
-        }
+        public int HeapIndex { get; set; }
 
-        public int HeapIndex
-        {
-            get { return mHeapIndex; }
-            set { mHeapIndex = value; }
-        }
+        public bool IsEnable { get; private set; } = true;
 
-        public bool isEnable
-        {
-            get { return mIsEnable; }
-        }
-
-        public bool IsRecycled
-        {
-            get
-            {
-                return mIsCache;
-            }
-
-            set
-            {
-                mIsCache = value;
-            }
-        }
+        public bool IsRecycled { get; set; }
 
         public void Cancel()
         {
-            if (mIsEnable)
+            if (IsEnable)
             {
-                mIsEnable = false;
+                IsEnable = false;
                 mCallback = null;
             }
         }
@@ -110,15 +83,15 @@ namespace QFramework
 
         public void RebuildHeap<T>(BinaryHeap<T> heap) where T : IBinaryHeapElement
         {
-            heap.RebuildAtIndex(mHeapIndex);
+            heap.RebuildAtIndex(HeapIndex);
         }
 
         public void OnRecycled()
         {
             mCallbackTick = 0;
             mCallback = null;
-            mIsEnable = true;
-            mHeapIndex = 0;
+            IsEnable = true;
+            HeapIndex = 0;
     }
 
         public void Recycle2Cache()

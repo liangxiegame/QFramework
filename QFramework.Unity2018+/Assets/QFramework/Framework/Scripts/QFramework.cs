@@ -812,6 +812,7 @@ namespace QFramework
         }
 
         public void UnRegister(Action<T> onEvent) => mOnEvent -= onEvent;
+        
 
         public void Trigger(T t) => mOnEvent?.Invoke(t);
 

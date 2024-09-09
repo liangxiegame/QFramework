@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2016 ~ 2022 liangxie
+ * Copyright (c) 2016 ~ 2024 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -19,10 +19,8 @@ namespace QFramework
 #endif
     public class AudioKit
     {
-        public static AudioPlayer MusicPlayer
-        {
-            get { return AudioManager.Instance.MusicPlayer; }
-        }
+        public static AudioPlayer MusicPlayer => AudioManager.Instance.MusicPlayer;
+
 
         public static AudioKitConfig Config = new AudioKitConfig();
 
@@ -41,50 +39,19 @@ AudioKit.PlayMusic(homeBgClip);
 
 ")]
 #endif
-        public static void PlayMusic(string musicName, bool loop = true, System.Action onBeganCallback = null,
-            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
+        public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
+            Action onEndCallback = null, float volume = 1f)
         {
             AudioManager.Instance.CheckAudioListener();
             var audioMgr = AudioManager.Instance;
             audioMgr.CurrentMusicName = musicName;
 
-            if (!Settings.IsMusicOn.Value && allowMusicOff)
-            {
-                onBeganCallback?.Invoke();
-                onEndCallback?.Invoke();
-                return;
-            }
-
             Debug.Log(">>>>>> Start Play Music");
 
-            // TODO: 需要按照这个顺序去 之后查一下原因
-            // 需要先注册事件，然后再play
-            MusicPlayer.SetOnStartListener(musicUnit =>
-            {
-                onBeganCallback?.Invoke();
-
-                if (volume < 0)
-                {
-                    MusicPlayer.SetVolume(Settings.MusicVolume.Value);
-                }
-                else
-                {
-                    MusicPlayer.SetVolume(volume);
-                }
-
-                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                MusicPlayer.SetOnStartListener(null);
-            });
-
-            MusicPlayer.SetAudio(audioMgr.gameObject, musicName, loop);
-
-            MusicPlayer.SetOnFinishListener(player =>
-            {
-                onEndCallback?.Invoke();
-
-                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                player.SetOnFinishListener(null);
-            });
+            MusicPlayer.VolumeScale(volume)
+                .OnStart(onBeganCallback)
+                .SetAudio(audioMgr.gameObject, musicName, loop)
+                .OnFinish(onEndCallback);
         }
 
 #if UNITY_EDITOR
@@ -140,8 +107,8 @@ AudioKit.PlayVoice(""SentenceA"");
 AudioKit.PlayVoice(SentenceAClip);
 ")]
 #endif
-        public static void PlayVoice(string voiceName, bool loop = false, System.Action onBeganCallback = null,
-            System.Action onEndedCallback = null)
+        public static void PlayVoice(string voiceName, bool loop = false, Action onBeganCallback = null,
+            Action onEndedCallback = null)
         {
             var audioMgr = AudioManager.Instance;
             AudioManager.Instance.CheckAudioListener();
@@ -153,24 +120,9 @@ AudioKit.PlayVoice(SentenceAClip);
             }
 
 
-            VoicePlayer.SetOnStartListener(player =>
-            {
-                onBeganCallback?.Invoke();
-
-                player.SetVolume(Settings.VoiceVolume.Value);
-
-                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                VoicePlayer.SetOnStartListener(null);
-            });
-
+            VoicePlayer.OnStart(onBeganCallback);
             VoicePlayer.SetAudio(AudioManager.Instance.gameObject, voiceName, loop);
-
-            VoicePlayer.SetOnFinishListener(musicUnit =>
-            {
-                onEndedCallback?.Invoke();
-
-                VoicePlayer.SetOnFinishListener(null);
-            });
+            VoicePlayer.OnFinish(onEndedCallback);
         }
 
 #if UNITY_EDITOR
@@ -215,10 +167,10 @@ AudioKit.StopVoice();
         public static PlaySoundModes PlaySoundMode = PlaySoundModes.EveryOne;
         public static int SoundFrameCountForIgnoreSameSound = 10;
         public static int GlobalFrameCountForIgnoreSameSound = 10;
-        
+
         private static Dictionary<string, int> mSoundFrameCountForName = new Dictionary<string, int>();
-        private static int mGlobalFrameCount = 0;
-        
+        private static int mGlobalFrameCount;
+
         public enum PlaySoundModes
         {
             EveryOne,
@@ -293,28 +245,20 @@ AudioKit.PlaySound(EnemyDieClip);
 ")]
 #endif
         public static AudioPlayer PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
-            int customEventId = -1, float volumeScale = 1.0f)
+            float volume = 1.0f)
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
             if (!CanPlaySound(soundName)) return null;
-
-            var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
-
-            soundPlayer.SetOnStartListener(player =>
+            var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
+            soundPlayer.VolumeScale(volume)
+                .SetAudio(AudioManager.Instance.gameObject, soundName, loop);
+            soundPlayer.OnFinish(() =>
             {
-                player.SetVolume(Settings.SoundVolume.Value * volumeScale);
-                soundPlayer.SetOnStartListener(null);
-            });
-            soundPlayer.SetAudio(AudioManager.Instance.gameObject, soundName, loop);
-            soundPlayer.SetOnFinishListener(soundUnit =>
-            {
-                callBack?.Invoke(soundUnit);
+                callBack?.Invoke(soundPlayer);
                 AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
                 SoundFinish(soundName);
             });
-
-            soundPlayer.customEventID = customEventId;
 
             AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
             return soundPlayer;
@@ -338,55 +282,23 @@ AudioKit.StopAllSound();
 
         #region 梅川内酷需求
 
-        public static void PlayMusic(AudioClip clip, bool loop = true, System.Action onBeganCallback = null,
-            System.Action onEndCallback = null, bool allowMusicOff = true, float volume = -1f)
+        public static void PlayMusic(AudioClip clip, bool loop = true, Action onBeganCallback = null,
+            Action onEndCallback = null, float volume = 1f)
         {
             AudioManager.Instance.CheckAudioListener();
             var audioMgr = AudioManager.Instance;
             audioMgr.CurrentMusicName = "music" + clip.GetHashCode();
 
-            if (!Settings.IsMusicOn.Value && allowMusicOff)
-            {
-                onBeganCallback?.Invoke();
-                onEndCallback?.Invoke();
-                return;
-            }
-
             Debug.Log(">>>>>> Start Play Music");
-
-            // TODO: 需要按照这个顺序去 之后查一下原因
-            // 需要先注册事件，然后再play
-            MusicPlayer.SetOnStartListener(musicUnit =>
-            {
-                onBeganCallback?.Invoke();
-
-                if (volume < 0)
-                {
-                    MusicPlayer.SetVolume(Settings.MusicVolume.Value);
-                }
-                else
-                {
-                    MusicPlayer.SetVolume(volume);
-                }
-
-                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                MusicPlayer.SetOnStartListener(null);
-            });
-
+            MusicPlayer.VolumeScale(volume)
+                .OnStart(onBeganCallback);
             MusicPlayer.SetAudioExt(audioMgr.gameObject, clip, audioMgr.CurrentMusicName, loop);
-
-            MusicPlayer.SetOnFinishListener(musicUnit =>
-            {
-                onEndCallback?.Invoke();
-
-                // 调用完就置为null，否则应用层每注册一个而没有注销，都会调用
-                MusicPlayer.SetOnFinishListener(null);
-            });
+            MusicPlayer.OnFinish(onEndCallback);
         }
 
 
-        public static void PlayVoice(AudioClip clip, bool loop = false, System.Action onBeganCallback = null,
-            System.Action onEndedCallback = null)
+        public static void PlayVoice(AudioClip clip, bool loop = false, Action onBeganCallback = null,
+            Action onEndedCallback = null, float volumeScale = 1.0f)
         {
             AudioManager.Instance.CheckAudioListener();
             var audioMgr = AudioManager.Instance;
@@ -397,46 +309,28 @@ AudioKit.StopAllSound();
             {
                 return;
             }
-            
-            VoicePlayer.SetOnStartListener(musicUnit =>
-            {
-                onBeganCallback?.Invoke();
 
-                VoicePlayer.SetOnStartListener(null);
-            });
-
+            VoicePlayer.VolumeScale(volumeScale)
+                .OnStart(onBeganCallback);
             VoicePlayer.SetAudioExt(AudioManager.Instance.gameObject, clip, audioMgr.CurrentVoiceName, loop);
-
-            VoicePlayer.SetOnFinishListener(musicUnit =>
-            {
-                onEndedCallback?.Invoke();
-
-                VoicePlayer.SetOnFinishListener(null);
-            });
+            VoicePlayer.OnFinish(onEndedCallback);
         }
 
         public static AudioPlayer PlaySound(AudioClip clip, bool loop = false, Action<AudioPlayer> callBack = null,
-            int customEventId = -1)
+            float volume = 1.0f)
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
             if (!CanPlaySound(clip.name)) return null;
 
-            var soundPlayer = SafeObjectPool<AudioPlayer>.Instance.Allocate();
-
-            soundPlayer.SetAudioExt(AudioManager.Instance.gameObject, clip, "sound" + clip.GetHashCode(), loop);
-            soundPlayer.SetVolume(Settings.SoundVolume.Value);
-            soundPlayer.SetOnFinishListener(soundUnit =>
+            var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
+            soundPlayer.VolumeScale(volume)
+                .SetAudioExt(AudioManager.Instance.gameObject, clip, "sound" + clip.GetHashCode(), loop);
+            soundPlayer.OnFinish(() =>
             {
-                if (callBack != null)
-                {
-                    callBack(soundUnit);
-                }
-
+                callBack?.Invoke(soundPlayer);
                 AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
             });
-
-            soundPlayer.customEventID = customEventId;
 
             AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
             return soundPlayer;
@@ -477,6 +371,14 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
 ")]
 #endif
         public static AudioKitSettings Settings { get; } = new AudioKitSettings();
+
+        #region Fluent API
+
+        public static FluentMusicAPI Music() => FluentMusicAPI.Allocate();
+
+        public static FluentSoundAPI Sound() => FluentSoundAPI.Allocate();
+
+        #endregion
     }
 
     public class AudioKitConfig
