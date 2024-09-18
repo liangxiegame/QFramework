@@ -18,7 +18,7 @@ namespace QFramework.Tests
                 list.Release2Pool();
                 Assert.IsTrue(false);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.IsTrue(true);
             }

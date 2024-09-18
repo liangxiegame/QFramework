@@ -136,8 +136,6 @@ namespace QFramework
         public IAction Action { get; set; }
 
         public ActionUpdateModes UpdateMode { get; set; }
-
-        private bool mRecycled = false;
         
         public bool Paused
         {
@@ -156,7 +154,6 @@ namespace QFramework
         public static IActionController Allocate()
         {
             var controller = mPool.Allocate() as ActionController;
-            controller.mRecycled = false;
             return controller;
         }
         
