@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.141",
+    "Version": "v1.0.142",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.141",
-        "content": "AudioKit 文档补充",
+        "version": "v1.0.142",
+        "content": "增加 BindableList &文档&Example",
         "author": "liangxie",
-        "date": "2024 年 09 月 09 日 15:14",
+        "date": "2024 年 09 月 18 日 14:41",
         "PackageId": ""
     }
 }
