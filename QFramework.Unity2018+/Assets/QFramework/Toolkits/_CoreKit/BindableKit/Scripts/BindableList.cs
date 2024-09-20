@@ -7,6 +7,7 @@
  ****************************************************************************/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -112,5 +113,10 @@ namespace QFramework
         /// T:newItem
         /// </summary>
         public EasyEvent<int,T,T>  OnReplace => mOnReplace ?? (mOnReplace = new EasyEvent<int,T,T>());
+    }
+
+    public static class BindableListExtensions
+    {
+        public static BindableList<T> ToBindableList<T>(this IEnumerable<T> self) => new BindableList<T>(self);
     }
 }

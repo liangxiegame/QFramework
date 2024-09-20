@@ -187,4 +187,11 @@ namespace QFramework
 
         #endregion
     }
+
+    public static class BindableDictionaryExtensions
+    {
+        public static BindableDictionary<TKey, TValue> ToBindableDictionary<TKey, TValue>(
+            this Dictionary<TKey, TValue> self) =>
+            new BindableDictionary<TKey, TValue>(self);
+    }
 }
