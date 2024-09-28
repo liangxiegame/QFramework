@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
+ *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -25,6 +25,37 @@ namespace QFramework
         // {
         //         "/abc/e.txt".GetFileExtendName().LogInfo();
         // }
+        
+#if UNITY_EDITOR
+        [MethodAPI]
+        [APIDescriptionCN("通过 Type 创建 Instance")]
+        [APIDescriptionEN("Create Instance By Type")]
+        [APIExampleCode(@"
+
+interface IA
+{
+
+}
+
+class A
+{
+}
+
+IA a = typeof(A).CreateInstance<IA>();
+
+")] 
+#endif
+        public static T CreateInstance<T>(this Type self) where T : class
+        {
+            // 获取构造函数
+            var constructorInfos = self.GetConstructors(BindingFlags.Instance | BindingFlags.Public);
+
+            // 获取无参构造函数
+            var ctor = Array.Find(constructorInfos, c => c.GetParameters().Length == 0);
+
+            return ctor.Invoke(null) as T;
+        }
+
 
 #if UNITY_EDITOR
         // v1 No.32
