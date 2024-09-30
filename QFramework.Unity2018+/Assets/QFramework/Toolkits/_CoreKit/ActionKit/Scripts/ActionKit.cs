@@ -18,7 +18,7 @@ namespace QFramework
     [APIDescriptionCN("Action 时序动作序列（组合模式 + 命令模式 + 建造者模式）")]
     [APIDescriptionEN("Action Sequence (composite pattern + command pattern + builder pattern)")]
 #endif
-    public class ActionKit : Architecture<ActionKit>
+    public partial class ActionKit : Architecture<ActionKit>
     {
         public static ulong ID_GENERATOR = 0;
         

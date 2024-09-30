@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.146",
+    "Version": "v1.0.148",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.146",
-        "content": "remove unused code& some warnings",
+        "version": "v1.0.148",
+        "content": "ActionKit.ScreenTransition 增加 FadeIn、FadeOut、FadeInOut & Examples",
         "author": "liangxie",
-        "date": "2024 年 09 月 30 日 15:43",
+        "date": "2024 年 09 月 30 日 17:47",
         "PackageId": ""
     }
 }
