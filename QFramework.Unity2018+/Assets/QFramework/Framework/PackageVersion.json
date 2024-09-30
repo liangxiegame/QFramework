@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.145",
+    "Version": "v1.0.146",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.145",
-        "content": "Type 增加 CreateInstance 扩展",
+        "version": "v1.0.146",
+        "content": "remove unused code& some warnings",
         "author": "liangxie",
-        "date": "2024 年 09 月 28 日 11:20",
+        "date": "2024 年 09 月 30 日 15:43",
         "PackageId": ""
     }
 }

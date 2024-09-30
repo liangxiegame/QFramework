@@ -88,15 +88,20 @@ namespace QFramework
 
         private const float toolbarHeight = 20;
 
+        // class Styles
+        // {
+        //     public static GUIStyle box = "box";
+        //     public static GUIStyle toolbarSeachTextFieldPopup = "ToolbarSeachTextFieldPopup";
+        //     public static GUIStyle searchCancelButton = "ToolbarSeachCancelButton";
+        //     public static GUIStyle searchCancelButtonEmpty = "ToolbarSeachCancelButtonEmpty";
+        //     public static GUIStyle foldout = "Foldout";
+        //     public static GUIStyle toolbarDropDown = "ToolbarDropDown";
+        //     public static GUIStyle selectionRect = "SelectionRect";
+        // }
+        
         class Styles
         {
-            public static GUIStyle box = "box";
-            public static GUIStyle toolbarSeachTextFieldPopup = "ToolbarSeachTextFieldPopup";
-            public static GUIStyle searchCancelButton = "ToolbarSeachCancelButton";
-            public static GUIStyle searchCancelButtonEmpty = "ToolbarSeachCancelButtonEmpty";
-            public static GUIStyle foldout = "Foldout";
-            public static GUIStyle toolbarDropDown = "ToolbarDropDown";
-            public static GUIStyle selectionRect = "SelectionRect";
+            public static readonly GUIStyle SelectionRect = "SelectionRect";
         }
 
         [MenuItem(FrameworkMenuItems.Preferences, false, FrameworkMenuItemsPriorities.Preferences)]
@@ -306,7 +311,7 @@ namespace QFramework
 
                         if (mSelectedViewRender == drawer)
                         {
-                            GUI.Box(rect, "", Styles.selectionRect);
+                            GUI.Box(rect, "", Styles.SelectionRect);
                         }
 
                         if (rect.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
