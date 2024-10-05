@@ -101,6 +101,7 @@
 | **教程** |  |  |
 | 《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
 | **产品案例** | 如果用了 qf 并且想要在如下列表中登记，可以在 github/gitee 的 issue 里发帖子,也可以加 qq 群，也可以用邮箱联系凉鞋 liangxiegame@163.com |  |
+| ![](./README/hanchen.jpg) | 独立游戏《汉尘：腐草为萤》 | [Steam](https://store.steampowered.com/app/2078910/_/)\|[摩点](https://m.modian.com/project/135490.html) |
 | 独立游戏《当火车鸣笛三秒》 | 部分使用 QF 制作的独立游戏 | [Steam](https://store.steampowered.com/app/1563700/_/)\|[TapTap](https://www.taptap.cn/app/208258) |
 | 独立游戏《你好茄子》 | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
 | 独立游戏《第一座山》 | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/2149980/The_First_Mountain/) |
