@@ -103,11 +103,11 @@
 | **产品案例** | 如果用了 qf 并且想要在如下列表中登记，可以在 github/gitee 的 issue 里发帖子,也可以加 qq 群，也可以用邮箱联系凉鞋 liangxiegame@163.com |  |
 | ![](./README/hanchen.jpg) | 独立游戏《汉尘：腐草为萤》 | [Steam](https://store.steampowered.com/app/2078910/_/)\|[摩点](https://m.modian.com/project/135490.html) |
 | ![](./README/huoche.jpg) | 独立游戏《当火车鸣笛三秒》 | [Steam](https://store.steampowered.com/app/1563700/_/)\|[TapTap](https://www.taptap.cn/app/208258) |
-| 独立游戏《你好茄子》 | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
-| 独立游戏《第一座山》 | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/2149980/The_First_Mountain/) |
-| 独立游戏《推灭泡泡姆》 | ‍QF 群友，大学生团队制作的独立游戏，终于等到上架啦，亲自游玩过，很好玩，大家多多支持呀~（P.S 使用 QF.cs 作为架构开发的哦~） | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
-| 独立游戏《鬼山之下》   | 部分使用 QF 制作的独立游戏 | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
-| 手机游戏《谐音梗挑战》 | 部分使用 QF 制作的独立游戏 | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
+| ![](./README/qiezi1.jpg) | 独立游戏《你好茄子》 | [游戏主页(Steam)](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
+| ![](./README/1stmountain.jpg) | 独立游戏《第一座山》 | [游戏主页(Steam)](https://store.steampowered.com/app/2149980/The_First_Mountain/) |
+| ![](./README/tuimiepaopaomu.webp) | 独立游戏《推灭泡泡姆》 | [游戏主页(TapTap)](https://www.taptap.com/app/233228) |
+| ![](./README/utgm.jpg) | 独立游戏《鬼山之下》 | [游戏主页(Steam)](https://store.steampowered.com/app/1517160/_/) |
+| ![](./README/xieyingeng.png) | 手机游戏《谐音梗挑战》 | [游戏主页(TapTap)](https://www.taptap.com/app/201075)        |
 | **其他相关教程** |  |  |
 | 《独立游戏体验计划》（猫叔） | 独立游戏制作体验教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/656352) |
 | 《原创独立游戏制作：平台射击 Roguelike》（凉鞋） | 原创独立游戏制作教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
