@@ -100,6 +100,26 @@ var absValue = -1.0f.Abs();
         {
             return Mathf.Abs(self);
         }
+        
+        
+#if UNITY_EDITOR
+        // Added in v1.0.150
+        [MethodAPI]
+        [APIDescriptionCN("Mathf.Exp")]
+        [APIDescriptionEN("Mathf.Exp")]
+        [APIExampleCode(@"
+var expValue = 1.0f.Exp(); // Mathf.Exp(1.0f)
+")]
+#endif
+        public static float Exp(this float self)
+        {
+            return Mathf.Exp(self);
+        }
+        
+        public static float Exp(this int self)
+        {
+            return Mathf.Exp(self);
+        }
 
 #if UNITY_EDITOR
         // Added in v1.0.31
