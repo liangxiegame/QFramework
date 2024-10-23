@@ -217,6 +217,11 @@ namespace QFramework
     {
     }
 
+    public interface IController<T> : IController where T : Architecture<T>, new()
+    {
+        IArchitecture IBelongToArchitecture.GetArchitecture() => Architecture<T>.Interface;
+    }
+
     #endregion
 
     #region System
