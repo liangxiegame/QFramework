@@ -89,7 +89,12 @@
 | github issue                                | github community                                             | [address](https://github.com/liangxiegame/QFramework/issues/new) |
 | gitee issue                                 | gitee community                                              | [address](https://gitee.com/liangxiegame/QFramework/issues)  |
 | **ShowCase**                                | email me or publish on github's issue. My email: liangxiegame@163.com |                                                              |
+| 《Box Bakery》                              |                                                              | [Steam](https://store.steampowered.com/app/2942950/Box_Bakery/) |
+| 《X-teroids》                               |                                                              | [Steam](https://store.steampowered.com/app/3342540/Xteroids/) |
+| 《The last day of Han dynasty》             |                                                              | [Steam](https://store.steampowered.com/app/2078910/_/)       |
+| 《Hi Eggplant：The Birth Of Sprites》       |                                                              | [Steam](https://store.steampowered.com/app/2375290/_/)       |
 | 《When The Train Buzzes For Three Seconds》 |                                                              | [Steam](https://store.steampowered.com/app/1563700/_/)\|[TapTap](https://www.taptap.cn/app/208258) |
+| 《Hi Eggplant》                             |                                                              | [Steam](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
 | 《The First Mountain》                      |                                                              | [Steam](https://store.steampowered.com/app/2149980/The_First_Mountain/) |
 | 《Hi Eggplant》                             |                                                              | [Steam](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
 | 《Under The Ghost Mountain》                |                                                              | [Steam](https://store.steampowered.com/app/1517160/_/)       |
