@@ -377,15 +377,7 @@ namespace QFramework
             selfRectTrans.anchoredPosition = anchorPos;
             return selfRectTrans;
         }
-
-        [Obsolete("不要使用，Do not used", APIVersion.Force)]
-        public static RectTransform AnchorPosY(this RectTransform selfRectTrans, float anchorPosY)
-        {
-            var anchorPos = selfRectTrans.anchoredPosition;
-            anchorPos.y = anchorPosY;
-            selfRectTrans.anchoredPosition = anchorPos;
-            return selfRectTrans;
-        }
+        
 
         [Obsolete("不要使用，Do not used", APIVersion.Force)]
         public static RectTransform SetSizeWidth(this RectTransform selfRectTrans, float sizeWidth)

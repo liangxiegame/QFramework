@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
- * 
+ *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -180,6 +180,12 @@ Debug.Log(number);
             return int.TryParse(selfStr, out retValue) ? retValue : defaulValue;
         }
 
+        public static long ToLong(this string self, long defaultValue = 0)
+        {
+            var retValue = defaultValue;
+            return long.TryParse(self, out retValue) ? retValue : defaultValue;
+        }
+
 #if UNITY_EDITOR
         // v1 No.27
         [MethodAPI]
@@ -257,7 +263,7 @@ Debug.Log(""Hello World "".RemoveString(""Hello"","" ""));
         {
             return targets.Aggregate(str, (current, t) => current.Replace(t, string.Empty));
         }
-        
+
 #if UNITY_EDITOR
         // v1.0.39
         [MethodAPI]
@@ -270,7 +276,7 @@ Debug.Log(new List<string>() { ""1"",""2"",""3""}.StringJoin("",""));
 #endif
         public static string StringJoin(this IEnumerable<string> self, string separator)
         {
-                return string.Join(separator, self);
+            return string.Join(separator, self);
         }
     }
 }

@@ -1,26 +1,9 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 ~ 2021.4 liangxie
- * 
- * http://qframework.io
- * https://github.com/liangxiegame/QFramework
+ * Copyright (c) 2017 ~ 2024 liangxiegame UNDER MIT LINCESE
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice       shall be included in
- * all copies or substantial portions of the Software.
- *            
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 
@@ -60,8 +43,18 @@ namespace QFramework
             var outputPath = Path.Combine(ResKitAssetsMenu.AssetBundlesOutputPath, GetPlatformName());
             outputPath.CreateDirIfNotExists();
 
-            BuildPipeline.BuildAssetBundles(outputPath, defaultSubProjectData.Builds.ToArray(),
-                BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
+            if (ResKitView.AppendHash)
+            {
+                BuildPipeline.BuildAssetBundles(outputPath, defaultSubProjectData.Builds.ToArray(),
+                    BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.AppendHashToAssetBundleName,
+                    buildTarget);
+            }
+            else
+            {
+                BuildPipeline.BuildAssetBundles(outputPath, defaultSubProjectData.Builds.ToArray(),
+                    BuildAssetBundleOptions.ChunkBasedCompression,
+                    buildTarget);
+            }
 
             GenerateVersionConfig();
 
@@ -72,26 +65,26 @@ namespace QFramework
 
             FileUtil.ReplaceDirectory(outputPath, finalDir);
 
-            AssetBundleExporter.BuildDataTable(defaultSubProjectData.Builds.Select(b => b.assetBundleName).ToArray());
+            AssetBundleExporter.BuildDataTable(defaultSubProjectData.Builds.Select(b => b.assetBundleName).ToArray(),appendHash:ResKitView.AppendHash);
 
-            foreach (var subProjectData in subProjectDatas)
-            {
-                outputPath = Path.Combine(ResKitAssetsMenu.AssetBundlesOutputPath + "/" + subProjectData.Name,
-                    GetPlatformName());
-                outputPath.CreateDirIfNotExists();
-
-                BuildPipeline.BuildAssetBundles(outputPath, subProjectData.Builds.ToArray(),
-                    BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
-                finalDir = Application.streamingAssetsPath + "/" + subProjectData.Name + "/AssetBundles/" +
-                           GetPlatformName();
-
-                finalDir.DeleteDirIfExists();
-                finalDir.CreateDirIfNotExists();
-
-                FileUtil.ReplaceDirectory(outputPath, finalDir);
-                AssetBundleExporter.BuildDataTable(subProjectData.Builds.Select(b => b.assetBundleName).ToArray(),
-                    finalDir + "/");
-            }
+            // foreach (var subProjectData in subProjectDatas)
+            // {
+            //     outputPath = Path.Combine(ResKitAssetsMenu.AssetBundlesOutputPath + "/" + subProjectData.Name,
+            //         GetPlatformName());
+            //     outputPath.CreateDirIfNotExists();
+            //
+            //     BuildPipeline.BuildAssetBundles(outputPath, subProjectData.Builds.ToArray(),
+            //         BuildAssetBundleOptions.ChunkBasedCompression, buildTarget);
+            //     finalDir = Application.streamingAssetsPath + "/" + subProjectData.Name + "/AssetBundles/" +
+            //                GetPlatformName();
+            //
+            //     finalDir.DeleteDirIfExists();
+            //     finalDir.CreateDirIfNotExists();
+            //
+            //     FileUtil.ReplaceDirectory(outputPath, finalDir);
+            //     AssetBundleExporter.BuildDataTable(subProjectData.Builds.Select(b => b.assetBundleName).ToArray(),
+            //         finalDir + "/");
+            // }
 
             AssetDatabase.Refresh();
         }

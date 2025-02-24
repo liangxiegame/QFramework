@@ -54,10 +54,9 @@ namespace QFramework
                 scrollPos = GUILayout.BeginScrollView(scrollPos);
             }
 
-            // Go through each logged entry
-            for (int i = 0; i < entries.Count; i++)
+            for (var i = 0; i < entries.Count; i++)
             {
-                ConsoleMessage entry =
+                var entry =
                     entries
                         [i]; // If this message is the same as the last one and the collapse feature is chosen, skip it 
                 if (collapse && i > 0 && entry.message == entries[i - 1].message)
@@ -65,7 +64,6 @@ namespace QFramework
                     continue;
                 }
 
-                // Change the text colour according to the log type
                 switch (entry.type)
                 {
                     case LogType.Error:

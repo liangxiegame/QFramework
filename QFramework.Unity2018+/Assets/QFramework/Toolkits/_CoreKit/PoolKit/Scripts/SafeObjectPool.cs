@@ -76,10 +76,7 @@ SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet
             mFactory = new DefaultObjectFactory<T>();
         }
 
-        public static SafeObjectPool<T> Instance
-        {
-            get { return SingletonProperty<SafeObjectPool<T>>.Instance; }
-        }
+        public static SafeObjectPool<T> Instance => SingletonProperty<SafeObjectPool<T>>.Instance;
 
         public void Dispose()
         {
@@ -93,6 +90,7 @@ SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet
         /// </summary>
         /// <param name="maxCount">Max Cache count.</param>
         /// <param name="initCount">Init Cache count.</param>
+        /// <param name="objectFactory">Object Factory.</param>
         public void Init(int maxCount, int initCount)
         {
             MaxCacheCount = maxCount;
@@ -106,7 +104,7 @@ SafeObjectPool<Bullet>.Instance.SetObjectFactory(new DefaultObjectFactory<Bullet
             {
                 for (var i = CurCount; i < initCount; ++i)
                 {
-                    Recycle(new T());
+                    Recycle(mFactory.Create());
                 }
             }
         }

@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
- * 
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -8,6 +8,7 @@
 
 #if UNITY_EDITOR
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -18,17 +19,6 @@ namespace QFramework
     {
         public static void Search(CodeGenTask task)
         {
-            // foreach (var componentsInChild in task.GameObject.GetComponentsInChildren<IBindGroup>())
-            // {
-            //     Debug.Log(componentsInChild.As<Component>().transform.name);
-            // }
-            //
-            // foreach (var componentsInChild in task.GameObject.GetComponentsInChildren<IBindOld>())
-            // {
-            //     Debug.Log(componentsInChild.Transform.name);
-            // }
-
-
             var bindGroupTransforms = task.GameObject.GetComponentsInChildren<IBindGroup>(true)
                 .Select(g => g.As<Component>().transform)
                 .Where(t => t != task.GameObject.transform);
@@ -72,6 +62,20 @@ namespace QFramework
             }
 
             return retValue.ToString();
+        }
+
+        public static List<UnityEngine.Object> GetSelectableBindTypeOnGameObject(GameObject gameObject)
+        {
+            var objects = new List<Object>();
+            objects.AddRange(gameObject.GetComponents<Component>().Where(component => !(component is Bind)));
+            objects.Add(gameObject);
+            return objects;
+        }
+
+        public static string[] GetSelectableBindTypeFullNameOnGameObject(GameObject gameObject)
+        {
+            return GetSelectableBindTypeOnGameObject(gameObject)
+                .Select(o => o.GetType().FullName).ToArray();
         }
     }
 }

@@ -100,10 +100,7 @@ namespace QFramework
                 }
                 else if (property.objectReferenceValue is GameObject gameObject)
                 {
-                    var objects = new List<Object>();
-                    objects.AddRange(gameObject.GetComponents<Component>());
-                    objects.Add(gameObject);
-
+                    var objects = BindSearchHelper.GetSelectableBindTypeOnGameObject(gameObject);
                     var index = objects.FindIndex(c => c.GetType() == property.objectReferenceValue.GetType());
                     var newIndex = EditorGUILayout.Popup(index, objects.Select(c => c.GetType().FullName).ToArray());
                     if (index != newIndex)

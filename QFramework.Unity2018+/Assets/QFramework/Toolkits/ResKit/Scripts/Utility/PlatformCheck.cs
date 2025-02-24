@@ -84,9 +84,17 @@ namespace QFramework
             }
         }
 
-        public static bool IsWebGL
+        public static bool IsWebGL => Application.platform == RuntimePlatform.WebGLPlayer;
+
+        public static bool IsWeixinMiniGame
         {
-            get { return Application.platform == RuntimePlatform.WebGLPlayer; }
+            get
+            {
+#if TUANJIE_WEIXINMINIGAME
+                return Application.platform == RuntimePlatform.WeixinMiniGamePlayer;
+#endif
+                return false;
+            }
         }
     }
 }

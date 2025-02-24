@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.151",
+    "Version": "v1.0.180",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.151",
-        "content": "JsonObject=>JsonKit",
+        "version": "v1.0.180",
+        "content": "修复文档的错别字&修复文档显示问题",
         "author": "liangxie",
-        "date": "2024 年 10 月 20 日 10:57",
+        "date": "2025 年 02 月 11 日 13:10",
         "PackageId": ""
     }
 }

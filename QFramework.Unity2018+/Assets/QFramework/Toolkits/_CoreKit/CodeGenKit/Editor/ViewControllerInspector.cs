@@ -114,7 +114,7 @@ namespace QFramework
                 .Where(type => !type.IsAbstract && architectureType.IsAssignableFrom(type)).ToArray();
         }
         
-        private static Type[] SearchAllViewControllerTypes()
+        public static Type[] SearchAllViewControllerTypes()
         {
             var viewControllerType = typeof(ViewController);
 
@@ -166,7 +166,7 @@ namespace QFramework
                 }
                 GUILayout.EndHorizontal();
             }
-            if (mViewControllerTypes.Length > 0)
+            if (ViewController.GetType() == typeof(ViewController) && mViewControllerTypes.Length > 0)
             {
                 var index = Array.FindIndex(mViewControllerTypes,
                     (t) => t.FullName == ViewController.ViewControllerFullTypeName);

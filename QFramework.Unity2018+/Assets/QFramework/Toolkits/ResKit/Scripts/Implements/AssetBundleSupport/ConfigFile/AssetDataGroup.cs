@@ -1,28 +1,10 @@
 ﻿/****************************************************************************
- * Copyright (c) 2018.3 ~ 2019.1 liangxie
+ * Copyright (c) 2015 ~ 2024 liangxiegame UNDER MIT LICENSE
  * 
- * http://liangxiegame.com
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
-
 
 using System;
 using UnityEngine;
@@ -32,18 +14,8 @@ namespace QFramework
 {
     public class AssetDataGroup
     {
-        public IEnumerable<AssetData> AssetDatas
-        {
-            get { return mAssetDataMap.Values; }
-        }
-
-        public IEnumerable<ABUnit> AssetBundleDatas
-        {
-            get
-            {
-                return mABUnitArray;
-            }
-        }
+        public IEnumerable<AssetData> AssetDatas => mAssetDataMap.Values;
+        public IEnumerable<ABUnit> AssetBundleDatas => mABUnitArray;
 
         /// <summary>
         /// 代表依赖关系的类
@@ -53,6 +25,7 @@ namespace QFramework
         {
             public string abName;
             public string[] abDepends;
+            public string Hash;
 
             public ABUnit(string name, string[] depends)
             {
@@ -115,10 +88,7 @@ namespace QFramework
         private List<ABUnit> mABUnitArray;
         private Dictionary<string, AssetData> mAssetDataMap;
         private Dictionary<string, AssetData> mUUID4AssetData;
-        public string key
-        {
-            get { return m_Key; }
-        }
+        public string key => m_Key;
 
         public AssetDataGroup(string key)
         {
@@ -133,15 +103,9 @@ namespace QFramework
 
         public void Reset()
         {
-            if (mABUnitArray != null)
-            {
-                mABUnitArray.Clear();
-            }
+            mABUnitArray?.Clear();
 
-            if (mAssetDataMap != null)
-            {
-                mAssetDataMap.Clear();
-            }
+            mAssetDataMap?.Clear();
         }
 
         public int AddAssetBundleName(string name, string[] depends)
@@ -157,7 +121,7 @@ namespace QFramework
             }
 
             var resSearchRule = ResSearchKeys.Allocate(name);
-            AssetData config = GetAssetData(resSearchRule);
+            var config = GetAssetData(resSearchRule);
             resSearchRule.Recycle2Cache();
 
             if (config != null)

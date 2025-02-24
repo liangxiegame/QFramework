@@ -1,11 +1,12 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2015 - 2024 liangxiegame UNDER MIT License
  *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -21,18 +22,23 @@ namespace QFramework
 
         private Text mText;
         private TextMesh mTextMesh;
+
+        public Text Text => mText;
+        public TextMesh TextMesh => mTextMesh;
+
+        public static Action<LocaleText> OnUpdateText;
         
         private void Start()
         {
             mText = GetComponent<Text>();
             mTextMesh = GetComponent<TextMesh>();
             
-            LocaleKit.OnLanguageChanged.Register(() => { UpdateText(LocaleKit.CurrentLanguage); })
+            LocaleKit.CurrentLanguage.Register(UpdateText)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
 
             if (SetTextOnInit)
             {
-                UpdateText(LocaleKit.CurrentLanguage);
+                UpdateText(LocaleKit.CurrentLanguage.Value);
             }
         }
 
@@ -69,6 +75,8 @@ namespace QFramework
                     }
                 }
             }
+
+            OnUpdateText?.Invoke(this);
         }
     }
 }

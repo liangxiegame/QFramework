@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
- * 
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -8,6 +8,7 @@
 
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -29,14 +30,10 @@ namespace QFramework
 
         private void OnEnable()
         {
-            var components = mBindScript.GetComponents<Component>();
-
-            mComponentNames = components.Where(c => !(c is AbstractBind))
-                .Select(c => c.GetType().FullName)
-                .ToArray();
-
-            mComponentNameIndex = mComponentNames.ToList()
-                .FindIndex((componentName) => componentName.Contains(mBindScript.TypeName));
+            mComponentNames = BindSearchHelper.GetSelectableBindTypeFullNameOnGameObject(mBindScript.gameObject);
+            
+            mComponentNameIndex = Array.FindIndex(mComponentNames,
+                (componentName) => componentName.Contains(mBindScript.TypeName));
 
             if (mComponentNameIndex == -1 || mComponentNameIndex >= mComponentNames.Length)
             {
@@ -45,7 +42,6 @@ namespace QFramework
 
             mComponentNameProperty = serializedObject.FindProperty("mComponentName");
             mCustomComponentNameProperty = serializedObject.FindProperty("CustomComponentName");
-
         }
 
         private Lazy<GUIStyle> mLabel12 = new Lazy<GUIStyle>(() => new GUIStyle(GUI.skin.label)
@@ -122,7 +118,8 @@ namespace QFramework
             {
                 GUILayout.BeginHorizontal();
                 GUILayout.Label(mLocaleText.ClassName, mLabel12.Value, GUILayout.Width(60));
-                mCustomComponentNameProperty.stringValue = EditorGUILayout.TextField(mCustomComponentNameProperty.stringValue);
+                mCustomComponentNameProperty.stringValue =
+                    EditorGUILayout.TextField(mCustomComponentNameProperty.stringValue);
 
                 GUILayout.EndHorizontal();
             }

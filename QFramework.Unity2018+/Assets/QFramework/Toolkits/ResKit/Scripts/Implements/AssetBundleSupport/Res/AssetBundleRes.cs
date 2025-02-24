@@ -19,6 +19,7 @@ namespace QFramework
         private string[]                 mDependResList;
         private AsyncOperation mAssetBundleCreateRequest;
         public string AESKey = string.Empty;
+        private string mHash;
 
 
         public static AssetBundleRes Allocate(string name)
@@ -35,6 +36,7 @@ namespace QFramework
         private void InitAssetBundleName()
         {
             mDependResList =  AssetBundleSettings.AssetBundleConfigFile.GetAllDependenciesByUrl(AssetName);
+            mHash = AssetBundleSettings.AssetBundleConfigFile.GetABHash(AssetName);
         }
 
         public AssetBundle AssetBundle
@@ -59,7 +61,9 @@ namespace QFramework
             }
             else
             {
-                var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
+                var url = AssetBundleSettings.AssetBundleName2Url(mHash != null
+                    ? mAssetName + "_" + mHash
+                    : mAssetName);
                 AssetBundle bundle; 
                 // var zipFileHelper = ResKit.Architecture.Interface.GetUtility<IZipFileHelper>();
 
@@ -123,9 +127,11 @@ namespace QFramework
             }
             else
             {
-                var url = AssetBundleSettings.AssetBundleName2Url(mAssetName);
+                var url = AssetBundleSettings.AssetBundleName2Url(mHash != null
+                    ? mAssetName + "_" + mHash
+                    : mAssetName);
 
-                if (PlatformCheck.IsWebGL)
+                if (PlatformCheck.IsWebGL || PlatformCheck.IsWeixinMiniGame)
                 {
                     var abcR = UnityWebRequestAssetBundle.GetAssetBundle(url);
                     var request = abcR.SendWebRequest();

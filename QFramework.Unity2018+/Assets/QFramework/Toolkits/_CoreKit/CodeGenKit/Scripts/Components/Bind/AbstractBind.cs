@@ -42,7 +42,7 @@ namespace QFramework
                     {
                         mComponentName = GetDefaultComponentName();
                     }
-                    else if (!GetComponent(mComponentName) && !GetComponent(mComponentName.Split('.').Last()))
+                    else if (!GetComponent(mComponentName) && mComponentName != typeof(GameObject).FullName && !GetComponent(mComponentName.Split('.').Last()))
                     {
                         mComponentName = GetDefaultComponentName();
                     }
@@ -108,8 +108,8 @@ namespace QFramework
             // if (GetComponent("Empty4Raycast")) return "QFramework.Empty4Raycast";
             if (GetComponent<RectTransform>()) return "RectTransform";
             if (GetComponent<MeshRenderer>()) return "MeshRenderer";
-
             if (GetComponent<SpriteRenderer>()) return "SpriteRenderer";
+            if (GetComponent<ParticleSystem>()) return "ParticleSystem";
 
             // NGUI 支持
 #if NGUI

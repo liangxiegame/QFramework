@@ -23,12 +23,12 @@ namespace QFramework
 
         private void Start()
         {
-            LocaleKit.OnLanguageChanged.Register(() => { CallUnityEvent(LocaleKit.CurrentLanguage); })
+            LocaleKit.CurrentLanguage.Register(CallUnityEvent)
                 .UnRegisterWhenGameObjectDestroyed(gameObject);
 
             if (CallOnInit)
             {
-                CallUnityEvent(LocaleKit.CurrentLanguage);
+                CallUnityEvent(LocaleKit.CurrentLanguage.Value);
             }
         }
 

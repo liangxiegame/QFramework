@@ -13,8 +13,7 @@ namespace QFramework
 
     public class UIPanelTemplate
     {
-        public static void Write(string name, string srcFilePath, string scriptNamespace,
-            UIKitSettingData uiKitSettingData)
+        public static void Write(string name, string srcFilePath, string scriptNamespace)
         {
             var scriptFile = srcFilePath;
 

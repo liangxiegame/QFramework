@@ -113,7 +113,7 @@ namespace QFramework
 			{
 				if (File.Exists(strFilePath) == false)
 				{
-					UIPanelTemplate.Write(behaviourName,strFilePath,UIKitSettingData.Load().Namespace,UIKitSettingData.Load());
+					UIPanelTemplate.Write(behaviourName,strFilePath,UIKitSettingData.Load().Namespace);
 				}
 			}
 

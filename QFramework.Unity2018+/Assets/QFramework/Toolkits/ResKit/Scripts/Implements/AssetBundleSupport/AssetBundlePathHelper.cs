@@ -49,7 +49,7 @@ namespace QFramework
                 // Add more build targets for your own.
                 // If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
                 default:
-                    return null;
+                    return target.ToString();
             }
         }
 #endif
@@ -186,7 +186,7 @@ namespace QFramework
                 // Add more build targets for your own.
                 // If you add more targets, don't forget to add the same platforms to GetPlatformForAssetBundles(RuntimePlatform) function.
                 default:
-                    return null;
+                    return platform.ToString().RemoveString("Player");
             }
         }
         
