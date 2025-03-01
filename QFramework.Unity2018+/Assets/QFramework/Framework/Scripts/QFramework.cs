@@ -22,7 +22,7 @@
  * Community
  *  QQ Group: 623597263
  * 
- * Latest Update: 2024.5.12 20:17 add UnRegisterWhenCurrentSceneUnloaded(Suggested by misakiMeiii) 
+ * Latest Update: 2025.2.24 13:39 add RegisterWithACall to EasyEvent 
  ****************************************************************************/
 
 using System;
