@@ -103,7 +103,7 @@
 | **产品案例** | 如果用了 qf 并且想要在如下列表中登记，可以在 github/gitee 的 issue 里发帖子,也可以加 qq 群，也可以用邮箱联系凉鞋 liangxiegame@163.com，当然如果看到使用 qf 的项目，我也会先去尝试征得同意再放到如下列表。 |  |
 | ![](./README/超自然.jpg) | 独立游戏《超自然侦探社》 | [TapTap](https://www.taptap.cn/app/222365) \|[Steam](https://store.steampowered.com/app/1976540/_/) |
 | ![](./README/boxbread.jpeg) | 独立游戏《盒子面包坊》 | [TapTap](https://www.taptap.cn/app/384085) \| [Steam](https://store.steampowered.com/app/2942950/_/) |
-| ![](./README/X-teroids.png) | 独立游戏《X-teriods》 | [Steam](https://store.steampowered.com/app/3342540/Xteroids/) |                                                          |
+| ![](./README/X-teroids.png) | 独立游戏《X-teriods》 | [Steam](https://store.steampowered.com/app/3342540/Xteroids/) |                
 | ![](./README/thebirthofsprites.jpg) | 独立游戏《你好茄子：精灵的诞生》 | [Steam](https://store.steampowered.com/app/2375290/_/) |
 | ![](./README/huoche.jpg) | 独立游戏《当火车鸣笛三秒》 | [Steam](https://store.steampowered.com/app/1563700/_/)\|[TapTap](https://www.taptap.cn/app/208258) |
 | ![](./README/qiezi1.jpg) | 独立游戏《你好茄子》 | [Steam](https://store.steampowered.com/app/2091640/Hi_Eggplant/) |
