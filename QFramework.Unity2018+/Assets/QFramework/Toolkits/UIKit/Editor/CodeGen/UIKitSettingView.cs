@@ -123,6 +123,17 @@ namespace QFramework
 
                 GUILayout.Space(6);
 
+                GUILayout.BeginHorizontal();
+                {
+                    GUILayout.Label(LocaleText.ScriptAssemblyPrefix, mLabelBold12.Value, GUILayout.Width(200));
+
+                    mUiKitSettingData.ScriptAssemblyPrefix = EditorGUILayout.TextField(mUiKitSettingData.ScriptAssemblyPrefix);
+
+                }
+                GUILayout.EndHorizontal();
+
+                GUILayout.Space(6);
+
                 if (GUILayout.Button(LocaleText.Apply))
                 {
                     mUiKitSettingData.Save();
@@ -145,7 +156,9 @@ namespace QFramework
             public static string UIScriptGenerateDir => IsCN ? " UI 脚本生成路径:" : " UI Scripts Generate Dir:";
 
             public static string UIPanelPrefabDir => IsCN ? " UIPanel Prefab 路径:" : " UIPanel Prefab Dir:";
-            
+
+            public static string ScriptAssemblyPrefix=> IsCN ? " Script Assembly 前缀:" : " Script Assembly Prefix:";
+
             public static string Apply => IsCN ? "保存" : "Apply";
         }
     }
