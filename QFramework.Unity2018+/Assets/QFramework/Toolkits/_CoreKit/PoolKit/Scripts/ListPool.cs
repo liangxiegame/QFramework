@@ -38,7 +38,7 @@ names.Release2Pool();
         /// 出栈：获取某个List对象
         /// </summary>
         /// <returns></returns>
-        public static List<T> Get()
+        public static List<T> Get(int capacity = 8)
         {
             if (mListStack.Count == 0)
             {

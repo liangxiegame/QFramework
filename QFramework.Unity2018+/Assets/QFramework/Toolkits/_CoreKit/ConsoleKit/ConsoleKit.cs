@@ -31,5 +31,17 @@ namespace QFramework
             new GameObject("ConsoleKit")
                 .AddComponent<ConsoleWindow>();
         }
+
+        public static int GetDefaultIndex()
+        {
+            var index = mModules.FindIndex(m => m.Default);
+
+            if (index == -1)
+            {
+                index = 0;
+            }
+
+            return index;
+        }
     }
 }

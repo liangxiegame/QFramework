@@ -76,7 +76,7 @@ namespace QFramework
                 position.width, EditorGUIUtility.singleLineHeight);
             if (GUI.Button(previewButtonRect, Locale.Preview))
             {
-                var localeText = property.serializedObject.targetObject as LocaleText;
+                var localeText = property.serializedObject.targetObject as AbstractLocaleText;
                 if (localeText != null) localeText.UpdateText((Language)language.intValue);
             }
             EditorGUI.indentLevel = indent;

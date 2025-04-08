@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace QFramework
@@ -23,6 +22,7 @@ namespace QFramework
         private AudioClip mClip = null;
         private bool mLoop = false;
         private float mVolumeScale = 1;
+        private float mPitch = 1;
         
         public FluentSoundAPI WithName(string name)
         {
@@ -48,23 +48,29 @@ namespace QFramework
             return this;
         }
         
+        public FluentSoundAPI Pitch(float pitch)
+        {
+            mPitch = pitch;
+            return this;
+        }
+        
 
         public AudioPlayer Play()
         {
             AudioPlayer soundPlayer = null;
             if (mName != null)
             {
-                soundPlayer =  AudioKit.PlaySound(mName, mLoop, callBack: (p) =>
+                soundPlayer = AudioKit.PlaySound(mName, mLoop, callBack: (p) =>
                 {
                     Recycle2Cache();
-                }, volume: mVolumeScale);
+                }, volume: mVolumeScale,pitch:mPitch);
             }
             else
             {
                 soundPlayer = AudioKit.PlaySound(mClip, mLoop, callBack: (p) =>
                 {
                     Recycle2Cache();
-                }, volume: mVolumeScale);
+                }, volume: mVolumeScale,pitch:mPitch);
             }
 
             if (soundPlayer == null)

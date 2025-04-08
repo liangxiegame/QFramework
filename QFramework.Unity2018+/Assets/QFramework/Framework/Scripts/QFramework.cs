@@ -22,7 +22,7 @@
  * Community
  *  QQ Group: 623597263
  * 
- * Latest Update: 2025.2.24 13:39 add RegisterWithACall to EasyEvent 
+ * Latest Update: 2025.3.18 10:21 add InitArchitecture api
  ****************************************************************************/
 
 using System;
@@ -77,13 +77,13 @@ namespace QFramework
         {
             get
             {
-                if (mArchitecture == null) MakeSureArchitecture();
+                if (mArchitecture == null) InitArchitecture();
                 return mArchitecture;
             }
         }
 
 
-        static void MakeSureArchitecture()
+        public static void InitArchitecture()
         {
             if (mArchitecture == null)
             {

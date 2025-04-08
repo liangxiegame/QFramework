@@ -4,7 +4,18 @@ namespace QFramework
     {
         void Build();
     }
-    
+
+// BUILD WINDOW AND ZIP EXAMPLE
+// var scenes = EditorBuildSettings.scenes;
+// var outputFile = Application.dataPath + "/../Builds/MyRoseWindows/MyRose.exe";
+// var target = BuildTarget.StandaloneWindows64;
+// var options = BuildOptions.None;
+// outputFile.GetFolderPath().CreateDirIfNotExists();
+// EditorUserBuildSettings.development = false;
+// BuildPipeline.BuildPlayer(scenes, outputFile, target, options);
+// var zipFilePath = Application.dataPath + $"/../Builds/MyRoseWindows_{PlayerSettings.bundleVersion}.zip";
+// ZipUtility.ZipFolder(outputFile.GetFolderPath(),zipFilePath);
+// EditorUtility.RevealInFinder(zipFilePath);
     
 // #if UNITY_EDITOR
 // using System.IO;
@@ -189,24 +200,7 @@ namespace QFramework
 //                 ResKitEditorAPI.BuildAssetBundles();
 //                 PlayerSettings.bundleVersion = mConfig.Version;
 //                 PlayerSettings.productName = "HiEggplant2";
-//                 if (PlatformCheck.IsWin)
-//                 {
-//                     var scenes = EditorBuildSettings.scenes;
-//                     var outputFile = Application.dataPath + "/../Builds/HiEggplant2Window/HiEggplant2.exe";
-//                     var zipFileFolder = Application.dataPath + "/../Builds/";
-//                     var target = BuildTarget.StandaloneWindows64;
-//                     var options = BuildOptions.None;
-//                     EditorUserBuildSettings.development = false;
-//                     outputFile.GetFolderPath().DeleteDirIfExists();
-//                     BuildPipeline.BuildPlayer(scenes, outputFile, target, options);
-//                     var fastZip = new FastZip();
-//                     fastZip.CreateZip(zipFileFolder + "HiEggplant2Steam_" + mConfig.Version + ".zip",
-//                         outputFile.GetFolderPath(), true, string.Empty);
-//                     var moveFilePath = "D:\\我的坚果云\\" + "HiEggplant2Steam_" + mConfig.Version + ".zip";
-//                     File.Move(zipFileFolder + "HiEggplant2Steam_" + mConfig.Version + ".zip",moveFilePath);
-//                     EditorUtility.RevealInFinder("D:\\我的坚果云\\");
-//                 }
-//                 else if (PlatformCheck.IsOSX)
+//                 if (PlatformCheck.IsOSX)
 //                 {
 //                     var scenes = EditorBuildSettings.scenes;
 //                     var outputFile = Application.dataPath + "/../Builds/HiEggplant2OSX/HiEggplant2.app";

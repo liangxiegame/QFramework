@@ -118,8 +118,7 @@ AudioKit.PlayVoice(SentenceAClip);
             {
                 return;
             }
-
-
+            
             VoicePlayer.OnStart(onBeganCallback);
             VoicePlayer.SetAudio(AudioManager.Instance.gameObject, voiceName, loop);
             VoicePlayer.OnFinish(onEndedCallback);
@@ -245,22 +244,30 @@ AudioKit.PlaySound(EnemyDieClip);
 ")]
 #endif
         public static AudioPlayer PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
-            float volume = 1.0f)
+            float volume = 1.0f,float pitch = 1)
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
             if (!CanPlaySound(soundName)) return null;
             var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
+            
             soundPlayer.VolumeScale(volume)
                 .SetAudio(AudioManager.Instance.gameObject, soundName, loop);
+            
+            soundPlayer.Pitch(pitch);
+            
             soundPlayer.OnFinish(() =>
             {
                 callBack?.Invoke(soundPlayer);
-                AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
                 SoundFinish(soundName);
             });
+            
+            soundPlayer.OnRelease(() =>
+            {
+                AudioKitArchitecture.RemoveSoundPlayerFromPool(soundPlayer);
+            });
 
-            AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
+            AudioKitArchitecture.AddSoundPlayer2Pool(soundPlayer);
             return soundPlayer;
         }
 
@@ -274,9 +281,8 @@ AudioKit.StopAllSound();
 #endif
         public static void StopAllSound()
         {
-            AudioManager.Instance.ForEachAllSound(player => player.Stop());
-
-            AudioManager.Instance.ClearAllPlayingSound();
+            AudioKitArchitecture.ForEachAllSound(player => player.Stop());
+            AudioKitArchitecture.ClearAllPlayingSound();
         }
 
 
@@ -317,7 +323,7 @@ AudioKit.StopAllSound();
         }
 
         public static AudioPlayer PlaySound(AudioClip clip, bool loop = false, Action<AudioPlayer> callBack = null,
-            float volume = 1.0f)
+            float volume = 1.0f,float pitch = 1)
         {
             AudioManager.Instance.CheckAudioListener();
             if (!Settings.IsSoundOn.Value) return null;
@@ -326,13 +332,20 @@ AudioKit.StopAllSound();
             var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
             soundPlayer.VolumeScale(volume)
                 .SetAudioExt(AudioManager.Instance.gameObject, clip, "sound" + clip.GetHashCode(), loop);
+
+            soundPlayer.Pitch(pitch);
+            
             soundPlayer.OnFinish(() =>
             {
                 callBack?.Invoke(soundPlayer);
-                AudioManager.Instance.RemoveSoundPlayerFromPool(soundPlayer);
+            });
+            
+            soundPlayer.OnRelease(() =>
+            {
+                AudioKitArchitecture.RemoveSoundPlayerFromPool(soundPlayer);
             });
 
-            AudioManager.Instance.AddSoundPlayer2Pool(soundPlayer);
+            AudioKitArchitecture.AddSoundPlayer2Pool(soundPlayer);
             return soundPlayer;
         }
 

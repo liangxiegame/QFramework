@@ -1,31 +1,26 @@
 ﻿/****************************************************************************
-* Copyright (c) 2017 snowcold
-* Copyright (c) 2017 ~ 2024 liangxiegame UNDER MIT LICENSE
-*
-* https://qframework.cn
-* https://github.com/liangxiegame/QFramework
-* https://gitee.com/liangxiegame/QFramework
-****************************************************************************/
+ * Copyright (c) 2017 snowcold
+ * Copyright (c) 2017 ~ 2025 liangxiegame UNDER MIT LICENSE
+ *
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ ****************************************************************************/
 
-using System;
-using System.Linq;
+using UnityEngine;
 
 namespace QFramework
 {
-    using System.Collections.Generic;
-    using UnityEngine;
     
     [MonoSingletonPath("QFramework/AudioKit/AudioManager")]
-    public class AudioManager : MonoBehaviour, ISingleton
+    public class AudioManager : MonoBehaviour, ISingleton,IController
     {
-
         public AudioPlayer MusicPlayer { get; private set; }
 
         public AudioPlayer VoicePlayer { get; private set; }
 
         public void OnSingletonInit()
         {
-
             SafeObjectPool<AudioPlayer>.Instance.Init(10, 1);
             MusicPlayer = AudioPlayer.Allocate(AudioKit.Settings.MusicVolume);
             MusicPlayer.UsedCache = false;
@@ -74,40 +69,11 @@ namespace QFramework
                 }
                 else
                 {
-                    ForEachAllSound(player => player.Stop());
+                    AudioKitArchitecture.ForEachAllSound(player => player.Stop());
                 }
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
-            
         }
-
-        private static Dictionary<string, List<AudioPlayer>> mSoundPlayerInPlaying =
-            new Dictionary<string, List<AudioPlayer>>(30);
-
-
-        public void ForEachAllSound(Action<AudioPlayer> operation)
-        {
-            foreach (var audioPlayer in mSoundPlayerInPlaying.SelectMany(keyValuePair => keyValuePair.Value))
-            {
-                operation(audioPlayer);
-            }
-        }
-
-        public void AddSoundPlayer2Pool(AudioPlayer audioPlayer)
-        {
-            if (mSoundPlayerInPlaying.ContainsKey(audioPlayer.GetName))
-            {
-                mSoundPlayerInPlaying[audioPlayer.GetName].Add(audioPlayer);
-            }
-            else
-            {
-                mSoundPlayerInPlaying.Add(audioPlayer.GetName, new List<AudioPlayer> { audioPlayer });
-            }
-        }
-
-        public void RemoveSoundPlayerFromPool(AudioPlayer audioPlayer)
-        {
-            mSoundPlayerInPlaying[audioPlayer.GetName].Remove(audioPlayer);
-        }
+        
         
         #region 对外接口
 
@@ -138,9 +104,7 @@ namespace QFramework
 
         #endregion
 
-
-
-
+        
         public static void PlayVoiceOnce(string voiceName)
         {
 
@@ -159,9 +123,11 @@ namespace QFramework
 
         #endregion
 
-        public void ClearAllPlayingSound()
+
+
+        public IArchitecture GetArchitecture()
         {
-            mSoundPlayerInPlaying.Clear();
+            return AudioKitArchitecture.Interface;
         }
     }
 }

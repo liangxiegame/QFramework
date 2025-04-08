@@ -16,6 +16,7 @@ namespace QFramework
     public class BuildKitEditor : IPackageKitView
     {
         public EditorWindow EditorWindow { get; set; }
+
         public void Init()
         {
         }
@@ -27,15 +28,15 @@ namespace QFramework
         }
 
         public List<BuildView> mViews = new List<BuildView>();
-        
+
         public void OnShow()
         {
             var interfaceType = typeof(IBuildView);
             var actionType = typeof(IBuildAction);
-            
+
             mViews.Clear();
             foreach (var type in ReflectionExtension.GetAssemblyCSharpEditor().GetTypes()
-                         .Where(t=>!t.IsAbstract && interfaceType.IsAssignableFrom(t))
+                         .Where(t => !t.IsAbstract && interfaceType.IsAssignableFrom(t))
                          .OrderBy(t => actionType.IsAssignableFrom(t)))
             {
                 var displayName = "";
@@ -64,6 +65,7 @@ namespace QFramework
 
         private FluentGUIStyle mActionNameStyle = FluentGUIStyle.Label()
             .FontBold();
+
         public void OnGUI()
         {
             GUILayout.BeginHorizontal();
@@ -71,12 +73,18 @@ namespace QFramework
             GUILayout.Space(5);
             GUILayout.EndHorizontal();
             
+            GUILayout.BeginHorizontal();
+            GUILayout.Label($"BuildTarget:{EditorUserBuildSettings.activeBuildTarget}");
+            GUILayout.Space(5);
+            GUILayout.EndHorizontal();
+
+
             foreach (var buildActionView in mViews)
             {
                 GUILayout.BeginVertical("box");
-                GUILayout.Label(buildActionView.DisplayName,mActionNameStyle);
+                GUILayout.Label(buildActionView.DisplayName, mActionNameStyle);
                 buildActionView.View.OnGUI();
-                
+
                 if (buildActionView.View is IBuildAction action)
                 {
                     if (GUILayout.Button("构建"))

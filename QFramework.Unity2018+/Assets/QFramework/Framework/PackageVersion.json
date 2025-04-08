@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.180",
+    "Version": "v1.0.187",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.180",
-        "content": "修复文档的错别字&修复文档显示问题",
+        "version": "v1.0.187",
+        "content": "LocaleKit Add AbstractLocaleText\nConsoleKit Add AsDefault API",
         "author": "liangxie",
-        "date": "2025 年 02 月 11 日 13:10",
+        "date": "2025 年 04 月 08 日 10:05",
         "PackageId": ""
     }
 }

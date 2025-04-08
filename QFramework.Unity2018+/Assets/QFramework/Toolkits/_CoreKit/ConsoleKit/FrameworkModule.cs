@@ -15,12 +15,17 @@ namespace QFramework
             {
                 PlayerPrefs.DeleteAll();
                 Directory.Delete(Application.persistentDataPath, true);
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else
-                Application.Quit ();
-#endif
+                Quit();
             }
+        }
+
+        public static void Quit()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit ();
+#endif
         }
     }
 }

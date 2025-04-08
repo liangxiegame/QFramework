@@ -7,6 +7,8 @@ namespace QFramework
         public virtual string Title { get; set; }
 
         public virtual Action OnDrawGUI { get; set; }
+        
+        public virtual bool Default { get; set; }
 
         public virtual void OnInit(){}
         public virtual void DrawGUI()
@@ -15,6 +17,7 @@ namespace QFramework
         }
         
         public virtual void OnDestroy(){}
+        
     }
 
     public static class ConsoleModuleExtensions
@@ -28,6 +31,12 @@ namespace QFramework
         public static T OnGUI<T>(this T self, Action onGUI) where T : ConsoleModule
         {
             self.OnDrawGUI = onGUI;
+            return self;
+        }
+
+        public static T AsDefault<T>(this T self) where T : ConsoleModule
+        {
+            self.Default = true;
             return self;
         }
     }

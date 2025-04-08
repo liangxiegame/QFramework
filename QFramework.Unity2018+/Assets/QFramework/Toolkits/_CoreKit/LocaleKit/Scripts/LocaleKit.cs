@@ -13,7 +13,6 @@ namespace QFramework
 {
     public class LocaleKit : Architecture<LocaleKit>
     {
-
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void AutoInit()
         {
@@ -21,8 +20,13 @@ namespace QFramework
             // if config is created
             if (Config)
             {
-                var @_ = Interface;
+                InitArchitecture();
             }
+        }
+
+        public static void ReInit()
+        {
+            (Interface as LocaleKit)?.Init();
         }
         
         protected override void Init()
@@ -34,10 +38,11 @@ namespace QFramework
                 languageIndex = 0;
             }
 
-            CurrentLanguage.Value = Config.LanguageDefines[languageIndex].Language;
+            mCurrentLanguage.Value = Config.LanguageDefines[languageIndex].Language;
         }
 
-        public static BindableProperty<Language> CurrentLanguage = new BindableProperty<Language>(Language.English);
+        private static readonly BindableProperty<Language> mCurrentLanguage = new BindableProperty<Language>(Language.English);
+        public static IReadonlyBindableProperty<Language> CurrentLanguage => mCurrentLanguage ;
 
         public static Action<string, int> SaveCommand = (key, languageIndex) =>
             PlayerPrefs.SetInt(key, languageIndex);
@@ -67,7 +72,7 @@ namespace QFramework
 
         public static void ChangeLanguage(Language language)
         {
-            CurrentLanguage.Value = language;
+            mCurrentLanguage.Value = language;
             SaveCommand("CURRENT_LANGUAGE_INDEX", Config.LanguageDefines.FindIndex(l => l.Language == language));
         }
     }
