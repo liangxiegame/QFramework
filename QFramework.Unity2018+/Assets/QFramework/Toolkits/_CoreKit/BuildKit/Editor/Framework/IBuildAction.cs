@@ -4,18 +4,6 @@ namespace QFramework
     {
         void Build();
     }
-
-// BUILD WINDOW AND ZIP EXAMPLE
-// var scenes = EditorBuildSettings.scenes;
-// var outputFile = Application.dataPath + "/../Builds/MyRoseWindows/MyRose.exe";
-// var target = BuildTarget.StandaloneWindows64;
-// var options = BuildOptions.None;
-// outputFile.GetFolderPath().CreateDirIfNotExists();
-// EditorUserBuildSettings.development = false;
-// BuildPipeline.BuildPlayer(scenes, outputFile, target, options);
-// var zipFilePath = Application.dataPath + $"/../Builds/MyRoseWindows_{PlayerSettings.bundleVersion}.zip";
-// ZipUtility.ZipFolder(outputFile.GetFolderPath(),zipFilePath);
-// EditorUtility.RevealInFinder(zipFilePath);
     
 // #if UNITY_EDITOR
 // using System.IO;

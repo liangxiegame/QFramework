@@ -147,7 +147,7 @@ component.AsRootTransform();
 gameObject.AsRootGameObject();
 ")]
 #endif
-        public static GameObject AsRootGameObject<T>(this GameObject self)
+        public static GameObject AsRootGameObject(this GameObject self)
         {
             self.transform.SetParent(null);
             return self;
