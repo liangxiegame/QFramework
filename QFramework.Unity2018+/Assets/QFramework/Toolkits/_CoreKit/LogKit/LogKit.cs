@@ -7,16 +7,17 @@
  *
  ****************************************************************************/
 
+using System;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using UnityEditor;
+using UnityEditor.Callbacks;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-    using System;
-    using UnityEngine;
-
 #if UNITY_EDITOR
     [ClassAPI("02.LogKit", "LogKit", 4)]
     [APIDescriptionCN("简单的日志工具")]
@@ -240,7 +241,7 @@ LogKit.Level = LogKit.LogLevel.Max;
         private static bool m_hasForceMono = false;
 
         // 处理asset打开的callback函数
-        [UnityEditor.Callbacks.OnOpenAssetAttribute(-1)]
+        [OnOpenAsset(-1)]
         static bool OnOpenAsset(int instance, int line)
         {
             if (m_hasForceMono) return false;
@@ -265,7 +266,7 @@ LogKit.Level = LogKit.LogLevel.Max;
                         line = Convert.ToInt32(pathline.Substring(split_index + 1));
                         m_hasForceMono = true;
                         //方式一
-                        AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(path), line);
+                        AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath<Object>(path), line);
                         m_hasForceMono = false;
                         //方式二
                         //string fullpath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("Assets"));
