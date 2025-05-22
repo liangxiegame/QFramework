@@ -166,12 +166,14 @@ namespace QFramework
         protected virtual TResult ExecuteCommand<TResult>(ICommand<TResult> command)
         {
             command.SetArchitecture(this);
+            command.Init();
             return command.Execute();
         }
 
         protected virtual void ExecuteCommand(ICommand command)
         {
             command.SetArchitecture(this);
+            command.Init();
             command.Execute();
         }
 
@@ -288,6 +290,7 @@ namespace QFramework
     public interface ICommand : IBelongToArchitecture, ICanSetArchitecture, ICanGetSystem, ICanGetModel, ICanGetUtility,
         ICanSendEvent, ICanSendCommand, ICanSendQuery
     {
+        void Init();
         void Execute();
     }
 
@@ -295,6 +298,7 @@ namespace QFramework
         ICanGetUtility,
         ICanSendEvent, ICanSendCommand, ICanSendQuery
     {
+        void Init();
         TResult Execute();
     }
 
@@ -306,7 +310,13 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
+        void ICommand.Init() => OnInit();
+
         void ICommand.Execute() => OnExecute();
+
+        protected virtual void OnInit()
+        {
+        }
 
         protected abstract void OnExecute();
     }
@@ -319,7 +329,13 @@ namespace QFramework
 
         void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
+        void ICommand<TResult>.Init() => OnInit();
+
         TResult ICommand<TResult>.Execute() => OnExecute();
+
+        protected virtual void OnInit()
+        {
+        }
 
         protected abstract TResult OnExecute();
     }
