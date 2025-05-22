@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.191",
+    "Version": "v1.0.192",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.191",
-        "content": "文档重新排序&修复 Moonsharp 逻辑问题( 感谢 issue #143\r by Chenxi-Peng)",
+        "version": "v1.0.192",
+        "content": "修复 ResKit 模拟模式下加载 Sprite PixelPerUnity 永远是 100 的 issue",
         "author": "liangxie",
-        "date": "2025 年 05 月 21 日 10:16",
+        "date": "2025 年 05 月 22 日 09:13",
         "PackageId": ""
     }
 }

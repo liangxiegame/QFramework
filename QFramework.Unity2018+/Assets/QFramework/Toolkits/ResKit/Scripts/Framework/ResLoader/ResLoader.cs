@@ -1,18 +1,17 @@
 ﻿/****************************************************************************
- * Copyright (c) 2016 ~ 2022 liangxiegame UNDER MIT LICENSE
- * 
+ * Copyright (c) 2016 ~ 2025 liangxiegame UNDER MIT LICENSE
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace QFramework
 {
-    using System;
-    using System.Collections.Generic;
-    using UnityEngine;
-    using Object = UnityEngine.Object;
-
 #if UNITY_EDITOR
     [ClassAPI("07.ResKit", "ResLoader Object", 1, "ResLoader Object")]
     [APIDescriptionCN("资源管理方案")]
@@ -24,7 +23,7 @@ namespace QFramework
         public ResLoader()
         {
         }
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("获取 ResLoader")]
@@ -43,7 +42,7 @@ public class MyScript : MonoBehaviour
         {
             return SafeObjectPool<ResLoader>.Instance.Allocate();
         }
-        
+
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("归还 ResLoader")]
@@ -81,7 +80,7 @@ public class MyScript : MonoBehaviour
             SafeObjectPool<ResLoader>.Instance.Recycle(this);
         }
 
-        
+
         public IRes LoadResSync(ResSearchKeys resSearchKeys)
         {
             Add2Load(resSearchKeys);
@@ -93,10 +92,10 @@ public class MyScript : MonoBehaviour
                 Debug.LogError("Failed to Load Res:" + resSearchKeys);
                 return null;
             }
-            
+
             return res;
         }
-        
+
         private void LoadSync()
         {
             while (mWaitLoadList.Count > 0)
@@ -115,7 +114,7 @@ public class MyScript : MonoBehaviour
                 }
             }
         }
-        
+
         private List<Object> mObject2Unload;
 
         public void AddObjectForDestroyWhenRecycle2Cache(Object obj)
@@ -182,7 +181,7 @@ public class MyScript : MonoBehaviour
                 return currentValue;
             }
         }
-        
+
 
         public void Add2Load(ResSearchKeys resSearchKeys, Action<bool, IRes> listener = null,
             bool lastOrder = true)
@@ -228,7 +227,7 @@ public class MyScript : MonoBehaviour
 
             AddRes2Array(res, lastOrder);
         }
-        
+
         private readonly Dictionary<string, Sprite> mCachedSpriteDict = new Dictionary<string, Sprite>();
 
         public void LoadAsync(System.Action listener = null)
@@ -236,10 +235,10 @@ public class MyScript : MonoBehaviour
             mListener = listener;
             DoLoadAsync();
         }
-        
+
         public UnityEngine.Object LoadAssetSync(ResSearchKeys resSearchKeys)
         {
-            UnityEngine.Object  retAsset = null;
+            UnityEngine.Object retAsset = null;
 
             if (resSearchKeys.AssetType == typeof(Sprite))
             {
@@ -251,13 +250,20 @@ public class MyScript : MonoBehaviour
                     }
 
                     resSearchKeys.AssetType = typeof(Texture2D);
-                    var texture = LoadResSync(resSearchKeys).Asset as  Texture2D;
+                    var texture = LoadResSync(resSearchKeys).Asset as Texture2D;
                     resSearchKeys.AssetType = typeof(Sprite);
-                        
+#if UNITY_EDITOR
+                    var assetPath = UnityEditor.AssetDatabase.GetAssetPath(texture);
+                    var importer = UnityEditor.AssetImporter.GetAtPath(assetPath) as UnityEditor.TextureImporter;
                     var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),
-                        Vector2.one * 0.5f);
+                        importer.spritePivot, importer.spritePixelsPerUnit);
                     mCachedSpriteDict.Add(resSearchKeys.AssetName, sprite);
                     return mCachedSpriteDict[resSearchKeys.AssetName];
+#else // for pass compile
+                    var sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height),Vector2.one * 0.5f);
+                    mCachedSpriteDict.Add(resSearchKeys.AssetName, sprite);
+                    return mCachedSpriteDict[resSearchKeys.AssetName];
+#endif
                 }
                 else
                 {
@@ -268,14 +274,12 @@ public class MyScript : MonoBehaviour
             {
                 retAsset = LoadResSync(resSearchKeys).Asset;
             }
-            
+
             resSearchKeys.Recycle2Cache();
 
             return retAsset;
         }
 
-   
-        
 
         public void ReleaseRes(string resName)
         {
