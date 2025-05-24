@@ -8,7 +8,6 @@
 
 using System;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace QFramework
 {
@@ -23,19 +22,16 @@ namespace QFramework
 
         public string GetName => mName;
         private AudioClip mAudioClip;
-        private TimeItem mTimeItem;
 
         private Action mOnStart = null;
         private Action mOnFinish = null;
         private Action mOnRelease = null;
 
         private bool mIsPause = false;
-        private float mLeftDelayTime = -1;
         private float mVolumeScale = 1.0f;
         private float mVolume;
         private float mPitch = 1;
 
-        public AudioSource AudioSource => mAudioSourceController.AudioSource;
 
         internal static AudioPlayer Allocate(BindableProperty<float> volume)
         {
@@ -165,19 +161,11 @@ namespace QFramework
             {
                 return;
             }
-
-            mLeftDelayTime = -1;
-            //暂停
-            if (mTimeItem != null)
-            {
-                mLeftDelayTime = mTimeItem.SortScore - Timer.Instance.CurrentScaleTime;
-                mTimeItem.Cancel();
-                mTimeItem = null;
-            }
+            
 
             mIsPause = true;
 
-            mAudioSourceController.AudioSource.Pause();
+            mAudioSourceController.Pause();
         }
 
         public void Resume()
@@ -186,15 +174,11 @@ namespace QFramework
             {
                 return;
             }
-
-            if (mLeftDelayTime >= 0)
-            {
-                mTimeItem = Timer.Instance.Post2Scale(OnResumeTimeTick, mLeftDelayTime);
-            }
+            
 
             mIsPause = false;
 
-            mAudioSourceController.AudioSource.Play();
+            mAudioSourceController.Play(OnSoundPlayFinish);
         }
 
         public AudioPlayer Pitch(float pitch)
@@ -206,9 +190,9 @@ namespace QFramework
 
         void UpdatePitch()
         {
-            if (mAudioSourceController != null && mAudioSourceController.AudioSource)
+            if (mAudioSourceController != null)
             {
-                mAudioSourceController.AudioSource.pitch = mPitch;
+                mAudioSourceController.SetPitch(mPitch);
             }
         }
 
@@ -227,9 +211,9 @@ namespace QFramework
 
         void UpdateVolume()
         {
-            if (mAudioSourceController != null && mAudioSourceController.AudioSource)
+            if (mAudioSourceController != null)
             {
-                mAudioSourceController.AudioSource.volume = mVolume * mVolumeScale;
+                mAudioSourceController.SetVolume(mVolume * mVolumeScale);
             }
         }
 
@@ -255,14 +239,14 @@ namespace QFramework
 
         private void PlayAudioClip()
         {
-            if (mAudioSourceController == null || mAudioSourceController.AudioSource == null || mAudioClip == null)
+            if (mAudioSourceController == null || mAudioSourceController.AudioSourceIsNull() || mAudioClip == null)
             {
                 Release();
                 return;
             }
 
-            mAudioSourceController.AudioSource.clip = mAudioClip;
-            mAudioSourceController.AudioSource.loop = IsLoop;
+            mAudioSourceController.SetClip(mAudioClip);
+            mAudioSourceController.SetLoop(IsLoop);
             UpdateVolume();
             UpdatePitch();
 
@@ -271,26 +255,17 @@ namespace QFramework
             {
                 loopCount = -1;
             }
-
-            mTimeItem = Timer.Instance.Post2Scale(OnSoundPlayFinish, mAudioClip.length, loopCount);
+            
 
             mOnStart?.Invoke();
             mOnStart = null;
 
-            mAudioSourceController.AudioSource.Play();
+            mAudioSourceController.Play(OnSoundPlayFinish);
         }
+        
+        
 
-        private void OnResumeTimeTick(int repeatCount)
-        {
-            OnSoundPlayFinish(repeatCount);
-
-            if (IsLoop)
-            {
-                mTimeItem = Timer.Instance.Post2Scale(OnSoundPlayFinish, mAudioClip.length, -1);
-            }
-        }
-
-        private void OnSoundPlayFinish(int count)
+        private void OnSoundPlayFinish()
         {
             if (!IsLoop)
             {
@@ -318,21 +293,14 @@ namespace QFramework
             mName = null;
 
             mIsPause = false;
+            
 
-            mLeftDelayTime = -1;
-
-            if (mTimeItem != null)
+            if (mAudioSourceController != null && !mAudioSourceController.AudioSourceIsNull())
             {
-                mTimeItem.Cancel();
-                mTimeItem = null;
-            }
-
-            if (mAudioSourceController != null && mAudioSourceController.AudioSource)
-            {
-                if (mAudioSourceController.AudioSource.clip == mAudioClip)
+                if (mAudioSourceController.Clip == mAudioClip)
                 {
-                    mAudioSourceController.AudioSource.Stop();
-                    mAudioSourceController.AudioSource.clip = null;
+                    mAudioSourceController.Stop();
+                    mAudioSourceController.SetClip(null);
                 }
             }
 
@@ -358,7 +326,7 @@ namespace QFramework
         {
             if (!SafeObjectPool<AudioPlayer>.Instance.Recycle(this))
             {
-                if (mAudioSourceController != null && mAudioSourceController.AudioSource)
+                if (mAudioSourceController != null && !mAudioSourceController.AudioSourceIsNull())
                 {
                     mAudioSourceController.Recycle2Cache();
                     mAudioSourceController = null;

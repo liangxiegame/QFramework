@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.192",
+    "Version": "v1.0.193",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.192",
-        "content": "修复 ResKit 模拟模式下加载 Sprite PixelPerUnity 永远是 100 的 issue",
+        "version": "v1.0.193",
+        "content": "* ActionKit: Condition 支持单独开启\n* AudioKit: 修复 TimeScale 为 0 后，没有回调的 issue\n* AudioKit: 底层的计时器 Timer 替换为 ActionKit \n* AudioKit: 删除 Timer 相关文件",
         "author": "liangxie",
-        "date": "2025 年 05 月 22 日 09:13",
+        "date": "2025 年 05 月 24 日 13:48",
         "PackageId": ""
     }
 }

@@ -10,18 +10,18 @@ using System;
 
 namespace QFramework
 {
-    internal class Callback : IAction
+    internal class CallbackAction : IAction
     {
-        private Callback()
+        private CallbackAction()
         {
         }
 
         private Action mCallback;
 
-        private static SimpleObjectPool<Callback> mSimpleObjectPool =
-            new SimpleObjectPool<Callback>(() => new Callback(), null, 10);
+        private static SimpleObjectPool<CallbackAction> mSimpleObjectPool =
+            new SimpleObjectPool<CallbackAction>(() => new CallbackAction(), null, 10);
 
-        public static Callback Allocate(Action callback)
+        public static CallbackAction Allocate(Action callback)
         {
             var callbackAction = mSimpleObjectPool.Allocate();
             callbackAction.ActionID = ActionKit.ID_GENERATOR++;
@@ -56,7 +56,7 @@ namespace QFramework
             {
                 Deinited = true;
                 mCallback = null;
-                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Callback>(mSimpleObjectPool,this));
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<CallbackAction>(mSimpleObjectPool,this));
             }
         }
 
@@ -71,7 +71,7 @@ namespace QFramework
     {
         public static ISequence Callback(this ISequence self, Action callback)
         {
-            return self.Append(QFramework.Callback.Allocate(callback));
+            return self.Append(QFramework.CallbackAction.Allocate(callback));
         }
     }
 }

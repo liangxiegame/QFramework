@@ -10,22 +10,24 @@ using System;
 
 namespace QFramework
 {
-    public class Condition : IAction
+    public class ConditionAction : IAction
     {
         private Func<bool> mCondition;
+        private Action mOnCondition;
 
-        private static SimpleObjectPool<Condition> mSimpleObjectPool =
-            new SimpleObjectPool<Condition>(() => new Condition(), null, 10);
+        private static SimpleObjectPool<ConditionAction> mSimpleObjectPool =
+            new SimpleObjectPool<ConditionAction>(() => new ConditionAction(), null, 10);
         
-        private Condition(){}
+        private ConditionAction(){}
 
-        public static Condition Allocate(Func<bool> condition)
+        public static ConditionAction Allocate(Func<bool> condition,Action onCondition = null)
         {
             var conditionAction = mSimpleObjectPool.Allocate();
             conditionAction.ActionID = ActionKit.ID_GENERATOR++;
             conditionAction.Deinited = false;
             conditionAction.Reset();
             conditionAction.mCondition = condition;
+            conditionAction.mOnCondition = onCondition;
             return conditionAction;
         }
 
@@ -41,6 +43,7 @@ namespace QFramework
         {
             if (mCondition.Invoke())
             {
+                mOnCondition?.Invoke();
                 this.Finish();
             }
         }
@@ -55,7 +58,8 @@ namespace QFramework
             {
                 Deinited = true;
                 mCondition = null;
-                ActionQueue.AddCallback(new ActionQueueRecycleCallback<Condition>(mSimpleObjectPool,this));
+                mOnCondition = null;
+                ActionQueue.AddCallback(new ActionQueueRecycleCallback<ConditionAction>(mSimpleObjectPool,this));
             }
         }
 
@@ -70,7 +74,7 @@ namespace QFramework
     {
         public static ISequence Condition(this ISequence self, Func<bool> condition)
         {
-            return self.Append(QFramework.Condition.Allocate(condition));
+            return self.Append(QFramework.ConditionAction.Allocate(condition));
         }
     }
 }
