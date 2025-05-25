@@ -39,7 +39,7 @@ namespace QFramework
 			var sw = new StreamWriter(generateFilePath, false, new UTF8Encoding(false));
 			var strBuilder = new StringBuilder();
 
-			var markType = elementCodeInfo.BindInfo.BindScript.GetBindType();
+			var markType = elementCodeInfo.BindInfo.BindScript.As<IBindOld>().GetBindType();
 
 			strBuilder.AppendLine("/****************************************************************************");
 			strBuilder.AppendFormat(" * {0}.{1} {2}\n", DateTime.Now.Year, DateTime.Now.Month, SystemInfo.deviceName);

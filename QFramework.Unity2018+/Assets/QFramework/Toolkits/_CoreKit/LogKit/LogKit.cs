@@ -11,8 +11,10 @@ using System;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.Callbacks;
+#endif
 using UnityEngine;
 using Object = UnityEngine.Object;
 

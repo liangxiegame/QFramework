@@ -16,14 +16,7 @@ namespace QFramework
         private static readonly Dictionary<string, ICodeGenTemplate> mTemplates = new Dictionary<string, ICodeGenTemplate>();
         public static void RegisterTemplate(string templateName, ICodeGenTemplate codeGenTemplate)
         {
-            if (mTemplates.ContainsKey(templateName))
-            {
-                mTemplates[templateName] = codeGenTemplate;
-            }
-            else
-            {
-                mTemplates.Add(templateName, codeGenTemplate);
-            }
+            mTemplates[templateName] = codeGenTemplate;
         }
 
         public static ICodeGenTemplate GetTemplate(string templateName)

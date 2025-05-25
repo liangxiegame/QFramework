@@ -21,7 +21,7 @@ namespace QFramework
 
         public string PathToRoot;
 
-        public IBindOld BindScript;
+        public IBind BindScript;
         
         public string MemberName;
     }

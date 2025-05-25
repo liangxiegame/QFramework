@@ -1,51 +1,9 @@
 using System;
-using System.Text;
-
-using UnityEngine;
 
 namespace QFramework
 {
     public static class CodeGenUtil
     {
-        public static string GetBindBelongs2(AbstractBind bind)
-        {
-            var trans = bind.Transform;
-            
-            while (trans.parent != null)
-            {
-                if (trans.parent.IsViewController())
-                {
-                    return trans.parent.name + "(" +  trans.parent.GetComponent<ViewController>().ScriptName  + ")";
-                }
-                
-                if (trans.parent.IsUIPanel())
-                {
-                    return "UIPanel" + "(" +trans.parent.GetComponent<UIPanel>().name + ")";
-                }
-
-
-                trans = trans.parent;
-            }
-
-            return trans.name;
-        }
-
-        public static GameObject GetBindBelongs2GameObject(AbstractBind bind)
-        {
-            var trans = bind.Transform;
-            
-            while (trans.parent != null)
-            {
-                if (trans.parent.IsViewController() || trans.parent.IsUIPanel())
-                {
-                    return trans.parent.gameObject;
-                }
-
-                trans = trans.parent;
-            }
-
-            return bind.gameObject;
-        }
         
         public static string GetLastDirName(string absOrAssetsPath)
         {

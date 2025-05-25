@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2025 liangxiegame UNDER MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -14,6 +14,18 @@ namespace QFramework
 {
     public static class CodeGenHelper
     {
+
+        public static bool IsBelongs2ViewController(AbstractBind bind)
+        {
+            var gameObj = GetBindBelongs2GameObject(bind);
+
+            if (gameObj && gameObj.GetComponent<ViewController>())
+            {
+                return true;
+            }
+
+            return false;
+        }
         
         public static GameObject GetBindBelongs2GameObject(AbstractBind bind)
         {
