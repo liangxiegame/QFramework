@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.194",
+    "Version": "v1.0.195",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.194",
-        "content": "UIKit&CodeGenKit：UIPanel 与 ViewController 兼容（不重复拥有 Bind）",
+        "version": "v1.0.195",
+        "content": "* ResLoader 增加 RecycleWhenGameObjectDestroyed API",
         "author": "liangxie",
-        "date": "2025 年 05 月 25 日 10:05",
+        "date": "2025 年 05 月 26 日 10:17",
         "PackageId": ""
     }
 }

@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2025 liangxiegame UNDER MIT License
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
