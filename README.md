@@ -97,7 +97,8 @@
 | **社区** |  |  |
 | QQ 群1（已满）：623597263 | 交流群 | [点击加群](https://qm.qq.com/cgi-bin/qm/qr?k=G4DZ_6qMbN8miP8RcRD9NdhNcVyrD88F&jump_from=webapi&authKey=P8WO3esK/KbDxWPHI5F3EC04IPT6jDSkk/tl73/EHIcRkMTvnLhwpTK1PtHr6V+p) |
 | QQ 群2：541745166 | 交流群 | [点击加群](https://qm.qq.com/q/VI5Od3rri4) |
-| QQ 频道 :qframework        | 交流群&社区 | [点击加入频道](https://pd.qq.com/s/52bw86mlv) |
+| 腾讯频道 | 中文社区 | [点击加入频道](https://pd.qq.com/s/cfe1690jf) |
+| Discord | 英文社区 | [点击加入频道](https://discord.gg/PHqHX5v5SE) |
 | **教程** |  |  |
 | 《框架搭建 决定版》    | 教程 QFramework  的核心架构是怎么演化过来的？ | [课程主页](https://learn.u3d.cn/tutorial/framework_design)\|[学生课堂笔记1](https://github.com/Haogehaojiu/FrameworkDesign)\|[学生课堂笔记2](https://github.com/Haogehaojiu/ShootingEditor2D) |
 | **产品案例** | 如果用了 qf 并且想要在如下列表中登记，可以在 github/gitee 的 issue 里发帖子,也可以加 qq 群，也可以用邮箱联系凉鞋 liangxiegame@163.com，当然如果看到使用 qf 的项目，我也会先去尝试征得同意再放到如下列表。 |  |
@@ -118,7 +119,7 @@
 | 《原创独立游戏制作：平台射击 Roguelike》（凉鞋） | 原创独立游戏制作教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
 | 《原创独立游戏制作：类星露谷》（凉鞋） | 原创独立游戏制作教程，有用到 PlayMaker、QFramework.Tookits | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=919279) |
 | 《QFramework 游戏开发：类幸存者》 | 面向 QFramework 的游戏开发教程，完成一款类吸血鬼幸存者游戏。 | [b 站](https://www.bilibili.com/video/BV1Uu4y1i7WH/) |
-| 《QFramework 教程年会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/goods/show/55) |
+| 《QFramework 教程会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/vip/?levelId=1) |
 
 
 
