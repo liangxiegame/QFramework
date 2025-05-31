@@ -178,6 +178,9 @@ namespace QFramework
 
             mIsPause = false;
 
+            mOnStart?.Invoke();
+            mOnStart = null;
+            
             mAudioSourceController.Play(OnSoundPlayFinish);
         }
 
@@ -257,6 +260,11 @@ namespace QFramework
             }
             
 
+            if (mIsPause)
+            {
+                return;
+            }
+            
             mOnStart?.Invoke();
             mOnStart = null;
 
