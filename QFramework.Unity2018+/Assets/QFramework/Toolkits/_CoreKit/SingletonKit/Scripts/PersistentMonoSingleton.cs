@@ -1,7 +1,7 @@
 /****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT License
  * 
- * http://qframework.cn
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -47,9 +47,9 @@ IEnumerator Start()
         {
             get
             {
-                if (mInstance != null) return mInstance;
+                if (mInstance) return mInstance;
                 mInstance = FindObjectOfType<T>();
-                if (mInstance != null) return mInstance;
+                if (mInstance) return mInstance;
                 var obj = new GameObject();
                 mInstance = obj.AddComponent<T>();
                 return mInstance;
@@ -62,20 +62,22 @@ IEnumerator Start()
             {
                 return;
             }
-
-            if (mInstance == null)
+            
+            if (!mInstance)
             {
                 mInstance = this as T;
-                DontDestroyOnLoad(transform.gameObject);
                 mEnabled = true;
             }
             else
             {
                 if (this != mInstance)
                 {
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
+                    return;
                 }
             }
+            
+            DontDestroyOnLoad(gameObject);
         }
     }
 }
