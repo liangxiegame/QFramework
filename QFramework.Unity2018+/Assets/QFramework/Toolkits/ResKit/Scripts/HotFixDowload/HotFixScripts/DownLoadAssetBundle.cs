@@ -23,7 +23,11 @@ namespace QFramework
             yield return m_WebRequest.SendWebRequest();
             m_StartDownLoad = false;
 
+#if UNITY_2020_2_OR_NEWER
+            if (m_WebRequest.result == UnityWebRequest.Result.ConnectionError)
+#else
             if (m_WebRequest.isNetworkError)
+#endif
             {
                 Debug.LogError("Download Error" + m_WebRequest.error);
             }
