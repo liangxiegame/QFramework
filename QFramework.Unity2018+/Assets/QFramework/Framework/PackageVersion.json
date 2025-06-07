@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.198",
+    "Version": "v1.0.199",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.198",
-        "content": "UnityWebRequest.isNetworkError 弃用 增加宏判断",
+        "version": "v1.0.199",
+        "content": "更新 FSMKit 的 Examples",
         "author": "liangxie",
-        "date": "2025 年 06 月 05 日 10:47",
+        "date": "2025 年 06 月 07 日 13:38",
         "PackageId": ""
     }
 }
