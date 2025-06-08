@@ -48,7 +48,7 @@ namespace QFramework
             $"{mModuleFolder}{UIKitSettingData.Load().UIPrefabDir}/{mPanelNameToCreate}.prefab";
 
         private string mSceneGeneratePath =>
-            $"{mModuleFolder}/Scenes/TestUIPanels/{mPanelNameToCreate}".GetFolderPath() +
+            $"{mModuleFolder}/Scenes/TestUIPanels/{mPanelNameToCreate}".GetFolderPath().Replace("\\","/") +
             $"/Test{mPanelNameToCreate.GetFileNameWithoutExtend()}.unity";
 
         private string mMainCodeFileGenreatePath => mPrefabGeneratePath.Replace(UIKitSettingData.Load().UIPrefabDir,
@@ -203,6 +203,10 @@ namespace QFramework
 
                     var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
                     EditorSceneManager.SaveScene(scene, fullScenePath);
+
+                    var camera = new GameObject("Camera").AddComponent<Camera>();
+                    camera.clearFlags = CameraClearFlags.Color;
+                    camera.backgroundColor = Color.black;
 
                     var uirootPrefab = Resources.Load<GameObject>("UIRoot");
                     var uiroot = Object.Instantiate(uirootPrefab);

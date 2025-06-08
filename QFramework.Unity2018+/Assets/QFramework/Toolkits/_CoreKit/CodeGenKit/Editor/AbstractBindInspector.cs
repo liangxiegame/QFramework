@@ -1,5 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2015 ~ 2022 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 ~ 2025 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -8,8 +8,6 @@
 
 #if UNITY_EDITOR
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -20,7 +18,6 @@ namespace QFramework
     [CanEditMultipleObjects]
     public class AbstractBindInspector : UnityEditor.Editor
     {
-        private BindInspectorLocale mLocaleText = new BindInspectorLocale();
 
         private AbstractBind mBindScript => target as AbstractBind;
 
@@ -59,7 +56,7 @@ namespace QFramework
             GUILayout.Space(10);
 
             GUILayout.BeginHorizontal();
-            GUILayout.Label(mLocaleText.Bind, mLabel12.Value, GUILayout.Width(60));
+            GUILayout.Label(LocaleText.Bind, mLabel12.Value, GUILayout.Width(60));
 
 
             EditorGUI.BeginChangeCheck();
@@ -84,7 +81,7 @@ namespace QFramework
             {
                 GUILayout.BeginHorizontal();
 
-                GUILayout.Label(mLocaleText.Type, mLabel12.Value, GUILayout.Width(60));
+                GUILayout.Label(LocaleText.Type, mLabel12.Value, GUILayout.Width(60));
 
                 EditorGUI.BeginChangeCheck();
                 mComponentNameIndex = EditorGUILayout.Popup(mComponentNameIndex, mComponentNames);
@@ -100,11 +97,11 @@ namespace QFramework
 
             GUILayout.Space(10);
             GUILayout.BeginHorizontal();
-            GUILayout.Label(mLocaleText.BelongsTo, mLabel12.Value, GUILayout.Width(60));
+            GUILayout.Label(LocaleText.BelongsTo, mLabel12.Value, GUILayout.Width(60));
 
             GUILayout.Label(CodeGenHelper.GetBindBelongs2(mBindScript), mLabel12.Value, GUILayout.Width(200));
 
-            if (GUILayout.Button(mLocaleText.Select, GUILayout.Width(60)))
+            if (GUILayout.Button(LocaleText.Select, GUILayout.Width(60)))
             {
                 Selection.objects = new Object[]
                 {
@@ -117,7 +114,7 @@ namespace QFramework
             if (mBindScript.MarkType != BindType.DefaultUnityElement)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(mLocaleText.ClassName, mLabel12.Value, GUILayout.Width(60));
+                GUILayout.Label(LocaleText.ClassName, mLabel12.Value, GUILayout.Width(60));
                 mCustomComponentNameProperty.stringValue =
                     EditorGUILayout.TextField(mCustomComponentNameProperty.stringValue);
 
@@ -126,7 +123,7 @@ namespace QFramework
 
             GUILayout.Space(10);
 
-            GUILayout.Label(mLocaleText.Comment, mLabel12.Value);
+            GUILayout.Label(LocaleText.Comment, mLabel12.Value);
 
             GUILayout.Space(10);
 
@@ -136,7 +133,7 @@ namespace QFramework
 
             if (rootGameObj)
             {
-                if (GUILayout.Button(mLocaleText.Generate + " (" + rootGameObj.name + ")",
+                if (GUILayout.Button(LocaleText.Generate + " (" + rootGameObj.name + ")",
                         GUILayout.Height(30)))
                 {
                     CodeGenKit.Generate(rootGameObj.GetComponent<IBindGroup>());
@@ -154,6 +151,25 @@ namespace QFramework
         {
             mCustomComponentNameProperty = null;
             mComponentNameProperty = null;
+        }
+
+        private static class LocaleText
+        {
+            // ReSharper disable once InconsistentNaming
+            private static bool CN
+            {
+                get => LocaleKitEditor.IsCN.Value;
+                set => LocaleKitEditor.IsCN.Value = value;
+            }
+        
+            public static string Type => CN ? " 类型:" : " Type:";
+            public static string Comment => CN ? " 注释" : " Comment";
+            public static string BelongsTo => CN ? " 属于:" : " Belongs 2:";
+            public static string Select => CN ? "选择" : "Select";
+            public static string Generate => CN ? " 生成代码" : " Generate Code";
+
+            public static string Bind => CN ? " 绑定设置" : " Bind Setting";
+            public static string ClassName => CN ? "类名" : " Class Name";
         }
     }
 }

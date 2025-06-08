@@ -1,8 +1,5 @@
 /****************************************************************************
- * Copyright (c) 2017 xiaojun
- * Copyright (c) 2017 liangxie
- * Copyright (c) 2017 imagicbell
- * Copyright (c) 2018 ~ 2022 liangxie
+ * Copyright (c) 2016 ~ 2025 liangxiegame UNDER MIT LINCENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
@@ -24,8 +21,40 @@ namespace QFramework
 	{
 	}
 	
-	public abstract partial class UIPanel : QMonoBehaviour, IPanel
+	public abstract class UIPanel :MonoBehaviour,IPanel
 	{
+		public virtual void Show()
+		{
+			gameObject.SetActive (true);
+
+			OnShow ();
+		}
+
+		protected virtual void OnShow() {}
+
+		public virtual void Hide()
+		{
+			State = PanelState.Hide;
+
+			OnHide ();
+
+			gameObject.SetActive (false);
+		}
+
+		protected virtual void OnHide() {}
+		
+		protected virtual void OnDestroy()
+		{			
+			if (Application.isPlaying) 
+			{
+				OnBeforeDestroy();
+			}
+		}
+
+		protected virtual void OnBeforeDestroy()
+		{
+			ClearUIComponents();
+		}
 		public Transform Transform => transform;
 
 		IPanelLoader IPanel.Loader { get; set; }
@@ -36,12 +65,7 @@ namespace QFramework
 
 		protected IUIData mUIData;
 
-		public override IManager Manager => UIManager.Instance;
-
-		protected override void OnBeforeDestroy()
-		{
-			ClearUIComponents();
-		}
+		
 
 		protected virtual void ClearUIComponents()
 		{
@@ -59,11 +83,7 @@ namespace QFramework
 			OnOpen(uiData);
 		}
 
-		public override void Hide()
-		{
-			State = PanelState.Hide;
-			base.Hide();
-		}
+
 
 
 		protected virtual void OnInit(IUIData uiData = null)
@@ -75,14 +95,7 @@ namespace QFramework
 		{
 
 		}
-
-		/// <summary>
-		/// avoid override in child class
-		/// </summary>
-		protected sealed override void OnDestroy()
-		{
-			base.OnDestroy();
-		}
+		
 
 		/// <summary>
 		/// 关闭,不允许子类调用

@@ -1,11 +1,10 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 xiaojun、imagicbell
- * Copyright (c) 2017 ~ 2025 liangxiegame UNDER MIT LICENSE 
- * 
- * https://qframework.cn
- * https://github.com/liangxiegame/QFramework
- * https://gitee.com/liangxiegame/QFramework
- ****************************************************************************/
+* Copyright (c) 2016 ~ 2025 liangxiegame UNDER MIT LINCENSE
+* 
+* https://qframework.cn
+* https://github.com/liangxiegame/QFramework
+* https://gitee.com/liangxiegame/QFramework
+****************************************************************************/
 
 namespace QFramework
 {

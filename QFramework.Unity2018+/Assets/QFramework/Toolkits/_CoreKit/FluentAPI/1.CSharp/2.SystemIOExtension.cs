@@ -1,6 +1,6 @@
 /****************************************************************************
  * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
+ *
  * http://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
@@ -163,8 +163,8 @@ Debug.Log(fileName0);
         {
             return Path.GetExtension(filePath);
         }
-        
-        
+
+
 #if UNITY_EDITOR
         // v1 No.156
         [MethodAPI]
@@ -178,13 +178,7 @@ Debug.Log(fileName0);
 #endif
         public static string GetFolderPath(this string path)
         {
-                if (string.IsNullOrEmpty(path))
-                {
-                        return string.Empty;
-                }
-
-                return Path.GetDirectoryName(path);
+            return string.IsNullOrEmpty(path) ? string.Empty : Path.GetDirectoryName(path);
         }
-
     }
 }

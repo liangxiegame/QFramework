@@ -1,12 +1,9 @@
 /****************************************************************************
- * Copyright (c) 2017 xiaojun
- * Copyright (c) 2017 imagicbell
- * Copyright (c) 2017 ~ 2023 liangxiegame UNDER THE MIT LICENSE
+ * Copyright (c) 2016 ~ 2025 liangxiegame UNDER THE MIT LICENSE
  * 
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
- * 
  ****************************************************************************/
 
 using System;
@@ -16,7 +13,7 @@ using UnityEngine;
 namespace QFramework
 {
     [MonoSingletonPath("UIRoot/Manager")]
-    public partial class UIManager : QMgrBehaviour, ISingleton
+    public class UIManager : MonoBehaviour, ISingleton
     {
         void ISingleton.OnSingletonInit()
         {
@@ -197,11 +194,7 @@ namespace QFramework
         {
             return UIKit.Table.GetPanelsByPanelSearchKeys(panelSearchKeys).FirstOrDefault() as UIPanel;
         }
-
-        public override int ManagerId
-        {
-            get { return QMgrID.UI; }
-        }
+        
 
         public IPanel CreateUI(PanelSearchKeys panelSearchKeys)
         {

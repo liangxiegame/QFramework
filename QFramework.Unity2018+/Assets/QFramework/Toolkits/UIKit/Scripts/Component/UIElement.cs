@@ -6,11 +6,13 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System;
+
 namespace QFramework
 {
     using UnityEngine;
     
-    public abstract class UIElement : QMonoBehaviour,IBindOld
+    public abstract class UIElement : MonoBehaviour,IBindOld
     {
         public virtual BindType GetBindType() => BindType.Element;
 
@@ -21,6 +23,14 @@ namespace QFramework
 
         public Transform Transform => transform;
 
-        public override IManager Manager => UIManager.Instance;
+        private void OnDestroy()
+        {
+            OnBeforeDestroy();
+        }
+
+        protected virtual void OnBeforeDestroy()
+        {
+            
+        }
     }
 }

@@ -25,10 +25,6 @@ namespace TravelStory
     public partial class UIKitTestPanel2 : QFramework.UIPanel
     {
         
-        protected override void ProcessMsg(int eventId, QFramework.QMsg msg)
-        {
-            throw new System.NotImplementedException ();
-        }
         
         protected override void OnInit(QFramework.IUIData uiData)
         {

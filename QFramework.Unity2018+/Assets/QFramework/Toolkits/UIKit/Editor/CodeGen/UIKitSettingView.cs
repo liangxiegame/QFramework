@@ -1,9 +1,10 @@
 /****************************************************************************
- * Copyright 2019.1 ~ 2020.10 liangxie
- * 
- * http://qframework.io
- * https://github.com/liangxiegame/QFramework
- ****************************************************************************/
+* Copyright (c) 2016 ~ 2025 liangxiegame UNDER MIT LINCENSE
+* 
+* https://qframework.cn
+* https://github.com/liangxiegame/QFramework
+* https://gitee.com/liangxiegame/QFramework
+****************************************************************************/
 
 
 using System;
