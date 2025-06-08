@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.200",
+    "Version": "v1.0.201",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.200",
-        "content": "* UIKit 创建服务:在场景增加一个 Camera  \n* 删除掉 ManagerOfManagers 相关代码 \n* UIPanel 增加生成代码按钮",
+        "version": "v1.0.201",
+        "content": "修复高版本的编译问题",
         "author": "liangxie",
-        "date": "2025 年 06 月 08 日 13:16",
+        "date": "2025 年 06 月 08 日 17:51",
         "PackageId": ""
     }
 }
