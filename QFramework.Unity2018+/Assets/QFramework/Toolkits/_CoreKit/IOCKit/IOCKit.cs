@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
  * Copyright (c) 2018 ~ 2022 liangxiegame UNDER MIT License
- * 
+ *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -29,7 +29,7 @@ namespace QFramework
         {
         }
     }
-    
+
     public interface IQFrameworkContainer
     {
         /// <summary>
@@ -116,8 +116,8 @@ namespace QFramework
         /// <returns>List of objects.</returns>
         IEnumerable<object> ResolveAll(Type type);
 
-        TypeMappingCollection  Mappings             { get; set; }
-        TypeInstanceCollection Instances            { get; set; }
+        TypeMappingCollection Mappings { get; set; }
+        TypeInstanceCollection Instances { get; set; }
         TypeRelationCollection RelationshipMappings { get; set; }
 
         /// <summary>
@@ -138,36 +138,43 @@ namespace QFramework
     /// <summary>
     /// A ViewModel Container and a factory for Controllers and commands.
     /// </summary>
-
     public class QFrameworkContainer : IQFrameworkContainer
     {
-        private TypeInstanceCollection _instances;
-        private TypeMappingCollection  _mappings;
+        public enum MemberSearchModes
+        {
+            OnlyPublic,
+            OnlyNonPublic,
+            All,
+        }
 
-
+        private MemberSearchModes mMemberSearchMode = MemberSearchModes.OnlyPublic; 
+        
+        private TypeInstanceCollection mInstances;
+        private TypeMappingCollection mMappings;
+        
         public TypeMappingCollection Mappings
         {
-            get { return _mappings ?? (_mappings = new TypeMappingCollection()); }
-            set { _mappings = value; }
+            get => mMappings ?? (mMappings = new TypeMappingCollection());
+            set => mMappings = value;
         }
 
         public TypeInstanceCollection Instances
         {
-            get { return _instances ?? (_instances = new TypeInstanceCollection()); }
-            set { _instances = value; }
+            get => mInstances ?? (mInstances = new TypeInstanceCollection());
+            set => mInstances = value;
         }
 
         public TypeRelationCollection RelationshipMappings
         {
-            get { return _relationshipMappings; }
-            set { _relationshipMappings = value; }
+            get => mRelationshipMappings;
+            set => mRelationshipMappings = value;
         }
 
         public IEnumerable<TType> ResolveAll<TType>()
         {
             foreach (var obj in ResolveAll(typeof(TType)))
             {
-                yield return (TType) obj;
+                yield return (TType)obj;
             }
         }
 
@@ -188,11 +195,8 @@ namespace QFramework
             {
                 if (!string.IsNullOrEmpty(kv.Key.Item2))
                 {
-#if NETFX_CORE
-                    var condition = type.GetTypeInfo().IsSubclassOf(mapping.From);
-#else
                     var condition = type.IsAssignableFrom(kv.Key.Item1);
-#endif
+                    
                     if (condition)
                     {
                         var item = Activator.CreateInstance(kv.Value);
@@ -213,6 +217,21 @@ namespace QFramework
             RelationshipMappings.Clear();
         }
 
+        private MemberInfo[] GetMembers(object obj)
+        {
+            switch (mMemberSearchMode)
+            {
+                case MemberSearchModes.OnlyPublic:
+                    return obj.GetType().GetMembers();
+                case MemberSearchModes.OnlyNonPublic:
+                    return obj.GetType().GetMembers(BindingFlags.Instance | BindingFlags.NonPublic);
+                case MemberSearchModes.All:
+                    return obj.GetType().GetMembers(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                default:
+                    return obj.GetType().GetMembers();
+            }
+        }
+
         /// <summary>
         /// Injects registered types/mappings into an object
         /// </summary>
@@ -220,11 +239,9 @@ namespace QFramework
         public void Inject(object obj)
         {
             if (obj == null) return;
-#if !NETFX_CORE
-            var members = obj.GetType().GetMembers();
-#else
-            var members = obj.GetType().GetTypeInfo().DeclaredMembers;
-#endif
+
+            var members = GetMembers(obj);
+            
             foreach (var memberInfo in members)
             {
                 var injectAttribute =
@@ -244,51 +261,15 @@ namespace QFramework
                 }
             }
         }
+        
+        public void Register<TSource>(string name = null) => Mappings[typeof(TSource), name] = typeof(TSource);
+        
+        public void Register<TSource, TTarget>(string name = null) => Mappings[typeof(TSource), name] = typeof(TTarget);
 
-        /// <summary>
-        /// Register a type mapping
-        /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
-        public void Register<TSource>(string name = null)
-        {
-            Mappings[typeof(TSource), name] = typeof(TSource);
-        }
+        public void Register(Type source, Type target, string name = null) => Mappings[source, name] = target;
 
-
-        /// <summary>
-        /// Register a type mapping
-        /// </summary>
-        /// <typeparam name="TSource">The base type.</typeparam>
-        /// <typeparam name="TTarget">The concrete type</typeparam>
-        public void Register<TSource, TTarget>(string name = null)
-        {
-            Mappings[typeof(TSource), name] = typeof(TTarget);
-        }
-
-        public void Register(Type source, Type target, string name = null)
-        {
-            Mappings[source, name] = target;
-        }
-
-        /// <summary>
-        /// Register a named instance
-        /// </summary>
-        /// <param name="baseType">The type to register the instance for.</param>        
-        /// <param name="instance">The instance that will be resolved be the name</param>
-        /// <param name="injectNow">Perform the injection immediately</param>
-        public void RegisterInstance(Type baseType, object instance = null, bool injectNow = true)
-        {
-            RegisterInstance(baseType, instance, null, injectNow);
-        }
-
-        /// <summary>
-        /// Register a named instance
-        /// </summary>
-        /// <param name="baseType">The type to register the instance for.</param>
-        /// <param name="name">The name for the instance to be resolved.</param>
-        /// <param name="instance">The instance that will be resolved be the name</param>
-        /// <param name="injectNow">Perform the injection immediately</param>
+        public void RegisterInstance(Type baseType, object instance = null, bool injectNow = true) => RegisterInstance(baseType, instance, null, injectNow);
+        
         public virtual void RegisterInstance(Type baseType, object instance = null, string name = null,
             bool injectNow = true)
         {
@@ -299,39 +280,14 @@ namespace QFramework
             }
         }
 
-        public void RegisterInstance<TBase>(TBase instance) where TBase : class
-        {
-            RegisterInstance<TBase>(instance, true);
-        }
+        public void RegisterInstance<TBase>(TBase instance) where TBase : class => RegisterInstance<TBase>(instance, true);
 
-        public void RegisterInstance<TBase>(TBase instance, bool injectNow) where TBase : class
-        {
-            RegisterInstance<TBase>(instance, null, injectNow);
-        }
+        public void RegisterInstance<TBase>(TBase instance, bool injectNow) where TBase : class => RegisterInstance<TBase>(instance, null, injectNow);
 
-        public void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class
-        {
-            RegisterInstance(typeof(TBase), instance, name, injectNow);
-        }
-
-        /// <summary>
-        ///  If an instance of T exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <typeparam name="T">The type of instance to resolve</typeparam>
-        /// <returns>The/An instance of 'instanceType'</returns>
-        public T Resolve<T>(string name = null, bool requireInstance = false, params object[] args) where T : class
-        {
-            return (T) Resolve(typeof(T), name, requireInstance, args);
-        }
-
-        /// <summary>
-        /// If an instance of instanceType exist then it will return that instance otherwise it will create a new one based off mappings.
-        /// </summary>
-        /// <param name="baseType">The type of instance to resolve</param>
-        /// <param name="name">The type of instance to resolve</param>
-        /// <param name="requireInstance">If true will return null if an instance isn't registered.</param>
-        /// <param name="constructorArgs">The arguments to pass to the constructor if any.</param>
-        /// <returns>The/An instance of 'instanceType'</returns>
+        public void RegisterInstance<TBase>(TBase instance, string name, bool injectNow = true) where TBase : class => RegisterInstance(typeof(TBase), instance, name, injectNow);
+        
+        public T Resolve<T>(string name = null, bool requireInstance = false, params object[] args) where T : class => (T)Resolve(typeof(T), name, requireInstance, args);
+        
         public object Resolve(Type baseType, string name = null, bool requireInstance = false,
             params object[] constructorArgs)
         {
@@ -365,11 +321,8 @@ namespace QFramework
                 Inject(obj2);
                 return obj2;
             }
-#if !NETFX_CORE
-            ConstructorInfo[] constructor = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
-#else
-        ConstructorInfo[] constructor = type.GetTypeInfo().DeclaredConstructors.ToArray();
-#endif
+            
+            var constructor = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance);
 
             if (constructor.Length < 1)
             {
@@ -387,7 +340,6 @@ namespace QFramework
                 {
                     maxParameters = parameters;
                 }
-
             }
 
             var args = maxParameters.Select(p =>
@@ -409,35 +361,31 @@ namespace QFramework
         {
             try
             {
-                return (TBase) ResolveRelation(tfor, typeof(TBase), args);
+                return (TBase)ResolveRelation(tfor, typeof(TBase), args);
             }
             catch (InvalidCastException castIssue)
             {
                 throw new Exception(
-                    string.Format("Resolve Relation couldn't cast  to {0} from {1}", typeof(TBase).Name, tfor.Name),
+                    $"Resolve Relation couldn't cast  to {typeof(TBase).Name} from {tfor.Name}",
                     castIssue);
             }
         }
 
         public void InjectAll()
         {
-            foreach (object instance in Instances.Values)
+            foreach (var instance in Instances.Values)
             {
                 Inject(instance);
             }
         }
 
-        private TypeRelationCollection _relationshipMappings = new TypeRelationCollection();
+        private TypeRelationCollection mRelationshipMappings = new TypeRelationCollection();
 
-        public void RegisterRelation<TFor, TBase, TConcrete>()
-        {
-            RelationshipMappings[typeof(TFor), typeof(TBase)] = typeof(TConcrete);
-        }
+        public QFrameworkContainer(MemberSearchModes memberSearchMode = MemberSearchModes.OnlyPublic) => mMemberSearchMode = memberSearchMode;
 
-        public void RegisterRelation(Type tfor, Type tbase, Type tconcrete)
-        {
-            RelationshipMappings[tfor, tbase] = tconcrete;
-        }
+        public void RegisterRelation<TFor, TBase, TConcrete>() => RelationshipMappings[typeof(TFor), typeof(TBase)] = typeof(TConcrete);
+
+        public void RegisterRelation(Type tfor, Type tbase, Type tconcrete) => RelationshipMappings[tfor, tbase] = tconcrete;
 
         public object ResolveRelation(Type tfor, Type tbase, params object[] args)
         {
@@ -453,10 +401,7 @@ namespace QFramework
             return result;
         }
 
-        public TBase ResolveRelation<TFor, TBase>(params object[] arg)
-        {
-            return (TBase) ResolveRelation(typeof(TFor), typeof(TBase), arg);
-        }
+        public TBase ResolveRelation<TFor, TBase>(params object[] arg) => (TBase)ResolveRelation(typeof(TFor), typeof(TBase), arg);
     }
 
     // http://stackoverflow.com/questions/1171812/multi-key-dictionary-in-c
@@ -471,9 +416,9 @@ namespace QFramework
             Item2 = item2;
         }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
-            Tuple<T1, T2> p = obj as Tuple<T1, T2>;
+            var p = obj as Tuple<T1, T2>;
             if (obj == null) return false;
 
             if (Item1 == null)
@@ -499,7 +444,7 @@ namespace QFramework
 
         public override int GetHashCode()
         {
-            int hash = 0;
+            var hash = 0;
             if (Item1 != null)
                 hash ^= Item1.GetHashCode();
             if (Item2 != null)
@@ -515,18 +460,12 @@ namespace QFramework
         {
             get
             {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                Type mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
+                var key = new Tuple<Type, string>(from, name);
+                return TryGetValue(key, out var mapping) ? mapping : null;
             }
             set
             {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
+                var key = new Tuple<Type, string>(from, name);
                 this[key] = value;
             }
         }
@@ -534,23 +473,16 @@ namespace QFramework
 
     public class TypeInstanceCollection : Dictionary<Tuple<Type, string>, object>
     {
-
         public object this[Type from, string name = null]
         {
             get
             {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
-                object mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
+                var key = new Tuple<Type, string>(from, name);
+                return TryGetValue(key, out var mapping) ? mapping : null;
             }
             set
             {
-                Tuple<Type, string> key = new Tuple<Type, string>(from, name);
+                var key = new Tuple<Type, string>(from, name);
                 this[key] = value;
             }
         }
@@ -558,23 +490,16 @@ namespace QFramework
 
     public class TypeRelationCollection : Dictionary<Tuple<Type, Type>, Type>
     {
-
         public Type this[Type from, Type to]
         {
             get
             {
-                Tuple<Type, Type> key = new Tuple<Type, Type>(from, to);
-                Type mapping = null;
-                if (this.TryGetValue(key, out mapping))
-                {
-                    return mapping;
-                }
-
-                return null;
+                var key = new Tuple<Type, Type>(from, to);
+                return TryGetValue(key, out var mapping) ? mapping : null;
             }
             set
             {
-                Tuple<Type, Type> key = new Tuple<Type, Type>(from, to);
+                var key = new Tuple<Type, Type>(from, to);
                 this[key] = value;
             }
         }
