@@ -7,15 +7,15 @@ namespace MoonSharp.Interpreter
 	public struct TablePair
 	{
 		private static TablePair s_NilNode = new TablePair(DynValue.Nil, DynValue.Nil);
-		private DynValue key, value;
+		private DynValue mKey, mValue;
 
 		/// <summary>
 		/// Gets the key.
 		/// </summary>
 		public DynValue Key 
 		{
-			get => key;
-			private set => key = value;
+			get => mKey;
+			private set => mKey = value;
 		}
 
 		/// <summary>
@@ -23,8 +23,8 @@ namespace MoonSharp.Interpreter
 		/// </summary>
 		public DynValue Value
 		{
-			get => value;
-			set { if (key.IsNotNil()) value = value; }
+			get => mValue;
+			set { if (mKey.IsNotNil()) mValue = value; }
 		}
 
 
@@ -35,8 +35,8 @@ namespace MoonSharp.Interpreter
 		/// <param name="val">The value.</param>
 		public TablePair(DynValue key, DynValue val) 
 		{
-			this.key = key;
-			this.value = val;
+			this.mKey = key;
+			this.mValue = val;
 		}
 
 		/// <summary>

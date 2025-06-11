@@ -55,9 +55,7 @@ namespace QFramework
             mAudioSource.Pause();
             mPaused = true;
         }
-
-        private bool mPreviousPlayStatus = false;
-
+        
 
         private Action mOnSoundPlayFinish = null;
 

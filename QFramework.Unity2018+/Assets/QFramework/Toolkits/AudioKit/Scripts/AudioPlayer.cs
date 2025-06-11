@@ -253,13 +253,6 @@ namespace QFramework
             UpdateVolume();
             UpdatePitch();
 
-            int loopCount = 1;
-            if (IsLoop)
-            {
-                loopCount = -1;
-            }
-            
-
             if (mIsPause)
             {
                 return;

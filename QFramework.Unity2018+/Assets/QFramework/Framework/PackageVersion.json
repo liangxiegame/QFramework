@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.202",
+    "Version": "v1.0.203",
     "Type": 0,
     "AccessRight": 0,
     "DownloadUrl": "",
@@ -11,10 +11,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.202",
-        "content": "IOCKit：在构造中可以传入注入成员访问权限",
+        "version": "v1.0.203",
+        "content": "FluentAPI：增加 List 的 ForEach 静态扩展重载，index 在前的版本",
         "author": "liangxie",
-        "date": "2025 年 06 月 09 日 10:46",
+        "date": "2025 年 06 月 11 日 09:06",
         "PackageId": ""
     }
 }

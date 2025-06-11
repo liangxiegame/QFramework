@@ -81,6 +81,15 @@ testList.Foreach((c,index)=>Debug.Log(index));
 // 1, 2, 3,
 ")]
 #endif
+        public static void ForEach<T>(this List<T> list, Action<T, int> action)
+        {
+            for (var i = 0; i < list.Count; i++)
+            {
+                action(list[i], i);
+            }
+        }
+
+        [Obsolete("please use ForEach<T>(this List<T> list, Action<T, int> action) instead,will removed in v1.1",false)]
         public static void ForEach<T>(this List<T> list, Action<int, T> action)
         {
             for (var i = 0; i < list.Count; i++)
