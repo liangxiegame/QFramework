@@ -86,9 +86,15 @@
 | QFramework.Toolkits.Demo.Saolei             | Mine clearance Demo by QFramework.Toolkits（Need Install QFramework.Toolkits） | [download unitypackage](./QFramework.Toolkits.Demo.SaoLei.unitypackage) |
 | QFramework.ToolKitsPro                      | More Powerful Tools version based on QFramework.ToolKits (QFramework.Toolkits included) | [AssetStore](http://u3d.as/SJ9)                              |
 | **Community**                               |                                                              |                                                              |
-| github issue                                | github community                                             | [address](https://github.com/liangxiegame/QFramework/issues/new) |
-| gitee issue                                 | gitee community                                              | [address](https://gitee.com/liangxiegame/QFramework/issues)  |
+| github issue                                | github community                                             | [link](https://github.com/liangxiegame/QFramework/issues/new) |
+| gitee issue                                 | gitee community                                              | [link](https://gitee.com/liangxiegame/QFramework/issues)     |
+| discord                                     |                                                              | [link](https://discord.gg/PHqHX5v5SE)                        |
 | **ShowCase**                                | email me or publish on github's issue. My email: liangxiegame@163.com |                                                              |
+| 《Fools, Maniacs and Liars》                |                                                              | [Steam](https://store.steampowered.com/app/1741170/_/)       |
+| 《Skulker》                                 |                                                              | [Steam](https://store.steampowered.com/app/1731000/)         |
+| 《ScaleBox》                                |                                                              | [Steam](https://store.steampowered.com/app/3528380/ScaleBox/) |
+| 《MyRose》                                  |                                                              | [Steam](https://store.steampowered.com/app/3246640/_/)       |
+| 《蚀界档案》                                |                                                              | [TapTap](https://www.taptap.cn/app/222365) \|[Steam](https://store.steampowered.com/app/1976540/_/) |
 | 《Box Bakery》                              |                                                              | [Steam](https://store.steampowered.com/app/2942950/Box_Bakery/) |
 | 《X-teroids》                               |                                                              | [Steam](https://store.steampowered.com/app/3342540/Xteroids/) |
 | 《The last day of Han dynasty》             |                                                              | [Steam](https://store.steampowered.com/app/2078910/_/)       |
