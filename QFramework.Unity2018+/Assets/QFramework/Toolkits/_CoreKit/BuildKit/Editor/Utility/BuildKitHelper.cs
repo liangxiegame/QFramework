@@ -2,14 +2,18 @@
 using UnityEditor;
 using UnityEngine;
 
+// ReSharper disable once CheckNamespace
 namespace QFramework
 {
-    public class BuildKitHelper
+    public static class BuildKitHelper
     {
         public static void DrawVersionEditor()
         {
+            GUILayout.BeginHorizontal();
             GUILayout.Label("Version:");
             PlayerSettings.bundleVersion = EditorGUILayout.TextField(PlayerSettings.bundleVersion);
+            GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
         }
         
         public static void BuildWindowsAndZip(string name)
@@ -24,6 +28,18 @@ namespace QFramework
             var zipFilePath = Application.dataPath + $"/../Builds/{name}Windows_{PlayerSettings.bundleVersion}.zip";
             ZipUtility.ZipFolder(outputFile.GetFolderPath(), zipFilePath);
             EditorUtility.RevealInFinder(zipFilePath);
+        }
+
+        public static void BuildWebGL()
+        {
+            var scenes = EditorBuildSettings.scenes;
+            var outputFolder = Application.dataPath + "/../Builds/WebGL".CreateDirIfNotExists();
+            outputFolder.DeleteDirIfExists();
+            const BuildTarget target = BuildTarget.WebGL;
+            const BuildOptions options = BuildOptions.None;
+            EditorUserBuildSettings.development = false;
+            BuildPipeline.BuildPlayer(scenes, outputFolder, target, options);
+            EditorUtility.RevealInFinder(outputFolder);
         }
     }
 }
