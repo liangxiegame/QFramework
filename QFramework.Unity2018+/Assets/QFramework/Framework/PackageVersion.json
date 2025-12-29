@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.233",
+    "Version": "v1.0.234",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.233",
-        "content": "AudioKit: 增加 PlaySoundByClip 示例",
+        "version": "v1.0.234",
+        "content": "BuildKit: 默认构建 Windows 的帮助函数改进",
         "author": "liangxie",
-        "date": "2025 年 10 月 23 日 13:29",
+        "date": "2025 年 12 月 29 日 21:14",
         "PackageId": ""
     }
 }
