@@ -319,7 +319,7 @@ namespace QFramework
 
                         Export(mRootFolder);
 
-                        var framework = PackageKit.Interface.GetModel<ILocalPackageVersionModel>()
+                        var framework = PackageKit.Interface.GetModel<LocalPackageVersionModel>()
                             .GetByName("Framework");
 
 

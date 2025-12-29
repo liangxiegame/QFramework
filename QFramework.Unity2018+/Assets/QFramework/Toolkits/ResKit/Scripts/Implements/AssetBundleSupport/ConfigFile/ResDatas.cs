@@ -144,11 +144,9 @@ namespace QFramework
 
         public void LoadFromFile(string path)
         {
-            var binarySerializer = ResKit.Get.Container.Get<IBinarySerializer>();
-            var zipFileHelper = ResKit.Get.Container.Get<IZipFileHelper>();
-
+            var binarySerializer = Architecture.BinarySerializer;
+            var zipFileHelper = Architecture.ZipFileHelper;
             
-
             object data;
 
            //  if (File.ReadAllText(path).Contains(AES.AESHead))
@@ -213,7 +211,7 @@ namespace QFramework
 
                 var stream = new MemoryStream(www.bytes);
 
-                var data = ResKit.Get.Container.Get<IBinarySerializer>()
+                var data = Architecture.BinarySerializer
                     .DeserializeBinary(stream);
 
                 if (data == null)
@@ -247,7 +245,7 @@ namespace QFramework
                 sd.AssetDataGroup[i] = mAllAssetDataGroup[i].GetSerializeData();
             }
 
-            if (ResKit.Get.Container.Get<IBinarySerializer>()
+            if (Architecture.BinarySerializer
                 .SerializeBinary(outPath, sd))
             {
                 Debug.Log("Success Save AssetDataTable:" + outPath);

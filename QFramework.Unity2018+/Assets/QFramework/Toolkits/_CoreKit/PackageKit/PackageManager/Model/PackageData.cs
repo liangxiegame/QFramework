@@ -1,4 +1,4 @@
-
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -212,6 +212,15 @@ namespace QFramework
         Public,
         Private,
     }
+    
+    public enum PackageVersionStatus
+    {
+        Default = 0, // Default 就是默认的
+        Alpha = 10,
+        Beta = 20,
+        Release = 30
+    }
+    
 
     [Serializable]
     public class PackageVersion
@@ -252,6 +261,8 @@ namespace QFramework
                 return retNumber;
             }
         }
+
+        public PackageVersionStatus Status;
 
         public string DownloadUrl;
 
@@ -305,3 +316,4 @@ namespace QFramework
         }
     }
 }
+#endif

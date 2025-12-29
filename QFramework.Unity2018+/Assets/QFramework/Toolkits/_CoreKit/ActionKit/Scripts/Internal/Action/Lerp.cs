@@ -77,13 +77,14 @@ namespace QFramework
             else
             {
                 this.Finish();
+                OnLerp?.Invoke(Mathf.Lerp(A, B, 1.0f));
+                OnLerpFinish?.Invoke();
             }
         }
 
         public void OnFinish()
         {
-            OnLerp?.Invoke(Mathf.Lerp(A, B, 1.0f));
-            OnLerpFinish?.Invoke();
+
         }
 
         public bool Deinited { get; set; }

@@ -1,32 +1,28 @@
 ﻿/****************************************************************************
- * Copyright (c) 2017 snowcold
- * Copyright (c) 2017 ~ 2025 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
  ****************************************************************************/
 
 using UnityEngine;
 
 namespace QFramework
 {
-    
     [MonoSingletonPath("QFramework/AudioKit/AudioManager")]
-    public class AudioManager : MonoBehaviour, ISingleton,IController
+    internal class AudioManager : MonoBehaviour, ISingleton, IController
     {
-        public AudioPlayer MusicPlayer { get; private set; }
+        internal MusicPlayer MusicPlayer { get; private set; }
 
-        public AudioPlayer VoicePlayer { get; private set; }
+        internal MusicPlayer VoicePlayer { get; private set; }
 
         public void OnSingletonInit()
         {
             SafeObjectPool<AudioPlayer>.Instance.Init(10, 1);
-            MusicPlayer = AudioPlayer.Allocate(AudioKit.Settings.MusicVolume);
-            MusicPlayer.UsedCache = false;
-            MusicPlayer.IsLoop = true;
-            VoicePlayer = AudioPlayer.Allocate(AudioKit.Settings.VoiceVolume);
-            VoicePlayer.UsedCache = false;
+            MusicPlayer = new MusicPlayer(AudioKit.Settings.MusicVolume);
+            VoicePlayer = new MusicPlayer(AudioKit.Settings.VoiceVolume, false);
 
             CheckAudioListener();
 
@@ -69,22 +65,22 @@ namespace QFramework
                 }
                 else
                 {
-                    AudioKitArchitecture.ForEachAllSound(player => player.Stop());
+                    Architecture.PlayingSoundPoolModel.ForEachAllSound(p=>p.Stop());
                 }
             }).UnRegisterWhenGameObjectDestroyed(gameObject);
         }
-        
-        
+
+
         #region 对外接口
 
-        public void Init()
+        internal void Init()
         {
             Debug.Log("AudioManager.Init");
         }
 
         private AudioListener mAudioListener;
 
-        public void CheckAudioListener()
+        internal void CheckAudioListener()
         {
             // 确保有一个AudioListener
             if (!mAudioListener)
@@ -98,36 +94,31 @@ namespace QFramework
             }
         }
 
-        public string CurrentMusicName { get; set; }
+        internal string CurrentMusicName { get; set; }
 
-        public string CurrentVoiceName { get; set; }
+        internal string CurrentVoiceName { get; set; }
 
         #endregion
 
-        
-        public static void PlayVoiceOnce(string voiceName)
-        {
 
+        internal static void PlayVoiceOnce(string voiceName)
+        {
             if (string.IsNullOrEmpty(voiceName))
             {
                 return;
             }
 
-            var unit = SafeObjectPool<AudioPlayer>.Instance.Allocate();
-            unit.SetAudio(Instance.gameObject, voiceName, false);
+            SafeObjectPool<AudioPlayer>.Instance
+                .Allocate()
+                .PrepareByNameAsyncAndPlay(Instance.gameObject, voiceName, false);
         }
 
         #region 单例实现
 
-        public static AudioManager Instance => MonoSingletonProperty<AudioManager>.Instance;
+        internal static AudioManager Instance => MonoSingletonProperty<AudioManager>.Instance;
 
         #endregion
 
-
-
-        public IArchitecture GetArchitecture()
-        {
-            return AudioKitArchitecture.Interface;
-        }
+        public IArchitecture GetArchitecture() => Architecture.Interface;
     }
 }

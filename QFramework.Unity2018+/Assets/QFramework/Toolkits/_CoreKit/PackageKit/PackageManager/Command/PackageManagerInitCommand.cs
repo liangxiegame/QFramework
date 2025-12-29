@@ -16,27 +16,25 @@ namespace QFramework
     {
         protected override void OnExecute()
         {
-            var model = this.GetModel<IPackageManagerModel>();
-            var server = this.GetModel<IPackageManagerServer>();
-            var installedPackageVersionsModel = this.GetModel<ILocalPackageVersionModel>();
+            var model = this.GetModel<PackageManagerModel>();
+            var installedPackageVersionsModel = this.GetModel<LocalPackageVersionModel>();
             installedPackageVersionsModel.Reload();
 
-            PackageManagerState.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
+            PackageKit.PackageRepositories.Value = model.Repositories.OrderBy(p => p.name).ToList();
             this.SendCommand<UpdateCategoriesFromModelCommand>();
-
-            server.GetAllRemotePackageInfoV5((list, categories) =>
+            this.SendCommand(new ListPackageCommand((list, categories) =>
             {
                 if (list != null && categories != null)
                 {
                     model.Repositories = list.OrderBy(p => p.name).ToList();
-                    PackageManagerState.PackageRepositories.Value = model.Repositories;
+                    PackageKit.PackageRepositories.Value = model.Repositories;
                     this.SendCommand<UpdateCategoriesFromModelCommand>();
                 }
                 else
                 {
                     EditorUtility.DisplayDialog("服务器请求失败", "请检查网络或排查问题", "确定");
                 }
-            });
+            }));
         }
     }
 }

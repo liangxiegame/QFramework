@@ -5,14 +5,11 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public static class UploadPackage
+    internal static class UploadPackage
     {
-        private static string UPLOAD_URL
-        {
-            get { return "https://api.liangxiegame.com/qf/v4/package/add"; }
-        }
+        private static string UploadURL => "https://api.liangxiegame.com/qf/v4/package/add";
 
-        public static void DoUpload(PackageVersion packageVersion, System.Action succeed)
+        internal static void DoUpload(PackageVersion packageVersion, System.Action succeed)
         {
             EditorUtility.DisplayProgressBar("插件上传", "打包中...", 0.1f);
 
@@ -31,6 +28,7 @@ namespace QFramework
 
             form.AddField("accessRight", packageVersion.AccessRight.ToString().ToLower());
             form.AddField("docUrl", packageVersion.DocUrl);
+            form.AddField("status",(int)packageVersion.Status);
 
             if (packageVersion.Type == PackageType.FrameworkModule)
             {
@@ -53,7 +51,7 @@ namespace QFramework
 
             EditorUtility.DisplayProgressBar("插件上传", "上传中...", 0.2f);
 
-            EditorHttp.Post(UPLOAD_URL, form, (response) =>
+            EditorHttp.Post(UploadURL, form, (response) =>
             {
                 if (response.Type == ResponseType.SUCCEED)
                 {
@@ -75,11 +73,11 @@ namespace QFramework
             });
         }
 
-        private static readonly string EXPORT_ROOT_DIR = Path.Combine(Application.dataPath, "../");
+        private static readonly string mExportRootDir = Path.Combine(Application.dataPath, "../");
 
-        public static string ExportPaths(string exportPackageName, params string[] paths)
+        internal static string ExportPaths(string exportPackageName, params string[] paths)
         {
-            var filePath = Path.Combine(EXPORT_ROOT_DIR, exportPackageName);
+            var filePath = Path.Combine(mExportRootDir, exportPackageName);
 
             AssetDatabase.ExportPackage(paths, filePath, ExportPackageOptions.Recurse);
             AssetDatabase.Refresh();

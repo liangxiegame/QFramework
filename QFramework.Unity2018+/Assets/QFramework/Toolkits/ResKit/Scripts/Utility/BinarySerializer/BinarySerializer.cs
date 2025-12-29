@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class BinarySerializer : IBinarySerializer
+    public class BinarySerializer : IUtility
     {
         public bool SerializeBinary(string path, object obj)
         {

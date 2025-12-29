@@ -15,14 +15,14 @@ namespace QFramework
     {
         protected override void OnExecute()
         {
-            var model = this.GetModel<IPackageManagerModel>();
+            var model = this.GetModel<PackageManagerModel>();
 
-            var packageTypeConfigModel = this.GetModel<IPackageTypeConfigModel>();
+            var packageTypeConfigModel = this.GetModel<PackageTypeConfigModel>();
             var categories = model.Repositories.Select(p => p.type).Distinct()
                 .Select(t => packageTypeConfigModel.GetFullTypeName(t))
                 .ToList();
             categories.Insert(0, "All");
-            PackageManagerState.Categories.Value = categories;
+            PackageKit.Categories.Value = categories;
         }
     }
 }

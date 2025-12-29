@@ -24,42 +24,40 @@ namespace QFramework
         GUIContent collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
         GUIContent scrollToBottomLabel = new GUIContent("ScrollToBottom", "Scroll bar always at bottom");
 
-        Vector2 scrollPos;
-        bool scrollToBottom = true;
-        List<ConsoleMessage> entries = new List<ConsoleMessage>();
-        bool collapse;
+        Vector2 mScrollPos;
+        private bool mScrollToBottom = true;
+        private readonly List<ConsoleMessage> mEntries = new List<ConsoleMessage>();
+        private bool mCollapse;
 
         public override void OnInit()
         {
             Application.logMessageReceived += HandleLog;
         }
 
-        private FluentGUIStyle mLabelStyle = new FluentGUIStyle(() => new GUIStyle
-        {
-            fontSize = 10,
-            normal =
-            {
-                textColor = Color.white
-            }
-        });
+        private readonly FluentGUIStyle mLabelStyle = FluentGUIStyle.Label()
+            .NormalTextColor(Color.white)
+            .FontSize(10);
+
+        private readonly FluentGUIStyle mButtonStyle = FluentGUIStyle.Button()
+            .FontSize(10);
 
         public override void DrawGUI()
         {
-            if (scrollToBottom)
+            if (mScrollToBottom)
             {
-                GUILayout.BeginScrollView(Vector2.up * entries.Count * 100.0f);
+                GUILayout.BeginScrollView(Vector2.up * mEntries.Count * 100.0f);
             }
             else
             {
-                scrollPos = GUILayout.BeginScrollView(scrollPos);
+                mScrollPos = GUILayout.BeginScrollView(mScrollPos);
             }
 
-            for (var i = 0; i < entries.Count; i++)
+            for (var i = 0; i < mEntries.Count; i++)
             {
                 var entry =
-                    entries
+                    mEntries
                         [i]; // If this message is the same as the last one and the collapse feature is chosen, skip it 
-                if (collapse && i > 0 && entry.message == entries[i - 1].message)
+                if (mCollapse && i > 0 && entry.message == mEntries[i - 1].message)
                 {
                     continue;
                 }
@@ -78,6 +76,7 @@ namespace QFramework
                         break;
                 }
 
+                GUILayout.BeginHorizontal("box",GUILayout.ExpandWidth(true));
 
                 if (entry.type == LogType.Exception)
                 {
@@ -87,6 +86,14 @@ namespace QFramework
                 {
                     GUILayout.Label(entry.message, mLabelStyle);
                 }
+                
+                
+                if (GUILayout.Button("Copy", mButtonStyle,GUILayout.Width(40)))
+                {
+                    GUIUtility.systemCopyBuffer = entry.message + "\n" + entry.stackTrace;
+                }
+
+                GUILayout.EndHorizontal();
             }
 
             GUI.contentColor = Color.white;
@@ -95,20 +102,20 @@ namespace QFramework
             // Clear button
             if (GUILayout.Button(clearLabel))
             {
-                entries.Clear();
+                mEntries.Clear();
             }
 
             // Collapse toggle
-            collapse = GUILayout.Toggle(collapse, collapseLabel, GUILayout.ExpandWidth(false));
-            scrollToBottom =
-                GUILayout.Toggle(scrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth(false));
+            mCollapse = GUILayout.Toggle(mCollapse, collapseLabel, GUILayout.ExpandWidth(false));
+            mScrollToBottom =
+                GUILayout.Toggle(mScrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth(false));
             GUILayout.EndHorizontal();
         }
 
         void HandleLog(string message, string stackTrace, LogType type)
         {
             ConsoleMessage entry = new ConsoleMessage(message, stackTrace, type);
-            entries.Add(entry);
+            mEntries.Add(entry);
         }
 
         public override void OnDestroy()

@@ -15,96 +15,41 @@ namespace QFramework
     [InitializeOnLoad]
     public sealed class EasyIMGUI
     {
-        public static IMGUILabel Label()
-        {
-            return new IMGUILabelView();
-        }
+        public static IMGUILabel Label() => new IMGUILabelView();
+
+        public static IMGUIButton Button() => new IMGUIButtonView();
+
+        public static IMGUISpace Space() => new IMGUISpaceView();
+
+        public static IMGUIFlexibleSpace FlexibleSpace() => new IMGUIFlexibleSpaceView();
+
+        public static IMGUITextField TextField() => new IMGUITextFieldView();
+
+        public static IMGUITextArea TextArea() => new IMGUITextAreaView();
+
+        public static IMGUICustom Custom() => new IMGUICustomView();
+
+        public static IMGUIToggle Toggle() => new IMGUIIMGUIToggleView();
+
+        public static IMGUIBox Box() => new IMGUIBoxView();
+
+        public static IMGUIToolbar Toolbar() => new IMGUIIMGUIToolbarView();
+
+        public static IMGUIVerticalLayout Vertical() => new VerticalLayout();
+
+        public static IMGUIHorizontalLayout Horizontal() => new HorizontalLayout();
+
+        public static IMGUIScrollLayout Scroll() => new IMGUIScrollLayoutView();
+
+        public static IMGUIAreaLayout Area() => new IMGUIAreaLayoutView();
         
-        public static IMGUIButton Button()
-        {
-            return new IMGUIButtonView();
-        }
+        public static IXMLView XMLView() => new XMLView();
 
-        public static IMGUISpace Space()
-        {
-            return new IMGUISpaceView();
-        }
+        public static IMGUIRectLabel LabelWithRect() => new IMGUIRectLabelView();
 
-        public static IMGUIFlexibleSpace FlexibleSpace()
-        {
-            return new IMGUIFlexibleSpaceView();
-        }
+        public static IMGUIRectBox BoxWithRect() => new IMGUIRectBoxView();
 
-        public static IMGUITextField TextField()
-        {
-            return new IMGUITextFieldView();
-        }
-
-        public static IMGUITextArea TextArea()
-        {
-            return new IMGUITextAreaView();
-        }
-
-        public static IMGUICustom Custom()
-        {
-            return new IMGUICustomView();
-        }
-
-        public static IMGUIToggle Toggle()
-        {
-            return new IMGUIIMGUIToggleView();
-        }
-
-        public static IMGUIBox Box()
-        {
-            return new IMGUIBoxView();
-        }
-
-        public static IMGUIToolbar Toolbar()
-        {
-            return new IMGUIIMGUIToolbarView();
-        }
-
-        public static IMGUIVerticalLayout Vertical()
-        {
-            return new VerticalLayout();
-        }
-
-        public static IMGUIHorizontalLayout Horizontal()
-        {
-            return new HorizontalLayout();
-        }
-
-        public static IMGUIScrollLayout Scroll()
-        {
-            return new IMGUIScrollLayoutView();
-        }
-
-        public static IMGUIAreaLayout Area()
-        {
-            return new IMGUIAreaLayoutView();
-        }
-
-
-        public static IXMLView XMLView()
-        {
-            return new XMLView();
-        }
-
-        public static IMGUIRectLabel LabelWithRect()
-        {
-            return new IMGUIRectLabelView();
-        }
-
-        public static IMGUIRectBox BoxWithRect()
-        {
-            return new IMGUIRectBoxView();
-        }
-
-        public static IMGUIEnumPopup EnumPopup(Enum initValue)
-        {
-            return new IMGUIEnumPopupView(initValue);
-        }
+        public static IMGUIEnumPopup EnumPopup(Enum initValue) => new IMGUIEnumPopupView(initValue);
 
         static EasyIMGUI()
         {

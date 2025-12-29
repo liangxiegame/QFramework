@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -39,7 +40,7 @@ namespace QFramework
 			EditorPrefs.DeleteKey("AutoGenUIPrefabPath");
 			Debug.Log(">>>>>>>SerializeUIPrefab: " + pathStr);
 
-			var assembly = GetAssemblyCSharp();
+			var assemblies = GetAssemblies();
 
 			var paths = pathStr.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 			var displayProgress = paths.Length > 3;
@@ -48,7 +49,7 @@ namespace QFramework
 			for (var i = 0; i < paths.Length; i++)
 			{
 				var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
-				SetObjectRef2Property(uiPrefab, uiPrefab.name, assembly);
+				SetObjectRef2Property(uiPrefab, uiPrefab.name, assemblies);
 
 				// uibehaviour
 				if (displayProgress)
@@ -63,7 +64,7 @@ namespace QFramework
 			for (var i = 0; i < paths.Length; i++)
 			{
 				var uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(paths[i]);
-				SetObjectRef2Property(uiPrefab, uiPrefab.name, assembly);
+				SetObjectRef2Property(uiPrefab, uiPrefab.name, assemblies);
 
 				// uibehaviour
 				if (displayProgress)
@@ -78,7 +79,7 @@ namespace QFramework
 			if (displayProgress) EditorUtility.ClearProgressBar();
 		}
 
-		public static void SetObjectRef2Property(GameObject obj, string behaviourName, Assembly assembly,
+		public static void SetObjectRef2Property(GameObject obj, string behaviourName, List<Assembly> assemblies,
 			List<IBindOld> processedMarks = null)
 		{
 			if (null == processedMarks)
@@ -108,7 +109,16 @@ namespace QFramework
 				className = UIKitSettingData.Load().Namespace + "." + behaviourName;
 			}
 
-			var t = assembly.GetType(className);
+			Type t = null;
+			
+			foreach (var assembly in assemblies)
+			{
+				t = assembly.GetType(className);
+				if (t != null)
+				{
+					break;
+				}
+			}
 
 			var com = obj.GetComponent(t) ?? obj.AddComponent(t);
 			var sObj = new SerializedObject(com);
@@ -133,7 +143,7 @@ namespace QFramework
 				}
 
 				sObj.FindProperty(propertyName).objectReferenceValue = elementMark.Transform.gameObject;
-				SetObjectRef2Property(elementMark.Transform.gameObject, elementMark.TypeName, assembly, processedMarks);
+				SetObjectRef2Property(elementMark.Transform.gameObject, elementMark.TypeName, assemblies, processedMarks);
 			}
 
 			var marks = obj.GetComponentsInChildren<IBindOld>(true);
@@ -160,19 +170,24 @@ namespace QFramework
 			sObj.ApplyModifiedPropertiesWithoutUndo();
 		}
 
-		public static Assembly GetAssemblyCSharp()
+		public static List<Assembly> GetAssemblies()
 		{
 			var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-			foreach (var a in assemblies)
+			var retAssemblies = new List<Assembly>();
+			var settingData = UIKitSettingData.Load();
+			var assemblyNameToSearch =
+				settingData.AssemblyNamesToSearch.Concat(new []{UIKitSettingData.DefaultAssemblyNameToSearch});
+			
+			foreach (var assemblyName in assemblyNameToSearch)
 			{
-				if (a.FullName.StartsWith("Assembly-CSharp,"))
+				var index = Array.FindIndex(assemblies, a => a.GetName().Name == assemblyName);
+				if (index != -1)
 				{
-					return a;
+					retAssemblies.Add(assemblies[index]);
 				}
 			}
-
-//            Log.E(">>>>>>>Error: Can\'t find Assembly-CSharp.dll");
-			return null;
+			
+			return retAssemblies;
 		}
 	}
 }

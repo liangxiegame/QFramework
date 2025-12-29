@@ -14,7 +14,7 @@ using UnityEngine;
 namespace QFramework
 {
     [PackageKitGroup("QFramework")]
-    [PackageKitRenderOrder(2)]
+    [PackageKitRenderOrder("CodeGenKit")]
     [DisplayNameCN("CodeGenKit 设置")]
     [DisplayNameEN("CodegenKit Setting")]
     internal class CodeGenKitSettingEditor : IPackageKitView

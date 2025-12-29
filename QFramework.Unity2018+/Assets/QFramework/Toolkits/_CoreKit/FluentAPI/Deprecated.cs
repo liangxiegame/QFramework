@@ -1,20 +1,24 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 - 2022 liangxiegame UNDER MIT License
- * 
- * http://qframework.cn
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT License
+ *
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace QFramework
 {
@@ -92,7 +96,7 @@ namespace QFramework
         [Obsolete("不要使用，Do not used", APIVersion.Force)]
         public static T RandomValueFrom<T>(params T[] values)
         {
-            return values[UnityEngine.Random.Range(0, values.Length)];
+            return values[Random.Range(0, values.Length)];
         }
 
         /// <summary>
@@ -103,7 +107,7 @@ namespace QFramework
         [Obsolete("不要使用，Do not used", APIVersion.Force)]
         public static bool PercentProbability(int percent)
         {
-            return UnityEngine.Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
+            return Random.Range(0, 1000) * 0.001f < 50 * 0.01f;
         }
     }
 
@@ -155,7 +159,7 @@ namespace QFramework
                 sum += power;
             }
 
-            var randomNum = UnityEngine.Random.Range(0, sum);
+            var randomNum = Random.Range(0, sum);
             var currentSum = 0;
             for (var i = 0; i < powers.Count; i++)
             {
@@ -418,8 +422,8 @@ namespace QFramework
         public static void SetStandardMaterialToTransparentMode(this Material self)
         {
             self.SetFloat("_Mode", 3);
-            self.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            self.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            self.SetInt("_SrcBlend", (int)BlendMode.SrcAlpha);
+            self.SetInt("_DstBlend", (int)BlendMode.OneMinusSrcAlpha);
             self.SetInt("_ZWrite", 0);
             self.DisableKeyword("_ALPHATEST_ON");
             self.EnableKeyword("_ALPHABLEND_ON");
@@ -539,7 +543,7 @@ namespace QFramework
         [Obsolete("不要使用，Do not used", APIVersion.Force)]
         public static string GetPath(this Transform transform)
         {
-            var sb = new System.Text.StringBuilder();
+            var sb = new StringBuilder();
             var t = transform;
             while (true)
             {
@@ -630,7 +634,7 @@ namespace QFramework
         }
 
         [Obsolete("弃用，请使用 Self, use Self instead", APIVersion.Force)]
-        public static T ApplySelfTo<T>(this T selfObj, System.Action<T> toFunction) where T : UnityEngine.Object
+        public static T ApplySelfTo<T>(this T selfObj, Action<T> toFunction) where T : Object
         {
             toFunction.InvokeGracefully(selfObj);
             return selfObj;
@@ -985,7 +989,7 @@ namespace QFramework
             {
                 if (!string.IsNullOrEmpty(suffix))
                 {
-                    if (!fi.FullName.EndsWith(suffix, System.StringComparison.CurrentCultureIgnoreCase))
+                    if (!fi.FullName.EndsWith(suffix, StringComparison.CurrentCultureIgnoreCase))
                     {
                         continue;
                     }
@@ -1039,7 +1043,7 @@ namespace QFramework
 #if UNITY_STANDALONE_OSX
             System.Diagnostics.Process.Start("open", path);
 #elif UNITY_STANDALONE_WIN
-            System.Diagnostics.Process.Start("explorer.exe", path);
+            Process.Start("explorer.exe", path);
 #endif
         }
 

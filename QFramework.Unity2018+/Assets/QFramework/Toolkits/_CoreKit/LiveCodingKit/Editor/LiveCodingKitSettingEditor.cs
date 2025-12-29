@@ -14,7 +14,7 @@ using UnityEngine;
 namespace QFramework
 {
     [PackageKitGroup("QFramework")]
-    [PackageKitRenderOrder(10)]
+    [PackageKitRenderOrder("LiveCodingKit")]
     [DisplayNameCN("LiveCodingKit 设置")]
     [DisplayNameEN("LiveCodingKit Setting")]
     internal class LiveCodingKitSettingEditor : IPackageKitView

@@ -7,8 +7,6 @@
  ****************************************************************************/
 
 #if UNITY_EDITOR
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,15 +15,6 @@ using UnityEngine;
 
 namespace QFramework
 {
-    internal interface ILocalPackageVersionModel : IModel
-    {
-        InstalledPackageVersionTable PackageVersionsTable { get; }
-
-        void Reload();
-
-        PackageVersion GetByName(string name);
-    }
-
     internal class InstalledPackageVersionTable : Table<PackageVersion>
     {
         public TableIndex<string, PackageVersion> NameIndex =
@@ -58,11 +47,13 @@ namespace QFramework
         }
     }
 
-    internal class LocalPackageVersionModel : AbstractModel, ILocalPackageVersionModel
+    internal class LocalPackageVersionModel : AbstractModel,ISingleton
     {
-        public InstalledPackageVersionTable PackageVersionsTable { get; private set; }
+        internal static LocalPackageVersionModel Default => SingletonProperty<LocalPackageVersionModel>.Instance;
+        
+        internal InstalledPackageVersionTable PackageVersionsTable { get; }
 
-        public LocalPackageVersionModel()
+        private LocalPackageVersionModel()
         {
             PackageVersionsTable = new InstalledPackageVersionTable();
 
@@ -74,7 +65,7 @@ namespace QFramework
             PackageVersionsTable.Clear();
 
             foreach (var fileName in AssetDatabase.FindAssets("PackageVersion t:TextAsset")
-                         .Select(guid => AssetDatabase.GUIDToAssetPath(guid))
+                         .Select(AssetDatabase.GUIDToAssetPath)
                          .Where(path => path.EndsWith(".json")))
             {
                 var text = File.ReadAllText(fileName);
@@ -84,13 +75,15 @@ namespace QFramework
             }
         }
 
-        public PackageVersion GetByName(string name)
-        {
-            return PackageVersionsTable.NameIndex.Get(name).FirstOrDefault();
-        }
+        public PackageVersion GetByName(string name) => PackageVersionsTable.NameIndex.Get(name).FirstOrDefault();
 
         protected override void OnInit()
         {
+        }
+
+        public void OnSingletonInit()
+        {
+            
         }
     }
 }

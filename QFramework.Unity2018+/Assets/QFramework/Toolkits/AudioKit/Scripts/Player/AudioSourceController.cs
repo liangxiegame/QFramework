@@ -1,66 +1,72 @@
+/****************************************************************************
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
+ *
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
+ ****************************************************************************/
+
 using System;
 using UnityEngine;
 
 namespace QFramework
 {
-    public class AudioSourceController : IPoolable, IPoolType
+    internal class AudioSourceProxy
     {
-        private AudioSource mAudioSource;
+        internal float VolumeScale { get; private set; } = 1.0f;
+        internal float Volume { get; private set; } = 1.0f;
+        internal float Pitch { get; private set; } = 1.0f;
+        internal AudioClip AudioClip { get; private set; } = null;
 
-        public static AudioSourceController Allocate(GameObject root, string name)
+        internal bool Paused { get; private set; } = false;
+        internal bool Loop { get; private set; } = false;
+
+        internal void InitParameters()
         {
-            var controller = SafeObjectPool<AudioSourceController>.Instance.Allocate();
+            Volume = 1.0f;
+            VolumeScale = 1.0f;
+            Pitch = 1.0f;
+            AudioClip = null;
+            Loop = false;
+        }
 
-            if (!controller.mAudioSource)
+        internal AudioSource AudioSource { get; private set; }
+        
+        private Action mOnSoundPlayFinish = null;
+
+        private IActionController mAction = null;
+
+
+        internal void CreateOrUpdateAudioSource(GameObject root, string name)
+        {
+            if (!AudioSource)
             {
-                controller.mAudioSource = new GameObject(name)
+                AudioSource = new GameObject(name)
                     .AddComponent<AudioSource>();
             }
 
-            controller.mAudioSource
-                .Parent(root)
-                .Name(name)
-                .Show();
-
-            return controller;
-        }
-
-        public void OnRecycled()
-        {
-            mAudioSource
-                .Parent(AudioManager.Instance)
-                .Hide();
-        }
-
-        public bool IsRecycled { get; set; }
-        public AudioClip Clip => mAudioSource.clip;
-
-        public void Recycle2Cache()
-        {
-            SafeObjectPool<AudioSourceController>.Instance.Recycle(this);
-        }
-
-        public void Update(GameObject root, string name)
-        {
-            mAudioSource
+            AudioSource
                 .Parent(root)
                 .Name(name)
                 .Show();
         }
 
-        private bool mPaused = false;
-
-        public void Pause()
+        internal void OnParentRecycled()
         {
-            mAudioSource.Pause();
-            mPaused = true;
+            if (!AudioSourceIsNull())
+            {
+                AudioSource
+                    .Parent(AudioManager.Instance)
+                    .Hide();
+            }
         }
-        
 
-        private Action mOnSoundPlayFinish = null;
-
-
-        private IActionController mAction = null;
+        internal void Pause()
+        {
+            AudioSource.Pause();
+            Paused = true;
+        }
 
         void RegisterOnSoundPlayFinish()
         {
@@ -70,7 +76,7 @@ namespace QFramework
                 mAction = null;
             }
 
-            mAction = ActionKit.Condition(() => !mPaused && !mAudioSource.isPlaying, () =>
+            mAction = ActionKit.Condition(() => !Paused && !AudioSource.isPlaying, () =>
                 {
                     mOnSoundPlayFinish?.Invoke();
                     mOnSoundPlayFinish = null;
@@ -79,48 +85,101 @@ namespace QFramework
                 .StartGlobal();
         }
 
-        public void Play(Action onSoundPlayFinish)
+        internal void ApplyParameters()
         {
-            mPaused = false;
-            mAudioSource.Play();
+            SetClip(AudioClip);
+            SetLoop(Loop);
+            SetVolume(Volume);
+            SetVolumeScale(VolumeScale);
+            SetPitch(Pitch);
+        }
+
+        internal void Play(Action onSoundPlayFinish)
+        {
+            ApplyParameters();
+
+            Paused = false;
+ 
+            AudioSource.Play();
+
             mOnSoundPlayFinish = onSoundPlayFinish;
             RegisterOnSoundPlayFinish();
         }
 
-        public void SetPitch(float pitch)
+        internal void SetPitch(float pitch)
         {
-            if (mAudioSource)
+            Pitch = pitch;
+
+            if (AudioSource)
             {
-                mAudioSource.pitch = pitch;
+                AudioSource.pitch = pitch;
             }
         }
 
-        public void SetVolume(float volume)
+        internal void SetVolumeScale(float volumeScale)
         {
-            if (mAudioSource)
+            VolumeScale = volumeScale;
+            UpdateVolume();
+        }
+
+        internal void SetVolume(float volume)
+        {
+            Volume = volume;
+            UpdateVolume();
+        }
+
+        void UpdateVolume()
+        {
+            if (AudioSource)
             {
-                mAudioSource.volume = volume;
+                AudioSource.volume = VolumeScale * Volume;
             }
         }
 
-        public bool AudioSourceIsNull()
+        internal bool AudioSourceIsNull()
         {
-            return mAudioSource == null;
+            return AudioSource == null;
         }
 
-        public void SetClip(AudioClip clip)
+        internal void SetClip(AudioClip clip)
         {
-            mAudioSource.clip = clip;
+            AudioClip = clip;
+
+            if (AudioSource)
+            {
+                AudioSource.clip = clip;
+            }
         }
 
-        public void SetLoop(bool loop)
+        internal void SetLoop(bool loop)
         {
-            mAudioSource.loop = loop;
+            Loop = loop;
+
+            if (AudioSource)
+            {
+                AudioSource.loop = loop;
+            }
         }
 
-        public void Stop()
+        internal void Stop()
         {
-            mAudioSource.Stop();
+            if (AudioSource)
+            {
+                AudioSource.Stop();
+            }
+        }
+
+        internal void StopAndClearClip()
+        {
+            Paused = false;
+            if (!AudioSourceIsNull())
+            {
+                if (AudioSource.clip == AudioClip)
+                {
+                    Stop();
+                    SetClip(null);
+                }
+            }
         }
     }
 }

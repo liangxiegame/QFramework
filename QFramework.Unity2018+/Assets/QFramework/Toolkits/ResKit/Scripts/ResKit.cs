@@ -64,17 +64,6 @@ ResKit.InitAsync().ToAction().Start(this,()=>
         {
             yield return ResMgr.InitAsync();
         }
-
-        private static readonly Lazy<ResKit> mInstance = new Lazy<ResKit>(() => new ResKit().InternalInit());
-        internal static ResKit Get => mInstance.Value;
-
-        internal IOCContainer Container = new IOCContainer();
-
-        ResKit InternalInit()
-        {
-            Container.Register<IZipFileHelper>(new ZipFileHelper());
-            Container.Register<IBinarySerializer>(new BinarySerializer());
-            return this;
-        }
+        
     }
 }

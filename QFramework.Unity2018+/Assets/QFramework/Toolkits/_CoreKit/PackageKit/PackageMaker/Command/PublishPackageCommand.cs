@@ -81,7 +81,7 @@ namespace QFramework
             });
         }
 
-        public static bool IsVersionValid(string version)
+        internal static bool IsVersionValid(string version)
         {
             if (version == null)
             {

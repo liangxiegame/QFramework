@@ -174,6 +174,12 @@ namespace QFramework
                 .Parent(publishedVersionLine)
                 .Content.Register(v => mPublishVersion = v);
 
+            
+            // 状态栏
+            var statusLine = EasyIMGUI.Horizontal().Parent(editorView);
+            EasyIMGUI.Label().Text("状态").Width(100).Parent(statusLine);
+            var statusPopup = new EnumPopupView(mPackageVersion.Status).Parent(statusLine);
+            
             // 类型
             var typeLine = EasyIMGUI.Horizontal().Parent(editorView);
             EasyIMGUI.Label().Text("类型").Width(100).Parent(typeLine);
@@ -229,6 +235,7 @@ namespace QFramework
                         mPackageVersion.Readme.content = releaseNote.Content.Value;
                         mPackageVersion.AccessRight = (PackageAccessRight)accessRight.ValueProperty.Value;
                         mPackageVersion.Type = (PackageType)packageType.ValueProperty.Value;
+                        mPackageVersion.Status = (PackageVersionStatus)statusPopup.ValueProperty.Value;
                         mPackageVersion.Version = mPublishVersion;
                         this.SendCommand(new PublishPackageCommand(mPackageVersion));
                     }).Parent(editorView);

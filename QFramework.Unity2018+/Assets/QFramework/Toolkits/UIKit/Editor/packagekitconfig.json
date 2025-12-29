@@ -8,5 +8,5 @@
     "OnGUIFunc": "OnGUI",
     "DisposeFunc": "OnDestroy",
     "GroupName": "QFramework",
-    "RenderOrder": "3"
+    "RenderOrder": "5"
 }

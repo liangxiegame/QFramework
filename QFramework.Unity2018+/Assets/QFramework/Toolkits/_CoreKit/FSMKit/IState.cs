@@ -217,7 +217,7 @@ namespace QFramework.Example
 
         public class StateA : AbstractState<States,IStateClassExample>
         {
-            public StateA(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            public StateA(FSM<States> fsm, IStateClassExample owner) : base(fsm, owner)
             {
             }
 
@@ -240,7 +240,7 @@ namespace QFramework.Example
         
         public class StateB: AbstractState<States,IStateClassExample>
         {
-            public StateB(FSM<States> fsm, IStateClassExample target) : base(fsm, target)
+            public StateB(FSM<States> fsm, IStateClassExample owner) : base(fsm, owner)
             {
             }
 
@@ -385,15 +385,18 @@ namespace QFramework.Example
         }
     }
     
-    public abstract class AbstractState<TStateId,TTarget> : IState
+    public abstract class AbstractState<TStateId,TOwner> : IState
     {
         protected FSM<TStateId> mFSM;
-        protected TTarget mTarget;
+        
+        [Obsolete("please use mOwner,will removed in v1.1,请使用 mOwner,将在 v1.1 移除")]
+        protected TOwner mTarget => mOwner;
+        protected TOwner mOwner;
 
-        public AbstractState(FSM<TStateId> fsm,TTarget target)
+        public AbstractState(FSM<TStateId> fsm,TOwner owner)
         {
             mFSM = fsm;
-            mTarget = target;
+            mOwner = owner;
         }
 
 

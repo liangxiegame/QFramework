@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace QFramework
@@ -8,11 +7,11 @@ namespace QFramework
         public static class ScreenTransition
         {
             public static ScreenTransitionFade FadeIn() =>
-                    ScreenTransitionFade.Allocate()
-                        .FromAlpha(0)
-                        .ToAlpha(1)
-                        .Duration(1.0f)
-                        .Color(Color.black);
+                ScreenTransitionFade.Allocate()
+                    .FromAlpha(0)
+                    .ToAlpha(1)
+                    .Duration(1.0f)
+                    .Color(Color.black);
 
             public static ScreenTransitionFade FadeOut() =>
                 ScreenTransitionFade.Allocate()
@@ -26,7 +25,6 @@ namespace QFramework
                     FadeIn(),
                     FadeOut()
                 );
-
         }
     }
 }

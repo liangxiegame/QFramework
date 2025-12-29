@@ -63,10 +63,7 @@ namespace QFramework
 
         #endregion
 
-        public int Count
-        {
-            get { return mTable.Count(); }
-        }
+        public int Count => Table.Count();
 
         public static bool IsApplicationQuit { get;private set; }
 
@@ -76,8 +73,8 @@ namespace QFramework
         }
 
         #region 字段
-
-        private ResTable mTable = new ResTable();
+        
+        internal ResTable Table { get; } = new ResTable();
 
         [SerializeField] private int mCurrentCoroutineCount;
         private int mMaxCoroutineCount = 8; //最快协成大概在6到8之间
@@ -93,7 +90,6 @@ namespace QFramework
             if (AssetBundlePathHelper.SimulationMode)
             {
                 AssetBundleSettings.AssetBundleConfigFile = ConfigFileUtility.BuildEditorDataTable();
-                yield return null;
             }
             else
             {
@@ -123,9 +119,9 @@ namespace QFramework
                     Debug.Log(outRes);
                     yield return AssetBundleSettings.AssetBundleConfigFile.LoadFromFileAsync(outRes);
                 }
-
-                yield return null;
             }
+
+            yield return null;
         }
 
         public void InitResMgr()
@@ -146,8 +142,7 @@ namespace QFramework
                 // 未进行过热更
                 if (AssetBundleSettings.LoadAssetResFromStreamingAssetsPath)
                 {
-                    ResKit.Get.Container.Get<IZipFileHelper>()
-                        .GetFileInInner(ResDatas.FileName, outResult);
+                    Architecture.ZipFileHelper.GetFileInInner(ResDatas.FileName, outResult);
                 }
                 // 进行过热更
                 else
@@ -185,7 +180,7 @@ namespace QFramework
 
         public IRes GetRes(ResSearchKeys resSearchKeys, bool createNew = false)
         {
-            var res = mTable.GetResBySearchKeys(resSearchKeys);
+            var res = Table.GetResBySearchKeys(resSearchKeys);
 
             if (res != null)
             {
@@ -202,7 +197,7 @@ namespace QFramework
 
             if (res != null)
             {
-                mTable.Add(res);
+                Table.Add(res);
             }
 
             return res;
@@ -234,41 +229,20 @@ namespace QFramework
 
             mIsResMapDirty = false;
 
-            foreach (var res in mTable.ToArray())
+            foreach (var res in Table.ToArray())
             {
                 if (res.RefCount <= 0 && res.State != ResState.Loading)
                 {
                     if (res.ReleaseRes())
                     {
-                        mTable.Remove(res);
-
+                        Table.Remove(res);
                         
                         res.Recycle2Cache();
                     }
                 }
             }
         }
-
-        private void OnGUI()
-        {
-            if (PlatformCheck.IsEditor && Input.GetKey(KeyCode.F1))
-            {
-                GUILayout.BeginVertical("box");
-
-                GUILayout.Label("ResKit", new GUIStyle {fontSize = 30});
-                GUILayout.Space(10);
-                GUILayout.Label("ResInfo", new GUIStyle {fontSize = 20});
-                mTable.ToList().ForEach(res => { GUILayout.Label((res as Res).ToString()); });
-                GUILayout.Space(10);
-
-                GUILayout.Label("Pools", new GUIStyle() {fontSize = 20});
-                GUILayout.Label(string.Format("ResSearchRule:{0}",
-                    SafeObjectPool<ResSearchKeys>.Instance.CurCount));
-                GUILayout.Label(string.Format("ResLoader:{0}",
-                    SafeObjectPool<ResLoader>.Instance.CurCount));
-                GUILayout.EndVertical();
-            }
-        }
+        
 
         private void OnIEnumeratorTaskFinish()
         {

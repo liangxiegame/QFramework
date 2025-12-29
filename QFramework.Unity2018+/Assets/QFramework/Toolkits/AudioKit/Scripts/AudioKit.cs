@@ -1,13 +1,13 @@
 /****************************************************************************
- * Copyright (c) 2016 ~ 2024 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
  ****************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace QFramework
@@ -17,12 +17,13 @@ namespace QFramework
     [APIDescriptionCN("音频管理方案")]
     [APIDescriptionEN("Audio Managements Solution")]
 #endif
-    public class AudioKit
+    public static class AudioKit
     {
-        public static AudioPlayer MusicPlayer => AudioManager.Instance.MusicPlayer;
+        public static MusicPlayer MusicPlayer => AudioManager.Instance.MusicPlayer;
+        public static MusicPlayer VoicePlayer => AudioManager.Instance.VoicePlayer;
 
+        public static AudioLoaderPoolModel Config => Architecture.LoaderPoolModel;
 
-        public static AudioKitConfig Config = new AudioKitConfig();
 
 #if UNITY_EDITOR
         [MethodAPI]
@@ -40,19 +41,8 @@ AudioKit.PlayMusic(homeBgClip);
 ")]
 #endif
         public static void PlayMusic(string musicName, bool loop = true, Action onBeganCallback = null,
-            Action onEndCallback = null, float volume = 1f)
-        {
-            AudioManager.Instance.CheckAudioListener();
-            var audioMgr = AudioManager.Instance;
-            audioMgr.CurrentMusicName = musicName;
-
-            Debug.Log(">>>>>> Start Play Music");
-
-            MusicPlayer.VolumeScale(volume)
-                .OnStart(onBeganCallback)
-                .SetAudio(audioMgr.gameObject, musicName, loop)
-                .OnFinish(onEndCallback);
-        }
+            Action onEndCallback = null, float volume = 1f) =>
+            PlayMusicCommand.Execute(musicName, loop, onBeganCallback, onEndCallback, volume);
 
 #if UNITY_EDITOR
         [MethodAPI]
@@ -62,10 +52,7 @@ AudioKit.PlayMusic(homeBgClip);
 AudioKit.StopMusic();
 ")]
 #endif
-        public static void StopMusic()
-        {
-            AudioManager.Instance.MusicPlayer.Stop();
-        }
+        public static void StopMusic() => StopMusicCommand.Execute();
 
 
 #if UNITY_EDITOR
@@ -76,10 +63,7 @@ AudioKit.StopMusic();
 AudioKit.PauseMusic();
 ")]
 #endif
-        public static void PauseMusic()
-        {
-            AudioManager.Instance.MusicPlayer.Pause();
-        }
+        public static void PauseMusic() => MusicPlayer.Pause();
 
 
 #if UNITY_EDITOR
@@ -90,12 +74,7 @@ AudioKit.PauseMusic();
 AudioKit.ResumeMusic();
 ")]
 #endif
-        public static void ResumeMusic()
-        {
-            AudioManager.Instance.MusicPlayer.Resume();
-        }
-
-        public static AudioPlayer VoicePlayer => AudioManager.Instance.VoicePlayer;
+        public static void ResumeMusic() => ResumeMusicCommand.Execute();
 
 
 #if UNITY_EDITOR
@@ -108,21 +87,8 @@ AudioKit.PlayVoice(SentenceAClip);
 ")]
 #endif
         public static void PlayVoice(string voiceName, bool loop = false, Action onBeganCallback = null,
-            Action onEndedCallback = null)
-        {
-            var audioMgr = AudioManager.Instance;
-            AudioManager.Instance.CheckAudioListener();
-            audioMgr.CurrentVoiceName = voiceName;
-
-            if (!Settings.IsVoiceOn.Value)
-            {
-                return;
-            }
-            
-            VoicePlayer.OnStart(onBeganCallback);
-            VoicePlayer.SetAudio(AudioManager.Instance.gameObject, voiceName, loop);
-            VoicePlayer.OnFinish(onEndedCallback);
-        }
+            Action onEndedCallback = null) =>
+            PlayVoiceCommand.Execute(voiceName, loop, onBeganCallback, onEndedCallback);
 
 #if UNITY_EDITOR
         [MethodAPI]
@@ -132,10 +98,7 @@ AudioKit.PlayVoice(SentenceAClip);
 AudioKit.PauseVoice();
 ")]
 #endif
-        public static void PauseVoice()
-        {
-            VoicePlayer.Pause();
-        }
+        public static void PauseVoice() => PauseVoiceCommand.Execute();
 
 #if UNITY_EDITOR
         [MethodAPI]
@@ -145,10 +108,7 @@ AudioKit.PauseVoice();
 AudioKit.ResumeVoice();
 ")]
 #endif
-        public static void ResumeVoice()
-        {
-            VoicePlayer.Resume();
-        }
+        public static void ResumeVoice() => ResumeVoiceCommand.Execute();
 
 #if UNITY_EDITOR
         [MethodAPI]
@@ -158,17 +118,10 @@ AudioKit.ResumeVoice();
 AudioKit.StopVoice();
 ")]
 #endif
-        public static void StopVoice()
-        {
-            VoicePlayer.Stop();
-        }
+        public static void StopVoice() => StopVoiceCommand.Execute();
 
-        public static PlaySoundModes PlaySoundMode = PlaySoundModes.EveryOne;
-        public static int SoundFrameCountForIgnoreSameSound = 10;
-        public static int GlobalFrameCountForIgnoreSameSound = 10;
 
-        private static Dictionary<string, int> mSoundFrameCountForName = new Dictionary<string, int>();
-        private static int mGlobalFrameCount;
+        #region PlaySoundMode System API
 
         public enum PlaySoundModes
         {
@@ -177,61 +130,31 @@ AudioKit.StopVoice();
             IgnoreSameSoundInSoundFrames
         }
 
-        static bool CanPlaySound(string soundName)
+
+        public static PlaySoundModes PlaySoundMode
         {
-            if (PlaySoundMode == PlaySoundModes.EveryOne)
-            {
-                return true;
-            }
-
-            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInGlobalFrames)
-            {
-                if (Time.frameCount - mGlobalFrameCount <= GlobalFrameCountForIgnoreSameSound)
-                {
-                    if (mSoundFrameCountForName.ContainsKey(soundName))
-                    {
-                        return false;
-                    }
-
-                    mSoundFrameCountForName.Add(soundName, 0);
-                }
-                else
-                {
-                    mGlobalFrameCount = Time.frameCount;
-                    mSoundFrameCountForName.Clear();
-                    mSoundFrameCountForName.Add(soundName, 0);
-                }
-
-                return true;
-            }
-
-            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInSoundFrames)
-            {
-                if (mSoundFrameCountForName.TryGetValue(soundName, out var frames))
-                {
-                    if (Time.frameCount - frames <= SoundFrameCountForIgnoreSameSound)
-                    {
-                        return false;
-                    }
-
-                    mSoundFrameCountForName[soundName] = Time.frameCount;
-                }
-                else
-                {
-                    mSoundFrameCountForName.Add(soundName, Time.frameCount);
-                }
-            }
-
-            return true;
+            get => Architecture.PlaySoundChannelSystem.DefaultPlaySoundMode;
+            set => Architecture.PlaySoundChannelSystem.DefaultPlaySoundMode = value;
         }
 
-        static void SoundFinish(string soundName)
+        public static int SoundFrameCountForIgnoreSameSound
         {
-            if (PlaySoundMode == PlaySoundModes.IgnoreSameSoundInSoundFrames)
-            {
-                mSoundFrameCountForName.Remove(soundName);
-            }
+            get => Architecture.PlaySoundChannelSystem.IgnoreInSoundFramesChannel
+                .SoundFrameCountForIgnoreSameSound;
+            set => Architecture.PlaySoundChannelSystem.IgnoreInSoundFramesChannel
+                .SoundFrameCountForIgnoreSameSound = value;
         }
+
+        public static int GlobalFrameCountForIgnoreSameSound
+        {
+            get => Architecture.PlaySoundChannelSystem.IgnoreInGlobalFramesChannel
+                .GlobalFrameCountForIgnoreSameSound;
+            set => Architecture.PlaySoundChannelSystem.IgnoreInGlobalFramesChannel
+                    .GlobalFrameCountForIgnoreSameSound =
+                value;
+        }
+
+        #endregion
 
 
 #if UNITY_EDITOR
@@ -244,33 +167,12 @@ AudioKit.PlaySound(EnemyDieClip);
 ")]
 #endif
         public static AudioPlayer PlaySound(string soundName, bool loop = false, Action<AudioPlayer> callBack = null,
-            float volume = 1.0f,float pitch = 1)
-        {
-            AudioManager.Instance.CheckAudioListener();
-            if (!Settings.IsSoundOn.Value) return null;
-            if (!CanPlaySound(soundName)) return null;
-            var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
-            
-            soundPlayer.VolumeScale(volume)
-                .SetAudio(AudioManager.Instance.gameObject, soundName, loop);
-            
-            soundPlayer.Pitch(pitch);
-            
-            soundPlayer.OnFinish(() =>
-            {
-                callBack?.Invoke(soundPlayer);
-                SoundFinish(soundName);
-            });
-            
-            soundPlayer.OnRelease(() =>
-            {
-                AudioKitArchitecture.RemoveSoundPlayerFromPool(soundPlayer);
-            });
+            float volume = 1.0f, float pitch = 1,PlaySoundModes? playSoundMode = null) => PlaySoundCommand.Execute(soundName, loop, callBack, volume, pitch,playSoundMode);
 
-            AudioKitArchitecture.AddSoundPlayer2Pool(soundPlayer);
-            return soundPlayer;
-        }
-
+        public static AudioPlayer PlaySound(AudioClip clip, bool loop = false, Action<AudioPlayer> callBack = null,
+            float volume = 1.0f, float pitch = 1,PlaySoundModes? playSoundMode = null) =>
+            PlaySoundWithClipCommand.Execute(clip, loop, callBack, volume,pitch,playSoundMode);
+        
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("停止播放全部声音")]
@@ -281,75 +183,20 @@ AudioKit.StopAllSound();
 #endif
         public static void StopAllSound()
         {
-            AudioKitArchitecture.ForEachAllSound(player => player.Stop());
-            AudioKitArchitecture.ClearAllPlayingSound();
+            StopAllSoundCommand.Execute();
         }
-
-
-        #region 梅川内酷需求
 
         public static void PlayMusic(AudioClip clip, bool loop = true, Action onBeganCallback = null,
-            Action onEndCallback = null, float volume = 1f)
-        {
-            AudioManager.Instance.CheckAudioListener();
-            var audioMgr = AudioManager.Instance;
-            audioMgr.CurrentMusicName = "music" + clip.GetHashCode();
-
-            Debug.Log(">>>>>> Start Play Music");
-            MusicPlayer.VolumeScale(volume)
-                .OnStart(onBeganCallback);
-            MusicPlayer.SetAudioExt(audioMgr.gameObject, clip, audioMgr.CurrentMusicName, loop);
-            MusicPlayer.OnFinish(onEndCallback);
-        }
+            Action onEndCallback = null, float volume = 1f) =>
+            PlayMusicWithClipCommand.Execute(clip, loop, onBeganCallback, onEndCallback, volume);
 
 
         public static void PlayVoice(AudioClip clip, bool loop = false, Action onBeganCallback = null,
-            Action onEndedCallback = null, float volumeScale = 1.0f)
-        {
-            AudioManager.Instance.CheckAudioListener();
-            var audioMgr = AudioManager.Instance;
+            Action onEndedCallback = null, float volumeScale = 1.0f) =>
+            PlayVoiceWithClip.Execute(clip, loop, onBeganCallback, onEndedCallback, volumeScale);
 
-            audioMgr.CurrentVoiceName = "voice" + clip.GetHashCode();
 
-            if (!Settings.IsVoiceOn.Value)
-            {
-                return;
-            }
 
-            VoicePlayer.VolumeScale(volumeScale)
-                .OnStart(onBeganCallback);
-            VoicePlayer.SetAudioExt(AudioManager.Instance.gameObject, clip, audioMgr.CurrentVoiceName, loop);
-            VoicePlayer.OnFinish(onEndedCallback);
-        }
-
-        public static AudioPlayer PlaySound(AudioClip clip, bool loop = false, Action<AudioPlayer> callBack = null,
-            float volume = 1.0f,float pitch = 1)
-        {
-            AudioManager.Instance.CheckAudioListener();
-            if (!Settings.IsSoundOn.Value) return null;
-            if (!CanPlaySound(clip.name)) return null;
-
-            var soundPlayer = AudioPlayer.Allocate(Settings.SoundVolume);
-            soundPlayer.VolumeScale(volume)
-                .SetAudioExt(AudioManager.Instance.gameObject, clip, "sound" + clip.GetHashCode(), loop);
-
-            soundPlayer.Pitch(pitch);
-            
-            soundPlayer.OnFinish(() =>
-            {
-                callBack?.Invoke(soundPlayer);
-            });
-            
-            soundPlayer.OnRelease(() =>
-            {
-                AudioKitArchitecture.RemoveSoundPlayerFromPool(soundPlayer);
-            });
-
-            AudioKitArchitecture.AddSoundPlayer2Pool(soundPlayer);
-            return soundPlayer;
-        }
-
-        #endregion
 
 #if UNITY_EDITOR
         [PropertyAPI]
@@ -383,7 +230,7 @@ voiceVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.VoiceVolum
 soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolume.Value = v; });
 ")]
 #endif
-        public static AudioKitSettings Settings { get; } = new AudioKitSettings();
+        public static AudioKitSettingsModel Settings => Architecture.SettingsModel;
 
         #region Fluent API
 
@@ -392,111 +239,5 @@ soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolum
         public static FluentSoundAPI Sound() => FluentSoundAPI.Allocate();
 
         #endregion
-    }
-
-    public class AudioKitConfig
-    {
-        public IAudioLoaderPool AudioLoaderPool = new DefaultAudioLoaderPool();
-    }
-
-    public interface IAudioLoader
-    {
-        AudioClip Clip { get; }
-        AudioClip LoadClip(AudioSearchKeys audioSearchKeys);
-
-        void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool, AudioClip> onLoad);
-        void Unload();
-    }
-
-    public class AudioSearchKeys : IPoolType, IPoolable
-    {
-        public string AssetBundleName;
-
-        public string AssetName;
-
-
-        public void OnRecycled()
-        {
-            AssetBundleName = null;
-            AssetName = null;
-        }
-
-        public bool IsRecycled { get; set; }
-
-
-        public override string ToString()
-        {
-            return
-                $"AudioSearchKeys AssetName:{AssetName} AssetBundleName:{AssetBundleName}";
-        }
-
-        public static AudioSearchKeys Allocate()
-        {
-            return SafeObjectPool<AudioSearchKeys>.Instance.Allocate();
-        }
-
-        public void Recycle2Cache()
-        {
-            SafeObjectPool<AudioSearchKeys>.Instance.Recycle(this);
-        }
-    }
-
-    public interface IAudioLoaderPool
-    {
-        IAudioLoader AllocateLoader();
-        void RecycleLoader(IAudioLoader loader);
-    }
-
-    public abstract class AbstractAudioLoaderPool : IAudioLoaderPool
-    {
-        private Stack<IAudioLoader> mPool = new Stack<IAudioLoader>(16);
-
-        public IAudioLoader AllocateLoader()
-        {
-            return mPool.Count > 0 ? mPool.Pop() : CreateLoader();
-        }
-
-        protected abstract IAudioLoader CreateLoader();
-
-        public void RecycleLoader(IAudioLoader loader)
-        {
-            mPool.Push(loader);
-        }
-    }
-
-    public class DefaultAudioLoaderPool : AbstractAudioLoaderPool
-    {
-        protected override IAudioLoader CreateLoader()
-        {
-            return new DefaultAudioLoader();
-        }
-    }
-
-    public class DefaultAudioLoader : IAudioLoader
-    {
-        private AudioClip mClip;
-
-        public AudioClip Clip => mClip;
-
-        public AudioClip LoadClip(AudioSearchKeys panelSearchKeys)
-        {
-            mClip = Resources.Load<AudioClip>(panelSearchKeys.AssetName);
-            return mClip;
-        }
-
-        public void LoadClipAsync(AudioSearchKeys audioSearchKeys, Action<bool, AudioClip> onLoad)
-        {
-            var resourceRequest = Resources.LoadAsync<AudioClip>(audioSearchKeys.AssetName);
-            resourceRequest.completed += operation =>
-            {
-                var clip = resourceRequest.asset as AudioClip;
-                onLoad(clip, clip);
-            };
-        }
-
-        public void Unload()
-        {
-            Resources.UnloadAsset(mClip);
-        }
     }
 }

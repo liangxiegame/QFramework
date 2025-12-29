@@ -22,7 +22,7 @@ namespace QFramework
         private void OnProgressChanged(float progress)
         {
             EditorUtility.DisplayProgressBar("插件更新",
-                string.Format("插件下载中 {0:P2}", progress), progress);
+                $"插件下载中 {progress:P2}", progress);
         }
 
         public InstallPackageCommand(PackageRepository requestPackageData, Action onAfterDownloadBeforeImport = null)
@@ -38,7 +38,7 @@ namespace QFramework
             Debug.Log(mRequestPackageData.latestDownloadUrl + ">>>>>>:");
 
             EditorUtility.DisplayProgressBar("插件更新", "插件下载中 ...", 0.1f);
-
+            
             EditorHttp.Download(mRequestPackageData.latestDownloadUrl, response =>
             {
                 if (response.Type == ResponseType.SUCCEED)
@@ -58,7 +58,7 @@ namespace QFramework
                     Debug.Log("PackageManager:插件下载成功");
 
 
-                    this.GetModel<ILocalPackageVersionModel>()
+                    LocalPackageVersionModel.Default
                         .Reload();
                 }
                 else

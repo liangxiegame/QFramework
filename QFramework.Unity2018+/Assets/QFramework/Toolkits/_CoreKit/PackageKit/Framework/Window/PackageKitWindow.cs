@@ -70,7 +70,7 @@ namespace QFramework
 
             foreach (var view in views)
             {
-                view.EditorWindow = EditorWindow.GetWindow<PackageKitWindow>();
+                view.EditorWindow = GetWindow<PackageKitWindow>();
                 view.Init();
             }
         }
@@ -87,17 +87,6 @@ namespace QFramework
         }
 
         private const float toolbarHeight = 20;
-
-        // class Styles
-        // {
-        //     public static GUIStyle box = "box";
-        //     public static GUIStyle toolbarSeachTextFieldPopup = "ToolbarSeachTextFieldPopup";
-        //     public static GUIStyle searchCancelButton = "ToolbarSeachCancelButton";
-        //     public static GUIStyle searchCancelButtonEmpty = "ToolbarSeachCancelButtonEmpty";
-        //     public static GUIStyle foldout = "Foldout";
-        //     public static GUIStyle toolbarDropDown = "ToolbarDropDown";
-        //     public static GUIStyle selectionRect = "SelectionRect";
-        // }
         
         class Styles
         {

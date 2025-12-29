@@ -45,6 +45,12 @@ namespace QFramework
             Set(style => style.fontSize = size);
             return this;
         }
+        
+        public FluentGUIStyle NormalTextColor(Color color)
+        {
+            Set(style => style.normal.textColor = color);
+            return this;
+        }
 
         private Func<GUIStyle> mStyleFactory = () => new GUIStyle();
 

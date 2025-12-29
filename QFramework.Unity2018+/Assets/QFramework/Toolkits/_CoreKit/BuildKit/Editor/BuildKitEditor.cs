@@ -1,9 +1,7 @@
 #if UNITY_EDITOR
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,7 +10,7 @@ namespace QFramework
     [PackageKitGroup("QFramework")]
     [DisplayNameCN("BuildKit 自定义打包")]
     [DisplayNameEN("BuildKit CustomBuild")]
-    [PackageKitRenderOrder(10)]
+    [PackageKitRenderOrder("BuildKit")]
     public class BuildKitEditor : IPackageKitView
     {
         public EditorWindow EditorWindow { get; set; }

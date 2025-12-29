@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
- * Copyright (c) 2015 ~ 2024 liangxiegame MIT License
+ * Copyright (c) 2015 ~ 2025 liangxiegame MIT License
  *
  * QFramework v1.0
  *
@@ -20,9 +20,12 @@
  *  幽飞冷凝雪～冷
  *
  * Community
- *  QQ Group: 623597263
+ *  QQ 群 1: 623597263(已满)
+ *  QQ 群 2: 541745166
+ *  腾讯频道：https://pd.qq.com/s/cfe1690jf
+ *  Discord：https://discord.gg/PHqHX5v5SE
  * 
- * Latest Update: 2025.3.18 10:21 add InitArchitecture api
+ * Latest Update: 2025.9.16 15:27 add qq group 2 and discord link tencent pd
  ****************************************************************************/
 
 using System;

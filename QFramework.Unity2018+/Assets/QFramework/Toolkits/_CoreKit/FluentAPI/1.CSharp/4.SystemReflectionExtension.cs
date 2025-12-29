@@ -20,12 +20,6 @@ namespace QFramework
 #endif
     public static class SystemReflectionExtension
     {
-        // [UnityEditor.MenuItem("QF/Test")]
-        // public static void Test()
-        // {
-        //         "/abc/e.txt".GetFileExtendName().LogInfo();
-        // }
-        
 #if UNITY_EDITOR
         [MethodAPI]
         [APIDescriptionCN("通过 Type 创建 Instance")]

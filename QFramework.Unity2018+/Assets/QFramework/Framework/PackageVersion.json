@@ -1,8 +1,9 @@
 {
     "Id": "",
-    "Version": "v1.0.203",
+    "Version": "v1.0.233",
     "Type": 0,
     "AccessRight": 0,
+    "Status": 30,
     "DownloadUrl": "",
     "InstallPath": "Assets/QFramework/Framework/",
     "IncludeFileOrFolders": [
@@ -11,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.203",
-        "content": "FluentAPI：增加 List 的 ForEach 静态扩展重载，index 在前的版本",
+        "version": "v1.0.233",
+        "content": "AudioKit: 增加 PlaySoundByClip 示例",
         "author": "liangxie",
-        "date": "2025 年 06 月 11 日 09:06",
+        "date": "2025 年 10 月 23 日 13:29",
         "PackageId": ""
     }
 }

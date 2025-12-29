@@ -6,6 +6,8 @@
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
 
+using System.Collections.Generic;
+
 #if UNITY_EDITOR
 namespace QFramework
 {
@@ -13,15 +15,24 @@ namespace QFramework
     {
         protected override void Init()
         {
-
             // 包类型
-            RegisterModel<IPackageTypeConfigModel>(new PackageTypeConfigModel());
+            RegisterModel(new PackageTypeConfigModel());
             
             // 已安装类型
-            RegisterModel<ILocalPackageVersionModel>(new LocalPackageVersionModel());
-            RegisterModel<IPackageManagerModel>(new PackageManagerModel());
-            RegisterModel<IPackageManagerServer>(new PackageManagerServer());
+            RegisterModel(LocalPackageVersionModel.Default);
+            RegisterModel(new PackageManagerModel());
         }
+        
+        public static BindableProperty<List<PackageRepository>> PackageRepositories =
+            new BindableProperty<List<PackageRepository>>(new List<PackageRepository>());
+        
+        public static BindableProperty<int> CategoryIndex = new BindableProperty<int>(0);
+        
+        public static BindableProperty<List<string>> Categories = new BindableProperty<List<string>>();
+        
+        public static BindableProperty<int> AccessRightIndex = new BindableProperty<int>(0);
+        
+        public static BindableProperty<string> SearchKey = new BindableProperty<string>("");
     }
 }
 #endif

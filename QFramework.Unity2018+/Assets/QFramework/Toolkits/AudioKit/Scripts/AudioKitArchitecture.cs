@@ -1,70 +1,40 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+/****************************************************************************
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
+ *
+ * https://qframework.cn
+ * https://github.com/liangxiegame/QFramework
+ * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
+ ****************************************************************************/
+
+using UnityEngine;
 
 namespace QFramework
 {
-    internal class AudioKitArchitecture : Architecture<AudioKitArchitecture>
+    internal class Architecture : Architecture<Architecture>
     {
-        internal static AudioPlayerModel AudioPlayerModel => mAudioPlayerModel ?? (mAudioPlayerModel = Interface.GetModel<AudioPlayerModel>());
-        private static AudioPlayerModel mAudioPlayerModel = null;
-        
+        internal static PlaySoundChannelSystem PlaySoundChannelSystem { get; } = new PlaySoundChannelSystem();
+        internal static AudioKitSettingsModel SettingsModel { get; } = new AudioKitSettingsModel();
+        internal static PlayingSoundPoolModel PlayingSoundPoolModel { get; } = new PlayingSoundPoolModel();
+
+        internal static AudioLoaderPoolModel LoaderPoolModel { get; } = new AudioLoaderPoolModel();
+
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void AutoInit()
+        {
+            InitArchitecture();
+            LogKit.I("AudioKit.Architecture Inited");
+        }
+
         protected override void Init()
         {
-            this.RegisterModel(new AudioPlayerModel());
-        }
-        
-        internal static void ClearAllPlayingSound()
-        {
-            AudioPlayerModel.SoundPlayerInPlaying.Clear();
-        }
-        
-        internal static void RemoveSoundPlayerFromPool(AudioPlayer audioPlayer)
-        {
-            AudioPlayerModel.SoundPlayerInPlaying[audioPlayer.GetName].Remove(audioPlayer);
-        }
-        
-        internal static void AddSoundPlayer2Pool(AudioPlayer audioPlayer)
-        {
-            if (AudioPlayerModel.SoundPlayerInPlaying.ContainsKey(audioPlayer.GetName))
-            {
-                AudioPlayerModel.SoundPlayerInPlaying[audioPlayer.GetName].Add(audioPlayer);
-            }
-            else
-            {
-                AudioPlayerModel.SoundPlayerInPlaying.Add(audioPlayer.GetName, new List<AudioPlayer> { audioPlayer });
-            }
-        }
-        
-        public static void ForEachAllSound(Action<AudioPlayer> operation)
-        {
-            var soundPlayerInPlaying =
-                AudioPlayerModel.SoundPlayerInPlaying.SelectMany(keyValuePair => keyValuePair.Value);
+            RegisterSystem(new ConsoleModuleSystem());
+            RegisterSystem(PlaySoundChannelSystem);
             
-            var pool = ListPool<AudioPlayer>.Get((AudioPlayerModel.SoundPlayerInPlaying.Count / 8 + 1) * 16);
-            
-            foreach (var audioPlayer in soundPlayerInPlaying)
-            {
-                pool.Add(audioPlayer);
-            }
-            
-            foreach (var audioPlayer in pool)
-            {
-                operation(audioPlayer);
-            }
-            
-            pool.Release2Pool();
-        }
-    }
-
-    internal class AudioPlayerModel : AbstractModel
-    {
-        public Dictionary<string, List<AudioPlayer>> SoundPlayerInPlaying =
-            new Dictionary<string, List<AudioPlayer>>(30);
-        
-        protected override void OnInit()
-        {
-            
+            RegisterModel(PlayingSoundPoolModel);
+            RegisterModel(LoaderPoolModel);
+            RegisterModel(SettingsModel);
         }
     }
 }

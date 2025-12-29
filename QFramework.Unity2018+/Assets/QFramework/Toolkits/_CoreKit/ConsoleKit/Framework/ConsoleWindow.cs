@@ -13,18 +13,21 @@ namespace QFramework
         /// <summary>
         /// Update回调
         /// </summary>
-        public delegate void OnUpdateCallback();
+        internal delegate void OnUpdateCallback();
 
         /// <summary>
         /// OnGUI回调
         /// </summary>
-        public delegate void OnGUICallback();
+        internal delegate void OnGUICallback();
 
-        public OnUpdateCallback onUpdateCallback = null;
+        internal OnUpdateCallback onUpdateCallback = null;
 
-        public OnGUICallback onGUICallback = null;
+        internal OnGUICallback onGUICallback = null;
+        
+        
+        internal static ConsoleWindow Default = null;
 
-        public bool ShowGUI
+        internal bool ShowGUI
         {
             get => showGUI;
             set => showGUI = value;
@@ -50,12 +53,14 @@ namespace QFramework
             DontDestroyOnLoad(this);
 
             mIndex = ConsoleKit.GetDefaultIndex();
+            Default = this;
         }
 
         void OnDestroy()
         {
             ConsoleKit.Modules.ForEach(m => m.OnDestroy());
-            ConsoleKit.RemoveAllModules();
+            // ConsoleKit.RemoveAllModules();
+            Default = null;
         }
 
         void Update()
@@ -105,6 +110,11 @@ namespace QFramework
             mIndex = GUILayout.Toolbar(mIndex, ConsoleKit.Modules.Select(m => m.Title).ToArray());
             ConsoleKit.Modules[mIndex].DrawGUI();
             GUI.DragWindow(new Rect(0, 0, 10000, 20));
+        }
+
+        internal void ShowModule(int index)
+        {
+            mIndex = index;
         }
     }
 }

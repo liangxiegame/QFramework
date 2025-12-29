@@ -1,9 +1,10 @@
 ﻿/****************************************************************************
- * Copyright (c) 2016 ~ 2024 liangxie
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
  ****************************************************************************/
 
 using System;
@@ -13,7 +14,7 @@ namespace QFramework
 {
     public class PlaySoundAction : AbstractAction<PlaySoundAction>
     {
-        public enum Modes
+        private enum Modes
         {
             ByName,
             ByClip
@@ -23,6 +24,7 @@ namespace QFramework
         private string mSoundName;
         private AudioClip mAudioClip;
         private Action mOnFinish;
+        private AudioPlayer mAudioPlayer;
 
         public static PlaySoundAction Allocate(string soundName,Action onFinish = null)
         {
@@ -47,14 +49,21 @@ namespace QFramework
         {
             if (mMode == Modes.ByName)
             {
-                AudioKit.PlaySound(mSoundName,callBack:player => this.Finish());
+                mAudioPlayer = AudioKit.PlaySound(mSoundName,callBack:player =>
+                {
+                    mAudioPlayer = null;
+                    this.Finish();
+                });
             }
             else if (mMode == Modes.ByClip)
             {
-                AudioKit.PlaySound(mAudioClip,callBack:player => this.Finish());
+                mAudioPlayer = AudioKit.PlaySound(mAudioClip,callBack:player =>
+                {
+                    mAudioPlayer = null;
+                    this.Finish();
+                });
             }
         }
-        
 
         public override void OnFinish()
         {
@@ -63,6 +72,12 @@ namespace QFramework
 
         protected override void OnDeinit()
         {
+            if (mAudioPlayer != null)
+            {
+                mAudioPlayer.Stop();
+                mAudioPlayer = null;
+            }
+            
             mSoundName = null;
             mAudioClip = null;
             mOnFinish = null;
@@ -71,14 +86,8 @@ namespace QFramework
     
     public static class PlaySoundExtension
     {
-        public static ISequence PlaySound(this ISequence self, string soundName)
-        {
-            return self.Append(QFramework.PlaySoundAction.Allocate(soundName));
-        }
-        
-        public static ISequence PlaySound(this ISequence self,AudioClip clip)
-        {
-            return self.Append(QFramework.PlaySoundAction.Allocate(clip));
-        }
+        public static ISequence PlaySound(this ISequence self, string soundName) => self.Append(QFramework.PlaySoundAction.Allocate(soundName));
+
+        public static ISequence PlaySound(this ISequence self,AudioClip clip) => self.Append(QFramework.PlaySoundAction.Allocate(clip));
     }
 }

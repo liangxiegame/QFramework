@@ -1,7 +1,7 @@
 /****************************************************************************
- * Copyright (c) 2016 - 2023 liangxiegame UNDER MIT License
+ * Copyright (c) 2016 - 2025 liangxiegame UNDER MIT License
  * 
- * http://qframework.cn
+ * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
  ****************************************************************************/
@@ -66,13 +66,11 @@ namespace QFramework
                 .GetCustomAttributes(typeof(PackageKitRenderOrderAttribute), false)
                 .FirstOrDefault() as PackageKitRenderOrderAttribute;
 
-            RenderOrder = renderOrder != null ? renderOrder.Order : int.MaxValue;
+            RenderOrder = renderOrder?.Order ?? int.MaxValue;
 
-            var group = type
+            GroupName = type
                 .GetCustomAttributes(typeof(PackageKitGroupAttribute), false)
-                .FirstOrDefault() as PackageKitGroupAttribute;
-
-            GroupName = group != null
+                .FirstOrDefault() is PackageKitGroupAttribute group
                 ? group.GroupName
                 : "未分组";
         }

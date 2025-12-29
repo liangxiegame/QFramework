@@ -10,14 +10,9 @@ using System.Collections.Generic;
 
 namespace QFramework
 {
-    internal interface IPackageTypeConfigModel : IModel
+    internal class PackageTypeConfigModel : AbstractModel
     {
-        string GetFullTypeName(string typeName);
-    }
-
-    internal class PackageTypeConfigModel : AbstractModel, IPackageTypeConfigModel
-    {
-        private Dictionary<string, string> mTypeName2FullName = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> mTypeName2FullName = new Dictionary<string, string>()
         {
             {"fm", "Framework"},
             {"p", "Plugin"},
@@ -26,15 +21,7 @@ namespace QFramework
             {"master", "Master"},
         };
 
-        public string GetFullTypeName(string typeName)
-        {
-            if (mTypeName2FullName.ContainsKey(typeName))
-            {
-                return mTypeName2FullName[typeName];
-            }
-
-            return typeName;
-        }
+        public string GetFullTypeName(string typeName) => mTypeName2FullName.TryGetValue(typeName, out var name) ? name : typeName;
 
         protected override void OnInit()
         {

@@ -1,58 +1,26 @@
 /****************************************************************************
- * Copyright (c) 2016 ~ 2024 liangxiegame UNDER MIT LICENSE
+ * Copyright (c) 2015 - 2025 liangxiegame UNDER MIT LICENSE
  *
  * https://qframework.cn
  * https://github.com/liangxiegame/QFramework
  * https://gitee.com/liangxiegame/QFramework
+ * AudioKit v1.0: use QFramework.cs architecture
  ****************************************************************************/
-
-using UnityEngine;
 
 namespace QFramework
 {
     /// <summary>
-    /// 专门用来为音频做设置
+    /// TODO maybe support custom settings storage later
     /// </summary>
-    public class AudioKitSettings
+    public class AudioKitSettingsModel : AbstractModel
     {
-        // 用来存储的Key
-        const string KEY_AUDIO_MANAGER_SOUND_ON = "KEY_AUDIO_MANAGER_SOUND_ON";
-
-        const string KEY_AUDIO_MANAGER_MUSIC_ON = "KEY_AUDIO_MANAGER_MUSIC_ON";
-        const string KEY_AUDIO_MANAGER_VOICE_ON = "KEY_AUDIO_MANAGER_VOICE_ON";
-
-        const string KEY_AUDIO_MANAGER_VOICE_VOLUME = "KEY_AUDIO_MANAGER_VOICE_VOLUME";
-        const string KEY_AUDIO_MANAGER_SOUND_VOLUME = "KEY_AUDIO_MANAGER_SOUND_VOLUME";
-        const string KEY_AUDIO_MANAGER_MUSIC_VOLUME = "KEY_AUDIO_MANAGER_MUSIC_VOLUME";
-
-        public AudioKitSettings()
-        {
-            IsSoundOn = new PlayerPrefsBooleanProperty(KEY_AUDIO_MANAGER_SOUND_ON, true);
-
-            IsMusicOn = new PlayerPrefsBooleanProperty(KEY_AUDIO_MANAGER_MUSIC_ON, true);
-
-            IsVoiceOn = new PlayerPrefsBooleanProperty(KEY_AUDIO_MANAGER_VOICE_ON, true);
-
-            
-            IsOn = new CustomProperty<bool>(
-                () => IsSoundOn.Value && IsMusicOn.Value && IsVoiceOn.Value,
-                isOn =>
-                {
-                    Debug.Log(isOn);
-                    IsSoundOn.Value = isOn;
-                    IsMusicOn.Value = isOn;
-                    IsVoiceOn.Value = isOn;
-                }
-            );
-
-            SoundVolume = new PlayerPrefsFloatProperty(KEY_AUDIO_MANAGER_SOUND_VOLUME, 1.0f);
-
-            MusicVolume = new PlayerPrefsFloatProperty(KEY_AUDIO_MANAGER_MUSIC_VOLUME, 1.0f);
-
-            VoiceVolume = new PlayerPrefsFloatProperty(KEY_AUDIO_MANAGER_VOICE_VOLUME, 1.0f);
-
-
-        }
+        private const string KeyAudioManagerSoundOn = "KEY_AUDIO_MANAGER_SOUND_ON";
+        private const string KeyAudioManagerMusicOn = "KEY_AUDIO_MANAGER_MUSIC_ON";
+        private const string KeyAudioManagerVoiceOn = "KEY_AUDIO_MANAGER_VOICE_ON";
+        private const string KeyAudioManagerVoiceVolume = "KEY_AUDIO_MANAGER_VOICE_VOLUME";
+        private const string KeyAudioManagerSoundVolume = "KEY_AUDIO_MANAGER_SOUND_VOLUME";
+        private const string KeyAudioManagerMusicVolume = "KEY_AUDIO_MANAGER_MUSIC_VOLUME";
+        
 
         public PlayerPrefsBooleanProperty IsSoundOn { get; private set; }
 
@@ -67,5 +35,30 @@ namespace QFramework
         public PlayerPrefsFloatProperty VoiceVolume { get; private set; }
         
         public CustomProperty<bool> IsOn { get; private set; }
+        protected override void OnInit()
+        {
+            IsSoundOn = new PlayerPrefsBooleanProperty(KeyAudioManagerSoundOn, true);
+
+            IsMusicOn = new PlayerPrefsBooleanProperty(KeyAudioManagerMusicOn, true);
+
+            IsVoiceOn = new PlayerPrefsBooleanProperty(KeyAudioManagerVoiceOn, true);
+
+            
+            IsOn = new CustomProperty<bool>(
+                () => IsSoundOn.Value && IsMusicOn.Value && IsVoiceOn.Value,
+                isOn =>
+                {
+                    IsSoundOn.Value = isOn;
+                    IsMusicOn.Value = isOn;
+                    IsVoiceOn.Value = isOn;
+                }
+            );
+
+            SoundVolume = new PlayerPrefsFloatProperty(KeyAudioManagerSoundVolume, 1.0f);
+
+            MusicVolume = new PlayerPrefsFloatProperty(KeyAudioManagerMusicVolume, 1.0f);
+
+            VoiceVolume = new PlayerPrefsFloatProperty(KeyAudioManagerVoiceVolume, 1.0f);
+        }
     }
 }

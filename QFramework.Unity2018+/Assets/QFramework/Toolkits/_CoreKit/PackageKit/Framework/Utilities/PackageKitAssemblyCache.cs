@@ -19,7 +19,7 @@ namespace QFramework
         private static readonly Lazy<List<Assembly>> mCachedAssemblies = new Lazy<List<Assembly>>(() =>
         {
             var cachedAssemblies = new List<Assembly>();
-
+            
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
             {
                 if (assembly.FullName.StartsWith("QF") || assembly.FullName.Contains("Kit") ||

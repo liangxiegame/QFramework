@@ -21,7 +21,7 @@ namespace QFramework
     [DisplayNameCN("API 文档")]
     [DisplayNameEN("API Doc")]
     [PackageKitGroup("QFramework")]
-    [PackageKitRenderOrder(0)]
+    [PackageKitRenderOrder("APIDoc")]
     internal class APIDoc : IPackageKitView, IUnRegisterList
     {
         public EditorWindow EditorWindow { get; set; }
