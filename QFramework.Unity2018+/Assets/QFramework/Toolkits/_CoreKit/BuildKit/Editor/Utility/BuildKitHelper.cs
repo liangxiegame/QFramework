@@ -16,16 +16,21 @@ namespace QFramework
             GUILayout.EndHorizontal();
         }
         
-        public static void BuildWindowsAndZip(string name)
+        public static void BuildWindowsAndZip(string appName,string zipFileBaseName = null)
         {
+            if (zipFileBaseName == null)
+            {
+                zipFileBaseName = appName;
+            }
+            
             var scenes = EditorBuildSettings.scenes;
-            var outputFile = Application.dataPath + $"/../Builds/{name}Windows/{name}.exe";
+            var outputFile = Application.dataPath + $"/../Builds/{zipFileBaseName}Windows/{appName}.exe";
             const BuildTarget target = BuildTarget.StandaloneWindows64;
             const BuildOptions options = BuildOptions.None;
             outputFile.GetFolderPath().CreateDirIfNotExists();
             EditorUserBuildSettings.development = false;
             BuildPipeline.BuildPlayer(scenes, outputFile, target, options);
-            var zipFilePath = Application.dataPath + $"/../Builds/{name}Windows_{PlayerSettings.bundleVersion}.zip";
+            var zipFilePath = Application.dataPath + $"/../Builds/{zipFileBaseName}Windows_{PlayerSettings.bundleVersion}.zip";
             ZipUtility.ZipFolder(outputFile.GetFolderPath(), zipFilePath);
             EditorUtility.RevealInFinder(zipFilePath);
         }

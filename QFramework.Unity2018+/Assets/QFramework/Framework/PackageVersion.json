@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.235",
+    "Version": "v1.0.236",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.235",
-        "content": "BuildKit: 帮助函数增加 BuildWebGL 的 API",
+        "version": "v1.0.236",
+        "content": "BuildKit: 打包 Windows 包帮助函数增加 zipFileBaseName 参数",
         "author": "liangxie",
-        "date": "2025 年 12 月 29 日 21:22",
+        "date": "2025 年 12 月 31 日 23:23",
         "PackageId": ""
     }
 }
