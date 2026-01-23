@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.237",
+    "Version": "v1.0.238",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.237",
-        "content": "文档：01.简介 删除掉失效的链接&增加年会员链接",
+        "version": "v1.0.238",
+        "content": "文档: QFramework 架构简介修改，补充新增特性描述",
         "author": "liangxie",
-        "date": "2026 年 01 月 22 日 14:59",
+        "date": "2026 年 01 月 23 日 10:14",
         "PackageId": ""
     }
 }
