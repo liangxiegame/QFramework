@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.238",
+    "Version": "v1.0.239",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.238",
-        "content": "文档: QFramework 架构简介修改，补充新增特性描述",
+        "version": "v1.0.239",
+        "content": "内置文档: 01. 架构简介 使用新版概念交互参考图",
         "author": "liangxie",
-        "date": "2026 年 01 月 23 日 10:14",
+        "date": "2026 年 01 月 24 日 14:16",
         "PackageId": ""
     }
 }

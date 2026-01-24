@@ -20,15 +20,15 @@
 
 ## 提供的架构图
 
-![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
+![image.png](https://file.liangxiegame.com/5e9f1682-1907-47a2-a23a-2d5a4ba2e7a4.png)
 
 ## 举个例子（一图胜千言😂）
 
-![](https://file.liangxiegame.com/6bf42306-0b2a-4417-bbcf-354af0132596.png)
+![](https://file.liangxiegame.com/dee18df4-8275-4ba2-9b3d-ee3e6555f8e6.png)
 
 ## 各种情况的示意图
 
-![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
+![image-20260124142617406](https://file.liangxiegame.com/9fbc9dc9-cbac-49ba-b6f8-328c2e063d9c.png)
 
 ## 架构使用规范
 
