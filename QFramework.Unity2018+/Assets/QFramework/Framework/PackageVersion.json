@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.239",
+    "Version": "v1.0.240",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.239",
-        "content": "内置文档: 01. 架构简介 使用新版概念交互参考图",
+        "version": "v1.0.240",
+        "content": "内置文档: 新增 架构篇 21. 什么是需要共享的数据?",
         "author": "liangxie",
-        "date": "2026 年 01 月 24 日 14:16",
+        "date": "2026 年 01 月 25 日 14:16",
         "PackageId": ""
     }
 }
