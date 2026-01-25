@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.240",
+    "Version": "v1.0.241",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.240",
-        "content": "内置文档: 新增 架构篇 21. 什么是需要共享的数据?",
+        "version": "v1.0.241",
+        "content": "修复文件名在 windows 不合法的问题",
         "author": "liangxie",
-        "date": "2026 年 01 月 25 日 14:16",
+        "date": "2026 年 01 月 25 日 23:19",
         "PackageId": ""
     }
 }
