@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.241",
+    "Version": "v1.0.242",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.241",
-        "content": "修复文件名在 windows 不合法的问题",
+        "version": "v1.0.242",
+        "content": "* 内置文档：Roadmap 部分更新\n* 内置文档：引入 Command.md 错别字修复",
         "author": "liangxie",
-        "date": "2026 年 01 月 25 日 23:19",
+        "date": "2026 年 01 月 26 日 15:56",
         "PackageId": ""
     }
 }
