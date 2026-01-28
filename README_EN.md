@@ -1,26 +1,25 @@
-![LOGO](https://file.liangxiegame.com/67ca2c27-d711-40b2-96f3-d2f6071e3f3c.png)
+![LOGO](LOGO.png)
 
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/liangxiegame/QFramework/blob/master/LICENSE)
-[![Build Status](https://travis-ci.org/liangxiegame/QFramework.svg?branch=master)](https://travis-ci.org/liangxiegame/QFramework)
 
 
 # QFramework Intro
 
 [中文](README)|[English](README_EN.md)
 
-[QFramework](https://github.com/liangxiegame/QFramework)  is a framework. she support solid pricinple、domain design driven、event-driven、data-driven、layered、mvc、cqrs、modulization、extendable、scalable architecture. Simple but powerful! she only has 800 lines of code.can save to a note-taking app. 
+[QFramework](https://github.com/liangxiegame/QFramework)  is a framework. she support solid pricinple、domain design driven、event-driven、data-driven、layered、mvc、cqrs、modulization、extendable、scalable architecture. Simple but powerful! she only has 1000 lines of code.can save to a note-taking app. 
 
 ## Architecture diagram
 
-![](http://processon.com/chart_image/5c270aa6e4b007ba5d5029dc.png)
+![image.png](https://file.liangxiegame.com/5e9f1682-1907-47a2-a23a-2d5a4ba2e7a4.png)
 
-## For Example（😂）
+## For Example
 
-![](https://file.liangxiegame.com/5fcdf6d1-0605-4ae6-b4bf-12e661eb2f1e.png)
+![](https://file.liangxiegame.com/dd678daa-6bca-46ea-8d8e-adcb5208ddfb.png)
 
 ## Schematic diagram of various situations
 
-![](http://processon.com/chart_image/5cbb1edce4b0bab90960a4f6.png)
+![image-20260124142617406](https://file.liangxiegame.com/9fbc9dc9-cbac-49ba-b6f8-328c2e063d9c.png)
 
 ## Architecture Rule
 

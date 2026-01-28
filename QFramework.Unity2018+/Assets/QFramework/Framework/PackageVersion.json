@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.242",
+    "Version": "v1.0.243",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.242",
-        "content": "* 内置文档：Roadmap 部分更新\n* 内置文档：引入 Command.md 错别字修复",
+        "version": "v1.0.243",
+        "content": "内置文档：04. 引入 Event 错别字修复",
         "author": "liangxie",
-        "date": "2026 年 01 月 26 日 15:56",
+        "date": "2026 年 01 月 28 日 10:13",
         "PackageId": ""
     }
 }
