@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.243",
+    "Version": "v1.0.244",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.243",
-        "content": "内置文档：04. 引入 Event 错别字修复",
+        "version": "v1.0.244",
+        "content": "内置文档：引入 Utility.md 删掉没用的代码",
         "author": "liangxie",
-        "date": "2026 年 01 月 28 日 10:13",
+        "date": "2026 年 01 月 29 日 10:46",
         "PackageId": ""
     }
 }
