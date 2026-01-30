@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.244",
+    "Version": "v1.0.245",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.244",
-        "content": "内置文档：引入 Utility.md 删掉没用的代码",
+        "version": "v1.0.245",
+        "content": "内置文档: 引入 System.md 使用新版概念交互图&错别字修复",
         "author": "liangxie",
-        "date": "2026 年 01 月 29 日 10:46",
+        "date": "2026 年 01 月 30 日 14:16",
         "PackageId": ""
     }
 }
