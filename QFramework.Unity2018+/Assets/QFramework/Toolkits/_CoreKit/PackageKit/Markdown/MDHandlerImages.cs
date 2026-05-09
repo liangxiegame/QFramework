@@ -95,7 +95,7 @@ namespace QFramework
 
                 while (img != null)
                 {
-                    anim.Add(img.CreateTexture(), img.Delay > 0 ? img.Delay / 1000.0f : 0.1f);
+                    anim.Add(img.CreateTexture(), img.Delay / 1000.0f);
                     img = decoder.NextImage();
                 }
 

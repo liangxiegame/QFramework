@@ -36,34 +36,13 @@ namespace QFramework
 
         public Texture2D CreateTexture()
         {
-            if (Width <= 0 || Height <= 0)
-            {
-                return Texture2D.blackTexture;
-            }
-
-            var expectedPixelCount = Width * Height;
-            var pixels = RawImage;
-
-            if (pixels == null || pixels.Length != expectedPixelCount)
-            {
-                var sanitizedPixels = new Color32[expectedPixelCount];
-
-                if (pixels != null && pixels.Length > 0)
-                {
-                    Array.Copy(pixels, sanitizedPixels, Math.Min(pixels.Length, sanitizedPixels.Length));
-                }
-
-                pixels = sanitizedPixels;
-            }
-
-            // DX12 下 ARGB32 在部分 Unity 版本会触发底层纹理上传问题，RGBA32 更稳定。
-            var tex = new Texture2D(Width, Height, TextureFormat.RGBA32, false)
+            var tex = new Texture2D(Width, Height, TextureFormat.ARGB32, false)
             {
                 filterMode = FilterMode.Point,
                 wrapMode = TextureWrapMode.Clamp
             };
 
-            tex.SetPixels32(pixels);
+            tex.SetPixels32(RawImage);
             tex.Apply();
 
             return tex;
