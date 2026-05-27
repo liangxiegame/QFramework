@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.245",
+    "Version": "v1.0.246",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.245",
-        "content": "内置文档: 引入 System.md 使用新版概念交互图&错别字修复",
+        "version": "v1.0.246",
+        "content": "修复（Unity）：打开包工具面板时避免DX12崩溃（感谢 SoGameStudio 的 PR）",
         "author": "liangxie",
-        "date": "2026 年 01 月 30 日 14:16",
+        "date": "2026 年 05 月 27 日 10:52",
         "PackageId": ""
     }
 }
