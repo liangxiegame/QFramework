@@ -89,6 +89,7 @@
 | gitee issue                                 | gitee community                                              | [link](https://gitee.com/liangxiegame/QFramework/issues)     |
 | discord                                     |                                                              | [link](https://discord.gg/PHqHX5v5SE)                        |
 | **ShowCase**                                | email me or publish on github's issue. My email: liangxiegame@163.com |                                                              |
+| ![](./README/guanniaobiji_en.jpg)           | Indie Game《Birdwatching Notebook》                          | [Steam](https://store.steampowered.com/app/4111370/)         |
 | 《Fools, Maniacs and Liars》                |                                                              | [Steam](https://store.steampowered.com/app/1741170/_/)       |
 | 《Skulker》                                 |                                                              | [Steam](https://store.steampowered.com/app/1731000/)         |
 | 《ScaleBox》                                |                                                              | [Steam](https://store.steampowered.com/app/3528380/ScaleBox/) |
