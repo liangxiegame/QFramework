@@ -18,6 +18,20 @@ namespace QFramework
 #endif
     public static class UnityEngineOthersExtension
     {
+        
+#if UNITY_EDITOR
+        [MethodAPI]
+        [APIDescriptionCN("随机 List 中的一个元素")]
+        [APIDescriptionEN("get random item in a list")]
+        [APIExampleCode(@"
+new List<int>(){ 1,2,3 }.PickRandom();
+")]
+#endif
+        public static T PickRandom<T>(this List<T> list)
+        {
+            return list[UnityEngine.Random.Range(0, list.Count)];
+        }
+        
 #if UNITY_EDITOR
         // v1 No.155
         [MethodAPI]
