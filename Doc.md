@@ -6638,7 +6638,7 @@ namespace QFramework.Example
 
 资源加载成功。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6724,7 +6724,7 @@ AssetBundle 麻烦在哪里呢？
 
 取消勾选模拟模式情况下，点击打 AB 包 即可。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6810,7 +6810,7 @@ namespace QFramework.Example
 ![image.png](https://file.liangxiegame.com/8ad406e4-f59c-43d2-bd4a-e7de57560958.png)
 
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6857,7 +6857,7 @@ namespace QFramework.Example
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6894,7 +6894,7 @@ namespace QFramework.Example
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6940,7 +6940,7 @@ namespace QFramework.Example
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -6987,7 +6987,7 @@ namespace QFramework
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7037,7 +7037,7 @@ namespace QFramework.Example
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7087,7 +7087,7 @@ namespace QFramework.Example
 }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7176,7 +7176,7 @@ namespace QFramework
 
 非常简单。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7216,7 +7216,7 @@ namespace QAssetBundle
 
 这样就不容易出现字符串的拼写错误了。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7297,7 +7297,7 @@ ResLoader 获取资源引用的过程如下:
 
 几乎没有消耗，因为 ResLoader 是从对象池中申请的。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7322,7 +7322,7 @@ ResKit.InitAsync().ToAction().StartGlobal();
 
 好了，ResKit 的功能就全部介绍完了。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7525,7 +7525,7 @@ namespace QFramework.Example
 
 自动绑定的功能与 View Controller + Bind 是使用的是同一套机制。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7693,7 +7693,7 @@ namespace QFramework.Example
 
 当然需要一个可复用性的界面还是需要一个普通界面就看大家的需求了，并不是说有可复用性的界面就是好的。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7710,7 +7710,7 @@ UIKit.OpenPanelAsync<UIHomePanel>().ToAction().Start(this);
 
 在 WebGL 平台上, AssetBundle 加载资源只支持异步加载，所以为此提供了 UIKit 的异步加载支持。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7796,7 +7796,7 @@ OnHide 则是在 UIKit.HidePanel 调用时，OnHide 会被调用。
 
 OK，此篇的内容就这些。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7849,7 +7849,7 @@ this.Back(); // 弹出 this
 
 非常简单。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -7899,7 +7899,7 @@ this.Back(); // 弹出 this
 
 这就是这个工具的一个用处，非常方便，解决了笔者大量的开发工作量。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8017,7 +8017,7 @@ namespace QFramework.Example
 
 接下来，就可以写一些与子模块相关的逻辑了，关于 UIElement 的基本使用就介绍到这里。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8033,7 +8033,7 @@ namespace QFramework.Example
 UIKit.OpenPanel<UIMultiPanel>(new UIMultiPanelData(), PanelOpenType.Multiple);
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8139,7 +8139,7 @@ namespace QFramework
 
 好了，关于 UIKit 自定义加载界面就简单介绍到这里。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8239,7 +8239,7 @@ voiceVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.VoiceVolum
 soundVolumeSlider.onValueChanged.AddListener(v => { AudioKit.Settings.SoundVolume.Value = v; });
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8322,7 +8322,7 @@ namespace QFramework.Example
     }
 ```
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8385,7 +8385,7 @@ namespace QFramework.Example
 
 PlaySound 就介绍到这里。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8583,7 +8583,7 @@ namespace QFramework.Example
 ![bindable_list](https://file.liangxiegame.com/32560030-4852-4f4a-8e76-3c3bf7e6a75f.gif)
 
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8703,7 +8703,7 @@ namespace QFramework.Example
 输出结果如下:
 ![b8a5eb15-42cc-4c2d-9e5e-dff54e2a10e2](https://file.liangxiegame.com/b8a5eb15-42cc-4c2d-9e5e-dff54e2a10e2.png)
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8789,7 +8789,7 @@ namespace QFramework.Example
 
 ![screen_transition](https://file.liangxiegame.com/15c9c162-6622-4190-850b-ed0547441973.gif)
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166
@@ -8812,7 +8812,7 @@ namespace QFramework.Example
 
 感谢群友　时　光　　　的反馈。
 
-本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/goods/show/55](https://www.gamepixedu.com/goods/show/55)
+本文由 QFramework 教程年会员赞助，地址：[https://www.gamepixedu.com/vip/?levelId=1](https://www.gamepixedu.com/vip/?levelId=1)
 
 * QFramework 主页：[qframework.cn](https://qframework.cn)
 * QFramework 交流群: 541745166

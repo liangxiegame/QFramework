@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.247",
+    "Version": "v1.0.248",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.247",
-        "content": "BuildKit: BuildKitHelper 的 WebGL Build 报错修复\nFluentAPI: List 增加 PickRandom 扩展 API",
+        "version": "v1.0.248",
+        "content": "删除掉不用的代码 MyPackage",
         "author": "liangxie",
-        "date": "2026 年 05 月 29 日 11:48",
+        "date": "2026 年 06 月 27 日 20:32",
         "PackageId": ""
     }
 }
