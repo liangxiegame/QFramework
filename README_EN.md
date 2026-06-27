@@ -161,3 +161,7 @@ Thanks for Licenses Supporting by JetBrains Company
 
 <p><a href="https://www.jetbrains.com/?from=QFramework ">
 <img src="https://file.liangxiegame.com/2bf40802-c296-4bdc-bc8a-718000503771.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>
+
+This project is supported by OpenAI's Codex for OSS program for open-source maintenance.
+
+[![Powered by Codex](https://img.shields.io/badge/Powered%20by-Codex-000000?style=flat-square)](https://openai.com/codex/)

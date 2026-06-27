@@ -185,4 +185,8 @@
 <p><a href="https://www.jetbrains.com/?from=QFramework ">
 <img src="https://file.liangxiegame.com/2bf40802-c296-4bdc-bc8a-718000503771.png" alt="JetBrains的Logo" width="20%" height="20%"></a></p>
 
+感谢 OpenAI 通过 Codex for OSS 计划对本项目的开源维护提供支持。
+
+[![Powered by Codex](https://img.shields.io/badge/Powered%20by-Codex-000000?style=flat-square)](https://openai.com/codex/)
+
 本开源项目由 [QFramework 教程年会员](https://www.gamepixedu.com/goods/show/55) 提供资助
