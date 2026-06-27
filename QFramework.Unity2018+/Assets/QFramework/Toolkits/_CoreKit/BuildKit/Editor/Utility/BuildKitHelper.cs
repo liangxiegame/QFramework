@@ -38,7 +38,7 @@ namespace QFramework
         public static void BuildWebGL()
         {
             var scenes = EditorBuildSettings.scenes;
-            var outputFolder = Application.dataPath + "/../Builds/WebGL".CreateDirIfNotExists();
+            var outputFolder = (Application.dataPath + "/../Builds/WebGL").CreateDirIfNotExists();
             outputFolder.DeleteDirIfExists();
             const BuildTarget target = BuildTarget.WebGL;
             const BuildOptions options = BuildOptions.None;
