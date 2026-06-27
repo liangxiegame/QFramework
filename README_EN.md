@@ -166,3 +166,7 @@ Thanks for Licenses Supporting by JetBrains Company
 This project is supported by OpenAI's Codex for OSS program for open-source maintenance.
 
 [![Powered by Codex](https://img.shields.io/badge/Powered%20by-Codex-000000?style=flat-square)](https://openai.com/codex/)
+
+This project is also supported by GitHub Copilot for open-source maintenance.
+
+[![Powered by Copilot](https://img.shields.io/badge/Powered%20by-Copilot-000000?style=flat-square&logo=githubcopilot)](https://github.com/features/copilot)

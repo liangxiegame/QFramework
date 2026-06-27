@@ -190,4 +190,8 @@
 
 [![Powered by Codex](https://img.shields.io/badge/Powered%20by-Codex-000000?style=flat-square)](https://openai.com/codex/)
 
+感谢 GitHub Copilot 对本项目开源维护提供支持。
+
+[![Powered by Copilot](https://img.shields.io/badge/Powered%20by-Copilot-000000?style=flat-square&logo=githubcopilot)](https://github.com/features/copilot)
+
 本开源项目由 [QFramework 教程年会员](https://www.gamepixedu.com/goods/show/55) 提供资助
