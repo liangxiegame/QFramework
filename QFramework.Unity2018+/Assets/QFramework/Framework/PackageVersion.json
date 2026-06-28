@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.248",
+    "Version": "v1.0.249",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.248",
-        "content": "删除掉不用的代码 MyPackage",
+        "version": "v1.0.249",
+        "content": "* 删除 LiveCodingKit 模块及文档\n* 更新 Roadmap ",
         "author": "liangxie",
-        "date": "2026 年 06 月 27 日 20:32",
+        "date": "2026 年 06 月 28 日 20:21",
         "PackageId": ""
     }
 }
