@@ -19,7 +19,11 @@ namespace QFramework
         protected override void Write(MDRendererMarkdown renderer, CodeBlock block)
         {
             var fencedCodeBlock = block as FencedCodeBlock;
-            var language = fencedCodeBlock != null ? fencedCodeBlock.Info : null;
+
+            if (fencedCodeBlock != null && !string.IsNullOrEmpty(fencedCodeBlock.Info))
+            {
+                // TODO: support for syntax hightlighting ...
+            }
 
             var prevStyle = renderer.Style;
 
@@ -27,7 +31,7 @@ namespace QFramework
             renderer.Style.Block = true;
 
             renderer.Layout.StartBlock(false);
-            renderer.WriteCode(block, language);
+            renderer.WriteCode(block);
             renderer.Layout.EndBlock();
 
             renderer.Style = prevStyle;
