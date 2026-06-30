@@ -111,72 +111,47 @@ namespace QFramework
             }
         }
 
-        internal void WriteCode(LeafBlock block)
+        internal void WriteCode(LeafBlock block, string language)
         {
             if (block.Lines.Lines == null)
             {
                 return;
             }
 
-   
-
-
-            // var parser = new LanguageParser(new LanguageCompiler(Languages.CompiledLanguages, Languages.CompileLock), Languages.LanguageRepository);
-            //
-            // List<string> resultCode = new List<string>();
-            //
-            // parser.Parse(code,Languages.CSharp,(sourceCode, list) =>
-            // {
-            //     // Debug.Log(s);
-            //     foreach (var scope in list)
-            //     {
-            //         scope.Name.LogInfo();
-            //
-            //         if (scope.Name == "Keyword")
-            //         {
-            //             Text($"<color=#4ec9b0>{sourceCode}</color>");
-            //             Layout.NewLine();
-            //         } else if (scope.Name == "Comment")
-            //         {
-            //             Text($"<color=#57a64a>{sourceCode}</color>");
-            //             Layout.NewLine();
-            //         }
-            //     }
-            //     // Debug.Log(list.Count);
-            //     
-            // });
-            
             var lines = block.Lines;
             var slices = lines.Lines;
-            
-            var code  = string.Join("@\n@", slices);
 
-            
-            foreach (var line in code
-                         .Replace(" public ", " <color=#4ec9b0>public</color> ")
-                         .Replace(" class ", " <color=#4ec9b0>class</color> ")
-                         .Replace(" void ", " <color=#4ec9b0>void</color> ")
-                         .Replace("using ", "<color=#4ec9b0>using</color> ")
-                         .Replace("namespace ", "<color=#4ec9b0>namespace</color> ")
-                         .Replace("private ", "<color=#4ec9b0>private</color> ")
-                         .Replace("internal ", "<color=#4ec9b0>internal</color> ")
-                         .Replace("protected ", "<color=#4ec9b0>protected</color> ")
-                         .Replace("// ", "<color=#57a64a>//</color> ")
-                         .Replace("@\n@// ", "@\n@<color=#57a64a>//</color> ")
-                         .Replace("/// ", "<color=#57a64a>///</color>  ")
-                         .Split("@\n@".ToCharArray()))
+            if (IsCSharpLanguage(language))
             {
-                Text(line);
-                Layout.NewLine();
+                // C# 语法高亮:tokenizer 逐行产出带 <color> 的 richText,
+                // 复用既有逐行 Text()+NewLine() 布局与 style.richText 通道
+                var tokenizer = new CSharpTokenizer();
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    Text(tokenizer.HighlightLine(slices[i].ToString()));
+                    Layout.NewLine();
+                }
             }
-            
-            // for (int i = 0; i < lines.Count; i++)
-            // {
-                // Text(slices[i].ToString());
-                // Layout.NewLine();
-            // }
-            
-            
+            else
+            {
+                // 非 C#:等宽原样逐行渲染,不着色
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    Text(slices[i].ToString());
+                    Layout.NewLine();
+                }
+            }
+        }
+
+        private static bool IsCSharpLanguage(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+            {
+                return true; // 无语言标识默认按 C# 处理(文档约 99% 为 C#)
+            }
+
+            var lang = language.Trim().ToLowerInvariant();
+            return lang == "csharp" || lang == "cs";
         }
 
         internal string GetContents(ContainerInline node)
@@ -185,7 +160,7 @@ namespace QFramework
             {
                 return string.Empty;
             }
-            
+
             var inline = node.FirstChild;
             var content = string.Empty;
 
