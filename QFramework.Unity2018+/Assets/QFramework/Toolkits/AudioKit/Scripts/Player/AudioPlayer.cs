@@ -7,6 +7,8 @@
  * AudioKit v1.0: use QFramework.cs architecture
  ****************************************************************************/
 
+using UnityEngine;
+
 namespace QFramework
 {
     /// <summary>
@@ -43,9 +45,16 @@ namespace QFramework
 
         public void Recycle2Cache()
         {
-            if (!SafeObjectPool<AudioPlayer>.Instance.Recycle(this))
+            if (SafeObjectPool<AudioPlayer>.Instance.Recycle(this))
             {
                 AudioSourceProxy.OnParentRecycled();
+            }
+            else
+            {
+                if (!AudioSourceProxy.AudioSourceIsNull())
+                {
+                    GameObject.Destroy(AudioSourceProxy.AudioSource.gameObject);
+                }
             }
         }
 
