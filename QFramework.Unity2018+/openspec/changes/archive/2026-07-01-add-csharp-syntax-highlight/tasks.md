@@ -21,7 +21,7 @@
 
 ## 4. 验证
 
-- [ ] 4.1 在 Unity 编辑器打开"用户手册"，确认 C# 代码块出现 keyword/string/comment/number/type 五色高亮  ← 需在 Unity 编辑器内目视确认
+- [x] 4.1 在 Unity 编辑器打开"用户手册"，确认 C# 代码块出现 keyword/string/comment/number/type 五色高亮  ← 已在 Unity 编辑器内目视确认
 - [x] 4.2 回归对照：行首 `public`、注释内 `class`、字符串内 `void`、verbatim `@class`/`@"..."`、多行 `/* */` 均渲染正确  ← tokenizer 逻辑层已用编译+运行测试验证（10/10 PASS）；端到端像素建议在 Unity 内扫一眼
 - [x] 4.3 确认非 C#（如 `json`/`bash` 标识）代码块原样等宽渲染、不着色  ← `IsCSharpLanguage` 对非 C# 返回 false → else 分支逐行原样；等宽由既有 FixedBlock 样式保证
 - [x] 4.4 确认运行时编译不受影响（`#if UNITY_EDITOR` 隔离）  ← 全部新增/修改文件均在 `#if UNITY_EDITOR` 内，编译期隔离

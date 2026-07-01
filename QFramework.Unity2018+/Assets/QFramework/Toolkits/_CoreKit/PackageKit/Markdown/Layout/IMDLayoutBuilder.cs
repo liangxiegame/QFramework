@@ -43,27 +43,40 @@ namespace QFramework
             mLink = link;
             mTooltip = tooltip;
 
-            for (var i = 0; i < text.Length; i++)
+            // 检查是否包含 richText 标签，如果包含则不分割单词
+            if (text.Contains("<color=") || text.Contains("</color>"))
             {
-                var ch = text[i];
-
-                if (ch == '\n')
-                {
-                    AddWord();
-                    NewLine();
-                }
-                else if (char.IsWhiteSpace(ch))
-                {
-                    mWord.Append(' ');
-                    AddWord();
-                }
-                else
-                {
-                    mWord.Append(ch);
-                }
+                // 包含 richText 标签，直接添加整个文本
+                var payload = new GUIContent(text, mTooltip);
+                var content = new MDContentText(payload, mStyle, mLink);
+                content.CalcSize(mContext);
+                AddContent(content);
             }
+            else
+            {
+                // 不包含 richText 标签，按原逻辑分割单词
+                for (var i = 0; i < text.Length; i++)
+                {
+                    var ch = text[i];
 
-            AddWord();
+                    if (ch == '\n')
+                    {
+                        AddWord();
+                        NewLine();
+                    }
+                    else if (char.IsWhiteSpace(ch))
+                    {
+                        mWord.Append(' ');
+                        AddWord();
+                    }
+                    else
+                    {
+                        mWord.Append(ch);
+                    }
+                }
+
+                AddWord();
+            }
         }
 
 

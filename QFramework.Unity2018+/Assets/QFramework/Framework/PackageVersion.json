@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.251",
+    "Version": "v1.0.252",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.251",
-        "content": "Example：CubeMaster 兼容  Unity 2018，默认不用再二次导入了",
+        "version": "v1.0.252",
+        "content": "内置文档：代码高亮改进",
         "author": "liangxie",
-        "date": "2026 年 06 月 29 日 14:22",
+        "date": "2026 年 07 月 01 日 11:03",
         "PackageId": ""
     }
 }
