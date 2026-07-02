@@ -45,6 +45,8 @@ namespace QFramework
 
         public void Recycle2Cache()
         {
+            if (IsRecycled) return;
+
             if (SafeObjectPool<AudioPlayer>.Instance.Recycle(this))
             {
                 AudioSourceProxy.OnParentRecycled();

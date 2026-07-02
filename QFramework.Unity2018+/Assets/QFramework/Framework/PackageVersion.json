@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.252",
+    "Version": "v1.0.253",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.252",
-        "content": "内置文档：代码高亮改进",
+        "version": "v1.0.253",
+        "content": "* AudioKit：播放声音后回收对象池失败的问题修复",
         "author": "liangxie",
-        "date": "2026 年 07 月 01 日 11:03",
+        "date": "2026 年 07 月 02 日 14:12",
         "PackageId": ""
     }
 }
