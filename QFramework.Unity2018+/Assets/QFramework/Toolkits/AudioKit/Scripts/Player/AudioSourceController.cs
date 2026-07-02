@@ -172,6 +172,14 @@ namespace QFramework
         internal void StopAndClearClip()
         {
             Paused = false;
+
+            if (mAction != null)
+            {
+                mAction.Deinit();
+                mAction = null;
+            }
+            mOnSoundPlayFinish = null;
+
             if (!AudioSourceIsNull())
             {
                 if (AudioSource.clip == AudioClip)
