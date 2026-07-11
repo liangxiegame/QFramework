@@ -170,3 +170,7 @@ This project is supported by OpenAI's Codex for OSS program for open-source main
 This project is also supported by GitHub Copilot for open-source maintenance.
 
 [![Powered by Copilot](https://img.shields.io/badge/Powered%20by-Copilot-000000?style=flat-square&logo=githubcopilot)](https://github.com/features/copilot)
+
+This project is also supported by Xiaomi MiMo with token sponsorship for open-source maintenance.
+
+[![Powered by MiMo](https://img.shields.io/badge/Powered%20by-MiMo-000000?style=flat-square)](https://mimo.mi.com/)

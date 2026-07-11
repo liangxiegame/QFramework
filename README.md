@@ -194,4 +194,8 @@
 
 [![Powered by Copilot](https://img.shields.io/badge/Powered%20by-Copilot-000000?style=flat-square&logo=githubcopilot)](https://github.com/features/copilot)
 
+感谢小米 MiMo 对本项目开源维护提供 Token 赞助。
+
+[![Powered by MiMo](https://img.shields.io/badge/Powered%20by-MiMo-000000?style=flat-square)](https://mimo.mi.com/)
+
 本开源项目由 [QFramework 教程年会员](https://www.gamepixedu.com/vip/?levelId=1) 提供资助
