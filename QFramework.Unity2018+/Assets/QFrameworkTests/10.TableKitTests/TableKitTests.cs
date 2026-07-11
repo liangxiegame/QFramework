@@ -71,7 +71,7 @@ namespace QFramework.Tests
         [Test]
         public void Add_Then_Get_Returns_Item()
         {
-            var index = new TableIndex<int, Student>(student => student.Age);
+            var index = new TableIndex<int, Student>(s => s.Age);
             var student = new Student { Name = "liangxie", Age = 18, Level = 1 };
 
             index.Add(student);
@@ -113,7 +113,7 @@ namespace QFramework.Tests
         [Test]
         public void Remove_Then_Get_Empty()
         {
-            var index = new TableIndex<int, Student>(student => student.Age);
+            var index = new TableIndex<int, Student>(s => s.Age);
             var student = new Student { Name = "liangxie", Age = 18, Level = 1 };
             index.Add(student);
 
