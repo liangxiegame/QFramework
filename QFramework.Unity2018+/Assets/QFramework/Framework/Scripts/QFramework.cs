@@ -25,7 +25,7 @@
  *  腾讯频道：https://pd.qq.com/s/cfe1690jf
  *  Discord：https://discord.gg/PHqHX5v5SE
  * 
- * Latest Update: 2025.9.16 15:27 add qq group 2 and discord link tencent pd
+ * Latest Update: 2026.8.12 14:56 return module instance after register
  ****************************************************************************/
 
 using System;
@@ -40,17 +40,17 @@ namespace QFramework
 
     public interface IArchitecture
     {
-        void RegisterSystem<T>(T system) where T : ISystem;
+        TSystem RegisterSystem<TSystem>(TSystem system) where TSystem : ISystem;
 
-        void RegisterModel<T>(T model) where T : IModel;
+        TModel RegisterModel<TModel>(TModel model) where TModel : IModel;
 
-        void RegisterUtility<T>(T utility) where T : IUtility;
+        TUtility RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility;
 
-        T GetSystem<T>() where T : class, ISystem;
+        TSystem GetSystem<TSystem>() where TSystem : class, ISystem;
 
-        T GetModel<T>() where T : class, IModel;
+        TModel GetModel<TModel>() where TModel : class, IModel;
 
-        T GetUtility<T>() where T : class, IUtility;
+        TUtility GetUtility<TUtility>() where TUtility : class, IUtility;
 
         void SendCommand<T>(T command) where T : ICommand;
 
@@ -129,7 +129,7 @@ namespace QFramework
 
         private IOCContainer mContainer = new IOCContainer();
 
-        public void RegisterSystem<TSystem>(TSystem system) where TSystem : ISystem
+        public TSystem RegisterSystem<TSystem>(TSystem system) where TSystem : ISystem
         {
             system.SetArchitecture(this);
             mContainer.Register<TSystem>(system);
@@ -139,9 +139,11 @@ namespace QFramework
                 system.Init();
                 system.Initialized = true;
             }
+
+            return system;
         }
 
-        public void RegisterModel<TModel>(TModel model) where TModel : IModel
+        public TModel RegisterModel<TModel>(TModel model) where TModel : IModel
         {
             model.SetArchitecture(this);
             mContainer.Register<TModel>(model);
@@ -151,10 +153,16 @@ namespace QFramework
                 model.Init();
                 model.Initialized = true;
             }
+
+            return model;
         }
 
-        public void RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility =>
+        public TUtility RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility
+        {
             mContainer.Register<TUtility>(utility);
+            return utility;
+        }
+            
 
         public TSystem GetSystem<TSystem>() where TSystem : class, ISystem => mContainer.Get<TSystem>();
 
