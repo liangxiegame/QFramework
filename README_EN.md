@@ -89,6 +89,7 @@
 | gitee issue                                 | gitee community                                              | [link](https://gitee.com/liangxiegame/QFramework/issues)     |
 | discord                                     |                                                              | [link](https://discord.gg/PHqHX5v5SE)                        |
 | **ShowCase**                                | email me or publish on github's issue. My email: liangxiegame@163.com |                                                              |
+| ![](./README/sanguozhijueqi_en.jpg)         | Indie Game《Cast of the Three Kingdoms: Rise》               | [Steam](https://store.steampowered.com/app/4789730/)         |
 | ![](./README/guanniaobiji_en.jpg)           | Indie Game《Birdwatching Notebook》                          | [Steam](https://store.steampowered.com/app/4111370/)         |
 | 《Fools, Maniacs and Liars》                |                                                              | [Steam](https://store.steampowered.com/app/1741170/_/)       |
 | 《Skulker》                                 |                                                              | [Steam](https://store.steampowered.com/app/1731000/)         |
