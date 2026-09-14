@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyrkj061tc6ec"]
+
+[ext_resource type="Script" uid="uid://22oo2ubtt0ub" path="res://user_guide_code/03.event_common/01.un_regsiter_when_ui_hidden_basic/un_register_when_ui_hidden_basic.gd" id="1_gg2cu"]
+
+[node name="UnRegisterWhenUiHiddenBasic" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gg2cu")

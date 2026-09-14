@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://gtke66pdv614"]
+
+[ext_resource type="Script" uid="uid://cm3foimpg6021" path="res://user_guide_code/01.easy_event/09.easy_event_real_un_register/easy_event_real_un_register.gd" id="1_yo7ys"]
+[ext_resource type="Script" uid="uid://jq2m0qkfayrf" path="res://user_guide_code/01.easy_event/09.easy_event_real_un_register/event_receiver.gd" id="2_f5dvu"]
+
+[node name="EasyEventRealUnRegister" type="Node2D"]
+script = ExtResource("1_yo7ys")
+
+[node name="EventReceiver" type="Node" parent="."]
+script = ExtResource("2_f5dvu")

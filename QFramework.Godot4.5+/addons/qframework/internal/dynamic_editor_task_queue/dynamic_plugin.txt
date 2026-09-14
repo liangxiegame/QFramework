@@ -1,0 +1,7 @@
+[plugin]
+
+name="qframework_editor_task_queue"
+description="编辑器任务队列(由 QFramework 自动打开)"
+author="liangxiegame"
+version="v0.3.19"
+script="dynamic_editor_task_queue.gd"

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2onihq3mqj7u"]
+
+[ext_resource type="Script" uid="uid://ct2536ohdj62k" path="res://user_guide_code/02.bindable_property/01.bindable_property_basic_usage/bindable_property_basic_usage.gd" id="1_woqqr"]
+
+[node name="BindablePropertyBasicUsage" type="Node2D"]
+script = ExtResource("1_woqqr")
+
+[node name="CoinLabel" type="Label" parent="."]
+offset_left = 27.0
+offset_top = 12.0
+offset_right = 95.0
+offset_bottom = 46.0
+text = "金币:0"

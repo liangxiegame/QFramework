@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwaoywoq4a3q8"]
+
+[ext_resource type="Script" uid="uid://4ysohxla685o" path="res://user_guide_code/01.easy_event/08.easy_event_exiting_tree_test/easy_event_exiting_tree_test.gd" id="1_xrcja"]
+
+[node name="EasyEventExitingTreeTest" type="Node2D"]
+script = ExtResource("1_xrcja")

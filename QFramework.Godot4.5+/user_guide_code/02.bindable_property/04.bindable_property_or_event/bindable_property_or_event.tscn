@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqxwp0jutyyo0"]
+
+[ext_resource type="Script" uid="uid://cu85teds5nes5" path="res://user_guide_code/02.bindable_property/04.bindable_property_or_event/bindable_property_or_event.gd" id="1_y3ibb"]
+
+[node name="BindablePropertyOrEvent" type="Node2D"]
+script = ExtResource("1_y3ibb")

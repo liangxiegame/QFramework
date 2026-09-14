@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyjcahj1cravo"]
+
+[ext_resource type="Script" uid="uid://c2f6iy2yeyvc0" path="res://user_guide_code/01.easy_event/05.easy_event_as_static_var/easy_event_as_static_var.gd" id="1_dyl30"]
+
+[node name="EasyEventAsStaticVar" type="Node2D"]
+script = ExtResource("1_dyl30")

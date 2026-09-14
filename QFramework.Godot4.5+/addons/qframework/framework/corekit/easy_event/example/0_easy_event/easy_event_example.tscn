@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://b734pfe2ibb2d"]
+
+[ext_resource type="Script" uid="uid://bjum5e4awr6iq" path="res://addons/qframework/framework/corekit/easy_event/example/0_easy_event/easy_event_example.gd" id="1_x4io7"]
+
+[node name="EasyEventExample" type="Node2D"]
+script = ExtResource("1_x4io7")
+
+[node name="BtnSendEventA" type="Button" parent="."]
+offset_left = 44.0
+offset_top = 34.0
+offset_right = 127.0
+offset_bottom = 66.0
+text = "发送事件A"
+
+[node name="BtnSendEventWithArg" type="Button" parent="."]
+offset_left = 43.0
+offset_top = 80.0
+offset_right = 126.0
+offset_bottom = 112.0
+text = "发送带参数的事件"
+
+[node name="MessageBox" type="Label" parent="."]
+offset_left = 46.0
+offset_top = 237.0
+offset_right = 833.0
+offset_bottom = 564.0

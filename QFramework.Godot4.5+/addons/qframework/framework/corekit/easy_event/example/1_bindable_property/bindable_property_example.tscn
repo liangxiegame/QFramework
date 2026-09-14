@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct6ab6edgjy2o"]
+
+[ext_resource type="Script" uid="uid://cuf3xs4siqx7d" path="res://addons/qframework/framework/corekit/easy_event/example/1_bindable_property/bindable_property_example.gd" id="1_uc241"]
+
+[node name="BindablePropertyExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uc241")
+
+[node name="BtnAdd" type="Button" parent="."]
+layout_mode = 0
+offset_left = 524.0
+offset_top = 174.0
+offset_right = 630.0
+offset_bottom = 226.0
+text = "+"
+
+[node name="BtnSub" type="Button" parent="."]
+layout_mode = 0
+offset_left = 525.0
+offset_top = 254.0
+offset_right = 631.0
+offset_bottom = 306.0
+text = "-"
+
+[node name="CountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 139.0
+offset_right = 576.0
+offset_bottom = 162.0
+text = "0"
+
+[node name="CountLabel2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 606.0
+offset_top = 139.0
+offset_right = 646.0
+offset_bottom = 162.0
+text = "0"

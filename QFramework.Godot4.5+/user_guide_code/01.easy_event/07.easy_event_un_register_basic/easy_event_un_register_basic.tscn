@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8toc4badpcbg"]
+
+[ext_resource type="Script" uid="uid://w58u1stdncjg" path="res://user_guide_code/01.easy_event/07.easy_event_un_register_basic/easy_event_un_register_basic.gd" id="1_wdiqa"]
+
+[node name="EasyEventUnregisterBasic" type="Node2D"]
+script = ExtResource("1_wdiqa")

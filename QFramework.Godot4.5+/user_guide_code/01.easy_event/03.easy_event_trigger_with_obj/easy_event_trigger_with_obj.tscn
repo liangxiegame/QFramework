@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5d21k5v16xnb"]
+
+[ext_resource type="Script" uid="uid://rkue52uay3to" path="res://user_guide_code/01.easy_event/03.easy_event_trigger_with_obj/easy_event_trigger_with_obj.gd" id="1_x8dk2"]
+
+[node name="EasyEventTriggerWithObj" type="Node2D"]
+script = ExtResource("1_x8dk2")

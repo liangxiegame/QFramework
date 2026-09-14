@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmejqcmjnu05g"]
+
+[ext_resource type="Script" uid="uid://rdwhgh0snp6c" path="res://user_guide_code/02.bindable_property/02.bindable_propery_register_with_init_value/bindable_property_register_with_init_value.gd" id="1_amky0"]
+
+[node name="BindablePropertyRegisterWithInitValue" type="Node2D"]
+script = ExtResource("1_amky0")

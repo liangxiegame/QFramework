@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxr1um36omkg6"]
+
+[ext_resource type="Script" uid="uid://bwprpxlhnvc0e" path="res://user_guide_code/02.bindable_property/06.bindable_property_un_register_by_destroy/bindable_property_un_register_by_destroy.gd" id="1_c21a0"]
+
+[node name="BindablePropertyUnRegisterByDestroy" type="Node2D"]
+script = ExtResource("1_c21a0")

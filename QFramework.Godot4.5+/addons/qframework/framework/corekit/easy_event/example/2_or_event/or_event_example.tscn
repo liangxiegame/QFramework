@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7ckqsi31n3v5"]
+
+[ext_resource type="Script" uid="uid://d3mcrnc0se3qm" path="res://addons/qframework/framework/corekit/easy_event/example/2_or_event/or_event_example.gd" id="1_rr71m"]
+
+[node name="OrEventExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rr71m")
+
+[node name="MessageBox" type="Label" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 394.0
+offset_right = 654.0
+offset_bottom = 626.0
+
+[node name="BtnEventA" type="Button" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 84.0
+offset_right = 131.0
+offset_bottom = 116.0
+text = "触发事件 A"
+
+[node name="BtnEventB" type="Button" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 128.0
+offset_right = 133.0
+offset_bottom = 160.0
+text = "触发事件 B"
+
+[node name="BtnBindablePropertyA" type="Button" parent="."]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 171.0
+offset_right = 237.0
+offset_bottom = 203.0
+text = "改变 BindablePropertyA"

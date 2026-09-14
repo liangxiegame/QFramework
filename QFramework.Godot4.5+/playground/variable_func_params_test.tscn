@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ymp56enqttk"]
+
+[ext_resource type="Script" uid="uid://823tnqrlk2ox" path="res://playground/variable_func_params_test.gd" id="1_7sgwn"]
+
+[node name="VariableFuncParamsTest" type="Node2D"]
+script = ExtResource("1_7sgwn")

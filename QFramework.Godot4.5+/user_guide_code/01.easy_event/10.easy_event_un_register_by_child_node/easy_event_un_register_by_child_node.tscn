@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj3r11nkh3kui"]
+
+[ext_resource type="Script" uid="uid://5pkao7u3rur1" path="res://user_guide_code/01.easy_event/10.easy_event_un_register_by_child_node/easy_event_un_register_by_child_node.gd" id="1_sv5ue"]
+[ext_resource type="Script" uid="uid://dvaotgqxknjxm" path="res://user_guide_code/01.easy_event/10.easy_event_un_register_by_child_node/event_receiver_2.gd" id="2_7tpah"]
+
+[node name="EasyEventUnRegisterByChildNode" type="Node2D"]
+script = ExtResource("1_sv5ue")
+
+[node name="EventReceiver2" type="Node" parent="."]
+script = ExtResource("2_7tpah")

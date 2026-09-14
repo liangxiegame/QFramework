@@ -1,0 +1,9 @@
+{func_decleration}
+	if(__gutdbl == null):
+		return
+
+	__gutdbl.spy_on('{method_name}', {param_array})
+	if(__gutdbl.is_stubbed_to_call_super('{method_name}', {param_array})):
+		return {super_call}
+	else:
+		return await __gutdbl.handle_other_stubs('{method_name}', {param_array})

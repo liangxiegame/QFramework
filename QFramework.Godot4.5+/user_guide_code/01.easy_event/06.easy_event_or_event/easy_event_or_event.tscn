@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccw3tifmef0im"]
+
+[ext_resource type="Script" uid="uid://d24t34l6rdkyq" path="res://user_guide_code/01.easy_event/06.easy_event_or_event/easy_event_or_event.gd" id="1_qgq51"]
+
+[node name="EasyEventOrEvent" type="Node2D"]
+script = ExtResource("1_qgq51")

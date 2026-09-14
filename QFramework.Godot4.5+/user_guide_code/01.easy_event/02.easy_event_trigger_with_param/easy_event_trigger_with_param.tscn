@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://8knxh3mehbjc"]
+
+[ext_resource type="Script" uid="uid://d4drpdqbdfvwv" path="res://user_guide_code/01.easy_event/02.easy_event_trigger_with_param/easy_event_trigger_with_param.gd" id="1_riju4"]
+
+[node name="EasyEventTriggerWithParam" type="Node2D"]
+script = ExtResource("1_riju4")

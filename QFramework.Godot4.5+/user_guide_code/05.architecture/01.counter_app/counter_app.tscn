@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://br0cquthexej2"]
+
+[ext_resource type="Script" uid="uid://dj4n41jfwqvkk" path="res://user_guide_code/05.architecture/01.counter_app/counter_app_controller.gd" id="1_ilfxd"]
+
+[node name="CounterApp" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ilfxd")
+
+[node name="BtnAdd" type="Button" parent="."]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 195.0
+offset_right = 639.0
+offset_bottom = 253.0
+theme_override_font_sizes/font_size = 36
+text = "+"
+
+[node name="CountLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 566.0
+offset_top = 280.0
+offset_right = 606.0
+offset_bottom = 330.0
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnSub" type="Button" parent="."]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 358.0
+offset_right = 639.0
+offset_bottom = 416.0
+theme_override_font_sizes/font_size = 36
+text = "-"

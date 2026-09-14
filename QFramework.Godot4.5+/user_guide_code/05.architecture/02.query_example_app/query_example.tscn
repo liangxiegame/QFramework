@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://copfn0awqo1t"]
+
+[ext_resource type="Script" uid="uid://1cye5573ulma" path="res://user_guide_code/05.architecture/02.query_example_app/query_example_controller.gd" id="1_8mfjn"]
+
+[node name="QueryExample" type="Node2D"]
+script = ExtResource("1_8mfjn")

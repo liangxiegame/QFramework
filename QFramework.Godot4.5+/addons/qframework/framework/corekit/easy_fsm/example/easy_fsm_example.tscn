@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8wmpn0ynov7p"]
+
+[ext_resource type="Script" uid="uid://pukwxyjsewti" path="res://addons/qframework/framework/corekit/easy_fsm/example/easy_fsm_example.gd" id="1_msbxr"]
+
+[node name="EasyFsmExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_msbxr")
+
+[node name="MessageBox" type="Label" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 451.0
+offset_right = 613.0
+offset_bottom = 634.0
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 0
+offset_left = 42.0
+offset_top = 66.0
+offset_right = 177.0
+offset_bottom = 141.0
+text = "Movement(AD)
+Jump(Space)"
+
+[node name="State" type="Label" parent="."]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 29.0
+offset_right = 154.0
+offset_bottom = 57.0

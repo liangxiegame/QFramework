@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxxssq0t8e7ah"]
+
+[ext_resource type="Script" uid="uid://hb7qqa7a4hec" path="res://playground/get_model_test/get_model_test.gd" id="1_syygw"]
+
+[node name="GetModelTest" type="Node2D"]
+script = ExtResource("1_syygw")

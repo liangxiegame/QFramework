@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://kjihpwe7pmo8"]
+
+[ext_resource type="Script" uid="uid://cr40un1dq2yhl" path="res://user_guide_code/01.easy_event/01.easy_event_basic_usage/easy_event_basic_usage.gd" id="1_vsejs"]
+
+[node name="EasyEventBasicUsage" type="Node2D"]
+script = ExtResource("1_vsejs")

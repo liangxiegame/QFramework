@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://di3b67bf0blj4"]
+
+[ext_resource type="Script" uid="uid://dew6vcti1brrt" path="res://user_guide_code/01.easy_event/04.easy_event_register_with_a_call/easy_event_register_with_a_call.gd" id="1_flqtl"]
+
+[node name="EasyEventRegisterWithACall" type="Node2D"]
+script = ExtResource("1_flqtl")
