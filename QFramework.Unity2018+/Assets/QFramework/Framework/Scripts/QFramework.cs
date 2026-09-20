@@ -267,11 +267,11 @@ namespace QFramework
 
     public abstract class AbstractModel : IModel
     {
-        private IArchitecture mArchitecturel;
+        private IArchitecture mArchitecture;
 
-        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecturel;
+        IArchitecture IBelongToArchitecture.GetArchitecture() => mArchitecture;
 
-        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecturel = architecture;
+        void ICanSetArchitecture.SetArchitecture(IArchitecture architecture) => mArchitecture = architecture;
 
         public bool Initialized { get; set; }
         void ICanInit.Init() => OnInit();
