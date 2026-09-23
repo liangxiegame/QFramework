@@ -121,11 +121,9 @@
 | ![](./README/utgm.jpg) | 独立游戏《鬼山之下》 | [Steam](https://store.steampowered.com/app/1517160/_/) |
 | ![](./README/xieyingeng.png) | 手机游戏《谐音梗挑战》 | [TapTap](https://www.taptap.com/app/201075)        |
 | **其他相关教程** |  |  |
-| 《独立游戏体验计划》（猫叔） | 独立游戏制作体验教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/656352) |
-| 《原创独立游戏制作：平台射击 Roguelike》（凉鞋） | 原创独立游戏制作教程，有用到 QFramework.cs | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=125221) |
 | 《原创独立游戏制作：类星露谷》（凉鞋） | 原创独立游戏制作教程，有用到 PlayMaker、QFramework.Tookits | [b 站](https://space.bilibili.com/60450548/channel/collectiondetail?sid=919279) |
-| 《QFramework 游戏开发：类幸存者》 | 面向 QFramework 的游戏开发教程，完成一款类吸血鬼幸存者游戏。 | [b 站](https://www.bilibili.com/video/BV1Uu4y1i7WH/) |
-| 《QFramework 教程会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/vip/?levelId=1) |
+| 《QFramework 教程年会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/vip/?levelId=1) |
+| 《QFramework 教程永久会员》 | QFramework 相关的课程案例 | [GamePix](https://www.gamepixedu.com/goods/show/88) |
 
 
 
