@@ -162,6 +162,8 @@
 
 ### 优秀的 Unity 库、框架
 
+- [YokiFrame](https://github.com/HinataYoki/YokiFrame):  支持i Unity 与 Godot 的 C# 游戏框架，提供架构分层、事件系统、状态机、对象池、资源管理、UI 工具和编辑器扩展，帮助开发者构建更清晰的游戏项目。
+- [StellarFramework](https://github.com/StarrDream/StellarFramework): 一套专为独立开发者项目打造的高性能 Unity 开发框架
 - [ET](https://github.com/egametang/ET)：ET Unity3D Client And C# Server Framework
 - [IFramework（OnClick）](https://github.com/OnClick9927/IFramework) Simple Unity Tools
 - [JEngine](https://github.com/JasonXuDeveloper/JEngine)  使Unity开发的游戏支持热更新的解决方案。
