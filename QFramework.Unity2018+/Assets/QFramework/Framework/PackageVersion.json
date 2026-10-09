@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.257",
+    "Version": "v1.0.258",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.257",
-        "content": "revert Audio Bug  Fix Code",
+        "version": "v1.0.258",
+        "content": "文档中的群号修改",
         "author": "liangxie",
-        "date": "2026 年 08 月 18 日 14:46",
+        "date": "2026 年 10 月 09 日 10:20",
         "PackageId": ""
     }
 }
