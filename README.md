@@ -95,8 +95,7 @@
 | **群友案例** |  |  |
 | 赛车游戏《Crazy Car》 | 群友 [TastSong](https://github.com/TastSong) 使用 QF 进行重构的开源赛车游戏 | [游戏主页(Github](https://github.com/TastSong/CrazyCar)) |
 | **社区** |  |  |
-| QQ 群1（已满）：623597263 | 交流群 | [点击加群](https://qm.qq.com/cgi-bin/qm/qr?k=G4DZ_6qMbN8miP8RcRD9NdhNcVyrD88F&jump_from=webapi&authKey=P8WO3esK/KbDxWPHI5F3EC04IPT6jDSkk/tl73/EHIcRkMTvnLhwpTK1PtHr6V+p) |
-| QQ 群2：541745166 | 交流群 | [点击加群](https://qm.qq.com/q/VI5Od3rri4) |
+| QQ 群：623597263 | 交流群 | [点击加群](https://qm.qq.com/cgi-bin/qm/qr?k=G4DZ_6qMbN8miP8RcRD9NdhNcVyrD88F&jump_from=webapi&authKey=P8WO3esK/KbDxWPHI5F3EC04IPT6jDSkk/tl73/EHIcRkMTvnLhwpTK1PtHr6V+p) |
 | 腾讯频道 | 中文社区 | [点击加入频道](https://pd.qq.com/s/cfe1690jf) |
 | Discord | 英文社区 | [点击加入频道](https://discord.gg/PHqHX5v5SE) |
 | **教程** |  |  |
