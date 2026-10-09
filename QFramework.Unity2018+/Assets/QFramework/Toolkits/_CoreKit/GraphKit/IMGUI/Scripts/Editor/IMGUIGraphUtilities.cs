@@ -268,7 +268,11 @@ namespace QFramework
         public static void CreateFromTemplate(string initialName, string templatePath)
         {
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+#if UNITY_6000_4_OR_NEWER
+                EntityId.None,
+#else
                 0,
+#endif
                 ScriptableObject.CreateInstance<DoCreateCodeFile>(),
                 initialName,
                 scriptIcon,
@@ -277,6 +281,16 @@ namespace QFramework
         }
 
         /// Inherits from EndNameAction, must override EndNameAction.Action
+#if UNITY_6000_4_OR_NEWER
+        public class DoCreateCodeFile : UnityEditor.ProjectWindowCallback.AssetCreationEndAction
+        {
+            public override void Action(EntityId entityId, string pathName, string resourceFile)
+            {
+                Object o = CreateScript(pathName, resourceFile);
+                ProjectWindowUtil.ShowCreatedAsset(o);
+            }
+        }
+#else
         public class DoCreateCodeFile : UnityEditor.ProjectWindowCallback.EndNameEditAction
         {
             public override void Action(int instanceId, string pathName, string resourceFile)
@@ -285,6 +299,7 @@ namespace QFramework
                 ProjectWindowUtil.ShowCreatedAsset(o);
             }
         }
+#endif
 
         /// <summary>Creates Script from Template's path.</summary>
         internal static UnityEngine.Object CreateScript(string pathName, string templatePath)

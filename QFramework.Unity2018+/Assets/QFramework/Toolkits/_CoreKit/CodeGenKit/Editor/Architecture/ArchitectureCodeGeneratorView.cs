@@ -99,8 +99,10 @@ namespace QFramework
         public void Init()
         {
             mState.LoadCodeTypePreference(GetProjectEditorPrefsKey(CodeTypeEditorPrefsKeyPrefix));
-            mNamespace = EditorPrefs.GetString(GetProjectEditorPrefsKey(NamespaceEditorPrefsKeyPrefix),
-                GetProjectNamespace());
+            var namespaceKey = GetProjectEditorPrefsKey(NamespaceEditorPrefsKeyPrefix);
+            mNamespace = EditorPrefs.HasKey(namespaceKey)
+                ? EditorPrefs.GetString(namespaceKey)
+                : GetProjectNamespace();
             mOutputRoot = EditorPrefs.GetString(GetProjectEditorPrefsKey(OutputRootEditorPrefsKeyPrefix),
                 "Assets/Scripts");
             mGenerateInterface = EditorPrefs.GetBool(
@@ -341,12 +343,15 @@ namespace QFramework
         private static string GetProjectNamespace()
         {
             var existingNamespaces = new List<string>();
-            foreach (var guid in AssetDatabase.FindAssets("t:MonoScript", new[] { "Assets/Scripts" }))
+            if (AssetDatabase.IsValidFolder("Assets/Scripts"))
             {
-                var script = AssetDatabase.LoadAssetAtPath<MonoScript>(AssetDatabase.GUIDToAssetPath(guid));
-                var scriptClass = script ? script.GetClass() : null;
-                if (scriptClass != null && !string.IsNullOrEmpty(scriptClass.Namespace))
-                    existingNamespaces.Add(scriptClass.Namespace);
+                foreach (var guid in AssetDatabase.FindAssets("t:MonoScript", new[] { "Assets/Scripts" }))
+                {
+                    var script = AssetDatabase.LoadAssetAtPath<MonoScript>(AssetDatabase.GUIDToAssetPath(guid));
+                    var scriptClass = script ? script.GetClass() : null;
+                    if (scriptClass != null && !string.IsNullOrEmpty(scriptClass.Namespace))
+                        existingNamespaces.Add(scriptClass.Namespace);
+                }
             }
 
             var setting = CodeGenKit.Setting;

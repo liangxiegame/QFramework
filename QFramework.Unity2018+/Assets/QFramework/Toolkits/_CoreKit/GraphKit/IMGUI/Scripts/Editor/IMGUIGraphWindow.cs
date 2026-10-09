@@ -264,7 +264,11 @@ namespace QFramework
         [OnOpenAsset(0)]
         public static bool OnOpen(int instanceID, int line)
         {
+#if UNITY_6000_4_OR_NEWER
+            GUIGraph nodeGraph = EditorUtility.EntityIdToObject((EntityId)instanceID) as GUIGraph;
+#else
             GUIGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as GUIGraph;
+#endif
             if (nodeGraph != null)
             {
                 Open(nodeGraph);
