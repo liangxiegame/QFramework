@@ -261,12 +261,15 @@ namespace QFramework
             Selection.objects = selection.ToArray();
         }
 
+#if UNITY_6000_4_OR_NEWER
+        [OnOpenAsset(0)]
+        public static bool OnOpen(EntityId id, int line)
+        {
+            GUIGraph nodeGraph = EditorUtility.EntityIdToObject(id) as GUIGraph;
+#else
         [OnOpenAsset(0)]
         public static bool OnOpen(int instanceID, int line)
         {
-#if UNITY_6000_4_OR_NEWER
-            GUIGraph nodeGraph = EditorUtility.EntityIdToObject((EntityId)instanceID) as GUIGraph;
-#else
             GUIGraph nodeGraph = EditorUtility.InstanceIDToObject(instanceID) as GUIGraph;
 #endif
             if (nodeGraph != null)

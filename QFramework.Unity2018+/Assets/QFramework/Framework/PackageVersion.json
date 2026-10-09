@@ -1,6 +1,6 @@
 {
     "Id": "",
-    "Version": "v1.0.259",
+    "Version": "v1.0.260",
     "Type": 0,
     "AccessRight": 0,
     "Status": 30,
@@ -12,10 +12,10 @@
     ],
     "DocUrl": "https://liangxiegame.com",
     "Readme": {
-        "version": "v1.0.259",
-        "content": "GraphKit：修复 Unity 6.4（6000.4+）下 EndNameEditAction 等编辑器 API 被标记弃用（error CS0619）导致的编译失败；通过 #if UNITY_6000_4_OR_NEWER 双版本兼容，2018.4–6000.3 行为零变化（参考 xNode PR #393 方案）\nCodeGenKit：架构代码生成器初始化时不再对不存在的 Assets/Scripts 目录做资产扫描，消除 Folder not found 警告；已保存过命名空间偏好的项目同时省去一次扫描",
+        "version": "v1.0.260",
+        "content": "GraphKit：修复 Unity 6.4（6000.4+）下 EndNameEditAction 等编辑器 API 被标记弃用（error CS0619）导致的编译失败；通过 #if UNITY_6000_4_OR_NEWER 双版本兼容，2018.4–6000.3 行为零变化（参考 xNode PR #393 方案）\\nCodeGenKit：架构代码生成器初始化时不再对不存在的 Assets/Scripts 目录做资产扫描，消除 Folder not found 警告；已保存过命名空间偏好的项目同时省去一次扫描",
         "author": "liangxie",
-        "date": "2026 年 10 月 09 日 12:02",
+        "date": "2026 年 10 月 09 日 13:46",
         "PackageId": ""
     }
 }
