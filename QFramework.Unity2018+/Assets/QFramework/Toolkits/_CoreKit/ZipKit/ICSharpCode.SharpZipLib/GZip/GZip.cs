@@ -50,7 +50,8 @@ namespace ICSharpCode.SharpZipLib.GZip
 			}
 
 			try {
-				using (GZipOutputStream bzipOutput = new GZipOutputStream(outStream, level)) {
+				using (GZipOutputStream bzipOutput = new GZipOutputStream(outStream)) {
+					bzipOutput.SetLevel(level);
 					bzipOutput.IsStreamOwner = isStreamOwner;
 					Core.StreamUtils.Copy(inStream, bzipOutput, new byte[4096]);
 				}
